@@ -14,6 +14,7 @@ using System.Configuration;
 using NPOI.XSSF.UserModel;
 using NPOI.SS.Util;
 using System.Reflection;
+using System.Threading;
 
 namespace TKMOC
 {
@@ -393,12 +394,24 @@ namespace TKMOC
 
 
         }
+
+        public void Start()
+        {
+            MessageBox.Show("Thread Running");
+        }
+
         #endregion
 
         #region BUTTON
         private void button1_Click(object sender, EventArgs e)
         {
+            PleaseWait objPleaseWait = new PleaseWait();
+            objPleaseWait.Show();
+            Application.DoEvents();
+
             Search();
+
+            objPleaseWait.Close();
         }
         private void button3_Click(object sender, EventArgs e)
         {
