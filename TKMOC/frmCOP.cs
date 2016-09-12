@@ -44,7 +44,7 @@ namespace TKMOC
         decimal COPNum = 0;
         double BOMNum = 0;
         double FinalNum = 0;
-
+        Thread TD;
         public frmCOP()
         {
             InitializeComponent();
@@ -395,24 +395,26 @@ namespace TKMOC
 
         }
 
-        public void Start()
+        private void showwaitfrm()
         {
-            MessageBox.Show("Thread Running");
+            PleaseWait objPleaseWait = new PleaseWait();
+            objPleaseWait.ShowDialog();
         }
+
 
         #endregion
 
-        #region BUTTON
+            #region BUTTON
         private void button1_Click(object sender, EventArgs e)
         {
-            PleaseWait objPleaseWait = new PleaseWait();
-            objPleaseWait.Show();
-            Application.DoEvents();
-
+            TD = new Thread(showwaitfrm);
+            TD.Start();
+            Thread.Sleep(2000);   //此行可以不需要，主要用於等待主窗體填充數據
             Search();
+            TD.Abort(); //主窗體加載完成數據後，線程結束，關閉等待窗體。
 
-            objPleaseWait.Close();
         }
+
         private void button3_Click(object sender, EventArgs e)
         {
             ExcelExportCOP();
@@ -422,8 +424,11 @@ namespace TKMOC
         {
             ExcelExportBOM();
         }
+
         #endregion
 
+       
 
+    
     }
 }
