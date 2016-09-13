@@ -36,6 +36,7 @@ namespace TKMOC
         DataTable dtTemp2 = new DataTable();
         DataTable dtTemp3 = new DataTable();
         string tablename = null;
+        string EquipmentID;
         Thread TD;
 
         public frmEngineering()
@@ -208,6 +209,10 @@ namespace TKMOC
 
 
         }
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            EquipmentID = dataGridView1.CurrentRow.Cells["設備編號"].Value.ToString();
+        }
         #endregion
 
         #region BUTTION
@@ -215,9 +220,20 @@ namespace TKMOC
         {
             Search();
         }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            
+            
+        }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            frmEngineeringAddEditDel objfrmEngineeringAddEditDel = new frmEngineeringAddEditDel(EquipmentID);
+            objfrmEngineeringAddEditDel.ShowDialog();
+        }
+
 
         #endregion
 
-       
+
     }
 }

@@ -82,6 +82,12 @@
     <Compile Include="frmEngineering.Designer.cs">
       <DependentUpon>frmEngineering.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmEngineeringAddEditDel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmEngineeringAddEditDel.Designer.cs">
+      <DependentUpon>frmEngineeringAddEditDel.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -107,6 +113,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmEngineering.resx">
       <DependentUpon>frmEngineering.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmEngineeringAddEditDel.resx">
+      <DependentUpon>frmEngineeringAddEditDel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmLogin.resx">
       <DependentUpon>FrmLogin.cs</DependentUpon>
