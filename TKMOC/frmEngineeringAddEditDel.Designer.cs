@@ -106,6 +106,7 @@
             this.tableLayoutPanel1.SetColumnSpan(this.textBox1, 3);
             this.textBox1.Location = new System.Drawing.Point(83, 89);
             this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(234, 22);
             this.textBox1.TabIndex = 0;
             // 
@@ -117,6 +118,7 @@
             this.button1.TabIndex = 1;
             this.button1.Text = "存檔";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label1
             // 

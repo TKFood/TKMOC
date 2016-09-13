@@ -31,7 +31,8 @@ namespace TKMOC
         DataSet ds = new DataSet();
         DataTable dt = new DataTable();
         string tablename = null;
-        string EquipmentID;
+        string EDITEquipmentID;
+        int result;
         Thread TD;
 
         public frmEngineeringAddEditDel()
@@ -44,10 +45,13 @@ namespace TKMOC
             InitializeComponent();
             combobox1load();
             textBox1.Text = EquipmentID;
+            textBox1.ReadOnly = false;
 
             if (!string.IsNullOrEmpty(EquipmentID))
             {
+                EDITEquipmentID = EquipmentID;
                 Search(EquipmentID);
+                textBox1.ReadOnly = true;
             }
         }
 
@@ -58,7 +62,7 @@ namespace TKMOC
 
             connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
             sqlConn = new SqlConnection(connectionString);
-            String Sequel = "SELECT  [UNITID],[UNITNAME] FROM [TKMOC].[dbo].[ENDUNIT]";
+            String Sequel = "SELECT  [UNITID],[UNITNAME] FROM [TKMOC].[dbo].[ENDUNIT] WHERE [UNITID]<>'0' ";
             SqlDataAdapter da = new SqlDataAdapter(Sequel, sqlConn);
             DataTable dt = new DataTable();
             sqlConn.Open();
@@ -129,10 +133,110 @@ namespace TKMOC
 
             }
         }
+        public void UPDATE()
+        {
+            try
+            {
+                //add ZWAREWHOUSEPURTH
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+                sbSql.Append(" UPDATE [TKMOC].[dbo].[ENGEQUIPMENT]");
+                sbSql.AppendFormat(" SET [NAME]='{1}',[UNIT]='{2}',[FACTORY]='{3}',[TYPE]='{4}',[MAINTENANCE]='{5}',[CHEKCK]='{6}',[STATUS]='{7}' WHERE [ID]='{0}' ",textBox1.Text.ToString(), textBox2.Text.ToString(),comboBox1.SelectedValue.ToString(), textBox3.Text.ToString(), textBox4.Text.ToString(), textBox5.Text.ToString(), textBox6.Text.ToString(), textBox7.Text.ToString());
+                sbSql.Append("   ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+                    this.Close();
+                     
+                }
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+        public void ADD()
+        {
+            try
+            {
+                //add ZWAREWHOUSEPURTH
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+                sbSql.Append(" INSERT INTO [TKMOC].[dbo].[ENGEQUIPMENT]  ");
+                sbSql.Append(" ([ID],[NAME],[UNIT],[FACTORY],[TYPE],[MAINTENANCE],[CHEKCK],[STATUS])  ");
+                sbSql.AppendFormat("  VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}') ", textBox1.Text.ToString(), textBox2.Text.ToString(), comboBox1.SelectedValue.ToString(), textBox3.Text.ToString(), textBox4.Text.ToString(), textBox5.Text.ToString(), textBox6.Text.ToString(), textBox7.Text.ToString());
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+                    this.Close();
+
+                }
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
         #endregion
 
         #region BUTTON
-
+        private void button1_Click(object sender, EventArgs e)
+        {            
+            if (!string.IsNullOrEmpty(EDITEquipmentID))
+            {
+                UPDATE();
+            }
+            else
+            {
+                ADD();
+            }
+        }
         #endregion
+
+
     }
 }

@@ -211,7 +211,11 @@ namespace TKMOC
         }
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
-            EquipmentID = dataGridView1.CurrentRow.Cells["設備編號"].Value.ToString();
+            if(dataGridView1.Rows.Count>=1)
+            {
+                EquipmentID = dataGridView1.CurrentRow.Cells["設備編號"].Value.ToString();
+            }
+            
         }
         #endregion
 
@@ -222,13 +226,16 @@ namespace TKMOC
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            
-            
+            frmEngineeringAddEditDel objfrmEngineeringAddEditDel = new frmEngineeringAddEditDel("");
+            objfrmEngineeringAddEditDel.ShowDialog();
+            Search();
+
         }
         private void button3_Click(object sender, EventArgs e)
         {
             frmEngineeringAddEditDel objfrmEngineeringAddEditDel = new frmEngineeringAddEditDel(EquipmentID);
             objfrmEngineeringAddEditDel.ShowDialog();
+            Search();
         }
 
 
