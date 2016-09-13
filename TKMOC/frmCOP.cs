@@ -59,11 +59,40 @@ namespace TKMOC
             dtTemp2.Columns.Add("規格");
             dtTemp2.Columns.Add("預計用量");
             dtTemp2.Columns.Add("單位");
+            dtTemp2.Columns.Add("生產批量(桶)");
         }
 
         #region FUNCTION
         public void Search()
         {
+            StringBuilder TD001=new StringBuilder();
+            if(checkBox1.Checked==true)
+            {
+                TD001.Append("'A221',");
+            }
+            if (checkBox2.Checked == true)
+            {
+                TD001.Append("'A222',");
+            }
+            if (checkBox3.Checked == true)
+            {
+                TD001.Append("'A223',");
+            }
+            if (checkBox4.Checked == true)
+            {
+                TD001.Append("'A225',");
+            }
+            if (checkBox5.Checked == true)
+            {
+                TD001.Append("'A226',");
+            }
+            if (checkBox6.Checked == true)
+            {
+                TD001.Append("'A227',");
+            }
+
+            TD001.Append("''");
+
             dtTemp.Clear();
             dtTemp2.Clear();
             try
@@ -80,6 +109,7 @@ namespace TKMOC
                 sbSql.Append(@"  LEFT JOIN [TK].dbo.BOMMC ON TD004=MC001");
                 sbSql.AppendFormat(@"  WHERE SUBSTRING(TD002,1,8)>='{0}' AND SUBSTRING(TD002,1,8)<='{1}' ", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
                 sbSql.Append(@"  AND TD021='Y' ");
+                sbSql.AppendFormat(@"  AND TD001 IN ( {0} ) ",TD001.ToString());
                 sbSql.Append(@"   GROUP BY TD004,TD005,TD010,MD002,MD004,MC001,MC002,MC004  ");
                 sbSql.Append(@"  ");
 
@@ -181,7 +211,7 @@ namespace TKMOC
                             sbSql.Clear();
                             sbSqlQuery.Clear();
 
-                            sbSql.AppendFormat(@" SELECT TOP 1 MB001,MB002,MB003 FROM [TK].dbo.INVMB WITH (NOLOCK) WHERE MB001='{0}'  ", c.MD003.ToString());
+                            sbSql.AppendFormat(@" SELECT TOP 1 MB001,MB002,MB003,MC001,MC004  FROM [TK].dbo.INVMB WITH (NOLOCK),[TK].dbo.BOMMC WITH (NOLOCK) WHERE MB001=MC001  AND MB001='{0}'  ", c.MD003.ToString());
 
                             adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -197,8 +227,9 @@ namespace TKMOC
                                 row["品號"] = c.MD003;
                                 row["品名"] = ds3.Tables["TEMPds3"].Rows[0]["MB002"].ToString();
                                 row["規格"] = ds3.Tables["TEMPds3"].Rows[0]["MB003"].ToString();
-                                row["預計用量"] = Convert.ToDouble(c.NUM);
+                                row["預計用量"] = Convert.ToDouble(c.NUM);                                
                                 row["單位"] = c.UNIT;
+                                row["生產批量(桶)"] = Convert.ToInt16(Math.Ceiling(Convert.ToDouble(c.NUM) / Convert.ToDouble(ds3.Tables["TEMPds3"].Rows[0]["MC004"].ToString())));
                                 dtTemp2.Rows.Add(row);
                             }
                         }
@@ -359,6 +390,7 @@ namespace TKMOC
                 ws.GetRow(j + 1).CreateCell(2).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[2].ToString());
                 ws.GetRow(j + 1).CreateCell(3).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[3].ToString()));
                 ws.GetRow(j + 1).CreateCell(4).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[4].ToString());
+                ws.GetRow(j + 1).CreateCell(5).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[5].ToString()));
 
                 j++;
             }
