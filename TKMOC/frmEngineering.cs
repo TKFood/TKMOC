@@ -41,11 +41,33 @@ namespace TKMOC
         public frmEngineering()
         {
             InitializeComponent();
+            combobox1load();
         }
 
         #region FUNCTION
+        public void combobox1load()
+        {
+
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            String Sequel = "SELECT  [UNITID],[UNITNAME] FROM [TKMOC].[dbo].[ENDUNIT]";
+            SqlDataAdapter da = new SqlDataAdapter(Sequel, sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("UNITID", typeof(string));
+            dt.Columns.Add("UNITNAME", typeof(string));
+            da.Fill(dt);
+            comboBox1.DataSource = dt.DefaultView;
+            comboBox1.ValueMember = "UNITID";
+            comboBox1.DisplayMember = "UNITNAME";
+            sqlConn.Close();           
+
+        }
         public void Search()
         {
+            StringBuilder Query = new StringBuilder();
+
             try
             {
                 connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
@@ -53,8 +75,26 @@ namespace TKMOC
 
                 sbSql.Clear();
                 sbSqlQuery.Clear();
+
+                if(!string.IsNullOrEmpty(comboBox1.SelectedValue.ToString()))
+                {
+                    if(!(comboBox1.SelectedValue.ToString().Equals("0")))
+                    {
+                        Query.AppendFormat(" AND [ENDUNIT].UNITID='{0}' ", comboBox1.SelectedValue.ToString());
+                    }
+                }
+                if(!string.IsNullOrEmpty(textBox1.Text.ToString()))
+                {
+                    Query.AppendFormat(" AND  [ENGEQUIPMENT].ID='{0}' ", textBox1.Text.ToString());
+                }
          
-                sbSql.Append(@"  SELECT [ID] AS '設備編號',[NAME]  AS '設備名稱',[UNIT]  AS '單位',[FACTORY]  AS '廠牌',[TYPE]  AS '型別',[MAINTENANCE]  AS '保養',[CHEKCK]  AS '點檢',[STATUS]  AS '狀況說明'  FROM [TKMOC].[dbo].[ENGEQUIPMENT]");
+                sbSql.Append(@" SELECT [ID] AS '設備編號',[NAME]  AS '設備名稱',[UNITNAME]  AS '單位',[FACTORY]  AS '廠牌',[TYPE]  AS '型別',[MAINTENANCE]  AS '保養',[CHEKCK]  AS '點檢',[STATUS]  AS '狀況說明'   ");
+                sbSql.Append(@" FROM [TKMOC].[dbo].[ENGEQUIPMENT] WITH (NOLOCK),[TKMOC].[dbo].[ENDUNIT] WITH (NOLOCK)");
+                sbSql.Append(@" WHERE [ENGEQUIPMENT].UNIT=[ENDUNIT].UNITID");
+                sbSql.AppendFormat("  {0} ",Query.ToString());
+                sbSql.Append(@" ORDER BY [ID] ");
+                sbSql.Append(@" ");
+
 
                 adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
