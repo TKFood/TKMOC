@@ -94,6 +94,12 @@
     <Compile Include="FrmLogin.Designer.cs">
       <DependentUpon>FrmLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmMACHINEATTACH.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMACHINEATTACH.Designer.cs">
+      <DependentUpon>frmMACHINEATTACH.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMACHINECARD.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -143,6 +149,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmLogin.resx">
       <DependentUpon>FrmLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMACHINEATTACH.resx">
+      <DependentUpon>frmMACHINEATTACH.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMACHINECARD.resx">
       <DependentUpon>frmMACHINECARD.cs</DependentUpon>

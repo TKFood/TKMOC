@@ -253,6 +253,7 @@ namespace TKMOC
                 if (ds.Tables["TEMPds"].Rows.Count == 0)
                 {
                     label1.Text = "找不到資料";
+                    dataGridView3.DataSource = null;
                 }
                 else
                 {
@@ -313,6 +314,7 @@ namespace TKMOC
                 if (ds.Tables["TEMPds"].Rows.Count == 0)
                 {
                     label1.Text = "找不到資料";
+                    dataGridView3.DataSource = null; 
                 }
                 else
                 {
@@ -373,6 +375,7 @@ namespace TKMOC
                 if (ds.Tables["TEMPds"].Rows.Count == 0)
                 {
                     label1.Text = "找不到資料";
+                    dataGridView4.DataSource = null;
                 }
                 else
                 {
@@ -462,6 +465,58 @@ namespace TKMOC
             }
             
         }
+        public void SearchMCHINEATTACH()
+        {
+            DataSet ds = new DataSet();
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.Append(@" SELECT [EQUIPMENTID] AS '設備編號',[EQUIPMENTNAME] AS '設備名稱',[ATTCHANAME] AS '附件名稱',[SPEC] AS '規格',[NUM] AS '數量',[ID] ");
+                sbSql.Append(@" FROM [TKMOC].[dbo].[MACHINEATTACH] ");
+                sbSql.AppendFormat(@" WHERE [EQUIPMENTID] ='{0}'", EquipmentID.ToString());
+                sbSql.Append(@" ORDER BY [ID] DESC ");
+                sbSql.Append(@" ");
+
+
+                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder = new SqlCommandBuilder(adapter);
+                sqlConn.Open();
+                ds.Clear();
+                adapter.Fill(ds, "TEMPds");
+                sqlConn.Close();
+
+
+                if (ds.Tables["TEMPds"].Rows.Count == 0)
+                {
+                    label1.Text = "找不到資料";
+                    dataGridView6.DataSource = null;
+                }
+                else
+                {
+                    if (ds.Tables["TEMPds"].Rows.Count >= 1)
+                    {
+                        dataGridView6.DataSource = ds.Tables["TEMPds"];
+                        dataGridView6.AutoResizeColumns();
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
         #endregion
 
         #region BUTTION
@@ -531,6 +586,7 @@ namespace TKMOC
         private void button11_Click(object sender, EventArgs e)
         {
             SearchMCHINE();
+            SearchMCHINEATTACH();
         }
         private void button13_Click(object sender, EventArgs e)
         {
@@ -547,10 +603,23 @@ namespace TKMOC
             SearchMCHINE();
         }
 
+        private void button15_Click(object sender, EventArgs e)
+        {
+            frmMACHINEATTACH objfrmMACHINEATTACH = new frmMACHINEATTACH(MACHINEID);
+            objfrmMACHINEATTACH.ShowDialog();
+            SearchMCHINEATTACH();
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            frmMACHINEATTACH objfrmMACHINEATTACH = new frmMACHINEATTACH("");
+            objfrmMACHINEATTACH.ShowDialog();
+            SearchMCHINEATTACH();
+        }
 
 
         #endregion
 
-        
+
     }
 }
