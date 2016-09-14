@@ -40,6 +40,7 @@ namespace TKMOC
         string EquipmentID;
         string MAINAPPLYID;
         string MAINAPPLYOUTID;
+        string MAINRECORDID;
         Thread TD;
 
         public frmEngineering()
@@ -340,6 +341,65 @@ namespace TKMOC
                 MAINAPPLYOUTID = dataGridView3.CurrentRow.Cells["ID"].Value.ToString();
             }
         }
+
+        public void SearchMAINRECORD()
+        {
+            DataSet ds = new DataSet();
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.Append(@" SELECT [EQUIPMENTID] AS '財產編號',[EQUIPMENTNAME] AS '設備名稱',[UNIT] AS '使用部門',[ERROR] AS '故障情形',[MAINDATEBEGIN] AS '維修時間起',[MAINDATEEND] AS '維修時間迄',[MAINDATHR] AS '維修時數',[MAINEMP] AS '維修人員',[MALFUNCIONID] AS '故障性質',[MAINSTATUS] AS '維修內容',[MAINUSED] AS '本次更換' ,[ID]  ");
+                sbSql.Append(@" FROM [TKMOC].[dbo].[MAINRECORD] ");
+                sbSql.AppendFormat(@" WHERE [EQUIPMENTID] ='{0}'", EquipmentID.ToString());
+                sbSql.Append(@" ORDER BY [ID] DESC");
+                sbSql.Append(@" ");
+
+
+                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder = new SqlCommandBuilder(adapter);
+                sqlConn.Open();
+                ds.Clear();
+                adapter.Fill(ds, "TEMPds");
+                sqlConn.Close();
+
+
+                if (ds.Tables["TEMPds"].Rows.Count == 0)
+                {
+                    label1.Text = "找不到資料";
+                }
+                else
+                {
+                    if (ds.Tables["TEMPds"].Rows.Count >= 1)
+                    {
+                        dataGridView4.DataSource = ds.Tables["TEMPds"];
+                        dataGridView4.AutoResizeColumns();
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+        private void dataGridView4_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView4.Rows.Count >= 1)
+            {
+                MAINRECORDID = dataGridView4.CurrentRow.Cells["ID"].Value.ToString();
+            }
+        }
         #endregion
 
         #region BUTTION
@@ -365,6 +425,7 @@ namespace TKMOC
         {
             SearchMAINAPPLY();
             SearchMAINAPPLYOUT();
+            SearchMAINRECORD();
         }
         private void button6_Click(object sender, EventArgs e)
         {
@@ -389,6 +450,20 @@ namespace TKMOC
             frmMAINAPPLYOUTAddEditDel objfrmMAINAPPLYOUTAddEditDel = new frmMAINAPPLYOUTAddEditDel("");
             objfrmMAINAPPLYOUTAddEditDel.ShowDialog();
             SearchMAINAPPLYOUT();
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            frmMAINRECORDAddEditDel objfrmMAINRECORDAddEditDel = new frmMAINRECORDAddEditDel(MAINRECORDID);
+            objfrmMAINRECORDAddEditDel.ShowDialog();
+            SearchMAINRECORD();
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            frmMAINRECORDAddEditDel objfrmMAINRECORDAddEditDel = new frmMAINRECORDAddEditDel("");
+            objfrmMAINRECORDAddEditDel.ShowDialog();
+            SearchMAINRECORD();
         }
 
 
