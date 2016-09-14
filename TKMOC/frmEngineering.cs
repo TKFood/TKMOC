@@ -32,11 +32,13 @@ namespace TKMOC
         DataSet ds = new DataSet();
         DataSet ds2 = new DataSet();
         DataSet ds3 = new DataSet();
+        DataSet ds4 = new DataSet();
         DataTable dt = new DataTable();
         DataTable dtTemp2 = new DataTable();
         DataTable dtTemp3 = new DataTable();
         string tablename = null;
         string EquipmentID;
+        string MAINAPPLYID;
         Thread TD;
 
         public frmEngineering()
@@ -217,6 +219,67 @@ namespace TKMOC
             }
             
         }
+
+        public void SearchMAINAPPLY()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();               
+
+                sbSql.Append(@" SELECT [APPLYUNIT] AS '申請單位',[APPDATE] AS '申請日期',[EQUIPMENTID] AS '機台編號' ,[EQUIPMENTNAME] AS '設備名稱',[FINDEMP] AS '發現者',[APPLYEMP] AS '申請人' ,[ERROR] AS '異常情形',[STATUS] AS '原因及處理方式',[REMARK] AS '備註',[MAINEMP] AS '維修者',[MAINDATE] AS '維修時間',[ID]  ");
+                sbSql.Append(@" FROM [TKMOC].[dbo].[MAINAPPLY] ");
+                sbSql.AppendFormat(@" WHERE [EQUIPMENTID] ='{0}'",EquipmentID.ToString());
+                sbSql.Append(@" ORDER BY [APPDATE] DESC");
+                sbSql.Append(@" ");
+
+
+                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder = new SqlCommandBuilder(adapter);
+                sqlConn.Open();
+                ds2.Clear();
+                adapter.Fill(ds2, "TEMPds2");
+                sqlConn.Close();
+
+
+                if (ds2.Tables["TEMPds2"].Rows.Count == 0)
+                {
+                    label1.Text = "找不到資料";
+                }
+                else
+                {
+                    if (ds2.Tables["TEMPds2"].Rows.Count >= 1)
+                    {
+                        label1.Text = "有 " + ds2.Tables["TEMPds2"].Rows.Count.ToString() + " 筆";
+                        //dataGridView1.Rows.Clear();
+                        dataGridView2.DataSource = ds2.Tables["TEMPds2"];
+                        dataGridView2.AutoResizeColumns();
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+
+        private void dataGridView2_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView2.Rows.Count >= 1)
+            {
+                MAINAPPLYID = dataGridView2.CurrentRow.Cells["ID"].Value.ToString();
+            }
+        }
         #endregion
 
         #region BUTTION
@@ -236,6 +299,23 @@ namespace TKMOC
             frmEngineeringAddEditDel objfrmEngineeringAddEditDel = new frmEngineeringAddEditDel(EquipmentID);
             objfrmEngineeringAddEditDel.ShowDialog();
             Search();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            SearchMAINAPPLY();
+        }
+        private void button6_Click(object sender, EventArgs e)
+        {
+            frmMAINAPPLYAddEditDel objfrmMAINAPPLYAddEditDel = new frmMAINAPPLYAddEditDel(MAINAPPLYID);
+            objfrmMAINAPPLYAddEditDel.ShowDialog();
+            SearchMAINAPPLY();
+        }
+        private void button5_Click(object sender, EventArgs e)
+        {
+            frmMAINAPPLYAddEditDel objfrmMAINAPPLYAddEditDel = new frmMAINAPPLYAddEditDel("");
+            objfrmMAINAPPLYAddEditDel.ShowDialog();
+            SearchMAINAPPLY();
         }
 
 
