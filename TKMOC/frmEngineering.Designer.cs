@@ -832,6 +832,7 @@
             this.dataGridView8.RowTemplate.Height = 24;
             this.dataGridView8.Size = new System.Drawing.Size(874, 114);
             this.dataGridView8.TabIndex = 15;
+            this.dataGridView8.SelectionChanged += new System.EventHandler(this.dataGridView8_SelectionChanged);
             // 
             // dataGridView9
             // 
@@ -874,6 +875,7 @@
             this.button19.TabIndex = 19;
             this.button19.Text = "新增";
             this.button19.UseVisualStyleBackColor = true;
+            this.button19.Click += new System.EventHandler(this.button19_Click);
             // 
             // button20
             // 
@@ -892,6 +894,7 @@
             this.button21.TabIndex = 21;
             this.button21.Text = "修改";
             this.button21.UseVisualStyleBackColor = true;
+            this.button21.Click += new System.EventHandler(this.button21_Click);
             // 
             // button22
             // 

@@ -112,6 +112,12 @@
     <Compile Include="frmMACHINEDAILYCHECK.Designer.cs">
       <DependentUpon>frmMACHINEDAILYCHECK.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmMACHINEMAINRECORD.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMACHINEMAINRECORD.Designer.cs">
+      <DependentUpon>frmMACHINEMAINRECORD.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMAINAPPLYAddEditDel.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -164,6 +170,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMACHINEDAILYCHECK.resx">
       <DependentUpon>frmMACHINEDAILYCHECK.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMACHINEMAINRECORD.resx">
+      <DependentUpon>frmMACHINEMAINRECORD.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMAINAPPLYAddEditDel.resx">
       <DependentUpon>frmMAINAPPLYAddEditDel.cs</DependentUpon>
