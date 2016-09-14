@@ -39,6 +39,7 @@ namespace TKMOC
         string tablename = null;
         string EquipmentID;
         string MAINAPPLYID;
+        string MAINAPPLYOUTID;
         Thread TD;
 
         public frmEngineering()
@@ -222,6 +223,7 @@ namespace TKMOC
 
         public void SearchMAINAPPLY()
         {
+            DataSet ds = new DataSet();
             try
             {
                 connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
@@ -241,22 +243,20 @@ namespace TKMOC
 
                 sqlCmdBuilder = new SqlCommandBuilder(adapter);
                 sqlConn.Open();
-                ds2.Clear();
-                adapter.Fill(ds2, "TEMPds2");
+                ds.Clear();
+                adapter.Fill(ds, "TEMPds");
                 sqlConn.Close();
 
 
-                if (ds2.Tables["TEMPds2"].Rows.Count == 0)
+                if (ds.Tables["TEMPds"].Rows.Count == 0)
                 {
                     label1.Text = "找不到資料";
                 }
                 else
                 {
-                    if (ds2.Tables["TEMPds2"].Rows.Count >= 1)
-                    {
-                        label1.Text = "有 " + ds2.Tables["TEMPds2"].Rows.Count.ToString() + " 筆";
-                        //dataGridView1.Rows.Clear();
-                        dataGridView2.DataSource = ds2.Tables["TEMPds2"];
+                    if (ds.Tables["TEMPds"].Rows.Count >= 1)
+                    {                                              
+                        dataGridView2.DataSource = ds.Tables["TEMPds"];
                         dataGridView2.AutoResizeColumns();
 
                     }
@@ -278,6 +278,66 @@ namespace TKMOC
             if (dataGridView2.Rows.Count >= 1)
             {
                 MAINAPPLYID = dataGridView2.CurrentRow.Cells["ID"].Value.ToString();
+            }
+        }
+
+        public void SearchMAINAPPLYOUT()
+        {
+            DataSet ds = new DataSet();
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.Append(@" SELECT  [APPLYUNIT] AS '申請單位',[EQUIPDATE] AS '出廠日期',[EQUIPMENTID] AS '設備編號',[EQUIPMENTNAME] AS '設備名稱',[APPLYEMP] AS '申請人',[ERROR] AS '異常情形',[STATUS] AS '原因及處理方式',[FACTROY] AS '維修廠商',[RETURNDATE] AS '預定回廠日',[RECEIVEDATE] AS '接收日' ,[ID]  ");
+                sbSql.Append(@" FROM [TKMOC].[dbo].[MAINAPPLYOUT] ");
+                sbSql.AppendFormat(@" WHERE [EQUIPMENTID] ='{0}'", EquipmentID.ToString());
+                sbSql.Append(@" ORDER BY [RECEIVEDATE] DESC");
+                sbSql.Append(@" ");
+
+
+                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder = new SqlCommandBuilder(adapter);
+                sqlConn.Open();
+                ds.Clear();
+                adapter.Fill(ds, "TEMPds");
+                sqlConn.Close();
+
+
+                if (ds.Tables["TEMPds"].Rows.Count == 0)
+                {
+                    label1.Text = "找不到資料";
+                }
+                else
+                {
+                    if (ds.Tables["TEMPds"].Rows.Count >= 1)
+                    {                        
+                        dataGridView3.DataSource = ds.Tables["TEMPds"];
+                        dataGridView3.AutoResizeColumns();
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+
+        private void dataGridView3_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView3.Rows.Count >= 1)
+            {
+                MAINAPPLYOUTID = dataGridView3.CurrentRow.Cells["ID"].Value.ToString();
             }
         }
         #endregion
@@ -304,6 +364,7 @@ namespace TKMOC
         private void button4_Click(object sender, EventArgs e)
         {
             SearchMAINAPPLY();
+            SearchMAINAPPLYOUT();
         }
         private void button6_Click(object sender, EventArgs e)
         {
@@ -317,6 +378,19 @@ namespace TKMOC
             objfrmMAINAPPLYAddEditDel.ShowDialog();
             SearchMAINAPPLY();
         }
+        private void button9_Click(object sender, EventArgs e)
+        {
+            frmMAINAPPLYOUTAddEditDel objfrmMAINAPPLYOUTAddEditDel = new frmMAINAPPLYOUTAddEditDel(MAINAPPLYOUTID);
+            objfrmMAINAPPLYOUTAddEditDel.ShowDialog();
+            SearchMAINAPPLYOUT();
+        }
+        private void button7_Click(object sender, EventArgs e)
+        {
+            frmMAINAPPLYOUTAddEditDel objfrmMAINAPPLYOUTAddEditDel = new frmMAINAPPLYOUTAddEditDel("");
+            objfrmMAINAPPLYOUTAddEditDel.ShowDialog();
+            SearchMAINAPPLYOUT();
+        }
+
 
 
         #endregion
