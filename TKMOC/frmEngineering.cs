@@ -41,6 +41,7 @@ namespace TKMOC
         string MAINAPPLYID;
         string MAINAPPLYOUTID;
         string MAINRECORDID;
+        string MACHINEID;
         Thread TD;
 
         public frmEngineering()
@@ -400,6 +401,67 @@ namespace TKMOC
                 MAINRECORDID = dataGridView4.CurrentRow.Cells["ID"].Value.ToString();
             }
         }
+
+        public void SearchMCHINE()
+        {
+            DataSet ds = new DataSet();
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.Append(@" SELECT [EQUIPMENTID] AS '設備編號',[EQUIPMENTNAME] AS '設備名稱',[VALUE] AS '價值',[TYPE] AS '型號',[WEIGHT] AS '重量',[MACHINECODE] AS '機械製造號碼',[SIZE] AS '外形尺寸',[FACTORY] AS '製造廠商',[MACHINEID] AS '機器編號',[SELLFACTORY] AS '出售廠商',[MACHYEAR] AS '製造年份',[UNIT] AS '使用單位',[BUYDATE] AS '購入日期',[OWNER] AS '保管人',[STATUS] AS '重要規格'  ,USEWATER AS '用水tom/hr',USEPOWER AS '電力kW',USEAIR AS '空氣m3/min' ,MANAGER AS '主管' ,CREATOR  AS '建卡人',CREATEDATE  AS '建卡日期'  ");
+                sbSql.Append(@" FROM [TKMOC].[dbo].[MACHINECARD] ");
+                sbSql.AppendFormat(@" WHERE [EQUIPMENTID] ='{0}'", EquipmentID.ToString());
+                sbSql.Append(@" ORDER BY [EQUIPMENTID] DESC ");
+                sbSql.Append(@" ");
+
+
+                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder = new SqlCommandBuilder(adapter);
+                sqlConn.Open();
+                ds.Clear();
+                adapter.Fill(ds, "TEMPds");
+                sqlConn.Close();
+
+
+                if (ds.Tables["TEMPds"].Rows.Count == 0)
+                {
+                    label1.Text = "找不到資料";
+                    dataGridView5.DataSource = null;
+                }
+                else
+                {
+                    if (ds.Tables["TEMPds"].Rows.Count >= 1)
+                    {
+                        dataGridView5.DataSource = ds.Tables["TEMPds"];
+                        dataGridView5.AutoResizeColumns();
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+        private void dataGridView5_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView5.Rows.Count >= 1)
+            {
+                MACHINEID = dataGridView5.CurrentRow.Cells["設備編號"].Value.ToString();
+            }
+            
+        }
         #endregion
 
         #region BUTTION
@@ -466,10 +528,29 @@ namespace TKMOC
             SearchMAINRECORD();
         }
 
+        private void button11_Click(object sender, EventArgs e)
+        {
+            SearchMCHINE();
+        }
+        private void button13_Click(object sender, EventArgs e)
+        {
+            frmMACHINECARD objfrmMACHINECARD = new frmMACHINECARD(MACHINEID);
+            objfrmMACHINECARD.ShowDialog();
+            SearchMCHINE();
+
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            frmMACHINECARD objfrmMACHINECARD = new frmMACHINECARD("");
+            objfrmMACHINECARD.ShowDialog();
+            SearchMCHINE();
+        }
+
 
 
         #endregion
 
-
+        
     }
 }

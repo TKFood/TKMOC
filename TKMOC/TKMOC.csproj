@@ -94,6 +94,12 @@
     <Compile Include="FrmLogin.Designer.cs">
       <DependentUpon>FrmLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmMACHINECARD.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMACHINECARD.Designer.cs">
+      <DependentUpon>frmMACHINECARD.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMAINAPPLYAddEditDel.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -137,6 +143,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmLogin.resx">
       <DependentUpon>FrmLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMACHINECARD.resx">
+      <DependentUpon>frmMACHINECARD.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMAINAPPLYAddEditDel.resx">
       <DependentUpon>frmMAINAPPLYAddEditDel.cs</DependentUpon>

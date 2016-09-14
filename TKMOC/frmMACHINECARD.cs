@@ -18,7 +18,7 @@ using System.Threading;
 
 namespace TKMOC
 {
-    public partial class frmMAINAPPLYAddEditDel : Form
+    public partial class frmMACHINECARD : Form
     {
         SqlConnection sqlConn = new SqlConnection();
         SqlCommand sqlComm = new SqlCommand();
@@ -36,13 +36,13 @@ namespace TKMOC
         int result;
         Thread TD;
 
-        public frmMAINAPPLYAddEditDel()
+        public frmMACHINECARD()
         {
             InitializeComponent();
             combobox1load();
             combobox2load();
         }
-        public frmMAINAPPLYAddEditDel(string ID)
+        public frmMACHINECARD(string ID)
         {
             InitializeComponent();
             combobox1load();
@@ -51,7 +51,7 @@ namespace TKMOC
             {
                 EDITID = ID;
                 comboBox1.Enabled = false;
-                Search(ID);                
+                Search(ID);
             }
         }
 
@@ -81,7 +81,7 @@ namespace TKMOC
             connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
             sqlConn = new SqlConnection(connectionString);
             StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT  [ID],[NAME] FROM [TKMOC].[dbo].[ENGEQUIPMENT] WHERE [UNIT]='{0}'",comboBox1.SelectedValue.ToString());
+            Sequel.AppendFormat(@"SELECT  [ID],[NAME] FROM [TKMOC].[dbo].[ENGEQUIPMENT] WHERE [UNIT]='{0}'", comboBox1.SelectedValue.ToString());
             SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
             DataTable dt = new DataTable();
             sqlConn.Open();
@@ -108,7 +108,7 @@ namespace TKMOC
             sbSql.Clear();
             sbSqlQuery.Clear();
 
-            sbSql.AppendFormat(@" SELECT  [ID],[NAME] FROM [TKMOC].[dbo].[ENGEQUIPMENT] WITH (NOLOCK) WHERE[ID]='{0}' ",comboBox2.SelectedValue.ToString());
+            sbSql.AppendFormat(@" SELECT  [ID],[NAME] FROM [TKMOC].[dbo].[ENGEQUIPMENT] WITH (NOLOCK) WHERE[ID]='{0}' ", comboBox2.SelectedValue.ToString());
             sbSql.Append(@"  ");
 
 
@@ -133,7 +133,7 @@ namespace TKMOC
                 }
             }
         }
-                
+
         public void Search(string ID)
         {
             StringBuilder Query = new StringBuilder();
@@ -146,10 +146,10 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@" SELECT  [ID] AS '編號',[APPLYUNIT] AS '申請單位',[APPDATE] AS '申請日期',[EQUIPMENTID] AS '機台編號',[EQUIPMENTNAME] AS '設備名稱',[FINDEMP] AS '發現者',[APPLYEMP] AS '申請人',[ERROR] AS '異常情形',[STATUS] AS '原因及處理方式',[REMARK] AS '備註',[MAINEMP] AS '維修者',[MAINDATE] AS '維修時間' ");
-                sbSql.Append(@" FROM [TKMOC].[dbo].[MAINAPPLY]  WITH (NOLOCK)");
-                sbSql.AppendFormat(@" WHERE [ID] ='{0}'", ID);
-                sbSql.Append(@" ORDER BY [ID]  ");
+                sbSql.AppendFormat(@" SELECT  [EQUIPMENTID] AS '設備編號',[EQUIPMENTNAME] AS '設備名稱',[VALUE] AS '價值',[TYPE] AS '型號',[WEIGHT] AS '重量',[MACHINECODE] AS '機械製造號碼',[SIZE] AS '外形尺寸',[FACTORY] AS '製造廠商',[MACHINEID] AS '機器編號',[SELLFACTORY] AS '出售廠商',[MACHYEAR] AS '製造年份',[UNIT] AS '使用單位',[BUYDATE] AS '購入日期',[OWNER] AS '保管人',[STATUS] AS '重要規格'  ,USEWATER AS '用水tom/hr',USEPOWER AS '電力kW',USEAIR AS '空氣m3/min'  ,MANAGER AS '主管' ,CREATOR  AS '建卡人',CREATEDATE  AS '建卡日期' ");
+                sbSql.Append(@"FROM [TKMOC].[dbo].[MACHINECARD] WITH (NOLOCK)");
+                sbSql.AppendFormat(@" WHERE [EQUIPMENTID] ='{0}'", ID);
+                sbSql.Append(@" ORDER BY [EQUIPMENTID]  ");
 
 
                 adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -170,17 +170,26 @@ namespace TKMOC
                     if (ds.Tables["TEMPds1"].Rows.Count >= 1)
                     {
                         textBox1.Text = ds.Tables["TEMPds1"].Rows[0]["設備名稱"].ToString();
-                        textBox2.Text = ds.Tables["TEMPds1"].Rows[0]["發現者"].ToString();
-                        textBox3.Text = ds.Tables["TEMPds1"].Rows[0]["申請人"].ToString();
-                        textBox4.Text = ds.Tables["TEMPds1"].Rows[0]["異常情形"].ToString();
-                        textBox5.Text = ds.Tables["TEMPds1"].Rows[0]["原因及處理方式"].ToString();
-                        textBox6.Text = ds.Tables["TEMPds1"].Rows[0]["備註"].ToString();
-                        textBox7.Text = ds.Tables["TEMPds1"].Rows[0]["維修者"].ToString();
-                        textBox8.Text = ds.Tables["TEMPds1"].Rows[0]["編號"].ToString();
-                        comboBox1.SelectedValue = ds.Tables["TEMPds1"].Rows[0]["申請單位"].ToString();
-                        comboBox2.SelectedValue = ds.Tables["TEMPds1"].Rows[0]["機台編號"].ToString();
-                        dateTimePicker1.Value =Convert.ToDateTime (ds.Tables["TEMPds1"].Rows[0]["申請日期"].ToString());
-                        dateTimePicker2.Value = Convert.ToDateTime(ds.Tables["TEMPds1"].Rows[0]["維修時間"].ToString());
+                        textBox2.Text = ds.Tables["TEMPds1"].Rows[0]["價值"].ToString();
+                        textBox3.Text = ds.Tables["TEMPds1"].Rows[0]["型號"].ToString();
+                        textBox4.Text = ds.Tables["TEMPds1"].Rows[0]["重量"].ToString();
+                        textBox5.Text = ds.Tables["TEMPds1"].Rows[0]["機械製造號碼"].ToString();
+                        textBox6.Text = ds.Tables["TEMPds1"].Rows[0]["外形尺寸"].ToString();
+                        textBox7.Text = ds.Tables["TEMPds1"].Rows[0]["製造廠商"].ToString();
+                        textBox8.Text = ds.Tables["TEMPds1"].Rows[0]["機器編號"].ToString();
+                        textBox9.Text = ds.Tables["TEMPds1"].Rows[0]["出售廠商"].ToString();
+                        textBox10.Text = ds.Tables["TEMPds1"].Rows[0]["製造年份"].ToString();
+                        textBox11.Text = ds.Tables["TEMPds1"].Rows[0]["保管人"].ToString();
+                        textBox12.Text = ds.Tables["TEMPds1"].Rows[0]["重要規格"].ToString();
+                        textBox13.Text = ds.Tables["TEMPds1"].Rows[0]["用水tom/hr"].ToString();
+                        textBox14.Text = ds.Tables["TEMPds1"].Rows[0]["電力kW"].ToString();
+                        textBox15.Text = ds.Tables["TEMPds1"].Rows[0]["空氣m3/min"].ToString();
+                        textBox16.Text = ds.Tables["TEMPds1"].Rows[0]["主管"].ToString();
+                        textBox17.Text = ds.Tables["TEMPds1"].Rows[0]["建卡人"].ToString();
+                        comboBox1.SelectedValue = ds.Tables["TEMPds1"].Rows[0]["使用單位"].ToString();
+                        comboBox2.SelectedValue = ds.Tables["TEMPds1"].Rows[0]["設備編號"].ToString();
+                        dateTimePicker1.Value = Convert.ToDateTime(ds.Tables["TEMPds1"].Rows[0]["購入日期"].ToString());
+                        dateTimePicker2.Value = Convert.ToDateTime(ds.Tables["TEMPds1"].Rows[0]["建卡日期"].ToString());
 
                     }
                 }
@@ -208,8 +217,8 @@ namespace TKMOC
                 tran = sqlConn.BeginTransaction();
 
                 sbSql.Clear();
-                sbSql.Append(" UPDATE [TKMOC].[dbo].[MAINAPPLY]");
-                sbSql.AppendFormat("  SET [APPLYUNIT]='{1}',[APPDATE]='{2}',[EQUIPMENTID]='{3}',[EQUIPMENTNAME]='{4}',[FINDEMP]='{5}',[APPLYEMP]='{6}',[ERROR]='{7}',[STATUS]='{8}',[REMARK]='{9}',[MAINEMP]='{10}',[MAINDATE] ='{11}' WHERE [ID]='{0}' ", textBox8.Text.ToString(), comboBox1.SelectedValue.ToString(), dateTimePicker1.Value.ToString("yyyy/MM/dd HH:mm"), comboBox2.SelectedValue.ToString(), textBox1.Text.ToString(), textBox2.Text.ToString(), textBox3.Text.ToString(), textBox4.Text.ToString(), textBox5.Text.ToString(), textBox6.Text.ToString(), textBox7.Text.ToString(), dateTimePicker2.Value.ToString("yyyy/MM/dd HH:mm"));
+                sbSql.Append(" UPDATE [TKMOC].[dbo].[MACHINECARD]");
+                sbSql.AppendFormat("  SET [EQUIPMENTNAME]='{1}',[VALUE]='{2}',[TYPE]='{3}',[WEIGHT]='{4}',[MACHINECODE]='{5}',[SIZE]='{6}',[FACTORY]='{7}',[MACHINEID]='{8}',[SELLFACTORY]='{9}',[MACHYEAR]='{10}',[UNIT]='{11}',[BUYDATE]='{12}',[OWNER]='{13}',[STATUS]='{14}',[USEWATER]='{15}',[USEPOWER]='{16}',[USEAIR]='{17}',[MANAGER]='{18}',[CREATOR]='{19}',[CREATEDATE]='{20}' WHERE [EQUIPMENTID]='{0}' ", comboBox2.SelectedValue.ToString(),textBox1.Text.ToString(), textBox2.Text.ToString(), textBox3.Text.ToString(), textBox4.Text.ToString(), textBox5.Text.ToString(), textBox6.Text.ToString(), textBox7.Text.ToString(), textBox8.Text.ToString(), textBox9.Text.ToString(), textBox10.Text.ToString(),comboBox1.SelectedValue.ToString(),dateTimePicker1.Value.ToString("yyyy/MM/dd"), textBox11.Text.ToString(), textBox12.Text.ToString(), textBox13.Text.ToString(), textBox14.Text.ToString(), textBox15.Text.ToString(), textBox16.Text.ToString(), textBox17.Text.ToString(),dateTimePicker2.Value.ToString("yyyy/MM/dd"));
                 sbSql.Append("   ");
 
                 cmd.Connection = sqlConn;
@@ -252,9 +261,9 @@ namespace TKMOC
                 tran = sqlConn.BeginTransaction();
 
                 sbSql.Clear();
-                sbSql.Append(" INSERT INTO [TKMOC].[dbo].[MAINAPPLY]  ");
-                sbSql.Append(" ([ID],[APPLYUNIT],[APPDATE],[EQUIPMENTID],[EQUIPMENTNAME],[FINDEMP],[APPLYEMP],[ERROR],[STATUS],[REMARK],[MAINEMP],[MAINDATE])  ");
-                sbSql.AppendFormat("  VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}') ", Guid.NewGuid(), comboBox1.SelectedValue.ToString(), dateTimePicker1.Value.ToString("yyyy/MM/dd HH:mm"), comboBox2.SelectedValue.ToString(), textBox1.Text.ToString(), textBox2.Text.ToString(), textBox3.Text.ToString(), textBox4.Text.ToString(), textBox5.Text.ToString(), textBox6.Text.ToString(), textBox7.Text.ToString(), dateTimePicker2.Value.ToString("yyyy/MM/dd HH:mm"));
+                sbSql.Append(" INSERT INTO [TKMOC].[dbo].[MACHINECARD]  ");
+                sbSql.Append(" ([EQUIPMENTID],[EQUIPMENTNAME],[VALUE],[TYPE],[WEIGHT],[MACHINECODE],[SIZE],[FACTORY],[MACHINEID],[SELLFACTORY],[MACHYEAR],[UNIT],[BUYDATE],[OWNER],[STATUS],[USEWATER],[USEPOWER],[USEAIR],[MANAGER],[CREATOR],[CREATEDATE] )  ");
+                sbSql.AppendFormat("  VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}','{15}','{16}','{17}','{18}','{19}','{20}') ", comboBox2.SelectedValue.ToString(), textBox1.Text.ToString(), textBox2.Text.ToString(), textBox3.Text.ToString(), textBox4.Text.ToString(), textBox5.Text.ToString(), textBox6.Text.ToString(), textBox7.Text.ToString(), textBox8.Text.ToString(), textBox9.Text.ToString(), textBox10.Text.ToString(), comboBox1.SelectedValue.ToString(), dateTimePicker1.Value.ToString("yyyy/MM/dd"), textBox11.Text.ToString(), textBox12.Text.ToString(), textBox13.Text.ToString(), textBox14.Text.ToString(), textBox15.Text.ToString(), textBox16.Text.ToString(), textBox17.Text.ToString(), dateTimePicker2.Value.ToString("yyyy/MM/dd"));
 
                 cmd.Connection = sqlConn;
                 cmd.CommandTimeout = 60;
@@ -298,7 +307,5 @@ namespace TKMOC
             }
         }
         #endregion
-
-
     }
 }
