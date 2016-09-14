@@ -803,7 +803,7 @@
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(234, 12);
             this.label11.TabIndex = 13;
-            this.label11.Text = "定期維護保養計晝表";
+            this.label11.Text = "設備日常檢查表";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // dataGridView7
