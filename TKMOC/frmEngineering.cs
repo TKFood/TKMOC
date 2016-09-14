@@ -42,6 +42,7 @@ namespace TKMOC
         string MAINAPPLYOUTID;
         string MAINRECORDID;
         string MACHINEID;
+        string MACHINEDAILYCHECK;
         Thread TD;
 
         public frmEngineering()
@@ -517,6 +518,65 @@ namespace TKMOC
 
             }
         }
+        public void SearchMACHINEDAILYCHECK()
+        {
+            DataSet ds = new DataSet();
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.Append(@" SELECT [EQUIPMENTID] AS '設備編號',[EQUIPMENTNAME] AS '設備名稱',[UNIT] AS '使用單位',[MAINDATE] AS '保養日期',[CHECK1] AS '工作前機台內外部的清理消毒',[CHECK2] AS '各部螺絲確實鎖緊',[CHECK3] AS '各操作按鍵鈕正常無異',[CHECK4] AS '機台運行順暢無異常',[CHECK5] AS '各設定確實依作業標準書',[CHECK6] AS '機器運行正常無異聲',[CHECK7] AS '零件使用後確實清潔消毒',[CHECK8] AS '各指示燈確實亮起無異',[CHECK9] AS '各設定溫度時間確實達到',[CHECK10] AS '零件安裝固定完全',[CHECK11] AS '工作後機台內外部清潔消毒',[CHECKOR] AS ' 檢查者',[ID] ");
+                sbSql.Append(@" FROM [TKMOC].[dbo].[MACHINEDAILYCHECK] ");
+                sbSql.AppendFormat(@" WHERE [EQUIPMENTID] ='{0}'", EquipmentID.ToString());
+                sbSql.Append(@" ORDER BY [ID] DESC ");
+                sbSql.Append(@" ");
+
+
+                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder = new SqlCommandBuilder(adapter);
+                sqlConn.Open();
+                ds.Clear();
+                adapter.Fill(ds, "TEMPds");
+                sqlConn.Close();
+
+
+                if (ds.Tables["TEMPds"].Rows.Count == 0)
+                {
+                    label1.Text = "找不到資料";
+                    dataGridView7.DataSource = null;
+                }
+                else
+                {
+                    if (ds.Tables["TEMPds"].Rows.Count >= 1)
+                    {
+                        dataGridView7.DataSource = ds.Tables["TEMPds"];
+                        dataGridView7.AutoResizeColumns();
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+        private void dataGridView7_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView7.Rows.Count >= 1)
+            {
+                MACHINEDAILYCHECK = dataGridView7.CurrentRow.Cells["ID"].Value.ToString();
+            }
+        }
         #endregion
 
         #region BUTTION
@@ -616,6 +676,24 @@ namespace TKMOC
             objfrmMACHINEATTACH.ShowDialog();
             SearchMCHINEATTACH();
         }
+        private void button16_Click(object sender, EventArgs e)
+        {
+            SearchMACHINEDAILYCHECK();
+        }
+        private void button18_Click(object sender, EventArgs e)
+        {
+            frmMACHINEDAILYCHECK objfrmMACHINEDAILYCHECK = new frmMACHINEDAILYCHECK(MACHINEDAILYCHECK);
+            objfrmMACHINEDAILYCHECK.ShowDialog();
+            SearchMACHINEDAILYCHECK();
+        }
+
+        private void button17_Click(object sender, EventArgs e)
+        {
+            frmMACHINEDAILYCHECK objfrmMACHINEDAILYCHECK = new frmMACHINEDAILYCHECK("");
+            objfrmMACHINEDAILYCHECK.ShowDialog();
+            SearchMACHINEDAILYCHECK();
+        }
+
 
 
         #endregion

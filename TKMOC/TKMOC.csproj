@@ -106,6 +106,12 @@
     <Compile Include="frmMACHINECARD.Designer.cs">
       <DependentUpon>frmMACHINECARD.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmMACHINEDAILYCHECK.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMACHINEDAILYCHECK.Designer.cs">
+      <DependentUpon>frmMACHINEDAILYCHECK.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMAINAPPLYAddEditDel.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -155,6 +161,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMACHINECARD.resx">
       <DependentUpon>frmMACHINECARD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMACHINEDAILYCHECK.resx">
+      <DependentUpon>frmMACHINEDAILYCHECK.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMAINAPPLYAddEditDel.resx">
       <DependentUpon>frmMAINAPPLYAddEditDel.cs</DependentUpon>
