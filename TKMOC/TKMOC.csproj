@@ -142,6 +142,12 @@
     <Compile Include="frmMAINPARTS.Designer.cs">
       <DependentUpon>frmMAINPARTS.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmMAINPARTSUSED.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMAINPARTSUSED.Designer.cs">
+      <DependentUpon>frmMAINPARTSUSED.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMAINRECORDAddEditDel.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -197,6 +203,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMAINPARTS.resx">
       <DependentUpon>frmMAINPARTS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMAINPARTSUSED.resx">
+      <DependentUpon>frmMAINPARTSUSED.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMAINRECORDAddEditDel.resx">
       <DependentUpon>frmMAINRECORDAddEditDel.cs</DependentUpon>

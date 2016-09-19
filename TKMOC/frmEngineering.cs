@@ -46,6 +46,7 @@ namespace TKMOC
         string MACHINEMAINRECORDID;
         string MACHINEMAINWEEKID;
         string MAINPARTSID;
+        string MAINPARTSUSEDID;
         Thread TD;
 
         public frmEngineering()
@@ -759,6 +760,67 @@ namespace TKMOC
                 MAINPARTSID = dataGridView10.CurrentRow.Cells["ID"].Value.ToString();
             }
         }
+
+        public void SearchMAINPARTSUSED()
+        {
+            DataSet ds = new DataSet();
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.Append(@"  SELECT [EQUIPMENTID] AS '設備編號',[EQUIPMENTNAME]  AS '設備名稱',[PARTSNO]  AS '備品編號',[PARTSNAME] AS '品名',[PARTSSPEC]  AS '規格',CAST([PARTSPRICE] AS  DECIMAL(16,2) )AS '單價',[PARTSFACTORY]  AS '供應商',[TEL] AS '電話',[YEARS] AS '使用壽命',[STOCKNUM] AS '安全庫存',[NOWNUM] AS '現有庫存',[USEDDATE] AS '入/領用日',[INUM] AS '入庫數'  ,[USEDNUM] AS '領用數',[ID]");
+                sbSql.Append(@"  FROM [TKMOC].[dbo].[MAINPARTSUSED]  ");
+                sbSql.AppendFormat(@" WHERE [EQUIPMENTID] ='{0}'", EquipmentID.ToString());
+                sbSql.Append(@" ORDER BY [ID] DESC ");
+                sbSql.Append(@" ");
+
+
+                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder = new SqlCommandBuilder(adapter);
+                sqlConn.Open();
+                ds.Clear();
+                adapter.Fill(ds, "TEMPds");
+                sqlConn.Close();
+
+
+                if (ds.Tables["TEMPds"].Rows.Count == 0)
+                {
+                    label1.Text = "找不到資料";
+                    dataGridView11.DataSource = null;
+                }
+                else
+                {
+                    if (ds.Tables["TEMPds"].Rows.Count >= 1)
+                    {
+                        dataGridView11.DataSource = ds.Tables["TEMPds"];
+                        dataGridView11.AutoResizeColumns();
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+        private void dataGridView11_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView10.Rows.Count >= 1)
+            {
+                MAINPARTSUSEDID = dataGridView11.CurrentRow.Cells["ID"].Value.ToString();
+            }
+        }
+
         #endregion
 
         #region BUTTION
@@ -908,6 +970,7 @@ namespace TKMOC
         private void button23_Click(object sender, EventArgs e)
         {
             SearchMAINPARTS();
+            SearchMAINPARTSUSED();
         }
         private void button27_Click(object sender, EventArgs e)
         {
@@ -923,11 +986,25 @@ namespace TKMOC
             SearchMAINPARTS();
         }
 
+        private void button26_Click(object sender, EventArgs e)
+        {
+            frmMAINPARTSUSED objfrmMAINPARTSUSED = new frmMAINPARTSUSED(MAINPARTSUSEDID);
+            objfrmMAINPARTSUSED.ShowDialog();
+            SearchMAINPARTSUSED();
+        }
+
+        private void button24_Click(object sender, EventArgs e)
+        {
+            frmMAINPARTSUSED objfrmMAINPARTSUSED = new frmMAINPARTSUSED("");
+            objfrmMAINPARTSUSED.ShowDialog();
+            SearchMAINPARTSUSED();
+        }
+
 
 
 
         #endregion
 
-       
+
     }
 }
