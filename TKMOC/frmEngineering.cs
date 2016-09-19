@@ -45,6 +45,7 @@ namespace TKMOC
         string MACHINEDAILYCHECK;
         string MACHINEMAINRECORDID;
         string MACHINEMAINWEEKID;
+        string MAINPARTSID;
         Thread TD;
 
         public frmEngineering()
@@ -699,6 +700,65 @@ namespace TKMOC
                 MACHINEMAINWEEKID = dataGridView9.CurrentRow.Cells["ID"].Value.ToString();
             }
         }
+        public void SearchMAINPARTS()
+        {
+            DataSet ds = new DataSet();
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.Append(@"  SELECT [EQUIPMENTID] AS '設備編號',[EQUIPMENTNAME] AS '設備名稱',[PARTSNO] AS '備品編號',[PARTSNAME] AS '品名',[PARTSSPEC] AS '規格',CAST([PARTSPRICE] AS  DECIMAL(16,2) ) AS '單價',[PARTSFACTORY] AS '供應商',[TEL] AS '電話',[YEARS] AS '使用壽命',[STOCKNUM] AS '安全庫存',[PRETIME] AS '前置時間',[REMARK] AS '備註' ,[ID]");
+                sbSql.Append(@"  FROM [TKMOC].[dbo].[MAINPARTS]  ");
+                sbSql.AppendFormat(@" WHERE [EQUIPMENTID] ='{0}'", EquipmentID.ToString());
+                sbSql.Append(@" ORDER BY [ID] DESC ");
+                sbSql.Append(@" ");
+
+
+                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder = new SqlCommandBuilder(adapter);
+                sqlConn.Open();
+                ds.Clear();
+                adapter.Fill(ds, "TEMPds");
+                sqlConn.Close();
+
+
+                if (ds.Tables["TEMPds"].Rows.Count == 0)
+                {
+                    label1.Text = "找不到資料";
+                    dataGridView10.DataSource = null;
+                }
+                else
+                {
+                    if (ds.Tables["TEMPds"].Rows.Count >= 1)
+                    {
+                        dataGridView10.DataSource = ds.Tables["TEMPds"];
+                        dataGridView10.AutoResizeColumns();
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+        private void dataGridView10_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView10.Rows.Count >= 1)
+            {
+                MAINPARTSID = dataGridView10.CurrentRow.Cells["ID"].Value.ToString();
+            }
+        }
         #endregion
 
         #region BUTTION
@@ -845,11 +905,29 @@ namespace TKMOC
             objfrmMACHINEMAINWEEK.ShowDialog();
             SearchMACHINEMAINWEEK();
         }
+        private void button23_Click(object sender, EventArgs e)
+        {
+            SearchMAINPARTS();
+        }
+        private void button27_Click(object sender, EventArgs e)
+        {
+            frmMAINPARTS objfrmMAINPARTS = new frmMAINPARTS(MAINPARTSID);
+            objfrmMAINPARTS.ShowDialog();
+            SearchMAINPARTS();
+        }
+
+        private void button25_Click(object sender, EventArgs e)
+        {
+            frmMAINPARTS objfrmMAINPARTS = new frmMAINPARTS("");
+            objfrmMAINPARTS.ShowDialog();
+            SearchMAINPARTS();
+        }
+
 
 
 
         #endregion
 
-
+       
     }
 }

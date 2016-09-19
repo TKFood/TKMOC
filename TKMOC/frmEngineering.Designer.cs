@@ -84,6 +84,15 @@
             this.button13 = new System.Windows.Forms.Button();
             this.button14 = new System.Windows.Forms.Button();
             this.button15 = new System.Windows.Forms.Button();
+            this.button23 = new System.Windows.Forms.Button();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.dataGridView10 = new System.Windows.Forms.DataGridView();
+            this.dataGridView11 = new System.Windows.Forms.DataGridView();
+            this.button24 = new System.Windows.Forms.Button();
+            this.button25 = new System.Windows.Forms.Button();
+            this.button26 = new System.Windows.Forms.Button();
+            this.button27 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -102,10 +111,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView8)).BeginInit();
             this.tabPage3.SuspendLayout();
+            this.tableLayoutPanel4.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView11)).BeginInit();
             this.SuspendLayout();
             // 
             // splitter1
@@ -734,10 +746,19 @@
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
+            this.tableLayoutPanel4.Controls.Add(this.dataGridView11, 0, 6);
+            this.tableLayoutPanel4.Controls.Add(this.dataGridView10, 0, 2);
+            this.tableLayoutPanel4.Controls.Add(this.button23, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.label12, 0, 1);
+            this.tableLayoutPanel4.Controls.Add(this.label13, 0, 5);
+            this.tableLayoutPanel4.Controls.Add(this.button25, 3, 1);
+            this.tableLayoutPanel4.Controls.Add(this.button24, 3, 5);
+            this.tableLayoutPanel4.Controls.Add(this.button27, 4, 1);
+            this.tableLayoutPanel4.Controls.Add(this.button26, 4, 5);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 10;
+            this.tableLayoutPanel4.RowCount = 13;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
@@ -748,6 +769,11 @@
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel4.Size = new System.Drawing.Size(967, 591);
             this.tableLayoutPanel4.TabIndex = 3;
             // 
@@ -908,6 +934,105 @@
             this.button15.UseVisualStyleBackColor = true;
             this.button15.Click += new System.EventHandler(this.button15_Click);
             // 
+            // button23
+            // 
+            this.button23.Location = new System.Drawing.Point(3, 3);
+            this.button23.Name = "button23";
+            this.button23.Size = new System.Drawing.Size(74, 34);
+            this.button23.TabIndex = 9;
+            this.button23.Text = "查詢";
+            this.button23.UseVisualStyleBackColor = true;
+            this.button23.Click += new System.EventHandler(this.button23_Click);
+            // 
+            // label12
+            // 
+            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label12.AutoSize = true;
+            this.tableLayoutPanel4.SetColumnSpan(this.label12, 3);
+            this.label12.Location = new System.Drawing.Point(3, 54);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(234, 12);
+            this.label12.TabIndex = 14;
+            this.label12.Text = "備品一覽";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label13
+            // 
+            this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label13.AutoSize = true;
+            this.tableLayoutPanel4.SetColumnSpan(this.label13, 3);
+            this.label13.Location = new System.Drawing.Point(3, 214);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(234, 12);
+            this.label13.TabIndex = 15;
+            this.label13.Text = "備品管制卡";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // dataGridView10
+            // 
+            this.dataGridView10.AllowUserToAddRows = false;
+            this.dataGridView10.AllowUserToDeleteRows = false;
+            this.dataGridView10.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tableLayoutPanel4.SetColumnSpan(this.dataGridView10, 11);
+            this.dataGridView10.Location = new System.Drawing.Point(3, 83);
+            this.dataGridView10.Name = "dataGridView10";
+            this.tableLayoutPanel4.SetRowSpan(this.dataGridView10, 3);
+            this.dataGridView10.RowTemplate.Height = 24;
+            this.dataGridView10.Size = new System.Drawing.Size(874, 114);
+            this.dataGridView10.TabIndex = 16;
+            this.dataGridView10.SelectionChanged += new System.EventHandler(this.dataGridView10_SelectionChanged);
+            // 
+            // dataGridView11
+            // 
+            this.dataGridView11.AllowUserToAddRows = false;
+            this.dataGridView11.AllowUserToDeleteRows = false;
+            this.dataGridView11.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tableLayoutPanel4.SetColumnSpan(this.dataGridView11, 11);
+            this.dataGridView11.Location = new System.Drawing.Point(3, 243);
+            this.dataGridView11.Name = "dataGridView11";
+            this.tableLayoutPanel4.SetRowSpan(this.dataGridView11, 3);
+            this.dataGridView11.RowTemplate.Height = 24;
+            this.dataGridView11.Size = new System.Drawing.Size(874, 114);
+            this.dataGridView11.TabIndex = 17;
+            // 
+            // button24
+            // 
+            this.button24.Location = new System.Drawing.Point(243, 203);
+            this.button24.Name = "button24";
+            this.button24.Size = new System.Drawing.Size(74, 34);
+            this.button24.TabIndex = 18;
+            this.button24.Text = "新增";
+            this.button24.UseVisualStyleBackColor = true;
+            // 
+            // button25
+            // 
+            this.button25.Location = new System.Drawing.Point(243, 43);
+            this.button25.Name = "button25";
+            this.button25.Size = new System.Drawing.Size(74, 34);
+            this.button25.TabIndex = 19;
+            this.button25.Text = "新增";
+            this.button25.UseVisualStyleBackColor = true;
+            this.button25.Click += new System.EventHandler(this.button25_Click);
+            // 
+            // button26
+            // 
+            this.button26.Location = new System.Drawing.Point(323, 203);
+            this.button26.Name = "button26";
+            this.button26.Size = new System.Drawing.Size(74, 34);
+            this.button26.TabIndex = 20;
+            this.button26.Text = "修改";
+            this.button26.UseVisualStyleBackColor = true;
+            // 
+            // button27
+            // 
+            this.button27.Location = new System.Drawing.Point(323, 43);
+            this.button27.Name = "button27";
+            this.button27.Size = new System.Drawing.Size(74, 34);
+            this.button27.TabIndex = 21;
+            this.button27.Text = "修改";
+            this.button27.UseVisualStyleBackColor = true;
+            this.button27.Click += new System.EventHandler(this.button27_Click);
+            // 
             // frmEngineering
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -938,11 +1063,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView8)).EndInit();
             this.tabPage3.ResumeLayout(false);
+            this.tableLayoutPanel4.ResumeLayout(false);
+            this.tableLayoutPanel4.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView11)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1005,5 +1134,14 @@
         private System.Windows.Forms.Button button20;
         private System.Windows.Forms.Button button21;
         private System.Windows.Forms.Button button22;
+        private System.Windows.Forms.Button button23;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.DataGridView dataGridView11;
+        private System.Windows.Forms.DataGridView dataGridView10;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Button button25;
+        private System.Windows.Forms.Button button24;
+        private System.Windows.Forms.Button button27;
+        private System.Windows.Forms.Button button26;
     }
 }
