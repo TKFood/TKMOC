@@ -18,7 +18,7 @@ using System.Threading;
 
 namespace TKMOC
 {
-    public partial class frmMAINAPPLYOUTAddEditDel : Form
+    public partial class frmMACHINEMAINWEEK : Form
     {
         SqlConnection sqlConn = new SqlConnection();
         SqlCommand sqlComm = new SqlCommand();
@@ -36,13 +36,13 @@ namespace TKMOC
         int result;
         Thread TD;
 
-        public frmMAINAPPLYOUTAddEditDel()
+        public frmMACHINEMAINWEEK()
         {
             InitializeComponent();
             combobox1load();
             combobox2load();
         }
-        public frmMAINAPPLYOUTAddEditDel(string ID)
+        public frmMACHINEMAINWEEK(string ID)
         {
             InitializeComponent();
             combobox1load();
@@ -96,6 +96,7 @@ namespace TKMOC
             SETTEXT();
 
         }
+       
         private void comboBox2_SelectionChangeCommitted(object sender, EventArgs e)
         {
             SETTEXT();
@@ -108,7 +109,7 @@ namespace TKMOC
             sbSql.Clear();
             sbSqlQuery.Clear();
 
-            sbSql.AppendFormat(@" SELECT  [ID],[NAME] FROM [TKMOC].[dbo].[ENGEQUIPMENT] WITH (NOLOCK) WHERE[ID]='{0}' ", comboBox2.SelectedValue.ToString());
+            sbSql.AppendFormat(@" SELECT  [ID] ,[NAME] FROM [TKMOC].[dbo].[ENGEQUIPMENT] WITH (NOLOCK) WHERE[ID]='{0}' ", comboBox2.SelectedValue.ToString());
             sbSql.Append(@"  ");
 
 
@@ -123,7 +124,7 @@ namespace TKMOC
 
             if (ds.Tables["TEMPds1"].Rows.Count == 0)
             {
-                label1.Text = "找不到資料";
+               
             }
             else
             {
@@ -146,8 +147,8 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@" SELECT [ID],[EQUIPMENTID] AS '設備編號',[EQUIPMENTNAME]  AS '設備名稱',[UNIT] AS '使用單位',[MAINDATE]  AS '保養日',[MAINYEAR] AS '保養年',[MAINMONTH] AS '保養月',[MAINWEEK] AS '保養週次',[ISMAIN] AS '是否保養'  ");
-                sbSql.Append(@" FROM [TKMOC].[dbo].[MAINAPPLYOUT]  WITH (NOLOCK)");
+                sbSql.AppendFormat(@" SELECT [ID] AS '編號',[EQUIPMENTID] AS '設備編號',[EQUIPMENTNAME]  AS '設備名稱',[UNIT] AS '使用單位',[MAINDATE]  AS '保養日',[MAINYEAR] AS '保養年',[MAINMONTH] AS '保養月',[MAINWEEK] AS '保養週次',[ISMAIN] AS '是否保養'   ");
+                sbSql.Append(@" FROM [TKMOC].[dbo].[MACHINEMAINWEEK] WITH (NOLOCK)");
                 sbSql.AppendFormat(@" WHERE [ID] ='{0}'", ID);
                 sbSql.Append(@" ORDER BY [ID]  ");
 
@@ -163,23 +164,24 @@ namespace TKMOC
 
                 if (ds.Tables["TEMPds1"].Rows.Count == 0)
                 {
-                    label1.Text = "找不到資料";
+                    
                 }
                 else
                 {
                     if (ds.Tables["TEMPds1"].Rows.Count >= 1)
                     {
                         textBox1.Text = ds.Tables["TEMPds1"].Rows[0]["設備名稱"].ToString();
-                        textBox2.Text = ds.Tables["TEMPds1"].Rows[0]["申請人"].ToString();
-                        textBox3.Text = ds.Tables["TEMPds1"].Rows[0]["異常情形"].ToString();
-                        textBox4.Text = ds.Tables["TEMPds1"].Rows[0]["原因及處理方式"].ToString();
-                        textBox5.Text = ds.Tables["TEMPds1"].Rows[0]["維修廠商"].ToString();
-                        textBox8.Text = ds.Tables["TEMPds1"].Rows[0]["編號"].ToString();
+                        textBox2.Text = ds.Tables["TEMPds1"].Rows[0]["保養週次"].ToString();
+                        textID.Text = ds.Tables["TEMPds1"].Rows[0]["編號"].ToString();
                         comboBox1.SelectedValue = ds.Tables["TEMPds1"].Rows[0]["使用單位"].ToString();
                         comboBox2.SelectedValue = ds.Tables["TEMPds1"].Rows[0]["設備編號"].ToString();
-                        dateTimePicker1.Value = Convert.ToDateTime(ds.Tables["TEMPds1"].Rows[0]["出廠日期"].ToString());
-                        dateTimePicker2.Value = Convert.ToDateTime(ds.Tables["TEMPds1"].Rows[0]["預定回廠日"].ToString());
-                        dateTimePicker3.Value = Convert.ToDateTime(ds.Tables["TEMPds1"].Rows[0]["接收日"].ToString());
+                        comboBox3.SelectedValue = ds.Tables["TEMPds1"].Rows[0]["是否保養"].ToString();
+                        comboBox3.Text = ds.Tables["TEMPds1"].Rows[0]["是否保養"].ToString();
+
+                        dateTimePicker1.Value = Convert.ToDateTime(ds.Tables["TEMPds1"].Rows[0]["保養日"].ToString());
+                        dateTimePicker2.Value = Convert.ToDateTime(ds.Tables["TEMPds1"].Rows[0]["保養年"].ToString());
+                        dateTimePicker3.Value = Convert.ToDateTime(ds.Tables["TEMPds1"].Rows[0]["保養月"].ToString());
+
 
                     }
                 }
@@ -207,8 +209,8 @@ namespace TKMOC
                 tran = sqlConn.BeginTransaction();
 
                 sbSql.Clear();
-                sbSql.Append(" UPDATE [TKMOC].[dbo].[MAINAPPLYOUT]");
-                sbSql.AppendFormat("  SET [APPLYUNIT]='{1}' ,[EQUIPDATE]='{2}' ,[EQUIPMENTID]='{3}' ,[EQUIPMENTNAME]='{4}',[APPLYEMP]='{5}',[ERROR]='{6}',[STATUS]='{7}',[FACTROY]='{8}',[RETURNDATE]='{9}',[RECEIVEDATE]='{10}' WHERE [ID]='{0}' ", textBox8.Text.ToString(),comboBox1.SelectedValue.ToString(), dateTimePicker1.Value.ToString("yyyy/MM/dd"),comboBox2.SelectedValue.ToString(),textBox1.Text.ToString(), textBox2.Text.ToString(), textBox3.Text.ToString(), textBox4.Text.ToString(), textBox5.Text.ToString(), dateTimePicker2.Value.ToString("yyyy/MM/dd"), dateTimePicker3.Value.ToString("yyyy/MM/dd"));
+                sbSql.Append(" UPDATE [TKMOC].[dbo].[MACHINEMAINWEEK]");
+                sbSql.AppendFormat("  SET [EQUIPMENTID]='{1}',[EQUIPMENTNAME]='{2}',[UNIT]='{3}',[MAINDATE]='{4}',[MAINYEAR]='{5}',[MAINMONTH]='{6}',[MAINWEEK]='{7}',[ISMAIN]='{8}' WHERE [ID]='{0}'", textID.Text.ToString(), comboBox2.SelectedValue.ToString(), textBox1.Text.ToString(),comboBox1.SelectedValue.ToString(), dateTimePicker1.Value.ToString("yyyy/MM/dd"), dateTimePicker2.Value.ToString("yyyy"), dateTimePicker3.Value.ToString("MM"),textBox2.Text.ToString(),comboBox3.Text.ToString());
                 sbSql.Append("   ");
 
                 cmd.Connection = sqlConn;
@@ -251,9 +253,9 @@ namespace TKMOC
                 tran = sqlConn.BeginTransaction();
 
                 sbSql.Clear();
-                sbSql.Append(" INSERT INTO [TKMOC].[dbo].[MAINAPPLYOUT] ");
-                sbSql.Append(" ([ID] ,[APPLYUNIT] ,[EQUIPDATE]  ,[EQUIPMENTID] ,[EQUIPMENTNAME],[APPLYEMP],[ERROR],[STATUS],[FACTROY],[RETURNDATE],[RECEIVEDATE])  ");
-                sbSql.AppendFormat("  VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}') ", Guid.NewGuid(), comboBox1.SelectedValue.ToString(), dateTimePicker1.Value.ToString("yyyy/MM/dd"), comboBox2.SelectedValue.ToString(), textBox1.Text.ToString(), textBox2.Text.ToString(), textBox3.Text.ToString(), textBox4.Text.ToString(), textBox5.Text.ToString(), dateTimePicker2.Value.ToString("yyyy/MM/dd"), dateTimePicker3.Value.ToString("yyyy/MM/dd"));
+                sbSql.Append(" INSERT INTO [TKMOC].[dbo].[MACHINEMAINWEEK] ");
+                sbSql.Append(" ([ID],[EQUIPMENTID],[EQUIPMENTNAME],[UNIT],[MAINDATE],[MAINYEAR],[MAINMONTH],[MAINWEEK],[ISMAIN])  ");
+                sbSql.AppendFormat("  VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}') ", Guid.NewGuid(),  comboBox2.SelectedValue.ToString(), textBox1.Text.ToString(), comboBox1.SelectedValue.ToString(), dateTimePicker1.Value.ToString("yyyy/MM/dd"), dateTimePicker2.Value.ToString("yyyy"), dateTimePicker3.Value.ToString("MM"), textBox2.Text.ToString(), comboBox3.Text.ToString());
 
                 cmd.Connection = sqlConn;
                 cmd.CommandTimeout = 60;
@@ -282,6 +284,20 @@ namespace TKMOC
                 sqlConn.Close();
             }
         }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            dateTimePicker2.Value = dateTimePicker1.Value;
+            dateTimePicker3.Value = dateTimePicker1.Value;
+            textBox2.Text = getWeekOfYear(dateTimePicker1.Value).ToString();
+        }
+        public int getWeekOfYear(DateTime dt)
+        {
+
+            System.Globalization.GregorianCalendar getWeek = new  System.Globalization.GregorianCalendar();
+            return getWeek.GetWeekOfYear(dt, System.Globalization.CalendarWeekRule.FirstDay, DayOfWeek.Sunday);//設定星期日為一週的第一天
+
+        }
         #endregion
 
         #region BUTTON
@@ -297,5 +313,7 @@ namespace TKMOC
             }
         }
         #endregion
+
+        
     }
 }

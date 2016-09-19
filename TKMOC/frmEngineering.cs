@@ -44,6 +44,7 @@ namespace TKMOC
         string MACHINEID;
         string MACHINEDAILYCHECK;
         string MACHINEMAINRECORDID;
+        string MACHINEMAINWEEKID;
         Thread TD;
 
         public frmEngineering()
@@ -638,6 +639,66 @@ namespace TKMOC
                 MACHINEMAINRECORDID = dataGridView8.CurrentRow.Cells["ID"].Value.ToString();
             }
         }
+
+        public void SearchMACHINEMAINWEEK()
+        {
+            DataSet ds = new DataSet();
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.Append(@"  SELECT [EQUIPMENTID] AS '設備編號',[EQUIPMENTNAME]  AS '設備名稱',[UNIT] AS '使用單位',[MAINDATE]  AS '保養日',[MAINYEAR] AS '保養年',[MAINMONTH] AS '保養月',[MAINWEEK] AS '保養週次',[ISMAIN] AS '是否保養' ,[ID]");
+                sbSql.Append(@"  FROM [TKMOC].[dbo].[MACHINEMAINWEEK]  ");
+                sbSql.AppendFormat(@" WHERE [EQUIPMENTID] ='{0}'", EquipmentID.ToString());
+                sbSql.Append(@" ORDER BY [ID] DESC ");
+                sbSql.Append(@" ");
+
+
+                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder = new SqlCommandBuilder(adapter);
+                sqlConn.Open();
+                ds.Clear();
+                adapter.Fill(ds, "TEMPds");
+                sqlConn.Close();
+
+
+                if (ds.Tables["TEMPds"].Rows.Count == 0)
+                {
+                    label1.Text = "找不到資料";
+                    dataGridView9.DataSource = null;
+                }
+                else
+                {
+                    if (ds.Tables["TEMPds"].Rows.Count >= 1)
+                    {
+                        dataGridView9.DataSource = ds.Tables["TEMPds"];
+                        dataGridView9.AutoResizeColumns();
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+        private void dataGridView9_SelectionChanged(object sender, EventArgs e)
+        {           
+            if (dataGridView9.Rows.Count >= 1)
+            {
+                MACHINEMAINWEEKID = dataGridView9.CurrentRow.Cells["ID"].Value.ToString();
+            }
+        }
         #endregion
 
         #region BUTTION
@@ -741,6 +802,7 @@ namespace TKMOC
         {
             SearchMACHINEDAILYCHECK();
             SearchMACHINEMAINRECORD();
+            SearchMACHINEMAINWEEK();
         }
         private void button18_Click(object sender, EventArgs e)
         {
@@ -768,6 +830,20 @@ namespace TKMOC
             frmMACHINEMAINRECORD objfrmMACHINEMAINRECORD = new frmMACHINEMAINRECORD("");
             objfrmMACHINEMAINRECORD.ShowDialog();
             SearchMACHINEMAINRECORD();
+        }
+
+        private void button22_Click(object sender, EventArgs e)
+        {
+            frmMACHINEMAINWEEK objfrmMACHINEMAINWEEK = new frmMACHINEMAINWEEK(MACHINEMAINWEEKID);
+            objfrmMACHINEMAINWEEK.ShowDialog();
+            SearchMACHINEMAINWEEK();
+        }
+
+        private void button20_Click(object sender, EventArgs e)
+        {
+            frmMACHINEMAINWEEK objfrmMACHINEMAINWEEK = new frmMACHINEMAINWEEK("");
+            objfrmMACHINEMAINWEEK.ShowDialog();
+            SearchMACHINEMAINWEEK();
         }
 
 
