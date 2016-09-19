@@ -119,6 +119,7 @@ namespace TKMOC
                 if (ds.Tables["TEMPds1"].Rows.Count == 0)
                 {
                     label1.Text = "找不到資料";
+                    dataGridView1.DataSource = null;
                 }
                 else
                 {
@@ -258,7 +259,7 @@ namespace TKMOC
                 if (ds.Tables["TEMPds"].Rows.Count == 0)
                 {
                     label1.Text = "找不到資料";
-                    dataGridView3.DataSource = null;
+                    dataGridView2.DataSource = null;
                 }
                 else
                 {
