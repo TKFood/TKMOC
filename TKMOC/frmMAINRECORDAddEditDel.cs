@@ -86,7 +86,7 @@ namespace TKMOC
             connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
             sqlConn = new SqlConnection(connectionString);
             StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT  [ID],[NAME] FROM [TKMOC].[dbo].[ENGEQUIPMENT] WHERE [UNIT]='{0}'", comboBox1.SelectedValue.ToString());
+            Sequel.AppendFormat(@"SELECT  [ID],[NAME] FROM [TKMOC].[dbo].[ENGEQUIPMENT] ", comboBox1.SelectedValue.ToString());
             SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
             DataTable dt = new DataTable();
             sqlConn.Open();
@@ -201,7 +201,8 @@ namespace TKMOC
                         textBox5.Text = ds.Tables["TEMPds1"].Rows[0]["維修內容"].ToString();
                         textBox6.Text = ds.Tables["TEMPds1"].Rows[0]["本次更換"].ToString();
                         textBox8.Text = ds.Tables["TEMPds1"].Rows[0]["編號"].ToString();
-                        comboBox1.SelectedValue = ds.Tables["TEMPds1"].Rows[0]["使用部門"].ToString();
+                        
+                        comboBox1.SelectedValue = ds.Tables["TEMPds1"].Rows[0]["使用部門"].ToString();                        
                         comboBox2.SelectedValue = ds.Tables["TEMPds1"].Rows[0]["財產編號"].ToString();
                         comboBox3.SelectedValue = ds.Tables["TEMPds1"].Rows[0]["故障性質"].ToString();
                         dateTimePicker1.Value = Convert.ToDateTime(ds.Tables["TEMPds1"].Rows[0]["維修時間起"].ToString());
