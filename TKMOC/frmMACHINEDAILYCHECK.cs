@@ -76,6 +76,10 @@ namespace TKMOC
             sqlConn.Close();
 
         }
+        private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            combobox2load();
+        }
         public void combobox2load()
         {
             connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
@@ -306,5 +310,6 @@ namespace TKMOC
         }
         #endregion
 
+       
     }
 }
