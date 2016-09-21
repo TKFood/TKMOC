@@ -69,5 +69,15 @@ namespace TKMOC.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   查詢類型 System.Byte[] 的當地語系化資源。
+        /// </summary>
+        internal static byte[] 維修申請單 {
+            get {
+                object obj = ResourceManager.GetObject("維修申請單", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

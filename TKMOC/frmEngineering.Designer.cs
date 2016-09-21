@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmEngineering));
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -94,10 +93,9 @@
             this.button13 = new System.Windows.Forms.Button();
             this.button14 = new System.Windows.Forms.Button();
             this.button15 = new System.Windows.Forms.Button();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.report1 = new FastReport.Report();
-            this.previewControl1 = new FastReport.Preview.PreviewControl();
             this.button28 = new System.Windows.Forms.Button();
+            this.button29 = new System.Windows.Forms.Button();
+            this.button30 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -123,8 +121,6 @@
             this.tableLayoutPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView6)).BeginInit();
-            this.tabPage5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.report1)).BeginInit();
             this.SuspendLayout();
             // 
             // splitter1
@@ -297,7 +293,6 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -347,6 +342,7 @@
             this.tableLayoutPanel2.Controls.Add(this.button8, 3, 9);
             this.tableLayoutPanel2.Controls.Add(this.label6, 0, 9);
             this.tableLayoutPanel2.Controls.Add(this.dataGridView4, 0, 10);
+            this.tableLayoutPanel2.Controls.Add(this.button30, 5, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -764,6 +760,7 @@
             this.tableLayoutPanel4.Controls.Add(this.button24, 3, 5);
             this.tableLayoutPanel4.Controls.Add(this.button27, 4, 1);
             this.tableLayoutPanel4.Controls.Add(this.button26, 4, 5);
+            this.tableLayoutPanel4.Controls.Add(this.button29, 5, 1);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
@@ -1049,41 +1046,35 @@
             this.button15.UseVisualStyleBackColor = true;
             this.button15.Click += new System.EventHandler(this.button15_Click);
             // 
-            // tabPage5
-            // 
-            this.tabPage5.Controls.Add(this.previewControl1);
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(973, 597);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "報表";
-            this.tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // report1
-            // 
-            this.report1.ReportResourceString = resources.GetString("report1.ReportResourceString");
-            // 
-            // previewControl1
-            // 
-            this.previewControl1.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.previewControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.previewControl1.Font = new System.Drawing.Font("宋体", 9F);
-            this.previewControl1.Location = new System.Drawing.Point(3, 3);
-            this.previewControl1.Name = "previewControl1";
-            this.previewControl1.PageOffset = new System.Drawing.Point(10, 10);
-            this.previewControl1.Size = new System.Drawing.Size(967, 591);
-            this.previewControl1.TabIndex = 0;
-            // 
             // button28
             // 
             this.button28.Location = new System.Drawing.Point(643, 3);
             this.button28.Name = "button28";
             this.button28.Size = new System.Drawing.Size(74, 34);
             this.button28.TabIndex = 10;
-            this.button28.Text = "列印";
+            this.button28.Text = "匯出";
             this.button28.UseVisualStyleBackColor = true;
             this.button28.Click += new System.EventHandler(this.button28_Click);
+            // 
+            // button29
+            // 
+            this.button29.Location = new System.Drawing.Point(403, 43);
+            this.button29.Name = "button29";
+            this.button29.Size = new System.Drawing.Size(74, 34);
+            this.button29.TabIndex = 22;
+            this.button29.Text = "匯出";
+            this.button29.UseVisualStyleBackColor = true;
+            this.button29.Click += new System.EventHandler(this.button29_Click);
+            // 
+            // button30
+            // 
+            this.button30.Location = new System.Drawing.Point(403, 43);
+            this.button30.Name = "button30";
+            this.button30.Size = new System.Drawing.Size(74, 34);
+            this.button30.TabIndex = 20;
+            this.button30.Text = "列印";
+            this.button30.UseVisualStyleBackColor = true;
+            this.button30.Click += new System.EventHandler(this.button30_Click);
             // 
             // frmEngineering
             // 
@@ -1124,8 +1115,6 @@
             this.tableLayoutPanel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView6)).EndInit();
-            this.tabPage5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.report1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1197,9 +1186,8 @@
         private System.Windows.Forms.Button button24;
         private System.Windows.Forms.Button button27;
         private System.Windows.Forms.Button button26;
-        private System.Windows.Forms.TabPage tabPage5;
-        private FastReport.Preview.PreviewControl previewControl1;
-        private FastReport.Report report1;
         private System.Windows.Forms.Button button28;
+        private System.Windows.Forms.Button button29;
+        private System.Windows.Forms.Button button30;
     }
 }

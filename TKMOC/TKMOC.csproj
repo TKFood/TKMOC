@@ -40,9 +40,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\OpenXml\DocumentFormat.OpenXml.dll</HintPath>
     </Reference>
-    <Reference Include="FastReport, Version=2016.4.4.0, Culture=neutral, PublicKeyToken=db7e5ce63278458c" />
-    <Reference Include="FastReport.Bars, Version=2016.4.4.0, Culture=neutral, PublicKeyToken=db7e5ce63278458c" />
-    <Reference Include="FastReport.Editor, Version=2016.4.4.0, Culture=neutral, PublicKeyToken=db7e5ce63278458c" />
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\..\..\NPOI 2.2.1 binary package\Release\Net40\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
@@ -239,6 +236,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Resources\維修申請單.doc" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

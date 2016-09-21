@@ -15,7 +15,7 @@ using NPOI.XSSF.UserModel;
 using NPOI.SS.Util;
 using System.Reflection;
 using System.Threading;
-using FastReport;
+
 
 namespace TKMOC
 {
@@ -37,6 +37,8 @@ namespace TKMOC
         DataTable dt = new DataTable();
         DataTable dtTemp2 = new DataTable();
         DataTable dtTemp3 = new DataTable();
+        DataTable dtMAINPARTS=new DataTable();
+        DataGridViewRow drMAINAPPLY = new DataGridViewRow();
         string tablename = null;
         string EquipmentID;
         string MAINAPPLYID;
@@ -188,8 +190,15 @@ namespace TKMOC
             {
                 ws.CreateRow(j + 1);
                 ws.GetRow(j + 1).CreateCell(0).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[0].ToString());
-                ws.GetRow(j + 1).CreateCell(3).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[3].ToString()));
-                 j++;
+                ws.GetRow(j + 1).CreateCell(1).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[1].ToString());
+                ws.GetRow(j + 1).CreateCell(2).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[2].ToString());
+                ws.GetRow(j + 1).CreateCell(3).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[3].ToString());
+                ws.GetRow(j + 1).CreateCell(4).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[4].ToString());
+                ws.GetRow(j + 1).CreateCell(5).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[5].ToString());
+                ws.GetRow(j + 1).CreateCell(6).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[6].ToString());
+                ws.GetRow(j + 1).CreateCell(7).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[7].ToString());
+                //ws.GetRow(j + 1).CreateCell(3).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[3].ToString()));
+                j++;
             }
 
             if (Directory.Exists(@"c:\temp\"))
@@ -202,7 +211,7 @@ namespace TKMOC
                 Directory.CreateDirectory(@"c:\temp\");
             }
             StringBuilder filename = new StringBuilder();
-            filename.AppendFormat(@"c:\temp\設備{0}.xlsx", DateTime.Now.ToString("yyyyMMdd"));
+            filename.AppendFormat(@"c:\temp\機械堪用月記錄表{0}.xlsx", DateTime.Now.ToString("yyyyMMdd"));
 
             FileStream file = new FileStream(filename.ToString(), FileMode.Create);//產生檔案
             wb.Write(file);
@@ -288,6 +297,7 @@ namespace TKMOC
             if (dataGridView2.Rows.Count >= 1)
             {
                 MAINAPPLYID = dataGridView2.CurrentRow.Cells["ID"].Value.ToString();
+                drMAINAPPLY = dataGridView2.Rows[dataGridView2.SelectedCells[0].RowIndex];
             }
         }
 
@@ -741,6 +751,7 @@ namespace TKMOC
                     {
                         dataGridView10.DataSource = ds.Tables["TEMPds"];
                         dataGridView10.AutoResizeColumns();
+                        dtMAINPARTS = ds.Tables["TEMPds"];
 
                     }
                 }
@@ -823,6 +834,227 @@ namespace TKMOC
             }
         }
 
+        public void ExcelExportMAINPARTS()
+        {
+
+            string NowDB = "TK";
+            //建立Excel 2003檔案
+            IWorkbook wb = new XSSFWorkbook();
+            ISheet ws;
+
+            XSSFCellStyle cs = (XSSFCellStyle)wb.CreateCellStyle();
+            //框線樣式及顏色
+            cs.BorderBottom = NPOI.SS.UserModel.BorderStyle.Double;
+            cs.BorderLeft = NPOI.SS.UserModel.BorderStyle.Thin;
+            cs.BorderRight = NPOI.SS.UserModel.BorderStyle.Thin;
+            cs.BorderTop = NPOI.SS.UserModel.BorderStyle.Thin;
+            cs.BottomBorderColor = NPOI.HSSF.Util.HSSFColor.Grey50Percent.Index;
+            cs.LeftBorderColor = NPOI.HSSF.Util.HSSFColor.Grey50Percent.Index;
+            cs.RightBorderColor = NPOI.HSSF.Util.HSSFColor.Grey50Percent.Index;
+            cs.TopBorderColor = NPOI.HSSF.Util.HSSFColor.Grey50Percent.Index;
+
+            //Search();            
+            dt = dtMAINPARTS;
+
+            if (dt.TableName != string.Empty)
+            {
+                ws = wb.CreateSheet(dt.TableName);
+            }
+            else
+            {
+                ws = wb.CreateSheet("Sheet1");
+            }
+
+            ws.CreateRow(0);//第一行為欄位名稱
+            for (int i = 0; i < dt.Columns.Count; i++)
+            {
+                ws.GetRow(0).CreateCell(i).SetCellValue(dt.Columns[i].ColumnName);
+            }
+
+            int j = 0;
+            int k = dataGridView10.Rows.Count;
+            foreach (DataGridViewRow dr in this.dataGridView10.Rows)
+            {
+                ws.CreateRow(j + 1);
+                ws.GetRow(j + 1).CreateCell(0).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[0].ToString());
+                ws.GetRow(j + 1).CreateCell(1).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[1].ToString());
+                ws.GetRow(j + 1).CreateCell(2).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[2].ToString());
+                ws.GetRow(j + 1).CreateCell(3).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[3].ToString());
+                ws.GetRow(j + 1).CreateCell(4).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[4].ToString());
+                ws.GetRow(j + 1).CreateCell(5).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[5].ToString());
+                ws.GetRow(j + 1).CreateCell(6).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[6].ToString());
+                ws.GetRow(j + 1).CreateCell(7).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[7].ToString());
+                ws.GetRow(j + 1).CreateCell(8).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[8].ToString());
+                ws.GetRow(j + 1).CreateCell(9).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[9].ToString());
+                ws.GetRow(j + 1).CreateCell(10).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[10].ToString());
+                ws.GetRow(j + 1).CreateCell(11).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[11].ToString());
+                ws.GetRow(j + 1).CreateCell(12).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[12].ToString());
+               
+                //ws.GetRow(j + 1).CreateCell(3).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[3].ToString()));
+                j++;
+            }
+
+            if (Directory.Exists(@"c:\temp\"))
+            {
+                //資料夾存在
+            }
+            else
+            {
+                //新增資料夾
+                Directory.CreateDirectory(@"c:\temp\");
+            }
+            StringBuilder filename = new StringBuilder();
+            filename.AppendFormat(@"c:\temp\備品一覽表{0}.xlsx", DateTime.Now.ToString("yyyyMMdd"));
+
+            FileStream file = new FileStream(filename.ToString(), FileMode.Create);//產生檔案
+            wb.Write(file);
+            file.Close();
+
+            MessageBox.Show("匯出完成-EXCEL放在-" + filename.ToString());
+            FileInfo fi = new FileInfo(filename.ToString());
+            if (fi.Exists)
+            {
+                System.Diagnostics.Process.Start(filename.ToString());
+            }
+            else
+            {
+                //file doesn't exist
+            }
+
+
+        }
+        public void PRINTMAINAPPLY()
+        {
+            // 首先把建立的範本檔案讀入MemoryStream
+            //首先把建立的範本檔案讀入MemoryStream
+            System.IO.MemoryStream _memoryStream = new System.IO.MemoryStream(Properties.Resources.維修申請單);
+
+            //建立一個Document物件
+            //並傳入MemoryStream
+            Aspose.Words.Document doc = new Aspose.Words.Document(_memoryStream);
+
+            //新增一個DataTable
+            DataTable table = new DataTable();
+            //建立Column
+            table.Columns.Add("UNIT");
+            table.Columns.Add("APPDATE");
+            table.Columns.Add("TIMES");
+            table.Columns.Add("EQUIPMENTID");
+            table.Columns.Add("EQUIPMENTNAME");
+            table.Columns.Add("FINDEMP");
+            table.Columns.Add("APPLYEMP");
+            table.Columns.Add("ERROR");
+            table.Columns.Add("STATUS");
+            table.Columns.Add("REMARK");
+            table.Columns.Add("MAINEMP");
+            table.Columns.Add("MAINDATE");
+
+            //[APPLYUNIT] AS '申請單位',[APPDATE] AS '申請日期',[EQUIPMENTID] AS '機台編號' 
+            //,[EQUIPMENTNAME] AS '設備名稱',[FINDEMP] AS '發現者',[APPLYEMP] AS '申請人' ,[ERROR] AS '異常情形'
+            //,[STATUS] AS '原因及處理方式',[REMARK] AS '備註',[MAINEMP] AS '維修者',[MAINDATE] AS '維修時間'
+            //透過建立的DataTable物件來New一個儲存資料的Row
+            DataRow row = table.NewRow();
+            //這些Row具有上面所建立相同的Column欄位
+            //因此可以直接指定欄位名稱將資料填入裡面       
+            DateTime dt = Convert.ToDateTime(drMAINAPPLY.Cells["申請日期"].Value.ToString());
+            row["UNIT"] = FindUNIT(drMAINAPPLY.Cells["申請單位"].Value.ToString());
+            //row["APPDATE"] = dt.Year.ToString() + "年" + dt.Month.ToString() + "月" + dt.Day.ToString() + "日";
+            row["APPDATE"] = dt.ToString("yyyy/MM/dd");
+            row["TIMES"] = dt.Hour.ToString() + ":" + dt.Minute.ToString();
+            row["EQUIPMENTID"] = drMAINAPPLY.Cells["機台編號"].Value.ToString();
+            row["EQUIPMENTNAME"] = drMAINAPPLY.Cells["設備名稱"].Value.ToString();
+            row["FINDEMP"] = drMAINAPPLY.Cells["發現者"].Value.ToString();
+            row["APPLYEMP"] = drMAINAPPLY.Cells["申請人"].Value.ToString();
+            row["ERROR"] = drMAINAPPLY.Cells["異常情形"].Value.ToString();
+            row["STATUS"] = drMAINAPPLY.Cells["原因及處理方式"].Value.ToString();
+            row["REMARK"] = drMAINAPPLY.Cells["備註"].Value.ToString();
+            row["MAINEMP"] = drMAINAPPLY.Cells["維修者"].Value.ToString();
+            row["MAINDATE"] = drMAINAPPLY.Cells["維修時間"].Value.ToString();
+
+
+            //把所建立的資料行加入Table的Row清單內
+            table.Rows.Add(row);
+
+
+            //將DataTable傳入Document的MailMerge.Execute()方法
+            doc.MailMerge.Execute(table);
+            //清空所有未被合併的功能變數
+            doc.MailMerge.DeleteFields();
+
+            if (Directory.Exists(@"c:\temp\"))
+            {
+                //資料夾存在
+            }
+            else
+            {
+                //新增資料夾
+                Directory.CreateDirectory(@"c:\temp\");
+            }
+            //將檔案儲存至c:\
+            StringBuilder filename = new StringBuilder();
+            filename.AppendFormat(@"c:\temp\維修申請單{0}.doc", DateTime.Now.ToString("yyyyMMdd"));
+            doc.Save(filename.ToString());
+
+            MessageBox.Show("匯出完成-文件放在-" + filename.ToString());
+            FileInfo fi = new FileInfo(filename.ToString());
+            if (fi.Exists)
+            {
+                System.Diagnostics.Process.Start(filename.ToString());
+            }
+            else
+            {
+                //file doesn't exist
+            }
+
+        }
+
+        public string FindUNIT(string UNITID)
+        {
+
+            DataSet ds = new DataSet();
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@" SELECT  [UNITID],[UNITNAME] FROM [TKMOC].[dbo].[ENDUNIT] WHERE   [UNITID] ='{0}'", UNITID.ToString());
+                
+                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder = new SqlCommandBuilder(adapter);
+                sqlConn.Open();
+                ds.Clear();
+                adapter.Fill(ds, "TEMPds");
+                sqlConn.Close();
+
+
+                if (ds.Tables["TEMPds"].Rows.Count == 0)
+                {
+                    return "";  
+                }
+                else
+                {
+                    if (ds.Tables["TEMPds"].Rows.Count >= 1)
+                    {
+                       return  ds.Tables["TEMPds"].Rows[0]["UNITNAME"].ToString(); 
+                    }
+                    return "";
+                }
+
+            }
+            catch
+            {
+                return "";
+            }
+            finally
+            {
+                
+            }
+            
+        }
         #endregion
 
         #region BUTTION
@@ -1006,14 +1238,15 @@ namespace TKMOC
 
         private void button28_Click(object sender, EventArgs e)
         {
-            tabControl1.SelectedTab = tabPage5;
-            using (Report report1 = new Report())
-            {
-                report1.Load(@"\\Server2003\PROG更新\TKMOC\REPORT\月機械堪用月記錄表.frx");
-                report1.SetParameterValue("P1",comboBox1.SelectedValue.ToString() );
-                report1.SetParameterValue("P1NAME", comboBox1.Text.ToString());
-                report1.Show();
-            }
+            ExcelExport();
+        }
+        private void button29_Click(object sender, EventArgs e)
+        {
+            ExcelExportMAINPARTS();
+        }
+        private void button30_Click(object sender, EventArgs e)
+        {
+            PRINTMAINAPPLY();
         }
 
         #endregion
