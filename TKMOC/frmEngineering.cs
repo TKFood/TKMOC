@@ -15,6 +15,7 @@ using NPOI.XSSF.UserModel;
 using NPOI.SS.Util;
 using System.Reflection;
 using System.Threading;
+using FastReport;
 
 namespace TKMOC
 {
@@ -1003,6 +1004,17 @@ namespace TKMOC
 
 
 
+        private void button28_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabPage5;
+            using (Report report1 = new Report())
+            {
+                report1.Load(@"\\Server2003\PROG更新\TKMOC\REPORT\月機械堪用月記錄表.frx");
+                report1.SetParameterValue("P1",comboBox1.SelectedValue.ToString() );
+                report1.SetParameterValue("P1NAME", comboBox1.Text.ToString());
+                report1.Show();
+            }
+        }
 
         #endregion
 
