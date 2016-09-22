@@ -461,7 +461,187 @@ namespace TKMOC
             numericUpDown43.Enabled = false;
             dateTimePicker2.Enabled = false;
         }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            CalINBEFORE();
+        }
+        private void numericUpDown23_ValueChanged(object sender, EventArgs e)
+        {
+            CalINBEFORE();
+            CalSTIRPCT();
+        }
+
+        private void numericUpDown24_ValueChanged(object sender, EventArgs e)
+        {
+            CalINBEFORE();
+            CalSTIRPCT();
+        }
+        public void CalINBEFORE()
+        {
+            numericUpDown20.Value = numericUpDown1.Value - numericUpDown23.Value - numericUpDown24.Value;
+        }
+
+        public void CalINAFTERE()
+        {
+            numericUpDown21.Value = (numericUpDown17.Value * numericUpDown18.Value* numericUpDown19.Value)/1000;
+        }
+        private void numericUpDown17_ValueChanged(object sender, EventArgs e)
+        {
+            CalINAFTERE();
+        }
+
+        private void numericUpDown18_ValueChanged(object sender, EventArgs e)
+        {
+            CalINAFTERE();
+        }
+
+        private void numericUpDown19_ValueChanged(object sender, EventArgs e)
+        {
+            CalINAFTERE();
+        }
+        public void CalACTUALOUT()
+        {
+            numericUpDown31.Value = numericUpDown32.Value - numericUpDown29.Value;
+        }
+        private void numericUpDown29_ValueChanged(object sender, EventArgs e)
+        {
+            CalACTUALOUT();
+        }
+
+        private void numericUpDown32_ValueChanged(object sender, EventArgs e)
+        {
+            CalACTUALOUT();
+            CalWEIGHTTOTAL();
+        }
+
+        public void CalMANUTIME()
+        {
+            numericUpDown33.Value = (numericUpDown2.Value* numericUpDown3.Value) + (numericUpDown6.Value * numericUpDown7.Value);
+        }
+        private void numericUpDown2_ValueChanged(object sender, EventArgs e)
+        {
+            CalMANUTIME();
+        }
+
+        private void numericUpDown3_ValueChanged(object sender, EventArgs e)
+        {
+            CalMANUTIME();
+        }
+
+        private void numericUpDown6_ValueChanged(object sender, EventArgs e)
+        {
+            CalMANUTIME();
+        }
+
+        private void numericUpDown7_ValueChanged(object sender, EventArgs e)
+        {
+            CalMANUTIME();
+        }
+        public void CalSTIRPCT()
+        {
+            numericUpDown34.Value = (numericUpDown4.Value + numericUpDown8.Value - numericUpDown23.Value - numericUpDown24.Value) / (numericUpDown4.Value + numericUpDown8.Value) * 100;
+        }
+        private void numericUpDown4_ValueChanged(object sender, EventArgs e)
+        {
+            CalSTIRPCT();
+        }
+
+        private void numericUpDown8_ValueChanged(object sender, EventArgs e)
+        {
+            CalSTIRPCT();
+        }
+        public void CalEVARATE()
+        {
+            numericUpDown35.Value = (numericUpDown20.Value - numericUpDown21.Value) / numericUpDown20.Value * 100;
+        }
+        private void numericUpDown20_ValueChanged(object sender, EventArgs e)
+        {
+            CalEVARATE();
+        }
+
+        private void numericUpDown21_ValueChanged(object sender, EventArgs e)
+        {
+            CalEVARATE();
+            CalHALFRATE();
+        }
+
+        public void CalLOSTRATE()
+        {
+            numericUpDown36.Value = (numericUpDown31.Value + numericUpDown26.Value + numericUpDown27.Value) - numericUpDown31.Value / numericUpDown31.Value * 100;
+        }
+        private void numericUpDown26_ValueChanged(object sender, EventArgs e)
+        {
+            CalLOSTRATE();
+            CalHALFRATE();
+            CalTOTALRATE();
+        }
+
+        private void numericUpDown27_ValueChanged(object sender, EventArgs e)
+        {
+            CalLOSTRATE();
+            CalTOTALRATE();
+        }
+
+        private void numericUpDown31_ValueChanged(object sender, EventArgs e)
+        {
+            CalLOSTRATE();
+            CalHALFRATE();
+            CalTOTALRATE();
+        }
+        public void CalHALFRATE()
+        {
+            numericUpDown37.Value = (numericUpDown31.Value + numericUpDown26.Value) / numericUpDown21.Value * 100;
+        }
+        public void CalPACKAGETOTALTIME()
+        {
+            numericUpDown38.Value = numericUpDown11.Value * numericUpDown12.Value;
+        }
+        private void numericUpDown11_ValueChanged(object sender, EventArgs e)
+        {
+            CalPACKAGETOTALTIME();
+        }
+
+        private void numericUpDown12_ValueChanged(object sender, EventArgs e)
+        {
+            CalPACKAGETOTALTIME();
+        }
+        public void CalWEIGHTTOTAL()
+        {
+            numericUpDown39.Value = numericUpDown32.Value - (numericUpDown32.Value / numericUpDown42.Value * numericUpDown43.Value);
+        }
+
+        private void numericUpDown42_ValueChanged(object sender, EventArgs e)
+        {
+            CalWEIGHTTOTAL();
+        }
+
+        private void numericUpDown43_ValueChanged(object sender, EventArgs e)
+        {
+            CalWEIGHTTOTAL();
+        }
+        public void CalPACKAGELOSTRATE()
+        {
+            numericUpDown40.Value = numericUpDown28.Value / numericUpDown30.Value * 100;
+        }
+        private void numericUpDown28_ValueChanged(object sender, EventArgs e)
+        {
+            CalPACKAGELOSTRATE();
+        }
+
+        private void numericUpDown30_ValueChanged(object sender, EventArgs e)
+        {
+            CalPACKAGELOSTRATE();
+        }
+        public void CalTOTALRATE()
+        {
+            numericUpDown41.Value = 1 - ((numericUpDown26.Value + numericUpDown27.Value) / numericUpDown31.Value * 100);
+        }
+
         #endregion
+
+
+
 
         #region BUTTON
         private void button1_Click(object sender, EventArgs e)
@@ -492,8 +672,19 @@ namespace TKMOC
 
 
 
+
+
+
+
+
+
+
+
+
+
+
         #endregion
 
-       
+
     }
 }
