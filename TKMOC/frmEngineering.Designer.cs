@@ -985,7 +985,7 @@
             this.button36.Name = "button36";
             this.button36.Size = new System.Drawing.Size(74, 34);
             this.button36.TabIndex = 24;
-            this.button36.Text = "列印";
+            this.button36.Text = "匯出";
             this.button36.UseVisualStyleBackColor = true;
             this.button36.Click += new System.EventHandler(this.button36_Click);
             // 
@@ -1159,8 +1159,9 @@
             this.button37.Name = "button37";
             this.button37.Size = new System.Drawing.Size(74, 34);
             this.button37.TabIndex = 24;
-            this.button37.Text = "列印";
+            this.button37.Text = "匯出";
             this.button37.UseVisualStyleBackColor = true;
+            this.button37.Click += new System.EventHandler(this.button37_Click);
             // 
             // button38
             // 
@@ -1168,8 +1169,9 @@
             this.button38.Name = "button38";
             this.button38.Size = new System.Drawing.Size(74, 34);
             this.button38.TabIndex = 25;
-            this.button38.Text = "列印";
+            this.button38.Text = "匯出";
             this.button38.UseVisualStyleBackColor = true;
+            this.button38.Click += new System.EventHandler(this.button38_Click);
             // 
             // frmEngineering
             // 
