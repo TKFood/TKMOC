@@ -801,8 +801,9 @@
             this.button35.Name = "button35";
             this.button35.Size = new System.Drawing.Size(74, 34);
             this.button35.TabIndex = 25;
-            this.button35.Text = "列印";
+            this.button35.Text = "匯出 ";
             this.button35.UseVisualStyleBackColor = true;
+            this.button35.Click += new System.EventHandler(this.button35_Click);
             // 
             // tabPage3
             // 
@@ -986,6 +987,7 @@
             this.button36.TabIndex = 24;
             this.button36.Text = "列印";
             this.button36.UseVisualStyleBackColor = true;
+            this.button36.Click += new System.EventHandler(this.button36_Click);
             // 
             // tabPage4
             // 
