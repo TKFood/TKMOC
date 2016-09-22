@@ -124,6 +124,9 @@
   <data name="委外維修申請單" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\委外維修申請單.doc;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="機械設備維修紀錄表" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\機械設備維修紀錄表.doc;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="維修申請單" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\維修申請單.doc;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

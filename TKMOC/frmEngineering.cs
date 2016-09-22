@@ -40,6 +40,7 @@ namespace TKMOC
         DataTable dtMAINPARTS=new DataTable();
         DataGridViewRow drMAINAPPLY = new DataGridViewRow();
         DataGridViewRow drMAINAPPLYOUT = new DataGridViewRow();
+        DataGridViewRow drMAINRECORD = new DataGridViewRow();
         string tablename = null;
         string EquipmentID;
         string MAINAPPLYID;
@@ -421,6 +422,7 @@ namespace TKMOC
             if (dataGridView4.Rows.Count >= 1)
             {
                 MAINRECORDID = dataGridView4.CurrentRow.Cells["ID"].Value.ToString();
+                drMAINRECORD = dataGridView4.Rows[dataGridView4.SelectedCells[0].RowIndex];
             }
         }
 
@@ -1143,6 +1145,140 @@ namespace TKMOC
             }
 
         }
+
+        public void PRINTMAINRECORD()
+        {
+            // 首先把建立的範本檔案讀入MemoryStream
+            //首先把建立的範本檔案讀入MemoryStream
+            System.IO.MemoryStream _memoryStream = new System.IO.MemoryStream(Properties.Resources.機械設備維修紀錄表);
+
+            //建立一個Document物件
+            //並傳入MemoryStream
+            Aspose.Words.Document doc = new Aspose.Words.Document(_memoryStream);
+
+            //新增一個DataTable
+            DataTable table = new DataTable();
+            //建立Column
+            table.Columns.Add("EQUIPMENTNAME");
+            table.Columns.Add("EQUIPMENTID");
+            table.Columns.Add("UNIT");
+            table.Columns.Add("ERROR");
+            table.Columns.Add("MAINDATEBEGIN");
+            table.Columns.Add("MAINDATEEND");
+            table.Columns.Add("MAINDATHR");
+            table.Columns.Add("MAINEMP");
+            table.Columns.Add("MALFUNCIONID");
+            table.Columns.Add("MAINSTATUS");
+            table.Columns.Add("MAINUSED");
+
+
+            //SELECT [EQUIPMENTID] AS '財產編號',[EQUIPMENTNAME] AS '設備名稱',[UNIT] AS '使用部門'
+            //,[ERROR] AS '故障情形',[MAINDATEBEGIN] AS '維修時間起',[MAINDATEEND] AS '維修時間迄'
+            //,[MAINDATHR] AS '維修時數',[MAINEMP] AS '維修人員',[MALFUNCIONID] AS '故障性質
+            //',[MAINSTATUS] AS '維修內容',[MAINUSED] AS '本次更換'
+            //透過建立的DataTable物件來New一個儲存資料的Row
+            DataRow row = table.NewRow();
+            //這些Row具有上面所建立相同的Column欄位
+            //因此可以直接指定欄位名稱將資料填入裡面       
+            DateTime dt = Convert.ToDateTime(drMAINRECORD.Cells["維修時間起"].Value.ToString());
+            DateTime dt2 = Convert.ToDateTime(drMAINRECORD.Cells["維修時間迄"].Value.ToString());
+            row["EQUIPMENTNAME"] = drMAINRECORD.Cells["設備名稱"].Value.ToString();
+            //row["APPDATE"] = dt.Year.ToString() + "年" + dt.Month.ToString() + "月" + dt.Day.ToString() + "日";
+            row["EQUIPMENTID"] = drMAINRECORD.Cells["財產編號"].Value.ToString(); 
+            row["UNIT"] = FindUNIT(drMAINRECORD.Cells["使用部門"].Value.ToString());
+            row["ERROR"] = drMAINRECORD.Cells["故障情形"].Value.ToString();
+            row["MAINDATEBEGIN"] = dt.ToString("yyyy/MM/dd hh:mm");
+            row["MAINDATEEND"] = dt2.ToString("yyyy/MM/dd hh:mm");
+            row["MAINDATHR"] = drMAINRECORD.Cells["維修時數"].Value.ToString();
+            row["MAINEMP"] = drMAINRECORD.Cells["維修人員"].Value.ToString();
+            row["MALFUNCIONID"] = FindMALFUNCION(drMAINRECORD.Cells["故障性質"].Value.ToString());
+            row["MAINSTATUS"] = drMAINRECORD.Cells["維修內容"].Value.ToString();
+            row["MAINUSED"] = drMAINRECORD.Cells["本次更換"].Value.ToString();
+
+
+
+            //把所建立的資料行加入Table的Row清單內
+            table.Rows.Add(row);
+
+
+            //將DataTable傳入Document的MailMerge.Execute()方法
+            doc.MailMerge.Execute(table);
+            //清空所有未被合併的功能變數
+            doc.MailMerge.DeleteFields();
+
+            if (Directory.Exists(@"c:\temp\"))
+            {
+                //資料夾存在
+            }
+            else
+            {
+                //新增資料夾
+                Directory.CreateDirectory(@"c:\temp\");
+            }
+            //將檔案儲存至c:\
+            StringBuilder filename = new StringBuilder();
+            filename.AppendFormat(@"c:\temp\機械設備維修紀錄表{0}.doc", DateTime.Now.ToString("yyyyMMdd"));
+            doc.Save(filename.ToString());
+
+            MessageBox.Show("匯出完成-文件放在-" + filename.ToString());
+            FileInfo fi = new FileInfo(filename.ToString());
+            if (fi.Exists)
+            {
+                System.Diagnostics.Process.Start(filename.ToString());
+            }
+            else
+            {
+                //file doesn't exist
+            }
+
+        }
+        public string FindMALFUNCION(string MALFUNCIONID)
+        {
+
+            DataSet ds = new DataSet();
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@" SELECT  [ID],[MALFUNCION]  FROM [TKMOC].[dbo].[MALFUNCION] WHERE   [ID] ='{0}'", MALFUNCIONID.ToString());
+
+                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder = new SqlCommandBuilder(adapter);
+                sqlConn.Open();
+                ds.Clear();
+                adapter.Fill(ds, "TEMPds");
+                sqlConn.Close();
+
+
+                if (ds.Tables["TEMPds"].Rows.Count == 0)
+                {
+                    return "";
+                }
+                else
+                {
+                    if (ds.Tables["TEMPds"].Rows.Count >= 1)
+                    {
+                        return ds.Tables["TEMPds"].Rows[0]["MALFUNCION"].ToString();
+                    }
+                    return "";
+                }
+
+            }
+            catch
+            {
+                return "";
+            }
+            finally
+            {
+
+            }
+
+        }
         #endregion
 
         #region BUTTION
@@ -1340,9 +1476,13 @@ namespace TKMOC
         {
             PRINTMAINAPPLYOUT();
         }
+        private void button32_Click(object sender, EventArgs e)
+        {
+            PRINTMAINRECORD();
+        }
 
         #endregion
 
-       
+
     }
 }

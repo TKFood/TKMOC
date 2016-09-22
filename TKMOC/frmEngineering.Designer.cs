@@ -1111,6 +1111,7 @@
             this.button32.TabIndex = 22;
             this.button32.Text = "列印";
             this.button32.UseVisualStyleBackColor = true;
+            this.button32.Click += new System.EventHandler(this.button32_Click);
             // 
             // button33
             // 

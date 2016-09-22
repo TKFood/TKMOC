@@ -237,6 +237,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <None Include="Resources\委外維修申請單.doc" />
+    <None Include="Resources\機械設備維修紀錄表.doc" />
     <None Include="Resources\維修申請單.doc" />
   </ItemGroup>
   <ItemGroup>
