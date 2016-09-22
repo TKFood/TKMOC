@@ -39,6 +39,7 @@ namespace TKMOC
         DataTable dtTemp3 = new DataTable();
         DataTable dtMAINPARTS=new DataTable();
         DataGridViewRow drMAINAPPLY = new DataGridViewRow();
+        DataGridViewRow drMAINAPPLYOUT = new DataGridViewRow();
         string tablename = null;
         string EquipmentID;
         string MAINAPPLYID;
@@ -359,6 +360,7 @@ namespace TKMOC
             if (dataGridView3.Rows.Count >= 1)
             {
                 MAINAPPLYOUTID = dataGridView3.CurrentRow.Cells["ID"].Value.ToString();
+                drMAINAPPLYOUT= dataGridView3.Rows[dataGridView3.SelectedCells[0].RowIndex];
             }
         }
 
@@ -960,6 +962,7 @@ namespace TKMOC
             row["UNIT"] = FindUNIT(drMAINAPPLY.Cells["申請單位"].Value.ToString());
             //row["APPDATE"] = dt.Year.ToString() + "年" + dt.Month.ToString() + "月" + dt.Day.ToString() + "日";
             row["APPDATE"] = dt.ToString("yyyy/MM/dd");
+            row["APPDATE"] = dt.ToString("yyyy/MM/dd");
             row["TIMES"] = dt.Hour.ToString() + ":" + dt.Minute.ToString();
             row["EQUIPMENTID"] = drMAINAPPLY.Cells["機台編號"].Value.ToString();
             row["EQUIPMENTNAME"] = drMAINAPPLY.Cells["設備名稱"].Value.ToString();
@@ -1054,6 +1057,91 @@ namespace TKMOC
                 
             }
             
+        }
+
+        public void PRINTMAINAPPLYOUT()
+        {
+            // 首先把建立的範本檔案讀入MemoryStream
+            //首先把建立的範本檔案讀入MemoryStream
+            System.IO.MemoryStream _memoryStream = new System.IO.MemoryStream(Properties.Resources.委外維修申請單);
+
+            //建立一個Document物件
+            //並傳入MemoryStream
+            Aspose.Words.Document doc = new Aspose.Words.Document(_memoryStream);
+
+            //新增一個DataTable
+            DataTable table = new DataTable();
+            //建立Column
+            table.Columns.Add("APPLYUNIT");
+            table.Columns.Add("EQUIPDATE");
+            table.Columns.Add("APPLYEMP");
+            table.Columns.Add("EQUIPMENTID");
+            table.Columns.Add("EQUIPMENTNAME");
+            table.Columns.Add("ERROR");
+            table.Columns.Add("STATUS");
+            table.Columns.Add("FACTROY");
+            table.Columns.Add("RETURNDATE");
+            table.Columns.Add("RECEIVEDATE");
+
+
+            //[APPLYUNIT] AS '申請單位',[EQUIPDATE] AS '出廠日期',[EQUIPMENTID] AS '設備編號'
+            //,[EQUIPMENTNAME] AS '設備名稱',[APPLYEMP] AS '申請人',[ERROR] AS '異常情形'
+            //,[STATUS] AS '原因及處理方式',[FACTROY] AS '維修廠商',[RETURNDATE] AS '預定回廠日'
+            //,[RECEIVEDATE] AS '接收日'
+            //透過建立的DataTable物件來New一個儲存資料的Row
+            DataRow row = table.NewRow();
+            //這些Row具有上面所建立相同的Column欄位
+            //因此可以直接指定欄位名稱將資料填入裡面       
+            DateTime dt = Convert.ToDateTime(drMAINAPPLYOUT.Cells["出廠日期"].Value.ToString());
+            DateTime dt2 = Convert.ToDateTime(drMAINAPPLYOUT.Cells["預定回廠日"].Value.ToString());
+            DateTime dt3 = Convert.ToDateTime(drMAINAPPLYOUT.Cells["接收日"].Value.ToString());
+            row["APPLYUNIT"] = FindUNIT(drMAINAPPLYOUT.Cells["申請單位"].Value.ToString());
+            //row["APPDATE"] = dt.Year.ToString() + "年" + dt.Month.ToString() + "月" + dt.Day.ToString() + "日";
+            row["EQUIPDATE"] = dt.ToString("yyyy/MM/dd");
+            row["APPLYEMP"] = drMAINAPPLYOUT.Cells["申請人"].Value.ToString();
+            row["EQUIPMENTID"] = drMAINAPPLYOUT.Cells["設備編號"].Value.ToString();
+            row["EQUIPMENTNAME"] = drMAINAPPLYOUT.Cells["設備名稱"].Value.ToString();
+            row["ERROR"] = drMAINAPPLYOUT.Cells["異常情形"].Value.ToString();
+            row["STATUS"] = drMAINAPPLYOUT.Cells["原因及處理方式"].Value.ToString();
+            row["FACTROY"] = drMAINAPPLYOUT.Cells["維修廠商"].Value.ToString();
+            row["RETURNDATE"] = dt2.ToString("yyyy/MM/dd");
+            row["RECEIVEDATE"] = dt3.ToString("yyyy/MM/dd");
+
+
+            //把所建立的資料行加入Table的Row清單內
+            table.Rows.Add(row);
+
+
+            //將DataTable傳入Document的MailMerge.Execute()方法
+            doc.MailMerge.Execute(table);
+            //清空所有未被合併的功能變數
+            doc.MailMerge.DeleteFields();
+
+            if (Directory.Exists(@"c:\temp\"))
+            {
+                //資料夾存在
+            }
+            else
+            {
+                //新增資料夾
+                Directory.CreateDirectory(@"c:\temp\");
+            }
+            //將檔案儲存至c:\
+            StringBuilder filename = new StringBuilder();
+            filename.AppendFormat(@"c:\temp\委外維修申請單{0}.doc", DateTime.Now.ToString("yyyyMMdd"));
+            doc.Save(filename.ToString());
+
+            MessageBox.Show("匯出完成-文件放在-" + filename.ToString());
+            FileInfo fi = new FileInfo(filename.ToString());
+            if (fi.Exists)
+            {
+                System.Diagnostics.Process.Start(filename.ToString());
+            }
+            else
+            {
+                //file doesn't exist
+            }
+
         }
         #endregion
 
@@ -1248,9 +1336,13 @@ namespace TKMOC
         {
             PRINTMAINAPPLY();
         }
+        private void button31_Click(object sender, EventArgs e)
+        {
+            PRINTMAINAPPLYOUT();
+        }
 
         #endregion
 
-
+       
     }
 }

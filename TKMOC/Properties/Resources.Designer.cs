@@ -73,6 +73,16 @@ namespace TKMOC.Properties {
         /// <summary>
         ///   查詢類型 System.Byte[] 的當地語系化資源。
         /// </summary>
+        internal static byte[] 委外維修申請單 {
+            get {
+                object obj = ResourceManager.GetObject("委外維修申請單", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類型 System.Byte[] 的當地語系化資源。
+        /// </summary>
         internal static byte[] 維修申請單 {
             get {
                 object obj = ResourceManager.GetObject("維修申請單", resourceCulture);

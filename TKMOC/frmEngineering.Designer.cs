@@ -40,6 +40,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.button28 = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -56,6 +57,7 @@
             this.button8 = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.dataGridView4 = new System.Windows.Forms.DataGridView();
+            this.button30 = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.button16 = new System.Windows.Forms.Button();
@@ -82,6 +84,7 @@
             this.button24 = new System.Windows.Forms.Button();
             this.button27 = new System.Windows.Forms.Button();
             this.button26 = new System.Windows.Forms.Button();
+            this.button29 = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.button11 = new System.Windows.Forms.Button();
@@ -93,9 +96,14 @@
             this.button13 = new System.Windows.Forms.Button();
             this.button14 = new System.Windows.Forms.Button();
             this.button15 = new System.Windows.Forms.Button();
-            this.button28 = new System.Windows.Forms.Button();
-            this.button29 = new System.Windows.Forms.Button();
-            this.button30 = new System.Windows.Forms.Button();
+            this.button31 = new System.Windows.Forms.Button();
+            this.button32 = new System.Windows.Forms.Button();
+            this.button33 = new System.Windows.Forms.Button();
+            this.button34 = new System.Windows.Forms.Button();
+            this.button35 = new System.Windows.Forms.Button();
+            this.button36 = new System.Windows.Forms.Button();
+            this.button37 = new System.Windows.Forms.Button();
+            this.button38 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -287,6 +295,16 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // button28
+            // 
+            this.button28.Location = new System.Drawing.Point(643, 3);
+            this.button28.Name = "button28";
+            this.button28.Size = new System.Drawing.Size(74, 34);
+            this.button28.TabIndex = 10;
+            this.button28.Text = "匯出";
+            this.button28.UseVisualStyleBackColor = true;
+            this.button28.Click += new System.EventHandler(this.button28_Click);
+            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
@@ -343,6 +361,8 @@
             this.tableLayoutPanel2.Controls.Add(this.label6, 0, 9);
             this.tableLayoutPanel2.Controls.Add(this.dataGridView4, 0, 10);
             this.tableLayoutPanel2.Controls.Add(this.button30, 5, 1);
+            this.tableLayoutPanel2.Controls.Add(this.button31, 5, 5);
+            this.tableLayoutPanel2.Controls.Add(this.button32, 5, 9);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -511,6 +531,16 @@
             this.dataGridView4.TabIndex = 15;
             this.dataGridView4.SelectionChanged += new System.EventHandler(this.dataGridView4_SelectionChanged);
             // 
+            // button30
+            // 
+            this.button30.Location = new System.Drawing.Point(403, 43);
+            this.button30.Name = "button30";
+            this.button30.Size = new System.Drawing.Size(74, 34);
+            this.button30.TabIndex = 20;
+            this.button30.Text = "列印";
+            this.button30.UseVisualStyleBackColor = true;
+            this.button30.Click += new System.EventHandler(this.button30_Click);
+            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.tableLayoutPanel3);
@@ -553,6 +583,9 @@
             this.tableLayoutPanel3.Controls.Add(this.button20, 3, 9);
             this.tableLayoutPanel3.Controls.Add(this.button21, 4, 5);
             this.tableLayoutPanel3.Controls.Add(this.button22, 4, 9);
+            this.tableLayoutPanel3.Controls.Add(this.button33, 5, 1);
+            this.tableLayoutPanel3.Controls.Add(this.button34, 5, 5);
+            this.tableLayoutPanel3.Controls.Add(this.button35, 5, 9);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -761,6 +794,7 @@
             this.tableLayoutPanel4.Controls.Add(this.button27, 4, 1);
             this.tableLayoutPanel4.Controls.Add(this.button26, 4, 5);
             this.tableLayoutPanel4.Controls.Add(this.button29, 5, 1);
+            this.tableLayoutPanel4.Controls.Add(this.button36, 5, 5);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
@@ -885,6 +919,16 @@
             this.button26.UseVisualStyleBackColor = true;
             this.button26.Click += new System.EventHandler(this.button26_Click);
             // 
+            // button29
+            // 
+            this.button29.Location = new System.Drawing.Point(403, 43);
+            this.button29.Name = "button29";
+            this.button29.Size = new System.Drawing.Size(74, 34);
+            this.button29.TabIndex = 22;
+            this.button29.Text = "匯出";
+            this.button29.UseVisualStyleBackColor = true;
+            this.button29.Click += new System.EventHandler(this.button29_Click);
+            // 
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.tableLayoutPanel5);
@@ -923,6 +967,8 @@
             this.tableLayoutPanel5.Controls.Add(this.button13, 4, 1);
             this.tableLayoutPanel5.Controls.Add(this.button14, 3, 5);
             this.tableLayoutPanel5.Controls.Add(this.button15, 4, 5);
+            this.tableLayoutPanel5.Controls.Add(this.button37, 5, 5);
+            this.tableLayoutPanel5.Controls.Add(this.button38, 5, 1);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
@@ -940,6 +986,7 @@
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel5.Size = new System.Drawing.Size(967, 591);
@@ -1046,35 +1093,78 @@
             this.button15.UseVisualStyleBackColor = true;
             this.button15.Click += new System.EventHandler(this.button15_Click);
             // 
-            // button28
+            // button31
             // 
-            this.button28.Location = new System.Drawing.Point(643, 3);
-            this.button28.Name = "button28";
-            this.button28.Size = new System.Drawing.Size(74, 34);
-            this.button28.TabIndex = 10;
-            this.button28.Text = "匯出";
-            this.button28.UseVisualStyleBackColor = true;
-            this.button28.Click += new System.EventHandler(this.button28_Click);
+            this.button31.Location = new System.Drawing.Point(403, 203);
+            this.button31.Name = "button31";
+            this.button31.Size = new System.Drawing.Size(74, 34);
+            this.button31.TabIndex = 21;
+            this.button31.Text = "列印";
+            this.button31.UseVisualStyleBackColor = true;
+            this.button31.Click += new System.EventHandler(this.button31_Click);
             // 
-            // button29
+            // button32
             // 
-            this.button29.Location = new System.Drawing.Point(403, 43);
-            this.button29.Name = "button29";
-            this.button29.Size = new System.Drawing.Size(74, 34);
-            this.button29.TabIndex = 22;
-            this.button29.Text = "匯出";
-            this.button29.UseVisualStyleBackColor = true;
-            this.button29.Click += new System.EventHandler(this.button29_Click);
+            this.button32.Location = new System.Drawing.Point(403, 363);
+            this.button32.Name = "button32";
+            this.button32.Size = new System.Drawing.Size(74, 34);
+            this.button32.TabIndex = 22;
+            this.button32.Text = "列印";
+            this.button32.UseVisualStyleBackColor = true;
             // 
-            // button30
+            // button33
             // 
-            this.button30.Location = new System.Drawing.Point(403, 43);
-            this.button30.Name = "button30";
-            this.button30.Size = new System.Drawing.Size(74, 34);
-            this.button30.TabIndex = 20;
-            this.button30.Text = "列印";
-            this.button30.UseVisualStyleBackColor = true;
-            this.button30.Click += new System.EventHandler(this.button30_Click);
+            this.button33.Location = new System.Drawing.Point(403, 43);
+            this.button33.Name = "button33";
+            this.button33.Size = new System.Drawing.Size(74, 34);
+            this.button33.TabIndex = 23;
+            this.button33.Text = "列印";
+            this.button33.UseVisualStyleBackColor = true;
+            // 
+            // button34
+            // 
+            this.button34.Location = new System.Drawing.Point(403, 203);
+            this.button34.Name = "button34";
+            this.button34.Size = new System.Drawing.Size(74, 34);
+            this.button34.TabIndex = 24;
+            this.button34.Text = "列印";
+            this.button34.UseVisualStyleBackColor = true;
+            // 
+            // button35
+            // 
+            this.button35.Location = new System.Drawing.Point(403, 363);
+            this.button35.Name = "button35";
+            this.button35.Size = new System.Drawing.Size(74, 34);
+            this.button35.TabIndex = 25;
+            this.button35.Text = "列印";
+            this.button35.UseVisualStyleBackColor = true;
+            // 
+            // button36
+            // 
+            this.button36.Location = new System.Drawing.Point(403, 203);
+            this.button36.Name = "button36";
+            this.button36.Size = new System.Drawing.Size(74, 34);
+            this.button36.TabIndex = 24;
+            this.button36.Text = "列印";
+            this.button36.UseVisualStyleBackColor = true;
+            // 
+            // button37
+            // 
+            this.button37.Location = new System.Drawing.Point(403, 203);
+            this.button37.Name = "button37";
+            this.button37.Size = new System.Drawing.Size(74, 34);
+            this.button37.TabIndex = 24;
+            this.button37.Text = "列印";
+            this.button37.UseVisualStyleBackColor = true;
+            // 
+            // button38
+            // 
+            this.button38.Location = new System.Drawing.Point(403, 43);
+            this.button38.Name = "button38";
+            this.button38.Size = new System.Drawing.Size(74, 34);
+            this.button38.TabIndex = 25;
+            this.button38.Text = "列印";
+            this.button38.UseVisualStyleBackColor = true;
             // 
             // frmEngineering
             // 
@@ -1189,5 +1279,13 @@
         private System.Windows.Forms.Button button28;
         private System.Windows.Forms.Button button29;
         private System.Windows.Forms.Button button30;
+        private System.Windows.Forms.Button button31;
+        private System.Windows.Forms.Button button32;
+        private System.Windows.Forms.Button button33;
+        private System.Windows.Forms.Button button34;
+        private System.Windows.Forms.Button button35;
+        private System.Windows.Forms.Button button36;
+        private System.Windows.Forms.Button button37;
+        private System.Windows.Forms.Button button38;
     }
 }
