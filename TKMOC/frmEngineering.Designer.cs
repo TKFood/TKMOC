@@ -58,6 +58,8 @@
             this.label6 = new System.Windows.Forms.Label();
             this.dataGridView4 = new System.Windows.Forms.DataGridView();
             this.button30 = new System.Windows.Forms.Button();
+            this.button31 = new System.Windows.Forms.Button();
+            this.button32 = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.button16 = new System.Windows.Forms.Button();
@@ -73,6 +75,9 @@
             this.button20 = new System.Windows.Forms.Button();
             this.button21 = new System.Windows.Forms.Button();
             this.button22 = new System.Windows.Forms.Button();
+            this.button33 = new System.Windows.Forms.Button();
+            this.button34 = new System.Windows.Forms.Button();
+            this.button35 = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.dataGridView11 = new System.Windows.Forms.DataGridView();
@@ -85,6 +90,7 @@
             this.button27 = new System.Windows.Forms.Button();
             this.button26 = new System.Windows.Forms.Button();
             this.button29 = new System.Windows.Forms.Button();
+            this.button36 = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.button11 = new System.Windows.Forms.Button();
@@ -96,12 +102,6 @@
             this.button13 = new System.Windows.Forms.Button();
             this.button14 = new System.Windows.Forms.Button();
             this.button15 = new System.Windows.Forms.Button();
-            this.button31 = new System.Windows.Forms.Button();
-            this.button32 = new System.Windows.Forms.Button();
-            this.button33 = new System.Windows.Forms.Button();
-            this.button34 = new System.Windows.Forms.Button();
-            this.button35 = new System.Windows.Forms.Button();
-            this.button36 = new System.Windows.Forms.Button();
             this.button37 = new System.Windows.Forms.Button();
             this.button38 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -541,6 +541,26 @@
             this.button30.UseVisualStyleBackColor = true;
             this.button30.Click += new System.EventHandler(this.button30_Click);
             // 
+            // button31
+            // 
+            this.button31.Location = new System.Drawing.Point(403, 203);
+            this.button31.Name = "button31";
+            this.button31.Size = new System.Drawing.Size(74, 34);
+            this.button31.TabIndex = 21;
+            this.button31.Text = "列印";
+            this.button31.UseVisualStyleBackColor = true;
+            this.button31.Click += new System.EventHandler(this.button31_Click);
+            // 
+            // button32
+            // 
+            this.button32.Location = new System.Drawing.Point(403, 363);
+            this.button32.Name = "button32";
+            this.button32.Size = new System.Drawing.Size(74, 34);
+            this.button32.TabIndex = 22;
+            this.button32.Text = "列印";
+            this.button32.UseVisualStyleBackColor = true;
+            this.button32.Click += new System.EventHandler(this.button32_Click);
+            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.tableLayoutPanel3);
@@ -755,6 +775,34 @@
             this.button22.UseVisualStyleBackColor = true;
             this.button22.Click += new System.EventHandler(this.button22_Click);
             // 
+            // button33
+            // 
+            this.button33.Location = new System.Drawing.Point(403, 43);
+            this.button33.Name = "button33";
+            this.button33.Size = new System.Drawing.Size(74, 34);
+            this.button33.TabIndex = 23;
+            this.button33.Text = "匯出";
+            this.button33.UseVisualStyleBackColor = true;
+            this.button33.Click += new System.EventHandler(this.button33_Click);
+            // 
+            // button34
+            // 
+            this.button34.Location = new System.Drawing.Point(403, 203);
+            this.button34.Name = "button34";
+            this.button34.Size = new System.Drawing.Size(74, 34);
+            this.button34.TabIndex = 24;
+            this.button34.Text = "列印";
+            this.button34.UseVisualStyleBackColor = true;
+            // 
+            // button35
+            // 
+            this.button35.Location = new System.Drawing.Point(403, 363);
+            this.button35.Name = "button35";
+            this.button35.Size = new System.Drawing.Size(74, 34);
+            this.button35.TabIndex = 25;
+            this.button35.Text = "列印";
+            this.button35.UseVisualStyleBackColor = true;
+            // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.tableLayoutPanel4);
@@ -929,6 +977,15 @@
             this.button29.UseVisualStyleBackColor = true;
             this.button29.Click += new System.EventHandler(this.button29_Click);
             // 
+            // button36
+            // 
+            this.button36.Location = new System.Drawing.Point(403, 203);
+            this.button36.Name = "button36";
+            this.button36.Size = new System.Drawing.Size(74, 34);
+            this.button36.TabIndex = 24;
+            this.button36.Text = "列印";
+            this.button36.UseVisualStyleBackColor = true;
+            // 
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.tableLayoutPanel5);
@@ -1092,62 +1149,6 @@
             this.button15.Text = "修改";
             this.button15.UseVisualStyleBackColor = true;
             this.button15.Click += new System.EventHandler(this.button15_Click);
-            // 
-            // button31
-            // 
-            this.button31.Location = new System.Drawing.Point(403, 203);
-            this.button31.Name = "button31";
-            this.button31.Size = new System.Drawing.Size(74, 34);
-            this.button31.TabIndex = 21;
-            this.button31.Text = "列印";
-            this.button31.UseVisualStyleBackColor = true;
-            this.button31.Click += new System.EventHandler(this.button31_Click);
-            // 
-            // button32
-            // 
-            this.button32.Location = new System.Drawing.Point(403, 363);
-            this.button32.Name = "button32";
-            this.button32.Size = new System.Drawing.Size(74, 34);
-            this.button32.TabIndex = 22;
-            this.button32.Text = "列印";
-            this.button32.UseVisualStyleBackColor = true;
-            this.button32.Click += new System.EventHandler(this.button32_Click);
-            // 
-            // button33
-            // 
-            this.button33.Location = new System.Drawing.Point(403, 43);
-            this.button33.Name = "button33";
-            this.button33.Size = new System.Drawing.Size(74, 34);
-            this.button33.TabIndex = 23;
-            this.button33.Text = "列印";
-            this.button33.UseVisualStyleBackColor = true;
-            // 
-            // button34
-            // 
-            this.button34.Location = new System.Drawing.Point(403, 203);
-            this.button34.Name = "button34";
-            this.button34.Size = new System.Drawing.Size(74, 34);
-            this.button34.TabIndex = 24;
-            this.button34.Text = "列印";
-            this.button34.UseVisualStyleBackColor = true;
-            // 
-            // button35
-            // 
-            this.button35.Location = new System.Drawing.Point(403, 363);
-            this.button35.Name = "button35";
-            this.button35.Size = new System.Drawing.Size(74, 34);
-            this.button35.TabIndex = 25;
-            this.button35.Text = "列印";
-            this.button35.UseVisualStyleBackColor = true;
-            // 
-            // button36
-            // 
-            this.button36.Location = new System.Drawing.Point(403, 203);
-            this.button36.Name = "button36";
-            this.button36.Size = new System.Drawing.Size(74, 34);
-            this.button36.TabIndex = 24;
-            this.button36.Text = "列印";
-            this.button36.UseVisualStyleBackColor = true;
             // 
             // button37
             // 
