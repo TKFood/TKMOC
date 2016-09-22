@@ -591,9 +591,7 @@
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tableLayoutPanel3.Controls.Add(this.button16, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.label10, 0, 5);
             this.tableLayoutPanel3.Controls.Add(this.label11, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.label9, 0, 9);
             this.tableLayoutPanel3.Controls.Add(this.dataGridView7, 0, 2);
             this.tableLayoutPanel3.Controls.Add(this.dataGridView9, 0, 10);
             this.tableLayoutPanel3.Controls.Add(this.dataGridView8, 0, 6);
@@ -604,8 +602,10 @@
             this.tableLayoutPanel3.Controls.Add(this.button21, 4, 5);
             this.tableLayoutPanel3.Controls.Add(this.button22, 4, 9);
             this.tableLayoutPanel3.Controls.Add(this.button33, 5, 1);
-            this.tableLayoutPanel3.Controls.Add(this.button34, 5, 5);
-            this.tableLayoutPanel3.Controls.Add(this.button35, 5, 9);
+            this.tableLayoutPanel3.Controls.Add(this.label10, 0, 9);
+            this.tableLayoutPanel3.Controls.Add(this.label9, 0, 5);
+            this.tableLayoutPanel3.Controls.Add(this.button34, 5, 9);
+            this.tableLayoutPanel3.Controls.Add(this.button35, 5, 5);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -642,7 +642,7 @@
             this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label10.AutoSize = true;
             this.tableLayoutPanel3.SetColumnSpan(this.label10, 3);
-            this.label10.Location = new System.Drawing.Point(3, 214);
+            this.label10.Location = new System.Drawing.Point(3, 374);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(234, 12);
             this.label10.TabIndex = 12;
@@ -666,7 +666,7 @@
             this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label9.AutoSize = true;
             this.tableLayoutPanel3.SetColumnSpan(this.label9, 3);
-            this.label9.Location = new System.Drawing.Point(3, 374);
+            this.label9.Location = new System.Drawing.Point(3, 214);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(234, 12);
             this.label9.TabIndex = 11;
@@ -787,16 +787,17 @@
             // 
             // button34
             // 
-            this.button34.Location = new System.Drawing.Point(403, 203);
+            this.button34.Location = new System.Drawing.Point(403, 363);
             this.button34.Name = "button34";
             this.button34.Size = new System.Drawing.Size(74, 34);
             this.button34.TabIndex = 24;
-            this.button34.Text = "列印";
+            this.button34.Text = "匯出";
             this.button34.UseVisualStyleBackColor = true;
+            this.button34.Click += new System.EventHandler(this.button34_Click);
             // 
             // button35
             // 
-            this.button35.Location = new System.Drawing.Point(403, 363);
+            this.button35.Location = new System.Drawing.Point(403, 203);
             this.button35.Name = "button35";
             this.button35.Size = new System.Drawing.Size(74, 34);
             this.button35.TabIndex = 25;

@@ -39,9 +39,11 @@ namespace TKMOC
         DataTable dtTemp3 = new DataTable();
         DataTable dtMAINPARTS=new DataTable();
         DataTable dtMACHINEDAILYCHECK = new DataTable();
+        DataTable dtMACHINEMAINWEEK = new DataTable();
         DataGridViewRow drMAINAPPLY = new DataGridViewRow();
         DataGridViewRow drMAINAPPLYOUT = new DataGridViewRow();
         DataGridViewRow drMAINRECORD = new DataGridViewRow();
+
         string tablename = null;
         string EquipmentID;
         string MAINAPPLYID;
@@ -698,6 +700,7 @@ namespace TKMOC
                     {
                         dataGridView9.DataSource = ds.Tables["TEMPds"];
                         dataGridView9.AutoResizeColumns();
+                        dtMACHINEMAINWEEK = ds.Tables["TEMPds"];
 
                     }
                 }
@@ -1373,6 +1376,91 @@ namespace TKMOC
 
 
         }
+        public void ExcelExportMACHINEMAINWEEK()
+        {
+
+            string NowDB = "TK";
+            //建立Excel 2003檔案
+            IWorkbook wb = new XSSFWorkbook();
+            ISheet ws;
+
+            XSSFCellStyle cs = (XSSFCellStyle)wb.CreateCellStyle();
+            //框線樣式及顏色
+            cs.BorderBottom = NPOI.SS.UserModel.BorderStyle.Double;
+            cs.BorderLeft = NPOI.SS.UserModel.BorderStyle.Thin;
+            cs.BorderRight = NPOI.SS.UserModel.BorderStyle.Thin;
+            cs.BorderTop = NPOI.SS.UserModel.BorderStyle.Thin;
+            cs.BottomBorderColor = NPOI.HSSF.Util.HSSFColor.Grey50Percent.Index;
+            cs.LeftBorderColor = NPOI.HSSF.Util.HSSFColor.Grey50Percent.Index;
+            cs.RightBorderColor = NPOI.HSSF.Util.HSSFColor.Grey50Percent.Index;
+            cs.TopBorderColor = NPOI.HSSF.Util.HSSFColor.Grey50Percent.Index;
+
+            //Search();            
+            dt = dtMACHINEMAINWEEK;
+
+            if (dt.TableName != string.Empty)
+            {
+                ws = wb.CreateSheet(dt.TableName);
+            }
+            else
+            {
+                ws = wb.CreateSheet("Sheet1");
+            }
+
+            ws.CreateRow(0);//第一行為欄位名稱
+            for (int i = 0; i < dt.Columns.Count; i++)
+            {
+                ws.GetRow(0).CreateCell(i).SetCellValue(dt.Columns[i].ColumnName);
+            }
+
+            int j = 0;
+            int k = dataGridView9.Rows.Count;
+            foreach (DataGridViewRow dr in this.dataGridView9.Rows)
+            {
+                ws.CreateRow(j + 1);
+                ws.GetRow(j + 1).CreateCell(0).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[0].ToString());
+                ws.GetRow(j + 1).CreateCell(1).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[1].ToString());
+                ws.GetRow(j + 1).CreateCell(2).SetCellValue(FindUNIT(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[2].ToString()));
+                ws.GetRow(j + 1).CreateCell(3).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[3].ToString());
+                ws.GetRow(j + 1).CreateCell(4).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[4].ToString());
+                ws.GetRow(j + 1).CreateCell(5).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[5].ToString());
+                ws.GetRow(j + 1).CreateCell(6).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[6].ToString());
+                ws.GetRow(j + 1).CreateCell(7).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[7].ToString());
+                ws.GetRow(j + 1).CreateCell(8).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[8].ToString());
+            
+                //ws.GetRow(j + 1).CreateCell(3).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[3].ToString()));
+                j++;
+            }
+
+            if (Directory.Exists(@"c:\temp\"))
+            {
+                //資料夾存在
+            }
+            else
+            {
+                //新增資料夾
+                Directory.CreateDirectory(@"c:\temp\");
+            }
+            StringBuilder filename = new StringBuilder();
+            filename.AppendFormat(@"c:\temp\定期維護保養計晝表{0}.xlsx", DateTime.Now.ToString("yyyyMMdd"));
+
+            FileStream file = new FileStream(filename.ToString(), FileMode.Create);//產生檔案
+            wb.Write(file);
+            file.Close();
+
+            MessageBox.Show("匯出完成-EXCEL放在-" + filename.ToString());
+            FileInfo fi = new FileInfo(filename.ToString());
+            if (fi.Exists)
+            {
+                System.Diagnostics.Process.Start(filename.ToString());
+            }
+            else
+            {
+                //file doesn't exist
+            }
+
+
+        }
 
         #endregion
 
@@ -1578,6 +1666,10 @@ namespace TKMOC
         private void button33_Click(object sender, EventArgs e)
         {
             ExcelExportMACHINEDAILYCHECK();
+        }
+        private void button34_Click(object sender, EventArgs e)
+        {
+            ExcelExportMACHINEMAINWEEK();
         }
 
         #endregion
