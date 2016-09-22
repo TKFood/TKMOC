@@ -29,61 +29,59 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.label39 = new System.Windows.Forms.Label();
+            this.label38 = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
-            this.label26 = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
-            this.label28 = new System.Windows.Forms.Label();
-            this.label29 = new System.Windows.Forms.Label();
-            this.label30 = new System.Windows.Forms.Label();
-            this.label31 = new System.Windows.Forms.Label();
-            this.label32 = new System.Windows.Forms.Label();
-            this.label33 = new System.Windows.Forms.Label();
-            this.label34 = new System.Windows.Forms.Label();
-            this.label35 = new System.Windows.Forms.Label();
-            this.label36 = new System.Windows.Forms.Label();
-            this.label37 = new System.Windows.Forms.Label();
-            this.label38 = new System.Windows.Forms.Label();
-            this.label39 = new System.Windows.Forms.Label();
-            this.label40 = new System.Windows.Forms.Label();
-            this.label41 = new System.Windows.Forms.Label();
-            this.label42 = new System.Windows.Forms.Label();
-            this.label43 = new System.Windows.Forms.Label();
+            this.label50 = new System.Windows.Forms.Label();
             this.label44 = new System.Windows.Forms.Label();
             this.label45 = new System.Windows.Forms.Label();
             this.label46 = new System.Windows.Forms.Label();
             this.label47 = new System.Windows.Forms.Label();
             this.label48 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label37 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label40 = new System.Windows.Forms.Label();
+            this.label41 = new System.Windows.Forms.Label();
+            this.label42 = new System.Windows.Forms.Label();
+            this.label43 = new System.Windows.Forms.Label();
             this.label49 = new System.Windows.Forms.Label();
-            this.label50 = new System.Windows.Forms.Label();
+            this.label36 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.label51 = new System.Windows.Forms.Label();
             this.label52 = new System.Windows.Forms.Label();
             this.label53 = new System.Windows.Forms.Label();
@@ -94,6 +92,7 @@
             this.label58 = new System.Windows.Forms.Label();
             this.label59 = new System.Windows.Forms.Label();
             this.label60 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
@@ -129,18 +128,19 @@
             this.numericUpDown30 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown31 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown32 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown33 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown34 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown35 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown36 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown37 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown38 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown39 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown40 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown41 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown42 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown43 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown42 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown41 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown40 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown39 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown38 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown37 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown36 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown35 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown34 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown33 = new System.Windows.Forms.NumericUpDown();
             this.textBox5 = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
@@ -181,17 +181,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown30)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown31)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown32)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown33)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown34)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown35)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown36)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown37)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown38)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown39)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown40)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown41)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown42)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown43)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown42)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown41)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown40)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown39)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown38)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown37)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown36)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown35)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown34)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown33)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -213,7 +213,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 81F));
             this.tableLayoutPanel1.Controls.Add(this.label39, 14, 4);
             this.tableLayoutPanel1.Controls.Add(this.label38, 13, 4);
             this.tableLayoutPanel1.Controls.Add(this.label34, 9, 4);
@@ -359,6 +359,214 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(984, 829);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
+            // label39
+            // 
+            this.label39.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label39.AutoSize = true;
+            this.label39.Location = new System.Drawing.Point(1138, 179);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(75, 12);
+            this.label39.TabIndex = 43;
+            this.label39.Text = "日期";
+            // 
+            // label38
+            // 
+            this.label38.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label38.AutoSize = true;
+            this.label38.Location = new System.Drawing.Point(1057, 179);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(74, 12);
+            this.label38.TabIndex = 42;
+            this.label38.Text = "日期";
+            // 
+            // label34
+            // 
+            this.label34.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(733, 179);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(74, 12);
+            this.label34.TabIndex = 38;
+            this.label34.Text = "人數(4)";
+            // 
+            // label33
+            // 
+            this.label33.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(652, 173);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(74, 24);
+            this.label33.TabIndex = 37;
+            this.label33.Text = "水面製造時間(分)(3)";
+            // 
+            // label32
+            // 
+            this.label32.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(571, 173);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(74, 24);
+            this.label32.TabIndex = 36;
+            this.label32.Text = "油酥可回收餅麩(2)";
+            // 
+            // label31
+            // 
+            this.label31.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(490, 179);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(74, 12);
+            this.label31.TabIndex = 35;
+            this.label31.Text = "油酥原料(1)";
+            // 
+            // label30
+            // 
+            this.label30.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(409, 179);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(74, 12);
+            this.label30.TabIndex = 34;
+            this.label30.Text = "製造人數";
+            // 
+            // label29
+            // 
+            this.label29.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(328, 179);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(74, 12);
+            this.label29.TabIndex = 33;
+            this.label29.Text = "製造時間(分)";
+            // 
+            // label28
+            // 
+            this.label28.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(247, 173);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(74, 24);
+            this.label28.TabIndex = 32;
+            this.label28.Text = "預計投入量(kg)";
+            // 
+            // label27
+            // 
+            this.label27.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(166, 179);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(74, 12);
+            this.label27.TabIndex = 31;
+            this.label27.Text = "品號/品名";
+            // 
+            // label26
+            // 
+            this.label26.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(85, 179);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(74, 12);
+            this.label26.TabIndex = 30;
+            this.label26.Text = "製令單號";
+            // 
+            // label25
+            // 
+            this.label25.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(4, 179);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(74, 12);
+            this.label25.TabIndex = 29;
+            this.label25.Text = "日期";
+            // 
+            // label24
+            // 
+            this.label24.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(1138, 138);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(75, 12);
+            this.label24.TabIndex = 28;
+            this.label24.Text = "日期";
+            // 
+            // label23
+            // 
+            this.label23.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(1057, 138);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(74, 12);
+            this.label23.TabIndex = 27;
+            this.label23.Text = "日期";
+            // 
+            // label20
+            // 
+            this.label20.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(1138, 97);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(75, 12);
+            this.label20.TabIndex = 24;
+            this.label20.Text = "日期";
+            // 
+            // label19
+            // 
+            this.label19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(1057, 97);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(74, 12);
+            this.label19.TabIndex = 23;
+            this.label19.Text = "日期";
+            // 
+            // label16
+            // 
+            this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(1138, 56);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(75, 12);
+            this.label16.TabIndex = 20;
+            this.label16.Text = "日期";
+            // 
+            // label15
+            // 
+            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(1057, 56);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(74, 12);
+            this.label15.TabIndex = 19;
+            this.label15.Text = "日期";
+            // 
+            // label12
+            // 
+            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(1138, 15);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(75, 12);
+            this.label12.TabIndex = 16;
+            this.label12.Text = "日期";
+            // 
+            // label11
+            // 
+            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(1057, 15);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(74, 12);
+            this.label11.TabIndex = 15;
+            this.label11.Text = "日期";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox2.Location = new System.Drawing.Point(409, 10);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(74, 22);
+            this.textBox2.TabIndex = 7;
+            // 
             // dateTimePicker1
             // 
             this.dateTimePicker1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -376,17 +584,6 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(74, 22);
             this.textBox1.TabIndex = 1;
-            // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(490, 4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(74, 34);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "查詢";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // dataGridView1
             // 
@@ -432,413 +629,15 @@
             this.label3.TabIndex = 6;
             this.label3.Text = "品號";
             // 
-            // textBox2
-            // 
-            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox2.Location = new System.Drawing.Point(409, 10);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(74, 22);
-            this.textBox2.TabIndex = 7;
-            // 
-            // label4
-            // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(328, 337);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(74, 24);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "製造課不良-成型邊料(kg)";
-            // 
-            // label5
-            // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(571, 255);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(74, 24);
-            this.label5.TabIndex = 9;
-            this.label5.Text = "烤前單片重量(g)";
-            // 
-            // label6
-            // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(652, 255);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(74, 24);
-            this.label6.TabIndex = 10;
-            this.label6.Text = "烤後單片重量(g)";
-            // 
-            // label7
-            // 
-            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(733, 261);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(74, 12);
-            this.label7.TabIndex = 11;
-            this.label7.Text = "每排數量";
-            // 
-            // label8
-            // 
-            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(814, 261);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(74, 12);
-            this.label8.TabIndex = 12;
-            this.label8.Text = "刀數";
-            // 
-            // label9
-            // 
-            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(166, 425);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(74, 12);
-            this.label9.TabIndex = 13;
-            this.label9.Text = "備註";
-            // 
-            // label10
-            // 
-            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(247, 337);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(74, 24);
-            this.label10.TabIndex = 14;
-            this.label10.Text = "製造課不良-攪拌(kg)";
-            // 
-            // label11
-            // 
-            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(1057, 15);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(74, 12);
-            this.label11.TabIndex = 15;
-            this.label11.Text = "日期";
-            // 
-            // label12
-            // 
-            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(1138, 15);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(74, 12);
-            this.label12.TabIndex = 16;
-            this.label12.Text = "日期";
-            // 
-            // label13
-            // 
-            this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(85, 413);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(74, 36);
-            this.label13.TabIndex = 17;
-            this.label13.Text = "半成品入庫數(kg) (含袋重)";
-            // 
-            // label14
-            // 
-            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(166, 343);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(74, 12);
-            this.label14.TabIndex = 18;
-            this.label14.Text = "預計產出(kg)";
-            // 
-            // label15
-            // 
-            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(1057, 56);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(74, 12);
-            this.label15.TabIndex = 19;
-            this.label15.Text = "日期";
-            // 
-            // label16
-            // 
-            this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(1138, 56);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(74, 12);
-            this.label16.TabIndex = 20;
-            this.label16.Text = "日期";
-            // 
-            // label17
-            // 
-            this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(4, 419);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(74, 24);
-            this.label17.TabIndex = 21;
-            this.label17.Text = "實際產出(kg)(裸餅)\t";
-            // 
-            // label18
-            // 
-            this.label18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(85, 337);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(74, 24);
-            this.label18.TabIndex = 22;
-            this.label18.Text = "烤後實際總投入(kg)";
-            // 
-            // label19
-            // 
-            this.label19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(1057, 97);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(74, 12);
-            this.label19.TabIndex = 23;
-            this.label19.Text = "日期";
-            // 
-            // label20
-            // 
-            this.label20.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(1138, 97);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(74, 12);
-            this.label20.TabIndex = 24;
-            this.label20.Text = "日期";
-            // 
-            // label21
-            // 
-            this.label21.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(490, 255);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(74, 24);
-            this.label21.TabIndex = 25;
-            this.label21.Text = "未熟烤焙時間(12)(分)";
-            // 
-            // label22
-            // 
-            this.label22.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(4, 337);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(74, 24);
-            this.label22.TabIndex = 26;
-            this.label22.Text = "烤前實際總投入(kg)";
-            // 
-            // label23
-            // 
-            this.label23.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(1057, 138);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(74, 12);
-            this.label23.TabIndex = 27;
-            this.label23.Text = "日期";
-            // 
-            // label24
-            // 
-            this.label24.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(1138, 138);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(74, 12);
-            this.label24.TabIndex = 28;
-            this.label24.Text = "日期";
-            // 
-            // label25
-            // 
-            this.label25.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(4, 179);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(74, 12);
-            this.label25.TabIndex = 29;
-            this.label25.Text = "日期";
-            // 
-            // label26
-            // 
-            this.label26.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(85, 179);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(74, 12);
-            this.label26.TabIndex = 30;
-            this.label26.Text = "製令單號";
-            // 
-            // label27
-            // 
-            this.label27.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(166, 179);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(74, 12);
-            this.label27.TabIndex = 31;
-            this.label27.Text = "品號/品名";
-            // 
-            // label28
-            // 
-            this.label28.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(247, 173);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(74, 24);
-            this.label28.TabIndex = 32;
-            this.label28.Text = "預計投入量(kg)";
-            // 
-            // label29
-            // 
-            this.label29.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(328, 179);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(74, 12);
-            this.label29.TabIndex = 33;
-            this.label29.Text = "製造時間(分)";
-            // 
-            // label30
-            // 
-            this.label30.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(409, 179);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(74, 12);
-            this.label30.TabIndex = 34;
-            this.label30.Text = "製造人數";
-            // 
-            // label31
-            // 
-            this.label31.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(490, 179);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(74, 12);
-            this.label31.TabIndex = 35;
-            this.label31.Text = "油酥原料(1)";
-            // 
-            // label32
-            // 
-            this.label32.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(571, 173);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(74, 24);
-            this.label32.TabIndex = 36;
-            this.label32.Text = "油酥可回收餅麩(2)";
-            // 
-            // label33
-            // 
-            this.label33.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(652, 173);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(74, 24);
-            this.label33.TabIndex = 37;
-            this.label33.Text = "水面製造時間(分)(3)";
-            // 
-            // label34
-            // 
-            this.label34.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(733, 179);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(74, 12);
-            this.label34.TabIndex = 38;
-            this.label34.Text = "人數(4)";
-            // 
-            // label35
-            // 
-            this.label35.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(814, 179);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(74, 12);
-            this.label35.TabIndex = 39;
-            this.label35.Text = "水面原料(5)";
-            // 
-            // label36
-            // 
-            this.label36.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(814, 337);
-            this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(74, 24);
-            this.label36.TabIndex = 40;
-            this.label36.Text = "包裝投入(袋(卷),罐)";
-            // 
-            // label37
-            // 
-            this.label37.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(4, 507);
-            this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(74, 12);
-            this.label37.TabIndex = 41;
-            this.label37.Text = "製造工時";
-            // 
-            // label38
-            // 
-            this.label38.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label38.AutoSize = true;
-            this.label38.Location = new System.Drawing.Point(1057, 179);
-            this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(74, 12);
-            this.label38.TabIndex = 42;
-            this.label38.Text = "日期";
-            // 
-            // label39
-            // 
-            this.label39.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label39.AutoSize = true;
-            this.label39.Location = new System.Drawing.Point(1138, 179);
-            this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(74, 12);
-            this.label39.TabIndex = 43;
-            this.label39.Text = "日期";
-            // 
-            // label40
-            // 
-            this.label40.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(409, 337);
-            this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(74, 24);
-            this.label40.TabIndex = 44;
-            this.label40.Text = "製造課不良-餅麩(kg)";
-            // 
-            // label41
-            // 
-            this.label41.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label41.AutoSize = true;
-            this.label41.Location = new System.Drawing.Point(490, 337);
-            this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(74, 24);
-            this.label41.TabIndex = 45;
-            this.label41.Text = "製造課不良-烤焙(kg)";
-            // 
-            // label42
-            // 
-            this.label42.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label42.AutoSize = true;
-            this.label42.Location = new System.Drawing.Point(571, 331);
-            this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(74, 36);
-            this.label42.TabIndex = 46;
-            this.label42.Text = "包裝課不良-包裝不良餅乾(kg)";
-            // 
-            // label43
-            // 
-            this.label43.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label43.AutoSize = true;
-            this.label43.Location = new System.Drawing.Point(652, 331);
-            this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(74, 36);
-            this.label43.TabIndex = 47;
-            this.label43.Text = "包裝課不良-包裝(內袋(卷) 罐)";
+            // label50
+            // 
+            this.label50.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label50.AutoSize = true;
+            this.label50.Location = new System.Drawing.Point(4, 255);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(74, 24);
+            this.label50.TabIndex = 54;
+            this.label50.Text = "水面可回收邊料(6)";
             // 
             // label44
             // 
@@ -890,6 +689,156 @@
             this.label48.TabIndex = 52;
             this.label48.Text = "可回收餅麩(10)=(2)+(7)(kg)";
             // 
+            // label21
+            // 
+            this.label21.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(490, 255);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(74, 24);
+            this.label21.TabIndex = 25;
+            this.label21.Text = "未熟烤焙時間(12)(分)";
+            // 
+            // label5
+            // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(571, 255);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(74, 24);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "烤前單片重量(g)";
+            // 
+            // label6
+            // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(652, 255);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(74, 24);
+            this.label6.TabIndex = 10;
+            this.label6.Text = "烤後單片重量(g)";
+            // 
+            // label7
+            // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(733, 261);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(74, 12);
+            this.label7.TabIndex = 11;
+            this.label7.Text = "每排數量";
+            // 
+            // label8
+            // 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(814, 261);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(74, 12);
+            this.label8.TabIndex = 12;
+            this.label8.Text = "刀數";
+            // 
+            // label22
+            // 
+            this.label22.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(4, 337);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(74, 24);
+            this.label22.TabIndex = 26;
+            this.label22.Text = "烤前實際總投入(kg)";
+            // 
+            // label18
+            // 
+            this.label18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(85, 337);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(74, 24);
+            this.label18.TabIndex = 22;
+            this.label18.Text = "烤後實際總投入(kg)";
+            // 
+            // label14
+            // 
+            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(166, 343);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(74, 12);
+            this.label14.TabIndex = 18;
+            this.label14.Text = "預計產出(kg)";
+            // 
+            // label10
+            // 
+            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(247, 337);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(74, 24);
+            this.label10.TabIndex = 14;
+            this.label10.Text = "製造課不良-攪拌(kg)";
+            // 
+            // label37
+            // 
+            this.label37.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label37.AutoSize = true;
+            this.label37.Location = new System.Drawing.Point(4, 507);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(74, 12);
+            this.label37.TabIndex = 41;
+            this.label37.Text = "製造工時";
+            // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(328, 337);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(74, 24);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "製造課不良-成型邊料(kg)";
+            // 
+            // label40
+            // 
+            this.label40.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label40.AutoSize = true;
+            this.label40.Location = new System.Drawing.Point(409, 337);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(74, 24);
+            this.label40.TabIndex = 44;
+            this.label40.Text = "製造課不良-餅麩(kg)";
+            // 
+            // label41
+            // 
+            this.label41.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label41.AutoSize = true;
+            this.label41.Location = new System.Drawing.Point(490, 337);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(74, 24);
+            this.label41.TabIndex = 45;
+            this.label41.Text = "製造課不良-烤焙(kg)";
+            // 
+            // label42
+            // 
+            this.label42.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label42.AutoSize = true;
+            this.label42.Location = new System.Drawing.Point(571, 331);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(74, 36);
+            this.label42.TabIndex = 46;
+            this.label42.Text = "包裝課不良-包裝不良餅乾(kg)";
+            // 
+            // label43
+            // 
+            this.label43.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label43.AutoSize = true;
+            this.label43.Location = new System.Drawing.Point(652, 331);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(74, 36);
+            this.label43.TabIndex = 47;
+            this.label43.Text = "包裝課不良-包裝(內袋(卷) 罐)";
+            // 
             // label49
             // 
             this.label49.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -900,15 +849,45 @@
             this.label49.TabIndex = 53;
             this.label49.Text = "袋重(kg)";
             // 
-            // label50
+            // label36
             // 
-            this.label50.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label50.AutoSize = true;
-            this.label50.Location = new System.Drawing.Point(4, 255);
-            this.label50.Name = "label50";
-            this.label50.Size = new System.Drawing.Size(74, 24);
-            this.label50.TabIndex = 54;
-            this.label50.Text = "水面可回收邊料(6)";
+            this.label36.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(814, 337);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(74, 24);
+            this.label36.TabIndex = 40;
+            this.label36.Text = "包裝投入(袋(卷),罐)";
+            // 
+            // label17
+            // 
+            this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(4, 419);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(74, 24);
+            this.label17.TabIndex = 21;
+            this.label17.Text = "實際產出(kg)(裸餅)\t";
+            // 
+            // label13
+            // 
+            this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(85, 413);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(74, 36);
+            this.label13.TabIndex = 17;
+            this.label13.Text = "半成品入庫數(kg) (含袋重)";
+            // 
+            // label9
+            // 
+            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(166, 425);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(74, 12);
+            this.label9.TabIndex = 13;
+            this.label9.Text = "備註";
             // 
             // label51
             // 
@@ -1010,6 +989,16 @@
             this.label60.TabIndex = 64;
             this.label60.Text = "一箱餅含袋重";
             // 
+            // label35
+            // 
+            this.label35.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label35.AutoSize = true;
+            this.label35.Location = new System.Drawing.Point(814, 179);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(74, 12);
+            this.label35.TabIndex = 39;
+            this.label35.Text = "水面原料(5)";
+            // 
             // dateTimePicker2
             // 
             this.dateTimePicker2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -1043,6 +1032,7 @@
             // 
             this.numericUpDown1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDown1.DecimalPlaces = 3;
+            this.numericUpDown1.Enabled = false;
             this.numericUpDown1.Increment = new decimal(new int[] {
             1,
             0,
@@ -1055,7 +1045,6 @@
             0,
             0});
             this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.ReadOnly = true;
             this.numericUpDown1.Size = new System.Drawing.Size(74, 22);
             this.numericUpDown1.TabIndex = 68;
             // 
@@ -1063,6 +1052,7 @@
             // 
             this.numericUpDown2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDown2.DecimalPlaces = 3;
+            this.numericUpDown2.Enabled = false;
             this.numericUpDown2.Increment = new decimal(new int[] {
             1,
             0,
@@ -1075,7 +1065,6 @@
             0,
             0});
             this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.ReadOnly = true;
             this.numericUpDown2.Size = new System.Drawing.Size(74, 22);
             this.numericUpDown2.TabIndex = 69;
             // 
@@ -1083,6 +1072,7 @@
             // 
             this.numericUpDown3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDown3.DecimalPlaces = 3;
+            this.numericUpDown3.Enabled = false;
             this.numericUpDown3.Increment = new decimal(new int[] {
             1,
             0,
@@ -1095,7 +1085,6 @@
             0,
             0});
             this.numericUpDown3.Name = "numericUpDown3";
-            this.numericUpDown3.ReadOnly = true;
             this.numericUpDown3.Size = new System.Drawing.Size(74, 22);
             this.numericUpDown3.TabIndex = 70;
             // 
@@ -1103,6 +1092,7 @@
             // 
             this.numericUpDown4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDown4.DecimalPlaces = 3;
+            this.numericUpDown4.Enabled = false;
             this.numericUpDown4.Increment = new decimal(new int[] {
             1,
             0,
@@ -1115,7 +1105,6 @@
             0,
             0});
             this.numericUpDown4.Name = "numericUpDown4";
-            this.numericUpDown4.ReadOnly = true;
             this.numericUpDown4.Size = new System.Drawing.Size(74, 22);
             this.numericUpDown4.TabIndex = 71;
             // 
@@ -1123,6 +1112,7 @@
             // 
             this.numericUpDown5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDown5.DecimalPlaces = 3;
+            this.numericUpDown5.Enabled = false;
             this.numericUpDown5.Increment = new decimal(new int[] {
             1,
             0,
@@ -1135,7 +1125,6 @@
             0,
             0});
             this.numericUpDown5.Name = "numericUpDown5";
-            this.numericUpDown5.ReadOnly = true;
             this.numericUpDown5.Size = new System.Drawing.Size(74, 22);
             this.numericUpDown5.TabIndex = 72;
             // 
@@ -1143,6 +1132,7 @@
             // 
             this.numericUpDown6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDown6.DecimalPlaces = 3;
+            this.numericUpDown6.Enabled = false;
             this.numericUpDown6.Increment = new decimal(new int[] {
             1,
             0,
@@ -1155,7 +1145,6 @@
             0,
             0});
             this.numericUpDown6.Name = "numericUpDown6";
-            this.numericUpDown6.ReadOnly = true;
             this.numericUpDown6.Size = new System.Drawing.Size(74, 22);
             this.numericUpDown6.TabIndex = 73;
             // 
@@ -1163,6 +1152,7 @@
             // 
             this.numericUpDown7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDown7.DecimalPlaces = 3;
+            this.numericUpDown7.Enabled = false;
             this.numericUpDown7.Increment = new decimal(new int[] {
             1,
             0,
@@ -1175,7 +1165,6 @@
             0,
             0});
             this.numericUpDown7.Name = "numericUpDown7";
-            this.numericUpDown7.ReadOnly = true;
             this.numericUpDown7.Size = new System.Drawing.Size(74, 22);
             this.numericUpDown7.TabIndex = 74;
             // 
@@ -1183,6 +1172,7 @@
             // 
             this.numericUpDown8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDown8.DecimalPlaces = 3;
+            this.numericUpDown8.Enabled = false;
             this.numericUpDown8.Increment = new decimal(new int[] {
             1,
             0,
@@ -1195,7 +1185,6 @@
             0,
             0});
             this.numericUpDown8.Name = "numericUpDown8";
-            this.numericUpDown8.ReadOnly = true;
             this.numericUpDown8.Size = new System.Drawing.Size(74, 22);
             this.numericUpDown8.TabIndex = 75;
             // 
@@ -1203,6 +1192,7 @@
             // 
             this.numericUpDown9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDown9.DecimalPlaces = 3;
+            this.numericUpDown9.Enabled = false;
             this.numericUpDown9.Increment = new decimal(new int[] {
             1,
             0,
@@ -1215,7 +1205,6 @@
             0,
             0});
             this.numericUpDown9.Name = "numericUpDown9";
-            this.numericUpDown9.ReadOnly = true;
             this.numericUpDown9.Size = new System.Drawing.Size(74, 22);
             this.numericUpDown9.TabIndex = 76;
             // 
@@ -1223,6 +1212,7 @@
             // 
             this.numericUpDown10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDown10.DecimalPlaces = 3;
+            this.numericUpDown10.Enabled = false;
             this.numericUpDown10.Increment = new decimal(new int[] {
             1,
             0,
@@ -1235,7 +1225,6 @@
             0,
             0});
             this.numericUpDown10.Name = "numericUpDown10";
-            this.numericUpDown10.ReadOnly = true;
             this.numericUpDown10.Size = new System.Drawing.Size(74, 22);
             this.numericUpDown10.TabIndex = 77;
             // 
@@ -1243,6 +1232,7 @@
             // 
             this.numericUpDown11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDown11.DecimalPlaces = 3;
+            this.numericUpDown11.Enabled = false;
             this.numericUpDown11.Increment = new decimal(new int[] {
             1,
             0,
@@ -1255,7 +1245,6 @@
             0,
             0});
             this.numericUpDown11.Name = "numericUpDown11";
-            this.numericUpDown11.ReadOnly = true;
             this.numericUpDown11.Size = new System.Drawing.Size(74, 22);
             this.numericUpDown11.TabIndex = 78;
             // 
@@ -1263,6 +1252,7 @@
             // 
             this.numericUpDown12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDown12.DecimalPlaces = 3;
+            this.numericUpDown12.Enabled = false;
             this.numericUpDown12.Increment = new decimal(new int[] {
             1,
             0,
@@ -1275,7 +1265,6 @@
             0,
             0});
             this.numericUpDown12.Name = "numericUpDown12";
-            this.numericUpDown12.ReadOnly = true;
             this.numericUpDown12.Size = new System.Drawing.Size(74, 22);
             this.numericUpDown12.TabIndex = 79;
             // 
@@ -1283,6 +1272,7 @@
             // 
             this.numericUpDown13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDown13.DecimalPlaces = 3;
+            this.numericUpDown13.Enabled = false;
             this.numericUpDown13.Increment = new decimal(new int[] {
             1,
             0,
@@ -1295,7 +1285,6 @@
             0,
             0});
             this.numericUpDown13.Name = "numericUpDown13";
-            this.numericUpDown13.ReadOnly = true;
             this.numericUpDown13.Size = new System.Drawing.Size(74, 22);
             this.numericUpDown13.TabIndex = 80;
             // 
@@ -1303,6 +1292,7 @@
             // 
             this.numericUpDown14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDown14.DecimalPlaces = 3;
+            this.numericUpDown14.Enabled = false;
             this.numericUpDown14.Increment = new decimal(new int[] {
             1,
             0,
@@ -1315,7 +1305,6 @@
             0,
             0});
             this.numericUpDown14.Name = "numericUpDown14";
-            this.numericUpDown14.ReadOnly = true;
             this.numericUpDown14.Size = new System.Drawing.Size(74, 22);
             this.numericUpDown14.TabIndex = 81;
             // 
@@ -1323,6 +1312,7 @@
             // 
             this.numericUpDown15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDown15.DecimalPlaces = 3;
+            this.numericUpDown15.Enabled = false;
             this.numericUpDown15.Increment = new decimal(new int[] {
             1,
             0,
@@ -1335,7 +1325,6 @@
             0,
             0});
             this.numericUpDown15.Name = "numericUpDown15";
-            this.numericUpDown15.ReadOnly = true;
             this.numericUpDown15.Size = new System.Drawing.Size(74, 22);
             this.numericUpDown15.TabIndex = 82;
             // 
@@ -1343,6 +1332,7 @@
             // 
             this.numericUpDown16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDown16.DecimalPlaces = 3;
+            this.numericUpDown16.Enabled = false;
             this.numericUpDown16.Increment = new decimal(new int[] {
             1,
             0,
@@ -1355,7 +1345,6 @@
             0,
             0});
             this.numericUpDown16.Name = "numericUpDown16";
-            this.numericUpDown16.ReadOnly = true;
             this.numericUpDown16.Size = new System.Drawing.Size(74, 22);
             this.numericUpDown16.TabIndex = 83;
             // 
@@ -1363,6 +1352,7 @@
             // 
             this.numericUpDown17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDown17.DecimalPlaces = 3;
+            this.numericUpDown17.Enabled = false;
             this.numericUpDown17.Increment = new decimal(new int[] {
             1,
             0,
@@ -1375,7 +1365,6 @@
             0,
             0});
             this.numericUpDown17.Name = "numericUpDown17";
-            this.numericUpDown17.ReadOnly = true;
             this.numericUpDown17.Size = new System.Drawing.Size(74, 22);
             this.numericUpDown17.TabIndex = 84;
             // 
@@ -1383,6 +1372,7 @@
             // 
             this.numericUpDown18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDown18.DecimalPlaces = 3;
+            this.numericUpDown18.Enabled = false;
             this.numericUpDown18.Increment = new decimal(new int[] {
             1,
             0,
@@ -1395,7 +1385,6 @@
             0,
             0});
             this.numericUpDown18.Name = "numericUpDown18";
-            this.numericUpDown18.ReadOnly = true;
             this.numericUpDown18.Size = new System.Drawing.Size(74, 22);
             this.numericUpDown18.TabIndex = 85;
             // 
@@ -1403,6 +1392,7 @@
             // 
             this.numericUpDown19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDown19.DecimalPlaces = 3;
+            this.numericUpDown19.Enabled = false;
             this.numericUpDown19.Increment = new decimal(new int[] {
             1,
             0,
@@ -1415,7 +1405,6 @@
             0,
             0});
             this.numericUpDown19.Name = "numericUpDown19";
-            this.numericUpDown19.ReadOnly = true;
             this.numericUpDown19.Size = new System.Drawing.Size(74, 22);
             this.numericUpDown19.TabIndex = 86;
             // 
@@ -1423,6 +1412,7 @@
             // 
             this.numericUpDown20.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDown20.DecimalPlaces = 3;
+            this.numericUpDown20.Enabled = false;
             this.numericUpDown20.Increment = new decimal(new int[] {
             1,
             0,
@@ -1435,7 +1425,6 @@
             0,
             0});
             this.numericUpDown20.Name = "numericUpDown20";
-            this.numericUpDown20.ReadOnly = true;
             this.numericUpDown20.Size = new System.Drawing.Size(74, 22);
             this.numericUpDown20.TabIndex = 87;
             // 
@@ -1443,6 +1432,7 @@
             // 
             this.numericUpDown21.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDown21.DecimalPlaces = 3;
+            this.numericUpDown21.Enabled = false;
             this.numericUpDown21.Increment = new decimal(new int[] {
             1,
             0,
@@ -1455,7 +1445,6 @@
             0,
             0});
             this.numericUpDown21.Name = "numericUpDown21";
-            this.numericUpDown21.ReadOnly = true;
             this.numericUpDown21.Size = new System.Drawing.Size(74, 22);
             this.numericUpDown21.TabIndex = 88;
             // 
@@ -1463,6 +1452,7 @@
             // 
             this.numericUpDown22.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDown22.DecimalPlaces = 3;
+            this.numericUpDown22.Enabled = false;
             this.numericUpDown22.Increment = new decimal(new int[] {
             1,
             0,
@@ -1475,7 +1465,6 @@
             0,
             0});
             this.numericUpDown22.Name = "numericUpDown22";
-            this.numericUpDown22.ReadOnly = true;
             this.numericUpDown22.Size = new System.Drawing.Size(74, 22);
             this.numericUpDown22.TabIndex = 89;
             // 
@@ -1483,6 +1472,7 @@
             // 
             this.numericUpDown23.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDown23.DecimalPlaces = 3;
+            this.numericUpDown23.Enabled = false;
             this.numericUpDown23.Increment = new decimal(new int[] {
             1,
             0,
@@ -1495,7 +1485,6 @@
             0,
             0});
             this.numericUpDown23.Name = "numericUpDown23";
-            this.numericUpDown23.ReadOnly = true;
             this.numericUpDown23.Size = new System.Drawing.Size(74, 22);
             this.numericUpDown23.TabIndex = 90;
             // 
@@ -1503,6 +1492,7 @@
             // 
             this.numericUpDown24.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDown24.DecimalPlaces = 3;
+            this.numericUpDown24.Enabled = false;
             this.numericUpDown24.Increment = new decimal(new int[] {
             1,
             0,
@@ -1515,7 +1505,6 @@
             0,
             0});
             this.numericUpDown24.Name = "numericUpDown24";
-            this.numericUpDown24.ReadOnly = true;
             this.numericUpDown24.Size = new System.Drawing.Size(74, 22);
             this.numericUpDown24.TabIndex = 91;
             // 
@@ -1523,6 +1512,7 @@
             // 
             this.numericUpDown25.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDown25.DecimalPlaces = 3;
+            this.numericUpDown25.Enabled = false;
             this.numericUpDown25.Increment = new decimal(new int[] {
             1,
             0,
@@ -1535,7 +1525,6 @@
             0,
             0});
             this.numericUpDown25.Name = "numericUpDown25";
-            this.numericUpDown25.ReadOnly = true;
             this.numericUpDown25.Size = new System.Drawing.Size(74, 22);
             this.numericUpDown25.TabIndex = 92;
             // 
@@ -1543,6 +1532,7 @@
             // 
             this.numericUpDown26.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDown26.DecimalPlaces = 3;
+            this.numericUpDown26.Enabled = false;
             this.numericUpDown26.Increment = new decimal(new int[] {
             1,
             0,
@@ -1555,7 +1545,6 @@
             0,
             0});
             this.numericUpDown26.Name = "numericUpDown26";
-            this.numericUpDown26.ReadOnly = true;
             this.numericUpDown26.Size = new System.Drawing.Size(74, 22);
             this.numericUpDown26.TabIndex = 93;
             // 
@@ -1563,6 +1552,7 @@
             // 
             this.numericUpDown27.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDown27.DecimalPlaces = 3;
+            this.numericUpDown27.Enabled = false;
             this.numericUpDown27.Increment = new decimal(new int[] {
             1,
             0,
@@ -1575,7 +1565,6 @@
             0,
             0});
             this.numericUpDown27.Name = "numericUpDown27";
-            this.numericUpDown27.ReadOnly = true;
             this.numericUpDown27.Size = new System.Drawing.Size(74, 22);
             this.numericUpDown27.TabIndex = 94;
             // 
@@ -1583,6 +1572,7 @@
             // 
             this.numericUpDown28.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDown28.DecimalPlaces = 3;
+            this.numericUpDown28.Enabled = false;
             this.numericUpDown28.Increment = new decimal(new int[] {
             1,
             0,
@@ -1595,7 +1585,6 @@
             0,
             0});
             this.numericUpDown28.Name = "numericUpDown28";
-            this.numericUpDown28.ReadOnly = true;
             this.numericUpDown28.Size = new System.Drawing.Size(74, 22);
             this.numericUpDown28.TabIndex = 95;
             // 
@@ -1603,6 +1592,7 @@
             // 
             this.numericUpDown29.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDown29.DecimalPlaces = 3;
+            this.numericUpDown29.Enabled = false;
             this.numericUpDown29.Increment = new decimal(new int[] {
             1,
             0,
@@ -1615,7 +1605,6 @@
             0,
             0});
             this.numericUpDown29.Name = "numericUpDown29";
-            this.numericUpDown29.ReadOnly = true;
             this.numericUpDown29.Size = new System.Drawing.Size(74, 22);
             this.numericUpDown29.TabIndex = 96;
             // 
@@ -1623,6 +1612,7 @@
             // 
             this.numericUpDown30.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDown30.DecimalPlaces = 3;
+            this.numericUpDown30.Enabled = false;
             this.numericUpDown30.Increment = new decimal(new int[] {
             1,
             0,
@@ -1635,7 +1625,6 @@
             0,
             0});
             this.numericUpDown30.Name = "numericUpDown30";
-            this.numericUpDown30.ReadOnly = true;
             this.numericUpDown30.Size = new System.Drawing.Size(74, 22);
             this.numericUpDown30.TabIndex = 97;
             // 
@@ -1643,6 +1632,7 @@
             // 
             this.numericUpDown31.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDown31.DecimalPlaces = 3;
+            this.numericUpDown31.Enabled = false;
             this.numericUpDown31.Increment = new decimal(new int[] {
             1,
             0,
@@ -1655,7 +1645,6 @@
             0,
             0});
             this.numericUpDown31.Name = "numericUpDown31";
-            this.numericUpDown31.ReadOnly = true;
             this.numericUpDown31.Size = new System.Drawing.Size(74, 22);
             this.numericUpDown31.TabIndex = 98;
             // 
@@ -1663,6 +1652,7 @@
             // 
             this.numericUpDown32.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDown32.DecimalPlaces = 3;
+            this.numericUpDown32.Enabled = false;
             this.numericUpDown32.Increment = new decimal(new int[] {
             1,
             0,
@@ -1675,214 +1665,14 @@
             0,
             0});
             this.numericUpDown32.Name = "numericUpDown32";
-            this.numericUpDown32.ReadOnly = true;
             this.numericUpDown32.Size = new System.Drawing.Size(74, 22);
             this.numericUpDown32.TabIndex = 99;
-            // 
-            // numericUpDown33
-            // 
-            this.numericUpDown33.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown33.DecimalPlaces = 3;
-            this.numericUpDown33.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            196608});
-            this.numericUpDown33.Location = new System.Drawing.Point(4, 543);
-            this.numericUpDown33.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.numericUpDown33.Name = "numericUpDown33";
-            this.numericUpDown33.ReadOnly = true;
-            this.numericUpDown33.Size = new System.Drawing.Size(74, 22);
-            this.numericUpDown33.TabIndex = 100;
-            // 
-            // numericUpDown34
-            // 
-            this.numericUpDown34.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown34.DecimalPlaces = 3;
-            this.numericUpDown34.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            196608});
-            this.numericUpDown34.Location = new System.Drawing.Point(85, 543);
-            this.numericUpDown34.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.numericUpDown34.Name = "numericUpDown34";
-            this.numericUpDown34.ReadOnly = true;
-            this.numericUpDown34.Size = new System.Drawing.Size(74, 22);
-            this.numericUpDown34.TabIndex = 101;
-            // 
-            // numericUpDown35
-            // 
-            this.numericUpDown35.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown35.DecimalPlaces = 3;
-            this.numericUpDown35.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            196608});
-            this.numericUpDown35.Location = new System.Drawing.Point(166, 543);
-            this.numericUpDown35.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.numericUpDown35.Name = "numericUpDown35";
-            this.numericUpDown35.ReadOnly = true;
-            this.numericUpDown35.Size = new System.Drawing.Size(74, 22);
-            this.numericUpDown35.TabIndex = 102;
-            // 
-            // numericUpDown36
-            // 
-            this.numericUpDown36.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown36.DecimalPlaces = 3;
-            this.numericUpDown36.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            196608});
-            this.numericUpDown36.Location = new System.Drawing.Point(247, 543);
-            this.numericUpDown36.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.numericUpDown36.Name = "numericUpDown36";
-            this.numericUpDown36.ReadOnly = true;
-            this.numericUpDown36.Size = new System.Drawing.Size(74, 22);
-            this.numericUpDown36.TabIndex = 103;
-            // 
-            // numericUpDown37
-            // 
-            this.numericUpDown37.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown37.DecimalPlaces = 3;
-            this.numericUpDown37.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            196608});
-            this.numericUpDown37.Location = new System.Drawing.Point(328, 543);
-            this.numericUpDown37.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.numericUpDown37.Name = "numericUpDown37";
-            this.numericUpDown37.ReadOnly = true;
-            this.numericUpDown37.Size = new System.Drawing.Size(74, 22);
-            this.numericUpDown37.TabIndex = 104;
-            // 
-            // numericUpDown38
-            // 
-            this.numericUpDown38.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown38.DecimalPlaces = 3;
-            this.numericUpDown38.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            196608});
-            this.numericUpDown38.Location = new System.Drawing.Point(409, 543);
-            this.numericUpDown38.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.numericUpDown38.Name = "numericUpDown38";
-            this.numericUpDown38.ReadOnly = true;
-            this.numericUpDown38.Size = new System.Drawing.Size(74, 22);
-            this.numericUpDown38.TabIndex = 105;
-            // 
-            // numericUpDown39
-            // 
-            this.numericUpDown39.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown39.DecimalPlaces = 3;
-            this.numericUpDown39.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            196608});
-            this.numericUpDown39.Location = new System.Drawing.Point(490, 543);
-            this.numericUpDown39.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.numericUpDown39.Name = "numericUpDown39";
-            this.numericUpDown39.ReadOnly = true;
-            this.numericUpDown39.Size = new System.Drawing.Size(74, 22);
-            this.numericUpDown39.TabIndex = 106;
-            // 
-            // numericUpDown40
-            // 
-            this.numericUpDown40.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown40.DecimalPlaces = 3;
-            this.numericUpDown40.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            196608});
-            this.numericUpDown40.Location = new System.Drawing.Point(571, 543);
-            this.numericUpDown40.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.numericUpDown40.Name = "numericUpDown40";
-            this.numericUpDown40.ReadOnly = true;
-            this.numericUpDown40.Size = new System.Drawing.Size(74, 22);
-            this.numericUpDown40.TabIndex = 107;
-            // 
-            // numericUpDown41
-            // 
-            this.numericUpDown41.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown41.DecimalPlaces = 3;
-            this.numericUpDown41.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            196608});
-            this.numericUpDown41.Location = new System.Drawing.Point(652, 543);
-            this.numericUpDown41.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.numericUpDown41.Name = "numericUpDown41";
-            this.numericUpDown41.ReadOnly = true;
-            this.numericUpDown41.Size = new System.Drawing.Size(74, 22);
-            this.numericUpDown41.TabIndex = 108;
-            // 
-            // numericUpDown42
-            // 
-            this.numericUpDown42.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown42.DecimalPlaces = 3;
-            this.numericUpDown42.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            196608});
-            this.numericUpDown42.Location = new System.Drawing.Point(733, 543);
-            this.numericUpDown42.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.numericUpDown42.Name = "numericUpDown42";
-            this.numericUpDown42.ReadOnly = true;
-            this.numericUpDown42.Size = new System.Drawing.Size(74, 22);
-            this.numericUpDown42.TabIndex = 109;
             // 
             // numericUpDown43
             // 
             this.numericUpDown43.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDown43.DecimalPlaces = 3;
+            this.numericUpDown43.Enabled = false;
             this.numericUpDown43.Increment = new decimal(new int[] {
             1,
             0,
@@ -1895,9 +1685,208 @@
             0,
             0});
             this.numericUpDown43.Name = "numericUpDown43";
-            this.numericUpDown43.ReadOnly = true;
             this.numericUpDown43.Size = new System.Drawing.Size(74, 22);
             this.numericUpDown43.TabIndex = 110;
+            // 
+            // numericUpDown42
+            // 
+            this.numericUpDown42.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown42.DecimalPlaces = 3;
+            this.numericUpDown42.Enabled = false;
+            this.numericUpDown42.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            196608});
+            this.numericUpDown42.Location = new System.Drawing.Point(733, 543);
+            this.numericUpDown42.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numericUpDown42.Name = "numericUpDown42";
+            this.numericUpDown42.Size = new System.Drawing.Size(74, 22);
+            this.numericUpDown42.TabIndex = 109;
+            // 
+            // numericUpDown41
+            // 
+            this.numericUpDown41.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown41.DecimalPlaces = 3;
+            this.numericUpDown41.Enabled = false;
+            this.numericUpDown41.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            196608});
+            this.numericUpDown41.Location = new System.Drawing.Point(652, 543);
+            this.numericUpDown41.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numericUpDown41.Name = "numericUpDown41";
+            this.numericUpDown41.Size = new System.Drawing.Size(74, 22);
+            this.numericUpDown41.TabIndex = 108;
+            // 
+            // numericUpDown40
+            // 
+            this.numericUpDown40.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown40.DecimalPlaces = 3;
+            this.numericUpDown40.Enabled = false;
+            this.numericUpDown40.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            196608});
+            this.numericUpDown40.Location = new System.Drawing.Point(571, 543);
+            this.numericUpDown40.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numericUpDown40.Name = "numericUpDown40";
+            this.numericUpDown40.Size = new System.Drawing.Size(74, 22);
+            this.numericUpDown40.TabIndex = 107;
+            // 
+            // numericUpDown39
+            // 
+            this.numericUpDown39.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown39.DecimalPlaces = 3;
+            this.numericUpDown39.Enabled = false;
+            this.numericUpDown39.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            196608});
+            this.numericUpDown39.Location = new System.Drawing.Point(490, 543);
+            this.numericUpDown39.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numericUpDown39.Name = "numericUpDown39";
+            this.numericUpDown39.Size = new System.Drawing.Size(74, 22);
+            this.numericUpDown39.TabIndex = 106;
+            // 
+            // numericUpDown38
+            // 
+            this.numericUpDown38.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown38.DecimalPlaces = 3;
+            this.numericUpDown38.Enabled = false;
+            this.numericUpDown38.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            196608});
+            this.numericUpDown38.Location = new System.Drawing.Point(409, 543);
+            this.numericUpDown38.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numericUpDown38.Name = "numericUpDown38";
+            this.numericUpDown38.Size = new System.Drawing.Size(74, 22);
+            this.numericUpDown38.TabIndex = 105;
+            // 
+            // numericUpDown37
+            // 
+            this.numericUpDown37.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown37.DecimalPlaces = 3;
+            this.numericUpDown37.Enabled = false;
+            this.numericUpDown37.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            196608});
+            this.numericUpDown37.Location = new System.Drawing.Point(328, 543);
+            this.numericUpDown37.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numericUpDown37.Name = "numericUpDown37";
+            this.numericUpDown37.Size = new System.Drawing.Size(74, 22);
+            this.numericUpDown37.TabIndex = 104;
+            // 
+            // numericUpDown36
+            // 
+            this.numericUpDown36.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown36.DecimalPlaces = 3;
+            this.numericUpDown36.Enabled = false;
+            this.numericUpDown36.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            196608});
+            this.numericUpDown36.Location = new System.Drawing.Point(247, 543);
+            this.numericUpDown36.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numericUpDown36.Name = "numericUpDown36";
+            this.numericUpDown36.Size = new System.Drawing.Size(74, 22);
+            this.numericUpDown36.TabIndex = 103;
+            // 
+            // numericUpDown35
+            // 
+            this.numericUpDown35.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown35.DecimalPlaces = 3;
+            this.numericUpDown35.Enabled = false;
+            this.numericUpDown35.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            196608});
+            this.numericUpDown35.Location = new System.Drawing.Point(166, 543);
+            this.numericUpDown35.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numericUpDown35.Name = "numericUpDown35";
+            this.numericUpDown35.Size = new System.Drawing.Size(74, 22);
+            this.numericUpDown35.TabIndex = 102;
+            // 
+            // numericUpDown34
+            // 
+            this.numericUpDown34.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown34.DecimalPlaces = 3;
+            this.numericUpDown34.Enabled = false;
+            this.numericUpDown34.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            196608});
+            this.numericUpDown34.Location = new System.Drawing.Point(85, 543);
+            this.numericUpDown34.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numericUpDown34.Name = "numericUpDown34";
+            this.numericUpDown34.Size = new System.Drawing.Size(74, 22);
+            this.numericUpDown34.TabIndex = 101;
+            // 
+            // numericUpDown33
+            // 
+            this.numericUpDown33.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown33.DecimalPlaces = 3;
+            this.numericUpDown33.Enabled = false;
+            this.numericUpDown33.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            196608});
+            this.numericUpDown33.Location = new System.Drawing.Point(4, 543);
+            this.numericUpDown33.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numericUpDown33.Name = "numericUpDown33";
+            this.numericUpDown33.Size = new System.Drawing.Size(74, 22);
+            this.numericUpDown33.TabIndex = 100;
             // 
             // textBox5
             // 
@@ -1908,6 +1897,17 @@
             this.textBox5.ReadOnly = true;
             this.textBox5.Size = new System.Drawing.Size(236, 22);
             this.textBox5.TabIndex = 111;
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Location = new System.Drawing.Point(490, 4);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(74, 34);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "查詢";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -2015,17 +2015,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown30)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown31)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown32)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown33)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown34)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown35)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown36)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown37)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown38)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown39)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown40)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown41)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown42)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown43)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown42)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown41)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown40)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown39)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown38)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown37)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown36)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown35)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown34)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown33)).EndInit();
             this.ResumeLayout(false);
 
         }
