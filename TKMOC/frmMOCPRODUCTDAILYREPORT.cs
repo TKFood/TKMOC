@@ -604,7 +604,11 @@ namespace TKMOC
         }
         public void CalINBEFORE()
         {
-            numericUpDown20.Value = numericUpDown1.Value - numericUpDown23.Value - numericUpDown24.Value;
+            if (numericUpDown1.Value >=( numericUpDown23.Value + numericUpDown24.Value))
+            {
+                numericUpDown20.Value = numericUpDown1.Value - numericUpDown23.Value - numericUpDown24.Value;
+            }
+            
         }
 
         public void CalINAFTERE()

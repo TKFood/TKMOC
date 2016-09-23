@@ -63,9 +63,7 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.button16 = new System.Windows.Forms.Button();
-            this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             this.dataGridView7 = new System.Windows.Forms.DataGridView();
             this.dataGridView9 = new System.Windows.Forms.DataGridView();
             this.dataGridView8 = new System.Windows.Forms.DataGridView();
@@ -76,6 +74,8 @@
             this.button21 = new System.Windows.Forms.Button();
             this.button22 = new System.Windows.Forms.Button();
             this.button33 = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.button34 = new System.Windows.Forms.Button();
             this.button35 = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -301,7 +301,7 @@
             this.button28.Name = "button28";
             this.button28.Size = new System.Drawing.Size(74, 34);
             this.button28.TabIndex = 10;
-            this.button28.Text = "匯出";
+            this.button28.Text = "EXCEL匯出";
             this.button28.UseVisualStyleBackColor = true;
             this.button28.Click += new System.EventHandler(this.button28_Click);
             // 
@@ -537,7 +537,7 @@
             this.button30.Name = "button30";
             this.button30.Size = new System.Drawing.Size(74, 34);
             this.button30.TabIndex = 20;
-            this.button30.Text = "列印";
+            this.button30.Text = "WORD列印";
             this.button30.UseVisualStyleBackColor = true;
             this.button30.Click += new System.EventHandler(this.button30_Click);
             // 
@@ -547,7 +547,7 @@
             this.button31.Name = "button31";
             this.button31.Size = new System.Drawing.Size(74, 34);
             this.button31.TabIndex = 21;
-            this.button31.Text = "列印";
+            this.button31.Text = "WORD列印";
             this.button31.UseVisualStyleBackColor = true;
             this.button31.Click += new System.EventHandler(this.button31_Click);
             // 
@@ -557,7 +557,7 @@
             this.button32.Name = "button32";
             this.button32.Size = new System.Drawing.Size(74, 34);
             this.button32.TabIndex = 22;
-            this.button32.Text = "列印";
+            this.button32.Text = "WORD列印";
             this.button32.UseVisualStyleBackColor = true;
             this.button32.Click += new System.EventHandler(this.button32_Click);
             // 
@@ -637,18 +637,6 @@
             this.button16.UseVisualStyleBackColor = true;
             this.button16.Click += new System.EventHandler(this.button16_Click);
             // 
-            // label10
-            // 
-            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label10.AutoSize = true;
-            this.tableLayoutPanel3.SetColumnSpan(this.label10, 3);
-            this.label10.Location = new System.Drawing.Point(3, 374);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(234, 12);
-            this.label10.TabIndex = 12;
-            this.label10.Text = "定期維護保養計晝表";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // label11
             // 
             this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -660,18 +648,6 @@
             this.label11.TabIndex = 13;
             this.label11.Text = "設備日常檢查表";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label9
-            // 
-            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label9.AutoSize = true;
-            this.tableLayoutPanel3.SetColumnSpan(this.label9, 3);
-            this.label9.Location = new System.Drawing.Point(3, 214);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(234, 12);
-            this.label9.TabIndex = 11;
-            this.label9.Text = "保養維護記錄卡";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // dataGridView7
             // 
@@ -781,9 +757,33 @@
             this.button33.Name = "button33";
             this.button33.Size = new System.Drawing.Size(74, 34);
             this.button33.TabIndex = 23;
-            this.button33.Text = "匯出";
+            this.button33.Text = "EXCEL匯出";
             this.button33.UseVisualStyleBackColor = true;
             this.button33.Click += new System.EventHandler(this.button33_Click);
+            // 
+            // label10
+            // 
+            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label10.AutoSize = true;
+            this.tableLayoutPanel3.SetColumnSpan(this.label10, 3);
+            this.label10.Location = new System.Drawing.Point(3, 374);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(234, 12);
+            this.label10.TabIndex = 12;
+            this.label10.Text = "定期維護保養計晝表";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label9
+            // 
+            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label9.AutoSize = true;
+            this.tableLayoutPanel3.SetColumnSpan(this.label9, 3);
+            this.label9.Location = new System.Drawing.Point(3, 214);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(234, 12);
+            this.label9.TabIndex = 11;
+            this.label9.Text = "保養維護記錄卡";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // button34
             // 
@@ -791,7 +791,7 @@
             this.button34.Name = "button34";
             this.button34.Size = new System.Drawing.Size(74, 34);
             this.button34.TabIndex = 24;
-            this.button34.Text = "匯出";
+            this.button34.Text = "EXCEL匯出";
             this.button34.UseVisualStyleBackColor = true;
             this.button34.Click += new System.EventHandler(this.button34_Click);
             // 
@@ -801,7 +801,7 @@
             this.button35.Name = "button35";
             this.button35.Size = new System.Drawing.Size(74, 34);
             this.button35.TabIndex = 25;
-            this.button35.Text = "匯出 ";
+            this.button35.Text = "EXCEL匯出";
             this.button35.UseVisualStyleBackColor = true;
             this.button35.Click += new System.EventHandler(this.button35_Click);
             // 
@@ -975,7 +975,7 @@
             this.button29.Name = "button29";
             this.button29.Size = new System.Drawing.Size(74, 34);
             this.button29.TabIndex = 22;
-            this.button29.Text = "匯出";
+            this.button29.Text = "EXCEL匯出";
             this.button29.UseVisualStyleBackColor = true;
             this.button29.Click += new System.EventHandler(this.button29_Click);
             // 
@@ -985,7 +985,7 @@
             this.button36.Name = "button36";
             this.button36.Size = new System.Drawing.Size(74, 34);
             this.button36.TabIndex = 24;
-            this.button36.Text = "匯出";
+            this.button36.Text = "EXCEL匯出";
             this.button36.UseVisualStyleBackColor = true;
             this.button36.Click += new System.EventHandler(this.button36_Click);
             // 
@@ -1159,7 +1159,7 @@
             this.button37.Name = "button37";
             this.button37.Size = new System.Drawing.Size(74, 34);
             this.button37.TabIndex = 24;
-            this.button37.Text = "匯出";
+            this.button37.Text = "EXCEL匯出";
             this.button37.UseVisualStyleBackColor = true;
             this.button37.Click += new System.EventHandler(this.button37_Click);
             // 
@@ -1169,7 +1169,7 @@
             this.button38.Name = "button38";
             this.button38.Size = new System.Drawing.Size(74, 34);
             this.button38.TabIndex = 25;
-            this.button38.Text = "匯出";
+            this.button38.Text = "EXCEL匯出";
             this.button38.UseVisualStyleBackColor = true;
             this.button38.Click += new System.EventHandler(this.button38_Click);
             // 
