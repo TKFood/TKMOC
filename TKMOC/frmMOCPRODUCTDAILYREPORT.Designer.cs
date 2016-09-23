@@ -147,6 +147,7 @@
             this.label61 = new System.Windows.Forms.Label();
             this.textID = new System.Windows.Forms.TextBox();
             this.labelSearch = new System.Windows.Forms.Label();
+            this.button5 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -332,6 +333,7 @@
             this.tableLayoutPanel1.Controls.Add(this.numericUpDown42, 0, 13);
             this.tableLayoutPanel1.Controls.Add(this.label60, 1, 12);
             this.tableLayoutPanel1.Controls.Add(this.numericUpDown43, 1, 13);
+            this.tableLayoutPanel1.Controls.Add(this.button5, 7, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -1999,6 +2001,17 @@
             this.labelSearch.TabIndex = 117;
             this.labelSearch.Text = "HI";
             // 
+            // button5
+            // 
+            this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button5.Location = new System.Drawing.Point(571, 4);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(74, 34);
+            this.button5.TabIndex = 118;
+            this.button5.Text = "匯出";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
             // frmMOCPRODUCTDAILYREPORT
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -2178,5 +2191,6 @@
         private System.Windows.Forms.Label label61;
         private System.Windows.Forms.TextBox textID;
         private System.Windows.Forms.Label labelSearch;
+        private System.Windows.Forms.Button button5;
     }
 }

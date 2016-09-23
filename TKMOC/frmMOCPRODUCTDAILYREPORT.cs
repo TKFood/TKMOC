@@ -113,6 +113,131 @@ namespace TKMOC
 
             }
         }
+        public void ExcelExport()
+        {
+
+            string NowDB = "TK";
+            //建立Excel 2003檔案
+            IWorkbook wb = new XSSFWorkbook();
+            ISheet ws;
+
+            XSSFCellStyle cs = (XSSFCellStyle)wb.CreateCellStyle();
+            //框線樣式及顏色
+            cs.BorderBottom = NPOI.SS.UserModel.BorderStyle.Double;
+            cs.BorderLeft = NPOI.SS.UserModel.BorderStyle.Thin;
+            cs.BorderRight = NPOI.SS.UserModel.BorderStyle.Thin;
+            cs.BorderTop = NPOI.SS.UserModel.BorderStyle.Thin;
+            cs.BottomBorderColor = NPOI.HSSF.Util.HSSFColor.Grey50Percent.Index;
+            cs.LeftBorderColor = NPOI.HSSF.Util.HSSFColor.Grey50Percent.Index;
+            cs.RightBorderColor = NPOI.HSSF.Util.HSSFColor.Grey50Percent.Index;
+            cs.TopBorderColor = NPOI.HSSF.Util.HSSFColor.Grey50Percent.Index;
+
+            //Search();            
+            dt = ds.Tables["TEMPds1"];
+
+            if (dt.TableName != string.Empty)
+            {
+                ws = wb.CreateSheet(dt.TableName);
+            }
+            else
+            {
+                ws = wb.CreateSheet("Sheet1");
+            }
+
+            ws.CreateRow(0);//第一行為欄位名稱
+            for (int i = 0; i < dt.Columns.Count; i++)
+            {
+                ws.GetRow(0).CreateCell(i).SetCellValue(dt.Columns[i].ColumnName);
+            }
+
+            int j = 0;
+            int k = dataGridView1.Rows.Count;
+            foreach (DataGridViewRow dr in this.dataGridView1.Rows)
+            {
+                ws.CreateRow(j + 1);
+                ws.GetRow(j + 1).CreateCell(0).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[0].ToString());
+                ws.GetRow(j + 1).CreateCell(1).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[1].ToString());
+                ws.GetRow(j + 1).CreateCell(2).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[2].ToString());
+                ws.GetRow(j + 1).CreateCell(3).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[3].ToString()));
+                ws.GetRow(j + 1).CreateCell(4).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[4].ToString()));
+                ws.GetRow(j + 1).CreateCell(5).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[5].ToString()));
+                ws.GetRow(j + 1).CreateCell(6).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[6].ToString()));
+                ws.GetRow(j + 1).CreateCell(7).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[7].ToString()));
+                ws.GetRow(j + 1).CreateCell(8).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[8].ToString()));
+                ws.GetRow(j + 1).CreateCell(9).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[9].ToString()));
+                ws.GetRow(j + 1).CreateCell(10).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[10].ToString()));
+                ws.GetRow(j + 1).CreateCell(11).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[11].ToString()));
+                ws.GetRow(j + 1).CreateCell(12).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[12].ToString()));
+                ws.GetRow(j + 1).CreateCell(13).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[13].ToString()));
+                ws.GetRow(j + 1).CreateCell(14).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[14].ToString()));
+                ws.GetRow(j + 1).CreateCell(15).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[15].ToString()));
+                ws.GetRow(j + 1).CreateCell(16).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[16].ToString()));
+                ws.GetRow(j + 1).CreateCell(17).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[17].ToString()));
+                ws.GetRow(j + 1).CreateCell(18).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[18].ToString()));
+                ws.GetRow(j + 1).CreateCell(19).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[19].ToString()));
+                ws.GetRow(j + 1).CreateCell(20).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[20].ToString()));
+                ws.GetRow(j + 1).CreateCell(21).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[21].ToString()));
+                ws.GetRow(j + 1).CreateCell(22).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[22].ToString()));
+                ws.GetRow(j + 1).CreateCell(23).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[23].ToString()));
+                ws.GetRow(j + 1).CreateCell(24).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[24].ToString()));
+                ws.GetRow(j + 1).CreateCell(25).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[25].ToString()));
+                ws.GetRow(j + 1).CreateCell(26).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[26].ToString()));
+                ws.GetRow(j + 1).CreateCell(27).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[27].ToString()));
+                ws.GetRow(j + 1).CreateCell(28).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[28].ToString()));
+                ws.GetRow(j + 1).CreateCell(29).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[29].ToString()));
+                ws.GetRow(j + 1).CreateCell(30).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[30].ToString()));
+                ws.GetRow(j + 1).CreateCell(31).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[31].ToString()));
+                ws.GetRow(j + 1).CreateCell(32).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[32].ToString()));
+                ws.GetRow(j + 1).CreateCell(33).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[33].ToString()));
+                ws.GetRow(j + 1).CreateCell(34).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[34].ToString()));
+                ws.GetRow(j + 1).CreateCell(35).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[35].ToString());
+                ws.GetRow(j + 1).CreateCell(36).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[36].ToString()));
+                ws.GetRow(j + 1).CreateCell(37).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[37].ToString()));
+                ws.GetRow(j + 1).CreateCell(38).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[38].ToString()));
+                ws.GetRow(j + 1).CreateCell(39).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[39].ToString()));
+                ws.GetRow(j + 1).CreateCell(40).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[40].ToString()));
+                ws.GetRow(j + 1).CreateCell(41).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[41].ToString()));
+                ws.GetRow(j + 1).CreateCell(42).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[42].ToString()));
+                ws.GetRow(j + 1).CreateCell(43).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[43].ToString()));
+                ws.GetRow(j + 1).CreateCell(44).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[44].ToString()));
+                ws.GetRow(j + 1).CreateCell(45).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[45].ToString()));
+                ws.GetRow(j + 1).CreateCell(46).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[46].ToString()));
+                ws.GetRow(j + 1).CreateCell(47).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[47].ToString());
+
+                j++;
+            }
+
+
+
+            if (Directory.Exists(@"c:\temp\"))
+            {
+                //資料夾存在
+            }
+            else
+            {
+                //新增資料夾
+                Directory.CreateDirectory(@"c:\temp\");
+            }
+            StringBuilder filename = new StringBuilder();
+            filename.AppendFormat(@"c:\temp\預計訂單{0}.xlsx", DateTime.Now.ToString("yyyyMMdd"));
+
+            FileStream file = new FileStream(filename.ToString(), FileMode.Create);//產生檔案
+            wb.Write(file);
+            file.Close();
+
+            MessageBox.Show("匯出完成-EXCEL放在-" + filename.ToString());
+            FileInfo fi = new FileInfo(filename.ToString());
+            if (fi.Exists)
+            {
+                System.Diagnostics.Process.Start(filename.ToString());
+            }
+            else
+            {
+                //file doesn't exist
+            }
+
+
+        }
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
             if (dataGridView1.Rows.Count >= 1)
@@ -679,6 +804,8 @@ namespace TKMOC
         {
             CalTRECYCLE();
         }
+
+
         #endregion
 
 
@@ -711,6 +838,10 @@ namespace TKMOC
             SetFINISH();
         }
 
+        private void button5_Click(object sender, EventArgs e)
+        {
+            ExcelExport();
+        }
 
 
 
