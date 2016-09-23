@@ -809,6 +809,73 @@ namespace TKMOC
             CalTRECYCLE();
         }
 
+        public void PRINTDOC()
+        {
+            // 首先把建立的範本檔案讀入MemoryStream
+            //首先把建立的範本檔案讀入MemoryStream
+            System.IO.MemoryStream _memoryStream = new System.IO.MemoryStream(Properties.Resources.生產日報);
+
+            //建立一個Document物件
+            //並傳入MemoryStream
+            Aspose.Words.Document doc = new Aspose.Words.Document(_memoryStream);
+
+            //新增一個DataTable
+            DataTable table = new DataTable();
+            //建立Column
+            table.Columns.Add("P11");
+            table.Columns.Add("P12");
+            table.Columns.Add("P21");
+            table.Columns.Add("P22");
+
+
+            //[APPLYUNIT] AS '申請單位',[APPDATE] AS '申請日期',[EQUIPMENTID] AS '機台編號' 
+            //,[EQUIPMENTNAME] AS '設備名稱',[FINDEMP] AS '發現者',[APPLYEMP] AS '申請人' ,[ERROR] AS '異常情形'
+            //,[STATUS] AS '原因及處理方式',[REMARK] AS '備註',[MAINEMP] AS '維修者',[MAINDATE] AS '維修時間'
+            //透過建立的DataTable物件來New一個儲存資料的Row
+            DataRow row = table.NewRow();
+            //這些Row具有上面所建立相同的Column欄位
+            //因此可以直接指定欄位名稱將資料填入裡面       
+            //DateTime dt = Convert.ToDateTime(drMAINAPPLY.Cells["申請日期"].Value.ToString());
+            row["P11"] ="A";
+            row["P12"] = "B";
+            row["P21"] = "C";
+            row["P22"] = "D";
+
+            //把所建立的資料行加入Table的Row清單內
+            table.Rows.Add(row);
+
+
+            //將DataTable傳入Document的MailMerge.Execute()方法
+            //doc.MailMerge.Execute(table);
+            //清空所有未被合併的功能變數
+            doc.MailMerge.DeleteFields();
+
+            if (Directory.Exists(@"c:\temp\"))
+            {
+                //資料夾存在
+            }
+            else
+            {
+                //新增資料夾
+                Directory.CreateDirectory(@"c:\temp\");
+            }
+            //將檔案儲存至c:\
+            StringBuilder filename = new StringBuilder();
+            filename.AppendFormat(@"c:\temp\生產日報{0}.doc", DateTime.Now.ToString("yyyyMMdd"));
+            doc.Save(filename.ToString());
+
+            MessageBox.Show("匯出完成-文件放在-" + filename.ToString());
+            FileInfo fi = new FileInfo(filename.ToString());
+            if (fi.Exists)
+            {
+                System.Diagnostics.Process.Start(filename.ToString());
+            }
+            else
+            {
+                //file doesn't exist
+            }
+
+        }
 
         #endregion
 
@@ -845,6 +912,7 @@ namespace TKMOC
         private void button5_Click(object sender, EventArgs e)
         {
             ExcelExport();
+            //PRINTDOC();
         }
 
 
