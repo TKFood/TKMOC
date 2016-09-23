@@ -540,7 +540,11 @@ namespace TKMOC
         }
         public void CalSTIRPCT()
         {
-            numericUpDown34.Value = (numericUpDown4.Value + numericUpDown8.Value - numericUpDown23.Value - numericUpDown24.Value) / (numericUpDown4.Value + numericUpDown8.Value) * 100;
+            if(numericUpDown4.Value!=0&& numericUpDown8.Value!=0)
+            {
+                numericUpDown34.Value = (numericUpDown4.Value + numericUpDown8.Value - numericUpDown23.Value - numericUpDown24.Value) / (numericUpDown4.Value + numericUpDown8.Value) * 100;
+            }
+            
         }
         private void numericUpDown4_ValueChanged(object sender, EventArgs e)
         {
@@ -553,7 +557,11 @@ namespace TKMOC
         }
         public void CalEVARATE()
         {
-            numericUpDown35.Value = (numericUpDown20.Value - numericUpDown21.Value) / numericUpDown20.Value * 100;
+            if (numericUpDown20.Value != 0 )
+            {
+                numericUpDown35.Value = (numericUpDown20.Value - numericUpDown21.Value) / numericUpDown20.Value * 100;
+            }
+                
         }
         private void numericUpDown20_ValueChanged(object sender, EventArgs e)
         {
@@ -568,7 +576,11 @@ namespace TKMOC
 
         public void CalLOSTRATE()
         {
-            numericUpDown36.Value = (numericUpDown31.Value + numericUpDown26.Value + numericUpDown27.Value) - numericUpDown31.Value / numericUpDown31.Value * 100;
+            if (numericUpDown31.Value != 0)
+            {
+                numericUpDown36.Value = ((numericUpDown31.Value + numericUpDown26.Value + numericUpDown27.Value) - numericUpDown31.Value) / numericUpDown31.Value * 100;
+            }
+               
         }
         private void numericUpDown26_ValueChanged(object sender, EventArgs e)
         {
@@ -591,7 +603,11 @@ namespace TKMOC
         }
         public void CalHALFRATE()
         {
-            numericUpDown37.Value = (numericUpDown31.Value + numericUpDown26.Value) / numericUpDown21.Value * 100;
+            if (numericUpDown21.Value != 0)
+            {
+                numericUpDown37.Value = ((numericUpDown31.Value + numericUpDown27.Value) / numericUpDown21.Value) * 100;
+            }
+               
         }
         public void CalPACKAGETOTALTIME()
         {
@@ -608,7 +624,11 @@ namespace TKMOC
         }
         public void CalWEIGHTTOTAL()
         {
-            numericUpDown39.Value = numericUpDown32.Value - (numericUpDown32.Value / numericUpDown42.Value * numericUpDown43.Value);
+            if (numericUpDown42.Value != 0&& numericUpDown43.Value != 0)
+            {
+                numericUpDown39.Value = numericUpDown32.Value - (numericUpDown32.Value / numericUpDown43.Value * numericUpDown42.Value);
+            }
+               
         }
 
         private void numericUpDown42_ValueChanged(object sender, EventArgs e)
@@ -622,7 +642,11 @@ namespace TKMOC
         }
         public void CalPACKAGELOSTRATE()
         {
-            numericUpDown40.Value = numericUpDown28.Value / numericUpDown30.Value * 100;
+            if (numericUpDown30.Value!=0)
+            {
+                numericUpDown40.Value = numericUpDown28.Value / numericUpDown30.Value * 100;
+            }
+            
         }
         private void numericUpDown28_ValueChanged(object sender, EventArgs e)
         {
@@ -635,9 +659,26 @@ namespace TKMOC
         }
         public void CalTOTALRATE()
         {
-            numericUpDown41.Value = 1 - ((numericUpDown26.Value + numericUpDown27.Value) / numericUpDown31.Value * 100);
+            if (numericUpDown31.Value != 0)
+            {
+                numericUpDown41.Value =(1 - (((numericUpDown26.Value + numericUpDown27.Value) / numericUpDown31.Value)))*100;
+            }
+                
         }
 
+        public void CalTRECYCLE()
+        {
+            numericUpDown13.Value = numericUpDown5.Value + numericUpDown10.Value;
+        }
+        private void numericUpDown10_ValueChanged(object sender, EventArgs e)
+        {
+            CalTRECYCLE();
+        }
+
+        private void numericUpDown5_ValueChanged(object sender, EventArgs e)
+        {
+            CalTRECYCLE();
+        }
         #endregion
 
 
@@ -669,6 +710,7 @@ namespace TKMOC
 
             SetFINISH();
         }
+
 
 
 
