@@ -150,6 +150,7 @@
             this.textBox53 = new System.Windows.Forms.TextBox();
             this.label56 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label57 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -276,7 +277,6 @@
             this.tableLayoutPanel1.Controls.Add(this.textBox11, 10, 5);
             this.tableLayoutPanel1.Controls.Add(this.label18, 10, 4);
             this.tableLayoutPanel1.Controls.Add(this.textBox10, 9, 5);
-            this.tableLayoutPanel1.Controls.Add(this.label17, 9, 4);
             this.tableLayoutPanel1.Controls.Add(this.textBox9, 8, 5);
             this.tableLayoutPanel1.Controls.Add(this.label16, 8, 4);
             this.tableLayoutPanel1.Controls.Add(this.textBox8, 7, 5);
@@ -295,6 +295,8 @@
             this.tableLayoutPanel1.Controls.Add(this.label39, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.label56, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.comboBox1, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.label17, 12, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label57, 9, 4);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -679,9 +681,9 @@
             // 
             this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(733, 179);
+            this.label17.Location = new System.Drawing.Point(976, 15);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(74, 12);
+            this.label17.Size = new System.Drawing.Size(156, 12);
             this.label17.TabIndex = 133;
             // 
             // label18
@@ -1489,6 +1491,16 @@
             this.comboBox1.Size = new System.Drawing.Size(74, 20);
             this.comboBox1.TabIndex = 218;
             // 
+            // label57
+            // 
+            this.label57.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label57.AutoSize = true;
+            this.label57.Location = new System.Drawing.Point(733, 173);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(74, 24);
+            this.label57.TabIndex = 219;
+            this.label57.Text = "水面可回收邊料";
+            // 
             // frmMOCPRODUCTDAILYREPORT
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1628,5 +1640,6 @@
         private System.Windows.Forms.TextBox textBox53;
         private System.Windows.Forms.Label label56;
         private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label57;
     }
 }

@@ -321,7 +321,7 @@ namespace TKMOC
 
                 sbSql.Clear();
                 sbSql.Append(" UPDATE [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] ");
-                //sbSql.AppendFormat("  SET [PRODUCEDATE]='{1}',[PRODUCEID]='{2}',[PRODUCENAME]='{3}',[PREIN]='{4}',[PROCESSTIME]='{5}',[PRECESSPEOPEL]='{6}',[MATERIAL]='{7}',[RECYCLEMATERIAL]='{8}',[MATERIALTIME]='{9}',[MATERIALPEOPLE]='{10}',[WMATERIAL]='{11}',[WRECYCLESIDE]='{12}',[WRECYCLECOOKIES]='{13}',[PACKAGETIME]='{14}',[PACKAGEPEOPLE]='{15}',[TRECYCLE]='{16}',[NGTATOL]='{17}',[NGTIME]='{18}',[WEIGHTBEFORE]='{19}',[WEIGHTAFTER]='{20}',[COOKIENUM]='{21}',[BLADENUM]='{22}',[INBEFORE]='{23}',[INAFTER]='{24}',[PREOUT]='{25}',[NGSTIR]='{26}',[NGSIDE]='{27}',[NGCOOKIES]='{28}',[NGBAKE]='{29}',[NGNOGOOD]='{30}',[NGNOCAN]='{31}',[PACKAGEWEIGHT]='{32}',[PACKAGEIN]='{33}',[ACTUALOUT]='{34}',[HALFOUT]='{35}',[REMARK]='{36}',[MANUTIME]='{37}',[STIRPCT]='{38}',[EVARATE]='{39}',[LOSTRATE]='{40}',[HALFRATE]='{41}',[PACKAGETOTALTIME]='{42}',[WEIGHTTOTAL]='{43}',[PACKAGELOSTRATE]='{44}',[TOTALRATE]='{45}',[CANCOOKIESWEIGHT]='{46}',[CANWEIGHT] ='{47}' WHERE [ID]='{0}' ", textID.Text.ToString(), dateTimePicker2.Value.ToString("yyyy/MM/dd"), textBox3.Text.ToString(), textBox4.Text.ToString(), numericUpDown1.Value, numericUpDown2.Value, numericUpDown3.Value, numericUpDown4.Value, numericUpDown5.Value, numericUpDown6.Value, numericUpDown7.Value, numericUpDown8.Value, numericUpDown9.Value, numericUpDown10.Value, numericUpDown11.Value, numericUpDown12.Value, numericUpDown13.Value, numericUpDown14.Value, numericUpDown15.Value, numericUpDown16.Value, numericUpDown17.Value, numericUpDown18.Value, numericUpDown19.Value, numericUpDown20.Value, numericUpDown21.Value, numericUpDown22.Value, numericUpDown23.Value, numericUpDown24.Value, numericUpDown25.Value, numericUpDown26.Value, numericUpDown27.Value, numericUpDown28.Value, numericUpDown29.Value, numericUpDown30.Value, numericUpDown31.Value, numericUpDown32.Value, textBox5.Text.ToString(), numericUpDown33.Value, numericUpDown34.Value, numericUpDown35.Value, numericUpDown36.Value, numericUpDown37.Value, numericUpDown38.Value, numericUpDown39.Value, numericUpDown40.Value, numericUpDown41.Value, numericUpDown42.Value, numericUpDown43.Value);
+                sbSql.AppendFormat(" SET [PRODUCEDEP]='{1}',[PRODUCEDATE]='{2}',[PRODUCEID]='{3}',[PRODUCENAME]='{4}',[PASTRYPREIN]='{5}',[PASTRY]='{6}',[PASTRYRECYCLE]='{7}',[WATERFLOURPREIN]='{8}',[WATERFLOUR]='{9}',[WATERFLOURSIDE]='{10}',[WATERFLOURRECYCLE]='{11}',[PASTRYFLODTIME]='{12}',[PASTRYFLODNUM]='{13}',[WATERFLOURTIME]='{14}',[WATERFLOURNUM]='{15}',[RECYCLEFLOUR]='{16}',[KNIFENUM]='{17}',[WEIGHTBEFRORE]='{18}',[WEIGHTAFTER]='{19}',[ROWNUM]='{20}',[RECOOKTIME]='{21}',[NGTOTAL]='{22}',[NGCOOKTIME]='{23}',[PREOUT]='{24}',[PACKAGETIME]='{25}',[PACKAGENUM]='{26}',[STIR]='{27}',[SIDES]='{28}',[COOKIES]='{29}',[COOK]='{30}',[NGPACKAGE]='{31}',[NGPACKAGECAN]='{32}',[CAN]='{33}',[WEIGHTCAN]='{34}',[WEIGHTCANBOXED]='{35}',[HLAFWEIGHT]='{36}',[REMARK]='{37}',[MANUTIME]='{38}',[PACKTIME]='{39}',[WEIGHTBEFORECOOK]='{40}',[WEIGHTAFTERCOOK]='{41}',[ACTUALOUT]='{42}',[WEIGHTPACKAGE]='{43}',[PACKLOST]='{44}',[HLAFLOST]='{45}',[REWORKPCT]='{46}',[TOTALTIME]='{47}',[STIRPCT]='{48}',[EVARATE]='{49}',[MANULOST]='{50}',[PCT]='{51}',[PRETIME]='{52}',[STOPTIME]='{53}' WHERE [ID]='{0}'  ", textID.Text.ToString(),comboBox1.Text.ToString(), dateTimePicker2.Value.ToString("yyyy/MM/dd"),textBox3.Text.ToString(), textBox4.Text.ToString(), textBox5.Text.ToString(), textBox6.Text.ToString(), textBox7.Text.ToString(), textBox8.Text.ToString(), textBox9.Text.ToString(), textBox10.Text.ToString(), textBox11.Text.ToString(), textBox12.Text.ToString(), textBox13.Text.ToString(), textBox14.Text.ToString(), textBox15.Text.ToString(), textBox16.Text.ToString(), textBox17.Text.ToString(), textBox18.Text.ToString(), textBox19.Text.ToString(), textBox20.Text.ToString(), textBox21.Text.ToString(), textBox22.Text.ToString(), textBox23.Text.ToString(), textBox24.Text.ToString(), textBox25.Text.ToString(), textBox26.Text.ToString(), textBox27.Text.ToString(), textBox28.Text.ToString(), textBox29.Text.ToString(), textBox30.Text.ToString(), textBox31.Text.ToString(), textBox32.Text.ToString(), textBox33.Text.ToString(), textBox34.Text.ToString(), textBox35.Text.ToString(), textBox36.Text.ToString(), textBox37.Text.ToString(), textBox38.Text.ToString(), textBox39.Text.ToString(), textBox40.Text.ToString(), textBox41.Text.ToString(), textBox42.Text.ToString(), textBox43.Text.ToString(), textBox44.Text.ToString(), textBox45.Text.ToString(), textBox46.Text.ToString(), textBox47.Text.ToString(), textBox48.Text.ToString(), textBox49.Text.ToString(), textBox50.Text.ToString(), textBox51.Text.ToString(), textBox52.Text.ToString(), textBox53.Text.ToString());
                 sbSql.Append("   ");
 
                 cmd.Connection = sqlConn;
@@ -363,8 +363,8 @@ namespace TKMOC
 
                 sbSql.Clear();
                 sbSql.Append(" INSERT INTO [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] ");
-                sbSql.Append(" ( )  ");
-                //sbSql.AppendFormat("  VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}','{15}','{16}','{17}','{18}','{19}','{20}','{21}','{22}','{23}','{24}','{25}','{26}','{27}','{28}','{29}','{30}','{31}','{32}','{33}','{34}','{35}','{36}','{37}','{38}','{39}','{40}','{41}','{42}','{43}','{44}','{45}','{46}','{47}') ", Guid.NewGuid(), dateTimePicker2.Value.ToString("yyyy/MM/dd"),textBox3.Text.ToString(),textBox4.Text.ToString(),numericUpDown1.Value, numericUpDown2.Value, numericUpDown3.Value, numericUpDown4.Value, numericUpDown5.Value, numericUpDown6.Value, numericUpDown7.Value, numericUpDown8.Value, numericUpDown9.Value, numericUpDown10.Value, numericUpDown11.Value, numericUpDown12.Value, numericUpDown13.Value, numericUpDown14.Value, numericUpDown15.Value, numericUpDown16.Value, numericUpDown17.Value, numericUpDown18.Value, numericUpDown19.Value, numericUpDown20.Value, numericUpDown21.Value, numericUpDown22.Value, numericUpDown23.Value, numericUpDown24.Value, numericUpDown25.Value, numericUpDown26.Value, numericUpDown27.Value, numericUpDown28.Value, numericUpDown29.Value, numericUpDown30.Value, numericUpDown31.Value, numericUpDown32.Value,textBox5.Text.ToString(), numericUpDown33.Value, numericUpDown34.Value, numericUpDown35.Value, numericUpDown36.Value, numericUpDown37.Value, numericUpDown38.Value, numericUpDown39.Value, numericUpDown40.Value, numericUpDown41.Value, numericUpDown42.Value, numericUpDown43.Value);
+                sbSql.Append(" ( [ID],[PRODUCEDEP],[PRODUCEDATE],[PRODUCEID],[PRODUCENAME],[PASTRYPREIN],[PASTRY],[PASTRYRECYCLE],[WATERFLOURPREIN],[WATERFLOUR],[WATERFLOURSIDE],[WATERFLOURRECYCLE],[PASTRYFLODTIME],[PASTRYFLODNUM],[WATERFLOURTIME],[WATERFLOURNUM],[RECYCLEFLOUR],[KNIFENUM],[WEIGHTBEFRORE],[WEIGHTAFTER],[ROWNUM],[RECOOKTIME],[NGTOTAL],[NGCOOKTIME],[PREOUT],[PACKAGETIME],[PACKAGENUM],[STIR],[SIDES],[COOKIES],[COOK],[NGPACKAGE],[NGPACKAGECAN],[CAN],[WEIGHTCAN],[WEIGHTCANBOXED],[HLAFWEIGHT],[REMARK],[MANUTIME],[PACKTIME],[WEIGHTBEFORECOOK],[WEIGHTAFTERCOOK],[ACTUALOUT],[WEIGHTPACKAGE],[PACKLOST],[HLAFLOST],[REWORKPCT],[TOTALTIME],[STIRPCT],[EVARATE],[MANULOST],[PCT],[PRETIME],[STOPTIME] )  ");
+                sbSql.AppendFormat("  VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}','{15}','{16}','{17}','{18}','{19}','{20}','{21}','{22}','{23}','{24}','{25}','{26}','{27}','{28}','{29}','{30}','{31}','{32}','{33}','{34}','{35}','{36}','{37}','{38}','{39}','{40}','{41}','{42}','{43}','{44}','{45}','{46}','{47}','{48}','{49}','{50}','{51}','{52}','{53}') ", Guid.NewGuid(), comboBox1.Text.ToString(), dateTimePicker2.Value.ToString("yyyy/MM/dd"), textBox3.Text.ToString(), textBox4.Text.ToString(), textBox5.Text.ToString(), textBox6.Text.ToString(), textBox7.Text.ToString(), textBox8.Text.ToString(), textBox9.Text.ToString(), textBox10.Text.ToString(), textBox11.Text.ToString(), textBox12.Text.ToString(), textBox13.Text.ToString(), textBox14.Text.ToString(), textBox15.Text.ToString(), textBox16.Text.ToString(), textBox17.Text.ToString(), textBox18.Text.ToString(), textBox19.Text.ToString(), textBox20.Text.ToString(), textBox21.Text.ToString(), textBox22.Text.ToString(), textBox23.Text.ToString(), textBox24.Text.ToString(), textBox25.Text.ToString(), textBox26.Text.ToString(), textBox27.Text.ToString(), textBox28.Text.ToString(), textBox29.Text.ToString(), textBox30.Text.ToString(), textBox31.Text.ToString(), textBox32.Text.ToString(), textBox33.Text.ToString(), textBox34.Text.ToString(), textBox35.Text.ToString(), textBox36.Text.ToString(), textBox37.Text.ToString(), textBox38.Text.ToString(), textBox39.Text.ToString(), textBox40.Text.ToString(), textBox41.Text.ToString(), textBox42.Text.ToString(), textBox43.Text.ToString(), textBox44.Text.ToString(), textBox45.Text.ToString(), textBox46.Text.ToString(), textBox47.Text.ToString(), textBox48.Text.ToString(), textBox49.Text.ToString(), textBox50.Text.ToString(), textBox51.Text.ToString(), textBox52.Text.ToString(), textBox53.Text.ToString());
 
                 cmd.Connection = sqlConn;
                 cmd.CommandTimeout = 60;
@@ -449,14 +449,61 @@ namespace TKMOC
             textBox53.Text = null;
 
 
-
+            textID.ReadOnly = true;
             dateTimePicker2.Value = DateTime.Now;
-            //
             textBox3.ReadOnly = false;
             textBox4.ReadOnly = false;
             textBox5.ReadOnly = false;
+            textBox6.ReadOnly = false;
+            textBox7.ReadOnly = false;
+            textBox8.ReadOnly = false;
+            textBox9.ReadOnly = false;
+            textBox10.ReadOnly = false;
+            textBox11.ReadOnly = false;
+            textBox12.ReadOnly = false;
+            textBox13.ReadOnly = false;
+            textBox14.ReadOnly = false;
+            textBox15.ReadOnly = false;
+            textBox16.ReadOnly = false;
+            textBox17.ReadOnly = false;
+            textBox18.ReadOnly = false;
+            textBox19.ReadOnly = false;
+            textBox20.ReadOnly = false;
+            textBox21.ReadOnly = false;
+            textBox22.ReadOnly = false;
+            textBox23.ReadOnly = false;
+            textBox24.ReadOnly = false;
+            textBox25.ReadOnly = false;
+            textBox26.ReadOnly = false;
+            textBox27.ReadOnly = false;
+            textBox28.ReadOnly = false;
+            textBox29.ReadOnly = false;
+            textBox30.ReadOnly = false;
+            textBox31.ReadOnly = false;
+            textBox32.ReadOnly = false;
+            textBox33.ReadOnly = false;
+            textBox34.ReadOnly = false;
+            textBox35.ReadOnly = false;
+            textBox36.ReadOnly = false;
+            textBox37.ReadOnly = false;
+            textBox38.ReadOnly = false;
+            textBox39.ReadOnly = false;
+            textBox40.ReadOnly = false;
+            textBox41.ReadOnly = false;
+            textBox42.ReadOnly = false;
+            textBox43.ReadOnly = false;
+            textBox44.ReadOnly = false;
+            textBox45.ReadOnly = false;
+            textBox46.ReadOnly = false;
+            textBox47.ReadOnly = false;
+            textBox48.ReadOnly = false;
+            textBox49.ReadOnly = false;
+            textBox50.ReadOnly = false;
+            textBox51.ReadOnly = false;
+            textBox52.ReadOnly = false;
+            textBox53.ReadOnly = false;
             //textID.ReadOnly = false;
-           
+
             dateTimePicker2.Enabled = true;
         }
 
@@ -465,8 +512,56 @@ namespace TKMOC
             textBox3.ReadOnly = false;
             textBox4.ReadOnly = false;
             textBox5.ReadOnly = false;
+            textBox6.ReadOnly = false;
+            textBox7.ReadOnly = false;
+            textBox8.ReadOnly = false;
+            textBox9.ReadOnly = false;
+            textBox10.ReadOnly = false;
+            textBox11.ReadOnly = false;
+            textBox12.ReadOnly = false;
+            textBox13.ReadOnly = false;
+            textBox14.ReadOnly = false;
+            textBox15.ReadOnly = false;
+            textBox16.ReadOnly = false;
+            textBox17.ReadOnly = false;
+            textBox18.ReadOnly = false;
+            textBox19.ReadOnly = false;
+            textBox20.ReadOnly = false;
+            textBox21.ReadOnly = false;
+            textBox22.ReadOnly = false;
+            textBox23.ReadOnly = false;
+            textBox24.ReadOnly = false;
+            textBox25.ReadOnly = false;
+            textBox26.ReadOnly = false;
+            textBox27.ReadOnly = false;
+            textBox28.ReadOnly = false;
+            textBox29.ReadOnly = false;
+            textBox30.ReadOnly = false;
+            textBox31.ReadOnly = false;
+            textBox32.ReadOnly = false;
+            textBox33.ReadOnly = false;
+            textBox34.ReadOnly = false;
+            textBox35.ReadOnly = false;
+            textBox36.ReadOnly = false;
+            textBox37.ReadOnly = false;
+            textBox38.ReadOnly = false;
+            textBox39.ReadOnly = false;
+            textBox40.ReadOnly = false;
+            textBox41.ReadOnly = false;
+            textBox42.ReadOnly = false;
+            textBox43.ReadOnly = false;
+            textBox44.ReadOnly = false;
+            textBox45.ReadOnly = false;
+            textBox46.ReadOnly = false;
+            textBox47.ReadOnly = false;
+            textBox48.ReadOnly = false;
+            textBox49.ReadOnly = false;
+            textBox50.ReadOnly = false;
+            textBox51.ReadOnly = false;
+            textBox52.ReadOnly = false;
+            textBox53.ReadOnly = false;
             //textID.ReadOnly = false;
-            
+
             dateTimePicker2.Enabled = true;
         }
         public void SetFINISH()
@@ -474,6 +569,54 @@ namespace TKMOC
             textBox3.ReadOnly = true;
             textBox4.ReadOnly = true;
             textBox5.ReadOnly = true;
+            textBox6.ReadOnly = true;
+            textBox7.ReadOnly = true;
+            textBox8.ReadOnly = true;
+            textBox9.ReadOnly = true;
+            textBox10.ReadOnly = true;
+            textBox11.ReadOnly = true;
+            textBox12.ReadOnly = true;
+            textBox13.ReadOnly = true;
+            textBox14.ReadOnly = true;
+            textBox15.ReadOnly = true;
+            textBox16.ReadOnly = true;
+            textBox17.ReadOnly = true;
+            textBox18.ReadOnly = true;
+            textBox19.ReadOnly = true;
+            textBox20.ReadOnly = true;
+            textBox21.ReadOnly = true;
+            textBox22.ReadOnly = true;
+            textBox23.ReadOnly = true;
+            textBox24.ReadOnly = true;
+            textBox25.ReadOnly = true;
+            textBox26.ReadOnly = true;
+            textBox27.ReadOnly = true;
+            textBox28.ReadOnly = true;
+            textBox29.ReadOnly = true;
+            textBox30.ReadOnly = true;
+            textBox31.ReadOnly = true;
+            textBox32.ReadOnly = true;
+            textBox33.ReadOnly = true;
+            textBox34.ReadOnly = true;
+            textBox35.ReadOnly = true;
+            textBox36.ReadOnly = true;
+            textBox37.ReadOnly = true;
+            textBox38.ReadOnly = true;
+            textBox39.ReadOnly = true;
+            textBox40.ReadOnly = true;
+            textBox41.ReadOnly = true;
+            textBox42.ReadOnly = true;
+            textBox43.ReadOnly = true;
+            textBox44.ReadOnly = true;
+            textBox45.ReadOnly = true;
+            textBox46.ReadOnly = true;
+            textBox47.ReadOnly = true;
+            textBox48.ReadOnly = true;
+            textBox49.ReadOnly = true;
+            textBox50.ReadOnly = true;
+            textBox51.ReadOnly = true;
+            textBox52.ReadOnly = true;
+            textBox53.ReadOnly = true;
             textID.ReadOnly = true;
            
         }
