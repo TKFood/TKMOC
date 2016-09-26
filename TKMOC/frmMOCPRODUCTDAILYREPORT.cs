@@ -691,6 +691,263 @@ namespace TKMOC
 
         }
 
+        public void CalMANUTIME()
+        {
+            if(!string.IsNullOrEmpty(textBox12.Text.ToString())&& !string.IsNullOrEmpty(textBox13.Text.ToString())&& !string.IsNullOrEmpty(textBox14.Text.ToString())&& !string.IsNullOrEmpty(textBox15.Text.ToString())&& !string.IsNullOrEmpty(textBox21.Text.ToString())&& !string.IsNullOrEmpty(textBox52.Text.ToString()))
+            {
+                textBox38.Text = (Convert.ToDecimal(textBox12.Text.ToString()) * Convert.ToDecimal(textBox13.Text.ToString()) + Convert.ToDecimal(textBox14.Text.ToString()) * Convert.ToDecimal(textBox15.Text.ToString()) + Convert.ToDecimal(textBox21.Text.ToString()) + Convert.ToDecimal(textBox52.Text.ToString())).ToString();
+            }
+          
+        }
+        public void CalPACKTIME()
+        {
+            if (!string.IsNullOrEmpty(textBox25.Text.ToString()) && !string.IsNullOrEmpty(textBox26.Text.ToString()))
+            {
+                textBox39.Text = (Convert.ToDecimal(textBox25.Text.ToString()) * Convert.ToDecimal(textBox26.Text.ToString())).ToString();
+            }
+            
+        }
+        public void CalWEIGHTBEFORECOOK()
+        {
+            if (!string.IsNullOrEmpty(textBox6.Text.ToString()) && !string.IsNullOrEmpty(textBox9.Text.ToString()) && !string.IsNullOrEmpty(textBox27.Text.ToString()) && !string.IsNullOrEmpty(textBox28.Text.ToString()))
+            {
+                textBox40.Text = (Convert.ToDecimal(textBox6.Text.ToString()) + Convert.ToDecimal(textBox9.Text.ToString()) - Convert.ToDecimal(textBox27.Text.ToString()) - Convert.ToDecimal(textBox28.Text.ToString())).ToString();
+            }
+               
+        }
+        public void CalWEIGHTAFTERCOOK()
+        {
+            if(!string.IsNullOrEmpty(textBox17.Text.ToString()) && !string.IsNullOrEmpty(textBox19.Text.ToString()) && !string.IsNullOrEmpty(textBox20.Text.ToString()) )
+            {
+                textBox41.Text = (Convert.ToDecimal(textBox17.Text.ToString())* Convert.ToDecimal(textBox19.Text.ToString())* Convert.ToDecimal(textBox20.Text.ToString())/1000).ToString();
+            }
+            
+        }
+        public void CalACTUALOUT()
+        {
+            if(!string.IsNullOrEmpty(textBox36.Text.ToString()) && !string.IsNullOrEmpty(textBox43.Text.ToString()))
+            {
+                textBox42.Text = (Convert.ToDecimal(textBox36.Text.ToString())- Convert.ToDecimal(textBox43.Text.ToString())).ToString();
+            }
+            
+        }
+        public void CalWEIGHTPACKAGEE()
+        {
+            if (!string.IsNullOrEmpty(textBox36.Text.ToString()) && !string.IsNullOrEmpty(textBox34.Text.ToString()) && !string.IsNullOrEmpty(textBox35.Text.ToString()))
+            {
+                textBox43.Text = (Convert.ToDecimal(textBox36.Text.ToString())-(Convert.ToDecimal(textBox36.Text.ToString())* Convert.ToDecimal(textBox34.Text.ToString())/ Convert.ToDecimal(textBox35.Text.ToString()))).ToString();
+            }
+                
+        }
+        public void CalPACKLOST()
+        {
+            if(!string.IsNullOrEmpty(textBox32.Text.ToString()) && !string.IsNullOrEmpty(textBox33.Text.ToString()))
+            {
+                textBox44.Text = (Convert.ToDecimal(textBox32.Text.ToString())/ Convert.ToDecimal(textBox33.Text.ToString())*100).ToString();
+            }
+            
+        }
+        public void CalHLAFLOST()
+        {
+            if (!string.IsNullOrEmpty(textBox42.Text.ToString()) && !string.IsNullOrEmpty(textBox31.Text.ToString()) && !string.IsNullOrEmpty(textBox24.Text.ToString()))
+            {
+                textBox45.Text = ((Convert.ToDecimal(textBox42.Text.ToString())+ Convert.ToDecimal(textBox31.Text.ToString()))/ Convert.ToDecimal(textBox24.Text.ToString())*100).ToString();
+            }
+                
+        }
+        public void CalREWORKPCT()
+        {
+            if (!string.IsNullOrEmpty(textBox21.Text.ToString()) && !string.IsNullOrEmpty(textBox47.Text.ToString()))
+            {
+                textBox46.Text = (Convert.ToDecimal(textBox21.Text.ToString()) / Convert.ToDecimal(textBox47.Text.ToString())*100).ToString();
+            }
+            
+        }
+        public void CalTOTALTIME()
+        {
+            if (!string.IsNullOrEmpty(textBox38.Text.ToString()) && !string.IsNullOrEmpty(textBox39.Text.ToString()))
+            {
+                textBox47.Text = (Convert.ToDecimal(textBox38.Text.ToString())+ Convert.ToDecimal(textBox39.Text.ToString())).ToString();
+            }
+            
+        }
+        public void CalSTIRPCT()
+        {
+            if (!string.IsNullOrEmpty(textBox6.Text.ToString()) && !string.IsNullOrEmpty(textBox9.Text.ToString()) && !string.IsNullOrEmpty(textBox27.Text.ToString()) && !string.IsNullOrEmpty(textBox28.Text.ToString()))
+            {
+                textBox48.Text = ((Convert.ToDecimal(textBox6.Text.ToString()) + Convert.ToDecimal(textBox9.Text.ToString()) + Convert.ToDecimal(textBox27.Text.ToString()) + Convert.ToDecimal(textBox28.Text.ToString())) / (Convert.ToDecimal(textBox6.Text.ToString()) + Convert.ToDecimal(textBox9.Text.ToString())) * 100).ToString();
+            }
+                
+        }
+        public void CalEVARATE()
+        {
+            if (!string.IsNullOrEmpty(textBox40.Text.ToString()) && !string.IsNullOrEmpty(textBox41.Text.ToString()))
+            {
+                textBox49.Text = ((Convert.ToDecimal(textBox40.Text.ToString())- Convert.ToDecimal(textBox41.Text.ToString()))/ Convert.ToDecimal(textBox40.Text.ToString())*100).ToString();
+            }
+           
+        }
+        public void CalMANULOST()
+        {
+            if (!string.IsNullOrEmpty(textBox42.Text.ToString()) && !string.IsNullOrEmpty(textBox30.Text.ToString()) && !string.IsNullOrEmpty(textBox31.Text.ToString()))
+            {
+                textBox50.Text = (((Convert.ToDecimal(textBox42.Text.ToString())+ Convert.ToDecimal(textBox30.Text.ToString())+ Convert.ToDecimal(textBox31.Text.ToString()))- Convert.ToDecimal(textBox42.Text.ToString()))/ Convert.ToDecimal(textBox42.Text.ToString())).ToString();
+            }
+                 
+        }
+        public void CalPCT()
+        {
+            if (!string.IsNullOrEmpty(textBox42.Text.ToString()) && !string.IsNullOrEmpty(textBox30.Text.ToString()) && !string.IsNullOrEmpty(textBox31.Text.ToString()))
+            {
+                textBox51.Text = (1-((Convert.ToDecimal(textBox30.Text.ToString())+ Convert.ToDecimal(textBox31.Text.ToString())) /Convert.ToDecimal(textBox42.Text.ToString()))).ToString();
+            }
+            
+        }
+
+        private void textBox12_TextChanged(object sender, EventArgs e)
+        {
+            CalMANUTIME();
+        }
+
+        private void textBox13_TextChanged(object sender, EventArgs e)
+        {
+            CalMANUTIME();
+        }
+
+        private void textBox14_TextChanged(object sender, EventArgs e)
+        {
+            CalMANUTIME();
+        }
+
+        private void textBox15_TextChanged(object sender, EventArgs e)
+        {
+            CalMANUTIME();
+        }
+
+        private void textBox21_TextChanged(object sender, EventArgs e)
+        {
+            CalMANUTIME();
+            CalREWORKPCT();
+        }
+
+        private void textBox52_TextChanged(object sender, EventArgs e)
+        {
+            CalMANUTIME();
+        }
+        private void textBox25_TextChanged(object sender, EventArgs e)
+        {
+            CalPACKTIME();
+        }
+
+        private void textBox26_TextChanged(object sender, EventArgs e)
+        {
+            CalPACKTIME();
+        }
+        private void textBox6_TextChanged(object sender, EventArgs e)
+        {
+            CalWEIGHTBEFORECOOK();
+        }
+
+        private void textBox9_TextChanged(object sender, EventArgs e)
+        {
+            CalWEIGHTBEFORECOOK();
+        }
+
+        private void textBox27_TextChanged(object sender, EventArgs e)
+        {
+            CalWEIGHTBEFORECOOK();
+        }
+
+        private void textBox28_TextChanged(object sender, EventArgs e)
+        {
+            CalWEIGHTBEFORECOOK();
+        }
+        private void textBox17_TextChanged(object sender, EventArgs e)
+        {
+            CalWEIGHTAFTERCOOK();
+        }
+
+        private void textBox19_TextChanged(object sender, EventArgs e)
+        {
+            CalWEIGHTAFTERCOOK();
+        }
+
+        private void textBox20_TextChanged(object sender, EventArgs e)
+        {
+            CalWEIGHTAFTERCOOK();
+        }
+        private void textBox36_TextChanged(object sender, EventArgs e)
+        {
+            CalACTUALOUT();
+            CalWEIGHTPACKAGEE();
+        }
+
+        private void textBox43_TextChanged(object sender, EventArgs e)
+        {
+            CalACTUALOUT();
+        }
+        private void textBox34_TextChanged(object sender, EventArgs e)
+        {
+            CalWEIGHTPACKAGEE();
+        }
+
+        private void textBox35_TextChanged(object sender, EventArgs e)
+        {
+            CalWEIGHTPACKAGEE();
+        }
+        private void textBox32_TextChanged(object sender, EventArgs e)
+        {
+            CalPACKLOST();
+        }
+
+        private void textBox33_TextChanged(object sender, EventArgs e)
+        {
+            CalPACKLOST();
+        }
+        private void textBox24_TextChanged(object sender, EventArgs e)
+        {
+            CalHLAFLOST();
+        }
+
+        private void textBox31_TextChanged(object sender, EventArgs e)
+        {
+            CalHLAFLOST();
+            CalMANULOST();
+            CalPCT();
+        }
+        private void textBox38_TextChanged(object sender, EventArgs e)
+        {
+            CalTOTALTIME();
+        }
+
+        private void textBox39_TextChanged(object sender, EventArgs e)
+        {
+            CalTOTALTIME();
+        }
+        private void textBox47_TextChanged(object sender, EventArgs e)
+        {
+            CalREWORKPCT();
+        }
+         private void textBox40_TextChanged(object sender, EventArgs e)
+        {
+            CalEVARATE();
+        }
+
+        private void textBox41_TextChanged(object sender, EventArgs e)
+        {
+            CalEVARATE();
+        }
+        private void textBox42_TextChanged(object sender, EventArgs e)
+        {
+            CalMANULOST();
+            CalPCT();
+        }
+
+        private void textBox30_TextChanged(object sender, EventArgs e)
+        {
+            CalMANULOST();
+            CalPCT();
+        }
         #endregion
 
 
@@ -745,5 +1002,7 @@ namespace TKMOC
 
 
         #endregion
+
+
     }
 }
