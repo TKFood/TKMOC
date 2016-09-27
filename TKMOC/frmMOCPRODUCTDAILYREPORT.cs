@@ -157,7 +157,7 @@ namespace TKMOC
                 ws.GetRow(j + 1).CreateCell(0).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[0].ToString());
                 ws.GetRow(j + 1).CreateCell(1).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[1].ToString());
                 ws.GetRow(j + 1).CreateCell(2).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[2].ToString());
-                ws.GetRow(j + 1).CreateCell(3).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[3].ToString()));
+                ws.GetRow(j + 1).CreateCell(3).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[3].ToString());
                 ws.GetRow(j + 1).CreateCell(4).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[4].ToString()));
                 ws.GetRow(j + 1).CreateCell(5).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[5].ToString()));
                 ws.GetRow(j + 1).CreateCell(6).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[6].ToString()));
@@ -189,9 +189,10 @@ namespace TKMOC
                 ws.GetRow(j + 1).CreateCell(32).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[32].ToString()));
                 ws.GetRow(j + 1).CreateCell(33).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[33].ToString()));
                 ws.GetRow(j + 1).CreateCell(34).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[34].ToString()));
-                ws.GetRow(j + 1).CreateCell(35).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[35].ToString());
-                ws.GetRow(j + 1).CreateCell(36).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[36].ToString()));
+                ws.GetRow(j + 1).CreateCell(35).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[35].ToString()));
+                ws.GetRow(j + 1).CreateCell(36).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[36].ToString());
                 ws.GetRow(j + 1).CreateCell(37).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[37].ToString()));
+                
                 ws.GetRow(j + 1).CreateCell(38).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[38].ToString()));
                 ws.GetRow(j + 1).CreateCell(39).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[39].ToString()));
                 ws.GetRow(j + 1).CreateCell(40).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[40].ToString()));
@@ -201,8 +202,13 @@ namespace TKMOC
                 ws.GetRow(j + 1).CreateCell(44).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[44].ToString()));
                 ws.GetRow(j + 1).CreateCell(45).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[45].ToString()));
                 ws.GetRow(j + 1).CreateCell(46).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[46].ToString()));
-                ws.GetRow(j + 1).CreateCell(47).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[47].ToString());
-
+                ws.GetRow(j + 1).CreateCell(47).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[47].ToString()));
+                ws.GetRow(j + 1).CreateCell(48).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[48].ToString()));
+                ws.GetRow(j + 1).CreateCell(49).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[49].ToString()));
+                ws.GetRow(j + 1).CreateCell(50).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[50].ToString()));
+                ws.GetRow(j + 1).CreateCell(51).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[51].ToString()));
+                ws.GetRow(j + 1).CreateCell(52).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[52].ToString()));
+                ws.GetRow(j + 1).CreateCell(53).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[53].ToString());
                 j++;
             }
 
@@ -987,8 +993,7 @@ namespace TKMOC
 
         private void button5_Click(object sender, EventArgs e)
         {
-            ExcelExport();
-            ExcelExport();
+            ExcelExport();           
             //PRINTDOC();
         }
 
