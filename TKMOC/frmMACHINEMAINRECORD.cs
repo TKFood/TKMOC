@@ -181,7 +181,7 @@ namespace TKMOC
                         textID.Text = ds.Tables["TEMPds1"].Rows[0]["ID"].ToString();
                         comboBox1.SelectedValue = ds.Tables["TEMPds1"].Rows[0]["使用單位"].ToString();
                         comboBox2.SelectedValue = ds.Tables["TEMPds1"].Rows[0]["設備編號"].ToString();
-                   
+                        comboBox2.Text = ds.Tables["TEMPds1"].Rows[0]["設備編號"].ToString();
                         dateTimePicker1.Value = Convert.ToDateTime(ds.Tables["TEMPds1"].Rows[0]["保養日期"].ToString());
 
 

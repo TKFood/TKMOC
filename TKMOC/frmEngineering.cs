@@ -1855,24 +1855,28 @@ namespace TKMOC
             frmMAINAPPLYAddEditDel objfrmMAINAPPLYAddEditDel = new frmMAINAPPLYAddEditDel(MAINAPPLYID);
             objfrmMAINAPPLYAddEditDel.ShowDialog();
             SearchMAINAPPLY();
+            button4.PerformClick();
         }
         private void button5_Click(object sender, EventArgs e)
         {
             frmMAINAPPLYAddEditDel objfrmMAINAPPLYAddEditDel = new frmMAINAPPLYAddEditDel("");
             objfrmMAINAPPLYAddEditDel.ShowDialog();
             SearchMAINAPPLY();
+            button4.PerformClick();
         }
         private void button9_Click(object sender, EventArgs e)
         {
             frmMAINAPPLYOUTAddEditDel objfrmMAINAPPLYOUTAddEditDel = new frmMAINAPPLYOUTAddEditDel(MAINAPPLYOUTID);
             objfrmMAINAPPLYOUTAddEditDel.ShowDialog();
             SearchMAINAPPLYOUT();
+            button4.PerformClick();
         }
         private void button7_Click(object sender, EventArgs e)
         {
             frmMAINAPPLYOUTAddEditDel objfrmMAINAPPLYOUTAddEditDel = new frmMAINAPPLYOUTAddEditDel("");
             objfrmMAINAPPLYOUTAddEditDel.ShowDialog();
             SearchMAINAPPLYOUT();
+            button4.PerformClick();
         }
 
         private void button10_Click(object sender, EventArgs e)
@@ -1880,6 +1884,7 @@ namespace TKMOC
             frmMAINRECORDAddEditDel objfrmMAINRECORDAddEditDel = new frmMAINRECORDAddEditDel(MAINRECORDID);
             objfrmMAINRECORDAddEditDel.ShowDialog();
             SearchMAINRECORD();
+            button4.PerformClick();
         }
 
         private void button8_Click(object sender, EventArgs e)
@@ -1887,6 +1892,7 @@ namespace TKMOC
             frmMAINRECORDAddEditDel objfrmMAINRECORDAddEditDel = new frmMAINRECORDAddEditDel("");
             objfrmMAINRECORDAddEditDel.ShowDialog();
             SearchMAINRECORD();
+            button4.PerformClick();
         }
 
         private void button11_Click(object sender, EventArgs e)
@@ -1899,7 +1905,7 @@ namespace TKMOC
             frmMACHINECARD objfrmMACHINECARD = new frmMACHINECARD(MACHINEID);
             objfrmMACHINECARD.ShowDialog();
             SearchMCHINE();
-
+            button11.PerformClick();
         }
 
         private void button12_Click(object sender, EventArgs e)
@@ -1914,6 +1920,7 @@ namespace TKMOC
             frmMACHINEATTACH objfrmMACHINEATTACH = new frmMACHINEATTACH(MACHINEID);
             objfrmMACHINEATTACH.ShowDialog();
             SearchMCHINEATTACH();
+            button11.PerformClick();
         }
 
         private void button14_Click(object sender, EventArgs e)
@@ -1921,6 +1928,7 @@ namespace TKMOC
             frmMACHINEATTACH objfrmMACHINEATTACH = new frmMACHINEATTACH("");
             objfrmMACHINEATTACH.ShowDialog();
             SearchMCHINEATTACH();
+            button11.PerformClick();
         }
         private void button16_Click(object sender, EventArgs e)
         {
@@ -1933,6 +1941,7 @@ namespace TKMOC
             frmMACHINEDAILYCHECK objfrmMACHINEDAILYCHECK = new frmMACHINEDAILYCHECK(MACHINEDAILYCHECK);
             objfrmMACHINEDAILYCHECK.ShowDialog();
             SearchMACHINEDAILYCHECK();
+            button16.PerformClick();
         }
 
         private void button17_Click(object sender, EventArgs e)
@@ -1940,6 +1949,7 @@ namespace TKMOC
             frmMACHINEDAILYCHECK objfrmMACHINEDAILYCHECK = new frmMACHINEDAILYCHECK("");
             objfrmMACHINEDAILYCHECK.ShowDialog();
             SearchMACHINEDAILYCHECK();
+            button16.PerformClick();
         }
 
         private void button21_Click(object sender, EventArgs e)
@@ -1947,6 +1957,7 @@ namespace TKMOC
             frmMACHINEMAINRECORD objfrmMACHINEMAINRECORD = new frmMACHINEMAINRECORD(MACHINEMAINRECORDID);
             objfrmMACHINEMAINRECORD.ShowDialog();
             SearchMACHINEMAINRECORD();
+            button16.PerformClick();
         }
 
         private void button19_Click(object sender, EventArgs e)
@@ -1954,6 +1965,7 @@ namespace TKMOC
             frmMACHINEMAINRECORD objfrmMACHINEMAINRECORD = new frmMACHINEMAINRECORD("");
             objfrmMACHINEMAINRECORD.ShowDialog();
             SearchMACHINEMAINRECORD();
+            button16.PerformClick();
         }
 
         private void button22_Click(object sender, EventArgs e)
@@ -1961,6 +1973,7 @@ namespace TKMOC
             frmMACHINEMAINWEEK objfrmMACHINEMAINWEEK = new frmMACHINEMAINWEEK(MACHINEMAINWEEKID);
             objfrmMACHINEMAINWEEK.ShowDialog();
             SearchMACHINEMAINWEEK();
+            button16.PerformClick();
         }
 
         private void button20_Click(object sender, EventArgs e)
@@ -1968,6 +1981,7 @@ namespace TKMOC
             frmMACHINEMAINWEEK objfrmMACHINEMAINWEEK = new frmMACHINEMAINWEEK("");
             objfrmMACHINEMAINWEEK.ShowDialog();
             SearchMACHINEMAINWEEK();
+            button16.PerformClick();
         }
         private void button23_Click(object sender, EventArgs e)
         {
@@ -1979,6 +1993,7 @@ namespace TKMOC
             frmMAINPARTS objfrmMAINPARTS = new frmMAINPARTS(MAINPARTSID);
             objfrmMAINPARTS.ShowDialog();
             SearchMAINPARTS();
+            button23.PerformClick();
         }
 
         private void button25_Click(object sender, EventArgs e)
@@ -1986,6 +2001,7 @@ namespace TKMOC
             frmMAINPARTS objfrmMAINPARTS = new frmMAINPARTS("");
             objfrmMAINPARTS.ShowDialog();
             SearchMAINPARTS();
+            button23.PerformClick();
         }
 
         private void button26_Click(object sender, EventArgs e)
@@ -1993,6 +2009,7 @@ namespace TKMOC
             frmMAINPARTSUSED objfrmMAINPARTSUSED = new frmMAINPARTSUSED(MAINPARTSUSEDID);
             objfrmMAINPARTSUSED.ShowDialog();
             SearchMAINPARTSUSED();
+            button23.PerformClick();
         }
 
         private void button24_Click(object sender, EventArgs e)
@@ -2000,6 +2017,7 @@ namespace TKMOC
             frmMAINPARTSUSED objfrmMAINPARTSUSED = new frmMAINPARTSUSED("");
             objfrmMAINPARTSUSED.ShowDialog();
             SearchMAINPARTSUSED();
+            button23.PerformClick();
         }
 
 

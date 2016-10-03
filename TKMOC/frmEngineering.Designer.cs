@@ -135,7 +135,7 @@
             // 
             this.splitter1.Location = new System.Drawing.Point(0, 0);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(3, 829);
+            this.splitter1.Size = new System.Drawing.Size(3, 802);
             this.splitter1.TabIndex = 0;
             this.splitter1.TabStop = false;
             // 
@@ -153,8 +153,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tabControl1);
-            this.splitContainer1.Size = new System.Drawing.Size(981, 829);
-            this.splitContainer1.SplitterDistance = 202;
+            this.splitContainer1.Size = new System.Drawing.Size(981, 802);
+            this.splitContainer1.SplitterDistance = 195;
             this.splitContainer1.TabIndex = 1;
             // 
             // tableLayoutPanel1
@@ -199,7 +199,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(981, 202);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(981, 195);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // label3
@@ -315,7 +315,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(981, 623);
+            this.tabControl1.Size = new System.Drawing.Size(981, 603);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -324,7 +324,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(973, 597);
+            this.tabPage1.Size = new System.Drawing.Size(973, 577);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "保養";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -381,7 +381,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(967, 591);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(967, 571);
             this.tableLayoutPanel2.TabIndex = 2;
             // 
             // button6
@@ -567,7 +567,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(973, 597);
+            this.tabPage2.Size = new System.Drawing.Size(973, 577);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "維修";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -624,7 +624,7 @@
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(967, 591);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(967, 571);
             this.tableLayoutPanel3.TabIndex = 3;
             // 
             // button16
@@ -811,7 +811,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(973, 597);
+            this.tabPage3.Size = new System.Drawing.Size(973, 577);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "備品";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -864,7 +864,7 @@
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(967, 591);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(967, 571);
             this.tableLayoutPanel4.TabIndex = 3;
             // 
             // dataGridView11
@@ -995,7 +995,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(973, 597);
+            this.tabPage4.Size = new System.Drawing.Size(973, 577);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "機器設備卡";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -1049,7 +1049,7 @@
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(967, 591);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(967, 571);
             this.tableLayoutPanel5.TabIndex = 4;
             // 
             // button11
@@ -1177,7 +1177,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(984, 829);
+            this.ClientSize = new System.Drawing.Size(984, 802);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.splitter1);
             this.Name = "frmEngineering";

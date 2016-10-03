@@ -177,7 +177,8 @@ namespace TKMOC
                         textBox2.Text = ds.Tables["TEMPds1"].Rows[0]["CHECKOR"].ToString();
                         textID.Text= ds.Tables["TEMPds1"].Rows[0]["ID"].ToString();
                         comboBox1.SelectedValue = ds.Tables["TEMPds1"].Rows[0]["使用單位"].ToString();
-                        comboBox2.SelectedValue = ds.Tables["TEMPds1"].Rows[0]["設備編號"].ToString();                        
+                        comboBox2.SelectedValue = ds.Tables["TEMPds1"].Rows[0]["設備編號"].ToString();
+                        comboBox2.Text = ds.Tables["TEMPds1"].Rows[0]["設備編號"].ToString();
                         comboBox3.Text = ds.Tables["TEMPds1"].Rows[0]["工作前機台內外部的清理消毒"].ToString();
                         comboBox4.Text = ds.Tables["TEMPds1"].Rows[0]["各部螺絲確實鎖緊"].ToString();
                         comboBox5.Text = ds.Tables["TEMPds1"].Rows[0]["各操作按鍵鈕正常無異"].ToString();

@@ -160,6 +160,7 @@ namespace TKMOC
                         textBox10.Text = ds.Tables["TEMPds1"].Rows[0]["備註"].ToString();
                         textID.Text = ds.Tables["TEMPds1"].Rows[0]["ID"].ToString();
                         comboBox2.SelectedValue = ds.Tables["TEMPds1"].Rows[0]["設備編號"].ToString();
+                        comboBox2.Text = ds.Tables["TEMPds1"].Rows[0]["設備編號"].ToString();
                         numericUpDown1.Value = Convert.ToInt32(ds.Tables["TEMPds1"].Rows[0]["安全庫存"].ToString());
 
 

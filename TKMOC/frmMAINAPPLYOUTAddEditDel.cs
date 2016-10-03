@@ -150,7 +150,7 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@" SELECT [ID],[EQUIPMENTID] AS '設備編號',[EQUIPMENTNAME]  AS '設備名稱',[UNIT] AS '使用單位',[MAINDATE]  AS '保養日',[MAINYEAR] AS '保養年',[MAINMONTH] AS '保養月',[MAINWEEK] AS '保養週次',[ISMAIN] AS '是否保養'  ");
+                sbSql.AppendFormat(@" SELECT [APPLYUNIT]  AS '使用單位',[EQUIPDATE] AS '出廠日期',[EQUIPMENTID] AS '設備編號',[EQUIPMENTNAME] AS '設備名稱',[APPLYEMP] AS '申請人' ,[ERROR] AS '異常情形',[STATUS] AS '原因及處理方式',[FACTROY] AS '維修廠商',[RETURNDATE] AS '預定回廠日',[RECEIVEDATE] AS '接收日',[ID] ");
                 sbSql.Append(@" FROM [TKMOC].[dbo].[MAINAPPLYOUT]  WITH (NOLOCK)");
                 sbSql.AppendFormat(@" WHERE [ID] ='{0}'", ID);
                 sbSql.Append(@" ORDER BY [ID]  ");
@@ -178,9 +178,11 @@ namespace TKMOC
                         textBox3.Text = ds.Tables["TEMPds1"].Rows[0]["異常情形"].ToString();
                         textBox4.Text = ds.Tables["TEMPds1"].Rows[0]["原因及處理方式"].ToString();
                         textBox5.Text = ds.Tables["TEMPds1"].Rows[0]["維修廠商"].ToString();
-                        textBox8.Text = ds.Tables["TEMPds1"].Rows[0]["編號"].ToString();
+                        textBox8.Text = ds.Tables["TEMPds1"].Rows[0]["ID"].ToString();
                         comboBox1.SelectedValue = ds.Tables["TEMPds1"].Rows[0]["使用單位"].ToString();
+                       
                         comboBox2.SelectedValue = ds.Tables["TEMPds1"].Rows[0]["設備編號"].ToString();
+                        comboBox2.Text = ds.Tables["TEMPds1"].Rows[0]["設備編號"].ToString();
                         dateTimePicker1.Value = Convert.ToDateTime(ds.Tables["TEMPds1"].Rows[0]["出廠日期"].ToString());
                         dateTimePicker2.Value = Convert.ToDateTime(ds.Tables["TEMPds1"].Rows[0]["預定回廠日"].ToString());
                         dateTimePicker3.Value = Convert.ToDateTime(ds.Tables["TEMPds1"].Rows[0]["接收日"].ToString());
