@@ -194,8 +194,9 @@ namespace TKMOC
                 ws.GetRow(j + 1).CreateCell(33).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[33].ToString()));
                 ws.GetRow(j + 1).CreateCell(34).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[34].ToString()));
                 ws.GetRow(j + 1).CreateCell(35).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[35].ToString()));
-                ws.GetRow(j + 1).CreateCell(36).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[36].ToString());
-                ws.GetRow(j + 1).CreateCell(37).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[37].ToString()));                
+                ws.GetRow(j + 1).CreateCell(36).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[36].ToString()));
+                ws.GetRow(j + 1).CreateCell(37).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[37].ToString());
+               
                 ws.GetRow(j + 1).CreateCell(38).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[38].ToString()));
                 ws.GetRow(j + 1).CreateCell(39).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[39].ToString()));
                 ws.GetRow(j + 1).CreateCell(40).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[40].ToString()));
@@ -216,7 +217,8 @@ namespace TKMOC
                 ws.GetRow(j + 1).CreateCell(55).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[55].ToString()));
                 ws.GetRow(j + 1).CreateCell(56).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[56].ToString()));
                 ws.GetRow(j + 1).CreateCell(57).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[57].ToString()));
-                ws.GetRow(j + 1).CreateCell(58).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[58].ToString());
+                ws.GetRow(j + 1).CreateCell(58).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[58].ToString()));
+                ws.GetRow(j + 1).CreateCell(59).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[59].ToString());
                 j++;
             }
 
@@ -232,7 +234,7 @@ namespace TKMOC
                 Directory.CreateDirectory(@"c:\temp\");
             }
             StringBuilder filename = new StringBuilder();
-            filename.AppendFormat(@"c:\temp\預計訂單{0}.xlsx", DateTime.Now.ToString("yyyyMMdd"));
+            filename.AppendFormat(@"c:\temp\生產日報{0}.xlsx", DateTime.Now.ToString("yyyyMMdd"));
 
             FileStream file = new FileStream(filename.ToString(), FileMode.Create);//產生檔案
             wb.Write(file);
