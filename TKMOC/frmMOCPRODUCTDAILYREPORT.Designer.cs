@@ -989,7 +989,7 @@
             this.textBox33.Name = "textBox33";
             this.textBox33.ReadOnly = true;
             this.textBox33.Size = new System.Drawing.Size(74, 22);
-            this.textBox33.TabIndex = 40;
+            this.textBox33.TabIndex = 41;
             this.textBox33.UseWaitCursor = true;
             this.textBox33.TextChanged += new System.EventHandler(this.textBox33_TextChanged);
             // 
@@ -1000,7 +1000,7 @@
             this.textBox34.Name = "textBox34";
             this.textBox34.ReadOnly = true;
             this.textBox34.Size = new System.Drawing.Size(74, 22);
-            this.textBox34.TabIndex = 41;
+            this.textBox34.TabIndex = 42;
             this.textBox34.UseWaitCursor = true;
             this.textBox34.TextChanged += new System.EventHandler(this.textBox34_TextChanged);
             // 
@@ -1011,7 +1011,7 @@
             this.textBox35.Name = "textBox35";
             this.textBox35.ReadOnly = true;
             this.textBox35.Size = new System.Drawing.Size(74, 22);
-            this.textBox35.TabIndex = 42;
+            this.textBox35.TabIndex = 43;
             this.textBox35.UseWaitCursor = true;
             this.textBox35.TextChanged += new System.EventHandler(this.textBox35_TextChanged);
             // 
@@ -1022,7 +1022,7 @@
             this.textBox36.Name = "textBox36";
             this.textBox36.ReadOnly = true;
             this.textBox36.Size = new System.Drawing.Size(74, 22);
-            this.textBox36.TabIndex = 43;
+            this.textBox36.TabIndex = 44;
             this.textBox36.UseWaitCursor = true;
             this.textBox36.TextChanged += new System.EventHandler(this.textBox36_TextChanged);
             // 
@@ -1118,7 +1118,7 @@
             this.textBox52.Name = "textBox52";
             this.textBox52.ReadOnly = true;
             this.textBox52.Size = new System.Drawing.Size(74, 22);
-            this.textBox52.TabIndex = 44;
+            this.textBox52.TabIndex = 45;
             this.textBox52.UseWaitCursor = true;
             this.textBox52.TextChanged += new System.EventHandler(this.textBox52_TextChanged);
             // 
@@ -1140,7 +1140,7 @@
             this.textBox53.Name = "textBox53";
             this.textBox53.ReadOnly = true;
             this.textBox53.Size = new System.Drawing.Size(74, 22);
-            this.textBox53.TabIndex = 45;
+            this.textBox53.TabIndex = 46;
             this.textBox53.UseWaitCursor = true;
             // 
             // label39
@@ -1164,7 +1164,7 @@
             this.comboBox1.Location = new System.Drawing.Point(85, 216);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(74, 20);
-            this.comboBox1.TabIndex = 1;
+            this.comboBox1.TabIndex = 2;
             this.comboBox1.UseWaitCursor = true;
             // 
             // label56
@@ -1199,7 +1199,7 @@
             this.comboBox2.Location = new System.Drawing.Point(4, 216);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(74, 20);
-            this.comboBox2.TabIndex = 909;
+            this.comboBox2.TabIndex = 1;
             this.comboBox2.UseWaitCursor = true;
             this.comboBox2.TextChanged += new System.EventHandler(this.comboBox2_TextChanged);
             // 
@@ -1212,7 +1212,7 @@
             this.dateTimePicker2.Location = new System.Drawing.Point(166, 215);
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.Size = new System.Drawing.Size(74, 22);
-            this.dateTimePicker2.TabIndex = 2;
+            this.dateTimePicker2.TabIndex = 3;
             this.dateTimePicker2.UseWaitCursor = true;
             // 
             // label26
@@ -1244,7 +1244,7 @@
             this.textBox4.Name = "textBox4";
             this.textBox4.ReadOnly = true;
             this.textBox4.Size = new System.Drawing.Size(74, 22);
-            this.textBox4.TabIndex = 4;
+            this.textBox4.TabIndex = 400;
             this.textBox4.UseWaitCursor = true;
             // 
             // label12
@@ -1403,7 +1403,7 @@
             this.textBox3.Name = "textBox3";
             this.textBox3.ReadOnly = true;
             this.textBox3.Size = new System.Drawing.Size(74, 22);
-            this.textBox3.TabIndex = 911;
+            this.textBox3.TabIndex = 4;
             this.textBox3.UseWaitCursor = true;
             this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
@@ -1447,7 +1447,7 @@
             this.textBox54.Name = "textBox54";
             this.textBox54.ReadOnly = true;
             this.textBox54.Size = new System.Drawing.Size(74, 22);
-            this.textBox54.TabIndex = 915;
+            this.textBox54.TabIndex = 47;
             this.textBox54.UseWaitCursor = true;
             this.textBox54.TextChanged += new System.EventHandler(this.textBox54_TextChanged);
             // 
@@ -1458,7 +1458,7 @@
             this.textBox56.Name = "textBox56";
             this.textBox56.ReadOnly = true;
             this.textBox56.Size = new System.Drawing.Size(74, 22);
-            this.textBox56.TabIndex = 917;
+            this.textBox56.TabIndex = 49;
             this.textBox56.UseWaitCursor = true;
             this.textBox56.TextChanged += new System.EventHandler(this.textBox56_TextChanged);
             // 
@@ -1469,7 +1469,7 @@
             this.textBox55.Name = "textBox55";
             this.textBox55.ReadOnly = true;
             this.textBox55.Size = new System.Drawing.Size(74, 22);
-            this.textBox55.TabIndex = 916;
+            this.textBox55.TabIndex = 48;
             this.textBox55.UseWaitCursor = true;
             this.textBox55.TextChanged += new System.EventHandler(this.textBox55_TextChanged);
             // 
@@ -1480,7 +1480,7 @@
             this.textBox44.Name = "textBox44";
             this.textBox44.ReadOnly = true;
             this.textBox44.Size = new System.Drawing.Size(74, 22);
-            this.textBox44.TabIndex = 66;
+            this.textBox44.TabIndex = 67;
             this.textBox44.UseWaitCursor = true;
             // 
             // label47
@@ -1501,7 +1501,7 @@
             this.textBox43.Name = "textBox43";
             this.textBox43.ReadOnly = true;
             this.textBox43.Size = new System.Drawing.Size(74, 22);
-            this.textBox43.TabIndex = 65;
+            this.textBox43.TabIndex = 66;
             this.textBox43.UseWaitCursor = true;
             this.textBox43.TextChanged += new System.EventHandler(this.textBox43_TextChanged);
             // 
@@ -1523,7 +1523,7 @@
             this.textBox42.Name = "textBox42";
             this.textBox42.ReadOnly = true;
             this.textBox42.Size = new System.Drawing.Size(74, 22);
-            this.textBox42.TabIndex = 64;
+            this.textBox42.TabIndex = 65;
             this.textBox42.UseWaitCursor = true;
             this.textBox42.TextChanged += new System.EventHandler(this.textBox42_TextChanged);
             // 
@@ -1545,7 +1545,7 @@
             this.textBox41.Name = "textBox41";
             this.textBox41.ReadOnly = true;
             this.textBox41.Size = new System.Drawing.Size(74, 22);
-            this.textBox41.TabIndex = 63;
+            this.textBox41.TabIndex = 64;
             this.textBox41.UseWaitCursor = true;
             this.textBox41.TextChanged += new System.EventHandler(this.textBox41_TextChanged);
             // 
@@ -1567,7 +1567,7 @@
             this.textBox40.Name = "textBox40";
             this.textBox40.ReadOnly = true;
             this.textBox40.Size = new System.Drawing.Size(74, 22);
-            this.textBox40.TabIndex = 62;
+            this.textBox40.TabIndex = 63;
             this.textBox40.UseWaitCursor = true;
             this.textBox40.TextChanged += new System.EventHandler(this.textBox40_TextChanged);
             // 
@@ -1600,7 +1600,7 @@
             this.textBox47.Name = "textBox47";
             this.textBox47.ReadOnly = true;
             this.textBox47.Size = new System.Drawing.Size(74, 22);
-            this.textBox47.TabIndex = 72;
+            this.textBox47.TabIndex = 62;
             this.textBox47.UseWaitCursor = true;
             this.textBox47.TextChanged += new System.EventHandler(this.textBox47_TextChanged);
             // 
@@ -1622,7 +1622,7 @@
             this.textBox49.Name = "textBox49";
             this.textBox49.ReadOnly = true;
             this.textBox49.Size = new System.Drawing.Size(74, 22);
-            this.textBox49.TabIndex = 74;
+            this.textBox49.TabIndex = 72;
             this.textBox49.UseWaitCursor = true;
             // 
             // label43
@@ -1643,7 +1643,7 @@
             this.textBox50.Name = "textBox50";
             this.textBox50.ReadOnly = true;
             this.textBox50.Size = new System.Drawing.Size(74, 22);
-            this.textBox50.TabIndex = 75;
+            this.textBox50.TabIndex = 74;
             this.textBox50.UseWaitCursor = true;
             // 
             // label45
@@ -1664,7 +1664,7 @@
             this.textBox51.Name = "textBox51";
             this.textBox51.ReadOnly = true;
             this.textBox51.Size = new System.Drawing.Size(74, 22);
-            this.textBox51.TabIndex = 76;
+            this.textBox51.TabIndex = 75;
             this.textBox51.UseWaitCursor = true;
             this.textBox51.TextChanged += new System.EventHandler(this.textBox51_TextChanged);
             // 
@@ -1686,7 +1686,7 @@
             this.textBox57.Name = "textBox57";
             this.textBox57.ReadOnly = true;
             this.textBox57.Size = new System.Drawing.Size(74, 22);
-            this.textBox57.TabIndex = 919;
+            this.textBox57.TabIndex = 76;
             this.textBox57.UseWaitCursor = true;
             // 
             // label64
@@ -1707,7 +1707,7 @@
             this.textBox58.Name = "textBox58";
             this.textBox58.ReadOnly = true;
             this.textBox58.Size = new System.Drawing.Size(74, 22);
-            this.textBox58.TabIndex = 921;
+            this.textBox58.TabIndex = 77;
             this.textBox58.UseWaitCursor = true;
             // 
             // label3
