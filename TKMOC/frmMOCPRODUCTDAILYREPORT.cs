@@ -35,6 +35,7 @@ namespace TKMOC
         string tablename = null;
         string ID;
         int result;
+        string SOURCEID;
         Thread TD;
 
         public frmMOCPRODUCTDAILYREPORT()
@@ -319,7 +320,7 @@ namespace TKMOC
                 textBox58.Text = drMOCPRODUCTDAILYREPORT.Cells["總包罐製成率"].Value.ToString();
                 //numericUpDown1.Value = Convert.ToDecimal(drMOCPRODUCTDAILYREPORT.Cells["預計投入量(kg)"].Value.ToString());
 
-
+                SOURCEID= drMOCPRODUCTDAILYREPORT.Cells["ID"].Value.ToString();
 
             }
 
@@ -1159,6 +1160,12 @@ namespace TKMOC
         {
             ExcelExport();           
             //PRINTDOC();
+        }
+        private void button6_Click(object sender, EventArgs e)
+        {
+            MOCPRODUCTDAILYREPORTPROCESSID objMOCPRODUCTDAILYREPORTPROCESSID = new MOCPRODUCTDAILYREPORTPROCESSID(SOURCEID);
+            objMOCPRODUCTDAILYREPORTPROCESSID.ShowDialog();
+
         }
 
 
