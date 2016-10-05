@@ -55,7 +55,7 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.Append(@"  SELECT  [PRODUCEDEP] AS '製造組',[PRODUCEDATE] AS '日期',[PRODUCEID] AS '製令單號',[PRODUCENAME] AS '品號/品名'");
+                sbSql.Append(@"  SELECT  [PRODUCETYPE] AS '成品/半成品' ,[PRODUCEDEP] AS '製造組',[PRODUCEDATE] AS '日期',[PRODUCEMB001] AS '品號',[PRODUCENAME] AS '品名'");
                 sbSql.Append(@" ,[PASTRYPREIN] AS '油酥預計投入量(kg)',[PASTRY] AS '油酥原料',[PASTRYRECYCLE] AS '油酥可回收餅麩'");
                 sbSql.Append(@" ,[WATERFLOURPREIN] AS '水麵預計投入量(kg)',[WATERFLOUR] AS '水面原料',[WATERFLOURSIDE] AS '水面可回收邊料'");
                 sbSql.Append(@" ,[WATERFLOURRECYCLE] AS '水面可回收餅麩',[PASTRYFLODTIME] AS '油酥、摺疊製造時間(分)',[PASTRYFLODNUM] AS '油酥、摺疊製造人數'");
@@ -70,7 +70,10 @@ namespace TKMOC
                 sbSql.Append(@" ,[WEIGHTAFTERCOOK] AS '烤後實際總投入 (kg)',[ACTUALOUT] AS '實際產出(kg)(裸餅)',[WEIGHTPACKAGE] AS '袋重(kg)'");
                 sbSql.Append(@" ,[PACKLOST] AS '包裝損耗率',[HLAFLOST] AS '半成品產出效率',[REWORKPCT] AS '重工佔比',[TOTALTIME] AS '總工時(分)'");
                 sbSql.Append(@" ,[STIRPCT] AS '攪拌成型製成率%',[EVARATE] AS '蒸發率',[MANULOST] AS '製成損失率',[PCT] AS '製成率'");
-                sbSql.Append(@" ,[PRETIME] AS '前置時間',[STOPTIME] AS '停機時間',[ID]");
+                sbSql.Append(@" ,[PRETIME] AS '前置時間',[STOPTIME] AS '停機時間'");
+                sbSql.Append(@" ,[PREWEIGT] AS '容量規格',[PRECAN] AS '預計包罐數',[ACTUALCAN] AS '實際包罐數',[TOTALPCT] AS '總製成率'");
+                sbSql.Append(@" ,[CANPCT] AS '總包罐製成率' ");
+                sbSql.Append(@" ,[ID]");
                 sbSql.Append(@" FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT]  WITH (NOLOCK)");
                 sbSql.AppendFormat(@" WHERE [PRODUCEDATE] ='{0}'", dateTimePicker1.Value.ToString("yyyy/MM/dd"));
                 //sbSql.AppendFormat(@" WHERE [ID] ='{0}'", ID);
@@ -158,7 +161,7 @@ namespace TKMOC
                 ws.GetRow(j + 1).CreateCell(1).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[1].ToString());
                 ws.GetRow(j + 1).CreateCell(2).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[2].ToString());
                 ws.GetRow(j + 1).CreateCell(3).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[3].ToString());
-                ws.GetRow(j + 1).CreateCell(4).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[4].ToString()));
+                ws.GetRow(j + 1).CreateCell(4).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[4].ToString());
                 ws.GetRow(j + 1).CreateCell(5).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[5].ToString()));
                 ws.GetRow(j + 1).CreateCell(6).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[6].ToString()));
                 ws.GetRow(j + 1).CreateCell(7).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[7].ToString()));
@@ -191,8 +194,7 @@ namespace TKMOC
                 ws.GetRow(j + 1).CreateCell(34).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[34].ToString()));
                 ws.GetRow(j + 1).CreateCell(35).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[35].ToString()));
                 ws.GetRow(j + 1).CreateCell(36).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[36].ToString());
-                ws.GetRow(j + 1).CreateCell(37).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[37].ToString()));
-                
+                ws.GetRow(j + 1).CreateCell(37).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[37].ToString()));                
                 ws.GetRow(j + 1).CreateCell(38).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[38].ToString()));
                 ws.GetRow(j + 1).CreateCell(39).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[39].ToString()));
                 ws.GetRow(j + 1).CreateCell(40).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[40].ToString()));
@@ -208,7 +210,12 @@ namespace TKMOC
                 ws.GetRow(j + 1).CreateCell(50).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[50].ToString()));
                 ws.GetRow(j + 1).CreateCell(51).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[51].ToString()));
                 ws.GetRow(j + 1).CreateCell(52).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[52].ToString()));
-                ws.GetRow(j + 1).CreateCell(53).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[53].ToString());
+                ws.GetRow(j + 1).CreateCell(53).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[53].ToString()));
+                ws.GetRow(j + 1).CreateCell(54).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[54].ToString()));
+                ws.GetRow(j + 1).CreateCell(55).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[55].ToString()));
+                ws.GetRow(j + 1).CreateCell(56).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[56].ToString()));
+                ws.GetRow(j + 1).CreateCell(57).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[57].ToString()));
+                ws.GetRow(j + 1).CreateCell(58).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[58].ToString());
                 j++;
             }
 
@@ -252,10 +259,10 @@ namespace TKMOC
                 ID = dataGridView1.CurrentRow.Cells["ID"].Value.ToString();
                 textID.Text = ID;
                 dateTimePicker2.Value = Convert.ToDateTime(drMOCPRODUCTDAILYREPORT.Cells["日期"].Value.ToString());
-               
+                comboBox2.Text = drMOCPRODUCTDAILYREPORT.Cells["成品/半成品"].Value.ToString();
                 comboBox1.Text= drMOCPRODUCTDAILYREPORT.Cells["製造組"].Value.ToString();
-                textBox3.Text = drMOCPRODUCTDAILYREPORT.Cells["製令單號"].Value.ToString(); 
-                textBox4.Text = drMOCPRODUCTDAILYREPORT.Cells["品號/品名"].Value.ToString();
+                textBox3.Text = drMOCPRODUCTDAILYREPORT.Cells["品號"].Value.ToString(); 
+                textBox4.Text = drMOCPRODUCTDAILYREPORT.Cells["品名"].Value.ToString();
                 textBox5.Text = drMOCPRODUCTDAILYREPORT.Cells["油酥預計投入量(kg)"].Value.ToString();
                 textBox6.Text = drMOCPRODUCTDAILYREPORT.Cells["油酥原料"].Value.ToString();
                 textBox7.Text = drMOCPRODUCTDAILYREPORT.Cells["油酥可回收餅麩"].Value.ToString();
@@ -305,7 +312,11 @@ namespace TKMOC
                 textBox51.Text = drMOCPRODUCTDAILYREPORT.Cells["製成率"].Value.ToString();
                 textBox52.Text = drMOCPRODUCTDAILYREPORT.Cells["前置時間"].Value.ToString();
                 textBox53.Text = drMOCPRODUCTDAILYREPORT.Cells["停機時間"].Value.ToString();
-
+                textBox54.Text = drMOCPRODUCTDAILYREPORT.Cells["容量規格"].Value.ToString();
+                textBox55.Text = drMOCPRODUCTDAILYREPORT.Cells["預計包罐數"].Value.ToString();
+                textBox56.Text = drMOCPRODUCTDAILYREPORT.Cells["實際包罐數"].Value.ToString();
+                textBox57.Text = drMOCPRODUCTDAILYREPORT.Cells["總製成率"].Value.ToString();
+                textBox58.Text = drMOCPRODUCTDAILYREPORT.Cells["總包罐製成率"].Value.ToString();
                 //numericUpDown1.Value = Convert.ToDecimal(drMOCPRODUCTDAILYREPORT.Cells["預計投入量(kg)"].Value.ToString());
 
 
@@ -327,7 +338,7 @@ namespace TKMOC
 
                 sbSql.Clear();
                 sbSql.Append(" UPDATE [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] ");
-                sbSql.AppendFormat(" SET [PRODUCEDEP]='{1}',[PRODUCEDATE]='{2}',[PRODUCEID]='{3}',[PRODUCENAME]='{4}',[PASTRYPREIN]='{5}',[PASTRY]='{6}',[PASTRYRECYCLE]='{7}',[WATERFLOURPREIN]='{8}',[WATERFLOUR]='{9}',[WATERFLOURSIDE]='{10}',[WATERFLOURRECYCLE]='{11}',[PASTRYFLODTIME]='{12}',[PASTRYFLODNUM]='{13}',[WATERFLOURTIME]='{14}',[WATERFLOURNUM]='{15}',[RECYCLEFLOUR]='{16}',[KNIFENUM]='{17}',[WEIGHTBEFRORE]='{18}',[WEIGHTAFTER]='{19}',[ROWNUM]='{20}',[RECOOKTIME]='{21}',[NGTOTAL]='{22}',[NGCOOKTIME]='{23}',[PREOUT]='{24}',[PACKAGETIME]='{25}',[PACKAGENUM]='{26}',[STIR]='{27}',[SIDES]='{28}',[COOKIES]='{29}',[COOK]='{30}',[NGPACKAGE]='{31}',[NGPACKAGECAN]='{32}',[CAN]='{33}',[WEIGHTCAN]='{34}',[WEIGHTCANBOXED]='{35}',[HLAFWEIGHT]='{36}',[REMARK]='{37}',[MANUTIME]='{38}',[PACKTIME]='{39}',[WEIGHTBEFORECOOK]='{40}',[WEIGHTAFTERCOOK]='{41}',[ACTUALOUT]='{42}',[WEIGHTPACKAGE]='{43}',[PACKLOST]='{44}',[HLAFLOST]='{45}',[REWORKPCT]='{46}',[TOTALTIME]='{47}',[STIRPCT]='{48}',[EVARATE]='{49}',[MANULOST]='{50}',[PCT]='{51}',[PRETIME]='{52}',[STOPTIME]='{53}' WHERE [ID]='{0}'  ", textID.Text.ToString(),comboBox1.Text.ToString(), dateTimePicker2.Value.ToString("yyyy/MM/dd"),textBox3.Text.ToString(), textBox4.Text.ToString(), textBox5.Text.ToString(), textBox6.Text.ToString(), textBox7.Text.ToString(), textBox8.Text.ToString(), textBox9.Text.ToString(), textBox10.Text.ToString(), textBox11.Text.ToString(), textBox12.Text.ToString(), textBox13.Text.ToString(), textBox14.Text.ToString(), textBox15.Text.ToString(), textBox16.Text.ToString(), textBox17.Text.ToString(), textBox18.Text.ToString(), textBox19.Text.ToString(), textBox20.Text.ToString(), textBox21.Text.ToString(), textBox22.Text.ToString(), textBox23.Text.ToString(), textBox24.Text.ToString(), textBox25.Text.ToString(), textBox26.Text.ToString(), textBox27.Text.ToString(), textBox28.Text.ToString(), textBox29.Text.ToString(), textBox30.Text.ToString(), textBox31.Text.ToString(), textBox32.Text.ToString(), textBox33.Text.ToString(), textBox34.Text.ToString(), textBox35.Text.ToString(), textBox36.Text.ToString(), textBox37.Text.ToString(), textBox38.Text.ToString(), textBox39.Text.ToString(), textBox40.Text.ToString(), textBox41.Text.ToString(), textBox42.Text.ToString(), textBox43.Text.ToString(), textBox44.Text.ToString(), textBox45.Text.ToString(), textBox46.Text.ToString(), textBox47.Text.ToString(), textBox48.Text.ToString(), textBox49.Text.ToString(), textBox50.Text.ToString(), textBox51.Text.ToString(), textBox52.Text.ToString(), textBox53.Text.ToString());
+                sbSql.AppendFormat(" SET [PRODUCETYPE]='{1}',[PRODUCEDEP]='{2}',[PRODUCEDATE]='{3}',[PRODUCEMB001]='{4}',[PRODUCENAME]='{5}',[PASTRYPREIN]='{6}',[PASTRY]='{7}',[PASTRYRECYCLE]='{8}',[WATERFLOURPREIN]='{9}',[WATERFLOUR]='{10}',[WATERFLOURSIDE]='{11}',[WATERFLOURRECYCLE]='{12}',[PASTRYFLODTIME]='{13}',[PASTRYFLODNUM]='{14}',[WATERFLOURTIME]='{15}',[WATERFLOURNUM]='{16}',[RECYCLEFLOUR]='{17}',[KNIFENUM]='{18}',[WEIGHTBEFRORE]='{19}',[WEIGHTAFTER]='{20}',[ROWNUM]='{21}',[RECOOKTIME]='{22}',[NGTOTAL]='{23}',[NGCOOKTIME]='{24}',[PREOUT]='{25}',[PACKAGETIME]='{26}',[PACKAGENUM]='{27}',[STIR]='{28}',[SIDES]='{29}',[COOKIES]='{30}',[COOK]='{31}',[NGPACKAGE]='{32}',[NGPACKAGECAN]='{33}',[CAN]='{34}',[WEIGHTCAN]='{35}',[WEIGHTCANBOXED]='{36}',[HLAFWEIGHT]='{37}',[REMARK]='{38}',[MANUTIME]='{39}',[PACKTIME]='{40}',[WEIGHTBEFORECOOK]='{41}',[WEIGHTAFTERCOOK]='{42}',[ACTUALOUT]='{43}',[WEIGHTPACKAGE]='{44}',[PACKLOST]='{45}',[HLAFLOST]='{46}',[REWORKPCT]='{47}',[TOTALTIME]='{48}',[STIRPCT]='{49}',[EVARATE]='{50}',[MANULOST]='{51}',[PCT]='{52}',[PRETIME]='{53}',[STOPTIME]='{54}',[PREWEIGT]='{55}',[PRECAN]='{56}',[ACTUALCAN]='{57}',[TOTALPCT]='{58}',[CANPCT]='{59}' WHERE [ID]='{0}'  ", textID.Text.ToString(), comboBox2.Text.ToString(), comboBox1.Text.ToString(), dateTimePicker2.Value.ToString("yyyy/MM/dd"),textBox3.Text.ToString(), textBox4.Text.ToString(), textBox5.Text.ToString(), textBox6.Text.ToString(), textBox7.Text.ToString(), textBox8.Text.ToString(), textBox9.Text.ToString(), textBox10.Text.ToString(), textBox11.Text.ToString(), textBox12.Text.ToString(), textBox13.Text.ToString(), textBox14.Text.ToString(), textBox15.Text.ToString(), textBox16.Text.ToString(), textBox17.Text.ToString(), textBox18.Text.ToString(), textBox19.Text.ToString(), textBox20.Text.ToString(), textBox21.Text.ToString(), textBox22.Text.ToString(), textBox23.Text.ToString(), textBox24.Text.ToString(), textBox25.Text.ToString(), textBox26.Text.ToString(), textBox27.Text.ToString(), textBox28.Text.ToString(), textBox29.Text.ToString(), textBox30.Text.ToString(), textBox31.Text.ToString(), textBox32.Text.ToString(), textBox33.Text.ToString(), textBox34.Text.ToString(), textBox35.Text.ToString(), textBox36.Text.ToString(), textBox37.Text.ToString(), textBox38.Text.ToString(), textBox39.Text.ToString(), textBox40.Text.ToString(), textBox41.Text.ToString(), textBox42.Text.ToString(), textBox43.Text.ToString(), textBox44.Text.ToString(), textBox45.Text.ToString(), textBox46.Text.ToString(), textBox47.Text.ToString(), textBox48.Text.ToString(), textBox49.Text.ToString(), textBox50.Text.ToString(), textBox51.Text.ToString(), textBox52.Text.ToString(), textBox53.Text.ToString(), textBox54.Text.ToString(), textBox55.Text.ToString(), textBox56.Text.ToString(), textBox57.Text.ToString(), textBox58.Text.ToString());
                 sbSql.Append("   ");
 
                 cmd.Connection = sqlConn;
@@ -369,8 +380,8 @@ namespace TKMOC
 
                 sbSql.Clear();
                 sbSql.Append(" INSERT INTO [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] ");
-                sbSql.Append(" ( [ID],[PRODUCEDEP],[PRODUCEDATE],[PRODUCEID],[PRODUCENAME],[PASTRYPREIN],[PASTRY],[PASTRYRECYCLE],[WATERFLOURPREIN],[WATERFLOUR],[WATERFLOURSIDE],[WATERFLOURRECYCLE],[PASTRYFLODTIME],[PASTRYFLODNUM],[WATERFLOURTIME],[WATERFLOURNUM],[RECYCLEFLOUR],[KNIFENUM],[WEIGHTBEFRORE],[WEIGHTAFTER],[ROWNUM],[RECOOKTIME],[NGTOTAL],[NGCOOKTIME],[PREOUT],[PACKAGETIME],[PACKAGENUM],[STIR],[SIDES],[COOKIES],[COOK],[NGPACKAGE],[NGPACKAGECAN],[CAN],[WEIGHTCAN],[WEIGHTCANBOXED],[HLAFWEIGHT],[REMARK],[MANUTIME],[PACKTIME],[WEIGHTBEFORECOOK],[WEIGHTAFTERCOOK],[ACTUALOUT],[WEIGHTPACKAGE],[PACKLOST],[HLAFLOST],[REWORKPCT],[TOTALTIME],[STIRPCT],[EVARATE],[MANULOST],[PCT],[PRETIME],[STOPTIME] )  ");
-                sbSql.AppendFormat("  VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}','{15}','{16}','{17}','{18}','{19}','{20}','{21}','{22}','{23}','{24}','{25}','{26}','{27}','{28}','{29}','{30}','{31}','{32}','{33}','{34}','{35}','{36}','{37}','{38}','{39}','{40}','{41}','{42}','{43}','{44}','{45}','{46}','{47}','{48}','{49}','{50}','{51}','{52}','{53}') ", Guid.NewGuid(), comboBox1.Text.ToString(), dateTimePicker2.Value.ToString("yyyy/MM/dd"), textBox3.Text.ToString(), textBox4.Text.ToString(), textBox5.Text.ToString(), textBox6.Text.ToString(), textBox7.Text.ToString(), textBox8.Text.ToString(), textBox9.Text.ToString(), textBox10.Text.ToString(), textBox11.Text.ToString(), textBox12.Text.ToString(), textBox13.Text.ToString(), textBox14.Text.ToString(), textBox15.Text.ToString(), textBox16.Text.ToString(), textBox17.Text.ToString(), textBox18.Text.ToString(), textBox19.Text.ToString(), textBox20.Text.ToString(), textBox21.Text.ToString(), textBox22.Text.ToString(), textBox23.Text.ToString(), textBox24.Text.ToString(), textBox25.Text.ToString(), textBox26.Text.ToString(), textBox27.Text.ToString(), textBox28.Text.ToString(), textBox29.Text.ToString(), textBox30.Text.ToString(), textBox31.Text.ToString(), textBox32.Text.ToString(), textBox33.Text.ToString(), textBox34.Text.ToString(), textBox35.Text.ToString(), textBox36.Text.ToString(), textBox37.Text.ToString(), textBox38.Text.ToString(), textBox39.Text.ToString(), textBox40.Text.ToString(), textBox41.Text.ToString(), textBox42.Text.ToString(), textBox43.Text.ToString(), textBox44.Text.ToString(), textBox45.Text.ToString(), textBox46.Text.ToString(), textBox47.Text.ToString(), textBox48.Text.ToString(), textBox49.Text.ToString(), textBox50.Text.ToString(), textBox51.Text.ToString(), textBox52.Text.ToString(), textBox53.Text.ToString());
+                sbSql.Append(" ( [ID],[PRODUCETYPE],[PRODUCEDEP],[PRODUCEDATE],[PRODUCEMB001],[PRODUCENAME],[PASTRYPREIN],[PASTRY],[PASTRYRECYCLE],[WATERFLOURPREIN],[WATERFLOUR],[WATERFLOURSIDE],[WATERFLOURRECYCLE],[PASTRYFLODTIME],[PASTRYFLODNUM],[WATERFLOURTIME],[WATERFLOURNUM],[RECYCLEFLOUR],[KNIFENUM],[WEIGHTBEFRORE],[WEIGHTAFTER],[ROWNUM],[RECOOKTIME],[NGTOTAL],[NGCOOKTIME],[PREOUT],[PACKAGETIME],[PACKAGENUM],[STIR],[SIDES],[COOKIES],[COOK],[NGPACKAGE],[NGPACKAGECAN],[CAN],[WEIGHTCAN],[WEIGHTCANBOXED],[HLAFWEIGHT],[REMARK],[MANUTIME],[PACKTIME],[WEIGHTBEFORECOOK],[WEIGHTAFTERCOOK],[ACTUALOUT],[WEIGHTPACKAGE],[PACKLOST],[HLAFLOST],[REWORKPCT],[TOTALTIME],[STIRPCT],[EVARATE],[MANULOST],[PCT],[PRETIME],[STOPTIME],[PREWEIGT],[PRECAN],[ACTUALCAN],[TOTALPCT] ,[CANPCT])  ");
+                sbSql.AppendFormat("  VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}','{15}','{16}','{17}','{18}','{19}','{20}','{21}','{22}','{23}','{24}','{25}','{26}','{27}','{28}','{29}','{30}','{31}','{32}','{33}','{34}','{35}','{36}','{37}','{38}','{39}','{40}','{41}','{42}','{43}','{44}','{45}','{46}','{47}','{48}','{49}','{50}','{51}','{52}','{53}','{54}','{55}','{56}','{57}','{58}','{59}') ", Guid.NewGuid(), comboBox2.Text.ToString(), comboBox1.Text.ToString(), dateTimePicker2.Value.ToString("yyyy/MM/dd"), textBox3.Text.ToString(), textBox4.Text.ToString(), textBox5.Text.ToString(), textBox6.Text.ToString(), textBox7.Text.ToString(), textBox8.Text.ToString(), textBox9.Text.ToString(), textBox10.Text.ToString(), textBox11.Text.ToString(), textBox12.Text.ToString(), textBox13.Text.ToString(), textBox14.Text.ToString(), textBox15.Text.ToString(), textBox16.Text.ToString(), textBox17.Text.ToString(), textBox18.Text.ToString(), textBox19.Text.ToString(), textBox20.Text.ToString(), textBox21.Text.ToString(), textBox22.Text.ToString(), textBox23.Text.ToString(), textBox24.Text.ToString(), textBox25.Text.ToString(), textBox26.Text.ToString(), textBox27.Text.ToString(), textBox28.Text.ToString(), textBox29.Text.ToString(), textBox30.Text.ToString(), textBox31.Text.ToString(), textBox32.Text.ToString(), textBox33.Text.ToString(), textBox34.Text.ToString(), textBox35.Text.ToString(), textBox36.Text.ToString(), textBox37.Text.ToString(), textBox38.Text.ToString(), textBox39.Text.ToString(), textBox40.Text.ToString(), textBox41.Text.ToString(), textBox42.Text.ToString(), textBox43.Text.ToString(), textBox44.Text.ToString(), textBox45.Text.ToString(), textBox46.Text.ToString(), textBox47.Text.ToString(), textBox48.Text.ToString(), textBox49.Text.ToString(), textBox50.Text.ToString(), textBox51.Text.ToString(), textBox52.Text.ToString(), textBox53.Text.ToString(), textBox54.Text.ToString(), textBox55.Text.ToString(), textBox56.Text.ToString(), textBox57.Text.ToString(), textBox58.Text.ToString());
 
                 cmd.Connection = sqlConn;
                 cmd.CommandTimeout = 60;
@@ -453,6 +464,11 @@ namespace TKMOC
             textBox51.Text = null;
             textBox52.Text = null;
             textBox53.Text = null;
+            textBox54.Text = null;
+            textBox55.Text = null;
+            textBox56.Text = null;
+            textBox57.Text = null;
+            textBox58.Text = null;
 
 
             textID.ReadOnly = true;
@@ -508,6 +524,11 @@ namespace TKMOC
             textBox51.ReadOnly = false;
             textBox52.ReadOnly = false;
             textBox53.ReadOnly = false;
+            textBox54.ReadOnly = false;
+            textBox55.ReadOnly = false;
+            textBox56.ReadOnly = false;
+            textBox57.ReadOnly = false;
+            textBox58.ReadOnly = false;
             //textID.ReadOnly = false;
 
             dateTimePicker2.Enabled = true;
@@ -566,6 +587,11 @@ namespace TKMOC
             textBox51.ReadOnly = false;
             textBox52.ReadOnly = false;
             textBox53.ReadOnly = false;
+            textBox54.ReadOnly = false;
+            textBox55.ReadOnly = false;
+            textBox56.ReadOnly = false;
+            textBox57.ReadOnly = false;
+            textBox58.ReadOnly = false;
             //textID.ReadOnly = false;
 
             dateTimePicker2.Enabled = true;
@@ -623,6 +649,11 @@ namespace TKMOC
             textBox51.ReadOnly = true;
             textBox52.ReadOnly = true;
             textBox53.ReadOnly = true;
+            textBox54.ReadOnly = true;
+            textBox55.ReadOnly = true;
+            textBox56.ReadOnly = true;
+            textBox57.ReadOnly = true;
+            textBox58.ReadOnly = true;
             textID.ReadOnly = true;
            
         }
@@ -981,6 +1012,116 @@ namespace TKMOC
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+            textBox4.Text = FINDMB002(textBox3.Text.ToString());
+        }
+
+        public string FINDMB002(string MB001)
+        {
+            DataSet ds=new DataSet();
+            connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            sbSql.Clear();
+            sbSqlQuery.Clear();
+
+            sbSql.AppendFormat(@" SELECT [MB001],[MB002],[MB003]FROM [TKMOC].[dbo].[ERPINVMB] WHERE [MB001]='{0}'", MB001.ToString());
+
+            adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+            sqlCmdBuilder = new SqlCommandBuilder(adapter);
+
+            sqlConn.Open();
+            ds.Clear();
+            adapter.Fill(ds, "TEMPds1");
+            sqlConn.Close();
+
+
+            if (ds.Tables["TEMPds1"].Rows.Count >= 1)
+            {
+                return ds.Tables["TEMPds1"].Rows[0]["MB002"].ToString();
+            }
+            else
+            {
+                return "";
+            }
+           
+            
+        }
+        private void comboBox2_TextChanged(object sender, EventArgs e)
+        {
+            if(comboBox2.Text.ToString().Equals("成品"))
+            {
+                textBox34.Text = "1";
+                textBox35.Text = "1";
+                textBox34.ReadOnly = true;
+                textBox35.ReadOnly = true;
+            }
+            else if (comboBox2.Text.ToString().Equals("半成品"))
+            {
+                textBox34.Text = null;
+                textBox35.Text = null;
+                textBox34.ReadOnly = false;
+                textBox35.ReadOnly = false;
+            }
+        }
+    
+        public void CALPRECAN()
+        {
+            if (!string.IsNullOrEmpty(textBox36.Text.ToString()) && !string.IsNullOrEmpty(textBox54.Text.ToString()) )
+            {
+                if (Convert.ToDecimal(textBox36.Text.ToString()) > 0 && Convert.ToDecimal(textBox54.Text.ToString()) > 0 )
+                {
+                    textBox55.Text = Math.Round(((Convert.ToDecimal(textBox36.Text.ToString())) / (Convert.ToDecimal(textBox54.Text.ToString()))),0).ToString();
+                }
+
+            }
+        }
+        private void textBox54_TextChanged(object sender, EventArgs e)
+        {
+            CALPRECAN();
+        }
+        public void CALTOTALPCT()
+        {
+            if (!string.IsNullOrEmpty(textBox48.Text.ToString()) && !string.IsNullOrEmpty(textBox51.Text.ToString()))
+            {
+                if (Convert.ToDecimal(textBox48.Text.ToString()) > 0 && Convert.ToDecimal(textBox51.Text.ToString()) > 0)
+                {
+                    textBox57.Text = Math.Round(((Convert.ToDecimal(textBox48.Text.ToString())) * (Convert.ToDecimal(textBox51.Text.ToString())))/100, 2).ToString();
+                }
+
+            }
+        }
+        private void textBox48_TextChanged(object sender, EventArgs e)
+        {
+            CALTOTALPCT();
+        }
+
+        private void textBox51_TextChanged(object sender, EventArgs e)
+        {
+            CALTOTALPCT();
+        }
+        public void CALCANPCT()
+        {
+            if (!string.IsNullOrEmpty(textBox55.Text.ToString()) && !string.IsNullOrEmpty(textBox56.Text.ToString()))
+            {
+                if (Convert.ToDecimal(textBox55.Text.ToString()) > 0 && Convert.ToDecimal(textBox56.Text.ToString()) > 0)
+                {
+                    textBox58.Text = Math.Round(((Convert.ToDecimal(textBox56.Text.ToString())) /(Convert.ToDecimal(textBox55.Text.ToString()))) * 100, 2).ToString();
+                }
+
+            }
+        }
+        private void textBox55_TextChanged(object sender, EventArgs e)
+        {
+            CALCANPCT();
+        }
+
+        private void textBox56_TextChanged(object sender, EventArgs e)
+        {
+            CALCANPCT();
+        }
+
+
         #endregion
 
 
@@ -1019,17 +1160,6 @@ namespace TKMOC
             ExcelExport();           
             //PRINTDOC();
         }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
