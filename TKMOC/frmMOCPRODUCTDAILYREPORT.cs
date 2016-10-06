@@ -1070,14 +1070,14 @@ namespace TKMOC
     
         public void CALPRECAN()
         {
-            //if (!string.IsNullOrEmpty(textBox36.Text.ToString()) && !string.IsNullOrEmpty(textBox54.Text.ToString()) )
-            //{
-            //    if (Convert.ToDecimal(textBox36.Text.ToString()) > 0 && Convert.ToDecimal(textBox54.Text.ToString()) > 0 )
-            //    {
-            //        textBox55.Text = Math.Round(((Convert.ToDecimal(textBox36.Text.ToString())) / (Convert.ToDecimal(textBox54.Text.ToString()))),0).ToString();
-            //    }
+            if (!string.IsNullOrEmpty(textBox36.Text.ToString()) && !string.IsNullOrEmpty(textBox54.Text.ToString()))
+            {
+                if (Convert.ToDecimal(textBox36.Text.ToString()) > 0 && Convert.ToDecimal(textBox54.Text.ToString()) > 0)
+                {
+                    textBox55.Text = Math.Round(((Convert.ToDecimal(textBox36.Text.ToString())) / (Convert.ToDecimal(textBox54.Text.ToString()))), 0).ToString();
+                }
 
-            //}
+            }
         }
         private void textBox54_TextChanged(object sender, EventArgs e)
         {
