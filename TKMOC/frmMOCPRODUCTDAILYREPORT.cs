@@ -1098,20 +1098,20 @@ namespace TKMOC
         }
         private void comboBox2_TextChanged(object sender, EventArgs e)
         {
-            //if(comboBox2.Text.ToString().Equals("成品"))
-            //{
-            //    textBox34.Text = "1";
-            //    textBox35.Text = "1";
-            //    textBox34.ReadOnly = true;
-            //    textBox35.ReadOnly = true;
-            //}
-            //else if (comboBox2.Text.ToString().Equals("半成品"))
-            //{
-            //    textBox34.Text = null;
-            //    textBox35.Text = null;
-            //    textBox34.ReadOnly = false;
-            //    textBox35.ReadOnly = false;
-            //}
+            if (comboBox2.Text.ToString().Equals("成品"))
+            {
+                textBox34.Text = "1";
+                textBox35.Text = "1";
+                textBox34.ReadOnly = true;
+                textBox35.ReadOnly = true;
+            }
+            else if (comboBox2.Text.ToString().Equals("半成品"))
+            {
+                textBox34.Text = null;
+                textBox35.Text = null;
+                textBox34.ReadOnly = false;
+                textBox35.ReadOnly = false;
+            }
         }
     
         public void CALPRECAN()

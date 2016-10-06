@@ -1068,6 +1068,7 @@
             this.textBox17.Size = new System.Drawing.Size(74, 22);
             this.textBox17.TabIndex = 17;
             this.textBox17.UseWaitCursor = true;
+            this.textBox17.TextChanged += new System.EventHandler(this.textBox17_TextChanged);
             // 
             // label23
             // 
@@ -1110,6 +1111,7 @@
             this.textBox19.Size = new System.Drawing.Size(74, 22);
             this.textBox19.TabIndex = 19;
             this.textBox19.UseWaitCursor = true;
+            this.textBox19.TextChanged += new System.EventHandler(this.textBox19_TextChanged);
             // 
             // label25
             // 
@@ -1131,6 +1133,7 @@
             this.textBox20.Size = new System.Drawing.Size(74, 22);
             this.textBox20.TabIndex = 20;
             this.textBox20.UseWaitCursor = true;
+            this.textBox20.TextChanged += new System.EventHandler(this.textBox20_TextChanged);
             // 
             // label28
             // 
@@ -1216,6 +1219,7 @@
             this.textBox24.Size = new System.Drawing.Size(74, 22);
             this.textBox24.TabIndex = 32;
             this.textBox24.UseWaitCursor = true;
+            this.textBox24.TextChanged += new System.EventHandler(this.textBox24_TextChanged);
             // 
             // label10
             // 
@@ -1281,6 +1285,7 @@
             this.textBox27.Size = new System.Drawing.Size(74, 22);
             this.textBox27.TabIndex = 35;
             this.textBox27.UseWaitCursor = true;
+            this.textBox27.TextChanged += new System.EventHandler(this.textBox27_TextChanged);
             // 
             // label21
             // 
@@ -1302,6 +1307,7 @@
             this.textBox28.Size = new System.Drawing.Size(74, 22);
             this.textBox28.TabIndex = 36;
             this.textBox28.UseWaitCursor = true;
+            this.textBox28.TextChanged += new System.EventHandler(this.textBox28_TextChanged);
             // 
             // label33
             // 
@@ -1344,6 +1350,7 @@
             this.textBox30.Size = new System.Drawing.Size(74, 22);
             this.textBox30.TabIndex = 38;
             this.textBox30.UseWaitCursor = true;
+            this.textBox30.TextChanged += new System.EventHandler(this.textBox30_TextChanged);
             // 
             // label31
             // 
@@ -1365,6 +1372,7 @@
             this.textBox31.Size = new System.Drawing.Size(74, 22);
             this.textBox31.TabIndex = 39;
             this.textBox31.UseWaitCursor = true;
+            this.textBox31.TextChanged += new System.EventHandler(this.textBox31_TextChanged);
             // 
             // label30
             // 
@@ -1386,6 +1394,7 @@
             this.textBox32.Size = new System.Drawing.Size(74, 22);
             this.textBox32.TabIndex = 40;
             this.textBox32.UseWaitCursor = true;
+            this.textBox32.TextChanged += new System.EventHandler(this.textBox32_TextChanged);
             // 
             // label5
             // 
@@ -1407,6 +1416,7 @@
             this.textBox33.Size = new System.Drawing.Size(74, 22);
             this.textBox33.TabIndex = 41;
             this.textBox33.UseWaitCursor = true;
+            this.textBox33.TextChanged += new System.EventHandler(this.textBox33_TextChanged);
             // 
             // label4
             // 
@@ -1428,6 +1438,7 @@
             this.textBox34.Size = new System.Drawing.Size(74, 22);
             this.textBox34.TabIndex = 42;
             this.textBox34.UseWaitCursor = true;
+            this.textBox34.TextChanged += new System.EventHandler(this.textBox34_TextChanged);
             // 
             // label9
             // 
@@ -1449,6 +1460,7 @@
             this.textBox35.Size = new System.Drawing.Size(74, 22);
             this.textBox35.TabIndex = 43;
             this.textBox35.UseWaitCursor = true;
+            this.textBox35.TextChanged += new System.EventHandler(this.textBox35_TextChanged);
             // 
             // label37
             // 
@@ -1470,6 +1482,7 @@
             this.textBox36.Size = new System.Drawing.Size(74, 22);
             this.textBox36.TabIndex = 44;
             this.textBox36.UseWaitCursor = true;
+            this.textBox36.TextChanged += new System.EventHandler(this.textBox36_TextChanged);
             // 
             // label49
             // 
@@ -1622,6 +1635,7 @@
             this.textBox38.Size = new System.Drawing.Size(74, 22);
             this.textBox38.TabIndex = 60;
             this.textBox38.UseWaitCursor = true;
+            this.textBox38.TextChanged += new System.EventHandler(this.textBox38_TextChanged);
             // 
             // label51
             // 
@@ -1643,6 +1657,7 @@
             this.textBox39.Size = new System.Drawing.Size(74, 22);
             this.textBox39.TabIndex = 61;
             this.textBox39.UseWaitCursor = true;
+            this.textBox39.TextChanged += new System.EventHandler(this.textBox39_TextChanged);
             // 
             // label44
             // 
@@ -1664,6 +1679,7 @@
             this.textBox47.Size = new System.Drawing.Size(74, 22);
             this.textBox47.TabIndex = 62;
             this.textBox47.UseWaitCursor = true;
+            this.textBox47.TextChanged += new System.EventHandler(this.textBox47_TextChanged);
             // 
             // label52
             // 
@@ -1685,6 +1701,7 @@
             this.textBox40.Size = new System.Drawing.Size(74, 22);
             this.textBox40.TabIndex = 63;
             this.textBox40.UseWaitCursor = true;
+            this.textBox40.TextChanged += new System.EventHandler(this.textBox40_TextChanged);
             // 
             // label53
             // 
@@ -1706,6 +1723,7 @@
             this.textBox41.Size = new System.Drawing.Size(74, 22);
             this.textBox41.TabIndex = 64;
             this.textBox41.UseWaitCursor = true;
+            this.textBox41.TextChanged += new System.EventHandler(this.textBox41_TextChanged);
             // 
             // label54
             // 
@@ -1738,6 +1756,7 @@
             this.textBox42.Size = new System.Drawing.Size(74, 22);
             this.textBox42.TabIndex = 65;
             this.textBox42.UseWaitCursor = true;
+            this.textBox42.TextChanged += new System.EventHandler(this.textBox42_TextChanged);
             // 
             // label47
             // 
@@ -1759,6 +1778,7 @@
             this.textBox43.Size = new System.Drawing.Size(74, 22);
             this.textBox43.TabIndex = 66;
             this.textBox43.UseWaitCursor = true;
+            this.textBox43.TextChanged += new System.EventHandler(this.textBox43_TextChanged);
             // 
             // textBox44
             // 
