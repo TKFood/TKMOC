@@ -30,6 +30,7 @@ namespace TKMOC
         SqlTransaction tran;
         SqlCommand cmd = new SqlCommand();
         DataSet ds = new DataSet();
+        DataSet ds2 = new DataSet();
         DataTable dt = new DataTable();
         DataGridViewRow drMOCPRODUCTDAILYREPORT = new DataGridViewRow();
         string tablename = null;
@@ -103,6 +104,51 @@ namespace TKMOC
                         //dataGridView1.Rows.Clear();
                         dataGridView1.DataSource = ds.Tables["TEMPds1"];
                         dataGridView1.AutoResizeColumns();
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+        public void SearchMOCPRODUCTDAILYREPORTPROCESSID()
+        {
+            StringBuilder Query = new StringBuilder();
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  SELECT [PROCESSID] AS '製令' FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORTPROCESSID] WHERE [SOURCEID]='{0}'", SOURCEID.ToString());
+               
+                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder = new SqlCommandBuilder(adapter);
+                sqlConn.Open();
+                ds2.Clear();
+                adapter.Fill(ds2, "TEMPds2");
+                sqlConn.Close();
+
+                if (ds2.Tables["TEMPds2"].Rows.Count == 0)
+                {
+                    dataGridView2.DataSource = null;
+                }
+                else
+                {
+                    if (ds2.Tables["TEMPds2"].Rows.Count >= 1)
+                    {
+                        dataGridView2.DataSource = ds2.Tables["TEMPds2"];
+                        dataGridView2.AutoResizeColumns();
                     }
                 }
 
@@ -323,7 +369,7 @@ namespace TKMOC
                 //numericUpDown1.Value = Convert.ToDecimal(drMOCPRODUCTDAILYREPORT.Cells["預計投入量(kg)"].Value.ToString());
 
                 SOURCEID= drMOCPRODUCTDAILYREPORT.Cells["ID"].Value.ToString();
-
+                SearchMOCPRODUCTDAILYREPORTPROCESSID();
             }
 
         }
