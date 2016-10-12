@@ -217,7 +217,11 @@ namespace TKMOC
                             sbSql.Clear();
                             sbSqlQuery.Clear();
 
-                            sbSql.AppendFormat(@"  SELECT TOP 1 MB001,MB002,MB003  FROM [TK].dbo.INVMB WITH (NOLOCK)  WHERE   MB001='{0}'  ", c.MD003.ToString());
+                            //sbSql.AppendFormat(@"  SELECT TOP 1 MB001,MB002,MB003  FROM [TK].dbo.INVMB WITH (NOLOCK)  WHERE   MB001='{0}'  ", c.MD003.ToString());
+                            sbSql.AppendFormat(@"  SELECT TOP 1 MB001,MB002,MB003,(CASE WHEN ISNULL(MC001,'')<>'' THEN CEILING({0}/MC004)+1 ELSE CEILING({0}) END) AS NN", c.NUM.ToString());
+                            sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB WITH (NOLOCK)  ");
+                            sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.BOMMC WITH (NOLOCK)  ON MC001=MB001");
+                            sbSql.AppendFormat(@"  WHERE    MB001='{0}'  ", c.MD003.ToString());
 
                             adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -235,7 +239,7 @@ namespace TKMOC
                                 row["規格"] = ds3.Tables["TEMPds3"].Rows[0]["MB003"].ToString();
                                 row["預計用量"] = Convert.ToDouble(c.NUM);
                                 row["單位"] = c.UNIT;
-                                row["生產批量(單位)"] = Math.Ceiling(Convert.ToDouble(c.NUM));
+                                row["生產批量(單位)"] = ds3.Tables["TEMPds3"].Rows[0]["NN"].ToString();
                                 dtTemp2.Rows.Add(row);
                             }
                         }
