@@ -59,7 +59,7 @@ namespace TKMOC
             dtTemp2.Columns.Add("規格");
             dtTemp2.Columns.Add("預計用量");
             dtTemp2.Columns.Add("單位");
-            dtTemp2.Columns.Add("生產批量(桶)");
+            dtTemp2.Columns.Add("生產批量(單位)");
         }
 
         #region FUNCTION
@@ -102,15 +102,28 @@ namespace TKMOC
 
                 sbSql.Clear();
                 sbSqlQuery.Clear();
-
-                sbSql.Append(@"  SELECT TD004 AS '品號',TD005 AS '品名',ISNULL(TD010,'') AS '訂單單位',SUM(CASE WHEN ISNULL(MD004,0)<>0 THEN (TD008+TD024)*MD004 ELSE (TD008+TD024) END ) AS '數量',ISNULL(TD010,0) AS '小單位',ISNULL(MD004,1) AS '換算',ISNULL(MC001,'缺BOM') AS 'BOM主件',ISNULL(MC002,0) AS 'BOM單位',ISNULL(MC004,0) AS 'BOM批次生產量',ISNULL(SUM(CASE WHEN ISNULL(MD004,0)<>0 THEN (TD008+TD024)*MD004 ELSE TD008 END )/MC004,0) AS BOMNum   ");
-                sbSql.Append(@"  FROM [TK].dbo.COPTD");
-                sbSql.Append(@"  LEFT JOIN [TK].dbo.INVMD ON TD004=MD001  AND MD002=TD010");
-                sbSql.Append(@"  LEFT JOIN [TK].dbo.BOMMC ON TD004=MC001");
-                sbSql.AppendFormat(@"  WHERE SUBSTRING(TD002,1,8)>='{0}' AND SUBSTRING(TD002,1,8)<='{1}' ", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
-                sbSql.Append(@"  AND TD021='Y' ");
-                sbSql.AppendFormat(@"  AND TD001 IN ( {0} ) ",TD001.ToString());
-                sbSql.Append(@"   GROUP BY TD004,TD005,TD010,MD002,MD004,MC001,MC002,MC004  ");
+                         
+                sbSql.Append(@"  SELECT 品號,品名,規格,CONVERT(INT,SUM(訂單數量)) AS 訂單數量,單位");
+                sbSql.Append(@"  FROM (");
+                sbSql.Append(@"  SELECT TD004 AS '品號',TD005 AS '品名',TD006 AS '規格'");
+                sbSql.Append(@"  ,(CASE WHEN MB004=TD010 THEN (TD008-TD009) ELSE (TD008-TD009)*MD004 END) AS '訂單數量'");
+                sbSql.Append(@"  ,MB004 AS '單位'");
+                sbSql.Append(@"  ,(TD008-TD009) AS '訂單量'");
+                sbSql.Append(@"  ,TD010 AS '訂單單位' ");
+                sbSql.Append(@"  ,(CASE WHEN ISNULL(MD002,'')<>'' THEN MD002 ELSE TD010 END ) AS '換算單位'");
+                sbSql.Append(@"  ,(CASE WHEN MD003>0 THEN MD003 ELSE 1 END) AS '分子'");
+                sbSql.Append(@"  ,(CASE WHEN MD004>0 THEN MD004 ELSE (TD008-TD009) END ) AS '分母'");
+                sbSql.Append(@"  FROM [TK].dbo.INVMB,[TK].dbo.COPTC,[TK].dbo.COPTD");
+                sbSql.Append(@"  LEFT JOIN [TK].dbo.INVMD ON MD001=TD004 AND TD010=MD002");
+                sbSql.Append(@"  WHERE TD004=MB001");
+                sbSql.Append(@"  AND TC001=TD001 AND TC002=TD002");
+                sbSql.Append(@"  AND TD004 LIKE '4%'");
+                sbSql.AppendFormat(@"  AND TC003>='{0}' AND TC003<='{1}'",dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(@"  AND TC001 IN ({0}) ", TD001.ToString());
+                sbSql.Append(@"  AND (TD008-TD009)>0");
+                //sbSql.Append(@"  AND ( TD004 LIKE '40106%'  ) ");
+                sbSql.Append(@"  ) AS TEMP");
+                sbSql.Append(@"  GROUP  BY 品號,品名,規格,單位");
                 sbSql.Append(@"  ");
 
                 adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -139,26 +152,19 @@ namespace TKMOC
                         for (int i = 0; i < ds.Tables["TEMPds1"].Rows.Count; i++)
                         {
 
-                            COPNum = Convert.ToDecimal(ds.Tables["TEMPds1"].Rows[i]["數量"].ToString());
-                            BOMNum = Convert.ToDouble(ds.Tables["TEMPds1"].Rows[i]["BOMNum"].ToString());
+                            COPNum = Convert.ToDecimal(ds.Tables["TEMPds1"].Rows[i]["訂單數量"].ToString());
+                            //BOMNum = Convert.ToDouble(ds.Tables["TEMPds1"].Rows[i]["BOMNum"].ToString());
 
                             sbSql.Clear();
                             sbSqlQuery.Clear();
 
-                            sbSql.Append(@"  WITH TreeNode (MD001,MD002,MD003,MD004,MD006,MD007, Level)");
-                            sbSql.Append(@"  AS");
-                            sbSql.Append(@"  (");
-                            sbSql.Append(@"  SELECT MD001,MD002,MD003,MD004,MD006,MD007, 0 AS Level");
-                            sbSql.Append(@"  FROM [TK].dbo.BOMMD");
-                            sbSql.AppendFormat(@"  WHERE MD001='{0}'", ds.Tables["TEMPds1"].Rows[i]["品號"].ToString());
-                            sbSql.Append(@"  UNION ALL");
-                            sbSql.Append(@"  SELECT ta.MD001,ta.MD002,ta.MD003,ta.MD004,ta.MD006,ta.MD007 ,Level + 1");
-                            sbSql.Append(@"  FROM [TK].dbo.BOMMD ta");
-                            sbSql.Append(@"  INNER JOIN TreeNode AS tn");
-                            sbSql.Append(@"  ON ta.MD001 = tn.MD003");
-                            sbSql.Append(@"  )");
-                            sbSql.Append(@"  SELECT MD001,MD002,MD003,MD004,MD006,MD007, Level,MB002,MB003 FROM TreeNode,[TK].dbo.INVMB");
-                            sbSql.Append(@"  WHERE MD001=MB001");
+                            sbSql.AppendFormat(@"  SELECT MC001,MC004,MD002,MD003,MD004,MD006,MD007,({0}*MD006/MD007/MC004) AS NN", COPNum);
+                            sbSql.Append(@"  FROM [TK].dbo.BOMMC WITH (NOLOCK),[TK].dbo.BOMMD WITH (NOLOCK)");
+                            sbSql.Append(@"  WHERE MC001=MD001");
+                            sbSql.AppendFormat(@"  AND MD001='{0}'", ds.Tables["TEMPds1"].Rows[i]["品號"].ToString());
+                            sbSql.Append(@"  ");
+
+
 
                             adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -174,9 +180,9 @@ namespace TKMOC
                                 foreach (DataRow od2 in ds2.Tables["TEMPds2"].Rows)
                                 {
                                     DataRow row = dtTemp.NewRow();
-                                    row["MD001"] = od2["MD001"].ToString();
+                                    row["MD001"] = od2["MC001"].ToString();
                                     row["MD003"] = od2["MD003"].ToString();
-                                    row["NUM"] = Convert.ToDouble(Convert.ToDouble(od2["MD006"].ToString()) * BOMNum);
+                                    row["NUM"] = Convert.ToDouble(Convert.ToDouble(od2["NN"].ToString()) );
                                     row["UNIT"] = od2["MD004"].ToString();
                                     dtTemp.Rows.Add(row);
                                 }
@@ -187,23 +193,23 @@ namespace TKMOC
 
                     }
 
-                    //dtTemp = ds.Tables["TEMPds1"];
-                    //dtTemp = ds2.Tables["TEMPds2"];
 
-                    // 分組並計算  
 
-                    var Query = from p in dtTemp.AsEnumerable()
-                                orderby p.Field<string>("MD003")
-                                group p by new { MD003 = p.Field<string>("MD003"), UNIT = p.Field<string>("UNIT") } into g
-                                select new
-                                {
+
+                   //分組並計算
+
+                   var Query = from p in dtTemp.AsEnumerable()
+                               orderby p.Field<string>("MD003")
+                               group p by new { MD003 = p.Field<string>("MD003"), UNIT = p.Field<string>("UNIT") } into g
+                               select new
+                               {
                                     //MD003 = g.Key,
                                     MD003 = g.Key.MD003,
                                     NUM = g.Sum(p => Convert.ToDouble(p.Field<string>("NUM"))),
                                     UNIT = g.Key.UNIT
-                                };
+                               };
 
-  
+
                     if (Query.Count() >= 1)
                     {
                         foreach (var c in Query)
@@ -211,7 +217,7 @@ namespace TKMOC
                             sbSql.Clear();
                             sbSqlQuery.Clear();
 
-                            sbSql.AppendFormat(@" SELECT TOP 1 MB001,MB002,MB003,MC001,MC004  FROM [TK].dbo.INVMB WITH (NOLOCK),[TK].dbo.BOMMC WITH (NOLOCK) WHERE MB001=MC001  AND MB001='{0}'  ", c.MD003.ToString());
+                            sbSql.AppendFormat(@"  SELECT TOP 1 MB001,MB002,MB003  FROM [TK].dbo.INVMB WITH (NOLOCK)  WHERE   MB001='{0}'  ", c.MD003.ToString());
 
                             adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -227,9 +233,9 @@ namespace TKMOC
                                 row["品號"] = c.MD003;
                                 row["品名"] = ds3.Tables["TEMPds3"].Rows[0]["MB002"].ToString();
                                 row["規格"] = ds3.Tables["TEMPds3"].Rows[0]["MB003"].ToString();
-                                row["預計用量"] = Convert.ToDouble(c.NUM);                                
+                                row["預計用量"] = Convert.ToDouble(c.NUM);
                                 row["單位"] = c.UNIT;
-                                row["生產批量(桶)"] = Convert.ToInt16(Math.Ceiling(Convert.ToDouble(c.NUM) / Convert.ToDouble(ds3.Tables["TEMPds3"].Rows[0]["MC004"].ToString())));
+                                row["生產批量(單位)"] = Math.Ceiling(Convert.ToDouble(c.NUM));
                                 dtTemp2.Rows.Add(row);
                             }
                         }
@@ -302,12 +308,7 @@ namespace TKMOC
                 ws.GetRow(j + 1).CreateCell(2).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[2].ToString());
                 ws.GetRow(j + 1).CreateCell(3).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[3].ToString()));
                 ws.GetRow(j + 1).CreateCell(4).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[4].ToString());
-                ws.GetRow(j + 1).CreateCell(5).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[5].ToString()));
-                ws.GetRow(j + 1).CreateCell(6).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[6].ToString());
-                ws.GetRow(j + 1).CreateCell(7).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[7].ToString());
-                ws.GetRow(j + 1).CreateCell(8).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[8].ToString()));
-                ws.GetRow(j + 1).CreateCell(9).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[9].ToString()));
-           
+
                 j++;
             }
 
@@ -449,12 +450,13 @@ namespace TKMOC
 
         private void button3_Click(object sender, EventArgs e)
         {
-            ExcelExportCOP();
+            
+            ExcelExportBOM();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            ExcelExportBOM();
+            ExcelExportCOP();
         }
 
         #endregion
