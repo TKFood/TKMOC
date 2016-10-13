@@ -164,7 +164,7 @@ namespace TKMOC
 
                 sbSql.Clear();
                 sbSql.Append("INSERT INTO [TKMOC].dbo.ERPINVMB (MB001,MB002) ");
-                sbSql.AppendFormat(" SELECT MB001,MB002 FROM [TK].dbo.INVMB WITH (NOLOCK) WHERE MB001 LIKE '4%' AND MB001 NOT IN (SELECT MB001 FROM [TKMOC].dbo.ERPINVMB WITH (NOLOCK) )");
+                sbSql.AppendFormat(" SELECT MB001,MB002 FROM [TK].dbo.INVMB WITH (NOLOCK) WHERE (MB001 LIKE '4%' OR MB001 LIKE '3%' ) AND MB001 NOT IN (SELECT MB001 FROM [TKMOC].dbo.ERPINVMB WITH (NOLOCK) )");
                 sbSql.Append("  ");
 
                 cmd.Connection = sqlConn;
