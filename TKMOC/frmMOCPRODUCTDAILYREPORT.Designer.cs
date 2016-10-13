@@ -167,6 +167,10 @@
             this.label43 = new System.Windows.Forms.Label();
             this.label45 = new System.Windows.Forms.Label();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.label46 = new System.Windows.Forms.Label();
+            this.label65 = new System.Windows.Forms.Label();
+            this.textBox62 = new System.Windows.Forms.TextBox();
+            this.textBox61 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -200,7 +204,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(1184, 802);
+            this.splitContainer1.Size = new System.Drawing.Size(1140, 802);
             this.splitContainer1.SplitterDistance = 42;
             this.splitContainer1.TabIndex = 0;
             // 
@@ -221,7 +225,7 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 94F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 142F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.dateTimePicker1, 1, 0);
@@ -239,7 +243,7 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(1182, 40);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(1138, 40);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // label1
@@ -382,7 +386,7 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.splitContainer3);
-            this.splitContainer2.Size = new System.Drawing.Size(1184, 756);
+            this.splitContainer2.Size = new System.Drawing.Size(1140, 756);
             this.splitContainer2.SplitterDistance = 110;
             this.splitContainer2.TabIndex = 0;
             // 
@@ -395,7 +399,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(1182, 108);
+            this.dataGridView1.Size = new System.Drawing.Size(1138, 108);
             this.dataGridView1.TabIndex = 4;
             this.dataGridView1.UseWaitCursor = true;
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
@@ -414,8 +418,8 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.dataGridView2);
-            this.splitContainer3.Size = new System.Drawing.Size(1184, 642);
-            this.splitContainer3.SplitterDistance = 1062;
+            this.splitContainer3.Size = new System.Drawing.Size(1140, 642);
+            this.splitContainer3.SplitterDistance = 1022;
             this.splitContainer3.TabIndex = 0;
             // 
             // tableLayoutPanel1
@@ -436,7 +440,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 85F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 86F));
             this.tableLayoutPanel1.Controls.Add(this.textBox48, 3, 12);
             this.tableLayoutPanel1.Controls.Add(this.label17, 12, 0);
             this.tableLayoutPanel1.Controls.Add(this.textBox49, 2, 12);
@@ -558,6 +562,10 @@
             this.tableLayoutPanel1.Controls.Add(this.label42, 3, 11);
             this.tableLayoutPanel1.Controls.Add(this.label43, 4, 11);
             this.tableLayoutPanel1.Controls.Add(this.label45, 5, 11);
+            this.tableLayoutPanel1.Controls.Add(this.label65, 9, 8);
+            this.tableLayoutPanel1.Controls.Add(this.label46, 10, 8);
+            this.tableLayoutPanel1.Controls.Add(this.textBox62, 10, 9);
+            this.tableLayoutPanel1.Controls.Add(this.textBox61, 9, 9);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -577,7 +585,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1060, 640);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1020, 640);
             this.tableLayoutPanel1.TabIndex = 2;
             this.tableLayoutPanel1.UseWaitCursor = true;
             // 
@@ -1907,15 +1915,55 @@
             this.dataGridView2.Location = new System.Drawing.Point(0, 0);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowTemplate.Height = 24;
-            this.dataGridView2.Size = new System.Drawing.Size(116, 640);
+            this.dataGridView2.Size = new System.Drawing.Size(112, 640);
             this.dataGridView2.TabIndex = 5;
             this.dataGridView2.UseWaitCursor = true;
+            // 
+            // label46
+            // 
+            this.label46.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label46.AutoSize = true;
+            this.label46.Location = new System.Drawing.Point(814, 337);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(74, 24);
+            this.label46.TabIndex = 927;
+            this.label46.Text = "實際試吃包罐數";
+            this.label46.UseWaitCursor = true;
+            // 
+            // label65
+            // 
+            this.label65.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label65.AutoSize = true;
+            this.label65.Location = new System.Drawing.Point(733, 337);
+            this.label65.Name = "label65";
+            this.label65.Size = new System.Drawing.Size(74, 24);
+            this.label65.TabIndex = 928;
+            this.label65.Text = "預計試吃包罐數";
+            this.label65.UseWaitCursor = true;
+            // 
+            // textBox62
+            // 
+            this.textBox62.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox62.Location = new System.Drawing.Point(814, 379);
+            this.textBox62.Name = "textBox62";
+            this.textBox62.Size = new System.Drawing.Size(74, 22);
+            this.textBox62.TabIndex = 929;
+            this.textBox62.UseWaitCursor = true;
+            // 
+            // textBox61
+            // 
+            this.textBox61.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox61.Location = new System.Drawing.Point(733, 379);
+            this.textBox61.Name = "textBox61";
+            this.textBox61.Size = new System.Drawing.Size(74, 22);
+            this.textBox61.TabIndex = 930;
+            this.textBox61.UseWaitCursor = true;
             // 
             // frmMOCPRODUCTDAILYREPORT
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1184, 802);
+            this.ClientSize = new System.Drawing.Size(1140, 802);
             this.Controls.Add(this.splitContainer1);
             this.Name = "frmMOCPRODUCTDAILYREPORT";
             this.Text = "frmMOCPRODUCTDAILYREPORT";
@@ -2082,5 +2130,9 @@
         private System.Windows.Forms.Label label43;
         private System.Windows.Forms.Label label45;
         private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.Label label65;
+        private System.Windows.Forms.Label label46;
+        private System.Windows.Forms.TextBox textBox62;
+        private System.Windows.Forms.TextBox textBox61;
     }
 }
