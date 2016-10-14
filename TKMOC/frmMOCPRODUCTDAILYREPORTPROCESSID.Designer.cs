@@ -1,6 +1,6 @@
 ﻿namespace TKMOC
 {
-    partial class MOCPRODUCTDAILYREPORTPROCESSID
+    partial class frmMOCPRODUCTDAILYREPORTPROCESSID
     {
         /// <summary>
         /// Required designer variable.

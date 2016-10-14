@@ -166,11 +166,11 @@
             this.label42 = new System.Windows.Forms.Label();
             this.label43 = new System.Windows.Forms.Label();
             this.label45 = new System.Windows.Forms.Label();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.label46 = new System.Windows.Forms.Label();
             this.label65 = new System.Windows.Forms.Label();
+            this.label46 = new System.Windows.Forms.Label();
             this.textBox62 = new System.Windows.Forms.TextBox();
             this.textBox61 = new System.Windows.Forms.TextBox();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -440,7 +440,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 86F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 87F));
             this.tableLayoutPanel1.Controls.Add(this.textBox48, 3, 12);
             this.tableLayoutPanel1.Controls.Add(this.label17, 12, 0);
             this.tableLayoutPanel1.Controls.Add(this.textBox49, 2, 12);
@@ -1620,7 +1620,7 @@
             this.textBox37.Name = "textBox37";
             this.textBox37.ReadOnly = true;
             this.textBox37.Size = new System.Drawing.Size(236, 22);
-            this.textBox37.TabIndex = 50;
+            this.textBox37.TabIndex = 59;
             this.textBox37.UseWaitCursor = true;
             // 
             // label50
@@ -1906,18 +1906,16 @@
             this.label45.Text = "餅製成率%";
             this.label45.UseWaitCursor = true;
             // 
-            // dataGridView2
+            // label65
             // 
-            this.dataGridView2.AllowUserToAddRows = false;
-            this.dataGridView2.AllowUserToDeleteRows = false;
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView2.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.RowTemplate.Height = 24;
-            this.dataGridView2.Size = new System.Drawing.Size(112, 640);
-            this.dataGridView2.TabIndex = 5;
-            this.dataGridView2.UseWaitCursor = true;
+            this.label65.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label65.AutoSize = true;
+            this.label65.Location = new System.Drawing.Point(733, 337);
+            this.label65.Name = "label65";
+            this.label65.Size = new System.Drawing.Size(74, 24);
+            this.label65.TabIndex = 928;
+            this.label65.Text = "預計試吃包罐數";
+            this.label65.UseWaitCursor = true;
             // 
             // label46
             // 
@@ -1930,24 +1928,13 @@
             this.label46.Text = "實際試吃包罐數";
             this.label46.UseWaitCursor = true;
             // 
-            // label65
-            // 
-            this.label65.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label65.AutoSize = true;
-            this.label65.Location = new System.Drawing.Point(733, 337);
-            this.label65.Name = "label65";
-            this.label65.Size = new System.Drawing.Size(74, 24);
-            this.label65.TabIndex = 928;
-            this.label65.Text = "預計試吃包罐數";
-            this.label65.UseWaitCursor = true;
-            // 
             // textBox62
             // 
             this.textBox62.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox62.Location = new System.Drawing.Point(814, 379);
             this.textBox62.Name = "textBox62";
             this.textBox62.Size = new System.Drawing.Size(74, 22);
-            this.textBox62.TabIndex = 929;
+            this.textBox62.TabIndex = 51;
             this.textBox62.UseWaitCursor = true;
             // 
             // textBox61
@@ -1956,8 +1943,21 @@
             this.textBox61.Location = new System.Drawing.Point(733, 379);
             this.textBox61.Name = "textBox61";
             this.textBox61.Size = new System.Drawing.Size(74, 22);
-            this.textBox61.TabIndex = 930;
+            this.textBox61.TabIndex = 50;
             this.textBox61.UseWaitCursor = true;
+            // 
+            // dataGridView2
+            // 
+            this.dataGridView2.AllowUserToAddRows = false;
+            this.dataGridView2.AllowUserToDeleteRows = false;
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView2.Location = new System.Drawing.Point(0, 0);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.RowTemplate.Height = 24;
+            this.dataGridView2.Size = new System.Drawing.Size(112, 640);
+            this.dataGridView2.TabIndex = 5;
+            this.dataGridView2.UseWaitCursor = true;
             // 
             // frmMOCPRODUCTDAILYREPORT
             // 

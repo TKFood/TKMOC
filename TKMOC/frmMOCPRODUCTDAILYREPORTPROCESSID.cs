@@ -18,7 +18,7 @@ using System.Threading;
 
 namespace TKMOC
 {
-    public partial class MOCPRODUCTDAILYREPORTPROCESSID : Form
+    public partial class frmMOCPRODUCTDAILYREPORTPROCESSID : Form
     {
         SqlConnection sqlConn = new SqlConnection();
         SqlCommand sqlComm = new SqlCommand();
@@ -36,11 +36,11 @@ namespace TKMOC
         string ID;
         int result;
         Thread TD;
-        public MOCPRODUCTDAILYREPORTPROCESSID()
+        public frmMOCPRODUCTDAILYREPORTPROCESSID()
         {
             InitializeComponent();
         }
-        public MOCPRODUCTDAILYREPORTPROCESSID(string SOURCEID)
+        public frmMOCPRODUCTDAILYREPORTPROCESSID(string SOURCEID)
         {
             InitializeComponent();
             if(!string.IsNullOrEmpty(SOURCEID))
