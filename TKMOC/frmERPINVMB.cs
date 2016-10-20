@@ -107,7 +107,7 @@ namespace TKMOC
 
                 sbSql.Clear();
                 sbSql.Append(" UPDATE [TKMOC].[dbo].[ERPINVMB] ");
-                sbSql.AppendFormat(" SET [MB002]='{1}' WHERE [MB001]='{0}' ",textBox1.Text.ToString(),textBox2.Text.ToString());
+                sbSql.AppendFormat(" SET [MB002]='{1}',[MB003]='{2}' WHERE [MB001]='{0}' ", textBox1.Text.ToString(),textBox2.Text.ToString(), textBox3.Text.ToString());
                 sbSql.Append("  ");
 
                 cmd.Connection = sqlConn;
@@ -142,12 +142,14 @@ namespace TKMOC
         {
             textBox1.ReadOnly = false;
             textBox2.ReadOnly = false;
+            textBox3.ReadOnly = false;
         }
 
         public void SetFINISH()
         {
             textBox1.ReadOnly = true;
             textBox2.ReadOnly = true;
+            textBox3.ReadOnly = true;
         }
 
         public void ADDNEW()
@@ -163,8 +165,8 @@ namespace TKMOC
                 tran = sqlConn.BeginTransaction();
 
                 sbSql.Clear();
-                sbSql.Append("INSERT INTO [TKMOC].dbo.ERPINVMB (MB001,MB002) ");
-                sbSql.AppendFormat(" SELECT MB001,MB002 FROM [TK].dbo.INVMB WITH (NOLOCK) WHERE (MB001 LIKE '4%' OR MB001 LIKE '3%' ) AND MB001 NOT IN (SELECT MB001 FROM [TKMOC].dbo.ERPINVMB WITH (NOLOCK) )");
+                sbSql.Append("INSERT INTO [TKMOC].dbo.ERPINVMB (MB001,MB002,MB003) ");
+                sbSql.AppendFormat(" SELECT MB001,MB002,MB003 FROM [TK].dbo.INVMB WITH (NOLOCK) WHERE (MB001 LIKE '4%' OR MB001 LIKE '3%' ) AND MB001 NOT IN (SELECT MB001 FROM [TKMOC].dbo.ERPINVMB WITH (NOLOCK) )");
                 sbSql.Append("  ");
 
                 cmd.Connection = sqlConn;
