@@ -161,6 +161,12 @@
     <Compile Include="frmMAINRECORDAddEditDel.Designer.cs">
       <DependentUpon>frmMAINRECORDAddEditDel.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmMANUEMPLOYEE.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMANUEMPLOYEE.Designer.cs">
+      <DependentUpon>frmMANUEMPLOYEE.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMOCPRODUCTDAILYREPORT.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -237,6 +243,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMAINRECORDAddEditDel.resx">
       <DependentUpon>frmMAINRECORDAddEditDel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMANUEMPLOYEE.resx">
+      <DependentUpon>frmMANUEMPLOYEE.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMOCPRODUCTDAILYREPORT.resx">
       <DependentUpon>frmMOCPRODUCTDAILYREPORT.cs</DependentUpon>
