@@ -27,6 +27,7 @@ namespace TKMOC
         StringBuilder sbSqlDETAIL = new StringBuilder();
         StringBuilder sbSqlQuery = new StringBuilder();
         SqlDataAdapter adapter = new SqlDataAdapter();
+        SqlDataAdapter adapterDETAIL = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder = new SqlCommandBuilder();
         SqlTransaction tran;
         SqlCommand cmd = new SqlCommand();
@@ -38,6 +39,7 @@ namespace TKMOC
         string ID;
         int result;
         int rownum = 0;
+        int rownumDETAIL = 0;
         Thread TD;
         DataGridViewRow drMOCOVEN = new DataGridViewRow();
         DataGridViewRow drMOCOVENDTAIL = new DataGridViewRow();
@@ -193,7 +195,8 @@ namespace TKMOC
                         //dataGridView1.Rows.Clear();
                         dataGridView1.DataSource = dsMOCOVEN.Tables["TEMPds1"];
                         dataGridView1.AutoResizeColumns();
-                       
+                        dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
 
                     }
                 }
@@ -227,13 +230,13 @@ namespace TKMOC
                 sbSqlDETAIL.AppendFormat(@" WHERE [SOURCEID]='{0}'",ID.ToString());
                 sbSqlDETAIL.AppendFormat(@" ");
 
-                adapter = new SqlDataAdapter(@"" + sbSqlDETAIL, sqlConn);
+                adapterDETAIL = new SqlDataAdapter(@" " + sbSqlDETAIL, sqlConn);
 
                 sqlCmdBuilder = new SqlCommandBuilder(adapter);
                 sqlConn.Open();
                 dsMOCOVENDTAIL.Clear();
                 dsMOCOVENDTAIL.Tables.Clear();
-                adapter.Fill(dsMOCOVENDTAIL, "TEMPds2");
+                adapterDETAIL.Fill(dsMOCOVENDTAIL, "TEMPds2");
                 sqlConn.Close();
 
 
@@ -246,10 +249,10 @@ namespace TKMOC
                 else
                 {
                     if (dsMOCOVENDTAIL.Tables["TEMPds2"].Rows.Count >= 1)
-                    {
-                        dataGridView2.Rows.Clear();
+                    {                        
                         dataGridView2.DataSource = dsMOCOVENDTAIL.Tables["TEMPds2"];
                         dataGridView2.AutoResizeColumns();
+                        dataGridView2.CurrentCell = dataGridView2[0, rownumDETAIL];
 
 
                     }
@@ -426,6 +429,7 @@ namespace TKMOC
 
                 SearchMOCOVENDTAIL(drMOCOVEN.Cells["ID"].Value.ToString());
                 textBoxSID.Text = drMOCOVEN.Cells["ID"].Value.ToString();
+                
             }
         }
 
@@ -690,7 +694,7 @@ namespace TKMOC
                 textBox14.Text = drMOCOVENDTAIL.Cells["下爐-第三爐"].Value.ToString();
                 textBox15.Text = drMOCOVENDTAIL.Cells["下爐-第四爐"].Value.ToString();
                 textBox16.Text = drMOCOVENDTAIL.Cells["下爐-第五爐"].Value.ToString();
-                comboBox1.Text = drMOCOVENDTAIL.Cells["天氣"].Value.ToString();
+                comboBox6.Text = drMOCOVENDTAIL.Cells["天氣"].Value.ToString();
                 dateTimePicker5.Value = Convert.ToDateTime(drMOCOVENDTAIL.Cells["時間"].Value.ToString());
 
                 textBoxDETAILID.Text = drMOCOVENDTAIL.Cells["ID"].Value.ToString();
@@ -735,8 +739,10 @@ namespace TKMOC
             {
                 ADD();
             }
+            rownum = dataGridView1.CurrentCell.RowIndex; 
             Search();
             SETFINISH();
+            
         }
         private void button4_Click(object sender, EventArgs e)
         {
@@ -764,6 +770,8 @@ namespace TKMOC
             {
                 DETAILADD();
             }
+            rownum = dataGridView1.CurrentCell.RowIndex;
+            rownumDETAIL = dataGridView2.CurrentCell.RowIndex;
             Search();
             SearchMOCOVENDTAIL(textBoxID.Text.ToString());
             SETDETAILFINISH();
