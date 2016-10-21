@@ -1086,7 +1086,7 @@ namespace TKMOC
             sbSql.Clear();
             sbSqlQuery.Clear();
 
-            sbSql.AppendFormat(@" SELECT [MB001],[MB002],[MB003]FROM [TKMOC].[dbo].[ERPINVMB] WHERE [MB001]='{0}'", MB001.ToString());
+            sbSql.AppendFormat(@" SELECT [MB001],[MB002],[MB003] FROM [TKMOC].[dbo].[ERPINVMB] WHERE [MB001]='{0}'", MB001.ToString());
 
             adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
             sqlCmdBuilder = new SqlCommandBuilder(adapter);

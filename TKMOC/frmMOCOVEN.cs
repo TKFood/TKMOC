@@ -29,7 +29,8 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder = new SqlCommandBuilder();
         SqlTransaction tran;
         SqlCommand cmd = new SqlCommand();
-        DataSet ds = new DataSet();
+        DataSet dsMOCOVEN = new DataSet();
+        DataSet dsMOCOVENDTAIL = new DataSet();
         DataTable dt = new DataTable();
         DataGridViewRow drEMPLOYEE = new DataGridViewRow();
         string tablename = null;
@@ -38,6 +39,7 @@ namespace TKMOC
         int rownum = 0;
         Thread TD;
         DataGridViewRow drMOCOVEN = new DataGridViewRow();
+        DataGridViewRow drMOCOVENDTAIL = new DataGridViewRow();
 
         public frmMOCOVEN()
         {
@@ -174,23 +176,80 @@ namespace TKMOC
 
                 sqlCmdBuilder = new SqlCommandBuilder(adapter);
                 sqlConn.Open();
-                ds.Clear();
-                adapter.Fill(ds, "TEMPds1");
+                dsMOCOVEN.Clear();
+                adapter.Fill(dsMOCOVEN, "TEMPds1");
                 sqlConn.Close();
 
 
-                if (ds.Tables["TEMPds1"].Rows.Count == 0)
+                if (dsMOCOVEN.Tables["TEMPds1"].Rows.Count == 0)
                 {
                     //label1.Text = "找不到資料";
                 }
                 else
                 {
-                    if (ds.Tables["TEMPds1"].Rows.Count >= 1)
+                    if (dsMOCOVEN.Tables["TEMPds1"].Rows.Count >= 1)
                     {                       
                         //dataGridView1.Rows.Clear();
-                        dataGridView1.DataSource = ds.Tables["TEMPds1"];
+                        dataGridView1.DataSource = dsMOCOVEN.Tables["TEMPds1"];
                         dataGridView1.AutoResizeColumns();
                        
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+        public void SearchMOCOVENDTAIL(string ID)
+        {
+            StringBuilder Query = new StringBuilder();
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+               
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+                sbSql.AppendFormat(@" SELECT  [MB001] AS '品號',[MB002] AS '品名',[MB003] AS '規格',[TEMPER] AS '溫度',[HUMIDITY] AS '溼度',[WEATHER] AS '天氣',CONVERT(varchar(100),[MANUTIME],108) AS '時間'");
+                sbSql.AppendFormat(@" ,[FURANACEUP1] AS '上爐-第一爐',[FURANACEUP2] AS '上爐-第二爐',[FURANACEUP3] AS '上爐-第三爐',[FURANACEUP4] AS '上爐-第四爐',[FURANACEUP5] AS '上爐-第五爐'");
+                sbSql.AppendFormat(@" ,[FURANACEDOWN1] AS '下爐-第一爐',[FURANACEDOWN2] AS '下爐-第二爐',[FURANACEDOWN3] AS '下爐-第三爐',[FURANACEDOWN4] AS '下爐-第四爐',[FURANACEDOWN5] AS '下爐-第五爐'");
+                sbSql.AppendFormat(@" ,[ID],[SOURCEID]");
+                sbSql.AppendFormat(@" FROM [TKMOC].[dbo].[MOCOVENDTAIL]");
+                sbSql.AppendFormat(@" WHERE [SOURCEID]='{0}'",ID.ToString());
+                sbSql.AppendFormat(@" ");
+
+                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder = new SqlCommandBuilder(adapter);
+                sqlConn.Open();
+                dsMOCOVENDTAIL.Clear();
+                adapter.Fill(dsMOCOVENDTAIL, "TEMPds1");
+                sqlConn.Close();
+
+
+                if (dsMOCOVENDTAIL.Tables["TEMPds1"].Rows.Count == 0)
+                {
+
+                    dataGridView2.DataSource = null;
+                  
+                }
+                else
+                {
+                    if (dsMOCOVENDTAIL.Tables["TEMPds1"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView2.DataSource = dsMOCOVENDTAIL.Tables["TEMPds1"];
+                        dataGridView2.AutoResizeColumns();
+
 
                     }
                 }
@@ -219,6 +278,17 @@ namespace TKMOC
             comboBox5.Enabled = true;
 
             textBoxID.Text = null;
+        }
+
+        public void SETADDNEW()
+        {
+            textBoxID.Text = null;
+            textBox1.Text = null;
+            comboBox1.SelectedValue = "01";
+            comboBox2.SelectedValue = "000002";
+            comboBox3.SelectedValue = "000002";
+            comboBox4.SelectedValue = "000002";
+            comboBox5.SelectedValue = "000002";
         }
 
         public void SETUPDATE()
@@ -352,16 +422,301 @@ namespace TKMOC
                 comboBox3.SelectedValue = drMOCOVEN.Cells["FLODPEOPLE2"].Value.ToString();
                 comboBox4.SelectedValue = drMOCOVEN.Cells["MANAGER"].Value.ToString();
                 comboBox5.SelectedValue = drMOCOVEN.Cells["OPERATOR"].Value.ToString();
+
+                SearchMOCOVENDTAIL(drMOCOVEN.Cells["ID"].Value.ToString());
+                textBoxSID.Text = drMOCOVEN.Cells["ID"].Value.ToString();
             }
         }
 
+        public void SETDTEAILADD()
+        {
+            textBox2.ReadOnly = false;
+            textBox3.ReadOnly = false;
+            textBox4.ReadOnly = false;
+            textBox5.ReadOnly = false;
+            textBox6.ReadOnly = false;
+            textBox7.ReadOnly = false;
+            textBox8.ReadOnly = false;
+            textBox9.ReadOnly = false;
+            textBox10.ReadOnly = false;
+            textBox11.ReadOnly = false;
+            textBox12.ReadOnly = false;
+            textBox13.ReadOnly = false;
+            textBox14.ReadOnly = false;
+            textBox15.ReadOnly = false;
+            textBox16.ReadOnly = false;
+            comboBox6.Enabled = true;
+            dateTimePicker5.Enabled = true;
 
+           
+        }
+        public void SETADDDETAILNEW()
+        {
+            textBoxDETAILID.Text = null;
+            textBox2.Text = null;
+            textBox3.Text = null;
+            textBox4.Text = null;
+            textBox5.Text = null;
+            textBox6.Text = null;
+            textBox7.Text = null;
+            textBox8.Text = null;
+            textBox9.Text = null;
+            textBox10.Text = null;
+            textBox11.Text = null;
+            textBox12.Text = null;
+            textBox13.Text = null;
+            textBox14.Text = null;
+            textBox15.Text = null;
+            textBox16.Text = null;
+
+        }
+        public void SETDETAILUPDATE()
+        {
+            textBox2.ReadOnly = false;
+            textBox3.ReadOnly = false;
+            textBox4.ReadOnly = false;
+            textBox5.ReadOnly = false;
+            textBox6.ReadOnly = false;
+            textBox7.ReadOnly = false;
+            textBox8.ReadOnly = false;
+            textBox9.ReadOnly = false;
+            textBox10.ReadOnly = false;
+            textBox11.ReadOnly = false;
+            textBox12.ReadOnly = false;
+            textBox13.ReadOnly = false;
+            textBox14.ReadOnly = false;
+            textBox15.ReadOnly = false;
+            textBox16.ReadOnly = false;
+            comboBox6.Enabled = true;
+            dateTimePicker5.Enabled = true;
+        }
+        public void SETDETAILFINISH()
+        {
+            textBox2.ReadOnly = true;
+            textBox3.ReadOnly = true;
+            textBox4.ReadOnly = true;
+            textBox5.ReadOnly = true;
+            textBox6.ReadOnly = true;
+            textBox7.ReadOnly = true;
+            textBox8.ReadOnly = true;
+            textBox9.ReadOnly = true;
+            textBox10.ReadOnly = true;
+            textBox11.ReadOnly = true;
+            textBox12.ReadOnly = true;
+            textBox13.ReadOnly = true;
+            textBox14.ReadOnly = true;
+            textBox15.ReadOnly = true;
+            textBox16.ReadOnly = true;
+            comboBox6.Enabled = false;
+            dateTimePicker5.Enabled = false;
+        }
+        public void DETAILUPDATE()
+        {
+            try
+            {
+                //add ZWAREWHOUSEPURTH
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+                sbSql.AppendFormat("  UPDATE [TKMOC].[dbo].[MOCOVENDTAIL]");
+                sbSql.AppendFormat("  SET [MB001]='{1}',[MB002]='{2}',[MB003]='{3}',[TEMPER]='{4}',[HUMIDITY]='{5}',[WEATHER]='{6}',[MANUTIME]='{7}' ,[FURANACEUP1]='{8}',[FURANACEUP2]='{9}',[FURANACEUP3]='{10}',[FURANACEUP4]='{11}',[FURANACEUP5]='{12}' ,[FURANACEDOWN1]='{13}',[FURANACEDOWN2]='{14}',[FURANACEDOWN3]='{15}',[FURANACEDOWN4]='{16}',[FURANACEDOWN5]='{17}' WHERE [ID]='{0}'",textBoxID.Text.ToString(),textBox2.Text.ToString(), textBox3.Text.ToString(), textBox4.Text.ToString(), textBox5.Text.ToString(), textBox6.Text.ToString(), comboBox6.Text.ToString(), dateTimePicker5.Value.ToString("HH:mm"), textBox7.Text.ToString(), textBox8.Text.ToString(), textBox9.Text.ToString(), textBox10.Text.ToString(), textBox11.Text.ToString(), textBox12.Text.ToString(), textBox13.Text.ToString(), textBox14.Text.ToString(), textBox15.Text.ToString(), textBox16.Text.ToString());
+                sbSql.AppendFormat("  ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+        public void DETAILADD()
+        {
+            try
+            {
+                //add ZWAREWHOUSEPURTH
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+                sbSql.AppendFormat("  INSERT INTO [TKMOC].[dbo].[MOCOVENDTAIL]");
+                sbSql.AppendFormat("  ([ID],[SOURCEID],[MB001],[MB002],[MB003],[TEMPER],[HUMIDITY],[WEATHER],[MANUTIME]");
+                sbSql.AppendFormat("  ,[FURANACEUP1],[FURANACEUP2],[FURANACEUP3],[FURANACEUP4],[FURANACEUP5]");
+                sbSql.AppendFormat("  ,[FURANACEDOWN1],[FURANACEDOWN2],[FURANACEDOWN3],[FURANACEDOWN4],[FURANACEDOWN5])");
+                sbSql.AppendFormat("  VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}','{15}','{16}','{17}','{18}') ", Guid.NewGuid(),textBoxSID.Text.ToString(),textBox2.Text.ToString(), textBox3.Text.ToString(), textBox4.Text.ToString(), textBox5.Text.ToString(), textBox6.Text.ToString(),comboBox6.Text.ToString(), dateTimePicker5.Value.ToString("HH:mm"), textBox7.Text.ToString(), textBox8.Text.ToString(), textBox9.Text.ToString(), textBox10.Text.ToString(), textBox11.Text.ToString(), textBox12.Text.ToString(), textBox13.Text.ToString(), textBox14.Text.ToString(), textBox15.Text.ToString(), textBox16.Text.ToString());
+                sbSql.AppendFormat("  ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            textBox3.Text = FINDMB002(textBox2.Text.ToString());
+            textBox4.Text = FINDMB003(textBox2.Text.ToString());
+        }
+        public string FINDMB002(string MB001)
+        {
+            DataSet ds = new DataSet();
+            connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            sbSql.Clear();
+            sbSqlQuery.Clear();
+
+            sbSql.AppendFormat(@" SELECT [MB001],[MB002],[MB003] FROM [TKMOC].[dbo].[ERPINVMB] WHERE [MB001]='{0}'", MB001.ToString());
+
+            adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+            sqlCmdBuilder = new SqlCommandBuilder(adapter);
+
+            sqlConn.Open();
+            ds.Clear();
+            adapter.Fill(ds, "TEMPds1");
+            sqlConn.Close();
+
+
+            if (ds.Tables["TEMPds1"].Rows.Count >= 1)
+            {
+                return ds.Tables["TEMPds1"].Rows[0]["MB002"].ToString();
+            }
+            else
+            {
+                return "";
+            }
+
+
+        }
+        public string FINDMB003(string MB001)
+        {
+            DataSet ds = new DataSet();
+            connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            sbSql.Clear();
+            sbSqlQuery.Clear();
+
+            sbSql.AppendFormat(@" SELECT [MB001],[MB002],[MB003] FROM [TKMOC].[dbo].[ERPINVMB] WHERE [MB001]='{0}'", MB001.ToString());
+
+            adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+            sqlCmdBuilder = new SqlCommandBuilder(adapter);
+
+            sqlConn.Open();
+            ds.Clear();
+            adapter.Fill(ds, "TEMPds1");
+            sqlConn.Close();
+
+
+            if (ds.Tables["TEMPds1"].Rows.Count >= 1)
+            {
+                return ds.Tables["TEMPds1"].Rows[0]["MB003"].ToString();
+            }
+            else
+            {
+                return "";
+            }
+
+
+        }
+
+        private void dataGridView2_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView2.Rows.Count>0)
+            {
+                drMOCOVENDTAIL = dataGridView2.Rows[dataGridView2.SelectedCells[0].RowIndex];
+
+                textBox2.Text = drMOCOVENDTAIL.Cells["品號"].Value.ToString();
+                textBox3.Text = drMOCOVENDTAIL.Cells["品名"].Value.ToString();
+                textBox4.Text = drMOCOVENDTAIL.Cells["規格"].Value.ToString();
+                textBox5.Text = drMOCOVENDTAIL.Cells["溫度"].Value.ToString();
+                textBox6.Text = drMOCOVENDTAIL.Cells["溼度"].Value.ToString();
+                textBox7.Text = drMOCOVENDTAIL.Cells["上爐-第一爐"].Value.ToString();
+                textBox8.Text = drMOCOVENDTAIL.Cells["上爐-第二爐"].Value.ToString();
+                textBox9.Text = drMOCOVENDTAIL.Cells["上爐-第三爐"].Value.ToString();
+                textBox10.Text = drMOCOVENDTAIL.Cells["上爐-第四爐"].Value.ToString();
+                textBox11.Text = drMOCOVENDTAIL.Cells["上爐-第五爐"].Value.ToString();
+                textBox12.Text = drMOCOVENDTAIL.Cells["下爐-第一爐"].Value.ToString();
+                textBox13.Text = drMOCOVENDTAIL.Cells["下爐-第二爐"].Value.ToString();
+                textBox14.Text = drMOCOVENDTAIL.Cells["下爐-第三爐"].Value.ToString();
+                textBox15.Text = drMOCOVENDTAIL.Cells["下爐-第四爐"].Value.ToString();
+                textBox16.Text = drMOCOVENDTAIL.Cells["下爐-第五爐"].Value.ToString();
+                comboBox1.Text = drMOCOVENDTAIL.Cells["天氣"].Value.ToString();
+                dateTimePicker5.Value = Convert.ToDateTime(drMOCOVENDTAIL.Cells["時間"].Value.ToString());
+
+                textBoxDETAILID.Text = drMOCOVENDTAIL.Cells["ID"].Value.ToString();
+                textBoxSID.Text = drMOCOVENDTAIL.Cells["SOURCEID"].Value.ToString();
+            }
+            else
+            {
+                SETADDDETAILNEW();
+            }
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Enter)
+            {
+                SendKeys.Send("{TAB}");
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
         #endregion
 
         #region BUTTOON
         private void button1_Click(object sender, EventArgs e)
         {
             SETADD();
+            SETADDNEW();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -387,8 +742,34 @@ namespace TKMOC
             Search();
         }
 
+        private void button5_Click(object sender, EventArgs e)
+        {
+            SETDTEAILADD();
+            SETADDDETAILNEW();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            SETDETAILUPDATE();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBoxDETAILID.Text.ToString()))
+            {
+                DETAILUPDATE();
+            }
+            else
+            {
+                DETAILADD();
+            }
+            Search();
+            SETDETAILFINISH();
+        }
+
+
         #endregion
 
-        
+
     }
 }
