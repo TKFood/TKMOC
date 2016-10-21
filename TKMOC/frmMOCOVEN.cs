@@ -24,6 +24,7 @@ namespace TKMOC
         SqlCommand sqlComm = new SqlCommand();
         string connectionString;
         StringBuilder sbSql = new StringBuilder();
+        StringBuilder sbSqlDETAIL = new StringBuilder();
         StringBuilder sbSqlQuery = new StringBuilder();
         SqlDataAdapter adapter = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder = new SqlCommandBuilder();
@@ -215,28 +216,27 @@ namespace TKMOC
             {
                 connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
                 sqlConn = new SqlConnection(connectionString);
-               
 
-                sbSql.Clear();
-                sbSqlQuery.Clear();
-                sbSql.AppendFormat(@" SELECT  [MB001] AS '品號',[MB002] AS '品名',[MB003] AS '規格',[TEMPER] AS '溫度',[HUMIDITY] AS '溼度',[WEATHER] AS '天氣',CONVERT(varchar(100),[MANUTIME],108) AS '時間'");
-                sbSql.AppendFormat(@" ,[FURANACEUP1] AS '上爐-第一爐',[FURANACEUP2] AS '上爐-第二爐',[FURANACEUP3] AS '上爐-第三爐',[FURANACEUP4] AS '上爐-第四爐',[FURANACEUP5] AS '上爐-第五爐'");
-                sbSql.AppendFormat(@" ,[FURANACEDOWN1] AS '下爐-第一爐',[FURANACEDOWN2] AS '下爐-第二爐',[FURANACEDOWN3] AS '下爐-第三爐',[FURANACEDOWN4] AS '下爐-第四爐',[FURANACEDOWN5] AS '下爐-第五爐'");
-                sbSql.AppendFormat(@" ,[ID],[SOURCEID]");
-                sbSql.AppendFormat(@" FROM [TKMOC].[dbo].[MOCOVENDTAIL]");
-                sbSql.AppendFormat(@" WHERE [SOURCEID]='{0}'",ID.ToString());
-                sbSql.AppendFormat(@" ");
 
-                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+                sbSqlDETAIL.Clear();
+                sbSqlDETAIL.AppendFormat(@" SELECT  [MB001] AS '品號',[MB002] AS '品名',[MB003] AS '規格',[TEMPER] AS '溫度',[HUMIDITY] AS '溼度',[WEATHER] AS '天氣',CONVERT(varchar(100),[MANUTIME],108) AS '時間'");
+                sbSqlDETAIL.AppendFormat(@" ,[FURANACEUP1] AS '上爐-第一爐',[FURANACEUP2] AS '上爐-第二爐',[FURANACEUP3] AS '上爐-第三爐',[FURANACEUP4] AS '上爐-第四爐',[FURANACEUP5] AS '上爐-第五爐'");
+                sbSqlDETAIL.AppendFormat(@" ,[FURANACEDOWN1] AS '下爐-第一爐',[FURANACEDOWN2] AS '下爐-第二爐',[FURANACEDOWN3] AS '下爐-第三爐',[FURANACEDOWN4] AS '下爐-第四爐',[FURANACEDOWN5] AS '下爐-第五爐'");
+                sbSqlDETAIL.AppendFormat(@" ,[ID],[SOURCEID]");
+                sbSqlDETAIL.AppendFormat(@" FROM [TKMOC].[dbo].[MOCOVENDTAIL]");
+                sbSqlDETAIL.AppendFormat(@" WHERE [SOURCEID]='{0}'",ID.ToString());
+                sbSqlDETAIL.AppendFormat(@" ");
+
+                adapter = new SqlDataAdapter(@"" + sbSqlDETAIL, sqlConn);
 
                 sqlCmdBuilder = new SqlCommandBuilder(adapter);
                 sqlConn.Open();
                 dsMOCOVENDTAIL.Clear();
-                adapter.Fill(dsMOCOVENDTAIL, "TEMPds1");
+                adapter.Fill(dsMOCOVENDTAIL, "TEMPds2");
                 sqlConn.Close();
 
 
-                if (dsMOCOVENDTAIL.Tables["TEMPds1"].Rows.Count == 0)
+                if (dsMOCOVENDTAIL.Tables["TEMPds2"].Rows.Count == 0)
                 {
 
                     dataGridView2.DataSource = null;
@@ -244,10 +244,10 @@ namespace TKMOC
                 }
                 else
                 {
-                    if (dsMOCOVENDTAIL.Tables["TEMPds1"].Rows.Count >= 1)
+                    if (dsMOCOVENDTAIL.Tables["TEMPds2"].Rows.Count >= 1)
                     {
                         //dataGridView1.Rows.Clear();
-                        dataGridView2.DataSource = dsMOCOVENDTAIL.Tables["TEMPds1"];
+                        dataGridView2.DataSource = dsMOCOVENDTAIL.Tables["TEMPds2"];
                         dataGridView2.AutoResizeColumns();
 
 
@@ -524,7 +524,7 @@ namespace TKMOC
 
                 sbSql.Clear();
                 sbSql.AppendFormat("  UPDATE [TKMOC].[dbo].[MOCOVENDTAIL]");
-                sbSql.AppendFormat("  SET [MB001]='{1}',[MB002]='{2}',[MB003]='{3}',[TEMPER]='{4}',[HUMIDITY]='{5}',[WEATHER]='{6}',[MANUTIME]='{7}' ,[FURANACEUP1]='{8}',[FURANACEUP2]='{9}',[FURANACEUP3]='{10}',[FURANACEUP4]='{11}',[FURANACEUP5]='{12}' ,[FURANACEDOWN1]='{13}',[FURANACEDOWN2]='{14}',[FURANACEDOWN3]='{15}',[FURANACEDOWN4]='{16}',[FURANACEDOWN5]='{17}' WHERE [ID]='{0}'",textBoxID.Text.ToString(),textBox2.Text.ToString(), textBox3.Text.ToString(), textBox4.Text.ToString(), textBox5.Text.ToString(), textBox6.Text.ToString(), comboBox6.Text.ToString(), dateTimePicker5.Value.ToString("HH:mm"), textBox7.Text.ToString(), textBox8.Text.ToString(), textBox9.Text.ToString(), textBox10.Text.ToString(), textBox11.Text.ToString(), textBox12.Text.ToString(), textBox13.Text.ToString(), textBox14.Text.ToString(), textBox15.Text.ToString(), textBox16.Text.ToString());
+                sbSql.AppendFormat("  SET [MB001]='{1}',[MB002]='{2}',[MB003]='{3}',[TEMPER]='{4}',[HUMIDITY]='{5}',[WEATHER]='{6}',[MANUTIME]='{7}' ,[FURANACEUP1]='{8}',[FURANACEUP2]='{9}',[FURANACEUP3]='{10}',[FURANACEUP4]='{11}',[FURANACEUP5]='{12}' ,[FURANACEDOWN1]='{13}',[FURANACEDOWN2]='{14}',[FURANACEDOWN3]='{15}',[FURANACEDOWN4]='{16}',[FURANACEDOWN5]='{17}' WHERE [ID]='{0}'", textBoxDETAILID.Text.ToString(),textBox2.Text.ToString(), textBox3.Text.ToString(), textBox4.Text.ToString(), textBox5.Text.ToString(), textBox6.Text.ToString(), comboBox6.Text.ToString(), dateTimePicker5.Value.ToString("HH:mm"), textBox7.Text.ToString(), textBox8.Text.ToString(), textBox9.Text.ToString(), textBox10.Text.ToString(), textBox11.Text.ToString(), textBox12.Text.ToString(), textBox13.Text.ToString(), textBox14.Text.ToString(), textBox15.Text.ToString(), textBox16.Text.ToString());
                 sbSql.AppendFormat("  ");
 
                 cmd.Connection = sqlConn;
@@ -764,6 +764,7 @@ namespace TKMOC
                 DETAILADD();
             }
             Search();
+            SearchMOCOVENDTAIL(textBoxID.Text.ToString());
             SETDETAILFINISH();
         }
 
