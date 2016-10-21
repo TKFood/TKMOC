@@ -232,6 +232,7 @@ namespace TKMOC
                 sqlCmdBuilder = new SqlCommandBuilder(adapter);
                 sqlConn.Open();
                 dsMOCOVENDTAIL.Clear();
+                dsMOCOVENDTAIL.Tables.Clear();
                 adapter.Fill(dsMOCOVENDTAIL, "TEMPds2");
                 sqlConn.Close();
 
@@ -246,7 +247,7 @@ namespace TKMOC
                 {
                     if (dsMOCOVENDTAIL.Tables["TEMPds2"].Rows.Count >= 1)
                     {
-                        //dataGridView1.Rows.Clear();
+                        dataGridView2.Rows.Clear();
                         dataGridView2.DataSource = dsMOCOVENDTAIL.Tables["TEMPds2"];
                         dataGridView2.AutoResizeColumns();
 
