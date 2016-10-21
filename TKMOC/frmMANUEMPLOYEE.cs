@@ -168,7 +168,7 @@ namespace TKMOC
 
                 sbSql.Clear();
                 sbSql.Append("INSERT INTO [TKMOC].dbo.MANUEMPLOYEE (ID,NAME) ");
-                sbSql.AppendFormat(" SELECT MV001,MV002  FROM [TK].dbo.CMSMV WITH (NOLOCK) WHERE  MV001 NOT IN (SELECT ID FROM [TKMOC].dbo.MANUEMPLOYEE WITH (NOLOCK) )");
+                sbSql.AppendFormat("  SELECT [Code],[CnName]    FROM [HRMDB].[dbo].[Employee] WHERE [DepartmentId] IN ( SELECT [DepartmentId]FROM [HRMDB].[dbo].[Department] WHERE CODE LIKE '103%') AND  Code   COLLATE Chinese_Taiwan_Stroke_BIN NOT IN (SELECT ID FROM [TKMOC].dbo.MANUEMPLOYEE WITH (NOLOCK) ) ");
                 sbSql.Append("  ");
 
                 cmd.Connection = sqlConn;
