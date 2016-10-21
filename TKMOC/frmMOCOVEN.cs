@@ -37,6 +37,7 @@ namespace TKMOC
         int result;
         int rownum = 0;
         Thread TD;
+        DataGridViewRow drMOCOVEN = new DataGridViewRow();
 
         public frmMOCOVEN()
         {
@@ -159,9 +160,15 @@ namespace TKMOC
 
                 sbSql.Clear();
                 sbSqlQuery.Clear();
-                sbSql.AppendFormat(@" SELECT  [ID],[OVENDATE],[MANUDEP],[PREHEARTSTART],[PREHEARTEND],[GAS],[FLODPEOPLE1],[FLODPEOPLE2],[MANAGER],[OPERATOR]");
+                sbSql.AppendFormat(@" SELECT  CONVERT(varchar(100),[OVENDATE], 112) AS '日期',[MANUDEP] AS '組別',CONVERT(varchar(100),[PREHEARTSTART], 108)  AS '預熱時間(起)',CONVERT(varchar(100),[PREHEARTEND], 108)   AS '預熱時間(迄)',[GAS]  AS '瓦斯磅數',EMP1.NAME  AS '折疊人員1',EMP2.NAME    AS '折疊人員2', EMP3.NAME   AS '主管',EMP4.NAME    AS '操作人員',");
+                sbSql.AppendFormat(@" [MOCOVEN].[ID],[OVENDATE],[MANUDEP],[PREHEARTSTART],[PREHEARTEND],[GAS],[FLODPEOPLE1],[FLODPEOPLE2],[MANAGER],[OPERATOR]");
                 sbSql.AppendFormat(@" FROM [TKMOC].[dbo].[MOCOVEN] WITH(NOLOCK)");
-
+                sbSql.AppendFormat(@" LEFT JOIN [TKMOC].[dbo].[MANUEMPLOYEE] EMP1  ON [FLODPEOPLE1]=EMP1.ID");
+                sbSql.AppendFormat(@" LEFT JOIN [TKMOC].[dbo].[MANUEMPLOYEE] EMP2 ON [FLODPEOPLE2]=EMP2.ID");
+                sbSql.AppendFormat(@" LEFT JOIN [TKMOC].[dbo].[MANUEMPLOYEE]  EMP3 ON [MANAGER]=EMP3.ID");
+                sbSql.AppendFormat(@" LEFT JOIN [TKMOC].[dbo].[MANUEMPLOYEE]  EMP4 ON [OPERATOR]=EMP4.ID");
+                sbSql.AppendFormat(@" WHERE  CONVERT(varchar(100),[OVENDATE], 112)='{0}'", dateTimePicker4.Value.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(@" ");
 
                 adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -179,13 +186,11 @@ namespace TKMOC
                 else
                 {
                     if (ds.Tables["TEMPds1"].Rows.Count >= 1)
-                    {
-
-                       
+                    {                       
                         //dataGridView1.Rows.Clear();
                         dataGridView1.DataSource = ds.Tables["TEMPds1"];
                         dataGridView1.AutoResizeColumns();
-                        textBoxID.Text = ds.Tables["TEMPds1"].Rows[0]["ID"].ToString();
+                       
 
                     }
                 }
@@ -212,6 +217,8 @@ namespace TKMOC
             comboBox3.Enabled = true;
             comboBox4.Enabled = true;
             comboBox5.Enabled = true;
+
+            textBoxID.Text = null;
         }
 
         public void SETUPDATE()
@@ -329,6 +336,26 @@ namespace TKMOC
                 sqlConn.Close();
             }
         }
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView1.Rows.Count >= 1)
+            {
+                drMOCOVEN = dataGridView1.Rows[dataGridView1.SelectedCells[0].RowIndex];
+
+                textBoxID.Text = drMOCOVEN.Cells["ID"].Value.ToString();
+                dateTimePicker1.Value = Convert.ToDateTime(drMOCOVEN.Cells["OVENDATE"].Value.ToString());
+                comboBox1.SelectedValue = drMOCOVEN.Cells["MANUDEP"].Value.ToString();
+                dateTimePicker2.Value = Convert.ToDateTime(drMOCOVEN.Cells["PREHEARTSTART"].Value.ToString());
+                dateTimePicker3.Value = Convert.ToDateTime(drMOCOVEN.Cells["PREHEARTEND"].Value.ToString());
+                textBox1.Text= drMOCOVEN.Cells["GAS"].Value.ToString();
+                comboBox2.SelectedValue = drMOCOVEN.Cells["FLODPEOPLE1"].Value.ToString();
+                comboBox3.SelectedValue = drMOCOVEN.Cells["FLODPEOPLE2"].Value.ToString();
+                comboBox4.SelectedValue = drMOCOVEN.Cells["MANAGER"].Value.ToString();
+                comboBox5.SelectedValue = drMOCOVEN.Cells["OPERATOR"].Value.ToString();
+            }
+        }
+
+
         #endregion
 
         #region BUTTOON
@@ -359,8 +386,9 @@ namespace TKMOC
         {
             Search();
         }
+
         #endregion
 
-
+        
     }
 }
