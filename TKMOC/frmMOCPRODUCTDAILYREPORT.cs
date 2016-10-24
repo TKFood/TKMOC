@@ -833,7 +833,11 @@ namespace TKMOC
         {
             if (!string.IsNullOrEmpty(textBox36.Text.ToString()) && !string.IsNullOrEmpty(textBox34.Text.ToString()) && !string.IsNullOrEmpty(textBox35.Text.ToString()))
             {
-                textBox43.Text = Math.Round((Convert.ToDecimal(textBox36.Text.ToString())-(Convert.ToDecimal(textBox36.Text.ToString())* Convert.ToDecimal(textBox34.Text.ToString())/ Convert.ToDecimal(textBox35.Text.ToString()))),3).ToString();
+                if (Convert.ToDecimal(textBox36.Text.ToString()) > 0 && Convert.ToDecimal(textBox34.Text.ToString()) > 0 && Convert.ToDecimal(textBox35.Text.ToString()) > 0)
+                {
+                    textBox43.Text = Math.Round((Convert.ToDecimal(textBox36.Text.ToString()) - (Convert.ToDecimal(textBox36.Text.ToString()) * Convert.ToDecimal(textBox34.Text.ToString()) / Convert.ToDecimal(textBox35.Text.ToString()))), 3).ToString();
+                }
+                    
             }
                 
         }
@@ -841,7 +845,10 @@ namespace TKMOC
         {
             if(!string.IsNullOrEmpty(textBox32.Text.ToString()) && !string.IsNullOrEmpty(textBox33.Text.ToString()))
             {
-                textBox44.Text = Math.Round((Convert.ToDecimal(textBox32.Text.ToString())/ Convert.ToDecimal(textBox33.Text.ToString())*100),3).ToString();
+                if (Convert.ToDecimal(textBox32.Text.ToString()) > 0 && Convert.ToDecimal(textBox33.Text.ToString()) > 0)
+                {
+                    textBox44.Text = Math.Round((Convert.ToDecimal(textBox32.Text.ToString()) / Convert.ToDecimal(textBox33.Text.ToString()) * 100), 3).ToString();
+                }                    
             }
             
         }
@@ -849,7 +856,11 @@ namespace TKMOC
         {
             if (!string.IsNullOrEmpty(textBox42.Text.ToString()) && !string.IsNullOrEmpty(textBox31.Text.ToString()) && !string.IsNullOrEmpty(textBox24.Text.ToString()))
             {
-                textBox45.Text = Math.Round(((Convert.ToDecimal(textBox42.Text.ToString())+ Convert.ToDecimal(textBox31.Text.ToString()))/ Convert.ToDecimal(textBox24.Text.ToString())*100),3).ToString();
+                if (Convert.ToDecimal(textBox42.Text.ToString()) > 0 && Convert.ToDecimal(textBox31.Text.ToString()) > 0 && Convert.ToDecimal(textBox24.Text.ToString()) > 0)
+                {
+                    textBox45.Text = Math.Round(((Convert.ToDecimal(textBox42.Text.ToString()) + Convert.ToDecimal(textBox31.Text.ToString())) / Convert.ToDecimal(textBox24.Text.ToString()) * 100), 3).ToString();
+                }
+                    
             }
                 
         }
@@ -857,7 +868,11 @@ namespace TKMOC
         {
             if (!string.IsNullOrEmpty(textBox21.Text.ToString()) && !string.IsNullOrEmpty(textBox47.Text.ToString()))
             {
-                textBox46.Text = Math.Round((Convert.ToDecimal(textBox21.Text.ToString()) / Convert.ToDecimal(textBox47.Text.ToString())*100),3).ToString();
+                if (Convert.ToDecimal(textBox21.Text.ToString()) > 0 && Convert.ToDecimal(textBox47.Text.ToString()) > 0)
+                {
+                    textBox46.Text = Math.Round((Convert.ToDecimal(textBox21.Text.ToString()) / Convert.ToDecimal(textBox47.Text.ToString()) * 100), 3).ToString();
+                }
+                    
             }
             
         }
@@ -873,7 +888,12 @@ namespace TKMOC
         {
             if (!string.IsNullOrEmpty(textBox6.Text.ToString()) && !string.IsNullOrEmpty(textBox9.Text.ToString()) && !string.IsNullOrEmpty(textBox27.Text.ToString()) && !string.IsNullOrEmpty(textBox28.Text.ToString()))
             {
-                textBox48.Text = Math.Round(((Convert.ToDecimal(textBox6.Text.ToString()) + Convert.ToDecimal(textBox9.Text.ToString()) - Convert.ToDecimal(textBox27.Text.ToString()) - Convert.ToDecimal(textBox28.Text.ToString())) / (Convert.ToDecimal(textBox6.Text.ToString()) + Convert.ToDecimal(textBox9.Text.ToString())) * 100),3).ToString();
+                //if (Convert.ToDecimal(textBox6.Text.ToString()) > 0 && Convert.ToDecimal(textBox9.Text.ToString()) > 0 && Convert.ToDecimal(textBox27.Text.ToString()) > 0 && Convert.ToDecimal(textBox28.Text.ToString()) > 0)
+                if (Convert.ToDecimal(textBox6.Text.ToString()) > 0 && Convert.ToDecimal(textBox9.Text.ToString()) > 0 )                    
+                {
+                    textBox48.Text = Math.Round(((Convert.ToDecimal(textBox6.Text.ToString()) + Convert.ToDecimal(textBox9.Text.ToString()) - Convert.ToDecimal(textBox27.Text.ToString()) - Convert.ToDecimal(textBox28.Text.ToString())) / (Convert.ToDecimal(textBox6.Text.ToString()) + Convert.ToDecimal(textBox9.Text.ToString())) * 100), 3).ToString();
+                }
+                    
             }
                 
         }
@@ -1227,6 +1247,10 @@ namespace TKMOC
             objMOCPRODUCTDAILYREPORTPROCESSID.ShowDialog();
             Search();
 
+        }
+        private void button7_Click(object sender, EventArgs e)
+        {
+            SetFINISH();
         }
 
 

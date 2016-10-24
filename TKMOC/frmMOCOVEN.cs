@@ -739,7 +739,11 @@ namespace TKMOC
             {
                 ADD();
             }
-            rownum = dataGridView1.CurrentCell.RowIndex; 
+            if (dsMOCOVEN.Tables["TEMPds1"].Rows.Count >= 1)
+            {
+                rownum = dataGridView1.CurrentCell.RowIndex;
+            }
+            
             Search();
             SETFINISH();
             
@@ -770,8 +774,15 @@ namespace TKMOC
             {
                 DETAILADD();
             }
-            rownum = dataGridView1.CurrentCell.RowIndex;
-            rownumDETAIL = dataGridView2.CurrentCell.RowIndex;
+            if (dsMOCOVEN.Tables["TEMPds1"].Rows.Count >= 1)
+            {
+                rownum = dataGridView1.CurrentCell.RowIndex;
+            }
+            if (dsMOCOVENDTAIL.Tables["TEMPds2"].Rows.Count >= 1)
+            {
+                rownumDETAIL = dataGridView2.CurrentCell.RowIndex;
+            }
+                       
             Search();
             SearchMOCOVENDTAIL(textBoxID.Text.ToString());
             SETDETAILFINISH();
