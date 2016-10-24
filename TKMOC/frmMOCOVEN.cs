@@ -187,6 +187,8 @@ namespace TKMOC
                 if (dsMOCOVEN.Tables["TEMPds1"].Rows.Count == 0)
                 {
                     //label1.Text = "找不到資料";
+                    textBoxID.Text = null;
+                    SearchMOCOVENDTAIL(null);
                 }
                 else
                 {
@@ -242,7 +244,7 @@ namespace TKMOC
 
                 if (dsMOCOVENDTAIL.Tables["TEMPds2"].Rows.Count == 0)
                 {
-
+                    
                     dataGridView2.DataSource = null;
                   
                 }
@@ -427,9 +429,14 @@ namespace TKMOC
                 comboBox4.SelectedValue = drMOCOVEN.Cells["MANAGER"].Value.ToString();
                 comboBox5.SelectedValue = drMOCOVEN.Cells["OPERATOR"].Value.ToString();
 
+
                 SearchMOCOVENDTAIL(drMOCOVEN.Cells["ID"].Value.ToString());
                 textBoxSID.Text = drMOCOVEN.Cells["ID"].Value.ToString();
                 
+            }
+            else
+            {
+                SearchMOCOVENDTAIL("5C85A7F3-B942-4DF6-8804-5EC7ADF57870");
             }
         }
 
@@ -675,7 +682,7 @@ namespace TKMOC
 
         private void dataGridView2_SelectionChanged(object sender, EventArgs e)
         {
-            if (dataGridView2.Rows.Count>0)
+            if (dsMOCOVENDTAIL.Tables["TEMPds2"].Rows.Count>=1)
             {
                 drMOCOVENDTAIL = dataGridView2.Rows[dataGridView2.SelectedCells[0].RowIndex];
 
