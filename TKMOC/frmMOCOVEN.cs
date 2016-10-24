@@ -24,10 +24,13 @@ namespace TKMOC
         SqlCommand sqlComm = new SqlCommand();
         string connectionString;
         StringBuilder sbSql = new StringBuilder();
+        StringBuilder sbSqlM = new StringBuilder();
         StringBuilder sbSqlDETAIL = new StringBuilder();
         StringBuilder sbSqlQuery = new StringBuilder();
         SqlDataAdapter adapter = new SqlDataAdapter();
+        SqlDataAdapter adapterM = new SqlDataAdapter();
         SqlDataAdapter adapterDETAIL = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilderM = new SqlCommandBuilder();
         SqlCommandBuilder sqlCmdBuilder = new SqlCommandBuilder();
         SqlTransaction tran;
         SqlCommand cmd = new SqlCommand();
@@ -162,32 +165,33 @@ namespace TKMOC
             {
                 connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
                 sqlConn = new SqlConnection(connectionString);
-
-                sbSql.Clear();
-                sbSqlQuery.Clear();
-                sbSql.AppendFormat(@" SELECT  CONVERT(varchar(100),[OVENDATE], 112) AS '日期',[MANUDEP] AS '組別',CONVERT(varchar(100),[PREHEARTSTART], 108)  AS '預熱時間(起)',CONVERT(varchar(100),[PREHEARTEND], 108)   AS '預熱時間(迄)',[GAS]  AS '瓦斯磅數',EMP1.NAME  AS '折疊人員1',EMP2.NAME    AS '折疊人員2', EMP3.NAME   AS '主管',EMP4.NAME    AS '操作人員',");
-                sbSql.AppendFormat(@" [MOCOVEN].[ID],[OVENDATE],[MANUDEP],[PREHEARTSTART],[PREHEARTEND],[GAS],[FLODPEOPLE1],[FLODPEOPLE2],[MANAGER],[OPERATOR]");
-                sbSql.AppendFormat(@" FROM [TKMOC].[dbo].[MOCOVEN] WITH(NOLOCK)");
-                sbSql.AppendFormat(@" LEFT JOIN [TKMOC].[dbo].[MANUEMPLOYEE] EMP1  ON [FLODPEOPLE1]=EMP1.ID");
-                sbSql.AppendFormat(@" LEFT JOIN [TKMOC].[dbo].[MANUEMPLOYEE] EMP2 ON [FLODPEOPLE2]=EMP2.ID");
-                sbSql.AppendFormat(@" LEFT JOIN [TKMOC].[dbo].[MANUEMPLOYEE]  EMP3 ON [MANAGER]=EMP3.ID");
-                sbSql.AppendFormat(@" LEFT JOIN [TKMOC].[dbo].[MANUEMPLOYEE]  EMP4 ON [OPERATOR]=EMP4.ID");
-                sbSql.AppendFormat(@" WHERE  CONVERT(varchar(100),[OVENDATE], 112)='{0}'", dateTimePicker4.Value.ToString("yyyyMMdd"));
-                sbSql.AppendFormat(@" ");
-
-                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                sqlCmdBuilder = new SqlCommandBuilder(adapter);
                 sqlConn.Open();
+                
+                sbSqlM.Clear();
+
+                sbSqlM.AppendFormat(@" SELECT  CONVERT(varchar(100),[OVENDATE], 112) AS '日期',[MANUDEP] AS '組別',CONVERT(varchar(100),[PREHEARTSTART], 108)  AS '預熱時間(起)',CONVERT(varchar(100),[PREHEARTEND], 108)   AS '預熱時間(迄)',[GAS]  AS '瓦斯磅數',EMP1.NAME  AS '折疊人員1',EMP2.NAME    AS '折疊人員2', EMP3.NAME   AS '主管',EMP4.NAME    AS '操作人員',");
+                sbSqlM.AppendFormat(@" [MOCOVEN].[ID],[OVENDATE],[MANUDEP],[PREHEARTSTART],[PREHEARTEND],[GAS],[FLODPEOPLE1],[FLODPEOPLE2],[MANAGER],[OPERATOR]");
+                sbSqlM.AppendFormat(@" FROM [TKMOC].[dbo].[MOCOVEN] WITH(NOLOCK)");
+                sbSqlM.AppendFormat(@" LEFT JOIN [TKMOC].[dbo].[MANUEMPLOYEE] EMP1  ON [FLODPEOPLE1]=EMP1.ID");
+                sbSqlM.AppendFormat(@" LEFT JOIN [TKMOC].[dbo].[MANUEMPLOYEE] EMP2 ON [FLODPEOPLE2]=EMP2.ID");
+                sbSqlM.AppendFormat(@" LEFT JOIN [TKMOC].[dbo].[MANUEMPLOYEE]  EMP3 ON [MANAGER]=EMP3.ID");
+                sbSqlM.AppendFormat(@" LEFT JOIN [TKMOC].[dbo].[MANUEMPLOYEE]  EMP4 ON [OPERATOR]=EMP4.ID");
+                sbSqlM.AppendFormat(@" WHERE  CONVERT(varchar(100),[OVENDATE], 112)='{0}'", dateTimePicker4.Value.ToString("yyyyMMdd"));
+                sbSqlM.AppendFormat(@" ");
+
+                adapterM = new SqlDataAdapter(@"" + sbSqlM, sqlConn);
+
+                sqlCmdBuilderM = new SqlCommandBuilder(adapterM);
+                
                 dsMOCOVEN.Clear();
-                adapter.Fill(dsMOCOVEN, "TEMPds1");
+                adapterM.Fill(dsMOCOVEN, "TEMPds1");
                 sqlConn.Close();
 
 
                 if (dsMOCOVEN.Tables["TEMPds1"].Rows.Count == 0)
                 {
                     //label1.Text = "找不到資料";
-                    textBoxID.Text = null;
+                    
                     SearchMOCOVENDTAIL(null);
                 }
                 else
@@ -627,9 +631,9 @@ namespace TKMOC
             sbSql.Clear();
             sbSqlQuery.Clear();
 
-            sbSql.AppendFormat(@" SELECT [MB001],[MB002],[MB003] FROM [TKMOC].[dbo].[ERPINVMB] WHERE [MB001]='{0}'", MB001.ToString());
+            sbSqlQuery.AppendFormat(@" SELECT [MB001],[MB002],[MB003] FROM [TKMOC].[dbo].[ERPINVMB] WHERE [MB001]='{0}'", MB001.ToString());
 
-            adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+            adapter = new SqlDataAdapter(@"" + sbSqlQuery, sqlConn);
             sqlCmdBuilder = new SqlCommandBuilder(adapter);
 
             sqlConn.Open();
