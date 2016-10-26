@@ -527,7 +527,7 @@ namespace TKMOC
 
 
             textID.ReadOnly = true;
-            dateTimePicker2.Value = DateTime.Now;
+            dateTimePicker2.Value = dateTimePicker1.Value;
             textBox3.ReadOnly = false;
             textBox4.ReadOnly = false;
             textBox5.ReadOnly = false;
@@ -1202,7 +1202,235 @@ namespace TKMOC
             CALCANPCT();
         }
 
+        public void CHECKNULL()
+        {
+            if(string.IsNullOrEmpty(textBox5.Text))
+            {
+                textBox5.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox6.Text))
+            {
+                textBox6.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox7.Text))
+            {
+                textBox7.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox8.Text))
+            {
+                textBox8.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox9.Text))
+            {
+                textBox9.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox10.Text))
+            {
+                textBox10.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox11.Text))
+            {
+                textBox11.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox12.Text))
+            {
+                textBox12.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox13.Text))
+            {
+                textBox13.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox14.Text))
+            {
+                textBox14.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox15.Text))
+            {
+                textBox15.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox16.Text))
+            {
+                textBox16.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox17.Text))
+            {
+                textBox17.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox18.Text))
+            {
+                textBox18.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox19.Text))
+            {
+                textBox19.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox20.Text))
+            {
+                textBox20.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox21.Text))
+            {
+                textBox21.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox22.Text))
+            {
+                textBox22.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox23.Text))
+            {
+                textBox23.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox24.Text))
+            {
+                textBox24.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox25.Text))
+            {
+                textBox25.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox26.Text))
+            {
+                textBox26.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox27.Text))
+            {
+                textBox27.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox28.Text))
+            {
+                textBox28.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox29.Text))
+            {
+                textBox29.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox30.Text))
+            {
+                textBox30.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox31.Text))
+            {
+                textBox31.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox32.Text))
+            {
+                textBox32.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox33.Text))
+            {
+                textBox33.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox34.Text))
+            {
+                textBox34.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox35.Text))
+            {
+                textBox35.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox36.Text))
+            {
+                textBox36.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox37.Text))
+            {
+                textBox37.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox38.Text))
+            {
+                textBox38.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox39.Text))
+            {
+                textBox39.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox40.Text))
+            {
+                textBox40.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox41.Text))
+            {
+                textBox41.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox42.Text))
+            {
+                textBox42.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox43.Text))
+            {
+                textBox43.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox44.Text))
+            {
+                textBox44.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox45.Text))
+            {
+                textBox45.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox46.Text))
+            {
+                textBox46.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox47.Text))
+            {
+                textBox47.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox48.Text))
+            {
+                textBox48.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox49.Text))
+            {
+                textBox49.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox50.Text))
+            {
+                textBox50.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox51.Text))
+            {
+                textBox51.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox52.Text))
+            {
+                textBox52.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox53.Text))
+            {
+                textBox53.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox54.Text))
+            {
+                textBox54.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox55.Text))
+            {
+                textBox55.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox56.Text))
+            {
+                textBox56.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox57.Text))
+            {
+                textBox57.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox58.Text))
+            {
+                textBox58.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox61.Text))
+            {
+                textBox61.Text = "0";
+            }
+            if (string.IsNullOrEmpty(textBox62.Text))
+            {
+                textBox62.Text = "0";
+            }
 
+            
+        }
         #endregion
 
 
@@ -1215,7 +1443,7 @@ namespace TKMOC
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            SetADD();
+            SetADD();            
         }
         private void button3_Click(object sender, EventArgs e)
         {
@@ -1223,6 +1451,7 @@ namespace TKMOC
         }
         private void button4_Click(object sender, EventArgs e)
         {
+            CHECKNULL();
             if (!string.IsNullOrEmpty(textID.Text.ToString()))
             {
                 UPDATE();

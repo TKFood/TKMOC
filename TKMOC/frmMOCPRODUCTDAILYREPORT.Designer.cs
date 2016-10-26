@@ -30,6 +30,7 @@
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.button7 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.labelSearch = new System.Windows.Forms.Label();
@@ -171,7 +172,6 @@
             this.textBox62 = new System.Windows.Forms.TextBox();
             this.textBox61 = new System.Windows.Forms.TextBox();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.button7 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -205,7 +205,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(1136, 802);
+            this.splitContainer1.Size = new System.Drawing.Size(1128, 802);
             this.splitContainer1.SplitterDistance = 42;
             this.splitContainer1.TabIndex = 0;
             // 
@@ -245,8 +245,20 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(1134, 40);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(1126, 40);
             this.tableLayoutPanel2.TabIndex = 0;
+            // 
+            // button7
+            // 
+            this.button7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button7.Location = new System.Drawing.Point(963, 3);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(74, 34);
+            this.button7.TabIndex = 923;
+            this.button7.Text = "取消";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.UseWaitCursor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // label1
             // 
@@ -388,7 +400,7 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.splitContainer3);
-            this.splitContainer2.Size = new System.Drawing.Size(1136, 756);
+            this.splitContainer2.Size = new System.Drawing.Size(1128, 756);
             this.splitContainer2.SplitterDistance = 110;
             this.splitContainer2.TabIndex = 0;
             // 
@@ -401,7 +413,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(1134, 108);
+            this.dataGridView1.Size = new System.Drawing.Size(1126, 108);
             this.dataGridView1.TabIndex = 4;
             this.dataGridView1.UseWaitCursor = true;
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
@@ -420,8 +432,8 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.dataGridView2);
-            this.splitContainer3.Size = new System.Drawing.Size(1136, 642);
-            this.splitContainer3.SplitterDistance = 1018;
+            this.splitContainer3.Size = new System.Drawing.Size(1128, 642);
+            this.splitContainer3.SplitterDistance = 1010;
             this.splitContainer3.TabIndex = 0;
             // 
             // tableLayoutPanel1
@@ -442,7 +454,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 88F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 89F));
             this.tableLayoutPanel1.Controls.Add(this.textBox48, 3, 12);
             this.tableLayoutPanel1.Controls.Add(this.label17, 12, 0);
             this.tableLayoutPanel1.Controls.Add(this.textBox49, 2, 12);
@@ -587,7 +599,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1016, 640);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1008, 640);
             this.tableLayoutPanel1.TabIndex = 2;
             this.tableLayoutPanel1.UseWaitCursor = true;
             // 
@@ -1961,23 +1973,11 @@
             this.dataGridView2.TabIndex = 5;
             this.dataGridView2.UseWaitCursor = true;
             // 
-            // button7
-            // 
-            this.button7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button7.Location = new System.Drawing.Point(963, 3);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(74, 34);
-            this.button7.TabIndex = 923;
-            this.button7.Text = "取消";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.UseWaitCursor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
-            // 
             // frmMOCPRODUCTDAILYREPORT
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1136, 802);
+            this.ClientSize = new System.Drawing.Size(1128, 802);
             this.Controls.Add(this.splitContainer1);
             this.Name = "frmMOCPRODUCTDAILYREPORT";
             this.Text = "frmMOCPRODUCTDAILYREPORT";

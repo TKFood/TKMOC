@@ -63,7 +63,7 @@ namespace TKMOC
 
             connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
             sqlConn = new SqlConnection(connectionString);
-            String Sequel = "SELECT [ID],[DEPNAME]  FROM [TKMOC].[dbo].[MANUDEP]";
+            String Sequel = "SELECT  1000 [ID] ,[DEPNAME]  FROM [TKMOC].[dbo].[MANUDEP] ";
             SqlDataAdapter da = new SqlDataAdapter(Sequel, sqlConn);
             DataTable dt = new DataTable();
             sqlConn.Open();
@@ -82,7 +82,7 @@ namespace TKMOC
 
             connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
             sqlConn = new SqlConnection(connectionString);
-            String Sequel = "SELECT  [ID],[NAME] FROM [TKMOC].[dbo].[MANUEMPLOYEE] ORDER BY ID";
+            String Sequel = "SELECT  [ID],[NAME] FROM [TKMOC].[dbo].[MANUEMPLOYEE]  WHERE ID IN ('100002','130036','140045','160114','970007','160130','160131','160132','160133','150063','160055','160057','160134','160138','040002') ORDER BY ID";
             SqlDataAdapter da = new SqlDataAdapter(Sequel, sqlConn);
             DataTable dt = new DataTable();
             sqlConn.Open();
@@ -102,7 +102,7 @@ namespace TKMOC
 
             connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
             sqlConn = new SqlConnection(connectionString);
-            String Sequel = "SELECT  [ID],[NAME] FROM [TKMOC].[dbo].[MANUEMPLOYEE] ORDER BY ID";
+            String Sequel = "SELECT  [ID],[NAME] FROM [TKMOC].[dbo].[MANUEMPLOYEE]  WHERE ID IN ('100002','130036','140045','160114','970007','160130','160131','160132','160133','150063','160055','160057','160134','160138','040002') ORDER BY ID";
             SqlDataAdapter da = new SqlDataAdapter(Sequel, sqlConn);
             DataTable dt = new DataTable();
             sqlConn.Open();
@@ -122,7 +122,7 @@ namespace TKMOC
 
             connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
             sqlConn = new SqlConnection(connectionString);
-            String Sequel = "SELECT  [ID],[NAME] FROM [TKMOC].[dbo].[MANUEMPLOYEE] ORDER BY ID";
+            String Sequel = "SELECT  [ID],[NAME] FROM [TKMOC].[dbo].[MANUEMPLOYEE] WHERE ID IN ('100002','130036','140045','160114','970007','160130','160131','160132','160133','150063','160055','160057','160134','160138','040002') ORDER BY ID";
             SqlDataAdapter da = new SqlDataAdapter(Sequel, sqlConn);
             DataTable dt = new DataTable();
             sqlConn.Open();
@@ -142,7 +142,7 @@ namespace TKMOC
 
             connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
             sqlConn = new SqlConnection(connectionString);
-            String Sequel = "SELECT  [ID],[NAME] FROM [TKMOC].[dbo].[MANUEMPLOYEE] ORDER BY ID";
+            String Sequel = "SELECT  [ID],[NAME] FROM [TKMOC].[dbo].[MANUEMPLOYEE] WHERE ID IN ('100002','130036','140045','160114','970007','160130','160131','160132','160133','150063','160055','160057','160134','130138','040002') ORDER BY ID";
             SqlDataAdapter da = new SqlDataAdapter(Sequel, sqlConn);
             DataTable dt = new DataTable();
             sqlConn.Open();
@@ -292,6 +292,7 @@ namespace TKMOC
 
         public void SETADDNEW()
         {
+            dateTimePicker1.Value = dateTimePicker4.Value;
             textBoxID.Text = null;
             textBox1.Text = null;
             comboBox1.SelectedValue = "01";
