@@ -103,7 +103,8 @@ namespace TKMOC
                         labelSearch.Text = "有 " + ds.Tables["TEMPds1"].Rows.Count.ToString() + " 筆";
                         //dataGridView1.Rows.Clear();
                         dataGridView1.DataSource = ds.Tables["TEMPds1"];
-                        dataGridView1.AutoResizeColumns();
+                        LOADDATA1();
+                        
                     }
                 }
 
@@ -116,6 +117,19 @@ namespace TKMOC
             {
 
             }
+        }
+
+        public void LOADDATA1()
+        {
+            foreach (DataGridViewColumn col in dataGridView1.Columns)
+            {
+                col.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                col.HeaderCell.Style.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Pixel);
+                
+            }
+           
+            //dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dataGridView1.AutoResizeColumns();
         }
         public void SearchMOCPRODUCTDAILYREPORTPROCESSID()
         {
@@ -589,6 +603,7 @@ namespace TKMOC
             //textID.ReadOnly = false;
 
             dateTimePicker2.Enabled = true;
+            dataGridView2.DataSource = null;
         }
 
         public void SetUPDATE()
@@ -1431,6 +1446,8 @@ namespace TKMOC
 
             
         }
+
+
         #endregion
 
 
@@ -1443,7 +1460,8 @@ namespace TKMOC
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            SetADD();            
+            SetADD();
+            
         }
         private void button3_Click(object sender, EventArgs e)
         {

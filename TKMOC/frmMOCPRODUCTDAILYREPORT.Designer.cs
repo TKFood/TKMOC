@@ -412,6 +412,7 @@
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 10;
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(1126, 108);
             this.dataGridView1.TabIndex = 4;
@@ -433,7 +434,7 @@
             // 
             this.splitContainer3.Panel2.Controls.Add(this.dataGridView2);
             this.splitContainer3.Size = new System.Drawing.Size(1128, 642);
-            this.splitContainer3.SplitterDistance = 1010;
+            this.splitContainer3.SplitterDistance = 1009;
             this.splitContainer3.TabIndex = 0;
             // 
             // tableLayoutPanel1
@@ -454,7 +455,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 89F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
             this.tableLayoutPanel1.Controls.Add(this.textBox48, 3, 12);
             this.tableLayoutPanel1.Controls.Add(this.label17, 12, 0);
             this.tableLayoutPanel1.Controls.Add(this.textBox49, 2, 12);
@@ -599,7 +600,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1008, 640);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1007, 640);
             this.tableLayoutPanel1.TabIndex = 2;
             this.tableLayoutPanel1.UseWaitCursor = true;
             // 
@@ -1969,7 +1970,7 @@
             this.dataGridView2.Location = new System.Drawing.Point(0, 0);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowTemplate.Height = 24;
-            this.dataGridView2.Size = new System.Drawing.Size(112, 640);
+            this.dataGridView2.Size = new System.Drawing.Size(113, 640);
             this.dataGridView2.TabIndex = 5;
             this.dataGridView2.UseWaitCursor = true;
             // 
