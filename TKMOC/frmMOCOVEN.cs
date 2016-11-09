@@ -471,6 +471,26 @@ namespace TKMOC
             textBox14.ReadOnly = false;
             textBox15.ReadOnly = false;
             textBox16.ReadOnly = false;
+            textBox17.ReadOnly = false;
+            textBox18.ReadOnly = false;
+            textBox19.ReadOnly = false;
+            textBox20.ReadOnly = false;
+            textBox21.ReadOnly = false;
+            textBox22.ReadOnly = false;
+            textBox23.ReadOnly = false;
+            textBox24.ReadOnly = false;
+            textBox25.ReadOnly = false;
+            textBox26.ReadOnly = false;
+            textBox27.ReadOnly = false;
+            textBox28.ReadOnly = false;
+            textBox29.ReadOnly = false;
+            textBox30.ReadOnly = false;
+            textBox31.ReadOnly = false;
+            textBox32.ReadOnly = false;
+            textBox33.ReadOnly = false;
+            textBox34.ReadOnly = false;
+            textBox35.ReadOnly = false;
+            textBox36.ReadOnly = false;
             comboBox6.Enabled = true;
             dateTimePicker5.Enabled = true;
 
@@ -494,6 +514,26 @@ namespace TKMOC
             textBox14.Text = null;
             textBox15.Text = null;
             textBox16.Text = null;
+            textBox17.Text = null;
+            textBox18.Text = null;
+            textBox19.Text = null;
+            textBox20.Text = null;
+            textBox21.Text = null;
+            textBox22.Text = null;
+            textBox23.Text = null;
+            textBox24.Text = null;
+            textBox25.Text = null;
+            textBox26.Text = null;
+            textBox27.Text = null;
+            textBox28.Text = null;
+            textBox29.Text = null;
+            textBox30.Text = null;
+            textBox31.Text = null;
+            textBox32.Text = null;
+            textBox33.Text = null;
+            textBox34.Text = null;
+            textBox35.Text = null;
+            textBox36.Text = null;
 
         }
         public void SETDETAILUPDATE()
@@ -513,6 +553,26 @@ namespace TKMOC
             textBox14.ReadOnly = false;
             textBox15.ReadOnly = false;
             textBox16.ReadOnly = false;
+            textBox17.ReadOnly = false;
+            textBox18.ReadOnly = false;
+            textBox19.ReadOnly = false;
+            textBox20.ReadOnly = false;
+            textBox21.ReadOnly = false;
+            textBox22.ReadOnly = false;
+            textBox23.ReadOnly = false;
+            textBox24.ReadOnly = false;
+            textBox25.ReadOnly = false;
+            textBox26.ReadOnly = false;
+            textBox27.ReadOnly = false;
+            textBox28.ReadOnly = false;
+            textBox29.ReadOnly = false;
+            textBox30.ReadOnly = false;
+            textBox31.ReadOnly = false;
+            textBox32.ReadOnly = false;
+            textBox33.ReadOnly = false;
+            textBox34.ReadOnly = false;
+            textBox35.ReadOnly = false;
+            textBox36.ReadOnly = false;
             comboBox6.Enabled = true;
             dateTimePicker5.Enabled = true;
         }
@@ -533,7 +593,28 @@ namespace TKMOC
             textBox14.ReadOnly = true;
             textBox15.ReadOnly = true;
             textBox16.ReadOnly = true;
+            textBox17.ReadOnly = true;
+            textBox18.ReadOnly = true;
+            textBox19.ReadOnly = true;
+            textBox20.ReadOnly = true;
+            textBox21.ReadOnly = true;
+            textBox22.ReadOnly = true;
+            textBox23.ReadOnly = true;
+            textBox24.ReadOnly = true;
+            textBox25.ReadOnly = true;
+            textBox26.ReadOnly = true;
+            textBox27.ReadOnly = true;
+            textBox28.ReadOnly = true;
+            textBox29.ReadOnly = true;
+            textBox30.ReadOnly = true;
+            textBox31.ReadOnly = true;
+            textBox32.ReadOnly = true;
+            textBox33.ReadOnly = true;
+            textBox34.ReadOnly = true;
+            textBox35.ReadOnly = true;
+            textBox36.ReadOnly = true;
             comboBox6.Enabled = false;
+
             dateTimePicker5.Enabled = false;
         }
         public void DETAILUPDATE()
@@ -550,7 +631,7 @@ namespace TKMOC
 
                 sbSql.Clear();
                 sbSql.AppendFormat("  UPDATE [TKMOC].[dbo].[MOCOVENDTAIL]");
-                sbSql.AppendFormat("  SET [MB001]='{1}',[MB002]='{2}',[MB003]='{3}',[TEMPER]='{4}',[HUMIDITY]='{5}',[WEATHER]='{6}',[MANUTIME]='{7}' ,[FURANACEUP1]='{8}',[FURANACEUP2]='{9}',[FURANACEUP3]='{10}',[FURANACEUP4]='{11}',[FURANACEUP5]='{12}' ,[FURANACEDOWN1]='{13}',[FURANACEDOWN2]='{14}',[FURANACEDOWN3]='{15}',[FURANACEDOWN4]='{16}',[FURANACEDOWN5]='{17}' WHERE [ID]='{0}'", textBoxDETAILID.Text.ToString(),textBox2.Text.ToString(), textBox3.Text.ToString(), textBox4.Text.ToString(), textBox5.Text.ToString(), textBox6.Text.ToString(), comboBox6.Text.ToString(), dateTimePicker5.Value.ToString("HH:mm"), textBox7.Text.ToString(), textBox8.Text.ToString(), textBox9.Text.ToString(), textBox10.Text.ToString(), textBox11.Text.ToString(), textBox12.Text.ToString(), textBox13.Text.ToString(), textBox14.Text.ToString(), textBox15.Text.ToString(), textBox16.Text.ToString());
+                sbSql.AppendFormat("  SET [MB001]='{1}',[MB002]='{2}',[MB003]='{3}',[TEMPER]='{4}',[HUMIDITY]='{5}',[WEATHER]='{6}',[MANUTIME]='{7}' ,[FURANACEUP1]='{8}',[FURANACEUP2]='{9}',[FURANACEUP3]='{10}',[FURANACEUP4]='{11}',[FURANACEUP5]='{12}' ,[FURANACEDOWN1]='{13}',[FURANACEDOWN2]='{14}',[FURANACEDOWN3]='{15}',[FURANACEDOWN4]='{16}',[FURANACEDOWN5]='{17}' ,[FURANACEUP1A]='{18}',[FURANACEUP2A]='{19}',[FURANACEUP3A]='{20}',[FURANACEUP4A]='{21}',[FURANACEUP5A]='{22}' ,[FURANACEDOWN1A]='{23}',[FURANACEDOWN2A]='{24}',[FURANACEDOWN3A]='{25}',[FURANACEDOWN4A]='{26}',[FURANACEDOWN5A]='{27}',[FURANACEUP1B]='{28}',[FURANACEUP2B]='{29}',[FURANACEUP3B]='{30}',[FURANACEUP4B]='{31}',[FURANACEUP5B]='{32}' ,[FURANACEDOWN1B]='{33}',[FURANACEDOWN2B]='{34}',[FURANACEDOWN3B]='{35}',[FURANACEDOWN4B]='{36}',[FURANACEDOWN5B]='{37}' WHERE [ID]='{0}' ", textBoxDETAILID.Text.ToString(),textBox2.Text.ToString(), textBox3.Text.ToString(), textBox4.Text.ToString(), textBox5.Text.ToString(), textBox6.Text.ToString(), comboBox6.Text.ToString(), dateTimePicker5.Value.ToString("HH:mm"), textBox7.Text.ToString(), textBox8.Text.ToString(), textBox9.Text.ToString(), textBox10.Text.ToString(), textBox11.Text.ToString(), textBox12.Text.ToString(), textBox13.Text.ToString(), textBox14.Text.ToString(), textBox15.Text.ToString(), textBox16.Text.ToString(),  textBox17.Text.ToString(), textBox18.Text.ToString(), textBox19.Text.ToString(), textBox20.Text.ToString(), textBox21.Text.ToString(), textBox22.Text.ToString(), textBox23.Text.ToString(), textBox24.Text.ToString(), textBox25.Text.ToString(), textBox26.Text.ToString() , textBox27.Text.ToString(), textBox28.Text.ToString(), textBox29.Text.ToString(), textBox30.Text.ToString(), textBox31.Text.ToString(), textBox32.Text.ToString(), textBox33.Text.ToString(), textBox34.Text.ToString(), textBox35.Text.ToString(), textBox36.Text.ToString());
                 sbSql.AppendFormat("  ");
 
                 cmd.Connection = sqlConn;
@@ -596,8 +677,12 @@ namespace TKMOC
                 sbSql.AppendFormat("  INSERT INTO [TKMOC].[dbo].[MOCOVENDTAIL]");
                 sbSql.AppendFormat("  ([ID],[SOURCEID],[MB001],[MB002],[MB003],[TEMPER],[HUMIDITY],[WEATHER],[MANUTIME]");
                 sbSql.AppendFormat("  ,[FURANACEUP1],[FURANACEUP2],[FURANACEUP3],[FURANACEUP4],[FURANACEUP5]");
-                sbSql.AppendFormat("  ,[FURANACEDOWN1],[FURANACEDOWN2],[FURANACEDOWN3],[FURANACEDOWN4],[FURANACEDOWN5])");
-                sbSql.AppendFormat("  VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}','{15}','{16}','{17}','{18}') ", Guid.NewGuid(),textBoxSID.Text.ToString(),textBox2.Text.ToString(), textBox3.Text.ToString(), textBox4.Text.ToString(), textBox5.Text.ToString(), textBox6.Text.ToString(),comboBox6.Text.ToString(), dateTimePicker5.Value.ToString("HH:mm"), textBox7.Text.ToString(), textBox8.Text.ToString(), textBox9.Text.ToString(), textBox10.Text.ToString(), textBox11.Text.ToString(), textBox12.Text.ToString(), textBox13.Text.ToString(), textBox14.Text.ToString(), textBox15.Text.ToString(), textBox16.Text.ToString());
+                sbSql.AppendFormat("  ,[FURANACEDOWN1],[FURANACEDOWN2],[FURANACEDOWN3],[FURANACEDOWN4],[FURANACEDOWN5]");
+                sbSql.AppendFormat("  ,[FURANACEUP1A],[FURANACEUP2A],[FURANACEUP3A],[FURANACEUP4A],[FURANACEUP5A]");
+                sbSql.AppendFormat("  ,[FURANACEDOWN1A],[FURANACEDOWN2A],[FURANACEDOWN3A],[FURANACEDOWN4A],[FURANACEDOWN5A]");
+                sbSql.AppendFormat("  ,[FURANACEUP1B],[FURANACEUP2B],[FURANACEUP3B],[FURANACEUP4B],[FURANACEUP5B]");
+                sbSql.AppendFormat("  ,[FURANACEDOWN1B],[FURANACEDOWN2B],[FURANACEDOWN3B],[FURANACEDOWN4B],[FURANACEDOWN5B] )");
+                sbSql.AppendFormat("  VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}','{15}','{16}','{17}','{18}','{19}','{20}','{21}','{22}','{23}','{24}','{25}','{26}','{27}','{28}','{29}','{30}','{31}','{32}','{33}','{34}','{35}','{36}','{37}','{38}') ", Guid.NewGuid(),textBoxSID.Text.ToString(),textBox2.Text.ToString(), textBox3.Text.ToString(), textBox4.Text.ToString(), textBox5.Text.ToString(), textBox6.Text.ToString(),comboBox6.Text.ToString(), dateTimePicker5.Value.ToString("HH:mm"), textBox7.Text.ToString(), textBox8.Text.ToString(), textBox9.Text.ToString(), textBox10.Text.ToString(), textBox11.Text.ToString(), textBox12.Text.ToString(), textBox13.Text.ToString(), textBox14.Text.ToString(), textBox15.Text.ToString(), textBox16.Text.ToString(), textBox17.Text.ToString(), textBox18.Text.ToString(), textBox19.Text.ToString(), textBox20.Text.ToString(), textBox21.Text.ToString(), textBox22.Text.ToString(), textBox23.Text.ToString(), textBox24.Text.ToString(), textBox25.Text.ToString(), textBox26.Text.ToString(), textBox27.Text.ToString(), textBox28.Text.ToString(), textBox29.Text.ToString(), textBox30.Text.ToString(), textBox31.Text.ToString(), textBox32.Text.ToString(), textBox33.Text.ToString(), textBox34.Text.ToString(), textBox35.Text.ToString(), textBox36.Text.ToString());
                 sbSql.AppendFormat("  ");
 
                 cmd.Connection = sqlConn;
@@ -705,16 +790,37 @@ namespace TKMOC
                 textBox4.Text = drMOCOVENDTAIL.Cells["規格"].Value.ToString();
                 textBox5.Text = drMOCOVENDTAIL.Cells["溫度"].Value.ToString();
                 textBox6.Text = drMOCOVENDTAIL.Cells["溼度"].Value.ToString();
-                textBox7.Text = drMOCOVENDTAIL.Cells["上爐-第一爐"].Value.ToString();
-                textBox8.Text = drMOCOVENDTAIL.Cells["上爐-第二爐"].Value.ToString();
-                textBox9.Text = drMOCOVENDTAIL.Cells["上爐-第三爐"].Value.ToString();
-                textBox10.Text = drMOCOVENDTAIL.Cells["上爐-第四爐"].Value.ToString();
-                textBox11.Text = drMOCOVENDTAIL.Cells["上爐-第五爐"].Value.ToString();
-                textBox12.Text = drMOCOVENDTAIL.Cells["下爐-第一爐"].Value.ToString();
-                textBox13.Text = drMOCOVENDTAIL.Cells["下爐-第二爐"].Value.ToString();
-                textBox14.Text = drMOCOVENDTAIL.Cells["下爐-第三爐"].Value.ToString();
-                textBox15.Text = drMOCOVENDTAIL.Cells["下爐-第四爐"].Value.ToString();
-                textBox16.Text = drMOCOVENDTAIL.Cells["下爐-第五爐"].Value.ToString();
+                textBox7.Text = drMOCOVENDTAIL.Cells["上爐-第1爐"].Value.ToString();
+                textBox8.Text = drMOCOVENDTAIL.Cells["上爐-第2爐"].Value.ToString();
+                textBox9.Text = drMOCOVENDTAIL.Cells["上爐-第3爐"].Value.ToString();
+                textBox10.Text = drMOCOVENDTAIL.Cells["上爐-第4爐"].Value.ToString();
+                textBox11.Text = drMOCOVENDTAIL.Cells["上爐-第5爐"].Value.ToString();
+                textBox12.Text = drMOCOVENDTAIL.Cells["下爐-第1爐"].Value.ToString();
+                textBox13.Text = drMOCOVENDTAIL.Cells["下爐-第2爐"].Value.ToString();
+                textBox14.Text = drMOCOVENDTAIL.Cells["下爐-第3爐"].Value.ToString();
+                textBox15.Text = drMOCOVENDTAIL.Cells["下爐-第4爐"].Value.ToString();
+                textBox16.Text = drMOCOVENDTAIL.Cells["下爐-第5爐"].Value.ToString();
+                textBox17.Text = drMOCOVENDTAIL.Cells["上爐-第1爐A"].Value.ToString();
+                textBox18.Text = drMOCOVENDTAIL.Cells["上爐-第2爐A"].Value.ToString();
+                textBox19.Text = drMOCOVENDTAIL.Cells["上爐-第3爐A"].Value.ToString();
+                textBox20.Text = drMOCOVENDTAIL.Cells["上爐-第4爐A"].Value.ToString();
+                textBox21.Text = drMOCOVENDTAIL.Cells["上爐-第5爐A"].Value.ToString();
+                textBox22.Text = drMOCOVENDTAIL.Cells["下爐-第1爐A"].Value.ToString();
+                textBox23.Text = drMOCOVENDTAIL.Cells["下爐-第2爐A"].Value.ToString();
+                textBox24.Text = drMOCOVENDTAIL.Cells["下爐-第3爐A"].Value.ToString();
+                textBox25.Text = drMOCOVENDTAIL.Cells["下爐-第4爐A"].Value.ToString();
+                textBox26.Text = drMOCOVENDTAIL.Cells["下爐-第5爐A"].Value.ToString();
+                textBox27.Text = drMOCOVENDTAIL.Cells["上爐-第1爐B"].Value.ToString();
+                textBox28.Text = drMOCOVENDTAIL.Cells["上爐-第2爐B"].Value.ToString();
+                textBox29.Text = drMOCOVENDTAIL.Cells["上爐-第3爐B"].Value.ToString();
+                textBox30.Text = drMOCOVENDTAIL.Cells["上爐-第4爐B"].Value.ToString();
+                textBox31.Text = drMOCOVENDTAIL.Cells["上爐-第5爐B"].Value.ToString();
+                textBox32.Text = drMOCOVENDTAIL.Cells["下爐-第1爐B"].Value.ToString();
+                textBox33.Text = drMOCOVENDTAIL.Cells["下爐-第2爐B"].Value.ToString();
+                textBox34.Text = drMOCOVENDTAIL.Cells["下爐-第3爐B"].Value.ToString();
+                textBox35.Text = drMOCOVENDTAIL.Cells["下爐-第4爐B"].Value.ToString();
+                textBox36.Text = drMOCOVENDTAIL.Cells["下爐-第5爐B"].Value.ToString();
+
                 comboBox6.Text = drMOCOVENDTAIL.Cells["天氣"].Value.ToString();
                 dateTimePicker5.Value = Convert.ToDateTime(drMOCOVENDTAIL.Cells["時間"].Value.ToString());
 
