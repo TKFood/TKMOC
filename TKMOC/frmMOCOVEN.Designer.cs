@@ -1082,7 +1082,7 @@
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(74, 12);
             this.label26.TabIndex = 68;
-            this.label26.Text = "下爐-第4爐(";
+            this.label26.Text = "下爐-第4爐";
             this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // textBox17

@@ -230,8 +230,16 @@ namespace TKMOC
 
                 sbSqlDETAIL.Clear();
                 sbSqlDETAIL.AppendFormat(@" SELECT  [MB001] AS '品號',[MB002] AS '品名',[MB003] AS '規格',[TEMPER] AS '溫度',[HUMIDITY] AS '溼度',[WEATHER] AS '天氣',CONVERT(varchar(100),[MANUTIME],108) AS '時間'");
-                sbSqlDETAIL.AppendFormat(@" ,[FURANACEUP1] AS '上爐-第一爐',[FURANACEUP2] AS '上爐-第二爐',[FURANACEUP3] AS '上爐-第三爐',[FURANACEUP4] AS '上爐-第四爐',[FURANACEUP5] AS '上爐-第五爐'");
-                sbSqlDETAIL.AppendFormat(@" ,[FURANACEDOWN1] AS '下爐-第一爐',[FURANACEDOWN2] AS '下爐-第二爐',[FURANACEDOWN3] AS '下爐-第三爐',[FURANACEDOWN4] AS '下爐-第四爐',[FURANACEDOWN5] AS '下爐-第五爐'");
+                sbSqlDETAIL.AppendFormat(@" ,[FURANACEUP1] AS '上爐-第1爐',[FURANACEUP1A] AS '上爐-第1爐A',[FURANACEUP1B] AS '上爐-第1爐B'");
+                sbSqlDETAIL.AppendFormat(@" ,[FURANACEUP2] AS '上爐-第2爐',[FURANACEUP2A] AS '上爐-第2爐A',[FURANACEUP2B] AS '上爐-第2爐B'");
+                sbSqlDETAIL.AppendFormat(@" ,[FURANACEUP3] AS '上爐-第3爐',[FURANACEUP3A] AS '上爐-第3爐A',[FURANACEUP3B] AS '上爐-第3爐B'");
+                sbSqlDETAIL.AppendFormat(@" ,[FURANACEUP4] AS '上爐-第4爐',[FURANACEUP4A] AS '上爐-第4爐A',[FURANACEUP4B] AS '上爐-第4爐B'");
+                sbSqlDETAIL.AppendFormat(@" ,[FURANACEUP5] AS '上爐-第5爐' ,[FURANACEUP5A] AS '上爐-第5爐A' ,[FURANACEUP5B] AS '上爐-第5爐B' ");
+                sbSqlDETAIL.AppendFormat(@" ,[FURANACEDOWN1] AS '下爐-第1爐',[FURANACEDOWN1A] AS '下爐-第1爐A',[FURANACEDOWN1B] AS '下爐-第1爐B'");
+                sbSqlDETAIL.AppendFormat(@" ,[FURANACEDOWN2] AS '下爐-第2爐',[FURANACEDOWN2A] AS '下爐-第2爐A',[FURANACEDOWN2B] AS '下爐-第2爐B'");
+                sbSqlDETAIL.AppendFormat(@" ,[FURANACEDOWN3] AS '下爐-第3爐',[FURANACEDOWN3A] AS '下爐-第3爐A',[FURANACEDOWN3B] AS '下爐-第3爐B'");
+                sbSqlDETAIL.AppendFormat(@" ,[FURANACEDOWN4] AS '下爐-第4爐',[FURANACEDOWN4A] AS '下爐-第4爐A',[FURANACEDOWN4B] AS '下爐-第4爐B'");
+                sbSqlDETAIL.AppendFormat(@" ,[FURANACEDOWN5] AS '下爐-第5爐' ,[FURANACEDOWN5A] AS '下爐-第5爐A' ,[FURANACEDOWN5B] AS '下爐-第5爐B' ");
                 sbSqlDETAIL.AppendFormat(@" ,[ID],[SOURCEID]");
                 sbSqlDETAIL.AppendFormat(@" FROM [TKMOC].[dbo].[MOCOVENDTAIL]");
                 sbSqlDETAIL.AppendFormat(@" WHERE [SOURCEID]='{0}'",ID.ToString());
