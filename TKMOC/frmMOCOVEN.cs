@@ -63,7 +63,7 @@ namespace TKMOC
 
             connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
             sqlConn = new SqlConnection(connectionString);
-            String Sequel = "SELECT  1000 [ID] ,[DEPNAME]  FROM [TKMOC].[dbo].[MANUDEP] ";
+            String Sequel = "SELECT   [ID] ,[DEPNAME]  FROM [TKMOC].[dbo].[MANUDEP] ";
             SqlDataAdapter da = new SqlDataAdapter(Sequel, sqlConn);
             DataTable dt = new DataTable();
             sqlConn.Open();
@@ -169,13 +169,14 @@ namespace TKMOC
                 
                 sbSqlM.Clear();
 
-                sbSqlM.AppendFormat(@" SELECT  CONVERT(varchar(100),[OVENDATE], 112) AS '日期',[MANUDEP] AS '組別',CONVERT(varchar(100),[PREHEARTSTART], 108)  AS '預熱時間(起)',CONVERT(varchar(100),[PREHEARTEND], 108)   AS '預熱時間(迄)',[GAS]  AS '瓦斯磅數',EMP1.NAME  AS '折疊人員1',EMP2.NAME    AS '折疊人員2', EMP3.NAME   AS '主管',EMP4.NAME    AS '操作人員',");
-                sbSqlM.AppendFormat(@" [MOCOVEN].[ID],[OVENDATE],[MANUDEP],[PREHEARTSTART],[PREHEARTEND],[GAS],[FLODPEOPLE1],[FLODPEOPLE2],[MANAGER],[OPERATOR]");
+                sbSqlM.AppendFormat(@" SELECT  CONVERT(varchar(100),[OVENDATE], 112) AS '日期',[MANUDEP].[DEPNAME] AS '組',CONVERT(varchar(100),[PREHEARTSTART], 108)  AS '預熱時間(起)',CONVERT(varchar(100),[PREHEARTEND], 108)   AS '預熱時間(迄)',[GAS]  AS '瓦斯磅數',EMP1.NAME  AS '折疊人員1',EMP2.NAME    AS '折疊人員2', EMP3.NAME   AS '主管',EMP4.NAME    AS '操作人員',");
+                sbSqlM.AppendFormat(@" [MANUDEP] AS '組別',[MOCOVEN].[ID],[OVENDATE],[MANUDEP],[PREHEARTSTART],[PREHEARTEND],[GAS],[FLODPEOPLE1],[FLODPEOPLE2],[MANAGER],[OPERATOR]");
                 sbSqlM.AppendFormat(@" FROM [TKMOC].[dbo].[MOCOVEN] WITH(NOLOCK)");
                 sbSqlM.AppendFormat(@" LEFT JOIN [TKMOC].[dbo].[MANUEMPLOYEE] EMP1  ON [FLODPEOPLE1]=EMP1.ID");
                 sbSqlM.AppendFormat(@" LEFT JOIN [TKMOC].[dbo].[MANUEMPLOYEE] EMP2 ON [FLODPEOPLE2]=EMP2.ID");
                 sbSqlM.AppendFormat(@" LEFT JOIN [TKMOC].[dbo].[MANUEMPLOYEE]  EMP3 ON [MANAGER]=EMP3.ID");
                 sbSqlM.AppendFormat(@" LEFT JOIN [TKMOC].[dbo].[MANUEMPLOYEE]  EMP4 ON [OPERATOR]=EMP4.ID");
+                sbSqlM.AppendFormat(@" LEFT JOIN [TKMOC].[dbo].[MANUDEP] ON [MANUDEP].ID=[MOCOVEN].[MANUDEP]");
                 sbSqlM.AppendFormat(@" WHERE  CONVERT(varchar(100),[OVENDATE], 112)='{0}'", dateTimePicker4.Value.ToString("yyyyMMdd"));
                 sbSqlM.AppendFormat(@" ");
 
