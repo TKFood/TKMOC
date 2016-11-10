@@ -32,10 +32,13 @@ namespace TKMOC
         DataSet ds = new DataSet();
         DataTable dt = new DataTable();
         DataGridViewRow drMOCPRODUCTDAILYREPORT = new DataGridViewRow();
+        DataGridViewRow drMOCPRODUCTDAILYREPORTPROCESSID = new DataGridViewRow();
         string tablename = null;
         string ID;
         int result;
         Thread TD;
+        int RowIndex;
+
         public frmMOCPRODUCTDAILYREPORTPROCESSID()
         {
             InitializeComponent();
@@ -211,9 +214,42 @@ namespace TKMOC
             textBox2.ReadOnly = true;
             textBox3.ReadOnly = true;
         }
+
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+
+            if (dataGridView1.Rows.Count >= 1)
+            {
+                try
+                {
+                    if (dataGridView1.SelectedCells[0].RowIndex < 0)
+                    {
+                        RowIndex = 0;
+                    }
+                    else
+                    {
+                        RowIndex = dataGridView1.SelectedCells[0].RowIndex;
+                    }
+                    drMOCPRODUCTDAILYREPORTPROCESSID = dataGridView1.Rows[RowIndex];
+
+                    ID = dataGridView1.CurrentRow.Cells["ID"].Value.ToString();
+                    textBox1.Text = drMOCPRODUCTDAILYREPORTPROCESSID.Cells["製令"].Value.ToString();
+                    textBox2.Text = drMOCPRODUCTDAILYREPORTPROCESSID.Cells["來源ID"].Value.ToString();
+                    textBox3.Text = drMOCPRODUCTDAILYREPORTPROCESSID.Cells["ID"].Value.ToString();
+
+                }
+                catch
+                {
+                }
+                
+
+                
+            }
+        }
+
         #endregion
 
-        #region BUTTON
+            #region BUTTON
         private void button4_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(textBox3.Text.ToString()))
@@ -241,8 +277,9 @@ namespace TKMOC
         {
             this.Close();
         }
+
         #endregion
 
-
+        
     }
 }

@@ -35,15 +35,15 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.button5 = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -166,6 +166,17 @@
             this.button1.Text = "查詢";
             this.button1.UseVisualStyleBackColor = true;
             // 
+            // button5
+            // 
+            this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button5.Location = new System.Drawing.Point(643, 6);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(74, 35);
+            this.button5.TabIndex = 4;
+            this.button5.Text = "關閉";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToAddRows = false;
@@ -177,6 +188,7 @@
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(782, 159);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             // 
             // tableLayoutPanel3
             // 
@@ -212,15 +224,15 @@
             this.tableLayoutPanel3.Size = new System.Drawing.Size(782, 294);
             this.tableLayoutPanel3.TabIndex = 1;
             // 
-            // textBox1
+            // textBox3
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel3.SetColumnSpan(this.textBox1, 4);
-            this.textBox1.Location = new System.Drawing.Point(83, 9);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(314, 22);
-            this.textBox1.TabIndex = 0;
+            this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel3.SetColumnSpan(this.textBox3, 4);
+            this.textBox3.Location = new System.Drawing.Point(83, 89);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.ReadOnly = true;
+            this.textBox3.Size = new System.Drawing.Size(314, 22);
+            this.textBox3.TabIndex = 2;
             // 
             // textBox2
             // 
@@ -232,35 +244,15 @@
             this.textBox2.Size = new System.Drawing.Size(314, 22);
             this.textBox2.TabIndex = 1;
             // 
-            // textBox3
+            // textBox1
             // 
-            this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel3.SetColumnSpan(this.textBox3, 4);
-            this.textBox3.Location = new System.Drawing.Point(83, 89);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(314, 22);
-            this.textBox3.TabIndex = 2;
-            // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 14);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(74, 12);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "製令";
-            // 
-            // label2
-            // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 54);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(74, 12);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "來源ID";
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel3.SetColumnSpan(this.textBox1, 4);
+            this.textBox1.Location = new System.Drawing.Point(83, 9);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(314, 22);
+            this.textBox1.TabIndex = 0;
             // 
             // label3
             // 
@@ -272,24 +264,33 @@
             this.label3.TabIndex = 5;
             this.label3.Text = "ID";
             // 
-            // button5
+            // label2
             // 
-            this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button5.Location = new System.Drawing.Point(643, 6);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(74, 35);
-            this.button5.TabIndex = 4;
-            this.button5.Text = "關閉";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(3, 54);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(74, 12);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "來源ID";
             // 
-            // MOCPRODUCTDAILYREPORTPROCESSID
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 14);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(74, 12);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "製令";
+            // 
+            // frmMOCPRODUCTDAILYREPORTPROCESSID
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 561);
             this.Controls.Add(this.splitContainer1);
-            this.Name = "MOCPRODUCTDAILYREPORTPROCESSID";
+            this.Name = "frmMOCPRODUCTDAILYREPORTPROCESSID";
             this.Text = "MOCPRODUCTDAILYREPORTPROCESSID";
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
