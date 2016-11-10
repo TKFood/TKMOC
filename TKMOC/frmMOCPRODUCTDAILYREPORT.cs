@@ -42,6 +42,8 @@ namespace TKMOC
         public frmMOCPRODUCTDAILYREPORT()
         {
             InitializeComponent();
+            tableLayoutPanel1.AutoScroll = true;
+            tableLayoutPanel1.AutoScrollMinSize = new Size(1000, 700);
         }
 
         #region FUNCTION

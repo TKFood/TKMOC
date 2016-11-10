@@ -401,7 +401,7 @@
             // 
             this.splitContainer2.Panel2.Controls.Add(this.splitContainer3);
             this.splitContainer2.Size = new System.Drawing.Size(1020, 699);
-            this.splitContainer2.SplitterDistance = 101;
+            this.splitContainer2.SplitterDistance = 145;
             this.splitContainer2.TabIndex = 0;
             // 
             // dataGridView1
@@ -414,7 +414,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 10;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(1018, 99);
+            this.dataGridView1.Size = new System.Drawing.Size(1018, 143);
             this.dataGridView1.TabIndex = 4;
             this.dataGridView1.UseWaitCursor = true;
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
@@ -433,7 +433,7 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.dataGridView2);
-            this.splitContainer3.Size = new System.Drawing.Size(1020, 594);
+            this.splitContainer3.Size = new System.Drawing.Size(1020, 550);
             this.splitContainer3.SplitterDistance = 912;
             this.splitContainer3.TabIndex = 0;
             // 
@@ -600,7 +600,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(910, 592);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(910, 548);
             this.tableLayoutPanel1.TabIndex = 2;
             this.tableLayoutPanel1.UseWaitCursor = true;
             // 
@@ -1970,7 +1970,7 @@
             this.dataGridView2.Location = new System.Drawing.Point(0, 0);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowTemplate.Height = 24;
-            this.dataGridView2.Size = new System.Drawing.Size(102, 592);
+            this.dataGridView2.Size = new System.Drawing.Size(102, 548);
             this.dataGridView2.TabIndex = 5;
             this.dataGridView2.UseWaitCursor = true;
             // 

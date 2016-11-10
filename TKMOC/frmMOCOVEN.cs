@@ -50,6 +50,9 @@ namespace TKMOC
         public frmMOCOVEN()
         {
             InitializeComponent();
+            tableLayoutPanel2.AutoScroll = true;
+            tableLayoutPanel2.AutoScrollMinSize = new Size(1000, 600);
+
             combobox1load();
             combobox2load();
             combobox3load();
