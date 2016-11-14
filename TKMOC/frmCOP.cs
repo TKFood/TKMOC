@@ -90,6 +90,10 @@ namespace TKMOC
             {
                 TD001.Append("'A227',");
             }
+            if (checkBox7.Checked == true)
+            {
+                TD001.Append("'A223',");
+            }
 
             TD001.Append("''");
 
