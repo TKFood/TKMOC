@@ -46,8 +46,8 @@
             this.checkBox6 = new System.Windows.Forms.CheckBox();
             this.checkBox7 = new System.Windows.Forms.CheckBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -59,11 +59,11 @@
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
             this.splitContainer3.Panel1.SuspendLayout();
             this.splitContainer3.Panel2.SuspendLayout();
             this.splitContainer3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             this.SuspendLayout();
@@ -111,9 +111,6 @@
             this.tableLayoutPanel1.Controls.Add(this.dateTimePicker2, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.label2, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.label14, 11, 0);
-            this.tableLayoutPanel1.Controls.Add(this.button1, 10, 0);
-            this.tableLayoutPanel1.Controls.Add(this.button3, 11, 1);
-            this.tableLayoutPanel1.Controls.Add(this.button2, 10, 1);
             this.tableLayoutPanel1.Controls.Add(this.checkBox1, 4, 1);
             this.tableLayoutPanel1.Controls.Add(this.checkBox2, 5, 1);
             this.tableLayoutPanel1.Controls.Add(this.checkBox3, 6, 1);
@@ -121,6 +118,9 @@
             this.tableLayoutPanel1.Controls.Add(this.checkBox5, 8, 1);
             this.tableLayoutPanel1.Controls.Add(this.checkBox6, 9, 1);
             this.tableLayoutPanel1.Controls.Add(this.checkBox7, 4, 0);
+            this.tableLayoutPanel1.Controls.Add(this.button1, 8, 0);
+            this.tableLayoutPanel1.Controls.Add(this.button2, 9, 0);
+            this.tableLayoutPanel1.Controls.Add(this.button3, 10, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -204,7 +204,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(803, 3);
+            this.button1.Location = new System.Drawing.Point(643, 3);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(72, 32);
             this.button1.TabIndex = 16;
@@ -214,18 +214,19 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(883, 43);
+            this.button3.Location = new System.Drawing.Point(803, 3);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(72, 32);
+            this.button3.Size = new System.Drawing.Size(74, 32);
             this.button3.TabIndex = 39;
-            this.button3.Text = "匯出生產量";
+            this.button3.Text = "匯出半成品";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(803, 43);
+            this.button2.Location = new System.Drawing.Point(723, 3);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(72, 32);
+            this.button2.Size = new System.Drawing.Size(74, 32);
             this.button2.TabIndex = 38;
             this.button2.Text = "匯出訂單量";
             this.button2.UseVisualStyleBackColor = true;
@@ -328,6 +329,16 @@
             this.splitContainer2.SplitterDistance = 170;
             this.splitContainer2.TabIndex = 0;
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowTemplate.Height = 24;
+            this.dataGridView1.Size = new System.Drawing.Size(980, 166);
+            this.dataGridView1.TabIndex = 0;
+            // 
             // splitContainer3
             // 
             this.splitContainer3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -345,16 +356,6 @@
             this.splitContainer3.Size = new System.Drawing.Size(984, 467);
             this.splitContainer3.SplitterDistance = 495;
             this.splitContainer3.TabIndex = 0;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(980, 166);
-            this.dataGridView1.TabIndex = 0;
             // 
             // dataGridView2
             // 
@@ -394,11 +395,11 @@
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.splitContainer3.Panel1.ResumeLayout(false);
             this.splitContainer3.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
             this.splitContainer3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
             this.ResumeLayout(false);

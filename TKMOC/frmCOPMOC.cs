@@ -37,26 +37,23 @@ namespace TKMOC
         DataTable dt = new DataTable();
         DataTable dtTemp = new DataTable();
         DataTable dtTemp2 = new DataTable();
-        DataColumn column1 = new DataColumn("MD001");
-        DataColumn column2 = new DataColumn("MD003");
-        DataColumn column3 = new DataColumn("NUM");
-        DataColumn column4 = new DataColumn("UNIT");
+       
         string tablename = null;
         decimal COPNum = 0;
+        decimal TOTALCOPNum = 0;
         double BOMNum = 0;
         double FinalNum = 0;
-        double COOKIES = 1;
+        decimal COOKIES = 1;
         Thread TD;
 
         public frmCOPMOC()
         {
             InitializeComponent();
 
-            dtTemp.Columns.Add(column1);
-            dtTemp.Columns.Add(column2);
-            dtTemp.Columns.Add(column3);
-            dtTemp.Columns.Add(column4);
-
+            dtTemp.Columns.Add("MD003");
+            dtTemp.Columns.Add("MB002");
+            dtTemp.Columns.Add("NUM");
+            
             dtTemp2.Columns.Add("品號");
             dtTemp2.Columns.Add("品名");
             dtTemp2.Columns.Add("規格");
@@ -135,7 +132,7 @@ namespace TKMOC
                 sbSql.Append(@"  AND TD004 LIKE '4%'");
                 sbSql.AppendFormat(@"  AND TD013>='{0}' AND TD013<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
                 sbSql.AppendFormat(@"  AND TC001 IN ({0}) ", TD001.ToString());
-                sbSql.Append(@"  AND (TD008-TD009)>0");
+                sbSql.Append(@"  AND (TD008-TD009)>0  ");
                 //sbSql.Append(@"  AND ( TD004 LIKE '40106%'  ) ");
                 sbSql.Append(@"  ) AS TEMP");
                 sbSql.Append(@"  GROUP  BY 品號,品名,規格,單位");
@@ -181,6 +178,8 @@ namespace TKMOC
 
         public void SEARCHCOOKIES()
         {
+            string MB003 = null;
+            string[] sArray = null;
             connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
             sqlConn = new SqlConnection(connectionString);
 
@@ -188,17 +187,19 @@ namespace TKMOC
             {
 
                 COPNum = Convert.ToDecimal(ds.Tables["TEMPds1"].Rows[i]["訂單數量"].ToString());
-                //BOMNum = Convert.ToDouble(ds.Tables["TEMPds1"].Rows[i]["BOMNum"].ToString());
+                MB003 = ds.Tables["TEMPds1"].Rows[i]["規格"].ToString();
+                sArray = MB003.Split('g');
+                TOTALCOPNum = Convert.ToDecimal(Convert.ToDecimal(sArray[0].ToString())* COPNum);
 
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  SELECT MC001,MC004,MD002,MD003,MD004,MD006,MD007,({0}*MD006/MD007/MC004) AS NN", COPNum);
-                sbSql.Append(@"  FROM [TK].dbo.BOMMC WITH (NOLOCK),[TK].dbo.BOMMD WITH (NOLOCK)");
-                sbSql.Append(@"  WHERE MC001=MD001 AND MD003  LIKE '3%' ");
-                sbSql.AppendFormat(@"  AND MD001='{0}'", ds.Tables["TEMPds1"].Rows[i]["品號"].ToString());
-                sbSql.Append(@"  ");
-
+                sbSql.AppendFormat(@"  SELECT MD003,MB002,MB003,MD004 ");
+                sbSql.AppendFormat(@"  FROM [TK].dbo.BOMMD,[TK].dbo.INVMB");
+                sbSql.AppendFormat(@"  WHERE MD003=MB001");
+                sbSql.AppendFormat(@"  AND MD003 LIKE '3%'");
+                sbSql.AppendFormat(@"  AND MD001='{0}'" , ds.Tables["TEMPds1"].Rows[i]["品號"].ToString());
+                sbSql.AppendFormat(@"  ");
 
 
                 adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -209,16 +210,17 @@ namespace TKMOC
                 adapter.Fill(ds2, "TEMPds2");
                 sqlConn.Close();
 
-                if (ds2.Tables["TEMPds2"].Rows.Count > 1)
+                if (ds2.Tables["TEMPds2"].Rows.Count >= 1)
                 {
-
                     foreach (DataRow od2 in ds2.Tables["TEMPds2"].Rows)
                     {
                         DataRow row = dtTemp.NewRow();
-                        row["MD001"] = od2["MC001"].ToString();
+                        //row["MD001"] = od2["MC001"].ToString();
                         row["MD003"] = od2["MD003"].ToString();
-                        row["NUM"] = Convert.ToDouble(Convert.ToDouble(od2["NN"].ToString()));
-                        row["UNIT"] = od2["MD004"].ToString();
+                        row["MB002"] = od2["MB002"].ToString();
+                        COOKIES = Convert.ToDecimal(Regex.Replace(od2["MB003"].ToString(), "[^0-9]", ""));
+                        row["NUM"] = Convert.ToDecimal(TOTALCOPNum/ COOKIES);
+                    
                         dtTemp.Rows.Add(row);
                     }
 
@@ -226,68 +228,68 @@ namespace TKMOC
 
             }
 
-            //分組並計算
+            ////分組並計算
 
-            var Query = from p in dtTemp.AsEnumerable()
-                        orderby p.Field<string>("MD003")
-                        group p by new { MD003 = p.Field<string>("MD003"), UNIT = p.Field<string>("UNIT") } into g
-                        select new
-                        {
-                            //MD003 = g.Key,
-                            MD003 = g.Key.MD003,
-                            NUM = g.Sum(p => Convert.ToDouble(p.Field<string>("NUM"))),
-                            UNIT = g.Key.UNIT
-                        };
+            //var Query = from p in dtTemp.AsEnumerable()
+            //            orderby p.Field<string>("MD003")
+            //            group p by new { MD003 = p.Field<string>("MD003"), UNIT = p.Field<string>("UNIT") } into g
+            //            select new
+            //            {
+            //                //MD003 = g.Key,
+            //                MD003 = g.Key.MD003,
+            //                NUM = g.Sum(p => Convert.ToDouble(p.Field<string>("NUM"))),
+            //                UNIT = g.Key.UNIT
+            //            };
 
 
-            if (Query.Count() >= 1)
-            {
-                foreach (var c in Query)
-                {
-                    sbSql.Clear();
-                    sbSqlQuery.Clear();
+            //if (Query.Count() >= 1)
+            //{
+            //    foreach (var c in Query)
+            //    {
+            //        sbSql.Clear();
+            //        sbSqlQuery.Clear();
 
-                    //sbSql.AppendFormat(@"  SELECT TOP 1 MB001,MB002,MB003  FROM [TK].dbo.INVMB WITH (NOLOCK)  WHERE   MB001='{0}'  ", c.MD003.ToString());
-                    sbSql.AppendFormat(@"  SELECT TOP 1 MB001,MB002,MB003,ISNULL(MC004,0) AS MC004 ,(CASE WHEN ISNULL(MC001,'')<>'' THEN CEILING({0}/MC004) ELSE CEILING({0}) END) AS NN", c.NUM.ToString());
-                    sbSql.AppendFormat(@"  ,(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WITH (NOLOCK) WHERE LA009='20001' AND LA001=MB001) AS NN1");
-                    sbSql.AppendFormat(@"  ,(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WITH (NOLOCK) WHERE LA009='20002' AND LA001=MB001) AS NN2");
+            //        //sbSql.AppendFormat(@"  SELECT TOP 1 MB001,MB002,MB003  FROM [TK].dbo.INVMB WITH (NOLOCK)  WHERE   MB001='{0}'  ", c.MD003.ToString());
+            //        sbSql.AppendFormat(@"  SELECT TOP 1 MB001,MB002,MB003,ISNULL(MC004,0) AS MC004 ,(CASE WHEN ISNULL(MC001,'')<>'' THEN CEILING({0}/MC004) ELSE CEILING({0}) END) AS NN", c.NUM.ToString());
+            //        sbSql.AppendFormat(@"  ,(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WITH (NOLOCK) WHERE LA009='20001' AND LA001=MB001) AS NN1");
+            //        sbSql.AppendFormat(@"  ,(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WITH (NOLOCK) WHERE LA009='20002' AND LA001=MB001) AS NN2");
 
-                    sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB WITH (NOLOCK)  ");
-                    sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.BOMMC WITH (NOLOCK)  ON MC001=MB001");
-                    sbSql.AppendFormat(@"  WHERE    MB001='{0}'  ", c.MD003.ToString());
+            //        sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB WITH (NOLOCK)  ");
+            //        sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.BOMMC WITH (NOLOCK)  ON MC001=MB001");
+            //        sbSql.AppendFormat(@"  WHERE    MB001='{0}'  ", c.MD003.ToString());
 
-                    adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+            //        adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                    sqlCmdBuilder = new SqlCommandBuilder(adapter);
-                    sqlConn.Open();
-                    ds3.Clear();
-                    adapter.Fill(ds3, "TEMPds3");
-                    sqlConn.Close();
+            //        sqlCmdBuilder = new SqlCommandBuilder(adapter);
+            //        sqlConn.Open();
+            //        ds3.Clear();
+            //        adapter.Fill(ds3, "TEMPds3");
+            //        sqlConn.Close();
 
-                    if (ds3.Tables["TEMPds3"].Rows.Count >= 1)
-                    {
-                        DataRow row = dtTemp2.NewRow();
-                        row["品號"] = c.MD003;
-                        row["品名"] = ds3.Tables["TEMPds3"].Rows[0]["MB002"].ToString();                        
-                        row["規格"] = ds3.Tables["TEMPds3"].Rows[0]["MB003"].ToString();
-                        row["預計用量"] = Convert.ToDouble(c.NUM);
-                        row["單位"] = c.UNIT;
-                        COOKIES =Convert.ToDouble (Regex.Replace(ds3.Tables["TEMPds3"].Rows[0]["MB003"].ToString(), "[^0-9]", ""));
-                        row["需求片數"] = (Convert.ToDouble(c.NUM*1000/ COOKIES));
-                        row["生產批量"] = ds3.Tables["TEMPds3"].Rows[0]["MC004"].ToString();
-                        row["預計生產批量"] = ds3.Tables["TEMPds3"].Rows[0]["NN"].ToString();
-                        row["成品庫存"] = ds3.Tables["TEMPds3"].Rows[0]["NN1"].ToString();
-                        row["外銷庫存"] = ds3.Tables["TEMPds3"].Rows[0]["NN2"].ToString();
-                        dtTemp2.Rows.Add(row);
-                    }
-                }
-            }
+            //        if (ds3.Tables["TEMPds3"].Rows.Count >= 1)
+            //        {
+            //            DataRow row = dtTemp2.NewRow();
+            //            row["品號"] = c.MD003;
+            //            row["品名"] = ds3.Tables["TEMPds3"].Rows[0]["MB002"].ToString();                        
+            //            row["規格"] = ds3.Tables["TEMPds3"].Rows[0]["MB003"].ToString();
+            //            row["預計用量"] = Convert.ToDouble(c.NUM);
+            //            row["單位"] = c.UNIT;
+            //            COOKIES =Convert.ToDouble (Regex.Replace(ds3.Tables["TEMPds3"].Rows[0]["MB003"].ToString(), "[^0-9]", ""));
+            //            row["需求片數"] = (Convert.ToDouble(c.NUM*1000/ COOKIES));
+            //            row["生產批量"] = ds3.Tables["TEMPds3"].Rows[0]["MC004"].ToString();
+            //            row["預計生產批量"] = ds3.Tables["TEMPds3"].Rows[0]["NN"].ToString();
+            //            row["成品庫存"] = ds3.Tables["TEMPds3"].Rows[0]["NN1"].ToString();
+            //            row["外銷庫存"] = ds3.Tables["TEMPds3"].Rows[0]["NN2"].ToString();
+            //            dtTemp2.Rows.Add(row);
+            //        }
+            //    }
+            //}
 
 
             //dataGridView1.DataSource = dtQuery.ToList();
             //label14.Text = "有 " + dtTemp2.Rows.Count.ToString() + " 筆";
             dataGridView2.Rows.Clear();
-            dataGridView2.DataSource = dtTemp2;
+            dataGridView2.DataSource = dtTemp;
             dataGridView2.AutoResizeColumns();
         }
 
@@ -398,7 +400,7 @@ namespace TKMOC
             cs.TopBorderColor = NPOI.HSSF.Util.HSSFColor.Grey50Percent.Index;
 
             //Search();            
-            dt = dtTemp2;
+            dt = dtTemp;
 
             if (dt.TableName != string.Empty)
             {
@@ -416,19 +418,19 @@ namespace TKMOC
             }
 
             int j = 0;
-            int k = dataGridView1.Rows.Count;
+            int k = dt.Rows.Count - 1;
             foreach (DataGridViewRow dr in this.dataGridView2.Rows)
             {
-                ws.CreateRow(j + 1);
-                ws.GetRow(j + 1).CreateCell(0).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[0].ToString());
-                ws.GetRow(j + 1).CreateCell(1).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[1].ToString());
-                ws.GetRow(j + 1).CreateCell(2).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[2].ToString());
-                ws.GetRow(j + 1).CreateCell(3).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[3].ToString()));
-                ws.GetRow(j + 1).CreateCell(4).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[4].ToString());
-                ws.GetRow(j + 1).CreateCell(5).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[5].ToString()));
-                ws.GetRow(j + 1).CreateCell(6).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[6].ToString()));
+                if(j<=k)
+                {
+                    ws.CreateRow(j + 1);
+                    ws.GetRow(j + 1).CreateCell(0).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[0].ToString());
+                    ws.GetRow(j + 1).CreateCell(1).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[1].ToString());
+                    ws.GetRow(j + 1).CreateCell(2).SetCellValue(Convert.ToInt32(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[2].ToString()));
 
-                j++;
+                    j++;
+                }
+               
             }
 
 
