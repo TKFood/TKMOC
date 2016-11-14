@@ -59,7 +59,8 @@ namespace TKMOC
             dtTemp2.Columns.Add("規格");
             dtTemp2.Columns.Add("預計用量");
             dtTemp2.Columns.Add("單位");
-            dtTemp2.Columns.Add("生產批量(單位)");
+            dtTemp2.Columns.Add("生產批量");
+            dtTemp2.Columns.Add("預計生產批量");
         }
 
         #region FUNCTION
@@ -125,7 +126,7 @@ namespace TKMOC
                 sbSql.Append(@"  WHERE TD004=MB001");
                 sbSql.Append(@"  AND TC001=TD001 AND TC002=TD002");
                 sbSql.Append(@"  AND TD004 LIKE '4%'");
-                sbSql.AppendFormat(@"  AND TC003>='{0}' AND TC003<='{1}'",dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(@"  AND TD013>='{0}' AND TD013<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
                 sbSql.AppendFormat(@"  AND TC001 IN ({0}) ", TD001.ToString());
                 sbSql.Append(@"  AND (TD008-TD009)>0");
                 //sbSql.Append(@"  AND ( TD004 LIKE '40106%'  ) ");
@@ -225,7 +226,7 @@ namespace TKMOC
                             sbSqlQuery.Clear();
 
                             //sbSql.AppendFormat(@"  SELECT TOP 1 MB001,MB002,MB003  FROM [TK].dbo.INVMB WITH (NOLOCK)  WHERE   MB001='{0}'  ", c.MD003.ToString());
-                            sbSql.AppendFormat(@"  SELECT TOP 1 MB001,MB002,MB003,(CASE WHEN ISNULL(MC001,'')<>'' THEN CEILING({0}/MC004)+1 ELSE CEILING({0}) END) AS NN", c.NUM.ToString());
+                            sbSql.AppendFormat(@"  SELECT TOP 1 MB001,MB002,MB003,ISNULL(MC004,0) AS MC004 ,(CASE WHEN ISNULL(MC001,'')<>'' THEN CEILING({0}/MC004) ELSE CEILING({0}) END) AS NN", c.NUM.ToString());
                             sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB WITH (NOLOCK)  ");
                             sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.BOMMC WITH (NOLOCK)  ON MC001=MB001");
                             sbSql.AppendFormat(@"  WHERE    MB001='{0}'  ", c.MD003.ToString());
@@ -246,7 +247,8 @@ namespace TKMOC
                                 row["規格"] = ds3.Tables["TEMPds3"].Rows[0]["MB003"].ToString();
                                 row["預計用量"] = Convert.ToDouble(c.NUM);
                                 row["單位"] = c.UNIT;
-                                row["生產批量(單位)"] = ds3.Tables["TEMPds3"].Rows[0]["NN"].ToString();
+                                row["生產批量"] = ds3.Tables["TEMPds3"].Rows[0]["MC004"].ToString();
+                                row["預計生產批量"] = ds3.Tables["TEMPds3"].Rows[0]["NN"].ToString();
                                 dtTemp2.Rows.Add(row);
                             }
                         }
