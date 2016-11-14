@@ -189,12 +189,12 @@ namespace TKMOC
                 COPNum = Convert.ToDecimal(ds.Tables["TEMPds1"].Rows[i]["訂單數量"].ToString());
                 MB003 = ds.Tables["TEMPds1"].Rows[i]["規格"].ToString();
                 sArray = MB003.Split('g');
-                TOTALCOPNum = Convert.ToDecimal(Convert.ToDecimal(sArray[0].ToString())* COPNum);
+                //TOTALCOPNum = Convert.ToDecimal(Convert.ToDecimal(sArray[0].ToString())* COPNum);
 
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  SELECT MD003,MB002,MB003,MD004 ");
+                sbSql.AppendFormat(@"  SELECT MD003,MB002,MB003,MD004,MD006 ");
                 sbSql.AppendFormat(@"  FROM [TK].dbo.BOMMD,[TK].dbo.INVMB");
                 sbSql.AppendFormat(@"  WHERE MD003=MB001");
                 sbSql.AppendFormat(@"  AND MD003 LIKE '3%'");
@@ -219,6 +219,7 @@ namespace TKMOC
                         row["MD003"] = od2["MD003"].ToString();
                         row["MB002"] = od2["MB002"].ToString();
                         COOKIES = Convert.ToDecimal(Regex.Replace(od2["MB003"].ToString(), "[^0-9]", ""));
+                        TOTALCOPNum = Convert.ToDecimal(Convert.ToDecimal(od2["MD006"].ToString())*1000 * COPNum);
                         row["NUM"] = Convert.ToDecimal(TOTALCOPNum/ COOKIES);
                     
                         dtTemp.Rows.Add(row);
@@ -426,7 +427,7 @@ namespace TKMOC
                     ws.CreateRow(j + 1);
                     ws.GetRow(j + 1).CreateCell(0).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[0].ToString());
                     ws.GetRow(j + 1).CreateCell(1).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[1].ToString());
-                    ws.GetRow(j + 1).CreateCell(2).SetCellValue(Convert.ToInt32(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[2].ToString()));
+                    ws.GetRow(j + 1).CreateCell(2).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[2].ToString()));
 
                     j++;
                 }
