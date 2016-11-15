@@ -44,6 +44,7 @@ namespace TKMOC
         double BOMNum = 0;
         double FinalNum = 0;
         decimal COOKIES = 1;
+        decimal BATCH = 1;
         Thread TD;
 
         public frmCOPMOC()
@@ -221,7 +222,8 @@ namespace TKMOC
                         row["MB002"] = od2["MB002"].ToString();
                         COOKIES = Convert.ToDecimal(Regex.Replace(od2["MB003"].ToString(), "[^0-9]", ""));
                         TOTALCOPNum = Convert.ToDecimal(Convert.ToDecimal(od2["MD006"].ToString())*1000 * COPNum);
-                        row["NUM"] = Convert.ToDecimal(TOTALCOPNum/ COOKIES);
+                        BATCH= Convert.ToDecimal(ds.Tables["TEMPds1"].Rows[i]["標準批量"].ToString());
+                        row["NUM"] = Convert.ToInt32(TOTALCOPNum/ COOKIES/BATCH);
                         
                         dtTemp.Rows.Add(row);
                     }
