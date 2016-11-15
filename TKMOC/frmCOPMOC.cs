@@ -50,10 +50,11 @@ namespace TKMOC
         {
             InitializeComponent();
 
+            dtTemp.Columns.Add("DATE");
             dtTemp.Columns.Add("MD003");
             dtTemp.Columns.Add("MB002");
             dtTemp.Columns.Add("NUM");
-            dtTemp.Columns.Add("DATE");
+            
 
             dtTemp2.Columns.Add("品號");
             dtTemp2.Columns.Add("品名");
@@ -195,7 +196,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  SELECT MD003,MB002,CASE WHEN ISNULL(MB003,'')=''  THEN '1' ELSE MB003 END AS MB003,MD004,MD006 ");
                 sbSql.AppendFormat(@"  FROM [TK].dbo.BOMMD,[TK].dbo.INVMB");
                 sbSql.AppendFormat(@"  WHERE MD003=MB001");
-                sbSql.AppendFormat(@"  AND MD003 LIKE '3%'");
+                sbSql.AppendFormat(@"  AND MD003 LIKE '3%' AND MB002 NOT LIKE '%水麵%'   AND  MB002 NOT LIKE '%餅麩%'");
                 sbSql.AppendFormat(@"  AND MD001='{0}'" , ds.Tables["TEMPds1"].Rows[i]["品號"].ToString());
                 sbSql.AppendFormat(@"  ");
 
@@ -214,12 +215,13 @@ namespace TKMOC
                     {
                         DataRow row = dtTemp.NewRow();
                         //row["MD001"] = od2["MC001"].ToString();
+                        row["DATE"] = ds.Tables["TEMPds1"].Rows[i]["日期"].ToString();
                         row["MD003"] = od2["MD003"].ToString();
                         row["MB002"] = od2["MB002"].ToString();
                         COOKIES = Convert.ToDecimal(Regex.Replace(od2["MB003"].ToString(), "[^0-9]", ""));
                         TOTALCOPNum = Convert.ToDecimal(Convert.ToDecimal(od2["MD006"].ToString())*1000 * COPNum);
                         row["NUM"] = Convert.ToDecimal(TOTALCOPNum/ COOKIES);
-                        row["DATE"] = ds.Tables["TEMPds1"].Rows[i]["日期"].ToString();
+                        
                         dtTemp.Rows.Add(row);
                     }
 
@@ -331,20 +333,27 @@ namespace TKMOC
             }
 
             int j = 0;
-            int k = dataGridView1.Rows.Count;
+            int k = dt.Rows.Count - 1;
             foreach (DataGridViewRow dr in this.dataGridView1.Rows)
             {
-                ws.CreateRow(j + 1);
-                ws.GetRow(j + 1).CreateCell(0).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[0].ToString());
-                ws.GetRow(j + 1).CreateCell(1).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[1].ToString());
-                ws.GetRow(j + 1).CreateCell(2).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[2].ToString());
-                ws.GetRow(j + 1).CreateCell(3).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[3].ToString()));
-                ws.GetRow(j + 1).CreateCell(4).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[4].ToString());
-                ws.GetRow(j + 1).CreateCell(5).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[5].ToString()));
-                ws.GetRow(j + 1).CreateCell(6).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[6].ToString()));
-                ws.GetRow(j + 1).CreateCell(7).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[7].ToString()));
 
-                j++;
+                if (j <= k)
+                {
+                    ws.CreateRow(j + 1);
+                    ws.GetRow(j + 1).CreateCell(0).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[0].ToString());
+                    ws.GetRow(j + 1).CreateCell(0).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[0].ToString());
+                    ws.GetRow(j + 1).CreateCell(1).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[1].ToString());
+                    ws.GetRow(j + 1).CreateCell(2).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[2].ToString());
+                    ws.GetRow(j + 1).CreateCell(3).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[3].ToString());
+                    ws.GetRow(j + 1).CreateCell(4).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[4].ToString()));
+                    ws.GetRow(j + 1).CreateCell(5).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[5].ToString());
+                    ws.GetRow(j + 1).CreateCell(6).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[6].ToString()));
+                    ws.GetRow(j + 1).CreateCell(7).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[7].ToString()));
+                    ws.GetRow(j + 1).CreateCell(8).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[8].ToString()));
+
+                    j++;
+                }
+
             }
 
 
@@ -425,7 +434,8 @@ namespace TKMOC
                     ws.CreateRow(j + 1);
                     ws.GetRow(j + 1).CreateCell(0).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[0].ToString());
                     ws.GetRow(j + 1).CreateCell(1).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[1].ToString());
-                    ws.GetRow(j + 1).CreateCell(2).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[2].ToString()));
+                    ws.GetRow(j + 1).CreateCell(2).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[2].ToString());
+                    ws.GetRow(j + 1).CreateCell(3).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[3].ToString()));
 
                     j++;
                 }
