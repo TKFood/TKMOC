@@ -114,7 +114,8 @@ namespace TKMOC
                 sbSql.Append(@"  SELECT 日期,品號,品名,規格,CONVERT(INT,SUM(訂單數量)) AS 訂單數量,單位");
                 sbSql.Append(@"   ,(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WITH (NOLOCK) WHERE LA009='20001' AND LA001=品號) AS '成品倉庫存'");
                 sbSql.Append(@"   ,(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WITH (NOLOCK) WHERE LA009='20002' AND LA001=品號) AS '外銷倉庫存'");
-                sbSql.Append(@"  ,(SELECT ISNULL(SUM(TA015-TA017-TA018),0) FROM [TK].dbo.MOCTA  WITH (NOLOCK) WHERE TA011 NOT IN ('Y','y') AND TA006=品號 ) AS '未完成的製令' ");
+                sbSql.Append(@"   ,(SELECT ISNULL(SUM(TA015-TA017-TA018),0) FROM [TK].dbo.MOCTA  WITH (NOLOCK) WHERE TA011 NOT IN ('Y','y') AND TA006=品號 ) AS '未完成的製令' ");
+                sbSql.Append(@"  ,(SELECT MC004  FROM [TK].dbo.BOMMC WHERE MC001=品號) AS 標準批量");
                 sbSql.Append(@"  FROM (");
                 sbSql.Append(@"  SELECT TD013 AS '日期',TD004 AS '品號',TD005 AS '品名',TD006 AS '規格'");
                 sbSql.Append(@"  ,(CASE WHEN MB004=TD010 THEN (TD008-TD009) ELSE (TD008-TD009)*MD004 END) AS '訂單數量'");
@@ -350,6 +351,7 @@ namespace TKMOC
                     ws.GetRow(j + 1).CreateCell(6).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[6].ToString()));
                     ws.GetRow(j + 1).CreateCell(7).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[7].ToString()));
                     ws.GetRow(j + 1).CreateCell(8).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[8].ToString()));
+                    ws.GetRow(j + 1).CreateCell(9).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[9].ToString());
 
                     j++;
                 }
