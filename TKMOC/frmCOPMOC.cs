@@ -53,7 +53,8 @@ namespace TKMOC
             dtTemp.Columns.Add("MD003");
             dtTemp.Columns.Add("MB002");
             dtTemp.Columns.Add("NUM");
-            
+            dtTemp.Columns.Add("DATE");
+
             dtTemp2.Columns.Add("品號");
             dtTemp2.Columns.Add("品名");
             dtTemp2.Columns.Add("規格");
@@ -79,10 +80,7 @@ namespace TKMOC
             {
                 TD001.Append("'A222',");
             }
-            if (checkBox3.Checked == true)
-            {
-                TD001.Append("'A223',");
-            }
+            
             if (checkBox4.Checked == true)
             {
                 TD001.Append("'A225',");
@@ -112,12 +110,12 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.Append(@"  SELECT 品號,品名,規格,CONVERT(INT,SUM(訂單數量)) AS 訂單數量,單位");
+                sbSql.Append(@"  SELECT 日期,品號,品名,規格,CONVERT(INT,SUM(訂單數量)) AS 訂單數量,單位");
                 sbSql.Append(@"   ,(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WITH (NOLOCK) WHERE LA009='20001' AND LA001=品號) AS '成品倉庫存'");
                 sbSql.Append(@"   ,(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WITH (NOLOCK) WHERE LA009='20002' AND LA001=品號) AS '外銷倉庫存'");
                 sbSql.Append(@"  ,(SELECT ISNULL(SUM(TA015-TA017-TA018),0) FROM [TK].dbo.MOCTA  WITH (NOLOCK) WHERE TA011 NOT IN ('Y','y') AND TA006=品號 ) AS '未完成的製令' ");
                 sbSql.Append(@"  FROM (");
-                sbSql.Append(@"  SELECT TD004 AS '品號',TD005 AS '品名',TD006 AS '規格'");
+                sbSql.Append(@"  SELECT TD013 AS '日期',TD004 AS '品號',TD005 AS '品名',TD006 AS '規格'");
                 sbSql.Append(@"  ,(CASE WHEN MB004=TD010 THEN (TD008-TD009) ELSE (TD008-TD009)*MD004 END) AS '訂單數量'");
                 sbSql.Append(@"  ,MB004 AS '單位'");
                 sbSql.Append(@"  ,(TD008-TD009) AS '訂單量'");
@@ -133,9 +131,9 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  AND TD013>='{0}' AND TD013<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
                 sbSql.AppendFormat(@"  AND TC001 IN ({0}) ", TD001.ToString());
                 sbSql.Append(@"  AND (TD008-TD009)>0  ");
-                //sbSql.Append(@"  AND ( TD004 LIKE '40106%'  ) ");
+                //sbSql.Append(@"  AND ( TD004 LIKE '40109916000740%'  ) ");
                 sbSql.Append(@"  ) AS TEMP");
-                sbSql.Append(@"  GROUP  BY 品號,品名,規格,單位");
+                sbSql.Append(@"  GROUP  BY 日期,品號,品名,規格,單位");
                 sbSql.Append(@"  ");
 
                 adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -194,7 +192,7 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  SELECT MD003,MB002,MB003,MD004,MD006 ");
+                sbSql.AppendFormat(@"  SELECT MD003,MB002,CASE WHEN ISNULL(MB003,'')=''  THEN '1' ELSE MB003 END AS MB003,MD004,MD006 ");
                 sbSql.AppendFormat(@"  FROM [TK].dbo.BOMMD,[TK].dbo.INVMB");
                 sbSql.AppendFormat(@"  WHERE MD003=MB001");
                 sbSql.AppendFormat(@"  AND MD003 LIKE '3%'");
@@ -221,7 +219,7 @@ namespace TKMOC
                         COOKIES = Convert.ToDecimal(Regex.Replace(od2["MB003"].ToString(), "[^0-9]", ""));
                         TOTALCOPNum = Convert.ToDecimal(Convert.ToDecimal(od2["MD006"].ToString())*1000 * COPNum);
                         row["NUM"] = Convert.ToDecimal(TOTALCOPNum/ COOKIES);
-                    
+                        row["DATE"] = ds.Tables["TEMPds1"].Rows[i]["日期"].ToString();
                         dtTemp.Rows.Add(row);
                     }
 
@@ -478,11 +476,11 @@ namespace TKMOC
         #region BUTTON
         private void button1_Click(object sender, EventArgs e)
         {
-            TD = new Thread(showwaitfrm);
-            TD.Start();
-            Thread.Sleep(2000);   //此行可以不需要，主要用於等待主窗體填充數據
+            //TD = new Thread(showwaitfrm);
+            //TD.Start();
+            //Thread.Sleep(2000);   //此行可以不需要，主要用於等待主窗體填充數據
             Search();
-            TD.Abort(); //主窗體加載完成數據後，線程結束，關閉等待窗體。
+            //TD.Abort(); //主窗體加載完成數據後，線程結束，關閉等待窗體。
 
         }
 
