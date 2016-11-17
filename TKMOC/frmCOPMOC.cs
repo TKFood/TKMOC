@@ -74,6 +74,8 @@ namespace TKMOC
         public void Search()
         {
             StringBuilder TD001 = new StringBuilder();
+            StringBuilder TC027 = new StringBuilder();
+
             if (checkBox1.Checked == true)
             {
                 TD001.Append("'A221',");
@@ -100,6 +102,18 @@ namespace TKMOC
                 TD001.Append("'A223',");
             }
 
+            if (comboBox1.Text.ToString().Equals("已確認"))
+            {
+                TC027.Append(" AND TC027='Y' ");
+            }
+            else if (comboBox1.Text.ToString().Equals("未確認(扣已確認)"))
+            {
+                TC027.Append("AND TC027='N' ");
+            }
+            else if (comboBox1.Text.ToString().Equals("全部"))
+            {
+                TC027.Append("  ");
+            }
             TD001.Append("''");
 
             dtTemp.Clear();
@@ -134,10 +148,11 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  AND TD013>='{0}' AND TD013<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
                 sbSql.AppendFormat(@"  AND TC001 IN ({0}) ", TD001.ToString());
                 sbSql.Append(@"  AND (TD008-TD009)>0  ");
+                sbSql.AppendFormat(@"   {0} ", TC027.ToString());
                 //sbSql.Append(@"  AND ( TD004 LIKE '40109916000740%'  ) ");
                 sbSql.Append(@"  ) AS TEMP");
                 sbSql.Append(@"  GROUP  BY 客戶,日期,品號,品名,規格,單位");
-                sbSql.Append(@"  ");
+                sbSql.AppendFormat(@"  ");
 
                 adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
 

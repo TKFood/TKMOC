@@ -49,6 +49,7 @@
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -119,6 +120,7 @@
             this.tableLayoutPanel1.Controls.Add(this.checkBox4, 6, 1);
             this.tableLayoutPanel1.Controls.Add(this.checkBox5, 7, 1);
             this.tableLayoutPanel1.Controls.Add(this.checkBox6, 8, 1);
+            this.tableLayoutPanel1.Controls.Add(this.comboBox1, 7, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -369,6 +371,20 @@
             this.dataGridView3.Size = new System.Drawing.Size(481, 463);
             this.dataGridView3.TabIndex = 1;
             // 
+            // comboBox1
+            // 
+            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "已確認",
+            "未確認(扣已確認)",
+            "全部"});
+            this.comboBox1.Location = new System.Drawing.Point(563, 10);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(74, 20);
+            this.comboBox1.TabIndex = 41;
+            this.comboBox1.Text = "已確認";
+            // 
             // frmCOPMOC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -421,5 +437,6 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.DataGridView dataGridView3;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
