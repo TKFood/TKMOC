@@ -488,6 +488,7 @@ namespace TKMOC
             //dataGridView1.DataSource = dtQuery.ToList();
             //label14.Text = "有 " + dtTemp2.Rows.Count.ToString() + " 筆";
             //dataGridView3.Rows.Clear();
+
             dataGridView3.DataSource = dtTemp;
             dataGridView3.AutoResizeColumns();
         }

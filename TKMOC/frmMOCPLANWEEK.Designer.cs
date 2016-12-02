@@ -61,6 +61,8 @@
             this.dateTimePicker4 = new System.Windows.Forms.DateTimePicker();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -184,9 +186,10 @@
             this.tableLayoutPanel2.Controls.Add(this.label5, 2, 0);
             this.tableLayoutPanel2.Controls.Add(this.numericUpDown1, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.button2, 8, 0);
-            this.tableLayoutPanel2.Controls.Add(this.button4, 10, 1);
-            this.tableLayoutPanel2.Controls.Add(this.button3, 9, 1);
-            this.tableLayoutPanel2.Controls.Add(this.button5, 8, 1);
+            this.tableLayoutPanel2.Controls.Add(this.button5, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.button7, 1, 1);
+            this.tableLayoutPanel2.Controls.Add(this.button3, 7, 1);
+            this.tableLayoutPanel2.Controls.Add(this.button4, 8, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -265,9 +268,9 @@
             // button3
             // 
             this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Location = new System.Drawing.Point(735, 44);
+            this.button3.Location = new System.Drawing.Point(563, 44);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(76, 32);
+            this.button3.Size = new System.Drawing.Size(74, 32);
             this.button3.TabIndex = 4;
             this.button3.Text = "查詢半成品";
             this.button3.UseVisualStyleBackColor = true;
@@ -305,6 +308,7 @@
             this.tableLayoutPanel1.Controls.Add(this.checkBox6, 5, 1);
             this.tableLayoutPanel1.Controls.Add(this.comboBox1, 5, 0);
             this.tableLayoutPanel1.Controls.Add(this.button1, 6, 0);
+            this.tableLayoutPanel1.Controls.Add(this.button6, 7, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -445,9 +449,9 @@
             // button4
             // 
             this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.Location = new System.Drawing.Point(817, 44);
+            this.button4.Location = new System.Drawing.Point(643, 44);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(160, 32);
+            this.button4.Size = new System.Drawing.Size(86, 32);
             this.button4.TabIndex = 39;
             this.button4.Text = "匯出半成品";
             this.button4.UseVisualStyleBackColor = true;
@@ -573,13 +577,33 @@
             // button5
             // 
             this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button5.Location = new System.Drawing.Point(643, 44);
+            this.button5.Location = new System.Drawing.Point(3, 44);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(86, 32);
+            this.button5.Size = new System.Drawing.Size(74, 32);
             this.button5.TabIndex = 45;
             this.button5.Text = "查詢計畫";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // button6
+            // 
+            this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button6.Location = new System.Drawing.Point(563, 48);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(74, 32);
+            this.button6.TabIndex = 42;
+            this.button6.Text = "匯出訂單";
+            this.button6.UseVisualStyleBackColor = true;
+            // 
+            // button7
+            // 
+            this.button7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button7.Location = new System.Drawing.Point(83, 44);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(74, 32);
+            this.button7.TabIndex = 46;
+            this.button7.Text = "匯出計劃";
+            this.button7.UseVisualStyleBackColor = true;
             // 
             // frmMOCPLANWEEK
             // 
@@ -653,5 +677,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.NumericUpDown numericUpDown2;
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button7;
     }
 }
