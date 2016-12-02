@@ -179,6 +179,12 @@
     <Compile Include="frmMOCOVEN.Designer.cs">
       <DependentUpon>frmMOCOVEN.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmMOCPLANWEEK.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMOCPLANWEEK.Designer.cs">
+      <DependentUpon>frmMOCPLANWEEK.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMOCPRODUCTDAILYREPORT.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -264,6 +270,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMOCOVEN.resx">
       <DependentUpon>frmMOCOVEN.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMOCPLANWEEK.resx">
+      <DependentUpon>frmMOCPLANWEEK.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMOCPRODUCTDAILYREPORT.resx">
       <DependentUpon>frmMOCPRODUCTDAILYREPORT.cs</DependentUpon>
