@@ -182,12 +182,27 @@ namespace TKMOC
             }
         }
 
+        public void ADDTOMOCPLANWEEK()
+        {
+            foreach (DataGridViewRow dr in this.dataGridView1.Rows)
+            {
+                if (dr.Cells[0].Value != null && (bool)dr.Cells[0].Value)
+                {
+                    MessageBox.Show("號碼 " + ((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[2] + " 被選取了！");
+                }
+            }
+
+        }
         #endregion
 
         #region BUTTON
         private void button1_Click(object sender, EventArgs e)
         {
             Search();
+        }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            ADDTOMOCPLANWEEK();
         }
         #endregion
 
