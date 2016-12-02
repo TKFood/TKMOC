@@ -37,7 +37,7 @@ namespace TKMOC
         DataTable dt = new DataTable();
         DataTable dtTemp = new DataTable();
         DataTable dtTemp2 = new DataTable();
-
+        int result;
         string tablename = null;
         decimal COPNum = 0;
         decimal TOTALCOPNum = 0;
@@ -189,7 +189,46 @@ namespace TKMOC
             {
                 if (dr.Cells[0].Value != null && (bool)dr.Cells[0].Value)
                 {
-                    MessageBox.Show("號碼 " + ((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[2] + " 被選取了！");
+                    try
+                    {
+                        connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                        sqlConn = new SqlConnection(connectionString);
+
+                        sqlConn.Close();
+                        sqlConn.Open();
+                        tran = sqlConn.BeginTransaction();
+
+                        sbSql.Clear();
+                        sbSql.Append(" INSERT INTO [TKMOC].[dbo].[MOCPLANWEEK] ");
+                        sbSql.Append(" ([ID],[YEARS],[WEEKS],[SDATE],[EDATE],[TH001],[TH002],[TH003],[TH004],[TH005],[TH008],[TH009]) ");
+                        sbSql.AppendFormat("  VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}') ", Guid.NewGuid(), numericUpDown1.Value.ToString(),numericUpDown2.Value.ToString(),dateTimePicker3.Value.ToString("yyyyMMdd"), dateTimePicker4.Value.ToString("yyyyMMdd"), dr.Cells["單別"].Value.ToString(), dr.Cells["單號"].Value.ToString(), dr.Cells["序號"].Value.ToString(), dr.Cells["品號"].Value.ToString(), dr.Cells["品名"].Value.ToString(), dr.Cells["訂單數量"].Value.ToString(), dr.Cells["單位"].Value.ToString());
+
+                        cmd.Connection = sqlConn;
+                        cmd.CommandTimeout = 60;
+                        cmd.CommandText = sbSql.ToString();
+                        cmd.Transaction = tran;
+                        result = cmd.ExecuteNonQuery();
+
+                        if (result == 0)
+                        {
+                            tran.Rollback();    //交易取消
+                        }
+                        else
+                        {
+                            tran.Commit();      //執行交易  
+
+
+                        }
+                    }
+                    catch
+                    {
+
+                    }
+
+                    finally
+                    {
+                        sqlConn.Close();
+                    }
                 }
             }
 
