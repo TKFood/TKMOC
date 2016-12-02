@@ -60,6 +60,7 @@
             this.dateTimePicker3 = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker4 = new System.Windows.Forms.DateTimePicker();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.button5 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -120,7 +121,7 @@
             // 
             this.splitContainer2.Panel2.Controls.Add(this.splitContainer3);
             this.splitContainer2.Size = new System.Drawing.Size(984, 636);
-            this.splitContainer2.SplitterDistance = 313;
+            this.splitContainer2.SplitterDistance = 207;
             this.splitContainer2.TabIndex = 0;
             // 
             // splitContainer3
@@ -138,8 +139,8 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.splitContainer4);
-            this.splitContainer3.Size = new System.Drawing.Size(984, 319);
-            this.splitContainer3.SplitterDistance = 44;
+            this.splitContainer3.Size = new System.Drawing.Size(984, 425);
+            this.splitContainer3.SplitterDistance = 85;
             this.splitContainer3.TabIndex = 0;
             // 
             // splitContainer4
@@ -156,7 +157,7 @@
             // splitContainer4.Panel2
             // 
             this.splitContainer4.Panel2.Controls.Add(this.dataGridView3);
-            this.splitContainer4.Size = new System.Drawing.Size(984, 271);
+            this.splitContainer4.Size = new System.Drawing.Size(984, 336);
             this.splitContainer4.SplitterDistance = 571;
             this.splitContainer4.TabIndex = 0;
             // 
@@ -182,16 +183,17 @@
             this.tableLayoutPanel2.Controls.Add(this.label3, 4, 0);
             this.tableLayoutPanel2.Controls.Add(this.label5, 2, 0);
             this.tableLayoutPanel2.Controls.Add(this.numericUpDown1, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.button4, 10, 0);
-            this.tableLayoutPanel2.Controls.Add(this.button3, 9, 0);
             this.tableLayoutPanel2.Controls.Add(this.button2, 8, 0);
+            this.tableLayoutPanel2.Controls.Add(this.button4, 10, 1);
+            this.tableLayoutPanel2.Controls.Add(this.button3, 9, 1);
+            this.tableLayoutPanel2.Controls.Add(this.button5, 8, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(980, 40);
+            this.tableLayoutPanel2.RowCount = 2;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(980, 81);
             this.tableLayoutPanel2.TabIndex = 2;
             // 
             // dataGridView1
@@ -203,7 +205,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(980, 309);
+            this.dataGridView1.Size = new System.Drawing.Size(980, 203);
             this.dataGridView1.TabIndex = 0;
             // 
             // dataGridView2
@@ -215,7 +217,7 @@
             this.dataGridView2.Location = new System.Drawing.Point(0, 0);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowTemplate.Height = 24;
-            this.dataGridView2.Size = new System.Drawing.Size(567, 267);
+            this.dataGridView2.Size = new System.Drawing.Size(567, 332);
             this.dataGridView2.TabIndex = 1;
             // 
             // dataGridView3
@@ -227,7 +229,7 @@
             this.dataGridView3.Location = new System.Drawing.Point(0, 0);
             this.dataGridView3.Name = "dataGridView3";
             this.dataGridView3.RowTemplate.Height = 24;
-            this.dataGridView3.Size = new System.Drawing.Size(405, 267);
+            this.dataGridView3.Size = new System.Drawing.Size(405, 332);
             this.dataGridView3.TabIndex = 1;
             // 
             // label3
@@ -263,12 +265,13 @@
             // button3
             // 
             this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Location = new System.Drawing.Point(735, 4);
+            this.button3.Location = new System.Drawing.Point(735, 44);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(76, 32);
             this.button3.TabIndex = 4;
             this.button3.Text = "查詢半成品";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -430,7 +433,8 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(643, 3);
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button2.Location = new System.Drawing.Point(643, 4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(86, 32);
             this.button2.TabIndex = 38;
@@ -440,12 +444,14 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(817, 3);
+            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button4.Location = new System.Drawing.Point(817, 44);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(74, 32);
+            this.button4.Size = new System.Drawing.Size(160, 32);
             this.button4.TabIndex = 39;
             this.button4.Text = "匯出半成品";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // checkBox4
             // 
@@ -564,6 +570,17 @@
             0});
             this.numericUpDown2.ValueChanged += new System.EventHandler(this.numericUpDown2_ValueChanged);
             // 
+            // button5
+            // 
+            this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button5.Location = new System.Drawing.Point(643, 44);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(86, 32);
+            this.button5.TabIndex = 45;
+            this.button5.Text = "查詢計畫";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
             // frmMOCPLANWEEK
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -635,5 +652,6 @@
         private System.Windows.Forms.DateTimePicker dateTimePicker4;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.Button button5;
     }
 }
