@@ -50,6 +50,7 @@ namespace TKMOC
         public frmMOCPLANWEEK()
         {
             InitializeComponent();
+            FINDWEKKDATE();
         }
 
         #region FUNCTION
@@ -193,6 +194,72 @@ namespace TKMOC
             }
 
         }
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            FINDWEKKDATE();
+        }
+
+        private void numericUpDown2_ValueChanged(object sender, EventArgs e)
+        {
+            FINDWEKKDATE();
+        }
+
+        public void FINDWEKKDATE()
+        {
+            DataSet ds = new DataSet();
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  declare @num int,@year varchar(4),@date datetime");
+                sbSql.AppendFormat(@"  select @num={0}",numericUpDown2.Value.ToString());
+                sbSql.AppendFormat(@"  select @year='{0}'", numericUpDown1.Value.ToString() + "/1/1");
+                sbSql.AppendFormat(@"  select @date=dateadd(wk,@num-1,@year)");
+                sbSql.AppendFormat(@"  select CONVERT(varchar(100),(dateadd(dd,1-datepart(dw,@date),@date)), 111)  AS 'SDATE'");
+                sbSql.AppendFormat(@"  ,CONVERT(varchar(100),dateadd(dd,7-datepart(dw,@date),@date), 111) AS 'EDATE'");
+                sbSql.AppendFormat(@"  ");
+
+
+                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder = new SqlCommandBuilder(adapter);
+                sqlConn.Open();
+                ds.Clear();
+                adapter.Fill(ds, "TEMPds1");
+                sqlConn.Close();
+
+
+                if (ds.Tables["TEMPds1"].Rows.Count == 0)
+                {
+                    dateTimePicker3.Value = Convert.ToDateTime(numericUpDown1.Value.ToString()+"/1/1");
+                    dateTimePicker4.Value = Convert.ToDateTime(numericUpDown1.Value.ToString()+"/1/1");
+                }
+                else
+                {
+                    if (ds.Tables["TEMPds1"].Rows.Count >= 1)
+                    {
+                        dateTimePicker3.Value = Convert.ToDateTime(ds.Tables["TEMPds1"].Rows[0]["SDATE"].ToString());
+                        dateTimePicker4.Value = Convert.ToDateTime(ds.Tables["TEMPds1"].Rows[0]["EDATE"].ToString());
+
+                    }
+
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
         #endregion
 
         #region BUTTON
@@ -204,8 +271,9 @@ namespace TKMOC
         {
             ADDTOMOCPLANWEEK();
         }
+
         #endregion
 
-
+        
     }
 }
