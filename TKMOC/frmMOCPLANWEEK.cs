@@ -47,16 +47,21 @@ namespace TKMOC
         decimal BATCH = 1;
         Thread TD;
         string CHECKYN = "N";
+        decimal MOCBATCH = 1;
+
 
         public frmMOCPLANWEEK()
         {
             InitializeComponent();
             FINDWEKKDATE();
 
-            dtTemp.Columns.Add("DATE");
-            dtTemp.Columns.Add("MD003");
-            dtTemp.Columns.Add("MB002");
-            dtTemp.Columns.Add("NUM");
+            dtTemp.Columns.Add("日期");
+            dtTemp.Columns.Add("品號");
+            dtTemp.Columns.Add("品名");
+            dtTemp.Columns.Add("數量");
+            dtTemp.Columns.Add("標準批量");
+            dtTemp.Columns.Add("桶數");
+            dtTemp.Columns.Add("標準時間");
         }
 
         #region FUNCTION
@@ -405,10 +410,10 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  SELECT MD003,MB002,CASE WHEN ISNULL(MB003,'')=''  THEN '1' ELSE MB003 END AS MB003,MD004,MD006 ");
+                sbSql.AppendFormat(@"  SELECT MD003,INVMB.MB002,CASE WHEN ISNULL(INVMB.MB003,'')=''  THEN '1' ELSE INVMB.MB003 END AS MB003  ,MD004,MD006,[PROCESSNUM],[PROCESSTIME]  ");
                 sbSql.AppendFormat(@"  FROM [TK].dbo.BOMMD,[TK].dbo.INVMB");
-                sbSql.AppendFormat(@"  WHERE MD003=MB001");
-                sbSql.AppendFormat(@"  AND MD003 LIKE '3%' AND MB002 NOT LIKE '%水麵%'   AND  MB002 NOT LIKE '%餅麩%'");
+                sbSql.AppendFormat(@"  LEFT JOIN   [TKMOC].[dbo].[MOCSTDTIME] ON [MOCSTDTIME].[MB001]=INVMB.MB001");
+                sbSql.AppendFormat(@"  WHERE MD003=INVMB.MB001  AND MD003 LIKE '3%' AND INVMB.MB002 NOT LIKE '%水麵%'  AND  INVMB.MB002 NOT LIKE '%餅麩%'  ");
                 sbSql.AppendFormat(@"  AND MD001='{0}'", ds2.Tables["TEMPds2"].Rows[i]["品號"].ToString());
                 sbSql.AppendFormat(@"  ");
 
@@ -423,18 +428,22 @@ namespace TKMOC
 
                 if (ds3.Tables["TEMPds3"].Rows.Count >= 1)
                 {
+
                     foreach (DataRow od2 in ds3.Tables["TEMPds3"].Rows)
                     {
                         DataRow row = dtTemp.NewRow();
                         //row["MD001"] = od2["MC001"].ToString();
-                        row["DATE"] = ds2.Tables["TEMPds2"].Rows[i]["日期"].ToString();
-                        row["MD003"] = od2["MD003"].ToString();
-                        row["MB002"] = od2["MB002"].ToString();
+                        row["日期"] = ds2.Tables["TEMPds2"].Rows[i]["日期"].ToString();
+                        row["品號"] = od2["MD003"].ToString();
+                        row["品名"] = od2["MB002"].ToString();
                         COOKIES = Convert.ToDecimal(Regex.Replace(od2["MB003"].ToString(), "[^0-9]", ""));
                         TOTALCOPNum = Convert.ToDecimal(Convert.ToDecimal(od2["MD006"].ToString()) * 1000 * COPNum);
                         BATCH = Convert.ToDecimal(ds2.Tables["TEMPds2"].Rows[i]["標準批量"].ToString());
-                        row["NUM"] = Convert.ToInt32(TOTALCOPNum / COOKIES / BATCH);
-
+                        row["數量"] = Convert.ToInt32(TOTALCOPNum / COOKIES / BATCH);
+                        MOCBATCH= Convert.ToDecimal(od2["PROCESSNUM"].ToString());
+                        row["桶數"] = Convert.ToInt32(TOTALCOPNum / COOKIES / BATCH/ MOCBATCH);
+                        row["標準批量"] = od2["PROCESSNUM"].ToString();
+                        row["標準時間"] = od2["PROCESSTIME"].ToString();
                         dtTemp.Rows.Add(row);
                     }
 
@@ -654,6 +663,9 @@ namespace TKMOC
                     ws.GetRow(j + 1).CreateCell(1).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[1].ToString());
                     ws.GetRow(j + 1).CreateCell(2).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[2].ToString());
                     ws.GetRow(j + 1).CreateCell(3).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[3].ToString()));
+                    ws.GetRow(j + 1).CreateCell(4).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[4].ToString()));
+                    ws.GetRow(j + 1).CreateCell(5).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[5].ToString()));
+                    ws.GetRow(j + 1).CreateCell(6).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[6].ToString()));
 
                     j++;
                 }
@@ -807,6 +819,7 @@ namespace TKMOC
 
         private void button3_Click(object sender, EventArgs e)
         {
+            SEARCHPLANWEEK();
             SEARCHCOOKIES();
         }
 
