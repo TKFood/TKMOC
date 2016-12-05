@@ -324,6 +324,7 @@
             this.button6.TabIndex = 42;
             this.button6.Text = "匯出訂單";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // splitContainer2
             // 
@@ -542,6 +543,7 @@
             this.button7.TabIndex = 46;
             this.button7.Text = "匯出計劃";
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // button3
             // 
