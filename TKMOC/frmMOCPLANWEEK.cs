@@ -64,6 +64,7 @@ namespace TKMOC
         {
             StringBuilder TD001 = new StringBuilder();
             StringBuilder TC027 = new StringBuilder();
+            StringBuilder PALNQUERY = new StringBuilder();
 
             if (checkBox1.Checked == true)
             {
@@ -90,6 +91,7 @@ namespace TKMOC
             {
                 TD001.Append("'A223',");
             }
+            TD001.Append("''");
 
             if (comboBox1.Text.ToString().Equals("已確認"))
             {
@@ -103,7 +105,19 @@ namespace TKMOC
             {
                 TC027.Append("  ");
             }
-            TD001.Append("''");
+
+            if (comboBox2.Text.ToString().Equals("未排計畫"))
+            {
+                PALNQUERY.AppendFormat("AND NOT  EXISTS  (SELECT TD001 FROM [TKMOC].[dbo].[MOCPLANWEEK] WHERE [MOCPLANWEEK].TD001=COPTD.TD001 AND [MOCPLANWEEK].TD002=COPTD.TD002 AND [MOCPLANWEEK].TD003=COPTD.TD003 AND [YEARS]='{0}' AND [WEEKS]='{1}')    ",numericUpDown1.Value.ToString(),numericUpDown2.Value.ToString());
+            }
+            else if(comboBox2.Text.ToString().Equals("已排計畫"))
+            {
+                PALNQUERY.AppendFormat("AND   EXISTS  (SELECT TD001 FROM [TKMOC].[dbo].[MOCPLANWEEK] WHERE [MOCPLANWEEK].TD001=COPTD.TD001 AND [MOCPLANWEEK].TD002=COPTD.TD002 AND [MOCPLANWEEK].TD003=COPTD.TD003 AND [YEARS]='{0}' AND [WEEKS]='{1}')    ", numericUpDown1.Value.ToString(), numericUpDown2.Value.ToString());
+            }
+            else if (comboBox2.Text.ToString().Equals("未排計畫"))
+            {
+                PALNQUERY.Append("  ");
+            }
 
             dtTemp.Clear();
             dtTemp2.Clear();
@@ -137,7 +151,8 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  AND TD013>='{0}' AND TD013<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
                 sbSql.AppendFormat(@"  AND TC001 IN ({0}) ", TD001.ToString());
                 sbSql.Append(@"  AND (TD008-TD009)>0  ");
-                sbSql.AppendFormat(@"   {0} ", TC027.ToString());
+                sbSql.AppendFormat(@"  {0} ", TC027.ToString());
+                sbSql.AppendFormat(@"  {0}", PALNQUERY.ToString());
                 //sbSql.Append(@"  AND ( TD004 LIKE '40109916000740%'  ) ");
                 sbSql.Append(@"  ) AS TEMP");
                 sbSql.Append(@"  GROUP  BY 客戶,日期,品號,品名,規格,單位,單別,單號,序號");
