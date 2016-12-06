@@ -48,6 +48,9 @@ namespace TKMOC
         Thread TD;
         string CHECKYN = "N";
         decimal MOCBATCH = 1;
+        string TD001 = null;
+        string TD002 = null;
+        string TD003 = null;
 
 
         public frmMOCPLANWEEK()
@@ -666,6 +669,9 @@ namespace TKMOC
                     ws.GetRow(j + 1).CreateCell(4).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[4].ToString()));
                     ws.GetRow(j + 1).CreateCell(5).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[5].ToString()));
                     ws.GetRow(j + 1).CreateCell(6).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[6].ToString()));
+                    ws.GetRow(j + 1).CreateCell(6).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[6].ToString()));
+                    ws.GetRow(j + 1).CreateCell(6).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[6].ToString()));
+                    ws.GetRow(j + 1).CreateCell(6).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[6].ToString()));
 
                     j++;
                 }
@@ -798,6 +804,75 @@ namespace TKMOC
 
         }
 
+        public void DELMOCPLANWEEK()
+        {
+            DialogResult dialogResult = MessageBox.Show("確定要刪除?", "?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sqlConn.Close();
+                    sqlConn.Open();
+                    tran = sqlConn.BeginTransaction();
+
+                    sbSql.Clear();
+                    sbSql.AppendFormat("  DELETE  [TKMOC].[dbo].[MOCPLANWEEK]");
+                    sbSql.AppendFormat("  WHERE [YEARS]='{0}' AND [WEEKS]='{1}' AND [TD001]='{2}' AND [TD002]='{3}' AND [TD003]='{4}'", numericUpDown1.Value.ToString(), numericUpDown2.Value.ToString(), TD001, TD002, TD003);
+                    sbSql.AppendFormat("  ");
+
+                    cmd.Connection = sqlConn;
+                    cmd.CommandTimeout = 60;
+                    cmd.CommandText = sbSql.ToString();
+                    cmd.Transaction = tran;
+                    result = cmd.ExecuteNonQuery();
+
+                    if (result == 0)
+                    {
+                        tran.Rollback();    //交易取消
+                    }
+                    else
+                    {
+                        tran.Commit();      //執行交易  
+
+
+                    }
+                }
+                catch
+                {
+
+                }
+
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                //do something else
+            }
+
+            
+        }
+
+        private void dataGridView2_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView2.CurrentRow != null)
+            {
+                int rowindex = dataGridView2.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView2.Rows[rowindex];
+                    TD001= row.Cells["單別"].Value.ToString();
+                    TD002 = row.Cells["單號"].Value.ToString();
+                    TD003 = row.Cells["序號"].Value.ToString();
+
+                }
+            }
+        }
         #endregion
 
         #region BUTTON
@@ -836,8 +911,15 @@ namespace TKMOC
             ExcelExportPLAN();
         }
 
+        private void button8_Click(object sender, EventArgs e)
+        {
+            DELMOCPLANWEEK();
+            SEARCHPLANWEEK();
+            SEARCHCOOKIES();
+        }
+
         #endregion
 
-
+       
     }
 }

@@ -42,8 +42,9 @@
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.checkBox6 = new System.Windows.Forms.CheckBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
@@ -63,7 +64,7 @@
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.button8 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -305,16 +306,6 @@
             this.comboBox1.TabIndex = 41;
             this.comboBox1.Text = "已確認";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(563, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(72, 32);
-            this.button1.TabIndex = 16;
-            this.button1.Text = "查詢";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // button6
             // 
             this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -325,6 +316,30 @@
             this.button6.Text = "匯出訂單";
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(563, 3);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(72, 32);
+            this.button1.TabIndex = 16;
+            this.button1.Text = "查詢";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "未排計畫",
+            "全部",
+            "已排計畫"});
+            this.comboBox2.Location = new System.Drawing.Point(483, 10);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(74, 20);
+            this.comboBox2.TabIndex = 43;
+            this.comboBox2.Text = "未排計畫";
             // 
             // splitContainer2
             // 
@@ -403,6 +418,7 @@
             this.tableLayoutPanel2.Controls.Add(this.button7, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.button3, 7, 1);
             this.tableLayoutPanel2.Controls.Add(this.button4, 8, 1);
+            this.tableLayoutPanel2.Controls.Add(this.button8, 4, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -596,6 +612,7 @@
             this.dataGridView2.RowTemplate.Height = 24;
             this.dataGridView2.Size = new System.Drawing.Size(567, 332);
             this.dataGridView2.TabIndex = 1;
+            this.dataGridView2.SelectionChanged += new System.EventHandler(this.dataGridView2_SelectionChanged);
             // 
             // dataGridView3
             // 
@@ -609,19 +626,16 @@
             this.dataGridView3.Size = new System.Drawing.Size(405, 332);
             this.dataGridView3.TabIndex = 1;
             // 
-            // comboBox2
+            // button8
             // 
-            this.comboBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
-            "未排計畫",
-            "全部",
-            "已排計畫"});
-            this.comboBox2.Location = new System.Drawing.Point(483, 10);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(74, 20);
-            this.comboBox2.TabIndex = 43;
-            this.comboBox2.Text = "未排計畫";
+            this.button8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button8.Location = new System.Drawing.Point(323, 44);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(74, 32);
+            this.button8.TabIndex = 47;
+            this.button8.Text = "刪除計劃";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // frmMOCPLANWEEK
             // 
@@ -698,5 +712,6 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.Button button8;
     }
 }
