@@ -46,6 +46,10 @@ namespace TKMOC
         public void Search()
         {
             StringBuilder Query = new StringBuilder();
+            if(!string.IsNullOrEmpty(textBox4.Text.ToString()))
+            {
+                Query.AppendFormat(@" AND MB001 LIKE '{0}%' ", textBox4.Text.ToString());
+            }
 
             try
             {
@@ -55,8 +59,13 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.Append(@" SELECT [MB001] AS '品號',[MB002] AS '品名',[MB003] AS '規格' ,[PROCESSNUM] AS '標準批量',[PROCESSTIME] AS '標準時間' FROM [TKMOC].[dbo].[ERPINVMB] ORDER BY [MB001]");
-                
+                sbSql.AppendFormat(@" SELECT [MB001] AS '品號',[MB002] AS '品名',[MB003] AS '規格' ,[PROCESSNUM] AS '標準批量',[PROCESSTIME] AS '標準時間'");
+                sbSql.AppendFormat(@" FROM [TKMOC].[dbo].[ERPINVMB] ");
+                sbSql.AppendFormat(@" WHERE 1=1 ");
+                sbSql.AppendFormat(@" {0}",Query.ToString());
+                sbSql.AppendFormat(@"  ORDER BY [MB001]");
+                sbSql.AppendFormat(@" ");
+
                 adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
                 sqlCmdBuilder = new SqlCommandBuilder(adapter);
