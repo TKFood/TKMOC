@@ -82,13 +82,13 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(982, 110);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(982, 105);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(3, 10);
+            this.button1.Location = new System.Drawing.Point(3, 9);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(74, 34);
             this.button1.TabIndex = 0;
@@ -99,7 +99,7 @@
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(3, 65);
+            this.button2.Location = new System.Drawing.Point(3, 61);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(74, 34);
             this.button2.TabIndex = 1;
@@ -111,7 +111,7 @@
             // 
             this.labelSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.labelSearch.AutoSize = true;
-            this.labelSearch.Location = new System.Drawing.Point(163, 21);
+            this.labelSearch.Location = new System.Drawing.Point(163, 20);
             this.labelSearch.Name = "labelSearch";
             this.labelSearch.Size = new System.Drawing.Size(74, 12);
             this.labelSearch.TabIndex = 2;
@@ -132,8 +132,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(984, 761);
-            this.splitContainer1.SplitterDistance = 112;
+            this.splitContainer1.Size = new System.Drawing.Size(984, 733);
+            this.splitContainer1.SplitterDistance = 107;
             this.splitContainer1.TabIndex = 1;
             // 
             // splitContainer2
@@ -150,7 +150,7 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.tableLayoutPanel2);
-            this.splitContainer2.Size = new System.Drawing.Size(984, 645);
+            this.splitContainer2.Size = new System.Drawing.Size(984, 622);
             this.splitContainer2.SplitterDistance = 485;
             this.splitContainer2.TabIndex = 0;
             // 
@@ -164,7 +164,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(483, 643);
+            this.dataGridView1.Size = new System.Drawing.Size(483, 620);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             // 
@@ -203,7 +203,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(493, 643);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(493, 620);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
             // label2
@@ -292,7 +292,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(984, 761);
+            this.ClientSize = new System.Drawing.Size(984, 733);
             this.Controls.Add(this.splitContainer1);
             this.Name = "frmERPINVMB";
             this.Text = "frmERPINVMB";
