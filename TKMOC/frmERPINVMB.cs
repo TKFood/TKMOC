@@ -55,7 +55,7 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.Append(@" SELECT [MB001] AS '品號',[MB002] AS '品名',[MB003] AS '規格'  FROM [TKMOC].[dbo].[ERPINVMB] ORDER BY [MB001]");
+                sbSql.Append(@" SELECT [MB001] AS '品號',[MB002] AS '品名',[MB003] AS '規格' ,[PROCESSNUM] AS '標準批量',[PROCESSTIME] AS '標準時間' FROM [TKMOC].[dbo].[ERPINVMB] ORDER BY [MB001]");
                 
                 adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -107,7 +107,7 @@ namespace TKMOC
 
                 sbSql.Clear();
                 sbSql.Append(" UPDATE [TKMOC].[dbo].[ERPINVMB] ");
-                sbSql.AppendFormat(" SET [MB002]='{1}',[MB003]='{2}' WHERE [MB001]='{0}' ", textBox1.Text.ToString(),textBox2.Text.ToString(), textBox3.Text.ToString());
+                sbSql.AppendFormat(" SET [MB002]='{1}',[MB003]='{2}',[PROCESSNUM]='{3}',[PROCESSTIME]='{4}' WHERE [MB001]='{0}' ", textBox1.Text.ToString(),textBox2.Text.ToString(), textBox3.Text.ToString(),numericUpDown1.Value.ToString(),numericUpDown2.Value.ToString());
                 sbSql.Append("  ");
 
                 cmd.Connection = sqlConn;
@@ -165,8 +165,8 @@ namespace TKMOC
                 tran = sqlConn.BeginTransaction();
 
                 sbSql.Clear();
-                sbSql.Append("INSERT INTO [TKMOC].dbo.ERPINVMB (MB001,MB002,MB003) ");
-                sbSql.AppendFormat(" SELECT MB001,MB002,MB003 FROM [TK].dbo.INVMB WITH (NOLOCK) WHERE (MB001 LIKE '4%' OR MB001 LIKE '3%' ) AND MB001 NOT IN (SELECT MB001 FROM [TKMOC].dbo.ERPINVMB WITH (NOLOCK) )");
+                sbSql.Append("INSERT INTO [TKMOC].dbo.ERPINVMB (MB001,MB002,MB003,[PROCESSNUM] ,[PROCESSTIME]) ");
+                sbSql.AppendFormat(" SELECT MB001,MB002,MB003,0,0 FROM [TK].dbo.INVMB WITH (NOLOCK) WHERE (MB001 LIKE '4%' OR MB001 LIKE '3%' ) AND MB001 NOT IN (SELECT MB001 FROM [TKMOC].dbo.ERPINVMB WITH (NOLOCK) )");
                 sbSql.Append("  ");
 
                 cmd.Connection = sqlConn;
@@ -201,7 +201,11 @@ namespace TKMOC
                 drMOCPRODUCTDAILYREPORT = dataGridView1.Rows[dataGridView1.SelectedCells[0].RowIndex];
                 textBox1.Text = drMOCPRODUCTDAILYREPORT.Cells["品號"].Value.ToString();
                 textBox2.Text = drMOCPRODUCTDAILYREPORT.Cells["品名"].Value.ToString();
-           
+                numericUpDown1.Value = Convert.ToDecimal(drMOCPRODUCTDAILYREPORT.Cells["標準批量"].Value.ToString());
+                numericUpDown2.Value = Convert.ToDecimal(drMOCPRODUCTDAILYREPORT.Cells["標準時間"].Value.ToString());
+
+
+
             }
         }
 
