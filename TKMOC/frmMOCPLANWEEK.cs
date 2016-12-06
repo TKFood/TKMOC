@@ -439,11 +439,49 @@ namespace TKMOC
                         row["日期"] = ds2.Tables["TEMPds2"].Rows[i]["日期"].ToString();
                         row["品號"] = od2["MD003"].ToString();
                         row["品名"] = od2["MB002"].ToString();
-                        COOKIES = Convert.ToDecimal(Regex.Replace(od2["MB003"].ToString(), "[^0-9]", ""));
-                        TOTALCOPNum = Convert.ToDecimal(Convert.ToDecimal(od2["MD006"].ToString()) * 1000 * COPNum);
-                        BATCH = Convert.ToDecimal(ds2.Tables["TEMPds2"].Rows[i]["標準批量"].ToString());
+                        if(!string.IsNullOrEmpty(od2["MB003"].ToString()))
+                        {
+                            COOKIES = Convert.ToDecimal(Regex.Replace(od2["MB003"].ToString(), "[^0-9]", ""));
+                        }
+                        else
+                        {
+                            COOKIES = 1;
+                        }
+                        if (!string.IsNullOrEmpty(od2["MD006"].ToString()))
+                        {
+                            TOTALCOPNum = Convert.ToDecimal(Convert.ToDecimal(od2["MD006"].ToString()) * 1000 * COPNum);
+                        }
+                        else
+                        {
+                            TOTALCOPNum = 1;
+                        }
+                        if (!string.IsNullOrEmpty(od2["MB003"].ToString()))
+                        {
+                            BATCH = Convert.ToDecimal(ds2.Tables["TEMPds2"].Rows[i]["標準批量"].ToString());
+                        }
+                        else
+                        {
+                            BATCH = 1;
+                        }
+                       
                         row["數量"] = Convert.ToInt32(TOTALCOPNum / COOKIES / BATCH);
-                        MOCBATCH= Convert.ToDecimal(od2["PROCESSNUM"].ToString());
+                        
+                        if (!string.IsNullOrEmpty(od2["PROCESSNUM"].ToString()))
+                        {
+                            if(Convert.ToDecimal(od2["PROCESSNUM"].ToString())>0)
+                            {
+                                MOCBATCH = Convert.ToDecimal(od2["PROCESSNUM"].ToString());
+                            }
+                            else
+                            {
+                                MOCBATCH = 1;
+                            }
+
+                        }
+                        else
+                        {
+                            MOCBATCH = 1;
+                        }
                         row["桶數"] = Convert.ToInt32(TOTALCOPNum / COOKIES / BATCH/ MOCBATCH);
                         row["標準批量"] = od2["PROCESSNUM"].ToString();
                         row["標準時間"] = od2["PROCESSTIME"].ToString();
