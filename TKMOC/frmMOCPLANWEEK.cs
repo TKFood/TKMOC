@@ -65,6 +65,11 @@ namespace TKMOC
             dtTemp.Columns.Add("標準批量");
             dtTemp.Columns.Add("桶數");
             dtTemp.Columns.Add("標準時間");
+
+            
+
+
+
         }
 
         #region FUNCTION
@@ -376,6 +381,7 @@ namespace TKMOC
                         dataGridView2.DataSource = ds2.Tables["TEMPds2"];
 
                         dataGridView2.AutoResizeColumns();
+                        dataGridView2.FirstDisplayedScrollingRowIndex = dataGridView2.RowCount - 1;
 
 
                     }
@@ -416,7 +422,8 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  SELECT MD003,INVMB.MB002,CASE WHEN ISNULL(INVMB.MB003,'')=''  THEN '1' ELSE INVMB.MB003 END AS MB003  ,MD004,MD006,[PROCESSNUM],[PROCESSTIME]  ");
                 sbSql.AppendFormat(@"  FROM [TK].dbo.BOMMD,[TK].dbo.INVMB");
                 sbSql.AppendFormat(@"  LEFT JOIN   [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].[MB001]=INVMB.MB001");
-                sbSql.AppendFormat(@"  WHERE MD003=INVMB.MB001  AND MD003 LIKE '3%' AND INVMB.MB002 NOT LIKE '%水麵%'  AND  INVMB.MB002 NOT LIKE '%餅麩%'  ");
+                //sbSql.AppendFormat(@"  WHERE MD003=INVMB.MB001  AND MD003 LIKE '3%' AND INVMB.MB002 NOT LIKE '%水麵%'  AND  INVMB.MB002 NOT LIKE '%餅麩%'  ");
+                sbSql.AppendFormat(@"  WHERE MD003=INVMB.MB001  AND MD003 LIKE '3%'   ");
                 sbSql.AppendFormat(@"  AND MD001='{0}'", ds2.Tables["TEMPds2"].Rows[i]["品號"].ToString());
                 sbSql.AppendFormat(@"  ");
 
