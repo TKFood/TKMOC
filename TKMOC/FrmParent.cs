@@ -105,7 +105,14 @@ namespace TKMOC
 
                         foreach (Form form in this.MdiChildren)
                         {
-                            form.Close();
+                            //form.Close();
+                            //如果子視窗已經存在
+                            if (form.Name == frmShow.Name)
+                            {
+                                //將該子視窗設為焦點
+                                form.Focus();
+                                return;
+                            }
                         }
 
                         frmShow.MdiParent = this;
