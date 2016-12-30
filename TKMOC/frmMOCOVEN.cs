@@ -85,7 +85,7 @@ namespace TKMOC
 
             connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
             sqlConn = new SqlConnection(connectionString);
-            String Sequel = "SELECT  [ID],[NAME] FROM [TKMOC].[dbo].[MANUEMPLOYEE]  WHERE ID IN ('100002','130036','140045','160114','970007','160130','160131','160132','160133','150063','160055','160057','160134','160138','040002') ORDER BY ID";
+            String Sequel = "SELECT  [ID],[NAME] FROM [TKMOC].[dbo].[MANUEMPLOYEE]  WHERE ID IN ('100002','130036','140045','160114','970007','160130','160131','160132','160133','150063','160055','160057','160134','160138','040002','160127','160232','160235','120019','160225','160246','160241','160242') ORDER BY ID";
             SqlDataAdapter da = new SqlDataAdapter(Sequel, sqlConn);
             DataTable dt = new DataTable();
             sqlConn.Open();
@@ -105,7 +105,7 @@ namespace TKMOC
 
             connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
             sqlConn = new SqlConnection(connectionString);
-            String Sequel = "SELECT  [ID],[NAME] FROM [TKMOC].[dbo].[MANUEMPLOYEE]  WHERE ID IN ('100002','130036','140045','160114','970007','160130','160131','160132','160133','150063','160055','160057','160134','160138','040002') ORDER BY ID";
+            String Sequel = "SELECT  [ID],[NAME] FROM [TKMOC].[dbo].[MANUEMPLOYEE]  WHERE ID IN ('100002','130036','140045','160114','970007','160130','160131','160132','160133','150063','160055','160057','160134','160138','040002','160127','160232','160235','120019','160225','160246','160241','160242') ORDER BY ID";
             SqlDataAdapter da = new SqlDataAdapter(Sequel, sqlConn);
             DataTable dt = new DataTable();
             sqlConn.Open();
@@ -125,7 +125,7 @@ namespace TKMOC
 
             connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
             sqlConn = new SqlConnection(connectionString);
-            String Sequel = "SELECT  [ID],[NAME] FROM [TKMOC].[dbo].[MANUEMPLOYEE] WHERE ID IN ('100002','130036','140045','160114','970007','160130','160131','160132','160133','150063','160055','160057','160134','160138','040002') ORDER BY ID";
+            String Sequel = "SELECT  [ID],[NAME] FROM [TKMOC].[dbo].[MANUEMPLOYEE] WHERE ID IN ('100002','130036','140045','160114','970007','160130','160131','160132','160133','150063','160055','160057','160134','160138','040002','160127','160232','160235','120019','160225','160246','160241','160242') ORDER BY ID";
             SqlDataAdapter da = new SqlDataAdapter(Sequel, sqlConn);
             DataTable dt = new DataTable();
             sqlConn.Open();
@@ -145,7 +145,7 @@ namespace TKMOC
 
             connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
             sqlConn = new SqlConnection(connectionString);
-            String Sequel = "SELECT  [ID],[NAME] FROM [TKMOC].[dbo].[MANUEMPLOYEE] WHERE ID IN ('100002','130036','140045','160114','970007','160130','160131','160132','160133','150063','160055','160057','160134','130138','040002') ORDER BY ID";
+            String Sequel = "SELECT  [ID],[NAME] FROM [TKMOC].[dbo].[MANUEMPLOYEE] WHERE ID IN ('100002','130036','140045','160114','970007','160130','160131','160132','160133','150063','160055','160057','160134','130138','040002','160127','160232','160235','120019','160225','160246','160241','160242') ORDER BY ID";
             SqlDataAdapter da = new SqlDataAdapter(Sequel, sqlConn);
             DataTable dt = new DataTable();
             sqlConn.Open();
