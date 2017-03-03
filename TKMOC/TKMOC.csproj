@@ -101,6 +101,12 @@
     <Compile Include="frmERPINVMB.Designer.cs">
       <DependentUpon>frmERPINVMB.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmINV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmINV.Designer.cs">
+      <DependentUpon>frmINV.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -237,6 +243,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmERPINVMB.resx">
       <DependentUpon>frmERPINVMB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmINV.resx">
+      <DependentUpon>frmINV.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmLogin.resx">
       <DependentUpon>FrmLogin.cs</DependentUpon>
