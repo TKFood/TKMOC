@@ -144,7 +144,24 @@ namespace TKMOC
             }
             else if (comboBox1.Text.ToString().Equals("生產日報的月份分析表"))
             {
+                string YEARS = dateTimePicker1.Value.ToString("yyyy");
+                STR.AppendFormat(@"  SELECT '{0}' AS '年度', [ID]  AS '月份'", YEARS);
+                STR.AppendFormat(@"  ,ISNULL((SELECT SUM([WEIGHTBEFORECOOK]) FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] WHERE YEAR([PRODUCEDATE])='{0}' AND MONTH([PRODUCEDATE])=[BASEMONTH].[ID]),0) AS '總投入量'", YEARS);
+                STR.AppendFormat(@"  ,ISNULL((SELECT AVG([REWORKPCT]) FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] WHERE YEAR([PRODUCEDATE])= '{0}' AND MONTH([PRODUCEDATE])=[BASEMONTH].[ID]),0) AS '重工佔比'", YEARS);
+                STR.AppendFormat(@"  ,ISNULL((SELECT AVG([EVARATE]) FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] WHERE YEAR([PRODUCEDATE])= '{0}' AND MONTH([PRODUCEDATE])=[BASEMONTH].[ID]),0) AS '蒸發率'", YEARS);
+                STR.AppendFormat(@"  ,ISNULL((SELECT AVG([STIRPCT]) FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] WHERE YEAR([PRODUCEDATE])= '{0}' AND MONTH([PRODUCEDATE])=[BASEMONTH].[ID]),0) AS '攪拌成型率'", YEARS);
+                STR.AppendFormat(@"  ,ISNULL((SELECT AVG([MANULOST]) FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] WHERE YEAR([PRODUCEDATE])= '{0}' AND MONTH([PRODUCEDATE])=[BASEMONTH].[ID]),0) AS '製成損失率'", YEARS);
+                STR.AppendFormat(@"  ,ISNULL((SELECT AVG([PCT]) FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] WHERE YEAR([PRODUCEDATE])= '{0}' AND MONTH([PRODUCEDATE])=[BASEMONTH].[ID]),0) AS '餅製成率'", YEARS);
+                STR.AppendFormat(@"  ,ISNULL((SELECT AVG([TOTALPCT]) FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] WHERE YEAR([PRODUCEDATE])='{0}' AND MONTH([PRODUCEDATE])=[BASEMONTH].[ID]),0) AS '總製成率'", YEARS);
+                STR.AppendFormat(@"  ,ISNULL((SELECT AVG([CANPCT])  FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] WHERE YEAR([PRODUCEDATE])= '{0}' AND MONTH([PRODUCEDATE])=[BASEMONTH].[ID]),0) AS '罐裝製成率'", YEARS);
+                STR.AppendFormat(@"  ,ISNULL((SELECT SUM([STIR])  FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] WHERE YEAR([PRODUCEDATE])= '{0}' AND MONTH([PRODUCEDATE])=[BASEMONTH].[ID]),0) AS '攪拌不良'", YEARS);
+                STR.AppendFormat(@"  ,ISNULL((SELECT SUM([SIDES]) FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] WHERE YEAR([PRODUCEDATE])= '{0}' AND MONTH([PRODUCEDATE])=[BASEMONTH].[ID]),0) AS '成型邊料'", YEARS);
+                STR.AppendFormat(@"  ,ISNULL((SELECT SUM([COOKIES]) FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] WHERE YEAR([PRODUCEDATE])= '{0}' AND MONTH([PRODUCEDATE])=[BASEMONTH].[ID]),0) AS '餅麩'", YEARS);
+                STR.AppendFormat(@"  ,ISNULL((SELECT SUM([COOK]) FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] WHERE YEAR([PRODUCEDATE])= '{0}' AND MONTH([PRODUCEDATE])=[BASEMONTH].[ID]),0) AS '烤焙'", YEARS);
+                STR.AppendFormat(@"  ,ISNULL((SELECT SUM([NGPACKAGE]) FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] WHERE YEAR([PRODUCEDATE])= '{0}' AND MONTH([PRODUCEDATE])=[BASEMONTH].[ID]),0) AS '包裝不良餅乾'", YEARS);
+                STR.AppendFormat(@"  FROM [TKMOC].[dbo].[BASEMONTH]");
                 STR.AppendFormat(@"  ");
+
 
 
                 tablename = "TEMPds2";
@@ -219,6 +236,34 @@ namespace TKMOC
                     ws.GetRow(j + 1).CreateCell(14).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[14].ToString()));
                     ws.GetRow(j + 1).CreateCell(15).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[15].ToString()));
                     
+                    j++;
+                }
+
+            }
+            else if (tablename.Equals("TEMPds2"))
+            {
+                TABLENAME = "生產日報的月份分析表";
+                foreach (DataGridViewRow dr in this.dataGridView1.Rows)
+                {
+                    ws.CreateRow(j + 1);
+                    ws.GetRow(j + 1).CreateCell(0).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[0].ToString());
+                    ws.GetRow(j + 1).CreateCell(1).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[1].ToString());
+                   
+                    ws.GetRow(j + 1).CreateCell(2).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[2].ToString()));
+                    ws.GetRow(j + 1).CreateCell(3).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[3].ToString()));
+                    ws.GetRow(j + 1).CreateCell(4).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[4].ToString()));
+                    ws.GetRow(j + 1).CreateCell(5).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[5].ToString()));
+                    ws.GetRow(j + 1).CreateCell(6).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[6].ToString()));
+                    ws.GetRow(j + 1).CreateCell(7).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[7].ToString()));
+                    ws.GetRow(j + 1).CreateCell(8).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[8].ToString()));
+                    ws.GetRow(j + 1).CreateCell(9).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[9].ToString()));
+                    ws.GetRow(j + 1).CreateCell(10).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[10].ToString()));
+                    ws.GetRow(j + 1).CreateCell(11).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[11].ToString()));
+                    ws.GetRow(j + 1).CreateCell(12).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[12].ToString()));
+                    ws.GetRow(j + 1).CreateCell(13).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[13].ToString()));
+                    ws.GetRow(j + 1).CreateCell(14).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[14].ToString()));
+
+
                     j++;
                 }
 
