@@ -142,6 +142,23 @@ namespace TKMOC
 
                 tablename = "TEMPds1";
             }
+            else if (comboBox1.Text.ToString().Equals("生產日報的月份分析表"))
+            {
+                STR.AppendFormat(@"  ");
+
+
+                tablename = "TEMPds2";
+            }
+            else if (comboBox1.Text.ToString().Equals("不良品餅乾報廢分析表"))
+            {
+                STR.AppendFormat(@"  SELECT [MAIN] AS '線別',CONVERT(varchar(100),[MAINDATE], 111) AS '日期',[DAMAGEDCOOKIES] AS '破損餅乾(kg)',[LANDCOOKIES] AS '落地餅乾(kg)',[SCRAPCOOKIES]  AS '餅乾屑(kg)',[ID]");
+                STR.AppendFormat(@"  FROM [TKCIM].[dbo].[NGSCRAPPEDMD]");
+                STR.AppendFormat(@"  WHERE [MAINDATE]>='{0}' AND [MAINDATE]<='{1}'",dateTimePicker1.Value.ToString("yyyy/MM/dd"), dateTimePicker2.Value.ToString("yyyy/MM/dd"));
+                STR.AppendFormat(@"  ORDER BY CONVERT(varchar(100),[MAINDATE], 111),[MAIN] ");
+                STR.AppendFormat(@"  ");
+
+                tablename = "TEMPds3";
+            }
             else if (comboBox1.Text.ToString().Equals(""))
             {
 
@@ -202,6 +219,23 @@ namespace TKMOC
                     ws.GetRow(j + 1).CreateCell(14).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[14].ToString()));
                     ws.GetRow(j + 1).CreateCell(15).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[15].ToString()));
                     
+                    j++;
+                }
+
+            }
+            else if (tablename.Equals("TEMPds3"))
+            {
+                TABLENAME = "不良品餅乾報廢分析表";
+                foreach (DataGridViewRow dr in this.dataGridView1.Rows)
+                {
+                    ws.CreateRow(j + 1);
+                    ws.GetRow(j + 1).CreateCell(0).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[0].ToString());                   
+                    ws.GetRow(j + 1).CreateCell(1).SetCellValue(Convert.ToDateTime(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[1].ToString()).ToString("yyyy/MM/dd"));
+                    ws.GetRow(j + 1).CreateCell(2).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[2].ToString()));
+                    ws.GetRow(j + 1).CreateCell(3).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[3].ToString()));
+                    ws.GetRow(j + 1).CreateCell(4).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[4].ToString()));
+                    ws.GetRow(j + 1).CreateCell(5).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[5].ToString());
+
                     j++;
                 }
 
