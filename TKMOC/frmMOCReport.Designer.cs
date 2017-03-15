@@ -221,7 +221,11 @@
             this.comboBox1.Items.AddRange(new object[] {
             "生產日報的分析表",
             "生產日報的月份分析表",
-            "不良品餅乾報廢分析表"});
+            "不良品餅乾報廢分析表",
+            "生產日報表明細表",
+            "不良餅麩明細表",
+            "不良邊料明細表",
+            "不良未熟明細表"});
             this.comboBox1.Location = new System.Drawing.Point(83, 50);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(234, 20);
@@ -245,7 +249,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(976, 707);
+            this.tabPage2.Size = new System.Drawing.Size(976, 699);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
