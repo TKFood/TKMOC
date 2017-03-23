@@ -1823,6 +1823,105 @@ namespace TKMOC
 
 
         }
+
+        public void DELDATE()
+        {
+            int result;
+            StringBuilder TABLENAME = new StringBuilder();
+            TABLENAME.Append("[TKMOC].[dbo].");
+
+
+            if (comboBox2.Text.ToString().Equals("維修申請單-MAINAPPLY"))
+            {
+                TABLENAME.Append("[MAINAPPLY]");
+            }
+            else if(comboBox2.Text.ToString().Equals("委外維修申請單-MAINAPPLYOUT"))
+            {
+                TABLENAME.Append("[MAINAPPLYOUT]");
+            }
+            else if (comboBox2.Text.ToString().Equals("機械設備維修紀錄表-MAINRECORD"))
+            {
+                TABLENAME.Append("[MAINRECORD]");
+            }
+            else if (comboBox2.Text.ToString().Equals("設備日常檢查表-MACHINEDAILYCHECK"))
+            {
+                TABLENAME.Append("[MACHINEDAILYCHECK]");
+            }
+            else if (comboBox2.Text.ToString().Equals("保養維護記錄卡-MACHINEMAINRECORD"))
+            {
+                TABLENAME.Append("[MACHINEMAINRECORD]");
+            }
+            else if (comboBox2.Text.ToString().Equals("定期維護保養計晝表-MACHINEMAINWEEK"))
+            {
+                TABLENAME.Append("[MACHINEMAINWEEK]");
+            }
+            else if (comboBox2.Text.ToString().Equals("備品一覽-MAINPARTS"))
+            {
+                TABLENAME.Append("[MAINPARTS]");
+            }
+            else if (comboBox2.Text.ToString().Equals("備品管制卡-MAINPARTSUSED"))
+            {
+                TABLENAME.Append("[MAINPARTSUSED]");
+            }
+            else if (comboBox2.Text.ToString().Equals("機器設備卡-MACHINECARD"))
+            {
+                TABLENAME.Append("[MACHINECARD]");
+            }
+            else if (comboBox2.Text.ToString().Equals("附件-MACHINEATTACH "))
+            {
+                TABLENAME.Append("[MACHINEATTACH]");
+            }
+            else
+            {
+
+            }
+
+            //
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();                
+                sbSql.AppendFormat("   DELETE {0} WHERE  [ID]='{1}'",TABLENAME, textBox2.Text.ToString());
+                sbSql.AppendFormat(" ");
+                sbSql.AppendFormat(" ");
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                    MessageBox.Show("NO");
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+                    MessageBox.Show("OK");
+
+
+                }
+               
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
         #endregion
 
         #region BUTTION
@@ -2065,6 +2164,10 @@ namespace TKMOC
         private void button37_Click(object sender, EventArgs e)
         {
             ExcelExportMACHINEATTACH();
+        }
+        private void button39_Click(object sender, EventArgs e)
+        {
+            DELDATE();
         }
 
         #endregion
