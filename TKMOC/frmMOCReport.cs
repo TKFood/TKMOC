@@ -182,27 +182,40 @@ namespace TKMOC
             else if (comboBox1.Text.ToString().Equals("生產日報表明細表"))
             {
                 STR.AppendFormat(@"  SELECT ");
-                STR.AppendFormat(@"  [PRODUCEDATE] AS '日期',[PRODUCEDEP] AS '線別',[PRODUCENAME] AS '品名'");
-                STR.AppendFormat(@"  ,[WEIGHTBEFORECOOK] AS '總投入量',[REWORKPCT] AS '重工佔比',[EVARATE] AS '蒸發率'");
-                STR.AppendFormat(@"  ,[STIRPCT] AS '攪拌成型率',[MANULOST]	 AS '製成損失率',[PCT] AS '餅製成率'");
-                STR.AppendFormat(@"  ,[TOTALPCT] AS '總製成率',[CANPCT] AS '罐裝製成率',[STIR] AS '攪拌不良'");
-                STR.AppendFormat(@"  ,[SIDES]	 AS '成型邊料',[COOKIES] AS '餅麩',[COOK] AS '烤焙',[NGPACKAGE] AS '包裝不良餅乾'");
-                STR.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT]");
-                STR.AppendFormat(@"  WHERE  [PRODUCEDATE]>='{0}' AND [PRODUCEDATE]<='{1}'", dateTimePicker1.Value.ToString("yyyy/MM/dd"), dateTimePicker2.Value.ToString("yyyy/MM/dd"));
-                STR.AppendFormat(@"  UNION ALL");
-                STR.AppendFormat(@"  SELECT ");
-                STR.AppendFormat(@"  '9999/9/9','小計','小計'");
-                STR.AppendFormat(@"  ,SUM([WEIGHTBEFORECOOK]) AS '總投入量',AVG([REWORKPCT]) AS '重工佔比'");
-                STR.AppendFormat(@"  ,AVG([EVARATE]) AS '蒸發率',AVG([STIRPCT]) AS '攪拌成型率'");
-                STR.AppendFormat(@"  ,AVG([MANULOST])	 AS '製成損失率',AVG([PCT]) AS '餅製成率'");
-                STR.AppendFormat(@"  ,AVG([TOTALPCT]) AS '總製成率',AVG([CANPCT]) AS '罐裝製成率'");
-                STR.AppendFormat(@"  ,SUM([STIR]) AS '攪拌不良',SUM([SIDES])	 AS '成型邊料',SUM([COOKIES]) AS '餅麩'");
-                STR.AppendFormat(@"  ,SUM([COOK]) AS '烤焙',SUM([NGPACKAGE]) AS '包裝不良餅乾'");
-                STR.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT]");
-                STR.AppendFormat(@"  WHERE  [PRODUCEDATE]>='{0}' AND [PRODUCEDATE]<='{1}'", dateTimePicker1.Value.ToString("yyyy/MM/dd"), dateTimePicker2.Value.ToString("yyyy/MM/dd"));
-                STR.AppendFormat(@"  ORDER BY [PRODUCEDATE],[PRODUCEDEP],[PRODUCENAME]");
+                STR.AppendFormat(@"  [PRODUCETYPE] AS '成品/半成品' ,[PRODUCEDEP] AS '製造組'");
+                STR.AppendFormat(@"  ,[PRODUCEDATE] AS '日期',[PRODUCEMB001] AS '品號',[PRODUCENAME] AS '品名' ");
+                STR.AppendFormat(@"  ,[PASTRYPREIN] AS '油酥預計投入量(kg)',[PASTRY] AS '油酥原料'");
+                STR.AppendFormat(@"  ,[PASTRYRECYCLE] AS '油酥可回收餅麩' ,[WATERFLOURPREIN] AS '水麵預計投入量(kg)'");
+                STR.AppendFormat(@"  ,[WATERFLOUR] AS '水面原料',[WATERFLOURSIDE] AS '水面可回收邊料' ");
+                STR.AppendFormat(@"  ,[WATERFLOURRECYCLE] AS '水面可回收餅麩',[PASTRYFLODTIME] AS '油酥、摺疊製造時間(分)'");
+                STR.AppendFormat(@"  ,[PASTRYFLODNUM] AS '油酥、摺疊製造人數' ,[WATERFLOURTIME] AS '水面製造時間(分)'");
+                STR.AppendFormat(@"  ,[WATERFLOURNUM] AS '水面製造人數',[RECYCLEFLOUR] AS '可回收餅麩'");
+                STR.AppendFormat(@"  ,[KNIFENUM] AS '刀數',[WEIGHTBEFRORE] AS '烤前單片重量(g)'");
+                STR.AppendFormat(@"  ,[WEIGHTAFTER] AS '烤後單片重量(g)' ,[ROWNUM] AS '每排數量'");
+                STR.AppendFormat(@"  ,[RECOOKTIME] AS '重烤重工時間',[NGTOTAL] AS '未熟總量(kg)'");
+                STR.AppendFormat(@"  ,[NGCOOKTIME] AS '未熟烤焙時間(分)' ,[PREOUT] AS '預計產出(kg)'");
+                STR.AppendFormat(@"  ,[PACKAGETIME] AS '包裝時間(內包裝區/罐裝)(分)',[PACKAGENUM] AS '包裝人數' ");
+                STR.AppendFormat(@"  ,[STIR] AS '攪拌',[SIDES] AS '成型邊料(kg)',[COOKIES] AS '餅麩(kg)'");
+                STR.AppendFormat(@"  ,[COOK] AS '烤焙(kg)',[NGPACKAGE] AS '包裝不良餅乾(kg)'");
+                STR.AppendFormat(@"  ,[NGPACKAGECAN] AS '包裝(內袋(卷) 罐)',[CAN] AS '包裝投入(袋(卷),罐)'");
+                STR.AppendFormat(@"  ,[WEIGHTCAN] AS '一箱裸餅重' ,[WEIGHTCANBOXED] AS '一箱餅含袋重'");
+                STR.AppendFormat(@"  ,[HLAFWEIGHT] AS '半成品入庫數(kg) (含袋重)',[REMARK] AS '備註' ");
+                STR.AppendFormat(@"  ,[MANUTIME] AS '製造工時(分)',[PACKTIME] AS '包裝工時(分)'");
+                STR.AppendFormat(@"  ,[WEIGHTBEFORECOOK] AS '烤前實際總投入 (kg)'  ,[WEIGHTAFTERCOOK] AS '烤後實際總投入 (kg)'");
+                STR.AppendFormat(@"  ,[ACTUALOUT] AS '實際產出(kg)(裸餅)',[WEIGHTPACKAGE] AS '袋重(kg)' ");
+                STR.AppendFormat(@"  ,[PACKLOST] AS '包裝損耗率',[HLAFLOST] AS '半成品產出效率'");
+                STR.AppendFormat(@"  ,[REWORKPCT] AS '重工佔比',[TOTALTIME] AS '總工時(分)' ");
+                STR.AppendFormat(@"  ,[STIRPCT] AS '攪拌成型製成率%',[EVARATE] AS '蒸發率'");
+                STR.AppendFormat(@"  ,[MANULOST] AS '製成損失率',[PCT] AS '製成率' ,[PRETIME] AS '前置時間'");
+                STR.AppendFormat(@"  ,[STOPTIME] AS '停機時間' ,[PREWEIGT] AS '容量規格'");
+                STR.AppendFormat(@"  ,[PRECAN] AS '預計包罐數',[ACTUALCAN] AS '實際包罐數',[TOTALPCT] AS '總製成率'");
+                STR.AppendFormat(@"  ,[CANPCT] AS '總包罐製成率',TRYCAN AS '預計試吃包罐數'");
+                STR.AppendFormat(@"  ,ACTUALTRYCAN  AS '實際試吃包罐數'  ,[ID]  ");
+                STR.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT]   WITH (NOLOCK) ");
+                STR.AppendFormat(@"  WHERE [PRODUCEDATE] >='{0}' AND [PRODUCEDATE] <='{1}'", dateTimePicker1.Value.ToString("yyyy/MM/dd"), dateTimePicker2.Value.ToString("yyyy/MM/dd"));
+                STR.AppendFormat(@"  ORDER BY [PRODUCEDATE],[ID]  ");
                 STR.AppendFormat(@"  ");
-                STR.AppendFormat(@"  ");
+       
 
 
                 tablename = "TEMPds4";
