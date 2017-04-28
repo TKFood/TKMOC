@@ -48,6 +48,9 @@ namespace TKMOC
 
         string ID1;
         DateTime dt1;
+        string TA001 = "A510";
+        string TA002;
+
         Thread TD;
         public frmMOCMANULINE()
         {
@@ -323,7 +326,52 @@ namespace TKMOC
 
         public void ADDMOCMANULINERESULT()
         {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
 
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+
+                sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINERESULT]");
+                sbSql.AppendFormat(" ([SID],[MOCTA001],[MOCTA002])");
+                sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}')",ID1,TA001,TA002);
+                sbSql.AppendFormat(" ");
+                sbSql.AppendFormat(" ");
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
         }
 
         public void ADDMOCTATB()
@@ -342,7 +390,7 @@ namespace TKMOC
                 sbSqlQuery.Clear();
 
           
-                sbSql.AppendFormat(@"  SELECT  [MOCTA001],[MOCTA002],[SID]");
+                sbSql.AppendFormat(@"  SELECT  [MOCTA001] AS '製令',[MOCTA002]  AS '單號',[SID]");
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINERESULT]");
                 sbSql.AppendFormat(@"  WHERE [SID]='{0}'",ID1);
                 sbSql.AppendFormat(@"  ");
@@ -501,8 +549,7 @@ namespace TKMOC
 
         private void button5_Click(object sender, EventArgs e)
         {
-            string TA001 = "A510";
-            string TA002;
+          
             TA002 = GETMAXTA002(TA001);
             ADDMOCMANULINERESULT();
             ADDMOCTATB();
