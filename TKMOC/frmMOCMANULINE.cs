@@ -353,10 +353,18 @@ namespace TKMOC
                 //do something else
             }
         }
+        private void button4_Click(object sender, EventArgs e)
+        {
+            
+            frmSUBMOCMANULINE SUBfrmSUBMOCMANULINE = new frmSUBMOCMANULINE();
+            SUBfrmSUBMOCMANULINE.ShowDialog();
+            textBox1.Text = SUBfrmSUBMOCMANULINE.TextBoxMsg;
+  
+        }
 
 
         #endregion
 
-        
+
     }
 }
