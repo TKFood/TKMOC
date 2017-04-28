@@ -47,6 +47,7 @@ namespace TKMOC
         int result;
 
         string ID1;
+        DateTime dt1;
         Thread TD;
         public frmMOCMANULINE()
         {
@@ -264,7 +265,7 @@ namespace TKMOC
                 {
                     DataGridViewRow row = dataGridView1.Rows[rowindex];
                     ID1 = row.Cells["ID"].Value.ToString();
-
+                    dt1=Convert.ToDateTime (row.Cells["生產日"].Value.ToString().Substring(0,4)+"/"+row.Cells["生產日"].Value.ToString().Substring(4, 2)+"/"+row.Cells["生產日"].Value.ToString().Substring(6, 2));
                     SEARCHMOCMANULINERESULT();
 ;
                 }
@@ -380,6 +381,80 @@ namespace TKMOC
 
             }
         }
+
+        public string GETMAXTA002(string TA001)
+        {
+            string TA002;
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                StringBuilder sbSql = new StringBuilder();
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+                ds4.Clear();
+
+                sbSql.AppendFormat(@"  SELECT ISNULL(MAX(TA002),'00000000000') AS TA002");
+                sbSql.AppendFormat(@"  FROM [TK].[dbo].[MOCTA] ");
+                //sbSql.AppendFormat(@"  WHERE  TC001='{0}' AND TC003='{1}'", "A542","20170119");
+                sbSql.AppendFormat(@"  WHERE  TA001='{0}' AND TA003='{1}'", TA001, dt1.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+                adapter4 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder4 = new SqlCommandBuilder(adapter4);
+                sqlConn.Open();
+                ds4.Clear();
+                adapter4.Fill(ds4, "TEMPds4");
+                sqlConn.Close();
+
+
+                if (ds4.Tables["TEMPds4"].Rows.Count == 0)
+                {
+                    return null;
+                }
+                else
+                {
+                    if (ds4.Tables["TEMPds4"].Rows.Count >= 1)
+                    {
+                        TA002 = SETTA002(ds4.Tables["TEMPds4"].Rows[0]["TA002"].ToString());
+                        return TA002;
+
+                    }
+                    return null;
+                }
+
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+
+        }
+        public string SETTA002(string TA002)
+        {
+            if (TA002.Equals("00000000000"))
+            {
+                return dt1.ToString("yyyyMMdd") + "001";
+            }
+
+            else
+            {
+                int serno = Convert.ToInt16(TA002.Substring(8, 3));
+                serno = serno + 1;
+                string temp = serno.ToString();
+                temp = temp.PadLeft(3, '0');
+                return dt1.ToString("yyyyMMdd") + temp.ToString();
+            }
+        }
+
+
         #endregion
 
         #region BUTTON
@@ -426,6 +501,9 @@ namespace TKMOC
 
         private void button5_Click(object sender, EventArgs e)
         {
+            string TA001 = "A510";
+            string TA002;
+            TA002 = GETMAXTA002(TA001);
             ADDMOCMANULINERESULT();
             ADDMOCTATB();
             SEARCHMOCMANULINERESULT();
