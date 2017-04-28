@@ -92,6 +92,9 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[CLINET] AS '客戶'");
                 sbSql.AppendFormat(@"  ,[ID]");
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
+                sbSql.AppendFormat(@"  WHERE [MANU]='新廠製二組' ");
+                sbSql.AppendFormat(@"  AND CONVERT(varchar(100),[MANUDATE],112) LIKE '{0}%'",dateTimePicker1.Value.ToString("yyyyMM"));
+                sbSql.AppendFormat(@"  ORDER BY [MANUDATE],[ID]");
                 sbSql.AppendFormat(@"  ");
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -249,6 +252,7 @@ namespace TKMOC
             textBox3.Text = null;
             textBox4.Text = null;
             textBox5.Text = null;
+            textBox6.Text = null;
         }
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
