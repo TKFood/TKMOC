@@ -264,6 +264,8 @@ namespace TKMOC
                 {
                     DataGridViewRow row = dataGridView1.Rows[rowindex];
                     ID1 = row.Cells["ID"].Value.ToString();
+
+                    SEARCHMOCMANULINERESULT();
 ;
                 }
                 else
@@ -318,7 +320,66 @@ namespace TKMOC
             SEARCHMOCMANULINE();
         }
 
+        public void ADDMOCMANULINERESULT()
+        {
 
+        }
+
+        public void ADDMOCTATB()
+        {
+
+        }
+
+        public void SEARCHMOCMANULINERESULT()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+          
+                sbSql.AppendFormat(@"  SELECT  [MOCTA001],[MOCTA002],[SID]");
+                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINERESULT]");
+                sbSql.AppendFormat(@"  WHERE [SID]='{0}'",ID1);
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+                adapter3 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder3 = new SqlCommandBuilder(adapter3);
+                sqlConn.Open();
+                ds3.Clear();
+                adapter3.Fill(ds3, "TEMPds3");
+                sqlConn.Close();
+
+
+                if (ds3.Tables["TEMPds3"].Rows.Count == 0)
+                {
+                   
+                }
+                else
+                {
+                    if (ds3.Tables["TEMPds3"].Rows.Count >= 1)
+                    {
+
+                        dataGridView2.DataSource = ds3.Tables["TEMPds3"];
+                        dataGridView2.AutoResizeColumns();
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
         #endregion
 
         #region BUTTON
@@ -363,6 +424,12 @@ namespace TKMOC
         }
 
 
+        private void button5_Click(object sender, EventArgs e)
+        {
+            ADDMOCMANULINERESULT();
+            ADDMOCTATB();
+            SEARCHMOCMANULINERESULT();
+        }
         #endregion
 
 
