@@ -2689,7 +2689,7 @@ namespace TKMOC
         private void button20_Click(object sender, EventArgs e)
         {
             TA002 = GETMAXTA002(TA001);
-            //ADDMOCMANULINERESULT();
+            ADDMOCMANULINERESULT();
             ADDMOCTATB();
             SEARCHMOCMANULINERESULT();
 
