@@ -673,52 +673,105 @@ namespace TKMOC
 
         public void ADDMOCMANULINERESULT()
         {
-            try
+            if (MANU.Equals("新廠製二組"))
             {
-                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
-                sqlConn = new SqlConnection(connectionString);
-
-                sqlConn.Close();
-                sqlConn.Open();
-                tran = sqlConn.BeginTransaction();
-
-                sbSql.Clear();
-
-
-                sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINERESULT]");
-                sbSql.AppendFormat(" ([SID],[MOCTA001],[MOCTA002])");
-                sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}')",ID1,TA001,TA002);
-                sbSql.AppendFormat(" ");
-                sbSql.AppendFormat(" ");
-
-
-                cmd.Connection = sqlConn;
-                cmd.CommandTimeout = 60;
-                cmd.CommandText = sbSql.ToString();
-                cmd.Transaction = tran;
-                result = cmd.ExecuteNonQuery();
-
-                if (result == 0)
+                try
                 {
-                    tran.Rollback();    //交易取消
+                    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sqlConn.Close();
+                    sqlConn.Open();
+                    tran = sqlConn.BeginTransaction();
+
+                    sbSql.Clear();
+
+
+                    sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINERESULT]");
+                    sbSql.AppendFormat(" ([SID],[MOCTA001],[MOCTA002])");
+                    sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}')", ID1, TA001, TA002);
+                    sbSql.AppendFormat(" ");
+                    sbSql.AppendFormat(" ");
+
+
+                    cmd.Connection = sqlConn;
+                    cmd.CommandTimeout = 60;
+                    cmd.CommandText = sbSql.ToString();
+                    cmd.Transaction = tran;
+                    result = cmd.ExecuteNonQuery();
+
+                    if (result == 0)
+                    {
+                        tran.Rollback();    //交易取消
+                    }
+                    else
+                    {
+                        tran.Commit();      //執行交易  
+
+
+                    }
+
                 }
-                else
+                catch
                 {
-                    tran.Commit();      //執行交易  
-
 
                 }
 
+                finally
+                {
+                    sqlConn.Close();
+                }
             }
-            catch
+            else if (MANU.Equals("新廠製四組(包裝)"))
             {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
 
-            }
+                    sqlConn.Close();
+                    sqlConn.Open();
+                    tran = sqlConn.BeginTransaction();
 
-            finally
-            {
-                sqlConn.Close();
+                    sbSql.Clear();
+
+
+                    sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINERESULT]");
+                    sbSql.AppendFormat(" ([SID],[MOCTA001],[MOCTA002])");
+                    sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}')", ID2, TA001, TA002);
+                    sbSql.AppendFormat(" ");
+                    sbSql.AppendFormat(" ");
+
+
+                    cmd.Connection = sqlConn;
+                    cmd.CommandTimeout = 60;
+                    cmd.CommandText = sbSql.ToString();
+                    cmd.Transaction = tran;
+                    result = cmd.ExecuteNonQuery();
+
+                    if (result == 0)
+                    {
+                        tran.Rollback();    //交易取消
+                    }
+                    else
+                    {
+                        tran.Commit();      //執行交易  
+
+
+                    }
+
+                }
+                catch
+                {
+
+                }
+
+                finally
+                {
+                    sqlConn.Close();
+                }
             }
+                
         }
 
         public void ADDMOCTATB()
@@ -1231,9 +1284,18 @@ namespace TKMOC
                 //do something else
             }
         }
+        private void button10_Click(object sender, EventArgs e)
+        {
+            TA002 = GETMAXTA002(TA001);
+            ADDMOCMANULINERESULT();
+            //ADDMOCTATB();
+            SEARCHMOCMANULINERESULT();
+
+            MessageBox.Show("完成");
+        }
 
         #endregion
 
-        
+
     }
 }
