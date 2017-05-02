@@ -66,6 +66,8 @@ namespace TKMOC
         DateTime dt1;
         string ID2;
         DateTime dt2;
+        string ID3;
+        DateTime dt3;
         string TA001 = "A510";
         string TA002;
         string MB001;
@@ -74,8 +76,12 @@ namespace TKMOC
         string MB001B;
         string MB002B;
         string MB003B;
+        string MB001C;
+        string MB002C;
+        string MB003C;
         decimal BAR;
         decimal BOX;
+        decimal BAR2;
 
         string BOMVARSION;
         string UNIT;
@@ -826,6 +832,48 @@ namespace TKMOC
                     sbSql.Clear();
                     sbSql.AppendFormat("  DELETE [TKMOC].[dbo].[MOCMANULINE]");
                     sbSql.AppendFormat("  WHERE ID='{0}'", ID1);
+                    sbSql.AppendFormat(" ");
+
+                    cmd.Connection = sqlConn;
+                    cmd.CommandTimeout = 60;
+                    cmd.CommandText = sbSql.ToString();
+                    cmd.Transaction = tran;
+                    result = cmd.ExecuteNonQuery();
+
+                    if (result == 0)
+                    {
+                        tran.Rollback();    //交易取消
+                    }
+                    else
+                    {
+                        tran.Commit();      //執行交易  
+                    }
+
+                }
+                catch
+                {
+
+                }
+
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }
+            else if (MANU.Equals("新廠製一組"))
+            {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sqlConn.Close();
+                    sqlConn.Open();
+                    tran = sqlConn.BeginTransaction();
+
+                    sbSql.Clear();
+                    sbSql.AppendFormat("  DELETE [TKMOC].[dbo].[MOCMANULINE]");
+                    sbSql.AppendFormat("  WHERE ID='{0}'", ID3);
                     sbSql.AppendFormat(" ");
 
                     cmd.Connection = sqlConn;
@@ -1605,7 +1653,30 @@ namespace TKMOC
         {
             SEARCHMB001();
         }
+        private void dataGridView5_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView5.CurrentRow != null)
+            {
+                int rowindex = dataGridView5.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView5.Rows[rowindex];
+                    ID3 = row.Cells["ID"].Value.ToString();
+                    dt3 = Convert.ToDateTime(row.Cells["生產日"].Value.ToString().Substring(0, 4) + "/" + row.Cells["生產日"].Value.ToString().Substring(4, 2) + "/" + row.Cells["生產日"].Value.ToString().Substring(6, 2));
+                    MB001C= row.Cells["品號"].Value.ToString();
+                    MB002C = row.Cells["品名"].Value.ToString();
+                    MB003C = row.Cells["規格"].Value.ToString();
+                    BAR2 = Convert.ToDecimal(row.Cells["桶數"].Value.ToString());
+                    SEARCHMOCMANULINERESULT();
+                    ;
+                }
+                else
+                {
+                    ID3 = null;
 
+                }
+            }
+        }
         #endregion
 
         #region BUTTON
@@ -1742,8 +1813,9 @@ namespace TKMOC
             textBox14.Text = SUBfrmSUBMOCMANULINE.TextBoxMsg;
         }
 
+
         #endregion
 
-
+       
     }
 }
