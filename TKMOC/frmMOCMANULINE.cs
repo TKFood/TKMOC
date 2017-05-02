@@ -119,6 +119,24 @@ namespace TKMOC
             public string TA200;
         }
 
+        public class MOCTBDATA
+        {
+            public string COMPANY;
+            public string CREATOR;
+            public string USR_GROUP;
+            public string CREATE_DATE;
+            public string MODIFIER;
+            public string MODI_DATE;
+            public string FLAG;
+            public string CREATE_TIME;
+            public string MODI_TIME;
+            public string TRANS_TYPE;
+            public string TRANS_NAME;
+            public string sync_count;
+            public string DataGroup;
+            
+        }
+
         Thread TD;
         public frmMOCMANULINE()
         {
@@ -463,7 +481,7 @@ namespace TKMOC
                 sbSql.Clear();
 
 
-                sbSql.AppendFormat(" INSERT INTO [TKFOOD].[dbo].[MOCTA]");
+                sbSql.AppendFormat(" INSERT INTO [TK].[dbo].[MOCTA]");
                 sbSql.AppendFormat(" ([COMPANY],[CREATOR],[USR_GROUP],[CREATE_DATE],[MODIFIER],[MODI_DATE],[FLAG],[CREATE_TIME],[MODI_TIME],[TRANS_TYPE]");
                 sbSql.AppendFormat(" ,[TRANS_NAME],[sync_count],[DataGroup],[TA001],[TA002],[TA003],[TA004],[TA005],[TA006],[TA007]");
                 sbSql.AppendFormat(" ,[TA009],[TA010],[TA011],[TA012],[TA013],[TA014],[TA015],[TA016],[TA017],[TA018]");
@@ -476,7 +494,19 @@ namespace TKMOC
                 sbSql.AppendFormat(" '{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}',", MOCTA.TA019, MOCTA.TA020, MOCTA.TA021, MOCTA.TA022, MOCTA.TA024, MOCTA.TA025, MOCTA.TA030, MOCTA.TA031, MOCTA.TA034, MOCTA.TA035);
                 sbSql.AppendFormat(" '{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}')", MOCTA.TA040, MOCTA.TA041, MOCTA.TA043, MOCTA.TA044, MOCTA.TA045, MOCTA.TA046, MOCTA.TA047, MOCTA.TA049, MOCTA.TA050, MOCTA.TA200);
                 sbSql.AppendFormat(" ");
-                sbSql.AppendFormat(" ");
+                sbSql.AppendFormat(" INSERT INTO [TK].dbo.[MOCTB]");
+                sbSql.AppendFormat(" ([COMPANY],[CREATOR],[USR_GROUP],[CREATE_DATE],[MODIFIER],[MODI_DATE],[FLAG],[CREATE_TIME],[MODI_TIME],[TRANS_TYPE]");
+                sbSql.AppendFormat(" ,[TRANS_NAME],[sync_count],[DataGroup],[TB001],[TB002],[TB003],[TB004],[TB005],[TB006],[TB007]");
+                sbSql.AppendFormat(" ,[TB009],[TB011],[TB012],[TB013],[TB014],[TB018],[TB019],[TB020],[TB022],[TB024]");
+                sbSql.AppendFormat(" ,[TB025],[TB026],[TB027],[TB029],[TB030],[TB031],[TB501],[TB554],[TB556],[TB560])");
+                sbSql.AppendFormat(" (SELECT ");
+                sbSql.AppendFormat(" '{0}' [COMPANY],'{1}' [CREATOR],'{2}' [USR_GROUP],'{3}' [CREATE_DATE],'{4}' [MODIFIER],'{5}' [MODI_DATE],'{6}' [FLAG],'{7}' [CREATE_TIME],'{8}' [MODI_TIME],'{9}' [TRANS_TYPE]", MOCTA.COMPANY, MOCTA.CREATOR, MOCTA.USR_GROUP, MOCTA.CREATE_DATE, MOCTA.MODIFIER, MOCTA.MODI_DATE, MOCTA.FLAG, MOCTA.CREATE_TIME, MOCTA.MODI_TIME, MOCTA.TRANS_TYPE);
+                sbSql.AppendFormat(" ,'{0}' [TRANS_NAME],{1} [sync_count],'{2}' [DataGroup],'{3}' [TB001],'{4}' [TB002],[BOMMD].MD003 [TB003],{5}*[BOMMD].MD006 [TB004],{5}*[BOMMD].MD006 [TB005],'****' [TB006],[BOMMD].MD004 [TB007]", MOCTA.TRANS_NAME, MOCTA.sync_count, MOCTA.DataGroup, MOCTA.TA001, MOCTA.TA002,BAR);
+                sbSql.AppendFormat(" ,'20006' [TB009],'1' [TB011],[INVMB].MB002 [TB012],[INVMB].MB003 [TB013],[BOMMD].MD001 [TB014],'N' [TB018],'0' [TB019],'0' [TB020],'2' [TB022],'0' [TB024]");
+                sbSql.AppendFormat(" ,'****' [TB025],'0' [TB026],'1' [TB027],'0' [TB029],'0' [TB030],'0' [TB031],'0' [TB501],'N' [TB554],'0' [TB556],'0' [TB560]");
+                sbSql.AppendFormat(" FROM [TK].dbo.[BOMMD],[TK].dbo.[INVMB]");
+                sbSql.AppendFormat(" WHERE [BOMMD].MD003=[INVMB].MB001");
+                sbSql.AppendFormat(" AND MD001='{0}')",MB001);
                 sbSql.AppendFormat(" ");
                 sbSql.AppendFormat(" ");
 
@@ -586,7 +616,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  SELECT ");
                 sbSql.AppendFormat(@"  [MC001],[MC002],[MC003],[MC004],[MC005],[MC006],[MC007],[MC008],[MC009],[MC010],[MC011],[MC012],[MC013],[MC014],[MC015],[MC016],[MC017],[MC018],[MC019],[MC020],[MC021],[MC022],[MC023],[MC024],[MC025],[MC026],[MC027]");
                 sbSql.AppendFormat(@"  FROM [TK].[dbo].[BOMMC]");
-                sbSql.AppendFormat(@"  WHERE  [MC001]='{0}'");
+                sbSql.AppendFormat(@"  WHERE  [MC001]='{0}'",MB001);
                 sbSql.AppendFormat(@"  ");
 
                 adapter5 = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -800,6 +830,8 @@ namespace TKMOC
             //ADDMOCMANULINERESULT();
             ADDMOCTATB();
             //SEARCHMOCMANULINERESULT();
+
+            MessageBox.Show("完成");
         }
         #endregion
 
