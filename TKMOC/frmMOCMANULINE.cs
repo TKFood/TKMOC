@@ -777,8 +777,21 @@ namespace TKMOC
         public void ADDMOCTATB()
         {
             MOCTADATA MOCTA = new MOCTADATA();
-            MOCTA=SETMOCTA();
-            
+            MOCTA = SETMOCTA();
+            string MOCMB001 = null;
+            decimal MOCTA004 = 0; ;
+
+            if (MANU.Equals("新廠製二組"))
+            {
+                MOCMB001 = MB001;
+                MOCTA004 = BAR;
+            }
+            else if (MANU.Equals("新廠製四組(包裝)"))
+            {
+                MOCMB001 = MB001B;
+                MOCTA004 = BOX;
+            }
+
             try
             {
                 connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
@@ -811,12 +824,12 @@ namespace TKMOC
                 sbSql.AppendFormat(" ,[TB025],[TB026],[TB027],[TB029],[TB030],[TB031],[TB501],[TB554],[TB556],[TB560])");
                 sbSql.AppendFormat(" (SELECT ");
                 sbSql.AppendFormat(" '{0}' [COMPANY],'{1}' [CREATOR],'{2}' [USR_GROUP],'{3}' [CREATE_DATE],'{4}' [MODIFIER],'{5}' [MODI_DATE],'{6}' [FLAG],'{7}' [CREATE_TIME],'{8}' [MODI_TIME],'{9}' [TRANS_TYPE]", MOCTA.COMPANY, MOCTA.CREATOR, MOCTA.USR_GROUP, MOCTA.CREATE_DATE, MOCTA.MODIFIER, MOCTA.MODI_DATE, MOCTA.FLAG, MOCTA.CREATE_TIME, MOCTA.MODI_TIME, MOCTA.TRANS_TYPE);
-                sbSql.AppendFormat(" ,'{0}' [TRANS_NAME],{1} [sync_count],'{2}' [DataGroup],'{3}' [TB001],'{4}' [TB002],[BOMMD].MD003 [TB003],{5}*[BOMMD].MD006 [TB004],{5}*[BOMMD].MD006 [TB005],'****' [TB006],[BOMMD].MD004 [TB007]", MOCTA.TRANS_NAME, MOCTA.sync_count, MOCTA.DataGroup, MOCTA.TA001, MOCTA.TA002,BAR);
+                sbSql.AppendFormat(" ,'{0}' [TRANS_NAME],{1} [sync_count],'{2}' [DataGroup],'{3}' [TB001],'{4}' [TB002],[BOMMD].MD003 [TB003],{5}*[BOMMD].MD006 [TB004],{5}*[BOMMD].MD006 [TB005],'****' [TB006],[BOMMD].MD004 [TB007]", MOCTA.TRANS_NAME, MOCTA.sync_count, MOCTA.DataGroup, MOCTA.TA001, MOCTA.TA002, MOCTA004);
                 sbSql.AppendFormat(" ,'20006' [TB009],'1' [TB011],[INVMB].MB002 [TB012],[INVMB].MB003 [TB013],[BOMMD].MD001 [TB014],'N' [TB018],'0' [TB019],'0' [TB020],'2' [TB022],'0' [TB024]");
                 sbSql.AppendFormat(" ,'****' [TB025],'0' [TB026],'1' [TB027],'0' [TB029],'0' [TB030],'0' [TB031],'0' [TB501],'N' [TB554],'0' [TB556],'0' [TB560]");
                 sbSql.AppendFormat(" FROM [TK].dbo.[BOMMD],[TK].dbo.[INVMB]");
                 sbSql.AppendFormat(" WHERE [BOMMD].MD003=[INVMB].MB001");
-                sbSql.AppendFormat(" AND MD001='{0}')",MB001);
+                sbSql.AppendFormat(" AND MD001='{0}')", MOCMB001);
                 sbSql.AppendFormat(" ");
                 sbSql.AppendFormat(" ");
 
@@ -852,118 +865,243 @@ namespace TKMOC
 
         public MOCTADATA SETMOCTA()
         {
-            SEARCHBOMMC();
+            if (MANU.Equals("新廠製二組"))
+            {
+                SEARCHBOMMC();
 
-            MOCTADATA MOCTA = new MOCTADATA();
-            MOCTA.COMPANY= "TK";
-            MOCTA.CREATOR= "000002";
-            MOCTA.USR_GROUP= "103000";
-            MOCTA.CREATE_DATE=dt1.ToString("yyyyMMdd");
-            MOCTA.MODIFIER= "000002";
-            MOCTA.MODI_DATE = dt1.ToString("yyyyMMdd");
-            MOCTA.FLAG="0";
-            MOCTA.CREATE_TIME = DateTime.Now.ToString("HH:mm:dd");
-            MOCTA.MODI_TIME = DateTime.Now.ToString("HH:mm:dd");
-            MOCTA.TRANS_TYPE= "P001";
-            MOCTA.TRANS_NAME= "MOCMI02";
-            MOCTA.sync_count= "0";
-            MOCTA.DataGroup = "103000";
-            MOCTA.TA001 = "A510";
-            MOCTA.TA002 = TA002;
-            MOCTA.TA003 = dt1.ToString("yyyyMMdd");
-            MOCTA.TA004 = dt1.ToString("yyyyMMdd");
-            MOCTA.TA005 = BOMVARSION;
-            MOCTA.TA006 = MB001;
-            MOCTA.TA007 = UNIT;
-            MOCTA.TA009 = dt1.ToString("yyyyMMdd");
-            MOCTA.TA010 = dt1.ToString("yyyyMMdd");
-            MOCTA.TA011 = "1";
-            MOCTA.TA012 = dt1.ToString("yyyyMMdd");
-            MOCTA.TA013 = "N";
-            MOCTA.TA014 = dt1.ToString("yyyyMMdd");
-            MOCTA.TA015 = (BAR*BOMBAR).ToString();
-            MOCTA.TA016 = "0";
-            MOCTA.TA017 = "0";
-            MOCTA.TA018 = "0";
-            MOCTA.TA019 = "20";
-            MOCTA.TA020 = "20001";
-            MOCTA.TA021 = "02";
-            MOCTA.TA022 = "0";
-            MOCTA.TA024 = "A510";
-            MOCTA.TA025 = TA002;
-            MOCTA.TA030 = "1";
-            MOCTA.TA031 = "0";
-            MOCTA.TA034 = MB002;
-            MOCTA.TA035 = MB003;
-            MOCTA.TA040 = dt1.ToString("yyyyMMdd");
-            MOCTA.TA041 = "";
-            MOCTA.TA043 = "1";
-            MOCTA.TA044 = "N";
-            MOCTA.TA045 = (BAR * BOMBAR).ToString();
-            MOCTA.TA046 = (BAR * BOMBAR).ToString();
-            MOCTA.TA047 = "0";
-            MOCTA.TA049 = "0";
-            MOCTA.TA050 = "0";
-            MOCTA.TA200 = "1";
+                MOCTADATA MOCTA = new MOCTADATA();
+                MOCTA.COMPANY = "TK";
+                MOCTA.CREATOR = "000002";
+                MOCTA.USR_GROUP = "103000";
+                MOCTA.CREATE_DATE = dt1.ToString("yyyyMMdd");
+                MOCTA.MODIFIER = "000002";
+                MOCTA.MODI_DATE = dt1.ToString("yyyyMMdd");
+                MOCTA.FLAG = "0";
+                MOCTA.CREATE_TIME = DateTime.Now.ToString("HH:mm:dd");
+                MOCTA.MODI_TIME = DateTime.Now.ToString("HH:mm:dd");
+                MOCTA.TRANS_TYPE = "P001";
+                MOCTA.TRANS_NAME = "MOCMI02";
+                MOCTA.sync_count = "0";
+                MOCTA.DataGroup = "103000";
+                MOCTA.TA001 = "A510";
+                MOCTA.TA002 = TA002;
+                MOCTA.TA003 = dt1.ToString("yyyyMMdd");
+                MOCTA.TA004 = dt1.ToString("yyyyMMdd");
+                MOCTA.TA005 = BOMVARSION;
+                MOCTA.TA006 = MB001;
+                MOCTA.TA007 = UNIT;
+                MOCTA.TA009 = dt1.ToString("yyyyMMdd");
+                MOCTA.TA010 = dt1.ToString("yyyyMMdd");
+                MOCTA.TA011 = "1";
+                MOCTA.TA012 = dt1.ToString("yyyyMMdd");
+                MOCTA.TA013 = "N";
+                MOCTA.TA014 = dt1.ToString("yyyyMMdd");
+                MOCTA.TA015 = (BAR * BOMBAR).ToString();
+                MOCTA.TA016 = "0";
+                MOCTA.TA017 = "0";
+                MOCTA.TA018 = "0";
+                MOCTA.TA019 = "20";
+                MOCTA.TA020 = "20001";
+                MOCTA.TA021 = "02";
+                MOCTA.TA022 = "0";
+                MOCTA.TA024 = "A510";
+                MOCTA.TA025 = TA002;
+                MOCTA.TA030 = "1";
+                MOCTA.TA031 = "0";
+                MOCTA.TA034 = MB002;
+                MOCTA.TA035 = MB003;
+                MOCTA.TA040 = dt1.ToString("yyyyMMdd");
+                MOCTA.TA041 = "";
+                MOCTA.TA043 = "1";
+                MOCTA.TA044 = "N";
+                MOCTA.TA045 = (BAR * BOMBAR).ToString();
+                MOCTA.TA046 = (BAR * BOMBAR).ToString();
+                MOCTA.TA047 = "0";
+                MOCTA.TA049 = "0";
+                MOCTA.TA050 = "0";
+                MOCTA.TA200 = "1";
 
 
-            return MOCTA;
+                return MOCTA;
+            }
+
+            else if (MANU.Equals("新廠製四組(包裝)"))
+            {
+                SEARCHBOMMC();
+
+                MOCTADATA MOCTA = new MOCTADATA();
+                MOCTA.COMPANY = "TK";
+                MOCTA.CREATOR = "000002";
+                MOCTA.USR_GROUP = "103000";
+                MOCTA.CREATE_DATE = dt2.ToString("yyyyMMdd");
+                MOCTA.MODIFIER = "000002";
+                MOCTA.MODI_DATE = dt2.ToString("yyyyMMdd");
+                MOCTA.FLAG = "0";
+                MOCTA.CREATE_TIME = DateTime.Now.ToString("HH:mm:dd");
+                MOCTA.MODI_TIME = DateTime.Now.ToString("HH:mm:dd");
+                MOCTA.TRANS_TYPE = "P001";
+                MOCTA.TRANS_NAME = "MOCMI02";
+                MOCTA.sync_count = "0";
+                MOCTA.DataGroup = "103000";
+                MOCTA.TA001 = "A510";
+                MOCTA.TA002 = TA002;
+                MOCTA.TA003 = dt2.ToString("yyyyMMdd");
+                MOCTA.TA004 = dt2.ToString("yyyyMMdd");
+                MOCTA.TA005 = BOMVARSION;
+                MOCTA.TA006 = MB001B;
+                MOCTA.TA007 = UNIT;
+                MOCTA.TA009 = dt2.ToString("yyyyMMdd");
+                MOCTA.TA010 = dt2.ToString("yyyyMMdd");
+                MOCTA.TA011 = "1";
+                MOCTA.TA012 = dt2.ToString("yyyyMMdd");
+                MOCTA.TA013 = "N";
+                MOCTA.TA014 = dt2.ToString("yyyyMMdd");
+                MOCTA.TA015 = (BOX * BOMBAR).ToString();
+                MOCTA.TA016 = "0";
+                MOCTA.TA017 = "0";
+                MOCTA.TA018 = "0";
+                MOCTA.TA019 = "20";
+                MOCTA.TA020 = "20001";
+                MOCTA.TA021 = "07";
+                MOCTA.TA022 = "0";
+                MOCTA.TA024 = "A510";
+                MOCTA.TA025 = TA002;
+                MOCTA.TA030 = "1";
+                MOCTA.TA031 = "0";
+                MOCTA.TA034 = MB002B;
+                MOCTA.TA035 = MB003B;
+                MOCTA.TA040 = dt2.ToString("yyyyMMdd");
+                MOCTA.TA041 = "";
+                MOCTA.TA043 = "1";
+                MOCTA.TA044 = "N";
+                MOCTA.TA045 = (BOX * BOMBAR).ToString();
+                MOCTA.TA046 = (BOX * BOMBAR).ToString();
+                MOCTA.TA047 = "0";
+                MOCTA.TA049 = "0";
+                MOCTA.TA050 = "0";
+                MOCTA.TA200 = "1";
+
+
+                return MOCTA;
+            }
+
+            return null;
+            
         }
 
         public void SEARCHBOMMC()
         {
             BOMVARSION = null;
             UNIT = null;
-            BOMBAR = 0; 
-            try
+            BOMBAR = 0;
+
+            if (MANU.Equals("新廠製二組"))
             {
-                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
-                sqlConn = new SqlConnection(connectionString);
-
-                sbSql.Clear();
-                sbSqlQuery.Clear();
-
-                sbSql.AppendFormat(@"  SELECT ");
-                sbSql.AppendFormat(@"  [MC001],[MC002],[MC003],[MC004],[MC005],[MC006],[MC007],[MC008],[MC009],[MC010],[MC011],[MC012],[MC013],[MC014],[MC015],[MC016],[MC017],[MC018],[MC019],[MC020],[MC021],[MC022],[MC023],[MC024],[MC025],[MC026],[MC027]");
-                sbSql.AppendFormat(@"  FROM [TK].[dbo].[BOMMC]");
-                sbSql.AppendFormat(@"  WHERE  [MC001]='{0}'",MB001);
-                sbSql.AppendFormat(@"  ");
-
-                adapter5 = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                sqlCmdBuilder5 = new SqlCommandBuilder(adapter5);
-                sqlConn.Open();
-                dsBOMMC.Clear();
-                adapter5.Fill(dsBOMMC, "dsBOMMC");
-                sqlConn.Close();
-
-
-                if (dsBOMMC.Tables["dsBOMMC"].Rows.Count == 0)
+                try
                 {
-                    BOMVARSION = null;
-                    UNIT = null;
-                    BOMBAR = 0;
-                }
-                else
-                {
-                    if (dsBOMMC.Tables["dsBOMMC"].Rows.Count >= 1)
+                    connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sbSql.Clear();
+                    sbSqlQuery.Clear();
+
+                    sbSql.AppendFormat(@"  SELECT ");
+                    sbSql.AppendFormat(@"  [MC001],[MC002],[MC003],[MC004],[MC005],[MC006],[MC007],[MC008],[MC009],[MC010],[MC011],[MC012],[MC013],[MC014],[MC015],[MC016],[MC017],[MC018],[MC019],[MC020],[MC021],[MC022],[MC023],[MC024],[MC025],[MC026],[MC027]");
+                    sbSql.AppendFormat(@"  FROM [TK].[dbo].[BOMMC]");
+                    sbSql.AppendFormat(@"  WHERE  [MC001]='{0}'", MB001);
+                    sbSql.AppendFormat(@"  ");
+
+                    adapter5 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                    sqlCmdBuilder5 = new SqlCommandBuilder(adapter5);
+                    sqlConn.Open();
+                    dsBOMMC.Clear();
+                    adapter5.Fill(dsBOMMC, "dsBOMMC");
+                    sqlConn.Close();
+
+
+                    if (dsBOMMC.Tables["dsBOMMC"].Rows.Count == 0)
                     {
-                        BOMVARSION= dsBOMMC.Tables["dsBOMMC"].Rows[0]["MC009"].ToString();
-                        UNIT = dsBOMMC.Tables["dsBOMMC"].Rows[0]["MC002"].ToString();
-                        BOMBAR = Convert.ToDecimal(dsBOMMC.Tables["dsBOMMC"].Rows[0]["MC004"].ToString());
-
+                        BOMVARSION = null;
+                        UNIT = null;
+                        BOMBAR = 0;
                     }
+                    else
+                    {
+                        if (dsBOMMC.Tables["dsBOMMC"].Rows.Count >= 1)
+                        {
+                            BOMVARSION = dsBOMMC.Tables["dsBOMMC"].Rows[0]["MC009"].ToString();
+                            UNIT = dsBOMMC.Tables["dsBOMMC"].Rows[0]["MC002"].ToString();
+                            BOMBAR = Convert.ToDecimal(dsBOMMC.Tables["dsBOMMC"].Rows[0]["MC004"].ToString());
+
+                        }
+                    }
+
                 }
+                catch
+                {
 
+                }
+                finally
+                {
+
+                }
             }
-            catch
+            else if (MANU.Equals("新廠製四組(包裝)"))
             {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
 
-            }
-            finally
-            {
+                    sbSql.Clear();
+                    sbSqlQuery.Clear();
 
+                    sbSql.AppendFormat(@"  SELECT ");
+                    sbSql.AppendFormat(@"  [MC001],[MC002],[MC003],[MC004],[MC005],[MC006],[MC007],[MC008],[MC009],[MC010],[MC011],[MC012],[MC013],[MC014],[MC015],[MC016],[MC017],[MC018],[MC019],[MC020],[MC021],[MC022],[MC023],[MC024],[MC025],[MC026],[MC027]");
+                    sbSql.AppendFormat(@"  FROM [TK].[dbo].[BOMMC]");
+                    sbSql.AppendFormat(@"  WHERE  [MC001]='{0}'", MB001B);
+                    sbSql.AppendFormat(@"  ");
+
+                    adapter5 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                    sqlCmdBuilder5 = new SqlCommandBuilder(adapter5);
+                    sqlConn.Open();
+                    dsBOMMC.Clear();
+                    adapter5.Fill(dsBOMMC, "dsBOMMC");
+                    sqlConn.Close();
+
+
+                    if (dsBOMMC.Tables["dsBOMMC"].Rows.Count == 0)
+                    {
+                        BOMVARSION = null;
+                        UNIT = null;
+                        BOMBAR = 0;
+                    }
+                    else
+                    {
+                        if (dsBOMMC.Tables["dsBOMMC"].Rows.Count >= 1)
+                        {
+                            BOMVARSION = dsBOMMC.Tables["dsBOMMC"].Rows[0]["MC009"].ToString();
+                            UNIT = dsBOMMC.Tables["dsBOMMC"].Rows[0]["MC002"].ToString();
+                            BOMBAR = Convert.ToDecimal(dsBOMMC.Tables["dsBOMMC"].Rows[0]["MC004"].ToString());
+
+                        }
+                    }
+
+                }
+                catch
+                {
+
+                }
+                finally
+                {
+
+                }
             }
+
+
+                
         }
         public void SEARCHMOCMANULINERESULT()
         {
@@ -1073,73 +1211,155 @@ namespace TKMOC
         public string GETMAXTA002(string TA001)
         {
             string TA002;
-            try
+
+            if (MANU.Equals("新廠製二組"))
             {
-                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
-                sqlConn = new SqlConnection(connectionString);
-
-                StringBuilder sbSql = new StringBuilder();
-                sbSql.Clear();
-                sbSqlQuery.Clear();
-                ds4.Clear();
-
-                sbSql.AppendFormat(@"  SELECT ISNULL(MAX(TA002),'00000000000') AS TA002");
-                sbSql.AppendFormat(@"  FROM [TK].[dbo].[MOCTA] ");
-                //sbSql.AppendFormat(@"  WHERE  TC001='{0}' AND TC003='{1}'", "A542","20170119");
-                sbSql.AppendFormat(@"  WHERE  TA001='{0}' AND TA003='{1}'", TA001, dt1.ToString("yyyyMMdd"));
-                sbSql.AppendFormat(@"  ");
-                sbSql.AppendFormat(@"  ");
-
-                adapter4 = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                sqlCmdBuilder4 = new SqlCommandBuilder(adapter4);
-                sqlConn.Open();
-                ds4.Clear();
-                adapter4.Fill(ds4, "TEMPds4");
-                sqlConn.Close();
-
-
-                if (ds4.Tables["TEMPds4"].Rows.Count == 0)
+                try
                 {
-                    return null;
-                }
-                else
-                {
-                    if (ds4.Tables["TEMPds4"].Rows.Count >= 1)
+                    connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    StringBuilder sbSql = new StringBuilder();
+                    sbSql.Clear();
+                    sbSqlQuery.Clear();
+                    ds4.Clear();
+
+                    sbSql.AppendFormat(@"  SELECT ISNULL(MAX(TA002),'00000000000') AS TA002");
+                    sbSql.AppendFormat(@"  FROM [TK].[dbo].[MOCTA] ");
+                    //sbSql.AppendFormat(@"  WHERE  TC001='{0}' AND TC003='{1}'", "A542","20170119");
+                    sbSql.AppendFormat(@"  WHERE  TA001='{0}' AND TA003='{1}'", TA001, dt1.ToString("yyyyMMdd"));
+                    sbSql.AppendFormat(@"  ");
+                    sbSql.AppendFormat(@"  ");
+
+                    adapter4 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                    sqlCmdBuilder4 = new SqlCommandBuilder(adapter4);
+                    sqlConn.Open();
+                    ds4.Clear();
+                    adapter4.Fill(ds4, "TEMPds4");
+                    sqlConn.Close();
+
+
+                    if (ds4.Tables["TEMPds4"].Rows.Count == 0)
                     {
-                        TA002 = SETTA002(ds4.Tables["TEMPds4"].Rows[0]["TA002"].ToString());
-                        return TA002;
-
+                        return null;
                     }
+                    else
+                    {
+                        if (ds4.Tables["TEMPds4"].Rows.Count >= 1)
+                        {
+                            TA002 = SETTA002(ds4.Tables["TEMPds4"].Rows[0]["TA002"].ToString());
+                            return TA002;
+
+                        }
+                        return null;
+                    }
+
+                }
+                catch
+                {
                     return null;
                 }
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }
+            else if (MANU.Equals("新廠製四組(包裝)"))
+            {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
 
+                    StringBuilder sbSql = new StringBuilder();
+                    sbSql.Clear();
+                    sbSqlQuery.Clear();
+                    ds4.Clear();
+
+                    sbSql.AppendFormat(@"  SELECT ISNULL(MAX(TA002),'00000000000') AS TA002");
+                    sbSql.AppendFormat(@"  FROM [TK].[dbo].[MOCTA] ");
+                    //sbSql.AppendFormat(@"  WHERE  TC001='{0}' AND TC003='{1}'", "A542","20170119");
+                    sbSql.AppendFormat(@"  WHERE  TA001='{0}' AND TA003='{1}'", TA001, dt2.ToString("yyyyMMdd"));
+                    sbSql.AppendFormat(@"  ");
+                    sbSql.AppendFormat(@"  ");
+
+                    adapter4 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                    sqlCmdBuilder4 = new SqlCommandBuilder(adapter4);
+                    sqlConn.Open();
+                    ds4.Clear();
+                    adapter4.Fill(ds4, "TEMPds4");
+                    sqlConn.Close();
+
+
+                    if (ds4.Tables["TEMPds4"].Rows.Count == 0)
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        if (ds4.Tables["TEMPds4"].Rows.Count >= 1)
+                        {
+                            TA002 = SETTA002(ds4.Tables["TEMPds4"].Rows[0]["TA002"].ToString());
+                            return TA002;
+
+                        }
+                        return null;
+                    }
+
+                }
+                catch
+                {
+                    return null;
+                }
+                finally
+                {
+                    sqlConn.Close();
+                }
             }
-            catch
-            {
-                return null;
-            }
-            finally
-            {
-                sqlConn.Close();
-            }
+
+            return null;
 
         }
         public string SETTA002(string TA002)
         {
-            if (TA002.Equals("00000000000"))
+
+            if (MANU.Equals("新廠製二組"))
             {
-                return dt1.ToString("yyyyMMdd") + "001";
+                if (TA002.Equals("00000000000"))
+                {
+                    return dt1.ToString("yyyyMMdd") + "001";
+                }
+
+                else
+                {
+                    int serno = Convert.ToInt16(TA002.Substring(8, 3));
+                    serno = serno + 1;
+                    string temp = serno.ToString();
+                    temp = temp.PadLeft(3, '0');
+                    return dt1.ToString("yyyyMMdd") + temp.ToString();
+                }
             }
 
-            else
+            else if (MANU.Equals("新廠製四組(包裝)"))
             {
-                int serno = Convert.ToInt16(TA002.Substring(8, 3));
-                serno = serno + 1;
-                string temp = serno.ToString();
-                temp = temp.PadLeft(3, '0');
-                return dt1.ToString("yyyyMMdd") + temp.ToString();
+                if (TA002.Equals("00000000000"))
+                {
+                    return dt2.ToString("yyyyMMdd") + "001";
+                }
+
+                else
+                {
+                    int serno = Convert.ToInt16(TA002.Substring(8, 3));
+                    serno = serno + 1;
+                    string temp = serno.ToString();
+                    temp = temp.PadLeft(3, '0');
+                    return dt2.ToString("yyyyMMdd") + temp.ToString();
+                }
             }
+
+            return null;
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -1288,7 +1508,7 @@ namespace TKMOC
         {
             TA002 = GETMAXTA002(TA001);
             ADDMOCMANULINERESULT();
-            //ADDMOCTATB();
+            ADDMOCTATB();
             SEARCHMOCMANULINERESULT();
 
             MessageBox.Show("完成");
