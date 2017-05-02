@@ -39,18 +39,22 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder5 = new SqlCommandBuilder();
         SqlDataAdapter adapter6 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder6 = new SqlCommandBuilder();
+        SqlDataAdapter adapter7 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder7 = new SqlCommandBuilder();
         SqlTransaction tran;
         SqlCommand cmd = new SqlCommand();
         DataSet ds1 = new DataSet();
         DataSet ds2 = new DataSet();
         DataSet ds3 = new DataSet();
         DataSet ds4 = new DataSet();
+        DataSet ds5 = new DataSet();
         DataSet dsBOMMC = new DataSet();
         DataSet dsBOMMD = new DataSet();
 
         DataTable dt = new DataTable();
         string tablename = null;
         int result;
+        string MANU= "新廠製二組";
 
         string ID1;
         DateTime dt1;
@@ -142,6 +146,7 @@ namespace TKMOC
         {
             InitializeComponent();
             comboBox1load();
+            comboBox2load();
         }
 
         #region FUNCTION
@@ -166,61 +171,143 @@ namespace TKMOC
 
         }
 
+        public void comboBox2load()
+        {
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 LIKE '新廠製四組(包裝)%'   ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("MD001", typeof(string));
+            dt.Columns.Add("MD002", typeof(string));
+            da.Fill(dt);
+            comboBox2.DataSource = dt.DefaultView;
+            comboBox2.ValueMember = "MD002";
+            comboBox2.DisplayMember = "MD002";
+            sqlConn.Close();
+
+
+        }
+
         public void SEARCHMOCMANULINE()
         {
-            try
+            if(MANU.Equals("新廠製二組"))
             {
-                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
-                sqlConn = new SqlConnection(connectionString);
-
-                sbSql.Clear();
-                sbSqlQuery.Clear();
-
-    
-                sbSql.AppendFormat(@"  SELECT ");
-                sbSql.AppendFormat(@"  [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名'");
-                sbSql.AppendFormat(@"  ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[CLINET] AS '客戶'");
-                sbSql.AppendFormat(@"  ,[ID]");
-                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
-                sbSql.AppendFormat(@"  WHERE [MANU]='新廠製二組' ");
-                sbSql.AppendFormat(@"  AND CONVERT(varchar(100),[MANUDATE],112) LIKE '{0}%'",dateTimePicker1.Value.ToString("yyyyMM"));
-                sbSql.AppendFormat(@"  ORDER BY [MANUDATE],[ID]");
-                sbSql.AppendFormat(@"  ");
-
-                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
-                sqlConn.Open();
-                ds1.Clear();
-                adapter1.Fill(ds1, "TEMPds1");
-                sqlConn.Close();
-
-
-                if (ds1.Tables["TEMPds1"].Rows.Count == 0)
+                try
                 {
+                    connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
 
-                }
-                else
-                {
-                    if (ds1.Tables["TEMPds1"].Rows.Count >= 1)
+                    sbSql.Clear();
+                    sbSqlQuery.Clear();
+
+
+                    sbSql.AppendFormat(@"  SELECT ");
+                    sbSql.AppendFormat(@"  [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名'");
+                    sbSql.AppendFormat(@"  ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[CLINET] AS '客戶'");
+                    sbSql.AppendFormat(@"  ,[ID]");
+                    sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
+                    sbSql.AppendFormat(@"  WHERE [MANU]='{0}' ", MANU);
+                    sbSql.AppendFormat(@"  AND CONVERT(varchar(100),[MANUDATE],112) LIKE '{0}%'", dateTimePicker1.Value.ToString("yyyyMM"));
+                    sbSql.AppendFormat(@"  ORDER BY [MANUDATE],[ID]");
+                    sbSql.AppendFormat(@"  ");
+
+                    adapter1= new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                    sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                    sqlConn.Open();
+                    ds1.Clear();
+                    adapter1.Fill(ds1, "TEMPds1");
+                    sqlConn.Close();
+
+
+                    if (ds1.Tables["TEMPds1"].Rows.Count == 0)
                     {
-                        //dataGridView1.Rows.Clear();
-                        dataGridView1.DataSource = ds1.Tables["TEMPds1"];
-                        dataGridView1.AutoResizeColumns();
-                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
 
                     }
+                    else
+                    {
+                        if (ds1.Tables["TEMPds1"].Rows.Count >= 1)
+                        {
+                            //dataGridView1.Rows.Clear();
+                            dataGridView1.DataSource = ds1.Tables["TEMPds1"];
+                            dataGridView1.AutoResizeColumns();
+                            //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                        }
+                    }
+
                 }
+                catch
+                {
 
+                }
+                finally
+                {
+
+                }
             }
-            catch
+
+            else if (MANU.Equals("新廠製四組(包裝)"))
             {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
 
-            }
-            finally
-            {
+                    sbSql.Clear();
+                    sbSqlQuery.Clear();
 
+
+                    sbSql.AppendFormat(@"  SELECT ");
+                    sbSql.AppendFormat(@"  [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名'");
+                    sbSql.AppendFormat(@"  ,[MB003] AS '規格',[BOX] AS '箱數',[PACKAGE] AS '包裝數',[CLINET] AS '客戶',[MANUHOUR] AS '生產時間',[OUTDATE] AS '交期'");
+                    sbSql.AppendFormat(@"  ,[ID]");
+                    sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
+                    sbSql.AppendFormat(@"  WHERE [MANU]='{0}' ", MANU);
+                    sbSql.AppendFormat(@"  AND CONVERT(varchar(100),[MANUDATE],112) LIKE '{0}%'", dateTimePicker1.Value.ToString("yyyyMM"));
+                    sbSql.AppendFormat(@"  ORDER BY [MANUDATE],[ID]");
+                    sbSql.AppendFormat(@"  ");
+
+                    adapter7 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                    sqlCmdBuilder7 = new SqlCommandBuilder(adapter7);
+                    sqlConn.Open();
+                    ds5.Clear();
+                    adapter7.Fill(ds5, "TEMPds5");
+                    sqlConn.Close();
+
+
+                    if (ds5.Tables["TEMPds5"].Rows.Count == 0)
+                    {
+
+                    }
+                    else
+                    {
+                        if (ds5.Tables["TEMPds5"].Rows.Count >= 1)
+                        {
+                            //dataGridView1.Rows.Clear();
+                            dataGridView3.DataSource = ds5.Tables["TEMPds5"];
+                            dataGridView3.AutoResizeColumns();
+                            //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                        }
+                    }
+
+                }
+                catch
+                {
+
+                }
+                finally
+                {
+
+                }
             }
+
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -230,51 +317,103 @@ namespace TKMOC
 
         public void SEARCHMB001()
         {
-            try
+            if (MANU.Equals("新廠製二組"))
             {
-                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
-                sqlConn = new SqlConnection(connectionString);
-
-                sbSql.Clear();
-                sbSqlQuery.Clear();
-
-                sbSql.AppendFormat(@"  SELECT MB001,MB002,MB003");
-                sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB");
-                sbSql.AppendFormat(@"  WHERE MB001='{0}'",textBox1.Text);
-
-                adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                sqlCmdBuilder2 = new SqlCommandBuilder(adapter2);
-                sqlConn.Open();
-                ds2.Clear();
-                adapter2.Fill(ds2, "TEMPds2");
-                sqlConn.Close();
-
-
-                if (ds2.Tables["TEMPds2"].Rows.Count == 0)
+                try
                 {
-                    SETNULL1();
-                }
-                else
-                {
-                    if (ds2.Tables["TEMPds2"].Rows.Count >= 1)
+                    connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sbSql.Clear();
+                    sbSqlQuery.Clear();
+
+                    sbSql.AppendFormat(@"  SELECT MB001,MB002,MB003");
+                    sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB");
+                    sbSql.AppendFormat(@"  WHERE MB001='{0}'", textBox1.Text);
+
+                    adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                    sqlCmdBuilder2 = new SqlCommandBuilder(adapter2);
+                    sqlConn.Open();
+                    ds2.Clear();
+                    adapter2.Fill(ds2, "TEMPds2");
+                    sqlConn.Close();
+
+
+                    if (ds2.Tables["TEMPds2"].Rows.Count == 0)
                     {
-                        textBox2.Text = ds2.Tables["TEMPds2"].Rows[0]["MB002"].ToString();
-                        textBox3.Text = ds2.Tables["TEMPds2"].Rows[0]["MB003"].ToString();
-
-
+                        SETNULL1();
                     }
+                    else
+                    {
+                        if (ds2.Tables["TEMPds2"].Rows.Count >= 1)
+                        {
+                            textBox2.Text = ds2.Tables["TEMPds2"].Rows[0]["MB002"].ToString();
+                            textBox3.Text = ds2.Tables["TEMPds2"].Rows[0]["MB003"].ToString();
+                            
+                        }
+                    }
+
+                }
+                catch
+                {
+
+                }
+                finally
+                {
+
                 }
 
             }
-            catch
+            else if (MANU.Equals("新廠製四組(包裝)"))
             {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sbSql.Clear();
+                    sbSqlQuery.Clear();
+
+                    sbSql.AppendFormat(@"  SELECT MB001,MB002,MB003");
+                    sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB");
+                    sbSql.AppendFormat(@"  WHERE MB001='{0}'", textBox7.Text);
+
+                    adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                    sqlCmdBuilder2 = new SqlCommandBuilder(adapter2);
+                    sqlConn.Open();
+                    ds2.Clear();
+                    adapter2.Fill(ds2, "TEMPds2");
+                    sqlConn.Close();
+
+
+                    if (ds2.Tables["TEMPds2"].Rows.Count == 0)
+                    {
+                        SETNULL1();
+                    }
+                    else
+                    {
+                        if (ds2.Tables["TEMPds2"].Rows.Count >= 1)
+                        {
+                            textBox10.Text = ds2.Tables["TEMPds2"].Rows[0]["MB002"].ToString();
+                            textBox11.Text = ds2.Tables["TEMPds2"].Rows[0]["MB003"].ToString();
+                        }
+                    }
+
+                }
+                catch
+                {
+
+                }
+                finally
+                {
+
+                }
+              
 
             }
-            finally
-            {
 
-            }
         }
 
         public void SETNULL1()
@@ -287,51 +426,103 @@ namespace TKMOC
         }
         public void ADDMOCMANULINE()
         {
-            try
+            if(MANU.Equals("新廠製二組"))
             {
-                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
-                sqlConn = new SqlConnection(connectionString);
-
-                sqlConn.Close();
-                sqlConn.Open();
-                tran = sqlConn.BeginTransaction();
-
-                sbSql.Clear();
-                
-
-                sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINE]");
-                sbSql.AppendFormat(" ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET])");
-                sbSql.AppendFormat(" VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}')", "NEWID()", comboBox1.Text, dateTimePicker2.Value.ToString("yyyy/MM/dd"), textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, textBox5.Text, textBox6.Text);
-                sbSql.AppendFormat(" ");
-                sbSql.AppendFormat(" ");
-
-
-                cmd.Connection = sqlConn;
-                cmd.CommandTimeout = 60;
-                cmd.CommandText = sbSql.ToString();
-                cmd.Transaction = tran;
-                result = cmd.ExecuteNonQuery();
-
-                if (result == 0)
+                try
                 {
-                    tran.Rollback();    //交易取消
+                    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sqlConn.Close();
+                    sqlConn.Open();
+                    tran = sqlConn.BeginTransaction();
+
+                    sbSql.Clear();
+
+
+                    sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINE]");
+                    sbSql.AppendFormat(" ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET])");
+                    sbSql.AppendFormat(" VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}')", "NEWID()", comboBox1.Text, dateTimePicker2.Value.ToString("yyyy/MM/dd"), textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, textBox5.Text, textBox6.Text);
+                    sbSql.AppendFormat(" ");
+                    sbSql.AppendFormat(" ");
+
+
+                    cmd.Connection = sqlConn;
+                    cmd.CommandTimeout = 60;
+                    cmd.CommandText = sbSql.ToString();
+                    cmd.Transaction = tran;
+                    result = cmd.ExecuteNonQuery();
+
+                    if (result == 0)
+                    {
+                        tran.Rollback();    //交易取消
+                    }
+                    else
+                    {
+                        tran.Commit();      //執行交易  
+
+
+                    }
+
                 }
-                else
+                catch
                 {
-                    tran.Commit();      //執行交易  
-
 
                 }
 
+                finally
+                {
+                    sqlConn.Close();
+                }
             }
-            catch
+            else if (MANU.Equals("新廠製四組(包裝)"))
             {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
 
-            }
+                    sqlConn.Close();
+                    sqlConn.Open();
+                    tran = sqlConn.BeginTransaction();
 
-            finally
-            {
-                sqlConn.Close();
+                    sbSql.Clear();
+
+
+                    sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINE]");
+                    sbSql.AppendFormat(" ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[CLINET],[MANUHOUR],[BOX],[PACKAGE],[OUTDATE])");
+                    sbSql.AppendFormat(" VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}')", "NEWID()", comboBox2.Text, dateTimePicker4.Value.ToString("yyyy/MM/dd"), textBox7.Text, textBox10.Text, textBox11.Text, textBox9.Text, textBox13.Text, textBox8.Text, textBox12.Text, dateTimePicker5.Value.ToString("yyyy/MM/dd"));
+                    sbSql.AppendFormat(" ");
+                    sbSql.AppendFormat(" ");
+
+
+                    cmd.Connection = sqlConn;
+                    cmd.CommandTimeout = 60;
+                    cmd.CommandText = sbSql.ToString();
+                    cmd.Transaction = tran;
+                    result = cmd.ExecuteNonQuery();
+
+                    if (result == 0)
+                    {
+                        tran.Rollback();    //交易取消
+                    }
+                    else
+                    {
+                        tran.Commit();      //執行交易  
+
+
+                    }
+
+                }
+                catch
+                {
+
+                }
+
+                finally
+                {
+                    sqlConn.Close();
+                }
             }
             SEARCHMOCMANULINE();
         }
@@ -343,6 +534,16 @@ namespace TKMOC
             textBox4.Text = null;
             textBox5.Text = null;
             textBox6.Text = null;
+        }
+        public void SETNULL3()
+        {
+            textBox7.Text = null;
+            textBox8.Text = null;
+            textBox9.Text = null;
+            textBox10.Text = null;
+            textBox11.Text = null;
+            textBox12.Text = null;
+            textBox13.Text = null;
         }
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
@@ -778,7 +979,33 @@ namespace TKMOC
             }
         }
 
-
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage1"])
+            {
+                MessageBox.Show("新廠製二組");
+                MANU = "新廠製二組";
+            }
+            else if(tabControl1.SelectedTab == tabControl1.TabPages["tabPage2"])
+            {
+                MessageBox.Show("新廠製一組");
+                MANU = "新廠製一組";
+            }
+            else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage3"])
+            {
+                MessageBox.Show("新廠製三組(手工)");
+                MANU = "新廠製三組(手工)";
+            }
+            else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage4"])
+            {
+                MessageBox.Show("新廠製四組(包裝)");
+                MANU = "新廠製四組(包裝)";
+            }
+        }
+        private void textBox7_TextChanged(object sender, EventArgs e)
+        {
+            SEARCHMB001();
+        }
         #endregion
 
         #region BUTTON
@@ -827,11 +1054,40 @@ namespace TKMOC
         {
           
             TA002 = GETMAXTA002(TA001);
-            //ADDMOCMANULINERESULT();
+            ADDMOCMANULINERESULT();
             ADDMOCTATB();
-            //SEARCHMOCMANULINERESULT();
+            SEARCHMOCMANULINERESULT();
 
             MessageBox.Show("完成");
+        }
+        private void button6_Click(object sender, EventArgs e)
+        {
+            SEARCHMOCMANULINE();
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            frmSUBMOCMANULINE SUBfrmSUBMOCMANULINE = new frmSUBMOCMANULINE();
+            SUBfrmSUBMOCMANULINE.ShowDialog();
+            textBox7.Text = SUBfrmSUBMOCMANULINE.TextBoxMsg;
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBox7.Text))
+            {
+                ADDMOCMANULINE();
+                SETNULL3();
+            }
+            else
+            {
+                MessageBox.Show("品名錯誤");
+            }
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+
         }
         #endregion
 
