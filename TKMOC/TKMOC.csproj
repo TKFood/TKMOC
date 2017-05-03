@@ -228,6 +228,12 @@
     <Compile Include="frmMOCPRODUCTDAILYREPORTPROCESSID.Designer.cs">
       <DependentUpon>frmMOCPRODUCTDAILYREPORTPROCESSID.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmREPORTMOCMANULINE.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmREPORTMOCMANULINE.Designer.cs">
+      <DependentUpon>frmREPORTMOCMANULINE.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmSUBMOCMANULINE.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -319,6 +325,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMOCPRODUCTDAILYREPORTPROCESSID.resx">
       <DependentUpon>frmMOCPRODUCTDAILYREPORTPROCESSID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmREPORTMOCMANULINE.resx">
+      <DependentUpon>frmREPORTMOCMANULINE.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSUBMOCMANULINE.resx">
       <DependentUpon>frmSUBMOCMANULINE.cs</DependentUpon>
