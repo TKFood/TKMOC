@@ -73,12 +73,17 @@ namespace TKMOC
 
         string ID1;
         DateTime dt1;
+        string DELID1;
         string ID2;
         DateTime dt2;
+        string DELID2;
         string ID3;
         DateTime dt3;
+        string DELID3;
         string ID4;
         DateTime dt4;
+        string DELID4;
+
         string TA001 = "A510";
         string TA002;
         string MB001;
@@ -343,7 +348,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"  ,[ID]");
                     sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
                     sbSql.AppendFormat(@"  WHERE [MANU]='{0}' ", MANU);
-                    sbSql.AppendFormat(@"  AND CONVERT(varchar(100),[MANUDATE],112) LIKE '{0}%'", dateTimePicker1.Value.ToString("yyyyMM"));
+                    sbSql.AppendFormat(@"  AND CONVERT(varchar(100),[MANUDATE],112) LIKE '{0}%'", dateTimePicker3.Value.ToString("yyyyMM"));
                     sbSql.AppendFormat(@"  ORDER BY [MANUDATE],[ID]");
                     sbSql.AppendFormat(@"  ");
 
@@ -1020,7 +1025,7 @@ namespace TKMOC
 
                     sbSql.Clear();
                     sbSql.AppendFormat("  DELETE [TKMOC].[dbo].[MOCMANULINE]");
-                    sbSql.AppendFormat("  WHERE ID='{0}'", ID1);
+                    sbSql.AppendFormat("  WHERE ID='{0}'", ID2);
                     sbSql.AppendFormat(" ");
 
                     cmd.Connection = sqlConn;
@@ -2505,6 +2510,264 @@ namespace TKMOC
                 }
             }
         }
+        private void dataGridView2_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView2.CurrentRow != null)
+            {
+                int rowindex = dataGridView2.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView2.Rows[rowindex];
+                    DELID1 = row.Cells["SID"].Value.ToString();
+                    
+                    
+                    
+                }
+                else
+                {
+                    DELID1 = null;
+
+                }
+            }
+        }
+        private void dataGridView4_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView4.CurrentRow != null)
+            {
+                int rowindex = dataGridView4.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView4.Rows[rowindex];
+                    DELID2 = row.Cells["SID"].Value.ToString();
+
+                   
+
+                }
+                else
+                {
+                    DELID2 = null;
+
+                }
+            }
+        }
+
+        private void dataGridView6_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView6.CurrentRow != null)
+            {
+                int rowindex = dataGridView6.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView6.Rows[rowindex];
+                    DELID3 = row.Cells["SID"].Value.ToString();
+
+                    
+
+                }
+                else
+                {
+                    DELID3 = null;
+
+                }
+            }
+        }
+
+        private void dataGridView8_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView8.CurrentRow != null)
+            {
+                int rowindex = dataGridView8.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView8.Rows[rowindex];
+                    DELID4 = row.Cells["SID"].Value.ToString();
+
+                   
+
+                }
+                else
+                {
+                    DELID4 = null;
+
+                }
+            }
+        }
+
+        public void DELMOCMANULINERESULT()
+        {
+            if (MANU.Equals("新廠製二組"))
+            {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sqlConn.Close();
+                    sqlConn.Open();
+                    tran = sqlConn.BeginTransaction();
+
+                    sbSql.Clear();
+                    sbSql.AppendFormat("  DELETE [TKMOC].[dbo].[MOCMANULINERESULT]");
+                    sbSql.AppendFormat("  WHERE SID='{0}'", DELID1);
+                    sbSql.AppendFormat(" ");
+
+                    cmd.Connection = sqlConn;
+                    cmd.CommandTimeout = 60;
+                    cmd.CommandText = sbSql.ToString();
+                    cmd.Transaction = tran;
+                    result = cmd.ExecuteNonQuery();
+
+                    if (result == 0)
+                    {
+                        tran.Rollback();    //交易取消
+                    }
+                    else
+                    {
+                        tran.Commit();      //執行交易  
+                    }
+
+                }
+                catch
+                {
+
+                }
+
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }
+
+            else if (MANU.Equals("新廠製四組(包裝)"))
+            {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sqlConn.Close();
+                    sqlConn.Open();
+                    tran = sqlConn.BeginTransaction();
+
+                    sbSql.Clear();
+                    sbSql.AppendFormat("  DELETE [TKMOC].[dbo].[MOCMANULINERESULT]");
+                    sbSql.AppendFormat("  WHERE SID='{0}'", DELID2);
+                    sbSql.AppendFormat(" ");
+
+                    cmd.Connection = sqlConn;
+                    cmd.CommandTimeout = 60;
+                    cmd.CommandText = sbSql.ToString();
+                    cmd.Transaction = tran;
+                    result = cmd.ExecuteNonQuery();
+
+                    if (result == 0)
+                    {
+                        tran.Rollback();    //交易取消
+                    }
+                    else
+                    {
+                        tran.Commit();      //執行交易  
+                    }
+
+                }
+                catch
+                {
+
+                }
+
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }
+            else if (MANU.Equals("新廠製一組"))
+            {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sqlConn.Close();
+                    sqlConn.Open();
+                    tran = sqlConn.BeginTransaction();
+
+                    sbSql.Clear();
+                    sbSql.AppendFormat("  DELETE [TKMOC].[dbo].[MOCMANULINERESULT]");
+                    sbSql.AppendFormat("  WHERE SID='{0}'", DELID3);
+                    sbSql.AppendFormat(" ");
+
+                    cmd.Connection = sqlConn;
+                    cmd.CommandTimeout = 60;
+                    cmd.CommandText = sbSql.ToString();
+                    cmd.Transaction = tran;
+                    result = cmd.ExecuteNonQuery();
+
+                    if (result == 0)
+                    {
+                        tran.Rollback();    //交易取消
+                    }
+                    else
+                    {
+                        tran.Commit();      //執行交易  
+                    }
+
+                }
+                catch
+                {
+
+                }
+
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }
+            else if (MANU.Equals("新廠製三組(手工)"))
+            {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sqlConn.Close();
+                    sqlConn.Open();
+                    tran = sqlConn.BeginTransaction();
+
+                    sbSql.Clear();
+                    sbSql.AppendFormat("  DELETE [TKMOC].[dbo].[MOCMANULINERESULT]");
+                    sbSql.AppendFormat("  WHERE SID='{0}'", DELID4);
+                    sbSql.AppendFormat(" ");
+
+                    cmd.Connection = sqlConn;
+                    cmd.CommandTimeout = 60;
+                    cmd.CommandText = sbSql.ToString();
+                    cmd.Transaction = tran;
+                    result = cmd.ExecuteNonQuery();
+
+                    if (result == 0)
+                    {
+                        tran.Rollback();    //交易取消
+                    }
+                    else
+                    {
+                        tran.Commit();      //執行交易  
+                    }
+
+                }
+                catch
+                {
+
+                }
+
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }
+
+        }
+
+
         #endregion
 
         #region BUTTON
@@ -2696,7 +2959,66 @@ namespace TKMOC
             MessageBox.Show("完成");
         }
 
+
+        private void button21_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("要刪除了?", "要刪除了?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                DELMOCMANULINERESULT();
+                SEARCHMOCMANULINE();
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                //do something else
+            }
+        }
+
+        private void button24_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("要刪除了?", "要刪除了?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                DELMOCMANULINERESULT();
+                SEARCHMOCMANULINE();
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                //do something else
+            }
+        }
+
+        private void button22_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("要刪除了?", "要刪除了?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                DELMOCMANULINERESULT();
+                SEARCHMOCMANULINE();
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                //do something else
+            }
+        }
+
+        private void button23_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("要刪除了?", "要刪除了?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                DELMOCMANULINERESULT();
+                SEARCHMOCMANULINE();
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                //do something else
+            }
+        }
+
         #endregion
+
+
 
 
     }
