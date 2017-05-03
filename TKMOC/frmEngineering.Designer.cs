@@ -1344,6 +1344,7 @@
             this.dataGridView12.RowTemplate.Height = 24;
             this.dataGridView12.Size = new System.Drawing.Size(969, 392);
             this.dataGridView12.TabIndex = 0;
+            this.dataGridView12.SelectionChanged += new System.EventHandler(this.dataGridView12_SelectionChanged);
             // 
             // tableLayoutPanel7
             // 

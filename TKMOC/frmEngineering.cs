@@ -60,6 +60,7 @@ namespace TKMOC
         string MACHINEMAINWEEKID;
         string MAINPARTSID;
         string MAINPARTSUSEDID;
+        string MACHINECOMMONID;
         Thread TD;
 
         public frmEngineering()
@@ -1983,7 +1984,14 @@ namespace TKMOC
 
             }
         }
-
+        private void dataGridView12_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView12.Rows.Count >= 1)
+            {
+                MACHINECOMMONID = dataGridView12.CurrentRow.Cells["ID"].Value.ToString();
+            }
+            
+        }
 
         #endregion
 
@@ -2240,15 +2248,18 @@ namespace TKMOC
 
         private void button41_Click(object sender, EventArgs e)
         {
-
+            frmMACHINECOMMON objMACHINECOMMON = new frmMACHINECOMMON();
+            objMACHINECOMMON.Show();
         }
 
         private void button42_Click(object sender, EventArgs e)
         {
-
+            frmMACHINECOMMON objMACHINECOMMON = new frmMACHINECOMMON(MACHINECOMMONID);
+            objMACHINECOMMON.Show();
         }
+
         #endregion
 
-
+       
     }
 }
