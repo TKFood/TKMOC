@@ -44,6 +44,7 @@ namespace TKMOC
         DataTable dtMAINPARTSUSED = new DataTable();
         DataTable dtMACHINECARD = new DataTable();
         DataTable  dtMACHINEATTACH = new DataTable();
+        DataTable dtMACHINECOMMON = new DataTable();
         DataGridViewRow drMAINAPPLY = new DataGridViewRow();
         DataGridViewRow drMAINAPPLYOUT = new DataGridViewRow();
         DataGridViewRow drMAINRECORD = new DataGridViewRow();
@@ -1922,6 +1923,68 @@ namespace TKMOC
                 sqlConn.Close();
             }
         }
+
+        public void SEARCHMACHINECOMMON()
+        {
+            DataSet ds = new DataSet();
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+             
+                sbSql.Append(@" SELECT [EQUIPMENTID] AS '備品編號',[EQUIPMENTNAME] AS '品名',[SPEC] AS '規格'");
+                sbSql.Append(@" ,[PRICES] AS '單價',[SUPPLY] AS '供應商',[TEL] AS '電話'");
+                sbSql.Append(@" ,[USEDTIME] AS '使用壽命',[SAFENUM] AS '安全庫存',[PRETIME] AS '前置時間'");
+                sbSql.Append(@" ,[EQUIPMENT] AS '適用設備'");
+                sbSql.Append(@" ,[COMMENT] AS '備註'");
+                sbSql.Append(@" ,[ID]");
+                sbSql.Append(@" FROM [TKMOC].[dbo].[MACHINECOMMON]");
+                sbSql.Append(@" ORDER BY [EQUIPMENTID]");
+                sbSql.Append(@" ");
+
+
+
+                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder = new SqlCommandBuilder(adapter);
+                sqlConn.Open();
+                ds.Clear();
+                adapter.Fill(ds, "TEMPds");
+                sqlConn.Close();
+
+
+                if (ds.Tables["TEMPds"].Rows.Count == 0)
+                {
+                    label1.Text = "找不到資料";
+                    dataGridView11.DataSource = null;
+                }
+                else
+                {
+                    if (ds.Tables["TEMPds"].Rows.Count >= 1)
+                    {
+                        dataGridView12.DataSource = ds.Tables["TEMPds"];
+                        dataGridView12.AutoResizeColumns();
+                        dtMACHINECOMMON = ds.Tables["TEMPds"];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+
+
         #endregion
 
         #region BUTTION
@@ -2170,6 +2233,20 @@ namespace TKMOC
             DELDATE();
         }
 
+        private void button40_Click(object sender, EventArgs e)
+        {
+            SEARCHMACHINECOMMON();
+        }
+
+        private void button41_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button42_Click(object sender, EventArgs e)
+        {
+
+        }
         #endregion
 
 
