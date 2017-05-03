@@ -223,7 +223,7 @@ namespace TKMOC
             connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
             sqlConn = new SqlConnection(connectionString);
             StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 LIKE '新廠製四組(包裝)%'   ");
+            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 LIKE '新廠包裝線%'   ");
             SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
             DataTable dt = new DataTable();
             sqlConn.Open();
@@ -420,7 +420,7 @@ namespace TKMOC
                 }
             }
 
-            else if (MANU.Equals("新廠製四組(包裝)"))
+            else if (MANU.Equals("新廠包裝線"))
             {
                 try
                 {
@@ -646,7 +646,7 @@ namespace TKMOC
                 }
 
             }
-            else if (MANU.Equals("新廠製四組(包裝)"))
+            else if (MANU.Equals("新廠包裝線"))
             {
                 try
                 {
@@ -852,7 +852,7 @@ namespace TKMOC
                     sqlConn.Close();
                 }
             }
-            else if (MANU.Equals("新廠製四組(包裝)"))
+            else if (MANU.Equals("新廠包裝線"))
             {
                 try
                 {
@@ -1101,7 +1101,7 @@ namespace TKMOC
                 }
             }
 
-            else if (MANU.Equals("新廠製四組(包裝)"))
+            else if (MANU.Equals("新廠包裝線"))
             {
                 try
                 {
@@ -1282,7 +1282,7 @@ namespace TKMOC
                     sqlConn.Close();
                 }
             }
-            else if (MANU.Equals("新廠製四組(包裝)"))
+            else if (MANU.Equals("新廠包裝線"))
             {
                 try
                 {
@@ -1444,7 +1444,7 @@ namespace TKMOC
                 MOCMB001 = MB001;
                 MOCTA004 = BAR;
             }
-            else if (MANU.Equals("新廠製四組(包裝)"))
+            else if (MANU.Equals("新廠包裝線"))
             {
                 MOCMB001 = MB001B;
                 MOCTA004 = BOX;
@@ -1492,7 +1492,7 @@ namespace TKMOC
                 sbSql.AppendFormat(" ,[TB025],[TB026],[TB027],[TB029],[TB030],[TB031],[TB501],[TB554],[TB556],[TB560])");
                 sbSql.AppendFormat(" (SELECT ");
                 sbSql.AppendFormat(" '{0}' [COMPANY],'{1}' [CREATOR],'{2}' [USR_GROUP],'{3}' [CREATE_DATE],'{4}' [MODIFIER],'{5}' [MODI_DATE],'{6}' [FLAG],'{7}' [CREATE_TIME],'{8}' [MODI_TIME],'{9}' [TRANS_TYPE]", MOCTA.COMPANY, MOCTA.CREATOR, MOCTA.USR_GROUP, MOCTA.CREATE_DATE, MOCTA.MODIFIER, MOCTA.MODI_DATE, MOCTA.FLAG, MOCTA.CREATE_TIME, MOCTA.MODI_TIME, MOCTA.TRANS_TYPE);
-                sbSql.AppendFormat(" ,'{0}' [TRANS_NAME],{1} [sync_count],'{2}' [DataGroup],'{3}' [TB001],'{4}' [TB002],[BOMMD].MD003 [TB003],{5}*[BOMMD].MD006 [TB004],{5}*[BOMMD].MD006 [TB005],'****' [TB006],[BOMMD].MD004 [TB007]", MOCTA.TRANS_NAME, MOCTA.sync_count, MOCTA.DataGroup, MOCTA.TA001, MOCTA.TA002, MOCTA004);
+                sbSql.AppendFormat(" ,'{0}' [TRANS_NAME],{1} [sync_count],'{2}' [DataGroup],'{3}' [TB001],'{4}' [TB002],[BOMMD].MD003 [TB003],ROUND({5}*[BOMMD].MD006/[BOMMD].MD007*(1+[BOMMD].MD008),3) [TB004],0 [TB005],'****' [TB006],[BOMMD].MD004 [TB007]", MOCTA.TRANS_NAME, MOCTA.sync_count, MOCTA.DataGroup, MOCTA.TA001, MOCTA.TA002, MOCTA004);
                 sbSql.AppendFormat(" ,'20006' [TB009],'1' [TB011],[INVMB].MB002 [TB012],[INVMB].MB003 [TB013],[BOMMD].MD001 [TB014],'N' [TB018],'0' [TB019],'0' [TB020],'2' [TB022],'0' [TB024]");
                 sbSql.AppendFormat(" ,'****' [TB025],'0' [TB026],'1' [TB027],'0' [TB029],'0' [TB030],'0' [TB031],'0' [TB501],'N' [TB554],'0' [TB556],'0' [TB560]");
                 sbSql.AppendFormat(" FROM [TK].dbo.[BOMMD],[TK].dbo.[INVMB]");
@@ -1569,8 +1569,8 @@ namespace TKMOC
                 MOCTA.TA017 = "0";
                 MOCTA.TA018 = "0";
                 MOCTA.TA019 = "20";
-                MOCTA.TA020 = "20001";
-                MOCTA.TA021 = "03";
+                MOCTA.TA020 = comboBox5.Text;
+                MOCTA.TA021 = "02";
                 MOCTA.TA022 = "0";
                 MOCTA.TA024 = "A510";
                 MOCTA.TA025 = TA002;
@@ -1593,7 +1593,7 @@ namespace TKMOC
                 return MOCTA;
             }
 
-            else if (MANU.Equals("新廠製四組(包裝)"))
+            else if (MANU.Equals("新廠包裝線"))
             {
                 SEARCHBOMMC();
 
@@ -1629,8 +1629,8 @@ namespace TKMOC
                 MOCTA.TA017 = "0";
                 MOCTA.TA018 = "0";
                 MOCTA.TA019 = "20";
-                MOCTA.TA020 = "20001";
-                MOCTA.TA021 = "07";
+                MOCTA.TA020 = comboBox6.Text;
+                MOCTA.TA021 = "09";
                 MOCTA.TA022 = "0";
                 MOCTA.TA024 = "A510";
                 MOCTA.TA025 = TA002;
@@ -1689,7 +1689,7 @@ namespace TKMOC
                 MOCTA.TA017 = "0";
                 MOCTA.TA018 = "0";
                 MOCTA.TA019 = "20";
-                MOCTA.TA020 = "20001";
+                MOCTA.TA020 = comboBox7.Text;
                 MOCTA.TA021 = "03";
                 MOCTA.TA022 = "0";
                 MOCTA.TA024 = "A510";
@@ -1748,7 +1748,7 @@ namespace TKMOC
                 MOCTA.TA017 = "0";
                 MOCTA.TA018 = "0";
                 MOCTA.TA019 = "20";
-                MOCTA.TA020 = "20001";
+                MOCTA.TA020 = comboBox8.Text;
                 MOCTA.TA021 = "04";
                 MOCTA.TA022 = "0";
                 MOCTA.TA024 = "A510";
@@ -1834,7 +1834,7 @@ namespace TKMOC
 
                 }
             }
-            else if (MANU.Equals("新廠製四組(包裝)"))
+            else if (MANU.Equals("新廠包裝線"))
             {
                 try
                 {
@@ -2045,7 +2045,7 @@ namespace TKMOC
 
                 }
             }
-            else if  (MANU.Equals("新廠製四組(包裝)"))
+            else if  (MANU.Equals("新廠包裝線"))
             {
                 try
                 {
@@ -2255,7 +2255,7 @@ namespace TKMOC
                     sqlConn.Close();
                 }
             }
-            else if (MANU.Equals("新廠製四組(包裝)"))
+            else if (MANU.Equals("新廠包裝線"))
             {
                 try
                 {
@@ -2438,7 +2438,7 @@ namespace TKMOC
                 }
             }
 
-            else if (MANU.Equals("新廠製四組(包裝)"))
+            else if (MANU.Equals("新廠包裝線"))
             {
                 if (TA002.Equals("00000000000"))
                 {
@@ -2510,8 +2510,8 @@ namespace TKMOC
             }
             else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage4"])
             {
-                MessageBox.Show("新廠製四組(包裝)");
-                MANU = "新廠製四組(包裝)";
+                MessageBox.Show("新廠包裝線");
+                MANU = "新廠包裝線";
             }
         }
         private void textBox7_TextChanged(object sender, EventArgs e)
@@ -2727,7 +2727,7 @@ namespace TKMOC
                 }
             }
 
-            else if (MANU.Equals("新廠製四組(包裝)"))
+            else if (MANU.Equals("新廠包裝線"))
             {
                 try
                 {
