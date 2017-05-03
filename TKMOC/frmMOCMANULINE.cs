@@ -51,6 +51,7 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder11 = new SqlCommandBuilder();
         SqlDataAdapter adapter12 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder12 = new SqlCommandBuilder();
+
         SqlTransaction tran;
         SqlCommand cmd = new SqlCommand();
         DataSet ds1 = new DataSet();
@@ -63,6 +64,7 @@ namespace TKMOC
         DataSet ds8 = new DataSet();
         DataSet ds9 = new DataSet();
         DataSet ds10= new DataSet();
+
         DataSet dsBOMMC = new DataSet();
         DataSet dsBOMMD = new DataSet();
 
@@ -187,6 +189,11 @@ namespace TKMOC
             comboBox2load();
             comboBox3load();
             comboBox4load();
+            comboBox5load();
+            comboBox6load();
+            comboBox7load();
+            comboBox8load();
+
         }
 
         #region FUNCTION
@@ -272,6 +279,88 @@ namespace TKMOC
 
 
         }
+
+        public void comboBox5load()
+        {
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT MC001 FROM [TK].dbo.CMSMC WHERE MC001 LIKE '2000%'   ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("MC001", typeof(string));
+         
+            da.Fill(dt);
+            comboBox5.DataSource = dt.DefaultView;
+            comboBox5.ValueMember = "MC001";
+            comboBox5.DisplayMember = "MC001";
+            sqlConn.Close();
+
+
+        }
+        public void comboBox6load()
+        {
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT MC001 FROM [TK].dbo.CMSMC WHERE MC001 LIKE '2000%'   ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("MC001", typeof(string));
+           
+            da.Fill(dt);
+            comboBox6.DataSource = dt.DefaultView;
+            comboBox6.ValueMember = "MC001";
+            comboBox6.DisplayMember = "MC001";
+            sqlConn.Close();
+
+
+        }
+        public void comboBox7load()
+        {
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT MC001 FROM [TK].dbo.CMSMC WHERE MC001 LIKE '2000%'   ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("MC001", typeof(string));
+            
+            da.Fill(dt);
+            comboBox7.DataSource = dt.DefaultView;
+            comboBox7.ValueMember = "MC001";
+            comboBox7.DisplayMember = "MC001";
+            sqlConn.Close();
+
+
+        }
+        public void comboBox8load()
+        {
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT MC001 FROM [TK].dbo.CMSMC WHERE MC001 LIKE '2000%'   ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("MC001", typeof(string));
+           
+            da.Fill(dt);
+            comboBox8.DataSource = dt.DefaultView;
+            comboBox8.ValueMember = "MC001";
+            comboBox8.DisplayMember = "MC001";
+            sqlConn.Close();
+
+
+        }
+
         public void SEARCHMOCMANULINE()
         {
             if(MANU.Equals("新廠製二組"))
