@@ -2249,13 +2249,17 @@ namespace TKMOC
         private void button41_Click(object sender, EventArgs e)
         {
             frmMACHINECOMMON objMACHINECOMMON = new frmMACHINECOMMON();
-            objMACHINECOMMON.Show();
+            objMACHINECOMMON.ShowDialog();
+            SEARCHMACHINECOMMON();
+            button40.PerformClick();
         }
 
         private void button42_Click(object sender, EventArgs e)
         {
             frmMACHINECOMMON objMACHINECOMMON = new frmMACHINECOMMON(MACHINECOMMONID);
-            objMACHINECOMMON.Show();
+            objMACHINECOMMON.ShowDialog();
+            SEARCHMACHINECOMMON();
+            button40.PerformClick();
         }
 
         #endregion
