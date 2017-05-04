@@ -60,7 +60,8 @@ namespace TKMOC
         string MACHINEMAINWEEKID;
         string MAINPARTSID;
         string MAINPARTSUSEDID;
-        string MACHINECOMMONID;
+        string MACHINECOMMONID;       
+        int result;
         Thread TD;
 
         public frmEngineering()
@@ -1961,7 +1962,7 @@ namespace TKMOC
                 if (ds.Tables["TEMPds"].Rows.Count == 0)
                 {
                     label1.Text = "找不到資料";
-                    dataGridView11.DataSource = null;
+                    dataGridView12.DataSource = null;
                 }
                 else
                 {
@@ -1990,8 +1991,56 @@ namespace TKMOC
             {
                 MACHINECOMMONID = dataGridView12.CurrentRow.Cells["ID"].Value.ToString();
             }
+            else
+            {
+                MACHINECOMMONID = null;
+            }
             
         }
+
+        public void DELMACHINECOMMON()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+                sbSql.AppendFormat("  DELETE [TKMOC].[dbo].[MACHINECOMMON]");
+                sbSql.AppendFormat("  WHERE ID='{0}'", MACHINECOMMONID);
+                sbSql.AppendFormat(" ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
 
         #endregion
 
@@ -2259,11 +2308,27 @@ namespace TKMOC
             frmMACHINECOMMON objMACHINECOMMON = new frmMACHINECOMMON(MACHINECOMMONID);
             objMACHINECOMMON.ShowDialog();
             SEARCHMACHINECOMMON();
-            button40.PerformClick();
+            
+        }
+        private void button43_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("要刪除了?", "要刪除了?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                DELMACHINECOMMON();
+                SEARCHMACHINECOMMON();
+                button40.PerformClick();
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                //do something else
+            }
+
+            
         }
 
         #endregion
 
-       
+
     }
 }
