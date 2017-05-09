@@ -2429,7 +2429,59 @@ namespace TKMOC
                     sqlConn.Close();
                 }
             }
+            else if (MANU.Equals("水麵"))
+            {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
 
+                    StringBuilder sbSql = new StringBuilder();
+                    sbSql.Clear();
+                    sbSqlQuery.Clear();
+                    ds4.Clear();
+
+                    sbSql.AppendFormat(@"  SELECT ISNULL(MAX(TA002),'00000000000') AS TA002");
+                    sbSql.AppendFormat(@"  FROM [TK].[dbo].[MOCTA] ");
+                    //sbSql.AppendFormat(@"  WHERE  TC001='{0}' AND TC003='{1}'", "A542","20170119");
+                    sbSql.AppendFormat(@"  WHERE  TA001='{0}' AND TA003='{1}'", TA001, textBox26.Text);
+                    sbSql.AppendFormat(@"  ");
+                    sbSql.AppendFormat(@"  ");
+
+                    adapter4 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                    sqlCmdBuilder4 = new SqlCommandBuilder(adapter4);
+                    sqlConn.Open();
+                    ds4.Clear();
+                    adapter4.Fill(ds4, "TEMPds4");
+                    sqlConn.Close();
+
+
+                    if (ds4.Tables["TEMPds4"].Rows.Count == 0)
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        if (ds4.Tables["TEMPds4"].Rows.Count >= 1)
+                        {
+                            TA002 = SETTA002(ds4.Tables["TEMPds4"].Rows[0]["TA002"].ToString());
+                            return TA002;
+
+                        }
+                        return null;
+                    }
+
+                }
+                catch
+                {
+                    return null;
+                }
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }
             return null;
 
         }
@@ -2500,6 +2552,22 @@ namespace TKMOC
                     string temp = serno.ToString();
                     temp = temp.PadLeft(3, '0');
                     return dt4.ToString("yyyyMMdd") + temp.ToString();
+                }
+            }
+            else if (MANU.Equals("水麵"))
+            {
+                if (TA002.Equals("00000000000"))
+                {
+                    return textBox26.Text.ToString() + "001";
+                }
+
+                else
+                {
+                    int serno = Convert.ToInt16(TA002.Substring(8, 3));
+                    serno = serno + 1;
+                    string temp = serno.ToString();
+                    temp = temp.PadLeft(3, '0');
+                    return textBox26.Text.ToString() + temp.ToString();
                 }
             }
 
@@ -2946,6 +3014,7 @@ namespace TKMOC
                     textBox29.Text = row.Cells["品號"].Value.ToString();
                     textBox30.Text = row.Cells["品名"].Value.ToString();
                     textBox31.Text = row.Cells["總數量"].Value.ToString();
+                    textBox36.Text = row.Cells["入庫別"].Value.ToString();
 
 
                     SEARCHMOCMANULINETOATL();
@@ -3068,6 +3137,57 @@ namespace TKMOC
         {
             CALPRODUCT();
         }
+
+        public void ADDMOCMANULINETOATL()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+
+                sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINETOATL]");
+                sbSql.AppendFormat(" ([ID],[TA003],[TA021],[TA021N],[TB003],[TB012],[TB004],[TB009],[MOCTA001],[MOCTA002])");
+                sbSql.AppendFormat(" VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}')", "NEWID()",textBox26.Text,textBox27.Text,textBox28.Text,textBox29.Text, textBox30.Text, textBox31.Text,textBox36.Text, TA001, TA002);
+                sbSql.AppendFormat(" ");
+                sbSql.AppendFormat(" ");
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
 
         #endregion
 
@@ -3325,9 +3445,23 @@ namespace TKMOC
 
 
 
+        private void button26_Click(object sender, EventArgs e)
+        {
+            TA002 = GETMAXTA002(TA001);
+            ADDMOCMANULINETOATL();
+            ADDMOCTATB();
+            SEARCHMOCMANULINETOATL();
+
+            MessageBox.Show("完成");
+        }
+
+        private void button27_Click(object sender, EventArgs e)
+        {
+
+        }
 
         #endregion
 
-      
+
     }
 }
