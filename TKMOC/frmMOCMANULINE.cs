@@ -53,6 +53,8 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder12 = new SqlCommandBuilder();
         SqlDataAdapter adapter13 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder13 = new SqlCommandBuilder();
+        SqlDataAdapter adapter14 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder14 = new SqlCommandBuilder();
 
         SqlTransaction tran;
         SqlCommand cmd = new SqlCommand();
@@ -67,6 +69,7 @@ namespace TKMOC
         DataSet ds9 = new DataSet();
         DataSet ds10= new DataSet();
         DataSet ds13 = new DataSet();
+        DataSet ds14 = new DataSet();
 
         DataSet dsBOMMC = new DataSet();
         DataSet dsBOMMD = new DataSet();
@@ -611,9 +614,11 @@ namespace TKMOC
                     sbSql.Clear();
                     sbSqlQuery.Clear();
 
-                    sbSql.AppendFormat(@"  SELECT MB001,MB002,MB003");
-                    sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB");
-                    sbSql.AppendFormat(@"  WHERE MB001='{0}'", textBox1.Text);
+                    sbSql.AppendFormat(@"  SELECT MB001,MB002,MB003,MC004  ");
+                    sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB,[TK].dbo.BOMMC");
+                    sbSql.AppendFormat(@"  WHERE MB001=MC001");
+                    sbSql.AppendFormat(@"  AND MB001='{0}'", textBox1.Text);
+                    sbSql.AppendFormat(@"  ");
 
                     adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -634,7 +639,7 @@ namespace TKMOC
                         {
                             textBox2.Text = ds2.Tables["TEMPds2"].Rows[0]["MB002"].ToString();
                             textBox3.Text = ds2.Tables["TEMPds2"].Rows[0]["MB003"].ToString();
-                            
+                            textBox32.Text = ds2.Tables["TEMPds2"].Rows[0]["MC004"].ToString();
                         }
                     }
 
@@ -659,9 +664,11 @@ namespace TKMOC
                     sbSql.Clear();
                     sbSqlQuery.Clear();
 
-                    sbSql.AppendFormat(@"  SELECT MB001,MB002,MB003");
-                    sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB");
-                    sbSql.AppendFormat(@"  WHERE MB001='{0}'", textBox7.Text);
+                    sbSql.AppendFormat(@"  SELECT MB001,MB002,MB003,MC004  ");
+                    sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB,[TK].dbo.BOMMC");
+                    sbSql.AppendFormat(@"  WHERE MB001=MC001");
+                    sbSql.AppendFormat(@"  AND MB001='{0}'", textBox7.Text);
+                    sbSql.AppendFormat(@"  ");
 
                     adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -682,6 +689,7 @@ namespace TKMOC
                         {
                             textBox10.Text = ds2.Tables["TEMPds2"].Rows[0]["MB002"].ToString();
                             textBox11.Text = ds2.Tables["TEMPds2"].Rows[0]["MB003"].ToString();
+                            textBox33.Text = ds2.Tables["TEMPds2"].Rows[0]["MC004"].ToString();
                         }
                     }
 
@@ -708,9 +716,11 @@ namespace TKMOC
                     sbSql.Clear();
                     sbSqlQuery.Clear();
 
-                    sbSql.AppendFormat(@"  SELECT MB001,MB002,MB003");
-                    sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB");
-                    sbSql.AppendFormat(@"  WHERE MB001='{0}'", textBox14.Text);
+                    sbSql.AppendFormat(@"  SELECT MB001,MB002,MB003,MC004  ");
+                    sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB,[TK].dbo.BOMMC");
+                    sbSql.AppendFormat(@"  WHERE MB001=MC001");
+                    sbSql.AppendFormat(@"  AND MB001='{0}'", textBox14.Text);
+                    sbSql.AppendFormat(@"  ");
 
                     adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -731,7 +741,7 @@ namespace TKMOC
                         {
                             textBox17.Text = ds2.Tables["TEMPds2"].Rows[0]["MB002"].ToString();
                             textBox18.Text = ds2.Tables["TEMPds2"].Rows[0]["MB003"].ToString();
-
+                            textBox34.Text = ds2.Tables["TEMPds2"].Rows[0]["MC004"].ToString();
                         }
                     }
 
@@ -756,9 +766,11 @@ namespace TKMOC
                     sbSql.Clear();
                     sbSqlQuery.Clear();
 
-                    sbSql.AppendFormat(@"  SELECT MB001,MB002,MB003");
-                    sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB");
-                    sbSql.AppendFormat(@"  WHERE MB001='{0}'", textBox20.Text);
+                    sbSql.AppendFormat(@"  SELECT MB001,MB002,MB003,MC004  ");
+                    sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB,[TK].dbo.BOMMC");
+                    sbSql.AppendFormat(@"  WHERE MB001=MC001");
+                    sbSql.AppendFormat(@"  AND MB001='{0}'", textBox20.Text);
+                    sbSql.AppendFormat(@"  ");
 
                     adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -779,7 +791,7 @@ namespace TKMOC
                         {
                             textBox24.Text = ds2.Tables["TEMPds2"].Rows[0]["MB002"].ToString();
                             textBox25.Text = ds2.Tables["TEMPds2"].Rows[0]["MB003"].ToString();
-
+                            textBox35.Text = ds2.Tables["TEMPds2"].Rows[0]["MC004"].ToString();
                         }
                     }
 
@@ -2874,13 +2886,14 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  SELECT TB012 AS '品號',SUM(TB004)  AS '總數量',TA003  AS '日期',TB009  AS '入庫別'");
-                sbSql.AppendFormat(@"  FROM [TK].dbo.MOCTB, [TK].dbo.MOCTA");
+                sbSql.AppendFormat(@"  SELECT TA003  AS '日期',[TA021] AS '線別號',[MD002] AS '線別',TB003 AS '品號',TB012 AS '品名',SUM(TB004)  AS '總數量',TB009  AS '入庫別'");
+                sbSql.AppendFormat(@"  FROM [TK].dbo.MOCTB, [TK].dbo.MOCTA,[TK].dbo.CMSMD");
                 sbSql.AppendFormat(@"  WHERE TA001=TB001 AND TA002=TB002");
+                sbSql.AppendFormat(@"  AND [TA021]=MD001");
                 sbSql.AppendFormat(@"  AND TB012 LIKE '%水麵%'");
                 sbSql.AppendFormat(@"  AND TA003='{0}'",dateTimePicker10.Value.ToString("yyyyMMdd"));
-                sbSql.AppendFormat(@"  GROUP BY TB012,TB009,TA003 ");
-                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  GROUP BY TB003,TB012,TB009,TA003,[TA021],[MD002] ");
+                sbSql.AppendFormat(@"  ORDER BY TA003,[TA021],TB003");
                 sbSql.AppendFormat(@"  ");
 
                 adapter13 = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -2919,6 +2932,142 @@ namespace TKMOC
             }
         }
 
+        private void dataGridView9_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView9.CurrentRow != null)
+            {
+                int rowindex = dataGridView9.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView9.Rows[rowindex];
+                    textBox26.Text = row.Cells["日期"].Value.ToString();
+                    textBox27.Text = row.Cells["線別號"].Value.ToString();
+                    textBox28.Text = row.Cells["線別"].Value.ToString();
+                    textBox29.Text = row.Cells["品號"].Value.ToString();
+                    textBox30.Text = row.Cells["品名"].Value.ToString();
+                    textBox31.Text = row.Cells["總數量"].Value.ToString();
+
+
+                    SEARCHMOCMANULINETOATL();
+                }
+                else
+                {
+                    textBox26.Text = null;
+                    textBox27.Text = null;
+                    textBox28.Text = null;
+                    textBox29.Text = null;
+                    textBox30.Text = null;
+                    textBox31.Text = null;
+
+                }
+            }
+        }
+
+        public void SEARCHMOCMANULINETOATL()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  SELECT  [MOCTA001] AS '單別',[MOCTA002] AS '製令'");
+                sbSql.AppendFormat(@"  ,[TA003] AS '日期',[TA021] AS '線別號',[TA021N] AS '線別',[TB003] AS '品號',[TB012] AS '品名',[TB004] AS '總數量',[TB009] AS '入庫別'");
+                sbSql.AppendFormat(@"  ,[ID]");
+                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINETOATL]");
+                sbSql.AppendFormat(@"  WHERE [TA003]='{0}' AND [TA021]='{1}' AND [TB003]='2{}'  AND [TB004]='{3}' AND [TB009]='{4}' ",textBox26.Text, textBox27.Text, textBox29.Text, textBox31.Text);
+                sbSql.AppendFormat(@"  ");
+
+                adapter14 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder14 = new SqlCommandBuilder(adapter14);
+                sqlConn.Open();
+                ds14.Clear();
+                adapter14.Fill(ds14, "TEMPds14");
+                sqlConn.Close();
+
+
+                if (ds14.Tables["TEMPds14"].Rows.Count == 0)
+                {
+                    dataGridView10.DataSource = null;
+                }
+                else
+                {
+                    if (ds14.Tables["TEMPds14"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView10.DataSource = ds14.Tables["TEMPds14"];
+                        dataGridView10.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+            CALPRODUCT();
+        }
+
+        public void CALPRODUCT()
+        {
+            try
+            {
+                if (MANU.Equals("新廠製二組"))
+                {
+                    textBox5.Text = (Convert.ToDecimal(textBox32.Text) * Convert.ToDecimal(textBox4.Text)).ToString();
+                }
+
+                else if (MANU.Equals("新廠包裝線"))
+                {
+                    textBox12.Text = (Convert.ToDecimal(textBox33.Text) * Convert.ToDecimal(textBox8.Text)).ToString();
+                }
+                else if (MANU.Equals("新廠製一組"))
+                {
+                    textBox19.Text = (Convert.ToDecimal(textBox34.Text) * Convert.ToDecimal(textBox15.Text)).ToString();
+                }
+                else if (MANU.Equals("新廠製三組(手工)"))
+                {
+                    textBox23.Text = (Convert.ToDecimal(textBox35.Text) * Convert.ToDecimal(textBox21.Text)).ToString();
+                }
+            }
+            catch
+            {
+                MessageBox.Show("請填數字");
+            }
+            finally
+            {
+
+            }
+            
+        }
+
+        private void textBox8_TextChanged(object sender, EventArgs e)
+        {
+            CALPRODUCT();
+        }
+
+        private void textBox15_TextChanged(object sender, EventArgs e)
+        {
+            CALPRODUCT();
+        }
+
+        private void textBox21_TextChanged(object sender, EventArgs e)
+        {
+            CALPRODUCT();
+        }
 
         #endregion
 
@@ -3174,8 +3323,11 @@ namespace TKMOC
             SEARCHMOCTB();
         }
 
+
+
+
         #endregion
 
-
+      
     }
 }
