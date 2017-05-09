@@ -2977,7 +2977,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  ,[TA003] AS '日期',[TA021] AS '線別號',[TA021N] AS '線別',[TB003] AS '品號',[TB012] AS '品名',[TB004] AS '總數量',[TB009] AS '入庫別'");
                 sbSql.AppendFormat(@"  ,[ID]");
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINETOATL]");
-                sbSql.AppendFormat(@"  WHERE [TA003]='{0}' AND [TA021]='{1}' AND [TB003]='2{}'  AND [TB004]='{3}' AND [TB009]='{4}' ",textBox26.Text, textBox27.Text, textBox29.Text, textBox31.Text);
+                sbSql.AppendFormat(@"  WHERE [TA003]='{0}' AND [TA021]='{1}' AND [TB003]='{2}'   AND [TB004]='{3}' ", textBox26.Text, textBox27.Text, textBox29.Text, textBox31.Text);
                 sbSql.AppendFormat(@"  ");
 
                 adapter14 = new SqlDataAdapter(@"" + sbSql, sqlConn);
