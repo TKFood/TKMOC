@@ -82,15 +82,19 @@ namespace TKMOC
         string ID1;
         DateTime dt1;
         string DELID1;
+        string IN1="20001";
         string ID2;
         DateTime dt2;
         string DELID2;
+        string IN2 = "20001";
         string ID3;
         DateTime dt3;
         string DELID3;
+        string IN3 = "20001";
         string ID4;
         DateTime dt4;
         string DELID4;
+        string IN4 = "20001";
         DateTime dt5;
         string DELID5;
 
@@ -204,7 +208,7 @@ namespace TKMOC
             comboBox6load();
             comboBox7load();
             comboBox8load();
-
+            SETIN();
         }
 
         #region FUNCTION
@@ -296,17 +300,18 @@ namespace TKMOC
             connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
             sqlConn = new SqlConnection(connectionString);
             StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT MC001 FROM [TK].dbo.CMSMC WHERE MC001 LIKE '2000%'   ");
+            Sequel.AppendFormat(@"SELECT MC001 ,MC001+MC002 AS 'MC002' FROM [TK].dbo.CMSMC WHERE MC001 LIKE '2000%'  ORDER BY MC001 ");
             SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
             DataTable dt = new DataTable();
             sqlConn.Open();
 
             dt.Columns.Add("MC001", typeof(string));
-         
+            dt.Columns.Add("MC002", typeof(string));
+
             da.Fill(dt);
             comboBox5.DataSource = dt.DefaultView;
             comboBox5.ValueMember = "MC001";
-            comboBox5.DisplayMember = "MC001";
+            comboBox5.DisplayMember = "MC002";
             sqlConn.Close();
 
 
@@ -316,17 +321,18 @@ namespace TKMOC
             connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
             sqlConn = new SqlConnection(connectionString);
             StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT MC001 FROM [TK].dbo.CMSMC WHERE MC001 LIKE '2000%'   ");
+            Sequel.AppendFormat(@"SELECT MC001 ,MC001+MC002 AS 'MC002' FROM [TK].dbo.CMSMC WHERE MC001 LIKE '2000%'  ORDER BY MC001 ");
             SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
             DataTable dt = new DataTable();
             sqlConn.Open();
 
             dt.Columns.Add("MC001", typeof(string));
-           
+            dt.Columns.Add("MC002", typeof(string));
+
             da.Fill(dt);
             comboBox6.DataSource = dt.DefaultView;
             comboBox6.ValueMember = "MC001";
-            comboBox6.DisplayMember = "MC001";
+            comboBox6.DisplayMember = "MC002";
             sqlConn.Close();
 
 
@@ -336,17 +342,18 @@ namespace TKMOC
             connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
             sqlConn = new SqlConnection(connectionString);
             StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT MC001 FROM [TK].dbo.CMSMC WHERE MC001 LIKE '2000%'   ");
+            Sequel.AppendFormat(@"SELECT MC001 ,MC001+MC002 AS 'MC002' FROM [TK].dbo.CMSMC WHERE MC001 LIKE '2000%'  ORDER BY MC001 ");
             SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
             DataTable dt = new DataTable();
             sqlConn.Open();
 
             dt.Columns.Add("MC001", typeof(string));
-            
+            dt.Columns.Add("MC002", typeof(string));
+
             da.Fill(dt);
             comboBox7.DataSource = dt.DefaultView;
             comboBox7.ValueMember = "MC001";
-            comboBox7.DisplayMember = "MC001";
+            comboBox7.DisplayMember = "MC002";
             sqlConn.Close();
 
 
@@ -356,17 +363,18 @@ namespace TKMOC
             connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
             sqlConn = new SqlConnection(connectionString);
             StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT MC001 FROM [TK].dbo.CMSMC WHERE MC001 LIKE '2000%'   ");
+            Sequel.AppendFormat(@"SELECT MC001 ,MC001+MC002 AS 'MC002' FROM [TK].dbo.CMSMC WHERE MC001 LIKE '2000%'  ORDER BY MC001 ");
             SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
             DataTable dt = new DataTable();
             sqlConn.Open();
 
             dt.Columns.Add("MC001", typeof(string));
-           
+            dt.Columns.Add("MC002", typeof(string));
+
             da.Fill(dt);
             comboBox8.DataSource = dt.DefaultView;
             comboBox8.ValueMember = "MC001";
-            comboBox8.DisplayMember = "MC001";
+            comboBox8.DisplayMember = "MC002";
             sqlConn.Close();
 
 
@@ -1594,7 +1602,7 @@ namespace TKMOC
                 MOCTA.TA017 = "0";
                 MOCTA.TA018 = "0";
                 MOCTA.TA019 = "20";
-                MOCTA.TA020 = comboBox5.Text;
+                MOCTA.TA020 = IN1;
                 MOCTA.TA021 = "02";
                 MOCTA.TA022 = "0";
                 MOCTA.TA024 = "A510";
@@ -1654,7 +1662,7 @@ namespace TKMOC
                 MOCTA.TA017 = "0";
                 MOCTA.TA018 = "0";
                 MOCTA.TA019 = "20";
-                MOCTA.TA020 = comboBox6.Text;
+                MOCTA.TA020 = IN2;
                 MOCTA.TA021 = "09";
                 MOCTA.TA022 = "0";
                 MOCTA.TA024 = "A510";
@@ -1714,7 +1722,7 @@ namespace TKMOC
                 MOCTA.TA017 = "0";
                 MOCTA.TA018 = "0";
                 MOCTA.TA019 = "20";
-                MOCTA.TA020 = comboBox7.Text;
+                MOCTA.TA020 = IN3;
                 MOCTA.TA021 = "03";
                 MOCTA.TA022 = "0";
                 MOCTA.TA024 = "A510";
@@ -1773,7 +1781,7 @@ namespace TKMOC
                 MOCTA.TA017 = "0";
                 MOCTA.TA018 = "0";
                 MOCTA.TA019 = "20";
-                MOCTA.TA020 = comboBox8.Text;
+                MOCTA.TA020 = IN4;
                 MOCTA.TA021 = "04";
                 MOCTA.TA022 = "0";
                 MOCTA.TA024 = "A510";
@@ -3377,6 +3385,39 @@ namespace TKMOC
                 }
             }
         }
+
+        public void SETIN()
+        {
+            label51.Text = "20001";
+            label52.Text = "20001";
+            label53.Text = "20001";
+            label54.Text = "20001";
+        }
+        private void comboBox5_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            label51.Text = comboBox5.SelectedValue.ToString();
+            IN1= comboBox5.SelectedValue.ToString();
+        }
+
+        private void comboBox6_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            label52.Text = comboBox6.SelectedValue.ToString();
+            IN2 = comboBox6.SelectedValue.ToString();
+        }
+
+        private void comboBox7_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            label53.Text = comboBox7.SelectedValue.ToString();
+            IN3 = comboBox7.SelectedValue.ToString();
+
+        }
+
+        private void comboBox8_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            label54.Text = comboBox8.SelectedValue.ToString();
+            IN4 = comboBox8.SelectedValue.ToString();
+
+        }
         #endregion
 
         #region BUTTON
@@ -3656,6 +3697,10 @@ namespace TKMOC
                 //do something else
             }
         }
+
+
+
+
 
 
         #endregion
