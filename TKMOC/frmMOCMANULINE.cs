@@ -51,6 +51,8 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder11 = new SqlCommandBuilder();
         SqlDataAdapter adapter12 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder12 = new SqlCommandBuilder();
+        SqlDataAdapter adapter13 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder13 = new SqlCommandBuilder();
 
         SqlTransaction tran;
         SqlCommand cmd = new SqlCommand();
@@ -64,6 +66,7 @@ namespace TKMOC
         DataSet ds8 = new DataSet();
         DataSet ds9 = new DataSet();
         DataSet ds10= new DataSet();
+        DataSet ds13 = new DataSet();
 
         DataSet dsBOMMC = new DataSet();
         DataSet dsBOMMD = new DataSet();
@@ -2513,6 +2516,11 @@ namespace TKMOC
                 MessageBox.Show("新廠包裝線");
                 MANU = "新廠包裝線";
             }
+            else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage5"])
+            {
+                MessageBox.Show("水麵");
+                MANU = "水麵";
+            }
         }
         private void textBox7_TextChanged(object sender, EventArgs e)
         {
@@ -2856,6 +2864,61 @@ namespace TKMOC
 
         }
 
+        public void SEARCHMOCTB()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  SELECT TB012 AS '品號',SUM(TB004)  AS '總數量',TA003  AS '日期',TB009  AS '入庫別'");
+                sbSql.AppendFormat(@"  FROM [TK].dbo.MOCTB, [TK].dbo.MOCTA");
+                sbSql.AppendFormat(@"  WHERE TA001=TB001 AND TA002=TB002");
+                sbSql.AppendFormat(@"  AND TB012 LIKE '%水麵%'");
+                sbSql.AppendFormat(@"  AND TA003='{0}'",dateTimePicker10.Value.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(@"  GROUP BY TB012,TB009,TA003 ");
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+                adapter13 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder13 = new SqlCommandBuilder(adapter13);
+                sqlConn.Open();
+                ds13.Clear();
+                adapter13.Fill(ds13, "TEMPds13");
+                sqlConn.Close();
+
+
+                if (ds13.Tables["TEMPds13"].Rows.Count == 0)
+                {
+                    dataGridView9.DataSource = null;
+                }
+                else
+                {
+                    if (ds13.Tables["TEMPds13"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView9.DataSource = ds13.Tables["TEMPds13"];
+                        dataGridView9.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+
 
         #endregion
 
@@ -3105,9 +3168,13 @@ namespace TKMOC
             }
         }
 
+
+        private void button25_Click(object sender, EventArgs e)
+        {
+            SEARCHMOCTB();
+        }
+
         #endregion
-
-
 
 
     }
