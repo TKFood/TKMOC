@@ -114,12 +114,165 @@ namespace TKMOC
 
         public void ADDMOCCOPMA()
         {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
 
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+
+                sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCCOPMA]");
+                sbSql.AppendFormat(" ([ID],[NAME])");
+                sbSql.AppendFormat(" VALUES ('{0}','{1}')", textBox1.Text, textBox2.Text);
+                sbSql.AppendFormat(" ");
+                sbSql.AppendFormat(" ");
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
         }
 
         public void UPDATEMOCCOPMA()
         {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
 
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat(" UPDATE [TKMOC].[dbo].[MOCCOPMA]");
+                sbSql.AppendFormat(" SET [NAME]='{0}'", textBox2.Text);
+                sbSql.AppendFormat(" WHERE [ID]='{0}'",textBox1.Text);
+                sbSql.AppendFormat(" ");
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView1.CurrentRow != null)
+            {
+                int rowindex = dataGridView1.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView1.Rows[rowindex];
+                    textBox1.Text = row.Cells["代號"].Value.ToString();
+                    textBox2.Text = row.Cells["名稱"].Value.ToString();
+                }
+                else
+                {
+                    textBox1.Text = null;
+                    textBox2.Text = null;
+                }
+            }
+        }
+
+        public void DELMOCCOPMA()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat(" DELETE  [TKMOC].[dbo].[MOCCOPMA] WHERE [ID]='{0}'",textBox1.Text);
+                sbSql.AppendFormat(" ");
+                sbSql.AppendFormat(" ");
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
         }
 
         #endregion
@@ -137,25 +290,41 @@ namespace TKMOC
             textBox2.Text = null;
 
             textBox1.ReadOnly = false;
-            textBox1.ReadOnly = false;
+            textBox2.ReadOnly = false;
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             EDITSTATUS = "UPDATE";
-
-            textBox1.ReadOnly = false;
-            textBox1.ReadOnly = false;
+        
+            //textBox1.ReadOnly = false;
+            textBox2.ReadOnly = false;
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
+            
             SAVEMOCCOPMA();
-
+            SEARCHMOCCOPMA();
             textBox1.ReadOnly = true;
-            textBox1.ReadOnly = true;
+            textBox2.ReadOnly = true;
+            EDITSTATUS = null;
         }
 
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("要刪除了?", "要刪除了?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                DELMOCCOPMA();
+                SEARCHMOCCOPMA();
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                //do something else
+            }
+        }
         #endregion
 
 
