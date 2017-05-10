@@ -3221,7 +3221,7 @@ namespace TKMOC
 
         private void textBox4_TextChanged(object sender, EventArgs e)
         {
-            CALPRODUCT();
+            //CALPRODUCT();
         }
 
         public void CALPRODUCT()
@@ -3257,19 +3257,51 @@ namespace TKMOC
             
         }
 
+        public void CALPRODUCTDETAIL()
+        {
+            try
+            {
+                if (MANU.Equals("新廠製二組"))
+                {
+                    textBox4.Text = Math.Round(Convert.ToDecimal(textBox5.Text)/ Convert.ToDecimal(textBox32.Text), 2).ToString();
+                }
+
+                else if (MANU.Equals("新廠包裝線"))
+                {
+                    textBox8.Text = Math.Round(Convert.ToDecimal(textBox12.Text) / Convert.ToDecimal(textBox33.Text), 2).ToString();
+                }
+                else if (MANU.Equals("新廠製一組"))
+                {
+                    textBox15.Text = Math.Round(Convert.ToDecimal(textBox19.Text) / Convert.ToDecimal(textBox34.Text), 2).ToString();
+                }
+                else if (MANU.Equals("新廠製三組(手工)"))
+                {
+                    textBox21.Text = Math.Round(Convert.ToDecimal(textBox23.Text) / Convert.ToDecimal(textBox35.Text), 2).ToString();
+                }
+            }
+            catch
+            {
+                MessageBox.Show("請填數字");
+            }
+            finally
+            {
+
+            }
+
+        }
         private void textBox8_TextChanged(object sender, EventArgs e)
         {
-            CALPRODUCT();
+            //CALPRODUCT();
         }
 
         private void textBox15_TextChanged(object sender, EventArgs e)
         {
-            CALPRODUCT();
+            //CALPRODUCT();
         }
 
         private void textBox21_TextChanged(object sender, EventArgs e)
         {
-            CALPRODUCT();
+            //CALPRODUCT();
         }
 
         public void ADDMOCMANULINETOATL()
@@ -3417,6 +3449,24 @@ namespace TKMOC
             label54.Text = comboBox8.SelectedValue.ToString();
             IN4 = comboBox8.SelectedValue.ToString();
 
+        }
+
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+            CALPRODUCTDETAIL();
+        }
+        private void textBox12_TextChanged(object sender, EventArgs e)
+        {
+            CALPRODUCTDETAIL();
+        }
+        private void textBox19_TextChanged(object sender, EventArgs e)
+        {
+            CALPRODUCTDETAIL();
+        }
+
+        private void textBox23_TextChanged(object sender, EventArgs e)
+        {
+            CALPRODUCTDETAIL();
         }
         #endregion
 
@@ -3698,6 +3748,13 @@ namespace TKMOC
             }
         }
 
+        private void button28_Click(object sender, EventArgs e)
+        {
+            frmSUBMOCCOPMA SUBfrmSUBMOCCOPMA = new frmSUBMOCCOPMA();
+            SUBfrmSUBMOCCOPMA.ShowDialog();
+            textBox6.Text = SUBfrmSUBMOCCOPMA.TextBoxMsg;
+        }
+
 
 
 
@@ -3705,6 +3762,6 @@ namespace TKMOC
 
         #endregion
 
-        
+
     }
 }

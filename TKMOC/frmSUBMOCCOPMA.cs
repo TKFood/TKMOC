@@ -19,7 +19,7 @@ using System.Globalization;
 
 namespace TKMOC
 {
-    public partial class frmSUBMOCMANULINE : Form
+    public partial class frmSUBMOCCOPMA : Form
     {
         private ComponentResourceManager _ResourceManager = new ComponentResourceManager();
         SqlConnection sqlConn = new SqlConnection();
@@ -35,19 +35,24 @@ namespace TKMOC
         DataSet ds1 = new DataSet();
 
 
+        DataSet dsBOMMC = new DataSet();
+        DataSet dsBOMMD = new DataSet();
+
         DataTable dt = new DataTable();
         string tablename = null;
         int result;
 
-        string MB001;
 
-        public frmSUBMOCMANULINE()
+        string MA001;
+
+        public frmSUBMOCCOPMA()
         {
             InitializeComponent();
             this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
         }
+
         #region FUNCTION
-        public void SEARCHMB001()
+        public void SEARCHMOCCOPMA()
         {
             try
             {
@@ -57,12 +62,14 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  SELECT MB001,MB002,MB003");
-                sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB");
-                sbSql.AppendFormat(@"  WHERE MB001 LIKE '{0}%'", textBox1.Text);
-
-                
-                
+                if (string.IsNullOrEmpty(textBox1.Text))
+                {
+                    sbSql.AppendFormat(@"SELECT [ID] AS '代號',[NAME] AS '名稱' FROM [TKMOC].[dbo].[MOCCOPMA]  ");
+                }
+                else
+                {
+                    sbSql.AppendFormat(@"SELECT [ID] AS '代號',[NAME] AS '名稱' FROM [TKMOC].[dbo].[MOCCOPMA] WHERE   [NAME]  LIKE '{0}%'", textBox1.Text);
+                }
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -75,7 +82,7 @@ namespace TKMOC
 
                 if (ds1.Tables["TEMPds1"].Rows.Count == 0)
                 {
-                   
+
                 }
                 else
                 {
@@ -97,17 +104,15 @@ namespace TKMOC
                 sqlConn.Close();
             }
         }
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
 
-        }
         private void textBox1_KeyDown(object sender, KeyEventArgs e)
         {
             if (Keys.Enter == e.KeyCode)
             {
-                SEARCHMB001();
+                SEARCHMOCCOPMA();
             }
         }
+
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
             if (dataGridView1.CurrentRow != null)
@@ -116,12 +121,12 @@ namespace TKMOC
                 if (rowindex >= 0)
                 {
                     DataGridViewRow row = dataGridView1.Rows[rowindex];
-                    MB001 = row.Cells["MB001"].Value.ToString();
+                    MA001 = row.Cells["名稱"].Value.ToString();
 
                 }
                 else
                 {
-                    MB001 = null;
+                    MA001 = null;
 
                 }
             }
@@ -131,34 +136,24 @@ namespace TKMOC
         {
             set
             {
-                
+
             }
             get
             {
-                return MB001;
+                return MA001;
             }
         }
-        private void frmSUBMOCMANULINE_FormClosed(object sender, FormClosedEventArgs e)
-        {
-
-        }
-
         #endregion
 
         #region BUTTON
-
         private void button1_Click(object sender, EventArgs e)
         {
-            SEARCHMB001();
+            SEARCHMOCCOPMA();
         }
-
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
-
-
 
         #endregion
 
