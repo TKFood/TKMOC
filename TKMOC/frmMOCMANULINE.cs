@@ -400,7 +400,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
                     sbSql.AppendFormat(@"  WHERE [MANU]='{0}' ", MANU);
                     sbSql.AppendFormat(@"  AND CONVERT(varchar(100),[MANUDATE],112) LIKE '{0}%'", dateTimePicker1.Value.ToString("yyyyMM"));
-                    sbSql.AppendFormat(@"  ORDER BY [MANUDATE],[ID]");
+                    sbSql.AppendFormat(@"  ORDER BY [MANUDATE],[SERNO]");
                     sbSql.AppendFormat(@"  ");
 
                     adapter1= new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -457,7 +457,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
                     sbSql.AppendFormat(@"  WHERE [MANU]='{0}' ", MANU);
                     sbSql.AppendFormat(@"  AND CONVERT(varchar(100),[MANUDATE],112) LIKE '{0}%'", dateTimePicker3.Value.ToString("yyyyMM"));
-                    sbSql.AppendFormat(@"  ORDER BY [MANUDATE],[ID]");
+                    sbSql.AppendFormat(@"  ORDER BY [MANUDATE],[SERNO]");
                     sbSql.AppendFormat(@"  ");
 
                     adapter7 = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -513,7 +513,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
                     sbSql.AppendFormat(@"  WHERE [MANU]='{0}' ", MANU);
                     sbSql.AppendFormat(@"  AND CONVERT(varchar(100),[MANUDATE],112) LIKE '{0}%'", dateTimePicker6.Value.ToString("yyyyMM"));
-                    sbSql.AppendFormat(@"  ORDER BY [MANUDATE],[ID]");
+                    sbSql.AppendFormat(@"  ORDER BY [MANUDATE],[SERNO]");
                     sbSql.AppendFormat(@"  ");
 
                     adapter9 = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -569,7 +569,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
                     sbSql.AppendFormat(@"  WHERE [MANU]='{0}' ", MANU);
                     sbSql.AppendFormat(@"  AND CONVERT(varchar(100),[MANUDATE],112) LIKE '{0}%'", dateTimePicker8.Value.ToString("yyyyMM"));
-                    sbSql.AppendFormat(@"  ORDER BY [MANUDATE],[ID]");
+                    sbSql.AppendFormat(@"  ORDER BY [MANUDATE],[SERNO]");
                     sbSql.AppendFormat(@"  ");
 
                     adapter10 = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -3248,7 +3248,7 @@ namespace TKMOC
             }
             catch
             {
-                MessageBox.Show("請填數字");
+                //MessageBox.Show("請填數字");
             }
             finally
             {
@@ -3281,7 +3281,7 @@ namespace TKMOC
             }
             catch
             {
-                MessageBox.Show("請填數字");
+                //MessageBox.Show("請填數字");
             }
             finally
             {
