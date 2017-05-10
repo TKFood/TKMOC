@@ -3754,11 +3754,28 @@ namespace TKMOC
             SUBfrmSUBMOCCOPMA.ShowDialog();
             textBox6.Text = SUBfrmSUBMOCCOPMA.TextBoxMsg;
         }
+        
 
+        private void button29_Click(object sender, EventArgs e)
+        {
+            frmSUBMOCCOPMA SUBfrmSUBMOCCOPMA = new frmSUBMOCCOPMA();
+            SUBfrmSUBMOCCOPMA.ShowDialog();
+            textBox9.Text = SUBfrmSUBMOCCOPMA.TextBoxMsg;
+        }
 
+        private void button30_Click(object sender, EventArgs e)
+        {
+            frmSUBMOCCOPMA SUBfrmSUBMOCCOPMA = new frmSUBMOCCOPMA();
+            SUBfrmSUBMOCCOPMA.ShowDialog();
+            textBox16.Text = SUBfrmSUBMOCCOPMA.TextBoxMsg;
+        }
 
-
-
+        private void button31_Click(object sender, EventArgs e)
+        {
+            frmSUBMOCCOPMA SUBfrmSUBMOCCOPMA = new frmSUBMOCCOPMA();
+            SUBfrmSUBMOCCOPMA.ShowDialog();
+            textBox22.Text = SUBfrmSUBMOCCOPMA.TextBoxMsg;
+        }
 
         #endregion
 
