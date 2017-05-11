@@ -131,6 +131,10 @@ namespace TKMOC
         decimal BOX;
         decimal BAR2;
         decimal BAR3;
+        decimal SUM1;
+        decimal SUM2;
+        decimal SUM3;
+        decimal SUM4;
 
         string BOMVARSION;
         string UNIT;
@@ -1093,6 +1097,7 @@ namespace TKMOC
                     MB002 = row.Cells["品名"].Value.ToString();
                     MB003 = row.Cells["規格"].Value.ToString();
                     BAR = Convert.ToDecimal(row.Cells["桶數"].Value.ToString());
+                    SUM1 = Convert.ToDecimal(row.Cells["數量"].Value.ToString());
                     SEARCHMOCMANULINERESULT();
 ;
                 }
@@ -1617,7 +1622,8 @@ namespace TKMOC
                 MOCTA.TA012 = dt1.ToString("yyyyMMdd");
                 MOCTA.TA013 = "N";
                 MOCTA.TA014 = dt1.ToString("yyyyMMdd");
-                MOCTA.TA015 = (BAR * BOMBAR).ToString();
+                //MOCTA.TA015 = (BAR * BOMBAR).ToString();
+                MOCTA.TA015 = SUM1.ToString();
                 MOCTA.TA016 = "0";
                 MOCTA.TA017 = "0";
                 MOCTA.TA018 = "0";
@@ -1635,8 +1641,8 @@ namespace TKMOC
                 MOCTA.TA041 = "";
                 MOCTA.TA043 = "1";
                 MOCTA.TA044 = "N";
-                MOCTA.TA045 = (BAR * BOMBAR).ToString();
-                MOCTA.TA046 = (BAR * BOMBAR).ToString();
+                MOCTA.TA045 = SUM1.ToString();
+                MOCTA.TA046 = SUM1.ToString();
                 MOCTA.TA047 = "0";
                 MOCTA.TA049 = "0";
                 MOCTA.TA050 = "0";
@@ -1677,7 +1683,8 @@ namespace TKMOC
                 MOCTA.TA012 = dt2.ToString("yyyyMMdd");
                 MOCTA.TA013 = "N";
                 MOCTA.TA014 = dt2.ToString("yyyyMMdd");
-                MOCTA.TA015 = (BOX * BOMBAR).ToString();
+                //MOCTA.TA015 = (BOX * BOMBAR).ToString();
+                MOCTA.TA015 = SUM2.ToString();
                 MOCTA.TA016 = "0";
                 MOCTA.TA017 = "0";
                 MOCTA.TA018 = "0";
@@ -1695,8 +1702,8 @@ namespace TKMOC
                 MOCTA.TA041 = "";
                 MOCTA.TA043 = "1";
                 MOCTA.TA044 = "N";
-                MOCTA.TA045 = (BOX * BOMBAR).ToString();
-                MOCTA.TA046 = (BOX * BOMBAR).ToString();
+                MOCTA.TA045 = SUM2.ToString();
+                MOCTA.TA046 = SUM2.ToString();
                 MOCTA.TA047 = "0";
                 MOCTA.TA049 = "0";
                 MOCTA.TA050 = "0";
@@ -1737,7 +1744,8 @@ namespace TKMOC
                 MOCTA.TA012 = dt3.ToString("yyyyMMdd");
                 MOCTA.TA013 = "N";
                 MOCTA.TA014 = dt3.ToString("yyyyMMdd");
-                MOCTA.TA015 = (BAR2 * BOMBAR).ToString();
+                //MOCTA.TA015 = (BAR2 * BOMBAR).ToString();
+                MOCTA.TA015 = SUM3.ToString();
                 MOCTA.TA016 = "0";
                 MOCTA.TA017 = "0";
                 MOCTA.TA018 = "0";
@@ -1755,8 +1763,8 @@ namespace TKMOC
                 MOCTA.TA041 = "";
                 MOCTA.TA043 = "1";
                 MOCTA.TA044 = "N";
-                MOCTA.TA045 = (BAR2 * BOMBAR).ToString();
-                MOCTA.TA046 = (BAR2 * BOMBAR).ToString();
+                MOCTA.TA045 = SUM3.ToString();
+                MOCTA.TA046 = SUM3.ToString();
                 MOCTA.TA047 = "0";
                 MOCTA.TA049 = "0";
                 MOCTA.TA050 = "0";
@@ -1796,7 +1804,8 @@ namespace TKMOC
                 MOCTA.TA012 = dt4.ToString("yyyyMMdd");
                 MOCTA.TA013 = "N";
                 MOCTA.TA014 = dt4.ToString("yyyyMMdd");
-                MOCTA.TA015 = (BAR3 * BOMBAR).ToString();
+                //MOCTA.TA015 = (BAR3 * BOMBAR).ToString();
+                MOCTA.TA015 = SUM4.ToString();
                 MOCTA.TA016 = "0";
                 MOCTA.TA017 = "0";
                 MOCTA.TA018 = "0";
@@ -1814,8 +1823,8 @@ namespace TKMOC
                 MOCTA.TA041 = "";
                 MOCTA.TA043 = "1";
                 MOCTA.TA044 = "N";
-                MOCTA.TA045 = (BAR3 * BOMBAR).ToString();
-                MOCTA.TA046 = (BAR3 * BOMBAR).ToString();
+                MOCTA.TA045 = SUM4.ToString();
+                MOCTA.TA046 = SUM4.ToString();
                 MOCTA.TA047 = "0";
                 MOCTA.TA049 = "0";
                 MOCTA.TA050 = "0";
@@ -2771,6 +2780,7 @@ namespace TKMOC
                     MB002B = row.Cells["品名"].Value.ToString();
                     MB003B = row.Cells["規格"].Value.ToString();
                     BOX = Convert.ToDecimal(row.Cells["箱數"].Value.ToString());
+                    SUM2 = Convert.ToDecimal(row.Cells["數量"].Value.ToString());
                     SEARCHMOCMANULINERESULT();
                     ;
                 }
@@ -2801,6 +2811,7 @@ namespace TKMOC
                     MB002C = row.Cells["品名"].Value.ToString();
                     MB003C = row.Cells["規格"].Value.ToString();
                     BAR2 = Convert.ToDecimal(row.Cells["桶數"].Value.ToString());
+                    SUM3 = Convert.ToDecimal(row.Cells["數量"].Value.ToString());
                     SEARCHMOCMANULINERESULT();
                     ;
                 }
@@ -2830,6 +2841,7 @@ namespace TKMOC
                     MB002D = row.Cells["品名"].Value.ToString();
                     MB003D = row.Cells["規格"].Value.ToString();
                     BAR3 = Convert.ToDecimal(row.Cells["桶數"].Value.ToString());
+                    SUM4 = Convert.ToDecimal(row.Cells["數量"].Value.ToString());
                     SEARCHMOCMANULINERESULT();
                     ;
                 }
@@ -3285,20 +3297,20 @@ namespace TKMOC
             {
                 if (MANU.Equals("新廠製二組"))
                 {
-                    textBox4.Text = Math.Round(Convert.ToDecimal(textBox5.Text)/ Convert.ToDecimal(textBox32.Text), 2).ToString();
+                    textBox4.Text = Math.Round(Convert.ToDecimal(textBox5.Text)/ Convert.ToDecimal(textBox32.Text), 4).ToString();
                 }
 
                 else if (MANU.Equals("新廠包裝線"))
                 {
-                    textBox8.Text = Math.Round(Convert.ToDecimal(textBox12.Text) / Convert.ToDecimal(textBox33.Text), 2).ToString();
+                    textBox8.Text = Math.Round(Convert.ToDecimal(textBox12.Text) / Convert.ToDecimal(textBox33.Text), 4).ToString();
                 }
                 else if (MANU.Equals("新廠製一組"))
                 {
-                    textBox15.Text = Math.Round(Convert.ToDecimal(textBox19.Text) / Convert.ToDecimal(textBox34.Text), 2).ToString();
+                    textBox15.Text = Math.Round(Convert.ToDecimal(textBox19.Text) / Convert.ToDecimal(textBox34.Text), 4).ToString();
                 }
                 else if (MANU.Equals("新廠製三組(手工)"))
                 {
-                    textBox21.Text = Math.Round(Convert.ToDecimal(textBox23.Text) / Convert.ToDecimal(textBox35.Text), 2).ToString();
+                    textBox21.Text = Math.Round(Convert.ToDecimal(textBox23.Text) / Convert.ToDecimal(textBox35.Text), 4).ToString();
                 }
             }
             catch
@@ -3725,7 +3737,7 @@ namespace TKMOC
 
         private void button5_Click(object sender, EventArgs e)
         {
-          
+
             TA002 = GETMAXTA002(TA001);
             ADDMOCMANULINERESULT();
             ADDMOCTATB();
@@ -3862,6 +3874,7 @@ namespace TKMOC
 
         private void button20_Click(object sender, EventArgs e)
         {
+
             TA002 = GETMAXTA002(TA001);
             ADDMOCMANULINERESULT();
             ADDMOCTATB();
