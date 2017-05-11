@@ -55,6 +55,14 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder13 = new SqlCommandBuilder();
         SqlDataAdapter adapter14 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder14 = new SqlCommandBuilder();
+        SqlDataAdapter adapter15 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder15 = new SqlCommandBuilder();
+        SqlDataAdapter adapter16 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder16 = new SqlCommandBuilder();
+        SqlDataAdapter adapter17 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder17 = new SqlCommandBuilder();
+        SqlDataAdapter adapter18 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder18 = new SqlCommandBuilder();
 
         SqlTransaction tran;
         SqlCommand cmd = new SqlCommand();
@@ -70,6 +78,10 @@ namespace TKMOC
         DataSet ds10= new DataSet();
         DataSet ds13 = new DataSet();
         DataSet ds14 = new DataSet();
+        DataSet ds15 = new DataSet();
+        DataSet ds16 = new DataSet();
+        DataSet ds17 = new DataSet();
+        DataSet ds18 = new DataSet();
 
         DataSet dsBOMMC = new DataSet();
         DataSet dsBOMMD = new DataSet();
@@ -618,6 +630,7 @@ namespace TKMOC
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             SEARCHMB001();
+            SEARCHBOMMD();
         }
 
         public void SEARCHMB001()
@@ -833,7 +846,9 @@ namespace TKMOC
             textBox3.Text = null;
             textBox4.Text = null;
             textBox5.Text = null;
+            
         }
+       
         public void ADDMOCMANULINE()
         {
             if(MANU.Equals("新廠製二組"))
@@ -2770,6 +2785,7 @@ namespace TKMOC
         private void textBox14_TextChanged(object sender, EventArgs e)
         {
             SEARCHMB001();
+            SEARCHBOMMD();
         }
         private void dataGridView5_SelectionChanged(object sender, EventArgs e)
         {
@@ -2798,6 +2814,7 @@ namespace TKMOC
         private void textBox20_TextChanged(object sender, EventArgs e)
         {
             SEARCHMB001();
+            SEARCHBOMMD();
         }
         private void dataGridView7_SelectionChanged(object sender, EventArgs e)
         {
@@ -3478,6 +3495,190 @@ namespace TKMOC
         {
             CALPRODUCTDETAIL();
         }
+
+        public void SEARCHBOMMD()
+        {
+            if (MANU.Equals("新廠製二組"))
+            {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sbSql.Clear();
+                    sbSqlQuery.Clear();
+
+
+                    sbSql.AppendFormat(@"  SELECT MD001,MD003,MB002,CONVERT(decimal(18,2), MD006/MD007) AS MD006");
+                    sbSql.AppendFormat(@"  FROM [TK].dbo.BOMMD,[TK].dbo.INVMB");
+                    sbSql.AppendFormat(@"  WHERE MD003=MB001");
+                    sbSql.AppendFormat(@"  AND MB002 LIKE '%低筋%'");
+                    sbSql.AppendFormat(@"  AND MD001='{0}'", textBox1.Text);
+                    sbSql.AppendFormat(@"  ");
+
+
+                    adapter15 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                    sqlCmdBuilder15 = new SqlCommandBuilder(adapter15);
+                    sqlConn.Open();
+                    ds15.Clear();
+                    adapter15.Fill(ds15, "TEMPds15");
+                    sqlConn.Close();
+
+
+                    if (ds15.Tables["TEMPds15"].Rows.Count == 0)
+                    {
+                        SETNULL5();
+                    }
+                    else
+                    {
+                        if (ds15.Tables["TEMPds15"].Rows.Count >= 1)
+                        {
+                            textBox37.Text = ds15.Tables["TEMPds15"].Rows[0]["MD006"].ToString();
+                         ;
+                        }
+                    }
+
+                }
+                catch
+                {
+
+                }
+                finally
+                {
+
+                }
+
+            }
+            else if (MANU.Equals("新廠包裝線"))
+            {
+                try
+                {
+                   
+
+                }
+                catch
+                {
+
+                }
+                finally
+                {
+
+                }
+
+
+            }
+
+            else if (MANU.Equals("新廠製一組"))
+            {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sbSql.Clear();
+                    sbSqlQuery.Clear();
+
+                    sbSql.AppendFormat(@"  SELECT MD001,MD003,MB002,CONVERT(decimal(18,2), MD006/MD007) AS MD006");
+                    sbSql.AppendFormat(@"  FROM [TK].dbo.BOMMD,[TK].dbo.INVMB");
+                    sbSql.AppendFormat(@"  WHERE MD003=MB001");
+                    sbSql.AppendFormat(@"  AND MB002 LIKE '%低筋%'");
+                    sbSql.AppendFormat(@"  AND MD001='{0}'", textBox14.Text);
+                    sbSql.AppendFormat(@"  ");
+
+                    adapter16 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                    sqlCmdBuilder16 = new SqlCommandBuilder(adapter16);
+                    sqlConn.Open();
+                    ds16.Clear();
+                    adapter16.Fill(ds16, "TEMPds16");
+                    sqlConn.Close();
+
+
+                    if (ds16.Tables["TEMPds16"].Rows.Count == 0)
+                    {
+                        SETNULL5(); 
+                    }
+                    else
+                    {
+                        if (ds16.Tables["TEMPds16"].Rows.Count >= 1)
+                        {
+                            textBox38.Text = ds16.Tables["TEMPds16"].Rows[0]["MD006"].ToString();
+                        }
+                    }
+
+                }
+                catch
+                {
+
+                }
+                finally
+                {
+
+                }
+
+            }
+            else if (MANU.Equals("新廠製三組(手工)"))
+            {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sbSql.Clear();
+                    sbSqlQuery.Clear();
+
+                    sbSql.AppendFormat(@"  SELECT MD001,MD003,MB002,CONVERT(decimal(18,2), MD006/MD007) AS MD006");
+                    sbSql.AppendFormat(@"  FROM [TK].dbo.BOMMD,[TK].dbo.INVMB");
+                    sbSql.AppendFormat(@"  WHERE MD003=MB001");
+                    sbSql.AppendFormat(@"  AND MB002 LIKE '%低筋%'");
+                    sbSql.AppendFormat(@"  AND MD001='{0}'", textBox20.Text);
+                    sbSql.AppendFormat(@"  ");
+
+                    adapter17 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                    sqlCmdBuilder17 = new SqlCommandBuilder(adapter17);
+                    sqlConn.Open();
+                    ds17.Clear();
+                    adapter17.Fill(ds17, "TEMPds17");
+                    sqlConn.Close();
+
+
+                    if (ds17.Tables["TEMPds17"].Rows.Count == 0)
+                    {
+                        SETNULL5();
+                    }
+                    else
+                    {
+                        if (ds17.Tables["TEMPds17"].Rows.Count >= 1)
+                        {
+                            textBox39.Text = ds17.Tables["TEMPds17"].Rows[0]["MD006"].ToString();
+                            
+                        }
+                    }
+
+                }
+                catch
+                {
+
+                }
+                finally
+                {
+
+                }
+
+            }
+        }
+
+        public void SETNULL5()
+        {
+            //textBox1.Text = null;
+
+            textBox37.Text = null;
+            textBox38.Text = null;
+            textBox39.Text = null;
+        }
+
         #endregion
 
         #region BUTTON
