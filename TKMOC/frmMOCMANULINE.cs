@@ -314,6 +314,7 @@ namespace TKMOC
             comboBox5.DisplayMember = "MC002";
             sqlConn.Close();
 
+           
 
         }
         public void comboBox6load()
@@ -335,7 +336,7 @@ namespace TKMOC
             comboBox6.DisplayMember = "MC002";
             sqlConn.Close();
 
-
+           
         }
         public void comboBox7load()
         {
@@ -355,6 +356,8 @@ namespace TKMOC
             comboBox7.ValueMember = "MC001";
             comboBox7.DisplayMember = "MC002";
             sqlConn.Close();
+
+           
 
 
         }
@@ -376,6 +379,8 @@ namespace TKMOC
             comboBox8.ValueMember = "MC001";
             comboBox8.DisplayMember = "MC002";
             sqlConn.Close();
+
+           
 
 
         }
@@ -3424,6 +3429,11 @@ namespace TKMOC
             label52.Text = "20001";
             label53.Text = "20001";
             label54.Text = "20001";
+            IN1 = "20001";
+            IN2 = "20001";
+            IN3 = "20001";
+            IN4 = "20001";
+
         }
         private void comboBox5_SelectedIndexChanged(object sender, EventArgs e)
         {
