@@ -3512,7 +3512,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"  SELECT MD001,MD003,MB002,CONVERT(decimal(18,2), MD006/MD007) AS MD006");
                     sbSql.AppendFormat(@"  FROM [TK].dbo.BOMMD,[TK].dbo.INVMB");
                     sbSql.AppendFormat(@"  WHERE MD003=MB001");
-                    sbSql.AppendFormat(@"  AND MB002 LIKE '%低筋%'");
+                    sbSql.AppendFormat(@"  AND MB002 LIKE '%筋%'");
                     sbSql.AppendFormat(@"  AND MD001='{0}'", textBox1.Text);
                     sbSql.AppendFormat(@"  ");
 
@@ -3582,7 +3582,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"  SELECT MD001,MD003,MB002,CONVERT(decimal(18,2), MD006/MD007) AS MD006");
                     sbSql.AppendFormat(@"  FROM [TK].dbo.BOMMD,[TK].dbo.INVMB");
                     sbSql.AppendFormat(@"  WHERE MD003=MB001");
-                    sbSql.AppendFormat(@"  AND MB002 LIKE '%低筋%'");
+                    sbSql.AppendFormat(@"  AND MB002 LIKE '%筋%'");
                     sbSql.AppendFormat(@"  AND MD001='{0}'", textBox14.Text);
                     sbSql.AppendFormat(@"  ");
 
@@ -3631,7 +3631,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"  SELECT MD001,MD003,MB002,CONVERT(decimal(18,2), MD006/MD007) AS MD006");
                     sbSql.AppendFormat(@"  FROM [TK].dbo.BOMMD,[TK].dbo.INVMB");
                     sbSql.AppendFormat(@"  WHERE MD003=MB001");
-                    sbSql.AppendFormat(@"  AND MB002 LIKE '%低筋%'");
+                    sbSql.AppendFormat(@"  AND MB002 LIKE '%筋%'");
                     sbSql.AppendFormat(@"  AND MD001='{0}'", textBox20.Text);
                     sbSql.AppendFormat(@"  ");
 
