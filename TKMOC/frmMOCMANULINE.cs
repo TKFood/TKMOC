@@ -420,7 +420,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"  ,[ID]");
                     sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
                     sbSql.AppendFormat(@"  WHERE [MANU]='{0}' ", MANU);
-                    sbSql.AppendFormat(@"  AND CONVERT(varchar(100),[MANUDATE],112) LIKE '{0}%'", dateTimePicker1.Value.ToString("yyyyMM"));
+                    sbSql.AppendFormat(@"  AND CONVERT(varchar(100),[MANUDATE],112) LIKE '{0}%'", dateTimePicker1.Value.ToString("yyyyMMdd"));
                     sbSql.AppendFormat(@"  ORDER BY [MANUDATE],[SERNO]");
                     sbSql.AppendFormat(@"  ");
 
@@ -477,7 +477,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"  ,[ID]");
                     sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
                     sbSql.AppendFormat(@"  WHERE [MANU]='{0}' ", MANU);
-                    sbSql.AppendFormat(@"  AND CONVERT(varchar(100),[MANUDATE],112) LIKE '{0}%'", dateTimePicker3.Value.ToString("yyyyMM"));
+                    sbSql.AppendFormat(@"  AND CONVERT(varchar(100),[MANUDATE],112) LIKE '{0}%'", dateTimePicker3.Value.ToString("yyyyMMdd"));
                     sbSql.AppendFormat(@"  ORDER BY [MANUDATE],[SERNO]");
                     sbSql.AppendFormat(@"  ");
 
@@ -533,7 +533,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"  ,[ID]");
                     sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
                     sbSql.AppendFormat(@"  WHERE [MANU]='{0}' ", MANU);
-                    sbSql.AppendFormat(@"  AND CONVERT(varchar(100),[MANUDATE],112) LIKE '{0}%'", dateTimePicker6.Value.ToString("yyyyMM"));
+                    sbSql.AppendFormat(@"  AND CONVERT(varchar(100),[MANUDATE],112) LIKE '{0}%'", dateTimePicker6.Value.ToString("yyyyMMdd"));
                     sbSql.AppendFormat(@"  ORDER BY [MANUDATE],[SERNO]");
                     sbSql.AppendFormat(@"  ");
 
@@ -589,7 +589,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"  ,[ID]");
                     sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
                     sbSql.AppendFormat(@"  WHERE [MANU]='{0}' ", MANU);
-                    sbSql.AppendFormat(@"  AND CONVERT(varchar(100),[MANUDATE],112) LIKE '{0}%'", dateTimePicker8.Value.ToString("yyyyMM"));
+                    sbSql.AppendFormat(@"  AND CONVERT(varchar(100),[MANUDATE],112) LIKE '{0}%'", dateTimePicker8.Value.ToString("yyyyMMdd"));
                     sbSql.AppendFormat(@"  ORDER BY [MANUDATE],[SERNO]");
                     sbSql.AppendFormat(@"  ");
 
@@ -3691,6 +3691,25 @@ namespace TKMOC
             textBox39.Text = null;
         }
 
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            dateTimePicker2.Value = dateTimePicker1.Value;
+        }
+
+        private void dateTimePicker3_ValueChanged(object sender, EventArgs e)
+        {
+            dateTimePicker4.Value = dateTimePicker3.Value;
+        }
+
+        private void dateTimePicker6_ValueChanged(object sender, EventArgs e)
+        {
+            dateTimePicker7.Value = dateTimePicker6.Value;
+        }
+
+        private void dateTimePicker8_ValueChanged(object sender, EventArgs e)
+        {
+            dateTimePicker9.Value = dateTimePicker8.Value;
+        }
         #endregion
 
         #region BUTTON
@@ -4001,8 +4020,9 @@ namespace TKMOC
             textBox22.Text = SUBfrmSUBMOCCOPMA.TextBoxMsg;
         }
 
+
         #endregion
 
-
+        
     }
 }
