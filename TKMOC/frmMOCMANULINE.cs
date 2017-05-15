@@ -1071,7 +1071,7 @@ namespace TKMOC
             textBox10.Text = null;
             textBox11.Text = null;
             textBox12.Text = null;
-            textBox13.Text = null;
+            textBox13.Text = "0";
         }
         public void SETNULL4()
         {
@@ -2780,7 +2780,7 @@ namespace TKMOC
                     MB002B = row.Cells["品名"].Value.ToString();
                     MB003B = row.Cells["規格"].Value.ToString();
                     BOX = Convert.ToDecimal(row.Cells["箱數"].Value.ToString());
-                    SUM2 = Convert.ToDecimal(row.Cells["數量"].Value.ToString());
+                    SUM2 = Convert.ToDecimal(row.Cells["包裝數"].Value.ToString());
                     SEARCHMOCMANULINERESULT();
                     ;
                 }
