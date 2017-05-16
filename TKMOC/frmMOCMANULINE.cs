@@ -649,7 +649,7 @@ namespace TKMOC
                     sbSql.Clear();
                     sbSqlQuery.Clear();
 
-                    sbSql.AppendFormat(@"  SELECT MB001,MB002,MB003,MC004  ");
+                    sbSql.AppendFormat(@"  SELECT MB001,MB002,MB003,MC004,MB017            ");
                     sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB,[TK].dbo.BOMMC");
                     sbSql.AppendFormat(@"  WHERE MB001=MC001");
                     sbSql.AppendFormat(@"  AND MB001='{0}'", textBox1.Text);
@@ -675,6 +675,8 @@ namespace TKMOC
                             textBox2.Text = ds2.Tables["TEMPds2"].Rows[0]["MB002"].ToString();
                             textBox3.Text = ds2.Tables["TEMPds2"].Rows[0]["MB003"].ToString();
                             textBox32.Text = ds2.Tables["TEMPds2"].Rows[0]["MC004"].ToString();
+                            comboBox5.SelectedValue = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
+                            label51.Text = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
                         }
                     }
 
@@ -699,7 +701,7 @@ namespace TKMOC
                     sbSql.Clear();
                     sbSqlQuery.Clear();
 
-                    sbSql.AppendFormat(@"  SELECT MB001,MB002,MB003,MC004  ");
+                    sbSql.AppendFormat(@"  SELECT MB001,MB002,MB003,MC004 ,MB017 ");
                     sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB,[TK].dbo.BOMMC");
                     sbSql.AppendFormat(@"  WHERE MB001=MC001");
                     sbSql.AppendFormat(@"  AND MB001='{0}'", textBox7.Text);
@@ -725,6 +727,9 @@ namespace TKMOC
                             textBox10.Text = ds2.Tables["TEMPds2"].Rows[0]["MB002"].ToString();
                             textBox11.Text = ds2.Tables["TEMPds2"].Rows[0]["MB003"].ToString();
                             textBox33.Text = ds2.Tables["TEMPds2"].Rows[0]["MC004"].ToString();
+                            comboBox6.SelectedValue = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
+                            label52.Text = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
+
                         }
                     }
 
@@ -751,7 +756,7 @@ namespace TKMOC
                     sbSql.Clear();
                     sbSqlQuery.Clear();
 
-                    sbSql.AppendFormat(@"  SELECT MB001,MB002,MB003,MC004  ");
+                    sbSql.AppendFormat(@"  SELECT MB001,MB002,MB003,MC004 ,MB017 ");
                     sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB,[TK].dbo.BOMMC");
                     sbSql.AppendFormat(@"  WHERE MB001=MC001");
                     sbSql.AppendFormat(@"  AND MB001='{0}'", textBox14.Text);
@@ -777,6 +782,8 @@ namespace TKMOC
                             textBox17.Text = ds2.Tables["TEMPds2"].Rows[0]["MB002"].ToString();
                             textBox18.Text = ds2.Tables["TEMPds2"].Rows[0]["MB003"].ToString();
                             textBox34.Text = ds2.Tables["TEMPds2"].Rows[0]["MC004"].ToString();
+                            comboBox7.SelectedValue = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
+                            label53.Text = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
                         }
                     }
 
@@ -801,7 +808,7 @@ namespace TKMOC
                     sbSql.Clear();
                     sbSqlQuery.Clear();
 
-                    sbSql.AppendFormat(@"  SELECT MB001,MB002,MB003,MC004  ");
+                    sbSql.AppendFormat(@"  SELECT MB001,MB002,MB003,MC004 ,MB017 ");
                     sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB,[TK].dbo.BOMMC");
                     sbSql.AppendFormat(@"  WHERE MB001=MC001");
                     sbSql.AppendFormat(@"  AND MB001='{0}'", textBox20.Text);
@@ -827,6 +834,8 @@ namespace TKMOC
                             textBox24.Text = ds2.Tables["TEMPds2"].Rows[0]["MB002"].ToString();
                             textBox25.Text = ds2.Tables["TEMPds2"].Rows[0]["MB003"].ToString();
                             textBox35.Text = ds2.Tables["TEMPds2"].Rows[0]["MC004"].ToString();
+                            comboBox8.SelectedValue = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
+                            label54.Text = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
                         }
                     }
 
