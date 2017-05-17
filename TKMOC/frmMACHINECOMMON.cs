@@ -70,6 +70,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@" ,[USEDTIME] AS '使用壽命',[SAFENUM] AS '安全庫存',[PRETIME] AS '前置時間'");
                 sbSql.AppendFormat(@" ,[EQUIPMENT] AS '適用設備'");
                 sbSql.AppendFormat(@" ,[COMMENT] AS '備註'");
+                sbSql.AppendFormat(@" ,[BUYIN] AS '已進數量',[USED] AS '已用數量',[NOWS] AS '可用數量'");
                 sbSql.AppendFormat(@" ,[ID]");
                 sbSql.AppendFormat(@" FROM [TKMOC].[dbo].[MACHINECOMMON]");
                 sbSql.AppendFormat(@" WHERE [ID]='{0}'",ID);
@@ -106,6 +107,9 @@ namespace TKMOC
                         textBox10.Text = ds.Tables["TEMPds1"].Rows[0]["適用設備"].ToString();
                         textBox11.Text = ds.Tables["TEMPds1"].Rows[0]["備註"].ToString();
                         textBox12.Text = ds.Tables["TEMPds1"].Rows[0]["ID"].ToString();
+                        textBox13.Text = ds.Tables["TEMPds1"].Rows[0]["已進數量"].ToString();
+                        textBox14.Text = ds.Tables["TEMPds1"].Rows[0]["已用數量"].ToString();
+                        textBox15.Text = ds.Tables["TEMPds1"].Rows[0]["可用數量"].ToString();
 
 
                     }
@@ -136,7 +140,7 @@ namespace TKMOC
                 sbSql.Clear();
 
                 sbSql.AppendFormat("   UPDATE [TKMOC].[dbo].[MACHINECOMMON]");
-                sbSql.AppendFormat("   SET [EQUIPMENTID]='{1}',[EQUIPMENTNAME]='{2}',[SPEC]='{3}',[PRICES]='{4}',[SUPPLY]='{5}',[TEL]='{6}',[USEDTIME]='{7}',[SAFENUM]='{8}',[PRETIME]='{9}',[EQUIPMENT]='{10}',[COMMENT]='{11}' WHERE [ID]='{0}'", EDITID, textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, textBox5.Text, textBox6.Text, textBox7.Text, textBox8.Text, textBox9.Text, textBox10.Text, textBox11.Text);
+                sbSql.AppendFormat("   SET [EQUIPMENTID]='{1}',[EQUIPMENTNAME]='{2}',[SPEC]='{3}',[PRICES]='{4}',[SUPPLY]='{5}',[TEL]='{6}',[USEDTIME]='{7}',[SAFENUM]='{8}',[PRETIME]='{9}',[EQUIPMENT]='{10}',[COMMENT]='{11}',[BUYIN]='{12}',[USED]='{13}'  ,[NOWS]='{14}' WHERE [ID]='{0}'", EDITID, textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, textBox5.Text, textBox6.Text, textBox7.Text, textBox8.Text, textBox9.Text, textBox10.Text, textBox11.Text, textBox13.Text, textBox14.Text, textBox15.Text);
                 sbSql.AppendFormat("   ");
                 sbSql.AppendFormat("   ");
 
@@ -183,8 +187,8 @@ namespace TKMOC
                 sbSql.Clear();
 
                 sbSql.AppendFormat("  INSERT INTO [TKMOC].[dbo].[MACHINECOMMON]");
-                sbSql.AppendFormat("  ([ID],[EQUIPMENTID],[EQUIPMENTNAME],[SPEC],[PRICES],[SUPPLY],[TEL],[USEDTIME],[SAFENUM],[PRETIME],[EQUIPMENT],[COMMENT])");
-                sbSql.AppendFormat("  VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}')", "NEWID()",textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, textBox5.Text, textBox6.Text, textBox7.Text, textBox8.Text, textBox9.Text, textBox10.Text, textBox11.Text);
+                sbSql.AppendFormat("  ([ID],[EQUIPMENTID],[EQUIPMENTNAME],[SPEC],[PRICES],[SUPPLY],[TEL],[USEDTIME],[SAFENUM],[PRETIME],[EQUIPMENT],[COMMENT],[BUYIN],[USED],[NOWS])");
+                sbSql.AppendFormat("  VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}')", "NEWID()",textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, textBox5.Text, textBox6.Text, textBox7.Text, textBox8.Text, textBox9.Text, textBox10.Text, textBox11.Text, textBox13.Text, textBox14.Text, textBox15.Text);
                 sbSql.AppendFormat("  ");
 
                 cmd.Connection = sqlConn;
@@ -215,7 +219,25 @@ namespace TKMOC
             }
         }
 
-      
+        private void textBox13_TextChanged(object sender, EventArgs e)
+        {
+            CALNOWS();
+        }
+
+        private void textBox14_TextChanged(object sender, EventArgs e)
+        {
+            CALNOWS();
+        }
+
+        private void textBox15_TextChanged(object sender, EventArgs e)
+        {
+            CALNOWS();
+        }
+
+        public void CALNOWS()
+        {
+            textBox15.Text = (Convert.ToDecimal(textBox13.Text) - Convert.ToDecimal(textBox14.Text)).ToString();
+        }
 
         #endregion
 
@@ -233,5 +255,7 @@ namespace TKMOC
             }
         }
         #endregion
+
+       
     }
 }

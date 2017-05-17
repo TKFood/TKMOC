@@ -1940,7 +1940,8 @@ namespace TKMOC
              
                 sbSql.Append(@" SELECT [EQUIPMENTID] AS '備品編號',[EQUIPMENTNAME] AS '品名',[SPEC] AS '規格'");
                 sbSql.Append(@" ,[PRICES] AS '單價',[SUPPLY] AS '供應商',[TEL] AS '電話'");
-                sbSql.Append(@" ,[USEDTIME] AS '使用壽命',[SAFENUM] AS '安全庫存',[PRETIME] AS '前置時間'");
+                sbSql.Append(@" ,[USEDTIME] AS '使用壽命',[SAFENUM] AS '安全庫存'");
+                sbSql.Append(@" ,[BUYIN] AS '已進數量',[USED] AS '已用數量',[NOWS] AS '可用數量' ,[PRETIME] AS '前置時間'");
                 sbSql.Append(@" ,[EQUIPMENT] AS '適用設備'");
                 sbSql.Append(@" ,[COMMENT] AS '備註'");
                 sbSql.Append(@" ,[ID]");
