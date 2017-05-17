@@ -178,6 +178,7 @@ namespace TKMOC
             public string TA022;
             public string TA024;
             public string TA025;
+            public string TA029;
             public string TA030;
             public string TA031;
             public string TA034;
@@ -1543,13 +1544,13 @@ namespace TKMOC
                 sbSql.AppendFormat(" ([COMPANY],[CREATOR],[USR_GROUP],[CREATE_DATE],[MODIFIER],[MODI_DATE],[FLAG],[CREATE_TIME],[MODI_TIME],[TRANS_TYPE]");
                 sbSql.AppendFormat(" ,[TRANS_NAME],[sync_count],[DataGroup],[TA001],[TA002],[TA003],[TA004],[TA005],[TA006],[TA007]");
                 sbSql.AppendFormat(" ,[TA009],[TA010],[TA011],[TA012],[TA013],[TA014],[TA015],[TA016],[TA017],[TA018]");
-                sbSql.AppendFormat(" ,[TA019],[TA020],[TA021],[TA022],[TA024],[TA025],[TA030],[TA031],[TA034],[TA035]");
+                sbSql.AppendFormat(" ,[TA019],[TA020],[TA021],[TA022],[TA024],[TA025],[TA029],[TA030],[TA031],[TA034],[TA035]");
                 sbSql.AppendFormat(" ,[TA040],[TA041],[TA043],[TA044],[TA045],[TA046],[TA047],[TA049],[TA050],[TA200])");
                 sbSql.AppendFormat(" VALUES");
                 sbSql.AppendFormat(" ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}',",MOCTA.COMPANY, MOCTA.CREATOR, MOCTA.USR_GROUP, MOCTA.CREATE_DATE, MOCTA.MODIFIER, MOCTA.MODI_DATE, MOCTA.FLAG, MOCTA.CREATE_TIME, MOCTA.MODI_TIME, MOCTA.TRANS_TYPE);
                 sbSql.AppendFormat(" '{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}',", MOCTA.TRANS_NAME, MOCTA.sync_count, MOCTA.DataGroup, MOCTA.TA001, MOCTA.TA002, MOCTA.TA003, MOCTA.TA004, MOCTA.TA005, MOCTA.TA006, MOCTA.TA007);
                 sbSql.AppendFormat(" '{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}',", MOCTA.TA009, MOCTA.TA010, MOCTA.TA011, MOCTA.TA012, MOCTA.TA013, MOCTA.TA014, MOCTA.TA015, MOCTA.TA016, MOCTA.TA017, MOCTA.TA018);
-                sbSql.AppendFormat(" '{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}',", MOCTA.TA019, MOCTA.TA020, MOCTA.TA021, MOCTA.TA022, MOCTA.TA024, MOCTA.TA025, MOCTA.TA030, MOCTA.TA031, MOCTA.TA034, MOCTA.TA035);
+                sbSql.AppendFormat(" '{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}',", MOCTA.TA019, MOCTA.TA020, MOCTA.TA021, MOCTA.TA022, MOCTA.TA024, MOCTA.TA025,MOCTA.TA029, MOCTA.TA030, MOCTA.TA031, MOCTA.TA034, MOCTA.TA035);
                 sbSql.AppendFormat(" '{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}')", MOCTA.TA040, MOCTA.TA041, MOCTA.TA043, MOCTA.TA044, MOCTA.TA045, MOCTA.TA046, MOCTA.TA047, MOCTA.TA049, MOCTA.TA050, MOCTA.TA200);
                 sbSql.AppendFormat(" ");
                 sbSql.AppendFormat(" INSERT INTO [TK].dbo.[MOCTB]");
@@ -1642,6 +1643,7 @@ namespace TKMOC
                 MOCTA.TA022 = "0";
                 MOCTA.TA024 = "A510";
                 MOCTA.TA025 = TA002;
+                MOCTA.TA029 = textBox6.Text;
                 MOCTA.TA030 = "1";
                 MOCTA.TA031 = "0";
                 MOCTA.TA034 = MB002;
@@ -1703,6 +1705,7 @@ namespace TKMOC
                 MOCTA.TA022 = "0";
                 MOCTA.TA024 = "A510";
                 MOCTA.TA025 = TA002;
+                MOCTA.TA029 = textBox9.Text;
                 MOCTA.TA030 = "1";
                 MOCTA.TA031 = "0";
                 MOCTA.TA034 = MB002B;
@@ -1764,6 +1767,7 @@ namespace TKMOC
                 MOCTA.TA022 = "0";
                 MOCTA.TA024 = "A510";
                 MOCTA.TA025 = TA002;
+                MOCTA.TA029 = textBox16.Text;
                 MOCTA.TA030 = "1";
                 MOCTA.TA031 = "0";
                 MOCTA.TA034 = MB002C;
@@ -1824,6 +1828,7 @@ namespace TKMOC
                 MOCTA.TA022 = "0";
                 MOCTA.TA024 = "A510";
                 MOCTA.TA025 = TA002;
+                MOCTA.TA029 = textBox22.Text;
                 MOCTA.TA030 = "1";
                 MOCTA.TA031 = "0";
                 MOCTA.TA034 = MB002D;
