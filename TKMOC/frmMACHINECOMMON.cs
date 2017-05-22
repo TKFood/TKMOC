@@ -188,7 +188,7 @@ namespace TKMOC
 
                 sbSql.AppendFormat("  INSERT INTO [TKMOC].[dbo].[MACHINECOMMON]");
                 sbSql.AppendFormat("  ([ID],[EQUIPMENTID],[EQUIPMENTNAME],[SPEC],[PRICES],[SUPPLY],[TEL],[USEDTIME],[SAFENUM],[PRETIME],[EQUIPMENT],[COMMENT],[BUYIN],[USED],[NOWS])");
-                sbSql.AppendFormat("  VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}')", "NEWID()",textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, textBox5.Text, textBox6.Text, textBox7.Text, textBox8.Text, textBox9.Text, textBox10.Text, textBox11.Text, textBox13.Text, textBox14.Text, textBox15.Text);
+                sbSql.AppendFormat("  VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}')", "NEWID()",textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, textBox5.Text, textBox6.Text, textBox7.Text, textBox8.Text, textBox9.Text, textBox10.Text, textBox11.Text, textBox13.Text, textBox14.Text, textBox15.Text);
                 sbSql.AppendFormat("  ");
 
                 cmd.Connection = sqlConn;
@@ -236,7 +236,12 @@ namespace TKMOC
 
         public void CALNOWS()
         {
-            textBox15.Text = (Convert.ToDecimal(textBox13.Text) - Convert.ToDecimal(textBox14.Text)).ToString();
+            int num1;
+            int num2;
+            if (int.TryParse(textBox13.Text,out num1)&& int.TryParse(textBox14.Text, out num2))
+            {
+                textBox15.Text = (Convert.ToDecimal(textBox13.Text) - Convert.ToDecimal(textBox14.Text)).ToString();
+            }
         }
 
         #endregion
