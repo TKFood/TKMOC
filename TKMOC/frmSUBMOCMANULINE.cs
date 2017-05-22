@@ -61,7 +61,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB");
                 sbSql.AppendFormat(@"  WHERE MB001 LIKE '{0}%'", textBox1.Text);
                 sbSql.AppendFormat(@"  ORDER BY MB001");
-                sbSql.AppendFormat(@" ");
+                sbSql.AppendFormat(@"  ");
 
 
 
