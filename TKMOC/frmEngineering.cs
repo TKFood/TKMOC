@@ -34,6 +34,8 @@ namespace TKMOC
         DataSet ds2 = new DataSet();
         DataSet ds3 = new DataSet();
         DataSet ds4 = new DataSet();
+        DataSet dsREPORT = new DataSet();
+
         DataTable dt = new DataTable();
         DataTable dtTemp2 = new DataTable();
         DataTable dtTemp3 = new DataTable();
@@ -2042,10 +2044,158 @@ namespace TKMOC
             }
         }
 
+        public void SEARCHREPORT()
+        {
+            try
+            {
+                sbSql.Clear();
+                sbSql = SETsbSql();
 
+                if (!string.IsNullOrEmpty(sbSql.ToString()))
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    adapter = new SqlDataAdapter(sbSql.ToString(), sqlConn);
+                    sqlCmdBuilder = new SqlCommandBuilder(adapter);
+
+                    sqlConn.Open();
+                    //dataGridView1.Columns.Clear();
+                    dsREPORT.Clear();
+
+                    adapter.Fill(dsREPORT, tablename);
+                    sqlConn.Close();
+
+                    if (dsREPORT.Tables[tablename].Rows.Count == 0)
+                    {
+
+                    }
+                    else
+                    {
+
+                        dataGridView13.DataSource = dsREPORT.Tables[tablename];
+                        dataGridView13.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1.Rows[rownum].Cells[0];
+
+                    }
+                }
+                else
+                {
+
+                }
+
+
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+
+        public StringBuilder SETsbSql()
+        {
+            StringBuilder STR = new StringBuilder();
+
+            if (comboBox3.Text.ToString().Equals("維修申請單"))
+            {
+                STR.AppendFormat(@"  SELECT *  FROM [TKMOC].[dbo].[MAINAPPLY]");
+                STR.AppendFormat(@"  ORDER BY EQUIPMENTID");
+                STR.AppendFormat(@"  ");
+
+                tablename = "TEMPdsREPORT1";
+            }
+            else if (comboBox3.Text.ToString().Equals("委外維修申請單"))
+            {
+                STR.AppendFormat(@"  SELECT *  FROM [TKMOC].[dbo].[MAINAPPLYOUT]");
+                STR.AppendFormat(@"  ORDER BY EQUIPMENTID");
+                STR.AppendFormat(@"  ");
+
+                tablename = "TEMPdsREPORT2";
+            }
+            else if (comboBox3.Text.ToString().Equals("機械設備維修紀錄表"))
+            {
+                STR.AppendFormat(@"  SELECT *  FROM [TKMOC].[dbo].[MAINRECORD]");
+                STR.AppendFormat(@"  ORDER BY EQUIPMENTID");
+                STR.AppendFormat(@"  ");
+
+                tablename = "TEMPdsREPORT3";
+            }
+            else if (comboBox3.Text.ToString().Equals("設備日常檢查表"))
+            {
+                STR.AppendFormat(@"  SELECT *  FROM [TKMOC].[dbo].[MACHINEDAILYCHECK]");
+                STR.AppendFormat(@"  ORDER BY EQUIPMENTID");
+                STR.AppendFormat(@"  ");
+
+                tablename = "TEMPdsREPORT4";
+            }
+            else if (comboBox3.Text.ToString().Equals("保養維護記錄卡"))
+            {
+                STR.AppendFormat(@"  SELECT *  FROM [TKMOC].[dbo].[MACHINEMAINRECORD]");
+                STR.AppendFormat(@"  ORDER BY EQUIPMENTID");
+                STR.AppendFormat(@"  ");
+
+                tablename = "TEMPdsREPORT5";
+            }
+            else if (comboBox3.Text.ToString().Equals("定期維護保養計晝表"))
+            {
+                STR.AppendFormat(@"  SELECT *  FROM [TKMOC].[dbo].[MACHINEMAINWEEK]");
+                STR.AppendFormat(@"  ORDER BY EQUIPMENTID");
+                STR.AppendFormat(@"  ");
+
+                tablename = "TEMPdsREPORT6";
+            }
+            else if (comboBox3.Text.ToString().Equals("備品一覽"))
+            {
+                STR.AppendFormat(@"  SELECT *  FROM [TKMOC].[dbo].[MAINPARTS]");
+                STR.AppendFormat(@"  ORDER BY EQUIPMENTID");
+                STR.AppendFormat(@"  ");
+
+                tablename = "TEMPdsREPORT7";
+            }
+            else if (comboBox3.Text.ToString().Equals("備品管制卡"))
+            {
+                STR.AppendFormat(@"  SELECT *  FROM [TKMOC].[dbo].[MAINPARTSUSED]");
+                STR.AppendFormat(@"  ORDER BY EQUIPMENTID");
+                STR.AppendFormat(@"  ");
+
+                tablename = "TEMPdsREPORT8";
+            }
+            else if (comboBox3.Text.ToString().Equals("機器設備卡"))
+            {
+                STR.AppendFormat(@"  SELECT *  FROM [TKMOC].[dbo].[MACHINECARD]");
+                STR.AppendFormat(@"  ORDER BY EQUIPMENTID");
+                STR.AppendFormat(@"  ");
+
+                tablename = "TEMPdsREPORT9";
+            }
+            else if (comboBox3.Text.ToString().Equals("附件"))
+            {
+                STR.AppendFormat(@"  SELECT *  FROM [TKMOC].[dbo].[MACHINEATTACH]");
+                STR.AppendFormat(@"  ORDER BY EQUIPMENTID");
+                STR.AppendFormat(@"  ");
+                
+                tablename = "TEMPdsREPORT10";
+            }
+            else if (comboBox3.Text.ToString().Equals("共用性備品"))
+            {
+                STR.AppendFormat(@"  SELECT *  FROM [TKMOC].[dbo].[MACHINECOMMON]");
+                STR.AppendFormat(@"  ORDER BY EQUIPMENT");
+                STR.AppendFormat(@"  ");
+
+                tablename = "TEMPdsREPORT11";
+            }
+
+            return STR;
+
+        }
         #endregion
 
-        #region BUTTION
+            #region BUTTION
         private void button1_Click(object sender, EventArgs e)
         {
             Search();
@@ -2326,6 +2476,10 @@ namespace TKMOC
             }
 
             
+        }
+        private void button44_Click(object sender, EventArgs e)
+        {
+            SEARCHREPORT();
         }
 
         #endregion
