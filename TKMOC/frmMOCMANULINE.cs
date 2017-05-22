@@ -112,6 +112,7 @@ namespace TKMOC
 
         string TA001 = "A510";
         string TA002;
+        string TA029;
         string MB001;
         string MB002;
         string MB003;
@@ -676,8 +677,8 @@ namespace TKMOC
                             textBox2.Text = ds2.Tables["TEMPds2"].Rows[0]["MB002"].ToString();
                             textBox3.Text = ds2.Tables["TEMPds2"].Rows[0]["MB003"].ToString();
                             textBox32.Text = ds2.Tables["TEMPds2"].Rows[0]["MC004"].ToString();
-                            comboBox5.SelectedValue = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
-                            label51.Text = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
+                            //comboBox5.SelectedValue = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
+                            //label51.Text = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
                         }
                     }
 
@@ -728,8 +729,8 @@ namespace TKMOC
                             textBox10.Text = ds2.Tables["TEMPds2"].Rows[0]["MB002"].ToString();
                             textBox11.Text = ds2.Tables["TEMPds2"].Rows[0]["MB003"].ToString();
                             textBox33.Text = ds2.Tables["TEMPds2"].Rows[0]["MC004"].ToString();
-                            comboBox6.SelectedValue = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
-                            label52.Text = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
+                            //comboBox6.SelectedValue = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
+                            //label52.Text = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
 
                         }
                     }
@@ -783,8 +784,8 @@ namespace TKMOC
                             textBox17.Text = ds2.Tables["TEMPds2"].Rows[0]["MB002"].ToString();
                             textBox18.Text = ds2.Tables["TEMPds2"].Rows[0]["MB003"].ToString();
                             textBox34.Text = ds2.Tables["TEMPds2"].Rows[0]["MC004"].ToString();
-                            comboBox7.SelectedValue = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
-                            label53.Text = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
+                            //comboBox7.SelectedValue = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
+                            //label53.Text = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
                         }
                     }
 
@@ -835,8 +836,8 @@ namespace TKMOC
                             textBox24.Text = ds2.Tables["TEMPds2"].Rows[0]["MB002"].ToString();
                             textBox25.Text = ds2.Tables["TEMPds2"].Rows[0]["MB003"].ToString();
                             textBox35.Text = ds2.Tables["TEMPds2"].Rows[0]["MC004"].ToString();
-                            comboBox8.SelectedValue = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
-                            label54.Text = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
+                            //comboBox8.SelectedValue = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
+                            //label54.Text = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
                         }
                     }
 
@@ -1108,6 +1109,9 @@ namespace TKMOC
                     MB003 = row.Cells["規格"].Value.ToString();
                     BAR = Convert.ToDecimal(row.Cells["桶數"].Value.ToString());
                     SUM1 = Convert.ToDecimal(row.Cells["數量"].Value.ToString());
+                    TA029 = row.Cells["客戶"].Value.ToString();
+
+                    SEARCHMB017();
                     SEARCHMOCMANULINERESULT();
 ;
                 }
@@ -1643,7 +1647,7 @@ namespace TKMOC
                 MOCTA.TA022 = "0";
                 MOCTA.TA024 = "A510";
                 MOCTA.TA025 = TA002;
-                MOCTA.TA029 = textBox6.Text;
+                MOCTA.TA029 = TA029;
                 MOCTA.TA030 = "1";
                 MOCTA.TA031 = "0";
                 MOCTA.TA034 = MB002;
@@ -1705,7 +1709,7 @@ namespace TKMOC
                 MOCTA.TA022 = "0";
                 MOCTA.TA024 = "A510";
                 MOCTA.TA025 = TA002;
-                MOCTA.TA029 = textBox9.Text;
+                MOCTA.TA029 = TA029;
                 MOCTA.TA030 = "1";
                 MOCTA.TA031 = "0";
                 MOCTA.TA034 = MB002B;
@@ -1767,7 +1771,7 @@ namespace TKMOC
                 MOCTA.TA022 = "0";
                 MOCTA.TA024 = "A510";
                 MOCTA.TA025 = TA002;
-                MOCTA.TA029 = textBox16.Text;
+                MOCTA.TA029 = TA029;
                 MOCTA.TA030 = "1";
                 MOCTA.TA031 = "0";
                 MOCTA.TA034 = MB002C;
@@ -1828,7 +1832,7 @@ namespace TKMOC
                 MOCTA.TA022 = "0";
                 MOCTA.TA024 = "A510";
                 MOCTA.TA025 = TA002;
-                MOCTA.TA029 = textBox22.Text;
+                MOCTA.TA029 = TA029;
                 MOCTA.TA030 = "1";
                 MOCTA.TA031 = "0";
                 MOCTA.TA034 = MB002D;
@@ -1888,6 +1892,7 @@ namespace TKMOC
                 MOCTA.TA022 = "0";
                 MOCTA.TA024 = "A510";
                 MOCTA.TA025 = TA002;
+                MOCTA.TA029 = "";
                 MOCTA.TA030 = "1";
                 MOCTA.TA031 = "0";
                 MOCTA.TA034 = MB002E;
@@ -2795,6 +2800,8 @@ namespace TKMOC
                     MB003B = row.Cells["規格"].Value.ToString();
                     BOX = Convert.ToDecimal(row.Cells["箱數"].Value.ToString());
                     SUM2 = Convert.ToDecimal(row.Cells["包裝數"].Value.ToString());
+                    TA029 = row.Cells["客戶"].Value.ToString();
+
                     SEARCHMOCMANULINERESULT();
                     ;
                 }
@@ -2826,6 +2833,8 @@ namespace TKMOC
                     MB003C = row.Cells["規格"].Value.ToString();
                     BAR2 = Convert.ToDecimal(row.Cells["桶數"].Value.ToString());
                     SUM3 = Convert.ToDecimal(row.Cells["數量"].Value.ToString());
+                    TA029 = row.Cells["客戶"].Value.ToString();
+
                     SEARCHMOCMANULINERESULT();
                     ;
                 }
@@ -2856,6 +2865,8 @@ namespace TKMOC
                     MB003D = row.Cells["規格"].Value.ToString();
                     BAR3 = Convert.ToDecimal(row.Cells["桶數"].Value.ToString());
                     SUM4 = Convert.ToDecimal(row.Cells["數量"].Value.ToString());
+                    TA029 = row.Cells["客戶"].Value.ToString();
+
                     SEARCHMOCMANULINERESULT();
                     ;
                 }
@@ -3724,6 +3735,210 @@ namespace TKMOC
         {
             dateTimePicker9.Value = dateTimePicker8.Value;
         }
+
+        public void SEARCHMB017()
+        {
+            if (MANU.Equals("新廠製二組"))
+            {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sbSql.Clear();
+                    sbSqlQuery.Clear();
+
+                    sbSql.AppendFormat(@"  SELECT MB001,MB002,MB003,MC004,MB017            ");
+                    sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB,[TK].dbo.BOMMC");
+                    sbSql.AppendFormat(@"  WHERE MB001=MC001");
+                    sbSql.AppendFormat(@"  AND MB001='{0}'", MB001);
+                    sbSql.AppendFormat(@"  ");
+
+                    adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                    sqlCmdBuilder2 = new SqlCommandBuilder(adapter2);
+                    sqlConn.Open();
+                    ds2.Clear();
+                    adapter2.Fill(ds2, "TEMPds2");
+                    sqlConn.Close();
+
+
+                    if (ds2.Tables["TEMPds2"].Rows.Count == 0)
+                    {
+                        SETNULL1();
+                    }
+                    else
+                    {
+                        if (ds2.Tables["TEMPds2"].Rows.Count >= 1)
+                        {
+                            comboBox5.SelectedValue = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
+                            label51.Text = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
+                        }
+                    }
+
+                }
+                catch
+                {
+
+                }
+                finally
+                {
+
+                }
+
+            }
+            else if (MANU.Equals("新廠包裝線"))
+            {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sbSql.Clear();
+                    sbSqlQuery.Clear();
+
+                    sbSql.AppendFormat(@"  SELECT MB001,MB002,MB003,MC004 ,MB017 ");
+                    sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB,[TK].dbo.BOMMC");
+                    sbSql.AppendFormat(@"  WHERE MB001=MC001");
+                    sbSql.AppendFormat(@"  AND MB001='{0}'", MB001);
+                    sbSql.AppendFormat(@"  ");
+
+                    adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                    sqlCmdBuilder2 = new SqlCommandBuilder(adapter2);
+                    sqlConn.Open();
+                    ds2.Clear();
+                    adapter2.Fill(ds2, "TEMPds2");
+                    sqlConn.Close();
+
+
+                    if (ds2.Tables["TEMPds2"].Rows.Count == 0)
+                    {
+                        SETNULL1();
+                    }
+                    else
+                    {
+                        if (ds2.Tables["TEMPds2"].Rows.Count >= 1)
+                        {
+                            comboBox6.SelectedValue = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
+                            label52.Text = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
+
+                        }
+                    }
+
+                }
+                catch
+                {
+
+                }
+                finally
+                {
+
+                }
+
+
+            }
+
+            else if (MANU.Equals("新廠製一組"))
+            {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sbSql.Clear();
+                    sbSqlQuery.Clear();
+
+                    sbSql.AppendFormat(@"  SELECT MB001,MB002,MB003,MC004 ,MB017 ");
+                    sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB,[TK].dbo.BOMMC");
+                    sbSql.AppendFormat(@"  WHERE MB001=MC001");
+                    sbSql.AppendFormat(@"  AND MB001='{0}'", MB001);
+                    sbSql.AppendFormat(@"  ");
+
+                    adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                    sqlCmdBuilder2 = new SqlCommandBuilder(adapter2);
+                    sqlConn.Open();
+                    ds2.Clear();
+                    adapter2.Fill(ds2, "TEMPds2");
+                    sqlConn.Close();
+
+
+                    if (ds2.Tables["TEMPds2"].Rows.Count == 0)
+                    {
+                        SETNULL4();
+                    }
+                    else
+                    {
+                        if (ds2.Tables["TEMPds2"].Rows.Count >= 1)
+                        {
+                            comboBox7.SelectedValue = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
+                            label53.Text = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
+                        }
+                    }
+
+                }
+                catch
+                {
+
+                }
+                finally
+                {
+
+                }
+
+            }
+            else if (MANU.Equals("新廠製三組(手工)"))
+            {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sbSql.Clear();
+                    sbSqlQuery.Clear();
+
+                    sbSql.AppendFormat(@"  SELECT MB001,MB002,MB003,MC004 ,MB017 ");
+                    sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB,[TK].dbo.BOMMC");
+                    sbSql.AppendFormat(@"  WHERE MB001=MC001");
+                    sbSql.AppendFormat(@"  AND MB001='{0}'", MB001);
+                    sbSql.AppendFormat(@"  ");
+
+                    adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                    sqlCmdBuilder2 = new SqlCommandBuilder(adapter2);
+                    sqlConn.Open();
+                    ds2.Clear();
+                    adapter2.Fill(ds2, "TEMPds2");
+                    sqlConn.Close();
+
+
+                    if (ds2.Tables["TEMPds2"].Rows.Count == 0)
+                    {
+                        SETNULL4();
+                    }
+                    else
+                    {
+                        if (ds2.Tables["TEMPds2"].Rows.Count >= 1)
+                        {
+                            comboBox8.SelectedValue = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
+                            label54.Text = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
+                        }
+                    }
+
+                }
+                catch
+                {
+
+                }
+                finally
+                {
+
+                }
+
+            }
+        }
+
         #endregion
 
         #region BUTTON
