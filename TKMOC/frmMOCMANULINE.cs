@@ -94,21 +94,31 @@ namespace TKMOC
         string ID1;
         DateTime dt1;
         string DELID1;
+        string DELMOCTA001A;
+        string DELMOCTA002A;
         string IN1="20001";
         string ID2;
         DateTime dt2;
         string DELID2;
+        string DELMOCTA001B;
+        string DELMOCTA002B;
         string IN2 = "20001";
         string ID3;
         DateTime dt3;
         string DELID3;
+        string DELMOCTA001C;
+        string DELMOCTA002C;
         string IN3 = "20001";
         string ID4;
         DateTime dt4;
         string DELID4;
+        string DELMOCTA001D;
+        string DELMOCTA002D;
         string IN4 = "20001";
         DateTime dt5;
         string DELID5;
+        string DELMOCTA001E;
+        string DELMOCTA002E;
 
         string TA001 = "A510";
         string TA002;
@@ -1569,7 +1579,8 @@ namespace TKMOC
                 sbSql.AppendFormat(" ,'****' [TB025],'0' [TB026],'1' [TB027],'0' [TB029],'0' [TB030],'0' [TB031],'0' [TB501],'N' [TB554],'0' [TB556],'0' [TB560]");
                 sbSql.AppendFormat(" FROM [TK].dbo.[BOMMD],[TK].dbo.[INVMB]");
                 sbSql.AppendFormat(" WHERE [BOMMD].MD003=[INVMB].MB001");
-                sbSql.AppendFormat(" AND MD001='{0}')", MOCMB001);
+                sbSql.AppendFormat(" AND MD001='{0}' AND ISNULL(MD012,'')='' )", MOCMB001);
+                sbSql.AppendFormat(" ");
                 sbSql.AppendFormat(" ");
                 sbSql.AppendFormat(" ");
 
@@ -2886,9 +2897,9 @@ namespace TKMOC
                 {
                     DataGridViewRow row = dataGridView2.Rows[rowindex];
                     DELID1 = row.Cells["SID"].Value.ToString();
-                    
-                    
-                    
+                    DELMOCTA001A= row.Cells["製令"].Value.ToString();
+                    DELMOCTA002A = row.Cells["單號"].Value.ToString();
+
                 }
                 else
                 {
@@ -2906,8 +2917,10 @@ namespace TKMOC
                 {
                     DataGridViewRow row = dataGridView4.Rows[rowindex];
                     DELID2 = row.Cells["SID"].Value.ToString();
+                    DELMOCTA001B = row.Cells["製令"].Value.ToString();
+                    DELMOCTA002B = row.Cells["單號"].Value.ToString();
 
-                   
+
 
                 }
                 else
@@ -2927,8 +2940,10 @@ namespace TKMOC
                 {
                     DataGridViewRow row = dataGridView6.Rows[rowindex];
                     DELID3 = row.Cells["SID"].Value.ToString();
+                    DELMOCTA001C = row.Cells["製令"].Value.ToString();
+                    DELMOCTA002C = row.Cells["單號"].Value.ToString();
 
-                    
+
 
                 }
                 else
@@ -2948,8 +2963,10 @@ namespace TKMOC
                 {
                     DataGridViewRow row = dataGridView8.Rows[rowindex];
                     DELID4 = row.Cells["SID"].Value.ToString();
+                    DELMOCTA001D = row.Cells["製令"].Value.ToString();
+                    DELMOCTA002D = row.Cells["單號"].Value.ToString();
 
-                   
+
 
                 }
                 else
@@ -2975,7 +2992,8 @@ namespace TKMOC
 
                     sbSql.Clear();
                     sbSql.AppendFormat("  DELETE [TKMOC].[dbo].[MOCMANULINERESULT]");
-                    sbSql.AppendFormat("  WHERE SID='{0}'", DELID1);
+                    sbSql.AppendFormat("  WHERE SID='{0}' ", DELID1);
+                    sbSql.AppendFormat("  AND [MOCTA001] ='{0}' AND [MOCTA002]='{1}'",DELMOCTA001A, DELMOCTA002A);
                     sbSql.AppendFormat(" ");
 
                     cmd.Connection = sqlConn;
@@ -3019,6 +3037,7 @@ namespace TKMOC
                     sbSql.Clear();
                     sbSql.AppendFormat("  DELETE [TKMOC].[dbo].[MOCMANULINERESULT]");
                     sbSql.AppendFormat("  WHERE SID='{0}'", DELID2);
+                    sbSql.AppendFormat("  AND [MOCTA001] ='{0}' AND [MOCTA002]='{1}'", DELMOCTA001B, DELMOCTA002B);
                     sbSql.AppendFormat(" ");
 
                     cmd.Connection = sqlConn;
@@ -3061,6 +3080,7 @@ namespace TKMOC
                     sbSql.Clear();
                     sbSql.AppendFormat("  DELETE [TKMOC].[dbo].[MOCMANULINERESULT]");
                     sbSql.AppendFormat("  WHERE SID='{0}'", DELID3);
+                    sbSql.AppendFormat("  AND [MOCTA001] ='{0}' AND [MOCTA002]='{1}'", DELMOCTA001C, DELMOCTA002C);
                     sbSql.AppendFormat(" ");
 
                     cmd.Connection = sqlConn;
@@ -3103,6 +3123,7 @@ namespace TKMOC
                     sbSql.Clear();
                     sbSql.AppendFormat("  DELETE [TKMOC].[dbo].[MOCMANULINERESULT]");
                     sbSql.AppendFormat("  WHERE SID='{0}'", DELID4);
+                    sbSql.AppendFormat("  AND [MOCTA001] ='{0}' AND [MOCTA002]='{1}'", DELMOCTA001D, DELMOCTA002D);
                     sbSql.AppendFormat(" ");
 
                     cmd.Connection = sqlConn;
@@ -3426,7 +3447,7 @@ namespace TKMOC
 
                 sbSql.Clear();
                 sbSql.AppendFormat("  DELETE [TKMOC].[dbo].[MOCMANULINETOATL]");
-                sbSql.AppendFormat("  WHERE ID='{0}'", DELID5);
+                sbSql.AppendFormat("  WHERE ID='{0}'", DELID5);          
                 sbSql.AppendFormat(" ");
 
                 cmd.Connection = sqlConn;
@@ -3465,6 +3486,8 @@ namespace TKMOC
                 {
                     DataGridViewRow row = dataGridView10.Rows[rowindex];
                     DELID5 = row.Cells["ID"].Value.ToString();
+                    DELMOCTA001E = row.Cells["製令"].Value.ToString();
+                    DELMOCTA002E = row.Cells["單號"].Value.ToString();
 
 
 
