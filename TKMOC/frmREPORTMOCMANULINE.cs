@@ -233,6 +233,39 @@ namespace TKMOC
                 }
 
             }
+            else if (tablename.Equals("TEMPdsMATERIAL1"))
+            {
+                TABLENAME = "預計原物料報表";
+                foreach (DataGridViewRow dr in this.dataGridView2.Rows)
+                {
+                    ws.CreateRow(j + 1);
+
+                    for (int i = 0; i < dt.Columns.Count; i++)
+                    {
+                        ws.GetRow(j + 1).CreateCell(i).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[i].ToString());
+                    }
+
+                    j++;
+                }
+
+            }
+            else if (tablename.Equals("TEMPdsMATERIAL2"))
+            {
+                TABLENAME = "預計原物料報表";
+                foreach (DataGridViewRow dr in this.dataGridView2.Rows)
+                {
+                    ws.CreateRow(j + 1);
+
+                    for (int i = 0; i < dt.Columns.Count; i++)
+                    {
+                        ws.GetRow(j + 1).CreateCell(i).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[i].ToString());
+                    }
+
+                    j++;
+                }
+
+            }
+            
 
             else if (tablename.Equals(""))
             {
@@ -346,7 +379,7 @@ namespace TKMOC
                 tablename = "TEMPdsMATERIAL1";
             }
 
-            else if (comboBox1.Text.ToString().Equals("全部"))
+            else if (comboBox2.Text.ToString().Equals("全部"))
             {
 
 
@@ -390,6 +423,10 @@ namespace TKMOC
         private void button4_Click(object sender, EventArgs e)
         {
             SearchMATRIAL();
+        }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            ExcelExport();
         }
 
         #endregion
