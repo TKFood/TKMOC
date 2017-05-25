@@ -266,6 +266,115 @@ namespace TKMOC
                 //file doesn't exist
             }
         }
+
+        public void SearchMATRIAL()
+        {
+            try
+            {
+                sbSql.Clear();
+                sbSql = SETsbSqlMATERIAL();
+
+                if (!string.IsNullOrEmpty(sbSql.ToString()))
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    adapter = new SqlDataAdapter(sbSql.ToString(), sqlConn);
+                    sqlCmdBuilder = new SqlCommandBuilder(adapter);
+
+                    sqlConn.Open();
+                    //dataGridView1.Columns.Clear();
+                    ds.Clear();
+
+                    adapter.Fill(ds, tablename);
+                    sqlConn.Close();
+
+                    if (ds.Tables[tablename].Rows.Count == 0)
+                    {
+
+                    }
+                    else
+                    {
+
+                        dataGridView2.DataSource = ds.Tables[tablename];
+                        dataGridView2.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1.Rows[rownum].Cells[0];
+
+                    }
+                }
+                else
+                {
+
+                }
+
+
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+
+        public StringBuilder SETsbSqlMATERIAL()
+        {
+            StringBuilder STR = new StringBuilder();
+
+
+            if (!string.IsNullOrEmpty(comboBox2.Text.ToString()) && !comboBox2.Text.ToString().Equals("全部"))
+            {
+
+                STR.AppendFormat(@"   SELECT MD003 AS '品號',MB002 AS '品名',MD004 AS '單位',SUM(用量) AS '用量'");
+                STR.AppendFormat(@"   FROM (");
+                STR.AppendFormat(@"   SELECT MD003,[INVMB].MB002,MD004");
+                STR.AppendFormat(@"   ,CONVERT(DECIMAL(18,4),(ISNULL([MOCMANULINE].NUM,0) +ISNULL([MOCMANULINE].BOX,0))/MC004*MD006/MD007) AS '用量'");
+                STR.AppendFormat(@"   FROM [TK].dbo.[BOMMC],[TK].dbo.[BOMMD],[TK].dbo.[INVMB],[TKMOC].dbo.[MOCMANULINE]  ");
+                STR.AppendFormat(@"   LEFT JOIN  [TKMOC].dbo.[MOCMANULINERESULT] ON [MOCMANULINE].ID=[MOCMANULINERESULT].SID  ");
+                STR.AppendFormat(@"   WHERE [MOCMANULINE].MB001=MC001 AND MC001=MD001 AND MD003=[INVMB].MB001");
+                STR.AppendFormat(@"   AND CONVERT(NVARCHAR(10),[MOCMANULINE].MANUDATE,112) >= '{0}'  AND CONVERT(NVARCHAR(10),[MOCMANULINE].MANUDATE,112) <= '{1}' ",dateTimePicker2.Value.ToString("yyyyMMdd"), dateTimePicker3.Value.ToString("yyyyMMdd"));
+                STR.AppendFormat(@"   AND [MOCMANULINE].MANU='{0}') AS TEMP",comboBox2.Text.ToString());
+                STR.AppendFormat(@"   GROUP BY MD003,MB002,MD004");
+                STR.AppendFormat(@"   ORDER BY MD003,MB002,MD004");
+                STR.AppendFormat(@"  ");
+                STR.AppendFormat(@"  ");
+
+
+                tablename = "TEMPdsMATERIAL1";
+            }
+
+            else if (comboBox1.Text.ToString().Equals("全部"))
+            {
+
+
+                STR.AppendFormat(@"   SELECT MD003 AS '品號',MB002 AS '品名',MD004 AS '單位',SUM(用量) AS '用量'");
+                STR.AppendFormat(@"   FROM (");
+                STR.AppendFormat(@"   SELECT MD003,[INVMB].MB002,MD004");
+                STR.AppendFormat(@"   ,CONVERT(DECIMAL(18,4),(ISNULL([MOCMANULINE].NUM,0) +ISNULL([MOCMANULINE].BOX,0))/MC004*MD006/MD007) AS '用量'");
+                STR.AppendFormat(@"   FROM [TK].dbo.[BOMMC],[TK].dbo.[BOMMD],[TK].dbo.[INVMB],[TKMOC].dbo.[MOCMANULINE]  ");
+                STR.AppendFormat(@"   LEFT JOIN  [TKMOC].dbo.[MOCMANULINERESULT] ON [MOCMANULINE].ID=[MOCMANULINERESULT].SID  ");
+                STR.AppendFormat(@"   WHERE [MOCMANULINE].MB001=MC001 AND MC001=MD001 AND MD003=[INVMB].MB001");
+                STR.AppendFormat(@"   AND CONVERT(NVARCHAR(10),[MOCMANULINE].MANUDATE,112) >= '{0}'  AND CONVERT(NVARCHAR(10),[MOCMANULINE].MANUDATE,112) <= '{1}' ", dateTimePicker2.Value.ToString("yyyyMMdd"), dateTimePicker3.Value.ToString("yyyyMMdd"));
+                STR.AppendFormat(@"   ) AS TEMP");
+                STR.AppendFormat(@"   GROUP BY MD003,MB002,MD004");
+                STR.AppendFormat(@"   ORDER BY MD003,MB002,MD004");
+                STR.AppendFormat(@"  ");
+                STR.AppendFormat(@"  ");
+
+
+                tablename = "TEMPdsMATERIAL2";
+            }
+
+
+
+
+            return STR;
+        }
+
+
         #endregion
 
         #region BUTTON
@@ -273,12 +382,18 @@ namespace TKMOC
         {
             Search();
         }
-
-        #endregion
-
         private void button2_Click(object sender, EventArgs e)
         {
             ExcelExport();
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            SearchMATRIAL();
+        }
+
+        #endregion
+
+
     }
 }
