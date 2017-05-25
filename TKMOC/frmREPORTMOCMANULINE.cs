@@ -36,6 +36,7 @@ namespace TKMOC
         DataSet ds = new DataSet();
         DataSet ds2 = new DataSet();
         DataTable dt = new DataTable();
+        DataTable dt2 = new DataTable();
         string tablename = null;
         int rownum = 0;
 
@@ -182,7 +183,7 @@ namespace TKMOC
 
 
             dt = ds.Tables[tablename];
-         
+           
 
             if (dt.TableName != string.Empty)
             {
@@ -203,6 +204,7 @@ namespace TKMOC
             int j = 0;
             if (tablename.Equals("TEMPds1"))
             {
+
                 TABLENAME = "預計製令報表";
                 foreach (DataGridViewRow dr in this.dataGridView1.Rows)
                 {
@@ -218,7 +220,8 @@ namespace TKMOC
 
             }
             else if (tablename.Equals("TEMPds2"))
-            {
+            {               
+
                 TABLENAME = "預計製令報表";
                 foreach (DataGridViewRow dr in this.dataGridView1.Rows)
                 {
@@ -233,39 +236,7 @@ namespace TKMOC
                 }
 
             }
-            else if (tablename.Equals("TEMPdsMATERIAL1"))
-            {
-                TABLENAME = "預計原物料報表";
-                foreach (DataGridViewRow dr in this.dataGridView2.Rows)
-                {
-                    ws.CreateRow(j + 1);
-
-                    for (int i = 0; i < dt.Columns.Count; i++)
-                    {
-                        ws.GetRow(j + 1).CreateCell(i).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[i].ToString());
-                    }
-
-                    j++;
-                }
-
-            }
-            else if (tablename.Equals("TEMPdsMATERIAL2"))
-            {
-                TABLENAME = "預計原物料報表";
-                foreach (DataGridViewRow dr in this.dataGridView2.Rows)
-                {
-                    ws.CreateRow(j + 1);
-
-                    for (int i = 0; i < dt.Columns.Count; i++)
-                    {
-                        ws.GetRow(j + 1).CreateCell(i).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[i].ToString());
-                    }
-
-                    j++;
-                }
-
-            }
-            
+                        
 
             else if (tablename.Equals(""))
             {
@@ -317,19 +288,19 @@ namespace TKMOC
 
                     sqlConn.Open();
                     //dataGridView1.Columns.Clear();
-                    ds.Clear();
+                    ds2.Clear();
 
-                    adapter.Fill(ds, tablename);
+                    adapter.Fill(ds2, tablename);
                     sqlConn.Close();
 
-                    if (ds.Tables[tablename].Rows.Count == 0)
+                    if (ds2.Tables[tablename].Rows.Count == 0)
                     {
 
                     }
                     else
                     {
 
-                        dataGridView2.DataSource = ds.Tables[tablename];
+                        dataGridView2.DataSource = ds2.Tables[tablename];
                         dataGridView2.AutoResizeColumns();
                         //dataGridView1.CurrentCell = dataGridView1.Rows[rownum].Cells[0];
 
@@ -407,6 +378,102 @@ namespace TKMOC
             return STR;
         }
 
+        public void ExcelExportMATERIAL()
+        {
+            SearchMATRIAL();
+            string TABLENAME = "報表";
+            int rows = 0;
+
+            //建立Excel 2003檔案
+            IWorkbook wb = new XSSFWorkbook();
+            ISheet ws;
+
+
+            dt = ds2.Tables[tablename];
+
+            if (dt.TableName != string.Empty)
+            {
+                ws = wb.CreateSheet(dt.TableName);
+            }
+            else
+            {
+                ws = wb.CreateSheet("Sheet1");
+            }
+
+            ws.CreateRow(0);//第一行為欄位名稱
+            for (int i = 0; i < dt.Columns.Count; i++)
+            {
+                ws.GetRow(0).CreateCell(i).SetCellValue(dt.Columns[i].ColumnName);
+            }
+
+
+            int j = 0;
+            if (tablename.Equals("TEMPdsMATERIAL1"))
+            {
+                TABLENAME = "預計原物料報表";
+                foreach (DataGridViewRow dr in this.dataGridView2.Rows)
+                {
+                    ws.CreateRow(j + 1);
+
+                    for (int i = 0; i < dt.Columns.Count; i++)
+                    {
+                        ws.GetRow(j + 1).CreateCell(i).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[i].ToString());
+                    }
+
+                    j++;
+                }
+
+            }
+            else if (tablename.Equals("TEMPdsMATERIAL2"))
+            {                
+                TABLENAME = "預計原物料報表";
+                foreach (DataGridViewRow dr in this.dataGridView2.Rows)
+                {
+                    ws.CreateRow(j + 1);
+
+                    for (int i = 0; i < dt.Columns.Count; i++)
+                    {
+                        ws.GetRow(j + 1).CreateCell(i).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[i].ToString());
+                    }
+
+                    j++;
+                }
+
+            }
+
+
+            else if (tablename.Equals(""))
+            {
+
+            }
+
+            if (Directory.Exists(@"c:\temp\"))
+            {
+                //資料夾存在
+            }
+            else
+            {
+                //新增資料夾
+                Directory.CreateDirectory(@"c:\temp\");
+            }
+            StringBuilder filename = new StringBuilder();
+            filename.AppendFormat(@"c:\temp\{0}-{1}.xlsx", TABLENAME, DateTime.Now.ToString("yyyyMMdd"));
+
+            FileStream file = new FileStream(filename.ToString(), FileMode.Create);//產生檔案
+            wb.Write(file);
+            file.Close();
+
+            MessageBox.Show("匯出完成-EXCEL放在-" + filename.ToString());
+            FileInfo fi = new FileInfo(filename.ToString());
+            if (fi.Exists)
+            {
+                System.Diagnostics.Process.Start(filename.ToString());
+            }
+            else
+            {
+                //file doesn't exist
+            }
+        }
 
         #endregion
 
@@ -426,7 +493,7 @@ namespace TKMOC
         }
         private void button3_Click(object sender, EventArgs e)
         {
-            ExcelExport();
+            ExcelExportMATERIAL();
         }
 
         #endregion
