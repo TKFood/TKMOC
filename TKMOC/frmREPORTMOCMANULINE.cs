@@ -333,6 +333,8 @@ namespace TKMOC
             {
 
                 STR.AppendFormat(@"   SELECT MD003 AS '品號',MB002 AS '品名',MD004 AS '單位',SUM(用量) AS '用量'");
+                STR.AppendFormat(@"  ,( SELECT SUM(LA005*LA011) FROM [TK].dbo.INVLA WITH(NOLOCK) WHERE LA009  IN ('20004','20006') AND  LA001=MD003) AS '現在庫存'");
+                STR.AppendFormat(@"  ,(( SELECT SUM(LA005*LA011) FROM [TK].dbo.INVLA WITH(NOLOCK) WHERE LA009  IN ('20004','20006') AND  LA001=MD003)-SUM(用量)) AS '可用量'");
                 STR.AppendFormat(@"   FROM (");
                 STR.AppendFormat(@"   SELECT MD003,[INVMB].MB002,MD004");
                 STR.AppendFormat(@"   ,CONVERT(DECIMAL(18,4),(ISNULL([MOCMANULINE].NUM,0) +ISNULL([MOCMANULINE].BOX,0))/MC004*MD006/MD007) AS '用量'");
@@ -355,6 +357,8 @@ namespace TKMOC
 
 
                 STR.AppendFormat(@"   SELECT MD003 AS '品號',MB002 AS '品名',MD004 AS '單位',SUM(用量) AS '用量'");
+                STR.AppendFormat(@"  ,( SELECT SUM(LA005*LA011) FROM [TK].dbo.INVLA WITH(NOLOCK) WHERE LA009  IN ('20004','20006') AND  LA001=MD003) AS '現在庫存'");
+                STR.AppendFormat(@"  ,(( SELECT SUM(LA005*LA011) FROM [TK].dbo.INVLA WITH(NOLOCK) WHERE LA009  IN ('20004','20006') AND  LA001=MD003)-SUM(用量)) AS '可用量'");
                 STR.AppendFormat(@"   FROM (");
                 STR.AppendFormat(@"   SELECT MD003,[INVMB].MB002,MD004");
                 STR.AppendFormat(@"   ,CONVERT(DECIMAL(18,4),(ISNULL([MOCMANULINE].NUM,0) +ISNULL([MOCMANULINE].BOX,0))/MC004*MD006/MD007) AS '用量'");
