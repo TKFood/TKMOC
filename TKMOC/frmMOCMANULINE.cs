@@ -1646,7 +1646,8 @@ namespace TKMOC
                 MOCTA.TA011 = "1";
                 MOCTA.TA012 = dt1.ToString("yyyyMMdd");
                 MOCTA.TA013 = "N";
-                MOCTA.TA014 = dt1.ToString("yyyyMMdd");
+                //MOCTA.TA014 = dt1.ToString("yyyyMMdd");
+                MOCTA.TA014 = "";
                 //MOCTA.TA015 = (BAR * BOMBAR).ToString();
                 MOCTA.TA015 = SUM1.ToString();
                 MOCTA.TA016 = "0";
@@ -1708,7 +1709,8 @@ namespace TKMOC
                 MOCTA.TA011 = "1";
                 MOCTA.TA012 = dt2.ToString("yyyyMMdd");
                 MOCTA.TA013 = "N";
-                MOCTA.TA014 = dt2.ToString("yyyyMMdd");
+                // MOCTA.TA014 = dt2.ToString("yyyyMMdd");
+                MOCTA.TA014 = "";
                 //MOCTA.TA015 = (BOX * BOMBAR).ToString();
                 MOCTA.TA015 = SUM2.ToString();
                 MOCTA.TA016 = "0";
@@ -1770,7 +1772,8 @@ namespace TKMOC
                 MOCTA.TA011 = "1";
                 MOCTA.TA012 = dt3.ToString("yyyyMMdd");
                 MOCTA.TA013 = "N";
-                MOCTA.TA014 = dt3.ToString("yyyyMMdd");
+                //MOCTA.TA014 = dt3.ToString("yyyyMMdd");
+                MOCTA.TA014 = "";
                 //MOCTA.TA015 = (BAR2 * BOMBAR).ToString();
                 MOCTA.TA015 = SUM3.ToString();
                 MOCTA.TA016 = "0";
@@ -1831,7 +1834,8 @@ namespace TKMOC
                 MOCTA.TA011 = "1";
                 MOCTA.TA012 = dt4.ToString("yyyyMMdd");
                 MOCTA.TA013 = "N";
-                MOCTA.TA014 = dt4.ToString("yyyyMMdd");
+                //MOCTA.TA014 = dt4.ToString("yyyyMMdd");
+                MOCTA.TA014 = "";
                 //MOCTA.TA015 = (BAR3 * BOMBAR).ToString();
                 MOCTA.TA015 = SUM4.ToString();
                 MOCTA.TA016 = "0";
@@ -1892,7 +1896,8 @@ namespace TKMOC
                 MOCTA.TA011 = "1";
                 MOCTA.TA012 = dt5.ToString("yyyyMMdd");
                 MOCTA.TA013 = "N";
-                MOCTA.TA014 = dt5.ToString("yyyyMMdd");
+                //MOCTA.TA014 = dt5.ToString("yyyyMMdd");
+                MOCTA.TA014 = "";
                 MOCTA.TA015 = textBox31.Text;
                 MOCTA.TA016 = "0";
                 MOCTA.TA017 = "0";
