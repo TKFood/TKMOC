@@ -67,7 +67,7 @@ namespace TKMOC
 
                 sbSql.AppendFormat(@"  SELECT ");
                 sbSql.AppendFormat(@"  [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名'");
-                sbSql.AppendFormat(@"  ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[BOX]   AS '箱數'   ,[PACKAGE]  AS '片數',[CLINET] AS '客戶'");
+                sbSql.AppendFormat(@"  ,[MB003] AS '規格',ISNULL([BAR],0) AS '桶數',ISNULL([NUM],0) AS '數量',ISNULL([BOX],0)   AS '箱數'   ,ISNULL([PACKAGE],0)  AS '片數',[CLINET] AS '客戶'");
                 sbSql.AppendFormat(@"  ,[MC004]");
                 sbSql.AppendFormat(@"  ,[ID]");
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE],[TK].[dbo].[BOMMC]");
@@ -138,7 +138,7 @@ namespace TKMOC
 
                 sbSql.Clear();
 
-                sbSql.AppendFormat(" UPDATE [TKMOC].[dbo].[MOCMANULINE] SET [BAR]='{0}',[NUM]='{1}',[BOX]='{2}',[PACKAGE]='{3}'",textBox6.Text, textBox7.Text, textBox8.Text, textBox9.Text);
+                sbSql.AppendFormat(" UPDATE [TKMOC].[dbo].[MOCMANULINE] SET [BAR]={0},[NUM]={1},[BOX]={2},[PACKAGE]={3}",textBox6.Text, textBox7.Text, textBox8.Text, textBox9.Text);
                 sbSql.AppendFormat(" WHERE  [ID]='{0}'", textBoxID.Text);
                 sbSql.AppendFormat(" ");
 
