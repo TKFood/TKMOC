@@ -63,6 +63,8 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder17 = new SqlCommandBuilder();
         SqlDataAdapter adapter18 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder18 = new SqlCommandBuilder();
+        SqlDataAdapter adapter19 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder19 = new SqlCommandBuilder();
 
         SqlTransaction tran;
         SqlCommand cmd = new SqlCommand();
@@ -82,6 +84,7 @@ namespace TKMOC
         DataSet ds16 = new DataSet();
         DataSet ds17 = new DataSet();
         DataSet ds18 = new DataSet();
+        DataSet ds19 = new DataSet();
 
         DataSet dsBOMMC = new DataSet();
         DataSet dsBOMMD = new DataSet();
@@ -3967,6 +3970,109 @@ namespace TKMOC
             }
         }
 
+        public void UPDATEMOCMANULINE()
+        {
+            if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage1"])
+            {
+                frmMOCMANULINESub MOCMANULINESub = new frmMOCMANULINESub(ID1);
+                MOCMANULINESub.ShowDialog();
+            }
+            else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage4"])
+            {
+                frmMOCMANULINESub MOCMANULINESub = new frmMOCMANULINESub(ID2);
+                MOCMANULINESub.ShowDialog();
+            }
+            else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage2"])
+            {
+                frmMOCMANULINESub MOCMANULINESub = new frmMOCMANULINESub(ID3);
+                MOCMANULINESub.ShowDialog();
+            }
+            else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage3"])
+            {
+                frmMOCMANULINESub MOCMANULINESub = new frmMOCMANULINESub(ID4);
+                MOCMANULINESub.ShowDialog();
+            }
+            else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage5"])
+            {
+                
+            }
+
+            
+
+        }
+
+        public void CHECKMOCTAB()
+        {
+            string CHECKID = null;
+
+            if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage1"])
+            {
+                CHECKID = ID1;
+            }
+            else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage4"])
+            {
+                CHECKID = ID2;
+            }
+            else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage2"])
+            {
+                CHECKID = ID3;
+            }
+            else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage3"])
+            {
+                CHECKID = ID4;
+            }
+            else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage5"])
+            {
+
+            }
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  SELECT	MOCTA001,MOCTA002");
+                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINERESULT]");
+                sbSql.AppendFormat(@"  WHERE [SID]='{0}'",CHECKID);
+                sbSql.AppendFormat(@"  UNION ALL");
+                sbSql.AppendFormat(@"  SELECT	TA001,TA002");
+                sbSql.AppendFormat(@"  FROM [TK].[dbo].[MOCTA]");
+                sbSql.AppendFormat(@"  WHERE EXISTS (SELECT [MOCTA001],[MOCTA002] FROM [TKMOC].[dbo].[MOCMANULINERESULT] WHERE [SID]='{0}' AND TA001=MOCTA001 AND TA002=MOCTA002)", CHECKID);
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+                adapter19 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder19 = new SqlCommandBuilder(adapter19);
+                sqlConn.Open();
+                ds19.Clear();
+                adapter19.Fill(ds19, "TEMPds19");
+                sqlConn.Close();
+
+
+                if (ds19.Tables["TEMPds19"].Rows.Count == 0)
+                {
+                    UPDATEMOCMANULINE();
+                }
+                else
+                {
+                    MessageBox.Show("有製令未刪除，請檢查一下");
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
         #endregion
 
         #region BUTTON
@@ -4277,9 +4383,31 @@ namespace TKMOC
             textBox22.Text = SUBfrmSUBMOCCOPMA.TextBoxMsg;
         }
 
+        private void button32_Click(object sender, EventArgs e)
+        {
+            CHECKMOCTAB();
+            SEARCHMOCMANULINE();
+        }
+        private void button35_Click(object sender, EventArgs e)
+        {
+            CHECKMOCTAB();
+            SEARCHMOCMANULINE();
+        }
+
+        private void button34_Click(object sender, EventArgs e)
+        {
+            CHECKMOCTAB();
+            SEARCHMOCMANULINE();
+        }
+
+        private void button33_Click(object sender, EventArgs e)
+        {
+            CHECKMOCTAB();
+            SEARCHMOCMANULINE();
+        }
 
         #endregion
 
-        
+
     }
 }
