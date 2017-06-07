@@ -1907,7 +1907,7 @@ namespace TKMOC
                 MOCTA.TA018 = "0";
                 MOCTA.TA019 = "20";
                 MOCTA.TA020 = textBox36.Text;
-                MOCTA.TA021 = "04";
+                MOCTA.TA021 = textBox27.Text;
                 MOCTA.TA022 = "0";
                 MOCTA.TA024 = "A510";
                 MOCTA.TA025 = TA002;
@@ -3494,8 +3494,8 @@ namespace TKMOC
                 {
                     DataGridViewRow row = dataGridView10.Rows[rowindex];
                     DELID5 = row.Cells["ID"].Value.ToString();
-                    DELMOCTA001E = row.Cells["製令"].Value.ToString();
-                    DELMOCTA002E = row.Cells["單號"].Value.ToString();
+                    DELMOCTA001E = row.Cells["單別"].Value.ToString();
+                    DELMOCTA002E = row.Cells["製令"].Value.ToString();
 
 
 
