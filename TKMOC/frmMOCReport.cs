@@ -267,6 +267,35 @@ namespace TKMOC
 
                 tablename = "TEMPds7";
             }
+            else if (comboBox1.Text.ToString().Equals("烤爐溫度明細表"))
+            {
+                STR.AppendFormat(@"  SELECT CONVERT(varchar(100),[OVENDATE], 112) AS '日期',[MANUDEP].[DEPNAME] AS '組',CONVERT(varchar(100),[PREHEARTSTART], 108)  AS '預熱時間(起)',CONVERT(varchar(100),[PREHEARTEND], 108)   AS '預熱時間(迄)',[GAS]  AS '瓦斯磅數',EMP1.NAME  AS '折疊人員1',EMP2.NAME    AS '折疊人員2', EMP3.NAME   AS '主管',EMP4.NAME    AS '操作人員',[MANUDEP] AS '組別'");
+                STR.AppendFormat(@"  ,[MB001] AS '品號',[MB002] AS '品名',[MB003] AS '規格',[TEMPER] AS '溫度',[HUMIDITY] AS '溼度',[WEATHER] AS '天氣',CONVERT(varchar(100),[MANUTIME],108) AS '時間'");
+                STR.AppendFormat(@"  ,[FURANACEUP1] AS '上爐-第1爐',[FURANACEUP1A] AS '上爐-第1爐A',[FURANACEUP1B] AS '上爐-第1爐B'");
+                STR.AppendFormat(@"  ,[FURANACEUP2] AS '上爐-第2爐',[FURANACEUP2A] AS '上爐-第2爐A',[FURANACEUP2B] AS '上爐-第2爐B'");
+                STR.AppendFormat(@"  ,[FURANACEUP3] AS '上爐-第3爐',[FURANACEUP3A] AS '上爐-第3爐A',[FURANACEUP3B] AS '上爐-第3爐B'");
+                STR.AppendFormat(@"  ,[FURANACEUP4] AS '上爐-第4爐',[FURANACEUP4A] AS '上爐-第4爐A',[FURANACEUP4B] AS '上爐-第4爐B'");
+                STR.AppendFormat(@"  ,[FURANACEUP5] AS '上爐-第5爐' ,[FURANACEUP5A] AS '上爐-第5爐A' ,[FURANACEUP5B] AS '上爐-第5爐B' ");
+                STR.AppendFormat(@"  ,[FURANACEDOWN1] AS '下爐-第1爐',[FURANACEDOWN1A] AS '下爐-第1爐A',[FURANACEDOWN1B] AS '下爐-第1爐B'");
+                STR.AppendFormat(@"  ,[FURANACEDOWN2] AS '下爐-第2爐',[FURANACEDOWN2A] AS '下爐-第2爐A',[FURANACEDOWN2B] AS '下爐-第2爐B'");
+                STR.AppendFormat(@"  ,[FURANACEDOWN3] AS '下爐-第3爐',[FURANACEDOWN3A] AS '下爐-第3爐A',[FURANACEDOWN3B] AS '下爐-第3爐B'");
+                STR.AppendFormat(@"  ,[FURANACEDOWN4] AS '下爐-第4爐',[FURANACEDOWN4A] AS '下爐-第4爐A',[FURANACEDOWN4B] AS '下爐-第4爐B'");
+                STR.AppendFormat(@"  ,[FURANACEDOWN5] AS '下爐-第5爐' ,[FURANACEDOWN5A] AS '下爐-第5爐A' ,[FURANACEDOWN5B] AS '下爐-第5爐B' ");
+                STR.AppendFormat(@"  ,[MOCOVENDTAIL].[ID],[SOURCEID]");
+                STR.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCOVENDTAIL], [TKMOC].[dbo].[MOCOVEN]");
+                STR.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[MANUEMPLOYEE] EMP1  ON [FLODPEOPLE1]=EMP1.ID");
+                STR.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[MANUEMPLOYEE] EMP2 ON [FLODPEOPLE2]=EMP2.ID");
+                STR.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[MANUEMPLOYEE]  EMP3 ON [MANAGER]=EMP3.ID");
+                STR.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[MANUEMPLOYEE]  EMP4 ON [OPERATOR]=EMP4.ID");
+                STR.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[MANUDEP] ON [MANUDEP].ID=[MOCOVEN].[MANUDEP]");
+                STR.AppendFormat(@"  WHERE [MOCOVENDTAIL].[SOURCEID]=[MOCOVEN].[ID]");
+                STR.AppendFormat(@"  AND CONVERT(varchar(100),[OVENDATE], 112)>='{0}' AND CONVERT(varchar(100),[OVENDATE], 112)<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+                STR.AppendFormat(@"  ORDER BY CONVERT(varchar(100),[OVENDATE], 112),[MANUDEP].[DEPNAME],[MB001]");
+                STR.AppendFormat(@"  ");
+                STR.AppendFormat(@"  ");
+
+                tablename = "TEMPds8";
+            }
             else if (comboBox1.Text.ToString().Equals(""))
             {
 
@@ -510,6 +539,20 @@ namespace TKMOC
 
                     j++;
                 }
+            }
+            else if (tablename.Equals("TEMPds8"))
+            {
+                TABLENAME = "烤爐溫度明細表";
+
+                for(int i = 0; i < dt.Rows.Count; i++)
+                {
+                    ws.CreateRow(i + 1);
+                    for (int rows = 0; rows < dt.Columns.Count; rows++)
+                    {
+                        ws.GetRow(i + 1).CreateCell(rows).SetCellValue(ds.Tables["TEMPds8"].Rows[i][rows].ToString());
+                    }
+                }
+                
             }
             else if (tablename.Equals(""))
             {
