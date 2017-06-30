@@ -65,6 +65,8 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder18 = new SqlCommandBuilder();
         SqlDataAdapter adapter19 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder19 = new SqlCommandBuilder();
+        SqlDataAdapter adapter20= new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder20 = new SqlCommandBuilder();
 
         SqlTransaction tran;
         SqlCommand cmd = new SqlCommand();
@@ -85,6 +87,7 @@ namespace TKMOC
         DataSet ds17 = new DataSet();
         DataSet ds18 = new DataSet();
         DataSet ds19 = new DataSet();
+        DataSet ds20 = new DataSet();
 
         DataSet dsBOMMC = new DataSet();
         DataSet dsBOMMD = new DataSet();
@@ -153,6 +156,7 @@ namespace TKMOC
         string BOMVARSION;
         string UNIT;
         decimal BOMBAR;
+        int BOXNUMERB;
 
         public class MOCTADATA
         {
@@ -3323,7 +3327,8 @@ namespace TKMOC
 
                 else if (MANU.Equals("新廠包裝線"))
                 {
-                    textBox12.Text = (Convert.ToDecimal(textBox33.Text) * Convert.ToDecimal(textBox8.Text)).ToString();
+                    
+                    textBox12.Text = (Convert.ToDecimal(textBox33.Text) * Convert.ToDecimal(textBox8.Text) ).ToString();
                 }
                 else if (MANU.Equals("新廠製一組"))
                 {
@@ -3356,7 +3361,8 @@ namespace TKMOC
 
                 else if (MANU.Equals("新廠包裝線"))
                 {
-                    textBox8.Text = Math.Round(Convert.ToDecimal(textBox12.Text) / Convert.ToDecimal(textBox33.Text), 4).ToString();
+                    SEARCHMB001BOX();
+                    textBox8.Text = Math.Round(Convert.ToDecimal(textBox12.Text) / Convert.ToDecimal(textBox33.Text)/BOXNUMERB, 4).ToString();
                 }
                 else if (MANU.Equals("新廠製一組"))
                 {
@@ -4072,6 +4078,63 @@ namespace TKMOC
             {
 
             }
+        }
+
+        public void SEARCHMB001BOX()
+        {
+            
+            if (MANU.Equals("新廠包裝線"))
+            {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sbSql.Clear();
+                    sbSqlQuery.Clear();
+
+                    sbSql.AppendFormat(@"  SELECT TOP 1 MD001,MD003,MB001,MB002,ISNULL(MD007,1) AS MD007,ISNULL(MD010,1) AS MD010");
+                    sbSql.AppendFormat(@"  FROM [TK].dbo.BOMMD,[TK].dbo.INVMB");
+                    sbSql.AppendFormat(@"  WHERE MD003=MB001");
+                    sbSql.AppendFormat(@"  AND MB002 LIKE '%箱%'");
+                    sbSql.AppendFormat(@"  AND MD003 LIKE '2%'");
+                    sbSql.AppendFormat(@"  AND MD001='{0}'", textBox7.Text);
+                    sbSql.AppendFormat(@"  ");
+
+                    adapter20 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                    sqlCmdBuilder20 = new SqlCommandBuilder(adapter20);
+                    sqlConn.Open();
+                    ds20.Clear();
+                    adapter20.Fill(ds20, "TEMPds20");
+                    sqlConn.Close();
+
+
+                    if (ds20.Tables["TEMPds20"].Rows.Count == 0)
+                    {
+                        BOXNUMERB = 1;
+                    }
+                    else
+                    {
+                        if (ds20.Tables["TEMPds20"].Rows.Count >= 1)
+                        {
+                            BOXNUMERB = (Convert.ToInt32(ds20.Tables["TEMPds20"].Rows[0]["MD007"].ToString())/ Convert.ToInt32(ds20.Tables["TEMPds20"].Rows[0]["MD010"].ToString()));
+                        }
+                    }
+
+                }
+                catch
+                {
+
+                }
+                finally
+                {
+
+                }
+
+
+            }
+            
         }
         #endregion
 
