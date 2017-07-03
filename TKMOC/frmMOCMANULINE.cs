@@ -157,6 +157,7 @@ namespace TKMOC
         string UNIT;
         decimal BOMBAR;
         int BOXNUMERB;
+        int MOCBOX;
 
         public class MOCTADATA
         {
@@ -2821,7 +2822,7 @@ namespace TKMOC
                     MB001B = row.Cells["品號"].Value.ToString();
                     MB002B = row.Cells["品名"].Value.ToString();
                     MB003B = row.Cells["規格"].Value.ToString();
-                    BOX = Convert.ToDecimal(row.Cells["箱數"].Value.ToString());
+                    BOX = Convert.ToDecimal(row.Cells["包裝數"].Value.ToString());
                     SUM2 = Convert.ToDecimal(row.Cells["包裝數"].Value.ToString());
                     TA029 = row.Cells["客戶"].Value.ToString();
 
