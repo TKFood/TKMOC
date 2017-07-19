@@ -545,8 +545,8 @@ namespace TKMOC
             textBox58.Text = null;
             textBox61.Text = null;
             textBox62.Text = null;
-            textBox308.Text = null;
-            textBox309.Text = null;
+            textBox308.Text = "0";
+            textBox309.Text = "0";
 
             textID.ReadOnly = true;
             dateTimePicker2.Value = dateTimePicker1.Value;
@@ -608,6 +608,8 @@ namespace TKMOC
             textBox58.ReadOnly = false;
             textBox61.ReadOnly = false;
             textBox62.ReadOnly = false;
+            textBox308.ReadOnly = false;
+            textBox309.ReadOnly = false;
             //textID.ReadOnly = false;
 
             dateTimePicker2.Enabled = true;
