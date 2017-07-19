@@ -59,29 +59,32 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.Append(@"  SELECT  [PRODUCETYPE] AS '成品/半成品' ,[PRODUCEDEP] AS '製造組',[PRODUCEDATE] AS '日期',[PRODUCEMB001] AS '品號',[PRODUCENAME] AS '品名'");
-                sbSql.Append(@" ,[PASTRYPREIN] AS '油酥預計投入量(kg)',[PASTRY] AS '油酥原料',[PASTRYRECYCLE] AS '油酥可回收餅麩'");
-                sbSql.Append(@" ,[WATERFLOURPREIN] AS '水麵預計投入量(kg)',[WATERFLOUR] AS '水面原料',[WATERFLOURSIDE] AS '水面可回收邊料'");
-                sbSql.Append(@" ,[WATERFLOURRECYCLE] AS '水面可回收餅麩',[PASTRYFLODTIME] AS '油酥、摺疊製造時間(分)',[PASTRYFLODNUM] AS '油酥、摺疊製造人數'");
-                sbSql.Append(@" ,[WATERFLOURTIME] AS '水面製造時間(分)',[WATERFLOURNUM] AS '水面製造人數',[RECYCLEFLOUR] AS '可回收餅麩'");
-                sbSql.Append(@" ,[KNIFENUM] AS '刀數',[WEIGHTBEFRORE] AS '烤前單片重量(g)',[WEIGHTAFTER] AS '烤後單片重量(g)'");
-                sbSql.Append(@" ,[ROWNUM] AS '每排數量',[RECOOKTIME] AS '重烤重工時間',[NGTOTAL] AS '未熟總量(kg)',[NGCOOKTIME] AS '未熟烤焙時間(分)'");
-                sbSql.Append(@" ,[PREOUT] AS '預計產出(kg)',[PACKAGETIME] AS '包裝時間(內包裝區/罐裝)(分)',[PACKAGENUM] AS '包裝人數'");
-                sbSql.Append(@" ,[STIR] AS '攪拌',[SIDES] AS '成型邊料(kg)',[COOKIES] AS '餅麩(kg)',[COOK] AS '烤焙(kg)',[NGPACKAGE] AS '包裝不良餅乾(kg)'");
-                sbSql.Append(@" ,[NGPACKAGECAN] AS '包裝(內袋(卷) 罐)',[CAN] AS '包裝投入(袋(卷),罐)',[WEIGHTCAN] AS '一箱裸餅重'");
-                sbSql.Append(@" ,[WEIGHTCANBOXED] AS '一箱餅含袋重',[HLAFWEIGHT] AS '半成品入庫數(kg) (含袋重)',[REMARK] AS '備註'");
-                sbSql.Append(@" ,[MANUTIME] AS '製造工時(分)',[PACKTIME] AS '包裝工時(分)',[WEIGHTBEFORECOOK] AS '烤前實際總投入 (kg)'");
-                sbSql.Append(@" ,[WEIGHTAFTERCOOK] AS '烤後實際總投入 (kg)',[ACTUALOUT] AS '實際產出(kg)(裸餅)',[WEIGHTPACKAGE] AS '袋重(kg)'");
-                sbSql.Append(@" ,[PACKLOST] AS '包裝損耗率',[HLAFLOST] AS '半成品產出效率',[REWORKPCT] AS '重工佔比',[TOTALTIME] AS '總工時(分)'");
-                sbSql.Append(@" ,[STIRPCT] AS '攪拌成型製成率%',[EVARATE] AS '蒸發率',[MANULOST] AS '製成損失率',[PCT] AS '製成率'");
-                sbSql.Append(@" ,[PRETIME] AS '前置時間',[STOPTIME] AS '停機時間'");
-                sbSql.Append(@" ,[PREWEIGT] AS '容量規格',[PRECAN] AS '預計包罐數',[ACTUALCAN] AS '實際包罐數',[TOTALPCT] AS '總製成率'");
-                sbSql.Append(@" ,[CANPCT] AS '總包罐製成率',TRYCAN AS '預計試吃包罐數',ACTUALTRYCAN  AS '實際試吃包罐數' ");
-                sbSql.Append(@" ,[ID]");
-                sbSql.Append(@" FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT]  WITH (NOLOCK)");
+                sbSql.AppendFormat(@"  SELECT  [PRODUCETYPE] AS '成品/半成品' ,[PRODUCEDEP] AS '製造組',[PRODUCEDATE] AS '日期',[PRODUCEMB001] AS '品號',[PRODUCENAME] AS '品名'");
+                sbSql.AppendFormat(@" ,[PASTRYPREIN] AS '油酥預計投入量(kg)',[PASTRY] AS '油酥原料',[PASTRYRECYCLE] AS '油酥可回收餅麩'");
+                sbSql.AppendFormat(@" ,[WATERFLOURPREIN] AS '水麵預計投入量(kg)',[WATERFLOUR] AS '水面原料',[WATERFLOURSIDE] AS '水面可回收邊料'");
+                sbSql.AppendFormat(@" ,[WATERFLOURRECYCLE] AS '水面可回收餅麩',[PASTRYFLODTIME] AS '油酥、摺疊製造時間(分)',[PASTRYFLODNUM] AS '油酥、摺疊製造人數'");
+                sbSql.AppendFormat(@" ,[WATERFLOURTIME] AS '水面製造時間(分)',[WATERFLOURNUM] AS '水面製造人數',[RECYCLEFLOUR] AS '今日產生可回收餅麩'");
+                sbSql.AppendFormat(@" ,[KNIFENUM] AS '刀數',[WEIGHTBEFRORE] AS '烤前單片重量(g)',[WEIGHTAFTER] AS '烤後單片重量(g)'");
+                sbSql.AppendFormat(@" ,[ROWNUM] AS '每排數量',[NGTOTAL] AS '未熟總量(kg)',[NGCOOKTIME] AS '未熟烤焙時間(分)',[RECOOKTIME] AS '重烤重工時間'");
+
+                sbSql.AppendFormat(@" ,[PREOUT] AS '預計產出(kg)',[PACKAGETIME] AS '包裝時間(內包裝區/罐裝)(分)',[PACKAGENUM] AS '包裝人數'");
+                sbSql.AppendFormat(@" ,[STIR] AS '攪拌',[SIDES] AS '成型邊料(kg)',[COOKIES] AS '餅麩(kg)',[COOK] AS '篩選餅乾區不良烤焙(kg)'");
+                sbSql.AppendFormat(@" ,[OUTCOOKIES] AS '篩選餅乾區餅乾屑(kg)' ,[CLEANCOOKIES] AS '清掃廢料(kg)'  ");
+                sbSql.AppendFormat(@" ,[NGPACKAGE] AS '包裝不良餅乾(kg)',[NGPACKAGECAN] AS '包裝(內袋(卷) 罐)',[CAN] AS '包裝投入(袋(卷),罐)',[WEIGHTCAN] AS '一箱裸餅重'");
+                sbSql.AppendFormat(@" ,[WEIGHTCANBOXED] AS '一箱餅含袋重',[HLAFWEIGHT] AS '半成品入庫數(kg) (含袋重)',[REMARK] AS '備註'");
+                sbSql.AppendFormat(@" ,[MANUTIME] AS '製造工時(分)',[PACKTIME] AS '包裝工時(分)',[WEIGHTBEFORECOOK] AS '烤前實際總投入 (kg)'");
+                sbSql.AppendFormat(@" ,[WEIGHTAFTERCOOK] AS '烤後實際總投入 (kg)',[ACTUALOUT] AS '實際產出(kg)(裸餅)',[WEIGHTPACKAGE] AS '袋重(kg)'");
+                sbSql.AppendFormat(@" ,[PACKLOST] AS '包裝損耗率',[HLAFLOST] AS '半成品產出效率',[REWORKPCT] AS '重工佔比',[TOTALTIME] AS '總工時(分)'");
+                sbSql.AppendFormat(@" ,[STIRPCT] AS '攪拌成型製成率%',[EVARATE] AS '蒸發率',[MANULOST] AS '製成損失率',[PCT] AS '製成率'");
+                sbSql.AppendFormat(@" ,[PRETIME] AS '前置時間',[STOPTIME] AS '停機時間'");
+                sbSql.AppendFormat(@" ,[PREWEIGT] AS '容量規格',[PRECAN] AS '預計包罐數',[ACTUALCAN] AS '實際包罐數',[TOTALPCT] AS '總製成率'");
+                sbSql.AppendFormat(@" ,[CANPCT] AS '總包罐製成率',TRYCAN AS '預計試吃包罐數',ACTUALTRYCAN  AS '實際試吃包罐數' ");
+                sbSql.AppendFormat(@" ,[ID]");
+                sbSql.AppendFormat(@" FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT]  WITH (NOLOCK)");
                 sbSql.AppendFormat(@" WHERE [PRODUCEDATE] ='{0}'", dateTimePicker1.Value.ToString("yyyy/MM/dd"));
                 //sbSql.AppendFormat(@" WHERE [ID] ='{0}'", ID);
                 sbSql.Append(@" ORDER BY [ID]  ");
+                sbSql.Append(@"   ");
 
 
                 adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -341,7 +344,7 @@ namespace TKMOC
                 textBox13.Text = drMOCPRODUCTDAILYREPORT.Cells["油酥、摺疊製造人數"].Value.ToString();
                 textBox14.Text = drMOCPRODUCTDAILYREPORT.Cells["水面製造時間(分)"].Value.ToString();
                 textBox15.Text = drMOCPRODUCTDAILYREPORT.Cells["水面製造人數"].Value.ToString();
-                textBox16.Text = drMOCPRODUCTDAILYREPORT.Cells["可回收餅麩"].Value.ToString();
+                textBox16.Text = drMOCPRODUCTDAILYREPORT.Cells["今日產生可回收餅麩"].Value.ToString();
                 textBox17.Text = drMOCPRODUCTDAILYREPORT.Cells["刀數"].Value.ToString();
                 textBox18.Text = drMOCPRODUCTDAILYREPORT.Cells["烤前單片重量(g)"].Value.ToString();
                 textBox19.Text = drMOCPRODUCTDAILYREPORT.Cells["烤後單片重量(g)"].Value.ToString();
@@ -355,7 +358,7 @@ namespace TKMOC
                 textBox27.Text = drMOCPRODUCTDAILYREPORT.Cells["攪拌"].Value.ToString();
                 textBox28.Text = drMOCPRODUCTDAILYREPORT.Cells["成型邊料(kg)"].Value.ToString();
                 textBox29.Text = drMOCPRODUCTDAILYREPORT.Cells["餅麩(kg)"].Value.ToString();
-                textBox30.Text = drMOCPRODUCTDAILYREPORT.Cells["烤焙(kg)"].Value.ToString();
+                textBox30.Text = drMOCPRODUCTDAILYREPORT.Cells["篩選餅乾區不良烤焙(kg)"].Value.ToString();
                 textBox31.Text = drMOCPRODUCTDAILYREPORT.Cells["包裝不良餅乾(kg)"].Value.ToString();
                 textBox32.Text = drMOCPRODUCTDAILYREPORT.Cells["包裝(內袋(卷) 罐)"].Value.ToString();
                 textBox33.Text = drMOCPRODUCTDAILYREPORT.Cells["包裝投入(袋(卷),罐)"].Value.ToString();
@@ -386,6 +389,8 @@ namespace TKMOC
                 textBox58.Text = drMOCPRODUCTDAILYREPORT.Cells["總包罐製成率"].Value.ToString();
                 textBox61.Text = drMOCPRODUCTDAILYREPORT.Cells["預計試吃包罐數"].Value.ToString();
                 textBox62.Text = drMOCPRODUCTDAILYREPORT.Cells["實際試吃包罐數"].Value.ToString();
+                textBox308.Text = drMOCPRODUCTDAILYREPORT.Cells["篩選餅乾區餅乾屑(kg)"].Value.ToString();
+                textBox309.Text = drMOCPRODUCTDAILYREPORT.Cells["清掃廢料(kg)"].Value.ToString();
                 //numericUpDown1.Value = Convert.ToDecimal(drMOCPRODUCTDAILYREPORT.Cells["預計投入量(kg)"].Value.ToString());
 
                 SOURCEID = drMOCPRODUCTDAILYREPORT.Cells["ID"].Value.ToString();
@@ -407,7 +412,7 @@ namespace TKMOC
 
                 sbSql.Clear();
                 sbSql.Append(" UPDATE [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] ");
-                sbSql.AppendFormat(" SET [PRODUCETYPE]='{1}',[PRODUCEDEP]='{2}',[PRODUCEDATE]='{3}',[PRODUCEMB001]='{4}',[PRODUCENAME]='{5}',[PASTRYPREIN]='{6}',[PASTRY]='{7}',[PASTRYRECYCLE]='{8}',[WATERFLOURPREIN]='{9}',[WATERFLOUR]='{10}',[WATERFLOURSIDE]='{11}',[WATERFLOURRECYCLE]='{12}',[PASTRYFLODTIME]='{13}',[PASTRYFLODNUM]='{14}',[WATERFLOURTIME]='{15}',[WATERFLOURNUM]='{16}',[RECYCLEFLOUR]='{17}',[KNIFENUM]='{18}',[WEIGHTBEFRORE]='{19}',[WEIGHTAFTER]='{20}',[ROWNUM]='{21}',[RECOOKTIME]='{22}',[NGTOTAL]='{23}',[NGCOOKTIME]='{24}',[PREOUT]='{25}',[PACKAGETIME]='{26}',[PACKAGENUM]='{27}',[STIR]='{28}',[SIDES]='{29}',[COOKIES]='{30}',[COOK]='{31}',[NGPACKAGE]='{32}',[NGPACKAGECAN]='{33}',[CAN]='{34}',[WEIGHTCAN]='{35}',[WEIGHTCANBOXED]='{36}',[HLAFWEIGHT]='{37}',[REMARK]='{38}',[MANUTIME]='{39}',[PACKTIME]='{40}',[WEIGHTBEFORECOOK]='{41}',[WEIGHTAFTERCOOK]='{42}',[ACTUALOUT]='{43}',[WEIGHTPACKAGE]='{44}',[PACKLOST]='{45}',[HLAFLOST]='{46}',[REWORKPCT]='{47}',[TOTALTIME]='{48}',[STIRPCT]='{49}',[EVARATE]='{50}',[MANULOST]='{51}',[PCT]='{52}',[PRETIME]='{53}',[STOPTIME]='{54}',[PREWEIGT]='{55}',[PRECAN]='{56}',[ACTUALCAN]='{57}',[TOTALPCT]='{58}',[CANPCT]='{59}',[TRYCAN]='{60}',[ACTUALTRYCAN]='{61}' WHERE [ID]='{0}'  ", textID.Text.ToString(), comboBox2.Text.ToString(), comboBox1.Text.ToString(), dateTimePicker2.Value.ToString("yyyy/MM/dd"),textBox3.Text.ToString(), textBox4.Text.ToString(), textBox5.Text.ToString(), textBox6.Text.ToString(), textBox7.Text.ToString(), textBox8.Text.ToString(), textBox9.Text.ToString(), textBox10.Text.ToString(), textBox11.Text.ToString(), textBox12.Text.ToString(), textBox13.Text.ToString(), textBox14.Text.ToString(), textBox15.Text.ToString(), textBox16.Text.ToString(), textBox17.Text.ToString(), textBox18.Text.ToString(), textBox19.Text.ToString(), textBox20.Text.ToString(), textBox21.Text.ToString(), textBox22.Text.ToString(), textBox23.Text.ToString(), textBox24.Text.ToString(), textBox25.Text.ToString(), textBox26.Text.ToString(), textBox27.Text.ToString(), textBox28.Text.ToString(), textBox29.Text.ToString(), textBox30.Text.ToString(), textBox31.Text.ToString(), textBox32.Text.ToString(), textBox33.Text.ToString(), textBox34.Text.ToString(), textBox35.Text.ToString(), textBox36.Text.ToString(), textBox37.Text.ToString(), textBox38.Text.ToString(), textBox39.Text.ToString(), textBox40.Text.ToString(), textBox41.Text.ToString(), textBox42.Text.ToString(), textBox43.Text.ToString(), textBox44.Text.ToString(), textBox45.Text.ToString(), textBox46.Text.ToString(), textBox47.Text.ToString(), textBox48.Text.ToString(), textBox49.Text.ToString(), textBox50.Text.ToString(), textBox51.Text.ToString(), textBox52.Text.ToString(), textBox53.Text.ToString(), textBox54.Text.ToString(), textBox55.Text.ToString(), textBox56.Text.ToString(), textBox57.Text.ToString(), textBox58.Text.ToString(), textBox61.Text.ToString(), textBox62.Text.ToString());
+                sbSql.AppendFormat(" SET [PRODUCETYPE]='{1}',[PRODUCEDEP]='{2}',[PRODUCEDATE]='{3}',[PRODUCEMB001]='{4}',[PRODUCENAME]='{5}',[PASTRYPREIN]='{6}',[PASTRY]='{7}',[PASTRYRECYCLE]='{8}',[WATERFLOURPREIN]='{9}',[WATERFLOUR]='{10}',[WATERFLOURSIDE]='{11}',[WATERFLOURRECYCLE]='{12}',[PASTRYFLODTIME]='{13}',[PASTRYFLODNUM]='{14}',[WATERFLOURTIME]='{15}',[WATERFLOURNUM]='{16}',[RECYCLEFLOUR]='{17}',[KNIFENUM]='{18}',[WEIGHTBEFRORE]='{19}',[WEIGHTAFTER]='{20}',[ROWNUM]='{21}',[RECOOKTIME]='{22}',[NGTOTAL]='{23}',[NGCOOKTIME]='{24}',[PREOUT]='{25}',[PACKAGETIME]='{26}',[PACKAGENUM]='{27}',[STIR]='{28}',[SIDES]='{29}',[COOKIES]='{30}',[COOK]='{31}',[NGPACKAGE]='{32}',[NGPACKAGECAN]='{33}',[CAN]='{34}',[WEIGHTCAN]='{35}',[WEIGHTCANBOXED]='{36}',[HLAFWEIGHT]='{37}',[REMARK]='{38}',[MANUTIME]='{39}',[PACKTIME]='{40}',[WEIGHTBEFORECOOK]='{41}',[WEIGHTAFTERCOOK]='{42}',[ACTUALOUT]='{43}',[WEIGHTPACKAGE]='{44}',[PACKLOST]='{45}',[HLAFLOST]='{46}',[REWORKPCT]='{47}',[TOTALTIME]='{48}',[STIRPCT]='{49}',[EVARATE]='{50}',[MANULOST]='{51}',[PCT]='{52}',[PRETIME]='{53}',[STOPTIME]='{54}',[PREWEIGT]='{55}',[PRECAN]='{56}',[ACTUALCAN]='{57}',[TOTALPCT]='{58}',[CANPCT]='{59}',[TRYCAN]='{60}',[ACTUALTRYCAN]='{61}',[OUTCOOKIES]='{62}',[CLEANCOOKIES]='{63}' WHERE [ID]='{0}'  ", textID.Text.ToString(), comboBox2.Text.ToString(), comboBox1.Text.ToString(), dateTimePicker2.Value.ToString("yyyy/MM/dd"),textBox3.Text.ToString(), textBox4.Text.ToString(), textBox5.Text.ToString(), textBox6.Text.ToString(), textBox7.Text.ToString(), textBox8.Text.ToString(), textBox9.Text.ToString(), textBox10.Text.ToString(), textBox11.Text.ToString(), textBox12.Text.ToString(), textBox13.Text.ToString(), textBox14.Text.ToString(), textBox15.Text.ToString(), textBox16.Text.ToString(), textBox17.Text.ToString(), textBox18.Text.ToString(), textBox19.Text.ToString(), textBox20.Text.ToString(), textBox21.Text.ToString(), textBox22.Text.ToString(), textBox23.Text.ToString(), textBox24.Text.ToString(), textBox25.Text.ToString(), textBox26.Text.ToString(), textBox27.Text.ToString(), textBox28.Text.ToString(), textBox29.Text.ToString(), textBox30.Text.ToString(), textBox31.Text.ToString(), textBox32.Text.ToString(), textBox33.Text.ToString(), textBox34.Text.ToString(), textBox35.Text.ToString(), textBox36.Text.ToString(), textBox37.Text.ToString(), textBox38.Text.ToString(), textBox39.Text.ToString(), textBox40.Text.ToString(), textBox41.Text.ToString(), textBox42.Text.ToString(), textBox43.Text.ToString(), textBox44.Text.ToString(), textBox45.Text.ToString(), textBox46.Text.ToString(), textBox47.Text.ToString(), textBox48.Text.ToString(), textBox49.Text.ToString(), textBox50.Text.ToString(), textBox51.Text.ToString(), textBox52.Text.ToString(), textBox53.Text.ToString(), textBox54.Text.ToString(), textBox55.Text.ToString(), textBox56.Text.ToString(), textBox57.Text.ToString(), textBox58.Text.ToString(), textBox61.Text.ToString(), textBox62.Text.ToString(), textBox308.Text.ToString(), textBox309.Text.ToString());
                 sbSql.Append("   ");
 
                 cmd.Connection = sqlConn;
@@ -449,8 +454,8 @@ namespace TKMOC
 
                 sbSql.Clear();
                 sbSql.Append(" INSERT INTO [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] ");
-                sbSql.Append(" ( [ID],[PRODUCETYPE],[PRODUCEDEP],[PRODUCEDATE],[PRODUCEMB001],[PRODUCENAME],[PASTRYPREIN],[PASTRY],[PASTRYRECYCLE],[WATERFLOURPREIN],[WATERFLOUR],[WATERFLOURSIDE],[WATERFLOURRECYCLE],[PASTRYFLODTIME],[PASTRYFLODNUM],[WATERFLOURTIME],[WATERFLOURNUM],[RECYCLEFLOUR],[KNIFENUM],[WEIGHTBEFRORE],[WEIGHTAFTER],[ROWNUM],[RECOOKTIME],[NGTOTAL],[NGCOOKTIME],[PREOUT],[PACKAGETIME],[PACKAGENUM],[STIR],[SIDES],[COOKIES],[COOK],[NGPACKAGE],[NGPACKAGECAN],[CAN],[WEIGHTCAN],[WEIGHTCANBOXED],[HLAFWEIGHT],[REMARK],[MANUTIME],[PACKTIME],[WEIGHTBEFORECOOK],[WEIGHTAFTERCOOK],[ACTUALOUT],[WEIGHTPACKAGE],[PACKLOST],[HLAFLOST],[REWORKPCT],[TOTALTIME],[STIRPCT],[EVARATE],[MANULOST],[PCT],[PRETIME],[STOPTIME],[PREWEIGT],[PRECAN],[ACTUALCAN],[TOTALPCT] ,[CANPCT],[TRYCAN],[ACTUALTRYCAN])  ");
-                sbSql.AppendFormat("  VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}','{15}','{16}','{17}','{18}','{19}','{20}','{21}','{22}','{23}','{24}','{25}','{26}','{27}','{28}','{29}','{30}','{31}','{32}','{33}','{34}','{35}','{36}','{37}','{38}','{39}','{40}','{41}','{42}','{43}','{44}','{45}','{46}','{47}','{48}','{49}','{50}','{51}','{52}','{53}','{54}','{55}','{56}','{57}','{58}','{59}','{60}','{61}') ", Guid.NewGuid(), comboBox2.Text.ToString(), comboBox1.Text.ToString(), dateTimePicker2.Value.ToString("yyyy/MM/dd"), textBox3.Text.ToString(), textBox4.Text.ToString(), textBox5.Text.ToString(), textBox6.Text.ToString(), textBox7.Text.ToString(), textBox8.Text.ToString(), textBox9.Text.ToString(), textBox10.Text.ToString(), textBox11.Text.ToString(), textBox12.Text.ToString(), textBox13.Text.ToString(), textBox14.Text.ToString(), textBox15.Text.ToString(), textBox16.Text.ToString(), textBox17.Text.ToString(), textBox18.Text.ToString(), textBox19.Text.ToString(), textBox20.Text.ToString(), textBox21.Text.ToString(), textBox22.Text.ToString(), textBox23.Text.ToString(), textBox24.Text.ToString(), textBox25.Text.ToString(), textBox26.Text.ToString(), textBox27.Text.ToString(), textBox28.Text.ToString(), textBox29.Text.ToString(), textBox30.Text.ToString(), textBox31.Text.ToString(), textBox32.Text.ToString(), textBox33.Text.ToString(), textBox34.Text.ToString(), textBox35.Text.ToString(), textBox36.Text.ToString(), textBox37.Text.ToString(), textBox38.Text.ToString(), textBox39.Text.ToString(), textBox40.Text.ToString(), textBox41.Text.ToString(), textBox42.Text.ToString(), textBox43.Text.ToString(), textBox44.Text.ToString(), textBox45.Text.ToString(), textBox46.Text.ToString(), textBox47.Text.ToString(), textBox48.Text.ToString(), textBox49.Text.ToString(), textBox50.Text.ToString(), textBox51.Text.ToString(), textBox52.Text.ToString(), textBox53.Text.ToString(), textBox54.Text.ToString(), textBox55.Text.ToString(), textBox56.Text.ToString(), textBox57.Text.ToString(), textBox58.Text.ToString(), textBox61.Text.ToString(), textBox62.Text.ToString());
+                sbSql.Append(" ( [ID],[PRODUCETYPE],[PRODUCEDEP],[PRODUCEDATE],[PRODUCEMB001],[PRODUCENAME],[PASTRYPREIN],[PASTRY],[PASTRYRECYCLE],[WATERFLOURPREIN],[WATERFLOUR],[WATERFLOURSIDE],[WATERFLOURRECYCLE],[PASTRYFLODTIME],[PASTRYFLODNUM],[WATERFLOURTIME],[WATERFLOURNUM],[RECYCLEFLOUR],[KNIFENUM],[WEIGHTBEFRORE],[WEIGHTAFTER],[ROWNUM],[RECOOKTIME],[NGTOTAL],[NGCOOKTIME],[PREOUT],[PACKAGETIME],[PACKAGENUM],[STIR],[SIDES],[COOKIES],[COOK],[NGPACKAGE],[NGPACKAGECAN],[CAN],[WEIGHTCAN],[WEIGHTCANBOXED],[HLAFWEIGHT],[REMARK],[MANUTIME],[PACKTIME],[WEIGHTBEFORECOOK],[WEIGHTAFTERCOOK],[ACTUALOUT],[WEIGHTPACKAGE],[PACKLOST],[HLAFLOST],[REWORKPCT],[TOTALTIME],[STIRPCT],[EVARATE],[MANULOST],[PCT],[PRETIME],[STOPTIME],[PREWEIGT],[PRECAN],[ACTUALCAN],[TOTALPCT] ,[CANPCT],[TRYCAN],[ACTUALTRYCAN],[OUTCOOKIES],[CLEANCOOKIES])  ");
+                sbSql.AppendFormat("  VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}','{15}','{16}','{17}','{18}','{19}','{20}','{21}','{22}','{23}','{24}','{25}','{26}','{27}','{28}','{29}','{30}','{31}','{32}','{33}','{34}','{35}','{36}','{37}','{38}','{39}','{40}','{41}','{42}','{43}','{44}','{45}','{46}','{47}','{48}','{49}','{50}','{51}','{52}','{53}','{54}','{55}','{56}','{57}','{58}','{59}','{60}','{61}','{62}','{63}') ", Guid.NewGuid(), comboBox2.Text.ToString(), comboBox1.Text.ToString(), dateTimePicker2.Value.ToString("yyyy/MM/dd"), textBox3.Text.ToString(), textBox4.Text.ToString(), textBox5.Text.ToString(), textBox6.Text.ToString(), textBox7.Text.ToString(), textBox8.Text.ToString(), textBox9.Text.ToString(), textBox10.Text.ToString(), textBox11.Text.ToString(), textBox12.Text.ToString(), textBox13.Text.ToString(), textBox14.Text.ToString(), textBox15.Text.ToString(), textBox16.Text.ToString(), textBox17.Text.ToString(), textBox18.Text.ToString(), textBox19.Text.ToString(), textBox20.Text.ToString(), textBox21.Text.ToString(), textBox22.Text.ToString(), textBox23.Text.ToString(), textBox24.Text.ToString(), textBox25.Text.ToString(), textBox26.Text.ToString(), textBox27.Text.ToString(), textBox28.Text.ToString(), textBox29.Text.ToString(), textBox30.Text.ToString(), textBox31.Text.ToString(), textBox32.Text.ToString(), textBox33.Text.ToString(), textBox34.Text.ToString(), textBox35.Text.ToString(), textBox36.Text.ToString(), textBox37.Text.ToString(), textBox38.Text.ToString(), textBox39.Text.ToString(), textBox40.Text.ToString(), textBox41.Text.ToString(), textBox42.Text.ToString(), textBox43.Text.ToString(), textBox44.Text.ToString(), textBox45.Text.ToString(), textBox46.Text.ToString(), textBox47.Text.ToString(), textBox48.Text.ToString(), textBox49.Text.ToString(), textBox50.Text.ToString(), textBox51.Text.ToString(), textBox52.Text.ToString(), textBox53.Text.ToString(), textBox54.Text.ToString(), textBox55.Text.ToString(), textBox56.Text.ToString(), textBox57.Text.ToString(), textBox58.Text.ToString(), textBox61.Text.ToString(), textBox62.Text.ToString(), textBox308.Text.ToString(), textBox309.Text.ToString());
 
                 cmd.Connection = sqlConn;
                 cmd.CommandTimeout = 60;
@@ -540,7 +545,8 @@ namespace TKMOC
             textBox58.Text = null;
             textBox61.Text = null;
             textBox62.Text = null;
-
+            textBox308.Text = null;
+            textBox309.Text = null;
 
             textID.ReadOnly = true;
             dateTimePicker2.Value = dateTimePicker1.Value;
@@ -668,6 +674,8 @@ namespace TKMOC
             textBox58.ReadOnly = false;
             textBox61.ReadOnly = false;
             textBox62.ReadOnly = false;
+            textBox308.ReadOnly = false;
+            textBox309.ReadOnly = false;
             //textID.ReadOnly = false;
 
             dateTimePicker2.Enabled = true;
@@ -732,6 +740,8 @@ namespace TKMOC
             textBox58.ReadOnly = true;
             textBox61.ReadOnly = true;
             textBox62.ReadOnly = true;
+            textBox308.ReadOnly = false;
+            textBox309.ReadOnly = true;
             textID.ReadOnly = true;
            
         }

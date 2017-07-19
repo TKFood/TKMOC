@@ -189,14 +189,16 @@ namespace TKMOC
                 STR.AppendFormat(@"  ,[WATERFLOUR] AS '水面原料',[WATERFLOURSIDE] AS '水面可回收邊料' ");
                 STR.AppendFormat(@"  ,[WATERFLOURRECYCLE] AS '水面可回收餅麩',[PASTRYFLODTIME] AS '油酥、摺疊製造時間(分)'");
                 STR.AppendFormat(@"  ,[PASTRYFLODNUM] AS '油酥、摺疊製造人數' ,[WATERFLOURTIME] AS '水面製造時間(分)'");
-                STR.AppendFormat(@"  ,[WATERFLOURNUM] AS '水面製造人數',[RECYCLEFLOUR] AS '可回收餅麩'");
+                STR.AppendFormat(@"  ,[WATERFLOURNUM] AS '水面製造人數',[RECYCLEFLOUR] AS '今日產生可回收餅麩'");
                 STR.AppendFormat(@"  ,[KNIFENUM] AS '刀數',[WEIGHTBEFRORE] AS '烤前單片重量(g)'");
                 STR.AppendFormat(@"  ,[WEIGHTAFTER] AS '烤後單片重量(g)' ,[ROWNUM] AS '每排數量'");
-                STR.AppendFormat(@"  ,[RECOOKTIME] AS '重烤重工時間',[NGTOTAL] AS '未熟總量(kg)'");
-                STR.AppendFormat(@"  ,[NGCOOKTIME] AS '未熟烤焙時間(分)' ,[PREOUT] AS '預計產出(kg)'");
+                STR.AppendFormat(@"  ,[NGTOTAL] AS '未熟總量(kg)'");
+                STR.AppendFormat(@"  ,[NGCOOKTIME] AS '未熟烤焙時間(分)' ,[RECOOKTIME] AS '重烤重工時間',[PREOUT] AS '預計產出(kg)'");
                 STR.AppendFormat(@"  ,[PACKAGETIME] AS '包裝時間(內包裝區/罐裝)(分)',[PACKAGENUM] AS '包裝人數' ");
                 STR.AppendFormat(@"  ,[STIR] AS '攪拌',[SIDES] AS '成型邊料(kg)',[COOKIES] AS '餅麩(kg)'");
-                STR.AppendFormat(@"  ,[COOK] AS '烤焙(kg)',[NGPACKAGE] AS '包裝不良餅乾(kg)'");
+                STR.AppendFormat(@"  ,[COOK] AS '篩選餅乾區不良烤焙(kg)'");
+                STR.AppendFormat(@" ,[OUTCOOKIES] AS '篩選餅乾區餅乾屑(kg)' ,[CLEANCOOKIES] AS '清掃廢料(kg)'  ");
+                STR.AppendFormat(@"  ,[NGPACKAGE] AS '包裝不良餅乾(kg)'");
                 STR.AppendFormat(@"  ,[NGPACKAGECAN] AS '包裝(內袋(卷) 罐)',[CAN] AS '包裝投入(袋(卷),罐)'");
                 STR.AppendFormat(@"  ,[WEIGHTCAN] AS '一箱裸餅重' ,[WEIGHTCANBOXED] AS '一箱餅含袋重'");
                 STR.AppendFormat(@"  ,[HLAFWEIGHT] AS '半成品入庫數(kg) (含袋重)',[REMARK] AS '備註' ");
@@ -409,77 +411,14 @@ namespace TKMOC
             else if (tablename.Equals("TEMPds4"))
             {
                 TABLENAME = "生產日報表明細表";
-                foreach (DataGridViewRow dr in this.dataGridView1.Rows)
+
+                for (int i = 0; i < dt.Rows.Count; i++)
                 {
-                    ws.CreateRow(j + 1);
-                    ws.GetRow(j + 1).CreateCell(0).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[0].ToString());
-                    ws.GetRow(j + 1).CreateCell(1).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[1].ToString());                    
-                    ws.GetRow(j + 1).CreateCell(2).SetCellValue(Convert.ToDateTime(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[2].ToString()).ToString("yyyy/MM/dd"));
-                    ws.GetRow(j + 1).CreateCell(3).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[3].ToString());
-                   //ws.GetRow(j + 1).CreateCell(3).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[3].ToString()));
-                    ws.GetRow(j + 1).CreateCell(4).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[4].ToString());
-                    ws.GetRow(j + 1).CreateCell(5).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[5].ToString());
-                    ws.GetRow(j + 1).CreateCell(6).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[6].ToString());
-                    ws.GetRow(j + 1).CreateCell(7).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[7].ToString());
-                    ws.GetRow(j + 1).CreateCell(8).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[8].ToString());
-                    ws.GetRow(j + 1).CreateCell(9).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[9].ToString());
-                    ws.GetRow(j + 1).CreateCell(10).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[10].ToString());
-                    ws.GetRow(j + 1).CreateCell(11).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[11].ToString());
-                    ws.GetRow(j + 1).CreateCell(12).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[12].ToString());
-                    ws.GetRow(j + 1).CreateCell(13).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[13].ToString());
-                    ws.GetRow(j + 1).CreateCell(14).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[14].ToString());
-                    ws.GetRow(j + 1).CreateCell(15).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[15].ToString());
-                    ws.GetRow(j + 1).CreateCell(16).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[16].ToString());
-                    ws.GetRow(j + 1).CreateCell(17).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[17].ToString());
-                    ws.GetRow(j + 1).CreateCell(18).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[18].ToString());
-                    ws.GetRow(j + 1).CreateCell(19).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[19].ToString());
-                    ws.GetRow(j + 1).CreateCell(20).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[20].ToString());
-                    ws.GetRow(j + 1).CreateCell(21).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[21].ToString());
-                    ws.GetRow(j + 1).CreateCell(22).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[22].ToString());
-                    ws.GetRow(j + 1).CreateCell(23).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[23].ToString());
-                    ws.GetRow(j + 1).CreateCell(24).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[24].ToString());
-                    ws.GetRow(j + 1).CreateCell(25).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[25].ToString());
-                    ws.GetRow(j + 1).CreateCell(26).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[26].ToString());
-                    ws.GetRow(j + 1).CreateCell(27).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[27].ToString());
-                    ws.GetRow(j + 1).CreateCell(28).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[28].ToString());
-                    ws.GetRow(j + 1).CreateCell(29).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[29].ToString());
-                    ws.GetRow(j + 1).CreateCell(30).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[30].ToString());
-                    ws.GetRow(j + 1).CreateCell(31).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[31].ToString());
-                    ws.GetRow(j + 1).CreateCell(32).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[32].ToString());
-                    ws.GetRow(j + 1).CreateCell(33).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[33].ToString());
-                    ws.GetRow(j + 1).CreateCell(34).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[34].ToString());
-                    ws.GetRow(j + 1).CreateCell(35).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[35].ToString());
-                    ws.GetRow(j + 1).CreateCell(36).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[36].ToString());
-                    ws.GetRow(j + 1).CreateCell(37).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[37].ToString());
-                    ws.GetRow(j + 1).CreateCell(38).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[38].ToString());
-                    ws.GetRow(j + 1).CreateCell(39).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[39].ToString());
-                    ws.GetRow(j + 1).CreateCell(40).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[40].ToString());
-                    ws.GetRow(j + 1).CreateCell(41).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[41].ToString());
-                    ws.GetRow(j + 1).CreateCell(42).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[42].ToString());
-                    ws.GetRow(j + 1).CreateCell(43).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[43].ToString());
-                    ws.GetRow(j + 1).CreateCell(44).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[44].ToString());
-                    ws.GetRow(j + 1).CreateCell(45).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[45].ToString());
-                    ws.GetRow(j + 1).CreateCell(46).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[46].ToString());
-                    ws.GetRow(j + 1).CreateCell(47).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[47].ToString());
-                    ws.GetRow(j + 1).CreateCell(48).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[48].ToString());
-                    ws.GetRow(j + 1).CreateCell(49).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[49].ToString());
-                    ws.GetRow(j + 1).CreateCell(50).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[50].ToString());
-                    ws.GetRow(j + 1).CreateCell(51).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[51].ToString());
-                    ws.GetRow(j + 1).CreateCell(52).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[52].ToString());
-                    ws.GetRow(j + 1).CreateCell(53).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[53].ToString());
-                    ws.GetRow(j + 1).CreateCell(54).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[54].ToString());
-                    ws.GetRow(j + 1).CreateCell(55).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[55].ToString());
-                    ws.GetRow(j + 1).CreateCell(56).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[56].ToString());
-                    ws.GetRow(j + 1).CreateCell(57).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[57].ToString());
-                    ws.GetRow(j + 1).CreateCell(58).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[58].ToString());
-                    ws.GetRow(j + 1).CreateCell(59).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[59].ToString());
-                    ws.GetRow(j + 1).CreateCell(60).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[60].ToString());
-                    ws.GetRow(j + 1).CreateCell(61).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[61].ToString());
-                    
-
-
-
-                    j++;
+                    ws.CreateRow(i + 1);
+                    for (int rows = 0; rows < dt.Columns.Count; rows++)
+                    {
+                        ws.GetRow(i + 1).CreateCell(rows).SetCellValue(ds.Tables["TEMPds4"].Rows[i][rows].ToString());
+                    }
                 }
             }
             else if (tablename.Equals("TEMPds5"))
