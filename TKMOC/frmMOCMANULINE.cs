@@ -1957,7 +1957,9 @@ namespace TKMOC
 
                     sbSql.AppendFormat(@"  SELECT ");
                     sbSql.AppendFormat(@"  [MC001],[MC002],[MC003],[MC004],[MC005],[MC006],[MC007],[MC008],[MC009],[MC010],[MC011],[MC012],[MC013],[MC014],[MC015],[MC016],[MC017],[MC018],[MC019],[MC020],[MC021],[MC022],[MC023],[MC024],[MC025],[MC026],[MC027]");
+                    sbSql.AppendFormat(@"  ,INVMB.MB004");
                     sbSql.AppendFormat(@"  FROM [TK].[dbo].[BOMMC]");
+                    sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.[INVMB] ON MB001=MC001");
                     sbSql.AppendFormat(@"  WHERE  [MC001]='{0}'", MB001);
                     sbSql.AppendFormat(@"  ");
 
@@ -1981,7 +1983,8 @@ namespace TKMOC
                         if (dsBOMMC.Tables["dsBOMMC"].Rows.Count >= 1)
                         {
                             BOMVARSION = dsBOMMC.Tables["dsBOMMC"].Rows[0]["MC009"].ToString();
-                            UNIT = dsBOMMC.Tables["dsBOMMC"].Rows[0]["MC002"].ToString();
+                            //UNIT = dsBOMMC.Tables["dsBOMMC"].Rows[0]["MC002"].ToString();
+                            UNIT = dsBOMMC.Tables["dsBOMMC"].Rows[0]["MB004"].ToString();
                             BOMBAR = Convert.ToDecimal(dsBOMMC.Tables["dsBOMMC"].Rows[0]["MC004"].ToString());
 
                         }
@@ -2009,7 +2012,9 @@ namespace TKMOC
 
                     sbSql.AppendFormat(@"  SELECT ");
                     sbSql.AppendFormat(@"  [MC001],[MC002],[MC003],[MC004],[MC005],[MC006],[MC007],[MC008],[MC009],[MC010],[MC011],[MC012],[MC013],[MC014],[MC015],[MC016],[MC017],[MC018],[MC019],[MC020],[MC021],[MC022],[MC023],[MC024],[MC025],[MC026],[MC027]");
+                    sbSql.AppendFormat(@"  ,INVMB.MB004");
                     sbSql.AppendFormat(@"  FROM [TK].[dbo].[BOMMC]");
+                    sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.[INVMB] ON MB001=MC001");
                     sbSql.AppendFormat(@"  WHERE  [MC001]='{0}'", MB001B);
                     sbSql.AppendFormat(@"  ");
 
@@ -2033,7 +2038,8 @@ namespace TKMOC
                         if (dsBOMMC.Tables["dsBOMMC"].Rows.Count >= 1)
                         {
                             BOMVARSION = dsBOMMC.Tables["dsBOMMC"].Rows[0]["MC009"].ToString();
-                            UNIT = dsBOMMC.Tables["dsBOMMC"].Rows[0]["MC002"].ToString();
+                            //UNIT = dsBOMMC.Tables["dsBOMMC"].Rows[0]["MC002"].ToString();
+                            UNIT = dsBOMMC.Tables["dsBOMMC"].Rows[0]["MB004"].ToString();
                             BOMBAR = Convert.ToDecimal(dsBOMMC.Tables["dsBOMMC"].Rows[0]["MC004"].ToString());
 
                         }
@@ -2061,7 +2067,9 @@ namespace TKMOC
 
                     sbSql.AppendFormat(@"  SELECT ");
                     sbSql.AppendFormat(@"  [MC001],[MC002],[MC003],[MC004],[MC005],[MC006],[MC007],[MC008],[MC009],[MC010],[MC011],[MC012],[MC013],[MC014],[MC015],[MC016],[MC017],[MC018],[MC019],[MC020],[MC021],[MC022],[MC023],[MC024],[MC025],[MC026],[MC027]");
+                    sbSql.AppendFormat(@"  ,INVMB.MB004");
                     sbSql.AppendFormat(@"  FROM [TK].[dbo].[BOMMC]");
+                    sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.[INVMB] ON MB001=MC001");
                     sbSql.AppendFormat(@"  WHERE  [MC001]='{0}'", MB001C);
                     sbSql.AppendFormat(@"  ");
 
@@ -2085,7 +2093,8 @@ namespace TKMOC
                         if (dsBOMMC.Tables["dsBOMMC"].Rows.Count >= 1)
                         {
                             BOMVARSION = dsBOMMC.Tables["dsBOMMC"].Rows[0]["MC009"].ToString();
-                            UNIT = dsBOMMC.Tables["dsBOMMC"].Rows[0]["MC002"].ToString();
+                            //UNIT = dsBOMMC.Tables["dsBOMMC"].Rows[0]["MC002"].ToString();
+                            UNIT = dsBOMMC.Tables["dsBOMMC"].Rows[0]["MB004"].ToString();
                             BOMBAR = Convert.ToDecimal(dsBOMMC.Tables["dsBOMMC"].Rows[0]["MC004"].ToString());
 
                         }
@@ -2113,7 +2122,9 @@ namespace TKMOC
 
                     sbSql.AppendFormat(@"  SELECT ");
                     sbSql.AppendFormat(@"  [MC001],[MC002],[MC003],[MC004],[MC005],[MC006],[MC007],[MC008],[MC009],[MC010],[MC011],[MC012],[MC013],[MC014],[MC015],[MC016],[MC017],[MC018],[MC019],[MC020],[MC021],[MC022],[MC023],[MC024],[MC025],[MC026],[MC027]");
+                    sbSql.AppendFormat(@"  ,INVMB.MB004");
                     sbSql.AppendFormat(@"  FROM [TK].[dbo].[BOMMC]");
+                    sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.[INVMB] ON MB001=MC001");
                     sbSql.AppendFormat(@"  WHERE  [MC001]='{0}'", MB001D);
                     sbSql.AppendFormat(@"  ");
 
@@ -2137,7 +2148,8 @@ namespace TKMOC
                         if (dsBOMMC.Tables["dsBOMMC"].Rows.Count >= 1)
                         {
                             BOMVARSION = dsBOMMC.Tables["dsBOMMC"].Rows[0]["MC009"].ToString();
-                            UNIT = dsBOMMC.Tables["dsBOMMC"].Rows[0]["MC002"].ToString();
+                            //UNIT = dsBOMMC.Tables["dsBOMMC"].Rows[0]["MC002"].ToString();
+                            UNIT = dsBOMMC.Tables["dsBOMMC"].Rows[0]["MB004"].ToString();
                             BOMBAR = Convert.ToDecimal(dsBOMMC.Tables["dsBOMMC"].Rows[0]["MC004"].ToString());
 
                         }
@@ -2166,7 +2178,9 @@ namespace TKMOC
 
                     sbSql.AppendFormat(@"  SELECT ");
                     sbSql.AppendFormat(@"  [MC001],[MC002],[MC003],[MC004],[MC005],[MC006],[MC007],[MC008],[MC009],[MC010],[MC011],[MC012],[MC013],[MC014],[MC015],[MC016],[MC017],[MC018],[MC019],[MC020],[MC021],[MC022],[MC023],[MC024],[MC025],[MC026],[MC027]");
+                    sbSql.AppendFormat(@"  ,INVMB.MB004");
                     sbSql.AppendFormat(@"  FROM [TK].[dbo].[BOMMC]");
+                    sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.[INVMB] ON MB001=MC001");
                     sbSql.AppendFormat(@"  WHERE  [MC001]='{0}'", MB001E);
                     sbSql.AppendFormat(@"  ");
 
@@ -2190,7 +2204,8 @@ namespace TKMOC
                         if (dsBOMMC.Tables["dsBOMMC"].Rows.Count >= 1)
                         {
                             BOMVARSION = dsBOMMC.Tables["dsBOMMC"].Rows[0]["MC009"].ToString();
-                            UNIT = dsBOMMC.Tables["dsBOMMC"].Rows[0]["MC002"].ToString();
+                            //UNIT = dsBOMMC.Tables["dsBOMMC"].Rows[0]["MC002"].ToString();
+                            UNIT = dsBOMMC.Tables["dsBOMMC"].Rows[0]["MB004"].ToString();
                             BOMBAR = Convert.ToDecimal(dsBOMMC.Tables["dsBOMMC"].Rows[0]["MC004"].ToString());
 
                         }
