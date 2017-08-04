@@ -298,6 +298,20 @@ namespace TKMOC
 
                 tablename = "TEMPds8";
             }
+            else if (comboBox1.Text.ToString().Equals("成型檢驗表"))
+            {
+                STR.AppendFormat(@"  SELECT [CHECKCOOKIESMD].[MB002] AS '品名',CONVERT(varchar(100),[STIME],8) AS '開始時間',CONVERT(varchar(100),[ETIME],8) AS '結束時間',[SLOT] AS '桶數',[CUTNUMBER] AS '刀數',[WEIGHT] AS '重量',[CHECKCOOKIESMD].[MAIN] AS '線別',[CHECKCOOKIESMD].[MAINDATE] AS '日期'");
+                STR.AppendFormat(@"  ,[CHECKCOOKIESMD].[TARGETPROTA001] AS '單別',[CHECKCOOKIESMD].[TARGETPROTA002] AS '單號',[CHECKCOOKIESMD].[MB001] AS '品號'");
+                STR.AppendFormat(@"  ,CONVERT(varchar(100),[CHECKTIME],8) AS '時間',[WIGHT] AS '重量',[LENGTH] AS '長度',[TEMP] AS '溫度',[HUMIDITY] AS '溼度',[CHECKRESULT] AS '檢查結果',[OWNER] AS '填表人',[MANAGER]  AS '主管'");
+                STR.AppendFormat(@"  FROM [TKCIM].[dbo].[CHECKCOOKIESM],[TKCIM].[dbo].[CHECKCOOKIESMD]");
+                STR.AppendFormat(@"  WHERE [CHECKCOOKIESM].[TARGETPROTA001]=[CHECKCOOKIESMD].[TARGETPROTA001] AND [CHECKCOOKIESM].[TARGETPROTA002]=[CHECKCOOKIESMD].[TARGETPROTA002] ");
+                STR.AppendFormat(@"  AND CONVERT(varchar(100),[CHECKCOOKIESMD].[MAINDATE], 112)>='{0}' AND CONVERT(varchar(100),[CHECKCOOKIESMD].[MAINDATE], 112)<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+                STR.AppendFormat(@"  ORDER BY [CHECKCOOKIESMD].[MAINDATE],[CHECKCOOKIESMD].[MAIN]");
+                STR.AppendFormat(@"  ");
+                STR.AppendFormat(@"  ");
+
+                tablename = "TEMPds9";
+            }
             else if (comboBox1.Text.ToString().Equals(""))
             {
 
@@ -492,6 +506,19 @@ namespace TKMOC
                     }
                 }
                 
+            }
+            else if (tablename.Equals("TEMPds9"))
+            {
+                TABLENAME = "成型檢驗表";
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    ws.CreateRow(i + 1);
+                    for (int rows = 0; rows < dt.Columns.Count; rows++)
+                    {
+                        ws.GetRow(i + 1).CreateCell(rows).SetCellValue(ds.Tables["TEMPds9"].Rows[i][rows].ToString());
+                    }
+                }
             }
             else if (tablename.Equals(""))
             {
