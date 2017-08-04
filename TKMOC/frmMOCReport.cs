@@ -306,7 +306,7 @@ namespace TKMOC
                 STR.AppendFormat(@"  FROM [TKCIM].[dbo].[CHECKCOOKIESM],[TKCIM].[dbo].[CHECKCOOKIESMD]");
                 STR.AppendFormat(@"  WHERE [CHECKCOOKIESM].[TARGETPROTA001]=[CHECKCOOKIESMD].[TARGETPROTA001] AND [CHECKCOOKIESM].[TARGETPROTA002]=[CHECKCOOKIESMD].[TARGETPROTA002] ");
                 STR.AppendFormat(@"  AND CONVERT(varchar(100),[CHECKCOOKIESMD].[MAINDATE], 112)>='{0}' AND CONVERT(varchar(100),[CHECKCOOKIESMD].[MAINDATE], 112)<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
-                STR.AppendFormat(@"  ORDER BY [CHECKCOOKIESMD].[MAINDATE],[CHECKCOOKIESMD].[MAIN]");
+                STR.AppendFormat(@"  ORDER BY [CHECKCOOKIESMD].[MAINDATE],[CHECKCOOKIESMD].[MAIN],CONVERT(varchar(100),[CHECKTIME],8)");
                 STR.AppendFormat(@"  ");
                 STR.AppendFormat(@"  ");
 
