@@ -273,16 +273,12 @@ namespace TKMOC
             {
                 STR.AppendFormat(@"  SELECT CONVERT(varchar(100),[OVENDATE], 112) AS '日期',[MANUDEP].[DEPNAME] AS '組',CONVERT(varchar(100),[PREHEARTSTART], 108)  AS '預熱時間(起)',CONVERT(varchar(100),[PREHEARTEND], 108)   AS '預熱時間(迄)',[GAS]  AS '瓦斯磅數',EMP1.NAME  AS '折疊人員1',EMP2.NAME    AS '折疊人員2', EMP3.NAME   AS '主管',EMP4.NAME    AS '操作人員',[MANUDEP] AS '組別'");
                 STR.AppendFormat(@"  ,[MB001] AS '品號',[MB002] AS '品名',[MB003] AS '規格',[TEMPER] AS '溫度',[HUMIDITY] AS '溼度',[WEATHER] AS '天氣',CONVERT(varchar(100),[MANUTIME],108) AS '時間'");
-                STR.AppendFormat(@"  ,[FURANACEUP1] AS '上爐-第1爐',[FURANACEUP1A] AS '上爐-第1爐A',[FURANACEUP1B] AS '上爐-第1爐B'");
-                STR.AppendFormat(@"  ,[FURANACEUP2] AS '上爐-第2爐',[FURANACEUP2A] AS '上爐-第2爐A',[FURANACEUP2B] AS '上爐-第2爐B'");
-                STR.AppendFormat(@"  ,[FURANACEUP3] AS '上爐-第3爐',[FURANACEUP3A] AS '上爐-第3爐A',[FURANACEUP3B] AS '上爐-第3爐B'");
-                STR.AppendFormat(@"  ,[FURANACEUP4] AS '上爐-第4爐',[FURANACEUP4A] AS '上爐-第4爐A',[FURANACEUP4B] AS '上爐-第4爐B'");
-                STR.AppendFormat(@"  ,[FURANACEUP5] AS '上爐-第5爐' ,[FURANACEUP5A] AS '上爐-第5爐A' ,[FURANACEUP5B] AS '上爐-第5爐B' ");
-                STR.AppendFormat(@"  ,[FURANACEDOWN1] AS '下爐-第1爐',[FURANACEDOWN1A] AS '下爐-第1爐A',[FURANACEDOWN1B] AS '下爐-第1爐B'");
-                STR.AppendFormat(@"  ,[FURANACEDOWN2] AS '下爐-第2爐',[FURANACEDOWN2A] AS '下爐-第2爐A',[FURANACEDOWN2B] AS '下爐-第2爐B'");
-                STR.AppendFormat(@"  ,[FURANACEDOWN3] AS '下爐-第3爐',[FURANACEDOWN3A] AS '下爐-第3爐A',[FURANACEDOWN3B] AS '下爐-第3爐B'");
-                STR.AppendFormat(@"  ,[FURANACEDOWN4] AS '下爐-第4爐',[FURANACEDOWN4A] AS '下爐-第4爐A',[FURANACEDOWN4B] AS '下爐-第4爐B'");
-                STR.AppendFormat(@"  ,[FURANACEDOWN5] AS '下爐-第5爐' ,[FURANACEDOWN5A] AS '下爐-第5爐A' ,[FURANACEDOWN5B] AS '下爐-第5爐B' ");
+                STR.AppendFormat(@" ,[FURANACEUP1] AS '上爐1-1',[FURANACEUP2] AS '上爐2-1',[FURANACEUP3] AS '上爐3-1',[FURANACEUP4] AS '上爐4-1',[FURANACEUP5] AS '上爐5-1'");
+                STR.AppendFormat(@" ,[FURANACEUP1A] AS '上爐1-2',[FURANACEUP2A] AS '上爐2-2',[FURANACEUP3A] AS '上爐3-2',[FURANACEUP4A] AS '上爐4-2',[FURANACEUP5A] AS '上爐5-2'");
+                STR.AppendFormat(@" ,[FURANACEUP1B] AS '上爐1-3',[FURANACEUP2B] AS '上爐2-3',[FURANACEUP3B] AS '上爐3-3',[FURANACEUP4B] AS '上爐4-3',[FURANACEUP5B] AS '上爐5-3' ");
+                STR.AppendFormat(@" ,[FURANACEDOWN1] AS '下爐1-1',[FURANACEDOWN2] AS '下爐2-1',[FURANACEDOWN3] AS '下爐3-1',[FURANACEDOWN4] AS '下爐4-1',[FURANACEDOWN5] AS '下爐5-1'");
+                STR.AppendFormat(@" ,[FURANACEDOWN1A] AS '下爐1-2',[FURANACEDOWN2A] AS '下爐2-2',[FURANACEDOWN3A] AS '下爐3-2',[FURANACEDOWN4A] AS '下爐4-2',[FURANACEDOWN5A] AS '下爐5-2'");
+                STR.AppendFormat(@" ,[FURANACEDOWN1B] AS '下爐1-3',[FURANACEDOWN2B] AS '下爐2-3',[FURANACEDOWN3B] AS '下爐3-3',[FURANACEDOWN4B] AS '下爐4-3',[FURANACEDOWN5B] AS '下爐5-3'");
                 STR.AppendFormat(@"  ,[MOCOVENDTAIL].[ID],[SOURCEID]");
                 STR.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCOVENDTAIL], [TKMOC].[dbo].[MOCOVEN]");
                 STR.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[MANUEMPLOYEE] EMP1  ON [FLODPEOPLE1]=EMP1.ID");
