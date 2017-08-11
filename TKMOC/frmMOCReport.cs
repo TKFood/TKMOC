@@ -366,6 +366,20 @@ namespace TKMOC
 
                 tablename = "TEMPds12";
             }
+            else if (comboBox1.Text.ToString().Equals("出爐餅溫量測記錄表"))
+            {
+
+                STR.AppendFormat(@"  SELECT [MB002] AS '品名',CONVERT(NVARCHAR,[CHECKTIME],8) AS '時間',[TEMP] AS '溫度',[OWNER] AS '檢測員',[MANAGER] AS '主管',[MAIN] AS '線別',[MAINDATE] AS '日期',[TARGETPROTA001] AS '單別',[TARGETPROTA002] AS '單號',[MB001] AS '品號',[ID] ");
+                STR.AppendFormat(@"  FROM [TKCIM].[dbo].[CHECKBAKEDTEMPM]");
+                STR.AppendFormat(@"  WHERE CONVERT(NVARCHAR,[MAINDATE],112)>='{0}' AND CONVERT(NVARCHAR,[MAINDATE],112)<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+                STR.AppendFormat(@"  ORDER BY [MAIN],CONVERT(NVARCHAR,[MAINDATE],112),CONVERT(NVARCHAR,[CHECKTIME],8)");
+                STR.AppendFormat(@"  ");
+                STR.AppendFormat(@"  ");
+                STR.AppendFormat(@"  ");
+
+
+                tablename = "TEMPds13";
+            }
             else if (comboBox1.Text.ToString().Equals(""))
             {
 
@@ -613,6 +627,19 @@ namespace TKMOC
                     for (int rows = 0; rows < dt.Columns.Count; rows++)
                     {
                         ws.GetRow(i + 1).CreateCell(rows).SetCellValue(ds.Tables["TEMPds12"].Rows[i][rows].ToString());
+                    }
+                }
+            }
+            else if (tablename.Equals("TEMPds13"))
+            {
+                TABLENAME = "出爐餅溫量測記錄表";
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    ws.CreateRow(i + 1);
+                    for (int rows = 0; rows < dt.Columns.Count; rows++)
+                    {
+                        ws.GetRow(i + 1).CreateCell(rows).SetCellValue(ds.Tables["TEMPds13"].Rows[i][rows].ToString());
                     }
                 }
             }

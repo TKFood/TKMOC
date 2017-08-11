@@ -237,7 +237,8 @@
             "不良邊料明細表",
             "不良未熟明細表",
             "不良品餅乾報廢明細表",
-            "成型檢驗表"});
+            "成型檢驗表",
+            "出爐餅溫量測記錄表"});
             this.comboBox1.Location = new System.Drawing.Point(124, 48);
             this.comboBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.comboBox1.Name = "comboBox1";
