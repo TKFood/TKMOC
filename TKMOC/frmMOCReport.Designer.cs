@@ -227,7 +227,9 @@
             "不良邊料明細表",
             "不良未熟明細表",
             "烤爐溫度明細表",
-            "成型檢驗表"});
+            "成型檢驗表",
+            "===============",
+            "水麵添加表"});
             this.comboBox1.Location = new System.Drawing.Point(83, 50);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(234, 20);

@@ -308,6 +308,23 @@ namespace TKMOC
 
                 tablename = "TEMPds9";
             }
+            else if (comboBox1.Text.ToString().Equals("水麵添加表"))
+            {
+                STR.AppendFormat(@"  SELECT [MAIN] AS '組別',[MAINDATE]  AS '生產日'  ,[MATERWATERPROIDM].[TARGETPROTA001] AS '單別'");
+                STR.AppendFormat(@"  ,[MATERWATERPROIDM].[TARGETPROTA002] AS '單號'  ,[MATERWATERPROIDM].[MB001] AS '品號'");
+                STR.AppendFormat(@"  ,[MATERWATERPROIDM].[MB002] AS '品名',[MATERWATERPROIDM].[LOTID] AS '批號'  ,[CANNO] AS '桶數'");
+                STR.AppendFormat(@"  ,[NUM] AS '重量'  ,[OUTLOOK] AS '外觀',CONVERT(varchar(100),[STIME],8) AS '起時間'");
+                STR.AppendFormat(@"  ,CONVERT(varchar(100),[ETIME],8) AS '迄時間'  ,[TEMP] AS '溫度' ,[HUDI] AS '溼度',[MOVEIN] AS '投料人'");
+                STR.AppendFormat(@"  ,[CHECKEMP] AS '抽檢人'  ");
+                STR.AppendFormat(@"  FROM [TKCIM].[dbo].[MATERWATERPROIDM]");
+                STR.AppendFormat(@"  LEFT JOIN [TKCIM].[dbo].[MATERWATERPROIDMD]  ON [MATERWATERPROIDM].[TARGETPROTA001]=[MATERWATERPROIDMD].[TARGETPROTA001]   AND [MATERWATERPROIDM].[TARGETPROTA002]=[MATERWATERPROIDMD].[TARGETPROTA002]  AND [MATERWATERPROIDM].[MB001]=[MATERWATERPROIDMD].[MB001]   AND [MATERWATERPROIDM].[LOTID]=[MATERWATERPROIDMD].[LOTID]  ");
+                STR.AppendFormat(@"  WHERE [MAINDATE]>= '{0}' AND [MAINDATE]<= '{1}'", dateTimePicker1.Value.ToString("yyyy/MM/dd"), dateTimePicker2.Value.ToString("yyyy/MM/dd"));
+                STR.AppendFormat(@"  ORDER BY LEN([MATERWATERPROIDM].[MAIN]),[MATERWATERPROIDM].[MAIN],[MATERWATERPROIDM].[TARGETPROTA001] ,[MATERWATERPROIDM].[TARGETPROTA002],CONVERT(INT,[CANNO]),[MATERWATERPROIDM].[MB001],[MATERWATERPROIDM].[LOTID]  ");
+                STR.AppendFormat(@"  ");
+                STR.AppendFormat(@"  ");
+
+                tablename = "TEMPds10";
+            }
             else if (comboBox1.Text.ToString().Equals(""))
             {
 
@@ -513,6 +530,19 @@ namespace TKMOC
                     for (int rows = 0; rows < dt.Columns.Count; rows++)
                     {
                         ws.GetRow(i + 1).CreateCell(rows).SetCellValue(ds.Tables["TEMPds9"].Rows[i][rows].ToString());
+                    }
+                }
+            }
+            else if (tablename.Equals("TEMPds10"))
+            {
+                TABLENAME = "水麵添加表";
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    ws.CreateRow(i + 1);
+                    for (int rows = 0; rows < dt.Columns.Count; rows++)
+                    {
+                        ws.GetRow(i + 1).CreateCell(rows).SetCellValue(ds.Tables["TEMPds10"].Rows[i][rows].ToString());
                     }
                 }
             }
