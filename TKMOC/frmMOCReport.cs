@@ -427,6 +427,23 @@ namespace TKMOC
 
                 tablename = "TEMPds15";
             }
+            else if (comboBox1.Text.ToString().Equals("首件檢查記錄表-成品"))
+            {
+                STR.AppendFormat(@"  SELECT");
+                STR.AppendFormat(@"  [MAIN] AS '組別',CONVERT(varchar(100),[MAINDATE], 112) AS '日期',CONVERT(varchar(100),[MAINTIME],14)  AS '時間',[TARGETPROTA001] AS '單別',[TARGETPROTA002] AS '單號'");
+                STR.AppendFormat(@"  ,[MB001] AS '品號',[MB002] AS '品名',[MB003] AS '規格',[UNIT] AS '入數單位'");
+                STR.AppendFormat(@"  ,[PACKAGENUM] AS '入數數量',[CHECKNUM] AS '抽檢數量',[WEIGHT] AS '重量(公斤/箱)',[TYPEDATE] AS '日期別'");
+                STR.AppendFormat(@"  ,[PRODATE] AS '生產/製造日期',[OUTDATE] AS '保質/有效日期',[PACKAGELABEL] AS '外包裝標示',[INLABEL] AS '內容物封口',[TASTEJUDG] AS '口味判定',[TASTEFELL] AS '口感判定',[TEMP] AS '備註'");
+                STR.AppendFormat(@"  ,[FJUDG] AS '判定',[OWNER] AS '填表人',[MANAGER] AS '包裝主管',[QC] AS '稽核人員'");
+                STR.AppendFormat(@"  ,[ID]");
+                STR.AppendFormat(@"  FROM [TKCIM].[dbo].[CHECKFIRSTTYPEPACKAGE]");
+                STR.AppendFormat(@"  WHERE CONVERT(varchar(100),[MAINDATE], 112)>='20170801' AND CONVERT(varchar(100),[MAINDATE], 112)<='20170830'");
+                STR.AppendFormat(@"  ORDER BY [MAIN],CONVERT(varchar(100),[MAINDATE], 112)");
+                STR.AppendFormat(@"  ");
+                STR.AppendFormat(@"  ");
+
+                tablename = "TEMPds16";
+            }
             else if (comboBox1.Text.ToString().Equals(""))
             {
 
@@ -437,6 +454,7 @@ namespace TKMOC
 
                 tablename = "";
             }
+
 
 
             return STR;
@@ -716,6 +734,19 @@ namespace TKMOC
                     for (int rows = 0; rows < dt.Columns.Count; rows++)
                     {
                         ws.GetRow(i + 1).CreateCell(rows).SetCellValue(ds.Tables["TEMPds15"].Rows[i][rows].ToString());
+                    }
+                }
+            }
+            else if (tablename.Equals("TEMPds16"))
+            {
+                TABLENAME = "首件檢查記錄表-成品";
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    ws.CreateRow(i + 1);
+                    for (int rows = 0; rows < dt.Columns.Count; rows++)
+                    {
+                        ws.GetRow(i + 1).CreateCell(rows).SetCellValue(ds.Tables["TEMPds16"].Rows[i][rows].ToString());
                     }
                 }
             }
