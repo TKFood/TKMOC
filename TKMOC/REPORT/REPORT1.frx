@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="08/11/2017 16:23:52" ReportInfo.Modified="08/11/2017 16:30:04" ReportInfo.CreatorVersion="2016.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNkF915CfQU3T0owgOdAfC+Wpth9INMQ2O9QjmtdgtNUz/BKDWsAs1Ipa6nbH7j0sjWX6jyLZv6Gq8HdF7mud9nb0iz5BWlHagFDjIrSbC5fPSS9tDigPad73FKuH7ie+j">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand=" SELECT  &#13;&#10; [MAINDATE] AS '日期',[CHECKSTATUS] AS '空機測試',CONVERT(NVARCHAR,[CHECKTIME],8) AS '測試時間',[QCEMP] AS '稽核人員' &#13;&#10; ,[ID]&#13;&#10; FROM [TKCIM].[dbo].[CHECKPACKAGEEMPTY] ">
+        <Column Name="日期" DataType="System.DateTime"/>
+        <Column Name="空機測試" DataType="System.String"/>
+        <Column Name="測試時間" DataType="System.String"/>
+        <Column Name="稽核人員" DataType="System.String"/>
+        <Column Name="ID" DataType="System.Guid"/>
+        <CommandParameter Name="P1" DataType="12" Expression="[P1]"/>
+        <CommandParameter Name="P2" DataType="12" Expression="[P2]"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="P1" DataType="System.String"/>
+    <Parameter Name="P2" DataType="System.String"/>
+  </Dictionary>
+  <ReportPage Name="Page1">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="37.8">
+      <TextObject Name="Text9" Top="18.9" Width="94.5" Height="18.9" Border.Lines="All" Text="[P1]"/>
+      <TextObject Name="Text10" Left="94.5" Top="18.9" Width="94.5" Height="18.9" Border.Lines="All" Text="[P2]"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="41.8" Width="718.2" Height="18.9">
+      <TextObject Name="Text2" Width="94.5" Height="18.9" Border.Lines="All" Text="日期"/>
+      <TextObject Name="Text4" Left="94.5" Width="94.5" Height="18.9" Border.Lines="All" Text="空機測試"/>
+      <TextObject Name="Text6" Left="189" Width="94.5" Height="18.9" Border.Lines="All" Text="測試時間"/>
+      <TextObject Name="Text8" Left="283.5" Width="94.5" Height="18.9" Border.Lines="All" Text="稽核人員"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="64.7" Width="718.2" Height="18.9" DataSource="Table">
+      <TextObject Name="Text1" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.日期]" Format="Date" Format.Format="d"/>
+      <TextObject Name="Text3" Left="94.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.空機測試]"/>
+      <TextObject Name="Text5" Left="189" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.測試時間]"/>
+      <TextObject Name="Text7" Left="283.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.稽核人員]"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="87.6" Width="718.2" Height="18.9"/>
+  </ReportPage>
+</Report>

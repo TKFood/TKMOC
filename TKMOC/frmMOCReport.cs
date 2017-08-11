@@ -20,6 +20,7 @@ using System.Data.SqlClient;
 using NPOI.SS.UserModel;
 using System.Configuration;
 using NPOI.XSSF.UserModel;
+using FastReport;
 
 namespace TKMOC
 {
@@ -866,6 +867,17 @@ namespace TKMOC
         {
             ExcelExport();
         }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            report1 = new Report();
+            report1.Load(@"REPORT\REPORT1.frx");
+            report1.SetParameterValue("P1", 11);
+            report1.SetParameterValue("P2", 12);
+
+            report1.Preview = previewControl1;
+            report1.Show();
+        }
+
         #endregion
 
 
