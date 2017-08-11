@@ -169,12 +169,12 @@ namespace TKMOC
 
                 tablename = "TEMPds2";
             }
-            else if (comboBox1.Text.ToString().Equals("不良品餅乾報廢分析表"))
+            else if (comboBox1.Text.ToString().Equals("不良品餅乾報廢明細表"))
             {
                 STR.AppendFormat(@"  SELECT [MAIN] AS '線別',CONVERT(varchar(100),[MAINDATE], 111) AS '日期',[DAMAGEDCOOKIES] AS '破損餅乾(kg)',[LANDCOOKIES] AS '落地餅乾(kg)',[SCRAPCOOKIES]  AS '餅乾屑(kg)',[ID]");
                 STR.AppendFormat(@"  FROM [TKCIM].[dbo].[NGSCRAPPEDMD]");
                 STR.AppendFormat(@"  WHERE [MAINDATE]>='{0}' AND [MAINDATE]<='{1}'",dateTimePicker1.Value.ToString("yyyy/MM/dd"), dateTimePicker2.Value.ToString("yyyy/MM/dd"));
-                STR.AppendFormat(@"  ORDER BY CONVERT(varchar(100),[MAINDATE], 111),[MAIN] ");
+                STR.AppendFormat(@"  ORDER BY  [MAIN] ,CONVERT(varchar(100),[MAINDATE], 111),[MAIN] ");
                 STR.AppendFormat(@"  ");
 
                 tablename = "TEMPds3";
@@ -224,15 +224,17 @@ namespace TKMOC
             }
             else if (comboBox1.Text.ToString().Equals("不良餅麩明細表"))
             {
-                STR.AppendFormat(@"  SELECT [MAINDATE] AS '日期',CONVERT(varchar(100),[MAINTIME],8)  AS '時間',[MB002] AS '品名',[NUM] AS '回收量',[NGNUM] AS '不良品報廢1' ,[MAIN] AS '線別1',[MB001] AS '品號1',[TARGETPROTA001] AS '單別1',[TARGETPROTA002] AS '單號1'");
+                STR.AppendFormat(@"    SELECT 日期,時間,品名,回收量,不良品報廢,線別,品號,單別,單號");
+                STR.AppendFormat(@"    FROM (");
+                STR.AppendFormat(@"  SELECT [MAINDATE] AS '日期',CONVERT(varchar(100),[MAINTIME],8)  AS '時間',[MB002] AS '品名',[NUM] AS '回收量',[NGNUM] AS '不良品報廢' ,[MAIN] AS '線別',[MB001] AS '品號',[TARGETPROTA001] AS '單別',[TARGETPROTA002] AS '單號'");
                 STR.AppendFormat(@"  FROM [TKCIM].[dbo].[NGCOOKIESMD]");
                 STR.AppendFormat(@"  WHERE [MAINDATE]>='{0}' AND [MAINDATE]<='{1}'", dateTimePicker1.Value.ToString("yyyy/MM/dd"), dateTimePicker2.Value.ToString("yyyy/MM/dd"));
                 STR.AppendFormat(@"  UNION ALL ");
-                STR.AppendFormat(@"  SELECT  '9999/9/9','合計','',SUM([NUM]) AS '回收量',SUM([NGNUM]) AS '不良品報廢1' , '','','',''");
+                STR.AppendFormat(@"  SELECT  '9999/9/9','合計','',SUM([NUM]) AS '回收量',SUM([NGNUM]) AS '不良品報廢' , '新廠製全部組','','',''");
                 STR.AppendFormat(@"  FROM [TKCIM].[dbo].[NGCOOKIESMD]");
                 STR.AppendFormat(@"  WHERE [MAINDATE]>='{0}' AND [MAINDATE]<='{1}'", dateTimePicker1.Value.ToString("yyyy/MM/dd"), dateTimePicker2.Value.ToString("yyyy/MM/dd"));
-                STR.AppendFormat(@"  ORDER BY [MAINDATE],[MAIN],[MB001]");
-                STR.AppendFormat(@"  ");
+                STR.AppendFormat(@"  ) AS TEMP");
+                STR.AppendFormat(@"    ORDER BY LEN(線別),線別,日期,品號 ");
                 STR.AppendFormat(@"  ");
 
 
@@ -247,7 +249,7 @@ namespace TKMOC
                 STR.AppendFormat(@"  SELECT  '9999/9/9','合計','',SUM([NUM]) AS '回收邊料',SUM([NGNUM]) AS '不良品報廢2' , '','','',''");
                 STR.AppendFormat(@"  FROM [TKCIM].[dbo].[NGSIDEMD]");
                 STR.AppendFormat(@"  WHERE [MAINDATE]>='{0}' AND [MAINDATE]<='{1}'", dateTimePicker1.Value.ToString("yyyy/MM/dd"), dateTimePicker2.Value.ToString("yyyy/MM/dd"));
-                STR.AppendFormat(@"  ORDER BY [MAINDATE],[MAIN],[MB001]");
+                STR.AppendFormat(@"  ORDER BY [MAIN],[MAINDATE],[MB001]");
                 STR.AppendFormat(@"  ");
                 STR.AppendFormat(@"  ");
 
@@ -263,7 +265,7 @@ namespace TKMOC
                 STR.AppendFormat(@"  SELECT  '9999/9/9','合計','',SUM([NUM]) AS '未熟餅',SUM([COOKTIME]) AS '烤培時間',SUM([NGNUM]) AS '不良品報廢3' , '','','',''");
                 STR.AppendFormat(@"  FROM [TKCIM].[dbo].[NGNOBURNMD]");
                 STR.AppendFormat(@"  WHERE [MAINDATE]>='{0}' AND [MAINDATE]<='{1}'", dateTimePicker1.Value.ToString("yyyy/MM/dd"), dateTimePicker2.Value.ToString("yyyy/MM/dd"));
-                STR.AppendFormat(@"  ORDER BY [MAINDATE],[MAIN],[MB001]");
+                STR.AppendFormat(@"  ORDER BY [MAIN],[MAINDATE],[MB001]");
                 STR.AppendFormat(@"  ");
                 STR.AppendFormat(@"  ");
 

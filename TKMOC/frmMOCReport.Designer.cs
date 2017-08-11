@@ -227,16 +227,16 @@
             this.comboBox1.Items.AddRange(new object[] {
             "生產日報的分析表",
             "生產日報的月份分析表",
-            "不良品餅乾報廢分析表",
             "生產日報表明細表",
-            "不良餅麩明細表",
-            "不良邊料明細表",
-            "不良未熟明細表",
             "烤爐溫度明細表",
             "成型檢驗表",
             "===============",
             "水麵添加表",
-            "油酥添加表"});
+            "油酥添加表",
+            "不良餅麩明細表",
+            "不良邊料明細表",
+            "不良未熟明細表",
+            "不良品餅乾報廢明細表"});
             this.comboBox1.Location = new System.Drawing.Point(124, 48);
             this.comboBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.comboBox1.Name = "comboBox1";
