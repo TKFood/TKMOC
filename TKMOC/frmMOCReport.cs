@@ -437,7 +437,7 @@ namespace TKMOC
                 STR.AppendFormat(@"  ,[FJUDG] AS '判定',[OWNER] AS '填表人',[MANAGER] AS '包裝主管',[QC] AS '稽核人員'");
                 STR.AppendFormat(@"  ,[ID]");
                 STR.AppendFormat(@"  FROM [TKCIM].[dbo].[CHECKFIRSTTYPEPACKAGE]");
-                STR.AppendFormat(@"  WHERE CONVERT(varchar(100),[MAINDATE], 112)>='20170801' AND CONVERT(varchar(100),[MAINDATE], 112)<='20170830'");
+                STR.AppendFormat(@"  WHERE CONVERT(varchar(100),[MAINDATE], 112)>='{0}' AND CONVERT(varchar(100),[MAINDATE], 112)<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
                 STR.AppendFormat(@"  ORDER BY [MAIN],CONVERT(varchar(100),[MAINDATE], 112)");
                 STR.AppendFormat(@"  ");
                 STR.AppendFormat(@"  ");
@@ -459,11 +459,34 @@ namespace TKMOC
                 STR.AppendFormat(@"  ,[SERNO] ");
                 STR.AppendFormat(@"  FROM [TKCIM].[dbo].[CHECKFIRSTTYPECOLD],[TKCIM].[dbo].[CHECKFIRSTTYPECOLDD]");
                 STR.AppendFormat(@"  WHERE [CHECKFIRSTTYPECOLD].TARGETPROTA001=[CHECKFIRSTTYPECOLDD].TARGETPROTA001 AND [CHECKFIRSTTYPECOLD].TARGETPROTA002=[CHECKFIRSTTYPECOLDD].TARGETPROTA002");
+                STR.AppendFormat(@"  WHERE CONVERT(varchar(100),[MAINDATE], 112)>='{0}' AND CONVERT(varchar(100),[MAINDATE], 112)<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
                 STR.AppendFormat(@"  ORDER BY [MAIN],CONVERT(varchar(100),[MAINDATE], 112),[CHECKFIRSTTYPECOLD].TARGETPROTA001,[CHECKFIRSTTYPECOLD].TARGETPROTA002,SERNO");
                 STR.AppendFormat(@"  ");
                 STR.AppendFormat(@"  ");
 
                 tablename = "TEMPds17";
+            }
+            else if (comboBox1.Text.ToString().Equals("手工生產日報表"))
+            {
+
+                STR.AppendFormat(@" SELECT  ");
+                STR.AppendFormat(@"  [MAIN] AS '組別',CONVERT(NVARCHAR,[MAINDATE],112) AS '日期',[TARGETPROTA001] AS '單別',[TARGETPROTA002] AS '單號' ");
+                STR.AppendFormat(@"  ,[MB001] AS '品號',[MB002] AS '品名',[MB003] AS '規格',[OILPREIN] AS '油酥/餡-預計投入'");
+                STR.AppendFormat(@"  ,[OILACTIN] AS '油酥/餡-實際投入',[WATERPREIN] AS '水麵/皮-預計投入',[WATERACTIN] AS '水麵/皮-實際投入'");
+                STR.AppendFormat(@"  ,[TOTALIN] AS '總投入',[CYCLESIDE] AS '可回收邊料',[NG] AS '不良品',[COOKNG] AS '烘烤不良'");
+                STR.AppendFormat(@"  ,[OILWORKTIME] AS '油酥/餡-工時',[OILWORKHR] AS '油酥/餡-人數',[WATERWORKTIME] AS '水麵/皮-工時'");
+                STR.AppendFormat(@"  ,[WATERWORKHR] AS '水麵/皮-人數',[WORKTIME] AS '製造工時',[WORKHR] AS '製造人數',[CHOREWORK] AS '巧克力-再加工投入'");
+                STR.AppendFormat(@"  ,[CHONG] AS '巧克力-不良',[CHOTIME] AS '巧克力-工時',[CHOHR] AS '巧克力-人數',[PACKTIME] AS '後段包裝-工時'");
+                STR.AppendFormat(@"  ,[PACKHR] AS '後段包裝-人數',[PACKNG] AS '包裝時餅乾不良',[NGMB002] AS '包裝不良品名',[NGMB003] AS '包裝不良規格'");
+                STR.AppendFormat(@"  ,[NGNUM] AS '包裝不良數量',[HALFNUM] AS '半成品數量',[FINALNUM] AS '成品數量',[REMARK] AS '備註'");
+                STR.AppendFormat(@"  ,[OWNER] AS '填表人',[ID]");
+                STR.AppendFormat(@"  FROM [TKCIM].[dbo].[DAILYREPORTHAND]");
+                STR.AppendFormat(@"  WHERE CONVERT(varchar(100),[MAINDATE], 112)>='{0}' AND CONVERT(varchar(100),[MAINDATE], 112)<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+                STR.AppendFormat(@"  ORDER BY [MAIN],CONVERT(NVARCHAR,[MAINDATE],112),[TARGETPROTA001],[TARGETPROTA002]");
+                STR.AppendFormat(@"  ");
+
+
+                tablename = "TEMPds18";
             }
             else if (comboBox1.Text.ToString().Equals(""))
             {
@@ -781,6 +804,20 @@ namespace TKMOC
                     for (int rows = 0; rows < dt.Columns.Count; rows++)
                     {
                         ws.GetRow(i + 1).CreateCell(rows).SetCellValue(ds.Tables["TEMPds17"].Rows[i][rows].ToString());
+                    }
+                }
+
+            }
+            else if (tablename.Equals("TEMPds18"))
+            {
+                TABLENAME = "手工生產日報表";
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    ws.CreateRow(i + 1);
+                    for (int rows = 0; rows < dt.Columns.Count; rows++)
+                    {
+                        ws.GetRow(i + 1).CreateCell(rows).SetCellValue(ds.Tables["TEMPds18"].Rows[i][rows].ToString());
                     }
                 }
 

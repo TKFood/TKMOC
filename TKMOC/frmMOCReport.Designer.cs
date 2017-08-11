@@ -242,7 +242,8 @@
             "烘烤製程記錄",
             "首件檢查記錄表-成型",
             "首件檢查記錄表-成品",
-            "首件檢查記錄表-冷卻"});
+            "首件檢查記錄表-冷卻",
+            "手工生產日報表"});
             this.comboBox1.Location = new System.Drawing.Point(124, 48);
             this.comboBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.comboBox1.Name = "comboBox1";
