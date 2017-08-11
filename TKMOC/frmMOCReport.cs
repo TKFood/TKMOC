@@ -349,6 +349,23 @@ namespace TKMOC
 
                 tablename = "TEMPds11";
             }
+            else if (comboBox1.Text.ToString().Equals("成型檢驗表"))
+            {
+
+                STR.AppendFormat(@"  SELECT [CHECKCOOKIESMD].[MB002] AS '品名',CONVERT(varchar(100),[CHECKTIME],8) AS '時間',[WIGHT] AS '重量'");
+                STR.AppendFormat(@"  ,[CHECKCOOKIESMD].[LENGTH] AS '長度',[CHECKCOOKIESMD].[TEMP] AS '溫度',[CHECKCOOKIESMD].[HUMIDITY] AS '溼度',[CHECKCOOKIESMD].[CHECKRESULT] AS '檢查結果'");
+                STR.AppendFormat(@"  ,[CHECKCOOKIESMD].[OWNER] AS '填表人',[CHECKCOOKIESMD].[MANAGER]  AS '主管',[CHECKCOOKIESMD].[MAIN] AS '線別',CONVERT(NVARCHAR,[CHECKCOOKIESMD].[MAINDATE],112) AS '日期'");
+                STR.AppendFormat(@"  ,[CHECKCOOKIESMD].[TARGETPROTA001] AS '單別',[CHECKCOOKIESMD].[TARGETPROTA002] AS '單號',[CHECKCOOKIESMD].[MB001] AS '品號'");
+                STR.AppendFormat(@"  ,[CHECKCOOKIESMD].[ID] ");
+                STR.AppendFormat(@"  FROM [TKCIM].[dbo].[CHECKCOOKIESM],[TKCIM].[dbo].[CHECKCOOKIESMD]");
+                STR.AppendFormat(@"  WHERE [CHECKCOOKIESM].TARGETPROTA001=[CHECKCOOKIESMD].TARGETPROTA001 AND [CHECKCOOKIESM].TARGETPROTA002=[CHECKCOOKIESMD].TARGETPROTA002");
+                STR.AppendFormat(@"  AND CONVERT(NVARCHAR,[CHECKCOOKIESMD].[MAINDATE],112)>='{0}' AND CONVERT(NVARCHAR,[CHECKCOOKIESMD].[MAINDATE],112)<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+                STR.AppendFormat(@"  ORDER BY [CHECKCOOKIESMD].[MAIN],CONVERT(NVARCHAR,[CHECKCOOKIESMD].[MAINDATE],112),[CHECKCOOKIESMD].[MB002]");
+                STR.AppendFormat(@"  ");
+                STR.AppendFormat(@"  ");
+
+                tablename = "TEMPds12";
+            }
             else if (comboBox1.Text.ToString().Equals(""))
             {
 
@@ -583,6 +600,19 @@ namespace TKMOC
                     for (int rows = 0; rows < dt.Columns.Count; rows++)
                     {
                         ws.GetRow(i + 1).CreateCell(rows).SetCellValue(ds.Tables["TEMPds11"].Rows[i][rows].ToString());
+                    }
+                }
+            }
+            else if (tablename.Equals("TEMPds12"))
+            {
+                TABLENAME = "成型檢驗表";
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    ws.CreateRow(i + 1);
+                    for (int rows = 0; rows < dt.Columns.Count; rows++)
+                    {
+                        ws.GetRow(i + 1).CreateCell(rows).SetCellValue(ds.Tables["TEMPds12"].Rows[i][rows].ToString());
                     }
                 }
             }
