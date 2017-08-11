@@ -406,6 +406,37 @@ namespace TKMOC
 
                 tablename = "TEMPds14";
             }
+            else if (comboBox1.Text.ToString().Equals("首件檢查記錄表-成型"))
+            {
+
+                STR.AppendFormat(@"  SELECT  ");
+                STR.AppendFormat(@"  [MAIN] AS '組別',CONVERT(varchar(100),[MAINDATE], 112) AS '日期',CONVERT(varchar(100),[MAINTIME],14) AS '時間',[TARGETPROTA001] AS '單別'");
+                STR.AppendFormat(@"  ,[TARGETPROTA002] AS '單號',[MB001] AS '品號',[MB002] AS '品名',[MB003] AS '規格'");
+                STR.AppendFormat(@"  ,[CHECKNUM] AS '檢查片數',[WEIGHT] AS '平均重量',[LENGTH] AS '平均長度',[TEMPER] AS '環境溫度'");
+                STR.AppendFormat(@"  ,[HUMI] AS '環境溼度',[TIME] AS '烤爐時間',[SPEED] AS '烤爐速度',[OVENTEMP] AS '烤爐溫度'");
+                STR.AppendFormat(@"  ,[JUDG] AS '口味判定',[METRAILCHECK] AS '原料投入確認',[TEMP] AS '備註'");
+                STR.AppendFormat(@"  ,[FJUDG] AS '判定'");
+                STR.AppendFormat(@"  ,[OWNER] AS '填表人',[MANAGER] AS '製造主管',[QC] AS '稽核人員'");
+                STR.AppendFormat(@"  ,[ID]");
+                STR.AppendFormat(@"  FROM [TKCIM].[dbo].[CHECKFIRSTTYPE]");
+                STR.AppendFormat(@"  WHERE CONVERT(varchar(100),[MAINDATE], 112)>='{0}' AND CONVERT(varchar(100),[MAINDATE], 112)<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+                STR.AppendFormat(@"  ORDER BY [MAIN] ,CONVERT(varchar(100),[MAINDATE], 112)");
+                STR.AppendFormat(@"  ");
+                STR.AppendFormat(@"  ");
+                STR.AppendFormat(@"  ");
+
+                tablename = "TEMPds15";
+            }
+            else if (comboBox1.Text.ToString().Equals(""))
+            {
+
+
+                STR.AppendFormat(@"  ");
+                STR.AppendFormat(@"  ");
+                STR.AppendFormat(@"  ");
+
+                tablename = "";
+            }
 
 
             return STR;
@@ -672,6 +703,19 @@ namespace TKMOC
                     for (int rows = 0; rows < dt.Columns.Count; rows++)
                     {
                         ws.GetRow(i + 1).CreateCell(rows).SetCellValue(ds.Tables["TEMPds14"].Rows[i][rows].ToString());
+                    }
+                }
+            }
+            else if (tablename.Equals("TEMPds15"))
+            {
+                TABLENAME = "首件檢查記錄表-成型";
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    ws.CreateRow(i + 1);
+                    for (int rows = 0; rows < dt.Columns.Count; rows++)
+                    {
+                        ws.GetRow(i + 1).CreateCell(rows).SetCellValue(ds.Tables["TEMPds15"].Rows[i][rows].ToString());
                     }
                 }
             }
