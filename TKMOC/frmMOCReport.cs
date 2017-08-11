@@ -380,12 +380,31 @@ namespace TKMOC
 
                 tablename = "TEMPds13";
             }
-            else if (comboBox1.Text.ToString().Equals(""))
+            else if (comboBox1.Text.ToString().Equals("烘烤製程記錄"))
             {
 
+                STR.AppendFormat(@"  SELECT ");
+                STR.AppendFormat(@"  [CHECKOVENMD].[MB002] AS '品名',[TEMPER] AS '溫度',[HUMIDITY] AS '溼度',[WEATHER] AS '天氣',CONVERT(varchar(100),[MANUTIME], 8)  AS '時間'");
+                STR.AppendFormat(@"  ,[FURANACEUP1] AS '上爐1-1',[FURANACEUP2] AS '上爐2-1',[FURANACEUP3] AS '上爐3-1',[FURANACEUP4] AS '上爐4-1',[FURANACEUP5] AS '上爐5-1'");
+                STR.AppendFormat(@"  ,[FURANACEUP1A] AS '上爐1-2',[FURANACEUP2A] AS '上爐2-2',[FURANACEUP3A] AS '上爐3-2',[FURANACEUP4A] AS '上爐4-2',[FURANACEUP5A] AS '上爐5-2'");
+                STR.AppendFormat(@"  ,[FURANACEUP1B] AS '上爐1-3',[FURANACEUP2B] AS '上爐2-3',[FURANACEUP3B] AS '上爐3-3',[FURANACEUP4B] AS '上爐4-3',[FURANACEUP5B] AS '上爐5-3'");
+                STR.AppendFormat(@"  ,[FURANACEDOWN1] AS '下爐1-1',[FURANACEDOWN2] AS '下爐2-1',[FURANACEDOWN3] AS '下爐3-1',[FURANACEDOWN4] AS '下爐4-1',[FURANACEDOWN5] AS '下爐5-1'");
+                STR.AppendFormat(@"  ,[FURANACEDOWN1A] AS '下爐1-2',[FURANACEDOWN2A] AS '下爐2-2',[FURANACEDOWN3A] AS '下爐3-2',[FURANACEDOWN4A] AS '下爐4-2',[FURANACEDOWN5A] AS '下爐5-2'");
+                STR.AppendFormat(@"  ,[FURANACEDOWN1B] AS '下爐1-3',[FURANACEDOWN2B] AS '下爐2-3',[FURANACEDOWN3B] AS '下爐3-3',[FURANACEDOWN4B] AS '下爐4-3',[FURANACEDOWN5B] AS '下爐5-3'");
+                STR.AppendFormat(@"  ,[CHECKOVENMD].[MAIN] AS '線別',CONVERT(varchar(100),[CHECKOVENMD].[MAINDATE], 112)  AS '日期',[CHECKOVENMD].[TARGETPROTA001] AS '單別',[CHECKOVENMD].[TARGETPROTA002] AS '單號',[CHECKOVENMD].[MB001] AS '品號'");
+                STR.AppendFormat(@"  ,[CHECKOVENM].[MB002] AS '品名',CONVERT(varchar(100),[CHECKOVENM].[STIME], 8) AS '開始時間',CONVERT(varchar(100),[CHECKOVENM].[ETIME], 8)  AS '結束時間'");
+                STR.AppendFormat(@"  ,[CHECKOVENM].[GAS] AS '瓦斯磅數',[CHECKOVENM].[FLODPEOPLE1]  AS '折疊人員1',[CHECKOVENM].[FLODPEOPLE2]   AS '折疊人員2'");
+                STR.AppendFormat(@"  ,[CHECKOVENM].[MANAGER]  AS '主管',[CHECKOVENM].[OPERATOR]  AS '操作人員'");
+                STR.AppendFormat(@"  FROM [TKCIM].[dbo].[CHECKOVENM] WITH(NOLOCK),[TKCIM].[dbo].[CHECKOVENMD] WITH(NOLOCK)");
+                STR.AppendFormat(@"  WHERE [CHECKOVENM].[TARGETPROTA001]=[CHECKOVENMD].[TARGETPROTA001] AND [CHECKOVENM].[TARGETPROTA002]=[CHECKOVENMD].[TARGETPROTA002] ");
+                STR.AppendFormat(@"  AND CONVERT(varchar(100),[CHECKOVENMD].[MAINDATE],112)>='{0}' AND CONVERT(varchar(100),[CHECKOVENMD].[MAINDATE],112)<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+                STR.AppendFormat(@"  ORDER BY [CHECKOVENMD].[MAIN] ,CONVERT(varchar(100),[CHECKOVENMD].[MAINDATE],112),CONVERT(varchar(100),[MANUTIME], 8) ");
+                STR.AppendFormat(@"  ");
+                STR.AppendFormat(@"  ");
+                STR.AppendFormat(@"  ");
                 STR.AppendFormat(@"  ");
 
-                tablename = "";
+                tablename = "TEMPds14";
             }
 
 
@@ -640,6 +659,19 @@ namespace TKMOC
                     for (int rows = 0; rows < dt.Columns.Count; rows++)
                     {
                         ws.GetRow(i + 1).CreateCell(rows).SetCellValue(ds.Tables["TEMPds13"].Rows[i][rows].ToString());
+                    }
+                }
+            }
+            else if (tablename.Equals("TEMPds14"))
+            {
+                TABLENAME = "烘烤製程記錄";
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    ws.CreateRow(i + 1);
+                    for (int rows = 0; rows < dt.Columns.Count; rows++)
+                    {
+                        ws.GetRow(i + 1).CreateCell(rows).SetCellValue(ds.Tables["TEMPds14"].Rows[i][rows].ToString());
                     }
                 }
             }
