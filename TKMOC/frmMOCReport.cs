@@ -310,7 +310,7 @@ namespace TKMOC
             }
             else if (comboBox1.Text.ToString().Equals("水麵添加表"))
             {
-                STR.AppendFormat(@"  SELECT [MAIN] AS '組別',[MAINDATE]  AS '生產日'  ,[MATERWATERPROIDM].[TARGETPROTA001] AS '單別'");
+                STR.AppendFormat(@"  SELECT [MAIN] AS '組別',CONVERT(NVARCHAR,[MAINDATE],112)  AS '生產日'  ,[MATERWATERPROIDM].[TARGETPROTA001] AS '單別'");
                 STR.AppendFormat(@"  ,[MATERWATERPROIDM].[TARGETPROTA002] AS '單號'  ,[MATERWATERPROIDM].[MB001] AS '品號'");
                 STR.AppendFormat(@"  ,[MATERWATERPROIDM].[MB002] AS '品名',[MATERWATERPROIDM].[LOTID] AS '批號'  ,[CANNO] AS '桶數'");
                 STR.AppendFormat(@"  ,[NUM] AS '重量'  ,[OUTLOOK] AS '外觀',CONVERT(varchar(100),[STIME],8) AS '起時間'");
@@ -325,9 +325,29 @@ namespace TKMOC
 
                 tablename = "TEMPds10";
             }
+            else if (comboBox1.Text.ToString().Equals("油酥添加表"))
+            {
+                STR.AppendFormat(@"  SELECT [MAIN] AS '組別',CONVERT(NVARCHAR,[MAINDATE],112)  AS '生產日'  ,[METEROILPROIDM].[TARGETPROTA001] AS '單別'");
+                STR.AppendFormat(@"  ,[METEROILPROIDM].[TARGETPROTA002] AS '單號'  ,[METEROILPROIDM].[MB001] AS '品號'");
+                STR.AppendFormat(@"  ,[METEROILPROIDM].[MB002] AS '品名',[METEROILPROIDM].[LOTID] AS '批號'  ,[CANNO] AS '桶數'");
+                STR.AppendFormat(@"  ,[NUM] AS '重量'  ,[OUTLOOK] AS '外觀',CONVERT(varchar(100),[STIME],8) AS '起時間'");
+                STR.AppendFormat(@"  ,CONVERT(varchar(100),[ETIME],8) AS '迄時間'  ,[TEMP] AS '溫度' ,[HUDI] AS '溼度'");
+                STR.AppendFormat(@"  ,[MOVEIN] AS '投料人',[CHECKEMP] AS '抽檢人' ");
+                STR.AppendFormat(@"  FROM [TKCIM].[dbo].[METEROILPROIDM]");
+                STR.AppendFormat(@"  LEFT JOIN [TKCIM].[dbo].[METEROILPROIDMD]  ON [METEROILPROIDM].[TARGETPROTA001]=[METEROILPROIDMD].[TARGETPROTA001]    AND [METEROILPROIDM].[TARGETPROTA002]=[METEROILPROIDMD].[TARGETPROTA002]    AND [METEROILPROIDM].[MB001]=[METEROILPROIDMD].[MB001]    AND [METEROILPROIDM].[LOTID]=[METEROILPROIDMD].[LOTID]  ");
+                STR.AppendFormat(@"  WHERE [MAINDATE]>= '{0}' AND [MAINDATE]<= '{1}'", dateTimePicker1.Value.ToString("yyyy/MM/dd"), dateTimePicker2.Value.ToString("yyyy/MM/dd"));
+                STR.AppendFormat(@"  ORDER BY LEN([METEROILPROIDM].[MAIN]),[METEROILPROIDM].[MAIN],[METEROILPROIDM].[MAINDATE],[METEROILPROIDM].[TARGETPROTA001],[METEROILPROIDM].[TARGETPROTA002], CONVERT(INT,[CANNO])");
+                STR.AppendFormat(@"  ");
+                STR.AppendFormat(@"  ");
+
+                tablename = "TEMPds11";
+            }
             else if (comboBox1.Text.ToString().Equals(""))
             {
 
+                STR.AppendFormat(@"  ");
+
+                tablename = "";
             }
 
 
@@ -543,6 +563,19 @@ namespace TKMOC
                     for (int rows = 0; rows < dt.Columns.Count; rows++)
                     {
                         ws.GetRow(i + 1).CreateCell(rows).SetCellValue(ds.Tables["TEMPds10"].Rows[i][rows].ToString());
+                    }
+                }
+            }
+            else if (tablename.Equals("TEMPds11"))
+            {
+                TABLENAME = "油酥添加表";
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    ws.CreateRow(i + 1);
+                    for (int rows = 0; rows < dt.Columns.Count; rows++)
+                    {
+                        ws.GetRow(i + 1).CreateCell(rows).SetCellValue(ds.Tables["TEMPds11"].Rows[i][rows].ToString());
                     }
                 }
             }
