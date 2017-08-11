@@ -444,6 +444,27 @@ namespace TKMOC
 
                 tablename = "TEMPds16";
             }
+            else if (comboBox1.Text.ToString().Equals("首件檢查記錄表-冷卻"))
+            {
+
+                STR.AppendFormat(@"  SELECT ");
+                STR.AppendFormat(@"  [MAIN] AS '組別',CONVERT(varchar(100),[MAINDATE], 112) AS '日期',CONVERT(varchar(100),[MAINTIME],14) AS '時間'");
+                STR.AppendFormat(@"  ,[CHECKNUM] AS '抽檢數量',[OUTLOOK] AS '色澤外觀',[CHECKFIRSTTYPECOLD].[COOKTEMPER] AS '熟餅溫度(C)'");
+                STR.AppendFormat(@"  ,[CHECKFIRSTTYPECOLD].[COOKWEIGHT] AS '熟餅重量(g)',[CHECKFIRSTTYPECOLD].[COOKLENGTH] AS '熟餅長度(cm)',[TEMPER] AS '環境溫度(C)'");
+                STR.AppendFormat(@"  ,[HUMI] AS '環境溼度(%)',[TASTEJUDG] AS '口味判定',[TASTEFEEL] AS '口感判定',[TEMP] AS '備註'");
+                STR.AppendFormat(@"  ,[FJUDG] AS '判定',[OWNER] AS '填表人',[MANAGER] AS '製造主管',[QC] AS '稽核人員'");
+                STR.AppendFormat(@"  ,[CHECKFIRSTTYPECOLDD].[COOKTEMPER] AS '熟餅溫度',[CHECKFIRSTTYPECOLDD].[COOKWEIGHT] AS '熟餅重量'");
+                STR.AppendFormat(@"  ,[CHECKFIRSTTYPECOLDD].[COOKLENGTH] AS '熟餅長度',[CHECKFIRSTTYPECOLDD].[MB002]  AS '品名',[CHECKFIRSTTYPECOLDD].[MB003] AS '規格'");
+                STR.AppendFormat(@"  ,[CHECKFIRSTTYPECOLDD].[TARGETPROTA001] AS '單別',[CHECKFIRSTTYPECOLDD].[TARGETPROTA002]  AS '單號',[CHECKFIRSTTYPECOLDD].[MB001]  AS '品號'");
+                STR.AppendFormat(@"  ,[SERNO] ");
+                STR.AppendFormat(@"  FROM [TKCIM].[dbo].[CHECKFIRSTTYPECOLD],[TKCIM].[dbo].[CHECKFIRSTTYPECOLDD]");
+                STR.AppendFormat(@"  WHERE [CHECKFIRSTTYPECOLD].TARGETPROTA001=[CHECKFIRSTTYPECOLDD].TARGETPROTA001 AND [CHECKFIRSTTYPECOLD].TARGETPROTA002=[CHECKFIRSTTYPECOLDD].TARGETPROTA002");
+                STR.AppendFormat(@"  ORDER BY [MAIN],CONVERT(varchar(100),[MAINDATE], 112),[CHECKFIRSTTYPECOLD].TARGETPROTA001,[CHECKFIRSTTYPECOLD].TARGETPROTA002,SERNO");
+                STR.AppendFormat(@"  ");
+                STR.AppendFormat(@"  ");
+
+                tablename = "TEMPds17";
+            }
             else if (comboBox1.Text.ToString().Equals(""))
             {
 
@@ -749,6 +770,20 @@ namespace TKMOC
                         ws.GetRow(i + 1).CreateCell(rows).SetCellValue(ds.Tables["TEMPds16"].Rows[i][rows].ToString());
                     }
                 }
+            }
+            else if (tablename.Equals("TEMPds17"))
+            {               
+                TABLENAME = "首件檢查記錄表 - 冷卻";
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    ws.CreateRow(i + 1);
+                    for (int rows = 0; rows < dt.Columns.Count; rows++)
+                    {
+                        ws.GetRow(i + 1).CreateCell(rows).SetCellValue(ds.Tables["TEMPds17"].Rows[i][rows].ToString());
+                    }
+                }
+
             }
             else if (tablename.Equals(""))
             {
