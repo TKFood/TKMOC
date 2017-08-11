@@ -174,7 +174,7 @@ namespace TKMOC
                 STR.AppendFormat(@"  SELECT [MAIN] AS '線別',CONVERT(varchar(100),[MAINDATE], 111) AS '日期',[DAMAGEDCOOKIES] AS '破損餅乾(kg)',[LANDCOOKIES] AS '落地餅乾(kg)',[SCRAPCOOKIES]  AS '餅乾屑(kg)',[ID]");
                 STR.AppendFormat(@"  FROM [TKCIM].[dbo].[NGSCRAPPEDMD]");
                 STR.AppendFormat(@"  WHERE [MAINDATE]>='{0}' AND [MAINDATE]<='{1}'",dateTimePicker1.Value.ToString("yyyy/MM/dd"), dateTimePicker2.Value.ToString("yyyy/MM/dd"));
-                STR.AppendFormat(@"  ORDER BY  [MAIN] ,CONVERT(varchar(100),[MAINDATE], 111),[MAIN] ");
+                STR.AppendFormat(@"  ORDER BY LEN([MAIN]),[MAIN],CONVERT(varchar(100),[MAINDATE], 111)");
                 STR.AppendFormat(@"  ");
 
                 tablename = "TEMPds3";
@@ -226,7 +226,7 @@ namespace TKMOC
             {
                 STR.AppendFormat(@"    SELECT 日期,時間,品名,回收量,不良品報廢,線別,品號,單別,單號");
                 STR.AppendFormat(@"    FROM (");
-                STR.AppendFormat(@"  SELECT [MAINDATE] AS '日期',CONVERT(varchar(100),[MAINTIME],8)  AS '時間',[MB002] AS '品名',[NUM] AS '回收量',[NGNUM] AS '不良品報廢' ,[MAIN] AS '線別',[MB001] AS '品號',[TARGETPROTA001] AS '單別',[TARGETPROTA002] AS '單號'");
+                STR.AppendFormat(@"  SELECT CONVERT(NVARCHAR,[MAINDATE],112) AS '日期',CONVERT(varchar(100),[MAINTIME],8)  AS '時間',[MB002] AS '品名',[NUM] AS '回收量',[NGNUM] AS '不良品報廢' ,[MAIN] AS '線別',[MB001] AS '品號',[TARGETPROTA001] AS '單別',[TARGETPROTA002] AS '單號'");
                 STR.AppendFormat(@"  FROM [TKCIM].[dbo].[NGCOOKIESMD]");
                 STR.AppendFormat(@"  WHERE [MAINDATE]>='{0}' AND [MAINDATE]<='{1}'", dateTimePicker1.Value.ToString("yyyy/MM/dd"), dateTimePicker2.Value.ToString("yyyy/MM/dd"));
                 STR.AppendFormat(@"  UNION ALL ");
@@ -242,15 +242,17 @@ namespace TKMOC
             }
             else if (comboBox1.Text.ToString().Equals("不良邊料明細表"))
             {
-                STR.AppendFormat(@"  SELECT [MAINDATE] AS '日期', CONVERT(varchar(100),[MAINTIME],8)  AS '時間',[MB002] AS '品名',[NUM] AS '回收邊料',[NGNUM] AS '不良品報廢2',[MAIN] AS '線別2',[MB001] AS '品號2',[TARGETPROTA001] AS '單別2',[TARGETPROTA002] AS '單號2'");
+                STR.AppendFormat(@"   SELECT 日期,時間,品名,回收邊料,不良品報廢,線別,品號,單別,單號");
+                STR.AppendFormat(@"  FROM (");
+                STR.AppendFormat(@"  SELECT  CONVERT(NVARCHAR,[MAINDATE],112) AS '日期', CONVERT(varchar(100),[MAINTIME],8)  AS '時間',[MB002] AS '品名',[NUM] AS '回收邊料',[NGNUM] AS '不良品報廢',[MAIN] AS '線別',[MB001] AS '品號',[TARGETPROTA001] AS '單別',[TARGETPROTA002] AS '單號'");
                 STR.AppendFormat(@"  FROM [TKCIM].[dbo].[NGSIDEMD]");
                 STR.AppendFormat(@"  WHERE [MAINDATE]>='{0}' AND [MAINDATE]<='{1}'", dateTimePicker1.Value.ToString("yyyy/MM/dd"), dateTimePicker2.Value.ToString("yyyy/MM/dd"));
                 STR.AppendFormat(@"  UNION ALL ");
-                STR.AppendFormat(@"  SELECT  '9999/9/9','合計','',SUM([NUM]) AS '回收邊料',SUM([NGNUM]) AS '不良品報廢2' , '','','',''");
+                STR.AppendFormat(@"  SELECT  '9999/9/9','合計','',SUM([NUM]) AS '回收邊料',SUM([NGNUM]) AS '不良品報廢' , '新廠製造全組****','','',''");
                 STR.AppendFormat(@"  FROM [TKCIM].[dbo].[NGSIDEMD]");
                 STR.AppendFormat(@"  WHERE [MAINDATE]>='{0}' AND [MAINDATE]<='{1}'", dateTimePicker1.Value.ToString("yyyy/MM/dd"), dateTimePicker2.Value.ToString("yyyy/MM/dd"));
-                STR.AppendFormat(@"  ORDER BY [MAIN],[MAINDATE],[MB001]");
-                STR.AppendFormat(@"  ");
+                STR.AppendFormat(@"  ) AS TEMP ");
+                STR.AppendFormat(@"  ORDER BY LEN(線別),線別,日期,品號");
                 STR.AppendFormat(@"  ");
 
 
@@ -258,15 +260,18 @@ namespace TKMOC
             }
             else if (comboBox1.Text.ToString().Equals("不良未熟明細表"))
             {
-                STR.AppendFormat(@"  SELECT  [MAINDATE] AS '日期',CONVERT(varchar(100),[MAINTIME],8) AS '時間',[MB002] AS '品名',[NUM] AS '未熟餅',[COOKTIME] AS '烤培時間',[NGNUM] AS '不良品報廢3',[MAIN] AS '線別3',[MB001] AS '品號3',[TARGETPROTA001] AS '單別3',[TARGETPROTA002] AS '單號3'");
+
+                STR.AppendFormat(@"   SELECT 日期,時間,品名,未熟餅,烤培時間,不良品報廢,線別,品號,單別,單號");
+                STR.AppendFormat(@"   FROM (");
+                STR.AppendFormat(@"  SELECT  [MAINDATE] AS '日期',CONVERT(varchar(100),[MAINTIME],8) AS '時間',[MB002] AS '品名',[NUM] AS '未熟餅',[COOKTIME] AS '烤培時間',[NGNUM] AS '不良品報廢',[MAIN] AS '線別',[MB001] AS '品號',[TARGETPROTA001] AS '單別',[TARGETPROTA002] AS '單號'");
                 STR.AppendFormat(@"  FROM [TKCIM].[dbo].[NGNOBURNMD]");
                 STR.AppendFormat(@"  WHERE [MAINDATE]>='{0}' AND [MAINDATE]<='{1}'", dateTimePicker1.Value.ToString("yyyy/MM/dd"), dateTimePicker2.Value.ToString("yyyy/MM/dd"));
                 STR.AppendFormat(@"  UNION ALL ");
-                STR.AppendFormat(@"  SELECT  '9999/9/9','合計','',SUM([NUM]) AS '未熟餅',SUM([COOKTIME]) AS '烤培時間',SUM([NGNUM]) AS '不良品報廢3' , '','','',''");
+                STR.AppendFormat(@"  SELECT  '9999/9/9','合計','',SUM([NUM]) AS '未熟餅',SUM([COOKTIME]) AS '烤培時間',SUM([NGNUM]) AS '不良品報廢3' , '新廠製造全組****','','',''");
                 STR.AppendFormat(@"  FROM [TKCIM].[dbo].[NGNOBURNMD]");
                 STR.AppendFormat(@"  WHERE [MAINDATE]>='{0}' AND [MAINDATE]<='{1}'", dateTimePicker1.Value.ToString("yyyy/MM/dd"), dateTimePicker2.Value.ToString("yyyy/MM/dd"));
-                STR.AppendFormat(@"  ORDER BY [MAIN],[MAINDATE],[MB001]");
-                STR.AppendFormat(@"  ");
+                STR.AppendFormat(@"  ) AS TEMP ");
+                STR.AppendFormat(@"  ORDER BY LEN(線別),線別,日期,品號 ");
                 STR.AppendFormat(@"  ");
 
                 tablename = "TEMPds7";
