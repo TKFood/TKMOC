@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="08/11/2017 16:23:52" ReportInfo.Modified="08/11/2017 16:30:04" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="08/11/2017 16:23:52" ReportInfo.Modified="08/14/2017 11:10:43" ReportInfo.CreatorVersion="2016.4.4.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNkF915CfQU3T0owgOdAfC+Wpth9INMQ2O9QjmtdgtNUz/BKDWsAs1Ipa6nbH7j0sjWX6jyLZv6Gq8HdF7mud9nb0iz5BWlHagFDjIrSbC5fPSS9tDigPad73FKuH7ie+j">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNkF915CfQU3T0owgOdAfC+Wpth9INMQ2O9QjmtdgtNUz/BKDWsAs1Ipa6nbH7j0sjWX6jyLZv6Gq8HdF7mud9nb0iz5BWlHagFDjIrSbC5fMs520Cw5Cn2xoKDZwWUvQi">
       <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand=" SELECT  &#13;&#10; [MAINDATE] AS '日期',[CHECKSTATUS] AS '空機測試',CONVERT(NVARCHAR,[CHECKTIME],8) AS '測試時間',[QCEMP] AS '稽核人員' &#13;&#10; ,[ID]&#13;&#10; FROM [TKCIM].[dbo].[CHECKPACKAGEEMPTY] ">
         <Column Name="日期" DataType="System.DateTime"/>
         <Column Name="空機測試" DataType="System.String"/>

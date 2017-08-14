@@ -417,7 +417,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="REPORT\REPORT1.frx" />
+    <None Include="REPORT\包裝組-生產日報.frx" />
     <None Include="Resources\委外維修申請單.doc" />
     <None Include="Resources\機械設備維修紀錄表.doc" />
     <None Include="Resources\生產日報.doc" />
@@ -442,6 +442,13 @@
     <None Include="Resources\loading.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>rd "$(TargetDir)REPORT" /s /q
+
+mkdir "$(TargetDir)REPORT"
+
+copy "$(ProjectDir)REPORT\*.*"  "$(TargetDir)REPORT\*.*"  /y</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

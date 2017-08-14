@@ -870,7 +870,7 @@ namespace TKMOC
         private void button3_Click(object sender, EventArgs e)
         {
             report1 = new Report();
-            report1.Load(@"REPORT\REPORT1.frx");
+            report1.Load(@"REPORT\包裝組-生產日報.frx");
             report1.SetParameterValue("P1", 11);
             report1.SetParameterValue("P2", 12);
 
