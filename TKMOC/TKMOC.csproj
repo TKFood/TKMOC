@@ -417,7 +417,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="REPORT\包裝組-生產日報.frx" />
+    <None Include="REPORT\包裝組-生產日報表.frx" />
     <None Include="Resources\委外維修申請單.doc" />
     <None Include="Resources\機械設備維修紀錄表.doc" />
     <None Include="Resources\生產日報.doc" />

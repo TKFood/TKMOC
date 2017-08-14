@@ -869,11 +869,16 @@ namespace TKMOC
         }
         private void button3_Click(object sender, EventArgs e)
         {
-            report1 = new Report();
-            report1.Load(@"REPORT\包裝組-生產日報.frx");
+           if(comboBox2.Text.Equals("包裝組-生產日報表"))
+            {
+                report1 = new Report();
+                report1.Load(@"REPORT\包裝組-生產日報表.frx");
+                
+            }
+
+
             report1.SetParameterValue("P1", 11);
             report1.SetParameterValue("P2", 12);
-
             report1.Preview = previewControl1;
             report1.Show();
         }
