@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="08/14/2017 14:48:09" ReportInfo.Modified="08/14/2017 14:55:53" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="08/14/2017 14:48:09" ReportInfo.Modified="08/14/2017 15:42:16" ReportInfo.CreatorVersion="2016.4.4.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNkF915CfQU3T0owgOdAfC+Wpth9INMQ2O9QjmtdgtNUz/BKDWsAs1Ipa6nbH7j0sjWX6jyLZv6Gq8HdF7mud9nb0iz5BWlHagFDjIrSbC5fN1UIMYia/ZcE7eELRFN4qQ">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNkF915CfQU3T0owgOdAfC+Wpth9INMQ2O9QjmtdgtNUz/BKDWsAs1Ipa6nbH7j0sjWX6jyLZv6Gq8HdF7mud9nb0iz5BWlHagFDjIrSbC5fMWrccG1CdBZSjNAetiM0VS">
       <TableDataSource Name="Table" Alias="TBDAILYREPORTPACKAGE" DataType="System.Int32" Enabled="true" SelectCommand="SELECT [MAIN] AS '組別',CONVERT(NVARCHAR,[MAINDATE],112) AS '日期',[TARGETPROTA001] AS '單別',[TARGETPROTA002] AS '單號'&#13;&#10;,[MB001] AS '品號',[MB002] AS '品名',[MB003] AS '規格',[UINTS] AS '單位',[PRENUM] AS '預計成品數量'&#13;&#10;,CONVERT(NVARCHAR,[PRODATE],112) AS '入庫日期',[PRONUM] AS '數量',[PROPEOPLE] AS '生產人數',[PACKAGETIME] AS '包時時間'&#13;&#10;,[TODATTIME] AS '今日工時',[TOTALTIME] AS '累計工時'&#13;&#10;,[ID]&#13;&#10;FROM [TKCIM].[dbo].[DAILYREPORTPACKAGE]&#13;&#10;WHERE CONVERT(NVARCHAR,[PRODATE],112)&gt;=@P1 AND CONVERT(NVARCHAR,[PRODATE],112)&lt;=@P2">
         <Column Name="組別" DataType="System.String"/>
         <Column Name="日期" DataType="System.String"/>
@@ -19,21 +19,160 @@
         <Column Name="今日工時" DataType="System.Decimal"/>
         <Column Name="累計工時" DataType="System.Decimal"/>
         <Column Name="ID" DataType="System.Guid"/>
-        <CommandParameter Name="P1" DataType="12" Expression="[P1]"/>
-        <CommandParameter Name="P2" DataType="12" Expression="[P2]"/>
+        <CommandParameter Name="P1" DataType="12" Expression="[P1]" DefaultValue="20170801"/>
+        <CommandParameter Name="P2" DataType="12" Expression="[P2]" DefaultValue="20170805"/>
+      </TableDataSource>
+      <TableDataSource Name="Table1" Alias="TBDAILYREPORTPACKAGEPICKMATER" DataType="System.Int32" Enabled="true" SelectCommand="SELECT [MB002] AS '品名',[STARTNUM] AS '期初存貨',[PRENUM] AS '預計投入',[ACTNUM] AS '實際投入',[OUTKG] AS '產出公斤',[OUTPIC] AS '產出片數',[NG] AS '本期不良',[FINALKG] AS '期末存貨'&#13;&#10;,[ID],[TARGETPROTA001],[TARGETPROTA002],[MB001]&#13;&#10;FROM [TKCIM].[dbo].[DAILYREPORTPACKAGEPICKMATER]&#13;&#10;WHERE [TARGETPROTA001]=@P1 AND [TARGETPROTA002]=@P2">
+        <Column Name="品名" DataType="System.String"/>
+        <Column Name="期初存貨" DataType="System.Decimal"/>
+        <Column Name="預計投入" DataType="System.Decimal"/>
+        <Column Name="實際投入" DataType="System.Decimal"/>
+        <Column Name="產出公斤" DataType="System.Decimal"/>
+        <Column Name="產出片數" DataType="System.Decimal"/>
+        <Column Name="本期不良" DataType="System.Decimal"/>
+        <Column Name="期末存貨" DataType="System.Decimal"/>
+        <Column Name="ID" DataType="System.Guid"/>
+        <Column Name="TARGETPROTA001" DataType="System.String"/>
+        <Column Name="TARGETPROTA002" DataType="System.String"/>
+        <Column Name="MB001" DataType="System.String"/>
+        <CommandParameter Name="P1" DataType="12" Expression="[TBDAILYREPORTPACKAGE.單別]"/>
+        <CommandParameter Name="P2" DataType="12" Expression="[TBDAILYREPORTPACKAGE.單號]"/>
+      </TableDataSource>
+      <TableDataSource Name="Table2" Alias="TBDAILYREPORTPACKAGEPICKBACK" DataType="System.Int32" Enabled="true" SelectCommand="SELECT  [MB002] AS '品名',[NUM] AS '數量',[TARGETPROTA001] AS '單別',[TARGETPROTA002] AS '單號',[ID] &#13;&#10;FROM [TKCIM].[dbo].[DAILYREPORTPACKAGEPICKBACK]&#13;&#10;WHERE [TARGETPROTA001]=@P1 AND [TARGETPROTA002]=@P2">
+        <Column Name="品名" DataType="System.String"/>
+        <Column Name="數量" DataType="System.Decimal"/>
+        <Column Name="單別" DataType="System.String"/>
+        <Column Name="單號" DataType="System.String"/>
+        <Column Name="ID" DataType="System.Guid"/>
+        <CommandParameter Name="P1" DataType="12" Expression="[TBDAILYREPORTPACKAGE.單別]"/>
+        <CommandParameter Name="P2" DataType="12" Expression="[TBDAILYREPORTPACKAGE.單號]"/>
+      </TableDataSource>
+      <TableDataSource Name="Table3" Alias="TBDAILYREPORTPACKAGENG" DataType="System.Int32" Enabled="true" SelectCommand="SELECT  [MB002] AS '品名',[NUM] AS '數量',[TARGETPROTA001] AS '單別',[TARGETPROTA002] AS '單號',[KIND] AS '內/外部',[ID]&#13;&#10;FROM [TKCIM].[dbo].[DAILYREPORTPACKAGENG]&#13;&#10;WHERE [TARGETPROTA001]=@P1 AND [TARGETPROTA002]=@P2">
+        <Column Name="品名" DataType="System.String"/>
+        <Column Name="數量" DataType="System.Decimal"/>
+        <Column Name="單別" DataType="System.String"/>
+        <Column Name="單號" DataType="System.String"/>
+        <Column Name="內/外部" DataType="System.String"/>
+        <Column Name="ID" DataType="System.Guid"/>
+        <CommandParameter Name="P1" DataType="12" Expression="[TBDAILYREPORTPACKAGE.單別]"/>
+        <CommandParameter Name="P2" DataType="12" Expression="[TBDAILYREPORTPACKAGE.單號]"/>
+      </TableDataSource>
+      <TableDataSource Name="Table4" Alias="TBDAILYREPORTPACKAGENEED" DataType="System.Int32" Enabled="true" SelectCommand="SELECT  [MB002] AS '品名',[NUM] AS '數量',[TARGETPROTA001] AS '單別',[TARGETPROTA002] AS '單號',[ID] &#13;&#10;FROM [TKCIM].[dbo].[DAILYREPORTPACKAGENEED]&#13;&#10;WHERE [TARGETPROTA001]=@P1 AND [TARGETPROTA002]=@P2">
+        <Column Name="品名" DataType="System.String"/>
+        <Column Name="數量" DataType="System.Decimal"/>
+        <Column Name="單別" DataType="System.String"/>
+        <Column Name="單號" DataType="System.String"/>
+        <Column Name="ID" DataType="System.Guid"/>
+        <CommandParameter Name="P1" DataType="12" Expression="[TBDAILYREPORTPACKAGE.單別]"/>
+        <CommandParameter Name="P2" DataType="12" Expression="[TBDAILYREPORTPACKAGE.單號]"/>
+      </TableDataSource>
+      <TableDataSource Name="Table5" Alias="TBDAILYREPORTPACKAGEBACKHALF" DataType="System.Int32" Enabled="true" SelectCommand="SELECT  [MB002] AS '品名',[NUM] AS '數量',[TARGETPROTA001] AS '單別',[TARGETPROTA002] AS '單號',[ID] &#13;&#10;FROM [TKCIM].[dbo].[DAILYREPORTPACKAGEBACKHALF]&#13;&#10;WHERE [TARGETPROTA001]=@P1 AND [TARGETPROTA002]=@P2">
+        <Column Name="品名" DataType="System.String"/>
+        <Column Name="數量" DataType="System.Decimal"/>
+        <Column Name="單別" DataType="System.String"/>
+        <Column Name="單號" DataType="System.String"/>
+        <Column Name="ID" DataType="System.Guid"/>
+        <CommandParameter Name="P1" DataType="12" Expression="[TBDAILYREPORTPACKAGE.單別]"/>
+        <CommandParameter Name="P2" DataType="12" Expression="[TBDAILYREPORTPACKAGE.單號]"/>
       </TableDataSource>
     </MsSqlDataConnection>
     <Parameter Name="P1" DataType="System.String"/>
     <Parameter Name="P2" DataType="System.String"/>
   </Dictionary>
   <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" RawPaperSize="9">
-    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="37.8"/>
-    <PageHeaderBand Name="PageHeader1" Top="41.8" Width="1047.06" Height="18.9">
-      <TextObject Name="Text2" Width="94.5" Height="18.9" Border.Lines="All" Text="入庫日期"/>
+    <PageHeaderBand Name="PageHeader1" Width="1047.06" Height="18.9">
+      <TextObject Name="Text25" Width="1030.05" Height="18.9" Text="包裝組-生產日報表" HorzAlign="Center" VertAlign="Center"/>
     </PageHeaderBand>
-    <DataBand Name="Data1" Top="64.7" Width="1047.06" Height="18.9" DataSource="Table">
-      <TextObject Name="Text1" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTPACKAGE.入庫日期]"/>
-    </DataBand>
-    <PageFooterBand Name="PageFooter1" Top="87.6" Width="1047.06" Height="18.9"/>
+    <GroupHeaderBand Name="GroupHeader1" Top="23.84" Width="1047.06" Height="18.9" StartNewPage="true" Condition="[TBDAILYREPORTPACKAGE.單別]+[TBDAILYREPORTPACKAGE.單號]">
+      <TextObject Name="Text12" Left="426.5" Width="37.8" Height="18.9" Border.Lines="All" Text="單位" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text4" Left="94.5" Width="47.25" Height="18.9" Border.Lines="All" Text="單別" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text6" Left="143" Width="94.5" Height="18.9" Border.Lines="All" Text="單號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text8" Left="237.5" Width="94.5" Height="18.9" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text10" Left="332" Width="94.5" Height="18.9" Border.Lines="All" Text="規格" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text14" Left="464.3" Width="94.5" Height="18.9" Border.Lines="All" Text="預計成品數量" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text16" Left="558.8" Width="94.5" Height="18.9" Border.Lines="All" Text="數量" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text18" Left="653.3" Width="94.5" Height="18.9" Border.Lines="All" Text="生產人數" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text20" Left="747.8" Width="94.5" Height="18.9" Border.Lines="All" Text="包時時間" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text22" Left="842.3" Width="94.5" Height="18.9" Border.Lines="All" Text="今日工時" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text24" Left="935.55" Width="94.5" Height="18.9" Border.Lines="All" Text="累計工時" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text2" Width="94.5" Height="18.9" Border.Lines="All" Text="入庫日期" HorzAlign="Center" VertAlign="Center"/>
+      <DataBand Name="Data1" Top="47.68" Width="1047.06" Height="18.9" CanGrow="true" StartNewPage="true" DataSource="Table">
+        <TextObject Name="Text1" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBDAILYREPORTPACKAGE.入庫日期]" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text3" Left="94.5" Width="47.25" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBDAILYREPORTPACKAGE.單別]" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text5" Left="143" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBDAILYREPORTPACKAGE.單號]" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text7" Left="237.5" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBDAILYREPORTPACKAGE.品名]" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text9" Left="332" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBDAILYREPORTPACKAGE.規格]" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text11" Left="426.5" Width="37.8" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBDAILYREPORTPACKAGE.單位]" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text13" Left="464.3" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBDAILYREPORTPACKAGE.預計成品數量]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text15" Left="558.8" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBDAILYREPORTPACKAGE.數量]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text17" Left="653.3" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBDAILYREPORTPACKAGE.生產人數]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text19" Left="747.8" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBDAILYREPORTPACKAGE.包時時間]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text21" Left="842.3" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBDAILYREPORTPACKAGE.今日工時]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text23" Left="935.55" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBDAILYREPORTPACKAGE.累計工時]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+        <DataBand Name="Data2" Top="112.8" Width="1047.06" Height="18.9" CanGrow="true" DataSource="Table1">
+          <TextObject Name="Text26" Left="93.27" Width="189" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBDAILYREPORTPACKAGEPICKMATER.品名]" HorzAlign="Center" VertAlign="Center"/>
+          <TextObject Name="Text28" Left="282.27" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBDAILYREPORTPACKAGEPICKMATER.期初存貨]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+          <TextObject Name="Text30" Left="376.77" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBDAILYREPORTPACKAGEPICKMATER.預計投入]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+          <TextObject Name="Text32" Left="471.27" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBDAILYREPORTPACKAGEPICKMATER.實際投入]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+          <TextObject Name="Text34" Left="565.77" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBDAILYREPORTPACKAGEPICKMATER.產出公斤]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+          <TextObject Name="Text36" Left="660.27" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBDAILYREPORTPACKAGEPICKMATER.產出片數]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+          <TextObject Name="Text38" Left="754.77" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBDAILYREPORTPACKAGEPICKMATER.本期不良]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+          <TextObject Name="Text40" Left="849.27" Width="94.5" Height="18.9" Border.Lines="All" GrowToBottom="true" Text="[TBDAILYREPORTPACKAGEPICKMATER.期末存貨]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+          <TextObject Name="Text43" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" HorzAlign="Center" VertAlign="Center"/>
+          <DataHeaderBand Name="DataHeader1" Top="71.51" Width="1047.06" Height="36.35">
+            <TextObject Name="Text27" Left="94.5" Top="17.45" Width="189" Height="18.9" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
+            <TextObject Name="Text29" Left="283.5" Top="17.45" Width="94.5" Height="18.9" Border.Lines="All" Text="期初存貨" HorzAlign="Center" VertAlign="Center"/>
+            <TextObject Name="Text31" Left="378" Top="17.45" Width="94.5" Height="18.9" Border.Lines="All" Text="預計投入" HorzAlign="Center" VertAlign="Center"/>
+            <TextObject Name="Text33" Left="472.5" Top="17.45" Width="94.5" Height="18.9" Border.Lines="All" Text="實際投入" HorzAlign="Center" VertAlign="Center"/>
+            <TextObject Name="Text35" Left="567" Top="17.45" Width="94.5" Height="18.9" Border.Lines="All" Text="產出公斤" HorzAlign="Center" VertAlign="Center"/>
+            <TextObject Name="Text37" Left="661.5" Top="17.45" Width="94.5" Height="18.9" Border.Lines="All" Text="產出片數" HorzAlign="Center" VertAlign="Center"/>
+            <TextObject Name="Text39" Left="756" Top="17.45" Width="94.5" Height="18.9" Border.Lines="All" Text="本期不良" HorzAlign="Center" VertAlign="Center"/>
+            <TextObject Name="Text41" Left="850.5" Top="17.45" Width="94.5" Height="18.9" Border.Lines="All" Text="期末存貨" HorzAlign="Center" VertAlign="Center"/>
+            <TextObject Name="Text42" Top="17.45" Width="94.5" Height="18.9" Border.Lines="All" Text="半成品領料" HorzAlign="Center" VertAlign="Center"/>
+          </DataHeaderBand>
+        </DataBand>
+        <DataBand Name="Data3" Top="160.48" Width="1047.06" Height="18.9" CanGrow="true" DataSource="Table2">
+          <TextObject Name="Text44" Left="94.5" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBDAILYREPORTPACKAGEPICKBACK.品名]" HorzAlign="Center" VertAlign="Center"/>
+          <TextObject Name="Text46" Left="189" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTPACKAGEPICKBACK.數量]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+          <TextObject Name="Text62" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" HorzAlign="Center" VertAlign="Center"/>
+          <DataHeaderBand Name="DataHeader2" Top="136.64" Width="1047.06" Height="18.9">
+            <TextObject Name="Text45" Left="94.5" Width="94.5" Height="18.9" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
+            <TextObject Name="Text47" Left="189" Width="94.5" Height="18.9" Border.Lines="All" Text="數量" HorzAlign="Center" VertAlign="Center"/>
+            <TextObject Name="Text60" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" Text="包裝退料" HorzAlign="Center" VertAlign="Center"/>
+          </DataHeaderBand>
+        </DataBand>
+        <DataBand Name="Data4" Top="208.16" Width="1047.06" Height="18.9" CanGrow="true" DataSource="Table3">
+          <TextObject Name="Text48" Left="94.5" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBDAILYREPORTPACKAGENG.品名]" HorzAlign="Center" VertAlign="Center"/>
+          <TextObject Name="Text50" Left="189" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTPACKAGENG.數量]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+          <TextObject Name="Text63" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" HorzAlign="Center" VertAlign="Center"/>
+          <DataHeaderBand Name="DataHeader3" Top="184.32" Width="1047.06" Height="18.9">
+            <TextObject Name="Text49" Left="94.5" Width="94.5" Height="18.9" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
+            <TextObject Name="Text51" Left="189" Width="94.5" Height="18.9" Border.Lines="All" Text="數量" HorzAlign="Center" VertAlign="Center"/>
+            <TextObject Name="Text61" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" Text="包裝不良" HorzAlign="Center" VertAlign="Center"/>
+          </DataHeaderBand>
+        </DataBand>
+        <DataBand Name="Data5" Top="255.83" Width="1047.06" Height="18.9" CanGrow="true" DataSource="Table4">
+          <TextObject Name="Text52" Left="94.5" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBDAILYREPORTPACKAGENEED.品名]" HorzAlign="Center" VertAlign="Center"/>
+          <TextObject Name="Text54" Left="189" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTPACKAGENEED.數量]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+          <TextObject Name="Text65" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" HorzAlign="Center" VertAlign="Center"/>
+          <DataHeaderBand Name="DataHeader4" Top="231.99" Width="1047.06" Height="18.9">
+            <TextObject Name="Text53" Left="94.5" Width="94.5" Height="18.9" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
+            <TextObject Name="Text55" Left="189" Width="94.5" Height="18.9" Border.Lines="All" Text="數量" HorzAlign="Center" VertAlign="Center"/>
+            <TextObject Name="Text64" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" Text="補料內容" HorzAlign="Center" VertAlign="Center"/>
+          </DataHeaderBand>
+        </DataBand>
+        <DataBand Name="Data6" Top="303.51" Width="1047.06" Height="18.9" CanGrow="true" DataSource="Table5">
+          <TextObject Name="Text56" Left="94.5" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBDAILYREPORTPACKAGEBACKHALF.品名]" HorzAlign="Center" VertAlign="Center"/>
+          <TextObject Name="Text58" Left="189" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTPACKAGEBACKHALF.數量]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+          <TextObject Name="Text67" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" HorzAlign="Center" VertAlign="Center"/>
+          <DataHeaderBand Name="DataHeader5" Top="279.67" Width="1047.06" Height="18.9">
+            <TextObject Name="Text57" Left="94.5" Width="94.5" Height="18.9" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
+            <TextObject Name="Text59" Left="189" Width="94.5" Height="18.9" Border.Lines="All" Text="數量" HorzAlign="Center" VertAlign="Center"/>
+            <TextObject Name="Text66" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" Text="半成品退料內容" HorzAlign="Center" VertAlign="Center"/>
+          </DataHeaderBand>
+        </DataBand>
+      </DataBand>
+      <GroupFooterBand Name="GroupFooter1" Top="327.35" Width="1047.06" Height="28.35"/>
+    </GroupHeaderBand>
   </ReportPage>
 </Report>
