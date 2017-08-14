@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="08/14/2017 14:48:09" ReportInfo.Modified="08/14/2017 15:42:16" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="08/14/2017 14:48:09" ReportInfo.Modified="08/14/2017 16:18:31" ReportInfo.CreatorVersion="2016.4.4.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNkF915CfQU3T0owgOdAfC+Wpth9INMQ2O9QjmtdgtNUz/BKDWsAs1Ipa6nbH7j0sjWX6jyLZv6Gq8HdF7mud9nb0iz5BWlHagFDjIrSbC5fMWrccG1CdBZSjNAetiM0VS">
-      <TableDataSource Name="Table" Alias="TBDAILYREPORTPACKAGE" DataType="System.Int32" Enabled="true" SelectCommand="SELECT [MAIN] AS '組別',CONVERT(NVARCHAR,[MAINDATE],112) AS '日期',[TARGETPROTA001] AS '單別',[TARGETPROTA002] AS '單號'&#13;&#10;,[MB001] AS '品號',[MB002] AS '品名',[MB003] AS '規格',[UINTS] AS '單位',[PRENUM] AS '預計成品數量'&#13;&#10;,CONVERT(NVARCHAR,[PRODATE],112) AS '入庫日期',[PRONUM] AS '數量',[PROPEOPLE] AS '生產人數',[PACKAGETIME] AS '包時時間'&#13;&#10;,[TODATTIME] AS '今日工時',[TOTALTIME] AS '累計工時'&#13;&#10;,[ID]&#13;&#10;FROM [TKCIM].[dbo].[DAILYREPORTPACKAGE]&#13;&#10;WHERE CONVERT(NVARCHAR,[PRODATE],112)&gt;=@P1 AND CONVERT(NVARCHAR,[PRODATE],112)&lt;=@P2">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNkF915CfQU3T0owgOdAfC+Wpth9INMQ2O9QjmtdgtNUz/BKDWsAs1Ipa6nbH7j0sjWX6jyLZv6Gq8HdF7mud9nb0iz5BWlHagFDjIrSbC5fNcQVnWAskPi0Wmlw1nMycI">
+      <TableDataSource Name="Table" Alias="TBDAILYREPORTPACKAGE" DataType="System.Int32" Enabled="true" SelectCommand="SELECT [MAIN] AS '組別',CONVERT(NVARCHAR,[MAINDATE],112) AS '日期',[TARGETPROTA001] AS '單別',[TARGETPROTA002] AS '單號'&#13;&#10;,[MB001] AS '品號',[MB002] AS '品名',[MB003] AS '規格',[UINTS] AS '單位',[PRENUM] AS '預計成品數量'&#13;&#10;,CONVERT(NVARCHAR,[PRODATE],112) AS '入庫日期',[PRONUM] AS '數量',[PROPEOPLE] AS '生產人數',[PACKAGETIME] AS '包時時間'&#13;&#10;,[TODATTIME] AS '今日工時',[TOTALTIME] AS '累計工時'&#13;&#10;,[KEYINEMP] AS '填表人'&#13;&#10;,[REVIEWEMP] AS '審核'&#13;&#10;,[APPROVEDEMP] AS '核準'&#13;&#10;,[ID]&#13;&#10;FROM [TKCIM].[dbo].[DAILYREPORTPACKAGE]&#13;&#10;WHERE CONVERT(NVARCHAR,[PRODATE],112)&gt;=@P1 AND CONVERT(NVARCHAR,[PRODATE],112)&lt;=@P2">
         <Column Name="組別" DataType="System.String"/>
         <Column Name="日期" DataType="System.String"/>
         <Column Name="單別" DataType="System.String"/>
@@ -19,6 +19,9 @@
         <Column Name="今日工時" DataType="System.Decimal"/>
         <Column Name="累計工時" DataType="System.Decimal"/>
         <Column Name="ID" DataType="System.Guid"/>
+        <Column Name="填表人" DataType="System.String"/>
+        <Column Name="審核" DataType="System.String"/>
+        <Column Name="核準" DataType="System.String"/>
         <CommandParameter Name="P1" DataType="12" Expression="[P1]" DefaultValue="20170801"/>
         <CommandParameter Name="P2" DataType="12" Expression="[P2]" DefaultValue="20170805"/>
       </TableDataSource>
@@ -172,7 +175,14 @@
           </DataHeaderBand>
         </DataBand>
       </DataBand>
-      <GroupFooterBand Name="GroupFooter1" Top="327.35" Width="1047.06" Height="28.35"/>
+      <GroupFooterBand Name="GroupFooter1" Top="327.35" Width="1047.06" Height="28.35">
+        <TextObject Name="Text68" Left="94.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTPACKAGE.填表人]" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text69" Left="282.27" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTPACKAGE.審核]" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text70" Left="471.27" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTPACKAGE.核準]" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text71" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" Text="填表人" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text72" Left="189" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" Text="審核" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text73" Left="378" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" Text="核準" HorzAlign="Center" VertAlign="Center"/>
+      </GroupFooterBand>
     </GroupHeaderBand>
   </ReportPage>
 </Report>
