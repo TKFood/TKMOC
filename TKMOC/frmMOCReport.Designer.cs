@@ -258,11 +258,7 @@
             "不良品餅乾報廢明細表",
             "成型檢驗表",
             "出爐餅溫量測記錄表",
-            "烘烤製程記錄",
-            "首件檢查記錄表-成型",
-            "首件檢查記錄表-成品",
-            "首件檢查記錄表-冷卻",
-            "手工生產日報表"});
+            "烘烤製程記錄"});
             this.comboBox1.Location = new System.Drawing.Point(124, 48);
             this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox1.Name = "comboBox1";
