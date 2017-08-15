@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="08/15/2017 15:01:30" ReportInfo.Modified="08/15/2017 15:41:56" ReportInfo.CreatorVersion="2016.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9KqpNTEhoAj03TIKqdw/XiH">
+      <TableDataSource Name="Table" Alias="TBCHECKFIRSTTYPE" DataType="System.Int32" Enabled="true" SelectCommand="SELECT [MAIN] AS '組別',CONVERT(varchar(100),[MAINDATE], 112) AS '日期',CONVERT(varchar(8),[MAINTIME],14) AS '時間',[TARGETPROTA001] AS '單別'&#13;&#10;,[TARGETPROTA002] AS '單號',[MB001] AS '品號',[MB002] AS '品名',[MB003] AS '規格'&#13;&#10;,[CHECKNUM] AS '檢查片數',[WEIGHT] AS '平均重量',[LENGTH] AS '平均長度',[TEMPER] AS '環境溫度'&#13;&#10;,[HUMI] AS '環境溼度',[TIME] AS '烤爐時間',[SPEED] AS '烤爐速度',[OVENTEMP] AS '烤爐溫度'&#13;&#10;,[JUDG] AS '口味判定',[METRAILCHECK] AS '原料投入確認',[TEMP] AS '備註'&#13;&#10;,[FJUDG] AS '判定'&#13;&#10;,[OWNER] AS '填表人',[MANAGER] AS '製造主管',[QC] AS '稽核人員'&#13;&#10;,[ID]&#13;&#10;FROM [TKCIM].[dbo].[CHECKFIRSTTYPE]&#13;&#10;WHERE CONVERT(varchar(100),[MAINDATE], 112)&gt;=@P1 AND CONVERT(varchar(100),[MAINDATE], 112)&lt;=@P2 &#13;&#10;ORDER BY CONVERT(varchar(100),[MAINDATE], 112) ,[TARGETPROTA001] ,[TARGETPROTA002] ">
+        <Column Name="組別" DataType="System.String"/>
+        <Column Name="日期" DataType="System.String"/>
+        <Column Name="時間" DataType="System.String"/>
+        <Column Name="單別" DataType="System.String"/>
+        <Column Name="單號" DataType="System.String"/>
+        <Column Name="品號" DataType="System.String"/>
+        <Column Name="品名" DataType="System.String"/>
+        <Column Name="規格" DataType="System.String"/>
+        <Column Name="檢查片數" DataType="System.Int32"/>
+        <Column Name="平均重量" DataType="System.Decimal"/>
+        <Column Name="平均長度" DataType="System.Decimal"/>
+        <Column Name="環境溫度" DataType="System.Decimal"/>
+        <Column Name="環境溼度" DataType="System.Decimal"/>
+        <Column Name="烤爐時間" DataType="System.Decimal"/>
+        <Column Name="烤爐速度" DataType="System.Decimal"/>
+        <Column Name="烤爐溫度" DataType="System.Decimal"/>
+        <Column Name="口味判定" DataType="System.String"/>
+        <Column Name="原料投入確認" DataType="System.String"/>
+        <Column Name="備註" DataType="System.String"/>
+        <Column Name="判定" DataType="System.String"/>
+        <Column Name="填表人" DataType="System.String"/>
+        <Column Name="製造主管" DataType="System.String"/>
+        <Column Name="稽核人員" DataType="System.String"/>
+        <Column Name="ID" DataType="System.Guid"/>
+        <CommandParameter Name="P1" DataType="12" Expression="[P1]" DefaultValue="20170801"/>
+        <CommandParameter Name="P2" DataType="12" Expression="[P2]" DefaultValue="20170830"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="P1" DataType="System.String"/>
+    <Parameter Name="P2" DataType="System.String"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" RawPaperSize="9">
+    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="37.8">
+      <TextObject Name="Text43" Width="1030.05" Height="18.9" Text="首件檢查記錄表-成型" HorzAlign="Center" VertAlign="Center"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="43.6" Width="1047.06" Height="28.35">
+      <TextObject Name="Text2" Left="841.05" Width="94.5" Height="18.9" Text="組別" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text1" Left="935.55" Width="94.5" Height="18.9" Text="[TBCHECKFIRSTTYPE.組別]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text4" Width="94.5" Height="18.9" Text="日期" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text3" Left="94.5" Width="94.5" Height="18.9" Text="[TBCHECKFIRSTTYPE.日期]" HorzAlign="Center" VertAlign="Center"/>
+    </PageHeaderBand>
+    <ColumnHeaderBand Name="ColumnHeader1" Top="77.74" Width="1047.06" Height="18.9">
+      <TextObject Name="Text6" Width="66.15" Height="18.9" Border.Lines="All" Text="時間" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text8" Left="66.15" Width="47.25" Height="18.9" Border.Lines="All" Text="單別" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text10" Left="113.4" Width="94.5" Height="18.9" Border.Lines="All" Text="單號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text12" Left="207.9" Width="170.1" Height="18.9" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text14" Left="378" Width="179.55" Height="18.9" Border.Lines="All" Text="規格" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text16" Left="557.55" Width="94.5" Height="18.9" Border.Lines="All" Text="檢查片數" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text18" Left="652.05" Width="94.5" Height="18.9" Border.Lines="All" Text="平均重量" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text20" Left="746.55" Width="94.5" Height="18.9" Border.Lines="All" Text="平均長度" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text22" Left="841.05" Width="94.5" Height="18.9" Border.Lines="All" Text="環境溫度" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text24" Left="935.55" Width="94.5" Height="18.9" Border.Lines="All" Text="環境溼度" HorzAlign="Center" VertAlign="Center"/>
+    </ColumnHeaderBand>
+    <DataBand Name="Data1" Top="102.44" Width="1047.06" Height="18.9" DataSource="Table">
+      <TextObject Name="Text5" Width="66.15" Height="18.9" Border.Lines="All" Text="[TBCHECKFIRSTTYPE.時間]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text7" Left="66.15" Width="47.25" Height="18.9" Border.Lines="All" Text="[TBCHECKFIRSTTYPE.單別]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text9" Left="113.4" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBCHECKFIRSTTYPE.單號]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text11" Left="207.9" Width="170.1" Height="18.9" Border.Lines="All" Text="[TBCHECKFIRSTTYPE.品名]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text13" Left="378" Width="179.55" Height="18.9" Border.Lines="All" Text="[TBCHECKFIRSTTYPE.規格]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text15" Left="557.55" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBCHECKFIRSTTYPE.檢查片數]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text17" Left="652.05" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBCHECKFIRSTTYPE.平均重量]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text19" Left="746.55" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBCHECKFIRSTTYPE.平均長度]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text21" Left="841.05" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBCHECKFIRSTTYPE.環境溫度]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text23" Left="935.55" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBCHECKFIRSTTYPE.環境溼度]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+    </DataBand>
+    <DataBand Name="Data2" Top="151.84" Width="1047.06" Height="18.9" DataSource="Table">
+      <TextObject Name="Text25" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBCHECKFIRSTTYPE.烤爐時間]" Format="Currency" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text27" Left="94.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBCHECKFIRSTTYPE.烤爐速度]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text29" Left="189" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBCHECKFIRSTTYPE.口味判定]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text31" Left="283.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBCHECKFIRSTTYPE.原料投入確認]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text33" Left="379" Width="274.05" Height="18.9" Border.Lines="All" Text="[TBCHECKFIRSTTYPE.備註]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text34" Left="653.05" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBCHECKFIRSTTYPE.判定]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text36" Left="747.55" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBCHECKFIRSTTYPE.填表人]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text38" Left="842.05" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBCHECKFIRSTTYPE.製造主管]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text40" Left="936.55" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBCHECKFIRSTTYPE.稽核人員]" HorzAlign="Center" VertAlign="Center"/>
+      <DataHeaderBand Name="DataHeader1" Top="127.14" Width="1047.06" Height="18.9">
+        <TextObject Name="Text26" Width="94.5" Height="18.9" Border.Lines="All" Text="烤爐時間" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text28" Left="94.5" Width="94.5" Height="18.9" Border.Lines="All" Text="烤爐速度" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text30" Left="189" Width="94.5" Height="18.9" Border.Lines="All" Text="口味判定" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text32" Left="283.95" Width="94.5" Height="18.9" Border.Lines="All" Text="原料投入確認" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text35" Left="653.05" Width="94.5" Height="18.9" Border.Lines="All" Text="判定" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text37" Left="747.55" Width="94.5" Height="18.9" Border.Lines="All" Text="填表人" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text39" Left="842.05" Width="94.5" Height="18.9" Border.Lines="All" Text="製造主管" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text41" Left="936.55" Width="94.5" Height="18.9" Border.Lines="All" Text="稽核人員" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text42" Left="379" Width="274.05" Height="18.9" Border.Lines="All" Text="備註" HorzAlign="Center" VertAlign="Center"/>
+      </DataHeaderBand>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="176.53" Width="1047.06" Height="18.9"/>
+  </ReportPage>
+</Report>

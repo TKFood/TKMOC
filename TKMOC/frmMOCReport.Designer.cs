@@ -434,7 +434,8 @@
             "包裝班檢驗表",
             "手工生產日報表",
             "首件檢查記錄表-冷卻",
-            "首件檢查記錄表-成品"});
+            "首件檢查記錄表-成品",
+            "首件檢查記錄表-成型"});
             this.comboBox2.Location = new System.Drawing.Point(124, 50);
             this.comboBox2.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox2.Name = "comboBox2";
