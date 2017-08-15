@@ -420,6 +420,7 @@
     <None Include="REPORT\TEST1.frx" />
     <None Include="REPORT\包裝班檢驗表.frx" />
     <None Include="REPORT\包裝組-生產日報表.frx" />
+    <None Include="REPORT\報廢記錄.frx" />
     <None Include="REPORT\手工生產日報表.frx" />
     <None Include="REPORT\烘培檢驗日報表.frx" />
     <None Include="REPORT\首件檢查記錄表-冷卻.frx" />

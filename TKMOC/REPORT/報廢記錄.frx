@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="08/15/2017 15:56:01" ReportInfo.Modified="08/15/2017 16:04:07" ReportInfo.CreatorVersion="2016.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9J0H+OWJWjvzSO/5WCrG0uk">
+      <TableDataSource Name="Table" Alias="TBNGSCRAPPEDSTATUS" DataType="System.Int32" Enabled="true" SelectCommand="SELECT    [COOKIESID]  AS '不良餅麩報廢編號' ,[COOKIESBAG] AS '不良餅麩報廢袋數' &#13;&#10;,[SIDEID] AS '不良邊料報廢編號' ,[SIDEBAG] AS '不良邊料報廢袋數'&#13;&#10;,[DAMAGEID] AS '破損報廢編號' ,[DAMAGEBAG] AS '破損報廢袋數' &#13;&#10;,[FALLID] AS '落地報廢編號' ,[FALLBAG] AS '落地報廢袋數'&#13;&#10;,[SCRAPID] AS '報廢編號' ,[SCRAPBAG] AS '報廢袋數' &#13;&#10;,CONVERT(NVARCHAR,[MAINDATE],112) AS '生產日',[SCOOKIES] AS '不良餅麩總數' &#13;&#10;,[SSIDE] AS '不良邊料總數',[SDAMAGE] AS '破損總數',[SFALL]  AS '落地總數',[SSCRAP]  AS '報廢總數'&#13;&#10;, [ID]&#13;&#10;FROM [TKCIM].[dbo].[NGSCRAPPEDSTATUS]&#13;&#10;WHERE CONVERT(NVARCHAR(10),MAINDATE,112)&gt;=@P1 AND CONVERT(NVARCHAR(10),MAINDATE,112)&lt;=@P2&#13;&#10;ORDER BY CONVERT(NVARCHAR(10),MAINDATE,112)">
+        <Column Name="不良餅麩報廢編號" DataType="System.String"/>
+        <Column Name="不良餅麩報廢袋數" DataType="System.Decimal"/>
+        <Column Name="不良邊料報廢編號" DataType="System.String"/>
+        <Column Name="不良邊料報廢袋數" DataType="System.Decimal"/>
+        <Column Name="破損報廢編號" DataType="System.String"/>
+        <Column Name="破損報廢袋數" DataType="System.Decimal"/>
+        <Column Name="落地報廢編號" DataType="System.String"/>
+        <Column Name="落地報廢袋數" DataType="System.Decimal"/>
+        <Column Name="報廢編號" DataType="System.String"/>
+        <Column Name="報廢袋數" DataType="System.Decimal"/>
+        <Column Name="生產日" DataType="System.String"/>
+        <Column Name="不良餅麩總數" DataType="System.Decimal"/>
+        <Column Name="不良邊料總數" DataType="System.Decimal"/>
+        <Column Name="破損總數" DataType="System.Decimal"/>
+        <Column Name="落地總數" DataType="System.Decimal"/>
+        <Column Name="報廢總數" DataType="System.Decimal"/>
+        <Column Name="ID" DataType="System.Guid"/>
+        <CommandParameter Name="P1" DataType="12" Expression="[P1]" DefaultValue="20170701"/>
+        <CommandParameter Name="P2" DataType="12" Expression="[P2]" DefaultValue="20170830"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="P1" DataType="System.String"/>
+    <Parameter Name="P2" DataType="System.String"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" RawPaperSize="9">
+    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="28.35">
+      <TextObject Name="Text33" Width="1039.5" Height="18.9" Text="報廢記錄" HorzAlign="Center" VertAlign="Center"/>
+    </ReportTitleBand>
+    <ColumnHeaderBand Name="ColumnHeader1" Top="34.15" Width="1047.06" Height="56.7">
+      <TextObject Name="Text2" Width="94.5" Height="56.7" Border.Lines="All" Text="生產日" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text14" Left="94.5" Top="18.9" Width="113.4" Height="18.9" Border.Lines="All" Text="不良餅麩報廢編號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text4" Left="94.5" Width="113.4" Height="18.9" Border.Lines="All" Text="不良餅麩總數" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text6" Left="207.9" Width="113.4" Height="18.9" Border.Lines="All" Text="不良邊料總數" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text16" Left="94.5" Top="37.8" Width="113.4" Height="18.9" Border.Lines="All" Text="不良餅麩報廢袋數" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text18" Left="207.9" Top="18.9" Width="113.4" Height="18.9" Border.Lines="All" Text="不良邊料報廢編號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text20" Left="207.9" Top="37.8" Width="113.4" Height="18.9" Border.Lines="All" Text="不良邊料報廢袋數" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text8" Left="321.3" Width="113.4" Height="18.9" Border.Lines="All" Text="破損總數" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text10" Left="434.7" Width="113.4" Height="18.9" Border.Lines="All" Text="落地總數" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text12" Left="548.1" Width="113.4" Height="18.9" Border.Lines="All" Text="報廢總數" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text22" Left="321.3" Top="18.9" Width="113.4" Height="18.9" Border.Lines="All" Text="破損報廢編號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text24" Left="321.3" Top="37.8" Width="113.4" Height="18.9" Border.Lines="All" Text="破損報廢袋數" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text26" Left="434.7" Top="18.9" Width="113.4" Height="18.9" Border.Lines="All" Text="落地報廢編號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text28" Left="434.7" Top="37.8" Width="113.4" Height="18.9" Border.Lines="All" Text="落地報廢袋數" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text30" Left="548.1" Top="18.9" Width="113.4" Height="18.9" Border.Lines="All" Text="報廢編號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text32" Left="548.1" Top="37.8" Width="113.4" Height="18.9" Border.Lines="All" Text="報廢袋數" HorzAlign="Center" VertAlign="Center"/>
+    </ColumnHeaderBand>
+    <DataBand Name="Data1" Top="96.64" Width="1047.06" Height="56.7" DataSource="Table">
+      <TextObject Name="Text1" Width="94.5" Height="56.7" Border.Lines="All" Text="[TBNGSCRAPPEDSTATUS.生產日]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text3" Left="94.5" Width="113.4" Height="18.9" Border.Lines="All" Text="[TBNGSCRAPPEDSTATUS.不良餅麩總數]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text5" Left="207.9" Width="113.4" Height="18.9" Border.Lines="All" Text="[TBNGSCRAPPEDSTATUS.不良邊料總數]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text7" Left="321.3" Width="113.4" Height="18.9" Border.Lines="All" Text="[TBNGSCRAPPEDSTATUS.破損總數]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text9" Left="434.7" Width="113.4" Height="18.9" Border.Lines="All" Text="[TBNGSCRAPPEDSTATUS.落地總數]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text11" Left="548.1" Width="113.4" Height="18.9" Border.Lines="All" Text="[TBNGSCRAPPEDSTATUS.報廢總數]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text13" Left="94.5" Top="18.9" Width="113.4" Height="18.9" Border.Lines="All" Text="[TBNGSCRAPPEDSTATUS.不良餅麩報廢編號]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text15" Left="94.5" Top="37.8" Width="113.4" Height="18.9" Border.Lines="All" Text="[TBNGSCRAPPEDSTATUS.不良餅麩報廢袋數]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text17" Left="207.9" Top="18.9" Width="113.4" Height="18.9" Border.Lines="All" Text="[TBNGSCRAPPEDSTATUS.不良邊料報廢編號]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text19" Left="207.9" Top="37.8" Width="113.4" Height="18.9" Border.Lines="All" Text="[TBNGSCRAPPEDSTATUS.不良邊料報廢袋數]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text21" Left="321.3" Top="18.9" Width="113.4" Height="18.9" Border.Lines="All" Text="[TBNGSCRAPPEDSTATUS.破損報廢編號]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text23" Left="321.3" Top="37.8" Width="113.4" Height="18.9" Border.Lines="All" Text="[TBNGSCRAPPEDSTATUS.破損報廢袋數]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text25" Left="434.7" Top="18.9" Width="113.4" Height="18.9" Border.Lines="All" Text="[TBNGSCRAPPEDSTATUS.落地報廢編號]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text27" Left="434.7" Top="37.8" Width="113.4" Height="18.9" Border.Lines="All" Text="[TBNGSCRAPPEDSTATUS.落地報廢袋數]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text29" Left="548.1" Top="18.9" Width="113.4" Height="18.9" Border.Lines="All" Text="[TBNGSCRAPPEDSTATUS.報廢編號]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text31" Left="548.1" Top="37.8" Width="113.4" Height="18.9" Border.Lines="All" Text="[TBNGSCRAPPEDSTATUS.報廢袋數]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="159.14" Width="1047.06" Height="18.9"/>
+  </ReportPage>
+</Report>
