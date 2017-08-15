@@ -431,7 +431,8 @@
             this.comboBox2.Items.AddRange(new object[] {
             "包裝組-生產日報表",
             "烘培檢驗日報表",
-            "包裝班檢驗表"});
+            "包裝班檢驗表",
+            "手工生產日報表"});
             this.comboBox2.Location = new System.Drawing.Point(124, 50);
             this.comboBox2.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox2.Name = "comboBox2";

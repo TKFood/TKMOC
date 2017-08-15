@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="08/15/2017 10:42:20" ReportInfo.Modified="08/15/2017 11:15:06" ReportInfo.CreatorVersion="2016.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9L7UJxcOtViTSgBviiBS7+f">
+      <TableDataSource Name="Table" Alias="TBDAILYREPORTHAND" DataType="System.Int32" Enabled="true" SelectCommand="SELECT [MAIN] AS '組別',CONVERT(NVARCHAR,[MAINDATE],112) AS '日期',[TARGETPROTA001] AS '單別',[TARGETPROTA002] AS '單號' &#13;&#10;,[MB001] AS '品號',[MB002] AS '品名',[MB003] AS '規格',[OILPREIN] AS '油酥/餡-預計投入'&#13;&#10;,[OILACTIN] AS '油酥/餡-實際投入',[WATERPREIN] AS '水麵/皮-預計投入',[WATERACTIN] AS '水麵/皮-實際投入'&#13;&#10;,[TOTALIN] AS '總投入',[CYCLESIDE] AS '可回收邊料',[NG] AS '不良品',[COOKNG] AS '烘烤不良'&#13;&#10;,[OILWORKTIME] AS '油酥/餡-工時',[OILWORKHR] AS '油酥/餡-人數',[WATERWORKTIME] AS '水麵/皮-工時'&#13;&#10;,[WATERWORKHR] AS '水麵/皮-人數',[WORKTIME] AS '製造工時',[WORKHR] AS '製造人數',[CHOREWORK] AS '巧克力-再加工投入'&#13;&#10;,[CHONG] AS '巧克力-不良',[CHOTIME] AS '巧克力-工時',[CHOHR] AS '巧克力-人數',[PACKTIME] AS '後段包裝-工時'&#13;&#10;,[PACKHR] AS '後段包裝-人數',[PACKNG] AS '包裝時餅乾不良',[NGMB002] AS '包裝不良品名',[NGMB003] AS '包裝不良規格'&#13;&#10;,[NGNUM] AS '包裝不良數量',[HALFNUM] AS '半成品數量',[FINALNUM] AS '成品數量',[REMARK] AS '備註'&#13;&#10;,[OWNER] AS '填表人 ',[REVIEWER] AS '審核',[APPROVEDEMP] AS '核準',[ID]&#13;&#10;FROM [TKCIM].[dbo].[DAILYREPORTHAND]&#13;&#10;WHERE CONVERT(NVARCHAR,[MAINDATE],112)&gt;=@P1 AND CONVERT(NVARCHAR,[MAINDATE],112)&lt;=@P2&#13;&#10;ORDER BY  CONVERT(NVARCHAR,[MAINDATE],112),[TARGETPROTA001],[TARGETPROTA002]">
+        <Column Name="組別" DataType="System.String"/>
+        <Column Name="日期" DataType="System.String"/>
+        <Column Name="單別" DataType="System.String"/>
+        <Column Name="單號" DataType="System.String"/>
+        <Column Name="品號" DataType="System.String"/>
+        <Column Name="品名" DataType="System.String"/>
+        <Column Name="規格" DataType="System.String"/>
+        <Column Name="油酥/餡-預計投入" DataType="System.Decimal"/>
+        <Column Name="油酥/餡-實際投入" DataType="System.Decimal"/>
+        <Column Name="水麵/皮-預計投入" DataType="System.Decimal"/>
+        <Column Name="水麵/皮-實際投入" DataType="System.Decimal"/>
+        <Column Name="總投入" DataType="System.Decimal"/>
+        <Column Name="可回收邊料" DataType="System.Decimal"/>
+        <Column Name="不良品" DataType="System.Decimal"/>
+        <Column Name="烘烤不良" DataType="System.Decimal"/>
+        <Column Name="油酥/餡-工時" DataType="System.Decimal"/>
+        <Column Name="油酥/餡-人數" DataType="System.Int32"/>
+        <Column Name="水麵/皮-工時" DataType="System.Decimal"/>
+        <Column Name="水麵/皮-人數" DataType="System.Int32"/>
+        <Column Name="製造工時" DataType="System.Decimal"/>
+        <Column Name="製造人數" DataType="System.Int32"/>
+        <Column Name="巧克力-再加工投入" DataType="System.Decimal"/>
+        <Column Name="巧克力-不良" DataType="System.Decimal"/>
+        <Column Name="巧克力-工時" DataType="System.Decimal"/>
+        <Column Name="巧克力-人數" DataType="System.Int32"/>
+        <Column Name="後段包裝-工時" DataType="System.Decimal"/>
+        <Column Name="後段包裝-人數" DataType="System.Int32"/>
+        <Column Name="包裝時餅乾不良" DataType="System.Decimal"/>
+        <Column Name="包裝不良品名" DataType="System.String"/>
+        <Column Name="包裝不良規格" DataType="System.String"/>
+        <Column Name="包裝不良數量" DataType="System.Decimal"/>
+        <Column Name="半成品數量" DataType="System.Decimal"/>
+        <Column Name="成品數量" DataType="System.Decimal"/>
+        <Column Name="備註" DataType="System.String"/>
+        <Column Name="ID" DataType="System.Guid"/>
+        <Column Name="填表人 " DataType="System.String"/>
+        <Column Name="審核" DataType="System.String"/>
+        <Column Name="核準" DataType="System.String"/>
+        <CommandParameter Name="P1" DataType="12" Expression="[P1]" DefaultValue="20170811"/>
+        <CommandParameter Name="P2" DataType="12" Expression="[P2]" DefaultValue="20170811"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="P1" DataType="System.String"/>
+    <Parameter Name="P2" DataType="System.String"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" RawPaperSize="9">
+    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="37.8"/>
+    <PageHeaderBand Name="PageHeader1" Top="43.6" Width="1047.06" Height="37.8">
+      <TextObject Name="Text6" Left="94.5" Width="141.75" Height="18.9" Border.Lines="All" Text="組別" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text7" Width="94.5" Height="18.9" Border.Lines="All" Text="日期" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text2" Top="18.9" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTHAND.日期]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text1" Left="94.5" Top="18.9" Width="141.75" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTHAND.組別]" HorzAlign="Center" VertAlign="Center"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="121.34" Width="1047.06" Height="18.9" DataSource="Table">
+      <TextObject Name="Text3" Width="56.7" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTHAND.單別]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text4" Left="56.7" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTHAND.單號]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text9" Left="151.2" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTHAND.品名]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text11" Left="245.7" Width="66.15" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTHAND.油酥/餡-預計投入]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text13" Left="311.85" Width="66.15" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTHAND.油酥/餡-實際投入]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text15" Left="378" Width="66.15" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTHAND.水麵/皮-預計投入]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text17" Left="444.15" Width="66.15" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTHAND.水麵/皮-實際投入]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text19" Left="510.3" Width="47.25" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTHAND.總投入]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text21" Left="557.55" Width="47.25" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTHAND.可回收邊料]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text23" Left="604.8" Width="47.25" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTHAND.不良品]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text25" Left="652.05" Width="66.15" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTHAND.烘烤不良]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text28" Left="773.45" Width="56.7" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTHAND.油酥/餡-人數]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text27" Left="716.75" Width="56.7" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTHAND.油酥/餡-工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text31" Left="830.15" Width="56.7" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTHAND.水麵/皮-工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text33" Left="886.85" Width="56.7" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTHAND.水麵/皮-人數]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text35" Left="943.55" Width="47.25" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTHAND.製造工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text37" Left="990.8" Width="47.25" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTHAND.製造人數]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+      <DataHeaderBand Name="DataHeader1" Top="87.19" Width="1047.06" Height="28.35">
+        <TextObject Name="Text5" Width="56.7" Height="28.35" Border.Lines="All" Text="單別" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text8" Left="56.7" Width="94.5" Height="28.35" Border.Lines="All" Text="單號" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text10" Left="151.2" Width="94.5" Height="28.35" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text12" Left="245.7" Width="66.15" Height="28.35" Border.Lines="All" Text="油酥/餡-預計投入" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text14" Left="311.85" Width="66.15" Height="28.35" Border.Lines="All" Text="油酥/餡-實際投入" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text16" Left="378" Width="66.15" Height="28.35" Border.Lines="All" Text="水麵/皮-預計投入" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text18" Left="444.15" Width="66.15" Height="28.35" Border.Lines="All" Text="水麵/皮-實際投入" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text20" Left="510.3" Width="47.25" Height="28.35" Border.Lines="All" Text="總投入" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text22" Left="557.55" Width="47.25" Height="28.35" Border.Lines="All" Text="可回收邊料" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text24" Left="604.8" Width="47.25" Height="28.35" Border.Lines="All" Text="不良品" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text26" Left="652.05" Width="66.15" Height="28.35" Border.Lines="All" Text="烘烤不良" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text29" Left="773.45" Width="56.7" Height="28.35" Border.Lines="All" Text="油酥/餡-人數" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text30" Left="716.75" Width="56.7" Height="28.35" Border.Lines="All" Text="油酥/餡-工時" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text32" Left="830.15" Width="56.7" Height="28.35" Border.Lines="All" Text="水麵/皮-工時" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text34" Left="886.85" Width="56.7" Height="28.35" Border.Lines="All" Text="水麵/皮-人數" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text36" Left="943.55" Width="47.25" Height="28.35" Border.Lines="All" Text="製造工時" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text38" Left="990.8" Width="47.25" Height="28.35" Border.Lines="All" Text="製造人數" HorzAlign="Center" VertAlign="Center"/>
+      </DataHeaderBand>
+    </DataBand>
+    <DataBand Name="Data2" Top="189.64" Width="1047.06" Height="18.9" DataSource="Table">
+      <TextObject Name="Text39" Width="66.15" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTHAND.巧克力-再加工投入]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text41" Left="66.15" Width="47.25" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTHAND.巧克力-不良]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text43" Left="113.4" Width="47.25" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTHAND.巧克力-工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text45" Left="160.65" Width="47.25" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTHAND.巧克力-人數]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text47" Left="207.9" Width="56.7" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTHAND.後段包裝-工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text49" Left="264.6" Width="56.7" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTHAND.後段包裝-人數]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text51" Left="321.3" Width="66.15" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTHAND.包裝時餅乾不良]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text55" Left="434.7" Width="47.25" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTHAND.包裝不良規格]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text57" Left="481.95" Width="47.25" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTHAND.包裝不良數量]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text53" Left="387.45" Width="47.25" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTHAND.包裝不良品名]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text59" Left="529.2" Width="75.6" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTHAND.半成品數量]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text61" Left="604.8" Width="66.15" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTHAND.成品數量]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text63" Left="670.95" Width="189" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTHAND.備註]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text65" Left="859.95" Width="66.15" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTHAND.填表人 ]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text68" Left="982.8" Width="56.7" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTHAND.核準]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text67" Left="926.1" Width="56.7" Height="18.9" Border.Lines="All" Text="[TBDAILYREPORTHAND.審核]" HorzAlign="Center" VertAlign="Center"/>
+      <DataHeaderBand Name="DataHeader2" Top="146.04" Width="1047.06" Height="37.8">
+        <TextObject Name="Text40" Width="66.15" Height="37.8" Border.Lines="All" Text="巧克力-再加工投入" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text42" Left="66.15" Width="47.25" Height="37.8" Border.Lines="All" Text="巧克力-不良" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text44" Left="113.4" Width="47.25" Height="37.8" Border.Lines="All" Text="巧克力-工時" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text46" Left="160.65" Width="47.25" Height="37.8" Border.Lines="All" Text="巧克力-人數" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text48" Left="207.9" Width="56.7" Height="37.8" Border.Lines="All" Text="後段包裝-工時" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text50" Left="264.6" Width="56.7" Height="37.8" Border.Lines="All" Text="後段包裝-人數" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text52" Left="321.3" Width="66.15" Height="37.8" Border.Lines="All" Text="包裝時餅乾不良" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text56" Left="434.7" Width="47.25" Height="37.8" Border.Lines="All" Text="包裝不良規格" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text58" Left="481.95" Width="47.25" Height="37.8" Border.Lines="All" Text="包裝不良數量" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text54" Left="387.45" Width="47.25" Height="37.8" Border.Lines="All" Text="包裝不良品名" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text60" Left="529.2" Width="75.6" Height="37.8" Border.Lines="All" Text="半成品數量" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text62" Left="604.8" Width="66.15" Height="37.8" Border.Lines="All" Text="成品數量" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text64" Left="670.95" Width="189" Height="37.8" Border.Lines="All" Text="備註" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text66" Left="859.95" Width="66.15" Height="37.8" Border.Lines="All" Text="填表人" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text69" Left="926.1" Width="56.7" Height="37.8" Border.Lines="All" Text="審核" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text70" Left="982.8" Width="56.7" Height="37.8" Border.Lines="All" Text="核準" HorzAlign="Center" VertAlign="Center"/>
+      </DataHeaderBand>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="214.33" Width="1047.06" Height="37.8"/>
+  </ReportPage>
+</Report>
