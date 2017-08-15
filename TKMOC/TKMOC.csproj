@@ -418,6 +418,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <None Include="REPORT\TEST1.frx" />
+    <None Include="REPORT\包裝班檢驗表.frx" />
     <None Include="REPORT\包裝組-生產日報表.frx" />
     <None Include="REPORT\烘培檢驗日報表.frx" />
     <None Include="Resources\委外維修申請單.doc" />

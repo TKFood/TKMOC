@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="08/15/2017 09:41:24" ReportInfo.Modified="08/15/2017 10:21:18" ReportInfo.CreatorVersion="2016.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9LKqhsybDWlxFvRRLtvLA91">
+      <TableDataSource Name="Table" Alias="TBCHECKPACKAGEEMPTY" DataType="System.Int32" Enabled="true" SelectCommand="SELECT  CONVERT(NVARCHAR,[MAINDATE],112)  AS '日期',[CHECKSTATUS] AS '空機測試',CONVERT(NVARCHAR,[CHECKTIME],8) AS '測試時間',[QCEMP] AS '稽核人員' &#13;&#10;,[ID]&#13;&#10;FROM [TKCIM].[dbo].[CHECKPACKAGEEMPTY] &#13;&#10;WHERE CONVERT(datetime,[MAINDATE],112)&gt;=@P1 AND CONVERT(datetime,[MAINDATE],112)&lt;=@P2&#13;&#10;ORDER BY CONVERT(datetime,[MAINDATE],112),CONVERT(NVARCHAR,[CHECKTIME],8)  ">
+        <Column Name="日期" DataType="System.String"/>
+        <Column Name="空機測試" DataType="System.String"/>
+        <Column Name="測試時間" DataType="System.String"/>
+        <Column Name="稽核人員" DataType="System.String"/>
+        <Column Name="ID" DataType="System.Guid"/>
+        <CommandParameter Name="P1" DataType="12" Expression="[P1]" DefaultValue="20170811"/>
+        <CommandParameter Name="P2" DataType="12" Expression="[P2]" DefaultValue="20170811"/>
+      </TableDataSource>
+      <TableDataSource Name="Table1" Alias="TBCHECKPACKAGE" DataType="System.Int32" Enabled="true" SelectCommand=" SELECT &#13;&#10; [MB002] AS '品名',[MB003] AS '規格',[SIDES]  '側封口溫度',[SIDEA] AS '側封口溫度1',[SIDEB] AS '側封口溫度2',[BUTTONS] AS '底封口溫度',[BUTTON] AS '底封口溫度1'&#13;&#10; ,[CLOSES] AS '包裝密合',[PACKAGE] AS '包裝版面',[DRY] AS '乾燥劑',[COLORS] AS '餅乾色澤',[WEIGHTS] AS '重量'&#13;&#10; ,[LABELS] AS '標籤版面',[MATERCHECK] AS '金屬檢測',[BATCHA] AS '日期批號A',[BATCHB] AS '日期批號B',[BATCHC] AS '日期批號C'&#13;&#10; ,[BATCHD] AS '日期批號D',[CHECKEMP] AS '檢查人員',CONVERT(NVARCHAR,[CHECKTIME] ,8) AS '檢查時間',[QCEMP] AS '稽核確認'&#13;&#10; ,[MAIN] AS '組別', CONVERT(NVARCHAR,[MAINDATE],112)  AS '日期',[TARGETPROTA001] AS '單別',[TARGETPROTA002] AS '單號',[MB001] AS '品號'&#13;&#10; ,[ID] &#13;&#10; FROM [TKCIM].[dbo].[CHECKPACKAGE]&#13;&#10; WHERE CONVERT(NVARCHAR,[MAINDATE],112)&gt;=@P1 AND CONVERT(NVARCHAR,[MAINDATE],112)&lt;=@P2&#13;&#10; ORDER BY CONVERT(NVARCHAR,[MAINDATE],112),CONVERT(NVARCHAR,[CHECKTIME],8) ">
+        <Column Name="品名" DataType="System.String"/>
+        <Column Name="規格" DataType="System.String"/>
+        <Column Name="側封口溫度1" DataType="System.Decimal"/>
+        <Column Name="側封口溫度2" DataType="System.Decimal"/>
+        <Column Name="底封口溫度" DataType="System.Decimal"/>
+        <Column Name="包裝密合" DataType="System.String"/>
+        <Column Name="包裝版面" DataType="System.String"/>
+        <Column Name="乾燥劑" DataType="System.String"/>
+        <Column Name="餅乾色澤" DataType="System.String"/>
+        <Column Name="重量" DataType="System.Decimal"/>
+        <Column Name="標籤版面" DataType="System.String"/>
+        <Column Name="金屬檢測" DataType="System.String"/>
+        <Column Name="日期批號A" DataType="System.String"/>
+        <Column Name="日期批號B" DataType="System.String"/>
+        <Column Name="日期批號C" DataType="System.String"/>
+        <Column Name="日期批號D" DataType="System.String"/>
+        <Column Name="檢查人員" DataType="System.String"/>
+        <Column Name="檢查時間" DataType="System.String"/>
+        <Column Name="稽核確認" DataType="System.String"/>
+        <Column Name="組別" DataType="System.String"/>
+        <Column Name="日期" DataType="System.String"/>
+        <Column Name="單別" DataType="System.String"/>
+        <Column Name="單號" DataType="System.String"/>
+        <Column Name="品號" DataType="System.String"/>
+        <Column Name="ID" DataType="System.Guid"/>
+        <Column Name="側封口溫度" DataType="System.String"/>
+        <Column Name="底封口溫度1" DataType="System.Decimal"/>
+        <CommandParameter Name="P1" DataType="12" Expression="[P1]" DefaultValue="20170811"/>
+        <CommandParameter Name="P2" DataType="12" Expression="[P2]" DefaultValue="20170811"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="P1" DataType="System.String"/>
+    <Parameter Name="P2" DataType="System.String"/>
+  </Dictionary>
+  <ReportPage Name="Page1">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="18.9">
+      <TextObject Name="Text9" Width="718.2" Height="18.9" Text="包裝班檢驗表" HorzAlign="Center" VertAlign="Center"/>
+    </ReportTitleBand>
+    <GroupHeaderBand Name="GroupHeader1" Top="24.7" Width="718.2" Condition="[TBCHECKPACKAGEEMPTY.日期]">
+      <DataBand Name="Data1" Top="55.19" Width="718.2" Height="18.9" DataSource="Table">
+        <TextObject Name="Text1" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBCHECKPACKAGEEMPTY.日期]" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text3" Left="94.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBCHECKPACKAGEEMPTY.空機測試]" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text5" Left="189" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBCHECKPACKAGEEMPTY.測試時間]" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text7" Left="283.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBCHECKPACKAGEEMPTY.稽核人員]" HorzAlign="Center" VertAlign="Center"/>
+        <DataHeaderBand Name="DataHeader1" Top="30.49" Width="718.2" Height="18.9">
+          <TextObject Name="Text2" Width="94.5" Height="18.9" Border.Lines="All" Text="日期" HorzAlign="Center" VertAlign="Center"/>
+          <TextObject Name="Text4" Left="94.5" Width="94.5" Height="18.9" Border.Lines="All" Text="空機測試" HorzAlign="Center" VertAlign="Center"/>
+          <TextObject Name="Text6" Left="189" Width="94.5" Height="18.9" Border.Lines="All" Text="測試時間" HorzAlign="Center" VertAlign="Center"/>
+          <TextObject Name="Text8" Left="283.5" Width="94.5" Height="18.9" Border.Lines="All" Text="稽核人員" HorzAlign="Center" VertAlign="Center"/>
+        </DataHeaderBand>
+      </DataBand>
+      <GroupFooterBand Name="GroupFooter1" Top="79.89" Width="718.2"/>
+    </GroupHeaderBand>
+    <GroupHeaderBand Name="GroupHeader2" Top="85.69" Width="718.2" Condition="[TBCHECKPACKAGE.日期]">
+      <DataBand Name="Data2" Top="135.08" Width="718.2" Height="18.9" CanGrow="true" DataSource="Table1">
+        <TextObject Name="Text10" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBCHECKPACKAGE.品名]" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text14" Left="94.5" Width="85.05" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBCHECKPACKAGE.側封口溫度1]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text18" Left="179.55" Width="47.25" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBCHECKPACKAGE.乾燥劑]" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text20" Left="226.8" Width="85.05" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBCHECKPACKAGE.底封口溫度1]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text24" Left="311.85" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBCHECKPACKAGE.包裝密合]" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text28" Left="378" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBCHECKPACKAGE.包裝版面]" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text32" Left="444.15" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBCHECKPACKAGE.日期批號A]" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text35" Left="510.3" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBCHECKPACKAGE.日期批號C]" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text40" Left="576.45" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBCHECKPACKAGE.檢查人員]" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text44" Left="642.6" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBCHECKPACKAGE.稽核確認]" HorzAlign="Center" VertAlign="Center"/>
+        <DataHeaderBand Name="DataHeader2" Top="91.48" Width="718.2" Height="37.8">
+          <TextObject Name="Text11" Width="94.5" Height="18.9" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
+          <TextObject Name="Text13" Top="18.9" Width="94.5" Height="18.9" Border.Lines="All" Text="規格" HorzAlign="Center" VertAlign="Center"/>
+          <TextObject Name="Text15" Left="94.5" Width="85.05" Height="18.9" Border.Lines="All" Text="側封口溫度1" HorzAlign="Center" VertAlign="Center"/>
+          <TextObject Name="Text17" Left="94.5" Top="18.9" Width="85.05" Height="18.9" Border.Lines="All" Text="側封口溫度2" HorzAlign="Center" VertAlign="Center"/>
+          <TextObject Name="Text19" Left="179.55" Width="47.25" Height="37.8" Border.Lines="All" Text="乾燥劑" HorzAlign="Center" VertAlign="Center"/>
+          <TextObject Name="Text21" Left="226.8" Width="85.05" Height="18.9" Border.Lines="All" Text="底封口溫度1" HorzAlign="Center" VertAlign="Center"/>
+          <TextObject Name="Text23" Left="226.8" Top="18.9" Width="85.05" Height="18.9" Border.Lines="All" Text="餅乾色澤" HorzAlign="Center" VertAlign="Center"/>
+          <TextObject Name="Text25" Left="311.85" Width="66.15" Height="18.9" Border.Lines="All" Text="包裝密合" HorzAlign="Center" VertAlign="Center"/>
+          <TextObject Name="Text27" Left="311.85" Top="18.9" Width="66.15" Height="18.9" Border.Lines="All" Text="重量" HorzAlign="Center" VertAlign="Center"/>
+          <TextObject Name="Text29" Left="378" Width="66.15" Height="18.9" Border.Lines="All" Text="包裝版面" HorzAlign="Center" VertAlign="Center"/>
+          <TextObject Name="Text31" Left="378" Top="18.9" Width="66.15" Height="18.9" Border.Lines="All" Text="標籤版面" HorzAlign="Center" VertAlign="Center"/>
+          <TextObject Name="Text33" Left="444.15" Width="66.15" Height="18.9" Border.Lines="All" Text="日期批號A" HorzAlign="Center" VertAlign="Center"/>
+          <TextObject Name="Text36" Left="510.3" Width="66.15" Height="18.9" Border.Lines="All" Text="日期批號C" HorzAlign="Center" VertAlign="Center"/>
+          <TextObject Name="Text38" Left="510.3" Top="18.9" Width="66.15" Height="18.9" Border.Lines="All" Text="日期批號D" HorzAlign="Center" VertAlign="Center"/>
+          <TextObject Name="Text39" Left="444.15" Top="18.9" Width="66.15" Height="18.9" Border.Lines="All" Text="日期批號B" HorzAlign="Center" VertAlign="Center"/>
+          <TextObject Name="Text41" Left="576.45" Width="66.15" Height="18.9" Border.Lines="All" Text="檢查人員" HorzAlign="Center" VertAlign="Center"/>
+          <TextObject Name="Text43" Left="576.45" Top="18.9" Width="66.15" Height="18.9" Border.Lines="All" Text="檢查時間" HorzAlign="Center" VertAlign="Center"/>
+          <TextObject Name="Text45" Left="642.6" Width="75.6" Height="37.8" Border.Lines="All" Text="稽核確認" HorzAlign="Center" VertAlign="Center"/>
+        </DataHeaderBand>
+      </DataBand>
+      <GroupFooterBand Name="GroupFooter2" Top="159.78" Width="718.2"/>
+    </GroupHeaderBand>
+    <GroupHeaderBand Name="GroupHeader3" Top="165.57" Width="718.2" Condition="[TBCHECKPACKAGE.日期]">
+      <DataBand Name="Data3" Top="171.37" Width="718.2" Height="18.9" CanGrow="true" DataSource="Table1">
+        <TextObject Name="Text30" Left="378" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBCHECKPACKAGE.標籤版面]" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text22" Left="226.8" Width="85.05" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBCHECKPACKAGE.餅乾色澤]" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text26" Left="311.85" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBCHECKPACKAGE.重量]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text34" Left="444.15" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBCHECKPACKAGE.日期批號B]" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text37" Left="510.3" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBCHECKPACKAGE.日期批號D]" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text42" Left="576.45" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBCHECKPACKAGE.檢查時間]" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text16" Left="94.5" Width="85.05" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBCHECKPACKAGE.側封口溫度2]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text12" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBCHECKPACKAGE.規格]" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text46" Left="179.55" Width="47.25" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text47" Left="642.6" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" HorzAlign="Center" VertAlign="Center"/>
+      </DataBand>
+      <GroupFooterBand Name="GroupFooter3" Top="196.07" Width="718.2"/>
+    </GroupHeaderBand>
+  </ReportPage>
+</Report>
