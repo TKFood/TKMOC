@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="08/15/2017 09:04:57" ReportInfo.Modified="08/15/2017 09:11:15" ReportInfo.CreatorVersion="2016.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9LVUwAkcLl7Jvf+tXj+aY8x">
+      <TableDataSource Name="Table" Alias="TBCHECKHANDCOOK" DataType="System.Int32" Enabled="true" SelectCommand="SELECT &#13;&#10;[MAIN] AS '組別',CONVERT(DATETIME,[MAINDATE],112) AS '日期',[MB002] AS '品名',[PALTNO] AS '盤數',[BURNNO] AS '爐號'&#13;&#10;,[SETTEMP] AS '設定溫度',[OUTTEMP] AS '出爐溫度',CONVERT(nvarchar,[STIME],8)  AS '烘培起始',CONVERT(nvarchar,[ETIME],8)  AS '烘培終止',[REMARK] AS '備註'&#13;&#10;,[OWNER] AS '填表人',[MANAGE] AS '主管',[TARGETPROTA001] AS '單別',[TARGETPROTA002] AS '單號',[MB001] AS '品號'&#13;&#10;,[ID]&#13;&#10;FROM [TKCIM].[dbo].[CHECKHANDCOOK]&#13;&#10;WHERE CONVERT(DATETIME,[MAINDATE],112)&gt;=@P1 AND CONVERT(DATETIME,[MAINDATE],112)&lt;=@P2&#13;&#10;ORDER BY CONVERT(DATETIME,[MAINDATE],112),CONVERT(DATETIME,[STIME],8)">
+        <Column Name="組別" DataType="System.String"/>
+        <Column Name="日期" DataType="System.DateTime"/>
+        <Column Name="品名" DataType="System.String"/>
+        <Column Name="盤數" DataType="System.String"/>
+        <Column Name="爐號" DataType="System.String"/>
+        <Column Name="設定溫度" DataType="System.String"/>
+        <Column Name="出爐溫度" DataType="System.String"/>
+        <Column Name="烘培起始" DataType="System.String"/>
+        <Column Name="烘培終止" DataType="System.String"/>
+        <Column Name="備註" DataType="System.String"/>
+        <Column Name="填表人" DataType="System.String"/>
+        <Column Name="主管" DataType="System.String"/>
+        <Column Name="單別" DataType="System.String"/>
+        <Column Name="單號" DataType="System.String"/>
+        <Column Name="品號" DataType="System.String"/>
+        <Column Name="ID" DataType="System.Guid"/>
+        <CommandParameter Name="P1" DataType="12" Expression="[P1]" DefaultValue="20170815"/>
+        <CommandParameter Name="P2" DataType="12" Expression="[P2]" DefaultValue="20170815"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="P1" DataType="System.String"/>
+    <Parameter Name="P2" DataType="System.String"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" RawPaperSize="9">
+    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="37.8">
+      <TextObject Name="Text25" Width="1048.95" Height="18.9" Text="烘培檢驗日報表" HorzAlign="Center" VertAlign="Center"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="43.6" Width="1047.06" Height="18.9">
+      <TextObject Name="Text2" Width="113.4" Height="18.9" Border.Lines="All" Text="組別" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text4" Left="113.4" Width="75.6" Height="18.9" Border.Lines="All" Text="日期" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text6" Left="189" Width="113.4" Height="18.9" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text8" Left="302.4" Width="37.8" Height="18.9" Border.Lines="All" Text="盤數" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text10" Left="340.2" Width="37.8" Height="18.9" Border.Lines="All" Text="爐號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text12" Left="378" Width="94.5" Height="18.9" Border.Lines="All" Text="設定溫度" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text14" Left="472.5" Width="94.5" Height="18.9" Border.Lines="All" Text="出爐溫度" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text16" Left="567" Width="94.5" Height="18.9" Border.Lines="All" Text="烘培起始" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text18" Left="661.5" Width="94.5" Height="18.9" Border.Lines="All" Text="烘培終止" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text20" Left="756" Width="94.5" Height="18.9" Border.Lines="All" Text="備註" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text22" Left="850.5" Width="94.5" Height="18.9" Border.Lines="All" Text="填表人" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text24" Left="945" Width="94.5" Height="18.9" Border.Lines="All" Text="主管" HorzAlign="Center" VertAlign="Center"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="68.29" Width="1047.06" Height="18.9" CanGrow="true" CanBreak="true" DataSource="Table">
+      <TextObject Name="Text1" Width="113.4" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBCHECKHANDCOOK.組別]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text3" Left="113.4" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBCHECKHANDCOOK.日期]" Format="Date" Format.Format="d" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text5" Left="189" Width="113.4" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBCHECKHANDCOOK.品名]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text7" Left="302.4" Width="37.8" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBCHECKHANDCOOK.盤數]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text9" Left="340.2" Width="37.8" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBCHECKHANDCOOK.爐號]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text11" Left="378" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBCHECKHANDCOOK.設定溫度]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text13" Left="472.5" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBCHECKHANDCOOK.出爐溫度]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text15" Left="567" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBCHECKHANDCOOK.烘培起始]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text17" Left="661.5" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBCHECKHANDCOOK.烘培終止]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text19" Left="756" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBCHECKHANDCOOK.備註]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text21" Left="850.5" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBCHECKHANDCOOK.填表人]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text23" Left="945" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBCHECKHANDCOOK.主管]" HorzAlign="Center" VertAlign="Center"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="92.99" Width="1047.06" Height="18.9"/>
+  </ReportPage>
+</Report>
