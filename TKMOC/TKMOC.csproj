@@ -423,6 +423,7 @@
     <None Include="REPORT\手工生產日報表.frx" />
     <None Include="REPORT\烘培檢驗日報表.frx" />
     <None Include="REPORT\首件檢查記錄表-冷卻.frx" />
+    <None Include="REPORT\首件檢查記錄表-成品.frx" />
     <None Include="Resources\委外維修申請單.doc" />
     <None Include="Resources\機械設備維修紀錄表.doc" />
     <None Include="Resources\生產日報.doc" />
