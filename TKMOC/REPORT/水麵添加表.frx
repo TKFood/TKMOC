@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="08/15/2017 17:04:27" ReportInfo.Modified="08/15/2017 17:12:15" ReportInfo.CreatorVersion="2016.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9L/PuxumXyn+yzcQKiZjni/">
+      <TableDataSource Name="Table" Alias="TBMATERWATERPROIDM" DataType="System.Int32" Enabled="true" SelectCommand="SELECT [MB002] AS '品名',[LOTID] AS '批號' ,[TARGETPROTA001] AS '單別',[TARGETPROTA002] AS '單號'&#13;&#10;,[MAIN] AS '生產線別',CONVERT(NVARCHAR,[MAINDATE],112) AS '日期',[MB001] AS '品號'&#13;&#10;FROM [TKCIM].[dbo].[MATERWATERPROIDM]&#13;&#10;WHERE CONVERT(NVARCHAR,[MAINDATE],112)&gt;=@P1 AND CONVERT(NVARCHAR,[MAINDATE],112)&lt;=@P2 &#13;&#10;ORDER BY LEN([MAIN]),[MAIN] ,CONVERT(NVARCHAR,[MAINDATE],112),[TARGETPROTA001],[TARGETPROTA002],[MB002] ">
+        <Column Name="品名" DataType="System.String"/>
+        <Column Name="批號" DataType="System.String"/>
+        <Column Name="單別" DataType="System.String"/>
+        <Column Name="單號" DataType="System.String"/>
+        <Column Name="生產線別" DataType="System.String"/>
+        <Column Name="日期" DataType="System.String"/>
+        <Column Name="品號" DataType="System.String"/>
+        <CommandParameter Name="P1" DataType="12" Expression="[P1]" DefaultValue="20170801"/>
+        <CommandParameter Name="P2" DataType="12" Expression="[P2]" DefaultValue="20170830"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="P1" DataType="System.String"/>
+    <Parameter Name="P2" DataType="System.String"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" RawPaperSize="9">
+    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="37.8"/>
+    <ColumnHeaderBand Name="ColumnHeader1" Top="43.6" Width="1047.06" Height="18.9">
+      <TextObject Name="Text2" Width="141.75" Height="18.9" Border.Lines="All" Text="生產線別" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text4" Left="141.75" Width="94.5" Height="18.9" Border.Lines="All" Text="日期" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text6" Left="236.25" Width="94.5" Height="18.9" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text8" Left="330.75" Width="94.5" Height="18.9" Border.Lines="All" Text="批號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text10" Left="425.25" Width="94.5" Height="18.9" Border.Lines="All" Text="單別" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text12" Left="519.75" Width="94.5" Height="18.9" Border.Lines="All" Text="單號" HorzAlign="Center" VertAlign="Center"/>
+    </ColumnHeaderBand>
+    <GroupHeaderBand Name="GroupHeader1" Top="68.29" Width="1047.06" Height="18.9" Condition="[TBMATERWATERPROIDM.生產線別]+[TBMATERWATERPROIDM.日期]+[TBMATERWATERPROIDM.單別]+[TBMATERWATERPROIDM.單號]">
+      <DataBand Name="Data1" Top="92.99" Width="1047.06" Height="18.9" DataSource="Table">
+        <TextObject Name="Text1" Width="141.75" Height="18.9" Border.Lines="All" Text="[TBMATERWATERPROIDM.生產線別]" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text3" Left="141.75" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBMATERWATERPROIDM.日期]" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text5" Left="236.25" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBMATERWATERPROIDM.品名]" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text7" Left="330.75" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBMATERWATERPROIDM.批號]" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text9" Left="425.25" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBMATERWATERPROIDM.單別]" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text11" Left="519.75" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBMATERWATERPROIDM.單號]" HorzAlign="Center" VertAlign="Center"/>
+      </DataBand>
+      <GroupFooterBand Name="GroupFooter1" Top="117.69" Width="1047.06" Height="37.8"/>
+    </GroupHeaderBand>
+    <PageFooterBand Name="PageFooter1" Top="161.29" Width="1047.06" Height="18.9"/>
+  </ReportPage>
+</Report>
