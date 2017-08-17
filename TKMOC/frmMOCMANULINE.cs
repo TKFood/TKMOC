@@ -88,6 +88,7 @@ namespace TKMOC
         DataSet ds18 = new DataSet();
         DataSet ds19 = new DataSet();
         DataSet ds20 = new DataSet();
+        DataSet ds21 = new DataSet();
 
         DataSet dsBOMMC = new DataSet();
         DataSet dsBOMMD = new DataSet();
@@ -158,6 +159,12 @@ namespace TKMOC
         decimal BOMBAR;
         int BOXNUMERB;
         int MOCBOX;
+
+        string SUBID;
+        string SUBBAR;
+        string SUBNUM;
+        string SUBBOX;
+        string SUBPACKAGE;
 
         public class MOCTADATA
         {
@@ -1129,8 +1136,17 @@ namespace TKMOC
                     SUM1 = Convert.ToDecimal(row.Cells["數量"].Value.ToString());
                     TA029 = row.Cells["客戶"].Value.ToString();
 
+                    SUBID = row.Cells["ID"].Value.ToString();
+                    SUBBAR = row.Cells["桶數"].Value.ToString();
+                    SUBNUM = row.Cells["數量"].Value.ToString();
+                    SUBBOX="";
+                    SUBPACKAGE="";
+
                     SEARCHMB017();
                     SEARCHMOCMANULINERESULT();
+
+                    SEARCHMOCMANULINECOP();
+
 ;
                 }
                 else
@@ -2841,6 +2857,12 @@ namespace TKMOC
                     SUM2 = Convert.ToDecimal(row.Cells["包裝數"].Value.ToString());
                     TA029 = row.Cells["客戶"].Value.ToString();
 
+                    SUBID = row.Cells["ID"].Value.ToString();
+                    SUBBAR = "";
+                    SUBNUM = "";
+                    SUBBOX = row.Cells["箱數"].Value.ToString();
+                    SUBPACKAGE = row.Cells["包裝數"].Value.ToString();
+
                     SEARCHMOCMANULINERESULT();
                     ;
                 }
@@ -2874,6 +2896,12 @@ namespace TKMOC
                     SUM3 = Convert.ToDecimal(row.Cells["數量"].Value.ToString());
                     TA029 = row.Cells["客戶"].Value.ToString();
 
+                    SUBID = row.Cells["ID"].Value.ToString();
+                    SUBBAR = row.Cells["桶數"].Value.ToString();
+                    SUBNUM = row.Cells["數量"].Value.ToString();
+                    SUBBOX ="";
+                    SUBPACKAGE = "";
+
                     SEARCHMOCMANULINERESULT();
                     ;
                 }
@@ -2905,6 +2933,12 @@ namespace TKMOC
                     BAR3 = Convert.ToDecimal(row.Cells["桶數"].Value.ToString());
                     SUM4 = Convert.ToDecimal(row.Cells["數量"].Value.ToString());
                     TA029 = row.Cells["客戶"].Value.ToString();
+
+                    SUBID = row.Cells["ID"].Value.ToString();
+                    SUBBAR = row.Cells["桶數"].Value.ToString();
+                    SUBNUM = row.Cells["數量"].Value.ToString();
+                    SUBBOX = "";
+                    SUBPACKAGE = "";
 
                     SEARCHMOCMANULINERESULT();
                     ;
@@ -4152,6 +4186,60 @@ namespace TKMOC
             }
             
         }
+        public void SEARCHMOCMANULINECOP()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  SELECT [MANU] AS '組別',[TC001] AS '訂單單別',[TC002] AS '訂單單號',[SID] AS '來源',[ID]");
+                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINECOP]");
+                sbSql.AppendFormat(@"  WHERE [SID]='{0}'", ID1);
+                sbSql.AppendFormat(@"  ORDER BY [MANU],[TC001],[TC002]");
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+
+                adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder2 = new SqlCommandBuilder(adapter2);
+                sqlConn.Open();
+                ds21.Clear();
+                adapter2.Fill(ds21, "TEMPds21");
+                sqlConn.Close();
+
+
+                if (ds21.Tables["TEMPds21"].Rows.Count == 0)
+                {
+
+                }
+                else
+                {
+                    if (ds21.Tables["TEMPds21"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView11.DataSource = ds21.Tables["TEMPds21"];
+                        dataGridView11.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+
         #endregion
 
         #region BUTTON
@@ -4485,6 +4573,16 @@ namespace TKMOC
             SEARCHMOCMANULINE();
         }
 
+        private void button36_Click(object sender, EventArgs e)
+        {
+            frmMOCMANULINECOP SUBfrmMOCMANULINECOP = new frmMOCMANULINECOP(SUBID,SUBBAR,SUBNUM,SUBBOX,SUBPACKAGE);
+            if (!string.IsNullOrEmpty(SUBID))
+            {
+                SUBfrmMOCMANULINECOP.ShowDialog();
+            }
+
+            SEARCHMOCMANULINECOP();
+        }
         #endregion
 
 
