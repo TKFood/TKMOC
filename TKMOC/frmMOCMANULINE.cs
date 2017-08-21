@@ -165,6 +165,21 @@ namespace TKMOC
         string SUBNUM;
         string SUBBOX;
         string SUBPACKAGE;
+        string SUBID2;
+        string SUBBAR2;
+        string SUBNUM2;
+        string SUBBOX2;
+        string SUBPACKAGE2;
+        string SUBID3;
+        string SUBBAR3;
+        string SUBNUM3;
+        string SUBBOX3;
+        string SUBPACKAGE3;
+        string SUBID4;
+        string SUBBAR4;
+        string SUBNUM4;
+        string SUBBOX4;
+        string SUBPACKAGE4;
 
         public class MOCTADATA
         {
@@ -1139,8 +1154,8 @@ namespace TKMOC
                     SUBID = row.Cells["ID"].Value.ToString();
                     SUBBAR = row.Cells["桶數"].Value.ToString();
                     SUBNUM = row.Cells["數量"].Value.ToString();
-                    SUBBOX="";
-                    SUBPACKAGE="";
+                    SUBBOX= null;
+                    SUBPACKAGE = null;
 
                     SEARCHMB017();
                     SEARCHMOCMANULINERESULT();
@@ -1152,6 +1167,11 @@ namespace TKMOC
                 else
                 {
                     ID1 = null;
+                    SUBID = null;
+                    SUBBAR = null;
+                    SUBNUM = null;
+                    SUBBOX = null;
+                    SUBPACKAGE = null;
 
                 }
             }
@@ -2857,11 +2877,11 @@ namespace TKMOC
                     SUM2 = Convert.ToDecimal(row.Cells["包裝數"].Value.ToString());
                     TA029 = row.Cells["客戶"].Value.ToString();
 
-                    SUBID = row.Cells["ID"].Value.ToString();
-                    SUBBAR = "";
-                    SUBNUM = "";
-                    SUBBOX = row.Cells["箱數"].Value.ToString();
-                    SUBPACKAGE = row.Cells["包裝數"].Value.ToString();
+                    SUBID2 = row.Cells["ID"].Value.ToString();
+                    SUBBAR2 = "";
+                    SUBNUM2 = "";
+                    SUBBOX2 = row.Cells["箱數"].Value.ToString();
+                    SUBPACKAGE2 = row.Cells["包裝數"].Value.ToString();
 
                     SEARCHMOCMANULINERESULT();
                     ;
@@ -2869,6 +2889,11 @@ namespace TKMOC
                 else
                 {
                     ID2 = null;
+                    SUBID2 = null;
+                    SUBBAR2 = null;
+                    SUBNUM2 = null;
+                    SUBBOX2= null;
+                    SUBPACKAGE2 = null;
 
                 }
             }
@@ -2896,11 +2921,11 @@ namespace TKMOC
                     SUM3 = Convert.ToDecimal(row.Cells["數量"].Value.ToString());
                     TA029 = row.Cells["客戶"].Value.ToString();
 
-                    SUBID = row.Cells["ID"].Value.ToString();
-                    SUBBAR = row.Cells["桶數"].Value.ToString();
-                    SUBNUM = row.Cells["數量"].Value.ToString();
-                    SUBBOX ="";
-                    SUBPACKAGE = "";
+                    SUBID3 = row.Cells["ID"].Value.ToString();
+                    SUBBAR3 = row.Cells["桶數"].Value.ToString();
+                    SUBNUM3 = row.Cells["數量"].Value.ToString();
+                    SUBBOX3 = null;
+                    SUBPACKAGE3 = null;
 
                     SEARCHMOCMANULINERESULT();
                     ;
@@ -2908,6 +2933,11 @@ namespace TKMOC
                 else
                 {
                     ID3 = null;
+                    SUBID3 = null;
+                    SUBBAR3 = null;
+                    SUBNUM3 = null;
+                    SUBBOX3 = null;
+                    SUBPACKAGE3 = null;
 
                 }
             }
@@ -2934,11 +2964,11 @@ namespace TKMOC
                     SUM4 = Convert.ToDecimal(row.Cells["數量"].Value.ToString());
                     TA029 = row.Cells["客戶"].Value.ToString();
 
-                    SUBID = row.Cells["ID"].Value.ToString();
-                    SUBBAR = row.Cells["桶數"].Value.ToString();
-                    SUBNUM = row.Cells["數量"].Value.ToString();
-                    SUBBOX = "";
-                    SUBPACKAGE = "";
+                    SUBID4 = row.Cells["ID"].Value.ToString();
+                    SUBBAR4 = row.Cells["桶數"].Value.ToString();
+                    SUBNUM4 = row.Cells["數量"].Value.ToString();
+                    SUBBOX4 = null;
+                    SUBPACKAGE4 = null;
 
                     SEARCHMOCMANULINERESULT();
                     ;
@@ -2946,6 +2976,11 @@ namespace TKMOC
                 else
                 {
                     ID4 = null;
+                    SUBID4 = null;
+                    SUBBAR4= null;
+                    SUBNUM4 = null;
+                    SUBBOX4 = null;
+                    SUBPACKAGE4 = null;
 
                 }
             }
@@ -4188,29 +4223,53 @@ namespace TKMOC
         }
         public void SEARCHMOCMANULINECOP()
         {
+            string SOURCEID = null;
+
+            if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage1"])
+            {
+                SOURCEID = ID1;
+            }
+            else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage4"])
+            {
+                SOURCEID = ID2;
+            }
+            else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage2"])
+            {
+                SOURCEID = ID3;
+            }
+            else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage3"])
+            {
+                SOURCEID = ID4;
+            }
+            else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage5"])
+            {
+
+            }
+
+
             try
             {
-                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
-                sqlConn = new SqlConnection(connectionString);
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
 
-                sbSql.Clear();
-                sbSqlQuery.Clear();
+            sbSql.Clear();
+            sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  SELECT [MANU] AS '組別',[TC001] AS '訂單單別',[TC002] AS '訂單單號',[SID] AS '來源',[ID]");
-                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINECOP]");
-                sbSql.AppendFormat(@"  WHERE [SID]='{0}'", ID1);
-                sbSql.AppendFormat(@"  ORDER BY [MANU],[TC001],[TC002]");
-                sbSql.AppendFormat(@"  ");
-                sbSql.AppendFormat(@"  ");
+            sbSql.AppendFormat(@"  SELECT [MANU] AS '組別',[TC001] AS '訂單單別',[TC002] AS '訂單單號',[SID] AS '來源',[ID]");
+            sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINECOP]");
+            sbSql.AppendFormat(@"  WHERE [SID]='{0}'", SOURCEID);
+            sbSql.AppendFormat(@"  ORDER BY [MANU],[TC001],[TC002]");
+            sbSql.AppendFormat(@"  ");
+            sbSql.AppendFormat(@"  ");
 
 
-                adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+            adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder2 = new SqlCommandBuilder(adapter2);
-                sqlConn.Open();
-                ds21.Clear();
-                adapter2.Fill(ds21, "TEMPds21");
-                sqlConn.Close();
+            sqlCmdBuilder2 = new SqlCommandBuilder(adapter2);
+            sqlConn.Open();
+            ds21.Clear();
+            adapter2.Fill(ds21, "TEMPds21");
+            sqlConn.Close();
 
 
                 if (ds21.Tables["TEMPds21"].Rows.Count == 0)
@@ -4221,11 +4280,30 @@ namespace TKMOC
                 {
                     if (ds21.Tables["TEMPds21"].Rows.Count >= 1)
                     {
-                        //dataGridView1.Rows.Clear();
-                        dataGridView11.DataSource = ds21.Tables["TEMPds21"];
-                        dataGridView11.AutoResizeColumns();
-                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+                        if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage1"])
+                        {
+                            dataGridView11.DataSource = ds21.Tables["TEMPds21"];
+                            dataGridView11.AutoResizeColumns();
+                        }
+                        else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage4"])
+                        {
+                            dataGridView12.DataSource = ds21.Tables["TEMPds21"];
+                            dataGridView12.AutoResizeColumns();
+                        }
+                        else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage2"])
+                        {
+                            dataGridView13.DataSource = ds21.Tables["TEMPds21"];
+                            dataGridView13.AutoResizeColumns();
+                        }
+                        else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage3"])
+                        {
+                            dataGridView14.DataSource = ds21.Tables["TEMPds21"];
+                            dataGridView14.AutoResizeColumns();
+                        }
+                        else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage5"])
+                        {
 
+                        }
                     }
                 }
 
@@ -4577,6 +4655,41 @@ namespace TKMOC
         {
             frmMOCMANULINECOP SUBfrmMOCMANULINECOP = new frmMOCMANULINECOP(SUBID,SUBBAR,SUBNUM,SUBBOX,SUBPACKAGE);
             if (!string.IsNullOrEmpty(SUBID))
+            {
+                SUBfrmMOCMANULINECOP.ShowDialog();
+            }
+
+            SEARCHMOCMANULINECOP();
+        }
+        private void button37_Click(object sender, EventArgs e)
+        {
+
+            frmMOCMANULINECOP SUBfrmMOCMANULINECOP = new frmMOCMANULINECOP(SUBID2, SUBBAR2, SUBNUM2, SUBBOX2, SUBPACKAGE2);
+            if (!string.IsNullOrEmpty(SUBID2))
+            {
+                SUBfrmMOCMANULINECOP.ShowDialog();
+            }
+
+            SEARCHMOCMANULINECOP();
+        }
+
+        private void button38_Click(object sender, EventArgs e)
+        {
+
+            frmMOCMANULINECOP SUBfrmMOCMANULINECOP = new frmMOCMANULINECOP(SUBID3, SUBBAR3, SUBNUM3, SUBBOX3, SUBPACKAGE3);
+            if (!string.IsNullOrEmpty(SUBID3))
+            {
+                SUBfrmMOCMANULINECOP.ShowDialog();
+            }
+
+            SEARCHMOCMANULINECOP();
+        }
+
+        private void button39_Click(object sender, EventArgs e)
+        {
+
+            frmMOCMANULINECOP SUBfrmMOCMANULINECOP = new frmMOCMANULINECOP(SUBID4, SUBBAR4, SUBNUM4, SUBBOX4, SUBPACKAGE4);
+            if (!string.IsNullOrEmpty(SUBID4))
             {
                 SUBfrmMOCMANULINECOP.ShowDialog();
             }
