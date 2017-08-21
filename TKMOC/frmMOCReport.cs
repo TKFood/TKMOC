@@ -862,6 +862,9 @@ namespace TKMOC
             {
                 report1 = new Report();
                 report1.Load(@"REPORT\包裝組-生產日報表.frx");
+
+                report1.SetParameterValue("P1", dateTimePicker3.Value.ToString("yyyyMMdd"));
+                report1.SetParameterValue("P2", dateTimePicker4.Value.ToString("yyyyMMdd"));
                 //report1.Load(@"REPORT\TEST1.frx");
 
             }
@@ -869,6 +872,9 @@ namespace TKMOC
             {
                 report1 = new Report();
                 report1.Load(@"REPORT\烘培檢驗日報表.frx");
+
+                report1.SetParameterValue("P1", dateTimePicker3.Value.ToString("yyyyMMdd"));
+                report1.SetParameterValue("P2", dateTimePicker4.Value.ToString("yyyyMMdd"));
                 //report1.Load(@"REPORT\TEST1.frx");
 
             }
@@ -876,6 +882,9 @@ namespace TKMOC
             {
                 report1 = new Report();
                 report1.Load(@"REPORT\包裝班檢驗表.frx");
+
+                report1.SetParameterValue("P1", dateTimePicker3.Value.ToString("yyyyMMdd"));
+                report1.SetParameterValue("P2", dateTimePicker4.Value.ToString("yyyyMMdd"));
                 //report1.Load(@"REPORT\TEST1.frx");
 
             }
@@ -883,6 +892,9 @@ namespace TKMOC
             {
                 report1 = new Report();
                 report1.Load(@"REPORT\手工生產日報表.frx");
+
+                report1.SetParameterValue("P1", dateTimePicker3.Value.ToString("yyyyMMdd"));
+                report1.SetParameterValue("P2", dateTimePicker4.Value.ToString("yyyyMMdd"));
                 //report1.Load(@"REPORT\TEST1.frx");
 
             }
@@ -890,6 +902,9 @@ namespace TKMOC
             {
                 report1 = new Report();
                 report1.Load(@"REPORT\首件檢查記錄表-冷卻.frx");
+
+                report1.SetParameterValue("P1", dateTimePicker3.Value.ToString("yyyyMMdd"));
+                report1.SetParameterValue("P2", dateTimePicker4.Value.ToString("yyyyMMdd"));
                 //report1.Load(@"REPORT\TEST1.frx");
 
             }
@@ -897,6 +912,9 @@ namespace TKMOC
             {
                 report1 = new Report();
                 report1.Load(@"REPORT\首件檢查記錄表-成品.frx");
+
+                report1.SetParameterValue("P1", dateTimePicker3.Value.ToString("yyyyMMdd"));
+                report1.SetParameterValue("P2", dateTimePicker4.Value.ToString("yyyyMMdd"));
                 //report1.Load(@"REPORT\TEST1.frx");
 
             }
@@ -904,6 +922,9 @@ namespace TKMOC
             {
                 report1 = new Report();
                 report1.Load(@"REPORT\首件檢查記錄表-成型.frx");
+
+                report1.SetParameterValue("P1", dateTimePicker3.Value.ToString("yyyyMMdd"));
+                report1.SetParameterValue("P2", dateTimePicker4.Value.ToString("yyyyMMdd"));
                 //report1.Load(@"REPORT\TEST1.frx");
 
             }
@@ -911,6 +932,9 @@ namespace TKMOC
             {
                 report1 = new Report();
                 report1.Load(@"REPORT\報廢記錄.frx");
+
+                report1.SetParameterValue("P1", dateTimePicker3.Value.ToString("yyyyMMdd"));
+                report1.SetParameterValue("P2", dateTimePicker4.Value.ToString("yyyyMMdd"));
                 //report1.Load(@"REPORT\TEST1.frx");
 
             }
@@ -918,6 +942,9 @@ namespace TKMOC
             {
                 report1 = new Report();
                 report1.Load(@"REPORT\烘烤製程記錄.frx");
+
+                report1.SetParameterValue("P1", dateTimePicker3.Value.ToString("yyyyMMdd"));
+                report1.SetParameterValue("P2", dateTimePicker4.Value.ToString("yyyyMMdd"));
                 //report1.Load(@"REPORT\TEST1.frx");
 
             }
@@ -925,13 +952,25 @@ namespace TKMOC
             {
                 report1 = new Report();
                 report1.Load(@"REPORT\生產日報的分析表.frx");
+
+                report1.SetParameterValue("P1", dateTimePicker3.Value.ToString("yyyyMMdd"));
+                report1.SetParameterValue("P2", dateTimePicker4.Value.ToString("yyyyMMdd"));
+                //report1.Load(@"REPORT\TEST1.frx");
+
+            }
+            else if (comboBox2.Text.Equals("生產日報的月份分析表"))
+            {
+                report1 = new Report();
+                report1.Load(@"REPORT\生產日報的月份分析表.frx");
+
+                report1.SetParameterValue("P1", dateTimePicker3.Value.ToString("yyyy"));
+               
                 //report1.Load(@"REPORT\TEST1.frx");
 
             }
 
 
-            report1.SetParameterValue("P1", dateTimePicker3.Value.ToString("yyyyMMdd"));
-            report1.SetParameterValue("P2", dateTimePicker4.Value.ToString("yyyyMMdd"));
+           
             report1.Preview = previewControl1;
             report1.Show();
         }
