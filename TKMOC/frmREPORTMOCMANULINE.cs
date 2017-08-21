@@ -32,6 +32,8 @@ namespace TKMOC
         StringBuilder sbSqlQuery = new StringBuilder();
         SqlDataAdapter adapter = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder = new SqlCommandBuilder();
+        SqlDataAdapter adapter2 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder2 = new SqlCommandBuilder();
         SqlCommand cmd = new SqlCommand();
         DataSet ds = new DataSet();
         DataSet ds2 = new DataSet();
@@ -40,6 +42,7 @@ namespace TKMOC
         string tablename = null;
         int rownum = 0;
 
+        string SOURCEID;
 
         public frmREPORTMOCMANULINE()
         {
@@ -135,6 +138,7 @@ namespace TKMOC
                 STR.AppendFormat(@"  ,ISNULL([MOCMANULINE].BAR,0) AS '桶數',ISNULL([MOCMANULINE].NUM,0) AS '片數',ISNULL([MOCMANULINE].BOX,0) AS '箱數',ISNULL([MOCMANULINE].PACKAGE,0) AS '包裝數'");
                 STR.AppendFormat(@"  ,ISNULL(CONVERT(NVARCHAR(10),[MOCMANULINE].OUTDATE,112),'') AS '預交日'");
                 STR.AppendFormat(@"  ,[MOCMANULINE].CLINET AS '客戶',ISNULL([MOCMANULINE].MANUHOUR,0) AS '生產時數'");
+                STR.AppendFormat(@"  ,[ID]");
                 STR.AppendFormat(@"  ,ISNULL([MOCMANULINERESULT].MOCTA001,'') AS '製令單別',ISNULL([MOCMANULINERESULT].MOCTA002,'') AS '製令單號'");
                 STR.AppendFormat(@"  FROM [TKMOC].dbo.[MOCMANULINE]");
                 STR.AppendFormat(@"  LEFT JOIN  [TKMOC].dbo.[MOCMANULINERESULT] ON [MOCMANULINE].ID=[MOCMANULINERESULT].SID");
@@ -154,6 +158,7 @@ namespace TKMOC
                 STR.AppendFormat(@"  ,ISNULL([MOCMANULINE].BAR,0) AS '桶數',ISNULL([MOCMANULINE].NUM,0) AS '片數',ISNULL([MOCMANULINE].BOX,0) AS '箱數',ISNULL([MOCMANULINE].PACKAGE,0) AS '包裝數'");
                 STR.AppendFormat(@"  ,ISNULL(CONVERT(NVARCHAR(10),[MOCMANULINE].OUTDATE,112),'') AS '預交日'");
                 STR.AppendFormat(@"  ,[MOCMANULINE].CLINET AS '客戶',ISNULL([MOCMANULINE].MANUHOUR,0) AS '生產時數'");
+                STR.AppendFormat(@"  ,[ID]");
                 STR.AppendFormat(@"  ,ISNULL([MOCMANULINERESULT].MOCTA001,'') AS '製令單別',ISNULL([MOCMANULINERESULT].MOCTA002,'') AS '製令單號'");
                 STR.AppendFormat(@"  FROM [TKMOC].dbo.[MOCMANULINE]");
                 STR.AppendFormat(@"  LEFT JOIN  [TKMOC].dbo.[MOCMANULINERESULT] ON [MOCMANULINE].ID=[MOCMANULINERESULT].SID");
@@ -481,12 +486,88 @@ namespace TKMOC
             }
         }
 
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView1.CurrentRow != null)
+            {
+                int rowindex = dataGridView1.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView1.Rows[rowindex];
+                    SOURCEID = row.Cells["ID"].Value.ToString();
+
+                    SEARCHMOCMANULINECOP();
+                }
+                else
+                {
+                    SOURCEID = null;                 
+                }
+            }
+        }
+
+        public void SEARCHMOCMANULINECOP()
+        {
+           
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  SELECT [MANU] AS '組別',[MOCMANULINECOP].[TC001] AS '訂單單別',[MOCMANULINECOP].[TC002] AS '訂單單號'");
+                sbSql.AppendFormat(@"   ,[TC004] AS '客戶代號',[TC053] AS '客戶',[TC006] AS '業務',[MV002] AS '業務員'");
+                sbSql.AppendFormat(@"   ,[SID] AS '來源',[ID]  ");
+                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINECOP] ");
+                sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.[COPTC] ON [COPTC].[TC001]=[MOCMANULINECOP].[TC001] AND [COPTC].[TC002]=[MOCMANULINECOP].[TC002]");
+                sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.[CMSMV] ON [MV001]=[TC006]");
+                sbSql.AppendFormat(@"  WHERE [SID]='{0}'", SOURCEID);
+                sbSql.AppendFormat(@"  ORDER BY [MANU],[MOCMANULINECOP].[TC001],[MOCMANULINECOP].[TC002]   ");
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+
+                adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder2 = new SqlCommandBuilder(adapter2);
+                sqlConn.Open();
+                ds2.Clear();
+                adapter2.Fill(ds2, "TEMPds2");
+                sqlConn.Close();
+
+
+                if (ds2.Tables["TEMPds2"].Rows.Count == 0)
+                {
+                    dataGridView3.DataSource = null;
+                }
+                else
+                {
+                    if (ds2.Tables["TEMPds2"].Rows.Count >= 1)
+                    {
+                        dataGridView3.DataSource = ds2.Tables["TEMPds2"];
+                        dataGridView3.AutoResizeColumns();
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+
         #endregion
 
         #region BUTTON
         private void button1_Click(object sender, EventArgs e)
         {
             Search();
+            //SEARCHMOCMANULINECOP();
         }
         private void button2_Click(object sender, EventArgs e)
         {
@@ -502,8 +583,9 @@ namespace TKMOC
             ExcelExportMATERIAL();
         }
 
+
         #endregion
 
-
+       
     }
 }
