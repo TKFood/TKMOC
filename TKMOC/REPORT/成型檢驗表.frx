@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="08/22/2017 14:27:32" ReportInfo.Modified="08/22/2017 15:22:38" ReportInfo.CreatorVersion="2016.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9JxzIrQb/DmjMD8pW3exdgC">
+      <TableDataSource Name="Table" Alias="TBCHECKCOOKIESM" DataType="System.Int32" Enabled="true" SelectCommand="SELECT [TARGETPROTA001]  AS '單別',[TARGETPROTA002] AS '單號',[MB002] AS '品名',CONVERT(varchar(100),[STIME],8) AS '開始時間',CONVERT(varchar(100),[ETIME],8) AS '結束時間',[SLOT] AS '桶數',[CUTNUMBER] AS '刀數',[WEIGHT] AS '重量',[MAIN] AS '線別',[MAINDATE] AS '日期' &#13;&#10;FROM [TKCIM].[dbo].[CHECKCOOKIESM]&#13;&#10;WHERE CONVERT(NVARCHAR,[MAINDATE], 112)&gt;=@P1 AND CONVERT(NVARCHAR,[MAINDATE], 112)&lt;=@P2&#13;&#10;ORDER BY [TARGETPROTA001] ,[TARGETPROTA002]">
+        <Column Name="單別" DataType="System.String"/>
+        <Column Name="單號" DataType="System.String"/>
+        <Column Name="品名" DataType="System.String"/>
+        <Column Name="開始時間" DataType="System.String"/>
+        <Column Name="結束時間" DataType="System.String"/>
+        <Column Name="桶數" DataType="System.Decimal"/>
+        <Column Name="刀數" DataType="System.Decimal"/>
+        <Column Name="重量" DataType="System.Decimal"/>
+        <Column Name="線別" DataType="System.String"/>
+        <Column Name="日期" DataType="System.DateTime"/>
+        <CommandParameter Name="P1" DataType="12" Expression="[P1]" DefaultValue="20170801"/>
+        <CommandParameter Name="P2" DataType="12" Expression="[P2]" DefaultValue="20170831"/>
+      </TableDataSource>
+      <TableDataSource Name="Table1" Alias="TBCHECKCOOKIESMD" DataType="System.Int32" Enabled="true" SelectCommand="SELECT CONVERT(varchar(100),[CHECKTIME],8) AS '時間',[WIGHT] AS '重量',[LENGTH] AS '長度',[TEMP] AS '溫度',[HUMIDITY] AS '溼度',[CHECKRESULT] AS '檢查結果',[OWNER] AS '填表人',[MANAGER]  AS '主管' &#13;&#10;FROM [TKCIM].[dbo].[CHECKCOOKIESMD]&#13;&#10;WHERE [TARGETPROTA001]=@P1 AND [TARGETPROTA002]=@P2&#13;&#10;ORDER BY [TARGETPROTA001] ,[TARGETPROTA002],CONVERT(varchar(100),[CHECKTIME],8)">
+        <Column Name="時間" DataType="System.String"/>
+        <Column Name="重量" DataType="System.Decimal"/>
+        <Column Name="長度" DataType="System.Decimal"/>
+        <Column Name="溫度" DataType="System.Decimal"/>
+        <Column Name="溼度" DataType="System.Decimal"/>
+        <Column Name="檢查結果" DataType="System.String"/>
+        <Column Name="填表人" DataType="System.String"/>
+        <Column Name="主管" DataType="System.String"/>
+        <CommandParameter Name="P1" DataType="12" Expression="[TBCHECKCOOKIESM.單別]"/>
+        <CommandParameter Name="P2" DataType="12" Expression="[TBCHECKCOOKIESM.單號]"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="P1" DataType="System.String"/>
+    <Parameter Name="P2" DataType="System.String"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" RawPaperSize="9">
+    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="18.9">
+      <TextObject Name="Text37" Left="-9.45" Width="1048.95" Height="18.9" Text="成型檢驗表&#13;&#10;" HorzAlign="Center" VertAlign="Center"/>
+    </ReportTitleBand>
+    <GroupHeaderBand Name="GroupHeader1" Top="26.04" Width="1047.06" Condition="[TBCHECKCOOKIESM.單別]+[TBCHECKCOOKIESM.單號]">
+      <DataBand Name="Data1" Top="59.23" Width="1047.06" Height="18.9" CanGrow="true" DataSource="Table">
+        <TextObject Name="Text1" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBCHECKCOOKIESM.單別]" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text3" Left="94.5" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBCHECKCOOKIESM.單號]" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text9" Left="378" Width="189" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBCHECKCOOKIESM.品名]" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text11" Left="567" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBCHECKCOOKIESM.開始時間]" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text13" Left="661.5" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBCHECKCOOKIESM.結束時間]" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text15" Left="756" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBCHECKCOOKIESM.桶數]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text17" Left="850.5" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBCHECKCOOKIESM.刀數]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text19" Left="945" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBCHECKCOOKIESM.重量]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text21" Left="189" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBCHECKCOOKIESM.線別]" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text23" Left="283.5" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBCHECKCOOKIESM.日期]" Format="Date" Format.Format="d" HorzAlign="Center" VertAlign="Center"/>
+        <DataHeaderBand Name="DataHeader2" Top="33.19" Width="1047.06" Height="18.9" RepeatOnEveryPage="true">
+          <TextObject Name="Text2" Width="94.5" Height="18.9" Border.Lines="All" Text="單別" HorzAlign="Center" VertAlign="Center"/>
+          <TextObject Name="Text4" Left="94.5" Width="94.5" Height="18.9" Border.Lines="All" Text="單號" HorzAlign="Center" VertAlign="Center"/>
+          <TextObject Name="Text10" Left="378" Width="189" Height="18.9" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
+          <TextObject Name="Text12" Left="567" Width="94.5" Height="18.9" Border.Lines="All" Text="開始時間" HorzAlign="Center" VertAlign="Center"/>
+          <TextObject Name="Text14" Left="661.5" Width="94.5" Height="18.9" Border.Lines="All" Text="結束時間" HorzAlign="Center" VertAlign="Center"/>
+          <TextObject Name="Text16" Left="756" Width="94.5" Height="18.9" Border.Lines="All" Text="桶數" HorzAlign="Center" VertAlign="Center"/>
+          <TextObject Name="Text18" Left="850.5" Width="94.5" Height="18.9" Border.Lines="All" Text="刀數" HorzAlign="Center" VertAlign="Center"/>
+          <TextObject Name="Text20" Left="945" Width="94.5" Height="18.9" Border.Lines="All" Text="重量" HorzAlign="Center" VertAlign="Center"/>
+          <TextObject Name="Text22" Left="189" Width="94.5" Height="18.9" Border.Lines="All" Text="線別" HorzAlign="Center" VertAlign="Center"/>
+          <TextObject Name="Text24" Left="283.5" Width="94.5" Height="18.9" Border.Lines="All" Text="日期" HorzAlign="Center" VertAlign="Center"/>
+        </DataHeaderBand>
+        <DataBand Name="Data2" Top="111.31" Width="1047.06" Height="18.9" DataSource="Table1">
+          <TextObject Name="Text5" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBCHECKCOOKIESMD.時間]" HorzAlign="Center" VertAlign="Center"/>
+          <TextObject Name="Text7" Left="94.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBCHECKCOOKIESMD.重量]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+          <TextObject Name="Text25" Left="189" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBCHECKCOOKIESMD.長度]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+          <TextObject Name="Text27" Left="283.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBCHECKCOOKIESMD.溫度]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+          <TextObject Name="Text29" Left="378" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBCHECKCOOKIESMD.溼度]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+          <TextObject Name="Text31" Left="472.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBCHECKCOOKIESMD.檢查結果]" HorzAlign="Center" VertAlign="Center"/>
+          <TextObject Name="Text33" Left="567" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBCHECKCOOKIESMD.填表人]" HorzAlign="Center" VertAlign="Center"/>
+          <TextObject Name="Text35" Left="661.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBCHECKCOOKIESMD.主管]" HorzAlign="Center" VertAlign="Center"/>
+          <DataHeaderBand Name="DataHeader1" Top="85.27" Width="1047.06" Height="18.9" RepeatOnEveryPage="true">
+            <TextObject Name="Text6" Width="94.5" Height="18.9" Border.Lines="All" Text="時間" HorzAlign="Center" VertAlign="Center"/>
+            <TextObject Name="Text8" Left="94.5" Width="94.5" Height="18.9" Border.Lines="All" Text="重量" HorzAlign="Center" VertAlign="Center"/>
+            <TextObject Name="Text26" Left="189" Width="94.5" Height="18.9" Border.Lines="All" Text="長度" HorzAlign="Center" VertAlign="Center"/>
+            <TextObject Name="Text28" Left="283.5" Width="94.5" Height="18.9" Border.Lines="All" Text="溫度" HorzAlign="Center" VertAlign="Center"/>
+            <TextObject Name="Text30" Left="378" Width="94.5" Height="18.9" Border.Lines="All" Text="溼度" HorzAlign="Center" VertAlign="Center"/>
+            <TextObject Name="Text32" Left="472.5" Width="94.5" Height="18.9" Border.Lines="All" Text="檢查結果" HorzAlign="Center" VertAlign="Center"/>
+            <TextObject Name="Text34" Left="567" Width="94.5" Height="18.9" Border.Lines="All" Text="填表人" HorzAlign="Center" VertAlign="Center"/>
+            <TextObject Name="Text36" Left="661.5" Width="94.5" Height="18.9" Border.Lines="All" Text="主管" HorzAlign="Center" VertAlign="Center"/>
+          </DataHeaderBand>
+        </DataBand>
+      </DataBand>
+      <GroupFooterBand Name="GroupFooter1" Top="137.36" Width="1047.06"/>
+    </GroupHeaderBand>
+  </ReportPage>
+</Report>

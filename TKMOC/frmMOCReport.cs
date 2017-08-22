@@ -990,6 +990,17 @@ namespace TKMOC
                 //report1.Load(@"REPORT\TEST1.frx");
 
             }
+            else if (comboBox2.Text.Equals("成型檢驗表"))
+            {
+                report1 = new Report();
+                report1.Load(@"REPORT\成型檢驗表.frx");
+
+                report1.SetParameterValue("P1", dateTimePicker3.Value.ToString("yyyyMMdd"));
+                report1.SetParameterValue("P2", dateTimePicker4.Value.ToString("yyyyMMdd"));
+
+                //report1.Load(@"REPORT\TEST1.frx");
+
+            }
 
 
 
