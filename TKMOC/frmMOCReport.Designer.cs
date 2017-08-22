@@ -429,6 +429,7 @@
             "生產日報的月份分析表",
             "生產日報表明細表",
             "============",
+            "水麵添加表",
             "烤爐溫度明細表",
             "包裝組-生產日報表",
             "烘培檢驗日報表",
@@ -439,6 +440,7 @@
             "首件檢查記錄表-成型",
             "報廢記錄",
             "烘烤製程記錄",
+            "",
             "成型檢驗表"});
             this.comboBox2.Location = new System.Drawing.Point(124, 50);
             this.comboBox2.Margin = new System.Windows.Forms.Padding(4);

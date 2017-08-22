@@ -432,6 +432,7 @@
     <None Include="REPORT\報廢記錄.frx" />
     <None Include="REPORT\成型檢驗表.frx" />
     <None Include="REPORT\手工生產日報表.frx" />
+    <None Include="REPORT\水麵添加表.frx" />
     <None Include="REPORT\烘培檢驗日報表.frx" />
     <None Include="REPORT\烘烤製程記錄.frx" />
     <None Include="REPORT\烤爐溫度明細表.frx" />
