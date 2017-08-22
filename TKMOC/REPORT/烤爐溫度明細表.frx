@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="08/22/2017 14:10:34" ReportInfo.Modified="08/22/2017 14:19:24" ReportInfo.CreatorVersion="2016.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9J2mk7eiArBWq3PkFjsNECh">
+      <TableDataSource Name="Table" Alias="TBMOCOVENDTAIL" DataType="System.Int32" Enabled="true" SelectCommand="SELECT CONVERT(varchar(100),[OVENDATE], 112) AS '日期',[MANUDEP].[DEPNAME] AS '組別',CONVERT(varchar(100),[PREHEARTSTART], 108)  AS '預熱時間(起)',CONVERT(varchar(100),[PREHEARTEND], 108)   AS '預熱時間(迄)',[GAS]  AS '瓦斯磅數',EMP1.NAME  AS '折疊人員1',EMP2.NAME    AS '折疊人員2', EMP3.NAME   AS '主管',EMP4.NAME    AS '操作人員',[MANUDEP] AS '組別'&#13;&#10;,[MB001] AS '品號',[MB002] AS '品名',[MB003] AS '規格',[TEMPER] AS '溫度',[HUMIDITY] AS '溼度',[WEATHER] AS '天氣',CONVERT(varchar(100),[MANUTIME],108) AS '時間'&#13;&#10;,[FURANACEUP1] AS '上爐1-1',[FURANACEUP2] AS '上爐2-1',[FURANACEUP3] AS '上爐3-1',[FURANACEUP4] AS '上爐4-1',[FURANACEUP5] AS '上爐5-1'&#13;&#10;,[FURANACEUP1A] AS '上爐1-2',[FURANACEUP2A] AS '上爐2-2',[FURANACEUP3A] AS '上爐3-2',[FURANACEUP4A] AS '上爐4-2',[FURANACEUP5A] AS '上爐5-2'&#13;&#10;,[FURANACEUP1B] AS '上爐1-3',[FURANACEUP2B] AS '上爐2-3',[FURANACEUP3B] AS '上爐3-3',[FURANACEUP4B] AS '上爐4-3',[FURANACEUP5B] AS '上爐5-3' &#13;&#10;,[FURANACEDOWN1] AS '下爐1-1',[FURANACEDOWN2] AS '下爐2-1',[FURANACEDOWN3] AS '下爐3-1',[FURANACEDOWN4] AS '下爐4-1',[FURANACEDOWN5] AS '下爐5-1'&#13;&#10;,[FURANACEDOWN1A] AS '下爐1-2',[FURANACEDOWN2A] AS '下爐2-2',[FURANACEDOWN3A] AS '下爐3-2',[FURANACEDOWN4A] AS '下爐4-2',[FURANACEDOWN5A] AS '下爐5-2'&#13;&#10;,[FURANACEDOWN1B] AS '下爐1-3',[FURANACEDOWN2B] AS '下爐2-3',[FURANACEDOWN3B] AS '下爐3-3',[FURANACEDOWN4B] AS '下爐4-3',[FURANACEDOWN5B] AS '下爐5-3'&#13;&#10;,[MOCOVENDTAIL].[ID],[SOURCEID]&#13;&#10;FROM [TKMOC].[dbo].[MOCOVENDTAIL], [TKMOC].[dbo].[MOCOVEN]&#13;&#10;LEFT JOIN [TKMOC].[dbo].[MANUEMPLOYEE] EMP1  ON [FLODPEOPLE1]=EMP1.ID&#13;&#10;LEFT JOIN [TKMOC].[dbo].[MANUEMPLOYEE] EMP2 ON [FLODPEOPLE2]=EMP2.ID&#13;&#10;LEFT JOIN [TKMOC].[dbo].[MANUEMPLOYEE]  EMP3 ON [MANAGER]=EMP3.ID&#13;&#10;LEFT JOIN [TKMOC].[dbo].[MANUEMPLOYEE]  EMP4 ON [OPERATOR]=EMP4.ID&#13;&#10;LEFT JOIN [TKMOC].[dbo].[MANUDEP] ON [MANUDEP].ID=[MOCOVEN].[MANUDEP]&#13;&#10;WHERE [MOCOVENDTAIL].[SOURCEID]=[MOCOVEN].[ID]&#13;&#10;AND CONVERT(varchar(100),[OVENDATE], 112)&gt;=@P1 AND CONVERT(varchar(100),[OVENDATE], 112)&lt;=@P2&#13;&#10;ORDER BY CONVERT(varchar(100),[OVENDATE], 112),[MANUDEP].[DEPNAME],[MB001]&#13;&#10;  &#13;&#10;  ">
+        <Column Name="日期" DataType="System.String"/>
+        <Column Name="組別" DataType="System.String"/>
+        <Column Name="預熱時間(起)" DataType="System.String"/>
+        <Column Name="預熱時間(迄)" DataType="System.String"/>
+        <Column Name="瓦斯磅數" DataType="System.String"/>
+        <Column Name="折疊人員1" DataType="System.String"/>
+        <Column Name="折疊人員2" DataType="System.String"/>
+        <Column Name="主管" DataType="System.String"/>
+        <Column Name="操作人員" DataType="System.String"/>
+        <Column Name="組別1" DataType="System.String"/>
+        <Column Name="品號" DataType="System.String"/>
+        <Column Name="品名" DataType="System.String"/>
+        <Column Name="規格" DataType="System.String"/>
+        <Column Name="溫度" DataType="System.String"/>
+        <Column Name="溼度" DataType="System.String"/>
+        <Column Name="天氣" DataType="System.String"/>
+        <Column Name="時間" DataType="System.String"/>
+        <Column Name="上爐1-1" DataType="System.String"/>
+        <Column Name="上爐2-1" DataType="System.String"/>
+        <Column Name="上爐3-1" DataType="System.String"/>
+        <Column Name="上爐4-1" DataType="System.String"/>
+        <Column Name="上爐5-1" DataType="System.String"/>
+        <Column Name="上爐1-2" DataType="System.String"/>
+        <Column Name="上爐2-2" DataType="System.String"/>
+        <Column Name="上爐3-2" DataType="System.String"/>
+        <Column Name="上爐4-2" DataType="System.String"/>
+        <Column Name="上爐5-2" DataType="System.String"/>
+        <Column Name="上爐1-3" DataType="System.String"/>
+        <Column Name="上爐2-3" DataType="System.String"/>
+        <Column Name="上爐3-3" DataType="System.String"/>
+        <Column Name="上爐4-3" DataType="System.String"/>
+        <Column Name="上爐5-3" DataType="System.String"/>
+        <Column Name="下爐1-1" DataType="System.String"/>
+        <Column Name="下爐2-1" DataType="System.String"/>
+        <Column Name="下爐3-1" DataType="System.String"/>
+        <Column Name="下爐4-1" DataType="System.String"/>
+        <Column Name="下爐5-1" DataType="System.String"/>
+        <Column Name="下爐1-2" DataType="System.String"/>
+        <Column Name="下爐2-2" DataType="System.String"/>
+        <Column Name="下爐3-2" DataType="System.String"/>
+        <Column Name="下爐4-2" DataType="System.String"/>
+        <Column Name="下爐5-2" DataType="System.String"/>
+        <Column Name="下爐1-3" DataType="System.String"/>
+        <Column Name="下爐2-3" DataType="System.String"/>
+        <Column Name="下爐3-3" DataType="System.String"/>
+        <Column Name="下爐4-3" DataType="System.String"/>
+        <Column Name="下爐5-3" DataType="System.String"/>
+        <Column Name="ID" DataType="System.Guid"/>
+        <Column Name="SOURCEID" DataType="System.Guid"/>
+        <CommandParameter Name="P1" DataType="12" Expression="[P1]" DefaultValue="20170801"/>
+        <CommandParameter Name="P2" DataType="12" Expression="[P2]" DefaultValue="20170831"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="P1" DataType="System.String"/>
+    <Parameter Name="P2" DataType="System.String"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="1200" PaperHeight="210">
+    <ReportTitleBand Name="ReportTitle1" Width="4460.4" Height="37.8">
+      <TextObject Name="Text93" Width="4347" Height="37.8" Text="烤爐溫度明細表" HorzAlign="Center" VertAlign="Center"/>
+    </ReportTitleBand>
+    <DataBand Name="Data1" Top="70.99" Width="4460.4" Height="18.9" CanGrow="true" DataSource="Table">
+      <TextObject Name="Text1" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.日期]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text3" Left="66.15" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.組別]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text5" Left="132.3" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.預熱時間(起)]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text7" Left="226.8" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.預熱時間(迄)]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text9" Left="321.3" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.瓦斯磅數]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text11" Left="415.8" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.折疊人員1]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text13" Left="510.3" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.折疊人員2]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text15" Left="604.8" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.主管]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text17" Left="699.3" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.操作人員]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text19" Left="793.8" Width="113.4" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.品號]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text21" Left="907.2" Width="132.3" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.品名]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text23" Left="1039.5" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.規格]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text25" Left="1134" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.溫度]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text27" Left="1228.5" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.溼度]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text29" Left="1323" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.天氣]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text31" Left="1417.5" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.時間]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text33" Left="1512" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.上爐1-1]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text35" Left="1606.5" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.上爐2-1]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text37" Left="1701" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.上爐3-1]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text39" Left="1795.5" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.上爐4-1]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text41" Left="1890" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.上爐5-1]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text43" Left="1984.5" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.上爐1-2]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text45" Left="2079" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.上爐2-2]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text47" Left="2173.5" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.上爐3-2]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text49" Left="2268" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.上爐4-2]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text51" Left="2362.5" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.上爐5-2]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text53" Left="2457" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.上爐1-3]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text55" Left="2551.5" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.上爐2-3]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text57" Left="2646" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.上爐3-3]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text59" Left="2740.5" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.上爐4-3]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text61" Left="2835" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.上爐5-3]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text63" Left="2929.5" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.下爐1-1]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text65" Left="3024" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.下爐2-1]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text67" Left="3118.5" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.下爐3-1]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text69" Left="3213" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.下爐4-1]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text71" Left="3307.5" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.下爐5-1]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text73" Left="3402" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.下爐1-2]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text75" Left="3496.5" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.下爐2-2]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text77" Left="3591" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.下爐3-2]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text79" Left="3685.5" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.下爐4-2]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text81" Left="3780" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.下爐5-2]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text83" Left="3874.5" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.下爐1-3]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text85" Left="3969" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.下爐2-3]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text87" Left="4063.5" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.下爐3-3]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text89" Left="4158" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.下爐4-3]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text91" Left="4252.5" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCOVENDTAIL.下爐5-3]" HorzAlign="Center" VertAlign="Center"/>
+      <DataHeaderBand Name="DataHeader1" Top="44.94" Width="4460.4" Height="18.9">
+        <TextObject Name="Text2" Width="66.15" Height="18.9" Border.Lines="All" Text="日期" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text4" Left="66.15" Width="66.15" Height="18.9" Border.Lines="All" Text="組別" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text6" Left="132.3" Width="94.5" Height="18.9" Border.Lines="All" Text="預熱時間(起)" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text8" Left="226.8" Width="94.5" Height="18.9" Border.Lines="All" Text="預熱時間(迄)" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text10" Left="321.3" Width="94.5" Height="18.9" Border.Lines="All" Text="瓦斯磅數" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text12" Left="415.8" Width="94.5" Height="18.9" Border.Lines="All" Text="折疊人員1" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text14" Left="510.3" Width="94.5" Height="18.9" Border.Lines="All" Text="折疊人員2" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text16" Left="604.8" Width="94.5" Height="18.9" Border.Lines="All" Text="主管" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text18" Left="699.3" Width="94.5" Height="18.9" Border.Lines="All" Text="操作人員" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text20" Left="793.8" Width="113.4" Height="18.9" Border.Lines="All" Text="品號" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text22" Left="907.2" Width="132.3" Height="18.9" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text24" Left="1039.5" Width="94.5" Height="18.9" Border.Lines="All" Text="規格" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text26" Left="1134" Width="94.5" Height="18.9" Border.Lines="All" Text="溫度" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text28" Left="1228.5" Width="94.5" Height="18.9" Border.Lines="All" Text="溼度" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text30" Left="1323" Width="94.5" Height="18.9" Border.Lines="All" Text="天氣" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text32" Left="1417.5" Width="94.5" Height="18.9" Border.Lines="All" Text="時間" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text34" Left="1512" Width="94.5" Height="18.9" Border.Lines="All" Text="上爐1-1" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text36" Left="1606.5" Width="94.5" Height="18.9" Border.Lines="All" Text="上爐2-1" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text38" Left="1701" Width="94.5" Height="18.9" Border.Lines="All" Text="上爐3-1" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text40" Left="1795.5" Width="94.5" Height="18.9" Border.Lines="All" Text="上爐4-1" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text42" Left="1890" Width="94.5" Height="18.9" Border.Lines="All" Text="上爐5-1" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text44" Left="1984.5" Width="94.5" Height="18.9" Border.Lines="All" Text="上爐1-2" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text46" Left="2079" Width="94.5" Height="18.9" Border.Lines="All" Text="上爐2-2" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text48" Left="2173.5" Width="94.5" Height="18.9" Border.Lines="All" Text="上爐3-2" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text50" Left="2268" Width="94.5" Height="18.9" Border.Lines="All" Text="上爐4-2" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text52" Left="2362.5" Width="94.5" Height="18.9" Border.Lines="All" Text="上爐5-2" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text54" Left="2457" Width="94.5" Height="18.9" Border.Lines="All" Text="上爐1-3" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text56" Left="2551.5" Width="94.5" Height="18.9" Border.Lines="All" Text="上爐2-3" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text58" Left="2646" Width="94.5" Height="18.9" Border.Lines="All" Text="上爐3-3" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text60" Left="2740.5" Width="94.5" Height="18.9" Border.Lines="All" Text="上爐4-3" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text62" Left="2835" Width="94.5" Height="18.9" Border.Lines="All" Text="上爐5-3" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text64" Left="2929.5" Width="94.5" Height="18.9" Border.Lines="All" Text="下爐1-1" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text66" Left="3024" Width="94.5" Height="18.9" Border.Lines="All" Text="下爐2-1" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text68" Left="3118.5" Width="94.5" Height="18.9" Border.Lines="All" Text="下爐3-1" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text70" Left="3213" Width="94.5" Height="18.9" Border.Lines="All" Text="下爐4-1" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text72" Left="3307.5" Width="94.5" Height="18.9" Border.Lines="All" Text="下爐5-1" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text74" Left="3402" Width="94.5" Height="18.9" Border.Lines="All" Text="下爐1-2" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text76" Left="3496.5" Width="94.5" Height="18.9" Border.Lines="All" Text="下爐2-2" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text78" Left="3591" Width="94.5" Height="18.9" Border.Lines="All" Text="下爐3-2" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text80" Left="3685.5" Width="94.5" Height="18.9" Border.Lines="All" Text="下爐4-2" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text82" Left="3780" Width="94.5" Height="18.9" Border.Lines="All" Text="下爐5-2" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text84" Left="3874.5" Width="94.5" Height="18.9" Border.Lines="All" Text="下爐1-3" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text86" Left="3969" Width="94.5" Height="18.9" Border.Lines="All" Text="下爐2-3" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text88" Left="4063.5" Width="94.5" Height="18.9" Border.Lines="All" Text="下爐3-3" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text90" Left="4158" Width="94.5" Height="18.9" Border.Lines="All" Text="下爐4-3" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text92" Left="4252.5" Width="94.5" Height="18.9" Border.Lines="All" Text="下爐5-3" HorzAlign="Center" VertAlign="Center"/>
+      </DataHeaderBand>
+    </DataBand>
+  </ReportPage>
+</Report>

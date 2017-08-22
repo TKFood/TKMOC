@@ -433,6 +433,7 @@
     <None Include="REPORT\手工生產日報表.frx" />
     <None Include="REPORT\烘培檢驗日報表.frx" />
     <None Include="REPORT\烘烤製程記錄.frx" />
+    <None Include="REPORT\烤爐溫度明細表.frx" />
     <None Include="REPORT\生產日報的分析表.frx" />
     <None Include="REPORT\生產日報的月份分析表.frx" />
     <None Include="REPORT\生產日報表明細表.frx" />
