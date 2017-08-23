@@ -45,7 +45,11 @@ namespace TKMOC
             InitializeComponent();
         }
 
+        private void frmMOCReport_Load(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabPage2;
 
+        }
         #region FUNCTION
         public void Search()
         {
@@ -1101,8 +1105,9 @@ namespace TKMOC
             SETFASTREPORT();
         }
 
+
         #endregion
 
-
+     
     }
 }
