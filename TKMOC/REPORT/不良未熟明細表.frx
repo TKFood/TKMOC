@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="08/23/2017 09:39:57" ReportInfo.Modified="08/23/2017 09:44:11" ReportInfo.CreatorVersion="2016.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9J4yIPahmHiFjAju0nMiXbL">
+      <TableDataSource Name="Table" Alias="TBNGNOBURNMD" DataType="System.Int32" Enabled="true" SelectCommand="SELECT  [MAINDATE] AS '日期',CONVERT(varchar(100),[MAINTIME],8) AS '時間',[MB002] AS '品名',[NUM] AS '未熟餅',[COOKTIME] AS '烤培時間',[NGNUM] AS '不良品報廢',[MAIN] AS '線別',[MB001] AS '品號',[TARGETPROTA001] AS '單別',[TARGETPROTA002] AS '單號'&#13;&#10;FROM [TKCIM].[dbo].[NGNOBURNMD]&#13;&#10;WHERE [MAINDATE]&gt;=@P1 AND [MAINDATE]&lt;=@P2&#13;&#10;ORDER BY CONVERT(NVARCHAR,[MAINDATE],112), CONVERT(varchar(100),[MAINTIME],8) ">
+        <Column Name="日期" DataType="System.DateTime"/>
+        <Column Name="時間" DataType="System.String"/>
+        <Column Name="品名" DataType="System.String"/>
+        <Column Name="未熟餅" DataType="System.Decimal"/>
+        <Column Name="烤培時間" DataType="System.Int32"/>
+        <Column Name="不良品報廢" DataType="System.Decimal"/>
+        <Column Name="線別" DataType="System.String"/>
+        <Column Name="品號" DataType="System.String"/>
+        <Column Name="單別" DataType="System.String"/>
+        <Column Name="單號" DataType="System.String"/>
+        <CommandParameter Name="P1" DataType="12" Expression="[P1]" DefaultValue="20170801"/>
+        <CommandParameter Name="P2" DataType="12" Expression="[P2]" DefaultValue="20170831"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="P1" DataType="System.String"/>
+    <Parameter Name="P2" DataType="System.String"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" RawPaperSize="9">
+    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="37.8">
+      <TextObject Name="Text21" Width="1030.05" Height="18.9" Text="不良未熟明細表" HorzAlign="Center" VertAlign="Center"/>
+    </ReportTitleBand>
+    <DataBand Name="Data1" Top="69.6" Width="1047.06" Height="18.9" CanGrow="true" DataSource="Table">
+      <TextObject Name="Text1" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBNGNOBURNMD.日期]" Format="Date" Format.Format="d" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text3" Left="94.5" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBNGNOBURNMD.時間]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text5" Left="189" Width="132.3" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBNGNOBURNMD.品名]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text7" Left="321.3" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBNGNOBURNMD.未熟餅]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text9" Left="415.8" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBNGNOBURNMD.烤培時間]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text11" Left="510.3" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBNGNOBURNMD.不良品報廢]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text13" Left="604.8" Width="103.95" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBNGNOBURNMD.線別]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text15" Left="708.75" Width="132.3" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBNGNOBURNMD.品號]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text17" Left="841.05" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBNGNOBURNMD.單別]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text19" Left="935.55" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBNGNOBURNMD.單號]" HorzAlign="Center" VertAlign="Center"/>
+      <DataHeaderBand Name="DataHeader1" Top="44.25" Width="1047.06" Height="18.9">
+        <TextObject Name="Text2" Width="94.5" Height="18.9" Border.Lines="All" Text="日期" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text4" Left="94.5" Width="94.5" Height="18.9" Border.Lines="All" Text="時間" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text6" Left="189" Width="132.3" Height="18.9" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text8" Left="321.3" Width="94.5" Height="18.9" Border.Lines="All" Text="未熟餅" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text10" Left="415.8" Width="94.5" Height="18.9" Border.Lines="All" Text="烤培時間" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text12" Left="510.3" Width="94.5" Height="18.9" Border.Lines="All" Text="不良品報廢" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text14" Left="604.8" Width="103.95" Height="18.9" Border.Lines="All" Text="線別" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text16" Left="708.75" Width="132.3" Height="18.9" Border.Lines="All" Text="品號" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text18" Left="841.05" Width="94.5" Height="18.9" Border.Lines="All" Text="單別" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text20" Left="935.55" Width="94.5" Height="18.9" Border.Lines="All" Text="單號" HorzAlign="Center" VertAlign="Center"/>
+      </DataHeaderBand>
+    </DataBand>
+  </ReportPage>
+</Report>

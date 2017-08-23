@@ -427,6 +427,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <None Include="REPORT\TEST1.frx" />
+    <None Include="REPORT\不良品餅乾報廢明細表.frx" />
+    <None Include="REPORT\不良未熟明細表.frx" />
     <None Include="REPORT\不良邊料明細表.frx" />
     <None Include="REPORT\不良餅麩明細表.frx" />
     <None Include="REPORT\包裝班檢驗表.frx" />

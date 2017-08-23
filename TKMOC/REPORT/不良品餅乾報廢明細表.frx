@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="08/23/2017 09:12:54" ReportInfo.Modified="08/23/2017 09:52:28" ReportInfo.CreatorVersion="2016.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9K5a8dIWYl6vQtOzCYtR17p">
+      <TableDataSource Name="Table1" Alias="TBNGSCRAPPEDMD" DataType="System.Int32" Enabled="true" SelectCommand="SELECT [MAIN] AS '線別',CONVERT(varchar(100),[MAINDATE], 112) AS '日期',[DAMAGEDCOOKIES] AS '破損餅乾(kg)',[LANDCOOKIES] AS '落地餅乾(kg)',[SCRAPCOOKIES]  AS '餅乾屑(kg)',[ID]&#13;&#10;FROM [TKCIM].[dbo].[NGSCRAPPEDMD]&#13;&#10;WHERE [MAINDATE]&gt;=@P1 AND [MAINDATE]&lt;=@P2&#13;&#10;ORDER BY LEN([MAIN]),[MAIN], CONVERT(NVARCHAR,[MAINDATE],112) ">
+        <Column Name="線別" DataType="System.String"/>
+        <Column Name="日期" DataType="System.String"/>
+        <Column Name="破損餅乾(kg)" DataType="System.Decimal"/>
+        <Column Name="落地餅乾(kg)" DataType="System.Decimal"/>
+        <Column Name="餅乾屑(kg)" DataType="System.Decimal"/>
+        <Column Name="ID" DataType="System.Guid"/>
+        <CommandParameter Name="P1" DataType="12" Expression="[P1]" DefaultValue="20170801"/>
+        <CommandParameter Name="P2" DataType="12" Expression="[P2]" DefaultValue="20170823"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="P1" DataType="System.String"/>
+    <Parameter Name="P2" DataType="System.String"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" RawPaperSize="9">
+    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="18.9">
+      <TextObject Name="Text13" Left="-9450" Top="-9450" Width="94.5" Height="18.9" Border.Lines="All" Text="線別" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text14" Width="1039.5" Height="18.9" Text="不良品餅乾報廢明細表" HorzAlign="Center" VertAlign="Center"/>
+    </ReportTitleBand>
+    <DataBand Name="Data1" Top="50.7" Width="1047.06" Height="18.9">
+      <TextObject Name="Text1" Width="141.75" Height="18.9" Border.Lines="All" Text="[TBNGSCRAPPEDMD.線別]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text3" Left="141.75" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBNGSCRAPPEDMD.日期]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text5" Left="236.25" Width="151.2" Height="18.9" Border.Lines="All" Text="[TBNGSCRAPPEDMD.破損餅乾(kg)]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text7" Left="387.45" Width="151.2" Height="18.9" Border.Lines="All" Text="[TBNGSCRAPPEDMD.落地餅乾(kg)]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text9" Left="538.65" Width="151.2" Height="18.9" Border.Lines="All" Text="[TBNGSCRAPPEDMD.餅乾屑(kg)]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text11" Left="689.85" Width="349.65" Height="18.9" Border.Lines="All" Text="[TBNGSCRAPPEDMD.ID]" HorzAlign="Center" VertAlign="Center"/>
+      <DataHeaderBand Name="DataHeader1" Top="25.35" Width="1047.06" Height="18.9">
+        <TextObject Name="Text2" Width="141.75" Height="18.9" Border.Lines="All" Text="線別" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text4" Left="141.75" Width="94.5" Height="18.9" Border.Lines="All" Text="日期" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text6" Left="236.25" Width="151.2" Height="18.9" Border.Lines="All" Text="破損餅乾(kg)" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text8" Left="387.45" Width="151.2" Height="18.9" Border.Lines="All" Text="落地餅乾(kg)" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text10" Left="538.65" Width="151.2" Height="18.9" Border.Lines="All" Text="餅乾屑(kg)" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text12" Left="689.85" Width="349.65" Height="18.9" Border.Lines="All" Text="ID" HorzAlign="Center" VertAlign="Center"/>
+      </DataHeaderBand>
+    </DataBand>
+  </ReportPage>
+</Report>
