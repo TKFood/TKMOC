@@ -431,6 +431,7 @@
     <None Include="REPORT\不良未熟明細表.frx" />
     <None Include="REPORT\不良邊料明細表.frx" />
     <None Include="REPORT\不良餅麩明細表.frx" />
+    <None Include="REPORT\出爐餅溫量測記錄表.frx" />
     <None Include="REPORT\包裝班檢驗表.frx" />
     <None Include="REPORT\包裝組-生產日報表.frx" />
     <None Include="REPORT\報廢記錄.frx" />

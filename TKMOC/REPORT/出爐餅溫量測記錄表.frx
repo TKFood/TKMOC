@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="08/23/2017 09:53:52" ReportInfo.Modified="08/23/2017 10:40:28" ReportInfo.CreatorVersion="2016.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9KhGLiuVvxChTLmKckl6wa9">
+      <TableDataSource Name="Table" Alias="TBCHECKBAKEDTEMPM" DataType="System.Int32" Enabled="true" SelectCommand="SELECT [MB002] AS '品名',CONVERT(NVARCHAR,[CHECKTIME],8) AS '時間',[TEMP] AS '溫度',[OWNER] AS '檢測員',[MANAGER] AS '主管',[MAIN] AS '線別',CONVERT(NVARCHAR,[MAINDATE],112)AS '日期',[TARGETPROTA001] AS '單別',[TARGETPROTA002] AS '單號',[MB001] AS '品號',[ID] &#13;&#10;FROM [TKCIM].[dbo].[CHECKBAKEDTEMPM]&#13;&#10;WHERE CONVERT(NVARCHAR,[MAINDATE],112)&gt;=@P1 AND CONVERT(NVARCHAR,[MAINDATE],112)&lt;=@P2&#13;&#10;ORDER BY [MAIN],CONVERT(NVARCHAR,[MAINDATE],112),CONVERT(NVARCHAR,[CHECKTIME],8)&#13;&#10;              ">
+        <Column Name="品名" DataType="System.String"/>
+        <Column Name="時間" DataType="System.String"/>
+        <Column Name="溫度" DataType="System.Decimal"/>
+        <Column Name="檢測員" DataType="System.String"/>
+        <Column Name="主管" DataType="System.String"/>
+        <Column Name="線別" DataType="System.String"/>
+        <Column Name="日期" DataType="System.String"/>
+        <Column Name="單別" DataType="System.String"/>
+        <Column Name="單號" DataType="System.String"/>
+        <Column Name="品號" DataType="System.String"/>
+        <Column Name="ID" DataType="System.Guid"/>
+        <CommandParameter Name="P1" DataType="12" Expression="[P1]" DefaultValue="20170801"/>
+        <CommandParameter Name="P2" DataType="12" Expression="[P2]" DefaultValue="20170831"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="P1" DataType="System.String"/>
+    <Parameter Name="P2" DataType="System.String"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" RawPaperSize="9">
+    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="18.9">
+      <TextObject Name="Text21" Width="1039.5" Height="18.9" Text="出爐餅溫量測記錄表" HorzAlign="Center" VertAlign="Center"/>
+    </ReportTitleBand>
+    <DataBand Name="Data1" Top="50.7" Width="1047.06" Height="18.9" DataSource="Table">
+      <TextObject Name="Text1" Left="94.5" Width="170.1" Height="18.9" Border.Lines="All" Text="[TBCHECKBAKEDTEMPM.品名]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text3" Left="264.6" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBCHECKBAKEDTEMPM.時間]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text5" Left="359.1" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBCHECKBAKEDTEMPM.溫度]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text7" Left="453.6" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBCHECKBAKEDTEMPM.檢測員]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text9" Left="670.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBCHECKBAKEDTEMPM.主管]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text13" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBCHECKBAKEDTEMPM.日期]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text15" Left="765.45" Width="66.15" Height="18.9" Border.Lines="All" Text="[TBCHECKBAKEDTEMPM.單別]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text17" Left="831.6" Width="94.5" Height="18.9" Border.Lines="All" Text="[TBCHECKBAKEDTEMPM.單號]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text19" Left="926.1" Width="113.4" Height="18.9" Border.Lines="All" Text="[TBCHECKBAKEDTEMPM.品號]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text11" Left="548.1" Width="122.85" Height="18.9" Border.Lines="All" Text="[TBCHECKBAKEDTEMPM.線別]" HorzAlign="Center" VertAlign="Center"/>
+      <DataHeaderBand Name="DataHeader1" Top="25.35" Width="1047.06" Height="18.9">
+        <TextObject Name="Text2" Left="94.5" Width="170.1" Height="18.9" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text4" Left="264.6" Width="94.5" Height="18.9" Border.Lines="All" Text="時間" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text6" Left="359.1" Width="94.5" Height="18.9" Border.Lines="All" Text="溫度" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text8" Left="453.6" Width="94.5" Height="18.9" Border.Lines="All" Text="檢測員" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text10" Left="670.95" Width="94.5" Height="18.9" Border.Lines="All" Text="主管" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text14" Width="94.5" Height="18.9" Border.Lines="All" Text="日期" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text16" Left="765.45" Width="66.15" Height="18.9" Border.Lines="All" Text="單別" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text18" Left="831.6" Width="94.5" Height="18.9" Border.Lines="All" Text="單號" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text20" Left="926.1" Width="113.4" Height="18.9" Border.Lines="All" Text="品號" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text12" Left="548.1" Width="122.85" Height="18.9" Border.Lines="All" Text="線別" HorzAlign="Center" VertAlign="Center"/>
+      </DataHeaderBand>
+    </DataBand>
+  </ReportPage>
+</Report>
