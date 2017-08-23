@@ -1023,6 +1023,28 @@ namespace TKMOC
                 //report1.Load(@"REPORT\TEST1.frx");
 
             }
+            else if (comboBox2.Text.Equals("不良餅麩明細表"))
+            {
+                report1 = new Report();
+                report1.Load(@"REPORT\不良餅麩明細表.frx");
+
+                report1.SetParameterValue("P1", dateTimePicker3.Value.ToString("yyyyMMdd"));
+                report1.SetParameterValue("P2", dateTimePicker4.Value.ToString("yyyyMMdd"));
+
+                //report1.Load(@"REPORT\TEST1.frx");
+
+            }
+            else if (comboBox2.Text.Equals("不良邊料明細表"))
+            {
+                report1 = new Report();
+                report1.Load(@"REPORT\不良邊料明細表.frx");
+
+                report1.SetParameterValue("P1", dateTimePicker3.Value.ToString("yyyyMMdd"));
+                report1.SetParameterValue("P2", dateTimePicker4.Value.ToString("yyyyMMdd"));
+
+                //report1.Load(@"REPORT\TEST1.frx");
+
+            }
 
 
 
