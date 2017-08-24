@@ -2193,9 +2193,22 @@ namespace TKMOC
             return STR;
 
         }
+
+        private void dataGridView6_SelectionChanged(object sender, EventArgs e)
+        {
+           
+            if (dataGridView6.Rows.Count >= 1)
+            {
+                MACHINEID = dataGridView6.CurrentRow.Cells["ID"].Value.ToString();
+            }
+            else
+            {
+                MACHINEID = null;
+            }
+        }
         #endregion
 
-            #region BUTTION
+        #region BUTTION
         private void button1_Click(object sender, EventArgs e)
         {
             Search();
@@ -2482,8 +2495,9 @@ namespace TKMOC
             SEARCHREPORT();
         }
 
+
         #endregion
 
-
+        
     }
 }
