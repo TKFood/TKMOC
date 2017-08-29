@@ -46,6 +46,16 @@ namespace TKMOC
             tableLayoutPanel1.AutoScrollMinSize = new Size(1000, 700);
         }
 
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Enter)
+            {
+                SendKeys.Send("{TAB}");
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
         #region FUNCTION
         public void Search()
         {
@@ -1112,15 +1122,7 @@ namespace TKMOC
             CalMANULOST();
             CalPCT();
         }
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-            if (keyData == Keys.Enter)
-            {
-                SendKeys.Send("{TAB}");
-                return true;
-            }
-            return base.ProcessCmdKey(ref msg, keyData);
-        }
+        
 
         private void textBox3_TextChanged(object sender, EventArgs e)
         {

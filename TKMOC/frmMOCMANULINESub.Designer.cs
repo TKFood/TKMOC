@@ -135,7 +135,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(716, 318);
-            this.tableLayoutPanel1.TabIndex = 0;
+            this.tableLayoutPanel1.TabIndex = 109;
             // 
             // button2
             // 
@@ -155,7 +155,7 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
             this.textBox2.Size = new System.Drawing.Size(114, 27);
-            this.textBox2.TabIndex = 11;
+            this.textBox2.TabIndex = 102;
             // 
             // label1
             // 
@@ -286,7 +286,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(114, 27);
-            this.textBox1.TabIndex = 10;
+            this.textBox1.TabIndex = 101;
             // 
             // textBox3
             // 
@@ -295,7 +295,7 @@
             this.textBox3.Name = "textBox3";
             this.textBox3.ReadOnly = true;
             this.textBox3.Size = new System.Drawing.Size(114, 27);
-            this.textBox3.TabIndex = 12;
+            this.textBox3.TabIndex = 103;
             // 
             // textBox4
             // 
@@ -304,7 +304,7 @@
             this.textBox4.Name = "textBox4";
             this.textBox4.ReadOnly = true;
             this.textBox4.Size = new System.Drawing.Size(114, 27);
-            this.textBox4.TabIndex = 13;
+            this.textBox4.TabIndex = 105;
             // 
             // textBox5
             // 
@@ -312,7 +312,7 @@
             this.textBox5.Location = new System.Drawing.Point(363, 86);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(114, 27);
-            this.textBox5.TabIndex = 14;
+            this.textBox5.TabIndex = 106;
             // 
             // textBox6
             // 
@@ -321,7 +321,7 @@
             this.textBox6.Name = "textBox6";
             this.textBox6.ReadOnly = true;
             this.textBox6.Size = new System.Drawing.Size(114, 27);
-            this.textBox6.TabIndex = 15;
+            this.textBox6.TabIndex = 107;
             this.textBox6.Text = "0";
             // 
             // textBox7
@@ -330,7 +330,7 @@
             this.textBox7.Location = new System.Drawing.Point(363, 126);
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new System.Drawing.Size(114, 27);
-            this.textBox7.TabIndex = 16;
+            this.textBox7.TabIndex = 108;
             this.textBox7.Text = "0";
             this.textBox7.TextChanged += new System.EventHandler(this.textBox7_TextChanged);
             // 
@@ -350,7 +350,7 @@
             this.textBox9.Location = new System.Drawing.Point(363, 166);
             this.textBox9.Name = "textBox9";
             this.textBox9.Size = new System.Drawing.Size(114, 27);
-            this.textBox9.TabIndex = 18;
+            this.textBox9.TabIndex = 110;
             this.textBox9.Text = "0";
             this.textBox9.TextChanged += new System.EventHandler(this.textBox9_TextChanged);
             // 
@@ -361,7 +361,7 @@
             this.textBox10.Name = "textBox10";
             this.textBox10.ReadOnly = true;
             this.textBox10.Size = new System.Drawing.Size(114, 27);
-            this.textBox10.TabIndex = 19;
+            this.textBox10.TabIndex = 111;
             // 
             // textBoxID
             // 
@@ -403,7 +403,7 @@
             this.textBox32.Name = "textBox32";
             this.textBox32.ReadOnly = true;
             this.textBox32.Size = new System.Drawing.Size(114, 27);
-            this.textBox32.TabIndex = 25;
+            this.textBox32.TabIndex = 104;
             // 
             // label46
             // 

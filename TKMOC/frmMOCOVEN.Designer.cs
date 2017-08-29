@@ -164,8 +164,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer3);
-            this.splitContainer1.Size = new System.Drawing.Size(984, 741);
-            this.splitContainer1.SplitterDistance = 188;
+            this.splitContainer1.Size = new System.Drawing.Size(984, 739);
+            this.splitContainer1.SplitterDistance = 187;
             this.splitContainer1.TabIndex = 0;
             // 
             // splitContainer2
@@ -182,7 +182,7 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.tableLayoutPanel1);
-            this.splitContainer2.Size = new System.Drawing.Size(984, 188);
+            this.splitContainer2.Size = new System.Drawing.Size(984, 187);
             this.splitContainer2.SplitterDistance = 461;
             this.splitContainer2.TabIndex = 0;
             // 
@@ -201,8 +201,8 @@
             // splitContainer4.Panel2
             // 
             this.splitContainer4.Panel2.Controls.Add(this.dataGridView1);
-            this.splitContainer4.Size = new System.Drawing.Size(461, 188);
-            this.splitContainer4.SplitterDistance = 40;
+            this.splitContainer4.Size = new System.Drawing.Size(461, 187);
+            this.splitContainer4.SplitterDistance = 39;
             this.splitContainer4.TabIndex = 0;
             // 
             // tableLayoutPanel3
@@ -219,7 +219,7 @@
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(457, 36);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(457, 35);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
             // dateTimePicker4
@@ -227,7 +227,7 @@
             this.dateTimePicker4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.dateTimePicker4.CustomFormat = "yyyy/MM/dd";
             this.dateTimePicker4.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker4.Location = new System.Drawing.Point(3, 7);
+            this.dateTimePicker4.Location = new System.Drawing.Point(3, 6);
             this.dateTimePicker4.Name = "dateTimePicker4";
             this.dateTimePicker4.Size = new System.Drawing.Size(222, 22);
             this.dateTimePicker4.TabIndex = 23;
@@ -237,7 +237,7 @@
             this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.button4.Location = new System.Drawing.Point(231, 3);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(223, 30);
+            this.button4.Size = new System.Drawing.Size(223, 29);
             this.button4.TabIndex = 24;
             this.button4.Text = "查詢";
             this.button4.UseVisualStyleBackColor = true;
@@ -299,7 +299,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(515, 184);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(515, 183);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // label7
@@ -321,7 +321,7 @@
             this.dateTimePicker1.Location = new System.Drawing.Point(83, 34);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(74, 22);
-            this.dateTimePicker1.TabIndex = 11;
+            this.dateTimePicker1.TabIndex = 101;
             // 
             // button1
             // 
@@ -373,7 +373,7 @@
             this.comboBox1.Location = new System.Drawing.Point(243, 35);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(154, 20);
-            this.comboBox1.TabIndex = 12;
+            this.comboBox1.TabIndex = 111;
             // 
             // label2
             // 
@@ -395,7 +395,7 @@
             this.dateTimePicker2.Location = new System.Drawing.Point(83, 64);
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.Size = new System.Drawing.Size(74, 22);
-            this.dateTimePicker2.TabIndex = 13;
+            this.dateTimePicker2.TabIndex = 112;
             // 
             // label4
             // 
@@ -416,7 +416,7 @@
             this.comboBox2.Location = new System.Drawing.Point(83, 95);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(74, 20);
-            this.comboBox2.TabIndex = 17;
+            this.comboBox2.TabIndex = 115;
             // 
             // label9
             // 
@@ -438,7 +438,7 @@
             this.dateTimePicker3.Location = new System.Drawing.Point(243, 64);
             this.dateTimePicker3.Name = "dateTimePicker3";
             this.dateTimePicker3.Size = new System.Drawing.Size(74, 22);
-            this.dateTimePicker3.TabIndex = 14;
+            this.dateTimePicker3.TabIndex = 113;
             // 
             // label3
             // 
@@ -458,7 +458,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(74, 22);
-            this.textBox1.TabIndex = 16;
+            this.textBox1.TabIndex = 114;
             // 
             // comboBox3
             // 
@@ -468,7 +468,7 @@
             this.comboBox3.Location = new System.Drawing.Point(163, 95);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(74, 20);
-            this.comboBox3.TabIndex = 18;
+            this.comboBox3.TabIndex = 116;
             // 
             // comboBox4
             // 
@@ -478,7 +478,7 @@
             this.comboBox4.Location = new System.Drawing.Point(83, 125);
             this.comboBox4.Name = "comboBox4";
             this.comboBox4.Size = new System.Drawing.Size(74, 20);
-            this.comboBox4.TabIndex = 19;
+            this.comboBox4.TabIndex = 117;
             // 
             // label6
             // 
@@ -499,7 +499,7 @@
             this.comboBox5.Location = new System.Drawing.Point(243, 125);
             this.comboBox5.Name = "comboBox5";
             this.comboBox5.Size = new System.Drawing.Size(74, 20);
-            this.comboBox5.TabIndex = 20;
+            this.comboBox5.TabIndex = 118;
             // 
             // label5
             // 
@@ -516,7 +516,7 @@
             // 
             this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(3, 161);
+            this.label8.Location = new System.Drawing.Point(3, 160);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(74, 12);
             this.label8.TabIndex = 10;
@@ -527,7 +527,7 @@
             // 
             this.textBoxID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.SetColumnSpan(this.textBoxID, 3);
-            this.textBoxID.Location = new System.Drawing.Point(83, 156);
+            this.textBoxID.Location = new System.Drawing.Point(83, 155);
             this.textBoxID.Name = "textBoxID";
             this.textBoxID.ReadOnly = true;
             this.textBoxID.Size = new System.Drawing.Size(234, 22);
@@ -548,8 +548,8 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.tableLayoutPanel2);
-            this.splitContainer3.Size = new System.Drawing.Size(984, 549);
-            this.splitContainer3.SplitterDistance = 113;
+            this.splitContainer3.Size = new System.Drawing.Size(984, 548);
+            this.splitContainer3.SplitterDistance = 112;
             this.splitContainer3.TabIndex = 0;
             // 
             // dataGridView2
@@ -561,7 +561,7 @@
             this.dataGridView2.Location = new System.Drawing.Point(0, 0);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowTemplate.Height = 24;
-            this.dataGridView2.Size = new System.Drawing.Size(980, 109);
+            this.dataGridView2.Size = new System.Drawing.Size(980, 108);
             this.dataGridView2.TabIndex = 1;
             this.dataGridView2.SelectionChanged += new System.EventHandler(this.dataGridView2_SelectionChanged);
             // 
@@ -781,7 +781,7 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
             this.textBox2.Size = new System.Drawing.Size(74, 22);
-            this.textBox2.TabIndex = 42;
+            this.textBox2.TabIndex = 201;
             this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // textBox3
@@ -791,7 +791,7 @@
             this.textBox3.Name = "textBox3";
             this.textBox3.ReadOnly = true;
             this.textBox3.Size = new System.Drawing.Size(74, 22);
-            this.textBox3.TabIndex = 43;
+            this.textBox3.TabIndex = 202;
             // 
             // textBox4
             // 
@@ -800,7 +800,7 @@
             this.textBox4.Name = "textBox4";
             this.textBox4.ReadOnly = true;
             this.textBox4.Size = new System.Drawing.Size(74, 22);
-            this.textBox4.TabIndex = 44;
+            this.textBox4.TabIndex = 203;
             // 
             // textBox5
             // 
@@ -809,7 +809,7 @@
             this.textBox5.Name = "textBox5";
             this.textBox5.ReadOnly = true;
             this.textBox5.Size = new System.Drawing.Size(74, 22);
-            this.textBox5.TabIndex = 45;
+            this.textBox5.TabIndex = 204;
             // 
             // textBox6
             // 
@@ -818,7 +818,7 @@
             this.textBox6.Name = "textBox6";
             this.textBox6.ReadOnly = true;
             this.textBox6.Size = new System.Drawing.Size(74, 22);
-            this.textBox6.TabIndex = 46;
+            this.textBox6.TabIndex = 205;
             // 
             // dateTimePicker5
             // 
@@ -829,7 +829,7 @@
             this.dateTimePicker5.Location = new System.Drawing.Point(483, 41);
             this.dateTimePicker5.Name = "dateTimePicker5";
             this.dateTimePicker5.Size = new System.Drawing.Size(74, 22);
-            this.dateTimePicker5.TabIndex = 48;
+            this.dateTimePicker5.TabIndex = 207;
             // 
             // comboBox6
             // 
@@ -847,7 +847,7 @@
             this.comboBox6.Location = new System.Drawing.Point(403, 42);
             this.comboBox6.Name = "comboBox6";
             this.comboBox6.Size = new System.Drawing.Size(74, 20);
-            this.comboBox6.TabIndex = 47;
+            this.comboBox6.TabIndex = 506;
             this.comboBox6.Text = "晴";
             // 
             // textBoxDETAILID
@@ -1009,7 +1009,7 @@
             this.textBox16.Name = "textBox16";
             this.textBox16.ReadOnly = true;
             this.textBox16.Size = new System.Drawing.Size(74, 22);
-            this.textBox16.TabIndex = 58;
+            this.textBox16.TabIndex = 236;
             // 
             // textBox26
             // 
@@ -1018,7 +1018,7 @@
             this.textBox26.Name = "textBox26";
             this.textBox26.ReadOnly = true;
             this.textBox26.Size = new System.Drawing.Size(74, 22);
-            this.textBox26.TabIndex = 78;
+            this.textBox26.TabIndex = 237;
             // 
             // textBox36
             // 
@@ -1027,7 +1027,7 @@
             this.textBox36.Name = "textBox36";
             this.textBox36.ReadOnly = true;
             this.textBox36.Size = new System.Drawing.Size(74, 22);
-            this.textBox36.TabIndex = 88;
+            this.textBox36.TabIndex = 238;
             // 
             // textBox15
             // 
@@ -1036,7 +1036,7 @@
             this.textBox15.Name = "textBox15";
             this.textBox15.ReadOnly = true;
             this.textBox15.Size = new System.Drawing.Size(74, 22);
-            this.textBox15.TabIndex = 57;
+            this.textBox15.TabIndex = 232;
             // 
             // textBox25
             // 
@@ -1045,7 +1045,7 @@
             this.textBox25.Name = "textBox25";
             this.textBox25.ReadOnly = true;
             this.textBox25.Size = new System.Drawing.Size(74, 22);
-            this.textBox25.TabIndex = 77;
+            this.textBox25.TabIndex = 234;
             // 
             // textBox35
             // 
@@ -1054,7 +1054,7 @@
             this.textBox35.Name = "textBox35";
             this.textBox35.ReadOnly = true;
             this.textBox35.Size = new System.Drawing.Size(74, 22);
-            this.textBox35.TabIndex = 87;
+            this.textBox35.TabIndex = 234;
             // 
             // textBox14
             // 
@@ -1063,7 +1063,7 @@
             this.textBox14.Name = "textBox14";
             this.textBox14.ReadOnly = true;
             this.textBox14.Size = new System.Drawing.Size(74, 22);
-            this.textBox14.TabIndex = 56;
+            this.textBox14.TabIndex = 229;
             // 
             // textBox24
             // 
@@ -1072,7 +1072,7 @@
             this.textBox24.Name = "textBox24";
             this.textBox24.ReadOnly = true;
             this.textBox24.Size = new System.Drawing.Size(74, 22);
-            this.textBox24.TabIndex = 76;
+            this.textBox24.TabIndex = 230;
             // 
             // textBox34
             // 
@@ -1081,7 +1081,7 @@
             this.textBox34.Name = "textBox34";
             this.textBox34.ReadOnly = true;
             this.textBox34.Size = new System.Drawing.Size(74, 22);
-            this.textBox34.TabIndex = 86;
+            this.textBox34.TabIndex = 231;
             // 
             // textBox13
             // 
@@ -1090,7 +1090,7 @@
             this.textBox13.Name = "textBox13";
             this.textBox13.ReadOnly = true;
             this.textBox13.Size = new System.Drawing.Size(74, 22);
-            this.textBox13.TabIndex = 55;
+            this.textBox13.TabIndex = 226;
             // 
             // textBox23
             // 
@@ -1099,7 +1099,7 @@
             this.textBox23.Name = "textBox23";
             this.textBox23.ReadOnly = true;
             this.textBox23.Size = new System.Drawing.Size(74, 22);
-            this.textBox23.TabIndex = 75;
+            this.textBox23.TabIndex = 227;
             // 
             // textBox33
             // 
@@ -1108,7 +1108,7 @@
             this.textBox33.Name = "textBox33";
             this.textBox33.ReadOnly = true;
             this.textBox33.Size = new System.Drawing.Size(74, 22);
-            this.textBox33.TabIndex = 85;
+            this.textBox33.TabIndex = 228;
             // 
             // textBox12
             // 
@@ -1117,7 +1117,7 @@
             this.textBox12.Name = "textBox12";
             this.textBox12.ReadOnly = true;
             this.textBox12.Size = new System.Drawing.Size(74, 22);
-            this.textBox12.TabIndex = 54;
+            this.textBox12.TabIndex = 223;
             // 
             // textBox22
             // 
@@ -1126,7 +1126,7 @@
             this.textBox22.Name = "textBox22";
             this.textBox22.ReadOnly = true;
             this.textBox22.Size = new System.Drawing.Size(74, 22);
-            this.textBox22.TabIndex = 74;
+            this.textBox22.TabIndex = 224;
             // 
             // textBox32
             // 
@@ -1135,7 +1135,7 @@
             this.textBox32.Name = "textBox32";
             this.textBox32.ReadOnly = true;
             this.textBox32.Size = new System.Drawing.Size(74, 22);
-            this.textBox32.TabIndex = 84;
+            this.textBox32.TabIndex = 225;
             // 
             // textBox11
             // 
@@ -1144,7 +1144,7 @@
             this.textBox11.Name = "textBox11";
             this.textBox11.ReadOnly = true;
             this.textBox11.Size = new System.Drawing.Size(74, 22);
-            this.textBox11.TabIndex = 53;
+            this.textBox11.TabIndex = 220;
             // 
             // textBox21
             // 
@@ -1153,7 +1153,7 @@
             this.textBox21.Name = "textBox21";
             this.textBox21.ReadOnly = true;
             this.textBox21.Size = new System.Drawing.Size(74, 22);
-            this.textBox21.TabIndex = 73;
+            this.textBox21.TabIndex = 221;
             // 
             // textBox31
             // 
@@ -1162,7 +1162,7 @@
             this.textBox31.Name = "textBox31";
             this.textBox31.ReadOnly = true;
             this.textBox31.Size = new System.Drawing.Size(74, 22);
-            this.textBox31.TabIndex = 83;
+            this.textBox31.TabIndex = 222;
             // 
             // textBox10
             // 
@@ -1171,7 +1171,7 @@
             this.textBox10.Name = "textBox10";
             this.textBox10.ReadOnly = true;
             this.textBox10.Size = new System.Drawing.Size(74, 22);
-            this.textBox10.TabIndex = 52;
+            this.textBox10.TabIndex = 217;
             // 
             // textBox20
             // 
@@ -1180,7 +1180,7 @@
             this.textBox20.Name = "textBox20";
             this.textBox20.ReadOnly = true;
             this.textBox20.Size = new System.Drawing.Size(74, 22);
-            this.textBox20.TabIndex = 72;
+            this.textBox20.TabIndex = 218;
             // 
             // textBox30
             // 
@@ -1189,7 +1189,7 @@
             this.textBox30.Name = "textBox30";
             this.textBox30.ReadOnly = true;
             this.textBox30.Size = new System.Drawing.Size(74, 22);
-            this.textBox30.TabIndex = 82;
+            this.textBox30.TabIndex = 219;
             // 
             // textBox9
             // 
@@ -1198,7 +1198,7 @@
             this.textBox9.Name = "textBox9";
             this.textBox9.ReadOnly = true;
             this.textBox9.Size = new System.Drawing.Size(74, 22);
-            this.textBox9.TabIndex = 51;
+            this.textBox9.TabIndex = 214;
             // 
             // textBox19
             // 
@@ -1207,7 +1207,7 @@
             this.textBox19.Name = "textBox19";
             this.textBox19.ReadOnly = true;
             this.textBox19.Size = new System.Drawing.Size(74, 22);
-            this.textBox19.TabIndex = 71;
+            this.textBox19.TabIndex = 215;
             // 
             // textBox29
             // 
@@ -1216,7 +1216,7 @@
             this.textBox29.Name = "textBox29";
             this.textBox29.ReadOnly = true;
             this.textBox29.Size = new System.Drawing.Size(74, 22);
-            this.textBox29.TabIndex = 81;
+            this.textBox29.TabIndex = 216;
             // 
             // textBox8
             // 
@@ -1225,7 +1225,7 @@
             this.textBox8.Name = "textBox8";
             this.textBox8.ReadOnly = true;
             this.textBox8.Size = new System.Drawing.Size(74, 22);
-            this.textBox8.TabIndex = 50;
+            this.textBox8.TabIndex = 211;
             // 
             // textBox18
             // 
@@ -1234,7 +1234,7 @@
             this.textBox18.Name = "textBox18";
             this.textBox18.ReadOnly = true;
             this.textBox18.Size = new System.Drawing.Size(74, 22);
-            this.textBox18.TabIndex = 70;
+            this.textBox18.TabIndex = 212;
             // 
             // textBox28
             // 
@@ -1243,7 +1243,7 @@
             this.textBox28.Name = "textBox28";
             this.textBox28.ReadOnly = true;
             this.textBox28.Size = new System.Drawing.Size(74, 22);
-            this.textBox28.TabIndex = 80;
+            this.textBox28.TabIndex = 213;
             // 
             // textBox7
             // 
@@ -1252,7 +1252,7 @@
             this.textBox7.Name = "textBox7";
             this.textBox7.ReadOnly = true;
             this.textBox7.Size = new System.Drawing.Size(74, 22);
-            this.textBox7.TabIndex = 49;
+            this.textBox7.TabIndex = 208;
             // 
             // textBox17
             // 
@@ -1261,7 +1261,7 @@
             this.textBox17.Name = "textBox17";
             this.textBox17.ReadOnly = true;
             this.textBox17.Size = new System.Drawing.Size(74, 22);
-            this.textBox17.TabIndex = 69;
+            this.textBox17.TabIndex = 209;
             // 
             // textBox27
             // 
@@ -1270,7 +1270,7 @@
             this.textBox27.Name = "textBox27";
             this.textBox27.ReadOnly = true;
             this.textBox27.Size = new System.Drawing.Size(74, 22);
-            this.textBox27.TabIndex = 79;
+            this.textBox27.TabIndex = 210;
             // 
             // label29
             // 
@@ -1324,7 +1324,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(984, 741);
+            this.ClientSize = new System.Drawing.Size(984, 739);
             this.Controls.Add(this.splitContainer1);
             this.Name = "frmMOCOVEN";
             this.Text = "frmMOCOVEN";
