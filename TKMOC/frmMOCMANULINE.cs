@@ -1145,6 +1145,9 @@ namespace TKMOC
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
+            textBox40.Text = null;
+            textBox41.Text = null;
+
             if (dataGridView1.CurrentRow != null)
             {
                 int rowindex = dataGridView1.CurrentRow.Index;
@@ -2885,6 +2888,9 @@ namespace TKMOC
         }
         private void dataGridView3_SelectionChanged(object sender, EventArgs e)
         {
+            textBox42.Text = null;
+            textBox43.Text = null;
+
             if (dataGridView3.CurrentRow != null)
             {
                 int rowindex = dataGridView3.CurrentRow.Index;
@@ -2907,7 +2913,8 @@ namespace TKMOC
                     SUBPACKAGE2 = row.Cells["包裝數"].Value.ToString();
 
                     SEARCHMOCMANULINERESULT();
-                    ;
+                    SEARCHMOCMANULINECOP();
+                    
                 }
                 else
                 {
@@ -2929,6 +2936,9 @@ namespace TKMOC
         }
         private void dataGridView5_SelectionChanged(object sender, EventArgs e)
         {
+            textBox44.Text = null;
+            textBox45.Text = null;
+
             if (dataGridView5.CurrentRow != null)
             {
                 int rowindex = dataGridView5.CurrentRow.Index;
@@ -2951,7 +2961,8 @@ namespace TKMOC
                     SUBPACKAGE3 = null;
 
                     SEARCHMOCMANULINERESULT();
-                    ;
+                    SEARCHMOCMANULINECOP();
+                    
                 }
                 else
                 {
@@ -2972,6 +2983,10 @@ namespace TKMOC
         }
         private void dataGridView7_SelectionChanged(object sender, EventArgs e)
         {
+
+            textBox46.Text = null;
+            textBox47.Text = null;
+
             if (dataGridView7.CurrentRow != null)
             {
                 int rowindex = dataGridView7.CurrentRow.Index;
@@ -2994,7 +3009,8 @@ namespace TKMOC
                     SUBPACKAGE4 = null;
 
                     SEARCHMOCMANULINERESULT();
-                    ;
+                    SEARCHMOCMANULINECOP();
+                    
                 }
                 else
                 {
