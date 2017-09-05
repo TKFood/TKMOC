@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="09/05/2017 11:35:36" ReportInfo.Modified="09/05/2017 11:37:50" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="09/05/2017 11:35:36" ReportInfo.Modified="09/05/2017 17:05:05" ReportInfo.CreatorVersion="2016.4.4.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9IBFIjFXU81A5YfogKiO0RB">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9Lp6Mi0+LfE01f1yBhW/3WI">
       <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT 品名,規格,日期,SUM(訂單數量) AS '訂單數量',SUM(訂單未交量) AS '訂單未交量',單位,客戶&#13;&#10;FROM (&#13;&#10;SELECT   TD001 AS '單別',TD002 AS '單號',TD003 AS '序號',TC053  AS '客戶' ,TD013 AS '日期',TD004 AS '品號',TD005 AS '品名',TD006 AS '規格'&#13;&#10;,(CASE WHEN MB004=TD010 THEN (TD008-TD009) ELSE (TD008-TD009)*MD004 END) AS '訂單數量'&#13;&#10;,MB004 AS '單位'&#13;&#10;,(TD008-TD009) AS '訂單未交量'&#13;&#10;,TD010 AS '訂單單位' &#13;&#10;,(CASE WHEN ISNULL(MD002,'')&lt;&gt;'' THEN MD002 ELSE TD010 END ) AS '換算單位'&#13;&#10;,(CASE WHEN MD003&gt;0 THEN MD003 ELSE 1 END) AS '分子'&#13;&#10;,(CASE WHEN MD004&gt;0 THEN MD004 ELSE (TD008-TD009) END ) AS '分母'&#13;&#10;FROM [TK].dbo.INVMB,[TK].dbo.COPTC,[TK].dbo.COPTD&#13;&#10;LEFT JOIN [TK].dbo.INVMD ON MD001=TD004 AND TD010=MD002&#13;&#10;WHERE TD004=MB001&#13;&#10;AND TC001=TD001 AND TC002=TD002&#13;&#10;AND TD004 LIKE '4%'&#13;&#10;AND TD013&gt;='20170901' AND TD013&lt;='20170930'&#13;&#10;--AND TC001 IN ({0}) &#13;&#10;AND (TD008-TD009)&gt;0  &#13;&#10;AND TD015 IN ('Y','y') )&#13;&#10;AS TEMP&#13;&#10;GROUP BY 品名,規格,日期,單位,客戶&#13;&#10;ORDER BY 品名,規格,日期,單位,客戶&#13;&#10;">
         <Column Name="品名" DataType="System.String"/>
         <Column Name="規格" DataType="System.String"/>
@@ -28,8 +28,8 @@
       <TextObject Name="Text1" Width="321.3" Height="18.9" Border.Lines="All" Text="[Table.品名]" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text3" Left="321.3" Width="132.3" Height="18.9" Border.Lines="All" Text="[Table.規格]" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text5" Left="453.6" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.日期]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text7" Left="548.1" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.訂單數量]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text9" Left="642.6" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.訂單未交量]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text7" Left="548.1" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.訂單數量]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text9" Left="642.6" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.訂單未交量]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
       <TextObject Name="Text11" Left="737.1" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.單位]" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text13" Left="831.6" Width="207.9" Height="18.9" Border.Lines="All" Text="[Table.客戶]" HorzAlign="Center" VertAlign="Center"/>
     </DataBand>
