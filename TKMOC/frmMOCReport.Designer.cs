@@ -259,7 +259,7 @@
             "成型檢驗表",
             "出爐餅溫量測記錄表",
             "烘烤製程記錄"});
-            this.comboBox1.Location = new System.Drawing.Point(124, 48);
+            this.comboBox1.Location = new System.Drawing.Point(124, 50);
             this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(352, 24);
@@ -447,7 +447,7 @@
             "烘烤製程記錄",
             "成型檢驗表",
             "出爐餅溫量測記錄表"});
-            this.comboBox2.Location = new System.Drawing.Point(124, 50);
+            this.comboBox2.Location = new System.Drawing.Point(124, 48);
             this.comboBox2.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(352, 24);

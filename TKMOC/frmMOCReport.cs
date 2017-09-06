@@ -862,11 +862,14 @@ namespace TKMOC
 
         public void SETFASTREPORT()
         {
+           
             if (comboBox2.Text.Equals("包裝組-生產日報表"))
             {
                 report1 = new Report();
                 report1.Load(@"REPORT\包裝組-生產日報表.frx");
 
+                report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                
                 report1.SetParameterValue("P1", dateTimePicker3.Value.ToString("yyyyMMdd"));
                 report1.SetParameterValue("P2", dateTimePicker4.Value.ToString("yyyyMMdd"));
                 //report1.Load(@"REPORT\TEST1.frx");
@@ -956,6 +959,8 @@ namespace TKMOC
             {
                 report1 = new Report();
                 report1.Load(@"REPORT\生產日報的分析表.frx");
+
+                report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
 
                 report1.SetParameterValue("P1", dateTimePicker3.Value.ToString("yyyyMMdd"));
                 report1.SetParameterValue("P2", dateTimePicker4.Value.ToString("yyyyMMdd"));
