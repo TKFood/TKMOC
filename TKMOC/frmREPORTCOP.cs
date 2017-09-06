@@ -55,9 +55,8 @@ namespace TKMOC
 
             report1 = new Report();
             report1.Load(@"REPORT\訂單統計表.frx");
+            report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
             TableDataSource table = report1.GetDataSource("Table") as TableDataSource;
-
-
             table.SelectCommand = SQL.ToString();
 
             report1.Preview = previewControl1;
