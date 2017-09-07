@@ -108,16 +108,17 @@ namespace TKMOC
 
             if (comboBox1.Text.ToString().Equals("已確認"))
             {
-                TC027.Append(" AND TC027='Y' ");
+                TC027.Append(" 'Y',");
             }
-            else if (comboBox1.Text.ToString().Equals("未確認(扣已確認)"))
+            else if (comboBox1.Text.ToString().Equals("未確認"))
             {
-                TC027.Append("AND TC027='N' ");
+                TC027.Append(" 'N',");
             }
             else if (comboBox1.Text.ToString().Equals("全部"))
             {
-                TC027.Append("  ");
+                TC027.Append(" 'Y','N', ");
             }
+            TC027.Append("''");
 
             if (comboBox2.Text.ToString().Equals("未排計畫"))
             {
@@ -164,8 +165,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  AND TD013>='{0}' AND TD013<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
                 sbSql.AppendFormat(@"  AND TC001 IN ({0}) ", TD001.ToString());
                 sbSql.Append(@"  AND (TD008-TD009)>0  ");
-                sbSql.Append(@"  AND TD015 IN ('Y','y')");
-                sbSql.AppendFormat(@"  {0} ", TC027.ToString());
+                sbSql.AppendFormat(@" AND TC027 IN ({0})  ", TC027.ToString());
                 sbSql.AppendFormat(@"  {0}", PALNQUERY.ToString());                
                 //sbSql.Append(@"  AND ( TD004 LIKE '40109916000740%'  ) ");
                 sbSql.Append(@"  ) AS TEMP");
