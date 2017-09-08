@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="09/08/2017 13:33:06" ReportInfo.Modified="09/08/2017 13:52:59" ReportInfo.CreatorVersion="2016.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9INrf9WVKkMLoFawytmznNJ">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand=" SELECT 品名,規格,日期,SUM(訂單數量) AS '訂單數量',SUM(訂單未交量) AS '訂單未交量',單位,客戶 FROM ( SELECT   TD001 AS '單別',TD002 AS '單號',TD003 AS '序號',TC053  AS '客戶' ,TD013 AS '日期',TD004 AS '品號',TD005 AS '品名',TD006 AS '規格' ,(CASE WHEN MB004=TD010 THEN (TD008-TD009) ELSE (TD008-TD009)*MD004 END) AS '訂單數量' ,MB004 AS '單位' ,(TD008-TD009) AS '訂單未交量' ,TD010 AS '訂單單位'  ,(CASE WHEN ISNULL(MD002,'')&lt;&gt;'' THEN MD002 ELSE TD010 END ) AS '換算單位' ,(CASE WHEN MD003&gt;0 THEN MD003 ELSE 1 END) AS '分子' ,(CASE WHEN MD004&gt;0 THEN MD004 ELSE (TD008-TD009) END ) AS '分母' FROM [TK].dbo.INVMB,[TK].dbo.COPTC,[TK].dbo.COPTD LEFT JOIN [TK].dbo.INVMD ON MD001=TD004 AND TD010=MD002 WHERE TD004=MB001 AND TC001=TD001 AND TC002=TD002 AND TD004 LIKE '4%' AND TD013&gt;='20170901' AND TD013&lt;='20170930'  AND TC001 IN ('A221','A222','A225','A226','A227','A223','')  AND (TD008-TD009)&gt;0   AND TC027 IN ( 'Y','N', '')  ) AS TEMP GROUP BY 品名,規格,日期,單位,客戶  ORDER BY 品名,規格,日期,單位,客戶">
+        <Column Name="品名" DataType="System.String"/>
+        <Column Name="規格" DataType="System.String"/>
+        <Column Name="日期" DataType="System.String"/>
+        <Column Name="訂單數量" DataType="System.Decimal"/>
+        <Column Name="訂單未交量" DataType="System.Decimal"/>
+        <Column Name="單位" DataType="System.String"/>
+        <Column Name="客戶" DataType="System.String"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="600" PaperHeight="210">
+    <ReportTitleBand Name="ReportTitle1" Width="2192.4" Height="18.9">
+      <TextObject Name="Text1" Width="2749.95" Height="18.9" Text="訂單統計表-月報" VertAlign="Center"/>
+    </ReportTitleBand>
+    <DataBand Name="Data1" Top="25.35" Width="2192.4" Height="56.7" CanGrow="true" CanShrink="true">
+      <MatrixObject Name="Matrix1" Width="202.87" Height="52.88" Border.Lines="All" FixedRows="1" FixedColumns="2" DataSource="Table">
+        <MatrixColumns>
+          <Header Expression="[Table.日期]"/>
+        </MatrixColumns>
+        <MatrixRows>
+          <Header Expression="[Table.品名]"/>
+          <Header Expression="[Table.客戶]" Totals="false"/>
+        </MatrixRows>
+        <MatrixCells>
+          <Cell Expression="[Table.訂單數量]"/>
+        </MatrixCells>
+        <TableColumn Name="Column1" Width="46.07" AutoSize="true"/>
+        <TableColumn Name="Column2" Width="46.07" AutoSize="true"/>
+        <TableColumn Name="Column3" Width="70.79" AutoSize="true"/>
+        <TableColumn Name="Column4" Width="39.94" AutoSize="true"/>
+        <TableRow Name="Row1" Height="18.19" AutoSize="true">
+          <TableCell Name="Cell1" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell2" Border.Lines="All" Text="客戶" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell5" Border.Lines="All" Text="[日期]" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell10" Border.Lines="All" Text="Total" HorzAlign="Center" VertAlign="Center"/>
+        </TableRow>
+        <TableRow Name="Row2" Height="18.19" AutoSize="true">
+          <TableCell Name="Cell3" Border.Lines="All" Text="[品名]" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell4" Border.Lines="All" Text="[客戶]" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell6" Border.Lines="All" Text="[訂單數量]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center"/>
+          <TableCell Name="Cell11" Border.Lines="All" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center"/>
+        </TableRow>
+        <TableRow Name="Row3" Height="16.5" AutoSize="true">
+          <TableCell Name="Cell7" Border.Lines="All" Text="Total" HorzAlign="Center" VertAlign="Center" ColSpan="2"/>
+          <TableCell Name="Cell8"/>
+          <TableCell Name="Cell9" Border.Lines="All" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center"/>
+          <TableCell Name="Cell12" Border.Lines="All" HorzAlign="Right" VertAlign="Center"/>
+        </TableRow>
+      </MatrixObject>
+    </DataBand>
+  </ReportPage>
+</Report>

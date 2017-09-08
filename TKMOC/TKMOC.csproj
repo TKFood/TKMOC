@@ -454,6 +454,7 @@
     <None Include="REPORT\生產日報的分析表.frx" />
     <None Include="REPORT\生產日報的月份分析表.frx" />
     <None Include="REPORT\生產日報表明細表.frx" />
+    <None Include="REPORT\訂單統計表-月報.frx" />
     <None Include="REPORT\訂單統計表.frx" />
     <None Include="REPORT\首件檢查記錄表-冷卻.frx" />
     <None Include="REPORT\首件檢查記錄表-成品.frx" />

@@ -49,6 +49,7 @@
             this.previewControl1 = new FastReport.Preview.PreviewControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.report1 = new FastReport.Report();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -132,6 +133,7 @@
             this.tableLayoutPanel1.Controls.Add(this.comboBox1, 6, 1);
             this.tableLayoutPanel1.Controls.Add(this.button1, 8, 1);
             this.tableLayoutPanel1.Controls.Add(this.comboBox2, 7, 1);
+            this.tableLayoutPanel1.Controls.Add(this.comboBox3, 7, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -269,7 +271,7 @@
             "全部",
             "已確認",
             "未確認"});
-            this.comboBox1.Location = new System.Drawing.Point(603, 52);
+            this.comboBox1.Location = new System.Drawing.Point(603, 54);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(94, 24);
             this.comboBox1.TabIndex = 41;
@@ -293,7 +295,7 @@
             this.comboBox2.Items.AddRange(new object[] {
             "依品名排序",
             "依日期排序"});
-            this.comboBox2.Location = new System.Drawing.Point(703, 54);
+            this.comboBox2.Location = new System.Drawing.Point(703, 52);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(114, 24);
             this.comboBox2.TabIndex = 42;
@@ -323,6 +325,19 @@
             // report1
             // 
             this.report1.ReportResourceString = resources.GetString("report1.ReportResourceString");
+            // 
+            // comboBox3
+            // 
+            this.comboBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Items.AddRange(new object[] {
+            "明細",
+            "月報"});
+            this.comboBox3.Location = new System.Drawing.Point(703, 8);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(114, 24);
+            this.comboBox3.TabIndex = 43;
+            this.comboBox3.Text = "明細";
             // 
             // frmREPORTCOP
             // 
@@ -369,5 +384,6 @@
         private FastReport.Preview.PreviewControl previewControl1;
         private FastReport.Report report1;
         private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox comboBox3;
     }
 }
