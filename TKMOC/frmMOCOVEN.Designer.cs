@@ -126,6 +126,8 @@
             this.label32 = new System.Windows.Forms.Label();
             this.label31 = new System.Windows.Forms.Label();
             this.label30 = new System.Windows.Forms.Label();
+            this.button8 = new System.Windows.Forms.Button();
+            this.button9 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -269,9 +271,6 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 89F));
             this.tableLayoutPanel1.Controls.Add(this.label7, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.dateTimePicker1, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.button1, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.button2, 4, 0);
-            this.tableLayoutPanel1.Controls.Add(this.button3, 5, 0);
             this.tableLayoutPanel1.Controls.Add(this.label1, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.comboBox1, 3, 1);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 2);
@@ -289,6 +288,10 @@
             this.tableLayoutPanel1.Controls.Add(this.label5, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.label8, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.textBoxID, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.button1, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.button2, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.button3, 4, 0);
+            this.tableLayoutPanel1.Controls.Add(this.button9, 5, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -325,7 +328,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(243, 3);
+            this.button1.Location = new System.Drawing.Point(163, 3);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(74, 24);
             this.button1.TabIndex = 0;
@@ -335,7 +338,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(323, 3);
+            this.button2.Location = new System.Drawing.Point(243, 3);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(74, 24);
             this.button2.TabIndex = 1;
@@ -345,7 +348,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(403, 3);
+            this.button3.Location = new System.Drawing.Point(323, 3);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(74, 24);
             this.button3.TabIndex = 2;
@@ -646,6 +649,7 @@
             this.tableLayoutPanel2.Controls.Add(this.label27, 8, 1);
             this.tableLayoutPanel2.Controls.Add(this.label28, 8, 2);
             this.tableLayoutPanel2.Controls.Add(this.textBoxSID, 9, 2);
+            this.tableLayoutPanel2.Controls.Add(this.button8, 9, 3);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -1320,6 +1324,26 @@
             this.label30.Text = "3";
             this.label30.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(723, 98);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(74, 29);
+            this.button8.TabIndex = 915;
+            this.button8.Text = "刪除";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
+            // button9
+            // 
+            this.button9.Location = new System.Drawing.Point(403, 3);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(74, 24);
+            this.button9.TabIndex = 916;
+            this.button9.Text = "刪除";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
+            // 
             // frmMOCOVEN
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1455,5 +1479,7 @@
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button button9;
     }
 }

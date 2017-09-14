@@ -47,6 +47,8 @@ namespace TKMOC
         DataGridViewRow drMOCOVEN = new DataGridViewRow();
         DataGridViewRow drMOCOVENDTAIL = new DataGridViewRow();
 
+        string MOCOVENDTAILID;
+        string MOCOVENID;
         string MANUDEP;
 
         public frmMOCOVEN()
@@ -448,6 +450,7 @@ namespace TKMOC
                 comboBox4.SelectedValue = drMOCOVEN.Cells["MANAGER"].Value.ToString();
                 comboBox5.SelectedValue = drMOCOVEN.Cells["OPERATOR"].Value.ToString();
 
+                MOCOVENID = drMOCOVEN.Cells["ID"].Value.ToString();
                 MANUDEP = drMOCOVEN.Cells["組別"].Value.ToString();
 
 
@@ -460,7 +463,10 @@ namespace TKMOC
             else
             {
                 SearchMOCOVENDTAIL("5C85A7F3-B942-4DF6-8804-5EC7ADF57870");
+                MOCOVENDTAILID = null;
             }
+
+            MOCOVENDTAILID = null;
         }
 
         public void SETDTEAILADD()
@@ -923,6 +929,94 @@ namespace TKMOC
             }
 
         }
+
+
+        public void DELMOCOVENDTAIL()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+                sbSql.AppendFormat("  DELETE [TKMOC].[dbo].[MOCOVENDTAIL]");
+                sbSql.AppendFormat("  WHERE ID='{0}'", textBoxDETAILID.Text);
+                sbSql.AppendFormat(" ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+
+        }
+
+        public void DELMOCOVEN()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+                sbSql.AppendFormat("  DELETE [TKMOC].[dbo].[MOCOVEN]");
+                sbSql.AppendFormat("  WHERE ID='{0}'", MOCOVENID);
+                sbSql.AppendFormat(" ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
         #endregion
 
         #region BUTTOON
@@ -996,6 +1090,34 @@ namespace TKMOC
             SETDETAILFINISH();
         }
 
+        private void button8_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("要刪除了?", "要刪除了?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                DELMOCOVENDTAIL();
+                SearchMOCOVENDTAIL(textBoxSID.Text);
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                //do something else
+            }
+        }
+        private void button9_Click(object sender, EventArgs e)
+        {
+        
+            DialogResult dialogResult = MessageBox.Show("要刪除了?", "要刪除了?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                DELMOCOVEN();
+                Search();
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                //do something else
+            }
+
+        }
 
         #endregion
 
