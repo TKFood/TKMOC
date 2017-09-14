@@ -4465,6 +4465,73 @@ namespace TKMOC
 
             }
         }
+
+        public void DELMOCMANULINECOP()
+        {
+            if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage1"])
+            {
+                DELMOCMANULINECOP2(ID1);
+            }
+            else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage4"])
+            {
+                DELMOCMANULINECOP2(ID2);
+            }
+            else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage2"])
+            {
+                DELMOCMANULINECOP2(ID3);
+            }
+            else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage3"])
+            {
+                DELMOCMANULINECOP2(ID4);
+            }
+            else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage5"])
+            {
+               
+            }
+        }
+
+        public void DELMOCMANULINECOP2(string SID)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+                sbSql.AppendFormat("  DELETE [TKMOC].[dbo].[MOCMANULINECOP]");
+                sbSql.AppendFormat("  WHERE SID='{0}'", SID);
+                sbSql.AppendFormat(" ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
         #endregion
 
         #region BUTTON
@@ -4493,6 +4560,7 @@ namespace TKMOC
             if (dialogResult == DialogResult.Yes)
             {
                 DELMOCMANULINE();
+             
             }
             else if (dialogResult == DialogResult.No)
             {
@@ -4665,6 +4733,9 @@ namespace TKMOC
             {
                 DELMOCMANULINERESULT();
                 SEARCHMOCMANULINE();
+
+                DELMOCMANULINECOP();
+                SEARCHMOCMANULINECOP();
             }
             else if (dialogResult == DialogResult.No)
             {
@@ -4679,6 +4750,9 @@ namespace TKMOC
             {
                 DELMOCMANULINERESULT();
                 SEARCHMOCMANULINE();
+
+                DELMOCMANULINECOP();
+                SEARCHMOCMANULINECOP();
             }
             else if (dialogResult == DialogResult.No)
             {
@@ -4693,6 +4767,9 @@ namespace TKMOC
             {
                 DELMOCMANULINERESULT();
                 SEARCHMOCMANULINE();
+
+                DELMOCMANULINECOP();
+                SEARCHMOCMANULINECOP();
             }
             else if (dialogResult == DialogResult.No)
             {
@@ -4707,6 +4784,9 @@ namespace TKMOC
             {
                 DELMOCMANULINERESULT();
                 SEARCHMOCMANULINE();
+
+                DELMOCMANULINECOP();
+                SEARCHMOCMANULINECOP();
             }
             else if (dialogResult == DialogResult.No)
             {
