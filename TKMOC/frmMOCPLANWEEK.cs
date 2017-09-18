@@ -436,7 +436,7 @@ namespace TKMOC
 
                 sbSql.AppendFormat(@"  WITH TEMPTABLE (MD001,MD003,MD004,MD006) AS");
                 sbSql.AppendFormat(@"  (");
-                sbSql.AppendFormat(@"   SELECT  MD001,MD003,MD004,MD006 FROM [TK].dbo.BOMMD WHERE MD001='40100210810010'");
+                sbSql.AppendFormat(@"   SELECT  MD001,MD003,MD004,MD006 FROM [TK].dbo.BOMMD WHERE MD001='{0}'", ds2.Tables["TEMPds2"].Rows[i]["品號"].ToString());
                 sbSql.AppendFormat(@"   UNION ALL");
                 sbSql.AppendFormat(@"   SELECT A.MD001,A.MD003,A.MD004,A.MD006");
                 sbSql.AppendFormat(@"   FROM [TK].dbo.BOMMD A");
@@ -641,6 +641,7 @@ namespace TKMOC
         {
 
             string NowDB = "TK";
+            string TABLENAME = "報表";
             //建立Excel 2003檔案
             IWorkbook wb = new XSSFWorkbook();
             ISheet ws;
@@ -675,27 +676,43 @@ namespace TKMOC
             }
 
             int j = 0;
-            int k = dt.Rows.Count - 1;
-            foreach (DataGridViewRow dr in this.dataGridView3.Rows)
-            {
-                if (j <= k)
-                {
-                    ws.CreateRow(j + 1);
-                    ws.GetRow(j + 1).CreateCell(0).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[0].ToString());
-                    ws.GetRow(j + 1).CreateCell(1).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[1].ToString());
-                    ws.GetRow(j + 1).CreateCell(2).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[2].ToString());
-                    ws.GetRow(j + 1).CreateCell(3).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[3].ToString()));
-                    ws.GetRow(j + 1).CreateCell(4).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[4].ToString()));
-                    ws.GetRow(j + 1).CreateCell(5).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[5].ToString()));
-                    ws.GetRow(j + 1).CreateCell(6).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[6].ToString()));
-                    ws.GetRow(j + 1).CreateCell(6).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[6].ToString()));
-                    ws.GetRow(j + 1).CreateCell(6).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[6].ToString()));
-                    ws.GetRow(j + 1).CreateCell(6).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[6].ToString()));
 
-                    j++;
+            if (dt.Rows.Count >= 0)
+            {
+                TABLENAME = "明細表";
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    ws.CreateRow(i + 1);
+                    for (int rows = 0; rows < dt.Columns.Count; rows++)
+                    {
+                        ws.GetRow(i + 1).CreateCell(rows).SetCellValue(dt.Rows[i][rows].ToString());
+                    }
                 }
 
             }
+
+            //int k = dt.Rows.Count - 1;
+            //foreach (DataGridViewRow dr in this.dataGridView3.Rows)
+            //{
+            //    if (j <= k)
+            //    {
+            //        ws.CreateRow(j + 1);
+            //        ws.GetRow(j + 1).CreateCell(0).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[0].ToString());
+            //        ws.GetRow(j + 1).CreateCell(1).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[1].ToString());
+            //        ws.GetRow(j + 1).CreateCell(2).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[2].ToString());
+            //        ws.GetRow(j + 1).CreateCell(3).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[3].ToString()));
+            //        ws.GetRow(j + 1).CreateCell(4).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[4].ToString()));
+            //        ws.GetRow(j + 1).CreateCell(5).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[5].ToString()));
+            //        ws.GetRow(j + 1).CreateCell(6).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[6].ToString()));
+            //        ws.GetRow(j + 1).CreateCell(6).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[6].ToString()));
+            //        ws.GetRow(j + 1).CreateCell(6).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[6].ToString()));
+            //        ws.GetRow(j + 1).CreateCell(6).SetCellValue(Convert.ToDouble(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[6].ToString()));
+
+            //        j++;
+            //    }
+
+            //}
 
 
 
@@ -915,7 +932,7 @@ namespace TKMOC
 
                 sbSql.AppendFormat(@"  WITH TEMPTABLE (MD001,MD003,MD004,MD006) AS");
                 sbSql.AppendFormat(@"  (");
-                sbSql.AppendFormat(@"   SELECT  MD001,MD003,MD004,MD006 FROM [TK].dbo.BOMMD WHERE MD001='40100210810010'");
+                sbSql.AppendFormat(@"   SELECT  MD001,MD003,MD004,MD006 FROM [TK].dbo.BOMMD WHERE MD001='{0}'", ds2.Tables["TEMPds2"].Rows[i]["品號"].ToString());
                 sbSql.AppendFormat(@"   UNION ALL");
                 sbSql.AppendFormat(@"   SELECT A.MD001,A.MD003,A.MD004,A.MD006");
                 sbSql.AppendFormat(@"   FROM [TK].dbo.BOMMD A");
@@ -1018,6 +1035,82 @@ namespace TKMOC
             dataGridView3.DataSource = dtTemp;
             dataGridView3.AutoResizeColumns();
         }
+
+
+        public void ExcelExportMATERIAL()
+        {
+           
+            string TABLENAME = "報表";
+
+            //建立Excel 2003檔案
+            IWorkbook wb = new XSSFWorkbook();
+            ISheet ws;
+
+
+            dt = dtTemp;
+            if (dt.TableName != string.Empty)
+            {
+                ws = wb.CreateSheet(dt.TableName);
+            }
+            else
+            {
+                ws = wb.CreateSheet("Sheet1");
+            }
+
+            ws.CreateRow(0);//第一行為欄位名稱
+            for (int i = 0; i < dt.Columns.Count; i++)
+            {
+                ws.GetRow(0).CreateCell(i).SetCellValue(dt.Columns[i].ColumnName);
+            }
+
+
+            int j = 0;
+            if (dt.Rows.Count>=0)
+            {
+                TABLENAME = "明細表";
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    ws.CreateRow(i + 1);
+                    for (int rows = 0; rows < dt.Columns.Count; rows++)
+                    {
+                        ws.GetRow(i + 1).CreateCell(rows).SetCellValue(dt.Rows[i][rows].ToString());
+                    }
+                }
+
+            }
+
+
+            if (Directory.Exists(@"c:\temp\"))
+            {
+                //資料夾存在
+            }
+            else
+            {
+                //新增資料夾
+                Directory.CreateDirectory(@"c:\temp\");
+            }
+            StringBuilder filename = new StringBuilder();
+            filename.AppendFormat(@"c:\temp\{0}-{1}.xlsx", TABLENAME, DateTime.Now.ToString("yyyyMMdd"));
+
+            FileStream file = new FileStream(filename.ToString(), FileMode.Create);//產生檔案
+            wb.Write(file);
+            file.Close();
+
+            MessageBox.Show("匯出完成-EXCEL放在-" + filename.ToString());
+            FileInfo fi = new FileInfo(filename.ToString());
+            if (fi.Exists)
+            {
+                System.Diagnostics.Process.Start(filename.ToString());
+            }
+            else
+            {
+                //file doesn't exist
+            }
+
+        }
+
+
         #endregion
 
         #region BUTTON
@@ -1070,7 +1163,7 @@ namespace TKMOC
 
         private void button10_Click(object sender, EventArgs e)
         {
-
+            ExcelExportMATERIAL();
         }
 
         #endregion
