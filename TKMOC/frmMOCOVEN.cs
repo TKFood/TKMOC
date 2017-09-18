@@ -928,6 +928,39 @@ namespace TKMOC
                 textBox26.TabIndex = 236;
                 textBox36.TabIndex = 237;
             }
+            else 
+            {
+                textBox7.TabIndex = 208;
+                textBox17.TabIndex = 209;
+                textBox27.TabIndex = 210;
+                textBox8.TabIndex = 211;
+                textBox18.TabIndex = 212;
+                textBox28.TabIndex = 213;
+                textBox9.TabIndex = 214;
+                textBox19.TabIndex = 215;
+                textBox29.TabIndex = 216;
+                textBox10.TabIndex = 217;
+                textBox20.TabIndex = 218;
+                textBox30.TabIndex = 219;
+                textBox11.TabIndex = 220;
+                textBox21.TabIndex = 221;
+                textBox31.TabIndex = 222;
+                textBox12.TabIndex = 223;
+                textBox22.TabIndex = 224;
+                textBox32.TabIndex = 225;
+                textBox13.TabIndex = 226;
+                textBox23.TabIndex = 227;
+                textBox33.TabIndex = 228;
+                textBox14.TabIndex = 229;
+                textBox24.TabIndex = 230;
+                textBox34.TabIndex = 231;
+                textBox15.TabIndex = 232;
+                textBox25.TabIndex = 233;
+                textBox35.TabIndex = 234;
+                textBox16.TabIndex = 235;
+                textBox26.TabIndex = 236;
+                textBox36.TabIndex = 237;
+            }
 
         }
 
