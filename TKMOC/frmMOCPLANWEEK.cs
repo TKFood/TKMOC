@@ -63,6 +63,7 @@ namespace TKMOC
             dtTemp.Columns.Add("品號");
             dtTemp.Columns.Add("品名");
             dtTemp.Columns.Add("數量");
+            dtTemp.Columns.Add("單位");
             dtTemp.Columns.Add("標準批量");
             dtTemp.Columns.Add("桶數");
             dtTemp.Columns.Add("標準時間");
@@ -433,13 +434,31 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  SELECT MD003,INVMB.MB002,CASE WHEN ISNULL(INVMB.MB003,'')=''  THEN '1' ELSE INVMB.MB003 END AS MB003  ,MD004,MD006,[PROCESSNUM],[PROCESSTIME]  ");
-                sbSql.AppendFormat(@"  FROM [TK].dbo.BOMMD,[TK].dbo.INVMB");
-                sbSql.AppendFormat(@"  LEFT JOIN   [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].[MB001]=INVMB.MB001");
-                //sbSql.AppendFormat(@"  WHERE MD003=INVMB.MB001  AND MD003 LIKE '3%' AND INVMB.MB002 NOT LIKE '%水麵%'  AND  INVMB.MB002 NOT LIKE '%餅麩%'  ");
-                sbSql.AppendFormat(@"  WHERE MD003=INVMB.MB001  AND MD003 LIKE '3%'   ");
-                sbSql.AppendFormat(@"  AND MD001='{0}'", ds2.Tables["TEMPds2"].Rows[i]["品號"].ToString());
+                sbSql.AppendFormat(@"  WITH TEMPTABLE (MD001,MD003,MD004,MD006) AS");
+                sbSql.AppendFormat(@"  (");
+                sbSql.AppendFormat(@"   SELECT  MD001,MD003,MD004,MD006 FROM [TK].dbo.BOMMD WHERE MD001='40100210810010'");
+                sbSql.AppendFormat(@"   UNION ALL");
+                sbSql.AppendFormat(@"   SELECT A.MD001,A.MD003,A.MD004,A.MD006");
+                sbSql.AppendFormat(@"   FROM [TK].dbo.BOMMD A");
+                sbSql.AppendFormat(@"   INNER JOIN TEMPTABLE B on A.MD001=B.MD003");
+                sbSql.AppendFormat(@"  )");
+                sbSql.AppendFormat(@"  SELECT MD001,MD003,MD004,MD006 ");
+                sbSql.AppendFormat(@"  ,[INVMB].MB002,CASE WHEN ISNULL(INVMB.MB003,'')=''  THEN '1' ELSE INVMB.MB003 END AS MB003");
+                sbSql.AppendFormat(@"  ,[PROCESSNUM],[PROCESSTIME]    ");
+                sbSql.AppendFormat(@"  FROM TEMPTABLE ");
+                sbSql.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].[MB001]=TEMPTABLE.MD001");
+                sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.[INVMB] ON [INVMB].MB001=TEMPTABLE.MD003");
+                sbSql.AppendFormat(@" WHERE  MD003 LIKE '3%'     ");
+                sbSql.AppendFormat(@"  ORDER BY MD001,MD003");
                 sbSql.AppendFormat(@"  ");
+
+                //sbSql.AppendFormat(@"  SELECT MD003,INVMB.MB002,CASE WHEN ISNULL(INVMB.MB003,'')=''  THEN '1' ELSE INVMB.MB003 END AS MB003  ,MD004,MD006,[PROCESSNUM],[PROCESSTIME]  ");
+                //sbSql.AppendFormat(@"  FROM [TK].dbo.BOMMD,[TK].dbo.INVMB");
+                //sbSql.AppendFormat(@"  LEFT JOIN   [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].[MB001]=INVMB.MB001");
+                ////sbSql.AppendFormat(@"  WHERE MD003=INVMB.MB001  AND MD003 LIKE '3%' AND INVMB.MB002 NOT LIKE '%水麵%'  AND  INVMB.MB002 NOT LIKE '%餅麩%'  ");
+                //sbSql.AppendFormat(@"  WHERE MD003=INVMB.MB001  AND MD003 LIKE '3%'   ");
+                //sbSql.AppendFormat(@"  AND MD001='{0}'", ds2.Tables["TEMPds2"].Rows[i]["品號"].ToString());
+                //sbSql.AppendFormat(@"  ");
 
 
                 adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -460,7 +479,8 @@ namespace TKMOC
                         row["日期"] = ds2.Tables["TEMPds2"].Rows[i]["日期"].ToString();
                         row["品號"] = od2["MD003"].ToString();
                         row["品名"] = od2["MB002"].ToString();
-                        if(!string.IsNullOrEmpty(od2["MB003"].ToString()))
+                        row["單位"] = od2["MD004"].ToString();
+                        if (!string.IsNullOrEmpty(od2["MB003"].ToString()))
                         {
                             COOKIES = Convert.ToDecimal(Regex.Replace(od2["MB003"].ToString(), "[^0-9]", ""));
                         }
@@ -893,12 +913,22 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  SELECT MD003,INVMB.MB002,CASE WHEN ISNULL(INVMB.MB003,'')=''  THEN '1' ELSE INVMB.MB003 END AS MB003  ,MD004,MD006,[PROCESSNUM],[PROCESSTIME]  ");
-                sbSql.AppendFormat(@"  FROM [TK].dbo.BOMMD,[TK].dbo.INVMB");
-                sbSql.AppendFormat(@"  LEFT JOIN   [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].[MB001]=INVMB.MB001");
-                //sbSql.AppendFormat(@"  WHERE MD003=INVMB.MB001  AND MD003 LIKE '3%' AND INVMB.MB002 NOT LIKE '%水麵%'  AND  INVMB.MB002 NOT LIKE '%餅麩%'  ");
-                sbSql.AppendFormat(@"  WHERE MD003=INVMB.MB001  AND MD003 LIKE '2%'   ");
-                sbSql.AppendFormat(@"  AND MD001='{0}'", ds2.Tables["TEMPds2"].Rows[i]["品號"].ToString());
+                sbSql.AppendFormat(@"  WITH TEMPTABLE (MD001,MD003,MD004,MD006) AS");
+                sbSql.AppendFormat(@"  (");
+                sbSql.AppendFormat(@"   SELECT  MD001,MD003,MD004,MD006 FROM [TK].dbo.BOMMD WHERE MD001='40100210810010'");
+                sbSql.AppendFormat(@"   UNION ALL");
+                sbSql.AppendFormat(@"   SELECT A.MD001,A.MD003,A.MD004,A.MD006");
+                sbSql.AppendFormat(@"   FROM [TK].dbo.BOMMD A");
+                sbSql.AppendFormat(@"   INNER JOIN TEMPTABLE B on A.MD001=B.MD003");
+                sbSql.AppendFormat(@"  )");
+                sbSql.AppendFormat(@"  SELECT MD001,MD003,MD004,MD006 ");
+                sbSql.AppendFormat(@"  ,[INVMB].MB002,CASE WHEN ISNULL(INVMB.MB003,'')=''  THEN '1' ELSE INVMB.MB003 END AS MB003");
+                sbSql.AppendFormat(@"  ,[PROCESSNUM],[PROCESSTIME]    ");
+                sbSql.AppendFormat(@"  FROM TEMPTABLE ");
+                sbSql.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].[MB001]=TEMPTABLE.MD001");
+                sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.[INVMB] ON [INVMB].MB001=TEMPTABLE.MD003");
+                sbSql.AppendFormat(@" WHERE  MD003 LIKE '2%'     ");
+                sbSql.AppendFormat(@"  ORDER BY MD001,MD003");
                 sbSql.AppendFormat(@"  ");
 
 
@@ -920,6 +950,8 @@ namespace TKMOC
                         row["日期"] = ds2.Tables["TEMPds2"].Rows[i]["日期"].ToString();
                         row["品號"] = od2["MD003"].ToString();
                         row["品名"] = od2["MB002"].ToString();
+                        row["單位"] = od2["MD004"].ToString();
+
                         if (!string.IsNullOrEmpty(od2["MB003"].ToString()))
                         {
                             COOKIES = Convert.ToDecimal(Regex.Replace(od2["MB003"].ToString(), "[^0-9]", ""));
