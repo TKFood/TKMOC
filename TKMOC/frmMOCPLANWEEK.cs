@@ -16,6 +16,7 @@ using NPOI.SS.Util;
 using System.Reflection;
 using System.Threading;
 using System.Text.RegularExpressions;
+using System.Globalization;
 
 namespace TKMOC
 {
@@ -65,14 +66,26 @@ namespace TKMOC
             dtTemp.Columns.Add("標準批量");
             dtTemp.Columns.Add("桶數");
             dtTemp.Columns.Add("標準時間");
-
-            
+        
+            numericUpDown1.Value = DateTime.Now.Year;
+            numericUpDown2.Value = GetWeekOfYear(DateTime.Now);
 
 
 
         }
 
         #region FUNCTION
+        /// <summary>
+        /// 取得某一日期在當年的第幾週
+        /// </summary>
+        /// <param name="dt">日期</param>
+        /// <returns>該日期在當年中的週數</returns>
+        private int GetWeekOfYear(DateTime dt)
+        {
+            GregorianCalendar gc = new GregorianCalendar();
+            return gc.GetWeekOfYear(dt, CalendarWeekRule.FirstDay, DayOfWeek.Monday)-1;
+        }
+
         public void Search()
         {
             StringBuilder TD001 = new StringBuilder();
@@ -500,67 +513,7 @@ namespace TKMOC
 
             }
 
-            ////分組並計算
-
-            //var Query = from p in dtTemp.AsEnumerable()
-            //            orderby p.Field<string>("MD003")
-            //            group p by new { MD003 = p.Field<string>("MD003"), UNIT = p.Field<string>("UNIT") } into g
-            //            select new
-            //            {
-            //                //MD003 = g.Key,
-            //                MD003 = g.Key.MD003,
-            //                NUM = g.Sum(p => Convert.ToDouble(p.Field<string>("NUM"))),
-            //                UNIT = g.Key.UNIT
-            //            };
-
-
-            //if (Query.Count() >= 1)
-            //{
-            //    foreach (var c in Query)
-            //    {
-            //        sbSql.Clear();
-            //        sbSqlQuery.Clear();
-
-            //        //sbSql.AppendFormat(@"  SELECT TOP 1 MB001,MB002,MB003  FROM [TK].dbo.INVMB WITH (NOLOCK)  WHERE   MB001='{0}'  ", c.MD003.ToString());
-            //        sbSql.AppendFormat(@"  SELECT TOP 1 MB001,MB002,MB003,ISNULL(MC004,0) AS MC004 ,(CASE WHEN ISNULL(MC001,'')<>'' THEN CEILING({0}/MC004) ELSE CEILING({0}) END) AS NN", c.NUM.ToString());
-            //        sbSql.AppendFormat(@"  ,(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WITH (NOLOCK) WHERE LA009='20001' AND LA001=MB001) AS NN1");
-            //        sbSql.AppendFormat(@"  ,(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WITH (NOLOCK) WHERE LA009='20002' AND LA001=MB001) AS NN2");
-
-            //        sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB WITH (NOLOCK)  ");
-            //        sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.BOMMC WITH (NOLOCK)  ON MC001=MB001");
-            //        sbSql.AppendFormat(@"  WHERE    MB001='{0}'  ", c.MD003.ToString());
-
-            //        adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-            //        sqlCmdBuilder = new SqlCommandBuilder(adapter);
-            //        sqlConn.Open();
-            //        ds3.Clear();
-            //        adapter.Fill(ds3, "TEMPds3");
-            //        sqlConn.Close();
-
-            //        if (ds3.Tables["TEMPds3"].Rows.Count >= 1)
-            //        {
-            //            DataRow row = dtTemp2.NewRow();
-            //            row["品號"] = c.MD003;
-            //            row["品名"] = ds3.Tables["TEMPds3"].Rows[0]["MB002"].ToString();                        
-            //            row["規格"] = ds3.Tables["TEMPds3"].Rows[0]["MB003"].ToString();
-            //            row["預計用量"] = Convert.ToDouble(c.NUM);
-            //            row["單位"] = c.UNIT;
-            //            COOKIES =Convert.ToDouble (Regex.Replace(ds3.Tables["TEMPds3"].Rows[0]["MB003"].ToString(), "[^0-9]", ""));
-            //            row["需求片數"] = (Convert.ToDouble(c.NUM*1000/ COOKIES));
-            //            row["生產批量"] = ds3.Tables["TEMPds3"].Rows[0]["MC004"].ToString();
-            //            row["預計生產批量"] = ds3.Tables["TEMPds3"].Rows[0]["NN"].ToString();
-            //            row["成品庫存"] = ds3.Tables["TEMPds3"].Rows[0]["NN1"].ToString();
-            //            row["外銷庫存"] = ds3.Tables["TEMPds3"].Rows[0]["NN2"].ToString();
-            //            dtTemp2.Rows.Add(row);
-            //        }
-            //    }
-            //}
-
-
-            //dataGridView1.DataSource = dtQuery.ToList();
-            //label14.Text = "有 " + dtTemp2.Rows.Count.ToString() + " 筆";
-            //dataGridView3.Rows.Clear();
+           
 
             dataGridView3.DataSource = dtTemp;
             dataGridView3.AutoResizeColumns();
@@ -919,6 +872,120 @@ namespace TKMOC
                 }
             }
         }
+
+        public void SERCHMATERIAL()
+        {
+            string MB003 = null;
+            string[] sArray = null;
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+
+            dtTemp.Clear();
+
+            for (int i = 0; i < ds2.Tables["TEMPds2"].Rows.Count; i++)
+            {
+
+                COPNum = Convert.ToDecimal(ds2.Tables["TEMPds2"].Rows[i]["數量"].ToString());
+                MB003 = ds2.Tables["TEMPds2"].Rows[i]["規格"].ToString();
+                sArray = MB003.Split('g');
+                //TOTALCOPNum = Convert.ToDecimal(Convert.ToDecimal(sArray[0].ToString())* COPNum);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  SELECT MD003,INVMB.MB002,CASE WHEN ISNULL(INVMB.MB003,'')=''  THEN '1' ELSE INVMB.MB003 END AS MB003  ,MD004,MD006,[PROCESSNUM],[PROCESSTIME]  ");
+                sbSql.AppendFormat(@"  FROM [TK].dbo.BOMMD,[TK].dbo.INVMB");
+                sbSql.AppendFormat(@"  LEFT JOIN   [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].[MB001]=INVMB.MB001");
+                //sbSql.AppendFormat(@"  WHERE MD003=INVMB.MB001  AND MD003 LIKE '3%' AND INVMB.MB002 NOT LIKE '%水麵%'  AND  INVMB.MB002 NOT LIKE '%餅麩%'  ");
+                sbSql.AppendFormat(@"  WHERE MD003=INVMB.MB001  AND MD003 LIKE '2%'   ");
+                sbSql.AppendFormat(@"  AND MD001='{0}'", ds2.Tables["TEMPds2"].Rows[i]["品號"].ToString());
+                sbSql.AppendFormat(@"  ");
+
+
+                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder = new SqlCommandBuilder(adapter);
+                sqlConn.Open();
+                ds3.Clear();
+                adapter.Fill(ds3, "TEMPds3");
+                sqlConn.Close();
+
+                if (ds3.Tables["TEMPds3"].Rows.Count >= 1)
+                {
+
+                    foreach (DataRow od2 in ds3.Tables["TEMPds3"].Rows)
+                    {
+                        DataRow row = dtTemp.NewRow();
+                        //row["MD001"] = od2["MC001"].ToString();
+                        row["日期"] = ds2.Tables["TEMPds2"].Rows[i]["日期"].ToString();
+                        row["品號"] = od2["MD003"].ToString();
+                        row["品名"] = od2["MB002"].ToString();
+                        if (!string.IsNullOrEmpty(od2["MB003"].ToString()))
+                        {
+                            COOKIES = Convert.ToDecimal(Regex.Replace(od2["MB003"].ToString(), "[^0-9]", ""));
+                        }
+                        else
+                        {
+                            COOKIES = 1;
+                        }
+                        if (!string.IsNullOrEmpty(od2["MD006"].ToString()))
+                        {
+                            TOTALCOPNum = Convert.ToDecimal(Convert.ToDecimal(od2["MD006"].ToString()) *1 * COPNum);
+                        }
+                        else
+                        {
+                            TOTALCOPNum = 1;
+                        }
+                        if (!string.IsNullOrEmpty(od2["MB003"].ToString()))
+                        {
+                            BATCH = Convert.ToDecimal(ds2.Tables["TEMPds2"].Rows[i]["標準批量"].ToString());
+                        }
+                        else
+                        {
+                            BATCH = 1;
+                        }
+
+                        
+                        if (Convert.ToInt32(TOTALCOPNum / COOKIES / BATCH) > 0)
+                        {
+                            row["數量"] = Convert.ToInt32(TOTALCOPNum / COOKIES / BATCH);
+                        }
+                        else
+                        {
+                            row["數量"] = 1;
+                        }
+
+                        if (!string.IsNullOrEmpty(od2["PROCESSNUM"].ToString()))
+                        {
+                            if (Convert.ToDecimal(od2["PROCESSNUM"].ToString()) > 0)
+                            {
+                                MOCBATCH = Convert.ToDecimal(od2["PROCESSNUM"].ToString());
+                            }
+                            else
+                            {
+                                MOCBATCH = 1;
+                            }
+
+                        }
+                        else
+                        {
+                            MOCBATCH = 1;
+                        }
+                        row["桶數"] =0;
+                        row["標準批量"] = od2["PROCESSNUM"].ToString();
+                        row["標準時間"] = od2["PROCESSTIME"].ToString();
+                        dtTemp.Rows.Add(row);
+                    }
+
+                }
+
+            }
+
+
+
+            dataGridView3.DataSource = dtTemp;
+            dataGridView3.AutoResizeColumns();
+        }
         #endregion
 
         #region BUTTON
@@ -963,9 +1030,19 @@ namespace TKMOC
             SEARCHPLANWEEK();
             SEARCHCOOKIES();
         }
+        private void button9_Click(object sender, EventArgs e)
+        {
+            SEARCHPLANWEEK();
+            SERCHMATERIAL();
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+
+        }
 
         #endregion
 
-       
+
     }
 }
