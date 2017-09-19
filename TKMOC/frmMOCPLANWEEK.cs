@@ -930,15 +930,15 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  WITH TEMPTABLE (MD001,MD003,MD004,MD006) AS");
+                sbSql.AppendFormat(@"  WITH TEMPTABLE (MD001,MD003,MD004,MD006,MD007) AS");
                 sbSql.AppendFormat(@"  (");
-                sbSql.AppendFormat(@"   SELECT  MD001,MD003,MD004,MD006 FROM [TK].dbo.BOMMD WHERE MD001='{0}'", ds2.Tables["TEMPds2"].Rows[i]["品號"].ToString());
+                sbSql.AppendFormat(@"   SELECT  MD001,MD003,MD004,MD006,MD007 FROM [TK].dbo.BOMMD WHERE MD001='{0}'", ds2.Tables["TEMPds2"].Rows[i]["品號"].ToString());
                 sbSql.AppendFormat(@"   UNION ALL");
-                sbSql.AppendFormat(@"   SELECT A.MD001,A.MD003,A.MD004,A.MD006");
+                sbSql.AppendFormat(@"   SELECT A.MD001,A.MD003,A.MD004,A.MD006,A.MD007  ");
                 sbSql.AppendFormat(@"   FROM [TK].dbo.BOMMD A");
                 sbSql.AppendFormat(@"   INNER JOIN TEMPTABLE B on A.MD001=B.MD003");
                 sbSql.AppendFormat(@"  )");
-                sbSql.AppendFormat(@"  SELECT MD001,MD003,MD004,MD006 ");
+                sbSql.AppendFormat(@"  SELECT MD001,MD003,MD004,MD006,MD007 ");
                 sbSql.AppendFormat(@"  ,[INVMB].MB002,CASE WHEN ISNULL(INVMB.MB003,'')=''  THEN '1' ELSE INVMB.MB003 END AS MB003");
                 sbSql.AppendFormat(@"  ,[PROCESSNUM],[PROCESSTIME]    ");
                 sbSql.AppendFormat(@"  FROM TEMPTABLE ");
@@ -971,7 +971,7 @@ namespace TKMOC
 
                         if (!string.IsNullOrEmpty(od2["MB003"].ToString()))
                         {
-                            COOKIES = Convert.ToDecimal(Regex.Replace(od2["MB003"].ToString(), "[^0-9]", ""));
+                            COOKIES = Convert.ToDecimal(Regex.Replace(od2["MD007"].ToString(), "[^0-9]", ""));
                         }
                         else
                         {
