@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="08/21/2017 10:44:37" ReportInfo.Modified="09/18/2017 16:55:14" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="08/21/2017 10:44:37" ReportInfo.Modified="09/19/2017 09:08:10" ReportInfo.CreatorVersion="2016.4.4.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9KL4xnwOU259qiebyCVqKLp">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9JsxWSjN4XPpUftAfpLSZhZ">
       <TableDataSource Name="Table" Alias="TBMOCPRODUCTDAILYREPORT" DataType="System.Int32" Enabled="true" SelectCommand=" SELECT  [PRODUCEDATE] AS '日期',[PRODUCEDEP] AS '線別',[PRODUCENAME] AS '品名'&#13;&#10; ,[WEIGHTBEFORECOOK] AS '總投入量',[REWORKPCT] AS '重工佔比',[EVARATE] AS '蒸發率'&#13;&#10; ,[STIRPCT] AS '攪拌成型率',[MANULOST]	 AS '製成損失率',[PCT] AS '餅製成率'&#13;&#10; ,[TOTALPCT] AS '總製成率',[CANPCT] AS '罐裝製成率',[STIR] AS '攪拌不良'&#13;&#10; ,[SIDES]	 AS '成型邊料',[COOKIES] AS '餅麩',[COOK] AS '烤焙',[NGPACKAGE] AS '包裝不良餅乾'&#13;&#10; ,[PASTRY]+[PASTRYRECYCLE]+[WATERFLOUR]+[WATERFLOURSIDE]+[WATERFLOURRECYCLE] AS'實際油酥+水麵'&#13;&#10; ,[NGTOTAL] AS '未熟總量(kg)'&#13;&#10; ,[OUTCOOKIES] AS '篩選餅乾區餅乾屑(kg)'&#13;&#10; ,[CLEANCOOKIES] AS '清掃廢料(kg)'  &#13;&#10; ,[NGPACKAGECAN] AS '包裝(內袋(卷) 罐)',[CAN] AS '包裝投入(袋(卷),罐)'&#13;&#10; ,[HLAFWEIGHT] AS '半成品入庫數(kg) (含袋重)'&#13;&#10; FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT]&#13;&#10; WHERE  [PRODUCEDATE]&gt;=@P1 AND [PRODUCEDATE]&lt;=@P2&#13;&#10; ORDER BY [PRODUCEDATE],[PRODUCEDEP],[PRODUCENAME]&#13;&#10;      ">
         <Column Name="日期" DataType="System.DateTime"/>
         <Column Name="線別" DataType="System.String"/>
@@ -45,78 +45,92 @@
     <Total Name="AV罐裝製成率" TotalType="Avg" Expression="[TBMOCPRODUCTDAILYREPORT.罐裝製成率]" Evaluator="Data1"/>
     <Total Name="AV攪拌不良" TotalType="Avg" Expression="[TBMOCPRODUCTDAILYREPORT.攪拌不良]" Evaluator="Data1"/>
     <Total Name="AV成型邊料" TotalType="Avg" Expression="[TBMOCPRODUCTDAILYREPORT.成型邊料]" Evaluator="Data1"/>
+    <Total Name="Total實際油酥+水麵" Expression="[TBMOCPRODUCTDAILYREPORT.實際油酥+水麵]" Evaluator="Data1"/>
+    <Total Name="Total未熟總量" Expression="[TBMOCPRODUCTDAILYREPORT.未熟總量(kg)]" Evaluator="Data1"/>
+    <Total Name="Total篩選餅乾區餅乾屑" Expression="[TBMOCPRODUCTDAILYREPORT.篩選餅乾區餅乾屑(kg)]" Evaluator="Data1"/>
+    <Total Name="Total清掃廢料" Expression="[TBMOCPRODUCTDAILYREPORT.清掃廢料(kg)]" Evaluator="Data1"/>
+    <Total Name="Total包裝(內袋(卷) 罐)" Expression="[TBMOCPRODUCTDAILYREPORT.包裝(內袋(卷) 罐)]" Evaluator="Data1"/>
+    <Total Name="Total包裝投入(袋(卷),罐)" Expression="[TBMOCPRODUCTDAILYREPORT.包裝投入(袋(卷),罐)]" Evaluator="Data1"/>
+    <Total Name="Total半成品入庫數(kg)" Expression="[TBMOCPRODUCTDAILYREPORT.半成品入庫數(kg) (含袋重)]" Evaluator="Data1"/>
   </Dictionary>
   <ReportPage Name="Page1" Landscape="true" PaperWidth="450" PaperHeight="210">
     <ReportTitleBand Name="ReportTitle1" Width="1625.4" Height="37.8">
-      <TextObject Name="Text34" Width="1426.95" Height="37.8" Text="生產日報的分析表" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text34" Width="1625.4" Height="37.8" Text="生產日報的分析表" HorzAlign="Center" VertAlign="Center"/>
     </ReportTitleBand>
     <DataBand Name="Data1" Top="88.5" Width="1625.4" Height="18.9" CanGrow="true" DataSource="Table">
       <TextObject Name="Text1" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCPRODUCTDAILYREPORT.日期]" Format="Date" Format.Format="d" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text3" Left="66.15" Width="37.8" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCPRODUCTDAILYREPORT.線別]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text5" Left="103.95" Width="103.95" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCPRODUCTDAILYREPORT.品名]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text7" Left="283.5" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCPRODUCTDAILYREPORT.總投入量]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text10" Left="425.25" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCPRODUCTDAILYREPORT.重工佔比]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text12" Left="491.4" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCPRODUCTDAILYREPORT.蒸發率]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text14" Left="557.55" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCPRODUCTDAILYREPORT.攪拌成型率]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text16" Left="623.7" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCPRODUCTDAILYREPORT.製成損失率]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text18" Left="689.85" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCPRODUCTDAILYREPORT.餅製成率]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text20" Left="756" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCPRODUCTDAILYREPORT.總製成率]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text22" Left="822.15" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCPRODUCTDAILYREPORT.罐裝製成率]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text24" Left="888.3" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCPRODUCTDAILYREPORT.攪拌不良]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text26" Left="954.45" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCPRODUCTDAILYREPORT.成型邊料]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text28" Left="1020.6" Width="56.7" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCPRODUCTDAILYREPORT.餅麩]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text30" Left="1077.3" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCPRODUCTDAILYREPORT.烤焙]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text32" Left="1275.75" Width="56.7" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCPRODUCTDAILYREPORT.包裝不良餅乾]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text50" Left="207.9" Width="75.6" Height="18.9" Border.Lines="All" Text="[TBMOCPRODUCTDAILYREPORT.實際油酥+水麵]" Format="Number" Format.UseLocale="true" HorzAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text52" Left="349.65" Width="75.6" Height="18.9" Border.Lines="All" Text="[TBMOCPRODUCTDAILYREPORT.未熟總量(kg)]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text54" Left="1143.45" Width="75.6" Height="18.9" Border.Lines="All" Text="[TBMOCPRODUCTDAILYREPORT.篩選餅乾區餅乾屑(kg)]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text56" Left="1219.05" Width="56.7" Height="18.9" Border.Lines="All" Text="[TBMOCPRODUCTDAILYREPORT.清掃廢料(kg)]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text58" Left="1332.45" Width="75.6" Height="18.9" Border.Lines="All" Text="[TBMOCPRODUCTDAILYREPORT.包裝(內袋(卷) 罐)]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text60" Left="1408.05" Width="85.05" Height="18.9" Border.Lines="All" Text="[TBMOCPRODUCTDAILYREPORT.包裝投入(袋(卷),罐)]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text62" Left="1493.1" Width="75.6" Height="18.9" Border.Lines="All" Text="[TBMOCPRODUCTDAILYREPORT.半成品入庫數(kg) (含袋重)]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text5" Left="103.95" Width="103.95" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCPRODUCTDAILYREPORT.品名]" VertAlign="Center"/>
+      <TextObject Name="Text7" Left="283.5" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCPRODUCTDAILYREPORT.總投入量]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text10" Left="434.7" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCPRODUCTDAILYREPORT.重工佔比]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text12" Left="500.85" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCPRODUCTDAILYREPORT.蒸發率]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text14" Left="567" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCPRODUCTDAILYREPORT.攪拌成型率]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text16" Left="633.15" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCPRODUCTDAILYREPORT.製成損失率]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text18" Left="699.3" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCPRODUCTDAILYREPORT.餅製成率]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text20" Left="765.45" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCPRODUCTDAILYREPORT.總製成率]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text22" Left="831.6" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCPRODUCTDAILYREPORT.罐裝製成率]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text24" Left="897.75" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCPRODUCTDAILYREPORT.攪拌不良]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text26" Left="963.9" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCPRODUCTDAILYREPORT.成型邊料]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text28" Left="1030.05" Width="56.7" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCPRODUCTDAILYREPORT.餅麩]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text30" Left="1086.75" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCPRODUCTDAILYREPORT.烤焙]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text32" Left="1304.1" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCPRODUCTDAILYREPORT.包裝不良餅乾]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text50" Left="207.9" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCPRODUCTDAILYREPORT.實際油酥+水麵]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text52" Left="359.1" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCPRODUCTDAILYREPORT.未熟總量(kg)]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text54" Left="1152.9" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCPRODUCTDAILYREPORT.篩選餅乾區餅乾屑(kg)]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text56" Left="1228.5" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCPRODUCTDAILYREPORT.清掃廢料(kg)]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text58" Left="1379.7" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCPRODUCTDAILYREPORT.包裝(內袋(卷) 罐)]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text60" Left="1455.3" Width="85.05" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCPRODUCTDAILYREPORT.包裝投入(袋(卷),罐)]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text62" Left="1540.35" Width="85.05" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBMOCPRODUCTDAILYREPORT.半成品入庫數(kg) (含袋重)]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
       <DataHeaderBand Name="DataHeader1" Top="44.25" Width="1625.4" Height="37.8" RepeatOnEveryPage="true">
         <TextObject Name="Text2" Width="66.15" Height="37.8" Border.Lines="All" Text="日期" HorzAlign="Center" VertAlign="Center"/>
         <TextObject Name="Text4" Left="66.15" Width="37.8" Height="37.8" Border.Lines="All" Text="線別" HorzAlign="Center" VertAlign="Center"/>
         <TextObject Name="Text6" Left="103.95" Width="103.95" Height="37.8" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
-        <TextObject Name="Text8" Left="283.5" Width="66.15" Height="37.8" Border.Lines="All" Text="總投入量" HorzAlign="Center" VertAlign="Center"/>
-        <TextObject Name="Text11" Left="425.25" Width="66.15" Height="37.8" Border.Lines="All" Text="重工佔比" HorzAlign="Center" VertAlign="Center"/>
-        <TextObject Name="Text13" Left="491.4" Width="66.15" Height="37.8" Border.Lines="All" Text="蒸發率" HorzAlign="Center" VertAlign="Center"/>
-        <TextObject Name="Text15" Left="557.55" Width="66.15" Height="37.8" Border.Lines="All" Text="攪拌成型率" HorzAlign="Center" VertAlign="Center"/>
-        <TextObject Name="Text17" Left="623.7" Width="66.15" Height="37.8" Border.Lines="All" Text="製成損失率" HorzAlign="Center" VertAlign="Center"/>
-        <TextObject Name="Text19" Left="689.85" Width="66.15" Height="37.8" Border.Lines="All" Text="餅製成率" HorzAlign="Center" VertAlign="Center"/>
-        <TextObject Name="Text21" Left="756" Width="66.15" Height="37.8" Border.Lines="All" Text="總製成率" HorzAlign="Center" VertAlign="Center"/>
-        <TextObject Name="Text23" Left="822.15" Width="66.15" Height="37.8" Border.Lines="All" Text="罐裝製成率" HorzAlign="Center" VertAlign="Center"/>
-        <TextObject Name="Text25" Left="888.3" Width="66.15" Height="37.8" Border.Lines="All" Text="攪拌不良" HorzAlign="Center" VertAlign="Center"/>
-        <TextObject Name="Text27" Left="954.45" Width="66.15" Height="37.8" Border.Lines="All" Text="成型邊料" HorzAlign="Center" VertAlign="Center"/>
-        <TextObject Name="Text29" Left="1020.6" Width="56.7" Height="37.8" Border.Lines="All" Text="餅麩" HorzAlign="Center" VertAlign="Center"/>
-        <TextObject Name="Text33" Left="1275.75" Width="56.7" Height="37.8" Border.Lines="All" Text="包裝不良餅乾" HorzAlign="Center" VertAlign="Center"/>
-        <TextObject Name="Text31" Left="1077.3" Width="66.15" Height="37.8" Border.Lines="All" Text="烤焙" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text8" Left="283.5" Width="75.6" Height="37.8" Border.Lines="All" Text="總投入量" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text11" Left="434.7" Width="66.15" Height="37.8" Border.Lines="All" Text="重工佔比" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text13" Left="500.85" Width="66.15" Height="37.8" Border.Lines="All" Text="蒸發率" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text15" Left="567" Width="66.15" Height="37.8" Border.Lines="All" Text="攪拌成型率" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text17" Left="633.15" Width="66.15" Height="37.8" Border.Lines="All" Text="製成損失率" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text19" Left="699.3" Width="66.15" Height="37.8" Border.Lines="All" Text="餅製成率" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text21" Left="765.45" Width="66.15" Height="37.8" Border.Lines="All" Text="總製成率" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text23" Left="831.6" Width="66.15" Height="37.8" Border.Lines="All" Text="罐裝製成率" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text25" Left="897.75" Width="66.15" Height="37.8" Border.Lines="All" Text="攪拌不良" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text27" Left="963.9" Width="66.15" Height="37.8" Border.Lines="All" Text="成型邊料" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text29" Left="1030.05" Width="56.7" Height="37.8" Border.Lines="All" Text="餅麩" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text33" Left="1304.1" Width="75.6" Height="37.8" Border.Lines="All" Text="包裝不良餅乾" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text31" Left="1086.75" Width="66.15" Height="37.8" Border.Lines="All" Text="烤焙" HorzAlign="Center" VertAlign="Center"/>
         <TextObject Name="Text51" Left="207.9" Width="75.6" Height="37.8" Border.Lines="All" Text="實際油酥+水麵" VertAlign="Center"/>
-        <TextObject Name="Text53" Left="349.65" Width="75.6" Height="37.8" Border.Lines="All" Text="未熟總量(kg)" HorzAlign="Center" VertAlign="Center"/>
-        <TextObject Name="Text55" Left="1143.45" Width="75.6" Height="37.8" Border.Lines="All" Text="篩選餅乾區餅乾屑(kg)" HorzAlign="Center" VertAlign="Center"/>
-        <TextObject Name="Text57" Left="1219.05" Width="56.7" Height="37.8" Border.Lines="All" Text="清掃廢料(kg)" HorzAlign="Center" VertAlign="Center"/>
-        <TextObject Name="Text59" Left="1332.45" Width="75.6" Height="37.8" Border.Lines="All" Text="包裝(內袋(卷) 罐)" HorzAlign="Center" VertAlign="Center"/>
-        <TextObject Name="Text61" Left="1406.44" Width="85.05" Height="37.8" Border.Lines="All" Text="包裝投入(袋(卷),罐)" HorzAlign="Center" VertAlign="Center"/>
-        <TextObject Name="Text63" Left="1491.49" Width="75.6" Height="37.8" Border.Lines="All" Text="半成品入庫數(kg) (含袋重)" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text53" Left="359.1" Width="75.6" Height="37.8" Border.Lines="All" Text="未熟總量(kg)" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text55" Left="1152.9" Width="75.6" Height="37.8" Border.Lines="All" Text="篩選餅乾區餅乾屑(kg)" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text57" Left="1228.5" Width="75.6" Height="37.8" Border.Lines="All" Text="清掃廢料(kg)" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text59" Left="1379.7" Width="75.6" Height="37.8" Border.Lines="All" Text="包裝(內袋(卷) 罐)" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text61" Left="1453.69" Width="85.05" Height="37.8" Border.Lines="All" Text="包裝投入(袋(卷),罐)" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text63" Left="1538.74" Width="85.05" Height="37.8" Border.Lines="All" Text="半成品入庫數(kg) (含袋重)" HorzAlign="Center" VertAlign="Center"/>
       </DataHeaderBand>
     </DataBand>
     <ReportSummaryBand Name="ReportSummary1" Top="113.85" Width="1625.4" Height="18.9">
-      <TextObject Name="Text9" Left="283.5" Width="66.15" Height="18.9" Border.Lines="All" Text="[Total總投入量]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text35" Left="1020.6" Width="56.7" Height="18.9" Border.Lines="All" Text="[Total餅麩]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text36" Left="1077.3" Width="66.15" Height="18.9" Border.Lines="All" Text="[Total烤焙]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text37" Left="1275.75" Width="56.7" Height="18.9" Border.Lines="All" Text="[Total包裝不良餅乾]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text38" Left="425.25" Width="66.15" Height="18.9" Border.Lines="All" Text="[AV重工佔比]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text39" Left="491.4" Width="66.15" Height="18.9" Border.Lines="All" Text="[AV蒸發率]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text40" Left="557.55" Width="66.15" Height="18.9" Border.Lines="All" Text="[AV攪拌成型率]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text41" Left="623.7" Width="66.15" Height="18.9" Border.Lines="All" Text="[AV製成損失率]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text42" Left="689.85" Width="66.15" Height="18.9" Border.Lines="All" Text="[AV餅製成率]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text43" Left="756" Width="66.15" Height="18.9" Border.Lines="All" Text="[AV總製成率]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text44" Left="822.15" Width="66.15" Height="18.9" Border.Lines="All" Text="[AV罐裝製成率]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text45" Left="888.3" Width="66.15" Height="18.9" Border.Lines="All" Text="[AV攪拌不良]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text46" Left="954.45" Width="66.15" Height="18.9" Border.Lines="All" Text="[AV成型邊料]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text9" Left="283.5" Width="75.6" Height="18.9" Border.Lines="All" Text="[Total總投入量]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text35" Left="1030.05" Width="56.7" Height="18.9" Border.Lines="All" Text="[Total餅麩]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text36" Left="1086.75" Width="66.15" Height="18.9" Border.Lines="All" Text="[Total烤焙]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text37" Left="1304.1" Width="75.6" Height="18.9" Border.Lines="All" Text="[Total包裝不良餅乾]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text38" Left="434.7" Width="66.15" Height="18.9" Border.Lines="All" Text="[AV重工佔比]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text39" Left="500.85" Width="66.15" Height="18.9" Border.Lines="All" Text="[AV蒸發率]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text40" Left="567" Width="66.15" Height="18.9" Border.Lines="All" Text="[AV攪拌成型率]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text41" Left="633.15" Width="66.15" Height="18.9" Border.Lines="All" Text="[AV製成損失率]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text42" Left="699.3" Width="66.15" Height="18.9" Border.Lines="All" Text="[AV餅製成率]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text43" Left="765.45" Width="66.15" Height="18.9" Border.Lines="All" Text="[AV總製成率]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text44" Left="831.6" Width="66.15" Height="18.9" Border.Lines="All" Text="[AV罐裝製成率]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text45" Left="897.75" Width="66.15" Height="18.9" Border.Lines="All" Text="[AV攪拌不良]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text46" Left="963.9" Width="66.15" Height="18.9" Border.Lines="All" Text="[AV成型邊料]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text47" Left="103.95" Width="103.95" Height="18.9" Border.Lines="All" Text="合計:" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text48" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Format="Date" Format.Format="d" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text49" Left="66.15" Width="37.8" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text64" Left="207.9" Width="75.6" Height="18.9" Border.Lines="All" Text="[Total實際油酥+水麵]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text65" Left="359.1" Width="75.6" Height="18.9" Border.Lines="All" Text="[Total未熟總量]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text66" Left="1152.9" Width="75.6" Height="18.9" Border.Lines="All" Text="[Total篩選餅乾區餅乾屑]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text67" Left="1228.5" Width="75.6" Height="18.9" Border.Lines="All" Text="[Total清掃廢料]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text68" Left="1379.7" Width="75.6" Height="18.9" Border.Lines="All" Text="[Total包裝(內袋(卷) 罐)]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text69" Left="1455.3" Width="85.05" Height="18.9" Border.Lines="All" Text="[Total包裝投入(袋(卷),罐)]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text70" Left="1540.35" Width="85.05" Height="18.9" Border.Lines="All" Text="[Total半成品入庫數(kg)]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
     </ReportSummaryBand>
   </ReportPage>
 </Report>
