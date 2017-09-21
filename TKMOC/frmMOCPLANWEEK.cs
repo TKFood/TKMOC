@@ -1429,7 +1429,51 @@ namespace TKMOC
             FINDWEKKDATE2();
         }
 
+        public void ADDPURTD()
+        {
+            if (dataGridView4.RowCount>0)
+            {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
 
+                    sqlConn.Close();
+                    sqlConn.Open();
+                    tran = sqlConn.BeginTransaction();
+
+                    sbSql.Clear();
+  
+                    sbSql.AppendFormat("  ");
+
+                    cmd.Connection = sqlConn;
+                    cmd.CommandTimeout = 60;
+                    cmd.CommandText = sbSql.ToString();
+                    cmd.Transaction = tran;
+                    result = cmd.ExecuteNonQuery();
+
+                    if (result == 0)
+                    {
+                        tran.Rollback();    //交易取消
+                    }
+                    else
+                    {
+                        tran.Commit();      //執行交易  
+
+
+                    }
+                }
+                catch
+                {
+
+                }
+
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }
+        }
         #endregion
 
         #region BUTTON
@@ -1528,10 +1572,14 @@ namespace TKMOC
         }
 
 
+        private void button17_Click(object sender, EventArgs e)
+        {
+            ADDPURTD();
+        }
 
 
         #endregion
 
-       
+
     }
 }
