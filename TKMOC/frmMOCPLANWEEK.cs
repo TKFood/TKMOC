@@ -35,6 +35,7 @@ namespace TKMOC
         DataSet ds2 = new DataSet();
         DataSet ds3 = new DataSet();
         DataSet ds4 = new DataSet();
+        DataSet ds5 = new DataSet();
         DataTable dt = new DataTable();
         DataTable dtTemp = new DataTable();
         DataTable dtTemp2 = new DataTable();
@@ -915,6 +916,9 @@ namespace TKMOC
                     YEARS = row.Cells["年度"].Value.ToString();
                     WEEKS = row.Cells["週次"].Value.ToString();
 
+                    numericUpDown3.Value=Convert.ToDecimal (row.Cells["年度"].Value.ToString());
+                    numericUpDown4.Value = Convert.ToDecimal(row.Cells["週次"].Value.ToString());
+
                 }
                 else
                 {
@@ -1177,9 +1181,9 @@ namespace TKMOC
                         sbSql.Clear();
                         sbSql.AppendFormat("  INSERT INTO [TKMOC].[dbo].[MOCPLANWEEKPUR]");
                         sbSql.AppendFormat("  ([ID],[YEARS],[WEEKS],[MB001],[MB002],[MB003],[NUM],[UNIT],[TC001],[TC002])");
-                        sbSql.AppendFormat("  VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}')", "NEWID()",dr.Cells["單別"].Value.ToString(), dr.Cells["單別"].Value.ToString(), dr.Cells["單別"].Value.ToString(), dr.Cells["單別"].Value.ToString(), dr.Cells["單別"].Value.ToString(), dr.Cells["單別"].Value.ToString(), dr.Cells["單別"].Value.ToString(),"","");
+                        sbSql.AppendFormat("  VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}')", "NEWID()",dr.Cells["年度"].Value.ToString(), dr.Cells["週次"].Value.ToString(), dr.Cells["品號"].Value.ToString(), dr.Cells["品名"].Value.ToString(), "", dr.Cells["數量"].Value.ToString(), dr.Cells["單位"].Value.ToString(),"","");
                         sbSql.AppendFormat("  ");
-
+                  
                         cmd.Connection = sqlConn;
                         cmd.CommandTimeout = 60;
                         cmd.CommandText = sbSql.ToString();
@@ -1210,7 +1214,64 @@ namespace TKMOC
             }
         }
 
+        public void SEARCHMOCPLANWEEKPUR()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
 
+                sbSql.Clear();
+
+                sbSql.AppendFormat(@"  SELECT ");
+                sbSql.AppendFormat(@"  [YEARS] AS '年度',[WEEKS] AS '週次',[MB001] AS '品號',[MB002] AS '品名',[MB003] AS '規格'");
+                sbSql.AppendFormat(@"  ,[NUM] AS '數量',[UNIT] AS '單位',[TC001] AS '採購單別',[TC002] AS '採購單號'");
+                sbSql.AppendFormat(@"  ,[ID]");
+                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCPLANWEEKPUR]");
+                sbSql.AppendFormat(@"  WHERE [YEARS]='{0}' AND [WEEKS]='{1}'", numericUpDown3.Value.ToString(), numericUpDown4.Value.ToString());
+                sbSql.AppendFormat(@"  ORDER BY MB001");
+                sbSql.AppendFormat(@"  ");
+
+
+                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder = new SqlCommandBuilder(adapter);
+                sqlConn.Open();
+                ds5.Clear();
+                adapter.Fill(ds5, "TEMPds5");
+                sqlConn.Close();
+
+
+                if (ds5.Tables["TEMPds5"].Rows.Count == 0)
+                {
+                    dataGridView4.DataSource = null;
+                }
+                else
+                {
+                    if (ds5.Tables["TEMPds5"].Rows.Count >= 1)
+                    {
+                        //labelget.Text = "有 " + ds.Tables["TEMPds1"].Rows.Count.ToString() + " 筆";
+                        //dataGridView1.Rows.Clear();
+                        dataGridView4.DataSource = ds5.Tables["TEMPds5"];
+
+                        dataGridView4.AutoResizeColumns();
+                        dataGridView4.FirstDisplayedScrollingRowIndex = dataGridView4.RowCount - 1;
+
+
+                    }
+
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
 
         #endregion
 
@@ -1219,7 +1280,7 @@ namespace TKMOC
         {
             Search();
             SEARCHPLANWEEK();
-            SEARCHCOOKIES();
+            
         }
         private void button2_Click(object sender, EventArgs e)
         {
@@ -1252,9 +1313,19 @@ namespace TKMOC
 
         private void button8_Click(object sender, EventArgs e)
         {
-            DELMOCPLANWEEK();
-            SEARCHPLANWEEK();
-            SEARCHCOOKIES();
+            DialogResult dialogResult = MessageBox.Show("要刪除了?", "要刪除了?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                DELMOCPLANWEEK();
+                SEARCHPLANWEEK();
+                SEARCHCOOKIES();
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                //do something else
+            }
+
+           
         }
         private void button9_Click(object sender, EventArgs e)
         {
@@ -1279,9 +1350,24 @@ namespace TKMOC
         private void button13_Click(object sender, EventArgs e)
         {
             ADDMOCPLANWEEKPUR();
+            MessageBox.Show("已完成");
         }
 
-       
+        private void button14_Click(object sender, EventArgs e)
+        {
+            SEARCHMOCPLANWEEKPUR();
+        }
+
+        private void button15_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button16_Click(object sender, EventArgs e)
+        {
+
+        }
+
 
         #endregion
 
