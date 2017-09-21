@@ -48,10 +48,13 @@ namespace TKMOC
         decimal BATCH = 1;
         Thread TD;
         string CHECKYN = "N";
+        string CHECKYNMOCPLANWEEKPUR = "N";
         decimal MOCBATCH = 1;
         string TD001 = null;
         string TD002 = null;
         string TD003 = null;
+        string YEARS;
+        string WEEKS;
 
 
         public frmMOCPLANWEEK()
@@ -59,7 +62,10 @@ namespace TKMOC
             InitializeComponent();
             FINDWEKKDATE();
 
-            dtTemp.Columns.Add("日期");
+     
+            dtTemp.Columns.Add("年度");
+            dtTemp.Columns.Add("週次");
+           
             dtTemp.Columns.Add("品號");
             dtTemp.Columns.Add("品名");
             dtTemp.Columns.Add("數量");
@@ -256,7 +262,7 @@ namespace TKMOC
                         sbSql.Clear();
                         sbSql.Append(" INSERT INTO [TKMOC].[dbo].[MOCPLANWEEK] ");
                         sbSql.Append(" ([ID],[YEARS],[WEEKS],[SDATE],[EDATE],[TD001],[TD002],[TD003],[TD004],[TD005],[TD006],[TD008],[TD009],[TD013],[MC004]) ");
-                        sbSql.AppendFormat("  VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}') ", Guid.NewGuid(), numericUpDown1.Value.ToString(),numericUpDown2.Value.ToString(),dateTimePicker3.Value.ToString("yyyyMMdd"), dateTimePicker4.Value.ToString("yyyyMMdd"), dr.Cells["單別"].Value.ToString(), dr.Cells["單號"].Value.ToString(), dr.Cells["序號"].Value.ToString(), dr.Cells["品號"].Value.ToString(), dr.Cells["品名"].Value.ToString(), dr.Cells["規格"].Value.ToString(), dr.Cells["訂單數量"].Value.ToString(), dr.Cells["單位"].Value.ToString(), dr.Cells["日期"].Value.ToString(), dr.Cells["標準批量"].Value.ToString());
+                        sbSql.AppendFormat("  VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}') ", "NEWID()", numericUpDown1.Value.ToString(),numericUpDown2.Value.ToString(),dateTimePicker3.Value.ToString("yyyyMMdd"), dateTimePicker4.Value.ToString("yyyyMMdd"), dr.Cells["單別"].Value.ToString(), dr.Cells["單號"].Value.ToString(), dr.Cells["序號"].Value.ToString(), dr.Cells["品號"].Value.ToString(), dr.Cells["品名"].Value.ToString(), dr.Cells["規格"].Value.ToString(), dr.Cells["訂單數量"].Value.ToString(), dr.Cells["單位"].Value.ToString(), dr.Cells["日期"].Value.ToString(), dr.Cells["標準批量"].Value.ToString());
 
                         cmd.Connection = sqlConn;
                         cmd.CommandTimeout = 60;
@@ -476,7 +482,8 @@ namespace TKMOC
                     {
                         DataRow row = dtTemp.NewRow();
                         //row["MD001"] = od2["MC001"].ToString();
-                        row["日期"] = ds2.Tables["TEMPds2"].Rows[i]["日期"].ToString();
+                        row["年度"] = YEARS;
+                        row["週次"] = WEEKS;
                         row["品號"] = od2["MD003"].ToString();
                         row["品名"] = od2["MB002"].ToString();
                         row["單位"] = od2["MD004"].ToString();
@@ -905,7 +912,17 @@ namespace TKMOC
                     TD001= row.Cells["單別"].Value.ToString();
                     TD002 = row.Cells["單號"].Value.ToString();
                     TD003 = row.Cells["序號"].Value.ToString();
+                    YEARS = row.Cells["年度"].Value.ToString();
+                    WEEKS = row.Cells["週次"].Value.ToString();
 
+                }
+                else
+                {
+                    TD001 = null;
+                    TD002 = null;
+                    TD003 = null;
+                    YEARS = null;
+                    WEEKS = null;
                 }
             }
         }
@@ -948,6 +965,8 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  ORDER BY MD001,MD003");
                 sbSql.AppendFormat(@"  ");
 
+               
+
 
                 adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -957,6 +976,18 @@ namespace TKMOC
                 adapter.Fill(ds3, "TEMPds3");
                 sqlConn.Close();
 
+
+                if (CHECKYNMOCPLANWEEKPUR.Equals("N"))
+                {
+                    //建立一個DataGridView的Column物件及其內容
+                    DataGridViewColumn dgvc = new DataGridViewCheckBoxColumn();
+                    dgvc.Width = 40;
+                    dgvc.Name = "選取";
+
+                    this.dataGridView3.Columns.Insert(0, dgvc);
+                    CHECKYNMOCPLANWEEKPUR = "Y";
+                }
+
                 if (ds3.Tables["TEMPds3"].Rows.Count >= 1)
                 {
 
@@ -964,7 +995,9 @@ namespace TKMOC
                     {
                         DataRow row = dtTemp.NewRow();
                         //row["MD001"] = od2["MC001"].ToString();
-                        row["日期"] = ds2.Tables["TEMPds2"].Rows[i]["日期"].ToString();
+
+                        row["年度"] = YEARS;
+                        row["週次"] = WEEKS;
                         row["品號"] = od2["MD003"].ToString();
                         row["品名"] = od2["MB002"].ToString();
                         row["單位"] = od2["MD004"].ToString();
@@ -1110,6 +1143,74 @@ namespace TKMOC
 
         }
 
+        public void SETCHECKBOX(string CHECK)
+        {
+            if(CHECK.Equals("true"))
+            {
+                foreach (DataGridViewRow dr in dataGridView3.Rows) dr.Cells[0].Value =true;
+            }
+            else if (CHECK.Equals("false"))
+            {
+                foreach (DataGridViewRow dr in dataGridView3.Rows) dr.Cells[0].Value = false;
+            }
+            else
+            {
+                foreach (DataGridViewRow dr in dataGridView3.Rows) dr.Cells[0].Value = "false";
+            }
+        }
+
+        public void ADDMOCPLANWEEKPUR()
+        {
+            foreach (DataGridViewRow dr in this.dataGridView3.Rows)
+            {
+                if (dr.Cells[0].Value != null && (bool)dr.Cells[0].Value)
+                {
+                    try
+                    {
+                        connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                        sqlConn = new SqlConnection(connectionString);
+
+                        sqlConn.Close();
+                        sqlConn.Open();
+                        tran = sqlConn.BeginTransaction();
+
+                        sbSql.Clear();
+                        sbSql.AppendFormat("  INSERT INTO [TKMOC].[dbo].[MOCPLANWEEKPUR]");
+                        sbSql.AppendFormat("  ([ID],[YEARS],[WEEKS],[MB001],[MB002],[MB003],[NUM],[UNIT],[TC001],[TC002])");
+                        sbSql.AppendFormat("  VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}')", "NEWID()",dr.Cells["單別"].Value.ToString(), dr.Cells["單別"].Value.ToString(), dr.Cells["單別"].Value.ToString(), dr.Cells["單別"].Value.ToString(), dr.Cells["單別"].Value.ToString(), dr.Cells["單別"].Value.ToString(), dr.Cells["單別"].Value.ToString(),"","");
+                        sbSql.AppendFormat("  ");
+
+                        cmd.Connection = sqlConn;
+                        cmd.CommandTimeout = 60;
+                        cmd.CommandText = sbSql.ToString();
+                        cmd.Transaction = tran;
+                        result = cmd.ExecuteNonQuery();
+
+                        if (result == 0)
+                        {
+                            tran.Rollback();    //交易取消
+                        }
+                        else
+                        {
+                            tran.Commit();      //執行交易  
+
+
+                        }
+                    }
+                    catch
+                    {
+
+                    }
+
+                    finally
+                    {
+                        sqlConn.Close();
+                    }
+                }
+            }
+        }
+
+
 
         #endregion
 
@@ -1165,6 +1266,22 @@ namespace TKMOC
         {
             ExcelExportMATERIAL();
         }
+        private void button11_Click(object sender, EventArgs e)
+        {
+            SETCHECKBOX("true");
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            SETCHECKBOX("false");
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            ADDMOCPLANWEEKPUR();
+        }
+
+       
 
         #endregion
 
