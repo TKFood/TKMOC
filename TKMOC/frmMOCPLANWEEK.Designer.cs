@@ -900,14 +900,14 @@
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 92F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 82F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 166F));
-            this.tableLayoutPanel4.Controls.Add(this.dateTimePicker5, 7, 0);
-            this.tableLayoutPanel4.Controls.Add(this.dateTimePicker6, 6, 0);
             this.tableLayoutPanel4.Controls.Add(this.label6, 5, 0);
             this.tableLayoutPanel4.Controls.Add(this.label7, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.numericUpDown3, 1, 0);
             this.tableLayoutPanel4.Controls.Add(this.label8, 2, 0);
             this.tableLayoutPanel4.Controls.Add(this.numericUpDown4, 3, 0);
             this.tableLayoutPanel4.Controls.Add(this.button14, 4, 0);
+            this.tableLayoutPanel4.Controls.Add(this.dateTimePicker5, 6, 0);
+            this.tableLayoutPanel4.Controls.Add(this.dateTimePicker6, 7, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
@@ -923,7 +923,7 @@
             this.dateTimePicker5.CustomFormat = "yyyy/MM/dd";
             this.dateTimePicker5.Enabled = false;
             this.dateTimePicker5.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker5.Location = new System.Drawing.Point(563, 9);
+            this.dateTimePicker5.Location = new System.Drawing.Point(483, 9);
             this.dateTimePicker5.Name = "dateTimePicker5";
             this.dateTimePicker5.Size = new System.Drawing.Size(74, 22);
             this.dateTimePicker5.TabIndex = 43;
@@ -934,7 +934,7 @@
             this.dateTimePicker6.CustomFormat = "yyyy/MM/dd";
             this.dateTimePicker6.Enabled = false;
             this.dateTimePicker6.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker6.Location = new System.Drawing.Point(483, 9);
+            this.dateTimePicker6.Location = new System.Drawing.Point(563, 9);
             this.dateTimePicker6.Name = "dateTimePicker6";
             this.dateTimePicker6.Size = new System.Drawing.Size(74, 22);
             this.dateTimePicker6.TabIndex = 42;
@@ -981,6 +981,7 @@
             0,
             0,
             0});
+            this.numericUpDown3.ValueChanged += new System.EventHandler(this.numericUpDown3_ValueChanged);
             // 
             // label8
             // 
@@ -1014,6 +1015,7 @@
             0,
             0,
             0});
+            this.numericUpDown4.ValueChanged += new System.EventHandler(this.numericUpDown4_ValueChanged);
             // 
             // button14
             // 
@@ -1037,6 +1039,7 @@
             this.dataGridView4.RowTemplate.Height = 24;
             this.dataGridView4.Size = new System.Drawing.Size(966, 246);
             this.dataGridView4.TabIndex = 3;
+            this.dataGridView4.SelectionChanged += new System.EventHandler(this.dataGridView4_SelectionChanged);
             // 
             // tableLayoutPanel5
             // 

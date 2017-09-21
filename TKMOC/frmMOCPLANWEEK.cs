@@ -78,6 +78,9 @@ namespace TKMOC
             numericUpDown1.Value = DateTime.Now.Year;
             numericUpDown2.Value = GetWeekOfYear(DateTime.Now);
 
+            numericUpDown3.Value = DateTime.Now.Year;
+            numericUpDown4.Value = GetWeekOfYear(DateTime.Now);
+
 
 
         }
@@ -345,6 +348,62 @@ namespace TKMOC
                     {
                         dateTimePicker3.Value = Convert.ToDateTime(ds.Tables["TEMPds1"].Rows[0]["SDATE"].ToString());
                         dateTimePicker4.Value = Convert.ToDateTime(ds.Tables["TEMPds1"].Rows[0]["EDATE"].ToString());
+
+                    }
+
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+
+        public void FINDWEKKDATE2()
+        {
+            DataSet ds = new DataSet();
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  declare @num int,@year varchar(4),@date datetime");
+                sbSql.AppendFormat(@"  select @num={0}", numericUpDown4.Value.ToString());
+                sbSql.AppendFormat(@"  select @year='{0}'", numericUpDown3.Value.ToString() + "/1/1");
+                sbSql.AppendFormat(@"  select @date=dateadd(wk,@num-1,@year)");
+                sbSql.AppendFormat(@"  select CONVERT(varchar(100),(dateadd(dd,1-datepart(dw,@date),@date)), 111)  AS 'SDATE'");
+                sbSql.AppendFormat(@"  ,CONVERT(varchar(100),dateadd(dd,7-datepart(dw,@date),@date), 111) AS 'EDATE'");
+                sbSql.AppendFormat(@"  ");
+
+
+                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder = new SqlCommandBuilder(adapter);
+                sqlConn.Open();
+                ds.Clear();
+                adapter.Fill(ds, "TEMPds1");
+                sqlConn.Close();
+
+
+                if (ds.Tables["TEMPds1"].Rows.Count == 0)
+                {
+                    dateTimePicker5.Value = Convert.ToDateTime(numericUpDown1.Value.ToString() + "/1/1");
+                    dateTimePicker6.Value = Convert.ToDateTime(numericUpDown1.Value.ToString() + "/1/1");
+                }
+                else
+                {
+                    if (ds.Tables["TEMPds1"].Rows.Count >= 1)
+                    {
+                        dateTimePicker5.Value = Convert.ToDateTime(ds.Tables["TEMPds1"].Rows[0]["SDATE"].ToString());
+                        dateTimePicker6.Value = Convert.ToDateTime(ds.Tables["TEMPds1"].Rows[0]["EDATE"].ToString());
 
                     }
 
@@ -1273,6 +1332,104 @@ namespace TKMOC
             }
         }
 
+        private void dataGridView4_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView4.CurrentRow != null)
+            {
+                int rowindex = dataGridView4.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView4.Rows[rowindex];
+                    textBox1.Text = row.Cells["ID"].Value.ToString();
+                    textBox2.Text = row.Cells["品名"].Value.ToString();
+                    textBox3.Text = row.Cells["數量"].Value.ToString();
+                    
+
+                }
+                else
+                {
+                    textBox1.Text = null;
+                    textBox2.Text = null;
+                    textBox3.Text = null;
+                  
+                }
+            }
+        }
+
+
+        public void SETREADONLY(string KIND)
+        {
+            if(KIND.Equals("false"))
+            {
+                
+                textBox3.ReadOnly = false;
+            }
+            else
+            {
+                
+                textBox3.ReadOnly = true;
+            }
+        }
+
+        public void UPDATEMOCPLANWEEKPUR()
+        {
+            if (!string.IsNullOrEmpty(textBox1.Text)& !string.IsNullOrEmpty(textBox2.Text)& !string.IsNullOrEmpty(textBox3.Text))
+            {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sqlConn.Close();
+                    sqlConn.Open();
+                    tran = sqlConn.BeginTransaction();
+
+                    sbSql.Clear();
+                    sbSql.AppendFormat("  UPDATE [TKMOC].[dbo].[MOCPLANWEEKPUR]");
+                    sbSql.AppendFormat("  SET [NUM]='{0}'",textBox3.Text);
+                    sbSql.AppendFormat("  WHERE ID='{0}'",textBox1.Text);
+                    sbSql.AppendFormat("  ");
+
+                    cmd.Connection = sqlConn;
+                    cmd.CommandTimeout = 60;
+                    cmd.CommandText = sbSql.ToString();
+                    cmd.Transaction = tran;
+                    result = cmd.ExecuteNonQuery();
+
+                    if (result == 0)
+                    {
+                        tran.Rollback();    //交易取消
+                    }
+                    else
+                    {
+                        tran.Commit();      //執行交易  
+
+
+                    }
+                }
+                catch
+                {
+
+                }
+
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }
+        }
+
+        private void numericUpDown3_ValueChanged(object sender, EventArgs e)
+        {
+            FINDWEKKDATE2();
+        }
+
+        private void numericUpDown4_ValueChanged(object sender, EventArgs e)
+        {
+            FINDWEKKDATE2();
+        }
+
+
         #endregion
 
         #region BUTTON
@@ -1360,17 +1517,21 @@ namespace TKMOC
 
         private void button15_Click(object sender, EventArgs e)
         {
-
+            SETREADONLY("false");
         }
 
         private void button16_Click(object sender, EventArgs e)
         {
-
+            SETREADONLY("true");
+            UPDATEMOCPLANWEEKPUR();
+            SEARCHMOCPLANWEEKPUR();
         }
+
+
 
 
         #endregion
 
-
+       
     }
 }
