@@ -1349,7 +1349,7 @@ namespace TKMOC
 
                         sbSql.Clear();
                         sbSql.AppendFormat("  INSERT INTO [TKMOC].[dbo].[MOCPLANWEEKPUR]");
-                        sbSql.AppendFormat("  ([ID],[YEARS],[WEEKS],[MB001],[MB002],[MB003],[NUM],[UNIT],[TC001],[TC002])");
+                        sbSql.AppendFormat("  ([ID],[YEARS],[WEEKS],[MB001],[MB002],[MB003],[NUM],[UNIT],[TA001],[TA002])");
                         sbSql.AppendFormat("  VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}')", "NEWID()",dr.Cells["年度"].Value.ToString(), dr.Cells["週次"].Value.ToString(), dr.Cells["品號"].Value.ToString(), dr.Cells["品名"].Value.ToString(), "", dr.Cells["數量"].Value.ToString(), dr.Cells["單位"].Value.ToString(),"","");
                         sbSql.AppendFormat("  ");
                   
@@ -1394,7 +1394,7 @@ namespace TKMOC
 
                 sbSql.AppendFormat(@"  SELECT ");
                 sbSql.AppendFormat(@"  [YEARS] AS '年度',[WEEKS] AS '週次',[MB001] AS '品號',[MB002] AS '品名',[MB003] AS '規格'");
-                sbSql.AppendFormat(@"  ,[NUM] AS '數量',[UNIT] AS '單位',[TC001] AS '採購單別',[TC002] AS '採購單號'");
+                sbSql.AppendFormat(@"  ,[NUM] AS '數量',[UNIT] AS '單位',[TA001] AS '請購單別',[TA002] AS '請購單號'");
                 sbSql.AppendFormat(@"  ,[ID]");
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCPLANWEEKPUR]");
                 sbSql.AppendFormat(@"  WHERE [YEARS]='{0}' AND [WEEKS]='{1}'", numericUpDown3.Value.ToString(), numericUpDown4.Value.ToString());
@@ -1544,6 +1544,9 @@ namespace TKMOC
             PURTADATA PURTA = new PURTADATA();
             PURTA = SETPURTA();
 
+            PURTBDATA PURTB = new PURTBDATA();
+            PURTB = SETPURTB();
+
             if (dataGridView4.RowCount>0)
             {
                 try
@@ -1556,7 +1559,7 @@ namespace TKMOC
                     tran = sqlConn.BeginTransaction();
 
                     sbSql.Clear();
-  
+
                     sbSql.AppendFormat("  INSERT INTO [TK].[dbo].[PURTA]");
                     sbSql.AppendFormat("  ([COMPANY],[CREATOR],[USR_GROUP],[CREATE_DATE],[MODIFIER]");
                     sbSql.AppendFormat("  ,[MODI_DATE],[FLAG],[CREATE_TIME],[MODI_TIME],[TRANS_TYPE] ");
@@ -1568,11 +1571,40 @@ namespace TKMOC
                     sbSql.AppendFormat("  VALUES ('{0}','{1}','{2}','{3}','{4}'", PURTA.COMPANY, PURTA.CREATOR, PURTA.USR_GROUP, PURTA.CREATE_DATE, PURTA.MODIFIER);
                     sbSql.AppendFormat("  ,'{0}','{1}','{2}','{3}','{4}'", PURTA.MODI_DATE, PURTA.FLAG, PURTA.CREATE_TIME, PURTA.MODI_TIME, PURTA.TRANS_TYPE);
                     sbSql.AppendFormat("  ,'{0}','{1}','{2}'", PURTA.TRANS_NAME, PURTA.sync_count, PURTA.DataGroup);
-                    sbSql.AppendFormat("  ,'{0}','{1}','{2}','{3}','{4}'",PURTA.TA001, PURTA.TA002, PURTA.TA003, PURTA.TA004, PURTA.TA005);
-                    sbSql.AppendFormat("  ,'{0}','{1}',{2},'{3}','{4}'",PURTA.TA006, PURTA.TA007, PURTA.TA008, PURTA.TA009, PURTA.TA010);
-                    sbSql.AppendFormat("  ,{0},'{1}','{2}','{3}','{4}'",PURTA.TA011, PURTA.TA012, PURTA.TA013, PURTA.TA014, PURTA.TA015);
+                    sbSql.AppendFormat("  ,'{0}','{1}','{2}','{3}','{4}'", PURTA.TA001, PURTA.TA002, PURTA.TA003, PURTA.TA004, PURTA.TA005);
+                    sbSql.AppendFormat("  ,'{0}','{1}',{2},'{3}','{4}'", PURTA.TA006, PURTA.TA007, PURTA.TA008, PURTA.TA009, PURTA.TA010);
+                    sbSql.AppendFormat("  ,{0},'{1}','{2}','{3}','{4}'", PURTA.TA011, PURTA.TA012, PURTA.TA013, PURTA.TA014, PURTA.TA015);
                     sbSql.AppendFormat("  ,'{0}'", PURTA.TA016);
                     sbSql.AppendFormat("  )");
+                    sbSql.AppendFormat("  ");
+                    sbSql.AppendFormat("  INSERT INTO [TK].[dbo].[PURTB]");
+                    sbSql.AppendFormat("  ([COMPANY],[CREATOR],[USR_GROUP],[CREATE_DATE],[MODIFIER]");
+                    sbSql.AppendFormat("  ,[MODI_DATE],[FLAG],[CREATE_TIME],[MODI_TIME],[TRANS_TYPE]");
+                    sbSql.AppendFormat("  ,[TRANS_NAME],[sync_count],[DataGroup]");
+                    sbSql.AppendFormat("  ,[TB001],[TB002],[TB003],[TB004],[TB005] ");
+                    sbSql.AppendFormat("  ,[TB006],[TB007],[TB008],[TB009],[TB010]");
+                    sbSql.AppendFormat("  ,[TB011],[TB012],[TB013],[TB014],[TB015]");
+                    sbSql.AppendFormat("  ,[TB016],[TB017],[TB018],[TB019],[TB020]");
+                    sbSql.AppendFormat("  ,[TB021],[TB022],[TB023],[TB024],[TB025]");
+                    sbSql.AppendFormat("  ,[TB026])");
+                    sbSql.AppendFormat("  SELECT");
+                    sbSql.AppendFormat("  '{0}' AS [COMPANY],'{1}' AS [CREATOR],'{2}' AS [USR_GROUP], '{3}' AS [CREATE_DATE],'{4}' AS [MODIFIER]",PURTB.COMPANY, PURTB.CREATOR, PURTB.USR_GROUP, PURTB.CREATE_DATE, PURTB.MODIFIER);
+                    sbSql.AppendFormat("  ,'{0}' AS [MODI_DATE],'{1}' AS [FLAG],'{2}' AS [CREATE_TIME],'{3}' AS [MODI_TIME],'{4}' AS [TRANS_TYPE]", PURTB.MODI_DATE, PURTB.FLAG, PURTB.CREATE_TIME, PURTB.MODI_TIME, PURTB.TRANS_TYPE);
+                    sbSql.AppendFormat("  ,'{0}' AS [TRANS_NAME],'{1}' AS [sync_count],'{2}'  [DataGroup]", PURTB.TRANS_NAME, PURTB.sync_count, PURTB.DataGroup);
+                    sbSql.AppendFormat("  ,'{0}' AS TB001,'{1}' AS TB002,RIGHT('0000' + CAST(row_number() OVER(PARTITION BY [YEARS],[WEEKS] ORDER BY [YEARS],[WEEKS]) as varchar), 4)  AS TB003,[MOCPLANWEEKPUR].[MB001] AS TB004,[MOCPLANWEEKPUR].[MB002] AS TB005", PURTB.TB001, PURTB.TB002);
+                    sbSql.AppendFormat("  ,[INVMB].[MB003] AS TB006,[UNIT] AS TB007,[INVMB].[MB017] AS TB008,[NUM] AS TB009 ,[INVMB].[MB032] AS TB010");
+                    sbSql.AppendFormat("  , '{0}' AS TB011,'{1}' AS TB012,[INVMB].[MB067] AS TB013,[NUM] AS TB014,[UNIT] AS TB015", PURTB.TB011, PURTB.TB012);
+                    sbSql.AppendFormat("  ,'{0}' AS TB016,[MB050] AS TB017,[NUM]*[MB050] AS TB018,'{1}' AS TB019,'{2}' AS TB020", PURTB.TB016, PURTB.TB019, PURTB.TB020);
+                    sbSql.AppendFormat("  ,'{0}' AS TB021,'{1}' AS TB022,'{2}' AS TB023,'{3}' AS TB024,'{4}' AS TB025", PURTB.TB021, PURTB.TB022, PURTB.TB023, PURTB.TB024, PURTB.TB025);
+                    sbSql.AppendFormat("  ,[PURMA].[MA044] AS TB026    ");
+                    sbSql.AppendFormat("  FROM [TKMOC].[dbo].[MOCPLANWEEKPUR] ");
+                    sbSql.AppendFormat("  LEFT JOIN [TK].dbo.[INVMB] ON [MOCPLANWEEKPUR].[MB001]=[INVMB].[MB001]");
+                    sbSql.AppendFormat("  LEFT JOIN [TK].dbo.[PURMA] ON [PURMA].[MA001]=[INVMB].[MB032]");
+                    sbSql.AppendFormat("  WHERE [YEARS]='{0}' AND [WEEKS]='{1}'",numericUpDown3.Value,numericUpDown4.Value);
+                    sbSql.AppendFormat("  ");
+                    sbSql.AppendFormat("  UPDATE [TKMOC].[dbo].[MOCPLANWEEKPUR]");
+                    sbSql.AppendFormat("  SET [TA001]='{0}' ,[TA002]='{1}'",PURTA.TA001,PURTA.TA002);
+                    sbSql.AppendFormat("  WHERE [YEARS]='{0}' AND [WEEKS]='{1}'",numericUpDown3.Value,numericUpDown4.Value);
                     sbSql.AppendFormat("  ");
 
                     cmd.Connection = sqlConn;
@@ -1921,6 +1953,8 @@ namespace TKMOC
             TA002= GETMAXTA002("A311");
 
             ADDPURTB();
+            SEARCHMOCPLANWEEKPUR();
+            MessageBox.Show("完成");
         }
 
 
