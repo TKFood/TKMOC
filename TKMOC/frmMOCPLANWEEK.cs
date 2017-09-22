@@ -29,6 +29,12 @@ namespace TKMOC
         StringBuilder sbSqlQuery = new StringBuilder();
         SqlDataAdapter adapter = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder = new SqlCommandBuilder();
+        SqlDataAdapter adapter2 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder2 = new SqlCommandBuilder();
+        SqlDataAdapter adapter4 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder4 = new SqlCommandBuilder();
+        SqlDataAdapter adapter6 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder6 = new SqlCommandBuilder();
         SqlTransaction tran;
         SqlCommand cmd = new SqlCommand();
         DataSet ds = new DataSet();
@@ -36,6 +42,7 @@ namespace TKMOC
         DataSet ds3 = new DataSet();
         DataSet ds4 = new DataSet();
         DataSet ds5 = new DataSet();
+        DataSet ds6 = new DataSet();
         DataTable dt = new DataTable();
         DataTable dtTemp = new DataTable();
         DataTable dtTemp2 = new DataTable();
@@ -56,6 +63,8 @@ namespace TKMOC
         string TD003 = null;
         string YEARS;
         string WEEKS;
+
+        string TA002;
 
 
         public frmMOCPLANWEEK()
@@ -86,6 +95,103 @@ namespace TKMOC
         }
 
         #region FUNCTION
+
+        public class PURTADATA
+        {
+            public string COMPANY;
+            public string CREATOR;
+            public string USR_GROUP;
+            public string CREATE_DATE;
+            public string MODIFIER;
+            public string MODI_DATE;
+            public string FLAG;
+            public string CREATE_TIME;
+            public string MODI_TIME;
+            public string TRANS_TYPE;
+            public string TRANS_NAME;
+            public string sync_count;
+            public string DataGroup;
+            public string TA001;
+            public string TA002;
+            public string TA003;
+            public string TA004;
+            public string TA005;
+            public string TA006;
+            public string TA007;
+            public string TA008;
+            public string TA009;
+            public string TA010;
+            public string TA011;
+            public string TA012;
+            public string TA013;
+            public string TA014;
+            public string TA015;
+            public string TA016;
+            public string TA017;
+
+        }
+
+        public class PURTBDATA
+        {
+            public string COMPANY;
+            public string CREATOR;
+            public string USR_GROUP;
+            public string CREATE_DATE;
+            public string MODIFIER;
+            public string MODI_DATE;
+            public string FLAG;
+            public string CREATE_TIME;
+            public string MODI_TIME;
+            public string TRANS_TYPE;
+            public string TRANS_NAME;
+            public string sync_count;
+            public string DataGroup;
+            public string TB001;
+            public string TB002;
+            public string TB003;
+            public string TB004;
+            public string TB005;
+            public string TB006;
+            public string TB007;
+            public string TB008;
+            public string TB009;
+            public string TB010;
+            public string TB011;
+            public string TB012;
+            public string TB013;
+            public string TB014;
+            public string TB015;
+            public string TB016;
+            public string TB017;
+            public string TB018;
+            public string TB019;
+            public string TB020;
+            public string TB021;
+            public string TB022;
+            public string TB023;
+            public string TB024;
+            public string TB025;
+            public string TB026;
+            public string TB027;
+            public string TB028;
+            public string TB029;
+            public string TB030;
+            public string TB031;
+            public string TB032;
+            public string TB033;
+            public string TB034;
+            public string TB035;
+            public string TB036;
+            public string TB037;
+            public string TB038;
+            public string TB039;
+            public string TB040;
+            public string TB041;
+            public string TB042;
+
+
+        }
+
         /// <summary>
         /// 取得某一日期在當年的第幾週
         /// </summary>
@@ -397,6 +503,8 @@ namespace TKMOC
                 {
                     dateTimePicker5.Value = Convert.ToDateTime(numericUpDown1.Value.ToString() + "/1/1");
                     dateTimePicker6.Value = Convert.ToDateTime(numericUpDown1.Value.ToString() + "/1/1");
+
+                    dateTimePicker7.Value = Convert.ToDateTime(numericUpDown1.Value.ToString() + "/1/1");
                 }
                 else
                 {
@@ -404,6 +512,8 @@ namespace TKMOC
                     {
                         dateTimePicker5.Value = Convert.ToDateTime(ds.Tables["TEMPds1"].Rows[0]["SDATE"].ToString());
                         dateTimePicker6.Value = Convert.ToDateTime(ds.Tables["TEMPds1"].Rows[0]["EDATE"].ToString());
+
+                        dateTimePicker7.Value = Convert.ToDateTime(ds.Tables["TEMPds1"].Rows[0]["SDATE"].ToString());
 
                     }
 
@@ -1429,8 +1539,11 @@ namespace TKMOC
             FINDWEKKDATE2();
         }
 
-        public void ADDPURTD()
+        public void ADDPURTB()
         {
+            PURTADATA PURTA = new PURTADATA();
+            PURTA = SETPURTA();
+
             if (dataGridView4.RowCount>0)
             {
                 try
@@ -1444,6 +1557,22 @@ namespace TKMOC
 
                     sbSql.Clear();
   
+                    sbSql.AppendFormat("  INSERT INTO [TK].[dbo].[PURTA]");
+                    sbSql.AppendFormat("  ([COMPANY],[CREATOR],[USR_GROUP],[CREATE_DATE],[MODIFIER]");
+                    sbSql.AppendFormat("  ,[MODI_DATE],[FLAG],[CREATE_TIME],[MODI_TIME],[TRANS_TYPE] ");
+                    sbSql.AppendFormat("  ,[TRANS_NAME],[sync_count] ,[DataGroup]");
+                    sbSql.AppendFormat("  ,[TA001],[TA002],[TA003],[TA004],[TA005]");
+                    sbSql.AppendFormat("  ,[TA006],[TA007],[TA008],[TA009],[TA010]");
+                    sbSql.AppendFormat("  ,[TA011],[TA012],[TA013],[TA014],[TA015]");
+                    sbSql.AppendFormat("  ,[TA016])");
+                    sbSql.AppendFormat("  VALUES ('{0}','{1}','{2}','{3}','{4}'", PURTA.COMPANY, PURTA.CREATOR, PURTA.USR_GROUP, PURTA.CREATE_DATE, PURTA.MODIFIER);
+                    sbSql.AppendFormat("  ,'{0}','{1}','{2}','{3}','{4}'", PURTA.MODI_DATE, PURTA.FLAG, PURTA.CREATE_TIME, PURTA.MODI_TIME, PURTA.TRANS_TYPE);
+                    sbSql.AppendFormat("  ,'{0}','{1}','{2}'", PURTA.TRANS_NAME, PURTA.sync_count, PURTA.DataGroup);
+                    sbSql.AppendFormat("  ,'{0}','{1}','{2}','{3}','{4}'",PURTA.TA001, PURTA.TA002, PURTA.TA003, PURTA.TA004, PURTA.TA005);
+                    sbSql.AppendFormat("  ,'{0}','{1}',{2},'{3}','{4}'",PURTA.TA006, PURTA.TA007, PURTA.TA008, PURTA.TA009, PURTA.TA010);
+                    sbSql.AppendFormat("  ,{0},'{1}','{2}','{3}','{4}'",PURTA.TA011, PURTA.TA012, PURTA.TA013, PURTA.TA014, PURTA.TA015);
+                    sbSql.AppendFormat("  ,'{0}'", PURTA.TA016);
+                    sbSql.AppendFormat("  )");
                     sbSql.AppendFormat("  ");
 
                     cmd.Connection = sqlConn;
@@ -1473,6 +1602,221 @@ namespace TKMOC
                     sqlConn.Close();
                 }
             }
+        }
+
+        public PURTADATA SETPURTA()
+        {
+            
+
+            PURTADATA PURTA = new PURTADATA();
+            PURTA.COMPANY = "TK";
+            PURTA.CREATOR = "120024";
+            PURTA.USR_GROUP = "112000";
+            PURTA.CREATE_DATE = dateTimePicker7.Value.ToString("yyyyMMdd");
+            PURTA.MODIFIER = "100005";
+            PURTA.MODI_DATE = dateTimePicker7.Value.ToString("yyyyMMdd");
+            PURTA.FLAG = "0";
+            PURTA.CREATE_TIME = DateTime.Now.ToString("HH:mm:dd");
+            PURTA.MODI_TIME = DateTime.Now.ToString("HH:mm:dd");
+            PURTA.TRANS_TYPE = "P001";
+            PURTA.TRANS_NAME = "PURI05";
+            PURTA.sync_count = "0";
+            PURTA.DataGroup = "112000";
+            PURTA.TA001 = "A311";
+            PURTA.TA002 = TA002;
+            PURTA.TA003 = dateTimePicker7.Value.ToString("yyyyMMdd");
+            PURTA.TA004 = textBox4.Text;
+            PURTA.TA005 = null;
+            PURTA.TA006 = null;
+            PURTA.TA007 = "N";
+            PURTA.TA008 = "0";
+            PURTA.TA009 = "9";
+            PURTA.TA010 = "20";
+            PURTA.TA011 = SEARCHSUMPRUTATA011();
+            PURTA.TA012 = textBox5.Text;
+            PURTA.TA013 = dateTimePicker7.Value.ToString("yyyyMMdd");
+            PURTA.TA014 = null;
+            PURTA.TA015 = "0";
+            PURTA.TA016 = "N";
+            PURTA.TA017 = "0";
+
+            return PURTA;
+        }
+
+        public PURTBDATA SETPURTB()
+        {
+            PURTBDATA PURTB = new PURTBDATA();
+            PURTB.COMPANY = "TK";
+            PURTB.CREATOR = "120024";
+            PURTB.USR_GROUP = "112000";
+            PURTB.CREATE_DATE = dateTimePicker7.Value.ToString("yyyyMMdd");
+            PURTB.MODIFIER = "100005";
+            PURTB.MODI_DATE = dateTimePicker7.Value.ToString("yyyyMMdd");
+            PURTB.FLAG = "0";
+            PURTB.CREATE_TIME = DateTime.Now.ToString("HH:mm:dd");
+            PURTB.MODI_TIME = DateTime.Now.ToString("HH:mm:dd");
+            PURTB.TRANS_TYPE = "P001";
+            PURTB.TRANS_NAME = "PURI05";
+            PURTB.sync_count = "0";
+            PURTB.DataGroup = "112000";
+            PURTB.TB001 = "A311";
+            PURTB.TB002 = TA002;
+            PURTB.TB003 = null;
+            PURTB.TB004 = null;
+            PURTB.TB005 = null;
+            PURTB.TB006 = null;
+            PURTB.TB007 = null;
+            PURTB.TB008 = null;
+            PURTB.TB009 = null;
+            PURTB.TB010 = null;
+            PURTB.TB011 = dateTimePicker7.Value.ToString("yyyyMMdd");
+            PURTB.TB012 = null;
+            PURTB.TB013 = null;
+            PURTB.TB014 = null;
+            PURTB.TB015 = null;
+            PURTB.TB016 = "NTD";
+            PURTB.TB017 = null;
+            PURTB.TB018 = null;
+            PURTB.TB019 = dateTimePicker7.Value.ToString("yyyyMMdd");
+            PURTB.TB020 = "N";
+            PURTB.TB021 = "N";
+            PURTB.TB022 = null;
+            PURTB.TB023 = null;
+            PURTB.TB024 = null;
+            PURTB.TB025 = "N";
+            PURTB.TB026 = null;
+            PURTB.TB027 = null;
+            PURTB.TB028 = null;
+
+
+            return PURTB;
+        }
+
+        public string GETMAXTA002(string TA001)
+        {
+            string TA002;
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                StringBuilder sbSql = new StringBuilder();
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+                ds4.Clear();
+
+                sbSql.AppendFormat(@"  SELECT ISNULL(MAX(TA002),'00000000000') AS TA002");
+                sbSql.AppendFormat(@"  FROM [TK].[dbo].[PURTA] ");
+                //sbSql.AppendFormat(@"  WHERE  TC001='{0}' AND TC003='{1}'", "A542","20170119");
+                sbSql.AppendFormat(@"  WHERE  TA001='{0}' AND TA003='{1}'", TA001, dateTimePicker7.Value.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+                adapter4 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder4 = new SqlCommandBuilder(adapter4);
+                sqlConn.Open();
+                ds4.Clear();
+                adapter4.Fill(ds4, "TEMPds4");
+                sqlConn.Close();
+
+
+                if (ds4.Tables["TEMPds4"].Rows.Count == 0)
+                {
+                    return null;
+                }
+                else
+                {
+                    if (ds4.Tables["TEMPds4"].Rows.Count >= 1)
+                    {
+                        TA002 = SETTA002(ds4.Tables["TEMPds4"].Rows[0]["TA002"].ToString());
+                        return TA002;
+
+                    }
+                    return null;
+                }
+
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+
+           
+
+        }
+        public string SETTA002(string TA002)
+        {
+
+            if (TA002.Equals("00000000000"))
+            {
+                return dateTimePicker7.Value.ToString("yyyyMMdd") + "001";
+            }
+
+            else
+            {
+                int serno = Convert.ToInt16(TA002.Substring(8, 3));
+                serno = serno + 1;
+                string temp = serno.ToString();
+                temp = temp.PadLeft(3, '0');
+                return dateTimePicker7.Value.ToString("yyyyMMdd") + temp.ToString();
+            }
+        }
+
+        public String SEARCHSUMPRUTATA011()
+        {
+            try
+            {
+            
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                StringBuilder sbSql = new StringBuilder();
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+                ds4.Clear();
+
+         
+                sbSql.AppendFormat(@"   SELECT SUM([NUM])  AS TA011 FROM [TKMOC].[dbo].[MOCPLANWEEKPUR] WHERE [YEARS]='{0}' AND [WEEKS]='{1}'",numericUpDown3.Value,numericUpDown4.Value);
+
+                adapter6 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder6 = new SqlCommandBuilder(adapter6);
+                sqlConn.Open();
+                ds6.Clear();
+                adapter6.Fill(ds6, "TEMPds6");
+                sqlConn.Close();
+
+
+                if (ds6.Tables["TEMPds6"].Rows.Count == 0)
+                {
+                    return null;
+                }
+                else
+                {
+                    if (ds6.Tables["TEMPds6"].Rows.Count >= 1)
+                    {
+                        return ds6.Tables["TEMPds6"].Rows[0]["TA011"].ToString();
+                    }
+
+                    return null;
+                }
+
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+            
         }
         #endregion
 
@@ -1574,7 +1918,9 @@ namespace TKMOC
 
         private void button17_Click(object sender, EventArgs e)
         {
-            ADDPURTD();
+            TA002= GETMAXTA002("A311");
+
+            ADDPURTB();
         }
 
 
