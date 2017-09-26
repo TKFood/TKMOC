@@ -31,6 +31,8 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder = new SqlCommandBuilder();
         SqlDataAdapter adapter2 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder2 = new SqlCommandBuilder();
+        SqlDataAdapter adapter3 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder3 = new SqlCommandBuilder();
         SqlDataAdapter adapter4 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder4 = new SqlCommandBuilder();
         SqlDataAdapter adapter6 = new SqlDataAdapter();
@@ -552,12 +554,12 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  ");
 
 
-                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+                adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder = new SqlCommandBuilder(adapter);
+                sqlCmdBuilder2 = new SqlCommandBuilder(adapter2);
                 sqlConn.Open();
                 ds2.Clear();
-                adapter.Fill(ds2, "TEMPds2");
+                adapter2.Fill(ds2, "TEMPds2");
                 sqlConn.Close();
 
 
@@ -639,12 +641,12 @@ namespace TKMOC
                 //sbSql.AppendFormat(@"  ");
 
 
-                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+                adapter3 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder = new SqlCommandBuilder(adapter);
+                sqlCmdBuilder3 = new SqlCommandBuilder(adapter3);
                 sqlConn.Open();
                 ds3.Clear();
-                adapter.Fill(ds3, "TEMPds3");
+                adapter3.Fill(ds3, "TEMPds3");
                 sqlConn.Close();
 
                 if (ds3.Tables["TEMPds3"].Rows.Count >= 1)
