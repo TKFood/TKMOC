@@ -84,6 +84,7 @@ namespace TKMOC
             dtTemp.Columns.Add("數量");
             dtTemp.Columns.Add("單位");
             dtTemp.Columns.Add("物料倉庫存");
+            dtTemp.Columns.Add("差異數量");
             dtTemp.Columns.Add("標準批量");
             dtTemp.Columns.Add("上層標準批量");
             dtTemp.Columns.Add("標準時間");
@@ -1228,6 +1229,7 @@ namespace TKMOC
                         }
 
                         row["物料倉庫存"] = od2["INVNUM"].ToString();
+                        row["差異數量"] = Convert.ToDecimal(od2["INVNUM"].ToString())- Math.Round(Convert.ToDecimal(TOTALCOPNum / COOKIES * BATCH / MOCBATCH), 2);
                         row["上層標準批量"] = od2["MC004"].ToString();
                         row["標準批量"] = od2["BATCH"].ToString();
                         row["標準時間"] = 0;
