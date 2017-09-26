@@ -81,6 +81,7 @@ namespace TKMOC
             dtTemp.Columns.Add("品名");
             dtTemp.Columns.Add("數量");
             dtTemp.Columns.Add("單位");
+            dtTemp.Columns.Add("物料倉庫存");
             dtTemp.Columns.Add("標準批量");
             dtTemp.Columns.Add("上層標準批量");
             dtTemp.Columns.Add("標準時間");
@@ -281,9 +282,9 @@ namespace TKMOC
                 sbSql.Append(@"  ,(SELECT CONVERT(INT,ISNULL(MC004,0))  FROM [TK].dbo.BOMMC WHERE MC001=品號) AS 標準批量");
                 sbSql.Append(@"  FROM (");
                 sbSql.Append(@"  SELECT   TD001 AS '單別',TD002 AS '單號',TD003 AS '序號',TC053  AS '客戶' ,TD013 AS '日期',TD004 AS '品號',TD005 AS '品名',TD006 AS '規格'");
-                sbSql.Append(@"  ,(CASE WHEN MB004=TD010 THEN (TD008-TD009) ELSE (TD008-TD009)*MD004 END) AS '訂單數量'");
+                sbSql.Append(@"  ,(CASE WHEN MB004=TD010 THEN ((TD008-TD009)+(TD024-TD025)) ELSE ((TD008-TD009)+(TD024-TD025))*MD004 END) AS '訂單數量'");
                 sbSql.Append(@"  ,MB004 AS '單位'");
-                sbSql.Append(@"  ,(TD008-TD009) AS '訂單量'");
+                sbSql.Append(@"  ,((TD008-TD009)+(TD024-TD025)) AS '訂單量'");
                 sbSql.Append(@"  ,TD010 AS '訂單單位' ");
                 sbSql.Append(@"  ,(CASE WHEN ISNULL(MD002,'')<>'' THEN MD002 ELSE TD010 END ) AS '換算單位'");
                 sbSql.Append(@"  ,(CASE WHEN MD003>0 THEN MD003 ELSE 1 END) AS '分子'");
@@ -1132,6 +1133,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  SELECT MD001,MD003,MD004,MD006,MD007,BATCH ");
                 sbSql.AppendFormat(@"  ,[INVMB].MB002,CASE WHEN ISNULL(INVMB.MB003,'')=''  THEN '1' ELSE INVMB.MB003 END AS MB003");
                 sbSql.AppendFormat(@"  ,MC004   ");
+                sbSql.AppendFormat(@"  ,(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WITH (NOLOCK) WHERE LA009='20004' AND LA001=MD003) AS INVNUM");
                 sbSql.AppendFormat(@"  FROM TEMPTABLE ");
                 sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.[INVMB] ON [INVMB].MB001=TEMPTABLE.MD003");
                 sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.[BOMMC] ON [BOMMC].MC001=TEMPTABLE.MD001");
@@ -1141,9 +1143,7 @@ namespace TKMOC
 
 
 
-                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
-                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
-                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
                 adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
                 sqlCmdBuilder = new SqlCommandBuilder(adapter);
@@ -1224,11 +1224,13 @@ namespace TKMOC
                         {
                             row["數量"] = 1;
                         }
-                        
-                      
+
+                        row["物料倉庫存"] = od2["INVNUM"].ToString();
                         row["上層標準批量"] = od2["MC004"].ToString();
                         row["標準批量"] = od2["BATCH"].ToString();
                         row["標準時間"] = 0;
+                        
+
                         dtTemp.Rows.Add(row);
                     }
 
@@ -1902,6 +1904,80 @@ namespace TKMOC
             
            
         }
+
+        public void ExcelExportMOCPLANWEEKPUR()
+        {
+
+            string TABLENAME = "報表";
+
+            //建立Excel 2003檔案
+            IWorkbook wb = new XSSFWorkbook();
+            ISheet ws;
+
+
+            dt = ds5.Tables["TEMPds5"];
+
+            if (dt.TableName != string.Empty)
+            {
+                ws = wb.CreateSheet(dt.TableName);
+            }
+            else
+            {
+                ws = wb.CreateSheet("Sheet1");
+            }
+
+            ws.CreateRow(0);//第一行為欄位名稱
+            for (int i = 0; i < dt.Columns.Count; i++)
+            {
+                ws.GetRow(0).CreateCell(i).SetCellValue(dt.Columns[i].ColumnName);
+            }
+
+
+            int j = 0;
+            if (dt.Rows.Count >= 0)
+            {
+                TABLENAME = "明細表";
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    ws.CreateRow(i + 1);
+                    for (int rows = 0; rows < dt.Columns.Count; rows++)
+                    {
+                        ws.GetRow(i + 1).CreateCell(rows).SetCellValue(dt.Rows[i][rows].ToString());
+                    }
+                }
+
+            }
+
+
+            if (Directory.Exists(@"c:\temp\"))
+            {
+                //資料夾存在
+            }
+            else
+            {
+                //新增資料夾
+                Directory.CreateDirectory(@"c:\temp\");
+            }
+            StringBuilder filename = new StringBuilder();
+            filename.AppendFormat(@"c:\temp\{0}-{1}.xlsx", TABLENAME, DateTime.Now.ToString("yyyyMMdd"));
+
+            FileStream file = new FileStream(filename.ToString(), FileMode.Create);//產生檔案
+            wb.Write(file);
+            file.Close();
+
+            MessageBox.Show("匯出完成-EXCEL放在-" + filename.ToString());
+            FileInfo fi = new FileInfo(filename.ToString());
+            if (fi.Exists)
+            {
+                System.Diagnostics.Process.Start(filename.ToString());
+            }
+            else
+            {
+                //file doesn't exist
+            }
+
+        }
         #endregion
 
         #region BUTTON
@@ -2022,6 +2098,10 @@ namespace TKMOC
                 //do something else
             }
             
+        }
+        private void button19_Click(object sender, EventArgs e)
+        {
+            ExcelExportMOCPLANWEEKPUR();
         }
 
         #endregion

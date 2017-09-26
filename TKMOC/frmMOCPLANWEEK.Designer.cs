@@ -106,6 +106,7 @@
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.button17 = new System.Windows.Forms.Button();
             this.button18 = new System.Windows.Forms.Button();
+            this.button19 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -904,6 +905,7 @@
             this.tableLayoutPanel4.Controls.Add(this.button14, 4, 0);
             this.tableLayoutPanel4.Controls.Add(this.dateTimePicker5, 6, 0);
             this.tableLayoutPanel4.Controls.Add(this.dateTimePicker6, 7, 0);
+            this.tableLayoutPanel4.Controls.Add(this.button19, 8, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
@@ -1279,6 +1281,17 @@
             this.button18.UseVisualStyleBackColor = true;
             this.button18.Click += new System.EventHandler(this.button18_Click);
             // 
+            // button19
+            // 
+            this.button19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button19.Location = new System.Drawing.Point(643, 4);
+            this.button19.Name = "button19";
+            this.button19.Size = new System.Drawing.Size(86, 32);
+            this.button19.TabIndex = 50;
+            this.button19.Text = "匯出預計採購";
+            this.button19.UseVisualStyleBackColor = true;
+            this.button19.Click += new System.EventHandler(this.button19_Click);
+            // 
             // frmMOCPLANWEEK
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1425,5 +1438,6 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.Button button18;
+        private System.Windows.Forms.Button button19;
     }
 }
