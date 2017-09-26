@@ -65,6 +65,7 @@ namespace TKMOC
         string WEEKS;
 
         string TA002;
+        string MOCPLANWEEKPURID;
 
 
         public frmMOCPLANWEEK()
@@ -1141,6 +1142,9 @@ namespace TKMOC
 
 
                 adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
                 sqlCmdBuilder = new SqlCommandBuilder(adapter);
                 sqlConn.Open();
@@ -1449,7 +1453,10 @@ namespace TKMOC
                     textBox1.Text = row.Cells["ID"].Value.ToString();
                     textBox2.Text = row.Cells["品名"].Value.ToString();
                     textBox3.Text = row.Cells["數量"].Value.ToString();
-                    
+
+                    MOCPLANWEEKPURID = row.Cells["ID"].Value.ToString();
+
+
 
                 }
                 else
@@ -1457,7 +1464,10 @@ namespace TKMOC
                     textBox1.Text = null;
                     textBox2.Text = null;
                     textBox3.Text = null;
-                  
+
+                    MOCPLANWEEKPURID = null;
+
+
                 }
             }
         }
@@ -1846,6 +1856,52 @@ namespace TKMOC
             }
             
         }
+
+        public void DELMOCPLANWEEKPUR()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+                sbSql.AppendFormat("  DELETE  [TKMOC].[dbo].[MOCPLANWEEKPUR]");
+                sbSql.AppendFormat("  WHERE [ID]='{0}'", MOCPLANWEEKPURID);
+                sbSql.AppendFormat("  ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+            
+           
+        }
         #endregion
 
         #region BUTTON
@@ -1953,6 +2009,20 @@ namespace TKMOC
             MessageBox.Show("完成");
         }
 
+        private void button18_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("要刪除了?", "要刪除了?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                DELMOCPLANWEEKPUR();
+                SEARCHMOCPLANWEEKPUR();
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                //do something else
+            }
+            
+        }
 
         #endregion
 
