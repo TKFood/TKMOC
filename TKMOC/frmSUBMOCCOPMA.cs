@@ -121,7 +121,7 @@ namespace TKMOC
                 if (rowindex >= 0)
                 {
                     DataGridViewRow row = dataGridView1.Rows[rowindex];
-                    MA001 = row.Cells["MA001"].Value.ToString();
+                    MA001 = row.Cells["名稱"].Value.ToString();
 
                 }
                 else
