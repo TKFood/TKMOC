@@ -140,8 +140,10 @@ namespace TKMOC
                 STR.AppendFormat(@"  ,[MOCMANULINE].CLINET AS '客戶',ISNULL([MOCMANULINE].MANUHOUR,0) AS '生產時數'");
                 STR.AppendFormat(@"  ,[ID]");
                 STR.AppendFormat(@"  ,ISNULL([MOCMANULINERESULT].MOCTA001,'') AS '製令單別',ISNULL([MOCMANULINERESULT].MOCTA002,'') AS '製令單號'");
+                STR.AppendFormat(@"  ,[MOCTA].TA015 AS '預計產量' ,[MOCTA].TA007 AS '單位'   ");
                 STR.AppendFormat(@"  FROM [TKMOC].dbo.[MOCMANULINE]");
                 STR.AppendFormat(@"  LEFT JOIN  [TKMOC].dbo.[MOCMANULINERESULT] ON [MOCMANULINE].ID=[MOCMANULINERESULT].SID");
+                STR.AppendFormat(@"  LEFT JOIN [TK].dbo.[MOCTA] ON [MOCTA].TA001=[MOCMANULINERESULT].MOCTA001 AND [MOCTA].TA002=[MOCMANULINERESULT].MOCTA002");
                 STR.AppendFormat(@"  WHERE [MOCMANULINE].MANU='{0}'", comboBox1.Text.ToString());
                 STR.AppendFormat(@"  AND CONVERT(NVARCHAR(10),[MOCMANULINE].MANUDATE,112)>='{0}' AND CONVERT(NVARCHAR(10),[MOCMANULINE].MANUDATE,112)<='{1}' ", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker4.Value.ToString("yyyyMMdd"));
                 STR.AppendFormat(@"  ORDER BY CONVERT(NVARCHAR(10),[MOCMANULINE].MANUDATE,112),[MOCMANULINE].MB001");
@@ -160,8 +162,10 @@ namespace TKMOC
                 STR.AppendFormat(@"  ,[MOCMANULINE].CLINET AS '客戶',ISNULL([MOCMANULINE].MANUHOUR,0) AS '生產時數'");
                 STR.AppendFormat(@"  ,[ID]");
                 STR.AppendFormat(@"  ,ISNULL([MOCMANULINERESULT].MOCTA001,'') AS '製令單別',ISNULL([MOCMANULINERESULT].MOCTA002,'') AS '製令單號'");
+                STR.AppendFormat(@"  ,[MOCTA].TA015 AS '預計產量' ,[MOCTA].TA007 AS '單位'   ");
                 STR.AppendFormat(@"  FROM [TKMOC].dbo.[MOCMANULINE]");
                 STR.AppendFormat(@"  LEFT JOIN  [TKMOC].dbo.[MOCMANULINERESULT] ON [MOCMANULINE].ID=[MOCMANULINERESULT].SID");
+                STR.AppendFormat(@"  LEFT JOIN [TK].dbo.[MOCTA] ON [MOCTA].TA001=[MOCMANULINERESULT].MOCTA001 AND [MOCTA].TA002=[MOCMANULINERESULT].MOCTA002");
                 STR.AppendFormat(@"  WHERE CONVERT(NVARCHAR(10),[MOCMANULINE].MANUDATE,112)>='{0}' AND CONVERT(NVARCHAR(10),[MOCMANULINE].MANUDATE,112)<='{1}' ", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker4.Value.ToString("yyyyMMdd"));
                 STR.AppendFormat(@"  ORDER BY CONVERT(NVARCHAR(10),[MOCMANULINE].MANUDATE,112),[MOCMANULINE].MANU,[MOCMANULINE].MB001");
                 STR.AppendFormat(@"  ");
@@ -176,9 +180,112 @@ namespace TKMOC
             return STR;
         }
 
+        public void SearchV2()
+        {
+            try
+            {
+                sbSql.Clear();
+                sbSql = SETsbSqlV2();
+
+                if (!string.IsNullOrEmpty(sbSql.ToString()))
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    adapter = new SqlDataAdapter(sbSql.ToString(), sqlConn);
+                    sqlCmdBuilder = new SqlCommandBuilder(adapter);
+
+                    sqlConn.Open();
+                    //dataGridView1.Columns.Clear();
+                    ds.Clear();
+
+                    adapter.Fill(ds, tablename);
+                    sqlConn.Close();
+
+                    if (ds.Tables[tablename].Rows.Count == 0)
+                    {
+
+                    }
+                    else
+                    {
+
+                        dataGridView4.DataSource = ds.Tables[tablename];
+                        dataGridView4.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1.Rows[rownum].Cells[0];
+
+                    }
+                }
+                else
+                {
+
+                }
+
+
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+
+        }
+        public StringBuilder SETsbSqlV2()
+        {
+            StringBuilder STR = new StringBuilder();
+
+
+            if (!string.IsNullOrEmpty(comboBox3.Text.ToString()) && !comboBox3.Text.ToString().Equals("全部"))
+            {
+                STR.AppendFormat(@"  SELECT [MOCMANULINE].MANU AS '線別',CONVERT(NVARCHAR(10),[MOCMANULINE].MANUDATE,112) AS '生產日'");
+                STR.AppendFormat(@"  ,[MOCMANULINE].MB001 AS '品號',[MOCMANULINE].MB002 AS '品名',[MOCMANULINE].MB003 AS '規格'");
+                STR.AppendFormat(@"  ,ISNULL([MOCMANULINE].BAR,0) AS '桶數',ISNULL([MOCMANULINE].NUM,0) AS '片數',ISNULL([MOCMANULINE].BOX,0) AS '箱數',ISNULL([MOCMANULINE].PACKAGE,0) AS '包裝數'");
+                STR.AppendFormat(@"  ,[MOCMANULINE].CLINET AS '客戶'");
+                STR.AppendFormat(@"  ,ISNULL([MOCMANULINERESULT].MOCTA001,'') AS '製令單別',ISNULL([MOCMANULINERESULT].MOCTA002,'') AS '製令單號'");
+                STR.AppendFormat(@"  ,[MOCTA].TA015 AS '預計產量' ,[MOCTA].TA007 AS '單位'   ");
+                STR.AppendFormat(@"  FROM [TKMOC].dbo.[MOCMANULINE]");
+                STR.AppendFormat(@"  LEFT JOIN  [TKMOC].dbo.[MOCMANULINERESULT] ON [MOCMANULINE].ID=[MOCMANULINERESULT].SID");
+                STR.AppendFormat(@"  LEFT JOIN [TK].dbo.[MOCTA] ON [MOCTA].TA001=[MOCMANULINERESULT].MOCTA001 AND [MOCTA].TA002=[MOCMANULINERESULT].MOCTA002");
+                STR.AppendFormat(@"  WHERE [MOCMANULINE].MANU='{0}'", comboBox3.Text.ToString());
+                STR.AppendFormat(@"  AND CONVERT(NVARCHAR(10),[MOCMANULINE].MANUDATE,112)>='{0}' AND CONVERT(NVARCHAR(10),[MOCMANULINE].MANUDATE,112)<='{1}' ", dateTimePicker5.Value.ToString("yyyyMMdd"), dateTimePicker6.Value.ToString("yyyyMMdd"));
+                STR.AppendFormat(@"  ORDER BY CONVERT(NVARCHAR(10),[MOCMANULINE].MANUDATE,112),[MOCMANULINE].MB001");
+                STR.AppendFormat(@"  ");
+
+
+                tablename = "TEMPds3";
+            }
+
+            else if (comboBox3.Text.ToString().Equals("全部"))
+            {
+                STR.AppendFormat(@"  SELECT [MOCMANULINE].MANU AS '線別',CONVERT(NVARCHAR(10),[MOCMANULINE].MANUDATE,112) AS '生產日'");
+                STR.AppendFormat(@"  ,[MOCMANULINE].MB001 AS '品號',[MOCMANULINE].MB002 AS '品名',[MOCMANULINE].MB003 AS '規格'");
+                STR.AppendFormat(@"  ,ISNULL([MOCMANULINE].BAR,0) AS '桶數',ISNULL([MOCMANULINE].NUM,0) AS '片數',ISNULL([MOCMANULINE].BOX,0) AS '箱數',ISNULL([MOCMANULINE].PACKAGE,0) AS '包裝數'");
+                STR.AppendFormat(@"  ,[MOCMANULINE].CLINET AS '客戶'");
+                STR.AppendFormat(@"  ,ISNULL([MOCMANULINERESULT].MOCTA001,'') AS '製令單別',ISNULL([MOCMANULINERESULT].MOCTA002,'') AS '製令單號'");
+                STR.AppendFormat(@"  ,[MOCTA].TA015 AS '預計產量' ,[MOCTA].TA007 AS '單位'   ");
+                STR.AppendFormat(@"  FROM [TKMOC].dbo.[MOCMANULINE]");
+                STR.AppendFormat(@"  LEFT JOIN  [TKMOC].dbo.[MOCMANULINERESULT] ON [MOCMANULINE].ID=[MOCMANULINERESULT].SID");
+                STR.AppendFormat(@"  LEFT JOIN [TK].dbo.[MOCTA] ON [MOCTA].TA001=[MOCMANULINERESULT].MOCTA001 AND [MOCTA].TA002=[MOCMANULINERESULT].MOCTA002");
+                STR.AppendFormat(@"  WHERE CONVERT(NVARCHAR(10),[MOCMANULINE].MANUDATE,112)>='{0}' AND CONVERT(NVARCHAR(10),[MOCMANULINE].MANUDATE,112)<='{1}' ", dateTimePicker5.Value.ToString("yyyyMMdd"), dateTimePicker6.Value.ToString("yyyyMMdd"));
+                STR.AppendFormat(@"  ORDER BY CONVERT(NVARCHAR(10),[MOCMANULINE].MANUDATE,112),[MOCMANULINE].MANU,[MOCMANULINE].MB001");
+                STR.AppendFormat(@"  ");
+
+
+                tablename = "TEMPds4";
+            }
+
+
+
+
+            return STR;
+        }
+
         public void ExcelExport()
         {
-            Search();
+            
             string TABLENAME = "報表";
             int rows = 0;
 
@@ -243,10 +350,37 @@ namespace TKMOC
             }
                         
 
-            else if (tablename.Equals(""))
+            else if (tablename.Equals("TEMPds3"))
             {
+                TABLENAME = "預計製令報表";
+                foreach (DataGridViewRow dr in this.dataGridView4.Rows)
+                {
+                    ws.CreateRow(j + 1);
 
+                    for (int i = 0; i < dt.Columns.Count; i++)
+                    {
+                        ws.GetRow(j + 1).CreateCell(i).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[i].ToString());
+                    }
+
+                    j++;
+                }
             }
+            else if (tablename.Equals("TEMPds4"))
+            {
+                TABLENAME = "預計製令報表";
+                foreach (DataGridViewRow dr in this.dataGridView4.Rows)
+                {
+                    ws.CreateRow(j + 1);
+
+                    for (int i = 0; i < dt.Columns.Count; i++)
+                    {
+                        ws.GetRow(j + 1).CreateCell(i).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[i].ToString());
+                    }
+
+                    j++;
+                }
+            }
+
 
             if (Directory.Exists(@"c:\temp\"))
             {
@@ -583,9 +717,18 @@ namespace TKMOC
             ExcelExportMATERIAL();
         }
 
+        private void button5_Click(object sender, EventArgs e)
+        {
+            SearchV2();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            ExcelExport();
+        }
 
         #endregion
 
-       
+
     }
 }
