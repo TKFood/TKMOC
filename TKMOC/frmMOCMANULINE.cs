@@ -1987,7 +1987,7 @@ namespace TKMOC
                 MOCTA.TA031 = "0";
                 MOCTA.TA034 = MB002E;
                 MOCTA.TA035 = MB003E;
-                MOCTA.TA040 = dt4.ToString("yyyyMMdd");
+                MOCTA.TA040 = dt5.ToString("yyyyMMdd");
                 MOCTA.TA041 = "";
                 MOCTA.TA043 = "1";
                 MOCTA.TA044 = "N";
