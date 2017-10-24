@@ -85,6 +85,7 @@ namespace TKMOC
             dtTemp.Columns.Add("單位");
             dtTemp.Columns.Add("物料倉庫存");
             dtTemp.Columns.Add("差異數量");
+            dtTemp.Columns.Add("採購數量");
             dtTemp.Columns.Add("標準批量");
             dtTemp.Columns.Add("上層標準批量");
             dtTemp.Columns.Add("標準時間");
@@ -1137,6 +1138,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  ,[INVMB].MB002,CASE WHEN ISNULL(INVMB.MB003,'')=''  THEN '1' ELSE INVMB.MB003 END AS MB003");
                 sbSql.AppendFormat(@"  ,MC004   ");
                 sbSql.AppendFormat(@"  ,(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WITH (NOLOCK) WHERE LA009='20004' AND LA001=MD003) AS INVNUM");
+                sbSql.AppendFormat(@"  ,(SELECT ISNULL(SUM(TD008-TD015),0) FROM [TK].dbo.PURTD WHERE TD016='N' AND TD004=MD003) AS PURNUM");
                 sbSql.AppendFormat(@"  FROM TEMPTABLE ");
                 sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.[INVMB] ON [INVMB].MB001=TEMPTABLE.MD003");
                 sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.[BOMMC] ON [BOMMC].MC001=TEMPTABLE.MD001");
@@ -1230,6 +1232,7 @@ namespace TKMOC
 
                         row["物料倉庫存"] = od2["INVNUM"].ToString();
                         row["差異數量"] = Convert.ToDecimal(od2["INVNUM"].ToString())- Math.Round(Convert.ToDecimal(TOTALCOPNum / COOKIES * BATCH / MOCBATCH), 2);
+                        row["採購數量"] = od2["PURNUM"].ToString();
                         row["上層標準批量"] = od2["MC004"].ToString();
                         row["標準批量"] = od2["BATCH"].ToString();
                         row["標準時間"] = 0;
