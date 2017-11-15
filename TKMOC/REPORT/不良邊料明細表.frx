@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="08/23/2017 09:29:37" ReportInfo.Modified="11/15/2017 10:56:12" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="08/23/2017 09:29:37" ReportInfo.Modified="11/15/2017 11:04:41" ReportInfo.CreatorVersion="2016.4.4.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9L71U3yo5ov36gnYSWvuV5X">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9ICFSucHU0HcKcZ9rTM99Bp">
       <TableDataSource Name="Table" Alias="TBNGSIDEMD" DataType="System.Int32" Enabled="true" SelectCommand="SELECT   CONVERT(NVARCHAR,[MAINDATE],112) AS '日期', CONVERT(varchar(100),[MAINTIME],8)  AS '時間',[MB002] AS '品名',[NUM] AS '回收邊料',[NGNUM] AS '不良品報廢',[FALLNUM] AS '落地',[MAIN] AS '線別',[MB001] AS '品號',[TARGETPROTA001] AS '單別',[TARGETPROTA002] AS '單號'&#13;&#10;FROM [TKCIM].[dbo].[NGSIDEMD]&#13;&#10;WHERE [MAINDATE]&gt;=@P1 AND [MAINDATE]&lt;=@P2&#13;&#10;ORDER BY CONVERT(NVARCHAR,[MAINDATE],112), CONVERT(varchar(100),[MAINTIME],8) ">
         <Column Name="日期" DataType="System.String"/>
         <Column Name="時間" DataType="System.String"/>
@@ -24,10 +24,8 @@
     <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="18.9">
       <TextObject Name="Text19" Width="1020.6" Height="18.9" Text="不良邊料明細表" HorzAlign="Center" VertAlign="Center"/>
     </ReportTitleBand>
-    <DataBand Name="Data1" Top="50.7" Width="1047.06" Height="18.9" CanGrow="true" DataSource="Table">
-      <TextObject Name="Text1" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBNGSIDEMD.日期]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text3" Left="75.6" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBNGSIDEMD.時間]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text5" Left="151.2" Width="226.8" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBNGSIDEMD.品名]" HorzAlign="Center" VertAlign="Center"/>
+    <DataBand Name="Data1" Top="45.49" Width="1047.06" Height="18.9" CanGrow="true" DataSource="Table">
+      <TextObject Name="Text5" Left="160.65" Width="217.35" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBNGSIDEMD.品名]" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text7" Left="378" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBNGSIDEMD.回收邊料]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
       <TextObject Name="Text9" Left="453.6" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBNGSIDEMD.不良品報廢]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
       <TextObject Name="Text11" Left="604.8" Width="132.3" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBNGSIDEMD.線別]" HorzAlign="Center" VertAlign="Center"/>
@@ -35,17 +33,19 @@
       <TextObject Name="Text15" Left="850.5" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBNGSIDEMD.單別]" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text17" Left="926.1" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBNGSIDEMD.單號]" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text20" Left="529.2" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[TBNGSIDEMD.落地]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <DataHeaderBand Name="DataHeader1" Top="25.35" Width="1047.06" Height="18.9">
-        <TextObject Name="Text2" Width="75.6" Height="18.9" Border.Lines="All" Text="日期" HorzAlign="Center" VertAlign="Center"/>
-        <TextObject Name="Text4" Left="75.6" Width="75.6" Height="18.9" Border.Lines="All" Text="時間" HorzAlign="Center" VertAlign="Center"/>
-        <TextObject Name="Text6" Left="151.2" Width="226.8" Height="18.9" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text1" Width="85.05" Height="18.9" Border.Lines="All" Text="[TBNGSIDEMD.日期]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text3" Left="85.05" Width="75.6" Height="18.9" Border.Lines="All" Text="[TBNGSIDEMD.時間]" HorzAlign="Center" VertAlign="Center"/>
+      <DataHeaderBand Name="DataHeader1" Top="22.75" Width="1047.06" Height="18.9">
+        <TextObject Name="Text6" Left="160.65" Width="217.35" Height="18.9" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
         <TextObject Name="Text8" Left="378" Width="75.6" Height="18.9" Border.Lines="All" Text="回收邊料" HorzAlign="Center" VertAlign="Center"/>
         <TextObject Name="Text10" Left="453.6" Width="75.6" Height="18.9" Border.Lines="All" Text="不良品報廢" HorzAlign="Center" VertAlign="Center"/>
-        <TextObject Name="Text12" Left="604.8" Width="132.3" Height="18.9" Border.Lines="All" Text="落地" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text12" Left="604.8" Width="132.3" Height="18.9" Border.Lines="All" Text="線別" HorzAlign="Center" VertAlign="Center"/>
         <TextObject Name="Text14" Left="737.1" Width="113.4" Height="18.9" Border.Lines="All" Text="品號" HorzAlign="Center" VertAlign="Center"/>
         <TextObject Name="Text16" Left="850.5" Width="75.6" Height="18.9" Border.Lines="All" Text="單別" HorzAlign="Center" VertAlign="Center"/>
         <TextObject Name="Text18" Left="926.1" Width="94.5" Height="18.9" Border.Lines="All" Text="單號" HorzAlign="Center" VertAlign="Center"/>
-        <TextObject Name="Text21" Left="529.2" Width="75.6" Height="18.9" Border.Lines="All" Text="不良品報廢" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text21" Left="529.2" Width="75.6" Height="18.9" Border.Lines="All" Text="落地" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text2" Width="85.05" Height="18.9" Border.Lines="All" Text="日期" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text22" Left="85.05" Width="75.6" Height="18.9" Border.Lines="All" Text="時間" HorzAlign="Center" VertAlign="Center"/>
       </DataHeaderBand>
     </DataBand>
   </ReportPage>
