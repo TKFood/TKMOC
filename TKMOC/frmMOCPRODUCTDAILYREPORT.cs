@@ -846,11 +846,6 @@ namespace TKMOC
         }
         public void CalWEIGHTBEFORECOOK()
         {
-            //if (!string.IsNullOrEmpty(textBox6.Text.ToString()) && !string.IsNullOrEmpty(textBox9.Text.ToString()) && !string.IsNullOrEmpty(textBox27.Text.ToString()) && !string.IsNullOrEmpty(textBox28.Text.ToString()))
-            //{
-            //    textBox40.Text = Math.Round((Convert.ToDecimal(textBox6.Text.ToString()) + Convert.ToDecimal(textBox9.Text.ToString()) - Convert.ToDecimal(textBox27.Text.ToString()) - Convert.ToDecimal(textBox28.Text.ToString())),3).ToString();
-            //}
-
             if (!string.IsNullOrEmpty(textBox18.Text.ToString()) && !string.IsNullOrEmpty(textBox20.Text.ToString()) && !string.IsNullOrEmpty(textBox17.Text.ToString()) )
             {
                 textBox40.Text = Math.Round((Convert.ToDecimal(textBox18.Text.ToString()) * (Convert.ToDecimal(textBox20.Text.ToString())) * (Convert.ToDecimal(textBox17.Text.ToString()))), 3).ToString();
@@ -859,10 +854,6 @@ namespace TKMOC
         }
         public void CalWEIGHTAFTERCOOK()
         {
-            //if(!string.IsNullOrEmpty(textBox17.Text.ToString()) && !string.IsNullOrEmpty(textBox19.Text.ToString()) && !string.IsNullOrEmpty(textBox20.Text.ToString()) )
-            //{
-            //    textBox41.Text = Math.Round((Convert.ToDecimal(textBox17.Text.ToString())* Convert.ToDecimal(textBox19.Text.ToString())* Convert.ToDecimal(textBox20.Text.ToString())/1000),3).ToString();
-            //}
 
             if (!string.IsNullOrEmpty(textBox19.Text.ToString()) && !string.IsNullOrEmpty(textBox20.Text.ToString()) && !string.IsNullOrEmpty(textBox17.Text.ToString()))
             {
