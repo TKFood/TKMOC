@@ -695,6 +695,102 @@ namespace TKMOC
             }
         }
 
+        public void SEARCHMOCTG()
+        { 
+            try
+            {
+                sbSql.Clear();
+                sbSql = SETsbSql3();
+
+                if (!string.IsNullOrEmpty(sbSql.ToString()))
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    adapter = new SqlDataAdapter(sbSql.ToString(), sqlConn);
+                    sqlCmdBuilder = new SqlCommandBuilder(adapter);
+
+                    sqlConn.Open();
+                    //dataGridView1.Columns.Clear();
+                    ds.Clear();
+
+                    adapter.Fill(ds, tablename);
+                    sqlConn.Close();
+
+                    if (ds.Tables[tablename].Rows.Count == 0)
+                    {
+                        dataGridView5.DataSource = null;
+                    }
+                    else
+                    {
+
+                        dataGridView5.DataSource = ds.Tables[tablename];
+                        dataGridView5.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1.Rows[rownum].Cells[0];
+
+                    }
+                }
+                else
+                {
+
+                }
+
+
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+
+            }
+        }
+
+        public StringBuilder SETsbSql3()
+        {
+            StringBuilder STR = new StringBuilder();
+
+            STR.AppendFormat(@"  SELECT TD013 AS '預交日',TC053 AS '客戶',TD004 AS '品號',TD005 AS '品名'");
+            STR.AppendFormat(@"  ,ISNULL(CONVERT(DECIMAL(14,3),TD008*MD004/MD003),TD008) AS '下訂數量'");
+            STR.AppendFormat(@"  ,MB004 AS '單位',TD008 AS '訂單量',TD010 AS '訂單單位'");
+            STR.AppendFormat(@"  ,TC001 AS '訂單',TC002  AS '單號'");
+            STR.AppendFormat(@"  ,(SELECT ISNULL(SUM(TG011),0) ");
+            STR.AppendFormat(@"  FROM [TK].dbo.MOCTG,[TK].dbo.MOCTF ");
+            STR.AppendFormat(@"  WHERE TG001=TF001 AND TG002=TF002");
+            STR.AppendFormat(@"  AND TG009='1' ");
+            STR.AppendFormat(@"  AND TF003<=TD013");
+            STR.AppendFormat(@"  AND TG004=TD004");
+            STR.AppendFormat(@"  AND TG014+TG015 IN  (");
+            STR.AppendFormat(@"  SELECT[MOCMANULINERESULT].MOCTA001+[MOCMANULINERESULT].MOCTA002");
+            STR.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINECOP],[TKMOC].[dbo].[MOCMANULINERESULT]");
+            STR.AppendFormat(@"  WHERE [MOCMANULINECOP].[SID]=[MOCMANULINERESULT].[SID]");
+            STR.AppendFormat(@"  AND [MOCMANULINECOP].TC001=[COPTC].TC001 AND [MOCMANULINECOP].TC002=[COPTC].TC002");
+            STR.AppendFormat(@"  )) AS '實際入庫'");
+            STR.AppendFormat(@"  FROM [TK].dbo.[COPTC],[TK].dbo.[COPTD]");
+            STR.AppendFormat(@"  LEFT JOIN [TK].dbo.INVMD ON MD001=TD004 AND MD002=TD010");
+            STR.AppendFormat(@"  LEFT JOIN [TK].dbo.INVMB ON MB001=TD004");
+            STR.AppendFormat(@"  WHERE   COPTC.TC001=TD001 AND COPTC.TC002=TD002");
+            STR.AppendFormat(@"  AND TD013>='{0}' AND TD013<='{1}'", dateTimePicker7.Value.ToString("yyyyMMdd"), dateTimePicker8.Value.ToString("yyyyMMdd"));
+            STR.AppendFormat(@"  AND TD008>0");
+            STR.AppendFormat(@"  AND TD004 LIKE '4%'");
+            STR.AppendFormat(@"  AND TD021='Y'");
+            STR.AppendFormat(@"  ORDER BY TD013,COPTC.TC001,TD004,TD005");
+            STR.AppendFormat(@"  ");
+            STR.AppendFormat(@"  ");
+
+            tablename = "TEMPds4";
+
+            return STR;
+
+        }
+
+        public void EXCELMOCTG()
+        {
+
+        }
         #endregion
 
         #region BUTTON
@@ -727,6 +823,15 @@ namespace TKMOC
             ExcelExport();
         }
 
+        private void button7_Click(object sender, EventArgs e)
+        {
+            SEARCHMOCTG();
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            EXCELMOCTG();
+        }
         #endregion
 
 
