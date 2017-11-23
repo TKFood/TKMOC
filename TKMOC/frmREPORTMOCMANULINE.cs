@@ -380,6 +380,21 @@ namespace TKMOC
                     j++;
                 }
             }
+            else if (tablename.Equals("TEMPds5"))
+            {
+                TABLENAME = "預計訂單完成報表";
+                foreach (DataGridViewRow dr in this.dataGridView5.Rows)
+                {
+                    ws.CreateRow(j + 1);
+
+                    for (int i = 0; i < dt.Columns.Count; i++)
+                    {
+                        ws.GetRow(j + 1).CreateCell(i).SetCellValue(((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[i].ToString());
+                    }
+
+                    j++;
+                }
+            }
 
 
             if (Directory.Exists(@"c:\temp\"))
@@ -781,16 +796,13 @@ namespace TKMOC
             STR.AppendFormat(@"  ");
             STR.AppendFormat(@"  ");
 
-            tablename = "TEMPds4";
+            tablename = "TEMPds5";
 
             return STR;
 
         }
 
-        public void EXCELMOCTG()
-        {
-
-        }
+       
         #endregion
 
         #region BUTTON
@@ -830,7 +842,7 @@ namespace TKMOC
 
         private void button8_Click(object sender, EventArgs e)
         {
-            EXCELMOCTG();
+            ExcelExport();
         }
         #endregion
 
