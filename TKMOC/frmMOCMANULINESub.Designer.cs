@@ -272,6 +272,7 @@
             this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label10.ForeColor = System.Drawing.Color.Red;
             this.label10.Location = new System.Drawing.Point(3, 212);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(114, 16);
@@ -359,7 +360,6 @@
             this.textBox10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox10.Location = new System.Drawing.Point(123, 206);
             this.textBox10.Name = "textBox10";
-            this.textBox10.ReadOnly = true;
             this.textBox10.Size = new System.Drawing.Size(114, 27);
             this.textBox10.TabIndex = 111;
             // 
