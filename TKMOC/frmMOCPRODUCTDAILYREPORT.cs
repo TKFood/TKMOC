@@ -1470,6 +1470,53 @@ namespace TKMOC
             CalWEIGHTBEFORECOOK();
         }
 
+        public void UPDATEWEIGHTAFTER()
+        {
+            try
+            {
+                //add ZWAREWHOUSEPURTH
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+                sbSql.AppendFormat("    UPDATE [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT]");
+                sbSql.AppendFormat("    SET  [WEIGHTBEFORECOOK]=[KNIFENUM]*[ROWNUM]*[WEIGHTBEFRORE]");
+                sbSql.AppendFormat("    WHERE [WEIGHTBEFORECOOK]<>[KNIFENUM]*[ROWNUM]*[WEIGHTBEFRORE]");
+                sbSql.AppendFormat("   ");
+                sbSql.AppendFormat("     UPDATE [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT]");
+                sbSql.AppendFormat("   SET   [WEIGHTAFTERCOOK]=[KNIFENUM]*[ROWNUM]*[WEIGHTAFTER]");
+                sbSql.AppendFormat("    WHERE  [WEIGHTAFTERCOOK]<>[KNIFENUM]*[ROWNUM]*[WEIGHTAFTER]");
+                sbSql.AppendFormat("   ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易   
+                }
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
         #endregion
 
 
@@ -1501,6 +1548,7 @@ namespace TKMOC
                 ADD();
             }
 
+            UPDATEWEIGHTAFTER();
             SetFINISH();
             Search();
         }
