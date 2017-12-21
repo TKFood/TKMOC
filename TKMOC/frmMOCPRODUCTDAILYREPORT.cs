@@ -82,7 +82,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@" ,[OUTCOOKIES] AS '篩選餅乾區餅乾屑(kg)' ,[CLEANCOOKIES] AS '清掃廢料(kg)'  ");
                 sbSql.AppendFormat(@" ,[NGPACKAGE] AS '包裝不良餅乾(kg)',[NGPACKAGECAN] AS '包裝(內袋(卷) 罐)',[CAN] AS '包裝投入(袋(卷),罐)',[WEIGHTCAN] AS '一箱裸餅重'");
                 sbSql.AppendFormat(@" ,[WEIGHTCANBOXED] AS '一箱餅含袋重',[HLAFWEIGHT] AS '半成品入庫數(kg) (含袋重)',[REMARK] AS '備註'");
-                sbSql.AppendFormat(@" ,[MANUTIME] AS '製造工時(分)',[PACKTIME] AS '包裝工時(分)',[WEIGHTBEFORECOOK] AS '烤前實際總投入 (kg)'");
+                sbSql.AppendFormat(@" ,[MANUTIME] AS '製造工時(分)',[PACKTIME] AS '包裝工時(分)',[WEIGHTBEFORECOOK] AS '預計投入量'");
                 sbSql.AppendFormat(@" ,[WEIGHTAFTERCOOK] AS '烤後實際總投入 (kg)',[ACTUALOUT] AS '實際產出(kg)(裸餅)',[WEIGHTPACKAGE] AS '袋重(kg)'");
                 sbSql.AppendFormat(@" ,[PACKLOST] AS '包裝損耗率',[HLAFLOST] AS '半成品產出效率',[REWORKPCT] AS '重工佔比',[TOTALTIME] AS '總工時(分)'");
                 sbSql.AppendFormat(@" ,[STIRPCT] AS '攪拌成型製成率%',[EVARATE] AS '蒸發率',[MANULOST] AS '製成損失率',[PCT] AS '製成率'");
@@ -378,7 +378,7 @@ namespace TKMOC
                 textBox37.Text = drMOCPRODUCTDAILYREPORT.Cells["備註"].Value.ToString();
                 textBox38.Text = drMOCPRODUCTDAILYREPORT.Cells["製造工時(分)"].Value.ToString();
                 textBox39.Text = drMOCPRODUCTDAILYREPORT.Cells["包裝工時(分)"].Value.ToString();
-                textBox40.Text = drMOCPRODUCTDAILYREPORT.Cells["烤前實際總投入 (kg)"].Value.ToString();
+                textBox40.Text = drMOCPRODUCTDAILYREPORT.Cells["預計投入量"].Value.ToString();
                 textBox41.Text = drMOCPRODUCTDAILYREPORT.Cells["烤後實際總投入 (kg)"].Value.ToString();
                 textBox42.Text = drMOCPRODUCTDAILYREPORT.Cells["實際產出(kg)(裸餅)"].Value.ToString();
                 textBox43.Text = drMOCPRODUCTDAILYREPORT.Cells["袋重(kg)"].Value.ToString();
@@ -553,6 +553,7 @@ namespace TKMOC
             textBox56.Text = null;
             textBox57.Text = null;
             textBox58.Text = null;
+            textBox59.Text = null;
             textBox61.Text = null;
             textBox62.Text = null;
             textBox308.Text = "0";
@@ -616,6 +617,7 @@ namespace TKMOC
             textBox56.ReadOnly = false;
             textBox57.ReadOnly = false;
             textBox58.ReadOnly = false;
+            textBox59.ReadOnly = false;
             textBox61.ReadOnly = false;
             textBox62.ReadOnly = false;
             textBox308.ReadOnly = false;
@@ -684,6 +686,7 @@ namespace TKMOC
             textBox56.ReadOnly = false;
             textBox57.ReadOnly = false;
             textBox58.ReadOnly = false;
+            textBox59.ReadOnly = false;
             textBox61.ReadOnly = false;
             textBox62.ReadOnly = false;
             textBox308.ReadOnly = false;
@@ -750,6 +753,7 @@ namespace TKMOC
             textBox56.ReadOnly = true;
             textBox57.ReadOnly = true;
             textBox58.ReadOnly = true;
+            textBox59.ReadOnly = true;
             textBox61.ReadOnly = true;
             textBox62.ReadOnly = true;
             textBox308.ReadOnly = false;
@@ -846,11 +850,11 @@ namespace TKMOC
         }
         public void CalWEIGHTBEFORECOOK()
         {
-            if (!string.IsNullOrEmpty(textBox18.Text.ToString()) && !string.IsNullOrEmpty(textBox20.Text.ToString()) && !string.IsNullOrEmpty(textBox17.Text.ToString()) )
+            if (!string.IsNullOrEmpty(textBox5.Text.ToString()) && !string.IsNullOrEmpty(textBox8.Text.ToString()) )
             {
-                textBox40.Text = Math.Round((Convert.ToDecimal(textBox18.Text.ToString()) * (Convert.ToDecimal(textBox20.Text.ToString())) * (Convert.ToDecimal(textBox17.Text.ToString()))), 3).ToString();
+                textBox40.Text = Math.Round((Convert.ToDecimal(textBox5.Text.ToString())+ (Convert.ToDecimal(textBox8.Text.ToString()))), 3).ToString();
             }
-
+           
         }
         public void CalWEIGHTAFTERCOOK()
         {
@@ -1015,13 +1019,13 @@ namespace TKMOC
         }
         private void textBox6_TextChanged(object sender, EventArgs e)
         {
-          
+            CALTOTALIN();
             CalSTIRPCT();
         }
 
         private void textBox9_TextChanged(object sender, EventArgs e)
         {
-            
+            CALTOTALIN();
             CalSTIRPCT();
         }
 
@@ -1038,7 +1042,7 @@ namespace TKMOC
         private void textBox17_TextChanged(object sender, EventArgs e)
         {
             CalWEIGHTAFTERCOOK();
-            CalWEIGHTBEFORECOOK();
+            //CalWEIGHTBEFORECOOK();
         }
 
         private void textBox19_TextChanged(object sender, EventArgs e)
@@ -1050,7 +1054,7 @@ namespace TKMOC
         private void textBox20_TextChanged(object sender, EventArgs e)
         {
             CalWEIGHTAFTERCOOK();
-            CalWEIGHTBEFORECOOK();
+            //CalWEIGHTBEFORECOOK();
         }
         private void textBox36_TextChanged(object sender, EventArgs e)
         {
@@ -1107,6 +1111,7 @@ namespace TKMOC
          private void textBox40_TextChanged(object sender, EventArgs e)
         {
             CalEVARATE();
+            CalWEIGHTBEFORECOOK();
         }
 
         private void textBox41_TextChanged(object sender, EventArgs e)
@@ -1454,6 +1459,10 @@ namespace TKMOC
             {
                 textBox58.Text = "0";
             }
+            if (string.IsNullOrEmpty(textBox59.Text))
+            {
+                textBox59.Text = "0";
+            }
             if (string.IsNullOrEmpty(textBox61.Text))
             {
                 textBox61.Text = "0";
@@ -1467,7 +1476,7 @@ namespace TKMOC
         }
         private void textBox18_TextChanged(object sender, EventArgs e)
         {
-            CalWEIGHTBEFORECOOK();
+            //CalWEIGHTBEFORECOOK();
         }
 
         public void UPDATEWEIGHTAFTER()
@@ -1483,14 +1492,20 @@ namespace TKMOC
                 tran = sqlConn.BeginTransaction();
 
                 sbSql.Clear();
-                sbSql.AppendFormat("    UPDATE [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT]");
-                sbSql.AppendFormat("    SET  [WEIGHTBEFORECOOK]=[KNIFENUM]*[ROWNUM]*[WEIGHTBEFRORE]");
-                sbSql.AppendFormat("    WHERE [WEIGHTBEFORECOOK]<>[KNIFENUM]*[ROWNUM]*[WEIGHTBEFRORE]");
-                sbSql.AppendFormat("   ");
-                sbSql.AppendFormat("     UPDATE [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT]");
+
+                sbSql.AppendFormat("   UPDATE [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT]");
                 sbSql.AppendFormat("   SET   [WEIGHTAFTERCOOK]=[KNIFENUM]*[ROWNUM]*[WEIGHTAFTER]");
-                sbSql.AppendFormat("    WHERE  [WEIGHTAFTERCOOK]<>[KNIFENUM]*[ROWNUM]*[WEIGHTAFTER]");
+                sbSql.AppendFormat("   WHERE  [WEIGHTAFTERCOOK]<>[KNIFENUM]*[ROWNUM]*[WEIGHTAFTER]");
                 sbSql.AppendFormat("   ");
+                sbSql.AppendFormat("   UPDATE UPDATE [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT]");
+                sbSql.AppendFormat("   SET [WEIGHTBEFORECOOK]=[PASTRYPREIN] +[WATERFLOURPREIN] ");
+                sbSql.AppendFormat("   WHERE [WEIGHTBEFORECOOK]<>[PASTRYPREIN] +[WATERFLOURPREIN]");
+                sbSql.AppendFormat("   ");
+                sbSql.AppendFormat("   UPDATE UPDATE [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT]");
+                sbSql.AppendFormat("   SET [TOTALIN]=[PASTRY]+[PASTRYRECYCLE]+[WATERFLOUR] +[WATERFLOURSIDE]+[WATERFLOURRECYCLE]");
+                sbSql.AppendFormat("   WHERE [TOTALIN]<>[PASTRY]+[PASTRYRECYCLE]+[WATERFLOUR] +[WATERFLOURSIDE]+[WATERFLOURRECYCLE]");
+                sbSql.AppendFormat("   ");
+
 
                 cmd.Connection = sqlConn;
                 cmd.CommandTimeout = 60;
@@ -1516,6 +1531,44 @@ namespace TKMOC
             {
                 sqlConn.Close();
             }
+        }
+
+        private void textBox59_TextChanged(object sender, EventArgs e)
+        {
+            CALTOTALIN();
+        }
+
+        public void CALTOTALIN()
+        {
+            if (!string.IsNullOrEmpty(textBox6.Text.ToString()) && !string.IsNullOrEmpty(textBox7.Text.ToString()) && !string.IsNullOrEmpty(textBox9.Text.ToString()) && !string.IsNullOrEmpty(textBox10.Text.ToString()) && !string.IsNullOrEmpty(textBox11.Text.ToString()))
+            {
+                textBox59.Text = Math.Round((Convert.ToDecimal(textBox6.Text.ToString()))+ (Convert.ToDecimal(textBox7.Text.ToString()))+ (Convert.ToDecimal(textBox9.Text.ToString()))+ (Convert.ToDecimal(textBox10.Text.ToString()))+ (Convert.ToDecimal(textBox11.Text.ToString())), 3).ToString();
+            }
+        }
+
+        private void textBox7_TextChanged(object sender, EventArgs e)
+        {
+            CALTOTALIN();
+        }
+
+        private void textBox10_TextChanged(object sender, EventArgs e)
+        {
+            CALTOTALIN();
+        }
+
+        private void textBox11_TextChanged(object sender, EventArgs e)
+        {
+            CALTOTALIN();
+        }
+
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+            CalWEIGHTBEFORECOOK();
+        }
+
+        private void textBox8_TextChanged(object sender, EventArgs e)
+        {
+            CalWEIGHTBEFORECOOK();
         }
         #endregion
 
@@ -1574,8 +1627,11 @@ namespace TKMOC
 
 
 
+
+
+
         #endregion
 
-      
+
     }
 }
