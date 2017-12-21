@@ -1497,11 +1497,11 @@ namespace TKMOC
                 sbSql.AppendFormat("   SET   [WEIGHTAFTERCOOK]=[KNIFENUM]*[ROWNUM]*[WEIGHTAFTER]");
                 sbSql.AppendFormat("   WHERE  [WEIGHTAFTERCOOK]<>[KNIFENUM]*[ROWNUM]*[WEIGHTAFTER]");
                 sbSql.AppendFormat("   ");
-                sbSql.AppendFormat("   UPDATE UPDATE [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT]");
+                sbSql.AppendFormat("   UPDATE  [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT]");
                 sbSql.AppendFormat("   SET [WEIGHTBEFORECOOK]=[PASTRYPREIN] +[WATERFLOURPREIN] ");
                 sbSql.AppendFormat("   WHERE [WEIGHTBEFORECOOK]<>[PASTRYPREIN] +[WATERFLOURPREIN]");
                 sbSql.AppendFormat("   ");
-                sbSql.AppendFormat("   UPDATE UPDATE [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT]");
+                sbSql.AppendFormat("   UPDATE  [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT]");
                 sbSql.AppendFormat("   SET [TOTALIN]=[PASTRY]+[PASTRYRECYCLE]+[WATERFLOUR] +[WATERFLOURSIDE]+[WATERFLOURRECYCLE]");
                 sbSql.AppendFormat("   WHERE [TOTALIN]<>[PASTRY]+[PASTRYRECYCLE]+[WATERFLOUR] +[WATERFLOURSIDE]+[WATERFLOURRECYCLE]");
                 sbSql.AppendFormat("   ");

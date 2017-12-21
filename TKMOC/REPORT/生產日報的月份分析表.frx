@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="08/21/2017 16:53:06" ReportInfo.Modified="08/21/2017 16:58:18" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="08/21/2017 16:53:06" ReportInfo.Modified="12/21/2017 10:34:39" ReportInfo.CreatorVersion="2016.4.4.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9LwddurYrc6Oru0De0blZCT">
-      <TableDataSource Name="Table" Alias="TBMOCPRODUCTDAILYREPORT" DataType="System.Int32" Enabled="true" SelectCommand="  SELECT @P1 AS '年度', [ID]  AS '月份'&#13;&#10;  ,ISNULL((SELECT SUM([WEIGHTBEFORECOOK]) FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] WHERE YEAR([PRODUCEDATE])=@P1 AND MONTH([PRODUCEDATE])=[BASEMONTH].[ID]),0) AS '總投入量'&#13;&#10;  ,ISNULL((SELECT AVG([REWORKPCT]) FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] WHERE YEAR([PRODUCEDATE])= @P1 AND MONTH([PRODUCEDATE])=[BASEMONTH].[ID]),0) AS '重工佔比'&#13;&#10;  ,ISNULL((SELECT AVG([EVARATE]) FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] WHERE YEAR([PRODUCEDATE])=@P1 AND MONTH([PRODUCEDATE])=[BASEMONTH].[ID]),0) AS '蒸發率'&#13;&#10;  ,ISNULL((SELECT AVG([STIRPCT]) FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] WHERE YEAR([PRODUCEDATE])=@P1 AND MONTH([PRODUCEDATE])=[BASEMONTH].[ID]),0) AS '攪拌成型率'&#13;&#10;  ,ISNULL((SELECT AVG([MANULOST]) FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] WHERE YEAR([PRODUCEDATE])=@P1 AND MONTH([PRODUCEDATE])=[BASEMONTH].[ID]),0) AS '製成損失率'&#13;&#10;  ,ISNULL((SELECT AVG([PCT]) FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] WHERE YEAR([PRODUCEDATE])= @P1 AND MONTH([PRODUCEDATE])=[BASEMONTH].[ID]),0) AS '餅製成率'&#13;&#10;  ,ISNULL((SELECT AVG([TOTALPCT]) FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] WHERE YEAR([PRODUCEDATE])=@P1 AND MONTH([PRODUCEDATE])=[BASEMONTH].[ID]),0) AS '總製成率'&#13;&#10;  ,ISNULL((SELECT AVG([CANPCT])  FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] WHERE YEAR([PRODUCEDATE])=@P1 AND MONTH([PRODUCEDATE])=[BASEMONTH].[ID]),0) AS '罐裝製成率'&#13;&#10;  ,ISNULL((SELECT SUM([STIR])  FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] WHERE YEAR([PRODUCEDATE])= @P1 AND MONTH([PRODUCEDATE])=[BASEMONTH].[ID]),0) AS '攪拌不良'&#13;&#10;  ,ISNULL((SELECT SUM([SIDES]) FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] WHERE YEAR([PRODUCEDATE])= @P1 AND MONTH([PRODUCEDATE])=[BASEMONTH].[ID]),0) AS '成型邊料'&#13;&#10;  ,ISNULL((SELECT SUM([COOKIES]) FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] WHERE YEAR([PRODUCEDATE])= @P1 AND MONTH([PRODUCEDATE])=[BASEMONTH].[ID]),0) AS '餅麩'&#13;&#10;  ,ISNULL((SELECT SUM([COOK]) FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] WHERE YEAR([PRODUCEDATE])=@P1 AND MONTH([PRODUCEDATE])=[BASEMONTH].[ID]),0) AS '烤焙'&#13;&#10;  ,ISNULL((SELECT SUM([NGPACKAGE]) FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] WHERE YEAR([PRODUCEDATE])=@P1 AND MONTH([PRODUCEDATE])=[BASEMONTH].[ID]),0) AS '包裝不良餅乾'&#13;&#10;  FROM [TKMOC].[dbo].[BASEMONTH]">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9L+oh+7d5GHPgQprGN3XO6M">
+      <TableDataSource Name="Table" Alias="TBMOCPRODUCTDAILYREPORT" DataType="System.Int32" Enabled="true" SelectCommand="  SELECT @P1 AS '年度', [ID]  AS '月份'&#13;&#10;  ,ISNULL((SELECT SUM([TOTALIN]) FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] WHERE YEAR([PRODUCEDATE])=@P1 AND MONTH([PRODUCEDATE])=[BASEMONTH].[ID]),0) AS '總投入量'&#13;&#10;  ,ISNULL((SELECT SUM([WEIGHTBEFORECOOK]) FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] WHERE YEAR([PRODUCEDATE])=@P1 AND MONTH([PRODUCEDATE])=[BASEMONTH].[ID]),0) AS '預計投入量'&#13;&#10;  ,ISNULL((SELECT AVG([REWORKPCT]) FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] WHERE YEAR([PRODUCEDATE])= @P1 AND MONTH([PRODUCEDATE])=[BASEMONTH].[ID]),0) AS '重工佔比'&#13;&#10;  ,ISNULL((SELECT AVG([EVARATE]) FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] WHERE YEAR([PRODUCEDATE])=@P1 AND MONTH([PRODUCEDATE])=[BASEMONTH].[ID]),0) AS '蒸發率'&#13;&#10;  ,ISNULL((SELECT AVG([STIRPCT]) FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] WHERE YEAR([PRODUCEDATE])=@P1 AND MONTH([PRODUCEDATE])=[BASEMONTH].[ID]),0) AS '攪拌成型率'&#13;&#10;  ,ISNULL((SELECT AVG([MANULOST]) FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] WHERE YEAR([PRODUCEDATE])=@P1 AND MONTH([PRODUCEDATE])=[BASEMONTH].[ID]),0) AS '製成損失率'&#13;&#10;  ,ISNULL((SELECT AVG([PCT]) FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] WHERE YEAR([PRODUCEDATE])= @P1 AND MONTH([PRODUCEDATE])=[BASEMONTH].[ID]),0) AS '餅製成率'&#13;&#10;  ,ISNULL((SELECT AVG([TOTALPCT]) FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] WHERE YEAR([PRODUCEDATE])=@P1 AND MONTH([PRODUCEDATE])=[BASEMONTH].[ID]),0) AS '總製成率'&#13;&#10;  ,ISNULL((SELECT AVG([CANPCT])  FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] WHERE YEAR([PRODUCEDATE])=@P1 AND MONTH([PRODUCEDATE])=[BASEMONTH].[ID]),0) AS '罐裝製成率'&#13;&#10;  ,ISNULL((SELECT SUM([STIR])  FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] WHERE YEAR([PRODUCEDATE])= @P1 AND MONTH([PRODUCEDATE])=[BASEMONTH].[ID]),0) AS '攪拌不良'&#13;&#10;  ,ISNULL((SELECT SUM([SIDES]) FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] WHERE YEAR([PRODUCEDATE])= @P1 AND MONTH([PRODUCEDATE])=[BASEMONTH].[ID]),0) AS '成型邊料'&#13;&#10;  ,ISNULL((SELECT SUM([COOKIES]) FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] WHERE YEAR([PRODUCEDATE])= @P1 AND MONTH([PRODUCEDATE])=[BASEMONTH].[ID]),0) AS '餅麩'&#13;&#10;  ,ISNULL((SELECT SUM([COOK]) FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] WHERE YEAR([PRODUCEDATE])=@P1 AND MONTH([PRODUCEDATE])=[BASEMONTH].[ID]),0) AS '烤焙'&#13;&#10;  ,ISNULL((SELECT SUM([NGPACKAGE]) FROM [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT] WHERE YEAR([PRODUCEDATE])=@P1 AND MONTH([PRODUCEDATE])=[BASEMONTH].[ID]),0) AS '包裝不良餅乾'&#13;&#10;  FROM [TKMOC].[dbo].[BASEMONTH]">
         <Column Name="年度" DataType="System.String"/>
         <Column Name="月份" DataType="System.Int32"/>
         <Column Name="總投入量" DataType="System.Decimal"/>
@@ -18,6 +18,7 @@
         <Column Name="餅麩" DataType="System.Decimal"/>
         <Column Name="烤焙" DataType="System.Decimal"/>
         <Column Name="包裝不良餅乾" DataType="System.Decimal"/>
+        <Column Name="預計投入量" DataType="System.Decimal"/>
         <CommandParameter Name="P1" DataType="12" Expression="[P1]" DefaultValue="2017"/>
       </TableDataSource>
     </MsSqlDataConnection>
@@ -25,7 +26,7 @@
   </Dictionary>
   <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" RawPaperSize="9">
     <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="37.8"/>
-    <PageHeaderBand Name="PageHeader1" Top="43.6" Width="1047.06" Height="28.35">
+    <PageHeaderBand Name="PageHeader1" Top="41.65" Width="1047.06" Height="28.35">
       <TextObject Name="Text2" Width="56.7" Height="28.35" Border.Lines="All" Text="年度" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text4" Left="56.7" Width="56.7" Height="28.35" Border.Lines="All" Text="月份" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text6" Left="113.4" Width="103.95" Height="28.35" Border.Lines="All" Text="總投入量" HorzAlign="Center" VertAlign="Center"/>
@@ -42,7 +43,7 @@
       <TextObject Name="Text28" Left="907.2" Width="66.15" Height="28.35" Border.Lines="All" Text="烤焙" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text30" Left="973.35" Width="66.15" Height="28.35" Border.Lines="All" Text="包裝不良餅乾" HorzAlign="Center" VertAlign="Center"/>
     </PageHeaderBand>
-    <DataBand Name="Data1" Top="77.74" Width="1047.06" Height="18.9" DataSource="Table">
+    <DataBand Name="Data1" Top="73.84" Width="1047.06" Height="18.9" DataSource="Table">
       <TextObject Name="Text1" Width="56.7" Height="18.9" Border.Lines="All" Text="[TBMOCPRODUCTDAILYREPORT.年度]" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text3" Left="56.7" Width="56.7" Height="18.9" Border.Lines="All" Text="[TBMOCPRODUCTDAILYREPORT.月份]" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text5" Left="113.4" Width="103.95" Height="18.9" Border.Lines="All" Text="[TBMOCPRODUCTDAILYREPORT.總投入量]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
@@ -59,6 +60,6 @@
       <TextObject Name="Text27" Left="907.2" Width="66.15" Height="18.9" Border.Lines="All" Text="[TBMOCPRODUCTDAILYREPORT.烤焙]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
       <TextObject Name="Text29" Left="973.35" Width="66.15" Height="18.9" Border.Lines="All" Text="[TBMOCPRODUCTDAILYREPORT.包裝不良餅乾]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
     </DataBand>
-    <PageFooterBand Name="PageFooter1" Top="102.44" Width="1047.06" Height="18.9"/>
+    <PageFooterBand Name="PageFooter1" Top="96.59" Width="1047.06" Height="18.9"/>
   </ReportPage>
 </Report>
