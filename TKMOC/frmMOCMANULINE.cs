@@ -690,6 +690,8 @@ namespace TKMOC
 
         public void SEARCHMB001()
         {
+
+
             if (MANU.Equals("新廠製二組"))
             {
                 try
@@ -703,7 +705,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"  SELECT MB001,MB002,MB003,MC004,MB017            ");
                     sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB,[TK].dbo.BOMMC");
                     sbSql.AppendFormat(@"  WHERE MB001=MC001");
-                    sbSql.AppendFormat(@"  AND MB001='{0}'", textBox1.Text);
+                    sbSql.AppendFormat(@"  AND MB001='{0}'", textBox1.Text.Trim());
                     sbSql.AppendFormat(@"  ");
 
                     adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -755,7 +757,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"  SELECT MB001,MB002,MB003,MC004 ,MB017 ");
                     sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB,[TK].dbo.BOMMC");
                     sbSql.AppendFormat(@"  WHERE MB001=MC001");
-                    sbSql.AppendFormat(@"  AND MB001='{0}'", textBox7.Text);
+                    sbSql.AppendFormat(@"  AND MB001='{0}'", textBox7.Text.Trim());
                     sbSql.AppendFormat(@"  ");
 
                     adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -810,7 +812,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"  SELECT MB001,MB002,MB003,MC004 ,MB017 ");
                     sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB,[TK].dbo.BOMMC");
                     sbSql.AppendFormat(@"  WHERE MB001=MC001");
-                    sbSql.AppendFormat(@"  AND MB001='{0}'", textBox14.Text);
+                    sbSql.AppendFormat(@"  AND MB001='{0}'", textBox14.Text.Trim());
                     sbSql.AppendFormat(@"  ");
 
                     adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -862,7 +864,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"  SELECT MB001,MB002,MB003,MC004 ,MB017 ");
                     sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB,[TK].dbo.BOMMC");
                     sbSql.AppendFormat(@"  WHERE MB001=MC001");
-                    sbSql.AppendFormat(@"  AND MB001='{0}'", textBox20.Text);
+                    sbSql.AppendFormat(@"  AND MB001='{0}'", textBox20.Text.Trim());
                     sbSql.AppendFormat(@"  ");
 
                     adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -906,11 +908,16 @@ namespace TKMOC
         public void SETNULL1()
         {
             //textBox1.Text = null;
-            textBox2.Text = null;
-            textBox3.Text = null;
+
             textBox4.Text = null;
             textBox5.Text = null;
-            
+
+            textBox2.Text = null;
+            textBox3.Text = null;
+            textBox32.Text = null;
+
+          
+
         }
        
         public void ADDMOCMANULINE()

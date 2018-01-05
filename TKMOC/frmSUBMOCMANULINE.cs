@@ -145,6 +145,68 @@ namespace TKMOC
 
         }
 
+        public void SEARCHMB002()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  SELECT MB001,MB002,MB003");
+                sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB");
+                sbSql.AppendFormat(@"  WHERE MB002 LIKE '%{0}%'", textBox2.Text);
+                sbSql.AppendFormat(@"  ORDER BY MB001");
+                sbSql.AppendFormat(@"  ");
+
+
+
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "TEMPds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["TEMPds1"].Rows.Count == 0)
+                {
+
+                }
+                else
+                {
+                    if (ds1.Tables["TEMPds1"].Rows.Count >= 1)
+                    {
+
+                        dataGridView1.DataSource = ds1.Tables["TEMPds1"];
+                        dataGridView1.AutoResizeColumns();
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (Keys.Enter == e.KeyCode)
+            {
+                e.Handled = true;
+
+                this.Close();
+            }
+        }
         #endregion
 
         #region BUTTON
@@ -154,6 +216,10 @@ namespace TKMOC
             SEARCHMB001();
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            SEARCHMB002();
+        }
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -162,8 +228,10 @@ namespace TKMOC
 
 
 
+
+
         #endregion
 
-
+        
     }
 }

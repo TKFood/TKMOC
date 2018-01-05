@@ -44,6 +44,7 @@ namespace TKMOC
 
 
         string MA001;
+        int rowindex;
 
         public frmSUBMOCCOPMA()
         {
@@ -143,6 +144,20 @@ namespace TKMOC
                 return MA001;
             }
         }
+
+        private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
+        {    
+            if (Keys.Enter == e.KeyCode)
+            {
+                e.Handled = true;
+                                
+                this.Close();
+            }
+        }
+        private void dataGridView1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+        }
         #endregion
 
         #region BUTTON
@@ -155,8 +170,10 @@ namespace TKMOC
             this.Close();
         }
 
+
+
         #endregion
 
-
+       
     }
 }

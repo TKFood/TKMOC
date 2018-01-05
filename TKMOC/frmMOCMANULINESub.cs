@@ -109,7 +109,7 @@ namespace TKMOC
                     {
                         //dataGridView1.Rows.Clear();
                         textBox1.Text = ds1.Tables["TEMPds1"].Rows[0]["線別"].ToString();
-                        textBox2.Text = ds1.Tables["TEMPds1"].Rows[0]["生產日"].ToString();
+                        
                         textBox3.Text = ds1.Tables["TEMPds1"].Rows[0]["品號"].ToString();
                         textBox4.Text = ds1.Tables["TEMPds1"].Rows[0]["品名"].ToString();
                         textBox5.Text = ds1.Tables["TEMPds1"].Rows[0]["規格"].ToString();
@@ -119,6 +119,12 @@ namespace TKMOC
                         textBox9.Text = ds1.Tables["TEMPds1"].Rows[0]["片數"].ToString();
                         textBox10.Text = ds1.Tables["TEMPds1"].Rows[0]["客戶"].ToString();
                         textBox32.Text = ds1.Tables["TEMPds1"].Rows[0]["MC004"].ToString();
+
+                        string yy = ds1.Tables["TEMPds1"].Rows[0]["生產日"].ToString().Substring(0, 4);
+                        string MM = ds1.Tables["TEMPds1"].Rows[0]["生產日"].ToString().Substring(4, 2);
+                        string dd = ds1.Tables["TEMPds1"].Rows[0]["生產日"].ToString().Substring(6, 2);
+
+                        dateTimePicker1.Value = Convert.ToDateTime(yy+"/"+MM+"/"+dd);
 
                         textBoxID.Text = ds1.Tables["TEMPds1"].Rows[0]["ID"].ToString();
                     }
@@ -152,7 +158,7 @@ namespace TKMOC
 
                 sbSql.Clear();
 
-                sbSql.AppendFormat(" UPDATE [TKMOC].[dbo].[MOCMANULINE] SET [BAR]={0},[NUM]={1},[BOX]={2},[PACKAGE]={3},[CLINET]='{4}'", textBox6.Text, textBox7.Text, textBox8.Text, textBox9.Text, textBox10.Text);
+                sbSql.AppendFormat(" UPDATE [TKMOC].[dbo].[MOCMANULINE] SET [BAR]={0},[NUM]={1},[BOX]={2},[PACKAGE]={3},[CLINET]='{4}',MANUDATE='{5}'", textBox6.Text, textBox7.Text, textBox8.Text, textBox9.Text, textBox10.Text, dateTimePicker1.Value.ToString("yyyyMMdd"));
                 sbSql.AppendFormat(" WHERE  [ID]='{0}'", textBoxID.Text);
                 sbSql.AppendFormat(" ");
 
