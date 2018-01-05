@@ -29,12 +29,16 @@ namespace TKMOC
         StringBuilder sbSqlQuery = new StringBuilder();
         SqlDataAdapter adapter1 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+        SqlDataAdapter adapter20 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder20 = new SqlCommandBuilder();
+        DataSet ds20 = new DataSet();
         SqlTransaction tran;
         SqlCommand cmd = new SqlCommand();
         DataSet ds1 = new DataSet();
 
         string EDITID;
         int result;
+        int BOXNUMERB;
 
         public frmMOCMANULINESub()
         {
@@ -191,10 +195,10 @@ namespace TKMOC
                 {
                     textBox6.Text = Math.Round(Convert.ToDecimal(textBox7.Text) / Convert.ToDecimal(textBox32.Text), 4).ToString();
                 }
-
+                
                 if (Decimal.TryParse(textBox9.Text, out num1) && Decimal.TryParse(textBox32.Text, out num2))
                 {
-                    textBox8.Text = Math.Round(Convert.ToDecimal(textBox9.Text) / Convert.ToDecimal(textBox32.Text), 4).ToString();
+                    textBox8.Text = Math.Round(Convert.ToDecimal(textBox9.Text) / Convert.ToDecimal(textBox32.Text) / BOXNUMERB, 4).ToString();
                 }
 
             }
@@ -215,9 +219,68 @@ namespace TKMOC
 
         private void textBox9_TextChanged(object sender, EventArgs e)
         {
+            SEARCHMB001BOX();
+            textBox11.Text = BOXNUMERB.ToString();
+
             CALPRODUCTDETAIL();
         }
 
+        public void SEARCHMB001BOX()
+        {
+           
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  SELECT TOP 1 MD001,MD003,MB001,MB002,ISNULL(MD007,1) AS MD007,ISNULL(MD010,1) AS MD010");
+                sbSql.AppendFormat(@"  FROM [TK].dbo.BOMMD,[TK].dbo.INVMB");
+                sbSql.AppendFormat(@"  WHERE MD003=MB001");
+                sbSql.AppendFormat(@"  AND MB002 LIKE '%箱%'");
+                sbSql.AppendFormat(@"  AND MD003 LIKE '2%'");
+                sbSql.AppendFormat(@"  AND MD001='{0}'", textBox3.Text);
+                sbSql.AppendFormat(@"  ");
+
+                adapter20 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder20 = new SqlCommandBuilder(adapter20);
+                sqlConn.Open();
+                ds20.Clear();
+                adapter20.Fill(ds20, "TEMPds20");
+                sqlConn.Close();
+
+
+                if (ds20.Tables["TEMPds20"].Rows.Count == 0)
+                {
+                    BOXNUMERB = 1;
+                }
+                else
+                {
+                    if (ds20.Tables["TEMPds20"].Rows.Count >= 1)
+                    {
+                        BOXNUMERB = (Convert.ToInt32(ds20.Tables["TEMPds20"].Rows[0]["MD007"].ToString()) / Convert.ToInt32(ds20.Tables["TEMPds20"].Rows[0]["MD010"].ToString()));
+                    }
+                }
+
+               
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+
+
+
+        }
         #region BUTTON
 
         private void button1_Click(object sender, EventArgs e)
