@@ -689,8 +689,7 @@ namespace TKMOC
         }
 
         public void SEARCHMB001()
-        {
-
+        {         
 
             if (MANU.Equals("新廠製二組"))
             {
@@ -719,7 +718,7 @@ namespace TKMOC
 
                     if (ds2.Tables["TEMPds2"].Rows.Count == 0)
                     {
-                        SETNULL1();
+                       
                     }
                     else
                     {
@@ -746,6 +745,8 @@ namespace TKMOC
             }
             else if (MANU.Equals("新廠包裝線"))
             {
+ 
+
                 try
                 {
                     connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
@@ -771,7 +772,7 @@ namespace TKMOC
 
                     if (ds2.Tables["TEMPds2"].Rows.Count == 0)
                     {
-                        SETNULL1();
+                        
                     }
                     else
                     {
@@ -826,7 +827,7 @@ namespace TKMOC
 
                     if (ds2.Tables["TEMPds2"].Rows.Count == 0)
                     {
-                        SETNULL4();
+                        
                     }
                     else
                     {
@@ -878,7 +879,7 @@ namespace TKMOC
 
                     if (ds2.Tables["TEMPds2"].Rows.Count == 0)
                     {
-                        SETNULL4();
+                       
                     }
                     else
                     {
@@ -1129,6 +1130,7 @@ namespace TKMOC
             textBox4.Text = null;
             textBox5.Text = null;
             textBox6.Text = null;
+            textBox32.Text = "0";
         }
         public void SETNULL3()
         {
@@ -1139,6 +1141,7 @@ namespace TKMOC
             textBox11.Text = null;
             textBox12.Text = null;
             textBox13.Text = "0";
+            textBox33.Text = "0";
         }
         public void SETNULL4()
         {
@@ -1148,6 +1151,19 @@ namespace TKMOC
             textBox17.Text = null;
             textBox18.Text = null;
             textBox19.Text = null;
+            textBox34.Text = "0";
+        }
+
+        public void SETNULL6()
+        {
+            textBox20.Text = null;
+            textBox21.Text = null;
+            textBox22.Text = null;
+            textBox23.Text = null;
+            textBox24.Text = null;
+            textBox25.Text = null;         
+           
+            textBox35.Text = "0";
         }
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
@@ -4543,6 +4559,11 @@ namespace TKMOC
                 sqlConn.Close();
             }
         }
+
+        private void textBox7_Leave(object sender, EventArgs e)
+        {
+            SEARCHMB001();
+        }
         #endregion
 
         #region BUTTON
@@ -4580,7 +4601,7 @@ namespace TKMOC
         }
         private void button4_Click(object sender, EventArgs e)
         {
-            
+            SETNULL2();
             frmSUBMOCMANULINE SUBfrmSUBMOCMANULINE = new frmSUBMOCMANULINE();
             SUBfrmSUBMOCMANULINE.ShowDialog();
             textBox1.Text = SUBfrmSUBMOCMANULINE.TextBoxMsg;
@@ -4605,6 +4626,8 @@ namespace TKMOC
 
         private void button9_Click(object sender, EventArgs e)
         {
+            SETNULL3();
+
             frmSUBMOCMANULINE SUBfrmSUBMOCMANULINE = new frmSUBMOCMANULINE();
             SUBfrmSUBMOCMANULINE.ShowDialog();
             textBox7.Text = SUBfrmSUBMOCMANULINE.TextBoxMsg;
@@ -4675,6 +4698,7 @@ namespace TKMOC
 
         private void button14_Click(object sender, EventArgs e)
         {
+            SETNULL4();
             frmSUBMOCMANULINE SUBfrmSUBMOCMANULINE = new frmSUBMOCMANULINE();
             SUBfrmSUBMOCMANULINE.ShowDialog();
             textBox14.Text = SUBfrmSUBMOCMANULINE.TextBoxMsg;
@@ -4707,6 +4731,7 @@ namespace TKMOC
         }
         private void button19_Click(object sender, EventArgs e)
         {
+            SETNULL6();
             frmSUBMOCMANULINE SUBfrmSUBMOCMANULINE = new frmSUBMOCMANULINE();
             SUBfrmSUBMOCMANULINE.ShowDialog();
             textBox20.Text = SUBfrmSUBMOCMANULINE.TextBoxMsg;
@@ -4934,6 +4959,7 @@ namespace TKMOC
 
             SEARCHMOCMANULINECOP();
         }
+
 
 
         #endregion
