@@ -82,7 +82,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  SELECT ");
                 sbSql.AppendFormat(@"  [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名'");
                 sbSql.AppendFormat(@"  ,[MB003] AS '規格',ISNULL([BAR],0) AS '桶數',ISNULL([NUM],0) AS '數量',ISNULL([BOX],0)   AS '箱數'   ,ISNULL([PACKAGE],0)  AS '片數',[CLINET] AS '客戶'");
-                sbSql.AppendFormat(@"  ,[MC004]");
+                sbSql.AppendFormat(@"  ,[MC004],CONVERT(varchar(100),[OUTDATE],112)  AS '交期' ");
                 sbSql.AppendFormat(@"  ,[ID]");
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE],[TK].[dbo].[BOMMC]");
                 sbSql.AppendFormat(@"  WHERE [MB001]=[MC001]");
@@ -126,6 +126,20 @@ namespace TKMOC
 
                         dateTimePicker1.Value = Convert.ToDateTime(yy+"/"+MM+"/"+dd);
 
+                        if(!String.IsNullOrEmpty(ds1.Tables["TEMPds1"].Rows[0]["交期"].ToString()))
+                        {
+                            string OUTyy = ds1.Tables["TEMPds1"].Rows[0]["交期"].ToString().Substring(0, 4);
+                            string OUTMM = ds1.Tables["TEMPds1"].Rows[0]["交期"].ToString().Substring(4, 2);
+                            string OUTdd = ds1.Tables["TEMPds1"].Rows[0]["交期"].ToString().Substring(6, 2);
+
+                            dateTimePicker2.Value = Convert.ToDateTime(OUTyy + "/" + OUTMM + "/" + OUTdd);
+                        }
+                        else
+                        {
+                            dateTimePicker2.Format = DateTimePickerFormat.Custom;
+                            dateTimePicker2.CustomFormat = " ";
+                        }
+
                         textBoxID.Text = ds1.Tables["TEMPds1"].Rows[0]["ID"].ToString();
                     }
                 }
@@ -158,7 +172,7 @@ namespace TKMOC
 
                 sbSql.Clear();
 
-                sbSql.AppendFormat(" UPDATE [TKMOC].[dbo].[MOCMANULINE] SET [BAR]={0},[NUM]={1},[BOX]={2},[PACKAGE]={3},[CLINET]='{4}',MANUDATE='{5}'", textBox6.Text, textBox7.Text, textBox8.Text, textBox9.Text, textBox10.Text, dateTimePicker1.Value.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(" UPDATE [TKMOC].[dbo].[MOCMANULINE] SET [BAR]={0},[NUM]={1},[BOX]={2},[PACKAGE]={3},[CLINET]='{4}',MANUDATE='{5}',[OUTDATE]='{6}'", textBox6.Text, textBox7.Text, textBox8.Text, textBox9.Text, textBox10.Text, dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
                 sbSql.AppendFormat(" WHERE  [ID]='{0}'", textBoxID.Text);
                 sbSql.AppendFormat(" ");
 
