@@ -943,11 +943,11 @@ namespace TKMOC
         }
         public void CalEVARATE()
         {
-            if (!string.IsNullOrEmpty(textBox40.Text.ToString()) && !string.IsNullOrEmpty(textBox41.Text.ToString()))
+            if (!string.IsNullOrEmpty(textBox18.Text.ToString()) && !string.IsNullOrEmpty(textBox19.Text.ToString()))
             {
-                if(Convert.ToDecimal(textBox40.Text.ToString())>0&& Convert.ToDecimal(textBox41.Text.ToString()) > 0)
+                if(Convert.ToDecimal(textBox18.Text.ToString())>0&& Convert.ToDecimal(textBox19.Text.ToString()) > 0)
                 {
-                    textBox49.Text = Math.Round(((Convert.ToDecimal(textBox40.Text.ToString()) - Convert.ToDecimal(textBox41.Text.ToString())) / Convert.ToDecimal(textBox40.Text.ToString()) * 100), 3).ToString();
+                    textBox49.Text = Math.Round(((Convert.ToDecimal(textBox18.Text.ToString()) - Convert.ToDecimal(textBox19.Text.ToString())) / Convert.ToDecimal(textBox18.Text.ToString()) * 100), 3).ToString();
                 }
                 
             }
@@ -1048,7 +1048,8 @@ namespace TKMOC
         private void textBox19_TextChanged(object sender, EventArgs e)
         {
             CalWEIGHTAFTERCOOK();
-           
+            CalEVARATE();
+
         }
 
         private void textBox20_TextChanged(object sender, EventArgs e)
@@ -1110,13 +1111,13 @@ namespace TKMOC
         }
          private void textBox40_TextChanged(object sender, EventArgs e)
         {
-            CalEVARATE();
+           
             CalWEIGHTBEFORECOOK();
         }
 
         private void textBox41_TextChanged(object sender, EventArgs e)
         {
-            CalEVARATE();
+            //CalEVARATE();
         }
         private void textBox42_TextChanged(object sender, EventArgs e)
         {
@@ -1477,6 +1478,7 @@ namespace TKMOC
         private void textBox18_TextChanged(object sender, EventArgs e)
         {
             //CalWEIGHTBEFORECOOK();
+            CalEVARATE();
         }
 
         public void UPDATEWEIGHTAFTER()
@@ -1504,6 +1506,10 @@ namespace TKMOC
                 sbSql.AppendFormat("   UPDATE  [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT]");
                 sbSql.AppendFormat("   SET [TOTALIN]=[PASTRY]+[PASTRYRECYCLE]+[WATERFLOUR] +[WATERFLOURSIDE]+[WATERFLOURRECYCLE]");
                 sbSql.AppendFormat("   WHERE [TOTALIN]<>[PASTRY]+[PASTRYRECYCLE]+[WATERFLOUR] +[WATERFLOURSIDE]+[WATERFLOURRECYCLE]");
+                sbSql.AppendFormat("   ");
+                sbSql.AppendFormat("   UPDATE [TKMOC].[dbo].[MOCPRODUCTDAILYREPORT]");
+                sbSql.AppendFormat("   SET [EVARATE]=(([WEIGHTBEFRORE]-[WEIGHTAFTER])/[WEIGHTBEFRORE])*100");
+                sbSql.AppendFormat("   WHERE [EVARATE]<>(([WEIGHTBEFRORE]-[WEIGHTAFTER])/[WEIGHTBEFRORE])*100");
                 sbSql.AppendFormat("   ");
 
 
