@@ -77,12 +77,12 @@ namespace TKMOC
 
      
             dtTemp.Columns.Add("年度");
-            dtTemp.Columns.Add("週次");
-           
+            dtTemp.Columns.Add("週次");          
             dtTemp.Columns.Add("品號");
             dtTemp.Columns.Add("品名");
             dtTemp.Columns.Add("數量");
             dtTemp.Columns.Add("單位");
+            //dtTemp.Columns.Add("桶數");
             dtTemp.Columns.Add("物料倉庫存");
             dtTemp.Columns.Add("差異數量");
             dtTemp.Columns.Add("採購數量");
@@ -706,7 +706,7 @@ namespace TKMOC
                         {
                             MOCBATCH = 1;
                         }
-                        row["桶數"] = Convert.ToInt32(TOTALCOPNum / COOKIES / BATCH/ MOCBATCH);
+                        //row["桶數"] = Convert.ToInt32(TOTALCOPNum / COOKIES / BATCH/ MOCBATCH);
                         row["標準批量"] = od2["PROCESSNUM"].ToString();
                         row["標準時間"] = od2["PROCESSTIME"].ToString();
                         dtTemp.Rows.Add(row);
