@@ -58,7 +58,7 @@ namespace TKMOC
 
 
                
-                sbSql.AppendFormat(@" SELECT [ID] AS '代號',[NAME] AS '名稱' FROM [TKMOC].[dbo].[MOCCOPMA] ORDER BY [ID] ");
+                sbSql.AppendFormat(@" SELECT [ID] AS '代號',[KIND] AS '分類',[NAME] AS '名稱' FROM [TKMOC].[dbo].[MOCCOPMA] ORDER BY [ID] ");
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -127,8 +127,8 @@ namespace TKMOC
 
 
                 sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCCOPMA]");
-                sbSql.AppendFormat(" ([ID],[NAME])");
-                sbSql.AppendFormat(" VALUES ('{0}','{1}')", textBox1.Text, textBox2.Text);
+                sbSql.AppendFormat(" ([ID],[NAME],[KIND])");
+                sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}')", textBox1.Text, textBox2.Text,comboBox1.Text);
                 sbSql.AppendFormat(" ");
                 sbSql.AppendFormat(" ");
 
@@ -176,7 +176,7 @@ namespace TKMOC
                 sbSql.Clear();
 
                 sbSql.AppendFormat(" UPDATE [TKMOC].[dbo].[MOCCOPMA]");
-                sbSql.AppendFormat(" SET [NAME]='{0}'", textBox2.Text);
+                sbSql.AppendFormat(" SET [NAME]='{0}',[KIND]='{1}'", textBox2.Text, comboBox1.Text);
                 sbSql.AppendFormat(" WHERE [ID]='{0}'",textBox1.Text);
                 sbSql.AppendFormat(" ");
 
@@ -219,6 +219,7 @@ namespace TKMOC
                     DataGridViewRow row = dataGridView1.Rows[rowindex];
                     textBox1.Text = row.Cells["代號"].Value.ToString();
                     textBox2.Text = row.Cells["名稱"].Value.ToString();
+                    comboBox1.Text= row.Cells["分類"].Value.ToString();
                 }
                 else
                 {
