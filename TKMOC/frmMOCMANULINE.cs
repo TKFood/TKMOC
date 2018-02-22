@@ -2885,27 +2885,27 @@ namespace TKMOC
         {
             if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage1"])
             {
-                MessageBox.Show("新廠製二組");
+                //MessageBox.Show("新廠製二組");
                 MANU = "新廠製二組";
             }
             else if(tabControl1.SelectedTab == tabControl1.TabPages["tabPage2"])
             {
-                MessageBox.Show("新廠製一組");
+                //MessageBox.Show("新廠製一組");
                 MANU = "新廠製一組";
             }
             else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage3"])
             {
-                MessageBox.Show("新廠製三組(手工)");
+                //MessageBox.Show("新廠製三組(手工)");
                 MANU = "新廠製三組(手工)";
             }
             else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage4"])
             {
-                MessageBox.Show("新廠包裝線");
+                //MessageBox.Show("新廠包裝線");
                 MANU = "新廠包裝線";
             }
             else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage5"])
             {
-                MessageBox.Show("水麵");
+                //MessageBox.Show("水麵");
                 MANU = "水麵";
             }
         }

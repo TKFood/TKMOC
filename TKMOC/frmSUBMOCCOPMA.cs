@@ -65,11 +65,11 @@ namespace TKMOC
 
                 if (string.IsNullOrEmpty(textBox1.Text))
                 {
-                    sbSql.AppendFormat(@"SELECT [ID] AS '代號',[NAME] AS '名稱' FROM [TKMOC].[dbo].[MOCCOPMA]  ");
+                    sbSql.AppendFormat(@"SELECT [ID] AS '代號',[NAME] AS '名稱' FROM [TKMOC].[dbo].[MOCCOPMA] WHERE [KIND]='國內' ");
                 }
                 else
                 {
-                    sbSql.AppendFormat(@"SELECT [ID] AS '代號',[NAME] AS '名稱' FROM [TKMOC].[dbo].[MOCCOPMA] WHERE   [NAME]  LIKE '{0}%'", textBox1.Text);
+                    sbSql.AppendFormat(@"SELECT [ID] AS '代號',[NAME] AS '名稱' FROM [TKMOC].[dbo].[MOCCOPMA] WHERE  [KIND]='國內' AND   [NAME]  LIKE '{0}%'", textBox1.Text);
                 }
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -158,6 +158,59 @@ namespace TKMOC
         {
 
         }
+
+        public void SEARCHMOCCOPMA2()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                if (string.IsNullOrEmpty(textBox1.Text))
+                {
+                    sbSql.AppendFormat(@"SELECT [ID] AS '代號',[NAME] AS '名稱' FROM [TKMOC].[dbo].[MOCCOPMA] WHERE [KIND]='國外' ");
+                }
+                else
+                {
+                    sbSql.AppendFormat(@"SELECT [ID] AS '代號',[NAME] AS '名稱' FROM [TKMOC].[dbo].[MOCCOPMA] WHERE  [KIND]='國外' AND   [NAME]  LIKE '{0}%'", textBox1.Text);
+                }
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "TEMPds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["TEMPds1"].Rows.Count == 0)
+                {
+
+                }
+                else
+                {
+                    if (ds1.Tables["TEMPds1"].Rows.Count >= 1)
+                    {
+
+                        dataGridView1.DataSource = ds1.Tables["TEMPds1"];
+                        dataGridView1.AutoResizeColumns();
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
         #endregion
 
         #region BUTTON
@@ -170,10 +223,14 @@ namespace TKMOC
             this.Close();
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            SEARCHMOCCOPMA2();
+        }
+
 
 
         #endregion
 
-       
     }
 }
