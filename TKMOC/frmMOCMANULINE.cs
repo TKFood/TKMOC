@@ -4584,84 +4584,15 @@ namespace TKMOC
             DateTime dtEVENT;
             var ce2 = new CustomEvent();
 
-           
 
+            calendar1.RemoveAllEvents();
             calendar1.CalendarDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0);
             calendar1.CalendarView = CalendarViews.Month;
             calendar1.AllowEditingEvents = true;
 
             
 
-            try
-            {
-                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
-                sqlConn = new SqlConnection(connectionString);
-
-                sbSql.Clear();
-                sbSqlQuery.Clear();
-
-
-
-                sbSql.AppendFormat(@"  SELECT [EVENTDATE],[EVENT]");
-                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[CALENDAR]");
-                sbSql.AppendFormat(@"  WHERE [EVENTDATE]>='{0}'", DateTime.Now.ToString("yyyy") + "0101");
-                sbSql.AppendFormat(@"  ORDER BY [EVENTDATE]");
-                sbSql.AppendFormat(@"  ");
-
-                adapterCALENDAR = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                sqlCmdBuilderCALENDAR = new SqlCommandBuilder(adapter1);
-                sqlConn.Open();
-                dsCALENDAR.Clear();
-                adapterCALENDAR.Fill(dsCALENDAR, "TEMPdsCALENDAR");
-                sqlConn.Close();
-
-
-                if (dsCALENDAR.Tables["TEMPdsCALENDAR"].Rows.Count == 0)
-                {
-
-                }
-                else
-                {
-                    if (dsCALENDAR.Tables["TEMPdsCALENDAR"].Rows.Count >= 1)
-                    {
-                        foreach (DataRow od in dsCALENDAR.Tables["TEMPdsCALENDAR"].Rows)
-                        {
-                            EVENT = od["EVENT"].ToString();
-                            dtEVENT = Convert.ToDateTime(od["EVENTDATE"].ToString());
-
-                            ce2 = new CustomEvent
-                            {
-                                IgnoreTimeComponent = false,
-                                EventText = EVENT,
-                                Date = new DateTime(dtEVENT.Year, dtEVENT.Month, dtEVENT.Day),
-                                EventLengthInHours = 2f,
-                                RecurringFrequency = RecurringFrequencies.None,
-                                EventFont = new Font("Verdana", 12, FontStyle.Regular),
-                                Enabled = true,
-                                EventColor = Color.FromArgb(120, 255, 120),
-                                EventTextColor = Color.Black,
-                                ThisDayForwardOnly = true
-                            };
-
-                            calendar1.RemoveEvent(ce2);
-                        }
-
-
-
-                    }
-                }
-
-            }
-            catch
-            {
-
-            }
-            finally
-            {
-
-            }
-
+         
             try
             {
                 connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
@@ -4713,6 +4644,7 @@ namespace TKMOC
                                 EventTextColor = Color.Black,
                                 ThisDayForwardOnly = true
                             };
+                            
                             calendar1.AddEvent(ce2);
                         }
 
