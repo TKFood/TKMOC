@@ -51,6 +51,10 @@
     <Reference Include="Aspose.Words">
       <HintPath>..\..\..\OpenXml\Aspose.Words.dll</HintPath>
     </Reference>
+    <Reference Include="Calendar.NET, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\CalendarNETSource\bin\Debug\Calendar.NET.dll</HintPath>
+    </Reference>
     <Reference Include="DocumentFormat.OpenXml, Version=2.0.5022.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\OpenXml\DocumentFormat.OpenXml.dll</HintPath>
@@ -490,12 +494,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\loading.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\CalendarNETSource\Calendar.NET\Calendar.NET.csproj">
-      <Project>{6CBC43B6-E950-49B2-B14A-563C50FCD5C3}</Project>
-      <Name>Calendar.NET</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

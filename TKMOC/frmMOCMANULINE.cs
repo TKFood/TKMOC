@@ -16,6 +16,7 @@ using NPOI.SS.Util;
 using System.Reflection;
 using System.Threading;
 using System.Globalization;
+using Calendar.NET;
 
 namespace TKMOC
 {
@@ -267,6 +268,9 @@ namespace TKMOC
             comboBox7load();
             comboBox8load();
             SETIN();
+
+            //SET CALENDAR
+            SETCALENDAR();
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
@@ -4563,6 +4567,14 @@ namespace TKMOC
         private void textBox7_Leave(object sender, EventArgs e)
         {
             SEARCHMB001();
+        }
+
+
+        public void SETCALENDAR()
+        {
+            calendar1.CalendarDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0);
+            calendar1.CalendarView = CalendarViews.Month;
+            calendar1.AllowEditingEvents = true;
         }
         #endregion
 
