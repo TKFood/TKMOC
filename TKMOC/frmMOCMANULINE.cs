@@ -69,6 +69,12 @@ namespace TKMOC
         SqlDataAdapter adapter20= new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder20 = new SqlCommandBuilder();
 
+        SqlDataAdapter adapterCALENDAR = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilderCALENDAR = new SqlCommandBuilder();
+
+
+
+
         SqlTransaction tran;
         SqlCommand cmd = new SqlCommand();
         DataSet ds1 = new DataSet();
@@ -90,6 +96,8 @@ namespace TKMOC
         DataSet ds19 = new DataSet();
         DataSet ds20 = new DataSet();
         DataSet ds21 = new DataSet();
+
+        DataSet dsCALENDAR = new DataSet();
 
         DataSet dsBOMMC = new DataSet();
         DataSet dsBOMMD = new DataSet();
@@ -4575,6 +4583,79 @@ namespace TKMOC
             calendar1.CalendarDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0);
             calendar1.CalendarView = CalendarViews.Month;
             calendar1.AllowEditingEvents = true;
+
+            string EVENT;
+            DateTime dtEVENT;
+            var ce2 = new CustomEvent();
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                
+
+                sbSql.AppendFormat(@"  SELECT [EVENTDATE],[EVENT]");
+                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[CALENDAR]");
+                sbSql.AppendFormat(@"  WHERE [EVENTDATE]>='{0}'", DateTime.Now.ToString("yyyy")+"0101");
+                sbSql.AppendFormat(@"  ORDER BY [EVENTDATE]");
+                sbSql.AppendFormat(@"  ");
+
+                adapterCALENDAR = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilderCALENDAR = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                dsCALENDAR.Clear();
+                adapterCALENDAR.Fill(dsCALENDAR, "TEMPdsCALENDAR");
+                sqlConn.Close();
+
+
+                if (dsCALENDAR.Tables["TEMPdsCALENDAR"].Rows.Count == 0)
+                {
+
+                }
+                else
+                {
+                    if (dsCALENDAR.Tables["TEMPdsCALENDAR"].Rows.Count >= 1)
+                    {
+                        foreach (DataRow od in dsCALENDAR.Tables["TEMPdsCALENDAR"].Rows)
+                        {
+                            EVENT = od["EVENT"].ToString();
+                            dtEVENT = Convert.ToDateTime(od["EVENTDATE"].ToString());
+
+                            ce2 = new CustomEvent
+                            {
+                                IgnoreTimeComponent = false,
+                                EventText = EVENT,
+                                Date = new DateTime(dtEVENT.Year, dtEVENT.Month, dtEVENT.Day),
+                                EventLengthInHours = 2f,
+                                RecurringFrequency = RecurringFrequencies.None,
+                                EventFont = new Font("Verdana", 12, FontStyle.Regular),
+                                Enabled = true,
+                                EventColor = Color.FromArgb(120, 255, 120),
+                                EventTextColor = Color.Black,
+                                ThisDayForwardOnly = true
+                            };
+                            calendar1.AddEvent(ce2);
+                        }
+
+
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
         }
         #endregion
 
