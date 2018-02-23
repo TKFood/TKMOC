@@ -4580,13 +4580,87 @@ namespace TKMOC
 
         public void SETCALENDAR()
         {
+            string EVENT;
+            DateTime dtEVENT;
+            var ce2 = new CustomEvent();
+
+           
+
             calendar1.CalendarDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0);
             calendar1.CalendarView = CalendarViews.Month;
             calendar1.AllowEditingEvents = true;
 
-            string EVENT;
-            DateTime dtEVENT;
-            var ce2 = new CustomEvent();
+            
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+
+
+                sbSql.AppendFormat(@"  SELECT [EVENTDATE],[EVENT]");
+                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[CALENDAR]");
+                sbSql.AppendFormat(@"  WHERE [EVENTDATE]>='{0}'", DateTime.Now.ToString("yyyy") + "0101");
+                sbSql.AppendFormat(@"  ORDER BY [EVENTDATE]");
+                sbSql.AppendFormat(@"  ");
+
+                adapterCALENDAR = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilderCALENDAR = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                dsCALENDAR.Clear();
+                adapterCALENDAR.Fill(dsCALENDAR, "TEMPdsCALENDAR");
+                sqlConn.Close();
+
+
+                if (dsCALENDAR.Tables["TEMPdsCALENDAR"].Rows.Count == 0)
+                {
+
+                }
+                else
+                {
+                    if (dsCALENDAR.Tables["TEMPdsCALENDAR"].Rows.Count >= 1)
+                    {
+                        foreach (DataRow od in dsCALENDAR.Tables["TEMPdsCALENDAR"].Rows)
+                        {
+                            EVENT = od["EVENT"].ToString();
+                            dtEVENT = Convert.ToDateTime(od["EVENTDATE"].ToString());
+
+                            ce2 = new CustomEvent
+                            {
+                                IgnoreTimeComponent = false,
+                                EventText = EVENT,
+                                Date = new DateTime(dtEVENT.Year, dtEVENT.Month, dtEVENT.Day),
+                                EventLengthInHours = 2f,
+                                RecurringFrequency = RecurringFrequencies.None,
+                                EventFont = new Font("Verdana", 12, FontStyle.Regular),
+                                Enabled = true,
+                                EventColor = Color.FromArgb(120, 255, 120),
+                                EventTextColor = Color.Black,
+                                ThisDayForwardOnly = true
+                            };
+
+                            calendar1.RemoveEvent(ce2);
+                        }
+
+
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
 
             try
             {
@@ -4657,6 +4731,106 @@ namespace TKMOC
 
             }
         }
+
+        public void ADDCALENDAR()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+
+                sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[CALENDAR]");
+                sbSql.AppendFormat(" ([EVENTDATE],[EVENT])");
+                sbSql.AppendFormat(" VALUES ('{0}','{1}')",  dateTimePicker11.Value.ToString("yyyy/MM/dd"), comboBox9.Text);
+                sbSql.AppendFormat(" ");
+                sbSql.AppendFormat(" ");
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void DELCALENDAR()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+
+                sbSql.AppendFormat(" DELETE [TKMOC].[dbo].[CALENDAR]");
+                sbSql.AppendFormat(" WHERE convert(varchar, [EVENTDATE], 112)='{0}'", dateTimePicker11.Value.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(" ");
+                sbSql.AppendFormat(" ");
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
         #endregion
 
         #region BUTTON
@@ -5053,10 +5227,21 @@ namespace TKMOC
             SEARCHMOCMANULINECOP();
         }
 
+        private void button40_Click(object sender, EventArgs e)
+        {
+            ADDCALENDAR();
+            SETCALENDAR();
+        }
+
+        private void button41_Click(object sender, EventArgs e)
+        {
+            DELCALENDAR();
+            SETCALENDAR();
+        }
 
 
         #endregion
 
-       
+
     }
 }
