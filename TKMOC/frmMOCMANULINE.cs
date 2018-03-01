@@ -4578,6 +4578,7 @@ namespace TKMOC
         }
 
 
+       
         public void SETCALENDAR()
         {
             string EVENT;
@@ -4603,7 +4604,7 @@ namespace TKMOC
 
                 
 
-                sbSql.AppendFormat(@"  SELECT [EVENTDATE],[EVENT]");
+                sbSql.AppendFormat(@"  SELECT [EVENTDATE],[MOCLINE],[EVENT]");
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[CALENDAR]");
                 sbSql.AppendFormat(@"  WHERE [EVENTDATE]>='{0}'", DateTime.Now.ToString("yyyy")+"0101");
                 sbSql.AppendFormat(@"  ORDER BY [EVENTDATE]");
@@ -4628,7 +4629,7 @@ namespace TKMOC
                     {
                         foreach (DataRow od in dsCALENDAR.Tables["TEMPdsCALENDAR"].Rows)
                         {
-                            EVENT = od["EVENT"].ToString();
+                            EVENT = od["MOCLINE"].ToString()+"-"+od["EVENT"].ToString();
                             dtEVENT = Convert.ToDateTime(od["EVENTDATE"].ToString());
 
                             ce2 = new CustomEvent
@@ -4679,8 +4680,8 @@ namespace TKMOC
 
 
                 sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[CALENDAR]");
-                sbSql.AppendFormat(" ([EVENTDATE],[EVENT])");
-                sbSql.AppendFormat(" VALUES ('{0}','{1}')",  dateTimePicker11.Value.ToString("yyyy/MM/dd"), comboBox9.Text);
+                sbSql.AppendFormat(" ([EVENTDATE],[MOCLINE],[EVENT])");
+                sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}')",  dateTimePicker11.Value.ToString("yyyy/MM/dd"), comboBox10.Text , comboBox9.Text + "-" + textBox48.Text);
                 sbSql.AppendFormat(" ");
                 sbSql.AppendFormat(" ");
 
@@ -4729,7 +4730,7 @@ namespace TKMOC
 
 
                 sbSql.AppendFormat(" DELETE [TKMOC].[dbo].[CALENDAR]");
-                sbSql.AppendFormat(" WHERE convert(varchar, [EVENTDATE], 112)='{0}'", dateTimePicker11.Value.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(" WHERE convert(varchar, [EVENTDATE], 112)='{0}' AND [MOCLINE]='{1}'", dateTimePicker11.Value.ToString("yyyyMMdd"), comboBox10.Text);
                 sbSql.AppendFormat(" ");
                 sbSql.AppendFormat(" ");
 
