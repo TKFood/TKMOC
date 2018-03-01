@@ -68,6 +68,10 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder19 = new SqlCommandBuilder();
         SqlDataAdapter adapter20= new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder20 = new SqlCommandBuilder();
+        SqlDataAdapter adapter21 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder21= new SqlCommandBuilder();
+        SqlDataAdapter adapter22 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder22 = new SqlCommandBuilder();
 
         SqlDataAdapter adapterCALENDAR = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilderCALENDAR = new SqlCommandBuilder();
@@ -96,6 +100,7 @@ namespace TKMOC
         DataSet ds19 = new DataSet();
         DataSet ds20 = new DataSet();
         DataSet ds21 = new DataSet();
+        DataSet ds22 = new DataSet();
 
         DataSet dsCALENDAR = new DataSet();
 
@@ -4764,6 +4769,151 @@ namespace TKMOC
             }
         }
 
+        public void SEARCHCOPTD()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                if(comboBox11.Text.Equals("未完成"))
+                {
+                    sbSqlQuery.AppendFormat(@" AND TD008-TD009>0 ");
+                }
+                else if (comboBox11.Text.Equals("已完成"))
+                {
+                    sbSqlQuery.AppendFormat(@" AND TD008-TD009=0 ");
+                }
+                else if (comboBox11.Text.Equals("全部"))
+                {
+                    sbSqlQuery.AppendFormat(@"  ");
+                }
+
+
+
+                sbSql.AppendFormat(@"  SELECT TD013 AS '預交日',TD001 AS '單別',TD002 AS '單號',TD003 AS '序號',TD004 AS '品號',TD005 AS '品名',TD006 AS '規格',TD008 AS '訂單數',TD009 AS '已交數',TD010 AS '單位',TC053 AS '客戶'");
+                sbSql.AppendFormat(@"  FROM [TK].dbo.COPTD,[TK].dbo.COPTC");
+                sbSql.AppendFormat(@"  WHERE TC001=TD001 AND TC002=TD002");
+                sbSql.AppendFormat(@"  AND TD001='A223'");
+                sbSql.AppendFormat(@"  AND TD013>='{0}' AND TD013<='{1}'",dateTimePicker12.Value.ToString("yyyyMMdd"), dateTimePicker13.Value.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(@"  AND TD004 LIKE '401%'");
+                sbSql.AppendFormat(@"  {0}", sbSqlQuery.ToString());
+                sbSql.AppendFormat(@"  ORDER BY TD013,TD004");
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+                adapter22 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder22 = new SqlCommandBuilder(adapter22);
+                sqlConn.Open();
+                ds22.Clear();
+                adapter22.Fill(ds22, "TEMPds22");
+                sqlConn.Close();
+
+
+                if (ds22.Tables["TEMPds22"].Rows.Count == 0)
+                {
+                    dataGridView15.DataSource = null;
+                }
+                else
+                {
+                    if (ds22.Tables["TEMPds22"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView15.DataSource = ds22.Tables["TEMPds22"];
+                        dataGridView15.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+
+        public void UPDATECOPTD()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+
+                sbSql.AppendFormat(" UPDATE [TK].dbo.COPTD");
+                sbSql.AppendFormat(" SET TD009='{0}'",numericUpDown1.Value.ToString());
+                sbSql.AppendFormat(" WHERE TD001='{0}' AND TD002='{1}' AND TD003='{2}'",textBox49.Text, textBox50.Text, textBox51.Text);
+                sbSql.AppendFormat(" ");
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        private void dataGridView15_SelectionChanged(object sender, EventArgs e)
+        {
+            textBox49.Text = null;
+            textBox50.Text = null;
+            textBox51.Text = null;
+
+            if (dataGridView15.CurrentRow != null)
+            {
+                int rowindex = dataGridView15.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView15.Rows[rowindex];
+                    textBox49.Text = row.Cells["單別"].Value.ToString();
+                    textBox50.Text = row.Cells["單號"].Value.ToString();
+                    textBox51.Text = row.Cells["序號"].Value.ToString();
+                }
+                else
+                {
+                    textBox49.Text = null;
+                    textBox50.Text = null;
+                    textBox51.Text = null;
+                }
+            }
+        }
         #endregion
 
         #region BUTTON
@@ -5171,10 +5321,20 @@ namespace TKMOC
             DELCALENDAR();
             SETCALENDAR();
         }
+        private void button42_Click(object sender, EventArgs e)
+        {
+            SEARCHCOPTD();
+        }
+        private void button43_Click(object sender, EventArgs e)
+        {
+            UPDATECOPTD();
+            SEARCHCOPTD();
+        }
+
 
 
         #endregion
 
-
+      
     }
 }
