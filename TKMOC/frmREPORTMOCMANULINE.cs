@@ -20,6 +20,7 @@ using System.Data.SqlClient;
 using NPOI.SS.UserModel;
 using System.Configuration;
 using NPOI.XSSF.UserModel;
+using Calendar.NET;
 
 namespace TKMOC
 {
@@ -34,6 +35,12 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder = new SqlCommandBuilder();
         SqlDataAdapter adapter2 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder2 = new SqlCommandBuilder();
+        SqlDataAdapter adapter1 = new SqlDataAdapter();
+
+        SqlDataAdapter adapterCALENDAR = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilderCALENDAR = new SqlCommandBuilder();
+        DataSet dsCALENDAR = new DataSet();
+
         SqlCommand cmd = new SqlCommand();
         DataSet ds = new DataSet();
         DataSet ds2 = new DataSet();
@@ -47,6 +54,8 @@ namespace TKMOC
         public frmREPORTMOCMANULINE()
         {
             InitializeComponent();
+
+            SETCALENDAR();
 
             //comboBox1load();
         }
@@ -801,8 +810,92 @@ namespace TKMOC
             return STR;
 
         }
+        public void SETCALENDAR()
+        {
+            string EVENT;
+            DateTime dtEVENT;
+            var ce2 = new CustomEvent();
 
-       
+
+            calendar1.RemoveAllEvents();
+            calendar1.CalendarDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0);
+            calendar1.CalendarView = CalendarViews.Month;
+            calendar1.AllowEditingEvents = true;
+
+
+
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+
+
+                sbSql.AppendFormat(@"  SELECT [EVENTDATE],[MOCLINE],[EVENT]");
+                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[CALENDAR]");
+                sbSql.AppendFormat(@"  WHERE [EVENTDATE]>='{0}'", DateTime.Now.ToString("yyyy") + "0101");
+                sbSql.AppendFormat(@"  ORDER BY [EVENTDATE]");
+                sbSql.AppendFormat(@"  ");
+
+                adapterCALENDAR = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilderCALENDAR = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                dsCALENDAR.Clear();
+                adapterCALENDAR.Fill(dsCALENDAR, "TEMPdsCALENDAR");
+                sqlConn.Close();
+
+
+                if (dsCALENDAR.Tables["TEMPdsCALENDAR"].Rows.Count == 0)
+                {
+
+                }
+                else
+                {
+                    if (dsCALENDAR.Tables["TEMPdsCALENDAR"].Rows.Count >= 1)
+                    {
+                        foreach (DataRow od in dsCALENDAR.Tables["TEMPdsCALENDAR"].Rows)
+                        {
+                            EVENT = od["MOCLINE"].ToString() + "-" + od["EVENT"].ToString();
+                            dtEVENT = Convert.ToDateTime(od["EVENTDATE"].ToString());
+
+                            ce2 = new CustomEvent
+                            {
+                                IgnoreTimeComponent = false,
+                                EventText = EVENT,
+                                Date = new DateTime(dtEVENT.Year, dtEVENT.Month, dtEVENT.Day),
+                                EventLengthInHours = 2f,
+                                RecurringFrequency = RecurringFrequencies.None,
+                                EventFont = new Font("Verdana", 12, FontStyle.Regular),
+                                Enabled = true,
+                                EventColor = Color.FromArgb(120, 255, 120),
+                                EventTextColor = Color.Black,
+                                ThisDayForwardOnly = true
+                            };
+
+                            calendar1.AddEvent(ce2);
+                        }
+
+
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+
         #endregion
 
         #region BUTTON
