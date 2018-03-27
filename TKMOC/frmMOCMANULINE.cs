@@ -4781,11 +4781,11 @@ namespace TKMOC
 
                 if(comboBox11.Text.Equals("未完成"))
                 {
-                    sbSqlQuery.AppendFormat(@" AND TD008-TD009>0 ");
+                    sbSqlQuery.AppendFormat(@" AND TD008-TD113>0 ");
                 }
                 else if (comboBox11.Text.Equals("已完成"))
                 {
-                    sbSqlQuery.AppendFormat(@" AND TD008-TD009=0 ");
+                    sbSqlQuery.AppendFormat(@" AND TD008-TD113=0 ");
                 }
                 else if (comboBox11.Text.Equals("全部"))
                 {
@@ -4793,15 +4793,15 @@ namespace TKMOC
                 }
 
 
-
-                sbSql.AppendFormat(@"  SELECT TD013 AS '預交日',TD001 AS '單別',TD002 AS '單號',TD003 AS '序號',TD004 AS '品號',TD005 AS '品名',TD006 AS '規格',TD008 AS '訂單數',TD009 AS '已交數',TD010 AS '單位',TC053 AS '客戶'");
+                //TD009不可用，改用TD113記錄已生產數量
+                sbSql.AppendFormat(@"  SELECT TD013 AS '預交日',TD001 AS '單別',TD002 AS '單號',TD003 AS '序號',TD004 AS '品號',TD005 AS '品名',TD006 AS '規格',TD008 AS '訂單數',TD113 AS '已生產數量',TD010 AS '單位',TC053 AS '客戶'");
                 sbSql.AppendFormat(@"  FROM [TK].dbo.COPTD,[TK].dbo.COPTC");
                 sbSql.AppendFormat(@"  WHERE TC001=TD001 AND TC002=TD002");
-                sbSql.AppendFormat(@"  AND TD001='A223'");
+                //sbSql.AppendFormat(@"  AND TD001='A223'");
                 sbSql.AppendFormat(@"  AND TD013>='{0}' AND TD013<='{1}'",dateTimePicker12.Value.ToString("yyyyMMdd"), dateTimePicker13.Value.ToString("yyyyMMdd"));
                 sbSql.AppendFormat(@"  AND TD004 LIKE '401%'");
                 sbSql.AppendFormat(@"  {0}", sbSqlQuery.ToString());
-                sbSql.AppendFormat(@"  ORDER BY TD013,TD004");
+                sbSql.AppendFormat(@"  ORDER BY TD013,TD004,TD001,TD002");
                 sbSql.AppendFormat(@"  ");
                 sbSql.AppendFormat(@"  ");
 
@@ -4856,7 +4856,7 @@ namespace TKMOC
 
 
                 sbSql.AppendFormat(" UPDATE [TK].dbo.COPTD");
-                sbSql.AppendFormat(" SET TD009='{0}'",numericUpDown1.Value.ToString());
+                sbSql.AppendFormat(" SET TD113='{0}'",numericUpDown1.Value.ToString());
                 sbSql.AppendFormat(" WHERE TD001='{0}' AND TD002='{1}' AND TD003='{2}'",textBox49.Text, textBox50.Text, textBox51.Text);
                 sbSql.AppendFormat(" ");
 
