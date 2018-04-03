@@ -280,6 +280,7 @@ namespace TKMOC
             comboBox6load();
             comboBox7load();
             comboBox8load();
+            comboBox12load();
             SETIN();
 
             //SET CALENDAR
@@ -469,6 +470,29 @@ namespace TKMOC
 
         }
 
+        public void comboBox12load()
+        {
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT MQ001,MQ002 FROM [TK].dbo.CMSMQ WHERE MQ003='22' ORDER BY MQ001 ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("MQ001", typeof(string));
+            dt.Columns.Add("MQ002", typeof(string));
+
+            da.Fill(dt);
+            comboBox12.DataSource = dt.DefaultView;
+            comboBox12.ValueMember = "MQ001";
+            comboBox12.DisplayMember = "MQ002";
+            sqlConn.Close();
+
+
+
+
+        }
         public void SEARCHMOCMANULINE()
         {
             if(MANU.Equals("新廠製二組"))
@@ -4797,7 +4821,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  SELECT TD013 AS '預交日',TD001 AS '單別',TD002 AS '單號',TD003 AS '序號',TD004 AS '品號',TD005 AS '品名',TD006 AS '規格',TD008 AS '訂單數',TD113 AS '已生產數量',TD010 AS '單位',TC053 AS '客戶'");
                 sbSql.AppendFormat(@"  FROM [TK].dbo.COPTD,[TK].dbo.COPTC");
                 sbSql.AppendFormat(@"  WHERE TC001=TD001 AND TC002=TD002");
-                //sbSql.AppendFormat(@"  AND TD001='A223'");
+                sbSql.AppendFormat(@"  AND TD001='{0}'",comboBox12.SelectedValue.ToString());
                 sbSql.AppendFormat(@"  AND TD013>='{0}' AND TD013<='{1}'",dateTimePicker12.Value.ToString("yyyyMMdd"), dateTimePicker13.Value.ToString("yyyyMMdd"));
                 sbSql.AppendFormat(@"  AND TD004 LIKE '401%'");
                 sbSql.AppendFormat(@"  {0}", sbSqlQuery.ToString());
