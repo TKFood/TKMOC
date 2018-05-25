@@ -79,7 +79,7 @@ namespace TKMOC
             dt.Columns.Add("MD002", typeof(string));
             da.Fill(dt);
             comboBox1.DataSource = dt.DefaultView;
-            comboBox1.ValueMember = "MD002";
+            comboBox1.ValueMember = "MD001";
             comboBox1.DisplayMember = "MD002";
             sqlConn.Close();
 
@@ -90,11 +90,13 @@ namespace TKMOC
             StringBuilder SQL = new StringBuilder();
 
 
-
+            
             Report report1 = new Report();
             report1.Load(@"REPORT\製令領料表.frx");
-           
 
+            report1.SetParameterValue("P1", dateTimePicker1.Value.ToString("yyyyMMdd"));
+            report1.SetParameterValue("P2", dateTimePicker2.Value.ToString("yyyyMMdd"));
+            report1.SetParameterValue("P3", comboBox1.SelectedValue.ToString());
             report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
 
 
