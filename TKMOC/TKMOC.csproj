@@ -223,6 +223,12 @@
     <Compile Include="frmMOCCOPMA.Designer.cs">
       <DependentUpon>frmMOCCOPMA.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmMOCINV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMOCINV.Designer.cs">
+      <DependentUpon>frmMOCINV.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMOCMANULINE.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -380,6 +386,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMOCCOPMA.resx">
       <DependentUpon>frmMOCCOPMA.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMOCINV.resx">
+      <DependentUpon>frmMOCINV.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMOCMANULINE.resx">
       <DependentUpon>frmMOCMANULINE.cs</DependentUpon>
