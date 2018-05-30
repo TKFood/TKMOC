@@ -218,7 +218,52 @@ namespace TKMOC
             }
         }
 
-            
+        public void UPDATEERPINVMB()
+        {
+            try
+            {
+                //add ZWAREWHOUSEPURTH
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+                sbSql.AppendFormat("  UPDATE [TKMOC].dbo.ERPINVMB");
+                sbSql.AppendFormat("  SET ERPINVMB.MB002=INVMB.MB002,ERPINVMB.MB003=INVMB.MB003");
+                sbSql.AppendFormat("  FROM [TK].dbo.INVMB");
+                sbSql.AppendFormat("  WHERE ERPINVMB.MB001=INVMB.MB001");
+                sbSql.AppendFormat("  AND (ERPINVMB.MB002<>INVMB.MB002 OR ERPINVMB.MB003<>INVMB.MB003)");
+                sbSql.AppendFormat("  ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易   
+                }
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
         #endregion
 
         #region BUTTON
@@ -226,12 +271,10 @@ namespace TKMOC
         {
             Search();
         }
-
-        #endregion
-
         private void button2_Click(object sender, EventArgs e)
         {
             ADDNEW();
+            UPDATEERPINVMB();
             Search();
         }
 
@@ -247,6 +290,13 @@ namespace TKMOC
             Search();
         }
 
-      
+        private void button5_Click(object sender, EventArgs e)
+        {
+            UPDATEERPINVMB();
+            Search();
+        }
+        #endregion
+
+
     }
 }
