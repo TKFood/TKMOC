@@ -507,8 +507,8 @@ namespace TKMOC
 
 
                     sbSql.AppendFormat(@"  SELECT ");
-                    sbSql.AppendFormat(@"  [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名'");
-                    sbSql.AppendFormat(@"  ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[CLINET] AS '客戶'");
+                    sbSql.AppendFormat(@"  [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名' ");
+                    sbSql.AppendFormat(@"  ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[CLINET] AS '客戶',[TA029] AS '備註'");
                     sbSql.AppendFormat(@"  ,[ID]");
                     sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
                     sbSql.AppendFormat(@"  WHERE [MANU]='{0}' ", MANU);
@@ -565,7 +565,7 @@ namespace TKMOC
 
                     sbSql.AppendFormat(@"  SELECT ");
                     sbSql.AppendFormat(@"  [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名'");
-                    sbSql.AppendFormat(@"  ,[MB003] AS '規格',[BOX] AS '箱數',[PACKAGE] AS '包裝數',[CLINET] AS '客戶',[MANUHOUR] AS '生產時間',[OUTDATE] AS '交期'");
+                    sbSql.AppendFormat(@"  ,[MB003] AS '規格',[BOX] AS '箱數',[PACKAGE] AS '包裝數',[CLINET] AS '客戶',[MANUHOUR] AS '生產時間',[OUTDATE] AS '交期',[TA029] AS '備註'");
                     sbSql.AppendFormat(@"  ,[ID]");
                     sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
                     sbSql.AppendFormat(@"  WHERE [MANU]='{0}' ", MANU);
@@ -621,7 +621,7 @@ namespace TKMOC
 
                     sbSql.AppendFormat(@"  SELECT ");
                     sbSql.AppendFormat(@"  [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名'");
-                    sbSql.AppendFormat(@"  ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[CLINET] AS '客戶'");
+                    sbSql.AppendFormat(@"  ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[CLINET] AS '客戶',[TA029] AS '備註'");
                     sbSql.AppendFormat(@"  ,[ID]");
                     sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
                     sbSql.AppendFormat(@"  WHERE [MANU]='{0}' ", MANU);
@@ -677,7 +677,7 @@ namespace TKMOC
 
                     sbSql.AppendFormat(@"  SELECT ");
                     sbSql.AppendFormat(@"  [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名'");
-                    sbSql.AppendFormat(@"  ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[CLINET] AS '客戶'");
+                    sbSql.AppendFormat(@"  ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[CLINET] AS '客戶',[TA029] AS '備註'");
                     sbSql.AppendFormat(@"  ,[ID]");
                     sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
                     sbSql.AppendFormat(@"  WHERE [MANU]='{0}' ", MANU);
@@ -979,8 +979,8 @@ namespace TKMOC
 
 
                     sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINE]");
-                    sbSql.AppendFormat(" ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET])");
-                    sbSql.AppendFormat(" VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}')", "NEWID()", comboBox1.Text, dateTimePicker2.Value.ToString("yyyy/MM/dd"), textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, textBox5.Text, textBox6.Text);
+                    sbSql.AppendFormat(" ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET],[TA029])");
+                    sbSql.AppendFormat(" VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}')", "NEWID()", comboBox1.Text, dateTimePicker2.Value.ToString("yyyy/MM/dd"), textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, textBox5.Text, textBox6.Text, textBox52.Text);
                     sbSql.AppendFormat(" ");
                     sbSql.AppendFormat(" ");
 
@@ -1028,8 +1028,8 @@ namespace TKMOC
 
 
                     sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINE]");
-                    sbSql.AppendFormat(" ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[CLINET],[MANUHOUR],[BOX],[PACKAGE],[OUTDATE])");
-                    sbSql.AppendFormat(" VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}')", "NEWID()", comboBox2.Text, dateTimePicker4.Value.ToString("yyyy/MM/dd"), textBox7.Text, textBox10.Text, textBox11.Text, textBox9.Text, textBox13.Text, textBox8.Text, textBox12.Text, dateTimePicker5.Value.ToString("yyyy/MM/dd"));
+                    sbSql.AppendFormat(" ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[CLINET],[MANUHOUR],[BOX],[PACKAGE],[OUTDATE],[TA029])");
+                    sbSql.AppendFormat(" VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}')", "NEWID()", comboBox2.Text, dateTimePicker4.Value.ToString("yyyy/MM/dd"), textBox7.Text, textBox10.Text, textBox11.Text, textBox9.Text, textBox13.Text, textBox8.Text, textBox12.Text, dateTimePicker5.Value.ToString("yyyy/MM/dd"), textBox53.Text);
                     sbSql.AppendFormat(" ");
                     sbSql.AppendFormat(" ");
 
@@ -1077,8 +1077,8 @@ namespace TKMOC
 
 
                     sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINE]");
-                    sbSql.AppendFormat(" ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET])");
-                    sbSql.AppendFormat(" VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}')", "NEWID()", comboBox3.Text, dateTimePicker7.Value.ToString("yyyy/MM/dd"), textBox14.Text, textBox17.Text, textBox18.Text, textBox15.Text, textBox19.Text, textBox16.Text);
+                    sbSql.AppendFormat(" ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET],[TA029])");
+                    sbSql.AppendFormat(" VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}')", "NEWID()", comboBox3.Text, dateTimePicker7.Value.ToString("yyyy/MM/dd"), textBox14.Text, textBox17.Text, textBox18.Text, textBox15.Text, textBox19.Text, textBox16.Text, textBox54.Text);
                     sbSql.AppendFormat(" ");
                     sbSql.AppendFormat(" ");
 
@@ -1126,8 +1126,8 @@ namespace TKMOC
 
 
                     sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINE]");
-                    sbSql.AppendFormat(" ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET])");
-                    sbSql.AppendFormat(" VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}')", "NEWID()", comboBox4.Text, dateTimePicker9.Value.ToString("yyyy/MM/dd"), textBox20.Text, textBox24.Text, textBox25.Text, textBox21.Text, textBox23.Text, textBox22.Text);
+                    sbSql.AppendFormat(" ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET],[TA029])");
+                    sbSql.AppendFormat(" VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}')", "NEWID()", comboBox4.Text, dateTimePicker9.Value.ToString("yyyy/MM/dd"), textBox20.Text, textBox24.Text, textBox25.Text, textBox21.Text, textBox23.Text, textBox22.Text, textBox55.Text);
                     sbSql.AppendFormat(" ");
                     sbSql.AppendFormat(" ");
 
@@ -1172,6 +1172,7 @@ namespace TKMOC
             textBox5.Text = null;
             textBox6.Text = null;
             textBox32.Text = "0";
+            textBox52.Text = null;
         }
         public void SETNULL3()
         {
@@ -1183,6 +1184,7 @@ namespace TKMOC
             textBox12.Text = null;
             textBox13.Text = "0";
             textBox33.Text = "0";
+            textBox53.Text = null;
         }
         public void SETNULL4()
         {
@@ -1193,6 +1195,7 @@ namespace TKMOC
             textBox18.Text = null;
             textBox19.Text = null;
             textBox34.Text = "0";
+            textBox54.Text = null;
         }
 
         public void SETNULL6()
@@ -1205,6 +1208,7 @@ namespace TKMOC
             textBox25.Text = null;         
            
             textBox35.Text = "0";
+            textBox55.Text = null;
         }
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
@@ -1225,7 +1229,7 @@ namespace TKMOC
                     MB003 = row.Cells["規格"].Value.ToString();
                     BAR = Convert.ToDecimal(row.Cells["桶數"].Value.ToString());
                     SUM1 = Convert.ToDecimal(row.Cells["數量"].Value.ToString());
-                    TA029 = row.Cells["客戶"].Value.ToString();
+                    TA029 = row.Cells["備註"].Value.ToString();
 
                     SUBID = row.Cells["ID"].Value.ToString();
                     SUBBAR = row.Cells["桶數"].Value.ToString();
@@ -1638,12 +1642,17 @@ namespace TKMOC
             string TA026 = null;
             string TA027 = null;
 
+            const int MaxLength = 100;
+
             if (MANU.Equals("新廠製二組"))
             {
                 MOCMB001 = MB001;
                 MOCTA004 = BAR;
                 TA026 = textBox40.Text;
                 TA027 = textBox41.Text;
+               
+               
+                    
             }
             else if (MANU.Equals("新廠包裝線"))
             {
@@ -1651,6 +1660,8 @@ namespace TKMOC
                 MOCTA004 = BOX;
                 TA026 = textBox42.Text;
                 TA027 = textBox43.Text;
+                
+
             }
             else if (MANU.Equals("新廠製一組"))
             {
@@ -1658,6 +1669,9 @@ namespace TKMOC
                 MOCTA004 = BAR2;
                 TA026 = textBox44.Text;
                 TA027 = textBox45.Text;
+                
+
+              
             }
             else if (MANU.Equals("新廠製三組(手工)"))
             {
@@ -1665,6 +1679,9 @@ namespace TKMOC
                 MOCTA004 = BAR3;
                 TA026 = textBox46.Text;
                 TA027 = textBox47.Text;
+                
+
+              
             }
             else if (MANU.Equals("水麵"))
             {
@@ -2972,7 +2989,7 @@ namespace TKMOC
                     MB003B = row.Cells["規格"].Value.ToString();
                     BOX = Convert.ToDecimal(row.Cells["包裝數"].Value.ToString());
                     SUM2 = Convert.ToDecimal(row.Cells["包裝數"].Value.ToString());
-                    TA029 = row.Cells["客戶"].Value.ToString();
+                    TA029 = row.Cells["備註"].Value.ToString();
 
                     SUBID2 = row.Cells["ID"].Value.ToString();
                     SUBBAR2 = "";
@@ -3020,7 +3037,7 @@ namespace TKMOC
                     MB003C = row.Cells["規格"].Value.ToString();
                     BAR2 = Convert.ToDecimal(row.Cells["桶數"].Value.ToString());
                     SUM3 = Convert.ToDecimal(row.Cells["數量"].Value.ToString());
-                    TA029 = row.Cells["客戶"].Value.ToString();
+                    TA029 = row.Cells["備註"].Value.ToString();
 
                     SUBID3 = row.Cells["ID"].Value.ToString();
                     SUBBAR3 = row.Cells["桶數"].Value.ToString();
@@ -3068,7 +3085,7 @@ namespace TKMOC
                     MB003D = row.Cells["規格"].Value.ToString();
                     BAR3 = Convert.ToDecimal(row.Cells["桶數"].Value.ToString());
                     SUM4 = Convert.ToDecimal(row.Cells["數量"].Value.ToString());
-                    TA029 = row.Cells["客戶"].Value.ToString();
+                    TA029 = row.Cells["備註"].Value.ToString();
 
                     SUBID4 = row.Cells["ID"].Value.ToString();
                     SUBBAR4 = row.Cells["桶數"].Value.ToString();
@@ -5096,7 +5113,7 @@ namespace TKMOC
             if (!string.IsNullOrEmpty(textBox20.Text))
             {
                 ADDMOCMANULINE();
-                SETNULL4();
+                SETNULL6();
             }
             else
             {
