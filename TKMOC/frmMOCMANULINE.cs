@@ -279,6 +279,10 @@ namespace TKMOC
             comboBox5load();
             comboBox6load();
             comboBox7load();
+            comboBox7load();
+            comboBox7load();
+            comboBox7load();
+            comboBox7load();
             comboBox8load();
             comboBox12load();
             SETIN();
@@ -508,7 +512,7 @@ namespace TKMOC
 
                     sbSql.AppendFormat(@"  SELECT ");
                     sbSql.AppendFormat(@"  [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名' ");
-                    sbSql.AppendFormat(@"  ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[CLINET] AS '客戶',[TA029] AS '備註'");
+                    sbSql.AppendFormat(@"  ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[CLINET] AS '客戶',[OUTDATE] AS '交期',[TA029] AS '備註'");
                     sbSql.AppendFormat(@"  ,[ID]");
                     sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
                     sbSql.AppendFormat(@"  WHERE [MANU]='{0}' ", MANU);
@@ -621,7 +625,7 @@ namespace TKMOC
 
                     sbSql.AppendFormat(@"  SELECT ");
                     sbSql.AppendFormat(@"  [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名'");
-                    sbSql.AppendFormat(@"  ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[CLINET] AS '客戶',[TA029] AS '備註'");
+                    sbSql.AppendFormat(@"  ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[CLINET] AS '客戶',[OUTDATE] AS '交期',[TA029] AS '備註'");
                     sbSql.AppendFormat(@"  ,[ID]");
                     sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
                     sbSql.AppendFormat(@"  WHERE [MANU]='{0}' ", MANU);
@@ -677,7 +681,7 @@ namespace TKMOC
 
                     sbSql.AppendFormat(@"  SELECT ");
                     sbSql.AppendFormat(@"  [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名'");
-                    sbSql.AppendFormat(@"  ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[CLINET] AS '客戶',[TA029] AS '備註'");
+                    sbSql.AppendFormat(@"  ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[CLINET] AS '客戶',[OUTDATE] AS '交期',[TA029] AS '備註'");
                     sbSql.AppendFormat(@"  ,[ID]");
                     sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
                     sbSql.AppendFormat(@"  WHERE [MANU]='{0}' ", MANU);
