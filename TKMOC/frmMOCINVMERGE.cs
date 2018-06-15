@@ -44,6 +44,7 @@ namespace TKMOC
         DataGridViewRow row;
         string SALSESID = null;
         int result;
+        string query;
 
         public Report report1 { get; private set; }
 
@@ -198,15 +199,81 @@ namespace TKMOC
         {
             if(dataGridView2.Rows.Count>=1)
             {
+                query = null;
+
                 foreach (DataGridViewRow dr in this.dataGridView2.Rows)
                 {
-                    MessageBox.Show(dr.Cells[0].Value.ToString()+ dr.Cells[1].Value.ToString());
-                   
+                    //MessageBox.Show(dr.Cells[0].Value.ToString()+ dr.Cells[1].Value.ToString());
+                    query = query +"'" +dr.Cells[0].Value.ToString() + dr.Cells[1].Value.ToString() + "',";
                 }
-               
+
+                query = query + "''";
             }
+
+            string SQL;
+            report1 = new Report();
+            report1.Load(@"REPORT\tkmoc合併領料.frx");
+
+            report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+
+            TableDataSource Table = report1.GetDataSource("Table") as TableDataSource;
+            SQL = SETFASETSQL();
+            Table.SelectCommand = SQL;
+            report1.Preview = previewControl1;
+            report1.Show();
         }
 
+        public string SETFASETSQL()
+        {
+            StringBuilder FASTSQL = new StringBuilder();
+            StringBuilder STRQUERY = new StringBuilder();
+
+            if (comboBox1.Text.ToString().Equals("原料"))
+            {
+                FASTSQL.AppendFormat(@" SELECT MD002,TE004,TE017 ,TE011,TE012,SUM(TE005)  AS TE005,TE010 ");
+                FASTSQL.AppendFormat(@" FROM [TK].dbo.CMSMD, [TK].dbo.MOCTC,[TK].dbo.MOCTE");
+                FASTSQL.AppendFormat(@" WHERE MD002 LIKE '新%' ");
+                FASTSQL.AppendFormat(@" AND MD001=TC005 ");
+                FASTSQL.AppendFormat(@" AND TC001=TE001 AND TC002=TE002 ");
+                FASTSQL.AppendFormat(@" AND ((TE004 LIKE '1%' ) OR (TE004 LIKE '3010000%' AND LEN(TE004)=10))   ");
+                FASTSQL.AppendFormat(@" AND TC001+TC002 IN ({0})", query.ToString());
+                FASTSQL.AppendFormat(@" GROUP BY MD002,TE004,TE017 ,TE011,TE012,TE010 ");
+                FASTSQL.AppendFormat(@" ORDER BY MD002,TE004,TE017 ,TE011,TE012,TE010 ");
+
+               
+            }
+            else if (comboBox1.Text.ToString().Equals("物料"))
+            {
+                FASTSQL.AppendFormat(@" SELECT MD002,TE004,TE017 ,TE011,TE012,SUM(TE005)  AS TE005,TE010 ");
+                FASTSQL.AppendFormat(@" FROM [TK].dbo.CMSMD, [TK].dbo.MOCTC,[TK].dbo.MOCTE ");
+                FASTSQL.AppendFormat(@" WHERE MD002 LIKE '新%' ");
+                FASTSQL.AppendFormat(@" AND MD001=TC005 ");
+                FASTSQL.AppendFormat(@" AND TC001=TE001 AND TC002=TE002 ");
+                FASTSQL.AppendFormat(@" AND TE004 LIKE '2%' ");
+                FASTSQL.AppendFormat(@" AND TC001+TC002 IN ({0})", query.ToString());
+                FASTSQL.AppendFormat(@" GROUP BY MD002,TE004,TE017 ,TE011,TE012,TE010 ");
+                FASTSQL.AppendFormat(@" ORDER BY MD002,TE004,TE017 ,TE011,TE012,TE010 ");
+            }
+            else if (comboBox1.Text.ToString().Equals("原料+物料"))
+            {
+                FASTSQL.AppendFormat(@" SELECT MD002,TE004,TE017 ,TE011,TE012,SUM(TE005) AS TE005,TE010 ");
+                FASTSQL.AppendFormat(@" FROM [TK].dbo.CMSMD, [TK].dbo.MOCTC,[TK].dbo.MOCTE");
+                FASTSQL.AppendFormat(@" WHERE MD002 LIKE '新%' ");
+                FASTSQL.AppendFormat(@" AND MD001=TC005 ");
+                FASTSQL.AppendFormat(@" AND TC001=TE001 AND TC002=TE002 ");
+                FASTSQL.AppendFormat(@" AND (TE004 LIKE '1%' OR TE004 LIKE '2%' OR (TE004 LIKE '3010000%' AND LEN(TE004)=10))");
+                FASTSQL.AppendFormat(@" AND TC001+TC002 IN ({0})", query.ToString());
+                FASTSQL.AppendFormat(@" GROUP BY MD002,TE004,TE017 ,TE011,TE012,TE010 ");
+                FASTSQL.AppendFormat(@" ORDER BY MD002,TE004,TE017 ,TE011,TE012,TE010 ");
+
+
+            }
+
+
+            FASTSQL.AppendFormat(@"  ");
+
+            return FASTSQL.ToString();
+        }
         #endregion
 
         #region BUTTON
