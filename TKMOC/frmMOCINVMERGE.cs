@@ -105,7 +105,7 @@ namespace TKMOC
 
                 if (ds1.Tables["TEMPds1"].Rows.Count == 0)
                 {
-
+                    dataGridView1.DataSource = null;
                 }
                 else
                 {
@@ -139,6 +139,56 @@ namespace TKMOC
             }
         }
 
+        public void ADDDATA()
+        {
+            DataTable dt = new DataTable();
+            // Declare DataColumn and DataRow variables.
+            DataColumn column;
+            DataRow row;
+            DataView view;
+
+            // Create new DataColumn, set DataType, ColumnName and add to DataTable.    
+            column = new DataColumn();
+            column.DataType = System.Type.GetType("System.String");
+            column.ColumnName = "單別";
+            dt.Columns.Add(column);
+
+            // Create second column.
+            column = new DataColumn();
+            column.DataType = Type.GetType("System.String");
+            column.ColumnName = "單號";
+            dt.Columns.Add(column);
+
+            foreach (DataGridViewRow dr in this.dataGridView1.Rows)
+            {
+                if (dr.Cells[0].Value != null && (bool)dr.Cells[0].Value)
+                {
+                    //MessageBox.Show(dr.Cells[2].Value.ToString());
+
+                    //建立一筆新的DataRow，並且等於新的dt row
+                    row = dt.NewRow();
+
+                    //指定每個欄位要儲存的資料
+                    row["單別"] = dr.Cells[1].Value.ToString();
+                    row["單號"] = dr.Cells[2].Value.ToString();
+
+                    //新增資料至DataTable的dt內
+                    dt.Rows.Add(row);
+                }
+            }
+
+
+            if (dt.Rows.Count == 0)
+            {
+                dataGridView2.DataSource = null;
+            }
+            else if(dt.Rows.Count >=1)
+            {
+                dataGridView2.DataSource = dt;
+            }
+        }
+
+
 
         #endregion
 
@@ -149,6 +199,19 @@ namespace TKMOC
 
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            ADDDATA();
+        }
+
+
         #endregion
+
+       
     }
 }
