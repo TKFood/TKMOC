@@ -7,14 +7,62 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using NPOI;
+using NPOI.HPSF;
+using NPOI.HSSF;
+using NPOI.HSSF.UserModel;
+using NPOI.POIFS;
+using NPOI.Util;
+using NPOI.HSSF.Util;
+using NPOI.HSSF.Extractor;
+using System.IO;
+using System.Data.SqlClient;
+using NPOI.SS.UserModel;
+using System.Configuration;
+using NPOI.XSSF.UserModel;
+using System.Text.RegularExpressions;
+using FastReport;
+using FastReport.Data;
 
 namespace TKMOC
 {
     public partial class frmMOCINVMERGE : Form
     {
+        SqlConnection sqlConn = new SqlConnection();
+        SqlCommand sqlComm = new SqlCommand();
+        string connectionString;
+        StringBuilder sbSql = new StringBuilder();
+        StringBuilder sbSqlQuery = new StringBuilder();
+        SqlDataAdapter adapter = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder = new SqlCommandBuilder();
+        SqlTransaction tran;
+        SqlCommand cmd = new SqlCommand();
+        DataSet ds = new DataSet();
+        DataSet ds2 = new DataSet();
+        string tablename = null;
+        int rownum = 0;
+        DataGridViewRow row;
+        string SALSESID = null;
+        int result;
+
+        public Report report1 { get; private set; }
+
         public frmMOCINVMERGE()
         {
             InitializeComponent();
         }
+
+
+        #region FUNCTION
+
+        #endregion
+
+        #region BUTTON
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        #endregion
     }
 }
