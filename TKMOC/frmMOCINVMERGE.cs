@@ -52,6 +52,13 @@ namespace TKMOC
             InitializeComponent();
 
             combobox2load();
+
+            DataGridViewColumn dgvc = new DataGridViewCheckBoxColumn();
+            dgvc.Width = 60;
+            dgvc.Name = "選取";
+
+            //新增到DataGridView內的第0欄
+            this.dataGridView1.Columns.Insert(0, dgvc);
         }
 
 
@@ -114,13 +121,7 @@ namespace TKMOC
                         //dataGridView1.Rows.Clear();
                         dataGridView1.DataSource = ds1.Tables["TEMPds1"];
 
-                        DataGridViewColumn dgvc = new DataGridViewCheckBoxColumn();
-                        dgvc.Width = 60;
-                        dgvc.Name = "選取";
-
-
-                        //新增到DataGridView內的第0欄
-                        this.dataGridView1.Columns.Insert(0, dgvc);
+                    
 
                         dataGridView1.AutoResizeColumns();
                         //dataGridView1.CurrentCell = dataGridView1[0, rownum];
@@ -142,6 +143,7 @@ namespace TKMOC
         public void ADDDATA()
         {
             DataTable dt = new DataTable();
+           
             // Declare DataColumn and DataRow variables.
             DataColumn column;
             DataRow row;
@@ -158,6 +160,8 @@ namespace TKMOC
             column.DataType = Type.GetType("System.String");
             column.ColumnName = "單號";
             dt.Columns.Add(column);
+
+            dt.Clear();
 
             foreach (DataGridViewRow dr in this.dataGridView1.Rows)
             {
@@ -186,22 +190,37 @@ namespace TKMOC
             {
                 dataGridView2.DataSource = dt;
             }
+
+           
         }
 
-
+        public void SETREPORT()
+        {
+            if(dataGridView2.Rows.Count>=1)
+            {
+                foreach (DataGridViewRow dr in this.dataGridView2.Rows)
+                {
+                    MessageBox.Show(dr.Cells[0].Value.ToString()+ dr.Cells[1].Value.ToString());
+                   
+                }
+               
+            }
+        }
 
         #endregion
 
         #region BUTTON
         private void button1_Click(object sender, EventArgs e)
         {
+            dataGridView2.DataSource = null;
+
             SERACH();
 
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            SETREPORT();
         }
 
         private void button3_Click(object sender, EventArgs e)
