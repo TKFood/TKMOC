@@ -258,6 +258,12 @@
     <Compile Include="frmMOCMANULINESub.Designer.cs">
       <DependentUpon>frmMOCMANULINESub.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmMOCMONTH.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMOCMONTH.Designer.cs">
+      <DependentUpon>frmMOCMONTH.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMOCOVEN.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -415,6 +421,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMOCMANULINESub.resx">
       <DependentUpon>frmMOCMANULINESub.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMOCMONTH.resx">
+      <DependentUpon>frmMOCMONTH.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMOCOVEN.resx">
       <DependentUpon>frmMOCOVEN.cs</DependentUpon>
