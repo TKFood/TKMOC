@@ -50,8 +50,6 @@
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.textBox9 = new System.Windows.Forms.TextBox();
             this.textBox10 = new System.Windows.Forms.TextBox();
-            this.textBoxID = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
             this.textBox32 = new System.Windows.Forms.TextBox();
             this.label46 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
@@ -61,9 +59,13 @@
             this.label13 = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.textBoxID = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label20 = new System.Windows.Forms.Label();
+            this.textBox13 = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -134,6 +136,8 @@
             this.tableLayoutPanel1.Controls.Add(this.label11, 0, 7);
             this.tableLayoutPanel1.Controls.Add(this.label14, 0, 6);
             this.tableLayoutPanel1.Controls.Add(this.textBox2, 1, 6);
+            this.tableLayoutPanel1.Controls.Add(this.label20, 4, 4);
+            this.tableLayoutPanel1.Controls.Add(this.textBox13, 5, 4);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
@@ -357,27 +361,6 @@
             this.textBox10.Size = new System.Drawing.Size(134, 27);
             this.textBox10.TabIndex = 111;
             // 
-            // textBoxID
-            // 
-            this.textBoxID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxID.Location = new System.Drawing.Point(63, 309);
-            this.textBoxID.Name = "textBoxID";
-            this.textBoxID.ReadOnly = true;
-            this.textBoxID.Size = new System.Drawing.Size(134, 27);
-            this.textBoxID.TabIndex = 20;
-            // 
-            // label11
-            // 
-            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label11.Location = new System.Drawing.Point(3, 314);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(54, 16);
-            this.label11.TabIndex = 21;
-            this.label11.Text = "ID";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // textBox32
             // 
             this.textBox32.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -477,15 +460,26 @@
             this.dateTimePicker2.Size = new System.Drawing.Size(114, 27);
             this.dateTimePicker2.TabIndex = 116;
             // 
-            // tabPage2
+            // textBoxID
             // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(722, 324);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.textBoxID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxID.Location = new System.Drawing.Point(63, 309);
+            this.textBoxID.Name = "textBoxID";
+            this.textBoxID.ReadOnly = true;
+            this.textBoxID.Size = new System.Drawing.Size(134, 27);
+            this.textBoxID.TabIndex = 20;
+            // 
+            // label11
+            // 
+            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label11.Location = new System.Drawing.Point(3, 314);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(54, 16);
+            this.label11.TabIndex = 21;
+            this.label11.Text = "ID";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label14
             // 
@@ -508,6 +502,38 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(334, 27);
             this.textBox2.TabIndex = 118;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(722, 371);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // label20
+            // 
+            this.label20.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label20.Location = new System.Drawing.Point(403, 172);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(74, 16);
+            this.label20.TabIndex = 119;
+            this.label20.Text = "生產時間 ";
+            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // textBox13
+            // 
+            this.textBox13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox13.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.textBox13.Location = new System.Drawing.Point(483, 166);
+            this.textBox13.Name = "textBox13";
+            this.textBox13.Size = new System.Drawing.Size(114, 27);
+            this.textBox13.TabIndex = 120;
+            this.textBox13.Text = "0";
             // 
             // frmMOCMANULINESub
             // 
@@ -563,5 +589,7 @@
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.TextBox textBox13;
     }
 }
