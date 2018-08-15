@@ -175,7 +175,7 @@ namespace TKMOC
 
                 sbSql.Clear();
 
-                sbSql.AppendFormat(" UPDATE [TKMOC].[dbo].[MOCMANULINE] SET [BAR]={0},[NUM]={1},[BOX]={2},[PACKAGE]={3},[CLINET]='{4}',MANUDATE='{5}',[OUTDATE]='{6}',[TA029]=N'{7}',[MANUHOUR]='{8}'", textBox6.Text, textBox7.Text, textBox8.Text, textBox9.Text, textBox10.Text, dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"), textBox2.Text, textBox13.Text);
+                sbSql.AppendFormat(" UPDATE [TKMOC].[dbo].[MOCMANULINE] SET [BAR]={0},[NUM]={1},[BOX]={2},[PACKAGE]={3},[CLINET]='{4}',MANUDATE='{5}',[OUTDATE]='{6}',[TA029]=N'{7}',[MANUHOUR]={8}", textBox6.Text, textBox7.Text, textBox8.Text, textBox9.Text, textBox10.Text, dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"), textBox2.Text, textBox13.Text);
                 sbSql.AppendFormat(" WHERE  [ID]='{0}'", textBoxID.Text);
                 sbSql.AppendFormat(" ");
 
