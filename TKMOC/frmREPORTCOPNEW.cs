@@ -103,6 +103,10 @@ namespace TKMOC
             {
                 TD001.Append("'A228',");
             }
+            if (checkBox8.Checked == true)
+            {
+                TD001.Append("'A229',");
+            }
             TD001.Append("''");
 
             StringBuilder TC027 = new StringBuilder();
