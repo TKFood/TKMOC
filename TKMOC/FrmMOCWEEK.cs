@@ -30,15 +30,29 @@ namespace TKMOC
         StringBuilder sbSqlQuery = new StringBuilder();
         SqlDataAdapter adapter1 = new SqlDataAdapter();
         SqlDataAdapter adapter2 = new SqlDataAdapter();
+        SqlDataAdapter adapter3 = new SqlDataAdapter();
+        SqlDataAdapter adapter4 = new SqlDataAdapter();
+        SqlDataAdapter adapter5 = new SqlDataAdapter();
+        SqlDataAdapter adapter6 = new SqlDataAdapter();
+        SqlDataAdapter adapter7 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
-        SqlDataAdapter adapterCALENDAR = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilderCALENDAR = new SqlCommandBuilder();
-        SqlDataAdapter adapterCALENDAR2 = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilderCALENDAR2 = new SqlCommandBuilder();
+        SqlCommandBuilder sqlCmdBuilder2 = new SqlCommandBuilder();
+        SqlCommandBuilder sqlCmdBuilder3 = new SqlCommandBuilder();
+        SqlCommandBuilder sqlCmdBuilder4 = new SqlCommandBuilder();
+        SqlCommandBuilder sqlCmdBuilder5 = new SqlCommandBuilder();
+        SqlCommandBuilder sqlCmdBuilder6 = new SqlCommandBuilder();
+        SqlCommandBuilder sqlCmdBuilder7 = new SqlCommandBuilder();
+
 
         SqlTransaction tran;
         SqlCommand cmd = new SqlCommand();
         DataSet ds1 = new DataSet();
+        DataSet ds2 = new DataSet();
+        DataSet ds3 = new DataSet();
+        DataSet ds4 = new DataSet();
+        DataSet ds5 = new DataSet();
+        DataSet ds6 = new DataSet();
+        DataSet ds7 = new DataSet();
 
 
         int result;
@@ -91,6 +105,99 @@ namespace TKMOC
             string FirstDay = datetime.AddDays(daydiff).ToString("yyyy-MM-dd");
             return Convert.ToDateTime(FirstDay);
         }
+        public void search()
+        {
+            SETDGNULL();
+            search1(); 
+        }
+
+        public void SETDGNULL()
+        {
+            dataGridView1.DataSource = null;
+            dataGridView2.DataSource = null;
+            dataGridView3.DataSource = null;
+            dataGridView4.DataSource = null;
+            dataGridView5.DataSource = null;
+            dataGridView6.DataSource = null;
+            dataGridView7.DataSource = null;
+        }
+        public void search1()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  SELECT [MB002]  AS '品名',CONVERT(NVARCHAR,(CONVERT(int,[BOX])))  AS '數量','箱'  AS '箱', CLINET AS '客戶'");
+                sbSql.AppendFormat(@"  ,[ID],[SERNO],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET],[MANUHOUR],[BOX],[PACKAGE],[OUTDATE],[TA029]  ");
+                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE] ");
+                sbSql.AppendFormat(@"  WHERE [MANU]='新廠包裝線'  ");
+                sbSql.AppendFormat(@"  AND [MANUDATE]='{0}'",dateTimePicker2.Value.ToString("yyyy/MM/dd"));
+                sbSql.AppendFormat(@"  ORDER BY [MANUDATE]  ");
+                sbSql.AppendFormat(@"   ");
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "TEMPds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["TEMPds1"].Rows.Count == 0)
+                {
+
+                }
+                else
+                {
+                    if (ds1.Tables["TEMPds1"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView1.DataSource = ds1.Tables["TEMPds1"];
+                        dataGridView1.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+        public void search2()
+        {
+
+        }
+        public void search3()
+        {
+
+        }
+        public void search4()
+        {
+
+        }
+        public void search5()
+        {
+
+        }
+        public void search6()
+        {
+
+        }
+        public void search7()
+        {
+
+        }
         #endregion
 
 
@@ -99,7 +206,7 @@ namespace TKMOC
         #region BUTTON
         private void button1_Click(object sender, EventArgs e)
         {
-
+            search();
         }
         #endregion
 
