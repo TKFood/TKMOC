@@ -90,6 +90,8 @@ namespace TKMOC
             dateTimePicker6.Value = dateTimePicker2.Value.AddDays(4);
             dateTimePicker7.Value = dateTimePicker2.Value.AddDays(5);
             dateTimePicker8.Value = dateTimePicker2.Value.AddDays(6);
+
+            search();
         }
 
         public DateTime GetWeekFirstDayMon(DateTime datetime)
@@ -509,8 +511,17 @@ namespace TKMOC
         {
             search();
         }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            dateTimePicker1.Value = dateTimePicker1.Value.AddDays(-7);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            dateTimePicker1.Value = dateTimePicker1.Value.AddDays(7);
+        }
         #endregion
 
-        
+
     }
 }
