@@ -46,10 +46,51 @@ namespace TKMOC
         public FrmMOCWEEK()
         {
             InitializeComponent();
+
+            SETTODAY();
+            SETFIRSTDAY();
         }
 
         #region FUNCTION
+        public void SETTODAY()
+        {
+            dateTimePicker1.Value = DateTime.Now;
+        }
 
+        public void SETFIRSTDAY()
+        {
+            DateTime dt = dateTimePicker1.Value;
+
+            dt.AddDays(-((int)dt.DayOfWeek));
+            dateTimePicker2.Value = GetWeekFirstDayMon(dt); 
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            DateTime dt = dateTimePicker1.Value;
+
+            dateTimePicker2.Value = GetWeekFirstDayMon(dt);
+            dateTimePicker3.Value = dateTimePicker2.Value.AddDays(1);
+            dateTimePicker4.Value = dateTimePicker2.Value.AddDays(2);
+            dateTimePicker5.Value = dateTimePicker2.Value.AddDays(3);
+            dateTimePicker6.Value = dateTimePicker2.Value.AddDays(4);
+            dateTimePicker7.Value = dateTimePicker2.Value.AddDays(5);
+            dateTimePicker8.Value = dateTimePicker2.Value.AddDays(6);
+        }
+
+        public DateTime GetWeekFirstDayMon(DateTime datetime)
+        {
+            //星期一为第一天
+            int weeknow = Convert.ToInt32(datetime.DayOfWeek);
+
+            //因为是以星期一为第一天，所以要判断weeknow等于0时，要向前推6天。
+            weeknow = (weeknow == 0 ? (7 - 1) : (weeknow - 1));
+            int daydiff = (-1) * weeknow;
+
+            //本周第一天
+            string FirstDay = datetime.AddDays(daydiff).ToString("yyyy-MM-dd");
+            return Convert.ToDateTime(FirstDay);
+        }
         #endregion
 
 
@@ -62,5 +103,6 @@ namespace TKMOC
         }
         #endregion
 
+        
     }
 }
