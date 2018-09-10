@@ -172,6 +172,14 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  ORDER BY [EVENTDATE]");
                 sbSql.AppendFormat(@"  ");
 
+
+                //sbSql.AppendFormat(@"  SELECT [ID],[SERNO],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET],[MANUHOUR],[BOX],[PACKAGE],[OUTDATE],[TA029]");
+                //sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
+                //sbSql.AppendFormat(@"  WHERE [MANU]='新廠包裝線'");
+                //sbSql.AppendFormat(@"  AND [MANUDATE]>='{0}'", DateTime.Now.ToString("yyyy") + "/1/1");
+                //sbSql.AppendFormat(@" ORDER BY [MANUDATE] ");
+                //sbSql.AppendFormat(@"  ");
+
                 adapterCALENDAR2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
                 sqlCmdBuilderCALENDAR2 = new SqlCommandBuilder(adapter2);
@@ -191,8 +199,8 @@ namespace TKMOC
                     {
                         foreach (DataRow od in dsCALENDAR2.Tables["TEMPdsCALENDAR2"].Rows)
                         {
-                            EVENT = od["MOCLINE"].ToString() + "-" + od["EVENT"].ToString();
-                            dtEVENT = Convert.ToDateTime(od["EVENTDATE"].ToString());
+                            EVENT = od["MB002"].ToString() + "-" + od["BOX"].ToString()+"箱";
+                            dtEVENT = Convert.ToDateTime(od["MANUDATE"].ToString());
 
                             ce2 = new CustomEvent
                             {
