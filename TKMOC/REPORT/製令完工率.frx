@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="10/02/2018 10:04:05" ReportInfo.Modified="10/02/2018 10:14:29" ReportInfo.CreatorVersion="2016.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9Lr8CgH/jXRtFbr0NBTLmcG">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT TA001 AS '製令單',TA002 AS '單號',TA003 AS '開工日',TA006 AS '品號',TA007 AS '單位'&#13;&#10;,TA015 AS '預計生產',TA017 AS '已生產',TA021 AS '線代',MD002 AS '線別',TA034 AS '品名',TA035 AS '規格'&#13;&#10;,ISNULL((SELECT SUM(TG011) FROM [TK].dbo.MOCTG WHERE TG004=TA006 AND TG014=TA001 AND TG015=TA002 ),0) AS '入庫量'&#13;&#10;,(ISNULL((SELECT SUM(TG011) FROM [TK].dbo.MOCTG WHERE TG004=TA006 AND TG014=TA001 AND TG015=TA002 ),0) /TA015) AS '完成率'&#13;&#10;FROM [TK].dbo.MOCTA,[TK].dbo.CMSMD&#13;&#10;WHERE  TA021=MD001&#13;&#10;AND TA003&gt;='20181001' AND TA003&lt;='20181001'&#13;&#10;AND TA013='Y'&#13;&#10;AND TA021&lt;&gt;'08'&#13;&#10;ORDER BY TA003,TA021 DESC&#13;&#10;&#13;&#10;">
+        <Column Name="製令單" DataType="System.String"/>
+        <Column Name="單號" DataType="System.String"/>
+        <Column Name="開工日" DataType="System.String"/>
+        <Column Name="品號" DataType="System.String"/>
+        <Column Name="單位" DataType="System.String"/>
+        <Column Name="預計生產" DataType="System.Decimal"/>
+        <Column Name="已生產" DataType="System.Decimal"/>
+        <Column Name="線代" DataType="System.String"/>
+        <Column Name="線別" DataType="System.String"/>
+        <Column Name="品名" DataType="System.String"/>
+        <Column Name="規格" DataType="System.String"/>
+        <Column Name="入庫量" DataType="System.Decimal"/>
+        <Column Name="完成率" DataType="System.Decimal"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210">
+    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="18.9">
+      <TextObject Name="Text1" Width="1039.5" Height="18.9" Text="製令完工率" HorzAlign="Center" VertAlign="Center"/>
+    </ReportTitleBand>
+    <ColumnHeaderBand Name="ColumnHeader1" Top="22.75" Width="1047.06" Height="18.9">
+      <TextObject Name="Text3" Width="66.15" Height="18.9" Border.Lines="All" Text="開工日" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text5" Left="179.55" Width="103.95" Height="18.9" Border.Lines="All" Text="品號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text7" Left="283.5" Width="217.35" Height="18.9" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text9" Left="500.85" Width="132.3" Height="18.9" Border.Lines="All" Text="規格" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text11" Left="633.15" Width="47.25" Height="18.9" Border.Lines="All" Text="單位" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text13" Left="680.4" Width="85.05" Height="18.9" Border.Lines="All" Text="預計生產" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text15" Left="765.45" Width="85.05" Height="18.9" Border.Lines="All" Text="入庫量" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text17" Left="907.2" Width="47.25" Height="18.9" Border.Lines="All" Text="製令單" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text19" Left="954.45" Width="85.05" Height="18.9" Border.Lines="All" Text="單號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text23" Left="850.5" Width="56.7" Height="18.9" Border.Lines="All" Text="完成率" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text21" Left="66.15" Width="113.4" Height="18.9" Border.Lines="All" Text="線別" HorzAlign="Center" VertAlign="Center"/>
+    </ColumnHeaderBand>
+    <DataBand Name="Data1" Top="45.49" Width="1047.06" Height="18.9" CanGrow="true" DataSource="Table">
+      <TextObject Name="Text2" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.開工日]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text4" Left="179.55" Width="103.95" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.品號]" VertAlign="Center"/>
+      <TextObject Name="Text6" Left="283.5" Width="217.35" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.品名]" VertAlign="Center"/>
+      <TextObject Name="Text8" Left="500.85" Width="132.3" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.規格]" VertAlign="Center"/>
+      <TextObject Name="Text10" Left="633.15" Width="47.25" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.單位]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text12" Left="680.4" Width="85.05" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.預計生產]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text14" Left="765.45" Width="85.05" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.入庫量]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text16" Left="907.2" Width="47.25" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.製令單]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text18" Left="954.45" Width="85.05" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.單號]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text22" Left="850.5" Width="56.7" Height="18.9" Border.Lines="All" Text="[Table.完成率]" Format="Percent" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text20" Left="66.15" Width="113.4" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.線別]" HorzAlign="Center" VertAlign="Center"/>
+    </DataBand>
+    <ColumnFooterBand Name="ColumnFooter1" Top="68.24" Width="1047.06" Height="37.8"/>
+  </ReportPage>
+</Report>
