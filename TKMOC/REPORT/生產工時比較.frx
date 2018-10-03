@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="10/02/2018 11:40:57" ReportInfo.Modified="10/03/2018 09:43:28" ReportInfo.CreatorVersion="2016.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9IcTtp1jWcQUOn2Cq9GB4vE">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT CSTMB.MB001 AS '線代',CSTMB.MB002 AS '日期',CSTMB.MB003 AS '製令單',CSTMB.MB004 AS '製令',CSTMB.MB005 AS '總小時',CSTMB.MB007 AS '品號'&#13;&#10;,MOCTA.TA007 AS '單位',MOCTA.TA034 AS '品名',MOCTA.TA035 AS '規格',MOCTA.TA017 AS '生產量'&#13;&#10;,ISNULL([AVGTIME],0) AS '每個標準工時'&#13;&#10;,ISNULL([AVGTIME],0)*MOCTA.TA017 AS '標準總工時'&#13;&#10;,CSTMB.MB005*60 AS '實際總工時'&#13;&#10;,MD002 AS '線別'&#13;&#10;,(CSTMB.MB005*60-(ISNULL([AVGTIME],0)*MOCTA.TA017)) AS '工時差異'&#13;&#10;FROM [TK].dbo.MOCTA,[TK].dbo.CMSMD,[TK].dbo.CSTMB&#13;&#10;LEFT JOIN [TKMOC].[dbo].[MOCCOSTTIME] ON [MOCCOSTTIME].[MB001]=[CSTMB].[MB007]&#13;&#10;WHERE CSTMB.MB003=TA001 AND CSTMB.MB004=TA002&#13;&#10;AND TA021=MD001&#13;&#10;AND CSTMB.MB002&gt;='20180901' AND CSTMB.MB002&lt;='20181001'&#13;&#10;ORDER BY MD002,CSTMB.MB002,CSTMB.MB005">
+        <Column Name="線代" DataType="System.String"/>
+        <Column Name="日期" DataType="System.String"/>
+        <Column Name="製令單" DataType="System.String"/>
+        <Column Name="製令" DataType="System.String"/>
+        <Column Name="總小時" DataType="System.Decimal"/>
+        <Column Name="品號" DataType="System.String"/>
+        <Column Name="單位" DataType="System.String"/>
+        <Column Name="品名" DataType="System.String"/>
+        <Column Name="規格" DataType="System.String"/>
+        <Column Name="生產量" DataType="System.Decimal"/>
+        <Column Name="每個標準工時" DataType="System.Decimal"/>
+        <Column Name="標準總工時" DataType="System.Decimal"/>
+        <Column Name="實際總工時" DataType="System.Decimal"/>
+        <Column Name="線別" DataType="System.String"/>
+        <Column Name="工時差異" DataType="System.Decimal"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210">
+    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="18.9">
+      <TextObject Name="Text1" Left="-9.45" Width="1048.95" Height="18.9" Text="生產工時比較" HorzAlign="Center" VertAlign="Center"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="22.75" Width="1047.06" Height="37.8">
+      <TextObject Name="Text3" Width="75.6" Height="37.8" Border.Lines="All" Text="日期" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text5" Left="75.6" Width="113.4" Height="37.8" Border.Lines="All" Text="線別" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text7" Left="189" Width="56.7" Height="37.8" Border.Lines="All" Text="製令單" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text9" Left="245.7" Width="103.95" Height="37.8" Border.Lines="All" Text="製令" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text11" Left="349.65" Width="103.95" Height="37.8" Border.Lines="All" Text="品號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text13" Left="453.6" Width="217.35" Height="37.8" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text17" Left="670.95" Width="75.6" Height="37.8" Border.Lines="All" Text="生產量" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text21" Left="746.55" Width="47.25" Height="37.8" Border.Lines="All" Text="每個標準工時" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text15" Left="793.8" Width="75.6" Height="37.8" Border.Lines="All" Text="標準總工時&#13;&#10;(分)" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text23" Left="869.4" Width="75.6" Height="37.8" Border.Lines="All" Text="實際總工時&#13;&#10;(分)" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text19" Left="945" Width="94.5" Height="37.8" Border.Lines="All" Text="工時差異&#13;&#10;(分)" HorzAlign="Center" VertAlign="Center"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="64.39" Width="1047.06" Height="18.9" CanGrow="true" DataSource="Table">
+      <TextObject Name="Text2" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.日期]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text4" Left="75.6" Width="113.4" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.線別]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text6" Left="189" Width="56.7" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.製令單]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text8" Left="245.7" Width="103.95" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.製令]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text10" Left="349.65" Width="103.95" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.品號]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text12" Left="453.6" Width="217.35" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.品名]" VertAlign="Center"/>
+      <TextObject Name="Text16" Left="670.95" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.生產量]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text20" Left="746.55" Width="47.25" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.每個標準工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text14" Left="793.8" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.標準總工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text22" Left="869.4" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.實際總工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text18" Left="945" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.工時差異]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="87.14" Width="1047.06" Height="18.9"/>
+  </ReportPage>
+</Report>
