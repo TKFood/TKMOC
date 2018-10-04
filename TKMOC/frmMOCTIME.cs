@@ -81,6 +81,7 @@ namespace TKMOC
             SB.AppendFormat(@" LEFT JOIN [TKMOC].[dbo].[MOCCOSTTIME] ON [MOCCOSTTIME].[MB001]=[CSTMB].[MB007]");
             SB.AppendFormat(@" WHERE CSTMB.MB003=TA001 AND CSTMB.MB004=TA002");
             SB.AppendFormat(@" AND TA021=MD001");
+            SB.AppendFormat(@" AND CSTMB.MB001 NOT IN ('08')  ");
             SB.AppendFormat(@" AND CSTMB.MB002>='{0}' AND CSTMB.MB002<='{1}'",dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
             SB.AppendFormat(@" ORDER BY MD002,CSTMB.MB002,CSTMB.MB005");
             SB.AppendFormat(@" ");
