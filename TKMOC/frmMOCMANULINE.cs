@@ -72,6 +72,8 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder21= new SqlCommandBuilder();
         SqlDataAdapter adapter22 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder22 = new SqlCommandBuilder();
+        SqlDataAdapter adapter23 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder23 = new SqlCommandBuilder();
 
         SqlDataAdapter adapterCALENDAR = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilderCALENDAR = new SqlCommandBuilder();
@@ -101,6 +103,7 @@ namespace TKMOC
         DataSet ds20 = new DataSet();
         DataSet ds21 = new DataSet();
         DataSet ds22 = new DataSet();
+        DataSet ds23 = new DataSet();
 
         DataSet dsCALENDAR = new DataSet();
 
@@ -757,6 +760,63 @@ namespace TKMOC
                             //dataGridView1.Rows.Clear();
                             dataGridView7.DataSource = ds8.Tables["TEMPds8"];
                             dataGridView7.AutoResizeColumns();
+                            //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                        }
+                    }
+
+                }
+                catch
+                {
+
+                }
+                finally
+                {
+
+                }
+            }
+
+            else if (MANU.Equals("新廠統百包裝線"))
+            {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sbSql.Clear();
+                    sbSqlQuery.Clear();
+
+
+                    sbSql.AppendFormat(@"  SELECT ");
+                    sbSql.AppendFormat(@"  [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名'");
+                    sbSql.AppendFormat(@"  ,[MB003] AS '規格',[BOX] AS '箱數',[PACKAGE] AS '包裝數',[CLINET] AS '客戶',[MANUHOUR] AS '生產時間',[OUTDATE] AS '交期',[TA029] AS '備註'");
+                    sbSql.AppendFormat(@"  ,[ID]");
+                    sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
+                    sbSql.AppendFormat(@"  WHERE [MANU]='{0}' ", MANU);
+                    sbSql.AppendFormat(@"  AND CONVERT(varchar(100),[MANUDATE],112) LIKE '{0}%'", dateTimePicker17.Value.ToString("yyyyMMdd"));
+                    sbSql.AppendFormat(@"  ORDER BY [MANUDATE],[SERNO]");
+                    sbSql.AppendFormat(@"  ");
+
+                    adapter23 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                    sqlCmdBuilder23 = new SqlCommandBuilder(adapter23);
+                    sqlConn.Open();
+                    ds23.Clear();
+                    adapter23.Fill(ds23, "TEMPds23");
+                    sqlConn.Close();
+
+
+                    if (ds23.Tables["TEMPds23"].Rows.Count == 0)
+                    {
+
+                    }
+                    else
+                    {
+                        if (ds23.Tables["TEMPds23"].Rows.Count >= 1)
+                        {
+                            //dataGridView1.Rows.Clear();
+                            dataGridView16.DataSource = ds23.Tables["TEMPds23"];
+                            dataGridView16.AutoResizeColumns();
                             //dataGridView1.CurrentCell = dataGridView1[0, rownum];
 
                         }
@@ -3017,6 +3077,11 @@ namespace TKMOC
             {
                 //MessageBox.Show("水麵");
                 MANU = "水麵";
+            }
+            else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage8"])
+            {
+                //MessageBox.Show("水麵");
+                MANU = "新廠統百包裝線";
             }
         }
         private void textBox7_TextChanged(object sender, EventArgs e)
@@ -5424,14 +5489,9 @@ namespace TKMOC
             SEARCHCOPTD();
         }
 
-
-
-
-        #endregion
-
         private void button44_Click(object sender, EventArgs e)
         {
-
+            SEARCHMOCMANULINE();
         }
 
         private void button46_Click(object sender, EventArgs e)
@@ -5473,5 +5533,10 @@ namespace TKMOC
         {
 
         }
+
+
+        #endregion
+
+
     }
 }
