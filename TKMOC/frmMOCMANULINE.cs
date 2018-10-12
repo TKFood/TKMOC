@@ -212,6 +212,11 @@ namespace TKMOC
         string SUBNUM4;
         string SUBBOX4;
         string SUBPACKAGE4;
+        string SUBID5;
+        string SUBBAR5;
+        string SUBNUM5;
+        string SUBBOX5;
+        string SUBPACKAGE5;
 
         public class MOCTADATA
         {
@@ -3954,6 +3959,50 @@ namespace TKMOC
                 }
             }
 
+            else if (MANU.Equals("新廠統百包裝線"))
+            {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sqlConn.Close();
+                    sqlConn.Open();
+                    tran = sqlConn.BeginTransaction();
+
+                    sbSql.Clear();
+                    sbSql.AppendFormat("  DELETE [TKMOC].[dbo].[MOCMANULINERESULT]");
+                    sbSql.AppendFormat("  WHERE SID='{0}'", DELID6);
+                    sbSql.AppendFormat("  AND [MOCTA001] ='{0}' AND [MOCTA002]='{1}'", DELMOCTA001F, DELMOCTA002F);
+                    sbSql.AppendFormat(" ");
+
+                    cmd.Connection = sqlConn;
+                    cmd.CommandTimeout = 60;
+                    cmd.CommandText = sbSql.ToString();
+                    cmd.Transaction = tran;
+                    result = cmd.ExecuteNonQuery();
+
+                    if (result == 0)
+                    {
+                        tran.Rollback();    //交易取消
+                    }
+                    else
+                    {
+                        tran.Commit();      //執行交易  
+                    }
+
+                }
+                catch
+                {
+
+                }
+
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }
+
         }
 
         public void SEARCHMOCTB()
@@ -5219,6 +5268,10 @@ namespace TKMOC
             {
                
             }
+            else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage8"])
+            {
+                DELMOCMANULINECOP2(ID6);
+            }
         }
 
         public void DELMOCMANULINECOP2(string SID)
@@ -5632,11 +5685,11 @@ namespace TKMOC
                     SUM2 = Convert.ToDecimal(row.Cells["包裝數"].Value.ToString());
                     TA029 = row.Cells["備註"].Value.ToString();
 
-                    SUBID2 = row.Cells["ID"].Value.ToString();
-                    SUBBAR2 = "";
-                    SUBNUM2 = "";
-                    SUBBOX2 = row.Cells["箱數"].Value.ToString();
-                    SUBPACKAGE2 = row.Cells["包裝數"].Value.ToString();
+                    SUBID5 = row.Cells["ID"].Value.ToString();
+                    SUBBAR5 = "";
+                    SUBNUM5 = "";
+                    SUBBOX5 = row.Cells["箱數"].Value.ToString();
+                    SUBPACKAGE5 = row.Cells["包裝數"].Value.ToString();
 
                     SEARCHMOCMANULINERESULT();
                     SEARCHMOCMANULINECOP();
@@ -5644,17 +5697,39 @@ namespace TKMOC
                 }
                 else
                 {
-                    ID2 = null;
-                    SUBID2 = null;
-                    SUBBAR2 = null;
-                    SUBNUM2 = null;
-                    SUBBOX2 = null;
-                    SUBPACKAGE2 = null;
+                    ID6 = null;
+                    SUBID5 = null;
+                    SUBBAR5 = null;
+                    SUBNUM5 = null;
+                    SUBBOX5 = null;
+                    SUBPACKAGE5 = null;
 
                 }
             }
         }
 
+        private void dataGridView17_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView17.CurrentRow != null)
+            {
+                int rowindex = dataGridView17.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView17.Rows[rowindex];
+                    DELID6= row.Cells["SID"].Value.ToString();
+                    DELMOCTA001F = row.Cells["製令"].Value.ToString();
+                    DELMOCTA002F = row.Cells["單號"].Value.ToString();
+
+
+
+                }
+                else
+                {
+                    DELID2 = null;
+
+                }
+            }
+        }
         #endregion
 
         #region BUTTON
@@ -6137,13 +6212,32 @@ namespace TKMOC
 
         private void button50_Click(object sender, EventArgs e)
         {
+            DialogResult dialogResult = MessageBox.Show("要刪除了?", "要刪除了?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                DELMOCMANULINERESULT();
+                SEARCHMOCMANULINE();
 
+                DELMOCMANULINECOP();
+                SEARCHMOCMANULINECOP();
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                //do something else
+            }
         }
 
         private void button52_Click(object sender, EventArgs e)
         {
+            frmMOCMANULINECOP SUBfrmMOCMANULINECOP = new frmMOCMANULINECOP(SUBID5, SUBBAR5, SUBNUM5, SUBBOX5, SUBPACKAGE5);
+            if (!string.IsNullOrEmpty(SUBID5))
+            {
+                SUBfrmMOCMANULINECOP.ShowDialog();
+            }
 
+            SEARCHMOCMANULINECOP();
         }
+
 
 
 
