@@ -285,6 +285,9 @@ namespace TKMOC
             comboBox7load();
             comboBox8load();
             comboBox12load();
+
+            comboBox13load();
+            comboBox14load();
             SETIN();
 
             //SET CALENDAR
@@ -497,6 +500,51 @@ namespace TKMOC
 
 
         }
+
+        public void comboBox13load()
+        {
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 LIKE '新廠統百包裝線%'   ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("MD001", typeof(string));
+            dt.Columns.Add("MD002", typeof(string));
+            da.Fill(dt);
+            comboBox13.DataSource = dt.DefaultView;
+            comboBox13.ValueMember = "MD002";
+            comboBox13.DisplayMember = "MD002";
+            sqlConn.Close();
+
+
+        }
+
+        public void comboBox14load()
+        {
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT MC001 ,MC001+MC002 AS 'MC002' FROM [TK].dbo.CMSMC WHERE MC001 LIKE '20021%'  ORDER BY MC001 ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("MC001", typeof(string));
+            dt.Columns.Add("MC002", typeof(string));
+
+            da.Fill(dt);
+            comboBox14.DataSource = dt.DefaultView;
+            comboBox14.ValueMember = "MC001";
+            comboBox14.DisplayMember = "MC002";
+            sqlConn.Close();
+
+
+        }
+
+
         public void SEARCHMOCMANULINE()
         {
             if(MANU.Equals("新廠製二組"))
@@ -5378,8 +5426,52 @@ namespace TKMOC
 
 
 
+
         #endregion
 
-      
+        private void button44_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button46_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button49_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button48_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button47_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button45_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button51_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button50_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button52_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
