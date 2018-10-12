@@ -74,6 +74,8 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder22 = new SqlCommandBuilder();
         SqlDataAdapter adapter23 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder23 = new SqlCommandBuilder();
+        SqlDataAdapter adapter24 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder24 = new SqlCommandBuilder();
 
         SqlDataAdapter adapterCALENDAR = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilderCALENDAR = new SqlCommandBuilder();
@@ -104,6 +106,7 @@ namespace TKMOC
         DataSet ds21 = new DataSet();
         DataSet ds22 = new DataSet();
         DataSet ds23 = new DataSet();
+        DataSet ds24 = new DataSet();
 
         DataSet dsCALENDAR = new DataSet();
 
@@ -1057,6 +1060,63 @@ namespace TKMOC
                 }
 
             }
+
+            else if (MANU.Equals("新廠統百包裝線"))
+            {
+
+
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sbSql.Clear();
+                    sbSqlQuery.Clear();
+
+                    sbSql.AppendFormat(@"  SELECT MB001,MB002,MB003,MC004 ,MB017 ");
+                    sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB,[TK].dbo.BOMMC");
+                    sbSql.AppendFormat(@"  WHERE MB001=MC001");
+                    sbSql.AppendFormat(@"  AND MB001='{0}'", textBox56.Text.Trim());
+                    sbSql.AppendFormat(@"  ");
+
+                    adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                    sqlCmdBuilder2 = new SqlCommandBuilder(adapter2);
+                    sqlConn.Open();
+                    ds2.Clear();
+                    adapter2.Fill(ds2, "TEMPds2");
+                    sqlConn.Close();
+
+
+                    if (ds2.Tables["TEMPds2"].Rows.Count == 0)
+                    {
+
+                    }
+                    else
+                    {
+                        if (ds2.Tables["TEMPds2"].Rows.Count >= 1)
+                        {
+                            textBox62.Text = ds2.Tables["TEMPds2"].Rows[0]["MB002"].ToString();
+                            textBox63.Text = ds2.Tables["TEMPds2"].Rows[0]["MB003"].ToString();
+                            textBox60.Text = ds2.Tables["TEMPds2"].Rows[0]["MC004"].ToString();
+                            //comboBox6.SelectedValue = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
+                            //label52.Text = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
+
+                        }
+                    }
+
+                }
+                catch
+                {
+
+                }
+                finally
+                {
+
+                }
+
+
+            }
         }
 
         public void SETNULL1()
@@ -1273,6 +1333,56 @@ namespace TKMOC
                 }
             }
 
+            else if (MANU.Equals("新廠統百包裝線"))
+            {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sqlConn.Close();
+                    sqlConn.Open();
+                    tran = sqlConn.BeginTransaction();
+
+                    sbSql.Clear();
+
+
+                    sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINE]");
+                    sbSql.AppendFormat(" ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[CLINET],[MANUHOUR],[BOX],[PACKAGE],[OUTDATE],[TA029])");
+                    sbSql.AppendFormat(" VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}',N'{11}')", "NEWID()", comboBox13.Text, dateTimePicker18.Value.ToString("yyyy/MM/dd"), textBox56.Text, textBox62.Text, textBox63.Text, textBox57.Text, textBox58.Text, textBox59.Text, textBox61.Text, dateTimePicker19.Value.ToString("yyyy/MM/dd"), textBox64.Text);
+                    sbSql.AppendFormat(" ");
+                    sbSql.AppendFormat(" ");
+
+
+                    cmd.Connection = sqlConn;
+                    cmd.CommandTimeout = 60;
+                    cmd.CommandText = sbSql.ToString();
+                    cmd.Transaction = tran;
+                    result = cmd.ExecuteNonQuery();
+
+                    if (result == 0)
+                    {
+                        tran.Rollback();    //交易取消
+                    }
+                    else
+                    {
+                        tran.Commit();      //執行交易  
+
+
+                    }
+
+                }
+                catch
+                {
+
+                }
+
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }
+
             SEARCHMOCMANULINE();
         }
         public void SETNULL2()
@@ -1323,6 +1433,18 @@ namespace TKMOC
             textBox55.Text = null;
         }
 
+        public void SETNULL7()
+        {
+            textBox56.Text = null;
+            textBox57.Text = null;
+            textBox59.Text = null;
+            textBox61.Text = null;
+            textBox62.Text = null;
+            textBox63.Text = null;
+            textBox60.Text = "0";
+            textBox58.Text = "0";
+            textBox64.Text = null;
+        }
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
             textBox40.Text = null;
@@ -3698,6 +3820,11 @@ namespace TKMOC
                 {
                     textBox21.Text = Math.Round(Convert.ToDecimal(textBox23.Text) / Convert.ToDecimal(textBox35.Text), 4).ToString();
                 }
+                else if (MANU.Equals("新廠統百包裝線"))
+                {
+                    SEARCHMB001BOX();
+                    textBox59.Text = Math.Round(Convert.ToDecimal(textBox61.Text) / Convert.ToDecimal(textBox60.Text) / BOXNUMERB, 4).ToString();
+                }
             }
             catch
             {
@@ -4460,7 +4587,59 @@ namespace TKMOC
 
 
             }
-            
+
+            else if (MANU.Equals("新廠統百包裝線"))
+            {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sbSql.Clear();
+                    sbSqlQuery.Clear();
+
+                    sbSql.AppendFormat(@"  SELECT TOP 1 MD001,MD003,MB001,MB002,ISNULL(MD007,1) AS MD007,ISNULL(MD010,1) AS MD010");
+                    sbSql.AppendFormat(@"  FROM [TK].dbo.BOMMD,[TK].dbo.INVMB");
+                    sbSql.AppendFormat(@"  WHERE MD003=MB001");
+                    sbSql.AppendFormat(@"  AND MB002 LIKE '%箱%'");
+                    sbSql.AppendFormat(@"  AND MD003 LIKE '2%'");
+                    sbSql.AppendFormat(@"  AND MD001='{0}'", textBox56.Text);
+                    sbSql.AppendFormat(@"  ");
+
+                    adapter24 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                    sqlCmdBuilder24 = new SqlCommandBuilder(adapter24);
+                    sqlConn.Open();
+                    ds24.Clear();
+                    adapter24.Fill(ds24, "TEMPds24");
+                    sqlConn.Close();
+
+
+                    if (ds24.Tables["TEMPds24"].Rows.Count == 0)
+                    {
+                        BOXNUMERB = 1;
+                    }
+                    else
+                    {
+                        if (ds24.Tables["TEMPds24"].Rows.Count >= 1)
+                        {
+                            BOXNUMERB = (Convert.ToInt32(ds24.Tables["TEMPds24"].Rows[0]["MD007"].ToString()) / Convert.ToInt32(ds24.Tables["TEMPds24"].Rows[0]["MD010"].ToString()));
+                        }
+                    }
+
+                }
+                catch
+                {
+
+                }
+                finally
+                {
+
+                }
+
+
+            }
+
         }
         public void SEARCHMOCMANULINECOP()
         {
@@ -5072,6 +5251,17 @@ namespace TKMOC
                 }
             }
         }
+
+
+        private void textBox56_TextChanged(object sender, EventArgs e)
+        {
+            SEARCHMB001();
+        }
+
+        private void textBox61_TextChanged(object sender, EventArgs e)
+        {
+            CALPRODUCTDETAIL();
+        }
         #endregion
 
         #region BUTTON
@@ -5496,7 +5686,15 @@ namespace TKMOC
 
         private void button46_Click(object sender, EventArgs e)
         {
-
+            if (!string.IsNullOrEmpty(textBox56.Text))
+            {
+                ADDMOCMANULINE();
+                SETNULL7();
+            }
+            else
+            {
+                MessageBox.Show("品名錯誤");
+            }
         }
 
         private void button49_Click(object sender, EventArgs e)
@@ -5511,12 +5709,18 @@ namespace TKMOC
 
         private void button47_Click(object sender, EventArgs e)
         {
+            SETNULL7();
 
+            frmSUBMOCMANULINE SUBfrmSUBMOCMANULINE = new frmSUBMOCMANULINE();
+            SUBfrmSUBMOCMANULINE.ShowDialog();
+            textBox56.Text = SUBfrmSUBMOCMANULINE.TextBoxMsg;
         }
 
         private void button45_Click(object sender, EventArgs e)
         {
-
+            frmSUBMOCCOPMA SUBfrmSUBMOCCOPMA = new frmSUBMOCCOPMA();
+            SUBfrmSUBMOCCOPMA.ShowDialog();
+            textBox57.Text = SUBfrmSUBMOCCOPMA.TextBoxMsg;
         }
 
         private void button51_Click(object sender, EventArgs e)
@@ -5535,8 +5739,10 @@ namespace TKMOC
         }
 
 
+
+
         #endregion
 
-
+       
     }
 }
