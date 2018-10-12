@@ -155,6 +155,7 @@ namespace TKMOC
         string DELID6;
         string DELMOCTA001F;
         string DELMOCTA002F;
+        string IN6 = "20021";
 
         string TA001 = "A510";
         string TA002;
@@ -185,6 +186,7 @@ namespace TKMOC
         decimal SUM2;
         decimal SUM3;
         decimal SUM4;
+        decimal SUM5;
 
         string BOMVARSION;
         string UNIT;
@@ -1693,7 +1695,7 @@ namespace TKMOC
 
                     sbSql.Clear();
                     sbSql.AppendFormat("  DELETE [TKMOC].[dbo].[MOCMANULINE]");
-                    sbSql.AppendFormat("  WHERE ID='{0}'", ID2);
+                    sbSql.AppendFormat("  WHERE ID='{0}'", ID6);
                     sbSql.AppendFormat(" ");
 
                     cmd.Connection = sqlConn;
@@ -2445,9 +2447,9 @@ namespace TKMOC
                 MOCTA.COMPANY = "TK";
                 MOCTA.CREATOR = "000002";
                 MOCTA.USR_GROUP = "103000";
-                MOCTA.CREATE_DATE = dt5.ToString("yyyyMMdd");
+                MOCTA.CREATE_DATE = dt6.ToString("yyyyMMdd");
                 MOCTA.MODIFIER = "000002";
-                MOCTA.MODI_DATE = dt5.ToString("yyyyMMdd");
+                MOCTA.MODI_DATE = dt6.ToString("yyyyMMdd");
                 MOCTA.FLAG = "0";
                 MOCTA.CREATE_TIME = DateTime.Now.ToString("HH:mm:dd");
                 MOCTA.MODI_TIME = DateTime.Now.ToString("HH:mm:dd");
@@ -2457,25 +2459,25 @@ namespace TKMOC
                 MOCTA.DataGroup = "103000";
                 MOCTA.TA001 = "A510";
                 MOCTA.TA002 = TA002;
-                MOCTA.TA003 = dt5.ToString("yyyyMMdd");
-                MOCTA.TA004 = dt5.ToString("yyyyMMdd");
+                MOCTA.TA003 = dt6.ToString("yyyyMMdd");
+                MOCTA.TA004 = dt6.ToString("yyyyMMdd");
                 MOCTA.TA005 = BOMVARSION;
                 MOCTA.TA006 = MB001F;
                 MOCTA.TA007 = UNIT;
-                MOCTA.TA009 = dt5.ToString("yyyyMMdd");
-                MOCTA.TA010 = dt5.ToString("yyyyMMdd");
+                MOCTA.TA009 = dt6.ToString("yyyyMMdd");
+                MOCTA.TA010 = dt6.ToString("yyyyMMdd");
                 MOCTA.TA011 = "1";
-                MOCTA.TA012 = dt5.ToString("yyyyMMdd");
+                MOCTA.TA012 = dt6.ToString("yyyyMMdd");
                 MOCTA.TA013 = "N";
                 // MOCTA.TA014 = dt2.ToString("yyyyMMdd");
                 MOCTA.TA014 = "";
                 //MOCTA.TA015 = (BOX * BOMBAR).ToString();
-                MOCTA.TA015 = SUM2.ToString();
+                MOCTA.TA015 = SUM5.ToString();
                 MOCTA.TA016 = "0";
                 MOCTA.TA017 = "0";
                 MOCTA.TA018 = "0";
                 MOCTA.TA019 = "20";
-                MOCTA.TA020 = IN2;
+                MOCTA.TA020 = IN6;
                 MOCTA.TA021 = "10";
                 MOCTA.TA022 = "0";
                 MOCTA.TA024 = "A510";
@@ -2485,12 +2487,12 @@ namespace TKMOC
                 MOCTA.TA031 = "0";
                 MOCTA.TA034 = MB002F;
                 MOCTA.TA035 = MB003F;
-                MOCTA.TA040 = dt5.ToString("yyyyMMdd");
+                MOCTA.TA040 = dt6.ToString("yyyyMMdd");
                 MOCTA.TA041 = "";
                 MOCTA.TA043 = "1";
                 MOCTA.TA044 = "N";
-                MOCTA.TA045 = SUM2.ToString();
-                MOCTA.TA046 = SUM2.ToString();
+                MOCTA.TA045 = SUM5.ToString();
+                MOCTA.TA046 = SUM5.ToString();
                 MOCTA.TA047 = "0";
                 MOCTA.TA049 = "0";
                 MOCTA.TA050 = "0";
@@ -3513,6 +3515,23 @@ namespace TKMOC
                     string temp = serno.ToString();
                     temp = temp.PadLeft(3, '0');
                     return dt5.ToString("yyyyMMdd") + temp.ToString();
+                }
+            }
+
+            else if (MANU.Equals("新廠統百包裝線"))
+            {
+                if (TA002.Equals("00000000000"))
+                {
+                    return dt6.ToString("yyyyMMdd") + "001";
+                }
+
+                else
+                {
+                    int serno = Convert.ToInt16(TA002.Substring(8, 3));
+                    serno = serno + 1;
+                    string temp = serno.ToString();
+                    temp = temp.PadLeft(3, '0');
+                    return dt6.ToString("yyyyMMdd") + temp.ToString();
                 }
             }
 
@@ -4845,8 +4864,13 @@ namespace TKMOC
             {
                 
             }
+            else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage8"])
+            {
+                frmMOCMANULINESub MOCMANULINESub = new frmMOCMANULINESub(ID6);
+                MOCMANULINESub.ShowDialog();
+            }
 
-            
+
 
         }
 
@@ -4873,6 +4897,10 @@ namespace TKMOC
             else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage5"])
             {
 
+            }
+            else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage8"])
+            {
+                CHECKID = ID6;
             }
 
             try
@@ -5682,7 +5710,7 @@ namespace TKMOC
                     MB002F = row.Cells["品名"].Value.ToString();
                     MB003F = row.Cells["規格"].Value.ToString();
                     BOX = Convert.ToDecimal(row.Cells["包裝數"].Value.ToString());
-                    SUM2 = Convert.ToDecimal(row.Cells["包裝數"].Value.ToString());
+                    SUM5 = Convert.ToDecimal(row.Cells["包裝數"].Value.ToString());
                     TA029 = row.Cells["備註"].Value.ToString();
 
                     SUBID5 = row.Cells["ID"].Value.ToString();
@@ -6181,7 +6209,8 @@ namespace TKMOC
 
         private void button48_Click(object sender, EventArgs e)
         {
-
+            CHECKMOCTAB();
+            SEARCHMOCMANULINE();
         }
 
         private void button47_Click(object sender, EventArgs e)
@@ -6205,6 +6234,7 @@ namespace TKMOC
             TA002 = GETMAXTA002(TA001);
             ADDMOCMANULINERESULT();
             ADDMOCTATB();
+
             SEARCHMOCMANULINERESULT();
 
             MessageBox.Show("完成");
