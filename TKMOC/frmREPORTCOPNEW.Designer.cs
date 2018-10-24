@@ -48,9 +48,9 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.previewControl1 = new FastReport.Preview.PreviewControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -273,7 +273,7 @@
             this.comboBox3.Items.AddRange(new object[] {
             "明細",
             "月報"});
-            this.comboBox3.Location = new System.Drawing.Point(719, 10);
+            this.comboBox3.Location = new System.Drawing.Point(719, 8);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(114, 24);
             this.comboBox3.TabIndex = 43;
@@ -297,7 +297,7 @@
             this.comboBox2.Items.AddRange(new object[] {
             "依品名排序",
             "依日期排序"});
-            this.comboBox2.Location = new System.Drawing.Point(603, 10);
+            this.comboBox2.Location = new System.Drawing.Point(603, 8);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(110, 24);
             this.comboBox2.TabIndex = 42;
@@ -311,7 +311,7 @@
             "全部",
             "已確認",
             "未確認"});
-            this.comboBox1.Location = new System.Drawing.Point(503, 8);
+            this.comboBox1.Location = new System.Drawing.Point(503, 10);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(94, 24);
             this.comboBox1.TabIndex = 41;
@@ -341,6 +341,19 @@
             this.label3.Text = "確認狀況";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // checkBox8
+            // 
+            this.checkBox8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBox8.AutoSize = true;
+            this.checkBox8.Checked = true;
+            this.checkBox8.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox8.Location = new System.Drawing.Point(719, 55);
+            this.checkBox8.Name = "checkBox8";
+            this.checkBox8.Size = new System.Drawing.Size(114, 20);
+            this.checkBox8.TabIndex = 46;
+            this.checkBox8.Text = "國內訂單(共用性商品)";
+            this.checkBox8.UseVisualStyleBackColor = true;
+            // 
             // previewControl1
             // 
             this.previewControl1.BackColor = System.Drawing.SystemColors.AppWorkspace;
@@ -362,19 +375,6 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // checkBox8
-            // 
-            this.checkBox8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox8.AutoSize = true;
-            this.checkBox8.Checked = true;
-            this.checkBox8.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox8.Location = new System.Drawing.Point(719, 55);
-            this.checkBox8.Name = "checkBox8";
-            this.checkBox8.Size = new System.Drawing.Size(114, 20);
-            this.checkBox8.TabIndex = 46;
-            this.checkBox8.Text = "國內訂單(共用性商品)";
-            this.checkBox8.UseVisualStyleBackColor = true;
             // 
             // frmREPORTCOPNEW
             // 
