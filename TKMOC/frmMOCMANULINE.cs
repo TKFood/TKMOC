@@ -2133,10 +2133,10 @@ namespace TKMOC
 
                 MOCTADATA MOCTA = new MOCTADATA();
                 MOCTA.COMPANY = "TK";
-                MOCTA.CREATOR = "000002";
+                MOCTA.CREATOR = "140020";
                 MOCTA.USR_GROUP = "103000";
                 MOCTA.CREATE_DATE = dt1.ToString("yyyyMMdd");
-                MOCTA.MODIFIER = "000002";
+                MOCTA.MODIFIER = "140020";
                 MOCTA.MODI_DATE = dt1.ToString("yyyyMMdd");
                 MOCTA.FLAG = "0";
                 MOCTA.CREATE_TIME = DateTime.Now.ToString("HH:mm:dd");
@@ -2196,10 +2196,10 @@ namespace TKMOC
 
                 MOCTADATA MOCTA = new MOCTADATA();
                 MOCTA.COMPANY = "TK";
-                MOCTA.CREATOR = "000002";
+                MOCTA.CREATOR = "140020";
                 MOCTA.USR_GROUP = "103000";
                 MOCTA.CREATE_DATE = dt2.ToString("yyyyMMdd");
-                MOCTA.MODIFIER = "000002";
+                MOCTA.MODIFIER = "140020";
                 MOCTA.MODI_DATE = dt2.ToString("yyyyMMdd");
                 MOCTA.FLAG = "0";
                 MOCTA.CREATE_TIME = DateTime.Now.ToString("HH:mm:dd");
@@ -2259,10 +2259,10 @@ namespace TKMOC
 
                 MOCTADATA MOCTA = new MOCTADATA();
                 MOCTA.COMPANY = "TK";
-                MOCTA.CREATOR = "000002";
+                MOCTA.CREATOR = "140020";
                 MOCTA.USR_GROUP = "103000";
                 MOCTA.CREATE_DATE = dt3.ToString("yyyyMMdd");
-                MOCTA.MODIFIER = "000002";
+                MOCTA.MODIFIER = "140020";
                 MOCTA.MODI_DATE = dt3.ToString("yyyyMMdd");
                 MOCTA.FLAG = "0";
                 MOCTA.CREATE_TIME = DateTime.Now.ToString("HH:mm:dd");
@@ -2321,10 +2321,10 @@ namespace TKMOC
 
                 MOCTADATA MOCTA = new MOCTADATA();
                 MOCTA.COMPANY = "TK";
-                MOCTA.CREATOR = "000002";
+                MOCTA.CREATOR = "140020";
                 MOCTA.USR_GROUP = "103000";
                 MOCTA.CREATE_DATE = dt4.ToString("yyyyMMdd");
-                MOCTA.MODIFIER = "000002";
+                MOCTA.MODIFIER = "140020";
                 MOCTA.MODI_DATE = dt4.ToString("yyyyMMdd");
                 MOCTA.FLAG = "0";
                 MOCTA.CREATE_TIME = DateTime.Now.ToString("HH:mm:dd");
@@ -2383,10 +2383,10 @@ namespace TKMOC
 
                 MOCTADATA MOCTA = new MOCTADATA();
                 MOCTA.COMPANY = "TK";
-                MOCTA.CREATOR = "000002";
+                MOCTA.CREATOR = "140020";
                 MOCTA.USR_GROUP = "103000";
                 MOCTA.CREATE_DATE = dt5.ToString("yyyyMMdd");
-                MOCTA.MODIFIER = "000002";
+                MOCTA.MODIFIER = "140020";
                 MOCTA.MODI_DATE = dt5.ToString("yyyyMMdd");
                 MOCTA.FLAG = "0";
                 MOCTA.CREATE_TIME = DateTime.Now.ToString("HH:mm:dd");
@@ -2445,10 +2445,10 @@ namespace TKMOC
 
                 MOCTADATA MOCTA = new MOCTADATA();
                 MOCTA.COMPANY = "TK";
-                MOCTA.CREATOR = "000002";
+                MOCTA.CREATOR = "140020";
                 MOCTA.USR_GROUP = "103000";
                 MOCTA.CREATE_DATE = dt6.ToString("yyyyMMdd");
-                MOCTA.MODIFIER = "000002";
+                MOCTA.MODIFIER = "140020";
                 MOCTA.MODI_DATE = dt6.ToString("yyyyMMdd");
                 MOCTA.FLAG = "0";
                 MOCTA.CREATE_TIME = DateTime.Now.ToString("HH:mm:dd");
