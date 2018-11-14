@@ -273,7 +273,7 @@
             this.comboBox3.Items.AddRange(new object[] {
             "明細",
             "月報"});
-            this.comboBox3.Location = new System.Drawing.Point(719, 8);
+            this.comboBox3.Location = new System.Drawing.Point(719, 10);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(114, 24);
             this.comboBox3.TabIndex = 43;
@@ -297,7 +297,7 @@
             this.comboBox2.Items.AddRange(new object[] {
             "依品名排序",
             "依日期排序"});
-            this.comboBox2.Location = new System.Drawing.Point(603, 8);
+            this.comboBox2.Location = new System.Drawing.Point(603, 10);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(110, 24);
             this.comboBox2.TabIndex = 42;
@@ -311,7 +311,7 @@
             "全部",
             "已確認",
             "未確認"});
-            this.comboBox1.Location = new System.Drawing.Point(503, 10);
+            this.comboBox1.Location = new System.Drawing.Point(503, 8);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(94, 24);
             this.comboBox1.TabIndex = 41;

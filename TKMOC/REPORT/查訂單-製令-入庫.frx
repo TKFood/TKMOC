@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="11/14/2018 16:08:47" ReportInfo.Modified="11/14/2018 16:50:48" ReportInfo.CreatorVersion="2016.4.4.0">
+  <ScriptText>using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
+using System.Drawing;
+using System.Data;
+using FastReport;
+using FastReport.Data;
+using FastReport.Dialog;
+using FastReport.Barcode;
+using FastReport.Table;
+using FastReport.Utils;
+
+namespace FastReport
+{
+  public class ReportScript
+  {
+
+    private void Text29_BeforePrint(object sender, EventArgs e)
+    {
+      if((((Decimal)Report.GetColumnValue(&quot;Table.下訂量&quot;))-((Decimal)Report.GetColumnValue(&quot;Table.生產量&quot;)))&lt;0)
+      {
+          Text29.FillColor=Color.Red;
+      }
+    }
+  }
+}
+</ScriptText>
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9KEY4g+Eh7/9BVuYKqNh/Mq">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT COPTD.TD013 AS '預交日',COPTD.TD001 AS '訂單', COPTD.TD002 AS '單號', COPTD.TD003 AS '序號', COPTD.TD004 AS '品號', COPTD.TD005 AS '品名', COPTD.TD008 AS '下訂量', COPTD.TD009 AS '已出貨', COPTD.TD010 AS '單位'&#13;&#10;,MOCTA.TA001 AS '製令',MOCTA.TA002 AS '製令號',MOCTA.TA009 AS '生產日',MOCTA.TA017 AS '生產量'&#13;&#10;FROM [TK].dbo.COPTC,[TK].dbo.COPTD&#13;&#10;&#13;&#10;LEFT JOIN [TK].dbo.MOCTA ON MOCTA.TA026=COPTD.TD001 AND MOCTA.TA027=COPTD.TD002&#13;&#10;WHERE TC001=TD001 AND TC002=TD002&#13;&#10;AND COPTD.TD013&gt;='20181001' AND COPTD.TD013&lt;='20181031'&#13;&#10;AND COPTD.TD008&gt;0&#13;&#10;ORDER BY COPTD.TD013,COPTD.TD001,COPTD.TD004">
+        <Column Name="預交日" DataType="System.String"/>
+        <Column Name="訂單" DataType="System.String"/>
+        <Column Name="單號" DataType="System.String"/>
+        <Column Name="序號" DataType="System.String"/>
+        <Column Name="品號" DataType="System.String"/>
+        <Column Name="品名" DataType="System.String"/>
+        <Column Name="下訂量" DataType="System.Decimal"/>
+        <Column Name="已出貨" DataType="System.Decimal"/>
+        <Column Name="單位" DataType="System.String"/>
+        <Column Name="製令" DataType="System.String"/>
+        <Column Name="製令號" DataType="System.String"/>
+        <Column Name="生產日" DataType="System.String"/>
+        <Column Name="生產量" DataType="System.Decimal"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210">
+    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="28.35">
+      <TextObject Name="Text1" Width="1048.95" Height="18.9" Text="查訂單-製令-入庫" HorzAlign="Center" VertAlign="Center"/>
+    </ReportTitleBand>
+    <ColumnHeaderBand Name="ColumnHeader1" Top="32.2" Width="1047.06" Height="18.9">
+      <TextObject Name="Text3" Width="75.6" Height="18.9" Border.Lines="All" Text="預交日" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text5" Left="75.6" Width="56.7" Height="18.9" Border.Lines="All" Text="訂單" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text7" Left="132.3" Width="85.05" Height="18.9" Border.Lines="All" Text="單號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text9" Left="217.35" Width="47.25" Height="18.9" Border.Lines="All" Text="序號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text11" Left="264.6" Width="103.95" Height="18.9" Border.Lines="All" Text="品號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text13" Left="368.55" Width="151.2" Height="18.9" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text15" Left="519.75" Width="66.15" Height="18.9" Border.Lines="All" Text="下訂量" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text17" Left="585.9" Width="66.15" Height="18.9" Border.Lines="All" Text="已出貨" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text19" Left="652.05" Width="47.25" Height="18.9" Border.Lines="All" Text="單位" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text21" Left="699.3" Width="37.8" Height="18.9" Border.Lines="All" Text="製令" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text23" Left="737.1" Width="85.05" Height="18.9" Border.Lines="All" Text="製令號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text25" Left="822.15" Width="75.6" Height="18.9" Border.Lines="All" Text="生產日" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text27" Left="897.75" Width="66.15" Height="18.9" Border.Lines="All" Text="生產量" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text28" Left="963.9" Width="94.5" Height="18.9" Border.Lines="All" Text="生產量-訂單量" HorzAlign="Center" VertAlign="Center"/>
+    </ColumnHeaderBand>
+    <DataBand Name="Data1" Top="54.94" Width="1047.06" Height="18.9" CanGrow="true" DataSource="Table">
+      <TextObject Name="Text2" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.預交日]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text4" Left="75.6" Width="56.7" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.訂單]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text6" Left="132.3" Width="85.05" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.單號]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text8" Left="217.35" Width="47.25" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.序號]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text10" Left="264.6" Width="103.95" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.品號]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text12" Left="368.55" Width="151.2" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.品名]" VertAlign="Center"/>
+      <TextObject Name="Text14" Left="519.75" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.下訂量]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text16" Left="585.9" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.已出貨]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text18" Left="652.05" Width="47.25" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.單位]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text20" Left="699.3" Width="37.8" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.製令]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text22" Left="737.1" Width="85.05" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.製令號]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text24" Left="822.15" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.生產日]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text26" Left="897.75" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.生產量]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text29" Left="963.9" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" BeforePrintEvent="Text29_BeforePrint" Text="[[Table.生產量]-[Table.下訂量]]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+    </DataBand>
+    <ColumnFooterBand Name="ColumnFooter1" Top="77.69" Width="1047.06" Height="18.9"/>
+  </ReportPage>
+</Report>
