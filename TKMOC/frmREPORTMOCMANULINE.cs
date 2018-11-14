@@ -150,7 +150,7 @@ namespace TKMOC
                 STR.AppendFormat(@"  ,[MOCMANULINE].MB001 AS '品號',[MOCMANULINE].MB002 AS '品名',[MOCMANULINE].MB003 AS '規格'");
                 STR.AppendFormat(@"  ,ISNULL([MOCMANULINE].BAR,0) AS '桶數',ISNULL([MOCMANULINE].NUM,0) AS '片數',ISNULL([MOCMANULINE].BOX,0) AS '箱數',ISNULL([MOCMANULINE].PACKAGE,0) AS '包裝數'");
                 STR.AppendFormat(@"  ,ISNULL(CONVERT(NVARCHAR(10),[MOCMANULINE].OUTDATE,112),'') AS '預交日'");
-                STR.AppendFormat(@"  ,[MOCMANULINE].CLINET AS '客戶',ISNULL([MOCMANULINE].MANUHOUR,0) AS '生產時數'");
+                STR.AppendFormat(@"  ,[MOCMANULINE].CLINET AS '客戶',[MOCMANULINE].[TA029] AS '備註',ISNULL([MOCMANULINE].MANUHOUR,0) AS '生產時數'");
                 STR.AppendFormat(@"  ,[ID]");
                 STR.AppendFormat(@"  ,ISNULL([MOCMANULINERESULT].MOCTA001,'') AS '製令單別',ISNULL([MOCMANULINERESULT].MOCTA002,'') AS '製令單號'");
                 STR.AppendFormat(@"  ,[MOCTA].TA015 AS '預計產量' ,[MOCTA].TA007 AS '單位'   ");
@@ -172,7 +172,7 @@ namespace TKMOC
                 STR.AppendFormat(@"  ,[MOCMANULINE].MB001 AS '品號',[MOCMANULINE].MB002 AS '品名',[MOCMANULINE].MB003 AS '規格'");
                 STR.AppendFormat(@"  ,ISNULL([MOCMANULINE].BAR,0) AS '桶數',ISNULL([MOCMANULINE].NUM,0) AS '片數',ISNULL([MOCMANULINE].BOX,0) AS '箱數',ISNULL([MOCMANULINE].PACKAGE,0) AS '包裝數'");
                 STR.AppendFormat(@"  ,ISNULL(CONVERT(NVARCHAR(10),[MOCMANULINE].OUTDATE,112),'') AS '預交日'");
-                STR.AppendFormat(@"  ,[MOCMANULINE].CLINET AS '客戶',ISNULL([MOCMANULINE].MANUHOUR,0) AS '生產時數'");
+                STR.AppendFormat(@"  ,[MOCMANULINE].CLINET AS '客戶',[MOCMANULINE].[TA029] AS '備註',ISNULL([MOCMANULINE].MANUHOUR,0) AS '生產時數'");
                 STR.AppendFormat(@"  ,[ID]");
                 STR.AppendFormat(@"  ,ISNULL([MOCMANULINERESULT].MOCTA001,'') AS '製令單別',ISNULL([MOCMANULINERESULT].MOCTA002,'') AS '製令單號'");
                 STR.AppendFormat(@"  ,[MOCTA].TA015 AS '預計產量' ,[MOCTA].TA007 AS '單位'   ");
