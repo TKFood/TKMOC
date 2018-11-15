@@ -63,9 +63,11 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label20 = new System.Windows.Forms.Label();
             this.textBox13 = new System.Windows.Forms.TextBox();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label85 = new System.Windows.Forms.Label();
+            this.textBox12 = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -138,6 +140,8 @@
             this.tableLayoutPanel1.Controls.Add(this.textBox2, 1, 6);
             this.tableLayoutPanel1.Controls.Add(this.label20, 4, 4);
             this.tableLayoutPanel1.Controls.Add(this.textBox13, 5, 4);
+            this.tableLayoutPanel1.Controls.Add(this.label85, 4, 6);
+            this.tableLayoutPanel1.Controls.Add(this.textBox12, 5, 6);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
@@ -503,16 +507,6 @@
             this.textBox2.Size = new System.Drawing.Size(334, 27);
             this.textBox2.TabIndex = 118;
             // 
-            // tabPage2
-            // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(722, 371);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
             // label20
             // 
             this.label20.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -534,6 +528,38 @@
             this.textBox13.Size = new System.Drawing.Size(114, 27);
             this.textBox13.TabIndex = 120;
             this.textBox13.Text = "0";
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(722, 371);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // label85
+            // 
+            this.label85.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label85.AutoSize = true;
+            this.label85.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label85.Location = new System.Drawing.Point(403, 252);
+            this.label85.Name = "label85";
+            this.label85.Size = new System.Drawing.Size(74, 16);
+            this.label85.TabIndex = 121;
+            this.label85.Text = "半成品";
+            this.label85.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // textBox12
+            // 
+            this.textBox12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox12.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.textBox12.Location = new System.Drawing.Point(483, 246);
+            this.textBox12.Name = "textBox12";
+            this.textBox12.Size = new System.Drawing.Size(114, 27);
+            this.textBox12.TabIndex = 122;
+            this.textBox12.Text = "0";
             // 
             // frmMOCMANULINESub
             // 
@@ -591,5 +617,7 @@
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.TextBox textBox13;
+        private System.Windows.Forms.Label label85;
+        private System.Windows.Forms.TextBox textBox12;
     }
 }
