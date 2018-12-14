@@ -17,6 +17,8 @@ using System.Reflection;
 using System.Threading;
 using System.Globalization;
 using Calendar.NET;
+using FastReport;
+using FastReport.Data;
 
 namespace TKMOC
 {
@@ -43,13 +45,14 @@ namespace TKMOC
         DataSet dsCALENDAR2 = new DataSet();
 
         int result;
+        Report report1 = new Report();
 
         public frmMOCMONTHVIEW()
         {
             InitializeComponent();
 
             SETCALENDAR();
-            //SETCALENDAR2();
+           
         }
 
         #region FUNCTION
@@ -150,104 +153,51 @@ namespace TKMOC
             }
         }
 
-        //public void SETCALENDAR2()
-        //{
-        //    string EVENT;
-        //    DateTime dtEVENT;
-        //    var ce2 = new CustomEvent();
+        public void SETFASTREPORT()
+        {
+            StringBuilder SQL = new StringBuilder();
+
+            SQL = SETSQL();
+
+            report1.Load(@"REPORT\包裝時數明細.frx");
+
+            report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+            TableDataSource table = report1.GetDataSource("Table") as TableDataSource;
+            table.SelectCommand = SQL.ToString();
+
+            report1.Preview = previewControl1;
+            report1.Show();
+        }
+
+        public StringBuilder SETSQL()
+        {
 
 
-        //    calendar2.RemoveAllEvents();
-        //    calendar2.CalendarDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0);
-        //    calendar2.CalendarView = CalendarViews.Month;
-        //    calendar2.AllowEditingEvents = true;
+            StringBuilder SB = new StringBuilder();
 
+            SB.AppendFormat(@" SELECT  [MOCMANULINE].[MANU] AS '線別',CONVERT(nvarchar,[MOCMANULINE].[MANUDATE],112) AS '日期',[MOCMANULINE].[MB001] AS '品號',[MOCMANULINE].[MB002] AS '品名',[MOCMANULINE].[BOX] AS '箱數',[MOCMANULINE].[PACKAGE] AS '包裝數'");
+            SB.AppendFormat(@" ,CONVERT(decimal(16,2),([MOCMANULINE].[PACKAGE]/[MOCSTDTIME].PROCESSNUM*[MOCSTDTIME].PROCESSTIME/60)) AS '包裝時數'");
+            SB.AppendFormat(@" ,[MOCMANULINE].[ID],[MOCMANULINE].[SERNO]");
+            SB.AppendFormat(@" ,[MOCSTDTIME].PROCESSNUM,[MOCSTDTIME].PROCESSTIME");
+            SB.AppendFormat(@" FROM [TKMOC].[dbo].[MOCMANULINE]");
+            SB.AppendFormat(@" LEFT JOIN [TKMOC].[dbo].[MOCSTDTIME] ON [MOCMANULINE].[MB001]=[MOCSTDTIME].[MB001]");
+            SB.AppendFormat(@" WHERE [MANU]='新廠包裝線' ");
+            SB.AppendFormat(@" AND [MANUDATE]>='{0}'  AND  [MANUDATE]<='{1}' ",dateTimePicker1.Value.ToString("yyyy/MM/dd"), dateTimePicker2.Value.ToString("yyyy/MM/dd"));
+            SB.AppendFormat(@" ORDER BY [MANUDATE],[MOCMANULINE].[MB001]");
+            SB.AppendFormat(@" ");
 
+            return SB;
 
-
-        //    try
-        //    {
-        //        connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
-        //        sqlConn = new SqlConnection(connectionString);
-
-        //        sbSql.Clear();
-        //        sbSqlQuery.Clear();
-
-
-
-        //        sbSql.AppendFormat(@"  SELECT [EVENTDATE],[MOCLINE],[EVENT]");
-        //        sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[CALENDARMONTH]");
-        //        sbSql.AppendFormat(@"  WHERE [EVENTDATE]>='{0}'", DateTime.Now.ToString("yyyy") + "0101");
-        //        sbSql.AppendFormat(@"  AND [MOCLINE]='包裝線'");
-        //        sbSql.AppendFormat(@"  ORDER BY [EVENTDATE]");
-        //        sbSql.AppendFormat(@"  ");
-
-
-        //        //sbSql.AppendFormat(@"  SELECT [ID],[SERNO],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET],[MANUHOUR],[BOX],[PACKAGE],[OUTDATE],[TA029]");
-        //        //sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
-        //        //sbSql.AppendFormat(@"  WHERE [MANU]='新廠包裝線'");
-        //        //sbSql.AppendFormat(@"  AND [MANUDATE]>='{0}'", DateTime.Now.ToString("yyyy") + "/1/1");
-        //        //sbSql.AppendFormat(@" ORDER BY [MANUDATE] ");
-        //        //sbSql.AppendFormat(@"  ");
-
-        //        adapterCALENDAR2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-        //        sqlCmdBuilderCALENDAR2 = new SqlCommandBuilder(adapter2);
-        //        sqlConn.Open();
-        //        dsCALENDAR2.Clear();
-        //        adapterCALENDAR2.Fill(dsCALENDAR2, "TEMPdsCALENDAR2");
-        //        sqlConn.Close();
-
-
-        //        if (dsCALENDAR2.Tables["TEMPdsCALENDAR2"].Rows.Count == 0)
-        //        {
-
-        //        }
-        //        else
-        //        {
-        //            if (dsCALENDAR2.Tables["TEMPdsCALENDAR2"].Rows.Count >= 1)
-        //            {
-        //                foreach (DataRow od in dsCALENDAR2.Tables["TEMPdsCALENDAR2"].Rows)
-        //                {
-        //                    EVENT = od["MB002"].ToString() + "-" + od["BOX"].ToString()+"箱";
-        //                    dtEVENT = Convert.ToDateTime(od["MANUDATE"].ToString());
-
-        //                    ce2 = new CustomEvent
-        //                    {
-        //                        IgnoreTimeComponent = false,
-        //                        EventText = EVENT,
-        //                        Date = new DateTime(dtEVENT.Year, dtEVENT.Month, dtEVENT.Day),
-        //                        EventLengthInHours = 2f,
-        //                        RecurringFrequency = RecurringFrequencies.None,
-        //                        EventFont = new Font("Verdana", 12, FontStyle.Regular),
-        //                        Enabled = true,
-        //                        EventColor = Color.FromArgb(120, 255, 120),
-        //                        EventTextColor = Color.Black,
-        //                        ThisDayForwardOnly = true
-        //                    };
-
-        //                    calendar2.AddEvent(ce2);
-        //                }
-
-
-
-        //            }
-        //        }
-
-        //    }
-        //    catch
-        //    {
-
-        //    }
-        //    finally
-        //    {
-
-        //    }
-        //}
+        }
         #endregion
 
         #region BUTTON
-
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SETFASTREPORT();
+        }
         #endregion
+
+
     }
 }

@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="12/14/2018 14:14:01" ReportInfo.Modified="12/14/2018 14:20:21" ReportInfo.CreatorVersion="2016.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9KsF/qagxs8r8jL0p/BCSqk">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT  [MOCMANULINE].[MANU] AS '線別',CONVERT(nvarchar,[MOCMANULINE].[MANUDATE],112) AS '日期',[MOCMANULINE].[MB001] AS '品號',[MOCMANULINE].[MB002] AS '品名',[MOCMANULINE].[BOX] AS '箱數',[MOCMANULINE].[PACKAGE] AS '包裝數'&#13;&#10;,CONVERT(decimal(16,2),([MOCMANULINE].[PACKAGE]/[MOCSTDTIME].PROCESSNUM*[MOCSTDTIME].PROCESSTIME/60)) AS '包裝時數'&#13;&#10;,[MOCMANULINE].[ID],[MOCMANULINE].[SERNO]&#13;&#10;,[MOCSTDTIME].PROCESSNUM,[MOCSTDTIME].PROCESSTIME&#13;&#10;FROM [TKMOC].[dbo].[MOCMANULINE]&#13;&#10;LEFT JOIN [TKMOC].[dbo].[MOCSTDTIME] ON [MOCMANULINE].[MB001]=[MOCSTDTIME].[MB001]&#13;&#10;WHERE [MANU]='新廠包裝線' &#13;&#10;AND [MANUDATE]&gt;='2018/12/14'  AND  [MANUDATE]&lt;='2018/12/31'&#13;&#10;ORDER BY [MANUDATE],[MOCMANULINE].[MB001]">
+        <Column Name="線別" DataType="System.String"/>
+        <Column Name="日期" DataType="System.String"/>
+        <Column Name="品號" DataType="System.String"/>
+        <Column Name="品名" DataType="System.String"/>
+        <Column Name="箱數" DataType="System.Decimal"/>
+        <Column Name="包裝數" DataType="System.Decimal"/>
+        <Column Name="包裝時數" DataType="System.Decimal"/>
+        <Column Name="ID" DataType="System.Guid"/>
+        <Column Name="SERNO" DataType="System.Int32"/>
+        <Column Name="PROCESSNUM" DataType="System.Int32"/>
+        <Column Name="PROCESSTIME" DataType="System.Int32"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+  </Dictionary>
+  <ReportPage Name="Page1">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="18.9">
+      <TextObject Name="Text1" Width="708.75" Height="18.9" Text="包裝時數明細" HorzAlign="Center" VertAlign="Center"/>
+    </ReportTitleBand>
+    <ColumnHeaderBand Name="ColumnHeader1" Top="22.75" Width="718.2" Height="18.9">
+      <TextObject Name="Text3" Left="-9.45" Width="94.5" Height="18.9" Border.Lines="All" Text="線別" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text5" Left="85.05" Width="75.6" Height="18.9" Border.Lines="All" Text="日期" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text7" Left="160.65" Width="113.4" Height="18.9" Border.Lines="All" Text="品號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text9" Left="274.05" Width="170.1" Height="18.9" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text11" Left="444.15" Width="75.6" Height="18.9" Border.Lines="All" Text="箱數" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text13" Left="519.75" Width="94.5" Height="18.9" Border.Lines="All" Text="包裝數" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text15" Left="614.25" Width="94.5" Height="18.9" Border.Lines="All" Text="包裝時數" HorzAlign="Center" VertAlign="Center"/>
+    </ColumnHeaderBand>
+    <DataBand Name="Data1" Top="45.49" Width="718.2" Height="18.9" CanGrow="true" DataSource="Table">
+      <TextObject Name="Text2" Left="-9.45" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.線別]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text4" Left="85.05" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.日期]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text6" Left="160.65" Width="113.4" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.品號]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text8" Left="274.05" Width="170.1" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.品名]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text10" Left="444.15" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.箱數]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text12" Left="519.75" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.包裝數]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text14" Left="614.25" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.包裝時數]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+    </DataBand>
+  </ReportPage>
+</Report>
