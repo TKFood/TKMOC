@@ -49,7 +49,7 @@ namespace TKMOC
             InitializeComponent();
 
             SETCALENDAR();
-            SETCALENDAR2();
+            //SETCALENDAR2();
         }
 
         #region FUNCTION
@@ -78,11 +78,21 @@ namespace TKMOC
 
 
 
-                sbSql.AppendFormat(@"  SELECT [EVENTDATE],[MOCLINE],[EVENT]");
-                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[CALENDARMONTH]");
-                sbSql.AppendFormat(@"  WHERE [EVENTDATE]>='{0}'", DateTime.Now.ToString("yyyy") + "0101");
-                sbSql.AppendFormat(@"  AND [MOCLINE]<>'包裝線'");
-                sbSql.AppendFormat(@"  ORDER BY [EVENTDATE]");
+                //sbSql.AppendFormat(@"  SELECT [EVENTDATE],[MOCLINE],[EVENT]");
+                //sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[CALENDARMONTH]");
+                //sbSql.AppendFormat(@"  WHERE [EVENTDATE]>='{0}'", DateTime.Now.ToString("yyyy") + "0101");
+                //sbSql.AppendFormat(@"  AND [MOCLINE]<>'包裝線'");
+                //sbSql.AppendFormat(@"  ORDER BY [EVENTDATE]");
+                //sbSql.AppendFormat(@"  ");
+
+                sbSql.AppendFormat(@"  SELECT  [MOCMANULINE].[MANUDATE]");
+                sbSql.AppendFormat(@"  ,CONVERT(decimal(16,2),SUM([MOCMANULINE].[PACKAGE]/[MOCSTDTIME].PROCESSNUM*[MOCSTDTIME].PROCESSTIME/60))  AS TIMES");
+                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
+                sbSql.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[MOCSTDTIME] ON [MOCMANULINE].[MB001]=[MOCSTDTIME].[MB001]");
+                sbSql.AppendFormat(@"  WHERE [MANU]='新廠包裝線' AND ([MANUDATE]>=CONVERT(NVARCHAR,datepart(yyyy, getdate()))+'/1/1')");
+                sbSql.AppendFormat(@"  GROUP BY [MANUDATE]");
+                sbSql.AppendFormat(@"  ORDER BY [MANUDATE]");
+                sbSql.AppendFormat(@"  ");
                 sbSql.AppendFormat(@"  ");
 
                 adapterCALENDAR = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -104,8 +114,8 @@ namespace TKMOC
                     {
                         foreach (DataRow od in dsCALENDAR.Tables["TEMPdsCALENDAR"].Rows)
                         {
-                            EVENT = od["MOCLINE"].ToString() + "-" + od["EVENT"].ToString();
-                            dtEVENT = Convert.ToDateTime(od["EVENTDATE"].ToString());
+                            EVENT = "包裝:" + od["TIMES"].ToString()+"小時";
+                            dtEVENT = Convert.ToDateTime(od["MANUDATE"].ToString());
 
                             ce2 = new CustomEvent
                             {
@@ -140,100 +150,100 @@ namespace TKMOC
             }
         }
 
-        public void SETCALENDAR2()
-        {
-            string EVENT;
-            DateTime dtEVENT;
-            var ce2 = new CustomEvent();
+        //public void SETCALENDAR2()
+        //{
+        //    string EVENT;
+        //    DateTime dtEVENT;
+        //    var ce2 = new CustomEvent();
 
 
-            calendar2.RemoveAllEvents();
-            calendar2.CalendarDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0);
-            calendar2.CalendarView = CalendarViews.Month;
-            calendar2.AllowEditingEvents = true;
-
-
-
-
-            try
-            {
-                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
-                sqlConn = new SqlConnection(connectionString);
-
-                sbSql.Clear();
-                sbSqlQuery.Clear();
+        //    calendar2.RemoveAllEvents();
+        //    calendar2.CalendarDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0);
+        //    calendar2.CalendarView = CalendarViews.Month;
+        //    calendar2.AllowEditingEvents = true;
 
 
 
-                sbSql.AppendFormat(@"  SELECT [EVENTDATE],[MOCLINE],[EVENT]");
-                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[CALENDARMONTH]");
-                sbSql.AppendFormat(@"  WHERE [EVENTDATE]>='{0}'", DateTime.Now.ToString("yyyy") + "0101");
-                sbSql.AppendFormat(@"  AND [MOCLINE]='包裝線'");
-                sbSql.AppendFormat(@"  ORDER BY [EVENTDATE]");
-                sbSql.AppendFormat(@"  ");
 
+        //    try
+        //    {
+        //        connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+        //        sqlConn = new SqlConnection(connectionString);
 
-                //sbSql.AppendFormat(@"  SELECT [ID],[SERNO],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET],[MANUHOUR],[BOX],[PACKAGE],[OUTDATE],[TA029]");
-                //sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
-                //sbSql.AppendFormat(@"  WHERE [MANU]='新廠包裝線'");
-                //sbSql.AppendFormat(@"  AND [MANUDATE]>='{0}'", DateTime.Now.ToString("yyyy") + "/1/1");
-                //sbSql.AppendFormat(@" ORDER BY [MANUDATE] ");
-                //sbSql.AppendFormat(@"  ");
-
-                adapterCALENDAR2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                sqlCmdBuilderCALENDAR2 = new SqlCommandBuilder(adapter2);
-                sqlConn.Open();
-                dsCALENDAR2.Clear();
-                adapterCALENDAR2.Fill(dsCALENDAR2, "TEMPdsCALENDAR2");
-                sqlConn.Close();
-
-
-                if (dsCALENDAR2.Tables["TEMPdsCALENDAR2"].Rows.Count == 0)
-                {
-
-                }
-                else
-                {
-                    if (dsCALENDAR2.Tables["TEMPdsCALENDAR2"].Rows.Count >= 1)
-                    {
-                        foreach (DataRow od in dsCALENDAR2.Tables["TEMPdsCALENDAR2"].Rows)
-                        {
-                            EVENT = od["MB002"].ToString() + "-" + od["BOX"].ToString()+"箱";
-                            dtEVENT = Convert.ToDateTime(od["MANUDATE"].ToString());
-
-                            ce2 = new CustomEvent
-                            {
-                                IgnoreTimeComponent = false,
-                                EventText = EVENT,
-                                Date = new DateTime(dtEVENT.Year, dtEVENT.Month, dtEVENT.Day),
-                                EventLengthInHours = 2f,
-                                RecurringFrequency = RecurringFrequencies.None,
-                                EventFont = new Font("Verdana", 12, FontStyle.Regular),
-                                Enabled = true,
-                                EventColor = Color.FromArgb(120, 255, 120),
-                                EventTextColor = Color.Black,
-                                ThisDayForwardOnly = true
-                            };
-
-                            calendar2.AddEvent(ce2);
-                        }
+        //        sbSql.Clear();
+        //        sbSqlQuery.Clear();
 
 
 
-                    }
-                }
+        //        sbSql.AppendFormat(@"  SELECT [EVENTDATE],[MOCLINE],[EVENT]");
+        //        sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[CALENDARMONTH]");
+        //        sbSql.AppendFormat(@"  WHERE [EVENTDATE]>='{0}'", DateTime.Now.ToString("yyyy") + "0101");
+        //        sbSql.AppendFormat(@"  AND [MOCLINE]='包裝線'");
+        //        sbSql.AppendFormat(@"  ORDER BY [EVENTDATE]");
+        //        sbSql.AppendFormat(@"  ");
 
-            }
-            catch
-            {
 
-            }
-            finally
-            {
+        //        //sbSql.AppendFormat(@"  SELECT [ID],[SERNO],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET],[MANUHOUR],[BOX],[PACKAGE],[OUTDATE],[TA029]");
+        //        //sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
+        //        //sbSql.AppendFormat(@"  WHERE [MANU]='新廠包裝線'");
+        //        //sbSql.AppendFormat(@"  AND [MANUDATE]>='{0}'", DateTime.Now.ToString("yyyy") + "/1/1");
+        //        //sbSql.AppendFormat(@" ORDER BY [MANUDATE] ");
+        //        //sbSql.AppendFormat(@"  ");
 
-            }
-        }
+        //        adapterCALENDAR2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+        //        sqlCmdBuilderCALENDAR2 = new SqlCommandBuilder(adapter2);
+        //        sqlConn.Open();
+        //        dsCALENDAR2.Clear();
+        //        adapterCALENDAR2.Fill(dsCALENDAR2, "TEMPdsCALENDAR2");
+        //        sqlConn.Close();
+
+
+        //        if (dsCALENDAR2.Tables["TEMPdsCALENDAR2"].Rows.Count == 0)
+        //        {
+
+        //        }
+        //        else
+        //        {
+        //            if (dsCALENDAR2.Tables["TEMPdsCALENDAR2"].Rows.Count >= 1)
+        //            {
+        //                foreach (DataRow od in dsCALENDAR2.Tables["TEMPdsCALENDAR2"].Rows)
+        //                {
+        //                    EVENT = od["MB002"].ToString() + "-" + od["BOX"].ToString()+"箱";
+        //                    dtEVENT = Convert.ToDateTime(od["MANUDATE"].ToString());
+
+        //                    ce2 = new CustomEvent
+        //                    {
+        //                        IgnoreTimeComponent = false,
+        //                        EventText = EVENT,
+        //                        Date = new DateTime(dtEVENT.Year, dtEVENT.Month, dtEVENT.Day),
+        //                        EventLengthInHours = 2f,
+        //                        RecurringFrequency = RecurringFrequencies.None,
+        //                        EventFont = new Font("Verdana", 12, FontStyle.Regular),
+        //                        Enabled = true,
+        //                        EventColor = Color.FromArgb(120, 255, 120),
+        //                        EventTextColor = Color.Black,
+        //                        ThisDayForwardOnly = true
+        //                    };
+
+        //                    calendar2.AddEvent(ce2);
+        //                }
+
+
+
+        //            }
+        //        }
+
+        //    }
+        //    catch
+        //    {
+
+        //    }
+        //    finally
+        //    {
+
+        //    }
+        //}
         #endregion
 
         #region BUTTON
