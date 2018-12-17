@@ -2184,8 +2184,8 @@ namespace TKMOC
                 MOCTA.TA041 = "";
                 MOCTA.TA043 = "1";
                 MOCTA.TA044 = "N";
-                MOCTA.TA045 = SUM1.ToString();
-                MOCTA.TA046 = SUM1.ToString();
+                MOCTA.TA045 = "0";
+                MOCTA.TA046 = "0";
                 MOCTA.TA047 = "0";
                 MOCTA.TA049 = "0";
                 MOCTA.TA050 = "0";
@@ -2247,8 +2247,8 @@ namespace TKMOC
                 MOCTA.TA041 = "";
                 MOCTA.TA043 = "1";
                 MOCTA.TA044 = "N";
-                MOCTA.TA045 = SUM2.ToString();
-                MOCTA.TA046 = SUM2.ToString();
+                MOCTA.TA045 = "0";
+                MOCTA.TA046 = "0";
                 MOCTA.TA047 = "0";
                 MOCTA.TA049 = "0";
                 MOCTA.TA050 = "0";
@@ -2310,8 +2310,8 @@ namespace TKMOC
                 MOCTA.TA041 = "";
                 MOCTA.TA043 = "1";
                 MOCTA.TA044 = "N";
-                MOCTA.TA045 = SUM3.ToString();
-                MOCTA.TA046 = SUM3.ToString();
+                MOCTA.TA045 = "0";
+                MOCTA.TA046 = "0";
                 MOCTA.TA047 = "0";
                 MOCTA.TA049 = "0";
                 MOCTA.TA050 = "0";
@@ -2372,8 +2372,8 @@ namespace TKMOC
                 MOCTA.TA041 = "";
                 MOCTA.TA043 = "1";
                 MOCTA.TA044 = "N";
-                MOCTA.TA045 = SUM4.ToString();
-                MOCTA.TA046 = SUM4.ToString();
+                MOCTA.TA045 = "0";
+                MOCTA.TA046 = "0";
                 MOCTA.TA047 = "0";
                 MOCTA.TA049 = "0";
                 MOCTA.TA050 = "0";
@@ -2433,8 +2433,8 @@ namespace TKMOC
                 MOCTA.TA041 = "";
                 MOCTA.TA043 = "1";
                 MOCTA.TA044 = "N";
-                MOCTA.TA045 = (BAR3 * BOMBAR).ToString();
-                MOCTA.TA046 = (BAR3 * BOMBAR).ToString();
+                MOCTA.TA045 = "0";
+                MOCTA.TA046 = "0";
                 MOCTA.TA047 = "0";
                 MOCTA.TA049 = "0";
                 MOCTA.TA050 = "0";
@@ -2497,8 +2497,8 @@ namespace TKMOC
                 MOCTA.TA041 = "";
                 MOCTA.TA043 = "1";
                 MOCTA.TA044 = "N";
-                MOCTA.TA045 = SUM5.ToString();
-                MOCTA.TA046 = SUM5.ToString();
+                MOCTA.TA045 = "0";
+                MOCTA.TA046 = "0";
                 MOCTA.TA047 = "0";
                 MOCTA.TA049 = "0";
                 MOCTA.TA050 = "0";
