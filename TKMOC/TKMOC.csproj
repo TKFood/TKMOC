@@ -330,6 +330,12 @@
     <Compile Include="frmPORMOCIN.Designer.cs">
       <DependentUpon>frmPORMOCIN.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmRECOPSTILL.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRECOPSTILL.Designer.cs">
+      <DependentUpon>frmRECOPSTILL.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmREPORTCOP.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -499,6 +505,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmPORMOCIN.resx">
       <DependentUpon>frmPORMOCIN.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmRECOPSTILL.resx">
+      <DependentUpon>frmRECOPSTILL.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmREPORTCOP.resx">
       <DependentUpon>frmREPORTCOP.cs</DependentUpon>
