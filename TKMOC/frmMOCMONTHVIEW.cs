@@ -130,7 +130,7 @@ namespace TKMOC
                                 EventFont = new Font("Verdana", 12, FontStyle.Regular),
                                 Enabled = true,
                                 EventColor = Color.FromArgb(120, 255, 120),
-                                EventTextColor = Color.Black,
+                                EventTextColor = Color.Red,
                                 ThisDayForwardOnly = true
                             };
 
