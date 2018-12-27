@@ -53,7 +53,7 @@ namespace TKMOC
 
             SQL1 = SETSQL1();
             Report report1 = new Report();
-            report1.Load(@"REPORT\訂單已出貨且未出完且未結案報表.frx");
+            report1.Load(@"REPORT\訂單未出完且未結案報表.frx");
 
             report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
             TableDataSource table = report1.GetDataSource("Table") as TableDataSource;
