@@ -67,16 +67,19 @@ namespace TKMOC
         {
             StringBuilder SB = new StringBuilder();
 
-            SB.AppendFormat(" SELECT TC053 AS '客戶',TD013 AS '預交日',TD004 AS '品號',TD005 AS '品名',TD006 AS '規格',TD008 AS '訂單量',TD009 AS '出貨單',(TD008-TD009) AS '未出貨量',TD010 AS '單位',TD001 AS '訂單',TD002 AS '單號',TD003 AS '序號'");
+            SB.AppendFormat(" SELECT TC053 AS '客戶',TD013 AS '預交日',TD004 AS '品號',TD005 AS '品名',TD006 AS '規格',TD008 AS '訂單量',TD009 AS '出貨量',TD024 AS '贈品量',TD025 AS '贈品已交量',(TD008-TD009+TD024-TD025) AS '總未出貨量',TD010 AS '單位',TD001 AS '訂單',TD002 AS '單號',TD003 AS '序號'");
             SB.AppendFormat(" FROM [TK].dbo.COPTD,[TK].dbo.COPTC");
             SB.AppendFormat(" WHERE TC001=TD001 AND TC002=TD002");
-            SB.AppendFormat(" AND TD013>='{0}' AND TD013<='{1}'",dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
-            SB.AppendFormat(" AND (TD008-TD009)>0");
-            SB.AppendFormat(" AND TD009>0");
+            SB.AppendFormat(" AND TD013>='20181201' AND TD013<='20190131'");
+            SB.AppendFormat(" AND TD004 LIKE '4%'");
+            SB.AppendFormat(" AND (TD008-TD009+TD024-TD025)>0");
+            SB.AppendFormat(" AND TD021='Y'");
             SB.AppendFormat(" AND TD016='N'");
-            SB.AppendFormat(" AND TC001 IN ('A221','A222')");
-            SB.AppendFormat("ORDER BY TC053,TD013,TD004 ");
+            SB.AppendFormat(" AND TC001 IN ('A221', 'A222')");
+            SB.AppendFormat(" ORDER BY TC001,TC053,TD013,TD004");
             SB.AppendFormat(" ");
+
+
 
             return SB;
 
