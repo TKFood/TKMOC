@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="12/26/2018 09:57:54" ReportInfo.Modified="12/28/2018 11:25:45" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="12/26/2018 09:57:54" ReportInfo.Modified="01/02/2019 10:59:16" ReportInfo.CreatorVersion="2016.4.4.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9K1Sa4wO5/NqA3ICXm0PFWX">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9KsmUu+GGWloCWjoGYEEZz9">
       <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT TC053 AS '客戶',TD013 AS '預交日',TD004 AS '品號',TD005 AS '品名',TD006 AS '規格',TD008 AS '訂單量',TD009 AS '出貨量',TD024 AS '贈品量',TD025 AS '贈品已交量',(TD008-TD009+TD024-TD025) AS '總未出貨量',TD010 AS '單位',TD001 AS '訂單',TD002 AS '單號',TD003 AS '序號'&#13;&#10;FROM [TK].dbo.COPTD,[TK].dbo.COPTC&#13;&#10;WHERE TC001=TD001 AND TC002=TD002&#13;&#10;AND TD013&gt;='20181201' AND TD013&lt;='20190131'&#13;&#10;AND TD004 LIKE '4%'&#13;&#10;AND (TD008-TD009+TD024-TD025)&gt;0&#13;&#10;AND TD021='Y' &#13;&#10;AND TD016='N'&#13;&#10;AND TC001 IN ('A221', 'A222')&#13;&#10;ORDER BY TC001,TC053,TD013,TD004">
         <Column Name="客戶" DataType="System.String"/>
         <Column Name="預交日" DataType="System.String"/>
@@ -21,26 +21,24 @@
     </MsSqlDataConnection>
   </Dictionary>
   <ReportPage Name="Page1" Landscape="true" PaperWidth="400" PaperHeight="210">
-    <ReportTitleBand Name="ReportTitle1" Width="1436.4" Height="18.9">
+    <ReportTitleBand Name="ReportTitle1" Width="1436.4" Height="37.8">
       <TextObject Name="Text1" Width="1323" Height="18.9" Text="訂單已出貨且未出完且未結案報表" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text23" Left="576.45" Top="18.9" Width="122.85" Height="18.9" Border.Lines="All" Text="規格" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text3" Top="18.9" Width="207.9" Height="18.9" Border.Lines="All" Text="客戶" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text5" Left="207.9" Top="18.9" Width="66.15" Height="18.9" Border.Lines="All" Text="預交日" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text7" Left="274.05" Top="18.9" Width="103.95" Height="18.9" Border.Lines="All" Text="品號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text9" Left="378" Top="18.9" Width="198.45" Height="18.9" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text11" Left="699.3" Top="18.9" Width="75.6" Height="18.9" Border.Lines="All" Text="訂單量" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text13" Left="774.9" Top="18.9" Width="75.6" Height="18.9" Border.Lines="All" Text="出貨單" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text15" Left="1001.7" Top="18.9" Width="75.6" Height="18.9" Border.Lines="All" Text="總未出貨量" HorzAlign="Center" VertAlign="Center" TextFill.Color="Red"/>
+      <TextObject Name="Text17" Left="1077.3" Top="18.9" Width="37.8" Height="18.9" Border.Lines="All" Text="單位" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text19" Left="1115.1" Top="18.9" Width="47.25" Height="18.9" Border.Lines="All" Text="訂單" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text21" Left="1162.35" Top="18.9" Width="94.5" Height="18.9" Border.Lines="All" Text="單號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text25" Left="1256.85" Top="18.9" Width="66.15" Height="18.9" Border.Lines="All" Text="序號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text27" Left="926.1" Top="18.9" Width="75.6" Height="18.9" Border.Lines="All" Text="贈品已交量" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text29" Left="850.5" Top="18.9" Width="75.6" Height="18.9" Border.Lines="All" Text="贈品量" HorzAlign="Center" VertAlign="Center"/>
     </ReportTitleBand>
-    <ColumnHeaderBand Name="ColumnHeader1" Top="22.75" Width="1436.4" Height="18.9">
-      <TextObject Name="Text3" Width="207.9" Height="18.9" Border.Lines="All" Text="客戶" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text5" Left="207.9" Width="66.15" Height="18.9" Border.Lines="All" Text="預交日" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text7" Left="274.05" Width="103.95" Height="18.9" Border.Lines="All" Text="品號" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text9" Left="378" Width="198.45" Height="18.9" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text11" Left="699.3" Width="75.6" Height="18.9" Border.Lines="All" Text="訂單量" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text13" Left="774.9" Width="75.6" Height="18.9" Border.Lines="All" Text="出貨單" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text15" Left="1001.7" Width="75.6" Height="18.9" Border.Lines="All" Text="總未出貨量" HorzAlign="Center" VertAlign="Center" TextFill.Color="Red"/>
-      <TextObject Name="Text17" Left="1077.3" Width="37.8" Height="18.9" Border.Lines="All" Text="單位" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text19" Left="1115.1" Width="47.25" Height="18.9" Border.Lines="All" Text="訂單" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text21" Left="1162.35" Width="94.5" Height="18.9" Border.Lines="All" Text="單號" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text23" Left="576.45" Width="122.85" Height="18.9" Border.Lines="All" Text="規格" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text25" Left="1256.85" Width="66.15" Height="18.9" Border.Lines="All" Text="序號" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text27" Left="926.1" Width="75.6" Height="18.9" Border.Lines="All" Text="贈品已交量" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text29" Left="850.5" Width="75.6" Height="18.9" Border.Lines="All" Text="贈品量" HorzAlign="Center" VertAlign="Center"/>
-    </ColumnHeaderBand>
-    <DataBand Name="Data1" Top="45.49" Width="1436.4" Height="18.9" CanGrow="true" DataSource="Table">
+    <DataBand Name="Data1" Top="41.65" Width="1436.4" Height="18.9" CanGrow="true" DataSource="Table">
       <TextObject Name="Text2" Width="207.9" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.客戶]" VertAlign="Center"/>
       <TextObject Name="Text4" Left="207.9" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.預交日]" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text6" Left="274.05" Width="103.95" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.品號]" HorzAlign="Center" VertAlign="Center"/>
