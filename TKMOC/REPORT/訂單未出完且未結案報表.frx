@@ -1,7 +1,41 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="12/26/2018 09:57:54" ReportInfo.Modified="01/03/2019 14:39:29" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="12/26/2018 09:57:54" ReportInfo.Modified="01/03/2019 14:56:48" ReportInfo.CreatorVersion="2016.4.4.0">
+  <ScriptText>using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
+using System.Drawing;
+using System.Data;
+using FastReport;
+using FastReport.Data;
+using FastReport.Dialog;
+using FastReport.Barcode;
+using FastReport.Table;
+using FastReport.Utils;
+
+namespace FastReport
+{
+  public class ReportScript
+  {
+
+    private void Data1_BeforePrint(object sender, EventArgs e)
+    {
+      if(((String)Report.GetColumnValue(&quot;Table.訂單&quot;)).Equals(&quot;A221&quot;)||((String)Report.GetColumnValue(&quot;Table.訂單&quot;)).Equals(&quot;A222&quot;))
+      {
+      
+        Text2.FillColor=Color.LightCoral;
+      }
+      else
+      {
+         Text2.FillColor=Color.White;
+      }
+    }
+  }
+}
+</ScriptText>
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9ILXZQBbWCZ24VX26xpqgqc">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9LLT0+BkiNpvhtMs5b0xVMG">
       <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT TC053 AS '客戶',TD013 AS '預交日',TD004 AS '品號',TD005 AS '品名',TD006 AS '規格',TD008 AS '訂單量',TD009 AS '出貨量',TD024 AS '贈品量',TD025 AS '贈品已交量',(TD008-TD009+TD024-TD025) AS '總未出貨量',TD010 AS '單位',TD001 AS '訂單',TD002 AS '單號',TD003 AS '序號'&#13;&#10;FROM [TK].dbo.COPTD,[TK].dbo.COPTC&#13;&#10;WHERE TC001=TD001 AND TC002=TD002&#13;&#10;AND TD013&gt;='20181201' AND TD013&lt;='20190131'&#13;&#10;AND TD004 LIKE '4%'&#13;&#10;AND (TD008-TD009+TD024-TD025)&gt;0&#13;&#10;AND TD021='Y' &#13;&#10;AND TD016='N'&#13;&#10;AND TC001 IN ('A221', 'A222','A223','A228')&#13;&#10;ORDER BY TC001,TC053,TD013,TD004">
         <Column Name="客戶" DataType="System.String"/>
         <Column Name="預交日" DataType="System.String"/>
@@ -38,7 +72,7 @@
       <TextObject Name="Text27" Left="926.1" Top="18.9" Width="75.6" Height="18.9" Border.Lines="All" Text="贈品已交量" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text29" Left="850.5" Top="18.9" Width="75.6" Height="18.9" Border.Lines="All" Text="贈品量" HorzAlign="Center" VertAlign="Center"/>
     </ReportTitleBand>
-    <DataBand Name="Data1" Top="41.65" Width="1436.4" Height="18.9" CanGrow="true" DataSource="Table">
+    <DataBand Name="Data1" Top="41.65" Width="1436.4" Height="18.9" CanGrow="true" BeforePrintEvent="Data1_BeforePrint" DataSource="Table">
       <TextObject Name="Text2" Width="207.9" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.客戶]" VertAlign="Center"/>
       <TextObject Name="Text4" Left="207.9" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.預交日]" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text6" Left="274.05" Width="103.95" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.品號]" HorzAlign="Center" VertAlign="Center"/>
