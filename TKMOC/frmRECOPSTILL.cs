@@ -75,7 +75,7 @@ namespace TKMOC
             SB.AppendFormat(" AND (TD008-TD009+TD024-TD025)>0");
             SB.AppendFormat(" AND TD021='Y'");
             SB.AppendFormat(" AND TD016='N'");
-            SB.AppendFormat(" AND TC001 IN ('A221', 'A222')");
+            SB.AppendFormat(" AND TC001 IN ('A221', 'A222','A223','A228')");
             SB.AppendFormat(" ORDER BY TC001,TC053,TD013,TD004");
             SB.AppendFormat(" ");
 
@@ -112,7 +112,7 @@ namespace TKMOC
             SB.AppendFormat(" AND (TD008-TD009+TD024-TD025)>0");
             SB.AppendFormat(" AND TD021='Y' ");
             SB.AppendFormat(" AND TD016='N'");
-            SB.AppendFormat(" AND TC001 IN ('A221', 'A222')");
+            SB.AppendFormat(" AND TC001 IN ('A221', 'A222','A223','A228')");
             SB.AppendFormat(" GROUP BY TD004,TD005,TD006,TD010");
             SB.AppendFormat(" ORDER BY TD004,TD005,TD006,TD010");
             SB.AppendFormat(" ");
