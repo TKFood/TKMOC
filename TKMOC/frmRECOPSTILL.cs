@@ -113,8 +113,8 @@ namespace TKMOC
             SB.AppendFormat(" AND TD021='Y' ");
             SB.AppendFormat(" AND TD016='N'");
             SB.AppendFormat(" AND TC001 IN ('A221', 'A222','A223','A228')");
-            SB.AppendFormat(" GROUP BY TD004,TD005,TD006,TD010");
-            SB.AppendFormat(" ORDER BY TD004,TD005,TD006,TD010");
+            SB.AppendFormat(" GROUP BY TD005,TD004,TD006,TD010");
+            SB.AppendFormat(" ORDER BY TD005,TD004,TD006,TD010");
             SB.AppendFormat(" ");
 
             return SB;
