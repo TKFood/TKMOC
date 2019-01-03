@@ -88,7 +88,7 @@ namespace TKMOC
         {
             StringBuilder SQL1 = new StringBuilder();
 
-            SQL1 = SETSQL1();
+            SQL1 = SETSQL2();
             Report report2 = new Report();
             report2.Load(@"REPORT\訂單未出完且未結案的品號報表.frx");
 
