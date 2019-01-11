@@ -64,6 +64,10 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
                               
+                sbSql.AppendFormat(@"  SELECT TA001 AS '製令',TA002 AS '單號',TA003 AS '生產日',TA006 AS '品號',TA034 AS '品名',TA015 AS '生產量',TA007 AS '單位',TA021 AS '線別',TA026 AS '訂單',TA027 AS '單號',TA028 AS '序號'");
+                sbSql.AppendFormat(@"  FROM [test].dbo.MOCTA");
+                sbSql.AppendFormat(@"  WHERE TA003>='{0}' AND TA003<='{1}' ",dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(@"  ORDER BY TA001,TA002,TA003");
                 sbSql.AppendFormat(@"  ");
 
                 adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -102,6 +106,27 @@ namespace TKMOC
             }
         }
 
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            DateTime dt = new DateTime();
+            if (dataGridView1.CurrentRow != null)
+            {
+                int rowindex = dataGridView1.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView1.Rows[rowindex];
+                    dt = Convert.ToDateTime(row.Cells["生產日"].Value.ToString().Substring(0,4)+"/"+ row.Cells["生產日"].Value.ToString().Substring(4, 2) + "/" + row.Cells["生產日"].Value.ToString().Substring(6, 2));
+                    dateTimePicker3.Value = dt;
+
+
+                }
+                else
+                {
+                                     
+
+                }
+            }
+        }
 
         #endregion
 
@@ -117,5 +142,7 @@ namespace TKMOC
         }
 
         #endregion
+
+
     }
 }
