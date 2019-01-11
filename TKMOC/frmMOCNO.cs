@@ -299,7 +299,7 @@ namespace TKMOC
                     else
                     {
                         tran.Commit();      //執行交易  
-                        ADDMOCNO();
+                        
 
                     }
 
