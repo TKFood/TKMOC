@@ -39,10 +39,13 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
         SqlDataAdapter adapter2= new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder2 = new SqlCommandBuilder();
+        SqlDataAdapter adapter3 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder3 = new SqlCommandBuilder();
         SqlCommand cmd = new SqlCommand();
         DataSet ds = new DataSet();
         DataSet ds1 = new DataSet();
         DataSet ds2 = new DataSet();
+        DataSet ds3 = new DataSet();
         DataTable dt = new DataTable();
         SqlTransaction tran;
         int result;
@@ -135,12 +138,67 @@ namespace TKMOC
                     OLDTA001 = row.Cells["製令"].Value.ToString().Trim();
                     OLDTA002 = row.Cells["單號"].Value.ToString().Trim();
 
+                    SEARCHMOCNO();
+
                 }
                 else
                 {
                                      
 
                 }
+            }
+        }
+
+        public void SEARCHMOCNO()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+               
+                sbSql.AppendFormat(@"  SELECT  [ORINO] AS '最初單' ,[BEFORENO]  AS '舊單',[AFTERNO] AS '新單',[DTIMES]  AS '時間'");
+                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCNO]");
+                sbSql.AppendFormat(@"  WHERE [ORINO] IN (SELECT [ORINO] FROM [TKMOC].[dbo].[MOCNO] WHERE [AFTERNO]='{0}')",OLDTA001+OLDTA002);
+                sbSql.AppendFormat(@"  ORDER BY DTIMES");
+                sbSql.AppendFormat(@"  ");
+
+                adapter3 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder3 = new SqlCommandBuilder(adapter3);
+                sqlConn.Open();
+                ds3.Clear();
+                adapter3.Fill(ds3, "TEMPds3");
+                sqlConn.Close();
+
+
+                if (ds3.Tables["TEMPds3"].Rows.Count == 0)
+                {
+                    dataGridView2.DataSource = null;
+                }
+                else
+                {
+                    if (ds3.Tables["TEMPds3"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView2.DataSource = ds3.Tables["TEMPds3"];
+                        dataGridView2.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
             }
         }
 
