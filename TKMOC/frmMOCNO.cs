@@ -54,6 +54,9 @@ namespace TKMOC
         string OLDTA002;
         string NEWTA001;
         string NEWTA002;
+        string ORINO;
+        string BEFORENO;
+        string AFTERNO;
 
         public frmMOCNO()
         {
@@ -174,11 +177,13 @@ namespace TKMOC
                     if (result == 0)
                     {
                         tran.Rollback();    //交易取消
+
+
                     }
                     else
                     {
                         tran.Commit();      //執行交易  
-
+                        ADDMOCNO();
 
                     }
 
@@ -196,6 +201,121 @@ namespace TKMOC
            
         }
 
+        public void ADDMOCNO()
+        {
+            SERACHMOCNO();
+
+            if(string.IsNullOrEmpty(ORINO))
+            {
+                INSERTMOCNO(OLDTA001 + OLDTA002, OLDTA001+OLDTA002,NEWTA001+NEWTA002);
+            }
+            else if(!string.IsNullOrEmpty(ORINO))
+            {
+                INSERTMOCNO(ORINO, OLDTA001 + OLDTA002, NEWTA001 + NEWTA002);
+            }
+        }
+        public string SERACHMOCNO()
+        {
+            ORINO = null;
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  SELECT TOP 1 [ORINO] ,[BEFORENO] ,[AFTERNO]");
+                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCNO]");
+                sbSql.AppendFormat(@"  WHERE [AFTERNO]='{0}'", OLDTA001+ OLDTA002);
+                sbSql.AppendFormat(@"  ORDER BY DTIMES");
+                sbSql.AppendFormat(@"  ");
+
+                adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder2 = new SqlCommandBuilder(adapter2);
+                sqlConn.Open();
+                ds2.Clear();
+                adapter2.Fill(ds2, "TEMPds2");
+                sqlConn.Close();
+
+
+                if (ds2.Tables["TEMPds2"].Rows.Count == 0)
+                {
+                    
+                }
+                else
+                {
+                    if (ds2.Tables["TEMPds2"].Rows.Count >= 1)
+                    {
+                        ORINO= ds2.Tables["TEMPds2"].Rows[0]["ORINO"].ToString();
+                        
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+            return null;
+        }
+
+        public void INSERTMOCNO(string ORINO, string BEFORENO, string AFTERNO)
+        {
+            if (!string.IsNullOrEmpty(ORINO) && !string.IsNullOrEmpty(BEFORENO) && !string.IsNullOrEmpty(AFTERNO))
+            {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sqlConn.Close();
+                    sqlConn.Open();
+                    tran = sqlConn.BeginTransaction();
+
+                    sbSql.Clear();
+
+                    sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCNO] ([ORINO] ,[BEFORENO] ,[AFTERNO],[DTIMES]) VALUES('{0}','{1}','{2}',Getdate() )",ORINO,BEFORENO,AFTERNO);
+
+
+                    cmd.Connection = sqlConn;
+                    cmd.CommandTimeout = 60;
+                    cmd.CommandText = sbSql.ToString();
+                    cmd.Transaction = tran;
+                    result = cmd.ExecuteNonQuery();
+
+                    if (result == 0)
+                    {
+                        tran.Rollback();    //交易取消
+
+
+                    }
+                    else
+                    {
+                        tran.Commit();      //執行交易  
+                        ADDMOCNO();
+
+                    }
+
+                }
+                catch
+                {
+
+                }
+
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }
+
+        }
         private void dateTimePicker4_ValueChanged(object sender, EventArgs e)
         {
             SETNULL();
