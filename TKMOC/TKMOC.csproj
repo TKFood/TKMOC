@@ -270,6 +270,12 @@
     <Compile Include="frmMOCMONTHVIEW.Designer.cs">
       <DependentUpon>frmMOCMONTHVIEW.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmMOCNO.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMOCNO.Designer.cs">
+      <DependentUpon>frmMOCNO.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMOCOVEN.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -475,6 +481,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMOCMONTHVIEW.resx">
       <DependentUpon>frmMOCMONTHVIEW.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMOCNO.resx">
+      <DependentUpon>frmMOCNO.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMOCOVEN.resx">
       <DependentUpon>frmMOCOVEN.cs</DependentUpon>
