@@ -44,8 +44,16 @@ namespace TKMOC
         DataSet ds1 = new DataSet();
         DataSet ds2 = new DataSet();
         DataTable dt = new DataTable();
+        SqlTransaction tran;
+        int result;
+
         string tablename = null;
         int rownum = 0;
+
+        string OLDTA001;
+        string OLDTA002;
+        string NEWTA001;
+        string NEWTA002;
 
         public frmMOCNO()
         {
@@ -74,7 +82,7 @@ namespace TKMOC
 
                 sqlCmdBuilder = new SqlCommandBuilder(adapter);
                 sqlConn.Open();
-                ds1.Clear();
+                ds.Clear();
                 adapter.Fill(ds, "TEMPds");
                 sqlConn.Close();
 
@@ -108,6 +116,8 @@ namespace TKMOC
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
+            SETNULL();
+
             DateTime dt = new DateTime();
             if (dataGridView1.CurrentRow != null)
             {
@@ -117,7 +127,10 @@ namespace TKMOC
                     DataGridViewRow row = dataGridView1.Rows[rowindex];
                     dt = Convert.ToDateTime(row.Cells["生產日"].Value.ToString().Substring(0,4)+"/"+ row.Cells["生產日"].Value.ToString().Substring(4, 2) + "/" + row.Cells["生產日"].Value.ToString().Substring(6, 2));
                     dateTimePicker3.Value = dt;
-
+                    textBox1.Text = row.Cells["製令"].Value.ToString().Trim();
+                    textBox2.Text = row.Cells["單號"].Value.ToString().Trim();
+                    OLDTA001 = row.Cells["製令"].Value.ToString().Trim();
+                    OLDTA002 = row.Cells["單號"].Value.ToString().Trim();
 
                 }
                 else
@@ -125,6 +138,152 @@ namespace TKMOC
                                      
 
                 }
+            }
+        }
+
+        public void CHANGEMOCTAMOCTB()
+        {
+            if (!string.IsNullOrEmpty(NEWTA001)&& !string.IsNullOrEmpty(NEWTA002))
+            {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sqlConn.Close();
+                    sqlConn.Open();
+                    tran = sqlConn.BeginTransaction();
+
+                    sbSql.Clear();
+
+                   
+                    sbSql.AppendFormat(" UPDATE [test].dbo.MOCTA SET TA001='{0}',TA002='{1}',TA003='{2}'", NEWTA001, NEWTA002,dateTimePicker4.Value.ToString("yyyyMMdd"));
+                    sbSql.AppendFormat(" WHERE TA001='{0}' AND TA002='{1}'", OLDTA001, OLDTA002);
+                    sbSql.AppendFormat(" ");
+                    sbSql.AppendFormat(" UPDATE [test].dbo.MOCTB SET TB001='{0}',TB002='{1}'", NEWTA001, NEWTA002);
+                    sbSql.AppendFormat(" WHERE TB001='{0}' AND TB002='{1}'", OLDTA001, OLDTA002);
+                    sbSql.AppendFormat(" ");
+               
+
+                    cmd.Connection = sqlConn;
+                    cmd.CommandTimeout = 60;
+                    cmd.CommandText = sbSql.ToString();
+                    cmd.Transaction = tran;
+                    result = cmd.ExecuteNonQuery();
+
+                    if (result == 0)
+                    {
+                        tran.Rollback();    //交易取消
+                    }
+                    else
+                    {
+                        tran.Commit();      //執行交易  
+
+
+                    }
+
+                }
+                catch
+                {
+
+                }
+
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }
+           
+        }
+
+        private void dateTimePicker4_ValueChanged(object sender, EventArgs e)
+        {
+            SETNULL();
+
+            textBox4.Text=GETMAXNO();
+
+            NEWTA001 = OLDTA001;
+            textBox3.Text = NEWTA001;
+        }
+        public void SETNULL()
+        {
+            NEWTA001 = null;
+            NEWTA002 = null;
+            textBox3.Text = null;
+            textBox4.Text = null;
+        }
+        public string GETMAXNO()
+        {
+           
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                StringBuilder sbSql = new StringBuilder();
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+                ds1.Clear();
+
+                sbSql.AppendFormat(@"  SELECT ISNULL(MAX(TA002),'00000000000') AS TA002");
+                sbSql.AppendFormat(@"  FROM [test].[dbo].[MOCTA] ");
+                //sbSql.AppendFormat(@"  WHERE  TC001='{0}' AND TC003='{1}'", "A542","20170119");
+                sbSql.AppendFormat(@"  WHERE  TA001='{0}' AND TA003='{1}'", OLDTA001, dateTimePicker4.Value.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "TEMPds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["TEMPds1"].Rows.Count == 0)
+                {
+                    return null;
+                }
+                else
+                {
+                    if (ds1.Tables["TEMPds1"].Rows.Count >= 1)
+                    {
+                        NEWTA002 = SETTA002(ds1.Tables["TEMPds1"].Rows[0]["TA002"].ToString());
+                      
+                        return NEWTA002;
+
+                    }
+                    return null;
+                }
+
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public string SETTA002(string TA002)
+        {
+
+            if (TA002.Equals("00000000000"))
+            {
+                return dateTimePicker4.Value.ToString("yyyyMMdd") + "001";
+            }
+
+            else
+            {
+                int serno = Convert.ToInt16(TA002.Substring(8, 3));
+                serno = serno + 1;
+                string temp = serno.ToString();
+                temp = temp.PadLeft(3, '0');
+                return dateTimePicker4.Value.ToString("yyyyMMdd") + temp.ToString();
             }
         }
 
@@ -137,12 +296,24 @@ namespace TKMOC
         }
 
         private void button2_Click(object sender, EventArgs e)
-        {
+        {         
 
+            DialogResult dialogResult = MessageBox.Show("要修改嗎?", "要修改嗎?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                CHANGEMOCTAMOCTB();
+                SEARCH();
+
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                //do something else
+            }
         }
+
 
         #endregion
 
-
+       
     }
 }
