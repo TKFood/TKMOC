@@ -43,12 +43,15 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder3 = new SqlCommandBuilder();
         SqlDataAdapter adapter4 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder4 = new SqlCommandBuilder();
+        SqlDataAdapter adapterCHECKMOCTDMOCTG = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilderCHECKMOCTDMOCTG = new SqlCommandBuilder();
         SqlCommand cmd = new SqlCommand();
         DataSet ds = new DataSet();
         DataSet ds1 = new DataSet();
         DataSet ds2 = new DataSet();
         DataSet ds3 = new DataSet();
         DataSet ds4 = new DataSet();
+        DataSet dsCHECKMOCTDMOCTG = new DataSet();
         DataTable dt = new DataTable();
         SqlTransaction tran;
         int result;
@@ -597,11 +600,26 @@ namespace TKMOC
                 {
                     OLDTA001= ((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[0].ToString();
                     OLDTA002 = ((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[1].ToString();
-
+                    
                     //MessageBox.Show(OLDTA001+"-"+ OLDTA002);
-                    if(!string.IsNullOrEmpty(OLDTA001) && !string.IsNullOrEmpty(OLDTA002))
+                    if (!string.IsNullOrEmpty(OLDTA001) && !string.IsNullOrEmpty(OLDTA002))
                     {
-                        CAHNGEMOCTAB(OLDTA001, OLDTA002);
+                        CHECKMOCTDMOCTG(OLDTA001, OLDTA002);
+
+                        if (dsCHECKMOCTDMOCTG.Tables["TEMPdsdsCHECKMOCTDMOCTG"].Rows.Count == 0)
+                        {
+                            CAHNGEMOCTAB(OLDTA001, OLDTA002);
+                        }
+                        else
+                        {
+                            if (dsCHECKMOCTDMOCTG.Tables["TEMPdsdsCHECKMOCTDMOCTG"].Rows.Count >= 1)
+                            {
+
+                                MessageBox.Show(OLDTA001+"-"+ OLDTA002+" 已有領退料單或入庫單，不可以變更!");
+                            }
+                        }
+
+                        
                     }
                 }
                 else
@@ -611,6 +629,58 @@ namespace TKMOC
                 }
             }
 
+        }
+        public void CHECKMOCTDMOCTG(string OLDTA001,string OLDTA002)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+               
+                sbSql.AppendFormat(@"  SELECT TD003,TD004");
+                sbSql.AppendFormat(@"  FROM (");
+                sbSql.AppendFormat(@"  SELECT TD003,TD004 FROM [test].dbo.MOCTD WHERE TD003='{0}' AND TD004='{1}'",OLDTA001, OLDTA002);
+                sbSql.AppendFormat(@"  UNION ALL");
+                sbSql.AppendFormat(@"  SELECT TG014,TG015 FROM [test].dbo.MOCTG WHERE TG014='{0}' AND TG015='{1}')", OLDTA001, OLDTA002);
+                sbSql.AppendFormat(@"  AS TEMP");
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+                adapterCHECKMOCTDMOCTG = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilderCHECKMOCTDMOCTG = new SqlCommandBuilder(adapterCHECKMOCTDMOCTG);
+                sqlConn.Open();
+                dsCHECKMOCTDMOCTG.Clear();
+                adapterCHECKMOCTDMOCTG.Fill(dsCHECKMOCTDMOCTG, "TEMPdsdsCHECKMOCTDMOCTG");
+                sqlConn.Close();
+
+
+                if (dsCHECKMOCTDMOCTG.Tables["TEMPdsdsCHECKMOCTDMOCTG"].Rows.Count == 0)
+                {
+                    
+                }
+                else
+                {
+                    if (dsCHECKMOCTDMOCTG.Tables["TEMPdsdsCHECKMOCTDMOCTG"].Rows.Count >= 1)
+                    {
+                       
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
         }
 
         public void CAHNGEMOCTAB(string OLDTA001,string OLDTA002)
