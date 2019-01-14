@@ -489,7 +489,7 @@ namespace TKMOC
                 {
                     if (ds1.Tables["TEMPds1"].Rows.Count >= 1)
                     {
-                        NEWTA002 = SETTA002(ds1.Tables["TEMPds1"].Rows[0]["TA002"].ToString());
+                        NEWTA002 = SETTA002(dateTimePicker4.Value, ds1.Tables["TEMPds1"].Rows[0]["TA002"].ToString());
                       
                         return NEWTA002;
 
@@ -508,12 +508,12 @@ namespace TKMOC
             }
         }
 
-        public string SETTA002(string TA002)
+        public string SETTA002(DateTime dt,string TA002)
         {
 
             if (TA002.Equals("00000000000"))
             {
-                return dateTimePicker4.Value.ToString("yyyyMMdd") + "001";
+                return dt.ToString("yyyyMMdd") + "001";
             }
 
             else
@@ -522,7 +522,7 @@ namespace TKMOC
                 serno = serno + 1;
                 string temp = serno.ToString();
                 temp = temp.PadLeft(3, '0');
-                return dateTimePicker4.Value.ToString("yyyyMMdd") + temp.ToString();
+                return dt.ToString("yyyyMMdd") + temp.ToString();
             }
         }
 
@@ -599,6 +599,10 @@ namespace TKMOC
                     OLDTA002 = ((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[1].ToString();
 
                     //MessageBox.Show(OLDTA001+"-"+ OLDTA002);
+                    if(!string.IsNullOrEmpty(OLDTA001) && !string.IsNullOrEmpty(OLDTA002))
+                    {
+                        CAHNGEMOCTAB(OLDTA001, OLDTA002);
+                    }
                 }
                 else
                 {
@@ -608,6 +612,129 @@ namespace TKMOC
             }
 
         }
+
+        public void CAHNGEMOCTAB(string OLDTA001,string OLDTA002)
+        {
+            NEWTA001 = OLDTA001;
+            NEWTA002 = GETMAXNO2(OLDTA001);
+
+            if(!string.IsNullOrEmpty(OLDTA001) && !string.IsNullOrEmpty(OLDTA002)&& !string.IsNullOrEmpty(NEWTA001) && !string.IsNullOrEmpty(NEWTA002))
+            {
+                UPDATEMOCTAMOCTB(OLDTA001, OLDTA002, NEWTA001, NEWTA002);
+            }
+           
+        }
+
+        public void UPDATEMOCTAMOCTB(string OLDTA001, string OLDTA002, string NEWTA001, string NEWTA002)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+
+                sbSql.AppendFormat(" UPDATE [test].dbo.MOCTA SET TA001='{0}',TA002='{1}',TA003='{2}',TA009='{2}',TA010='{2}'", NEWTA001, NEWTA002, dateTimePicker7.Value.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(" WHERE TA001='{0}' AND TA002='{1}'", OLDTA001, OLDTA002);
+                sbSql.AppendFormat(" ");
+                sbSql.AppendFormat(" UPDATE [test].dbo.MOCTB SET TB001='{0}',TB002='{1}'", NEWTA001, NEWTA002);
+                sbSql.AppendFormat(" WHERE TB001='{0}' AND TB002='{1}'", OLDTA001, OLDTA002);
+                sbSql.AppendFormat(" ");
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+
+
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+                    ADDMOCNO();
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public string GETMAXNO2(string OLDTA001)
+        {
+
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                StringBuilder sbSql = new StringBuilder();
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+                ds1.Clear();
+
+                sbSql.AppendFormat(@"  SELECT ISNULL(MAX(TA002),'00000000000') AS TA002");
+                sbSql.AppendFormat(@"  FROM [test].[dbo].[MOCTA] ");
+                //sbSql.AppendFormat(@"  WHERE  TC001='{0}' AND TC003='{1}'", "A542","20170119");
+                sbSql.AppendFormat(@"  WHERE  TA001='{0}' AND TA003='{1}'", OLDTA001, dateTimePicker7.Value.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "TEMPds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["TEMPds1"].Rows.Count == 0)
+                {
+                    return null;
+                }
+                else
+                {
+                    if (ds1.Tables["TEMPds1"].Rows.Count >= 1)
+                    {
+                        NEWTA002 = SETTA002(dateTimePicker7.Value, ds1.Tables["TEMPds1"].Rows[0]["TA002"].ToString());
+
+                        return NEWTA002;
+
+                    }
+                    return null;
+                }
+
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
         #endregion
 
         #region BUTTON
@@ -643,7 +770,19 @@ namespace TKMOC
 
         private void button4_Click(object sender, EventArgs e)
         {
-            CHANGEMULTI();
+            DialogResult dialogResult = MessageBox.Show("要修改嗎?", "要修改嗎?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                CHANGEMULTI();
+                SEARCHMULTI();
+
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                //do something else
+            }
+
+           
         }
     }
 }
