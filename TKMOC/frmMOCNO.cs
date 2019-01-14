@@ -41,11 +41,14 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder2 = new SqlCommandBuilder();
         SqlDataAdapter adapter3 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder3 = new SqlCommandBuilder();
+        SqlDataAdapter adapter4 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder4 = new SqlCommandBuilder();
         SqlCommand cmd = new SqlCommand();
         DataSet ds = new DataSet();
         DataSet ds1 = new DataSet();
         DataSet ds2 = new DataSet();
         DataSet ds3 = new DataSet();
+        DataSet ds4 = new DataSet();
         DataTable dt = new DataTable();
         SqlTransaction tran;
         int result;
@@ -84,7 +87,7 @@ namespace TKMOC
             dt.Columns.Add("MD002", typeof(string));
             da.Fill(dt);
             comboBox1.DataSource = dt.DefaultView;
-            comboBox1.ValueMember = "MD002";
+            comboBox1.ValueMember = "MD001";
             comboBox1.DisplayMember = "MD002";
             sqlConn.Close();
 
@@ -488,6 +491,58 @@ namespace TKMOC
             }
         }
 
+        public void SEARCHMULTI()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  SELECT TA001 AS '製令',TA002 AS '單號',TA003 AS '生產日',TA006 AS '品號',TA034 AS '品名',TA015 AS '生產量',TA007 AS '單位',TA021 AS '線別',TA026 AS '訂單',TA027 AS '單號',TA028 AS '序號'");
+                sbSql.AppendFormat(@"  FROM [test].dbo.MOCTA");
+                sbSql.AppendFormat(@"  WHERE TA003>='{0}' AND TA003<='{1}' ", dateTimePicker5.Value.ToString("yyyyMMdd"), dateTimePicker6.Value.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(@"  AND TA021='{0}' ",comboBox1.SelectedValue.ToString());
+                sbSql.AppendFormat(@"  ORDER BY TA001,TA002,TA003");
+                sbSql.AppendFormat(@"  ");
+
+                adapter4 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder4 = new SqlCommandBuilder(adapter4);
+                sqlConn.Open();
+                ds4.Clear();
+                adapter4.Fill(ds4, "TEMPds4");
+                sqlConn.Close();
+
+
+                if (ds4.Tables["TEMPds4"].Rows.Count == 0)
+                {
+                    dataGridView3.DataSource = null;
+                }
+                else
+                {
+                    if (ds4.Tables["TEMPds4"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView3.DataSource = ds4.Tables["TEMPds4"];
+                        dataGridView3.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
         #endregion
 
         #region BUTTON
@@ -512,9 +567,13 @@ namespace TKMOC
             }
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            SEARCHMULTI();
+        }
 
         #endregion
 
-       
+
     }
 }
