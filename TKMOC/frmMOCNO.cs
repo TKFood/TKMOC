@@ -218,7 +218,7 @@ namespace TKMOC
                     sbSql.Clear();
 
                    
-                    sbSql.AppendFormat(" UPDATE [test].dbo.MOCTA SET TA001='{0}',TA002='{1}',TA003='{2}'", NEWTA001, NEWTA002,dateTimePicker4.Value.ToString("yyyyMMdd"));
+                    sbSql.AppendFormat(" UPDATE [test].dbo.MOCTA SET TA001='{0}',TA002='{1}',TA003='{2}',TA009='{2}',TA010='{2}'", NEWTA001, NEWTA002,dateTimePicker4.Value.ToString("yyyyMMdd"));
                     sbSql.AppendFormat(" WHERE TA001='{0}' AND TA002='{1}'", OLDTA001, OLDTA002);
                     sbSql.AppendFormat(" ");
                     sbSql.AppendFormat(" UPDATE [test].dbo.MOCTB SET TB001='{0}',TB002='{1}'", NEWTA001, NEWTA002);
