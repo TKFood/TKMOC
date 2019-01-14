@@ -615,6 +615,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmMOCNO";
             this.Text = "frmMOCNO";
+            this.Load += new System.EventHandler(this.frmMOCNO_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
