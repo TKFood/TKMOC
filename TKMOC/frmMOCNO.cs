@@ -589,7 +589,25 @@ namespace TKMOC
 
         }
 
+        public void CHANGEMULTI()
+        {
+            foreach (DataGridViewRow dr in this.dataGridView3.Rows)
+            {
+                if (dr.Cells[0].Value != null && (bool)dr.Cells[0].Value)
+                {
+                    OLDTA001= ((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[0].ToString();
+                    OLDTA002 = ((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[1].ToString();
 
+                    //MessageBox.Show(OLDTA001+"-"+ OLDTA002);
+                }
+                else
+                {
+                    OLDTA001 = null;
+                    OLDTA002 = null;
+                }
+            }
+
+        }
         #endregion
 
         #region BUTTON
@@ -620,8 +638,12 @@ namespace TKMOC
         }
 
 
+
         #endregion
 
-       
+        private void button4_Click(object sender, EventArgs e)
+        {
+            CHANGEMULTI();
+        }
     }
 }
