@@ -143,7 +143,7 @@ namespace TKMOC
                 sbSqlQuery.Clear();
                               
                 sbSql.AppendFormat(@"  SELECT TA001 AS '製令',TA002 AS '單號',TA003 AS '生產日',TA006 AS '品號',TA034 AS '品名',TA015 AS '生產量',TA007 AS '單位',TA021 AS '線別',TA026 AS '訂單',TA027 AS '單號',TA028 AS '序號'");
-                sbSql.AppendFormat(@"  FROM [test].dbo.MOCTA");
+                sbSql.AppendFormat(@"  FROM [TK].dbo.MOCTA");
                 sbSql.AppendFormat(@"  WHERE TA003>='{0}' AND TA003<='{1}' ",dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
                 sbSql.AppendFormat(@"  ORDER BY TA001,TA002,TA003");
                 sbSql.AppendFormat(@"  ");
@@ -303,10 +303,10 @@ namespace TKMOC
                     sbSql.Clear();
 
 
-                    sbSql.AppendFormat(" UPDATE [test].dbo.MOCTA SET TA001='{0}',TA002='{1}',TA003='{2}',TA009='{2}',TA010='{2}'", NEWTA001, NEWTA002, dateTimePicker4.Value.ToString("yyyyMMdd"));
+                    sbSql.AppendFormat(" UPDATE [TK].dbo.MOCTA SET TA001='{0}',TA002='{1}',TA003='{2}',TA009='{2}',TA010='{2}'", NEWTA001, NEWTA002, dateTimePicker4.Value.ToString("yyyyMMdd"));
                     sbSql.AppendFormat(" WHERE TA001='{0}' AND TA002='{1}'", OLDTA001, OLDTA002);
                     sbSql.AppendFormat(" ");
-                    sbSql.AppendFormat(" UPDATE [test].dbo.MOCTB SET TB001='{0}',TB002='{1}'", NEWTA001, NEWTA002);
+                    sbSql.AppendFormat(" UPDATE [TK].dbo.MOCTB SET TB001='{0}',TB002='{1}'", NEWTA001, NEWTA002);
                     sbSql.AppendFormat(" WHERE TB001='{0}' AND TB002='{1}'", OLDTA001, OLDTA002);
                     sbSql.AppendFormat(" ");
 
@@ -489,7 +489,7 @@ namespace TKMOC
                 ds1.Clear();
 
                 sbSql.AppendFormat(@"  SELECT ISNULL(MAX(TA002),'00000000000') AS TA002");
-                sbSql.AppendFormat(@"  FROM [test].[dbo].[MOCTA] ");
+                sbSql.AppendFormat(@"  FROM [TK].[dbo].[MOCTA] ");
                 //sbSql.AppendFormat(@"  WHERE  TC001='{0}' AND TC003='{1}'", "A542","20170119");
                 sbSql.AppendFormat(@"  WHERE  TA001='{0}' AND TA003='{1}'", OLDTA001, dateTimePicker4.Value.ToString("yyyyMMdd"));
                 sbSql.AppendFormat(@"  ");
@@ -560,7 +560,7 @@ namespace TKMOC
                 sbSqlQuery.Clear();
 
                 sbSql.AppendFormat(@"  SELECT TA001 AS '製令',TA002 AS '單號',TA003 AS '生產日',TA006 AS '品號',TA034 AS '品名',TA015 AS '生產量',TA007 AS '單位',TA021 AS '線別',TA026 AS '訂單',TA027 AS '單號',TA028 AS '序號'");
-                sbSql.AppendFormat(@"  FROM [test].dbo.MOCTA");
+                sbSql.AppendFormat(@"  FROM [TK].dbo.MOCTA");
                 sbSql.AppendFormat(@"  WHERE TA003>='{0}' AND TA003<='{1}' ", dateTimePicker5.Value.ToString("yyyyMMdd"), dateTimePicker6.Value.ToString("yyyyMMdd"));
                 sbSql.AppendFormat(@"  AND TA021='{0}' ",comboBox1.SelectedValue.ToString());
                 sbSql.AppendFormat(@"  ORDER BY TA001,TA002,TA003");
@@ -663,9 +663,9 @@ namespace TKMOC
                
                 sbSql.AppendFormat(@"  SELECT TD003,TD004");
                 sbSql.AppendFormat(@"  FROM (");
-                sbSql.AppendFormat(@"  SELECT TD003,TD004 FROM [test].dbo.MOCTD WHERE TD003='{0}' AND TD004='{1}'",OLDTA001, OLDTA002);
+                sbSql.AppendFormat(@"  SELECT TD003,TD004 FROM [TK].dbo.MOCTD WHERE TD003='{0}' AND TD004='{1}'",OLDTA001, OLDTA002);
                 sbSql.AppendFormat(@"  UNION ALL");
-                sbSql.AppendFormat(@"  SELECT TG014,TG015 FROM [test].dbo.MOCTG WHERE TG014='{0}' AND TG015='{1}')", OLDTA001, OLDTA002);
+                sbSql.AppendFormat(@"  SELECT TG014,TG015 FROM [TK].dbo.MOCTG WHERE TG014='{0}' AND TG015='{1}')", OLDTA001, OLDTA002);
                 sbSql.AppendFormat(@"  AS TEMP");
                 sbSql.AppendFormat(@"  ");
                 sbSql.AppendFormat(@"  ");
@@ -729,10 +729,10 @@ namespace TKMOC
                 sbSql.Clear();
 
 
-                sbSql.AppendFormat(" UPDATE [test].dbo.MOCTA SET TA001='{0}',TA002='{1}',TA003='{2}',TA009='{2}',TA010='{2}'", NEWTA001, NEWTA002, dateTimePicker7.Value.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(" UPDATE [TK].dbo.MOCTA SET TA001='{0}',TA002='{1}',TA003='{2}',TA009='{2}',TA010='{2}'", NEWTA001, NEWTA002, dateTimePicker7.Value.ToString("yyyyMMdd"));
                 sbSql.AppendFormat(" WHERE TA001='{0}' AND TA002='{1}'", OLDTA001, OLDTA002);
                 sbSql.AppendFormat(" ");
-                sbSql.AppendFormat(" UPDATE [test].dbo.MOCTB SET TB001='{0}',TB002='{1}'", NEWTA001, NEWTA002);
+                sbSql.AppendFormat(" UPDATE [TK].dbo.MOCTB SET TB001='{0}',TB002='{1}'", NEWTA001, NEWTA002);
                 sbSql.AppendFormat(" WHERE TB001='{0}' AND TB002='{1}'", OLDTA001, OLDTA002);
                 sbSql.AppendFormat(" ");
 
@@ -783,7 +783,7 @@ namespace TKMOC
                 ds1.Clear();
 
                 sbSql.AppendFormat(@"  SELECT ISNULL(MAX(TA002),'00000000000') AS TA002");
-                sbSql.AppendFormat(@"  FROM [test].[dbo].[MOCTA] ");
+                sbSql.AppendFormat(@"  FROM [TK].[dbo].[MOCTA] ");
                 //sbSql.AppendFormat(@"  WHERE  TC001='{0}' AND TC003='{1}'", "A542","20170119");
                 sbSql.AppendFormat(@"  WHERE  TA001='{0}' AND TA003='{1}'", OLDTA001, dateTimePicker7.Value.ToString("yyyyMMdd"));
                 sbSql.AppendFormat(@"  ");
