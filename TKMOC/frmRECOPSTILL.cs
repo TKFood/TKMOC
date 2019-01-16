@@ -122,6 +122,38 @@ namespace TKMOC
 
         }
 
+        public void SETFASTREPORT3()
+        {
+            StringBuilder SQL1 = new StringBuilder();
+
+            SQL1 = SETSQL3();
+            Report report3 = new Report();
+            report3.Load(@"REPORT\製令明細表.frx");
+
+            report3.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+            TableDataSource table = report3.GetDataSource("Table") as TableDataSource;
+            table.SelectCommand = SQL1.ToString();
+
+            report3.Preview = previewControl3;
+            report3.Show();
+        }
+
+        public StringBuilder SETSQL3()
+        {
+            StringBuilder SB = new StringBuilder();
+
+            SB.AppendFormat(" SELECT MD002 AS '線別',TA009 AS '預計開工',TA034 AS '品名',TA001 AS '製令',TA002 AS '製令單',TA015 AS '預計產量',TA017 AS '已生產量',(TA015-TA017) AS '未生產量',TA007 AS '單位'");
+            SB.AppendFormat(" FROM [TK].dbo.MOCTA,[TK].dbo.CMSMD");
+            SB.AppendFormat(" WHERE TA021=MD001");
+            SB.AppendFormat(" AND TA009>='{0}' AND TA009<='{0}'",dateTimePicker3.Value.ToString("yyyyMMdd"), dateTimePicker4.Value.ToString("yyyyMMdd"));
+            SB.AppendFormat(" AND TA021 IN ('02','03','04','05','09','10')");
+            SB.AppendFormat(" ORDER BY TA021,TA002,TA034");
+            SB.AppendFormat(" ");
+
+            return SB;
+
+        }
+
 
         #endregion
 
@@ -133,6 +165,12 @@ namespace TKMOC
             SETFASTREPORT2();
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            SETFASTREPORT3();
+        }
         #endregion
+
+
     }
 }
