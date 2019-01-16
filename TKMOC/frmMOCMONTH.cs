@@ -35,12 +35,15 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilderCALENDAR = new SqlCommandBuilder();
         SqlDataAdapter adapterCALENDAR2 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilderCALENDAR2 = new SqlCommandBuilder();
+        SqlDataAdapter adapterCALENDAR3 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilderCALENDAR3 = new SqlCommandBuilder();
 
         SqlTransaction tran;
         SqlCommand cmd = new SqlCommand();
         DataSet ds1 = new DataSet();
         DataSet dsCALENDAR = new DataSet();
         DataSet dsCALENDAR2 = new DataSet();
+        DataSet dsCALENDAR3 = new DataSet();
 
         int result;
 
@@ -48,10 +51,33 @@ namespace TKMOC
         {
             InitializeComponent();
 
-            SETCALENDAR();
-            SETCALENDAR2();
+            comboBox4load();
+
+            //SETCALENDAR();
+            //SETCALENDAR2();
         }
         #region FUNCTION
+        public void comboBox4load()
+        {
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 LIKE '新廠%'  ORDER BY MD001 ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("MD001", typeof(string));
+            dt.Columns.Add("MD002", typeof(string));
+            da.Fill(dt);
+            comboBox4.DataSource = dt.DefaultView;
+            comboBox4.ValueMember = "MD001";
+            comboBox4.DisplayMember = "MD002";
+            sqlConn.Close();
+
+
+        }
+
         public void SETCALENDAR()
         {
             string EVENT;
@@ -323,6 +349,95 @@ namespace TKMOC
 
             }
         }
+
+        public void SETCALENDAR3()
+        {
+            string EVENT;
+            DateTime dtEVENT;
+            
+            DateTime NOWYEARMONTH = DateTime.Now;
+           
+
+            var ce2 = new CustomEvent();
+
+
+            calendar3.RemoveAllEvents();
+            calendar3.CalendarDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0);
+            calendar3.CalendarView = CalendarViews.Month;
+            calendar3.AllowEditingEvents = true;
+
+
+
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  SELECT TA034 AS '品名',TA001 AS '製令',TA002 AS '製令單',TA009 AS '預計開工',TA015 AS '預計產量',TA017 AS '已生產量',(TA015-TA017) AS '未生產量',TA021 AS '線別'");
+                sbSql.AppendFormat(@"  FROM [TK].dbo.MOCTA");
+                sbSql.AppendFormat(@"  WHERE (TA002 LIKE '{0}%')", NOWYEARMONTH.ToString("yyyyMM"));
+                sbSql.AppendFormat(@"  AND TA021='{0}'",comboBox4.SelectedValue.ToString());
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+                adapterCALENDAR3 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilderCALENDAR3 = new SqlCommandBuilder(adapterCALENDAR3);
+                sqlConn.Open();
+                dsCALENDAR3.Clear();
+                adapterCALENDAR3.Fill(dsCALENDAR3, "TEMPdsCALENDAR3");
+                sqlConn.Close();
+
+
+                if (dsCALENDAR3.Tables["TEMPdsCALENDAR3"].Rows.Count == 0)
+                {
+
+                }
+                else
+                {
+                    if (dsCALENDAR3.Tables["TEMPdsCALENDAR3"].Rows.Count >= 1)
+                    {
+                        foreach (DataRow od in dsCALENDAR3.Tables["TEMPdsCALENDAR3"].Rows)
+                        {
+                            EVENT = od["品名"].ToString() + "-" + od["未生產量"].ToString();
+                            dtEVENT = Convert.ToDateTime(od["預計開工"].ToString().Substring(0,4)+"/"+ od["預計開工"].ToString().Substring(4, 2) + "/" + od["預計開工"].ToString().Substring(6, 2));
+
+                            ce2 = new CustomEvent
+                            {
+                                IgnoreTimeComponent = false,
+                                EventText = EVENT,
+                                Date = new DateTime(dtEVENT.Year, dtEVENT.Month, dtEVENT.Day),
+                                EventLengthInHours = 2f,
+                                RecurringFrequency = RecurringFrequencies.None,
+                                EventFont = new Font("Verdana", 12, FontStyle.Regular),
+                                Enabled = true,
+                                //EventColor = Color.FromArgb(120, 255, 120),
+                                EventTextColor = Color.Black,
+                                ThisDayForwardOnly = true
+                            };
+
+                            calendar3.AddEvent(ce2);
+                        }
+
+
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
         public void ADDCALENDAR2()
         {
             try
@@ -445,6 +560,10 @@ namespace TKMOC
         {
             DELCALENDAR2();
             SETCALENDAR2();
+        }
+        private void button4_Click(object sender, EventArgs e)
+        {
+            SETCALENDAR3();
         }
         #endregion
 
