@@ -67,8 +67,9 @@ namespace TKMOC
         {
             StringBuilder SB = new StringBuilder();
 
-            SB.AppendFormat(" SELECT TC053 AS '客戶',TD013 AS '預交日',TD004 AS '品號',TD005 AS '品名',TD006 AS '規格',TD008 AS '訂單量',TD009 AS '出貨量',TD024 AS '贈品量',TD025 AS '贈品已交量',(TD008-TD009+TD024-TD025) AS '總未出貨量',TD010 AS '單位',TD001 AS '訂單',TD002 AS '單號',TD003 AS '序號'");
-            SB.AppendFormat(" FROM [TK].dbo.COPTD,[TK].dbo.COPTC");
+            SB.AppendFormat(" SELECT TC053 AS '客戶',TD013 AS '預交日',TD004 AS '品號',TD005 AS '品名',TD006 AS '規格',TD008 AS '訂單量',TD009 AS '出貨量',TD024 AS '贈品量',TD025 AS '贈品已交量',(TD008-TD009+TD024-TD025) AS '總未出貨量',TD010 AS '單位',TD001 AS '訂單',TD002 AS '單號',TD003 AS '序號',TA001 AS '製令',TA002 AS '製令單',TA009 AS '預計開工',TA015 AS '預計產量',TA017 AS '已生產量' ");
+            SB.AppendFormat(" FROM [TK].dbo.COPTC,[TK].dbo.COPTD ");
+            SB.AppendFormat(" LEFT JOIN [TK].dbo.MOCTA ON TA026=TD001 AND TA027=TD002 AND TA028=TD003");
             SB.AppendFormat(" WHERE TC001=TD001 AND TC002=TD002");
             SB.AppendFormat(" AND TD013>='{0}' AND TD013<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
             SB.AppendFormat(" AND TD004 LIKE '4%'");
