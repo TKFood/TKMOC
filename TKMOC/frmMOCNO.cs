@@ -43,6 +43,8 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder3 = new SqlCommandBuilder();
         SqlDataAdapter adapter4 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder4 = new SqlCommandBuilder();
+        SqlDataAdapter adapter5 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder5 = new SqlCommandBuilder();
         SqlDataAdapter adapterCHECKMOCTDMOCTG = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilderCHECKMOCTDMOCTG = new SqlCommandBuilder();
         SqlCommand cmd = new SqlCommand();
@@ -51,6 +53,7 @@ namespace TKMOC
         DataSet ds2 = new DataSet();
         DataSet ds3 = new DataSet();
         DataSet ds4 = new DataSet();
+        DataSet ds5 = new DataSet();
         DataSet dsCHECKMOCTDMOCTG = new DataSet();
         DataTable dt = new DataTable();
         SqlTransaction tran;
@@ -825,6 +828,90 @@ namespace TKMOC
             }
         }
 
+        public void SEARCH2()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+
+                sbSql.AppendFormat(@"  SELECT TA001 AS '製令',TA002 AS '單號',TA003 AS '生產日',TA006 AS '品號',TA034 AS '品名',TA015 AS '生產量',TA007 AS '單位',TA021 AS '線別',TA026 AS '訂單',TA027 AS '單號',TA028 AS '序號'");
+                sbSql.AppendFormat(@"  FROM [TK].dbo.MOCTA");
+                sbSql.AppendFormat(@"  WHERE TA003>='{0}' AND TA003<='{1}' ", dateTimePicker8.Value.ToString("yyyyMMdd"), dateTimePicker9.Value.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(@"  ORDER BY TA001,TA002,TA003");
+
+                adapter5 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder5 = new SqlCommandBuilder(adapter5);
+                sqlConn.Open();
+                ds5.Clear();
+                adapter5.Fill(ds5, "TEMPds5");
+                sqlConn.Close();
+
+
+                if (ds5.Tables["TEMPds5"].Rows.Count == 0)
+                {
+                    dataGridView4.DataSource = null;
+                }
+                else
+                {
+                    if (ds5.Tables["TEMPds5"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView4.DataSource = ds5.Tables["TEMPds5"];
+                        dataGridView4.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+
+        private void dataGridView4_SelectionChanged(object sender, EventArgs e)
+        {
+            SETNULL2();
+
+            
+            if (dataGridView4.CurrentRow != null)
+            {
+                int rowindex = dataGridView4.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView4.Rows[rowindex];
+
+                    textBox5.Text = row.Cells["訂單"].Value.ToString().Trim();
+                    textBox6.Text = row.Cells["單號"].Value.ToString().Trim();
+                    textBox7.Text = row.Cells["序號"].Value.ToString().Trim();
+
+                }
+                else
+                {
+
+
+                }
+            }
+        }
+
+        public void SETNULL2()
+        {
+            textBox5.Text = null;
+            textBox6.Text = null;
+            textBox7.Text = null;
+        }
+
         #endregion
 
         #region BUTTON
@@ -854,10 +941,6 @@ namespace TKMOC
             SEARCHMULTI();
         }
 
-
-
-        #endregion
-
         private void button4_Click(object sender, EventArgs e)
         {
             DialogResult dialogResult = MessageBox.Show("要修改嗎?", "要修改嗎?", MessageBoxButtons.YesNo);
@@ -872,7 +955,22 @@ namespace TKMOC
                 //do something else
             }
 
-           
+
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            SEARCH2();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+     
+        #endregion
+
+
     }
 }
