@@ -154,6 +154,51 @@ namespace TKMOC
 
         }
 
+        public void SETFASTREPORT4()
+        {
+            StringBuilder SQL1 = new StringBuilder();
+
+            SQL1 = SETSQL4();
+            Report report4 = new Report();
+            report4.Load(@"REPORT\訂單排產狀況表.frx");
+
+            report4.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+            TableDataSource table = report4.GetDataSource("Table") as TableDataSource;
+            table.SelectCommand = SQL1.ToString();
+
+            report4.Preview = previewControl4;
+            report4.Show();
+        }
+
+        public StringBuilder SETSQL4()
+        {
+            StringBuilder SB = new StringBuilder();
+
+
+            SB.AppendFormat(" SELECT TC053 AS '客戶',TD013 AS '預計交貨日',TD004 AS '訂單品號',TD005 AS '訂單品名',TD006 AS '規格',TD008 AS '訂單量',TD009 AS '出貨量',TD024 AS '贈品量',TD025 AS '贈品已交量',(TD008-TD009+TD024-TD025) AS '總未出貨量',TD010 AS '品號單位',TD001 AS '訂單單別',TD002 AS '訂單單號',TD003 AS '訂單序號',TD016 AS '訂單狀態',MOCTA.TA001 AS '批次轉製令單別',MOCTA.TA002 AS '批次轉製令單號',MOCTA.TA009 AS '製令預計開工日',MOCTA.TA012 AS '製令實際開工日',MOCTA.TA010 AS '製令預計完工日' ,MOCTA.TA014 AS '製令實際完工日',MOCTA.TA015 AS '製令預計產量',MOCTA.TA017 AS '實際入庫數量',MOCTA.TA011 AS '生產進度'");
+            SB.AppendFormat(" ,(CASE WHEN CONVERT(datetime,MOCTA.TA009)<>CONVERT(datetime,MOCTA.TA012) THEN '是' ELSE ''  END ) AS '開工異常警示'");
+            SB.AppendFormat(" ,(CASE WHEN CONVERT(datetime,MOCTA.TA010)<>CONVERT(datetime,MOCTA.TA014) THEN '是' ELSE ''  END ) AS '完工異常警示'");
+            SB.AppendFormat(" ,(CASE WHEN MOCTA.TA017<MOCTA.TA015 THEN '是' ELSE ''  END) AS '產量不足'");
+            SB.AppendFormat(" ,LRPTA.TA001 AS '批次計畫單號'");
+            SB.AppendFormat(" ,(CASE WHEN ISNULL(MOCTA.TA033,'')<>''  THEN '是' ELSE ''  END )  AS '製令發放'");
+            SB.AppendFormat(" FROM [TK].dbo.COPTC,[TK].dbo.COPTD");
+            SB.AppendFormat(" LEFT JOIN [TK].dbo.MOCTA ON MOCTA.TA026=TD001 AND MOCTA.TA027=TD002 AND MOCTA.TA028=TD003");
+            SB.AppendFormat(" LEFT JOIN [TK].dbo.LRPTA ON LRPTA.TA023=TD001 AND LRPTA.TA024=TD002 AND LRPTA.TA025=TD003");
+            SB.AppendFormat(" WHERE TC001=TD001 AND TC002=TD002");
+            SB.AppendFormat(" AND TD013>='{0}' AND TD013<='{1}'",dateTimePicker5.Value.ToString("yyyyMMdd"), dateTimePicker6.Value.ToString("yyyyMMdd"));
+            SB.AppendFormat(" AND TD004 LIKE '4%'");
+            SB.AppendFormat(" AND (TD008-TD009+TD024-TD025)>0");
+            SB.AppendFormat(" AND TD021='Y' ");
+            SB.AppendFormat(" AND TD016='N'");
+            SB.AppendFormat(" AND TC001 IN ('A221', 'A222','A223','A228')");
+            SB.AppendFormat(" ORDER BY TC001,TC053,TD013,TD004");
+            SB.AppendFormat(" ");
+            SB.AppendFormat(" ");
+            SB.AppendFormat(" ");
+
+            return SB;
+
+        }
 
         #endregion
 
@@ -168,6 +213,11 @@ namespace TKMOC
         private void button2_Click(object sender, EventArgs e)
         {
             SETFASTREPORT3();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            SETFASTREPORT4();
         }
         #endregion
 
