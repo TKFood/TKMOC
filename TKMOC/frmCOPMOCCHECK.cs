@@ -792,6 +792,105 @@ namespace TKMOC
 
             }
         }
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+
+            if (dataGridView1.CurrentRow != null)
+            {
+                int rowindex = dataGridView1.CurrentRow.Index;
+                string MB001 = null;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView1.Rows[rowindex];
+                    MB001 = row.Cells["品號"].Value.ToString();
+
+                    //MessageBox.Show(MB001.ToString());
+                    Search9(MB001.ToString());
+                }
+                else
+                {
+                    MB001 = null;
+
+                }
+            }
+        }
+        public void Search9(string MB001)
+        {
+
+            StringBuilder TA013 = new StringBuilder();
+
+            if (comboBox1.Text.ToString().Equals("已確認"))
+            {
+                TA013.AppendFormat(" 'Y'");
+            }
+            else if (comboBox1.Text.ToString().Equals("未確認"))
+            {
+                TA013.AppendFormat(" 'N'");
+            }
+            else if (comboBox1.Text.ToString().Equals("全部"))
+            {
+                TA013.AppendFormat("('Y','N' ");
+            }
+
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  SELECT TB001 AS '製令',TB002 AS '製令單',TB003 AS '品號',TB012 AS '品名',(TB004-TB005) AS '總需求量',TB004 AS '製令量',TB005 AS '已領量',TB007 AS '單位' ,TA026 AS '訂單單別',TA027 AS '訂單單號',TA028 AS '訂單序號' ");
+                sbSql.AppendFormat(@"  FROM [TK].dbo.MOCTA,[TK].dbo.MOCTB");
+                sbSql.AppendFormat(@"  WHERE TA001=TB001 AND TA002=TB002");
+                sbSql.AppendFormat(@"  AND TA003>='{0}' AND TA003<='{1}' ", dateTimePicker3.Value.ToString("yyyyMMdd"), dateTimePicker4.Value.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(@"  AND TB003 LIKE '301%'");
+                sbSql.AppendFormat(@"  AND TA013 IN ({0})", TA013.ToString());
+                sbSql.AppendFormat(@"  AND TB003='{0}'",MB001.ToString());
+                sbSql.AppendFormat(@"  ORDER BY TB003,TB001,TB002");
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+                adapter9 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder9 = new SqlCommandBuilder(adapter9);
+                sqlConn.Open();
+                ds9.Clear();
+                adapter9.Fill(ds9, "TEMPds9");
+                sqlConn.Close();
+
+
+
+
+                if (ds9.Tables["TEMPds9"].Rows.Count == 0)
+                {
+                    dataGridView5.DataSource = null;
+                }
+                else
+                {
+                    if (ds9.Tables["TEMPds9"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView5.DataSource = ds9.Tables["TEMPds9"];
+                        dataGridView5.AutoResizeColumns();
+
+
+                    }
+
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+
         #endregion
 
         #region BUTTON
@@ -809,8 +908,9 @@ namespace TKMOC
         {
             Search8();
         }
+
         #endregion
 
-
+       
     }
 }

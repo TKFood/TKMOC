@@ -533,11 +533,11 @@
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel3.Controls.Add(this.label2, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.comboBox2, 0, 1);
             this.tableLayoutPanel3.Controls.Add(this.dateTimePicker3, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.dateTimePicker4, 3, 0);
             this.tableLayoutPanel3.Controls.Add(this.label3, 2, 0);
             this.tableLayoutPanel3.Controls.Add(this.button4, 4, 1);
+            this.tableLayoutPanel3.Controls.Add(this.comboBox2, 4, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -577,7 +577,7 @@
             "已確認",
             "未確認(扣已確認)",
             "全部"});
-            this.comboBox2.Location = new System.Drawing.Point(3, 50);
+            this.comboBox2.Location = new System.Drawing.Point(483, 10);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(114, 24);
             this.comboBox2.TabIndex = 54;
@@ -628,6 +628,7 @@
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(1128, 373);
             this.dataGridView1.TabIndex = 4;
+            this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             // 
             // dataGridView5
             // 
