@@ -46,6 +46,10 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder6 = new SqlCommandBuilder();
         SqlDataAdapter adapter7 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder7 = new SqlCommandBuilder();
+        SqlDataAdapter adapter8 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder8 = new SqlCommandBuilder();
+        SqlDataAdapter adapter9 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder9 = new SqlCommandBuilder();
         SqlTransaction tran;
         SqlCommand cmd = new SqlCommand();
         DataSet ds = new DataSet();
@@ -55,6 +59,8 @@ namespace TKMOC
         DataSet ds5 = new DataSet();
         DataSet ds6 = new DataSet();
         DataSet ds7 = new DataSet();
+        DataSet ds8 = new DataSet();
+        DataSet ds9 = new DataSet();
         DataTable dt = new DataTable();
         DataTable dtTemp = new DataTable();
         DataTable dtTemp2 = new DataTable();
@@ -311,7 +317,7 @@ namespace TKMOC
                             sbSql.AppendFormat(@"  FROM TEMPTABLE ");
                             sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.INVMB ON MB001=MD003");
 
-                            sbSql.AppendFormat(@"  WHERE  (MD003 LIKE '3%') ");
+                            sbSql.AppendFormat(@"  WHERE  (MD003 LIKE '301%') ");
                             //sbSql.AppendFormat(@"  WHERE  MD003='203022061' ");
                             sbSql.AppendFormat(@"  ORDER BY LV,MD001,MD003");
 
@@ -709,6 +715,83 @@ namespace TKMOC
             }
         }
 
+        public void Search8()
+        {
+
+            StringBuilder TA013 = new StringBuilder();
+
+            if (comboBox1.Text.ToString().Equals("已確認"))
+            {
+                TA013.AppendFormat(" 'Y'");
+            }
+            else if (comboBox1.Text.ToString().Equals("未確認"))
+            {
+                TA013.AppendFormat(" 'N'");
+            }
+            else if (comboBox1.Text.ToString().Equals("全部"))
+            {
+                TA013.AppendFormat("('Y','N' ");
+            }
+            
+          
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+              
+                sbSql.AppendFormat(@"  SELECT TB003 AS '品號',TB012 AS '品名',SUM(TB004-TB005) AS '總需求量',SUM(TB004) AS '製令量',SUM(TB005) AS '已領量',TB007 AS '單位'");
+                sbSql.AppendFormat(@"  FROM [TK].dbo.MOCTA,[TK].dbo.MOCTB");
+                sbSql.AppendFormat(@"  WHERE TA001=TB001 AND TA002=TB002");
+                sbSql.AppendFormat(@"  AND TA003>='{0}' AND TA003<='{1}' ",dateTimePicker3.Value.ToString("yyyyMMdd"),dateTimePicker4.Value.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(@"  AND TB003 LIKE '301%'");
+                sbSql.AppendFormat(@"  AND TA013 IN ({0})", TA013.ToString());
+                sbSql.AppendFormat(@"  GROUP BY TB003,TB012,TB007");
+                sbSql.AppendFormat(@"  ORDER BY TB003");
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+                adapter8 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder8 = new SqlCommandBuilder(adapter8);
+                sqlConn.Open();
+                ds8.Clear();
+                adapter8.Fill(ds8, "TEMPds8");
+                sqlConn.Close();
+
+
+
+
+                if (ds8.Tables["TEMPds8"].Rows.Count == 0)
+                {
+                    dataGridView1.DataSource = null;
+                }
+                else
+                {
+                    if (ds8.Tables["TEMPds8"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView1.DataSource = ds8.Tables["TEMPds8"];
+                        dataGridView1.AutoResizeColumns();
+
+
+                    }
+
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
         #endregion
 
         #region BUTTON
@@ -721,6 +804,10 @@ namespace TKMOC
         private void button2_Click(object sender, EventArgs e)
         {
             ExcelExport();
+        }
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Search8();
         }
         #endregion
 
