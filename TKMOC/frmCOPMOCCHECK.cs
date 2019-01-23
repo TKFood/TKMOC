@@ -106,9 +106,9 @@ namespace TKMOC
             colDecimal2.DataType = System.Type.GetType("System.Decimal");
             dtTemp2.Columns.Add(colDecimal3);
 
-            DataColumn colDecimal4 = new DataColumn("預計採購量");
-            colDecimal2.DataType = System.Type.GetType("System.Decimal");
-            dtTemp2.Columns.Add(colDecimal4);
+            //DataColumn colDecimal4 = new DataColumn("預計採購量");
+            //colDecimal2.DataType = System.Type.GetType("System.Decimal");
+            //dtTemp2.Columns.Add(colDecimal4);
         }
 
 
@@ -241,15 +241,15 @@ namespace TKMOC
 
                 if (ds.Tables["TEMPds1"].Rows.Count == 0)
                 {
-                    dataGridView1.DataSource = null;
+                    //dataGridView1.DataSource = null;
                 }
                 else
                 {
                     if (ds.Tables["TEMPds1"].Rows.Count >= 1)
                     {
                         //dataGridView1.Rows.Clear();
-                        dataGridView1.DataSource = ds.Tables["TEMPds1"];
-                        dataGridView1.AutoResizeColumns();
+                        //dataGridView1.DataSource = ds.Tables["TEMPds1"];
+                        //dataGridView1.AutoResizeColumns();
 
 
                     }
@@ -722,6 +722,12 @@ namespace TKMOC
             SETCOPTHGROUPBY();
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            ExcelExport();
+        }
         #endregion
+
+
     }
 }
