@@ -73,6 +73,7 @@ namespace TKMOC
             SB.AppendFormat(" WHERE TC001=TD001 AND TC002=TD002");
             SB.AppendFormat(" AND TD013>='{0}' AND TD013<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
             SB.AppendFormat(" AND TD004 LIKE '4%'");
+            SB.AppendFormat(" AND TD004 NOT LIKE '410%'");
             SB.AppendFormat(" AND (TD008-TD009+TD024-TD025)>0");
             SB.AppendFormat(" AND TD021='Y'");
             SB.AppendFormat(" AND TD016='N'");
@@ -110,6 +111,7 @@ namespace TKMOC
             SB.AppendFormat(" WHERE TC001=TD001 AND TC002=TD002");
             SB.AppendFormat(" AND TD013>='{0}' AND TD013<='{1}'",dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
             SB.AppendFormat(" AND TD004 LIKE '4%'");
+            SB.AppendFormat(" AND TD004 NOT LIKE '410%'");
             SB.AppendFormat(" AND (TD008-TD009+TD024-TD025)>0");
             SB.AppendFormat(" AND TD021='Y' ");
             SB.AppendFormat(" AND TD016='N'");
@@ -201,6 +203,62 @@ namespace TKMOC
 
         }
 
+        public void SETFASTREPORT5()
+        {
+            StringBuilder SQL1 = new StringBuilder();
+
+            SQL1 = SETSQL5();
+            Report report5 = new Report();
+            report5.Load(@"REPORT\未出訂單業績統計.frx");
+
+            report5.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+            TableDataSource table = report5.GetDataSource("Table") as TableDataSource;
+            table.SelectCommand = SQL1.ToString();
+
+            report5.SetParameterValue("P1",  dateTimePicker7.Value.ToString("yyyyMMdd"));
+            report5.SetParameterValue("P2",  dateTimePicker8.Value.ToString("yyyyMMdd"));
+            report5.Preview = previewControl5;
+            report5.Show();
+        }
+
+        public StringBuilder SETSQL5()
+        {
+            StringBuilder SB = new StringBuilder();
+
+            SB.AppendFormat(" SELECT '國內' AS '國別','劉莉琴' AS '業務員',TC008 AS '交易幣別',  SUM(TD012) AS '金額' ");
+            SB.AppendFormat(" FROM [TK].dbo.COPTC,[TK].dbo.COPTD");
+            SB.AppendFormat(" WHERE TC001=TD001 AND TC002=TD002");
+            SB.AppendFormat(" AND TD013>='{0}' AND TD013<='{1}'",dateTimePicker7.Value.ToString("yyyyMMdd"), dateTimePicker8.Value.ToString("yyyyMMdd"));
+            SB.AppendFormat(" AND TD016='N' AND TC006='140049' AND TC005='106000'");
+            SB.AppendFormat(" GROUP BY TC008");
+            SB.AppendFormat(" UNION ALL");
+            SB.AppendFormat(" SELECT '國內' AS '國別','蔡顏鴻' AS '業務員',TC008 AS '交易幣別',  SUM(TD012) AS '金額' ");
+            SB.AppendFormat(" FROM [TK].dbo.COPTC,[TK].dbo.COPTD");
+            SB.AppendFormat(" WHERE TC001=TD001 AND TC002=TD002");
+            SB.AppendFormat(" AND TD013>='{0}' AND TD013<='{1}' ", dateTimePicker7.Value.ToString("yyyyMMdd"), dateTimePicker8.Value.ToString("yyyyMMdd"));
+            SB.AppendFormat(" AND TD016='N' AND TC006='140078' AND TC005='106200'");
+            SB.AppendFormat(" GROUP BY TC008");
+            SB.AppendFormat(" UNION ALL");
+            SB.AppendFormat(" SELECT '大陸' AS '國別','洪櫻芬' AS '業務員',TC008 AS '交易幣別',  SUM(TD012) AS '金額'");
+            SB.AppendFormat(" FROM [TK].dbo.COPTC,[TK].dbo.COPTD");
+            SB.AppendFormat(" WHERE TC001=TD001 AND TC002=TD002");
+            SB.AppendFormat(" AND TD013>='{0}' AND TD013<='{1}'", dateTimePicker7.Value.ToString("yyyyMMdd"), dateTimePicker8.Value.ToString("yyyyMMdd"));
+            SB.AppendFormat(" AND TD016='N' AND TC006='160155' AND TC005='106800'");
+            SB.AppendFormat(" GROUP BY TC008");
+            SB.AppendFormat(" UNION ALL");
+            SB.AppendFormat(" SELECT '國外' AS '國別','洪櫻芬' AS '業務員',TC008 AS '交易幣別',  SUM(TD012) AS '金額'");
+            SB.AppendFormat(" FROM [TK].dbo.COPTC,[TK].dbo.COPTD");
+            SB.AppendFormat(" WHERE TC001=TD001 AND TC002=TD002");
+            SB.AppendFormat(" AND TD013>='{0}' AND TD013<='{1}'", dateTimePicker7.Value.ToString("yyyyMMdd"), dateTimePicker8.Value.ToString("yyyyMMdd"));
+            SB.AppendFormat(" AND TD016='N' AND TC006='160155' AND TC005='106300'");
+            SB.AppendFormat("GROUP BY TC008 ");
+            SB.AppendFormat(" ");
+            SB.AppendFormat(" ");
+
+            return SB;
+
+        }
+
         #endregion
 
         #region BUTTON
@@ -219,6 +277,11 @@ namespace TKMOC
         private void button3_Click(object sender, EventArgs e)
         {
             SETFASTREPORT4();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            SETFASTREPORT5();
         }
         #endregion
 
