@@ -1296,8 +1296,8 @@ namespace TKMOC
 
 
                     sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINE]");
-                    sbSql.AppendFormat(" ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET],[TA029],[OUTDATE],[HALFPRO])");
-                    sbSql.AppendFormat(" VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}',N'{9}','{10}','{11}')", "NEWID()", comboBox3.Text, dateTimePicker7.Value.ToString("yyyy/MM/dd"), textBox14.Text, textBox17.Text, textBox18.Text, textBox15.Text, textBox19.Text, textBox16.Text, textBox54.Text, dateTimePicker15.Value.ToString("yyyy/MM/dd"),textBox69.Text);
+                    sbSql.AppendFormat(" ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET],[TA029],[OUTDATE],[HALFPRO],[COPTD001],[COPTD002],[COPTD003])");
+                    sbSql.AppendFormat(" VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}',N'{9}','{10}','{11}','{12}','{13}','{14}')", "NEWID()", comboBox3.Text, dateTimePicker7.Value.ToString("yyyy/MM/dd"), textBox14.Text, textBox17.Text, textBox18.Text, textBox15.Text, textBox19.Text, textBox16.Text, textBox54.Text, dateTimePicker15.Value.ToString("yyyy/MM/dd"),textBox69.Text, textBox44.Text, textBox45.Text, textBox74.Text);
                     sbSql.AppendFormat(" ");
                     sbSql.AppendFormat(" ");
 
@@ -1345,8 +1345,8 @@ namespace TKMOC
 
 
                     sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINE]");
-                    sbSql.AppendFormat(" ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET],[TA029],[OUTDATE],[HALFPRO])");
-                    sbSql.AppendFormat(" VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}',N'{9}','{10}','{11}')", "NEWID()", comboBox4.Text, dateTimePicker9.Value.ToString("yyyy/MM/dd"), textBox20.Text, textBox24.Text, textBox25.Text, textBox21.Text, textBox23.Text, textBox22.Text, textBox55.Text, dateTimePicker16.Value.ToString("yyyy/MM/dd"),textBox70.Text);
+                    sbSql.AppendFormat(" ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET],[TA029],[OUTDATE],[HALFPRO],[COPTD001],[COPTD002],[COPTD003])");
+                    sbSql.AppendFormat(" VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}',N'{9}','{10}','{11}','{12}','{13}','{14}')", "NEWID()", comboBox4.Text, dateTimePicker9.Value.ToString("yyyy/MM/dd"), textBox20.Text, textBox24.Text, textBox25.Text, textBox21.Text, textBox23.Text, textBox22.Text, textBox55.Text, dateTimePicker16.Value.ToString("yyyy/MM/dd"),textBox70.Text, textBox46.Text, textBox47.Text, textBox75.Text);
                     sbSql.AppendFormat(" ");
                     sbSql.AppendFormat(" ");
 
@@ -1395,8 +1395,8 @@ namespace TKMOC
 
 
                     sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINE]");
-                    sbSql.AppendFormat(" ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[CLINET],[MANUHOUR],[BOX],[PACKAGE],[OUTDATE],[TA029],[HALFPRO])");
-                    sbSql.AppendFormat(" VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}',N'{11}','{12}')", "NEWID()", comboBox13.Text, dateTimePicker18.Value.ToString("yyyy/MM/dd"), textBox56.Text, textBox62.Text, textBox63.Text, textBox57.Text, textBox58.Text, textBox59.Text, textBox61.Text, dateTimePicker19.Value.ToString("yyyy/MM/dd"), textBox64.Text,textBox71.Text);
+                    sbSql.AppendFormat(" ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[CLINET],[MANUHOUR],[BOX],[PACKAGE],[OUTDATE],[TA029],[HALFPRO],[COPTD001],[COPTD002],[COPTD003])");
+                    sbSql.AppendFormat(" VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}',N'{11}','{12}','{13}','{14}','{15}')", "NEWID()", comboBox13.Text, dateTimePicker18.Value.ToString("yyyy/MM/dd"), textBox56.Text, textBox62.Text, textBox63.Text, textBox57.Text, textBox58.Text, textBox59.Text, textBox61.Text, dateTimePicker19.Value.ToString("yyyy/MM/dd"), textBox64.Text,textBox71.Text, textBox65.Text, textBox66.Text, textBox76.Text);
                     sbSql.AppendFormat(" ");
                     sbSql.AppendFormat(" ");
 
@@ -1443,6 +1443,10 @@ namespace TKMOC
             textBox32.Text = "0";
             textBox52.Text = null;
             textBox67.Text = "0";
+            textBox40.Text = null;
+            textBox41.Text = null;
+            textBox73.Text = null;
+
         }
         public void SETNULL3()
         {
@@ -1471,6 +1475,9 @@ namespace TKMOC
             textBox34.Text = "0";
             textBox54.Text = null;
             textBox69.Text = "0";
+            textBox44.Text = null;
+            textBox45.Text = null;
+            textBox74.Text = null;
         }
 
         public void SETNULL6()
@@ -1485,6 +1492,9 @@ namespace TKMOC
             textBox35.Text = "0";
             textBox55.Text = null;
             textBox70.Text = "0";
+            textBox46.Text = null;
+            textBox47.Text = null;
+            textBox75.Text = null;
         }
 
         public void SETNULL7()
@@ -1499,6 +1509,9 @@ namespace TKMOC
             textBox58.Text = "0";
             textBox64.Text = null;
             textBox71.Text = "0";
+            textBox56.Text = null;
+            textBox66.Text = null;
+            textBox76.Text = null;
         }
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
@@ -1520,8 +1533,8 @@ namespace TKMOC
                     SUM1 = Convert.ToDecimal(row.Cells["數量"].Value.ToString());
                     TA029 = row.Cells["備註"].Value.ToString();
                     TA026A = row.Cells["訂單單別"].Value.ToString();
-                    TA027B = row.Cells["訂單號"].Value.ToString();
-                    TA028C = row.Cells["訂單序號"].Value.ToString();
+                    TA027A = row.Cells["訂單號"].Value.ToString();
+                    TA028A = row.Cells["訂單序號"].Value.ToString();
 
                     SUBID = row.Cells["ID"].Value.ToString();
                     SUBBAR = row.Cells["桶數"].Value.ToString();
@@ -1546,8 +1559,8 @@ namespace TKMOC
                     SUBPACKAGE = null;
 
                     TA026A = null;
-                    TA027B = null;
-                    TA028C = null;
+                    TA027A = null;
+                    TA028A = null;
 
                 }
             }
@@ -2038,8 +2051,8 @@ namespace TKMOC
                 MOCMB001 = MB001;
                 MOCTA004 = BAR;
                 MOCTA.TA026 = TA026A;
-                MOCTA.TA027 = TA027B;
-                MOCTA.TA028 = TA028C;
+                MOCTA.TA027 = TA027A;
+                MOCTA.TA028 = TA028A;
 
             }
             else if (MANU.Equals("新廠包裝線"))
@@ -2056,11 +2069,18 @@ namespace TKMOC
             {
                 MOCMB001 = MB001C;
                 MOCTA004 = BAR2;
+                MOCTA.TA026 = TA026B;
+                MOCTA.TA027 = TA027B;
+                MOCTA.TA028 = TA028B;
             }
             else if (MANU.Equals("新廠製三組(手工)"))
             {
                 MOCMB001 = MB001D;
                 MOCTA004 = BAR3;
+
+                MOCTA.TA026 = TA026C;
+                MOCTA.TA027 = TA027C;
+                MOCTA.TA028 = TA028C;
             }
             else if (MANU.Equals("水麵"))
             {
@@ -2072,6 +2092,9 @@ namespace TKMOC
             {
                 MOCMB001 = MB001F;
                 MOCTA004 = BOX;
+                MOCTA.TA026 = TA026D;
+                MOCTA.TA027 = TA027D;
+                MOCTA.TA028 = TA028D;
             }
             try
             {
@@ -3683,6 +3706,9 @@ namespace TKMOC
                     BAR2 = Convert.ToDecimal(row.Cells["桶數"].Value.ToString());
                     SUM3 = Convert.ToDecimal(row.Cells["數量"].Value.ToString());
                     TA029 = row.Cells["備註"].Value.ToString();
+                    TA026B = row.Cells["訂單單別"].Value.ToString();
+                    TA027B = row.Cells["訂單號"].Value.ToString();
+                    TA028B = row.Cells["訂單序號"].Value.ToString();
 
                     SUBID3 = row.Cells["ID"].Value.ToString();
                     SUBBAR3 = row.Cells["桶數"].Value.ToString();
@@ -3702,6 +3728,10 @@ namespace TKMOC
                     SUBNUM3 = null;
                     SUBBOX3 = null;
                     SUBPACKAGE3 = null;
+
+                    TA026B = null;
+                    TA027B = null;
+                    TA028B = null;
 
                 }
             }
@@ -3732,6 +3762,10 @@ namespace TKMOC
                     SUM4 = Convert.ToDecimal(row.Cells["數量"].Value.ToString());
                     TA029 = row.Cells["備註"].Value.ToString();
 
+                    TA026C = row.Cells["訂單單別"].Value.ToString();
+                    TA027C = row.Cells["訂單號"].Value.ToString();
+                    TA028C = row.Cells["訂單序號"].Value.ToString();
+
                     SUBID4 = row.Cells["ID"].Value.ToString();
                     SUBBAR4 = row.Cells["桶數"].Value.ToString();
                     SUBNUM4 = row.Cells["數量"].Value.ToString();
@@ -3750,6 +3784,10 @@ namespace TKMOC
                     SUBNUM4 = null;
                     SUBBOX4 = null;
                     SUBPACKAGE4 = null;
+
+                    TA026C = null;
+                    TA027C = null;
+                    TA028C = null;
 
                 }
             }
@@ -5215,56 +5253,12 @@ namespace TKMOC
 
         private void dataGridView13_SelectionChanged(object sender, EventArgs e)
         {
-            if (dataGridView13.CurrentRow != null)
-            {
-                int rowindex = dataGridView13.CurrentRow.Index;
-
-                if (rowindex >= 0)
-                {
-                    DataGridViewRow row = dataGridView13.Rows[rowindex];
-                    textBox44.Text = row.Cells["訂單單別"].Value.ToString();
-                    textBox45.Text = row.Cells["訂單單號"].Value.ToString();
-                }
-                else
-                {
-                    textBox44.Text = null;
-                    textBox45.Text = null;
-
-                }
-            }
-            else
-            {
-                textBox44.Text = null;
-                textBox45.Text = null;
-
-            }
+            
         }
 
         private void dataGridView14_SelectionChanged(object sender, EventArgs e)
         {
-            if (dataGridView14.CurrentRow != null)
-            {
-                int rowindex = dataGridView14.CurrentRow.Index;
-
-                if (rowindex >= 0)
-                {
-                    DataGridViewRow row = dataGridView14.Rows[rowindex];
-                    textBox46.Text = row.Cells["訂單單別"].Value.ToString();
-                    textBox47.Text = row.Cells["訂單單號"].Value.ToString();
-                }
-                else
-                {
-                    textBox46.Text = null;
-                    textBox47.Text = null;
-
-                }
-            }
-            else
-            {
-                textBox46.Text = null;
-                textBox47.Text = null;
-
-            }
+            
         }
 
         public void DELMOCMANULINECOP()
@@ -5706,6 +5700,10 @@ namespace TKMOC
                     SUM5 = Convert.ToDecimal(row.Cells["包裝數"].Value.ToString());
                     TA029 = row.Cells["備註"].Value.ToString();
 
+                    TA026D = row.Cells["訂單單別"].Value.ToString();
+                    TA027D = row.Cells["訂單號"].Value.ToString();
+                    TA028D = row.Cells["訂單序號"].Value.ToString();
+
                     SUBID5 = row.Cells["ID"].Value.ToString();
                     SUBBAR5 = "";
                     SUBNUM5 = "";
@@ -5724,6 +5722,10 @@ namespace TKMOC
                     SUBNUM5 = null;
                     SUBBOX5 = null;
                     SUBPACKAGE5 = null;
+
+                    TA026D = null;
+                    TA027D = null;
+                    TA028D = null;
 
                 }
             }
