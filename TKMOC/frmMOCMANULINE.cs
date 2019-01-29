@@ -5746,12 +5746,20 @@ namespace TKMOC
         }
         private void button10_Click(object sender, EventArgs e)
         {
-            TA002 = GETMAXTA002(TA001);
-            ADDMOCMANULINERESULT();
-            ADDMOCTATB();
-            SEARCHMOCMANULINERESULT();
+            if(!string.IsNullOrEmpty(TA028))
+            {
+                TA002 = GETMAXTA002(TA001);
+                ADDMOCMANULINERESULT();
+                ADDMOCTATB();
+                SEARCHMOCMANULINERESULT();
 
-            MessageBox.Show("完成");
+                MessageBox.Show("完成");
+            }
+            else
+            {
+                MessageBox.Show("訂單沒有指定");
+            }
+            
         }
         private void button11_Click(object sender, EventArgs e)
         {
@@ -5792,12 +5800,20 @@ namespace TKMOC
 
         private void button15_Click(object sender, EventArgs e)
         {
-            TA002 = GETMAXTA002(TA001);
-            ADDMOCMANULINERESULT();
-            ADDMOCTATB();
-            SEARCHMOCMANULINERESULT();
+            if(!string.IsNullOrEmpty(TA028B))
+            {
+                TA002 = GETMAXTA002(TA001);
+                ADDMOCMANULINERESULT();
+                ADDMOCTATB();
+                SEARCHMOCMANULINERESULT();
 
-            MessageBox.Show("完成");
+                MessageBox.Show("完成");
+            }
+            else
+            {
+                MessageBox.Show("訂單沒有指定");
+            }
+           
         }
         private void button16_Click(object sender, EventArgs e)
         {
