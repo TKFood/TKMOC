@@ -227,6 +227,18 @@ namespace TKMOC
         string TA026;
         string TA027;
         string TA028;
+        string TA026A;
+        string TA027A;
+        string TA028A;
+        string TA026B;
+        string TA027B;
+        string TA028B;
+        string TA026C;
+        string TA027C;
+        string TA028C;
+        string TA026D;
+        string TA027D;
+        string TA028D;
 
         public class MOCTADATA
         {
@@ -1186,8 +1198,8 @@ namespace TKMOC
 
 
                     sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINE]");
-                    sbSql.AppendFormat(" ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET],[TA029],[OUTDATE],[HALFPRO])");
-                    sbSql.AppendFormat(" VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}',N'{9}','{10}','{11}')", "NEWID()", comboBox1.Text, dateTimePicker2.Value.ToString("yyyy/MM/dd"), textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, textBox5.Text, textBox6.Text, textBox52.Text, dateTimePicker14.Value.ToString("yyyy/MM/dd"),textBox67.Text);
+                    sbSql.AppendFormat(" ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET],[TA029],[OUTDATE],[HALFPRO],[COPTD001],[COPTD002],[COPTD003])");
+                    sbSql.AppendFormat(" VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}',N'{9}','{10}','{11}','{12}','{13}','{14}')", "NEWID()", comboBox1.Text, dateTimePicker2.Value.ToString("yyyy/MM/dd"), textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, textBox5.Text, textBox6.Text, textBox52.Text, dateTimePicker14.Value.ToString("yyyy/MM/dd"),textBox67.Text, textBox40.Text, textBox41.Text, textBox73.Text);
                     sbSql.AppendFormat(" ");
                     sbSql.AppendFormat(" ");
 
@@ -1507,9 +1519,9 @@ namespace TKMOC
                     BAR = Convert.ToDecimal(row.Cells["桶數"].Value.ToString());
                     SUM1 = Convert.ToDecimal(row.Cells["數量"].Value.ToString());
                     TA029 = row.Cells["備註"].Value.ToString();
-                    TA026 = row.Cells["備註"].Value.ToString();
-                    TA027 = row.Cells["備註"].Value.ToString();
-                    TA028 = row.Cells["備註"].Value.ToString();
+                    TA026A = row.Cells["訂單單別"].Value.ToString();
+                    TA027B = row.Cells["訂單號"].Value.ToString();
+                    TA028C = row.Cells["訂單序號"].Value.ToString();
 
                     SUBID = row.Cells["ID"].Value.ToString();
                     SUBBAR = row.Cells["桶數"].Value.ToString();
@@ -1532,6 +1544,10 @@ namespace TKMOC
                     SUBNUM = null;
                     SUBBOX = null;
                     SUBPACKAGE = null;
+
+                    TA026A = null;
+                    TA027B = null;
+                    TA028C = null;
 
                 }
             }
@@ -2021,12 +2037,20 @@ namespace TKMOC
             {
                 MOCMB001 = MB001;
                 MOCTA004 = BAR;
-                    
+                MOCTA.TA026 = TA026A;
+                MOCTA.TA027 = TA027B;
+                MOCTA.TA028 = TA028C;
+
             }
             else if (MANU.Equals("新廠包裝線"))
             {
                 MOCMB001 = MB001B;
                 MOCTA004 = BOX;
+                MOCTA.TA026 = TA026;
+                MOCTA.TA027 = TA027;
+                MOCTA.TA028 = TA028;
+
+
             }
             else if (MANU.Equals("新廠製一組"))
             {
@@ -2077,7 +2101,7 @@ namespace TKMOC
                     sbSql.AppendFormat(" '{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}',", MOCTA.TA009, MOCTA.TA010, MOCTA.TA011, MOCTA.TA012, MOCTA.TA013, MOCTA.TA014, MOCTA.TA015, MOCTA.TA016, MOCTA.TA017, MOCTA.TA018);
                     sbSql.AppendFormat(" '{0}','{1}','{2}','{3}','{4}','{5}',N'{6}','{7}','{8}','{9}','{10}',", MOCTA.TA019, MOCTA.TA020, MOCTA.TA021, MOCTA.TA022, MOCTA.TA024, MOCTA.TA025, MOCTA.TA029, MOCTA.TA030, MOCTA.TA031, MOCTA.TA034, MOCTA.TA035);
                     sbSql.AppendFormat(" '{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}',", MOCTA.TA040, MOCTA.TA041, MOCTA.TA043, MOCTA.TA044, MOCTA.TA045, MOCTA.TA046, MOCTA.TA047, MOCTA.TA049, MOCTA.TA050, MOCTA.TA200);
-                    sbSql.AppendFormat(" '{0}','{1}','{2}'", TA026, TA027, TA028);
+                    sbSql.AppendFormat(" '{0}','{1}','{2}'", MOCTA.TA026, MOCTA.TA027, MOCTA.TA028);
                     sbSql.AppendFormat(" )");
                     sbSql.AppendFormat(" ");
                     sbSql.AppendFormat(" INSERT INTO [TK].dbo.[MOCTB]");
@@ -5182,32 +5206,7 @@ namespace TKMOC
         //}
 
 
-        private void dataGridView11_SelectionChanged(object sender, EventArgs e)
-        {
-            if (dataGridView11.CurrentRow != null)
-            {
-                int rowindex = dataGridView11.CurrentRow.Index;
-                
-                if (rowindex >= 0)
-                {
-                    DataGridViewRow row = dataGridView11.Rows[rowindex];
-                    textBox40.Text = row.Cells["訂單單別"].Value.ToString();
-                    textBox41.Text = row.Cells["訂單單號"].Value.ToString();                    
-                }
-                else
-                {
-                    textBox40.Text = null;
-                    textBox41.Text = null;                   
-
-                }
-            }
-            else
-            {
-                textBox40.Text = null;
-                textBox41.Text = null;
-
-            }
-        }
+      
 
         private void dataGridView12_SelectionChanged(object sender, EventArgs e)
         {
