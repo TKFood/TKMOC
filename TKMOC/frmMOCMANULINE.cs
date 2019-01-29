@@ -5138,110 +5138,7 @@ namespace TKMOC
             }
 
         }
-        //public void SEARCHMOCMANULINECOP()
-        //{
-        //    string SOURCEID = null;
-
-        //    if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage1"])
-        //    {
-        //        SOURCEID = ID1;
-        //    }
-        //    else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage4"])
-        //    {
-        //        SOURCEID = ID2;
-        //    }
-        //    else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage2"])
-        //    {
-        //        SOURCEID = ID3;
-        //    }
-        //    else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage3"])
-        //    {
-        //        SOURCEID = ID4;
-        //    }
-        //    else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage5"])
-        //    {
-
-        //    }
-        //    else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage8"])
-        //    {
-        //        SOURCEID = ID6;
-        //    }
-
-
-        //    try
-        //    {
-        //    connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
-        //    sqlConn = new SqlConnection(connectionString);
-
-        //    sbSql.Clear();
-        //    sbSqlQuery.Clear();
-
-        //    sbSql.AppendFormat(@"  SELECT [MANU] AS '組別',[TC001] AS '訂單單別',[TC002] AS '訂單單號',[SID] AS '來源',[ID]");
-        //    sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINECOP]");
-        //    sbSql.AppendFormat(@"  WHERE [SID]='{0}'", SOURCEID);
-        //    sbSql.AppendFormat(@"  ORDER BY [MANU],[TC001],[TC002]");
-        //    sbSql.AppendFormat(@"  ");
-        //    sbSql.AppendFormat(@"  ");
-
-
-        //    adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-        //    sqlCmdBuilder2 = new SqlCommandBuilder(adapter2);
-        //    sqlConn.Open();
-        //    ds21.Clear();
-        //    adapter2.Fill(ds21, "TEMPds21");
-        //    sqlConn.Close();
-
-
-        //        if (ds21.Tables["TEMPds21"].Rows.Count == 0)
-        //        {
-
-        //        }
-        //        else
-        //        {
-        //            if (ds21.Tables["TEMPds21"].Rows.Count >= 1)
-        //            {
-        //                if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage1"])
-        //                {
-        //                    dataGridView11.DataSource = ds21.Tables["TEMPds21"];
-        //                    dataGridView11.AutoResizeColumns();
-        //                }
-        //                else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage4"])
-        //                {
-                            
-        //                }
-        //                else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage2"])
-        //                {
-        //                    dataGridView13.DataSource = ds21.Tables["TEMPds21"];
-        //                    dataGridView13.AutoResizeColumns();
-        //                }
-        //                else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage3"])
-        //                {
-        //                    dataGridView14.DataSource = ds21.Tables["TEMPds21"];
-        //                    dataGridView14.AutoResizeColumns();
-        //                }
-        //                else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage5"])
-        //                {
-
-        //                }
-        //                else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage8"])
-        //                {
-        //                    dataGridView18.DataSource = ds21.Tables["TEMPds21"];
-        //                    dataGridView18.AutoResizeColumns();
-        //                }
-        //            }
-        //        }
-
-        //    }
-        //    catch
-        //    {
-
-        //    }
-        //    finally
-        //    {
-
-        //    }
-        //}
+       
 
 
       
@@ -5960,7 +5857,7 @@ namespace TKMOC
                 SEARCHMOCMANULINE();
 
                 DELMOCMANULINECOP();
-                //SEARCHMOCMANULINECOP();
+                
             }
             else if (dialogResult == DialogResult.No)
             {
@@ -5977,7 +5874,7 @@ namespace TKMOC
                 SEARCHMOCMANULINE();
 
                 DELMOCMANULINECOP();
-                //SEARCHMOCMANULINECOP();
+               
             }
             else if (dialogResult == DialogResult.No)
             {
@@ -5994,7 +5891,7 @@ namespace TKMOC
                 SEARCHMOCMANULINE();
 
                 DELMOCMANULINECOP();
-                //SEARCHMOCMANULINECOP();
+                
             }
             else if (dialogResult == DialogResult.No)
             {
@@ -6011,7 +5908,7 @@ namespace TKMOC
                 SEARCHMOCMANULINE();
 
                 DELMOCMANULINECOP();
-                //SEARCHMOCMANULINECOP();
+                
             }
             else if (dialogResult == DialogResult.No)
             {
@@ -6111,7 +6008,7 @@ namespace TKMOC
                 SUBfrmMOCMANULINECOP.ShowDialog();
             }
 
-            //SEARCHMOCMANULINECOP();
+            
         }
         private void button37_Click(object sender, EventArgs e)
         {
@@ -6122,7 +6019,7 @@ namespace TKMOC
                 SUBfrmMOCMANULINECOP.ShowDialog();
             }
 
-            //SEARCHMOCMANULINECOP();
+           
         }
 
         private void button38_Click(object sender, EventArgs e)
@@ -6134,7 +6031,7 @@ namespace TKMOC
                 SUBfrmMOCMANULINECOP.ShowDialog();
             }
 
-            //SEARCHMOCMANULINECOP();
+           
         }
 
         private void button39_Click(object sender, EventArgs e)
@@ -6146,7 +6043,7 @@ namespace TKMOC
                 SUBfrmMOCMANULINECOP.ShowDialog();
             }
 
-            //SEARCHMOCMANULINECOP();
+            
         }
 
         private void button40_Click(object sender, EventArgs e)
@@ -6244,7 +6141,7 @@ namespace TKMOC
                 SEARCHMOCMANULINE();
 
                 DELMOCMANULINECOP();
-                //SEARCHMOCMANULINECOP();
+               
             }
             else if (dialogResult == DialogResult.No)
             {
@@ -6260,7 +6157,7 @@ namespace TKMOC
                 SUBfrmMOCMANULINECOP.ShowDialog();
             }
 
-            //SEARCHMOCMANULINECOP();
+           
         }
 
 
