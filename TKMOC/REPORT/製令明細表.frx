@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="01/16/2019 10:49:29" ReportInfo.Modified="01/16/2019 10:53:32" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="01/16/2019 10:49:29" ReportInfo.Modified="01/31/2019 09:09:49" ReportInfo.CreatorVersion="2016.4.4.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9JjuMJNgyw7cx+IbRI23C6z">
-      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT MD002 AS '線別',TA009 AS '預計開工',TA034 AS '品名',TA001 AS '製令',TA002 AS '製令單',TA015 AS '預計產量',TA017 AS '已生產量',(TA015-TA017) AS '未生產量',TA007 AS '單位'&#13;&#10;FROM [TK].dbo.MOCTA,[TK].dbo.CMSMD&#13;&#10;WHERE TA021=MD001&#13;&#10;AND TA009&gt;='20190101' AND TA009&lt;='20190228'&#13;&#10;AND TA021 IN ('02','03','04','05','09','10')&#13;&#10;ORDER BY TA021,TA002,TA034">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9LP7nk1ZxI5tYGJF++mAPG+">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT MD002 AS '線別',TA009 AS '預計開工',TA034 AS '品名',TA001 AS '製令',TA002 AS '製令單',TA015 AS '預計產量',TA017 AS '已生產量',(TA015-TA017) AS '未生產量',TA007 AS '單位'&#13;&#10;FROM [TK].dbo.MOCTA,[TK].dbo.CMSMD&#13;&#10;WHERE TA021=MD001&#13;&#10;AND TA009&gt;='20190101' AND TA009&lt;='20190228'&#13;&#10;AND TA021 IN ('02','03','04','05','09','10')&#13;&#10;ORDER BY TA021,TA009">
         <Column Name="線別" DataType="System.String"/>
         <Column Name="預計開工" DataType="System.String"/>
         <Column Name="品名" DataType="System.String"/>

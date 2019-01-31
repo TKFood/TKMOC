@@ -149,7 +149,7 @@ namespace TKMOC
             SB.AppendFormat(" WHERE TA021=MD001");
             SB.AppendFormat(" AND TA009>='{0}' AND TA009<='{1}'",dateTimePicker3.Value.ToString("yyyyMMdd"), dateTimePicker4.Value.ToString("yyyyMMdd"));
             SB.AppendFormat(" AND TA021 IN ('02','03','04','05','09','10')");
-            SB.AppendFormat(" ORDER BY TA021,TA002,TA034");
+            SB.AppendFormat(" ORDER BY TA021,TA009");
             SB.AppendFormat(" ");
 
             return SB;
