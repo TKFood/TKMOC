@@ -46,6 +46,8 @@ namespace TKMOC
             InitializeComponent();
 
             comboBox1load();
+            comboBox2load();
+            comboBox3load();
         }
 
         #region FUNCTION
@@ -66,6 +68,46 @@ namespace TKMOC
             comboBox1.DataSource = dt.DefaultView;
             comboBox1.ValueMember = "Name";
             comboBox1.DisplayMember = "Name";
+            sqlConn.Close();
+
+
+        }
+        public void comboBox2load()
+        {
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT [Code],[Name] FROM [HRMDB].[dbo].[Department] WHERE [Code]  LIKE '103%' AND  [Name] NOT LIKE '%停用%' UNION ALL SELECT[Code],[Name] FROM [HRMDB].[dbo].[Department] WHERE [Name] NOT LIKE '%停用%' ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("Code", typeof(string));
+            dt.Columns.Add("Name", typeof(string));
+            da.Fill(dt);
+            comboBox2.DataSource = dt.DefaultView;
+            comboBox2.ValueMember = "Name";
+            comboBox2.DisplayMember = "Name";
+            sqlConn.Close();
+
+
+        }
+        public void comboBox3load()
+        {
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT [Name] FROM [HRMDB].[dbo].[EmployeeState]");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("Name", typeof(string));
+
+            da.Fill(dt);
+            comboBox3.DataSource = dt.DefaultView;
+            comboBox3.ValueMember = "Name";
+            comboBox3.DisplayMember = "Name";
             sqlConn.Close();
 
 
@@ -92,7 +134,16 @@ namespace TKMOC
         {
             StringBuilder FASTSQL = new StringBuilder();
 
-          
+            FASTSQL.AppendFormat(@"  SELECT [Employee].[EmployeeId],[Employee].[CnName],[Employee].[JobId],[Employee].[PartTimeJob],[Employee].[Code] ");
+            FASTSQL.AppendFormat(@"  ,[Department].[Name],[Corporation].[Name],[EmployeeState].[Name]");
+            FASTSQL.AppendFormat(@"  FROM [HRMDB].[dbo].[Employee],[HRMDB].[dbo].[Department],[HRMDB].[dbo].[EmployeeState],[HRMDB].[dbo].[Corporation]");
+            FASTSQL.AppendFormat(@"  WHERE [Employee].[DepartmentId]=[Department].[DepartmentId]");
+            FASTSQL.AppendFormat(@"  AND [EmployeeState].EmployeeStateId=[Employee].EmployeeStateId");
+            FASTSQL.AppendFormat(@"  AND [Employee].[CorporationId]=[Corporation].[CorporationId]");
+            FASTSQL.AppendFormat(@"  AND [Corporation].[Name]='{0}'",comboBox1.Text);
+            FASTSQL.AppendFormat(@"  AND [Department].[Name]='{0}'", comboBox2.Text);
+            FASTSQL.AppendFormat(@"  AND [EmployeeState].[Name]='{0}'", comboBox3.Text);
+            FASTSQL.AppendFormat(@"  ORDER BY [Employee].[Code]");
             FASTSQL.AppendFormat(@"  ");
             FASTSQL.AppendFormat(@"  ");
 
