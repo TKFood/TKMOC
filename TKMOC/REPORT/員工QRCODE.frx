@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="08/31/2018 10:44:02" ReportInfo.Modified="02/12/2019 10:36:31" ReportInfo.CreatorVersion="2016.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9Ik7OnpXhdVYdHVG+qYJVuQ">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT&#13;&#10;[Employee].[EmployeeId]&#13;&#10;,[Employee].[CnName]&#13;&#10;,[Department].[Name]&#13;&#10;,[Employee].[JobId]&#13;&#10;,[Employee].[PartTimeJob]&#13;&#10;,[Employee].[Code]&#13;&#10;,[EmployeeState].[Name]&#13;&#10;,[Corporation].[Name]&#13;&#10;FROM [HRMDB].[dbo].[Employee],[HRMDB].[dbo].[Department],[HRMDB].[dbo].[EmployeeState],[HRMDB].[dbo].[Corporation]&#13;&#10;WHERE [Employee].[DepartmentId]=[Department].[DepartmentId]&#13;&#10;AND [EmployeeState].EmployeeStateId=[Employee].EmployeeStateId&#13;&#10;AND [Employee].[CorporationId]=[Corporation].[CorporationId]&#13;&#10;ORDER BY [Employee].[Code]">
+        <Column Name="EmployeeId" DataType="System.Guid"/>
+        <Column Name="CnName" DataType="System.String"/>
+        <Column Name="Name" DataType="System.String"/>
+        <Column Name="JobId" DataType="System.Guid"/>
+        <Column Name="PartTimeJob" DataType="System.String"/>
+        <Column Name="Code" DataType="System.String"/>
+        <Column Name="Name1" DataType="System.String"/>
+        <Column Name="Name2" DataType="System.String"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+  </Dictionary>
+  <ReportPage Name="Page1" LeftMargin="6.5" TopMargin="0" RightMargin="0" BottomMargin="0" Columns.Count="6" Columns.Width="33.9" Columns.Positions="0,33.9,67.8,101.8,135.7,169.6">
+    <DataBand Name="Data1" Width="128.14" Height="94.5" Guides="37.8,47.25,122.85,122.85,132.3,132.3,141.75,132.3,132.3,132.3,18.9,47.25,18.9,37.8,113.4,113.4,113.4,113.4" DataSource="Table">
+      <BarcodeObject Name="Barcode1" Left="32.35" Top="32.8" Width="56.7" Height="56.7" AutoSize="false" Text="[Table.Code]" ShowText="false" AllowExpressions="true" Barcode="QR Code" Barcode.ErrorCorrection="L" Barcode.Encoding="UTF8" Barcode.QuietZone="true"/>
+      <TextObject Name="Text1" Left="3.45" Top="6.9" Width="113.4" Height="18.9" Text="姓名:[Table.CnName]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text2" Left="28.35" Top="28.35" Width="66.15" Height="66.15" Border.Lines="All" HorzAlign="Center" VertAlign="Center"/>
+    </DataBand>
+  </ReportPage>
+</Report>
