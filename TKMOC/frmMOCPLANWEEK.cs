@@ -238,7 +238,7 @@ namespace TKMOC
             }
             if (checkBox7.Checked == true)
             {
-                TD001.Append("'A223',");
+                TD001.Append("'A223','A228',");
             }
             TD001.Append("''");
 
