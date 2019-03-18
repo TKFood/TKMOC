@@ -136,7 +136,7 @@ namespace TKMOC
 
                     if (!string.IsNullOrEmpty(textBox1.Text))
                     {
-                        //SEARCHMOCINVCHECK();
+                        SEARCHMOCINVCHECK();
                     }
 
                 }
@@ -149,6 +149,152 @@ namespace TKMOC
             }
         }
 
+        public void SEARCHMOCINVCHECK()
+        {
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat(@"  SELECT [COPTA001] AS '訂單別',[COPTA002] AS '訂單號',[COPTA003] AS '訂單序號',[COMMENT] AS '備註',[ID],[ADDDATES]");
+                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCCOPCHECK]");
+                sbSql.AppendFormat(@"  WHERE [COPTA001]='{0}' AND [COPTA002]='{1}' AND [COPTA003]='{2}' ",textBox1.Text, textBox2.Text, textBox3.Text);
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+
+                adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder2 = new SqlCommandBuilder(adapter2);
+                sqlConn.Open();
+                ds2.Clear();
+                adapter2.Fill(ds2, "TEMPds2");
+                sqlConn.Close();
+
+
+                if (ds2.Tables["TEMPds2"].Rows.Count == 0)
+                {
+                    dataGridView2.DataSource = null;
+                }
+                else
+                {
+                    if (ds2.Tables["TEMPds2"].Rows.Count >= 1)
+                    {
+                        dataGridView2.DataSource = ds2.Tables["TEMPds2"];
+
+                        dataGridView2.AutoResizeColumns();
+                        dataGridView2.FirstDisplayedScrollingRowIndex = dataGridView2.RowCount - 1;
+
+
+                    }
+
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+
+        public void ADDMMOCCOPCHECK()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat(@" INSERT INTO [TKMOC].[dbo].[MOCCOPCHECK]");
+                sbSql.AppendFormat(@" ([COPTA001],[COPTA002],[COPTA003],[COMMENT])");
+                sbSql.AppendFormat(@" VALUES ('{0}','{1}','{2}','{3}')", textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text);
+                sbSql.AppendFormat(@" ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void DELMOCCOPCHECK(string COPTA001,string COPTA002,string COPTA003)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+                sbSql.AppendFormat(@" DELETE [TKMOC].[dbo].[MOCCOPCHECK] WHERE [COPTA001]='{0}' AND [COPTA002]='{1}' AND [COPTA003]='{2}'", COPTA001, COPTA002, COPTA003);
+                sbSql.AppendFormat(@" ");
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
         #endregion
 
         #region BUTTON
@@ -157,8 +303,37 @@ namespace TKMOC
             SEARCHCOPTA();
         }
 
+        private void button12_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBox4.Text))
+            {
+                ADDMMOCCOPCHECK();
+                SEARCHMOCINVCHECK();
+
+                SEARCHCOPTA();
+            }
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("要刪除了?", "要刪除了?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                if (!string.IsNullOrEmpty(textBox4.Text))
+                {
+                    DELMOCCOPCHECK(textBox1.Text, textBox2.Text, textBox3.Text);
+
+                    SEARCHMOCINVCHECK();
+                    SEARCHCOPTA();
+                }
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                //do something else
+            }
+        }
         #endregion
 
-      
+
     }
 }

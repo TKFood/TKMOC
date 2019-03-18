@@ -48,7 +48,7 @@
             this.button12 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
             this.button13 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
@@ -279,7 +279,7 @@
             this.tableLayoutPanel7.Controls.Add(this.button12, 1, 3);
             this.tableLayoutPanel7.Controls.Add(this.textBox1, 0, 1);
             this.tableLayoutPanel7.Controls.Add(this.textBox2, 1, 1);
-            this.tableLayoutPanel7.Controls.Add(this.textBox6, 1, 2);
+            this.tableLayoutPanel7.Controls.Add(this.textBox4, 1, 2);
             this.tableLayoutPanel7.Controls.Add(this.button13, 1, 4);
             this.tableLayoutPanel7.Controls.Add(this.textBox3, 2, 1);
             this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -324,6 +324,7 @@
             this.button12.TabIndex = 3;
             this.button12.Text = "新增備註";
             this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
             // textBox1
             // 
@@ -343,14 +344,14 @@
             this.textBox2.Size = new System.Drawing.Size(178, 27);
             this.textBox2.TabIndex = 5;
             // 
-            // textBox6
+            // textBox4
             // 
-            this.textBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox6.Location = new System.Drawing.Point(123, 86);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(178, 27);
-            this.textBox6.TabIndex = 6;
-            this.textBox6.Text = "庫存量足夠，不需生產";
+            this.textBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox4.Location = new System.Drawing.Point(123, 86);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(178, 27);
+            this.textBox4.TabIndex = 6;
+            this.textBox4.Text = "庫存量足夠，不需生產";
             // 
             // button13
             // 
@@ -360,6 +361,7 @@
             this.button13.TabIndex = 7;
             this.button13.Text = "刪除備註";
             this.button13.UseVisualStyleBackColor = true;
+            this.button13.Click += new System.EventHandler(this.button13_Click);
             // 
             // dataGridView1
             // 
@@ -450,7 +452,7 @@
         private System.Windows.Forms.Button button12;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Button button13;
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.TextBox textBox3;
