@@ -46,12 +46,13 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.button12 = new System.Windows.Forms.Button();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.button13 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.textBox3 = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -269,16 +270,18 @@
             // tableLayoutPanel7
             // 
             this.tableLayoutPanel7.BackColor = System.Drawing.Color.LightGreen;
-            this.tableLayoutPanel7.ColumnCount = 2;
+            this.tableLayoutPanel7.ColumnCount = 3;
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 206F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 184F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 56F));
             this.tableLayoutPanel7.Controls.Add(this.label9, 0, 0);
             this.tableLayoutPanel7.Controls.Add(this.label10, 0, 2);
             this.tableLayoutPanel7.Controls.Add(this.button12, 1, 3);
-            this.tableLayoutPanel7.Controls.Add(this.textBox4, 0, 1);
-            this.tableLayoutPanel7.Controls.Add(this.textBox5, 1, 1);
+            this.tableLayoutPanel7.Controls.Add(this.textBox1, 0, 1);
+            this.tableLayoutPanel7.Controls.Add(this.textBox2, 1, 1);
             this.tableLayoutPanel7.Controls.Add(this.textBox6, 1, 2);
             this.tableLayoutPanel7.Controls.Add(this.button13, 1, 4);
+            this.tableLayoutPanel7.Controls.Add(this.textBox3, 2, 1);
             this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel7.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
@@ -322,30 +325,30 @@
             this.button12.Text = "新增備註";
             this.button12.UseVisualStyleBackColor = true;
             // 
-            // textBox4
+            // textBox1
             // 
-            this.textBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox4.Location = new System.Drawing.Point(3, 46);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new System.Drawing.Size(114, 27);
-            this.textBox4.TabIndex = 4;
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox1.Location = new System.Drawing.Point(3, 46);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(114, 27);
+            this.textBox1.TabIndex = 4;
             // 
-            // textBox5
+            // textBox2
             // 
-            this.textBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox5.Location = new System.Drawing.Point(123, 46);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.ReadOnly = true;
-            this.textBox5.Size = new System.Drawing.Size(364, 27);
-            this.textBox5.TabIndex = 5;
+            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox2.Location = new System.Drawing.Point(123, 46);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(178, 27);
+            this.textBox2.TabIndex = 5;
             // 
             // textBox6
             // 
             this.textBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox6.Location = new System.Drawing.Point(123, 86);
             this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(364, 27);
+            this.textBox6.Size = new System.Drawing.Size(178, 27);
             this.textBox6.TabIndex = 6;
             this.textBox6.Text = "庫存量足夠，不需生產";
             // 
@@ -368,6 +371,7 @@
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(622, 662);
             this.dataGridView1.TabIndex = 2;
+            this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             // 
             // dataGridView2
             // 
@@ -379,6 +383,15 @@
             this.dataGridView2.RowTemplate.Height = 24;
             this.dataGridView2.Size = new System.Drawing.Size(490, 442);
             this.dataGridView2.TabIndex = 2;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox3.Location = new System.Drawing.Point(307, 46);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.ReadOnly = true;
+            this.textBox3.Size = new System.Drawing.Size(180, 27);
+            this.textBox3.TabIndex = 8;
             // 
             // frmMOCCOPCHECK
             // 
@@ -435,10 +448,11 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button button12;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox6;
         private System.Windows.Forms.Button button13;
         private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.TextBox textBox3;
     }
 }

@@ -122,6 +122,33 @@ namespace TKMOC
             }
         }
 
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView1.CurrentRow != null)
+            {
+                int rowindex = dataGridView1.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView1.Rows[rowindex];
+                    textBox1.Text = row.Cells["訂單別"].Value.ToString();
+                    textBox2.Text = row.Cells["訂單號"].Value.ToString();
+                    textBox3.Text = row.Cells["訂單序號"].Value.ToString();
+
+                    if (!string.IsNullOrEmpty(textBox1.Text))
+                    {
+                        //SEARCHMOCINVCHECK();
+                    }
+
+                }
+                else
+                {
+                    textBox1.Text = null;
+                    textBox2.Text = null;
+                    textBox3.Text = null;
+                }
+            }
+        }
+
         #endregion
 
         #region BUTTON
@@ -132,5 +159,6 @@ namespace TKMOC
 
         #endregion
 
+      
     }
 }
