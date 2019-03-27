@@ -300,7 +300,7 @@ namespace TKMOC
                 sbSql.Append(@"  AND TD004 LIKE '4%'");
                 sbSql.AppendFormat(@"  AND TD013>='{0}' AND TD013<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
                 sbSql.AppendFormat(@"  AND TC001 IN ({0}) ", TD001.ToString());
-                sbSql.Append(@"  AND (TD008-TD009)>0  ");
+                sbSql.Append(@"  AND (TD008-TD009)+(TD024-TD025)>0  ");
                 sbSql.AppendFormat(@" AND TC027 IN ({0})  ", TC027.ToString());
                 sbSql.AppendFormat(@"  {0}", PALNQUERY.ToString());                
                 //sbSql.Append(@"  AND ( TD004 LIKE '40109916000740%'  ) ");
