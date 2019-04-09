@@ -37,6 +37,8 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder4 = new SqlCommandBuilder();
         SqlDataAdapter adapter6 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder6 = new SqlCommandBuilder();
+        SqlDataAdapter adapter7 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder7 = new SqlCommandBuilder();
         SqlTransaction tran;
         SqlCommand cmd = new SqlCommand();
         DataSet ds = new DataSet();
@@ -45,6 +47,8 @@ namespace TKMOC
         DataSet ds4 = new DataSet();
         DataSet ds5 = new DataSet();
         DataSet ds6 = new DataSet();
+        DataSet ds7 = new DataSet();
+
         DataTable dt = new DataTable();
         DataTable dtTemp = new DataTable();
         DataTable dtTemp2 = new DataTable();
@@ -63,6 +67,8 @@ namespace TKMOC
         string TD001 = null;
         string TD002 = null;
         string TD003 = null;
+        string MF004 = null;
+
         string YEARS;
         string WEEKS;
 
@@ -1601,7 +1607,7 @@ namespace TKMOC
                     sbSql.AppendFormat("  ,[TB011],[TB012],[TB013],[TB014],[TB015]");
                     sbSql.AppendFormat("  ,[TB016],[TB017],[TB018],[TB019],[TB020]");
                     sbSql.AppendFormat("  ,[TB021],[TB022],[TB023],[TB024],[TB025]");
-                    sbSql.AppendFormat("  ,[TB026])");
+                    sbSql.AppendFormat("  ,[TB026],[TB039])");
                     sbSql.AppendFormat("  SELECT");
                     sbSql.AppendFormat("  '{0}' AS [COMPANY],'{1}' AS [CREATOR],'{2}' AS [USR_GROUP], '{3}' AS [CREATE_DATE],'{4}' AS [MODIFIER]",PURTB.COMPANY, PURTB.CREATOR, PURTB.USR_GROUP, PURTB.CREATE_DATE, PURTB.MODIFIER);
                     sbSql.AppendFormat("  ,'{0}' AS [MODI_DATE],'{1}' AS [FLAG],'{2}' AS [CREATE_TIME],'{3}' AS [MODI_TIME],'{4}' AS [TRANS_TYPE]", PURTB.MODI_DATE, PURTB.FLAG, PURTB.CREATE_TIME, PURTB.MODI_TIME, PURTB.TRANS_TYPE);
@@ -1611,7 +1617,7 @@ namespace TKMOC
                     sbSql.AppendFormat("  , '{0}' AS TB011,'{1}' AS TB012,[INVMB].[MB067] AS TB013,[NUM] AS TB014,[UNIT] AS TB015", PURTB.TB011, PURTB.TB012);
                     sbSql.AppendFormat("  ,'{0}' AS TB016,[MB050] AS TB017,[NUM]*[MB050] AS TB018,'{1}' AS TB019,'{2}' AS TB020", PURTB.TB016, PURTB.TB019, PURTB.TB020);
                     sbSql.AppendFormat("  ,'{0}' AS TB021,'{1}' AS TB022,'{2}' AS TB023,'{3}' AS TB024,'{4}' AS TB025", PURTB.TB021, PURTB.TB022, PURTB.TB023, PURTB.TB024, PURTB.TB025);
-                    sbSql.AppendFormat("  ,[PURMA].[MA044] AS TB026    ");
+                    sbSql.AppendFormat("  ,[PURMA].[MA044] AS TB026,'{0}' AS TB039    ", PURTB.TB039);
                     sbSql.AppendFormat("  FROM [TKMOC].[dbo].[MOCPLANWEEKPUR] ");
                     sbSql.AppendFormat("  LEFT JOIN [TK].dbo.[INVMB] ON [MOCPLANWEEKPUR].[MB001]=[INVMB].[MB001]");
                     sbSql.AppendFormat("  LEFT JOIN [TK].dbo.[PURMA] ON [PURMA].[MA001]=[INVMB].[MB032]");
@@ -1657,8 +1663,8 @@ namespace TKMOC
 
             PURTADATA PURTA = new PURTADATA();
             PURTA.COMPANY = "TK";
-            PURTA.CREATOR = "120024";
-            PURTA.USR_GROUP = "112000";
+            PURTA.CREATOR = textBox5.Text;
+            PURTA.USR_GROUP = MF004;
             PURTA.CREATE_DATE = dateTimePicker7.Value.ToString("yyyyMMdd");
             PURTA.MODIFIER = "100005";
             PURTA.MODI_DATE = dateTimePicker7.Value.ToString("yyyyMMdd");
@@ -1694,8 +1700,8 @@ namespace TKMOC
         {
             PURTBDATA PURTB = new PURTBDATA();
             PURTB.COMPANY = "TK";
-            PURTB.CREATOR = "120024";
-            PURTB.USR_GROUP = "112000";
+            PURTB.CREATOR = textBox5.Text;
+            PURTB.USR_GROUP = MF004;
             PURTB.CREATE_DATE = dateTimePicker7.Value.ToString("yyyyMMdd");
             PURTB.MODIFIER = "100005";
             PURTB.MODI_DATE = dateTimePicker7.Value.ToString("yyyyMMdd");
@@ -1734,6 +1740,7 @@ namespace TKMOC
             PURTB.TB026 = null;
             PURTB.TB027 = null;
             PURTB.TB028 = null;
+            PURTB.TB039 = "N";
 
 
             return PURTB;
@@ -1795,6 +1802,62 @@ namespace TKMOC
             }
 
            
+
+        }
+
+        public string GETADMMF(string MF001)
+        {
+            string MF004;
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                StringBuilder sbSql = new StringBuilder();
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+                ds4.Clear();
+
+                sbSql.AppendFormat(@" SELECT MF001,MF004 FROM [TK].dbo.ADMMF WHERE MF001='{0}' ", MF001);
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+                adapter7 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder7 = new SqlCommandBuilder(adapter7);
+                sqlConn.Open();
+                ds7.Clear();
+                adapter7.Fill(ds7, "ds7");
+                sqlConn.Close();
+
+
+                if (ds7.Tables["ds7"].Rows.Count == 0)
+                {
+                    return null;
+                }
+                else
+                {
+                    if (ds7.Tables["ds7"].Rows.Count >= 1)
+                    {
+                        MF004 = ds7.Tables["ds7"].Rows[0]["MF004"].ToString();
+                        return MF004;
+
+                    }
+                    return null;
+                }
+
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+
+
 
         }
         public string SETTA002(string TA002)
@@ -1985,6 +2048,15 @@ namespace TKMOC
             }
 
         }
+
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+            if(!string.IsNullOrEmpty(textBox5.Text))
+            {
+                MF004 = GETADMMF(textBox5.Text);
+            }
+           
+        }
         #endregion
 
         #region BUTTON
@@ -2111,8 +2183,9 @@ namespace TKMOC
             ExcelExportMOCPLANWEEKPUR();
         }
 
+
         #endregion
 
-
+       
     }
 }
