@@ -1622,6 +1622,7 @@ namespace TKMOC
                     sbSql.AppendFormat("  LEFT JOIN [TK].dbo.[INVMB] ON [MOCPLANWEEKPUR].[MB001]=[INVMB].[MB001]");
                     sbSql.AppendFormat("  LEFT JOIN [TK].dbo.[PURMA] ON [PURMA].[MA001]=[INVMB].[MB032]");
                     sbSql.AppendFormat("  WHERE [YEARS]='{0}' AND [WEEKS]='{1}'",numericUpDown3.Value,numericUpDown4.Value);
+                    sbSql.AppendFormat("  ORDER BY [MOCPLANWEEKPUR].[MB001] ");
                     sbSql.AppendFormat("  ");
                     sbSql.AppendFormat("  UPDATE [TKMOC].[dbo].[MOCPLANWEEKPUR]");
                     sbSql.AppendFormat("  SET [TA001]='{0}' ,[TA002]='{1}'",PURTA.TA001,PURTA.TA002);
