@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="04/24/2019 15:50:06" ReportInfo.Modified="04/25/2019 10:06:20" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="04/24/2019 15:50:06" ReportInfo.Modified="04/25/2019 10:10:52" ReportInfo.CreatorVersion="2016.4.4.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9J2lxdlDvsFAG/lP9ZD3z8l">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9Kjr371F6ahIDdKSyYBCDmr">
       <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="&#13;&#10;SELECT TC053 AS '客戶',TA001 AS '製令單',TA002 AS '製令編號',TA006 AS '品號',TA034 AS '品名',TA007 AS '生產單位',TA009 AS '預計開工日',TA010 AS '預計完工日',TA014 AS '實際完工日',TA015 AS '預計產量',TA017 AS '已生產量',TA026 AS '訂單別',TA027 AS '訂單號',TA028 AS '訂單序',[OLDNUM] AS '訂單量'&#13;&#10;,(SELECT ISNULL(SUM(TA017),0) FROM [TK].dbo.MOCTA A WHERE A.TA011 IN ('Y','y') AND A.TA026=[COPTD].TD001 AND A.TA027=[COPTD].TD002 AND A.TA028=[COPTD].TD003 AND A.TA006=[COPTD].TD004  ) AS '訂單總生產量'&#13;&#10;,ISNULL(((SELECT ISNULL(SUM(TA017),0) FROM [TK].dbo.MOCTA A WHERE A.TA011 IN ('Y','y') AND A.TA026=[COPTD].TD001 AND A.TA027=[COPTD].TD002 AND A.TA028=[COPTD].TD003 AND A.TA006=[COPTD].TD004  ) -[OLDNUM]),0) AS '生產數量是否滿足訂單'&#13;&#10;,[COPTD].TD013 AS '訂單預交日'&#13;&#10;,CASE WHEN ISNULL(TA014,'')&lt;&gt;'' THEN DATEDIFF (DAY,[COPTD].TD013,TA014) ELSE 999 END AS '是否延遲訂單預交'&#13;&#10;,CASE WHEN ISNULL(TA014,'')&lt;&gt;'' THEN DATEDIFF (DAY,TA010,TA014) ELSE 999 END  AS '是否延遲製令完工'&#13;&#10;,ISNULL((TA017-TA015),0) AS '製令生產數量生否&gt;預計生產'&#13;&#10;FROM [TK].dbo.MOCTA&#13;&#10;LEFT JOIN [TK].[dbo].[VCOPTDINVMD] ON [VCOPTDINVMD].TD001=TA026 AND [VCOPTDINVMD].TD002=TA027 AND [VCOPTDINVMD].TD003=TA028&#13;&#10;LEFT JOIN [TK].[dbo].[COPTD] ON [COPTD].TD001=TA026 AND [COPTD].TD002=TA027 AND [COPTD].TD003=TA028&#13;&#10;LEFT JOIN [TK].[dbo].[COPTC] ON [COPTC].TC001=TA026 AND [COPTC].TC002=TA027 &#13;&#10;WHERE TA001 IN ('A510','A511')&#13;&#10;AND TA006 LIKE '4%'&#13;&#10;AND TA009&gt;='20190414' AND TA009&lt;='20190425'&#13;&#10;ORDER BY TC053,TA006 ">
         <Column Name="客戶" DataType="System.String"/>
         <Column Name="製令單" DataType="System.String"/>
@@ -28,33 +28,31 @@
     </MsSqlDataConnection>
   </Dictionary>
   <ReportPage Name="Page1" Landscape="true" PaperWidth="600" PaperHeight="210">
-    <ReportTitleBand Name="ReportTitle1" Width="2192.4" Height="18.9">
+    <ReportTitleBand Name="ReportTitle1" Width="2192.4" Height="37.8">
       <TextObject Name="Text1" Left="9.45" Width="2173.5" Height="18.9" Text="製令準時完工率數量達交率" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text11" Left="500.85" Top="18.9" Width="236.25" Height="18.9" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text7" Left="292.95" Top="18.9" Width="94.5" Height="18.9" Border.Lines="All" Text="製令編號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text9" Left="387.45" Top="18.9" Width="113.4" Height="18.9" Border.Lines="All" Text="品號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text3" Top="18.9" Width="245.7" Height="18.9" Border.Lines="All" Text="客戶" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text5" Left="245.7" Top="18.9" Width="47.25" Height="18.9" Border.Lines="All" Text="製令單" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text29" Left="1341.9" Top="18.9" Width="66.15" Height="18.9" Border.Lines="All" Text="訂單序" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text17" Left="878.85" Top="18.9" Width="75.6" Height="18.9" Border.Lines="All" Text="預計完工日" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text19" Left="954.45" Top="18.9" Width="75.6" Height="18.9" Border.Lines="All" Text="實際完工日" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text21" Left="1030.05" Top="18.9" Width="75.6" Height="18.9" Border.Lines="All" Text="預計產量" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text23" Left="1105.65" Top="18.9" Width="75.6" Height="18.9" Border.Lines="All" Text="已生產量" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text25" Left="1181.25" Top="18.9" Width="66.15" Height="18.9" Border.Lines="All" Text="訂單別" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text27" Left="1247.4" Top="18.9" Width="94.5" Height="18.9" Border.Lines="All" Text="訂單號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text13" Left="737.1" Top="18.9" Width="66.15" Height="18.9" Border.Lines="All" Text="生產單位" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text15" Left="803.25" Top="18.9" Width="75.6" Height="18.9" Border.Lines="All" Text="預計開工日" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text41" Left="1899.45" Top="18.9" Width="113.4" Height="18.9" Border.Lines="All" Text="是否延遲製令完工" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text33" Left="1483.65" Top="18.9" Width="94.5" Height="18.9" Border.Lines="All" Text="訂單總生產量" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text35" Left="1578.15" Top="18.9" Width="132.3" Height="18.9" Border.Lines="All" Text="生產數量是否滿足訂單" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text37" Left="1710.45" Top="18.9" Width="75.6" Height="18.9" Border.Lines="All" Text="訂單預交日" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text39" Left="1786.05" Top="18.9" Width="113.4" Height="18.9" Border.Lines="All" Text="是否延遲訂單預交" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text31" Left="1408.05" Top="18.9" Width="75.6" Height="18.9" Border.Lines="All" Text="訂單量" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text43" Left="2012.85" Top="18.9" Width="170.1" Height="18.9" Border.Lines="All" Text="製令生產數量生否&gt;預計生產" HorzAlign="Center" VertAlign="Center"/>
     </ReportTitleBand>
-    <PageHeaderBand Name="PageHeader1" Top="22.75" Width="2192.4" Height="18.9">
-      <TextObject Name="Text3" Width="245.7" Height="18.9" Border.Lines="All" Text="客戶" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text5" Left="245.7" Width="47.25" Height="18.9" Border.Lines="All" Text="製令單" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text7" Left="292.95" Width="94.5" Height="18.9" Border.Lines="All" Text="製令編號" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text9" Left="387.45" Width="113.4" Height="18.9" Border.Lines="All" Text="品號" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text11" Left="500.85" Width="236.25" Height="18.9" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text13" Left="737.1" Width="66.15" Height="18.9" Border.Lines="All" Text="生產單位" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text15" Left="803.25" Width="75.6" Height="18.9" Border.Lines="All" Text="預計開工日" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text17" Left="878.85" Width="75.6" Height="18.9" Border.Lines="All" Text="預計完工日" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text19" Left="954.45" Width="75.6" Height="18.9" Border.Lines="All" Text="實際完工日" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text21" Left="1030.05" Width="75.6" Height="18.9" Border.Lines="All" Text="預計產量" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text23" Left="1105.65" Width="75.6" Height="18.9" Border.Lines="All" Text="已生產量" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text25" Left="1181.25" Width="66.15" Height="18.9" Border.Lines="All" Text="訂單別" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text27" Left="1247.4" Width="94.5" Height="18.9" Border.Lines="All" Text="訂單號" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text29" Left="1341.9" Width="66.15" Height="18.9" Border.Lines="All" Text="訂單序" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text31" Left="1408.05" Width="75.6" Height="18.9" Border.Lines="All" Text="訂單量" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text33" Left="1483.65" Width="94.5" Height="18.9" Border.Lines="All" Text="訂單總生產量" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text35" Left="1578.15" Width="132.3" Height="18.9" Border.Lines="All" Text="生產數量是否滿足訂單" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text37" Left="1710.45" Width="75.6" Height="18.9" Border.Lines="All" Text="訂單預交日" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text39" Left="1786.05" Width="113.4" Height="18.9" Border.Lines="All" Text="是否延遲訂單預交" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text41" Left="1899.45" Width="113.4" Height="18.9" Border.Lines="All" Text="是否延遲製令完工" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text43" Left="2012.85" Width="170.1" Height="18.9" Border.Lines="All" Text="製令生產數量生否&gt;預計生產" HorzAlign="Center" VertAlign="Center"/>
-    </PageHeaderBand>
-    <DataBand Name="Data1" Top="45.49" Width="2192.4" Height="18.9" CanGrow="true" DataSource="Table">
+    <DataBand Name="Data1" Top="41.65" Width="2192.4" Height="18.9" CanGrow="true" DataSource="Table">
       <TextObject Name="Text2" Width="245.7" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.客戶]" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text4" Left="245.7" Width="47.25" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.製令單]" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text6" Left="292.95" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.製令編號]" HorzAlign="Center" VertAlign="Center"/>
@@ -77,6 +75,6 @@
       <TextObject Name="Text40" Left="1899.45" Width="113.4" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.是否延遲製令完工]" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text42" Left="2012.85" Width="170.1" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.製令生產數量生否&gt;預計生產]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
     </DataBand>
-    <PageFooterBand Name="PageFooter1" Top="68.24" Width="2192.4" Height="18.9"/>
+    <PageFooterBand Name="PageFooter1" Top="64.39" Width="2192.4" Height="18.9"/>
   </ReportPage>
 </Report>
