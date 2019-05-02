@@ -64,6 +64,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  ,ISNULL(((SELECT SUM(LA005*LA011) FROM [TK].dbo.INVLA WHERE MC001=LA001 AND LA009=MC002) -MC004),0) AS '庫存差異量'");
                 sbSql.AppendFormat(@"  ,(SELECT ISNULL(CONVERT(DECIMAL(16,2),SUM(NUM)),0) FROM [TK].dbo.VPURTDINVMD WHERE  TD004=MC001 AND TD007=TD007 AND TD012>='{0}') AS '總採購量'", SEARCHDATE2.ToString("yyyyMMdd"));
                 sbSql.AppendFormat(@"  ,(SELECT TOP 1 ISNULL(TD012,'')+' 預計到貨:'+CONVERT(nvarchar,CONVERT(DECIMAL(16,2),NUM))  FROM [TK].dbo.VPURTDINVMD WHERE  TD004=MC001 AND TD007=TD007 AND TD012>='{0}') AS '最快採購日'", SEARCHDATE2.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(@"  ,(ISNULL((MC004-(SELECT SUM(LA005*LA011) FROM [TK].dbo.INVLA WHERE MC001=LA001 AND LA009=MC002) ),0)-(SELECT ISNULL(CONVERT(DECIMAL(16,2),SUM(NUM)),0) FROM [TK].dbo.VPURTDINVMD WHERE  TD004=MC001 AND TD007=TD007 AND TD012>='{0}') ) AS '需採購量' ", SEARCHDATE2.ToString("yyyyMMdd"));
                 sbSql.AppendFormat(@"  FROM [TK].dbo.INVMC,[TK].dbo.INVMB");
                 sbSql.AppendFormat(@"  WHERE MC001=MB001");
                 sbSql.AppendFormat(@"  AND MC002=@MC002 AND MC003='201904制定'");
@@ -99,7 +100,7 @@ namespace TKMOC
                     if (ds.Tables["ds"].Rows.Count >= 1)
                     {
                         dataGridView1.DataSource = ds.Tables["ds"];
-                        dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;//調整寬度(標題+儲存格)
+                        dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//調整寬度(標題+儲存格)
 
                         //dataGridView1.AutoResizeColumns();
                     }
@@ -122,7 +123,17 @@ namespace TKMOC
         {
             SEARCHINVMC();
         }
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+        }
 
         #endregion
+
+
     }
 }
