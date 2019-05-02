@@ -33,17 +33,25 @@ namespace TKMOC
         string connectionString;
         StringBuilder sbSql = new StringBuilder();
         StringBuilder sbSqlQuery = new StringBuilder();
+        SqlCommand cmd = new SqlCommand();
         SqlDataAdapter adapter = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder = new SqlCommandBuilder();
-        SqlCommand cmd = new SqlCommand();
+        SqlDataAdapter adapter1 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+
+
         DataSet ds = new DataSet();
+        DataSet ds1 = new DataSet();
         DataSet ds2 = new DataSet();
         DataTable dt = new DataTable();
         string tablename = null;
         int rownum = 0;
 
         ArrayList myAL = new ArrayList();
-
+        string MOCTA001;
+        string MOCTA002;
+        string MOCTA003;
+        string MAXID;
 
         public frmPURINVCHECK()
         {
@@ -141,6 +149,77 @@ namespace TKMOC
             }
         }
 
+        public string GETMAXMOCTA002(string MOCTA001)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                StringBuilder sbSql = new StringBuilder();
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+                ds1.Clear();
+
+                sbSql.AppendFormat(@"  SELECT ISNULL(MAX(TA002),'00000000000') AS ID ");
+                sbSql.AppendFormat(@"  FROM [TK].[dbo].[PURTA] ");
+                //sbSql.AppendFormat(@"  WHERE  TC001='{0}' AND TC003='{1}'", "A542","20170119");
+                sbSql.AppendFormat(@"  WHERE [TA001]='{0}' AND TA003='{1}'", MOCTA001, dateTimePicker1.Value.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "ds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["ds1"].Rows.Count == 0)
+                {
+                    return null;
+                }
+                else
+                {
+                    if (ds1.Tables["ds1"].Rows.Count >= 1)
+                    {
+                        MAXID = SETID(ds1.Tables["ds1"].Rows[0]["ID"].ToString(), dateTimePicker1.Value);
+                        return MAXID;
+
+                    }
+                    return null;
+                }
+
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+
+        }
+
+        public string SETID(string MAXID, DateTime dt)
+        {
+            if (MAXID.Equals("00000000000"))
+            {
+                return dt.ToString("yyyyMMdd") + "001";
+            }
+
+            else
+            {
+                int serno = Convert.ToInt16(MAXID.Substring(8, 3));
+                serno = serno + 1;
+                string temp = serno.ToString();
+                temp = temp.PadLeft(3, '0');
+                return dt.ToString("yyyyMMdd") + temp.ToString();
+            }
+        }
         #endregion
 
         #region BUTTON
@@ -150,7 +229,13 @@ namespace TKMOC
         }
         private void button2_Click(object sender, EventArgs e)
         {
+            MOCTA001 = "A311";
+            MOCTA002 = GETMAXMOCTA002(MOCTA001);
+
             ADDPURTAB();
+
+            MessageBox.Show("已完成請購單" + MOCTA001 + " " + MOCTA002);
+           
         }
         private void button3_Click(object sender, EventArgs e)
         {
