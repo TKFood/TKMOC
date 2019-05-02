@@ -22,6 +22,8 @@ using System.Configuration;
 using NPOI.XSSF.UserModel;
 using FastReport;
 using FastReport.Data;
+using System.Collections;
+
 namespace TKMOC
 {
     public partial class frmPURINVCHECK : Form
@@ -39,6 +41,8 @@ namespace TKMOC
         DataTable dt = new DataTable();
         string tablename = null;
         int rownum = 0;
+
+        ArrayList myAL = new ArrayList();
 
 
         public frmPURINVCHECK()
@@ -116,6 +120,27 @@ namespace TKMOC
 
             }
         }
+
+        public void ADDPURTAB()
+        {
+            myAL.Clear();
+
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                if(Convert.ToDecimal(row.Cells[10].Value.ToString())>0)
+                {
+                    myAL.Add(Convert.ToDecimal(row.Cells[10].Value.ToString()));
+                }
+                
+            }
+
+            //foreach
+            foreach (object num in myAL)
+            {
+                
+            }
+        }
+
         #endregion
 
         #region BUTTON
@@ -125,7 +150,7 @@ namespace TKMOC
         }
         private void button2_Click(object sender, EventArgs e)
         {
-
+            ADDPURTAB();
         }
         private void button3_Click(object sender, EventArgs e)
         {
