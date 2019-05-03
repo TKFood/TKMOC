@@ -38,6 +38,8 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder = new SqlCommandBuilder();
         SqlDataAdapter adapter1 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+        SqlDataAdapter adapter2= new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder2 = new SqlCommandBuilder();
 
 
         DataSet ds = new DataSet();
@@ -220,6 +222,61 @@ namespace TKMOC
                 return dt.ToString("yyyyMMdd") + temp.ToString();
             }
         }
+        public string GETMAXID()
+        {
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                StringBuilder sbSql = new StringBuilder();
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+                ds2.Clear();
+
+                sbSql.AppendFormat(@"  SELECT ISNULL(MAX(ID),'00000000000') AS ID");
+                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[PURTAB] ");
+                //sbSql.AppendFormat(@"  WHERE  TC001='{0}' AND TC003='{1}'", "A542","20170119");
+                sbSql.AppendFormat(@"  WHERE [IDDATES]='{0}'", dateTimePicker1.Value.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+                adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder2 = new SqlCommandBuilder(adapter2);
+                sqlConn.Open();
+                ds2.Clear();
+                adapter2.Fill(ds2, "ds2");
+                sqlConn.Close();
+
+
+                if (ds2.Tables["ds2"].Rows.Count == 0)
+                {
+                    return null;
+                }
+                else
+                {
+                    if (ds2.Tables["ds2"].Rows.Count >= 1)
+                    {
+                        MAXID = SETID(ds2.Tables["ds2"].Rows[0]["ID"].ToString(), dateTimePicker1.Value);
+                        return MAXID;
+
+                    }
+                    return null;
+                }
+
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
         #endregion
 
         #region BUTTON
@@ -238,6 +295,20 @@ namespace TKMOC
            
         }
         private void button3_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = GETMAXID();
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
         {
 
         }

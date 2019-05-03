@@ -46,6 +46,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.button2 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -238,6 +239,7 @@
             this.button5.TabIndex = 8;
             this.button5.Text = "取新批號";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button4
             // 
@@ -248,6 +250,7 @@
             this.button4.TabIndex = 7;
             this.button4.Text = "查詢批號";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // textBox1
             // 
@@ -302,6 +305,7 @@
             this.tableLayoutPanel3.Controls.Add(this.textBox1, 1, 3);
             this.tableLayoutPanel3.Controls.Add(this.button4, 1, 1);
             this.tableLayoutPanel3.Controls.Add(this.button5, 0, 2);
+            this.tableLayoutPanel3.Controls.Add(this.button2, 1, 4);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -313,6 +317,16 @@
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(256, 209);
             this.tableLayoutPanel3.TabIndex = 2;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(131, 163);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(122, 34);
+            this.button2.TabIndex = 9;
+            this.button2.Text = "產生請購單";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
             // 
             // frmPURINVCHECK
             // 
@@ -368,5 +382,6 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button2;
     }
 }
