@@ -300,7 +300,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  FROM [TK].dbo.INVMC,[TK].dbo.INVMB");
                 sbSql.AppendFormat(@"  WHERE MC001=MB001");
                 sbSql.AppendFormat(@"  AND MC002=@MC002 AND MC003='201904制定'");
-                sbSql.AppendFormat(@"  ORDER BY ((SELECT SUM(LA005*LA011) FROM [TK].dbo.INVLA WHERE MC001=LA001 AND LA009=MC002) -MC004),MC001");
+                sbSql.AppendFormat(@"  ORDER BY (ISNULL((MC004-(SELECT SUM(LA005*LA011) FROM [TK].dbo.INVLA WHERE MC001=LA001 AND LA009=MC002) ),0)-(SELECT ISNULL(CONVERT(DECIMAL(16,2),SUM(NUM)),0) FROM [TK].dbo.VPURTDINVMD WHERE  TD004=MC001 AND TD007=TD007 AND TD012>='{0}') ) DESC,MC001", SEARCHDATE2.ToString("yyyyMMdd"));
                 sbSql.AppendFormat(@"  ");
 
                 adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
