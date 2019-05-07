@@ -44,13 +44,15 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder2 = new SqlCommandBuilder();
         SqlDataAdapter adapter3 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder3 = new SqlCommandBuilder();
-
+        SqlDataAdapter adapter4 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder4 = new SqlCommandBuilder();
 
 
         DataSet ds = new DataSet();
         DataSet ds1 = new DataSet();
         DataSet ds2 = new DataSet();
         DataSet ds3 = new DataSet();
+        DataSet ds4 = new DataSet();
         DataTable dt = new DataTable();
         string tablename = null;
         int rownum = 0;
@@ -62,6 +64,7 @@ namespace TKMOC
         string MOCTA003;
         string ID;
         string MAXID;
+        string MF004 = null;
 
         public class PURTA
         {
@@ -495,6 +498,8 @@ namespace TKMOC
         public void SETNULL()
         {
             textBox1.Text = null;
+            textBox4.Text = null;
+            textBox5.Text = null;
         }
 
         public void SEARCHPURTAB()
@@ -801,14 +806,13 @@ namespace TKMOC
         public PURTA SETPURTA()
         {
             PURTA PURTA = new PURTA();
-           
 
             PURTA.COMPANY = "TK";
-            PURTA.CREATOR = "120025";
-            PURTA.USR_GROUP = "103400";
-            //MOCTA.CREATE_DATE = dt1.ToString("yyyyMMdd");
+            PURTA.CREATOR = textBox4.Text;
+            PURTA.USR_GROUP = MF004;
             PURTA.CREATE_DATE = DateTime.Now.ToString("yyyyMMdd");
-            PURTA.MODIFIER = "160115";
+            PURTA.CREATE_DATE = DateTime.Now.ToString("yyyyMMdd");
+            PURTA.MODIFIER = textBox4.Text;
             PURTA.MODI_DATE = DateTime.Now.ToString("yyyyMMdd");
             PURTA.FLAG = "0";
             PURTA.CREATE_TIME = DateTime.Now.ToString("HH:mm:dd");
@@ -822,11 +826,11 @@ namespace TKMOC
             PURTA.sync_count = "0";
             PURTA.DataUser = null;
             PURTA.DataGroup = null;
-            PURTA.DataGroup = "103400";
+            PURTA.DataGroup = textBox4.Text;
             PURTA.TA001 = MOCTA001;
             PURTA.TA002 = MOCTA002;
             PURTA.TA003 = MOCTA003;
-            PURTA.TA004 = "103400";
+            PURTA.TA004 = MF004;
             PURTA.TA005 = ID;
             PURTA.TA006 = null;
             PURTA.TA007 = "N";
@@ -834,7 +838,7 @@ namespace TKMOC
             PURTA.TA009 = "9";
             PURTA.TA010 = "20";
             PURTA.TA011 = "0";
-            PURTA.TA012 = "120025";
+            PURTA.TA012 = textBox4.Text;
             PURTA.TA013 = MOCTA003;
             PURTA.TA014 = null;
             PURTA.TA015 = "0";
@@ -1035,6 +1039,71 @@ namespace TKMOC
             ID = textBox1.Text;
         }
 
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBox4.Text))
+            {
+                MF004 = GETADMMF(textBox4.Text);
+            }
+
+        }
+        public string GETADMMF(string MF001)
+        {
+            string MF004;
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                StringBuilder sbSql = new StringBuilder();
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+                ds4.Clear();
+
+                sbSql.AppendFormat(@" SELECT MF001,MF004 FROM [TK].dbo.ADMMF WHERE MF001='{0}' ", MF001);
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+                adapter4 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder4 = new SqlCommandBuilder(adapter4);
+                sqlConn.Open();
+                ds4.Clear();
+                adapter4.Fill(ds4, "ds4");
+                sqlConn.Close();
+
+
+                if (ds4.Tables["ds4"].Rows.Count == 0)
+                {
+                    textBox5.Text = null;
+                    return null;
+                }
+                else
+                {
+                    if (ds4.Tables["ds4"].Rows.Count >= 1)
+                    {
+                        MF004 = ds4.Tables["ds4"].Rows[0]["MF004"].ToString();
+                        textBox5.Text = MF004;
+                        return MF004;
+
+                    }
+                    return null;
+                }
+
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+
+
+
+        }
         #endregion
 
         #region BUTTON
@@ -1044,13 +1113,25 @@ namespace TKMOC
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            MOCTA001 = "A311";
-            MOCTA002 = GETMAXMOCTA002(MOCTA001);
+            if (dataGridView1.Rows.Count > 0 && !string.IsNullOrEmpty(textBox1.Text) && !string.IsNullOrEmpty(textBox4.Text) && !string.IsNullOrEmpty(textBox5.Text))
+            {
+                ADDPURTAB(textBox1.Text);
 
-            ADDPURTAB();
+                MOCTA001 = "A311";
+                MOCTA002 = GETMAXMOCTA002(MOCTA001);
 
-            MessageBox.Show("已完成請購單" + MOCTA001 + " " + MOCTA002);
-           
+                ADDERPPURAB();
+
+                MessageBox.Show("已完成請購單" + MOCTA001 + " " + MOCTA002);
+
+                SETNULL();
+                SEARCHPURTAB();
+            }
+            else
+            {
+                MessageBox.Show("1-查詢、2-取新批號、3-填人請人");
+            }
+
         }
         private void button3_Click(object sender, EventArgs e)
         {
@@ -1067,32 +1148,13 @@ namespace TKMOC
             textBox1.Text = GETMAXID();
         }
 
-        private void button2_Click_1(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrEmpty(textBox1.Text))
-            {
-                ADDPURTAB(textBox1.Text);
+      
 
-                MOCTA001 = "A311";
-                MOCTA002 = GETMAXMOCTA002(MOCTA001);
-
-                ADDERPPURAB();
-
-                MessageBox.Show("已完成請購單" + MOCTA001 + " " + MOCTA002);
-
-                SETNULL();
-                SEARCHPURTAB();
-            }
-            else
-            {
-                MessageBox.Show("取新批號");
-            }
-        }
 
 
 
         #endregion
 
-       
+        
     }
 }
