@@ -58,9 +58,9 @@ namespace TKMOC
         int rownum = 0;
         int result;
 
-       
+
         string ID;
-       
+
 
         public frmDEVINVMB()
         {
@@ -70,11 +70,11 @@ namespace TKMOC
         #region FUNCTION
         public void SEARCH()
         {
-            
+
             StringBuilder ISLOSED = new StringBuilder();
             StringBuilder SLQURY = new StringBuilder();
 
-            if(comboBox1.Text.Equals("否"))
+            if (comboBox1.Text.Equals("否"))
             {
                 ISLOSED.AppendFormat(@" AND [ISCLOSED] IN ('N') ");
             }
@@ -87,7 +87,7 @@ namespace TKMOC
                 ISLOSED.AppendFormat(@" AND [ISCLOSED] IN ('Y','N') ");
             }
 
-            if(!string.IsNullOrEmpty(textBox1.Text))
+            if (!string.IsNullOrEmpty(textBox1.Text))
             {
                 SLQURY.AppendFormat(@" AND OLDMB001 LIKE '%{0}%'", textBox1.Text);
             }
@@ -254,7 +254,7 @@ namespace TKMOC
                     textBox6.Text = row.Cells["新品號"].Value.ToString();
                     textBox7.Text = row.Cells["新物料名稱"].Value.ToString();
                     textBox8.Text = row.Cells["ID"].Value.ToString();
-                    comboBox3.Text= row.Cells["用完改版"].Value.ToString();
+                    comboBox3.Text = row.Cells["用完改版"].Value.ToString();
                     comboBox4.Text = row.Cells["報廢"].Value.ToString();
                     comboBox5.Text = row.Cells["是否結案"].Value.ToString();
                 }
@@ -267,6 +267,103 @@ namespace TKMOC
                     textBox7.Text = null;
                     textBox8.Text = null;
                 }
+            }
+        }
+
+        public void ADD()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat(@"  INSERT INTO [TKMOC].[dbo].[DEVINVMB]");
+                sbSql.AppendFormat(@"  ([NO],[SDATES],[OLDMB001],[OLDMB002],[NEWMB001],[NEWMB002],[PURDATES],[ISUSED],[ISSCRAPPED],[ISCLOSED])");
+                sbSql.AppendFormat(@"  VALUES");
+                sbSql.AppendFormat(@"  ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}')",textBox3.Text,dateTimePicker1.Value.ToString("yyyyMMdd"), textBox4.Text, textBox5.Text, textBox6.Text, textBox7.Text, dateTimePicker2.Value.ToString("yyyyMMdd"),comboBox3.Text, comboBox4.Text, comboBox5.Text);
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void UPDATE()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+                
+                sbSql.AppendFormat("  UPDATE [TKMOC].[dbo].[DEVINVMB]");
+                sbSql.AppendFormat("  SET [NO]='{0}',[SDATES]='{1}',[OLDMB001]='{2}',[OLDMB002]='{3}',[NEWMB001]='{4}',[NEWMB002]='{5}',[PURDATES]='{6}',[ISUSED]='{7}',[ISSCRAPPED]='{8}',[ISCLOSED]='{9}'", textBox3.Text, dateTimePicker1.Value.ToString("yyyyMMdd"), textBox4.Text, textBox5.Text, textBox6.Text, textBox7.Text, dateTimePicker2.Value.ToString("yyyyMMdd"), comboBox3.Text, comboBox4.Text, comboBox5.Text);
+                sbSql.AppendFormat("  WHERE [ID]='{0}'",ID);
+                sbSql.AppendFormat("  ");
+                sbSql.AppendFormat("  ");
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
             }
         }
 
@@ -295,6 +392,8 @@ namespace TKMOC
             textBox7.Text = null;
             textBox8.Text = null;
         }
+
+
         #endregion
 
         #region BUTTON
@@ -321,6 +420,14 @@ namespace TKMOC
         private void button6_Click(object sender, EventArgs e)
         {
             ID = textBox8.Text;
+            if(string.IsNullOrEmpty(ID))
+            {
+                ADD();
+            }
+            else if(!string.IsNullOrEmpty(ID))
+            {
+                UPDATE();
+            }
 
             SETNULL();
         }
