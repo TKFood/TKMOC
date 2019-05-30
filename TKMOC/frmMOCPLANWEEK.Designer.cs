@@ -417,7 +417,7 @@
             "已確認",
             "未確認(扣已確認)",
             "全部"});
-            this.comboBox1.Location = new System.Drawing.Point(604, 14);
+            this.comboBox1.Location = new System.Drawing.Point(604, 16);
             this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(112, 24);
@@ -455,7 +455,7 @@
             "未排計畫",
             "全部",
             "已排計畫"});
-            this.comboBox2.Location = new System.Drawing.Point(724, 14);
+            this.comboBox2.Location = new System.Drawing.Point(724, 16);
             this.comboBox2.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(112, 24);
