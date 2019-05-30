@@ -239,6 +239,62 @@ namespace TKMOC
 
             }
         }
+
+        private void dataGridView2_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView2.CurrentRow != null)
+            {
+                int rowindex = dataGridView2.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView2.Rows[rowindex];
+                    textBox3.Text = row.Cells["校稿編號"].Value.ToString();
+                    textBox4.Text = row.Cells["原品號"].Value.ToString();
+                    textBox5.Text = row.Cells["物料名稱"].Value.ToString();
+                    textBox6.Text = row.Cells["新品號"].Value.ToString();
+                    textBox7.Text = row.Cells["新物料名稱"].Value.ToString();
+                    textBox8.Text = row.Cells["ID"].Value.ToString();
+                    comboBox3.Text= row.Cells["用完改版"].Value.ToString();
+                    comboBox4.Text = row.Cells["報廢"].Value.ToString();
+                    comboBox5.Text = row.Cells["是否結案"].Value.ToString();
+                }
+                else
+                {
+                    textBox3.Text = null;
+                    textBox4.Text = null;
+                    textBox5.Text = null;
+                    textBox6.Text = null;
+                    textBox7.Text = null;
+                    textBox8.Text = null;
+                }
+            }
+        }
+
+        public void SETNULL()
+        {
+            textBox3.ReadOnly = true;
+            textBox4.ReadOnly = true;
+            textBox5.ReadOnly = true;
+            textBox6.ReadOnly = true;
+            textBox7.ReadOnly = true;
+        }
+        public void SETNULL2()
+        {
+            textBox3.ReadOnly = false;
+            textBox4.ReadOnly = false;
+            textBox5.ReadOnly = false;
+            textBox6.ReadOnly = false;
+            textBox7.ReadOnly = false;
+        }
+        public void SETNULL3()
+        {
+            textBox3.Text = null;
+            textBox4.Text = null;
+            textBox5.Text = null;
+            textBox6.Text = null;
+            textBox7.Text = null;
+            textBox8.Text = null;
+        }
         #endregion
 
         #region BUTTON
@@ -251,8 +307,32 @@ namespace TKMOC
             SEARCH2();
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            SETNULL2();
+            SETNULL3();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            SETNULL2();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            ID = textBox8.Text;
+
+            SETNULL();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
         #endregion
 
-
+       
     }
 }
