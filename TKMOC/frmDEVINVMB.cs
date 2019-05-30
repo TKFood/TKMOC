@@ -103,7 +103,10 @@ namespace TKMOC
 
                 sbSql.Clear();
 
-                sbSql.AppendFormat(@"  SELECT [NO] AS '校稿編號',CONVERT(NVARCHAR,[SDATES],111) AS '起始日期',[OLDMB001] AS '原品號',[OLDMB002] AS '物料名稱',[NEWMB001] AS '新品號',[NEWMB002] AS '新物料名稱',CONVERT(NVARCHAR,[PURDATES],111) AS '預計發包日',[ISUSED] AS '用完改版',[ISSCRAPPED] AS '報廢',[ISCLOSED] AS '是否結案',[ID] ");
+                sbSql.AppendFormat(@"  SELECT [NO] AS '校稿編號',CONVERT(NVARCHAR,[SDATES],111) AS '起始日期',[OLDMB001] AS '原品號',[OLDMB002] AS '物料名稱',[NEWMB001] AS '新品號',[NEWMB002] AS '新物料名稱',CONVERT(NVARCHAR,[PURDATES],111) AS '預計發包日',[ISUSED] AS '用完改版',[ISSCRAPPED] AS '報廢',[ISCLOSED] AS '是否結案'");
+                sbSql.AppendFormat(@"  ,(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WHERE LA001=OLDMB001 ) AS '原品號庫存'");
+                sbSql.AppendFormat(@"  ,(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WHERE LA001=NEWMB001 ) AS '新品號庫存'");
+                sbSql.AppendFormat(@"  ,[ID] ");
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[DEVINVMB]");
                 sbSql.AppendFormat(@"  WHERE 1=1");
                 sbSql.AppendFormat(@"  {0}", ISLOSED.ToString());
