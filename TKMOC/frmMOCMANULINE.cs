@@ -2042,6 +2042,7 @@ namespace TKMOC
             MOCTA = SETMOCTA();
             string MOCMB001 = null;
             decimal MOCTA004 = 0; ;
+            string MOCTB009 = null;
        
 
             const int MaxLength = 100;
@@ -2053,6 +2054,7 @@ namespace TKMOC
                 MOCTA.TA026 = TA026A;
                 MOCTA.TA027 = TA027A;
                 MOCTA.TA028 = TA028A;
+                MOCTB009 = textBox77.Text;
 
             }
             else if (MANU.Equals("新廠包裝線"))
@@ -2062,7 +2064,7 @@ namespace TKMOC
                 MOCTA.TA026 = TA026;
                 MOCTA.TA027 = TA027;
                 MOCTA.TA028 = TA028;
-
+                MOCTB009 = textBox78.Text;
 
             }
             else if (MANU.Equals("新廠製一組"))
@@ -2072,6 +2074,7 @@ namespace TKMOC
                 MOCTA.TA026 = TA026B;
                 MOCTA.TA027 = TA027B;
                 MOCTA.TA028 = TA028B;
+                MOCTB009 = textBox79.Text;
             }
             else if (MANU.Equals("新廠製三組(手工)"))
             {
@@ -2081,11 +2084,13 @@ namespace TKMOC
                 MOCTA.TA026 = TA026C;
                 MOCTA.TA027 = TA027C;
                 MOCTA.TA028 = TA028C;
+                MOCTB009 = textBox80.Text;
             }
             else if (MANU.Equals("水麵"))
             {
                 MOCMB001 = MB001E;
                 MOCTA004 = Convert.ToDecimal(textBox31.Text)/ BOMBAR;
+                MOCTB009 = textBox81.Text;
             }
 
             else if (MANU.Equals("新廠統百包裝線"))
@@ -2135,7 +2140,7 @@ namespace TKMOC
                     sbSql.AppendFormat(" (SELECT ");
                     sbSql.AppendFormat(" '{0}' [COMPANY],'{1}' [CREATOR],'{2}' [USR_GROUP],'{3}' [CREATE_DATE],'{4}' [MODIFIER],'{5}' [MODI_DATE],'{6}' [FLAG],'{7}' [CREATE_TIME],'{8}' [MODI_TIME],'{9}' [TRANS_TYPE]", MOCTA.COMPANY, MOCTA.CREATOR, MOCTA.USR_GROUP, MOCTA.CREATE_DATE, MOCTA.MODIFIER, MOCTA.MODI_DATE, MOCTA.FLAG, MOCTA.CREATE_TIME, MOCTA.MODI_TIME, MOCTA.TRANS_TYPE);
                     sbSql.AppendFormat(" ,'{0}' [TRANS_NAME],{1} [sync_count],'{2}' [DataGroup],'{3}' [TB001],'{4}' [TB002],[BOMMD].MD003 [TB003],ROUND({5}*[BOMMD].MD006/[BOMMD].MD007*(1+[BOMMD].MD008),3) [TB004],0 [TB005],'****' [TB006],[INVMB].MB004  [TB007]", MOCTA.TRANS_NAME, MOCTA.sync_count, MOCTA.DataGroup, MOCTA.TA001, MOCTA.TA002, MOCTA004);
-                    sbSql.AppendFormat(" ,[INVMB].MB017 [TB009],'1' [TB011],[INVMB].MB002 [TB012],[INVMB].MB003 [TB013],[BOMMD].MD001 [TB014],'N' [TB018],'0' [TB019],'0' [TB020],'2' [TB022],'0' [TB024]");
+                    sbSql.AppendFormat(" ,'{0}' [TB009],'1' [TB011],[INVMB].MB002 [TB012],[INVMB].MB003 [TB013],[BOMMD].MD001 [TB014],'N' [TB018],'0' [TB019],'0' [TB020],'2' [TB022],'0' [TB024]", MOCTB009);
                     sbSql.AppendFormat(" ,'****' [TB025],'0' [TB026],'1' [TB027],'0' [TB029],'0' [TB030],'0' [TB031],'0' [TB501],'N' [TB554],'0' [TB556],'0' [TB560]");
                     sbSql.AppendFormat(" FROM [TK].dbo.[BOMMD],[TK].dbo.[INVMB]");
                     sbSql.AppendFormat(" WHERE [BOMMD].MD003=[INVMB].MB001");
