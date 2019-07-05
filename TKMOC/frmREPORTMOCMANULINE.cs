@@ -43,14 +43,18 @@ namespace TKMOC
 
         SqlDataAdapter adapterCALENDAR = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilderCALENDAR = new SqlCommandBuilder();
+        SqlDataAdapter adapter3 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder3 = new SqlCommandBuilder();
         DataSet dsCALENDAR = new DataSet();
 
         SqlCommand cmd = new SqlCommand();
         DataSet ds = new DataSet();
+
         DataSet ds2 = new DataSet();
         DataSet ds22 = new DataSet();
         DataTable dt = new DataTable();
         DataTable dt2 = new DataTable();
+        DataSet ds3 = new DataSet();
         string tablename = null;
         int rownum = 0;
 
@@ -1051,7 +1055,7 @@ namespace TKMOC
             Console.Read();
 
 
-            //SEARCH();
+            SEARCH();
 
             //if (!File.Exists(pathFile + ".xlsx"))
             //{
@@ -1071,6 +1075,127 @@ namespace TKMOC
             }
         }
 
+        public void SEARCH()
+        {
+            DateTime SEARCHDATE = DateTime.Now;
+            SEARCHDATE = SEARCHDATE.AddMonths(-1);
+
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  SELECT  [MANU],CONVERT(NVARCHAR,[MANUDATE],112) AS MANUDATE ,[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET],[MANUHOUR],[BOX],[PACKAGE],CONVERT(NVARCHAR,[OUTDATE],112) AS OUTDATE,[TA029],[HALFPRO],[COPTD001],[COPTD002],[COPTD003]");
+                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
+                sbSql.AppendFormat(@"  WHERE ISNULL([COPTD001],'')<>''");
+                sbSql.AppendFormat(@"  AND CONVERT(NVARCHAR,[MANUDATE],112) >='20190701' AND CONVERT(NVARCHAR,[MANUDATE],112) <='20190731' ");
+                sbSql.AppendFormat(@"  ORDER BY [MANU],[MANUDATE],[MB001]");
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+                adapter3= new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder3 = new SqlCommandBuilder(adapter3);
+                sqlConn.Open();
+                ds3.Clear();
+                adapter3.Fill(ds3, "ds3");
+                sqlConn.Close();
+
+
+                if (ds3.Tables["ds3"].Rows.Count == 0)
+                {
+                    //建立一筆新的DataRow，並且等於新的dt row
+                    DataRow row = ds3.Tables["ds3"].NewRow();
+
+                    //指定每個欄位要儲存的資料                   
+                    row[0] = "本日無資料"; ;
+
+                    //新增資料至DataTable的dt內
+                    ds3.Tables["ds3"].Rows.Add(row);
+
+                    ExportDataSetToExcel(ds3, pathFile);
+                }
+                else
+                {
+                    if (ds3.Tables["ds3"].Rows.Count >= 1)
+                    {
+                        ExportDataSetToExcel(ds3, pathFile);
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+
+        public void ExportDataSetToExcel(DataSet ds, string TopathFile)
+        {
+            //Creae an Excel application instance
+            Excel.Application excelApp = new Excel.Application();
+
+            //Create an Excel workbook instance and open it from the predefined location
+            Excel.Workbook excelWorkBook = excelApp.Workbooks.Open(TopathFile);
+            Excel.Range wRange;
+            Excel.Range wRangepathFile;
+            Excel.Range wRangepathFilePURTA;
+
+            foreach (DataTable table in ds.Tables)
+            {
+                //Add a new worksheet to workbook with the Datatable name
+                Excel.Worksheet excelWorkSheet = excelWorkBook.Sheets.Add();
+                excelWorkSheet.Name = table.TableName;
+
+                for (int i = 1; i < table.Columns.Count + 1; i++)
+                {
+                    excelWorkSheet.Cells[1, i] = table.Columns[i - 1].ColumnName;
+                    //畫框線
+                    wRange = excelWorkSheet.Cells[1, i];
+                    wRange.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+                    wRange.VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                    wRange.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                }
+
+                for (int j = 0; j < table.Rows.Count; j++)
+                {
+                    for (int k = 0; k < table.Columns.Count; k++)
+                    {
+                        excelWorkSheet.Cells[j + 2, k + 1] = table.Rows[j].ItemArray[k].ToString();
+
+                        wRange = excelWorkSheet.Cells[j + 2, k + 1];
+
+                        //畫框線
+                        wRange.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+
+               
+
+                       
+
+                    }
+                }
+
+                //設定為按照內容自動調整欄寬
+                excelWorkSheet.Columns.AutoFit();
+            }
+
+
+
+            excelWorkBook.Save();
+            excelWorkBook.Close();
+            excelApp.Quit();
+
+        }
         #endregion
 
         #region BUTTON
