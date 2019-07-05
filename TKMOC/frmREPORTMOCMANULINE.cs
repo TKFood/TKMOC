@@ -1130,12 +1130,13 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  SELECT [MANU],CONVERT(NVARCHAR,[MANUDATE],112) AS MANUDATE ,[MB002],CONVERT(NVARCHAR,CONVERT(INT,ROUND([BOX],0)))+' 箱' AS 'BOX',CONVERT(INT,[PACKAGE]) AS 'PACKAGE'");
-                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
-                sbSql.AppendFormat(@"  WHERE ISNULL([COPTD001],'')<>''");
+                sbSql.AppendFormat(@"  SELECT  CONVERT(NVARCHAR,[MANUDATE],112) AS MANUDATE ,[MANU],INVMB.[MB002],CONVERT(NVARCHAR,CONVERT(INT,ROUND([BOX],0)))+' 箱' AS 'BOX',CONVERT(NVARCHAR,CONVERT(INT,[PACKAGE]))+MB004 AS ' PACKAGE'");
+                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE],[TK].dbo.INVMB");
+                sbSql.AppendFormat(@"  WHERE INVMB.MB001=MOCMANULINE.MB001");
+                sbSql.AppendFormat(@"  AND ISNULL([COPTD001],'')<>''");
                 sbSql.AppendFormat(@"  AND CONVERT(NVARCHAR,[MANUDATE],112) >='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112) <='{1}' ",dateTimePicker9.Value.ToString("yyyyMMdd"), dateTimePicker10.Value.ToString("yyyyMMdd"));
                 sbSql.AppendFormat(@"  AND [MANU]='新廠包裝線'");
-                sbSql.AppendFormat(@"  ORDER BY [MANU],[MANUDATE],[MB001]");
+                sbSql.AppendFormat(@"  ORDER BY [MANU],[MANUDATE],MOCMANULINE.[MB001]");
                 sbSql.AppendFormat(@"  ");
                 sbSql.AppendFormat(@"  ");
                 sbSql.AppendFormat(@"  ");
@@ -1204,12 +1205,14 @@ namespace TKMOC
                 {
                     for (int k = 0; k < table.Columns.Count; k++)
                     {
-                        if (table.Rows[j].ItemArray[1].ToString().Substring(6,2).Equals("01"))
+                        if (table.Rows[j].ItemArray[0].ToString().Substring(6,2).Equals("01"))
                         {
-                            message1= message1 + table.Rows[j].ItemArray[k].ToString();
-                            message1 = message1 + '\n';
-                        }
-                       
+                            if(k>=1)
+                            {
+                                message1 = message1 + table.Rows[j].ItemArray[k].ToString();
+                                message1 = message1 + '\n';
+                            }
+                        }                       
                     }
                     //message = message + '\n';
                 }
