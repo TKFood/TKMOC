@@ -1182,13 +1182,11 @@ namespace TKMOC
                 {
                     for (int k = 0; k < table.Columns.Count; k++)
                     {
-                        if (table.Rows[j].ItemArray[0].ToString().Substring(6,2).Equals("01"))
+                        //if (table.Rows[j].ItemArray[0].ToString().Substring(6,2).Equals("01"))
+                        if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2))==1)
                         {
-                            if(k>=1)
-                            {
-                                message[0] = message[0] + table.Rows[j].ItemArray[k].ToString();
-                                message[0] = message[0] + '\n';
-                            }
+                            message[0] = message[0] + table.Rows[j].ItemArray[k].ToString();
+                            message[0] = message[0] + '\n';
                         }                       
                     }
                     //message = message + '\n';
