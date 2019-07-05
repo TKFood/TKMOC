@@ -63,6 +63,38 @@ namespace TKMOC
         string strDesktopPath;
         string pathFile;
 
+        string message1 = null;
+        string message2 = null;
+        string message3 = null;
+        string message4 = null;
+        string message5 = null;
+        string message6 = null;
+        string message7 = null;
+        string message8 = null;
+        string message9 = null;
+        string message10 = null;
+        string message11 = null;
+        string message12 = null;
+        string message13 = null;
+        string message14 = null;
+        string message15 = null;
+        string message16 = null;
+        string message17 = null;
+        string message18 = null;
+        string message19 = null;
+        string message20 = null;
+        string message21 = null;
+        string message22 = null;
+        string message23 = null;
+        string message24 = null;
+        string message25 = null;
+        string message26 = null;
+        string message27 = null;
+        string message28 = null;
+        string message29 = null;
+        string message30 = null;
+        string message31 = null;
+
         public frmREPORTMOCMANULINE()
         {
             InitializeComponent();
@@ -70,9 +102,19 @@ namespace TKMOC
             SETCALENDAR();
 
             //comboBox1load();
+
+            SETDATE();
         }
 
         #region FUNCTION
+        public void SETDATE()
+        {
+            DateTime FirstDay = DateTime.Now.AddDays(-DateTime.Now.Day + 1);
+            DateTime LastDay = DateTime.Now.AddMonths(1).AddDays(-DateTime.Now.AddMonths(1).Day);
+
+            dateTimePicker9.Value = FirstDay;
+            dateTimePicker10.Value = LastDay;
+        }
         public void comboBox1load()
         {
             connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
@@ -1079,10 +1121,7 @@ namespace TKMOC
 
         public void SEARCH()
         {
-            DateTime SEARCHDATE = DateTime.Now;
-            SEARCHDATE = SEARCHDATE.AddMonths(-1);
-
-
+           
             try
             {
                 connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
@@ -1094,7 +1133,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  SELECT [MANU],CONVERT(NVARCHAR,[MANUDATE],112) AS MANUDATE ,[MB002],CONVERT(NVARCHAR,CONVERT(INT,ROUND([BOX],0)))+' 箱' AS 'BOX',CONVERT(INT,[PACKAGE]) AS 'PACKAGE'");
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
                 sbSql.AppendFormat(@"  WHERE ISNULL([COPTD001],'')<>''");
-                sbSql.AppendFormat(@"  AND CONVERT(NVARCHAR,[MANUDATE],112) >='20190701' AND CONVERT(NVARCHAR,[MANUDATE],112) <='20190731' ");
+                sbSql.AppendFormat(@"  AND CONVERT(NVARCHAR,[MANUDATE],112) >='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112) <='{1}' ",dateTimePicker9.Value.ToString("yyyyMMdd"), dateTimePicker10.Value.ToString("yyyyMMdd"));
                 sbSql.AppendFormat(@"  AND [MANU]='新廠包裝線'");
                 sbSql.AppendFormat(@"  ORDER BY [MANU],[MANUDATE],[MB001]");
                 sbSql.AppendFormat(@"  ");
@@ -1145,7 +1184,7 @@ namespace TKMOC
 
         public void ExportDataSetToExcel(DataSet ds, string TopathFile)
         {
-            string message=null;
+           
             //Creae an Excel application instance
             Excel.Application excelApp = new Excel.Application();
 
@@ -1167,45 +1206,26 @@ namespace TKMOC
                     {
                         if (table.Rows[j].ItemArray[1].ToString().Substring(6,2).Equals("01"))
                         {
-                            message= message+ table.Rows[j].ItemArray[k].ToString();
-                            message= message + '\n';
+                            message1= message1 + table.Rows[j].ItemArray[k].ToString();
+                            message1 = message1 + '\n';
                         }
                        
                     }
                     //message = message + '\n';
                 }
 
-                excelWorkSheet.Cells[1, 1] = "20190701";
-                excelWorkSheet.Cells[2, 1] = message;
-                message = null;
-
-                //for (int i = 1; i < table.Columns.Count + 1; i++)
-                //{
-                //    excelWorkSheet.Cells[1, i] = table.Columns[i - 1].ColumnName;
-                //    //畫框線
-                //    wRange = excelWorkSheet.Cells[1, i];
-                //    wRange.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
-                //    wRange.VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                //    wRange.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                //}
-
-                //for (int j = 0; j < table.Rows.Count; j++)
-                //{
-                //    for (int k = 0; k < table.Columns.Count; k++)
-                //    {
-                //        excelWorkSheet.Cells[j + 2, k + 1] = table.Rows[j].ItemArray[k].ToString();
-
-                //        wRange = excelWorkSheet.Cells[j + 2, k + 1];
-
-                //        //畫框線
-                //        wRange.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+                excelWorkSheet.Cells[1, 1] = dateTimePicker9.Value.ToString("yyyy/MM/") + "01";
+                excelWorkSheet.Cells[2, 1] = message1;
+                message1 = null;
 
 
+                //置中
+                string RangeCenter = "A1:G1";//設定範圍
+                excelWorkSheet.get_Range(RangeCenter).HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
 
-
-
-                //    }
-                //}
+                //靠左
+                string RangeLeft = "A2:G2";//設定範圍
+                excelWorkSheet.get_Range(RangeLeft).HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
 
                 //設定為按照內容自動調整欄寬
                 excelWorkSheet.Columns.AutoFit();
