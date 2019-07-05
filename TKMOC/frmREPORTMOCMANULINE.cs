@@ -21,6 +21,7 @@ using NPOI.SS.UserModel;
 using System.Configuration;
 using NPOI.XSSF.UserModel;
 using Calendar.NET;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace TKMOC
 {
@@ -54,6 +55,9 @@ namespace TKMOC
         int rownum = 0;
 
         string SOURCEID;
+        string DATES = null;
+        string strDesktopPath;
+        string pathFile;
 
         public frmREPORTMOCMANULINE()
         {
@@ -996,6 +1000,76 @@ namespace TKMOC
             }
         }
 
+        public void SETPATH()
+        {
+            DATES = DateTime.Now.ToString("yyyyMMdd");
+            strDesktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            pathFile = @""+strDesktopPath.ToString() + @"\"+"行事曆" + DATES.ToString();
+           
+        }
+        public void SETFILE()
+        {
+           
+
+            // 設定儲存檔名，不用設定副檔名，系統自動判斷 excel 版本，產生 .xls 或 .xlsx 副檔名 
+            Excel.Application excelApp;
+            Excel._Workbook wBook;
+            Excel._Worksheet wSheet;
+            Excel.Range wRange;
+
+            // 開啟一個新的應用程式
+            excelApp = new Excel.Application();
+            // 讓Excel文件可見
+            //excelApp.Visible = true;
+            // 停用警告訊息
+            excelApp.DisplayAlerts = false;
+            // 加入新的活頁簿
+            excelApp.Workbooks.Add(Type.Missing);
+            // 引用第一個活頁簿
+            wBook = excelApp.Workbooks[1];
+            // 設定活頁簿焦點
+            wBook.Activate();
+
+            if (!File.Exists(pathFile + ".xlsx"))
+            {
+                wBook.SaveAs(pathFile, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Excel.XlSaveAsAccessMode.xlNoChange, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+            }
+
+
+
+            //關閉Excel
+            excelApp.Quit();
+
+            //釋放Excel資源
+            System.Runtime.InteropServices.Marshal.ReleaseComObject(excelApp);
+            wBook = null;
+            wSheet = null;
+            wRange = null;
+            excelApp = null;
+            GC.Collect();
+
+            Console.Read();
+
+
+            //SEARCH();
+
+            //if (!File.Exists(pathFile + ".xlsx"))
+            //{
+            //    //SEARCH()
+
+            //}
+
+        }
+
+        public void CLEAREXCEL()
+        {
+            System.Diagnostics.Process[] p = System.Diagnostics.Process.GetProcesses();
+            for (int i = 0; i < p.Length; i++)
+            {
+                if (p[i].ToString().IndexOf("EXCEL") > 0)
+                    p[i].Kill();
+            }
+        }
 
         #endregion
 
@@ -1043,8 +1117,17 @@ namespace TKMOC
             SEARCHCOPTD();
         }
 
+        private void button10_Click(object sender, EventArgs e)
+        {
+            SETPATH();
+            SETFILE();
+        }
+        private void button9_Click(object sender, EventArgs e)
+        {
+            CLEAREXCEL();
+        }
         #endregion
 
-       
+
     }
 }
