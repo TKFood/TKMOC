@@ -1186,8 +1186,8 @@ namespace TKMOC
                         {
                             if(k>=1)
                             {
-                                message[1] = message[1] + table.Rows[j].ItemArray[k].ToString();
-                                message[1] = message[1] + '\n';
+                                message[0] = message[0] + table.Rows[j].ItemArray[k].ToString();
+                                message[0] = message[0] + '\n';
                             }
                         }                       
                     }
@@ -1215,9 +1215,16 @@ namespace TKMOC
                     {
                         EXCELY = 7;                        
                     }
-                    excelWorkSheet.Cells[EXCELX, EXCELY] = i;
 
-                  
+                    //excelWorkSheet.Cells[EXCELX, EXCELY] = i;
+
+                    excelWorkSheet.Cells[EXCELX, EXCELY] = message[0].ToString();
+
+                    //if (!string.IsNullOrEmpty(message[i-1].ToString()))
+                    //{
+                    //    excelWorkSheet.Cells[EXCELX, EXCELY] = message[i - 1].ToString();
+                    //}
+
                 }
                 //excelWorkSheet.Cells[1, 1] = dateTimePicker9.Value.ToString("yyyy/MM/") + "01";
                 //excelWorkSheet.Cells[2, days+1] = message1;
