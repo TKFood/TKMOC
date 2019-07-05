@@ -63,37 +63,8 @@ namespace TKMOC
         string strDesktopPath;
         string pathFile;
 
-        string message1 = null;
-        string message2 = null;
-        string message3 = null;
-        string message4 = null;
-        string message5 = null;
-        string message6 = null;
-        string message7 = null;
-        string message8 = null;
-        string message9 = null;
-        string message10 = null;
-        string message11 = null;
-        string message12 = null;
-        string message13 = null;
-        string message14 = null;
-        string message15 = null;
-        string message16 = null;
-        string message17 = null;
-        string message18 = null;
-        string message19 = null;
-        string message20 = null;
-        string message21 = null;
-        string message22 = null;
-        string message23 = null;
-        string message24 = null;
-        string message25 = null;
-        string message26 = null;
-        string message27 = null;
-        string message28 = null;
-        string message29 = null;
-        string message30 = null;
-        string message31 = null;
+        string[] message = new string[31];
+ 
 
         public frmREPORTMOCMANULINE()
         {
@@ -1185,7 +1156,13 @@ namespace TKMOC
 
         public void ExportDataSetToExcel(DataSet ds, string TopathFile)
         {
-           
+            int days =Convert.ToInt32( DateTime.Now.AddDays(-DateTime.Now.Day + 1).DayOfWeek.ToString("d"));
+            //MessageBox.Show(days.ToString());
+            int MONTHDAYS= DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month);
+
+            int EXCELX = 2;
+            int EXCELY = 0;
+
             //Creae an Excel application instance
             Excel.Application excelApp = new Excel.Application();
 
@@ -1209,25 +1186,46 @@ namespace TKMOC
                         {
                             if(k>=1)
                             {
-                                message1 = message1 + table.Rows[j].ItemArray[k].ToString();
-                                message1 = message1 + '\n';
+                                message[1] = message[1] + table.Rows[j].ItemArray[k].ToString();
+                                message[1] = message[1] + '\n';
                             }
                         }                       
                     }
                     //message = message + '\n';
                 }
 
-                excelWorkSheet.Cells[1, 1] = dateTimePicker9.Value.ToString("yyyy/MM/") + "01";
-                excelWorkSheet.Cells[2, 1] = message1;
-                message1 = null;
-
+                excelWorkSheet.Cells[1, 1] = "星期日";
+                excelWorkSheet.Cells[1, 2] = "星期一";
+                excelWorkSheet.Cells[1, 3] = "星期二";
+                excelWorkSheet.Cells[1, 4] = "星期三";
+                excelWorkSheet.Cells[1, 5] = "星期四";
+                excelWorkSheet.Cells[1, 6] = "星期五";
+                excelWorkSheet.Cells[1, 7] = "星期六";
 
                 //置中
                 string RangeCenter = "A1:G1";//設定範圍
                 excelWorkSheet.get_Range(RangeCenter).HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
 
+                for (int i = 1; i <= MONTHDAYS;i++)
+                {
+                    
+                    EXCELX = 2 + Convert.ToInt32(Math.Truncate(Convert.ToDouble((i+days-1) / 7)));
+                    EXCELY = (days + i) % 7;
+                    if(EXCELY==0)
+                    {
+                        EXCELY = 7;                        
+                    }
+                    excelWorkSheet.Cells[EXCELX, EXCELY] = i;
+
+                  
+                }
+                //excelWorkSheet.Cells[1, 1] = dateTimePicker9.Value.ToString("yyyy/MM/") + "01";
+                //excelWorkSheet.Cells[2, days+1] = message1;
+                //message1 = null;
+                
+
                 //靠左
-                string RangeLeft = "A2:G2";//設定範圍
+                string RangeLeft = "A2:G6";//設定範圍
                 excelWorkSheet.get_Range(RangeLeft).HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
 
                 //設定為按照內容自動調整欄寬
@@ -1303,6 +1301,8 @@ namespace TKMOC
         {          
             SETPATH();
             SETFILE();
+
+            MessageBox.Show("OK");
         }
         private void button9_Click(object sender, EventArgs e)
         {
