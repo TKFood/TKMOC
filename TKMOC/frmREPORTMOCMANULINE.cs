@@ -45,6 +45,8 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilderCALENDAR = new SqlCommandBuilder();
         SqlDataAdapter adapter3 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder3 = new SqlCommandBuilder();
+        SqlDataAdapter adapter4 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder4 = new SqlCommandBuilder();
         DataSet dsCALENDAR = new DataSet();
 
         SqlCommand cmd = new SqlCommand();
@@ -55,6 +57,7 @@ namespace TKMOC
         DataTable dt = new DataTable();
         DataTable dt2 = new DataTable();
         DataSet ds3 = new DataSet();
+        DataSet ds4 = new DataSet();
         string tablename = null;
         int rownum = 0;
 
@@ -63,7 +66,7 @@ namespace TKMOC
         string strDesktopPath;
         string pathFile;
 
-        string[] message = new string[31];
+        string[] message = new string[31] { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
  
 
         public frmREPORTMOCMANULINE()
@@ -1101,7 +1104,7 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  SELECT  CONVERT(NVARCHAR,[MANUDATE],112) AS MANUDATE ,[MANU],INVMB.[MB002],CONVERT(NVARCHAR,CONVERT(INT,ROUND([BOX],0)))+' 箱' AS 'BOX',CONVERT(NVARCHAR,CONVERT(INT,[PACKAGE]))+MB004 AS ' PACKAGE'");
+                sbSql.AppendFormat(@"  SELECT  CONVERT(NVARCHAR,[MANUDATE],112)+' ' +[MANU] AS MANUDATE,INVMB.[MB002],CONVERT(NVARCHAR,CONVERT(INT,ROUND([BOX],0)))+' 箱 '+CONVERT(NVARCHAR,CONVERT(INT,[PACKAGE]))+MB004 AS ' PACKAGE'  ");
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE],[TK].dbo.INVMB");
                 sbSql.AppendFormat(@"  WHERE INVMB.MB001=MOCMANULINE.MB001");
                 sbSql.AppendFormat(@"  AND ISNULL([COPTD001],'')<>''");
@@ -1183,11 +1186,161 @@ namespace TKMOC
                     for (int k = 0; k < table.Columns.Count; k++)
                     {
                         //if (table.Rows[j].ItemArray[0].ToString().Substring(6,2).Equals("01"))
-                        if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2))==1)
+                        if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 1)
                         {
                             message[0] = message[0] + table.Rows[j].ItemArray[k].ToString();
                             message[0] = message[0] + '\n';
-                        }                       
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 2)
+                        {
+                            message[1] = message[1] + table.Rows[j].ItemArray[k].ToString();
+                            message[1] = message[1] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 3)
+                        {
+                            message[2] = message[2] + table.Rows[j].ItemArray[k].ToString();
+                            message[2] = message[2] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 4)
+                        {
+                            message[3] = message[3] + table.Rows[j].ItemArray[k].ToString();
+                            message[3] = message[3] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 5)
+                        {
+                            message[4] = message[4] + table.Rows[j].ItemArray[k].ToString();
+                            message[4] = message[4] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 6)
+                        {
+                            message[5] = message[5] + table.Rows[j].ItemArray[k].ToString();
+                            message[5] = message[5] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 7)
+                        {
+                            message[6] = message[6] + table.Rows[j].ItemArray[k].ToString();
+                            message[6] = message[6] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 8)
+                        {
+                            message[7] = message[7] + table.Rows[j].ItemArray[k].ToString();
+                            message[7] = message[7] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 9)
+                        {
+                            message[8] = message[8] + table.Rows[j].ItemArray[k].ToString();
+                            message[8] = message[8] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 10)
+                        {
+                            message[9] = message[9] + table.Rows[j].ItemArray[k].ToString();
+                            message[9] = message[9] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 11)
+                        {
+                            message[10] = message[10] + table.Rows[j].ItemArray[k].ToString();
+                            message[10] = message[10] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 12)
+                        {
+                            message[11] = message[11] + table.Rows[j].ItemArray[k].ToString();
+                            message[11] = message[11] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 13)
+                        {
+                            message[12] = message[12] + table.Rows[j].ItemArray[k].ToString();
+                            message[12] = message[12] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 14)
+                        {
+                            message[13] = message[13] + table.Rows[j].ItemArray[k].ToString();
+                            message[13] = message[13] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 15)
+                        {
+                            message[14] = message[14] + table.Rows[j].ItemArray[k].ToString();
+                            message[14] = message[14] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 16)
+                        {
+                            message[15] = message[15] + table.Rows[j].ItemArray[k].ToString();
+                            message[15] = message[15] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 17)
+                        {
+                            message[16] = message[16] + table.Rows[j].ItemArray[k].ToString();
+                            message[16] = message[16] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 18)
+                        {
+                            message[17] = message[17] + table.Rows[j].ItemArray[k].ToString();
+                            message[17] = message[17] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 19)
+                        {
+                            message[18] = message[18] + table.Rows[j].ItemArray[k].ToString();
+                            message[18] = message[18] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 20)
+                        {
+                            message[19] = message[19] + table.Rows[j].ItemArray[k].ToString();
+                            message[19] = message[19] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 21)
+                        {
+                            message[20] = message[20] + table.Rows[j].ItemArray[k].ToString();
+                            message[20] = message[20] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 22)
+                        {
+                            message[21] = message[21] + table.Rows[j].ItemArray[k].ToString();
+                            message[21] = message[21] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 23)
+                        {
+                            message[22] = message[22] + table.Rows[j].ItemArray[k].ToString();
+                            message[22] = message[22] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 24)
+                        {
+                            message[23] = message[23] + table.Rows[j].ItemArray[k].ToString();
+                            message[23] = message[23] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 25)
+                        {
+                            message[24] = message[24] + table.Rows[j].ItemArray[k].ToString();
+                            message[24] = message[24] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 26)
+                        {
+                            message[25] = message[25] + table.Rows[j].ItemArray[k].ToString();
+                            message[25] = message[25] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 27)
+                        {
+                            message[26] = message[26] + table.Rows[j].ItemArray[k].ToString();
+                            message[26] = message[26] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 28)
+                        {
+                            message[27] = message[27] + table.Rows[j].ItemArray[k].ToString();
+                            message[27] = message[27] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 29)
+                        {
+                            message[28] = message[28] + table.Rows[j].ItemArray[k].ToString();
+                            message[28] = message[28] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 30)
+                        {
+                            message[29] = message[29] + table.Rows[j].ItemArray[k].ToString();
+                            message[29] = message[29] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 31)
+                        {
+                            message[30] = message[30] + table.Rows[j].ItemArray[k].ToString();
+                            message[30] = message[30] + '\n';
+                        }
                     }
                     //message = message + '\n';
                 }
@@ -1216,7 +1369,7 @@ namespace TKMOC
 
                     //excelWorkSheet.Cells[EXCELX, EXCELY] = i;
 
-                    excelWorkSheet.Cells[EXCELX, EXCELY] = message[0].ToString();
+                    excelWorkSheet.Cells[EXCELX, EXCELY] = message[i-1].ToString();
 
                     //if (!string.IsNullOrEmpty(message[i-1].ToString()))
                     //{
@@ -1256,6 +1409,8 @@ namespace TKMOC
                 throw e;
             }
         }
+
+        
         #endregion
 
         #region BUTTON
@@ -1313,6 +1468,9 @@ namespace TKMOC
         {
             CLEAREXCEL();
         }
+
+        
+
         #endregion
 
 
