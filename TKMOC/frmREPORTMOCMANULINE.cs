@@ -1387,7 +1387,8 @@ namespace TKMOC
                 excelWorkSheet.get_Range(RangeLeft).HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
 
                 //設定為按照內容自動調整欄寬
-                excelWorkSheet.Columns.AutoFit();
+                excelWorkSheet.get_Range(RangeLeft).Columns.AutoFit();
+                //excelWorkSheet.Columns.AutoFit();
             }
 
 
