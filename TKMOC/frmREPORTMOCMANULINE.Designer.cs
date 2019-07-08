@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -98,9 +98,9 @@
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.label11 = new System.Windows.Forms.Label();
             this.dateTimePicker9 = new System.Windows.Forms.DateTimePicker();
-            this.button10 = new System.Windows.Forms.Button();
             this.dateTimePicker10 = new System.Windows.Forms.DateTimePicker();
             this.label13 = new System.Windows.Forms.Label();
+            this.button10 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -280,7 +280,7 @@
             "新廠吧台烘焙線",
             "新廠包裝線",
             "新廠托外加工"});
-            this.comboBox1.Location = new System.Drawing.Point(184, 67);
+            this.comboBox1.Location = new System.Drawing.Point(184, 69);
             this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(172, 24);
@@ -563,8 +563,8 @@
             // 
             this.dataGridView15.AllowUserToAddRows = false;
             this.dataGridView15.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.dataGridView15.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.dataGridView15.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView15.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView15.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView15.Location = new System.Drawing.Point(0, 0);
@@ -690,7 +690,7 @@
             "新廠吧台烘焙線",
             "新廠包裝線",
             "新廠托外加工"});
-            this.comboBox2.Location = new System.Drawing.Point(184, 67);
+            this.comboBox2.Location = new System.Drawing.Point(184, 69);
             this.comboBox2.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(172, 24);
@@ -870,7 +870,7 @@
             "新廠吧台烘焙線",
             "新廠包裝線",
             "新廠托外加工"});
-            this.comboBox3.Location = new System.Drawing.Point(184, 67);
+            this.comboBox3.Location = new System.Drawing.Point(184, 69);
             this.comboBox3.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(172, 24);
@@ -1179,18 +1179,6 @@
             this.dateTimePicker9.Size = new System.Drawing.Size(172, 27);
             this.dateTimePicker9.TabIndex = 1;
             // 
-            // button10
-            // 
-            this.button10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button10.Location = new System.Drawing.Point(468, 59);
-            this.button10.Margin = new System.Windows.Forms.Padding(4);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(248, 41);
-            this.button10.TabIndex = 3;
-            this.button10.Text = "匯出";
-            this.button10.UseVisualStyleBackColor = true;
-            this.button10.Click += new System.EventHandler(this.button10_Click);
-            // 
             // dateTimePicker10
             // 
             this.dateTimePicker10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -1213,6 +1201,18 @@
             this.label13.TabIndex = 7;
             this.label13.Text = "~";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // button10
+            // 
+            this.button10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button10.Location = new System.Drawing.Point(468, 59);
+            this.button10.Margin = new System.Windows.Forms.Padding(4);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(248, 41);
+            this.button10.TabIndex = 3;
+            this.button10.Text = "匯出";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
             // button9
             // 
