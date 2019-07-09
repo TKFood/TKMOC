@@ -67,7 +67,8 @@ namespace TKMOC
         string pathFile;
 
         string[] message = new string[31] { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
- 
+        DateTime sdt;
+        DateTime edt;
 
         public frmREPORTMOCMANULINE()
         {
@@ -83,11 +84,12 @@ namespace TKMOC
         #region FUNCTION
         public void SETDATE()
         {
-            DateTime FirstDay = DateTime.Now.AddDays(-DateTime.Now.Day + 1);
-            DateTime LastDay = DateTime.Now.AddMonths(1).AddDays(-DateTime.Now.AddMonths(1).Day);
-
-            dateTimePicker9.Value = FirstDay;
-            dateTimePicker10.Value = LastDay;
+            DateTime SETDT = Convert.ToDateTime(dateTimePicker9.Value.ToString("yyyy/MM") + "/01");
+            DateTime FirstDay = SETDT.AddDays(-SETDT.Day + 1);
+            DateTime LastDay = SETDT.AddMonths(1).AddDays(-SETDT.AddMonths(1).Day);
+                        
+            sdt = FirstDay;
+            edt=LastDay;
         }
         public void comboBox1load()
         {
@@ -1024,7 +1026,7 @@ namespace TKMOC
         {
             DATES = DateTime.Now.ToString("yyyyMMdd");
             strDesktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-            pathFile = @""+strDesktopPath.ToString() + @"\"+"行事曆" + DATES.ToString();
+            pathFile = @""+strDesktopPath.ToString() + @"\"+"行事曆" + DATES.ToString()+ comboBox4.Text.ToString();
 
 
             DeleteDir(pathFile + ".xlsx");
@@ -1104,16 +1106,33 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  SELECT  CONVERT(NVARCHAR,[MANUDATE],112)+' ' +[MANU] AS MANUDATE,INVMB.[MB002],CONVERT(NVARCHAR,CONVERT(INT,ROUND([BOX],0)))+' 箱 '+CONVERT(NVARCHAR,CONVERT(INT,[PACKAGE]))+MB004 AS ' PACKAGE'  ");
-                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE],[TK].dbo.INVMB");
-                sbSql.AppendFormat(@"  WHERE INVMB.MB001=MOCMANULINE.MB001");
-                sbSql.AppendFormat(@"  AND ISNULL([COPTD001],'')<>''");
-                sbSql.AppendFormat(@"  AND CONVERT(NVARCHAR,[MANUDATE],112) >='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112) <='{1}' ",dateTimePicker9.Value.ToString("yyyyMMdd"), dateTimePicker10.Value.ToString("yyyyMMdd"));
-                sbSql.AppendFormat(@"  AND [MANU]='新廠包裝線'");
-                sbSql.AppendFormat(@"  ORDER BY [MANU],[MANUDATE],MOCMANULINE.[MB001]");
-                sbSql.AppendFormat(@"  ");
-                sbSql.AppendFormat(@"  ");
-                sbSql.AppendFormat(@"  ");
+                if(comboBox4.Text.Equals("新廠包裝線"))
+                {
+                    sbSql.AppendFormat(@"  SELECT  CONVERT(NVARCHAR,[MANUDATE],112)+' ' +[MANU] AS MANUDATE,INVMB.[MB002],CONVERT(NVARCHAR,CONVERT(INT,ROUND([BOX],0)))+' 箱 '+CONVERT(NVARCHAR,CONVERT(INT,[PACKAGE]))+MB004 AS ' PACKAGE'  ");
+                    sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE],[TK].dbo.INVMB");
+                    sbSql.AppendFormat(@"  WHERE INVMB.MB001=MOCMANULINE.MB001");
+                    sbSql.AppendFormat(@"  AND ISNULL([COPTD001],'')<>''");
+                    sbSql.AppendFormat(@"  AND CONVERT(NVARCHAR,[MANUDATE],112) >='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112) <='{1}' ", sdt.ToString("yyyyMMdd"), edt.ToString("yyyyMMdd"));
+                    sbSql.AppendFormat(@"  AND [MANU]='{0}'", comboBox4.Text);
+                    sbSql.AppendFormat(@"  ORDER BY [MANU],[MANUDATE],MOCMANULINE.[MB001]");
+                    sbSql.AppendFormat(@"  ");
+                    sbSql.AppendFormat(@"  ");
+                    sbSql.AppendFormat(@"  ");
+                }
+                else
+                {
+                    sbSql.AppendFormat(@"  SELECT  CONVERT(NVARCHAR,[MANUDATE],112)+' ' +[MANU] AS MANUDATE,INVMB.[MB002],CONVERT(NVARCHAR,CONVERT(INT,ROUND([BAR],0)))+' 桶 '+CONVERT(NVARCHAR,CONVERT(INT,[NUM]))+MB004 AS ' PACKAGE'  ");
+                    sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE],[TK].dbo.INVMB");
+                    sbSql.AppendFormat(@"  WHERE INVMB.MB001=MOCMANULINE.MB001");
+                    sbSql.AppendFormat(@"  AND ISNULL([COPTD001],'')<>''");
+                    sbSql.AppendFormat(@"  AND CONVERT(NVARCHAR,[MANUDATE],112) >='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112) <='{1}' ", sdt.ToString("yyyyMMdd"), edt.ToString("yyyyMMdd"));
+                    sbSql.AppendFormat(@"  AND [MANU]='{0}'", comboBox4.Text);
+                    sbSql.AppendFormat(@"  ORDER BY [MANU],[MANUDATE],MOCMANULINE.[MB001]");
+                    sbSql.AppendFormat(@"  ");
+                    sbSql.AppendFormat(@"  ");
+                    sbSql.AppendFormat(@"  ");
+                }
+
               
 
                 adapter3= new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -1387,8 +1406,12 @@ namespace TKMOC
                 excelWorkSheet.get_Range(RangeLeft).HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
 
                 //設定為按照內容自動調整欄寬
-                excelWorkSheet.get_Range(RangeLeft).Columns.AutoFit();
+                //excelWorkSheet.get_Range(RangeLeft).Columns.AutoFit();
+                excelWorkSheet.get_Range(RangeLeft).ColumnWidth = 30;
                 //excelWorkSheet.Columns.AutoFit();
+
+                // 給儲存格加邊框
+                //excelWorkSheet.get_Range(RangeLeft).Borders.LineStyle = Excel.XlBorderWeight.xlMedium;
             }
 
 
@@ -1411,7 +1434,15 @@ namespace TKMOC
             }
         }
 
-        
+        public void RESET()
+        {
+            message = new string[31] { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
+           
+        }
+        private void dateTimePicker9_ValueChanged(object sender, EventArgs e)
+        {
+            SETDATE();
+        }
         #endregion
 
         #region BUTTON
@@ -1459,7 +1490,8 @@ namespace TKMOC
         }
 
         private void button10_Click(object sender, EventArgs e)
-        {          
+        {
+            RESET();
             SETPATH();
             SETFILE();
 
@@ -1470,10 +1502,11 @@ namespace TKMOC
             CLEAREXCEL();
         }
 
-        
+
+
 
         #endregion
 
-
+       
     }
 }
