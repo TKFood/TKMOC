@@ -1411,6 +1411,7 @@ namespace TKMOC
                 //excelWorkSheet.Columns.AutoFit();
 
                 // 給儲存格加邊框
+                excelWorkSheet.get_Range(RangeLeft).Borders.LineStyle = Excel.XlBorderWeight.xlHairline;
                 //excelWorkSheet.get_Range(RangeLeft).Borders.LineStyle = Excel.XlBorderWeight.xlMedium;
             }
 
