@@ -1024,7 +1024,7 @@ namespace TKMOC
 
         public void SETPATH()
         {
-            DATES = DateTime.Now.ToString("yyyyMMdd");
+            DATES = DateTime.Now.ToString("yyyyMMddHHmmss");
             strDesktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
             pathFile = @""+strDesktopPath.ToString() + @"\"+"行事曆" + DATES.ToString()+ comboBox4.Text.ToString();
 
@@ -1178,9 +1178,9 @@ namespace TKMOC
 
         public void ExportDataSetToExcel(DataSet ds, string TopathFile)
         {
-            int days =Convert.ToInt32( DateTime.Now.AddDays(-DateTime.Now.Day + 1).DayOfWeek.ToString("d"));
+            int days =Convert.ToInt32( sdt.AddDays(-sdt.Day + 1).DayOfWeek.ToString("d"));
             //MessageBox.Show(days.ToString());
-            int MONTHDAYS= DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month);
+            int MONTHDAYS= DateTime.DaysInMonth(sdt.Year, sdt.Month);
 
             int EXCELX = 2;
             int EXCELY = 0;
