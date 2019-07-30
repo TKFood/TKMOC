@@ -47,6 +47,8 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder3 = new SqlCommandBuilder();
         SqlDataAdapter adapter4 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder4 = new SqlCommandBuilder();
+        SqlDataAdapter adapter5 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder5 = new SqlCommandBuilder();
         DataSet dsCALENDAR = new DataSet();
 
         SqlCommand cmd = new SqlCommand();
@@ -58,6 +60,7 @@ namespace TKMOC
         DataTable dt2 = new DataTable();
         DataSet ds3 = new DataSet();
         DataSet ds4 = new DataSet();
+        DataSet ds5 = new DataSet();
         string tablename = null;
         int rownum = 0;
 
@@ -65,8 +68,10 @@ namespace TKMOC
         string DATES = null;
         string strDesktopPath;
         string pathFile;
+        string pathFile2;
 
         string[] message = new string[31] { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
+        string[] message2 = new string[31] { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
         DateTime sdt;
         DateTime edt;
 
@@ -1026,11 +1031,13 @@ namespace TKMOC
         {
             DATES = DateTime.Now.ToString("yyyyMMddHHmmss");
             strDesktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-            pathFile = @""+strDesktopPath.ToString() + @"\"+"行事曆" + DATES.ToString()+ comboBox4.Text.ToString();
+            pathFile = @""+strDesktopPath.ToString() + @"\"+"行事曆-預排" + DATES.ToString()+ comboBox4.Text.ToString();
 
 
             DeleteDir(pathFile + ".xlsx");
         }
+
+
         public void SETFILE()
         {
 
@@ -1423,6 +1430,389 @@ namespace TKMOC
 
         }
 
+        public void SETPATH2()
+        {
+            DATES = DateTime.Now.ToString("yyyyMMddHHmmss");
+            strDesktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            pathFile2 = @"" + strDesktopPath.ToString() + @"\" + "行事曆-製令" + DATES.ToString() + comboBox4.Text.ToString();
+
+
+            DeleteDir(pathFile2 + ".xlsx");
+        }
+        public void SETFILE2()
+        {
+
+
+            // 設定儲存檔名，不用設定副檔名，系統自動判斷 excel 版本，產生 .xls 或 .xlsx 副檔名 
+            Excel.Application excelApp;
+            Excel._Workbook wBook;
+            Excel._Worksheet wSheet;
+            Excel.Range wRange;
+
+            // 開啟一個新的應用程式
+            excelApp = new Excel.Application();
+            // 讓Excel文件可見
+            //excelApp.Visible = true;
+            // 停用警告訊息
+            excelApp.DisplayAlerts = false;
+            // 加入新的活頁簿
+            excelApp.Workbooks.Add(Type.Missing);
+            // 引用第一個活頁簿
+            wBook = excelApp.Workbooks[1];
+            // 設定活頁簿焦點
+            wBook.Activate();
+
+            if (!File.Exists(pathFile2 + ".xlsx"))
+            {
+                wBook.SaveAs(pathFile2, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Excel.XlSaveAsAccessMode.xlNoChange, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+            }
+
+
+
+            //關閉Excel
+            excelApp.Quit();
+
+            //釋放Excel資源
+            System.Runtime.InteropServices.Marshal.ReleaseComObject(excelApp);
+            wBook = null;
+            wSheet = null;
+            wRange = null;
+            excelApp = null;
+            GC.Collect();
+
+            Console.Read();
+
+
+            SEARCH2();
+
+            //if (!File.Exists(pathFile + ".xlsx"))
+            //{
+            //    //SEARCH()
+
+            //}
+
+        }
+
+        public void CLEAREXCEL2()
+        {
+            System.Diagnostics.Process[] p = System.Diagnostics.Process.GetProcesses();
+            for (int i = 0; i < p.Length; i++)
+            {
+                if (p[i].ToString().IndexOf("EXCEL") > 0)
+                    p[i].Kill();
+            }
+        }
+
+        public void SEARCH2()
+        {
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  SELECT  CONVERT(NVARCHAR,TA009,112)+' ' +MD002 AS MANUDATE,INVMB.[MB002],CONVERT(NVARCHAR,CONVERT(INT,ROUND(TA015,0)))++' '+TA007 AS ' PACKAGE'    ");
+                sbSql.AppendFormat(@"  FROM [TK].dbo.MOCTA,[TK].dbo.MOCTB,[TK].dbo.INVMB,[TK].dbo.CMSMD ");
+                sbSql.AppendFormat(@"  WHERE TA001=TB001 AND TA002=TB002");
+                sbSql.AppendFormat(@"  AND TA006=MB001");
+                sbSql.AppendFormat(@"  AND TA021=MD001");
+                sbSql.AppendFormat(@"  AND CONVERT(NVARCHAR,TA009,112) >='20190701' AND CONVERT(NVARCHAR,TA009,112) <='20190731'");
+                sbSql.AppendFormat(@"  AND MD002='新廠包裝線'  ");
+                sbSql.AppendFormat(@" ORDER BY MD002,[MANUDATE],MB001  ");
+                sbSql.AppendFormat(@"  ");
+
+                adapter5 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder5 = new SqlCommandBuilder(adapter5);
+                sqlConn.Open();
+                ds5.Clear();
+                adapter5.Fill(ds5, "ds5");
+                sqlConn.Close();
+
+
+                if (ds5.Tables["ds5"].Rows.Count == 0)
+                {
+                    //建立一筆新的DataRow，並且等於新的dt row
+                    DataRow row = ds5.Tables["ds5"].NewRow();
+
+                    //指定每個欄位要儲存的資料                   
+                    row[0] = "本日無資料"; ;
+
+                    //新增資料至DataTable的dt內
+                    ds5.Tables["ds5"].Rows.Add(row);
+
+                    ExportDataSetToExcel2(ds5, pathFile2);
+                }
+                else
+                {
+                    if (ds5.Tables["ds5"].Rows.Count >= 1)
+                    {
+                        ExportDataSetToExcel2(ds5, pathFile2);
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+
+        public void ExportDataSetToExcel2(DataSet ds, string TopathFile)
+        {
+            int days = Convert.ToInt32(sdt.AddDays(-sdt.Day + 1).DayOfWeek.ToString("d"));
+            //MessageBox.Show(days.ToString());
+            int MONTHDAYS = DateTime.DaysInMonth(sdt.Year, sdt.Month);
+
+            int EXCELX = 2;
+            int EXCELY = 0;
+
+            //Creae an Excel application instance
+            Excel.Application excelApp = new Excel.Application();
+
+            //Create an Excel workbook instance and open it from the predefined location
+            Excel.Workbook excelWorkBook = excelApp.Workbooks.Open(TopathFile);
+            Excel.Range wRange;
+            Excel.Range wRangepathFile;
+            Excel.Range wRangepathFilePURTA;
+
+            foreach (DataTable table in ds.Tables)
+            {
+                //Add a new worksheet to workbook with the Datatable name
+                Excel.Worksheet excelWorkSheet = excelWorkBook.Sheets.Add();
+                excelWorkSheet.Name = table.TableName;
+
+                for (int j = 0; j < table.Rows.Count; j++)
+                {
+                    for (int k = 0; k < table.Columns.Count; k++)
+                    {
+                        //if (table.Rows[j].ItemArray[0].ToString().Substring(6,2).Equals("01"))
+                        if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 1)
+                        {
+                            message2[0] = message2[0] + table.Rows[j].ItemArray[k].ToString();
+                            message2[0] = message2[0] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 2)
+                        {
+                            message2[1] = message2[1] + table.Rows[j].ItemArray[k].ToString();
+                            message2[1] = message2[1] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 3)
+                        {
+                            message2[2] = message2[2] + table.Rows[j].ItemArray[k].ToString();
+                            message2[2] = message2[2] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 4)
+                        {
+                            message2[3] = message2[3] + table.Rows[j].ItemArray[k].ToString();
+                            message2[3] = message2[3] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 5)
+                        {
+                            message2[4] = message2[4] + table.Rows[j].ItemArray[k].ToString();
+                            message2[4] = message2[4] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 6)
+                        {
+                            message2[5] = message2[5] + table.Rows[j].ItemArray[k].ToString();
+                            message2[5] = message2[5] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 7)
+                        {
+                            message2[6] = message2[6] + table.Rows[j].ItemArray[k].ToString();
+                            message2[6] = message2[6] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 8)
+                        {
+                            message2[7] = message2[7] + table.Rows[j].ItemArray[k].ToString();
+                            message2[7] = message2[7] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 9)
+                        {
+                            message2[8] = message2[8] + table.Rows[j].ItemArray[k].ToString();
+                            message2[8] = message2[8] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 10)
+                        {
+                            message2[9] = message2[9] + table.Rows[j].ItemArray[k].ToString();
+                            message2[9] = message2[9] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 11)
+                        {
+                            message2[10] = message2[10] + table.Rows[j].ItemArray[k].ToString();
+                            message2[10] = message2[10] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 12)
+                        {
+                            message2[11] = message2[11] + table.Rows[j].ItemArray[k].ToString();
+                            message2[11] = message2[11] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 13)
+                        {
+                            message2[12] = message2[12] + table.Rows[j].ItemArray[k].ToString();
+                            message2[12] = message2[12] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 14)
+                        {
+                            message2[13] = message2[13] + table.Rows[j].ItemArray[k].ToString();
+                            message2[13] = message2[13] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 15)
+                        {
+                            message2[14] = message2[14] + table.Rows[j].ItemArray[k].ToString();
+                            message2[14] = message2[14] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 16)
+                        {
+                            message2[15] = message2[15] + table.Rows[j].ItemArray[k].ToString();
+                            message2[15] = message2[15] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 17)
+                        {
+                            message2[16] = message2[16] + table.Rows[j].ItemArray[k].ToString();
+                            message2[16] = message2[16] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 18)
+                        {
+                            message2[17] = message2[17] + table.Rows[j].ItemArray[k].ToString();
+                            message2[17] = message2[17] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 19)
+                        {
+                            message2[18] = message2[18] + table.Rows[j].ItemArray[k].ToString();
+                            message2[18] = message2[18] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 20)
+                        {
+                            message2[19] = message2[19] + table.Rows[j].ItemArray[k].ToString();
+                            message2[19] = message2[19] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 21)
+                        {
+                            message2[20] = message2[20] + table.Rows[j].ItemArray[k].ToString();
+                            message2[20] = message2[20] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 22)
+                        {
+                            message2[21] = message2[21] + table.Rows[j].ItemArray[k].ToString();
+                            message2[21] = message2[21] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 23)
+                        {
+                            message2[22] = message2[22] + table.Rows[j].ItemArray[k].ToString();
+                            message2[22] = message2[22] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 24)
+                        {
+                            message2[23] = message2[23] + table.Rows[j].ItemArray[k].ToString();
+                            message2[23] = message2[23] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 25)
+                        {
+                            message2[24] = message2[24] + table.Rows[j].ItemArray[k].ToString();
+                            message2[24] = message2[24] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 26)
+                        {
+                            message2[25] = message2[25] + table.Rows[j].ItemArray[k].ToString();
+                            message2[25] = message2[25] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 27)
+                        {
+                            message2[26] = message2[26] + table.Rows[j].ItemArray[k].ToString();
+                            message2[26] = message2[26] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 28)
+                        {
+                            message2[27] = message2[27] + table.Rows[j].ItemArray[k].ToString();
+                            message2[27] = message2[27] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 29)
+                        {
+                            message2[28] = message2[28] + table.Rows[j].ItemArray[k].ToString();
+                            message2[28] = message2[28] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 30)
+                        {
+                            message2[29] = message2[29] + table.Rows[j].ItemArray[k].ToString();
+                            message2[29] = message2[29] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 31)
+                        {
+                            message2[30] = message2[30] + table.Rows[j].ItemArray[k].ToString();
+                            message2[30] = message2[30] + '\n';
+                        }
+                    }
+                    //message = message + '\n';
+                }
+
+                excelWorkSheet.Cells[1, 1] = "星期日";
+                excelWorkSheet.Cells[1, 2] = "星期一";
+                excelWorkSheet.Cells[1, 3] = "星期二";
+                excelWorkSheet.Cells[1, 4] = "星期三";
+                excelWorkSheet.Cells[1, 5] = "星期四";
+                excelWorkSheet.Cells[1, 6] = "星期五";
+                excelWorkSheet.Cells[1, 7] = "星期六";
+
+                //置中
+                string RangeCenter = "A1:G1";//設定範圍
+                excelWorkSheet.get_Range(RangeCenter).HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+
+                for (int i = 1; i <= MONTHDAYS; i++)
+                {
+
+                    EXCELX = 2 + Convert.ToInt32(Math.Truncate(Convert.ToDouble((i + days - 1) / 7)));
+                    EXCELY = (days + i) % 7;
+                    if (EXCELY == 0)
+                    {
+                        EXCELY = 7;
+                    }
+
+                    //excelWorkSheet.Cells[EXCELX, EXCELY] = i;
+
+                    excelWorkSheet.Cells[EXCELX, EXCELY] = message2[i - 1].ToString();
+
+                    //if (!string.IsNullOrEmpty(message[i-1].ToString()))
+                    //{
+                    //    excelWorkSheet.Cells[EXCELX, EXCELY] = message[i - 1].ToString();
+                    //}
+
+                }
+                //excelWorkSheet.Cells[1, 1] = dateTimePicker9.Value.ToString("yyyy/MM/") + "01";
+                //excelWorkSheet.Cells[2, days+1] = message1;
+                //message1 = null;
+
+
+                //靠左
+                string RangeLeft = "A2:G6";//設定範圍
+                excelWorkSheet.get_Range(RangeLeft).HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+
+                //設定為按照內容自動調整欄寬
+                //excelWorkSheet.get_Range(RangeLeft).Columns.AutoFit();
+                excelWorkSheet.get_Range(RangeLeft).ColumnWidth = 30;
+                //excelWorkSheet.Columns.AutoFit();
+
+                // 給儲存格加邊框
+                excelWorkSheet.get_Range(RangeLeft).Borders.LineStyle = Excel.XlBorderWeight.xlHairline;
+                //excelWorkSheet.get_Range(RangeLeft).Borders.LineStyle = Excel.XlBorderWeight.xlMedium;
+            }
+
+
+
+            excelWorkBook.Save();
+            excelWorkBook.Close();
+            excelApp.Quit();
+
+        }
+
+
         public void DeleteDir(string aimPath)
         {
             try
@@ -1439,6 +1829,11 @@ namespace TKMOC
         {
             message = new string[31] { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
            
+        }
+        public void RESET2()
+        {
+            message2 = new string[31] { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
+
         }
         private void dateTimePicker9_ValueChanged(object sender, EventArgs e)
         {
@@ -1505,9 +1900,22 @@ namespace TKMOC
 
 
 
+        private void button11_Click(object sender, EventArgs e)
+        {
+            RESET2();
+            SETPATH2();
+            SETFILE2();
+
+            MessageBox.Show("OK");
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            CLEAREXCEL();
+        }
 
         #endregion
 
-       
+
     }
 }

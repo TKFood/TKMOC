@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -102,6 +102,14 @@
             this.button9 = new System.Windows.Forms.Button();
             this.comboBox4 = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
+            this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
+            this.label13 = new System.Windows.Forms.Label();
+            this.dateTimePicker10 = new System.Windows.Forms.DateTimePicker();
+            this.button11 = new System.Windows.Forms.Button();
+            this.button12 = new System.Windows.Forms.Button();
+            this.comboBox5 = new System.Windows.Forms.ComboBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -146,6 +154,8 @@
             this.tabPage5.SuspendLayout();
             this.tabPage7.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
+            this.tabPage8.SuspendLayout();
+            this.tableLayoutPanel6.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -157,6 +167,7 @@
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Controls.Add(this.tabPage7);
+            this.tabControl1.Controls.Add(this.tabPage8);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
@@ -280,7 +291,7 @@
             "新廠吧台烘焙線",
             "新廠包裝線",
             "新廠托外加工"});
-            this.comboBox1.Location = new System.Drawing.Point(184, 69);
+            this.comboBox1.Location = new System.Drawing.Point(184, 67);
             this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(172, 24);
@@ -563,8 +574,8 @@
             // 
             this.dataGridView15.AllowUserToAddRows = false;
             this.dataGridView15.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.dataGridView15.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.dataGridView15.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle10;
             this.dataGridView15.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView15.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView15.Location = new System.Drawing.Point(0, 0);
@@ -690,7 +701,7 @@
             "新廠吧台烘焙線",
             "新廠包裝線",
             "新廠托外加工"});
-            this.comboBox2.Location = new System.Drawing.Point(184, 69);
+            this.comboBox2.Location = new System.Drawing.Point(184, 67);
             this.comboBox2.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(172, 24);
@@ -870,7 +881,7 @@
             "新廠吧台烘焙線",
             "新廠包裝線",
             "新廠托外加工"});
-            this.comboBox3.Location = new System.Drawing.Point(184, 69);
+            this.comboBox3.Location = new System.Drawing.Point(184, 67);
             this.comboBox3.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(172, 24);
@@ -1122,7 +1133,7 @@
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Size = new System.Drawing.Size(1123, 781);
             this.tabPage7.TabIndex = 6;
-            this.tabPage7.Text = "行事曆匯出";
+            this.tabPage7.Text = "預排的行事曆匯出";
             this.tabPage7.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel5
@@ -1217,7 +1228,7 @@
             "新廠吧台烘焙線",
             "新廠包裝線",
             "新廠托外加工"});
-            this.comboBox4.Location = new System.Drawing.Point(184, 69);
+            this.comboBox4.Location = new System.Drawing.Point(184, 67);
             this.comboBox4.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox4.Name = "comboBox4";
             this.comboBox4.Size = new System.Drawing.Size(172, 24);
@@ -1235,6 +1246,126 @@
             this.label14.TabIndex = 9;
             this.label14.Text = "線別";
             this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tabPage8
+            // 
+            this.tabPage8.Controls.Add(this.tableLayoutPanel6);
+            this.tabPage8.Location = new System.Drawing.Point(4, 26);
+            this.tabPage8.Name = "tabPage8";
+            this.tabPage8.Size = new System.Drawing.Size(1123, 781);
+            this.tabPage8.TabIndex = 7;
+            this.tabPage8.Text = "製令的行事歷匯出";
+            this.tabPage8.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel6
+            // 
+            this.tableLayoutPanel6.BackColor = System.Drawing.Color.LightGreen;
+            this.tableLayoutPanel6.ColumnCount = 7;
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 104F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 256F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 369F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel6.Controls.Add(this.label13, 0, 0);
+            this.tableLayoutPanel6.Controls.Add(this.dateTimePicker10, 1, 0);
+            this.tableLayoutPanel6.Controls.Add(this.button11, 3, 1);
+            this.tableLayoutPanel6.Controls.Add(this.button12, 4, 1);
+            this.tableLayoutPanel6.Controls.Add(this.comboBox5, 1, 1);
+            this.tableLayoutPanel6.Controls.Add(this.label15, 0, 1);
+            this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel6.Margin = new System.Windows.Forms.Padding(4);
+            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
+            this.tableLayoutPanel6.RowCount = 4;
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 53F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 53F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 53F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 53F));
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(1123, 781);
+            this.tableLayoutPanel6.TabIndex = 3;
+            // 
+            // label13
+            // 
+            this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(4, 18);
+            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(172, 16);
+            this.label13.TabIndex = 0;
+            this.label13.Text = "製令生產日";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // dateTimePicker10
+            // 
+            this.dateTimePicker10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.dateTimePicker10.CustomFormat = "yyyy/MM";
+            this.dateTimePicker10.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker10.Location = new System.Drawing.Point(184, 13);
+            this.dateTimePicker10.Margin = new System.Windows.Forms.Padding(4);
+            this.dateTimePicker10.Name = "dateTimePicker10";
+            this.dateTimePicker10.Size = new System.Drawing.Size(172, 27);
+            this.dateTimePicker10.TabIndex = 1;
+            // 
+            // button11
+            // 
+            this.button11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button11.Location = new System.Drawing.Point(468, 59);
+            this.button11.Margin = new System.Windows.Forms.Padding(4);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(248, 41);
+            this.button11.TabIndex = 3;
+            this.button11.Text = "匯出";
+            this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
+            // 
+            // button12
+            // 
+            this.button12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button12.Location = new System.Drawing.Point(724, 59);
+            this.button12.Margin = new System.Windows.Forms.Padding(4);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(172, 41);
+            this.button12.TabIndex = 8;
+            this.button12.Text = "關閉所有excel";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
+            // 
+            // comboBox5
+            // 
+            this.comboBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox5.FormattingEnabled = true;
+            this.comboBox5.Items.AddRange(new object[] {
+            "新廠製二組",
+            "新廠製一組",
+            "新廠製三組(手工)",
+            "新廠吧台烘豆線",
+            "新廠製四組(包裝)",
+            "新廠吧台烘焙線",
+            "新廠包裝線",
+            "新廠托外加工"});
+            this.comboBox5.Location = new System.Drawing.Point(184, 69);
+            this.comboBox5.Margin = new System.Windows.Forms.Padding(4);
+            this.comboBox5.Name = "comboBox5";
+            this.comboBox5.Size = new System.Drawing.Size(172, 24);
+            this.comboBox5.TabIndex = 10;
+            this.comboBox5.Text = "新廠包裝線";
+            // 
+            // label15
+            // 
+            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(4, 71);
+            this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(172, 16);
+            this.label15.TabIndex = 9;
+            this.label15.Text = "線別";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // frmREPORTMOCMANULINE
             // 
@@ -1296,6 +1427,9 @@
             this.tabPage7.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel5.PerformLayout();
+            this.tabPage8.ResumeLayout(false);
+            this.tableLayoutPanel6.ResumeLayout(false);
+            this.tableLayoutPanel6.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1375,5 +1509,13 @@
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.ComboBox comboBox4;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TabPage tabPage8;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.DateTimePicker dateTimePicker10;
+        private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.Button button12;
+        private System.Windows.Forms.ComboBox comboBox5;
+        private System.Windows.Forms.Label label15;
     }
 }
