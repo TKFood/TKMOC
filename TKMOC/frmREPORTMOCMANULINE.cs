@@ -74,6 +74,8 @@ namespace TKMOC
         string[] message2 = new string[31] { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
         DateTime sdt;
         DateTime edt;
+        DateTime sdt2;
+        DateTime edt2;
 
         public frmREPORTMOCMANULINE()
         {
@@ -84,6 +86,7 @@ namespace TKMOC
             //comboBox1load();
 
             SETDATE();
+            SETDATE2();
         }
 
         #region FUNCTION
@@ -95,6 +98,16 @@ namespace TKMOC
                         
             sdt = FirstDay;
             edt=LastDay;
+        }
+
+        public void SETDATE2()
+        {
+            DateTime SETDT = Convert.ToDateTime(dateTimePicker10.Value.ToString("yyyy/MM") + "/01");
+            DateTime FirstDay = SETDT.AddDays(-SETDT.Day + 1);
+            DateTime LastDay = SETDT.AddMonths(1).AddDays(-SETDT.AddMonths(1).Day);
+
+            sdt2 = FirstDay;
+            edt2 = LastDay;
         }
         public void comboBox1load()
         {
@@ -1162,7 +1175,7 @@ namespace TKMOC
                     //新增資料至DataTable的dt內
                     ds3.Tables["ds3"].Rows.Add(row);
 
-                    ExportDataSetToExcel(ds3, pathFile);
+                   // ExportDataSetToExcel(ds3, pathFile);
                 }
                 else
                 {
@@ -1434,7 +1447,7 @@ namespace TKMOC
         {
             DATES = DateTime.Now.ToString("yyyyMMddHHmmss");
             strDesktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-            pathFile2 = @"" + strDesktopPath.ToString() + @"\" + "行事曆-製令" + DATES.ToString() + comboBox4.Text.ToString();
+            pathFile2 = @"" + strDesktopPath.ToString() + @"\" + "行事曆-製令" + DATES.ToString() + comboBox5.Text.ToString();
 
 
             DeleteDir(pathFile2 + ".xlsx");
@@ -1515,12 +1528,11 @@ namespace TKMOC
                 sbSqlQuery.Clear();
 
                 sbSql.AppendFormat(@"  SELECT  CONVERT(NVARCHAR,TA009,112)+' ' +MD002 AS MANUDATE,INVMB.[MB002],CONVERT(NVARCHAR,CONVERT(INT,ROUND(TA015,0)))++' '+TA007 AS ' PACKAGE'    ");
-                sbSql.AppendFormat(@"  FROM [TK].dbo.MOCTA,[TK].dbo.MOCTB,[TK].dbo.INVMB,[TK].dbo.CMSMD ");
-                sbSql.AppendFormat(@"  WHERE TA001=TB001 AND TA002=TB002");
-                sbSql.AppendFormat(@"  AND TA006=MB001");
+                sbSql.AppendFormat(@"  FROM [TK].dbo.MOCTA,[TK].dbo.INVMB,[TK].dbo.CMSMD ");
+                sbSql.AppendFormat(@"  WHERE TA006=MB001");
                 sbSql.AppendFormat(@"  AND TA021=MD001");
-                sbSql.AppendFormat(@"  AND CONVERT(NVARCHAR,TA009,112) >='20190701' AND CONVERT(NVARCHAR,TA009,112) <='20190731'");
-                sbSql.AppendFormat(@"  AND MD002='新廠包裝線'  ");
+                sbSql.AppendFormat(@"  AND CONVERT(NVARCHAR,TA009,112) >='{0}' AND CONVERT(NVARCHAR,TA009,112) <='{1}'",sdt2.ToString("yyyyMMdd"), edt2.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(@"  AND MD002='{0}'  ",comboBox5.Text.ToString());
                 sbSql.AppendFormat(@" ORDER BY MD002,[MANUDATE],MB001  ");
                 sbSql.AppendFormat(@"  ");
 
@@ -1544,7 +1556,7 @@ namespace TKMOC
                     //新增資料至DataTable的dt內
                     ds5.Tables["ds5"].Rows.Add(row);
 
-                    ExportDataSetToExcel2(ds5, pathFile2);
+                    //ExportDataSetToExcel2(ds5, pathFile2);
                 }
                 else
                 {
@@ -1839,6 +1851,11 @@ namespace TKMOC
         {
             SETDATE();
         }
+
+        private void dateTimePicker10_ValueChanged(object sender, EventArgs e)
+        {
+            SETDATE2();
+        }
         #endregion
 
         #region BUTTON
@@ -1914,8 +1931,9 @@ namespace TKMOC
             CLEAREXCEL();
         }
 
+
         #endregion
 
-
+       
     }
 }
