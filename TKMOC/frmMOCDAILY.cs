@@ -36,6 +36,8 @@ namespace TKMOC
         StringBuilder sbSqlQuery = new StringBuilder();
         SqlDataAdapter adapter = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder = new SqlCommandBuilder();
+        SqlDataAdapter adapter1 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
         SqlCommand cmd = new SqlCommand();
         DataSet ds = new DataSet();
         DataSet ds2 = new DataSet();
@@ -43,11 +45,18 @@ namespace TKMOC
         string tablename = null;
         int rownum = 0;
 
+        SqlTransaction tran;
+       
+        DataSet ds1 = new DataSet();
+        int result;
+
         Report report1 = new Report();
 
         public frmMOCDAILY()
         {
             InitializeComponent();
+
+            SEARCHMOCDAILYRECORDNG();
         }
 
         #region FUNCTION
@@ -129,6 +138,173 @@ namespace TKMOC
 
         }
 
+
+        public void SETNULL2()
+        {
+            textBox1.Text = null;
+            textBox2.Text = null;
+            textBox3.Text = null;
+            textBox4.Text = null;
+            
+
+        }
+
+        public void ADDMOCDAILYRECORDNG()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+                
+           
+                sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCDAILYRECORDNG]");
+                sbSql.AppendFormat(" ([DATES],[NGCOOK],[NGCOOL],[NGPACKF],[NGPACKB])");
+                sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}','{3}','{4}')",dateTimePicker3.Value.ToString("yyyy/MM/dd"),textBox1.Text,textBox2.Text,textBox3.Text,textBox4.Text);
+                sbSql.AppendFormat(" ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+
+                    MessageBox.Show("失敗");
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+                    MessageBox.Show("成功");
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void UPDATEMOCDAILYRECORDNG()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat(" UPDATE [TKMOC].[dbo].[MOCDAILYRECORDNG]");
+                sbSql.AppendFormat(" SET [NGCOOK]='{0}',[NGCOOL]='{1}',[NGPACKF]='{2}',[NGPACKB]='{3}'",textBox1.Text,textBox2.Text,textBox3.Text,textBox4.Text);
+                sbSql.AppendFormat(" WHERE [DATES]='{0}'", dateTimePicker3.Value.ToString("yyyy/MM/dd"));
+                sbSql.AppendFormat(" ");
+                sbSql.AppendFormat(" ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                    MessageBox.Show("失敗");
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+                    MessageBox.Show("成功");
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        private void dateTimePicker3_ValueChanged(object sender, EventArgs e)
+        {
+            SEARCHMOCDAILYRECORDNG();
+        }
+
+        public void SEARCHMOCDAILYRECORDNG()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@" SELECT CONVERT(NVARCHAR,[DATES],111) AS '日期',[NGCOOK] AS '可回收-烘焙不良品 	',[NGCOOL] AS '打餅區落地-冷卻不良品',[NGPACKF] AS '前端-包裝不良品',[NGPACKB] AS '後端落地-包裝不良品' ");
+                sbSql.AppendFormat(@" FROM [TKMOC].[dbo].[MOCDAILYRECORDNG]");
+                sbSql.AppendFormat(@" WHERE CONVERT(NVARCHAR,[DATES],112) LIKE '{0}%' ",dateTimePicker3.Value.ToString("yyyyMM"));
+                sbSql.AppendFormat(@" ORDER BY CONVERT(NVARCHAR,[DATES],112)");
+                sbSql.AppendFormat(@"  ");
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "TEMPds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["TEMPds1"].Rows.Count == 0)
+                {
+
+                }
+                else
+                {
+                    if (ds1.Tables["TEMPds1"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView1.DataSource = ds1.Tables["TEMPds1"];
+                        dataGridView1.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+
+        }
         #endregion
 
         #region BUTTON
@@ -136,7 +312,24 @@ namespace TKMOC
         {
             SETFASTREPORT();
         }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            ADDMOCDAILYRECORDNG();
+            SETNULL2();
+
+            SEARCHMOCDAILYRECORDNG();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            UPDATEMOCDAILYRECORDNG();
+            SETNULL2();
+
+            SEARCHMOCDAILYRECORDNG();
+        }
 
         #endregion
+
+       
     }
 }
