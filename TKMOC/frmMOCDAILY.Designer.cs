@@ -917,7 +917,7 @@
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(223, 16);
             this.label16.TabIndex = 6;
-            this.label16.Text = "\'邊料報廢 (kg)";
+            this.label16.Text = "邊料報廢 (kg)";
             this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // textBox7
@@ -1069,6 +1069,7 @@
             this.button7.TabIndex = 2;
             this.button7.Text = "查詢";
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // dateTimePicker7
             // 

@@ -53,6 +53,8 @@ namespace TKMOC
         int result;
 
         Report report1 = new Report();
+        Report report2 = new Report();
+        Report report3 = new Report();
 
         public frmMOCDAILY()
         {
@@ -656,6 +658,100 @@ namespace TKMOC
 
         }
 
+        public void SETFASTREPORT3()
+        {
+            StringBuilder SQL1 = new StringBuilder();
+            StringBuilder SQL2 = new StringBuilder();
+
+            SQL1 = SETSQL3();
+
+            Report report3 = new Report();
+            report3.Load(@"REPORT\生產報表-每日得料率報表-手工.frx");
+
+            report3.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+            TableDataSource table = report3.GetDataSource("Table") as TableDataSource;
+            table.SelectCommand = SQL1.ToString();
+
+            report3.Preview = previewControl3;
+            report3.Show();
+        }
+
+        public StringBuilder SETSQL3()
+        {
+            StringBuilder SB = new StringBuilder();
+
+            SB.AppendFormat(" SELECT 線別,SUBSTRING(製令單號,1,8) AS '日期'");
+            SB.AppendFormat(" ,SUM(領料扣成品扣的投入量+領料扣成品不扣的投入量+領料不扣成品扣的投入量+領料不扣成品不扣的投入量+半成品得料率成品扣袋重的投入量+半成品得料率成品不扣袋重的投入量+個試吃的投入量+片的投入量+單包的投入量+kg的投入量) AS '應產出量 '");
+            SB.AppendFormat(" ,SUM(領料扣成品扣的入庫量+領料扣成品不扣的入庫量+領料不扣成品扣的入庫量+領料不扣成品不扣的入庫量+半成品得料率成品扣袋重的入庫量+半成品得料率成品不扣袋重的入庫量+個試吃的入庫量+片的入庫量+單包的入庫量+kg的入庫量) AS '入庫淨重'");
+            SB.AppendFormat(" ,CASE WHEN  SUM(領料扣成品扣的投入量+領料扣成品不扣的投入量+領料不扣成品扣的投入量+領料不扣成品不扣的投入量+半成品得料率成品扣袋重的投入量+半成品得料率成品不扣袋重的投入量+個試吃的投入量+片的投入量+單包的投入量+kg的投入量)>0 THEN SUM(領料扣成品扣的入庫量+領料扣成品不扣的入庫量+領料不扣成品扣的入庫量+領料不扣成品不扣的入庫量+半成品得料率成品扣袋重的入庫量+半成品得料率成品不扣袋重的入庫量+個試吃的入庫量+片的入庫量+單包的入庫量+kg的入庫量)/SUM(領料扣成品扣的投入量+領料扣成品不扣的投入量+領料不扣成品扣的投入量+領料不扣成品不扣的投入量+半成品得料率成品扣袋重的投入量+半成品得料率成品不扣袋重的投入量+個試吃的投入量+片的投入量+單包的投入量+kg的投入量) ELSE 0 END  AS '得料率(%)'");
+            SB.AppendFormat(" ,ISNULL((SELECT [NGRECYCLESIDE] FROM  [TKMOC].[dbo].[MOCDAILYRECORDNG] WHERE CONVERT(nvarchar,[DATES],112)=SUBSTRING(製令單號,1,8)  AND MOCLINE=線別),0) AS '可回收邊料'");
+            SB.AppendFormat(" ,ISNULL((SELECT [NGSIDE] FROM  [TKMOC].[dbo].[MOCDAILYRECORDNG] WHERE CONVERT(nvarchar,[DATES],112)=SUBSTRING(製令單號,1,8)  AND MOCLINE=線別),0) AS '邊料報廢 (kg)'");
+            SB.AppendFormat(" ,ISNULL((SELECT [NG] FROM  [TKMOC].[dbo].[MOCDAILYRECORDNG] WHERE CONVERT(nvarchar,[DATES],112)=SUBSTRING(製令單號,1,8)  AND MOCLINE=線別),0) AS '不良報廢重 (kg)'");
+            SB.AppendFormat(" ,ISNULL((SELECT [NGRECYCLE]  FROM  [TKMOC].[dbo].[MOCDAILYRECORDNG] WHERE CONVERT(nvarchar,[DATES],112)=SUBSTRING(製令單號,1,8)  AND MOCLINE=線別),0) AS '回收餅'");
+            SB.AppendFormat(" ,(ISNULL((SELECT [NGRECYCLESIDE] FROM  [TKMOC].[dbo].[MOCDAILYRECORDNG] WHERE CONVERT(nvarchar,[DATES],112)=SUBSTRING(製令單號,1,8)  AND MOCLINE=線別),0))+(ISNULL((SELECT [NGSIDE] FROM  [TKMOC].[dbo].[MOCDAILYRECORDNG] WHERE CONVERT(nvarchar,[DATES],112)=SUBSTRING(製令單號,1,8)  AND MOCLINE=線別),0))+(ISNULL((SELECT [NG] FROM  [TKMOC].[dbo].[MOCDAILYRECORDNG] WHERE CONVERT(nvarchar,[DATES],112)=SUBSTRING(製令單號,1,8)  AND MOCLINE=線別),0))+(ISNULL((SELECT [NGRECYCLE]  FROM  [TKMOC].[dbo].[MOCDAILYRECORDNG] WHERE CONVERT(nvarchar,[DATES],112)=SUBSTRING(製令單號,1,8)  AND MOCLINE=線別),0)) AS '不良合計'");
+            SB.AppendFormat(" ,CASE WHEN  SUM(領料扣成品扣的投入量+領料扣成品不扣的投入量+領料不扣成品扣的投入量+領料不扣成品不扣的投入量+半成品得料率成品扣袋重的投入量+半成品得料率成品不扣袋重的投入量+個試吃的投入量+片的投入量+單包的投入量+kg的投入量)>0 THEN ((ISNULL((SELECT [NGRECYCLESIDE] FROM  [TKMOC].[dbo].[MOCDAILYRECORDNG] WHERE CONVERT(nvarchar,[DATES],112)=SUBSTRING(製令單號,1,8)  AND MOCLINE=線別),0))+(ISNULL((SELECT [NGSIDE] FROM  [TKMOC].[dbo].[MOCDAILYRECORDNG] WHERE CONVERT(nvarchar,[DATES],112)=SUBSTRING(製令單號,1,8)  AND MOCLINE=線別),0))+(ISNULL((SELECT [NG] FROM  [TKMOC].[dbo].[MOCDAILYRECORDNG] WHERE CONVERT(nvarchar,[DATES],112)=SUBSTRING(製令單號,1,8)  AND MOCLINE=線別),0))+(ISNULL((SELECT [NGRECYCLE]  FROM  [TKMOC].[dbo].[MOCDAILYRECORDNG] WHERE CONVERT(nvarchar,[DATES],112)=SUBSTRING(製令單號,1,8)  AND MOCLINE=線別),0)))/SUM(領料扣成品扣的投入量+領料扣成品不扣的投入量+領料不扣成品扣的投入量+領料不扣成品不扣的投入量+半成品得料率成品扣袋重的投入量+半成品得料率成品不扣袋重的投入量+個試吃的投入量+片的投入量+單包的投入量+kg的投入量) ELSE 0 END  AS '報廢率(％)'");
+            SB.AppendFormat(" ");
+            SB.AppendFormat(" FROM ");
+            SB.AppendFormat(" (");
+            SB.AppendFormat(" SELECT ");
+            SB.AppendFormat(" 線別,品號,品名,製令單別,製令單號,生產單位,類別,領料是否扣袋重,成品是否扣袋重,生產量,淨重,單片重,袋重,袋重比,蒸發率,原料用量,成品用量/1000 AS 成品用量");
+            SB.AppendFormat(" ,CASE WHEN 領料是否扣袋重 IN ('Y') AND 成品是否扣袋重 IN ('Y') AND  類別 NOT IN ('半成品','個','試吃','片','單包','kg') AND (原料用量*(1-(蒸發率/100))+(成品用量/1000)-(袋重比*原料用量))>0 THEN (生產量*淨重*(1-袋重比)/1000) ELSE 0 END  AS '領料扣成品扣的入庫量'");
+            SB.AppendFormat(" ,CASE WHEN 領料是否扣袋重 IN ('Y') AND 成品是否扣袋重 IN ('Y') AND  類別 NOT IN ('半成品','個','試吃','片','單包','kg') AND (原料用量*(1-(蒸發率/100))+(成品用量/1000)-(袋重比*原料用量))>0 THEN (原料用量*(1-(蒸發率/100))+(成品用量/1000)-(袋重比*原料用量)) ELSE 0 END  AS '領料扣成品扣的投入量'");
+            SB.AppendFormat(" ,CASE WHEN 領料是否扣袋重 IN ('Y') AND 成品是否扣袋重 IN ('N') AND  類別 NOT IN ('半成品','個','試吃','片','單包','kg') AND (原料用量*(1-(蒸發率/100))+(成品用量/1000))>0 THEN ((生產量*淨重)/1000) ELSE 0 END AS '領料扣成品不扣的入庫量'");
+            SB.AppendFormat(" ,CASE WHEN 領料是否扣袋重 IN ('Y') AND 成品是否扣袋重 IN ('N') AND  類別 NOT IN ('半成品','個','試吃','片','單包','kg') AND (原料用量*(1-(蒸發率/100))+(成品用量/1000))>0 THEN (原料用量*(1-蒸發率)+(成品用量/1000)-(袋重比*原料用量)) ELSE 0 END AS '領料扣成品不扣的投入量'");
+            SB.AppendFormat(" ,CASE WHEN 領料是否扣袋重 IN ('N') AND 成品是否扣袋重 IN ('Y') AND  類別 NOT IN ('半成品','個','試吃','片','單包','kg') AND (原料用量*(1-(蒸發率/100))+(成品用量/1000)-(袋重比*原料用量))>0 THEN (((生產量*淨重*(1-袋重比)))/1000) ELSE 0 END AS '領料不扣成品扣的入庫量'");
+            SB.AppendFormat(" ,CASE WHEN 領料是否扣袋重 IN ('N') AND 成品是否扣袋重 IN ('Y') AND  類別 NOT IN ('半成品','個','試吃','片','單包','kg') AND (原料用量*(1-(蒸發率/100))+(成品用量/1000)-(袋重比*原料用量))>0 THEN (原料用量*(1-(蒸發率/100))+(成品用量/1000)) ELSE 0 END AS '領料不扣成品扣的投入量'");
+            SB.AppendFormat(" ,CASE WHEN 領料是否扣袋重 IN ('N') AND 成品是否扣袋重 IN ('N') AND  類別 NOT IN ('半成品','個','試吃','片','單包','kg') AND (原料用量*(1-(蒸發率/100))+(成品用量/1000))>0 THEN ((生產量*淨重)/1000) ELSE 0 END AS '領料不扣成品不扣的入庫量'");
+            SB.AppendFormat(" ,CASE WHEN 領料是否扣袋重 IN ('N') AND 成品是否扣袋重 IN ('N') AND  類別 NOT IN ('半成品','個','試吃','片','單包','kg') AND (原料用量*(1-(蒸發率/100))+(成品用量/1000))>0 THEN (原料用量*(1-(蒸發率/100))+(成品用量/1000)) ELSE 0 END AS '領料不扣成品不扣的投入量'");
+            SB.AppendFormat(" ,CASE WHEN 類別 IN ('半成品') AND 原料用量>0  AND 成品是否扣袋重 IN ('Y') THEN (生產量-(生產量*袋重比)) ELSE 0 END  AS '半成品得料率成品扣袋重的入庫量'");
+            SB.AppendFormat(" ,CASE WHEN 類別 IN ('半成品') AND 原料用量>0  AND 成品是否扣袋重 IN ('Y') THEN (原料用量*(1-蒸發率/100)) ELSE 0 END  AS '半成品得料率成品扣袋重的投入量'");
+            SB.AppendFormat(" ,CASE WHEN 類別 IN ('半成品') AND 原料用量>0  AND 成品是否扣袋重 IN ('N') THEN (生產量) ELSE 0 END  AS '半成品得料率成品不扣袋重的入庫量'");
+            SB.AppendFormat(" ,CASE WHEN 類別 IN ('半成品') AND 原料用量>0  AND 成品是否扣袋重 IN ('N') THEN (原料用量*(1-蒸發率/100)) ELSE 0 END  AS '半成品得料率成品不扣袋重的投入量'");
+            SB.AppendFormat(" ,CASE WHEN 類別 IN ('個','試吃') AND 原料用量>0 AND (原料用量*(1-(蒸發率/100)))>0 THEN (生產量*淨重/1000) ELSE 0 END  AS '個試吃的入庫量'");
+            SB.AppendFormat(" ,CASE WHEN 類別 IN ('個','試吃') AND 原料用量>0 AND (原料用量*(1-(蒸發率/100)))>0 THEN (原料用量*(1-(蒸發率/100))) ELSE 0 END  AS '個試吃的投入量'");
+            SB.AppendFormat(" ,CASE WHEN 類別 IN ('片') AND 原料用量>0 AND (原料用量*(1-(蒸發率/100))-(原料用量*袋重比))>0 THEN (生產量*淨重/1000) ELSE 0 END  AS '片的入庫量'");
+            SB.AppendFormat(" ,CASE WHEN 類別 IN ('片') AND 原料用量>0 AND (原料用量*(1-(蒸發率/100))-(原料用量*袋重比))>0 THEN (原料用量*(1-(蒸發率/100))-(原料用量*袋重比)) ELSE 0 END  AS '片的投入量'");
+            SB.AppendFormat(" ,CASE WHEN 類別 IN ('單包') AND 原料用量>0 THEN 生產量  ELSE 0 END AS '單包的入庫量'");
+            SB.AppendFormat(" ,CASE WHEN 類別 IN ('單包') AND 原料用量>0 THEN 原料用量  ELSE 0 END AS '單包的投入量'");
+            SB.AppendFormat(" ,CASE WHEN 類別 IN ('kg') AND (原料用量*(1-(蒸發率/100))-(原料用量*袋重比))>0 THEN (生產量) ELSE 0 END AS 'kg的入庫量'");
+            SB.AppendFormat(" ,CASE WHEN 類別 IN ('kg') AND (原料用量*(1-(蒸發率/100))-(原料用量*袋重比))>0 THEN (原料用量*(1-(蒸發率/100))+(成品用量/1000)-(原料用量*袋重比)) ELSE 0 END AS 'kg的投入量'");
+            SB.AppendFormat(" ");
+            SB.AppendFormat(" ,CASE WHEN 領料是否扣袋重 IN ('Y') AND 成品是否扣袋重 IN ('Y') AND  類別 NOT IN ('半成品','個','試吃','片','單包','kg') AND (原料用量*(1-(蒸發率/100))+(成品用量/1000)-(袋重比*原料用量))>0 THEN (((生產量*淨重*(1-袋重比)))/1000)/(原料用量*(1-(蒸發率/100))+(成品用量/1000)-(袋重比*原料用量)) ELSE 0 END  AS '領料扣成品扣的得料率'");
+            SB.AppendFormat(" ,CASE WHEN 領料是否扣袋重 IN ('Y') AND 成品是否扣袋重 IN ('N') AND  類別 NOT IN ('半成品','個','試吃','片','單包','kg') AND (原料用量*(1-(蒸發率/100))+(成品用量/1000))>0 THEN (((生產量*淨重))/1000)/(原料用量*(1-蒸發率)+(成品用量/1000)-(袋重比*原料用量)) ELSE 0 END AS '領料扣成品不扣的得料率'");
+            SB.AppendFormat(" ,CASE WHEN 領料是否扣袋重 IN ('N') AND 成品是否扣袋重 IN ('Y') AND  類別 NOT IN ('半成品','個','試吃','片','單包','kg') AND (原料用量*(1-(蒸發率/100))+(成品用量/1000)-(袋重比*原料用量))>0 THEN (((生產量*淨重*(1-袋重比)))/1000)/(原料用量*(1-(蒸發率/100))+(成品用量/1000)) ELSE 0 END AS '領料不扣成品扣的得料率'");
+            SB.AppendFormat(" ,CASE WHEN 領料是否扣袋重 IN ('N') AND 成品是否扣袋重 IN ('N') AND  類別 NOT IN ('半成品','個','試吃','片','單包','kg') AND (原料用量*(1-(蒸發率/100))+(成品用量/1000))>0 THEN (((生產量*淨重)/1000)/(原料用量*(1-(蒸發率/100))+(成品用量/1000))) ELSE 0 END AS '領料不扣成品不扣的得料率'");
+            SB.AppendFormat(" ,CASE WHEN 類別 IN ('半成品') AND 原料用量>0  AND 成品是否扣袋重 IN ('Y') THEN (生產量-(生產量*袋重比))/(原料用量*(1-蒸發率/100)) ELSE 0 END  AS '半成品得料率(成品扣袋重)'");
+            SB.AppendFormat(" ,CASE WHEN 類別 IN ('半成品') AND 原料用量>0  AND 成品是否扣袋重 IN ('N') THEN (生產量)/(原料用量*(1-蒸發率/100)) ELSE 0 END  AS '半成品得料率(成品不扣袋重)'");
+            SB.AppendFormat(" ,CASE WHEN 類別 IN ('個','試吃') AND 原料用量>0 AND (原料用量*(1-(蒸發率/100)))>0 THEN (生產量*淨重/1000)/(原料用量*(1-(蒸發率/100))) ELSE 0 END  AS '個/試吃得料率'");
+            SB.AppendFormat(" ,CASE WHEN 類別 IN ('片') AND 原料用量>0 AND (原料用量*(1-(蒸發率/100))-(原料用量*袋重比))>0 THEN (生產量*淨重/1000)/(原料用量*(1-(蒸發率/100))-(原料用量*袋重比)) ELSE 0 END  AS '片得料率'");
+            SB.AppendFormat(" ,CASE WHEN 類別 IN ('單包') AND 原料用量>0 THEN 生產量/原料用量  ELSE 0 END AS '單包得料率'");
+            SB.AppendFormat(" ,CASE WHEN 類別 IN ('kg') AND (原料用量*(1-(蒸發率/100))-(原料用量*袋重比))>0 THEN ((生產量)/(原料用量*(1-(蒸發率/100))+(成品用量/1000)-(原料用量*袋重比))) ELSE 0 END AS 'kg得料率'");
+            SB.AppendFormat(" ,(CASE WHEN 領料是否扣袋重 IN ('Y') AND 成品是否扣袋重 IN ('Y') AND  類別 NOT IN ('半成品','個','試吃','片','單包','kg') AND (原料用量*(1-(蒸發率/100))+(成品用量/1000)-(袋重比*原料用量))>0 THEN (((生產量*淨重*(1-袋重比)))/1000)/(原料用量*(1-(蒸發率/100))+(成品用量/1000)-(袋重比*原料用量)) ELSE 0 END)+(CASE WHEN 領料是否扣袋重 IN ('Y') AND 成品是否扣袋重 IN ('N') AND  類別 NOT IN ('半成品','個','試吃','片','單包','kg') AND (原料用量*(1-(蒸發率/100))+(成品用量/1000))>0 THEN (((生產量*淨重))/1000)/(原料用量*(1-蒸發率)+(成品用量/1000)-(袋重比*原料用量)) ELSE 0 END)+(CASE WHEN 領料是否扣袋重 IN ('N') AND 成品是否扣袋重 IN ('Y') AND  類別 NOT IN ('半成品','個','試吃','片','單包','kg') AND (原料用量*(1-(蒸發率/100))+(成品用量/1000)-(袋重比*原料用量))>0 THEN (((生產量*淨重*(1-袋重比)))/1000)/(原料用量*(1-(蒸發率/100))+(成品用量/1000)) ELSE 0 END)+(CASE WHEN 領料是否扣袋重 IN ('N') AND 成品是否扣袋重 IN ('N') AND  類別 NOT IN ('半成品','個','試吃','片','單包','kg') AND (原料用量*(1-(蒸發率/100))+(成品用量/1000))>0 THEN (((生產量*淨重)/1000)/(原料用量*(1-(蒸發率/100))+(成品用量/1000))) ELSE 0 END)+(CASE WHEN 類別 IN ('半成品') AND 原料用量>0  AND 成品是否扣袋重 IN ('Y') THEN (生產量-(生產量*袋重比))/(原料用量*(1-蒸發率/100)) ELSE 0 END)+(CASE WHEN 類別 IN ('半成品') AND 原料用量>0  AND 成品是否扣袋重 IN ('N') THEN (生產量)/(原料用量*(1-蒸發率/100)) ELSE 0 END)+(CASE WHEN 類別 IN ('個','試吃') AND 原料用量>0 AND (原料用量*(1-(蒸發率/100)))>0 THEN (生產量*淨重/1000)/(原料用量*(1-(蒸發率/100))) ELSE 0 END)+(CASE WHEN 類別 IN ('片') AND 原料用量>0 AND (原料用量*(1-(蒸發率/100))-(原料用量*袋重比))>0 THEN (生產量*淨重/1000)/(原料用量*(1-(蒸發率/100))-(原料用量*袋重比)) ELSE 0 END)+(CASE WHEN 類別 IN ('單包') AND 原料用量>0 THEN 生產量/原料用量  ELSE 0 END)+(CASE WHEN 類別 IN ('kg') AND (原料用量*(1-(蒸發率/100))-(原料用量*袋重比))>0 THEN ((生產量)/(原料用量*(1-(蒸發率/100))+(成品用量/1000)-(原料用量*袋重比))) ELSE 0 END) AS '得料率'");
+            SB.AppendFormat(" ");
+            SB.AppendFormat(" FROM(");
+            SB.AppendFormat(" SELECT MD002 AS '線別',TA006 AS '品號',TA034 AS '品名',TA001 AS '製令單別',TA002 AS '製令單號',TA007 AS '生產單位',MB114 AS '類別',TA017 AS '生產量',INVMB.UDF07 AS '淨重',INVMB.UDF08 AS '單片重',INVMB.UDF09 AS '袋重',INVMB.UDF06 AS '蒸發率',MB112 AS '成品是否扣袋重',MB113 AS '領料是否扣袋重'");
+            SB.AppendFormat(" ,(SELECT ISNULL(SUM(TB005),0) FROM [TK].dbo.MOCTB TB WHERE (TB.TB003 LIKE '1%' OR TB.TB003 LIKE '3%') AND TB.TB001=MOCTA.TA001 AND TB.TB002=MOCTA.TA002)  AS '原料用量'");
+            SB.AppendFormat(" ,(SELECT ISNULL(SUM(TB005*MB.UDF07),0) FROM [TK].dbo.MOCTB TB,[TK].dbo.INVMB MB WHERE TB.TB003=MB.MB001 AND TB.TB003 LIKE '4%' AND TB.TB001=MOCTA.TA001 AND TB.TB002=MOCTA.TA002) AS '成品用量'");
+            SB.AppendFormat(" ,CASE WHEN INVMB.UDF08>0 AND   INVMB.UDF09>0  THEN 1/(INVMB.UDF08+INVMB.UDF09)*INVMB.UDF09 ELSE 1 END  AS '袋重比'");
+            SB.AppendFormat(" FROM [TK].dbo.INVMB,[TK].dbo.MOCTA,[TK].dbo.CMSMD");
+            SB.AppendFormat(" WHERE TA006=MB001 AND TA021=MD001");
+            SB.AppendFormat(" AND ISNULL(MB114,'')<>''");
+            SB.AppendFormat(" AND TA003>='{0}' AND TA003<='{1}'", dateTimePicker7.Value.ToString("yyyyMMdd"), dateTimePicker8.Value.ToString("yyyyMMdd"));
+            SB.AppendFormat(" ) AS TEMP");
+            SB.AppendFormat(" ) AS TEMP2");
+            SB.AppendFormat(" WHERE 線別='{0}'", comboBox5.Text);
+            SB.AppendFormat(" GROUP BY 線別,SUBSTRING(製令單號,1,8)");
+            SB.AppendFormat(" ORDER BY 線別,SUBSTRING(製令單號,1,8)");
+            SB.AppendFormat(" ");
+            SB.AppendFormat(" ");
+            SB.AppendFormat(" ");
+            SB.AppendFormat(" ");
+
+
+            return SB;
+
+        }
+
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
             SEARCHMOCDAILYRECORDNG();
@@ -708,6 +804,10 @@ namespace TKMOC
             SEARCHMOCDAILYRECORDNG2();
         }
 
+        private void button7_Click(object sender, EventArgs e)
+        {
+            SETFASTREPORT3();
+        }
 
 
         #endregion
