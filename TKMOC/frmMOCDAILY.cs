@@ -417,7 +417,7 @@ namespace TKMOC
 
                 sbSql.AppendFormat(" UPDATE [TKMOC].[dbo].[MOCDAILYRECORDNG]");
                 sbSql.AppendFormat(" SET [NGRECYCLESIDE]='{0}',[NGSIDE]='{1}',[NG]='{2}',[NGRECYCLE]='{3}'", textBox5.Text, textBox6.Text, textBox7.Text, textBox8.Text);
-                sbSql.AppendFormat(" WHERE [DATES]='{0}' AND [MOCLINE]='{1}'", dateTimePicker3.Value.ToString("yyyy/MM/dd"), comboBox4.Text);
+                sbSql.AppendFormat(" WHERE [DATES]='{0}' AND [MOCLINE]='{1}'", dateTimePicker6.Value.ToString("yyyy/MM/dd"), comboBox4.Text);
                 sbSql.AppendFormat(" ");
                 sbSql.AppendFormat(" ");
 
