@@ -38,6 +38,8 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder = new SqlCommandBuilder();
         SqlDataAdapter adapter1 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+        SqlDataAdapter adapter2 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder2 = new SqlCommandBuilder();
         SqlCommand cmd = new SqlCommand();
         DataSet ds = new DataSet();
         DataSet ds2 = new DataSet();
@@ -54,9 +56,16 @@ namespace TKMOC
 
         public frmMOCDAILY()
         {
-            InitializeComponent();
+            InitializeComponent();           
+
+            comboBox1load();
+            comboBox2load();
+            comboBox3load();
+            comboBox4load();
+            comboBox5load();
 
             SEARCHMOCDAILYRECORDNG();
+            SEARCHMOCDAILYRECORDNG2();
         }
 
         #region FUNCTION
@@ -76,6 +85,90 @@ namespace TKMOC
             comboBox1.DataSource = dt.DefaultView;
             comboBox1.ValueMember = "MD002";
             comboBox1.DisplayMember = "MD002";
+            sqlConn.Close();
+
+
+        }
+
+        public void comboBox2load()
+        {
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 LIKE '新廠%' AND MD002 IN ('新廠製一組','新廠製二組')  ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("MD001", typeof(string));
+            dt.Columns.Add("MD002", typeof(string));
+            da.Fill(dt);
+            comboBox2.DataSource = dt.DefaultView;
+            comboBox2.ValueMember = "MD002";
+            comboBox2.DisplayMember = "MD002";
+            sqlConn.Close();
+
+
+        }
+
+        public void comboBox3load()
+        {
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 LIKE '新廠%'  AND MD002 IN ('新廠製一組','新廠製二組') ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("MD001", typeof(string));
+            dt.Columns.Add("MD002", typeof(string));
+            da.Fill(dt);
+            comboBox3.DataSource = dt.DefaultView;
+            comboBox3.ValueMember = "MD002";
+            comboBox3.DisplayMember = "MD002";
+            sqlConn.Close();
+
+
+        }
+
+        public void comboBox4load()
+        {
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 LIKE '新廠%' AND MD002 IN ('新廠製三組(手工)')  ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("MD001", typeof(string));
+            dt.Columns.Add("MD002", typeof(string));
+            da.Fill(dt);
+            comboBox4.DataSource = dt.DefaultView;
+            comboBox4.ValueMember = "MD002";
+            comboBox4.DisplayMember = "MD002";
+            sqlConn.Close();
+
+
+        }
+
+        public void comboBox5load()
+        {
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 LIKE '新廠%'  AND MD002 IN ('新廠製三組(手工)') ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("MD001", typeof(string));
+            dt.Columns.Add("MD002", typeof(string));
+            da.Fill(dt);
+            comboBox5.DataSource = dt.DefaultView;
+            comboBox5.ValueMember = "MD002";
+            comboBox5.DisplayMember = "MD002";
             sqlConn.Close();
 
 
@@ -149,6 +242,16 @@ namespace TKMOC
 
         }
 
+        public void SETNULL3()
+        {
+            textBox5.Text = null;
+            textBox6.Text = null;
+            textBox7.Text = null;
+            textBox8.Text = null;
+
+
+        }
+
         public void ADDMOCDAILYRECORDNG()
         {
             try
@@ -199,6 +302,55 @@ namespace TKMOC
             }
         }
 
+        public void ADDMOCDAILYRECORDNG2()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+
+                sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCDAILYRECORDNG]");
+                sbSql.AppendFormat(" ([DATES],[MOCLINE],[NGRECYCLESIDE],[NGSIDE],[NG],[NGRECYCLE])");
+                sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}','{3}','{4}','{5}')", dateTimePicker6.Value.ToString("yyyy/MM/dd"), comboBox4.Text, textBox5.Text, textBox6.Text, textBox7.Text, textBox8.Text);
+                sbSql.AppendFormat("  ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+
+                    MessageBox.Show("失敗");
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+                    MessageBox.Show("成功");
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
         public void UPDATEMOCDAILYRECORDNG()
         {
             try
@@ -248,6 +400,56 @@ namespace TKMOC
             }
         }
 
+        public void UPDATEMOCDAILYRECORDNG2()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat(" UPDATE [TKMOC].[dbo].[MOCDAILYRECORDNG]");
+                sbSql.AppendFormat(" SET [NGRECYCLESIDE]='{0}',[NGSIDE]='{1}',[NG]='{2}',[NGRECYCLE]='{3}'", textBox5.Text, textBox6.Text, textBox7.Text, textBox8.Text);
+                sbSql.AppendFormat(" WHERE [DATES]='{0}' AND [MOCLINE]='{1}'", dateTimePicker3.Value.ToString("yyyy/MM/dd"), comboBox4.Text);
+                sbSql.AppendFormat(" ");
+                sbSql.AppendFormat(" ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                    MessageBox.Show("失敗");
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+                    MessageBox.Show("成功");
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+
         private void dateTimePicker3_ValueChanged(object sender, EventArgs e)
         {
             SEARCHMOCDAILYRECORDNG();
@@ -289,6 +491,59 @@ namespace TKMOC
                         //dataGridView1.Rows.Clear();
                         dataGridView1.DataSource = ds1.Tables["TEMPds1"];
                         dataGridView1.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+
+        }
+
+        public void SEARCHMOCDAILYRECORDNG2()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@" SELECT CONVERT(NVARCHAR,[DATES],111) AS '日期',[MOCLINE] AS '線別',[NGRECYCLESIDE] AS '可回收邊料',[NGSIDE] AS '邊料報廢 (kg)',[NG] AS '不良報廢重 (kg)',[NGRECYCLE] AS '回收餅' ");
+                sbSql.AppendFormat(@" FROM [TKMOC].[dbo].[MOCDAILYRECORDNG]");
+                sbSql.AppendFormat(@" WHERE [MOCLINE]='{0}' AND CONVERT(NVARCHAR,[DATES],112) LIKE '{1}%' ", comboBox4.Text, dateTimePicker6.Value.ToString("yyyyMM"));
+                sbSql.AppendFormat(@" ORDER BY CONVERT(NVARCHAR,[DATES],112)");
+                sbSql.AppendFormat(@"  ");
+
+                adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder2 = new SqlCommandBuilder(adapter2);
+                sqlConn.Open();
+                ds2.Clear();
+                adapter2.Fill(ds2, "ds2");
+                sqlConn.Close();
+
+
+                if (ds2.Tables["ds2"].Rows.Count == 0)
+                {
+
+                }
+                else
+                {
+                    if (ds2.Tables["ds2"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView2.DataSource = ds2.Tables["ds2"];
+                        dataGridView2.AutoResizeColumns();
                         //dataGridView1.CurrentCell = dataGridView1[0, rownum];
 
                     }
@@ -406,6 +661,10 @@ namespace TKMOC
             SEARCHMOCDAILYRECORDNG();
         }
 
+        private void dateTimePicker6_ValueChanged(object sender, EventArgs e)
+        {
+            SEARCHMOCDAILYRECORDNG2();
+        }
 
         #endregion
 
@@ -433,10 +692,26 @@ namespace TKMOC
         {
             SETFASTREPORT2();
         }
+        private void button5_Click(object sender, EventArgs e)
+        {
+            ADDMOCDAILYRECORDNG2();
+            SETNULL3();
+
+            SEARCHMOCDAILYRECORDNG2();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            UPDATEMOCDAILYRECORDNG2();
+            SETNULL3();
+
+            SEARCHMOCDAILYRECORDNG2();
+        }
+
 
 
         #endregion
 
-       
+
     }
 }
