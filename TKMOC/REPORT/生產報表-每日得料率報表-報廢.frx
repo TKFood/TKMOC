@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="08/13/2019 15:14:09" ReportInfo.Modified="08/13/2019 15:50:59" ReportInfo.CreatorVersion="2016.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9LmDJN1pu1atYSEEChBgpB4">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="/****** SSMS 中 SelectTopNRows 命令的指令碼  ******/&#13;&#10;SELECT &#13;&#10;CONVERT(NVARCHAR,[DATES],112) AS '日期'&#13;&#10;,[NGCLEAN] AS '製造前端-打掃'&#13;&#10;,[NGBAT] AS '製造前端-打餅區'&#13;&#10;,[NGSELECT] AS '製造前端-篩選餅乾不良'&#13;&#10;,[NGSIDE] AS '當日-邊料'&#13;&#10;,[NGSIDENG] AS '過期-邊料報廢'&#13;&#10;,[NGCOOKNG] AS '過期-餅麩報廢'&#13;&#10;,[NG1] AS '製造後端-大線'&#13;&#10;,[NG2] AS '製造後端-小線'&#13;&#10;,[NGCOOKIES] AS '手工-廢餅'&#13;&#10;,[NGSIDEMANU] AS '手工-邊料'&#13;&#10;,[MGOTHERS] AS '其他/品保'&#13;&#10;,([NGCLEAN]+[NGBAT]+[NGSELECT]+[NGSIDE]+[NGSIDENG]+[NGCOOKNG]+[NG1]+[NG2]+[NGCOOKIES]+[NGSIDEMANU]+[MGOTHERS]) AS '小計'&#13;&#10;,[REMARK] AS '備註'&#13;&#10;,(SELECT ISNULL(SUM(TB005),0) FROM [TK].dbo.MOCTB TB ,[TK].dbo.MOCTA TA WHERE TA.TA001=TB.TB001 AND TA.TA002=TB.TB002 AND  (TB.TB003 LIKE '1%' OR TB.TB003 LIKE '3%') AND TA.TA021 IN ('02','03') AND TA.TA012= CONVERT(NVARCHAR,[DATES],112))  AS '原料用量'&#13;&#10;,(SELECT ISNULL(SUM(TB005*MB.UDF07),0) FROM [TK].dbo.MOCTB TB ,[TK].dbo.MOCTA TA,[TK].dbo.INVMB MB   WHERE TA.TA001=TB.TB001 AND TA.TA002=TB.TB002 AND TB.TB003=MB.MB001 AND TB.TB003 LIKE '4%' AND TA.TA021 IN ('02','03') AND TA.TA012= CONVERT(NVARCHAR,[DATES],112)) AS '成品用量'&#13;&#10;FROM [TKMOC].[dbo].[MOCDAILYRECORDNGMONEY]&#13;&#10;WHERE CONVERT(NVARCHAR,[DATES],112)&gt;='201907013' AND CONVERT(NVARCHAR,[DATES],112)&lt;='20190831' &#13;&#10;ORDER BY  CONVERT(NVARCHAR,[DATES],112)">
+        <Column Name="日期" DataType="System.String"/>
+        <Column Name="製造前端-打掃" DataType="System.Decimal"/>
+        <Column Name="製造前端-打餅區" DataType="System.Decimal"/>
+        <Column Name="製造前端-篩選餅乾不良" DataType="System.Decimal"/>
+        <Column Name="當日-邊料" DataType="System.Decimal"/>
+        <Column Name="過期-邊料報廢" DataType="System.Decimal"/>
+        <Column Name="過期-餅麩報廢" DataType="System.Decimal"/>
+        <Column Name="製造後端-大線" DataType="System.Decimal"/>
+        <Column Name="製造後端-小線" DataType="System.Decimal"/>
+        <Column Name="手工-廢餅" DataType="System.Decimal"/>
+        <Column Name="手工-邊料" DataType="System.Decimal"/>
+        <Column Name="其他/品保" DataType="System.Decimal"/>
+        <Column Name="備註" DataType="System.String"/>
+        <Column Name="小計" DataType="System.Decimal"/>
+        <Column Name="原料用量" DataType="System.Decimal"/>
+        <Column Name="成品用量" DataType="System.Decimal"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210">
+    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="18.9">
+      <TextObject Name="Text1" Width="954.45" Height="18.9" Text="每週報廢" HorzAlign="Center"/>
+    </ReportTitleBand>
+    <ColumnHeaderBand Name="ColumnHeader1" Top="22.75" Width="1047.06" Height="28.35">
+      <TextObject Name="Text3" Width="94.5" Height="28.35" Border.Lines="All" Text="日期" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text5" Left="94.5" Width="75.6" Height="28.35" Border.Lines="All" Text="製造前端-打掃" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text7" Left="170.1" Width="75.6" Height="28.35" Border.Lines="All" Text="製造前端-打餅區" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text9" Left="245.7" Width="94.5" Height="28.35" Border.Lines="All" Text="製造前端-篩選餅乾不良" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text11" Left="340.2" Width="75.6" Height="28.35" Border.Lines="All" Text="當日-邊料" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text13" Left="415.8" Width="75.6" Height="28.35" Border.Lines="All" Text="過期-邊料報廢" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text15" Left="491.4" Width="75.6" Height="28.35" Border.Lines="All" Text="過期-餅麩報廢" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text17" Left="567" Width="66.15" Height="28.35" Border.Lines="All" Text="製造後端-大線" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text19" Left="633.15" Width="66.15" Height="28.35" Border.Lines="All" Text="製造後端-小線" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text21" Left="699.3" Width="66.15" Height="28.35" Border.Lines="All" Text="手工-廢餅" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text23" Left="765.45" Width="66.15" Height="28.35" Border.Lines="All" Text="手工-邊料" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text25" Left="831.6" Width="66.15" Height="28.35" Border.Lines="All" Text="其他/品保" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text29" Left="897.75" Width="56.7" Height="28.35" Border.Lines="All" Text="小計" HorzAlign="Center" VertAlign="Center"/>
+    </ColumnHeaderBand>
+    <DataBand Name="Data1" Top="54.94" Width="1047.06" Height="18.9" CanGrow="true" DataSource="Table">
+      <TextObject Name="Text4" Left="94.5" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.製造前端-打掃]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text6" Left="170.1" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.製造前端-打餅區]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text8" Left="245.7" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.製造前端-篩選餅乾不良]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text10" Left="340.2" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.當日-邊料]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text12" Left="415.8" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.過期-邊料報廢]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text14" Left="491.4" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.過期-餅麩報廢]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text16" Left="567" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.製造後端-大線]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text18" Left="633.15" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.製造後端-小線]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text20" Left="699.3" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.手工-廢餅]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text22" Left="765.45" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.手工-邊料]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text24" Left="831.6" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.其他/品保]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text28" Left="897.75" Width="56.7" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.小計]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text2" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.日期]" HorzAlign="Center" VertAlign="Center"/>
+      <ChildBand Name="Child1" Top="77.69" Width="1047.06"/>
+    </DataBand>
+    <DataBand Name="Data2" Top="81.53" Width="1047.06" Height="18.9" CanGrow="true" CanBreak="true" DataSource="Table">
+      <TextObject Name="Text26" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.日期]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text27" Left="94.5" Width="859.95" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.備註]" VertAlign="Center"/>
+    </DataBand>
+    <OverlayBand Name="Overlay1" Top="104.28" Width="1047.06" Height="37.8"/>
+  </ReportPage>
+  <ReportPage Name="Page2" Landscape="true" PaperWidth="297" PaperHeight="210">
+    <PageHeaderBand Name="PageHeader1" Width="1047.06" Height="18.9">
+      <TextObject Name="Text30" Width="94.5" Height="18.9" Border.Lines="All" Text="日期" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text31" Left="94.5" Width="75.6" Height="18.9" Border.Lines="All" Text="報廢總數" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text32" Left="170.1" Width="75.6" Height="18.9" Border.Lines="All" Text="總投料量" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text33" Left="245.7" Width="75.6" Height="18.9" Border.Lines="All" Text="報廢百分比" HorzAlign="Center" VertAlign="Center"/>
+    </PageHeaderBand>
+    <DataBand Name="Data4" Top="22.75" Width="1047.06" Height="18.9" DataSource="Table">
+      <TextObject Name="Text34" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.日期]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text35" Left="94.5" Width="75.6" Height="18.9" Border.Lines="All" Text="[Table.過期-邊料報廢]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text36" Left="170.1" Width="75.6" Height="18.9" Border.Lines="All" Text="[[Table.原料用量]+[Table.成品用量]]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text37" Left="245.7" Width="75.6" Height="18.9" Border.Lines="All" Format="Percent" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="45.49" Width="1047.06" Height="18.9"/>
+  </ReportPage>
+</Report>

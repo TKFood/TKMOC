@@ -752,6 +752,45 @@ namespace TKMOC
 
         }
 
+        public void SETFASTREPORT4()
+        {
+            StringBuilder SQL1 = new StringBuilder();
+            StringBuilder SQL2 = new StringBuilder();
+
+            SQL1 = SETSQL4();
+
+            Report report4 = new Report();
+            report4.Load(@"REPORT\生產報表-每日得料率報表-報廢.frx");
+
+            report4.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+            TableDataSource table = report4.GetDataSource("Table") as TableDataSource;
+            table.SelectCommand = SQL1.ToString();
+
+            report4.Preview = previewControl4;
+            report4.Show();
+        }
+
+        public StringBuilder SETSQL4()
+        {
+            StringBuilder SB = new StringBuilder();
+
+            SB.AppendFormat(" SELECT ");
+            SB.AppendFormat(" CONVERT(NVARCHAR,[DATES],112) AS '日期',[NGCLEAN] AS '製造前端-打掃',[NGBAT] AS '製造前端-打餅區',[NGSELECT] AS '製造前端-篩選餅乾不良',[NGSIDE] AS '當日-邊料',[NGSIDENG] AS '過期-邊料報廢',[NGCOOKNG] AS '過期-餅麩報廢',[NG1] AS '製造後端-大線',[NG2] AS '製造後端-小線',[NGCOOKIES] AS '手工-廢餅',[NGSIDEMANU] AS '手工-邊料',[MGOTHERS] AS '其他/品保'");
+            SB.AppendFormat(" ,([NGCLEAN]+[NGBAT]+[NGSELECT]+[NGSIDE]+[NGSIDENG]+[NGCOOKNG]+[NG1]+[NG2]+[NGCOOKIES]+[NGSIDEMANU]+[MGOTHERS]) AS '小計'");
+            SB.AppendFormat(" ,[REMARK] AS '備註'");
+            SB.AppendFormat(" ,(SELECT ISNULL(SUM(TB005),0) FROM [TK].dbo.MOCTB TB ,[TK].dbo.MOCTA TA WHERE TA.TA001=TB.TB001 AND TA.TA002=TB.TB002 AND  (TB.TB003 LIKE '1%' OR TB.TB003 LIKE '3%') AND TA.TA021 IN ('02','03') AND TA.TA012= CONVERT(NVARCHAR,[DATES],112))  AS '原料用量'");
+            SB.AppendFormat(" ,(SELECT ISNULL(SUM(TB005*MB.UDF07),0) FROM [TK].dbo.MOCTB TB ,[TK].dbo.MOCTA TA,[TK].dbo.INVMB MB   WHERE TA.TA001=TB.TB001 AND TA.TA002=TB.TB002 AND TB.TB003=MB.MB001 AND TB.TB003 LIKE '4%' AND TA.TA021 IN ('02','03') AND TA.TA012= CONVERT(NVARCHAR,[DATES],112)) AS '成品用量'");
+            SB.AppendFormat(" FROM [TKMOC].[dbo].[MOCDAILYRECORDNGMONEY]");
+            SB.AppendFormat(" WHERE CONVERT(NVARCHAR,[DATES],112)>='201907013' AND CONVERT(NVARCHAR,[DATES],112)<='20190831' ");
+            SB.AppendFormat(" ORDER BY  CONVERT(NVARCHAR,[DATES],112)");
+            SB.AppendFormat(" ");
+            SB.AppendFormat(" ");
+            SB.AppendFormat(" ");
+
+            return SB;
+
+        }
+
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
             SEARCHMOCDAILYRECORDNG();
@@ -809,6 +848,15 @@ namespace TKMOC
             SETFASTREPORT3();
         }
         private void button8_Click(object sender, EventArgs e)
+        {
+            SETFASTREPORT4();
+        }
+        private void button9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button10_Click(object sender, EventArgs e)
         {
 
         }
