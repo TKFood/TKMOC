@@ -781,7 +781,7 @@ namespace TKMOC
             SB.AppendFormat(" ,(SELECT ISNULL(SUM(TB005),0) FROM [TK].dbo.MOCTB TB ,[TK].dbo.MOCTA TA WHERE TA.TA001=TB.TB001 AND TA.TA002=TB.TB002 AND  (TB.TB003 LIKE '1%' OR TB.TB003 LIKE '3%') AND TA.TA021 IN ('02','03') AND TA.TA012= CONVERT(NVARCHAR,[DATES],112))  AS '原料用量'");
             SB.AppendFormat(" ,(SELECT ISNULL(SUM(TB005*MB.UDF07),0) FROM [TK].dbo.MOCTB TB ,[TK].dbo.MOCTA TA,[TK].dbo.INVMB MB   WHERE TA.TA001=TB.TB001 AND TA.TA002=TB.TB002 AND TB.TB003=MB.MB001 AND TB.TB003 LIKE '4%' AND TA.TA021 IN ('02','03') AND TA.TA012= CONVERT(NVARCHAR,[DATES],112)) AS '成品用量'");
             SB.AppendFormat(" FROM [TKMOC].[dbo].[MOCDAILYRECORDNGMONEY]");
-            SB.AppendFormat(" WHERE CONVERT(NVARCHAR,[DATES],112)>='201907013' AND CONVERT(NVARCHAR,[DATES],112)<='20190831' ");
+            SB.AppendFormat(" WHERE CONVERT(NVARCHAR,[DATES],112)>='{0}' AND CONVERT(NVARCHAR,[DATES],112)<='{1}' ",dateTimePicker9.Value.ToString("yyyyMMdd"), dateTimePicker10.Value.ToString("yyyyMMdd"));
             SB.AppendFormat(" ORDER BY  CONVERT(NVARCHAR,[DATES],112)");
             SB.AppendFormat(" ");
             SB.AppendFormat(" ");
