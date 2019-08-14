@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="08/13/2019 15:14:09" ReportInfo.Modified="08/13/2019 15:50:59" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="08/13/2019 15:14:09" ReportInfo.Modified="08/14/2019 11:17:14" ReportInfo.CreatorVersion="2016.4.4.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9LmDJN1pu1atYSEEChBgpB4">
-      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="/****** SSMS 中 SelectTopNRows 命令的指令碼  ******/&#13;&#10;SELECT &#13;&#10;CONVERT(NVARCHAR,[DATES],112) AS '日期'&#13;&#10;,[NGCLEAN] AS '製造前端-打掃'&#13;&#10;,[NGBAT] AS '製造前端-打餅區'&#13;&#10;,[NGSELECT] AS '製造前端-篩選餅乾不良'&#13;&#10;,[NGSIDE] AS '當日-邊料'&#13;&#10;,[NGSIDENG] AS '過期-邊料報廢'&#13;&#10;,[NGCOOKNG] AS '過期-餅麩報廢'&#13;&#10;,[NG1] AS '製造後端-大線'&#13;&#10;,[NG2] AS '製造後端-小線'&#13;&#10;,[NGCOOKIES] AS '手工-廢餅'&#13;&#10;,[NGSIDEMANU] AS '手工-邊料'&#13;&#10;,[MGOTHERS] AS '其他/品保'&#13;&#10;,([NGCLEAN]+[NGBAT]+[NGSELECT]+[NGSIDE]+[NGSIDENG]+[NGCOOKNG]+[NG1]+[NG2]+[NGCOOKIES]+[NGSIDEMANU]+[MGOTHERS]) AS '小計'&#13;&#10;,[REMARK] AS '備註'&#13;&#10;,(SELECT ISNULL(SUM(TB005),0) FROM [TK].dbo.MOCTB TB ,[TK].dbo.MOCTA TA WHERE TA.TA001=TB.TB001 AND TA.TA002=TB.TB002 AND  (TB.TB003 LIKE '1%' OR TB.TB003 LIKE '3%') AND TA.TA021 IN ('02','03') AND TA.TA012= CONVERT(NVARCHAR,[DATES],112))  AS '原料用量'&#13;&#10;,(SELECT ISNULL(SUM(TB005*MB.UDF07),0) FROM [TK].dbo.MOCTB TB ,[TK].dbo.MOCTA TA,[TK].dbo.INVMB MB   WHERE TA.TA001=TB.TB001 AND TA.TA002=TB.TB002 AND TB.TB003=MB.MB001 AND TB.TB003 LIKE '4%' AND TA.TA021 IN ('02','03') AND TA.TA012= CONVERT(NVARCHAR,[DATES],112)) AS '成品用量'&#13;&#10;FROM [TKMOC].[dbo].[MOCDAILYRECORDNGMONEY]&#13;&#10;WHERE CONVERT(NVARCHAR,[DATES],112)&gt;='201907013' AND CONVERT(NVARCHAR,[DATES],112)&lt;='20190831' &#13;&#10;ORDER BY  CONVERT(NVARCHAR,[DATES],112)">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9KbzvlLafotCQtnT+ZubYKZ">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="/****** SSMS 中 SelectTopNRows 命令的指令碼  ******/&#13;&#10;SELECT &#13;&#10;CONVERT(NVARCHAR,[DATES],112) AS '日期'&#13;&#10;,[NGCLEAN] AS '製造前端-打掃'&#13;&#10;,[NGBAT] AS '製造前端-打餅區'&#13;&#10;,[NGSELECT] AS '製造前端-篩選餅乾不良'&#13;&#10;,[NGSIDE] AS '當日-邊料'&#13;&#10;,[NGSIDENG] AS '過期-邊料報廢'&#13;&#10;,[NGCOOKNG] AS '過期-餅麩報廢'&#13;&#10;,[NG1] AS '製造後端-大線'&#13;&#10;,[NG2] AS '製造後端-小線'&#13;&#10;,[NGCOOKIES] AS '手工-廢餅'&#13;&#10;,[NGSIDEMANU] AS '手工-邊料'&#13;&#10;,[MGOTHERS] AS '其他/品保'&#13;&#10;,([NGCLEAN]+[NGBAT]+[NGSELECT]+[NGSIDE]+[NGSIDENG]+[NGCOOKNG]+[NG1]+[NG2]+[NGCOOKIES]+[NGSIDEMANU]+[MGOTHERS]) AS '小計'&#13;&#10;,([NGCLEAN]+[NGBAT]+[NGSELECT]+[NGSIDE]+[NG1]+[NG2]+[NGCOOKIES]+[NGSIDEMANU]) AS '報廢總數'&#13;&#10;,[NGCLEAN] AS '打掃報廢'&#13;&#10;,([NGCLEAN]+[NGBAT]+[NGSELECT]+[NGSIDE]+[NGSIDENG]+[NGCOOKNG]+[NG1]+[NG2]+[NGCOOKIES]+[NGSIDEMANU]+[MGOTHERS]) AS '乾+濕'&#13;&#10;,[NGSIDENG] AS '邊料報廢'&#13;&#10;,[NGCOOKNG] AS '餅麩報廢'&#13;&#10;,[NGCLEAN]*16.36 AS '打掃報廢-成本'&#13;&#10;,([NGCLEAN]+[NGBAT]+[NGSELECT]+[NGSIDE]+[NGSIDENG]+[NGCOOKNG]+[NG1]+[NG2]+[NGCOOKIES]+[NGSIDEMANU]+[MGOTHERS])*54.01 AS '乾+濕成本'&#13;&#10;,[REMARK] AS '備註'&#13;&#10;,(SELECT ISNULL(SUM(TB005),0) FROM [TK].dbo.MOCTB TB ,[TK].dbo.MOCTA TA WHERE TA.TA001=TB.TB001 AND TA.TA002=TB.TB002 AND  (TB.TB003 LIKE '1%' OR TB.TB003 LIKE '3%') AND TA.TA021 IN ('02','03') AND TA.TA012= CONVERT(NVARCHAR,[DATES],112))  AS '原料用量'&#13;&#10;,(SELECT ISNULL(SUM(TB005*MB.UDF07),0) FROM [TK].dbo.MOCTB TB ,[TK].dbo.MOCTA TA,[TK].dbo.INVMB MB   WHERE TA.TA001=TB.TB001 AND TA.TA002=TB.TB002 AND TB.TB003=MB.MB001 AND TB.TB003 LIKE '4%' AND TA.TA021 IN ('02','03') AND TA.TA012= CONVERT(NVARCHAR,[DATES],112)) AS '成品用量'&#13;&#10;FROM [TKMOC].[dbo].[MOCDAILYRECORDNGMONEY]&#13;&#10;WHERE CONVERT(NVARCHAR,[DATES],112)&gt;='201907013' AND CONVERT(NVARCHAR,[DATES],112)&lt;='20190814' &#13;&#10;ORDER BY  CONVERT(NVARCHAR,[DATES],112)">
         <Column Name="日期" DataType="System.String"/>
         <Column Name="製造前端-打掃" DataType="System.Decimal"/>
         <Column Name="製造前端-打餅區" DataType="System.Decimal"/>
@@ -19,6 +19,13 @@
         <Column Name="小計" DataType="System.Decimal"/>
         <Column Name="原料用量" DataType="System.Decimal"/>
         <Column Name="成品用量" DataType="System.Decimal"/>
+        <Column Name="報廢總數" DataType="System.Decimal"/>
+        <Column Name="打掃報廢" DataType="System.Decimal"/>
+        <Column Name="乾+濕" DataType="System.Decimal"/>
+        <Column Name="邊料報廢" DataType="System.Decimal"/>
+        <Column Name="餅麩報廢" DataType="System.Decimal"/>
+        <Column Name="打掃報廢-成本" DataType="System.Decimal"/>
+        <Column Name="乾+濕成本" DataType="System.Decimal"/>
       </TableDataSource>
     </MsSqlDataConnection>
   </Dictionary>
@@ -72,10 +79,62 @@
     </PageHeaderBand>
     <DataBand Name="Data4" Top="22.75" Width="1047.06" Height="18.9" DataSource="Table">
       <TextObject Name="Text34" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.日期]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text35" Left="94.5" Width="75.6" Height="18.9" Border.Lines="All" Text="[Table.過期-邊料報廢]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text35" Left="94.5" Width="75.6" Height="18.9" Border.Lines="All" Text="[Table.報廢總數]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
       <TextObject Name="Text36" Left="170.1" Width="75.6" Height="18.9" Border.Lines="All" Text="[[Table.原料用量]+[Table.成品用量]]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text37" Left="245.7" Width="75.6" Height="18.9" Border.Lines="All" Format="Percent" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text37" Left="245.7" Width="75.6" Height="18.9" Border.Lines="All" Text="[[Table.報廢總數]/([Table.原料用量]+[Table.成品用量])]" Format="Percent" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
     </DataBand>
     <PageFooterBand Name="PageFooter1" Top="45.49" Width="1047.06" Height="18.9"/>
+  </ReportPage>
+  <ReportPage Name="Page3" Landscape="true" PaperWidth="297" PaperHeight="210">
+    <PageHeaderBand Name="PageHeader2" Width="1047.06" Height="18.9">
+      <TextObject Name="Text40" Left="94.5" Width="94.5" Height="18.9" Border.Lines="All" Text="打掃報廢" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text41" Width="94.5" Height="18.9" Border.Lines="All" Text="日期" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text42" Left="189" Width="94.5" Height="18.9" Border.Lines="All" Text="打掃報廢-成本" HorzAlign="Center" VertAlign="Center"/>
+    </PageHeaderBand>
+    <DataBand Name="Data3" Top="22.75" Width="1047.06" Height="18.9" DataSource="Table">
+      <TextObject Name="Text39" Left="94.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.打掃報廢]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text38" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.日期]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text43" Left="189" Top="-0.15" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.打掃報廢-成本]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter2" Top="45.49" Width="1047.06" Height="18.9"/>
+  </ReportPage>
+  <ReportPage Name="Page4" Landscape="true" PaperWidth="297" PaperHeight="210">
+    <PageHeaderBand Name="PageHeader3" Width="1047.06" Height="18.9">
+      <TextObject Name="Text45" Width="94.5" Height="18.9" Border.Lines="All" Text="日期" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text47" Left="94.5" Width="94.5" Height="18.9" Border.Lines="All" Text="乾+濕" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text49" Left="189" Width="94.5" Height="18.9" Border.Lines="All" Text="乾+濕成本" HorzAlign="Center" VertAlign="Center"/>
+    </PageHeaderBand>
+    <DataBand Name="Data5" Top="22.75" Width="1047.06" Height="18.9" DataSource="Table">
+      <TextObject Name="Text44" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.日期]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text46" Left="94.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.乾+濕]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text48" Left="189" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.乾+濕成本]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter3" Top="45.49" Width="1047.06" Height="18.9"/>
+  </ReportPage>
+  <ReportPage Name="Page5" Landscape="true" PaperWidth="297" PaperHeight="210">
+    <PageHeaderBand Name="PageHeader4" Width="1047.06" Height="18.9">
+      <TextObject Name="Text51" Width="94.5" Height="18.9" Border.Lines="All" Text="日期" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text53" Left="94.5" Width="94.5" Height="18.9" Border.Lines="All" Text="邊料報廢" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text54" Left="189" Width="75.6" Height="18.9" Border.Lines="All" Text="報廢百分比" HorzAlign="Center" VertAlign="Center"/>
+    </PageHeaderBand>
+    <DataBand Name="Data6" Top="22.75" Width="1047.06" Height="18.9" DataSource="Table">
+      <TextObject Name="Text50" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.日期]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text52" Left="94.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.邊料報廢]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text55" Left="189" Top="-0.15" Width="75.6" Height="18.9" Border.Lines="All" Text="[[Table.邊料報廢]/([Table.原料用量]+[Table.成品用量])]" Format="Percent" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter4" Top="45.49" Width="1047.06" Height="18.9"/>
+  </ReportPage>
+  <ReportPage Name="Page6" Landscape="true" PaperWidth="297" PaperHeight="210">
+    <PageHeaderBand Name="PageHeader5" Width="1047.06" Height="18.9">
+      <TextObject Name="Text57" Width="94.5" Height="18.9" Border.Lines="All" Text="日期" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text59" Left="94.5" Width="94.5" Height="18.9" Border.Lines="All" Text="餅麩報廢" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text60" Left="189" Width="75.6" Height="18.9" Border.Lines="All" Text="報廢百分比" HorzAlign="Center" VertAlign="Center"/>
+    </PageHeaderBand>
+    <DataBand Name="Data7" Top="22.75" Width="1047.06" Height="18.9" DataSource="Table">
+      <TextObject Name="Text56" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.日期]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text58" Left="94.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.餅麩報廢]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text61" Left="189" Top="-0.3" Width="75.6" Height="18.9" Border.Lines="All" Text="[[Table.餅麩報廢]/([Table.原料用量]+[Table.成品用量])]" Format="Percent" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter5" Top="45.49" Width="1047.06" Height="18.9"/>
   </ReportPage>
 </Report>

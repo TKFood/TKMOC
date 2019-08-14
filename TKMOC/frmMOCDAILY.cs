@@ -236,20 +236,20 @@ namespace TKMOC
 
         public void SETNULL2()
         {
-            textBox1.Text = null;
-            textBox2.Text = null;
-            textBox3.Text = null;
-            textBox4.Text = null;
-            
+            textBox1.Text = "0";
+            textBox2.Text = "0";
+            textBox3.Text = "0";
+            textBox4.Text = "0";
+
 
         }
 
         public void SETNULL3()
         {
-            textBox5.Text = null;
-            textBox6.Text = null;
-            textBox7.Text = null;
-            textBox8.Text = null;
+            textBox5.Text = "0";
+            textBox6.Text = "0";
+            textBox7.Text = "0";
+            textBox8.Text = "0";
 
 
         }
@@ -930,8 +930,26 @@ namespace TKMOC
             StringBuilder SB = new StringBuilder();
 
             SB.AppendFormat(" SELECT ");
-            SB.AppendFormat(" CONVERT(NVARCHAR,[DATES],112) AS '日期',[NGCLEAN] AS '製造前端-打掃',[NGBAT] AS '製造前端-打餅區',[NGSELECT] AS '製造前端-篩選餅乾不良',[NGSIDE] AS '當日-邊料',[NGSIDENG] AS '過期-邊料報廢',[NGCOOKNG] AS '過期-餅麩報廢',[NG1] AS '製造後端-大線',[NG2] AS '製造後端-小線',[NGCOOKIES] AS '手工-廢餅',[NGSIDEMANU] AS '手工-邊料',[MGOTHERS] AS '其他/品保'");
+            SB.AppendFormat(" CONVERT(NVARCHAR,[DATES],112) AS '日期'");
+            SB.AppendFormat(" ,[NGCLEAN] AS '製造前端-打掃'");
+            SB.AppendFormat(" ,[NGBAT] AS '製造前端-打餅區'");
+            SB.AppendFormat(" ,[NGSELECT] AS '製造前端-篩選餅乾不良'");
+            SB.AppendFormat(" ,[NGSIDE] AS '當日-邊料'");
+            SB.AppendFormat(" ,[NGSIDENG] AS '過期-邊料報廢'");
+            SB.AppendFormat(" ,[NGCOOKNG] AS '過期-餅麩報廢'");
+            SB.AppendFormat(" ,[NG1] AS '製造後端-大線'");
+            SB.AppendFormat(" ,[NG2] AS '製造後端-小線'");
+            SB.AppendFormat(" ,[NGCOOKIES] AS '手工-廢餅'");
+            SB.AppendFormat(" ,[NGSIDEMANU] AS '手工-邊料'");
+            SB.AppendFormat(" ,[MGOTHERS] AS '其他/品保'");
             SB.AppendFormat(" ,([NGCLEAN]+[NGBAT]+[NGSELECT]+[NGSIDE]+[NGSIDENG]+[NGCOOKNG]+[NG1]+[NG2]+[NGCOOKIES]+[NGSIDEMANU]+[MGOTHERS]) AS '小計'");
+            SB.AppendFormat(" ,([NGCLEAN]+[NGBAT]+[NGSELECT]+[NGSIDE]+[NG1]+[NG2]+[NGCOOKIES]+[NGSIDEMANU]) AS '報廢總數'");
+            SB.AppendFormat(" ,[NGCLEAN] AS '打掃報廢'");
+            SB.AppendFormat(" ,([NGCLEAN]+[NGBAT]+[NGSELECT]+[NGSIDE]+[NGSIDENG]+[NGCOOKNG]+[NG1]+[NG2]+[NGCOOKIES]+[NGSIDEMANU]+[MGOTHERS]) AS '乾+濕'");
+            SB.AppendFormat(" ,[NGSIDENG] AS '邊料報廢'");
+            SB.AppendFormat(" ,[NGCOOKNG] AS '餅麩報廢'");
+            SB.AppendFormat(" ,[NGCLEAN]*16.36 AS '打掃報廢-成本'");
+            SB.AppendFormat(" ,([NGCLEAN]+[NGBAT]+[NGSELECT]+[NGSIDE]+[NGSIDENG]+[NGCOOKNG]+[NG1]+[NG2]+[NGCOOKIES]+[NGSIDEMANU]+[MGOTHERS])*54.01 AS '乾+濕成本'");
             SB.AppendFormat(" ,[REMARK] AS '備註'");
             SB.AppendFormat(" ,(SELECT ISNULL(SUM(TB005),0) FROM [TK].dbo.MOCTB TB ,[TK].dbo.MOCTA TA WHERE TA.TA001=TB.TB001 AND TA.TA002=TB.TB002 AND  (TB.TB003 LIKE '1%' OR TB.TB003 LIKE '3%') AND TA.TA021 IN ('02','03') AND TA.TA012= CONVERT(NVARCHAR,[DATES],112))  AS '原料用量'");
             SB.AppendFormat(" ,(SELECT ISNULL(SUM(TB005*MB.UDF07),0) FROM [TK].dbo.MOCTB TB ,[TK].dbo.MOCTA TA,[TK].dbo.INVMB MB   WHERE TA.TA001=TB.TB001 AND TA.TA002=TB.TB002 AND TB.TB003=MB.MB001 AND TB.TB003 LIKE '4%' AND TA.TA021 IN ('02','03') AND TA.TA012= CONVERT(NVARCHAR,[DATES],112)) AS '成品用量'");
