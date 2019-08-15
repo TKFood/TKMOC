@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="08/15/2019 14:33:11" ReportInfo.Modified="08/15/2019 14:50:55" ReportInfo.CreatorVersion="2016.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9L4pKI+bWyzbhaBmZIyGhdI">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT &#13;&#10;[PROD] AS '口味',CONVERT(NVARCHAR, [DATES],112) AS '日期',[LASTSLOT] AS '前日庫存',[PRODOUT] AS '當日產出',[PRODIN] AS '當日投入',[NG] AS '當日報廢',[NOWSLOT] AS '當日庫存'&#13;&#10;FROM [TKMOC].[dbo].[MOCDAILYSLOT]&#13;&#10;WHERE CONVERT(NVARCHAR, [DATES],112)&gt;='20190815'  AND CONVERT(NVARCHAR, [DATES],112)&lt;='20190815' &#13;&#10;AND [PROD] ='鹹蛋黃'">
+        <Column Name="口味" DataType="System.String"/>
+        <Column Name="日期" DataType="System.DateTime"/>
+        <Column Name="前日庫存" DataType="System.String"/>
+        <Column Name="當日產出" DataType="System.String"/>
+        <Column Name="當日投入" DataType="System.String"/>
+        <Column Name="當日報廢" DataType="System.String"/>
+        <Column Name="當日庫存" DataType="System.String"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+  </Dictionary>
+  <ReportPage Name="Page1">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="18.9">
+      <TextObject Name="Text1" Width="718.2" Height="18.9" Text="每日桶數報廢" HorzAlign="Center" VertAlign="Center"/>
+    </ReportTitleBand>
+    <ColumnHeaderBand Name="ColumnHeader1" Top="22.75" Width="718.2" Height="18.9">
+      <TextObject Name="Text3" Left="151.2" Width="94.5" Height="18.9" Border.Lines="All" Text="日期" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text5" Width="151.2" Height="18.9" Border.Lines="All" Text="口味" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text7" Left="245.7" Width="94.5" Height="18.9" Border.Lines="All" Text="前日庫存" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text9" Left="340.2" Width="94.5" Height="18.9" Border.Lines="All" Text="當日產出" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text11" Left="434.7" Width="94.5" Height="18.9" Border.Lines="All" Text="當日投入" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text13" Left="529.2" Width="94.5" Height="18.9" Border.Lines="All" Text="當日報廢" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text15" Left="623.7" Width="94.5" Height="18.9" Border.Lines="All" Text="當日庫存" HorzAlign="Center" VertAlign="Center"/>
+    </ColumnHeaderBand>
+    <DataBand Name="Data1" Top="45.49" Width="718.2" Height="18.9" CanGrow="true" DataSource="Table">
+      <TextObject Name="Text2" Left="151.2" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.日期]" Format="Date" Format.Format="d" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text4" Width="151.2" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.口味]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text6" Left="245.7" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.前日庫存]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text8" Left="340.2" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.當日產出]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text10" Left="434.7" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.當日投入]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text12" Left="529.2" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.當日報廢]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text14" Left="623.7" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.當日庫存]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="68.24" Width="718.2" Height="18.9"/>
+  </ReportPage>
+</Report>

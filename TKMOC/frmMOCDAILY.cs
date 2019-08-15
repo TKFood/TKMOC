@@ -65,6 +65,8 @@ namespace TKMOC
             comboBox3load();
             comboBox4load();
             comboBox5load();
+            comboBox6load();
+            comboBox7load();
 
             SEARCHMOCDAILYRECORDNG();
             SEARCHMOCDAILYRECORDNG2();
@@ -175,6 +177,50 @@ namespace TKMOC
 
 
         }
+
+        public void comboBox6load()
+        {
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT [ID],[NAME]  FROM [TKMOC].[dbo].[MOCDAILYSLOTNAME] ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("ID", typeof(string));
+            dt.Columns.Add("NAME", typeof(string));
+            da.Fill(dt);
+            comboBox6.DataSource = dt.DefaultView;
+            comboBox6.ValueMember = "NAME";
+            comboBox6.DisplayMember = "NAME";
+            sqlConn.Close();
+
+
+        }
+
+        public void comboBox7load()
+        {
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT [ID],[NAME]  FROM [TKMOC].[dbo].[MOCDAILYSLOTNAME] ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("ID", typeof(string));
+            dt.Columns.Add("NAME", typeof(string));
+            da.Fill(dt);
+            comboBox7.DataSource = dt.DefaultView;
+            comboBox7.ValueMember = "NAME";
+            comboBox7.DisplayMember = "NAME";
+            sqlConn.Close();
+
+
+        }
+
+
 
         public void SETFASTREPORT()
         {
@@ -964,6 +1010,39 @@ namespace TKMOC
 
         }
 
+        public void SETFASTREPORT6()
+        {
+            StringBuilder SQL1 = new StringBuilder();
+            StringBuilder SQL2 = new StringBuilder();
+
+            SQL1 = SETSQL6();
+
+            Report report6 = new Report();
+            report6.Load(@"REPORT\生產報表-每日得料率報表-桶數報廢.frx");
+
+            report6.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+            TableDataSource table = report6.GetDataSource("Table") as TableDataSource;
+            table.SelectCommand = SQL1.ToString();
+
+            report6.Preview = previewControl5;
+            report6.Show();
+        }
+
+        public StringBuilder SETSQL6()
+        {
+            StringBuilder SB = new StringBuilder();
+
+            SB.AppendFormat(" SELECT [PROD] AS '口味',CONVERT(NVARCHAR, [DATES],112) AS '日期',[LASTSLOT] AS '前日庫存',[PRODOUT] AS '當日產出',[PRODIN] AS '當日投入',[NG] AS '當日報廢',[NOWSLOT] AS '當日庫存'");
+            SB.AppendFormat(" FROM [TKMOC].[dbo].[MOCDAILYSLOT]");
+            SB.AppendFormat(" WHERE CONVERT(NVARCHAR, [DATES],112)>='{0}'  ",dateTimePicker10.Value.ToString("yyyyMMdd"));
+            SB.AppendFormat(" AND [PROD] ='{0}'",comboBox6.Text);
+            SB.AppendFormat(" ORDER BY CONVERT(NVARCHAR, [DATES],112)");
+            SB.AppendFormat(" ");
+
+            return SB;
+
+        }
+
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
             SEARCHMOCDAILYRECORDNG();
@@ -1045,6 +1124,25 @@ namespace TKMOC
             SETFASTREPORT5();
         }
 
+        private void button14_Click(object sender, EventArgs e)
+        {
+            SETFASTREPORT6();
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button15_Click(object sender, EventArgs e)
+        {
+
+        }
 
 
         #endregion
