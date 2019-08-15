@@ -1963,6 +1963,7 @@
             this.textBox22.Size = new System.Drawing.Size(167, 27);
             this.textBox22.TabIndex = 21;
             this.textBox22.Text = "0";
+            this.textBox22.TextChanged += new System.EventHandler(this.textBox22_TextChanged);
             // 
             // textBox23
             // 
@@ -1972,6 +1973,7 @@
             this.textBox23.Size = new System.Drawing.Size(167, 27);
             this.textBox23.TabIndex = 22;
             this.textBox23.Text = "0";
+            this.textBox23.TextChanged += new System.EventHandler(this.textBox23_TextChanged);
             // 
             // textBox24
             // 
@@ -1981,6 +1983,7 @@
             this.textBox24.Size = new System.Drawing.Size(167, 27);
             this.textBox24.TabIndex = 23;
             this.textBox24.Text = "0";
+            this.textBox24.TextChanged += new System.EventHandler(this.textBox24_TextChanged);
             // 
             // textBox25
             // 

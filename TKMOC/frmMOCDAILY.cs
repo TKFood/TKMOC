@@ -40,9 +40,12 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
         SqlDataAdapter adapter2 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder2 = new SqlCommandBuilder();
+        SqlDataAdapter adapter3 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder3 = new SqlCommandBuilder();
         SqlCommand cmd = new SqlCommand();
         DataSet ds = new DataSet();
         DataSet ds2 = new DataSet();
+        DataSet ds3= new DataSet();
         DataTable dt = new DataTable();
         string tablename = null;
         int rownum = 0;
@@ -1053,6 +1056,86 @@ namespace TKMOC
             SEARCHMOCDAILYRECORDNG2();
         }
 
+        public string GETNOWSLOT()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  SELECT TOP 1 [NOWSLOT] ");
+                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCDAILYSLOT] ");
+                sbSql.AppendFormat(@"  WHERE [PROD] ='{0}' ",comboBox6.Text);
+                sbSql.AppendFormat(@"  ORDER BY CONVERT(NVARCHAR, [DATES],112) DESC");
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+                adapter3 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder3 = new SqlCommandBuilder(adapter3);
+                sqlConn.Open();
+                ds3.Clear();
+                adapter3.Fill(ds3, "ds3");
+                sqlConn.Close();
+
+
+                if (ds3.Tables["ds3"].Rows.Count == 0)
+                {
+                    return "0";
+                }
+                else
+                {
+                    if (ds3.Tables["ds3"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        return ds3.Tables["ds3"].Rows[0]["NOWSLOT"].ToString();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                    return "0";
+                }
+
+            }
+            catch
+            {
+                return "0";
+            }
+            finally
+            {
+                
+            }
+        }
+
+        public void SETTEXTBOX25()
+        {
+            if(!string.IsNullOrEmpty(textBox21.Text)&& !string.IsNullOrEmpty(textBox22.Text) && !string.IsNullOrEmpty(textBox23.Text) && !string.IsNullOrEmpty(textBox24.Text))
+            {
+                textBox25.Text = (Convert.ToDecimal(textBox21.Text) + Convert.ToDecimal(textBox22.Text) - Convert.ToDecimal(textBox23.Text) - Convert.ToDecimal(textBox24.Text)).ToString();
+            }
+           
+        }
+
+
+        private void textBox22_TextChanged(object sender, EventArgs e)
+        {
+            textBox21.Text = GETNOWSLOT().ToString();
+            SETTEXTBOX25();
+        }
+
+        private void textBox23_TextChanged(object sender, EventArgs e)
+        {
+            textBox21.Text = GETNOWSLOT().ToString();
+            SETTEXTBOX25();
+        }
+
+        private void textBox24_TextChanged(object sender, EventArgs e)
+        {
+            textBox21.Text = GETNOWSLOT().ToString();
+            SETTEXTBOX25();
+        }
         #endregion
 
         #region BUTTON
@@ -1131,7 +1214,7 @@ namespace TKMOC
 
         private void button12_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void button13_Click(object sender, EventArgs e)
@@ -1145,8 +1228,9 @@ namespace TKMOC
         }
 
 
+
         #endregion
 
-
+       
     }
 }
