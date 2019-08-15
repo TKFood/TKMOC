@@ -320,6 +320,14 @@ namespace TKMOC
 
         }
 
+        public void SETNULL5()
+        {
+            textBox21.Text = "0";
+            textBox22.Text = "0";
+            textBox23.Text = "0";
+            textBox24.Text = "0";
+            textBox25.Text = "0";
+        }
 
         public void ADDMOCDAILYRECORDNG()
         {
@@ -1037,8 +1045,41 @@ namespace TKMOC
 
             SB.AppendFormat(" SELECT [PROD] AS '口味',CONVERT(NVARCHAR, [DATES],112) AS '日期',[LASTSLOT] AS '前日庫存',[PRODOUT] AS '當日產出',[PRODIN] AS '當日投入',[NG] AS '當日報廢',[NOWSLOT] AS '當日庫存'");
             SB.AppendFormat(" FROM [TKMOC].[dbo].[MOCDAILYSLOT]");
-            SB.AppendFormat(" WHERE CONVERT(NVARCHAR, [DATES],112)>='{0}'  ",dateTimePicker10.Value.ToString("yyyyMMdd"));
+            SB.AppendFormat(" WHERE CONVERT(NVARCHAR, [DATES],112)='{0}'  ",dateTimePicker10.Value.ToString("yyyyMMdd"));
             SB.AppendFormat(" AND [PROD] ='{0}'",comboBox6.Text);
+            SB.AppendFormat(" ORDER BY CONVERT(NVARCHAR, [DATES],112)");
+            SB.AppendFormat(" ");
+
+            return SB;
+
+        }
+
+        public void SETFASTREPORT7()
+        {
+            StringBuilder SQL1 = new StringBuilder();
+            StringBuilder SQL2 = new StringBuilder();
+
+            SQL1 = SETSQL7();
+
+            Report report7 = new Report();
+            report7.Load(@"REPORT\生產報表-每日得料率報表-桶數報廢.frx");
+
+            report7.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+            TableDataSource table = report7.GetDataSource("Table") as TableDataSource;
+            table.SelectCommand = SQL1.ToString();
+
+            report7.Preview = previewControl5;
+            report7.Show();
+        }
+
+        public StringBuilder SETSQL7()
+        {
+            StringBuilder SB = new StringBuilder();
+
+            SB.AppendFormat(" SELECT [PROD] AS '口味',CONVERT(NVARCHAR, [DATES],112) AS '日期',[LASTSLOT] AS '前日庫存',[PRODOUT] AS '當日產出',[PRODIN] AS '當日投入',[NG] AS '當日報廢',[NOWSLOT] AS '當日庫存'");
+            SB.AppendFormat(" FROM [TKMOC].[dbo].[MOCDAILYSLOT]");
+            SB.AppendFormat(" WHERE CONVERT(NVARCHAR, [DATES],112)>='{0}' AND  CONVERT(NVARCHAR, [DATES],112)<='{1}'  ", dateTimePicker13.Value.ToString("yyyyMMdd"), dateTimePicker14.Value.ToString("yyyyMMdd"));
+            SB.AppendFormat(" AND [PROD] ='{0}'", comboBox7.Text);
             SB.AppendFormat(" ORDER BY CONVERT(NVARCHAR, [DATES],112)");
             SB.AppendFormat(" ");
 
@@ -1068,7 +1109,7 @@ namespace TKMOC
 
                 sbSql.AppendFormat(@"  SELECT TOP 1 [NOWSLOT] ");
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCDAILYSLOT] ");
-                sbSql.AppendFormat(@"  WHERE [PROD] ='{0}' ",comboBox6.Text);
+                sbSql.AppendFormat(@"  WHERE [PROD] ='{0}'  AND CONVERT(NVARCHAR, [DATES],112)<='{1}' ", comboBox6.Text,dateTimePicker10.Value.ToString("yyyyMMdd"));
                 sbSql.AppendFormat(@"  ORDER BY CONVERT(NVARCHAR, [DATES],112) DESC");
                 sbSql.AppendFormat(@"  ");
                 sbSql.AppendFormat(@"  ");
@@ -1121,21 +1162,135 @@ namespace TKMOC
 
         private void textBox22_TextChanged(object sender, EventArgs e)
         {
-            textBox21.Text = GETNOWSLOT().ToString();
+            
             SETTEXTBOX25();
         }
 
         private void textBox23_TextChanged(object sender, EventArgs e)
         {
-            textBox21.Text = GETNOWSLOT().ToString();
+           
             SETTEXTBOX25();
         }
 
         private void textBox24_TextChanged(object sender, EventArgs e)
         {
+            
+            SETTEXTBOX25();
+        }
+
+
+        public void ADDMOCDAILYSLOT()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat("  INSERT [TKMOC].[dbo].[MOCDAILYSLOT]");
+                sbSql.AppendFormat("  ([PROD],[DATES],[LASTSLOT],[PRODOUT],[PRODIN],[NG],[NOWSLOT])");
+                sbSql.AppendFormat("  VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}')",comboBox6.Text, dateTimePicker10.Value.ToString("yyyy/MM/dd"), textBox21.Text, textBox22.Text, textBox23.Text, textBox24.Text, textBox25.Text);
+                sbSql.AppendFormat("  ");
+                sbSql.AppendFormat("  ");
+                sbSql.AppendFormat("  ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+
+                    MessageBox.Show("失敗");
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+                    MessageBox.Show("成功");
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+        public void UPDATEMOCDAILYSLOT()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat(" UPDATE [TKMOC].[dbo].[MOCDAILYSLOT]");
+                sbSql.AppendFormat(" SET [LASTSLOT]='{0}',[PRODOUT]='{1}',[PRODIN]='{2}',[NG]='{3}',[NOWSLOT]='{4}'",textBox21.Text, textBox22.Text, textBox23.Text, textBox24.Text, textBox25.Text);
+                sbSql.AppendFormat(" WHERE [PROD]='{0}' AND CONVERT(NVARCHAR, [DATES],112)='{1}'", comboBox6.Text,dateTimePicker10.Value.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(" ");
+                sbSql.AppendFormat(" ");
+                sbSql.AppendFormat(" ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                    MessageBox.Show("失敗");
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+                    MessageBox.Show("成功");
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        private void comboBox6_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            textBox21.Text = "0";
             textBox21.Text = GETNOWSLOT().ToString();
             SETTEXTBOX25();
         }
+
+        private void textBox21_TextChanged(object sender, EventArgs e)
+        {
+            SETTEXTBOX25();
+        }
+
         #endregion
 
         #region BUTTON
@@ -1214,18 +1369,26 @@ namespace TKMOC
 
         private void button12_Click(object sender, EventArgs e)
         {
-            
+            ADDMOCDAILYSLOT();
+            SETNULL5();
+
+            SETFASTREPORT6();
         }
 
         private void button13_Click(object sender, EventArgs e)
         {
+            UPDATEMOCDAILYSLOT();
+            SETNULL5();
 
+            SETFASTREPORT6();
         }
 
         private void button15_Click(object sender, EventArgs e)
         {
-
+            SETFASTREPORT7();
         }
+
+
 
 
 
