@@ -393,6 +393,17 @@ namespace TKMOC
             textBox25.Text = "0";
         }
 
+        public void SETNULL6()
+        {
+            textBox26.Text = "0";
+            textBox27.Text = "0";
+            textBox28.Text = "0";
+            textBox29.Text = "0";
+            textBox30.Text = "0";
+            textBox31.Text = "0";
+            textBox32.Text = "0";
+        }
+
         public void ADDMOCDAILYRECORDNG()
         {
             try
@@ -1165,7 +1176,7 @@ namespace TKMOC
             TableDataSource table = report8.GetDataSource("Table") as TableDataSource;
             table.SelectCommand = SQL1.ToString();
 
-            report8.Preview = previewControl5;
+            report8.Preview = previewControl6;
             report8.Show();
         }
 
@@ -1176,9 +1187,45 @@ namespace TKMOC
             SB.AppendFormat(" SELECT");
             SB.AppendFormat(" [MOC] AS '線別',CONVERT(NVARCHAR,[DATES],112) AS '日期',[PROD] AS '品名',[SLOT] AS '桶數',[OVERCOOK] AS '烤焦(KG)',[COOKIESTIME] AS '攪餅麩時間(分)',[COOKIESWH] AS '攪餅麩工時',[NOCOOK] AS '未熟(KG)',[REWORK] AS '重工時間',[RECOOK] AS '重烤時間工時'");
             SB.AppendFormat(" FROM [TKMOC].[dbo].[MOCDAILYRECORDCOOK]");
-            SB.AppendFormat(" WHERE  CONVERT(NVARCHAR,[DATES],112)='{0}' ",dateTimePicker11.Value.ToString("yyyyMMdd"));
+            SB.AppendFormat(" WHERE  CONVERT(NVARCHAR,[DATES],112)='{0}' ",dateTimePicker15.Value.ToString("yyyyMMdd"));
             SB.AppendFormat(" AND [MOC]='{0}'", comboBox11.Text);
             SB.AppendFormat(" AND [PROD]='{0}'", comboBox8.Text);
+            SB.AppendFormat(" ");
+            SB.AppendFormat(" ");
+            SB.AppendFormat(" ");
+
+            return SB;
+
+        }
+
+        public void SETFASTREPORT9()
+        {
+            StringBuilder SQL1 = new StringBuilder();
+            StringBuilder SQL2 = new StringBuilder();
+
+            SQL1 = SETSQL9();
+
+            Report report9 = new Report();
+            report9.Load(@"REPORT\生產報表-每日得料率報表-烘烤.frx");
+
+            report9.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+            TableDataSource table = report9.GetDataSource("Table") as TableDataSource;
+            table.SelectCommand = SQL1.ToString();
+
+            report9.Preview = previewControl6;
+            report9.Show();
+        }
+
+        public StringBuilder SETSQL9()
+        {
+            StringBuilder SB = new StringBuilder();
+
+            SB.AppendFormat(" SELECT");
+            SB.AppendFormat(" [MOC] AS '線別',CONVERT(NVARCHAR,[DATES],112) AS '日期',[PROD] AS '品名',[SLOT] AS '桶數',[OVERCOOK] AS '烤焦(KG)',[COOKIESTIME] AS '攪餅麩時間(分)',[COOKIESWH] AS '攪餅麩工時',[NOCOOK] AS '未熟(KG)',[REWORK] AS '重工時間',[RECOOK] AS '重烤時間工時'");
+            SB.AppendFormat(" FROM [TKMOC].[dbo].[MOCDAILYRECORDCOOK]");
+            SB.AppendFormat(" WHERE  CONVERT(NVARCHAR,[DATES],112)>='{0}' AND  CONVERT(NVARCHAR,[DATES],112)<='{1}'", dateTimePicker16.Value.ToString("yyyyMMdd"), dateTimePicker17.Value.ToString("yyyyMMdd"));
+            SB.AppendFormat(" AND [MOC]='{0}'", comboBox10.Text);
+            SB.AppendFormat(" ORDER BY [PROD]");
             SB.AppendFormat(" ");
             SB.AppendFormat(" ");
             SB.AppendFormat(" ");
@@ -1379,6 +1426,106 @@ namespace TKMOC
             }
         }
 
+        public void ADDMOCDAILYRECORDCOOK()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat("  INSERT INTO [TKMOC].[dbo].[MOCDAILYRECORDCOOK]");
+                sbSql.AppendFormat("  ([MOC],[DATES],[PROD],[SLOT],[OVERCOOK],[COOKIESTIME],[COOKIESWH],[NOCOOK],[REWORK],[RECOOK])");
+                sbSql.AppendFormat("  VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}')", comboBox11.Text, dateTimePicker15.Value.ToString("yyyy/MM/dd"),comboBox8.Text,textBox26.Text, textBox27.Text, textBox28.Text, textBox29.Text, textBox30.Text, textBox31.Text, textBox32.Text);
+                sbSql.AppendFormat("  ");
+                sbSql.AppendFormat("  ");
+                sbSql.AppendFormat("  ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+
+                    MessageBox.Show("失敗");
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+                    MessageBox.Show("成功");
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+        public void UPDATEMOCDAILYRECORDCOOK()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat(" UPDATE [TKMOC].[dbo].[MOCDAILYRECORDCOOK]");
+                sbSql.AppendFormat(" SET [SLOT]='{0}',[OVERCOOK]='{1}',[COOKIESTIME]='{2}',[COOKIESWH]='{3}',[NOCOOK]='{4}',[REWORK]='{5}',[RECOOK]='{6}'", textBox26.Text, textBox27.Text, textBox28.Text, textBox29.Text, textBox30.Text, textBox31.Text, textBox32.Text);
+                sbSql.AppendFormat(" WHERE  CONVERT(VARCHAR,[DATES],112)='{0}' AND [MOC]='{1}' AND [PROD]='{2}'", dateTimePicker15.Value.ToString("yyyyMMdd"), comboBox11.Text, comboBox8.Text);
+                sbSql.AppendFormat(" ");
+                sbSql.AppendFormat(" ");
+                sbSql.AppendFormat(" ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                    MessageBox.Show("失敗");
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+                    MessageBox.Show("成功");
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
         private void comboBox6_SelectedIndexChanged(object sender, EventArgs e)
         {
             textBox21.Text = "0";
@@ -1505,17 +1652,24 @@ namespace TKMOC
 
         private void button16_Click(object sender, EventArgs e)
         {
+            ADDMOCDAILYRECORDCOOK();
+            SETNULL6();
 
+            SETFASTREPORT8();
         }
 
         private void button17_Click(object sender, EventArgs e)
         {
+            UPDATEMOCDAILYRECORDCOOK();
+            SETNULL6();
+
+            SETFASTREPORT8();
 
         }
 
         private void button19_Click(object sender, EventArgs e)
         {
-
+            SETFASTREPORT9();
         }
 
 
