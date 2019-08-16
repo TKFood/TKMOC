@@ -70,6 +70,9 @@ namespace TKMOC
             comboBox5load();
             comboBox6load();
             comboBox7load();
+            comboBox8load();
+            comboBox10load();
+            comboBox11load();
 
             SEARCHMOCDAILYRECORDNG();
             SEARCHMOCDAILYRECORDNG2();
@@ -223,6 +226,67 @@ namespace TKMOC
 
         }
 
+        public void comboBox10load()
+        {
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 LIKE '新廠%'  AND MD002 IN ('新廠製二組','新廠製一組') ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("MD001", typeof(string));
+            dt.Columns.Add("MD002", typeof(string));
+            da.Fill(dt);
+            comboBox10.DataSource = dt.DefaultView;
+            comboBox10.ValueMember = "MD002";
+            comboBox10.DisplayMember = "MD002";
+            sqlConn.Close();
+
+
+        }
+        public void comboBox11load()
+        {
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 LIKE '新廠%'  AND MD002 IN ('新廠製二組','新廠製一組') ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("MD001", typeof(string));
+            dt.Columns.Add("MD002", typeof(string));
+            da.Fill(dt);
+            comboBox11.DataSource = dt.DefaultView;
+            comboBox11.ValueMember = "MD002";
+            comboBox11.DisplayMember = "MD002";
+            sqlConn.Close();
+
+
+        }
+
+        public void comboBox8load()
+        {
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT TA034 ,MD002 FROM [TK].dbo.MOCTA ,[TK].dbo.CMSMD WHERE TA021=MD001  AND MD002='{0}' AND  TA003='{1}' ORDER BY TA034", comboBox11.Text,dateTimePicker15.Value.ToString("yyyyMMdd"));
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("TA034", typeof(string));
+            
+            da.Fill(dt);
+            comboBox8.DataSource = dt.DefaultView;
+            comboBox8.ValueMember = "TA034";
+            comboBox8.DisplayMember = "TA034";
+            sqlConn.Close();
+
+
+        }
 
 
         public void SETFASTREPORT()
@@ -1087,6 +1151,42 @@ namespace TKMOC
 
         }
 
+        public void SETFASTREPORT8()
+        {
+            StringBuilder SQL1 = new StringBuilder();
+            StringBuilder SQL2 = new StringBuilder();
+
+            SQL1 = SETSQL8();
+
+            Report report8 = new Report();
+            report8.Load(@"REPORT\生產報表-每日得料率報表-烘烤.frx");
+
+            report8.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+            TableDataSource table = report8.GetDataSource("Table") as TableDataSource;
+            table.SelectCommand = SQL1.ToString();
+
+            report8.Preview = previewControl5;
+            report8.Show();
+        }
+
+        public StringBuilder SETSQL8()
+        {
+            StringBuilder SB = new StringBuilder();
+
+            SB.AppendFormat(" SELECT");
+            SB.AppendFormat(" [MOC] AS '線別',CONVERT(NVARCHAR,[DATES],112) AS '日期',[PROD] AS '品名',[SLOT] AS '桶數',[OVERCOOK] AS '烤焦(KG)',[COOKIESTIME] AS '攪餅麩時間(分)',[COOKIESWH] AS '攪餅麩工時',[NOCOOK] AS '未熟(KG)',[REWORK] AS '重工時間',[RECOOK] AS '重烤時間工時'");
+            SB.AppendFormat(" FROM [TKMOC].[dbo].[MOCDAILYRECORDCOOK]");
+            SB.AppendFormat(" WHERE  CONVERT(NVARCHAR,[DATES],112)='{0}' ",dateTimePicker11.Value.ToString("yyyyMMdd"));
+            SB.AppendFormat(" AND [MOC]='{0}'", comboBox11.Text);
+            SB.AppendFormat(" AND [PROD]='{0}'", comboBox8.Text);
+            SB.AppendFormat(" ");
+            SB.AppendFormat(" ");
+            SB.AppendFormat(" ");
+
+            return SB;
+
+        }
+
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
             SEARCHMOCDAILYRECORDNG();
@@ -1291,6 +1391,15 @@ namespace TKMOC
             SETTEXTBOX25();
         }
 
+        private void dateTimePicker15_ValueChanged(object sender, EventArgs e)
+        {
+            comboBox8load();
+        }
+
+        private void comboBox11_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            comboBox8load();
+        }
         #endregion
 
         #region BUTTON
@@ -1389,11 +1498,31 @@ namespace TKMOC
         }
 
 
+        private void button18_Click(object sender, EventArgs e)
+        {
+            SETFASTREPORT8();
+        }
+
+        private void button16_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button17_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button19_Click(object sender, EventArgs e)
+        {
+
+        }
+
 
 
 
         #endregion
 
-       
+
     }
 }

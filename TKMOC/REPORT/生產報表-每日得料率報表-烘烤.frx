@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="08/16/2019 11:03:31" ReportInfo.Modified="08/16/2019 11:09:38" ReportInfo.CreatorVersion="2016.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9KhIEFp4K2DwtQub8TKENVz">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="/****** SSMS 中 SelectTopNRows 命令的指令碼  ******/&#13;&#10;SELECT&#13;&#10;[MOC] AS '線別'&#13;&#10;,CONVERT(NVARCHAR,[DATES],112) AS '日期'&#13;&#10;,[PROD] AS '品名'&#13;&#10;,[SLOT] AS '桶數'&#13;&#10;,[OVERCOOK] AS '烤焦(KG)'&#13;&#10;,[COOKIESTIME] AS '攪餅麩時間(分)'&#13;&#10;,[COOKIESWH] AS '攪餅麩工時'&#13;&#10;,[NOCOOK] AS '未熟(KG)'&#13;&#10;,[REWORK] AS '重工時間'&#13;&#10;,[RECOOK] AS '重烤時間工時'&#13;&#10;FROM [TKMOC].[dbo].[MOCDAILYRECORDCOOK]&#13;&#10;WHERE  CONVERT(NVARCHAR,[DATES],112)='20190816' &#13;&#10;AND [MOC]='線1' &#13;&#10;AND [PROD]='芝麻'">
+        <Column Name="線別" DataType="System.String"/>
+        <Column Name="日期" DataType="System.String"/>
+        <Column Name="品名" DataType="System.String"/>
+        <Column Name="桶數" DataType="System.Decimal"/>
+        <Column Name="烤焦(KG)" DataType="System.Decimal"/>
+        <Column Name="攪餅麩時間(分)" DataType="System.Decimal"/>
+        <Column Name="攪餅麩工時" DataType="System.Decimal"/>
+        <Column Name="未熟(KG)" DataType="System.Decimal"/>
+        <Column Name="重工時間" DataType="System.Decimal"/>
+        <Column Name="重烤時間工時" DataType="System.Decimal"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210">
+    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="18.9">
+      <TextObject Name="Text1" Left="18.9" Width="1048.95" Height="18.9" Text="烘烤記錄" HorzAlign="Center" VertAlign="Center"/>
+    </ReportTitleBand>
+    <ColumnHeaderBand Name="ColumnHeader1" Top="22.75" Width="1047.06" Height="18.9">
+      <TextObject Name="Text3" Width="94.5" Height="18.9" Border.Lines="All" Text="線別" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text5" Left="94.5" Width="94.5" Height="18.9" Border.Lines="All" Text="日期" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text7" Left="189" Width="179.55" Height="18.9" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text9" Left="368.55" Width="94.5" Height="18.9" Border.Lines="All" Text="桶數" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text11" Left="463.05" Width="94.5" Height="18.9" Border.Lines="All" Text="烤焦(KG)" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text13" Left="557.55" Width="113.4" Height="18.9" Border.Lines="All" Text="攪餅麩時間(分)" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text15" Left="670.95" Width="94.5" Height="18.9" Border.Lines="All" Text="攪餅麩工時" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text17" Left="765.45" Width="94.5" Height="18.9" Border.Lines="All" Text="未熟(KG)" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text19" Left="859.95" Width="94.5" Height="18.9" Border.Lines="All" Text="重工時間" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text21" Left="954.45" Width="94.5" Height="18.9" Border.Lines="All" Text="重烤時間工時" HorzAlign="Center" VertAlign="Center"/>
+    </ColumnHeaderBand>
+    <DataBand Name="Data1" Top="45.49" Width="1047.06" Height="18.9" DataSource="Table">
+      <TextObject Name="Text2" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.線別]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text4" Left="94.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.日期]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text6" Left="189" Width="179.55" Height="18.9" Border.Lines="All" Text="[Table.品名]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text8" Left="368.55" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.桶數]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text10" Left="463.05" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.烤焦(KG)]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text12" Left="557.55" Width="113.4" Height="18.9" Border.Lines="All" Text="[Table.攪餅麩時間(分)]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="4" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text14" Left="670.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.攪餅麩工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text16" Left="765.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.未熟(KG)]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text18" Left="859.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.重工時間]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text20" Left="954.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.重烤時間工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+    </DataBand>
+    <ColumnFooterBand Name="ColumnFooter1" Top="68.24" Width="1047.06" Height="37.8"/>
+  </ReportPage>
+</Report>
