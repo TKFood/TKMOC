@@ -207,21 +207,21 @@ namespace TKMOC
 
         public void comboBox7load()
         {
-            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
-            sqlConn = new SqlConnection(connectionString);
-            StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT [ID],[NAME]  FROM [TKMOC].[dbo].[MOCDAILYSLOTNAME] ");
-            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
-            DataTable dt = new DataTable();
-            sqlConn.Open();
+            //connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            //sqlConn = new SqlConnection(connectionString);
+            //StringBuilder Sequel = new StringBuilder();
+            //Sequel.AppendFormat(@"SELECT [ID],[NAME]  FROM [TKMOC].[dbo].[MOCDAILYSLOTNAME] ");
+            //SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            //DataTable dt = new DataTable();
+            //sqlConn.Open();
 
-            dt.Columns.Add("ID", typeof(string));
-            dt.Columns.Add("NAME", typeof(string));
-            da.Fill(dt);
-            comboBox7.DataSource = dt.DefaultView;
-            comboBox7.ValueMember = "NAME";
-            comboBox7.DisplayMember = "NAME";
-            sqlConn.Close();
+            //dt.Columns.Add("ID", typeof(string));
+            //dt.Columns.Add("NAME", typeof(string));
+            //da.Fill(dt);
+            //comboBox7.DataSource = dt.DefaultView;
+            //comboBox7.ValueMember = "NAME";
+            //comboBox7.DisplayMember = "NAME";
+            //sqlConn.Close();
 
 
         }
@@ -1154,8 +1154,8 @@ namespace TKMOC
             SB.AppendFormat(" SELECT [PROD] AS '口味',CONVERT(NVARCHAR, [DATES],112) AS '日期',[LASTSLOT] AS '前日庫存',[PRODOUT] AS '當日產出',[PRODIN] AS '當日投入',[NG] AS '當日報廢',[NOWSLOT] AS '當日庫存'");
             SB.AppendFormat(" FROM [TKMOC].[dbo].[MOCDAILYSLOT]");
             SB.AppendFormat(" WHERE CONVERT(NVARCHAR, [DATES],112)>='{0}' AND  CONVERT(NVARCHAR, [DATES],112)<='{1}'  ", dateTimePicker13.Value.ToString("yyyyMMdd"), dateTimePicker14.Value.ToString("yyyyMMdd"));
-            SB.AppendFormat(" AND [PROD] ='{0}'", comboBox7.Text);
-            SB.AppendFormat(" ORDER BY CONVERT(NVARCHAR, [DATES],112)");
+            //SB.AppendFormat(" AND [PROD] ='{0}'", comboBox7.Text);
+            SB.AppendFormat(" ORDER BY CONVERT(NVARCHAR, [DATES],112),[PROD]");
             SB.AppendFormat(" ");
 
             return SB;
