@@ -77,7 +77,7 @@ namespace TKMOC
             connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
             sqlConn = new SqlConnection(connectionString);
             StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT [Code],[Name] FROM [HRMDB].[dbo].[Department] WHERE [Code]  LIKE '103%' AND  [Name] NOT LIKE '%停用%' UNION ALL SELECT[Code],[Name] FROM [HRMDB].[dbo].[Department] WHERE [Name] NOT LIKE '%停用%' ");
+            Sequel.AppendFormat(@"SELECT [Code],[Name] FROM [HRMDB].[dbo].[Department] WHERE   [Name] NOT LIKE '%停用%' AND [Code]  LIKE '103%'   ");
             SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
             DataTable dt = new DataTable();
             sqlConn.Open();
