@@ -52,15 +52,23 @@ namespace TKMOC
         public void SETFASTREPORT()
         {
             StringBuilder SQL = new StringBuilder();
+            StringBuilder SQL2 = new StringBuilder();
+            StringBuilder SQL3 = new StringBuilder();
 
             SQL = SETSQL();
+            SQL2 = SETSQL2();
+            SQL3 = SETSQL3();
 
             Report report1 = new Report();
-            report1.Load(@"REPORT\生產工時比較.frx");
+            report1.Load(@"REPORT\工時包裝.frx");
 
             report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
             TableDataSource table = report1.GetDataSource("Table") as TableDataSource;
             table.SelectCommand = SQL.ToString();
+            TableDataSource table1 = report1.GetDataSource("Table1") as TableDataSource;
+            table1.SelectCommand = SQL2.ToString();
+            TableDataSource table2 = report1.GetDataSource("Table2") as TableDataSource;
+            table2.SelectCommand = SQL3.ToString();
 
             report1.Preview = previewControl1;
             report1.Show();
@@ -68,14 +76,61 @@ namespace TKMOC
 
         public StringBuilder SETSQL()
         {
-
-
             StringBuilder SB = new StringBuilder();
 
            
+            SB.AppendFormat(@" SELECT TA003 AS '生產日',SUM(ROUND(TA015/INVMB.UDF10,2)) AS '預計總工時',SUM(ROUND(TA017/INVMB.UDF10,2)) AS '實際總工時'");
+            SB.AppendFormat(@" FROM [TK].dbo.MOCTA,[TK].dbo.INVMB");
+            SB.AppendFormat(@" WHERE TA006=MB001");
+            SB.AppendFormat(@" AND TA021='09'");
+            SB.AppendFormat(@" AND TA003 LIKE '{0}%'",dateTimePicker1.Value.ToString("yyyyMM"));
+            SB.AppendFormat(@" AND INVMB.UDF10>0");
+            SB.AppendFormat(@" GROUP BY TA003");
+            SB.AppendFormat(@" ORDER BY TA003");
             SB.AppendFormat(@" ");
             SB.AppendFormat(@" ");
 
+
+            return SB;
+
+        }
+
+        public StringBuilder SETSQL2()
+        {
+            StringBuilder SB = new StringBuilder();
+
+
+            SB.AppendFormat(@" SELECT TA003 AS '生產日',TA006 AS '品號',INVMB.MB002 AS '品名',TA007 AS '單位', TA015 AS '預計產量', TA017 AS '已生產量',INVMB.UDF10 AS '平均生產量/小時',ROUND(TA015/INVMB.UDF10,2) AS '預計總工時',ROUND(TA017/INVMB.UDF10,2) AS '實際總工時',TA001 AS '製令單',TA002 AS '單號'");
+            SB.AppendFormat(@" FROM [TK].dbo.MOCTA,[TK].dbo.INVMB");
+            SB.AppendFormat(@" WHERE TA006=MB001");
+            SB.AppendFormat(@" AND TA021='09'");
+            SB.AppendFormat(@" AND TA003 LIKE '{0}%'",dateTimePicker1.Value.ToString("yyyyMM"));
+            SB.AppendFormat(@" AND INVMB.UDF10>0");
+            SB.AppendFormat(@" ORDER BY TA003,TA006,INVMB.MB002,TA007,INVMB.UDF10 ");
+            SB.AppendFormat(@" ");
+            SB.AppendFormat(@" ");
+            SB.AppendFormat(@" ");
+            SB.AppendFormat(@" ");
+            SB.AppendFormat(@" ");
+
+
+            return SB;
+
+        }
+
+        public StringBuilder SETSQL3()
+        {
+            StringBuilder SB = new StringBuilder();
+
+
+            SB.AppendFormat(@" SELECT TA006 AS '品號',INVMB.MB002 AS '品名',TA003 AS '生產日',TA007 AS '單位',TA001 AS '製令單',TA002 AS '單號',TA015 AS '預計產量',TA017 AS '已生產量',INVMB.UDF10 AS '平均生產量/小時'");
+            SB.AppendFormat(@" FROM [TK].dbo.MOCTA,[TK].dbo.INVMB");
+            SB.AppendFormat(@" WHERE TA006=MB001");
+            SB.AppendFormat(@" AND TA021='09'");
+            SB.AppendFormat(@" AND TA003 LIKE '201908%'");
+            SB.AppendFormat(@" AND INVMB.UDF10=0");
+            SB.AppendFormat(@" ORDER BY TA003,TA006");
+            SB.AppendFormat(@"  ");
 
 
             return SB;
