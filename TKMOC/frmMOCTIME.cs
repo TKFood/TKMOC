@@ -40,6 +40,8 @@ namespace TKMOC
         DataTable dt = new DataTable();
         string tablename = null;
         int rownum = 0;
+        int result;
+        SqlTransaction tran;
 
         public frmMOCTIME()
         {
@@ -70,20 +72,7 @@ namespace TKMOC
 
             StringBuilder SB = new StringBuilder();
 
-            SB.AppendFormat(@" SELECT CSTMB.MB001 AS '線代',CSTMB.MB002 AS '日期',CSTMB.MB003 AS '製令單',CSTMB.MB004 AS '製令',CSTMB.MB005 AS '總小時',CSTMB.MB007 AS '品號'");
-            SB.AppendFormat(@" ,MOCTA.TA007 AS '單位',MOCTA.TA034 AS '品名',MOCTA.TA035 AS '規格',MOCTA.TA017 AS '生產量'");
-            SB.AppendFormat(@" ,ISNULL([AVGTIME],0) AS '每個標準工時'");
-            SB.AppendFormat(@" ,ISNULL([AVGTIME],0)*MOCTA.TA017 AS '標準總工時'");
-            SB.AppendFormat(@" ,CSTMB.MB005*60 AS '實際總工時'");
-            SB.AppendFormat(@" ,MD002 AS '線別'");
-            SB.AppendFormat(@" ,(CSTMB.MB005*60-(ISNULL([AVGTIME],0)*MOCTA.TA017)) AS '工時差異'");
-            SB.AppendFormat(@" FROM [TK].dbo.MOCTA,[TK].dbo.CMSMD,[TK].dbo.CSTMB");
-            SB.AppendFormat(@" LEFT JOIN [TKMOC].[dbo].[MOCCOSTTIME] ON [MOCCOSTTIME].[MB001]=[CSTMB].[MB007]");
-            SB.AppendFormat(@" WHERE CSTMB.MB003=TA001 AND CSTMB.MB004=TA002");
-            SB.AppendFormat(@" AND TA021=MD001");
-            SB.AppendFormat(@" AND CSTMB.MB001 NOT IN ('08')  ");
-            SB.AppendFormat(@" AND CSTMB.MB002>='{0}' AND CSTMB.MB002<='{1}'",dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
-            SB.AppendFormat(@" ORDER BY MD002,CSTMB.MB002,CSTMB.MB005");
+           
             SB.AppendFormat(@" ");
             SB.AppendFormat(@" ");
 
@@ -91,6 +80,65 @@ namespace TKMOC
 
             return SB;
 
+        }
+
+        public void UPDATEINVMBUDF10()
+        {
+            DateTime dt = DateTime.Now;
+            DateTime lastmoneth = dt.AddMonths(-1);
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+             
+                sbSql.AppendFormat("  UPDATE [TK].dbo.INVMB");
+                sbSql.AppendFormat("  SET UDF10=平均生產量小時");
+                sbSql.AppendFormat("  FROM (SELECT SUM(CSTMB.MB005) AS '人時',SUM(TA017) AS '生產量',ROUND(SUM(TA017)/SUM(CSTMB.MB005),4) AS '平均生產量小時',TA006,TA007,INVMB.MB002");
+                sbSql.AppendFormat("  FROM [TK].dbo.CSTMB,[TK].dbo.MOCTA,[TK].dbo.INVMB");
+                sbSql.AppendFormat("  WHERE CSTMB.MB003=TA001 AND CSTMB.MB004=TA002");
+                sbSql.AppendFormat("  AND INVMB.MB001=TA006");
+                sbSql.AppendFormat("  AND CSTMB.MB001='09'");
+                sbSql.AppendFormat("  AND (CSTMB.MB002 LIKE '{0}%' OR CSTMB.MB002 LIKE '{1}%')",dt.ToString("yyyyMM"), lastmoneth.ToString("yyyyMM"));
+                sbSql.AppendFormat("  GROUP BY TA006,TA007,INVMB.MB002) AS TEMP");
+                sbSql.AppendFormat("  WHERE TEMP.TA006=MB001 ");
+                sbSql.AppendFormat("   ");
+                sbSql.AppendFormat("   ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+
+                    MessageBox.Show("失敗");
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+                    MessageBox.Show("成功");
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
         }
         #endregion
 
@@ -100,6 +148,13 @@ namespace TKMOC
         {
             SETFASTREPORT();
         }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            UPDATEINVMBUDF10();
+        }
+
         #endregion
+
+
     }
 }

@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="08/28/2019 13:41:16" ReportInfo.Modified="08/28/2019 13:58:24" ReportInfo.CreatorVersion="2016.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9ISYHp4iPoS5W1Gvs99rXxV">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT TA003 AS '生產日',SUM(ROUND(TA015/INVMB.UDF10,2)) AS '預計總工時',SUM(ROUND(TA017/INVMB.UDF10,2)) AS '實際總工時'&#13;&#10;FROM [TK].dbo.MOCTA,[TK].dbo.INVMB&#13;&#10;WHERE TA006=MB001&#13;&#10;AND TA021='09'&#13;&#10;AND TA003 LIKE '201908%'&#13;&#10;AND INVMB.UDF10&gt;0&#13;&#10;GROUP BY TA003&#13;&#10;ORDER BY TA003">
+        <Column Name="生產日" DataType="System.String"/>
+        <Column Name="預計總工時" DataType="System.Decimal"/>
+        <Column Name="實際總工時" DataType="System.Decimal"/>
+      </TableDataSource>
+      <TableDataSource Name="Table1" DataType="System.Int32" Enabled="true" SelectCommand="SELECT TA003 AS '生產日',TA006 AS '品號',INVMB.MB002 AS '品名',TA007 AS '單位', TA015 AS '預計產量', TA017 AS '已生產量',INVMB.UDF10 AS '平均生產量/小時',ROUND(TA015/INVMB.UDF10,2) AS '預計總工時',ROUND(TA017/INVMB.UDF10,2) AS '實際總工時',TA001 AS '製令單',TA002 AS '單號'&#13;&#10;FROM [TK].dbo.MOCTA,[TK].dbo.INVMB&#13;&#10;WHERE TA006=MB001&#13;&#10;AND TA021='09'&#13;&#10;AND TA003 LIKE '201908%'&#13;&#10;AND INVMB.UDF10&gt;0&#13;&#10;ORDER BY TA003,TA006,INVMB.MB002,TA007,INVMB.UDF10">
+        <Column Name="生產日" DataType="System.String"/>
+        <Column Name="品號" DataType="System.String"/>
+        <Column Name="品名" DataType="System.String"/>
+        <Column Name="單位" DataType="System.String"/>
+        <Column Name="預計產量" DataType="System.Decimal"/>
+        <Column Name="已生產量" DataType="System.Decimal"/>
+        <Column Name="平均生產量/小時" DataType="System.Decimal"/>
+        <Column Name="預計總工時" DataType="System.Decimal"/>
+        <Column Name="實際總工時" DataType="System.Decimal"/>
+        <Column Name="製令單" DataType="System.String"/>
+        <Column Name="單號" DataType="System.String"/>
+      </TableDataSource>
+      <TableDataSource Name="Table2" DataType="System.Int32" Enabled="true" SelectCommand="SELECT TA006 AS '品號',INVMB.MB002 AS '品名',TA003 AS '生產日',TA007 AS '單位',TA001 AS '製令單',TA002 AS '單號',TA015 AS '預計產量',TA017 AS '已生產量',INVMB.UDF10 AS '平均生產量/小時'&#13;&#10;FROM [TK].dbo.MOCTA,[TK].dbo.INVMB&#13;&#10;WHERE TA006=MB001&#13;&#10;AND TA021='09'&#13;&#10;AND TA003 LIKE '201908%'&#13;&#10;AND INVMB.UDF10=0&#13;&#10;ORDER BY TA003,TA006">
+        <Column Name="品號" DataType="System.String"/>
+        <Column Name="品名" DataType="System.String"/>
+        <Column Name="生產日" DataType="System.String"/>
+        <Column Name="單位" DataType="System.String"/>
+        <Column Name="製令單" DataType="System.String"/>
+        <Column Name="單號" DataType="System.String"/>
+        <Column Name="預計產量" DataType="System.Decimal"/>
+        <Column Name="已生產量" DataType="System.Decimal"/>
+        <Column Name="平均生產量/小時" DataType="System.Decimal"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210">
+    <ColumnHeaderBand Name="ColumnHeader1" Width="1047.06" Height="18.9">
+      <TextObject Name="Text2" Width="94.5" Height="18.9" Border.Lines="All" Text="生產日" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text4" Left="94.5" Width="94.5" Height="18.9" Border.Lines="All" Text="預計總工時" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text6" Left="189" Width="94.5" Height="18.9" Border.Lines="All" Text="實際總工時" HorzAlign="Center" VertAlign="Center"/>
+    </ColumnHeaderBand>
+    <DataBand Name="Data1" Top="22.75" Width="1047.06" Height="18.9" DataSource="Table">
+      <TextObject Name="Text1" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.生產日]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text3" Left="94.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.預計總工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text5" Left="189" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.實際總工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="45.49" Width="1047.06" Height="18.9"/>
+  </ReportPage>
+  <ReportPage Name="Page2" Landscape="true" PaperWidth="297" PaperHeight="210">
+    <ColumnHeaderBand Name="ColumnHeader2" Width="1047.06" Height="18.9">
+      <TextObject Name="Text8" Width="66.15" Height="18.9" Border.Lines="All" Text="生產日" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text10" Left="66.15" Width="103.95" Height="18.9" Border.Lines="All" Text="品號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text12" Left="170.1" Width="292.95" Height="18.9" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text14" Left="463.05" Width="75.6" Height="18.9" Border.Lines="All" Text="預計產量" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text16" Left="538.65" Width="75.6" Height="18.9" Border.Lines="All" Text="已生產量" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text18" Left="614.25" Width="37.8" Height="18.9" Border.Lines="All" Text="單位" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text20" Left="652.05" Width="103.95" Height="18.9" Border.Lines="All" Text="平均生產量/小時" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text22" Left="756" Width="75.6" Height="18.9" Border.Lines="All" Text="預計總工時" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text24" Left="831.6" Width="75.6" Height="18.9" Border.Lines="All" Text="實際總工時" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text26" Left="907.2" Width="56.7" Height="18.9" Border.Lines="All" Text="製令單" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text28" Left="963.9" Width="85.05" Height="18.9" Border.Lines="All" Text="單號" HorzAlign="Center" VertAlign="Center"/>
+    </ColumnHeaderBand>
+    <DataBand Name="Data2" Top="22.75" Width="1047.06" Height="18.9" CanGrow="true" DataSource="Table1">
+      <TextObject Name="Text7" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table1.生產日]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text9" Left="66.15" Width="103.95" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table1.品號]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text11" Left="170.1" Width="292.95" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table1.品名]" VertAlign="Center"/>
+      <TextObject Name="Text13" Left="463.05" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table1.預計產量]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text15" Left="538.65" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table1.已生產量]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text17" Left="614.25" Width="37.8" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table1.單位]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text19" Left="652.05" Width="103.95" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table1.平均生產量/小時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text21" Left="756" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table1.預計總工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text23" Left="831.6" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table1.實際總工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text25" Left="907.2" Width="56.7" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table1.製令單]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text27" Left="963.9" Width="85.05" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table1.單號]" HorzAlign="Center" VertAlign="Center"/>
+    </DataBand>
+    <ColumnFooterBand Name="ColumnFooter1" Top="45.49" Width="1047.06" Height="37.8"/>
+  </ReportPage>
+  <ReportPage Name="Page3" Landscape="true" PaperWidth="297" PaperHeight="210">
+    <ColumnHeaderBand Name="ColumnHeader3" Width="1047.06" Height="18.9">
+      <TextObject Name="Text30" Width="94.5" Height="18.9" Border.Lines="All" Text="生產日" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text32" Left="94.5" Width="179.55" Height="18.9" Border.Lines="All" Text="品號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text34" Left="274.05" Width="264.6" Height="18.9" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text36" Left="538.65" Width="94.5" Height="18.9" Border.Lines="All" Text="預計產量" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text38" Left="633.15" Width="94.5" Height="18.9" Border.Lines="All" Text="已生產量" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text40" Left="727.65" Width="56.7" Height="18.9" Border.Lines="All" Text="單位" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text42" Left="784.35" Width="56.7" Height="18.9" Border.Lines="All" Text="製令單" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text44" Left="841.05" Width="94.5" Height="18.9" Border.Lines="All" Text="單號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text46" Left="935.55" Width="103.95" Height="18.9" Border.Lines="All" Text="平均生產量/小時" HorzAlign="Center" VertAlign="Center"/>
+    </ColumnHeaderBand>
+    <DataBand Name="Data3" Top="22.75" Width="1047.06" Height="18.9" DataSource="Table2">
+      <TextObject Name="Text29" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table2.生產日]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text31" Left="94.5" Width="179.55" Height="18.9" Border.Lines="All" Text="[Table2.品號]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text33" Left="274.05" Width="264.6" Height="18.9" Border.Lines="All" Text="[Table2.品名]" VertAlign="Center"/>
+      <TextObject Name="Text35" Left="538.65" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table2.預計產量]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text37" Left="633.15" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table2.已生產量]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text39" Left="727.65" Width="56.7" Height="18.9" Border.Lines="All" Text="[Table2.單位]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text41" Left="784.35" Width="56.7" Height="18.9" Border.Lines="All" Text="[Table2.製令單]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text43" Left="841.05" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table2.單號]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text45" Left="935.55" Width="103.95" Height="18.9" Border.Lines="All" Text="[Table2.平均生產量/小時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+    </DataBand>
+    <ColumnFooterBand Name="ColumnFooter2" Top="45.49" Width="1047.06" Height="37.8"/>
+  </ReportPage>
+</Report>
