@@ -195,6 +195,94 @@ namespace TKMOC
                 sqlConn.Close();
             }
         }
+
+        public void SETFASTREPORT2()
+        {
+            StringBuilder SQL4 = new StringBuilder();
+            StringBuilder SQL5 = new StringBuilder();
+            StringBuilder SQL6 = new StringBuilder();
+
+            SQL4 = SETSQL4();
+            SQL5 = SETSQL5();
+            SQL6 = SETSQL6();
+
+            Report report2 = new Report();
+            report2.Load(@"REPORT\工時包裝-預排.frx");
+
+            report2.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+            TableDataSource table = report2.GetDataSource("Table") as TableDataSource;
+            table.SelectCommand = SQL4.ToString();
+            TableDataSource table1 = report2.GetDataSource("Table1") as TableDataSource;
+            table1.SelectCommand = SQL5.ToString();
+            TableDataSource table2 = report2.GetDataSource("Table2") as TableDataSource;
+            table2.SelectCommand = SQL6.ToString();
+
+
+            report2.Preview = previewControl2;
+            report2.Show();
+        }
+
+        public StringBuilder SETSQL4()
+        {
+            StringBuilder SB = new StringBuilder();
+            
+            SB.AppendFormat(@" SELECT  ");
+            SB.AppendFormat(@" [MANU] AS '線別',CONVERT(nvarchar,[MANUDATE],112) AS '生產日',SUM(ROUND([PACKAGE]/INVMB.UDF10,2)) AS '預計工時'");
+            SB.AppendFormat(@" FROM [TKMOC].[dbo].[MOCMANULINE],[TK].dbo.INVMB");
+            SB.AppendFormat(@" WHERE MOCMANULINE.MB001=INVMB.MB001");
+            SB.AppendFormat(@" AND [MANU]='新廠包裝線' AND CONVERT(nvarchar,[MANUDATE],112) LIKE '{0}%'", dateTimePicker2.Value.ToString("yyyyMM"));
+            SB.AppendFormat(@" AND INVMB.UDF10>0");
+            SB.AppendFormat(@" GROUP BY [MANU],[MANUDATE]");
+            SB.AppendFormat(@" ORDER BY [MANUDATE]");
+            SB.AppendFormat(@" ");
+            SB.AppendFormat(@" ");
+
+            return SB;
+
+        }
+
+        public StringBuilder SETSQL5()
+        {
+            StringBuilder SB = new StringBuilder();
+
+            SB.AppendFormat(@" SELECT  ");
+            SB.AppendFormat(@" [MANU] AS '線別',CONVERT(nvarchar,[MANUDATE],112) AS '生產日',MOCMANULINE.[MB001] AS '品號',MOCMANULINE.[MB002] AS '品名',[BOX] AS '箱數',[PACKAGE] AS '盒數',INVMB.UDF10 AS '平均生產量/小時',ROUND([PACKAGE]/INVMB.UDF10,2) AS '預計工時',[OUTDATE] AS '出貨日',[TA029] AS '備註',[COPTD001] AS '訂單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號'");
+            SB.AppendFormat(@" ,[ID] AS 'ID',[SERNO] AS 'SERNO',MOCMANULINE.[MB003] AS '規格'");
+            SB.AppendFormat(@" ,[BAR],[NUM],[MANUHOUR],[HALFPRO],[CLINET]");
+            SB.AppendFormat(@" FROM [TKMOC].[dbo].[MOCMANULINE],[TK].dbo.INVMB");
+            SB.AppendFormat(@" WHERE MOCMANULINE.MB001=INVMB.MB001");
+            SB.AppendFormat(@" AND [MANU]='新廠包裝線'  AND CONVERT(nvarchar,[MANUDATE],112) LIKE '{0}%' ", dateTimePicker2.Value.ToString("yyyyMM"));
+            SB.AppendFormat(@" AND INVMB.UDF10>0");
+            SB.AppendFormat(@" ORDER BY [MANUDATE]");
+            SB.AppendFormat(@" ");
+            SB.AppendFormat(@" ");
+            SB.AppendFormat(@" ");
+
+            return SB;
+
+        }
+
+        public StringBuilder SETSQL6()
+        {
+            StringBuilder SB = new StringBuilder();
+
+            SB.AppendFormat(@" SELECT  ");
+            SB.AppendFormat(@" [MANU] AS '線別',CONVERT(nvarchar,[MANUDATE],112) AS '生產日',MOCMANULINE.[MB001] AS '品號',MOCMANULINE.[MB002] AS '品名',[BOX] AS '箱數',[PACKAGE] AS '盒數',INVMB.UDF10 AS '平均生產量/小時',[OUTDATE] AS '出貨日',[TA029] AS '備註',[COPTD001] AS '訂單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號'");
+            SB.AppendFormat(@" ,[ID] AS 'ID',[SERNO] AS 'SERNO',MOCMANULINE.[MB003] AS '規格'");
+            SB.AppendFormat(@" ,[BAR],[NUM],[MANUHOUR],[HALFPRO],[CLINET]");
+            SB.AppendFormat(@" FROM [TKMOC].[dbo].[MOCMANULINE],[TK].dbo.INVMB");
+            SB.AppendFormat(@" WHERE MOCMANULINE.MB001=INVMB.MB001");
+            SB.AppendFormat(@" AND [MANU]='新廠包裝線'  AND CONVERT(nvarchar,[MANUDATE],112) LIKE '{0}%' ", dateTimePicker2.Value.ToString("yyyyMM"));
+            SB.AppendFormat(@" AND INVMB.UDF10=0");
+            SB.AppendFormat(@" ORDER BY [MANUDATE]");
+            SB.AppendFormat(@" ");
+            SB.AppendFormat(@" ");
+            SB.AppendFormat(@" ");
+
+            return SB;
+
+        }
+
         #endregion
 
         #region BUTTON
@@ -206,6 +294,10 @@ namespace TKMOC
         private void button2_Click(object sender, EventArgs e)
         {
             UPDATEINVMBUDF10();
+        }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            SETFASTREPORT2();
         }
 
         #endregion
