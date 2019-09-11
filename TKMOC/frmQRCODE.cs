@@ -144,7 +144,7 @@ namespace TKMOC
             FASTSQL.AppendFormat(@"  AND [Department].[Name]='{0}'", comboBox2.Text);
             FASTSQL.AppendFormat(@"  AND [EmployeeState].[Name]='{0}'", comboBox3.Text);
             FASTSQL.AppendFormat(@"  ORDER BY [Employee].[Code]");
-            FASTSQL.AppendFormat(@"    ");
+            FASTSQL.AppendFormat(@"     ");
             FASTSQL.AppendFormat(@"   ");
 
             return FASTSQL.ToString();
