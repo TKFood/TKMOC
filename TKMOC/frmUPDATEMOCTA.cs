@@ -146,6 +146,55 @@ namespace TKMOC
             textBox4.Text = null;
 
         }
+
+        public void UPDATETA033()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+
+                sbSql.AppendFormat(" UPDATE [TK].dbo.MOCTA SET TA033='{0}'", textBox4.Text);
+                sbSql.AppendFormat(" WHERE TA001='{0}' AND TA002='{1}'", textBox1.Text, textBox2.Text);
+                sbSql.AppendFormat(" ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+
+
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+                    MessageBox.Show("完成");
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
         #endregion
 
         #region BUTTON
@@ -156,7 +205,8 @@ namespace TKMOC
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            UPDATETA033();
+            SEARCH();
         }
 
         #endregion
