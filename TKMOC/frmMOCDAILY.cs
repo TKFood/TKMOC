@@ -1389,23 +1389,34 @@ namespace TKMOC
            
         }
 
+        public void SETTEXTBOX22()
+        {
+            if (!string.IsNullOrEmpty(textBox25.Text) && !string.IsNullOrEmpty(textBox21.Text) && !string.IsNullOrEmpty(textBox23.Text) && !string.IsNullOrEmpty(textBox24.Text))
+            {
+                textBox22.Text = (Convert.ToDecimal(textBox25.Text)- Convert.ToDecimal(textBox21.Text) + Convert.ToDecimal(textBox23.Text) + Convert.ToDecimal(textBox24.Text)).ToString();
+            }
+
+        }
+
 
         private void textBox22_TextChanged(object sender, EventArgs e)
         {
             
-            SETTEXTBOX25();
+            //SETTEXTBOX25();
         }
 
         private void textBox23_TextChanged(object sender, EventArgs e)
         {
-           
-            SETTEXTBOX25();
+
+            //SETTEXTBOX25();
+            SETTEXTBOX22();
         }
 
         private void textBox24_TextChanged(object sender, EventArgs e)
         {
-            
-            SETTEXTBOX25();
+
+            //SETTEXTBOX25();
+            SETTEXTBOX22();
         }
 
 
@@ -1613,12 +1624,13 @@ namespace TKMOC
         {
             textBox21.Text = "0";
             textBox21.Text = GETNOWSLOT().ToString();
-            SETTEXTBOX25();
+            //SETTEXTBOX25();
         }
 
         private void textBox21_TextChanged(object sender, EventArgs e)
         {
-            SETTEXTBOX25();
+            //SETTEXTBOX25();
+            SETTEXTBOX22();
         }
 
         private void dateTimePicker15_ValueChanged(object sender, EventArgs e)
@@ -1630,6 +1642,13 @@ namespace TKMOC
         {
             comboBox8load();
         }
+
+        private void textBox25_TextChanged(object sender, EventArgs e)
+        {
+            SETTEXTBOX22();
+        }
+
+
         #endregion
 
         #region BUTTON
@@ -1704,6 +1723,9 @@ namespace TKMOC
         private void button14_Click(object sender, EventArgs e)
         {
             SETFASTREPORT6();
+
+            textBox21.Text = "0";
+            textBox21.Text = GETNOWSLOT().ToString();
         }
 
         private void button12_Click(object sender, EventArgs e)
@@ -1758,8 +1780,9 @@ namespace TKMOC
 
 
 
+
         #endregion
 
-
+       
     }
 }
