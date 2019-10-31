@@ -664,9 +664,9 @@ namespace TKMOC
                 sbSqlQuery.Clear();
 
                
-                sbSql.AppendFormat(@"  SELECT TD003,TD004");
+                sbSql.AppendFormat(@"  SELECT TE003,TE004");
                 sbSql.AppendFormat(@"  FROM (");
-                sbSql.AppendFormat(@"  SELECT TD003,TD004 FROM [TK].dbo.MOCTD WHERE TD003='{0}' AND TD004='{1}'",OLDTA001, OLDTA002);
+                sbSql.AppendFormat(@"  SELECT TE003,TE004 FROM [TK].dbo.MOCTE WHERE TE011='{0}' AND TE012='{1}' ", OLDTA001, OLDTA002);
                 sbSql.AppendFormat(@"  UNION ALL");
                 sbSql.AppendFormat(@"  SELECT TG014,TG015 FROM [TK].dbo.MOCTG WHERE TG014='{0}' AND TG015='{1}')", OLDTA001, OLDTA002);
                 sbSql.AppendFormat(@"  AS TEMP");
