@@ -1130,8 +1130,7 @@ namespace TKMOC
                 {
                     sbSql.AppendFormat(@"  SELECT  CONVERT(NVARCHAR,[MANUDATE],112)+' ' +[MANU] AS MANUDATE,INVMB.[MB002],CONVERT(NVARCHAR,CONVERT(INT,ROUND([BOX],0)))+' 箱 '+CONVERT(NVARCHAR,CONVERT(INT,[PACKAGE]))+MB004 AS ' PACKAGE'  ");
                     sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE],[TK].dbo.INVMB");
-                    sbSql.AppendFormat(@"  WHERE INVMB.MB001=MOCMANULINE.MB001");
-                    sbSql.AppendFormat(@"  AND ISNULL([COPTD001],'')<>''");
+                    sbSql.AppendFormat(@"  WHERE INVMB.MB001=MOCMANULINE.MB001");                    
                     sbSql.AppendFormat(@"  AND CONVERT(NVARCHAR,[MANUDATE],112) >='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112) <='{1}' ", sdt.ToString("yyyyMMdd"), edt.ToString("yyyyMMdd"));
                     sbSql.AppendFormat(@"  AND [MANU]='{0}'", comboBox4.Text);
                     sbSql.AppendFormat(@"  ORDER BY [MANU],[MANUDATE],MOCMANULINE.[MB001]");
@@ -1143,8 +1142,7 @@ namespace TKMOC
                 {
                     sbSql.AppendFormat(@"  SELECT  CONVERT(NVARCHAR,[MANUDATE],112)+' ' +[MANU] AS MANUDATE,INVMB.[MB002],CONVERT(NVARCHAR,CONVERT(INT,ROUND([BAR],0)))+' 桶 '+CONVERT(NVARCHAR,CONVERT(INT,[NUM]))+MB004 AS ' PACKAGE'  ");
                     sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE],[TK].dbo.INVMB");
-                    sbSql.AppendFormat(@"  WHERE INVMB.MB001=MOCMANULINE.MB001");
-                    sbSql.AppendFormat(@"  AND ISNULL([COPTD001],'')<>''");
+                    sbSql.AppendFormat(@"  WHERE INVMB.MB001=MOCMANULINE.MB001");                    
                     sbSql.AppendFormat(@"  AND CONVERT(NVARCHAR,[MANUDATE],112) >='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112) <='{1}' ", sdt.ToString("yyyyMMdd"), edt.ToString("yyyyMMdd"));
                     sbSql.AppendFormat(@"  AND [MANU]='{0}'", comboBox4.Text);
                     sbSql.AppendFormat(@"  ORDER BY [MANU],[MANUDATE],MOCMANULINE.[MB001]");
