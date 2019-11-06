@@ -114,6 +114,12 @@
     <Compile Include="frmCOPMOC.Designer.cs">
       <DependentUpon>frmCOPMOC.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmCOPMOCBOM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCOPMOCBOM.Designer.cs">
+      <DependentUpon>frmCOPMOCBOM.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmCOPMOCCHECK.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -457,6 +463,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmCOPMOC.resx">
       <DependentUpon>frmCOPMOC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCOPMOCBOM.resx">
+      <DependentUpon>frmCOPMOCBOM.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmCOPMOCCHECK.resx">
       <DependentUpon>frmCOPMOCCHECK.cs</DependentUpon>
