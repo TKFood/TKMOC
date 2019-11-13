@@ -32,11 +32,14 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
         SqlDataAdapter adapter2 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder2 = new SqlCommandBuilder();
+        SqlDataAdapter adapter3 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder3 = new SqlCommandBuilder();
 
         SqlTransaction tran;
         SqlCommand cmd = new SqlCommand();
         DataSet ds1 = new DataSet();
         DataSet ds2 = new DataSet();
+        DataSet ds3 = new DataSet();
 
         DataTable dt = new DataTable();
         string tablename = null;
@@ -44,6 +47,8 @@ namespace TKMOC
 
         string MID;
         string DID;
+        string TA001;
+        string TA002;
 
         public frmCOPMOCPUR()
         {
@@ -63,14 +68,15 @@ namespace TKMOC
                 sbSqlQuery.Clear();
 
                
-                sbSql.AppendFormat(@"  SELECT TD013 AS '預交日',TD001 AS '訂單',TD002 AS '訂單號',TD004 AS '品號',TD005 AS '品名',TD006 AS '規格'");
-                sbSql.AppendFormat(@"  ,CONVERT(DECIMAL(18,3),(CASE WHEN MD002=TD010  THEN (TD008-TD009)*MD004/MD003 ELSE (TD008-TD009) END )) AS '數量'");
-                sbSql.AppendFormat(@"  ,TD010 AS '單位',TC015 AS '單頭備註',TD020 AS '單身備註'");
-                sbSql.AppendFormat(@"  FROM [TK].dbo.COPTC,[TK].dbo.COPTD,[TK].dbo.INVMB");
-                sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.INVMD ON MD001=MB001");
+                sbSql.AppendFormat(@"  SELECT TD013 AS '預交日',TD001 AS '訂單',TD002 AS '訂單號',TD004 AS '品號',TD005 AS '品名',TD006 AS '規格',(TD008-TD009+TD024-TD025) AS '訂單數量',TD010 AS '訂單單位'");
+                sbSql.AppendFormat(@"  ,CONVERT(DECIMAL(18,3),(CASE WHEN MD002=TD010   THEN (TD008-TD009+TD024-TD025)*MD004/MD003 ELSE (TD008-TD009+TD024-TD025) END )) AS '數量'");
+                sbSql.AppendFormat(@"  ,MB004 AS '單位',TC015 AS '單頭備註',TD020 AS '單身備註'");
+                sbSql.AppendFormat(@"  FROM [TK].dbo.COPTC,[TK].dbo.COPTD");
+                sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.INVMD ON MD001=TD004 AND MD002=TD010 ");
+                sbSql.AppendFormat(@"  ,[TK].dbo.INVMB");
                 sbSql.AppendFormat(@"  WHERE TC001=TD001 AND TC002=TD002");
                 sbSql.AppendFormat(@"  AND TD004=MB001");
-                sbSql.AppendFormat(@"  AND (TD004 LIKE '410%')");
+                //sbSql.AppendFormat(@"  AND (TD004 LIKE '410%')");
                 sbSql.AppendFormat(@"  AND (TD008-TD009)>0");
                 sbSql.AppendFormat(@"  AND TD013>='{0}' AND TD013<='{1}'",dt1.ToString("yyyyMMdd"), dt2.ToString("yyyyMMdd"));
                 sbSql.AppendFormat(@"  ORDER BY TD013,TD001,TD002,TD004");
@@ -196,6 +202,77 @@ namespace TKMOC
             }
         }
 
+        public string GETMAXTA002(string TA001,string dt)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                StringBuilder sbSql = new StringBuilder();
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+                ds2.Clear();
+
+                sbSql.AppendFormat(@"  SELECT ISNULL(MAX(TA002),'0000000000') AS TA002");
+                sbSql.AppendFormat(@"  FROM [TK].[dbo].[PURTA]");
+                sbSql.AppendFormat(@"  WHERE  TA001='{0}' AND TA003='{1}'", TA001, dt);
+                sbSql.AppendFormat(@"  ");
+
+                adapter3 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder3 = new SqlCommandBuilder(adapter3);
+                sqlConn.Open();
+                ds3.Clear();
+                adapter3.Fill(ds3, "ds3");
+                sqlConn.Close();
+
+
+                if (ds3.Tables["ds3"].Rows.Count == 0)
+                {
+                    return null;
+                }
+                else
+                {
+                    if (ds3.Tables["ds3"].Rows.Count >= 1)
+                    {
+                        TA002 = SETTA002(ds3.Tables["ds3"].Rows[0]["TA002"].ToString(), dt);
+                        return TA002;
+
+                    }
+                    return null;
+                }
+
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public string SETTA002(string TA002, string dt)
+        {
+            if (TA002.Equals("0000000000"))
+            {
+                return dt + "001";
+            }
+
+            else
+            {
+                int serno = Convert.ToInt16(TA002.Substring(8, 3));
+                serno = serno + 1;
+                string temp = serno.ToString();
+                temp = temp.PadLeft(3, '0');
+                return dt + temp.ToString();
+            }
+
+        }
+
+
         #endregion
 
         #region BUTTON
@@ -204,8 +281,19 @@ namespace TKMOC
         {
             SEARCHCOP(dateTimePicker1.Value,dateTimePicker2.Value);
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            TA001 = textBox3.Text;
+            TA002 = GETMAXTA002(TA001, dateTimePicker3.Value.ToString("yyyyMMdd"));
+
+           
+            SEARCHCOPMOCPUR(textBox1.Text,textBox2.Text);
+            MessageBox.Show(TA001 + " " + TA002);
+        }
+
         #endregion
 
-       
+
     }
 }
