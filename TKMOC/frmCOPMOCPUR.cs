@@ -57,7 +57,7 @@ namespace TKMOC
 
         #region FUNCTION
 
-        public void SEARCHCOP(DateTime dt1,DateTime dt2)
+        public void SEARCHCOP(DateTime dt1, DateTime dt2)
         {
             try
             {
@@ -67,7 +67,7 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-               
+
                 sbSql.AppendFormat(@"  SELECT TD013 AS '預交日',TD001 AS '訂單',TD002 AS '訂單號',TD004 AS '品號',TD005 AS '品名',TD006 AS '規格',(TD008-TD009+TD024-TD025) AS '訂單數量',TD010 AS '訂單單位'");
                 sbSql.AppendFormat(@"  ,CONVERT(DECIMAL(18,3),(CASE WHEN MD002=TD010   THEN (TD008-TD009+TD024-TD025)*MD004/MD003 ELSE (TD008-TD009+TD024-TD025) END )) AS '數量'");
                 sbSql.AppendFormat(@"  ,MB004 AS '單位',TC015 AS '單頭備註',TD020 AS '單身備註'");
@@ -78,7 +78,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  AND TD004=MB001");
                 //sbSql.AppendFormat(@"  AND (TD004 LIKE '410%')");
                 sbSql.AppendFormat(@"  AND (TD008-TD009)>0");
-                sbSql.AppendFormat(@"  AND TD013>='{0}' AND TD013<='{1}'",dt1.ToString("yyyyMMdd"), dt2.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(@"  AND TD013>='{0}' AND TD013<='{1}'", dt1.ToString("yyyyMMdd"), dt2.ToString("yyyyMMdd"));
                 sbSql.AppendFormat(@"  ORDER BY TD013,TD001,TD002,TD004");
                 sbSql.AppendFormat(@"  ");
                 sbSql.AppendFormat(@"  ");
@@ -122,7 +122,7 @@ namespace TKMOC
         }
 
 
-        public void SEARCHCOPMOCPUR(string MID,string DID)
+        public void SEARCHCOPMOCPUR(string MID, string DID)
         {
             try
             {
@@ -133,10 +133,10 @@ namespace TKMOC
                 sbSqlQuery.Clear();
 
 
-                
+
                 sbSql.AppendFormat(@"  SELECT [MID] AS '來源單別',[DID] AS '來源單號',[TA001] AS '採購單',[TA002] AS '採購單號'");
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[COPMOCPUR]");
-                sbSql.AppendFormat(@"  WHERE [MID]='{0}' AND [DID]='{1}'",MID,DID);
+                sbSql.AppendFormat(@"  WHERE [MID]='{0}' AND [DID]='{1}'", MID, DID);
                 sbSql.AppendFormat(@"  ");
                 sbSql.AppendFormat(@"  ");
 
@@ -202,7 +202,7 @@ namespace TKMOC
             }
         }
 
-        public string GETMAXTA002(string TA001,string dt)
+        public string GETMAXTA002(string TA001, string dt)
         {
             try
             {
@@ -272,6 +272,55 @@ namespace TKMOC
 
         }
 
+        public void ADDCOPMOCPUR(string MID,string DID,string TA001,string TA002)
+        {
+            if (!string.IsNullOrEmpty(MID) && !string.IsNullOrEmpty(DID) && !string.IsNullOrEmpty(TA001) && !string.IsNullOrEmpty(TA002))
+            {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sqlConn.Close();
+                    sqlConn.Open();
+                    tran = sqlConn.BeginTransaction();
+
+                    sbSql.Clear();
+
+                    sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[COPMOCPUR]");
+                    sbSql.AppendFormat(" ([MID],[DID],[TA001],[TA002])");
+                    sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}','{3}')",MID,DID,TA001,TA002);
+                    sbSql.AppendFormat(" ");
+
+                    cmd.Connection = sqlConn;
+                    cmd.CommandTimeout = 60;
+                    cmd.CommandText = sbSql.ToString();
+                    cmd.Transaction = tran;
+                    result = cmd.ExecuteNonQuery();
+
+                    if (result == 0)
+                    {
+                        tran.Rollback();    //交易取消
+                    }
+                    else
+                    {
+                        tran.Commit();      //執行交易  
+
+
+                    }
+
+                }
+                catch
+                {
+
+                }
+
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }
+        }
 
         #endregion
 
@@ -287,7 +336,8 @@ namespace TKMOC
             TA001 = textBox3.Text;
             TA002 = GETMAXTA002(TA001, dateTimePicker3.Value.ToString("yyyyMMdd"));
 
-           
+            //ADDCOPMOCPUR(textBox1.Text, textBox2.Text, TA001, TA002);
+
             SEARCHCOPMOCPUR(textBox1.Text,textBox2.Text);
             MessageBox.Show(TA001 + " " + TA002);
         }
