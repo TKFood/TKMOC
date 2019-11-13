@@ -30,10 +30,13 @@ namespace TKMOC
         StringBuilder sbSqlQuery = new StringBuilder();
         SqlDataAdapter adapter1 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+        SqlDataAdapter adapter2 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder2 = new SqlCommandBuilder();
 
         SqlTransaction tran;
         SqlCommand cmd = new SqlCommand();
         DataSet ds1 = new DataSet();
+        DataSet ds2 = new DataSet();
 
         DataTable dt = new DataTable();
         string tablename = null;
@@ -112,6 +115,62 @@ namespace TKMOC
 
         }
 
+
+        public void SEARCHCOPMOCPUR(string MID,string DID)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+
+                
+                sbSql.AppendFormat(@"  SELECT [MID] AS '來源單別',[DID] AS '來源單號',[TA001] AS '採購單',[TA002] AS '採購單號'");
+                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[COPMOCPUR]");
+                sbSql.AppendFormat(@"  WHERE [MID]='{0}' AND [DID]='{1}'",MID,DID);
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+
+                adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder2 = new SqlCommandBuilder(adapter2);
+                sqlConn.Open();
+                ds2.Clear();
+                adapter2.Fill(ds2, "ds2");
+                sqlConn.Close();
+
+
+                if (ds2.Tables["ds2"].Rows.Count == 0)
+                {
+                    dataGridView2.DataSource = null;
+                }
+                else
+                {
+                    if (ds2.Tables["ds2"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView2.DataSource = ds2.Tables["ds2"];
+                        dataGridView2.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
             textBox1.Text = null;
@@ -126,6 +185,7 @@ namespace TKMOC
                     textBox1.Text = row.Cells["訂單"].Value.ToString();
                     textBox2.Text = row.Cells["訂單號"].Value.ToString();
 
+                    SEARCHCOPMOCPUR(textBox1.Text, textBox2.Text);
                 }
                 else
                 {
