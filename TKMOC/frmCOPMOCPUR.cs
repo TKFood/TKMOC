@@ -34,12 +34,15 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder2 = new SqlCommandBuilder();
         SqlDataAdapter adapter3 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder3 = new SqlCommandBuilder();
+        SqlDataAdapter adapter4 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder4 = new SqlCommandBuilder();
 
         SqlTransaction tran;
         SqlCommand cmd = new SqlCommand();
         DataSet ds1 = new DataSet();
         DataSet ds2 = new DataSet();
         DataSet ds3 = new DataSet();
+        DataSet ds4 = new DataSet();
 
         DataTable dt = new DataTable();
         string tablename = null;
@@ -49,7 +52,7 @@ namespace TKMOC
         string DID;
         string TA001;
         string TA002;
-
+        string TC015;
 
         public class PURTADATA
         {
@@ -536,9 +539,171 @@ namespace TKMOC
 
         public void ADDPURTAPURTB(string MID,string DID,string TA001,string TA002)
         {
+            PURTADATA PURTA = new PURTADATA();
+            PURTA = SETPURTA(MID,DID,dateTimePicker3.Value,TA001,TA002);
 
+            if (!string.IsNullOrEmpty(MID) && !string.IsNullOrEmpty(DID) && !string.IsNullOrEmpty(TA001) && !string.IsNullOrEmpty(TA002))
+            {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sqlConn.Close();
+                    sqlConn.Open();
+                    tran = sqlConn.BeginTransaction();
+
+                    sbSql.Clear();
+
+
+                    sbSql.AppendFormat(" INSERT INTO [TK].[dbo].[PURTA]");
+                    sbSql.AppendFormat(" (");
+                    sbSql.AppendFormat(" [COMPANY],[CREATOR],[USR_GROUP],[CREATE_DATE],[MODIFIER],[MODI_DATE],[FLAG],[CREATE_TIME],[MODI_TIME],[TRANS_TYPE]");
+                    sbSql.AppendFormat(" ,[TRANS_NAME],[sync_date],[sync_time],[sync_mark],[sync_count],[DataUser],[DataGroup]");
+                    sbSql.AppendFormat(" ,[TA001],[TA002],[TA003],[TA004],[TA005],[TA006],[TA007],[TA008],[TA009],[TA010]");
+                    sbSql.AppendFormat(" ,[TA011],[TA012],[TA013],[TA014],[TA015],[TA016],[TA017],[TA018],[TA019],[TA020]");
+                    sbSql.AppendFormat(" ,[TA021],[TA022],[TA023],[TA024],[TA025],[TA026],[TA027],[TA028],[TA029],[TA030]");
+                    sbSql.AppendFormat(" ,[TA031],[TA032],[TA033],[TA034],[TA035],[TA036],[TA037],[TA038],[TA039],[TA040]");
+                    sbSql.AppendFormat(" ,[TA041],[TA042],[TA043],[TA044],[TA045],[TA046]");
+                    sbSql.AppendFormat(" ,[UDF01],[UDF02],[UDF03],[UDF04],[UDF05],[UDF06],[UDF07],[UDF08],[UDF09],[UDF10]");
+                    sbSql.AppendFormat(" )");
+                    sbSql.AppendFormat(" VALUES");
+                    sbSql.AppendFormat(" (");
+                    sbSql.AppendFormat(" '{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}',", PURTA.COMPANY, PURTA.CREATOR, PURTA.USR_GROUP, PURTA.CREATE_DATE, PURTA.MODIFIER, PURTA.MODI_DATE, PURTA.FLAG, PURTA.CREATE_TIME, PURTA.MODI_TIME, PURTA.TRANS_TYPE);
+                    sbSql.AppendFormat(" '{0}','{1}','{2}','{3}','{4}','{5}','{6}',", PURTA.TRANS_NAME, PURTA.sync_date, PURTA.sync_time, PURTA.sync_mark, PURTA.sync_count, PURTA.DataUser, PURTA.DataGroup);
+                    sbSql.AppendFormat(" '{0}','{1}','{2}','{3}','{4}','{5}','{6}',{7},'{8}','{9}',", PURTA.TA001, PURTA.TA002, PURTA.TA003, PURTA.TA004, PURTA.TA005, PURTA.TA006, PURTA.TA007, PURTA.TA008, PURTA.TA009, PURTA.TA010);
+                    sbSql.AppendFormat(" {0},'{1}','{2}','{3}',{4},'{5}',{6},'{7}','{8}',{9},", PURTA.TA011, PURTA.TA012, PURTA.TA013, PURTA.TA014, PURTA.TA015, PURTA.TA016, PURTA.TA017, PURTA.TA018, PURTA.TA019, PURTA.TA020);
+                    sbSql.AppendFormat(" '{0}','{1}',{2},{3},'{4}','{5}','{6}','{7}','{8}',{9},", PURTA.TA021, PURTA.TA022, PURTA.TA023, PURTA.TA024, PURTA.TA025, PURTA.TA026, PURTA.TA027, PURTA.TA028, PURTA.TA029, PURTA.TA030);
+                    sbSql.AppendFormat(" '{0}',{1},'{2}','{3}','{4}',{5},{6},{7},{8},{9},", PURTA.TA031, PURTA.TA032, PURTA.TA033, PURTA.TA034, PURTA.TA035, PURTA.TA036, PURTA.TA037, PURTA.TA038, PURTA.TA039, PURTA.TA040);
+                    sbSql.AppendFormat(" '{0}','{1}','{2}','{3}','{4}','{5}',", PURTA.TA041, PURTA.TA042, PURTA.TA043, PURTA.TA044, PURTA.TA045, PURTA.TA046);
+                    sbSql.AppendFormat(" '{0}','{1}','{2}','{3}','{4}',{5},{6},{7},{8},{9}", PURTA.UDF01, PURTA.UDF02, PURTA.UDF03, PURTA.UDF04, PURTA.UDF05, PURTA.UDF06, PURTA.UDF07, PURTA.UDF08, PURTA.UDF09, PURTA.UDF10);
+                    sbSql.AppendFormat(" )");
+                    sbSql.AppendFormat(" ");
+                    sbSql.AppendFormat(" ");
+                    sbSql.AppendFormat(" ");
+                    sbSql.AppendFormat(" ");
+                    sbSql.AppendFormat(" ");
+                    sbSql.AppendFormat(" ");
+                    sbSql.AppendFormat(" ");
+                    sbSql.AppendFormat(" ");
+                    sbSql.AppendFormat(" ");
+                    sbSql.AppendFormat(" ");
+                    sbSql.AppendFormat(" ");
+                    sbSql.AppendFormat(" ");
+                    sbSql.AppendFormat(" ");
+
+                    cmd.Connection = sqlConn;
+                    cmd.CommandTimeout = 60;
+                    cmd.CommandText = sbSql.ToString();
+                    cmd.Transaction = tran;
+                    result = cmd.ExecuteNonQuery();
+
+                    if (result == 0)
+                    {
+                        tran.Rollback();    //交易取消
+                    }
+                    else
+                    {
+                        tran.Commit();      //執行交易  
+
+
+                    }
+
+                }
+                catch
+                {
+
+                }
+
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }
+        }
+
+        public PURTADATA SETPURTA(string MID,string DID,DateTime dt,string TA001,string TA002)
+        {
+            PURTADATA PURTA = new PURTADATA();
+            PURTA.COMPANY = "TK";
+            PURTA.CREATOR = "140020";
+            PURTA.USR_GROUP = "103000";
+            PURTA.CREATE_DATE = dt.ToString("yyyyMMdd");
+            PURTA.MODIFIER = "120024";
+            PURTA.MODI_DATE = dt.ToString("yyyyMMdd");
+            PURTA.FLAG = "0";
+            PURTA.CREATE_TIME = dt.ToString("HH:mm:dd");
+            PURTA.MODI_TIME = dt.ToString("HH:mm:dd");
+            PURTA.TRANS_TYPE = "P001";
+            PURTA.TRANS_NAME = "PURI05";
+            PURTA.sync_date = null;
+            PURTA.sync_time = null;
+            PURTA.sync_mark = null;
+            PURTA.sync_count = "0";
+            PURTA.DataUser = null;
+            PURTA.DataGroup = "103000";
+
+            PURTA.TA001 = TA001;
+            PURTA.TA002 = TA002;
+            PURTA.TA003 = dt.ToString("yyyyMMdd");
+            PURTA.TA004 = "103500";
+            PURTA.TA005 = null;
+            PURTA.TA006 = TC015;
+            PURTA.TA007 = "N";
+            PURTA.TA008 = "0";
+            PURTA.TA009 = "9";
+            PURTA.TA010 = "20";
+            PURTA.TA011 = "0";
+            PURTA.TA012 = "140020";
+            PURTA.TA013 = dt.ToString("yyyyMMdd");
+            PURTA.TA014 = null;
+            PURTA.TA015 = "0";
+            PURTA.TA016 = "N";
+            PURTA.TA017 = "0";
+            PURTA.TA018 = null;
+            PURTA.TA019 = null;
+            PURTA.TA020 = "0";
+            PURTA.TA021 = null;
+            PURTA.TA022 = null;
+            PURTA.TA023 = "0";
+            PURTA.TA024 = "0";
+            PURTA.TA025 = null;
+            PURTA.TA026 = null;
+            PURTA.TA027 = null;
+            PURTA.TA028 = null;
+            PURTA.TA029 = null;
+            PURTA.TA030 = "0";
+            PURTA.TA031 = null;
+            PURTA.TA032 = "0";
+            PURTA.TA033 = null;
+            PURTA.TA034 = null;
+            PURTA.TA035 = null;
+            PURTA.TA036 = "0";
+            PURTA.TA037 = "0";
+            PURTA.TA038 = "0";
+            PURTA.TA039 = "0";
+            PURTA.TA040 = "0";
+            PURTA.TA041 = null;
+            PURTA.TA042 = null;
+            PURTA.TA043 = null;
+            PURTA.TA044 = null;
+            PURTA.TA045 = null;
+            PURTA.TA046 = null;
+            PURTA.UDF01 = null;
+            PURTA.UDF02 = null;
+            PURTA.UDF03 = null;
+            PURTA.UDF04 = null;
+            PURTA.UDF05 = null;
+            PURTA.UDF06 = "0";
+            PURTA.UDF07 = "0";
+            PURTA.UDF08 = "0";
+            PURTA.UDF09 = "0";
+            PURTA.UDF10 = "0";
+
+            return PURTA;
 
         }
+
 
         public void DELETECOPMOCPUR(string MID,string DID)
         {
@@ -589,6 +754,57 @@ namespace TKMOC
             }
         }
 
+        public void SEARCHCOPTC(string TC001,string TC002)
+        {
+            TC015 = null;
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@" SELECT TOP 1 TC015 ");
+                sbSql.AppendFormat(@" FROM [TK].dbo.COPTC ");
+                sbSql.AppendFormat(@" WHERE TC001='{0}' AND TC002='{1}' ",TC001,TC002);
+                sbSql.AppendFormat(@"  ");
+
+                adapter4 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder4= new SqlCommandBuilder(adapter4);
+                sqlConn.Open();
+                ds4.Clear();
+                adapter4.Fill(ds4, "ds4");
+                sqlConn.Close();
+
+
+                if (ds4.Tables["ds4"].Rows.Count == 0)
+                {
+                    TC015 = null;
+                    
+                }
+                else
+                {
+                    if (ds4.Tables["ds4"].Rows.Count >= 1)
+                    {
+                        TC015 = ds4.Tables["ds4"].Rows[0]["TC015"].ToString();
+                     
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
         #endregion
 
         #region BUTTON
@@ -600,6 +816,8 @@ namespace TKMOC
 
         private void button2_Click(object sender, EventArgs e)
         {
+            SEARCHCOPTC(textBox1.Text,textBox2.Text);
+
             TA001 = textBox3.Text;
             TA002 = GETMAXTA002(TA001, dateTimePicker3.Value.ToString("yyyyMMdd"));
 
@@ -607,7 +825,8 @@ namespace TKMOC
             ADDPURTAPURTB(textBox1.Text,textBox2.Text, TA001, TA002);
 
             SEARCHCOPMOCPUR(textBox1.Text,textBox2.Text);
-            MessageBox.Show(TA001 + " " + TA002);
+
+            //MessageBox.Show(TA001 + " " + TA002);
         }
         private void button11_Click(object sender, EventArgs e)
         {
