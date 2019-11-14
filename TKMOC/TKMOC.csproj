@@ -414,6 +414,12 @@
     <Compile Include="frmREPORTEngineering.Designer.cs">
       <DependentUpon>frmREPORTEngineering.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmREPORTGEN.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmREPORTGEN.Designer.cs">
+      <DependentUpon>frmREPORTGEN.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmREPORTMOCCOP.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -619,6 +625,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmREPORTEngineering.resx">
       <DependentUpon>frmREPORTEngineering.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmREPORTGEN.resx">
+      <DependentUpon>frmREPORTGEN.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmREPORTMOCCOP.resx">
       <DependentUpon>frmREPORTMOCCOP.cs</DependentUpon>
