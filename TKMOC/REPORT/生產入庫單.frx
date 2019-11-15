@@ -1,54 +1,55 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="11/14/2019 15:07:31" ReportInfo.Modified="11/14/2019 15:42:03" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="11/14/2019 15:07:31" ReportInfo.Modified="11/15/2019 10:28:20" ReportInfo.CreatorVersion="2016.4.4.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9KHBdyu/KVZdcqjUOR3eec5">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9KUtYsbPF7DaPobLq7blIgo">
       <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT TA001 AS '製令',TA002 AS '製令號',TA034 AS '品名'&#13;&#10;FROM [TK].dbo.MOCTA&#13;&#10;WHERE TA009&gt;='20191113' AND TA009&lt;='20191113'&#13;&#10;ORDER BY TA001,TA002,TA034">
         <Column Name="製令" DataType="System.String"/>
         <Column Name="製令號" DataType="System.String"/>
         <Column Name="品名" DataType="System.String"/>
       </TableDataSource>
     </MsSqlDataConnection>
+    <Parameter Name="P1" DataType="System.String"/>
   </Dictionary>
   <ReportPage Name="Page1" PaperHeight="150">
     <DataBand Name="Data1" Width="718.2" Height="359.1">
-      <TextObject Name="Text1" Left="9.45" Top="56.7" Width="94.5" Height="28.35" Border.Lines="All" Text="入庫單" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
-      <TextObject Name="Text2" Left="103.95" Top="56.7" Width="198.45" Height="28.35" Border.Lines="All" Text="   月    日" HorzAlign="Right" VertAlign="Center" Font="標楷體, 14pt"/>
-      <TextObject Name="Text3" Left="9.45" Top="28.35" Width="292.95" Height="28.35" Text="老食品股份有限公司" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
-      <TextObject Name="Text4" Left="9.45" Top="85.05" Width="94.5" Height="56.7" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
-      <TextObject Name="Text5" Left="9.45" Top="141.75" Width="94.5" Height="28.35" Border.Lines="All" Text="規格" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
-      <TextObject Name="Text6" Left="9.45" Top="170.1" Width="94.5" Height="28.35" Border.Lines="All" Text="入庫數量" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
-      <TextObject Name="Text7" Left="9.45" Top="198.45" Width="94.5" Height="28.35" Border.Lines="All" Text="入庫員" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
-      <TextObject Name="Text8" Left="9.45" Top="226.8" Width="94.5" Height="28.35" Border.Lines="All" Text="倉管" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
-      <TextObject Name="Text9" Left="9.45" Top="255.15" Width="94.5" Height="28.35" Border.Lines="All" Text="有效日期" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
-      <TextObject Name="Text10" Left="9.45" Top="283.5" Width="94.5" Height="28.35" Border.Lines="All" Text="備註" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
-      <TextObject Name="Text11" Left="103.95" Top="85.05" Width="198.45" Height="56.7" Border.Lines="All" Text="[Table.品名]" VertAlign="Center" Font="標楷體, 12pt"/>
-      <TextObject Name="Text12" Left="103.95" Top="141.75" Width="198.45" Height="28.35" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
-      <TextObject Name="Text13" Left="103.95" Top="170.1" Width="198.45" Height="28.35" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
-      <TextObject Name="Text14" Left="103.95" Top="198.45" Width="198.45" Height="28.35" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
-      <TextObject Name="Text15" Left="103.95" Top="226.8" Width="198.45" Height="28.35" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
-      <TextObject Name="Text16" Left="103.95" Top="255.15" Width="198.45" Height="28.35" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
-      <TextObject Name="Text17" Left="103.95" Top="283.5" Width="198.45" Height="28.35" Border.Lines="All" Text="[Table.製令]-[Table.製令號]" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
-      <TextObject Name="Text18" Left="9.45" Top="311.85" Width="160.65" Height="28.35" Text="本文件不得擅自塗改及影印   " VertAlign="Center" Font="標楷體, 8pt"/>
-      <TextObject Name="Text19" Left="170.1" Top="311.85" Width="132.3" Height="28.35" Text="FM0757-02" HorzAlign="Right" VertAlign="Center" Font="標楷體, 8pt"/>
-      <TextObject Name="Text20" Left="368.55" Top="56.7" Width="94.5" Height="28.35" Border.Lines="All" Text="入庫單" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
-      <TextObject Name="Text21" Left="463.05" Top="56.7" Width="198.45" Height="28.35" Border.Lines="All" Text="   月    日" HorzAlign="Right" VertAlign="Center" Font="標楷體, 14pt"/>
-      <TextObject Name="Text22" Left="368.55" Top="28.35" Width="292.95" Height="28.35" Text="老食品股份有限公司" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
-      <TextObject Name="Text23" Left="368.55" Top="85.05" Width="94.5" Height="56.7" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
-      <TextObject Name="Text24" Left="368.55" Top="141.75" Width="94.5" Height="28.35" Border.Lines="All" Text="規格" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
-      <TextObject Name="Text25" Left="368.55" Top="170.1" Width="94.5" Height="28.35" Border.Lines="All" Text="入庫數量" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
-      <TextObject Name="Text26" Left="368.55" Top="198.45" Width="94.5" Height="28.35" Border.Lines="All" Text="入庫員" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
-      <TextObject Name="Text27" Left="368.55" Top="226.8" Width="94.5" Height="28.35" Border.Lines="All" Text="倉管" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
-      <TextObject Name="Text28" Left="368.55" Top="255.15" Width="94.5" Height="28.35" Border.Lines="All" Text="有效日期" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
-      <TextObject Name="Text29" Left="368.55" Top="283.5" Width="94.5" Height="28.35" Border.Lines="All" Text="備註" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
-      <TextObject Name="Text30" Left="463.05" Top="85.05" Width="198.45" Height="56.7" Border.Lines="All" Text="[Table.品名]" VertAlign="Center" Font="標楷體, 12pt"/>
-      <TextObject Name="Text31" Left="463.05" Top="141.75" Width="198.45" Height="28.35" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
-      <TextObject Name="Text32" Left="463.05" Top="170.1" Width="198.45" Height="28.35" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
-      <TextObject Name="Text33" Left="463.05" Top="198.45" Width="198.45" Height="28.35" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
-      <TextObject Name="Text34" Left="463.05" Top="226.8" Width="198.45" Height="28.35" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
-      <TextObject Name="Text35" Left="463.05" Top="255.15" Width="198.45" Height="28.35" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
-      <TextObject Name="Text36" Left="463.05" Top="283.5" Width="198.45" Height="28.35" Border.Lines="All" Text="[Table.製令]-[Table.製令號]" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
-      <TextObject Name="Text37" Left="368.55" Top="311.85" Width="160.65" Height="28.35" Text="本文件不得擅自塗改及影印   " VertAlign="Center" Font="標楷體, 8pt"/>
-      <TextObject Name="Text38" Left="529.2" Top="311.85" Width="132.3" Height="28.35" Text="FM0757-02" HorzAlign="Right" VertAlign="Center" Font="標楷體, 8pt"/>
+      <TextObject Name="Text1" Left="9.45" Top="28.35" Width="94.5" Height="28.35" Border.Lines="All" Text="入庫單" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text2" Left="103.95" Top="28.35" Width="198.45" Height="28.35" Border.Lines="All" Text="   月    日" HorzAlign="Right" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text3" Left="9.45" Width="292.95" Height="28.35" Text="老食品股份有限公司" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text4" Left="9.45" Top="56.7" Width="94.5" Height="56.7" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text5" Left="9.45" Top="113.4" Width="94.5" Height="28.35" Border.Lines="All" Text="規格" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text6" Left="9.45" Top="141.75" Width="94.5" Height="28.35" Border.Lines="All" Text="入庫數量" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text7" Left="9.45" Top="170.1" Width="94.5" Height="28.35" Border.Lines="All" Text="入庫員" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text8" Left="9.45" Top="198.45" Width="94.5" Height="28.35" Border.Lines="All" Text="倉管" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text9" Left="9.45" Top="226.8" Width="94.5" Height="75.6" Border.Lines="All" Text="有效日期" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text10" Left="9.45" Top="302.4" Width="94.5" Height="28.35" Border.Lines="All" Text="備註" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text11" Left="103.95" Top="56.7" Width="198.45" Height="56.7" Border.Lines="All" Text="[Table.品名]" VertAlign="Center" Font="標楷體, 12pt"/>
+      <TextObject Name="Text12" Left="103.95" Top="113.4" Width="198.45" Height="28.35" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text13" Left="103.95" Top="141.75" Width="198.45" Height="28.35" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text14" Left="103.95" Top="170.1" Width="198.45" Height="28.35" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text15" Left="103.95" Top="198.45" Width="198.45" Height="28.35" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text16" Left="103.95" Top="226.8" Width="198.45" Height="75.6" Border.Lines="All" Text="[P1]" VertAlign="Center" Font="標楷體, 12pt"/>
+      <TextObject Name="Text17" Left="103.95" Top="302.4" Width="198.45" Height="28.35" Border.Lines="All" Text="[Table.製令]-[Table.製令號]" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text18" Left="9.45" Top="330.75" Width="160.65" Height="28.35" Text="本文件不得擅自塗改及影印   " VertAlign="Center" Font="標楷體, 8pt"/>
+      <TextObject Name="Text19" Left="170.1" Top="330.75" Width="132.3" Height="28.35" Text="FM0757-02" HorzAlign="Right" VertAlign="Center" Font="標楷體, 8pt"/>
+      <TextObject Name="Text20" Left="368.55" Top="28.35" Width="94.5" Height="28.35" Border.Lines="All" Text="入庫單" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text21" Left="463.05" Top="28.35" Width="198.45" Height="28.35" Border.Lines="All" Text="   月    日" HorzAlign="Right" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text22" Left="368.55" Width="292.95" Height="28.35" Text="老食品股份有限公司" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text23" Left="368.55" Top="56.7" Width="94.5" Height="56.7" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text24" Left="368.55" Top="113.4" Width="94.5" Height="28.35" Border.Lines="All" Text="規格" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text25" Left="368.55" Top="141.75" Width="94.5" Height="28.35" Border.Lines="All" Text="入庫數量" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text26" Left="368.55" Top="170.1" Width="94.5" Height="28.35" Border.Lines="All" Text="入庫員" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text27" Left="368.55" Top="198.45" Width="94.5" Height="28.35" Border.Lines="All" Text="倉管" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text28" Left="368.55" Top="226.8" Width="94.5" Height="75.6" Border.Lines="All" Text="有效日期" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text29" Left="368.55" Top="302.4" Width="94.5" Height="28.35" Border.Lines="All" Text="備註" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text30" Left="463.05" Top="56.7" Width="198.45" Height="56.7" Border.Lines="All" Text="[Table.品名]" VertAlign="Center" Font="標楷體, 12pt"/>
+      <TextObject Name="Text31" Left="463.05" Top="113.4" Width="198.45" Height="28.35" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text32" Left="463.05" Top="141.75" Width="198.45" Height="28.35" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text33" Left="463.05" Top="170.1" Width="198.45" Height="28.35" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text34" Left="463.05" Top="198.45" Width="198.45" Height="28.35" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text35" Left="463.05" Top="226.8" Width="198.45" Height="75.6" Border.Lines="All" Text="[P1]" VertAlign="Center" Font="標楷體, 12pt"/>
+      <TextObject Name="Text36" Left="463.05" Top="302.4" Width="198.45" Height="28.35" Border.Lines="All" Text="[Table.製令]-[Table.製令號]" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text37" Left="368.55" Top="330.75" Width="160.65" Height="28.35" Text="本文件不得擅自塗改及影印   " VertAlign="Center" Font="標楷體, 8pt"/>
+      <TextObject Name="Text38" Left="529.2" Top="330.75" Width="132.3" Height="28.35" Text="FM0757-02" HorzAlign="Right" VertAlign="Center" Font="標楷體, 8pt"/>
     </DataBand>
   </ReportPage>
 </Report>

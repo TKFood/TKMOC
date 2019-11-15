@@ -57,7 +57,7 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@" SELECT TA001 AS '製令',TA002 AS '製令號',TA034 AS '品名' ");
+                sbSql.AppendFormat(@" SELECT TA001 AS '製令',TA002 AS '製令號',TA034 AS '品名' ,TA029 '備註'");
                 sbSql.AppendFormat(@" FROM [TK].dbo.MOCTA ");
                 sbSql.AppendFormat(@" WHERE TA009>='{0}' AND TA009<='{1}' ",dt.ToString("yyyyMMdd"), dt2.ToString("yyyyMMdd"));
                 sbSql.AppendFormat(@" AND TA001 IN ('A510','A511','A512','A521','A522') ");
@@ -105,6 +105,7 @@ namespace TKMOC
         {
             textBox1.Text = null;
             textBox2.Text = null;
+            textBox3.Text = null;
 
             if (dataGridView1.CurrentRow != null)
             {
@@ -114,12 +115,13 @@ namespace TKMOC
                     DataGridViewRow row = dataGridView1.Rows[rowindex];
                     textBox1.Text = row.Cells["製令"].Value.ToString();
                     textBox2.Text = row.Cells["製令號"].Value.ToString();
-
+                    textBox3.Text = row.Cells["備註"].Value.ToString();
                 }
                 else
                 {
                     textBox1.Text = null;
                     textBox2.Text = null;
+                    textBox3.Text = null;
 
                 }
             }
@@ -136,6 +138,9 @@ namespace TKMOC
             TableDataSource Table = report1.GetDataSource("Table") as TableDataSource;
             SQL = SETFASETSQL(TA001, TA002);
             Table.SelectCommand = SQL;
+
+            report1.SetParameterValue("P1", textBox3.Text);
+           
             report1.Preview = previewControl1;
             report1.Show();
         }
@@ -150,7 +155,7 @@ namespace TKMOC
             FASTSQL.AppendFormat(@"  SELECT TA001 AS '製令',TA002 AS '製令號',TA034 AS '品名'");
             FASTSQL.AppendFormat(@"  FROM [TK].dbo.MOCTA");
             FASTSQL.AppendFormat(@"  WHERE TA001='{0}' AND TA002='{1}'",TA001,TA002);
-            FASTSQL.AppendFormat(@"  ");
+            FASTSQL.AppendFormat(@"   ");
 
             return FASTSQL.ToString();
         }
