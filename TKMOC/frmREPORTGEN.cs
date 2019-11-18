@@ -153,7 +153,9 @@ namespace TKMOC
 
            
             FASTSQL.AppendFormat(@"  SELECT TA001 AS '製令',TA002 AS '製令號',TA034 AS '品名'");
+            FASTSQL.AppendFormat(@"  ,MB003 AS '規格' ");
             FASTSQL.AppendFormat(@"  FROM [TK].dbo.MOCTA");
+            FASTSQL.AppendFormat(@"  LEFT JOIN [TK].dbo.INVMB ON MB001=TA006");
             FASTSQL.AppendFormat(@"  WHERE TA001='{0}' AND TA002='{1}'",TA001,TA002);
             FASTSQL.AppendFormat(@"   ");
 
