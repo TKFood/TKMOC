@@ -53,6 +53,9 @@ namespace TKMOC
         string TA001;
         string TA002;
         string TC015;
+        string TC001;
+        string TC002;
+        string TC003;
 
         public class PURTADATA
         {
@@ -539,7 +542,7 @@ namespace TKMOC
             }
         }
 
-        public void ADDPURTAPURTB(string MID,string DID,string TA001,string TA002)
+        public void ADDPURTAPURTB(string MID,string DID,string TA001,string TA002, string TC001, string TC002,string TC003,string TB011,string TB019)
         {
             PURTADATA PURTA = new PURTADATA();
             PURTA = SETPURTA(MID,DID,dateTimePicker3.Value,TA001,TA002);
@@ -581,17 +584,44 @@ namespace TKMOC
                     sbSql.AppendFormat(" '{0}','{1}','{2}','{3}','{4}',{5},{6},{7},{8},{9}", PURTA.UDF01, PURTA.UDF02, PURTA.UDF03, PURTA.UDF04, PURTA.UDF05, PURTA.UDF06, PURTA.UDF07, PURTA.UDF08, PURTA.UDF09, PURTA.UDF10);
                     sbSql.AppendFormat(" )");
                     sbSql.AppendFormat(" ");
-                    sbSql.AppendFormat(" ");
-                    sbSql.AppendFormat(" ");
-                    sbSql.AppendFormat(" ");
-                    sbSql.AppendFormat(" ");
-                    sbSql.AppendFormat(" ");
-                    sbSql.AppendFormat(" ");
-                    sbSql.AppendFormat(" ");
-                    sbSql.AppendFormat(" ");
-                    sbSql.AppendFormat(" ");
-                    sbSql.AppendFormat(" ");
-                    sbSql.AppendFormat(" ");
+                    sbSql.AppendFormat(" INSERT INTO [TK].[dbo].[PURTB]");
+                    sbSql.AppendFormat(" (");
+                    sbSql.AppendFormat(" [COMPANY],[CREATOR],[USR_GROUP],[CREATE_DATE],[MODIFIER],[MODI_DATE],[FLAG],[CREATE_TIME],[MODI_TIME],[TRANS_TYPE]");
+                    sbSql.AppendFormat(" ,[TRANS_NAME],[sync_date],[sync_time],[sync_mark],[sync_count],[DataUser],[DataGroup]");
+                    sbSql.AppendFormat(" ,[TB001],[TB002],[TB003],[TB004],[TB005],[TB006],[TB007],[TB008],[TB009],[TB010]");
+                    sbSql.AppendFormat(" ,[TB011],[TB012],[TB013],[TB014],[TB015],[TB016],[TB017],[TB018],[TB019],[TB020]");
+                    sbSql.AppendFormat(" ,[TB021],[TB022],[TB023],[TB024],[TB025],[TB026],[TB027],[TB028],[TB029],[TB030]");
+                    sbSql.AppendFormat(" ,[TB031],[TB032],[TB033],[TB034],[TB035],[TB036],[TB037],[TB038],[TB039],[TB040]");
+                    sbSql.AppendFormat(" ,[TB041],[TB042],[TB043],[TB044],[TB045],[TB046],[TB047],[TB048],[TB049],[TB050]");
+                    sbSql.AppendFormat(" ,[TB051],[TB052],[TB053],[TB054],[TB055],[TB056],[TB057],[TB058],[TB059],[TB060]");
+                    sbSql.AppendFormat(" ,[TB061],[TB062],[TB063],[TB064],[TB065],[TB066],[TB067],[TB068],[TB069],[TB070]");
+                    sbSql.AppendFormat(" ,[TB071],[TB072],[TB073],[TB074],[TB075],[TB076],[TB077],[TB078],[TB079],[TB080]");
+                    sbSql.AppendFormat(" ,[TB081],[TB082],[TB083],[TB084],[TB085],[TB086],[TB087],[TB088],[TB089],[TB090]");
+                    sbSql.AppendFormat(" ,[TB091],[TB092],[TB093],[TB094],[TB095],[TB096],[TB097],[TB098],[TB099]");
+                    sbSql.AppendFormat(" ,[UDF01],[UDF02],[UDF03],[UDF04],[UDF05],[UDF06],[UDF07],[UDF08],[UDF09],[UDF10]");
+                    sbSql.AppendFormat(" )");
+                    sbSql.AppendFormat(" (");
+                    sbSql.AppendFormat(" SELECT ");
+                    sbSql.AppendFormat(" '{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}',", PURTA.COMPANY, PURTA.CREATOR, PURTA.USR_GROUP, PURTA.CREATE_DATE, PURTA.MODIFIER, PURTA.MODI_DATE, PURTA.FLAG, PURTA.CREATE_TIME, PURTA.MODI_TIME, PURTA.TRANS_TYPE);
+                    sbSql.AppendFormat(" '{0}','{1}','{2}','{3}','{4}','{5}','{6}',", PURTA.TRANS_NAME, PURTA.sync_date, PURTA.sync_time, PURTA.sync_mark, PURTA.sync_count, PURTA.DataUser, PURTA.DataGroup);
+                    sbSql.AppendFormat(" '{0}' AS [TB001],'{1}' AS [TB002],RIGHT(REPLICATE('0',4) + CAST(ROW_NUMBER() OVER(ORDER BY TD001,TD002,TD003)  as NVARCHAR),4)  AS [TB003],MB001 AS [TB004],MB002 AS [TB005],MB003 AS [TB006],MB004 AS [TB007],MB017 AS [TB008],(TD008-TD009+TD024-TD025) AS [TB009],MB032 AS [TB010]", PURTA.TA001, PURTA.TA002);
+                    sbSql.AppendFormat(" ,'{0}' AS [TB011],TD001+'-'+TD002+'-'+TD003 AS [TB012],'170017' AS [TB013],(TD008-TD009+TD024-TD025) AS [TB014],MB004 AS [TB015],MB048 AS [TB016],MB049 AS [TB017],(TD008-TD009+TD024-TD025)*MB049 AS [TB018],'{0}' AS [TB019],'N' AS [TB020]",TB011,TB019);
+                    sbSql.AppendFormat(" ,'N' AS [TB021],'' AS [TB022],'' AS [TB023],'' AS [TB024],'N' AS [TB025],MA044 AS [TB026],'' AS [TB027],'' AS [TB028],'' AS [TB029],'' AS [TB030]");
+                    sbSql.AppendFormat(" ,'' AS [TB031],'N' AS [TB032],'' AS [TB033],'0' AS [TB034],'0' AS [TB035],'' AS [TB036],'' AS [TB037],'' AS [TB038],'N' AS [TB039],MB051 AS [TB040]");
+                    sbSql.AppendFormat(" ,(TD008-TD009+TD024-TD025)*MB051 AS [TB041],'' AS [TB042],'' AS [TB043],'' AS [TB044],'' AS [TB045],'' AS [TB046],'' AS [TB047],'' AS [TB048],'0' AS [TB049],'' AS [TB050]");
+                    sbSql.AppendFormat(" ,'0' AS [TB051],'0' AS [TB052],'0' AS [TB053],'' AS [TB054],'' AS [TB055],'' AS [TB056],'' AS [TB057],'1' AS [TB058],'' AS [TB059],'' AS [TB060]");
+                    sbSql.AppendFormat(" ,'' AS [TB061],'' AS [TB062],'0' AS [TB063],'N' AS [TB064],'1' AS [TB065],'' AS [TB066],'2' AS [TB067],'0' AS [TB068],'0' AS [TB069],'' AS [TB070]");
+                    sbSql.AppendFormat(" ,'' AS [TB071],'' AS [TB072],'' AS [TB073],'' AS [TB074],'0' AS [TB075],'' AS [TB076],'0' AS [TB077],'' AS [TB078],'' AS [TB079],'' AS [TB080]");
+                    sbSql.AppendFormat(" ,'0' AS [TB081],'0' AS [TB082],'0' AS [TB083],'0' AS [TB084],'0' AS [TB085],'' AS [TB086],'' AS [TB087],'0' AS [TB088],'1' AS [TB089],'0' AS [TB090]");
+                    sbSql.AppendFormat(" ,'0' AS [TB091],'0' AS [TB092],'0' AS [TB093],'' AS [TB094],'' AS [TB095],'' AS [TB096],'' AS [TB097],'' AS [TB098],'' AS [TB099]");
+                    sbSql.AppendFormat(" ,'' AS [UDF01],'' AS [UDF02],'' AS [UDF03],'' AS [UDF04],'' AS [UDF05],'0' AS [UDF06],'0' AS [UDF07],'0' AS [UDF08],'0' AS [UDF09],'0' AS [UDF10]");
+                    sbSql.AppendFormat(" FROM [TK].dbo.COPTC,[TK].dbo.COPTD,[TK].dbo.INVMB");
+                    sbSql.AppendFormat(" LEFT JOIN [TK].dbo.PURMA ON MA001=MB032");
+                    sbSql.AppendFormat(" WHERE TC001=TD001 AND TC002=TD002");
+                    sbSql.AppendFormat(" AND MB001=TD004");
+                    sbSql.AppendFormat(" AND TD001='{0}' AND TD002='{1}' AND TD003='{2}'",TC001,TC002,TC003);
+                    sbSql.AppendFormat(" )");
+                
                     sbSql.AppendFormat(" ");
 
                     cmd.Connection = sqlConn;
@@ -823,8 +853,11 @@ namespace TKMOC
             TA001 = textBox3.Text;
             TA002 = GETMAXTA002(TA001, dateTimePicker3.Value.ToString("yyyyMMdd"));
 
+            TC001 = textBox1.Text;
+            TC002 = textBox2.Text;
+            TC003 = textBox4.Text;
             //ADDCOPMOCPUR(textBox1.Text, textBox2.Text, TA001, TA002);
-            ADDPURTAPURTB(textBox1.Text,textBox2.Text, TA001, TA002);
+            ADDPURTAPURTB(textBox1.Text,textBox2.Text, TA001, TA002, TC001, TC002, TC003,dateTimePicker4.Value.ToString("yyyyMMdd"), dateTimePicker4.Value.ToString("yyyyMMdd"));
 
             SEARCHCOPMOCPUR(textBox1.Text,textBox2.Text);
 

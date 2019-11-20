@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -55,6 +55,8 @@
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.textBox4 = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.dateTimePicker4 = new System.Windows.Forms.DateTimePicker();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -226,8 +228,8 @@
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
@@ -264,16 +266,18 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 155F));
-            this.tableLayoutPanel2.Controls.Add(this.label3, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.dateTimePicker3, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.textBox1, 1, 2);
-            this.tableLayoutPanel2.Controls.Add(this.textBox2, 2, 2);
-            this.tableLayoutPanel2.Controls.Add(this.label4, 0, 2);
             this.tableLayoutPanel2.Controls.Add(this.label5, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.textBox3, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.button2, 4, 1);
             this.tableLayoutPanel2.Controls.Add(this.button11, 4, 2);
-            this.tableLayoutPanel2.Controls.Add(this.textBox4, 3, 2);
+            this.tableLayoutPanel2.Controls.Add(this.label4, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.textBox1, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.textBox2, 2, 0);
+            this.tableLayoutPanel2.Controls.Add(this.textBox4, 3, 0);
+            this.tableLayoutPanel2.Controls.Add(this.textBox3, 1, 1);
+            this.tableLayoutPanel2.Controls.Add(this.label3, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.dateTimePicker3, 1, 2);
+            this.tableLayoutPanel2.Controls.Add(this.label6, 2, 2);
+            this.tableLayoutPanel2.Controls.Add(this.dateTimePicker4, 3, 2);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -293,11 +297,11 @@
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label3.Location = new System.Drawing.Point(3, 12);
+            this.label3.Location = new System.Drawing.Point(3, 92);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(114, 16);
             this.label3.TabIndex = 0;
-            this.label3.Text = "採購日";
+            this.label3.Text = "請購日";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // dateTimePicker3
@@ -307,7 +311,7 @@
             this.dateTimePicker3.Enabled = false;
             this.dateTimePicker3.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.dateTimePicker3.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker3.Location = new System.Drawing.Point(123, 6);
+            this.dateTimePicker3.Location = new System.Drawing.Point(123, 86);
             this.dateTimePicker3.Name = "dateTimePicker3";
             this.dateTimePicker3.Size = new System.Drawing.Size(114, 27);
             this.dateTimePicker3.TabIndex = 1;
@@ -315,7 +319,7 @@
             // textBox1
             // 
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(123, 86);
+            this.textBox1.Location = new System.Drawing.Point(123, 6);
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(114, 27);
@@ -324,7 +328,7 @@
             // textBox2
             // 
             this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox2.Location = new System.Drawing.Point(243, 86);
+            this.textBox2.Location = new System.Drawing.Point(243, 6);
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
             this.textBox2.Size = new System.Drawing.Size(114, 27);
@@ -335,7 +339,7 @@
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label4.Location = new System.Drawing.Point(3, 92);
+            this.label4.Location = new System.Drawing.Point(3, 12);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(114, 16);
             this.label4.TabIndex = 2;
@@ -390,8 +394,8 @@
             // 
             this.dataGridView2.AllowUserToAddRows = false;
             this.dataGridView2.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.dataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.dataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle8;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView2.Location = new System.Drawing.Point(0, 0);
@@ -414,11 +418,34 @@
             // textBox4
             // 
             this.textBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox4.Location = new System.Drawing.Point(363, 86);
+            this.textBox4.Location = new System.Drawing.Point(363, 6);
             this.textBox4.Name = "textBox4";
             this.textBox4.ReadOnly = true;
             this.textBox4.Size = new System.Drawing.Size(114, 27);
             this.textBox4.TabIndex = 14;
+            // 
+            // label6
+            // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label6.Location = new System.Drawing.Point(243, 92);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(114, 16);
+            this.label6.TabIndex = 15;
+            this.label6.Text = "需求日";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // dateTimePicker4
+            // 
+            this.dateTimePicker4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.dateTimePicker4.CustomFormat = "yyyy/MM/dd";
+            this.dateTimePicker4.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.dateTimePicker4.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker4.Location = new System.Drawing.Point(363, 86);
+            this.dateTimePicker4.Name = "dateTimePicker4";
+            this.dateTimePicker4.Size = new System.Drawing.Size(114, 27);
+            this.dateTimePicker4.TabIndex = 16;
             // 
             // frmCOPMOCPUR
             // 
@@ -481,5 +508,7 @@
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Button button11;
         private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.DateTimePicker dateTimePicker4;
     }
 }
