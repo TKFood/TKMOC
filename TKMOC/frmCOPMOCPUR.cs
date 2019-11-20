@@ -283,7 +283,7 @@ namespace TKMOC
                 sbSqlQuery.Clear();
 
 
-                sbSql.AppendFormat(@"  SELECT TD013 AS '預交日',TD001 AS '訂單',TD002 AS '訂單號',TD004 AS '品號',TD005 AS '品名',TD006 AS '規格',(TD008-TD009+TD024-TD025) AS '訂單數量',TD010 AS '訂單單位'");
+                sbSql.AppendFormat(@"  SELECT TD013 AS '預交日',TD001 AS '訂單',TD002 AS '訂單號',TD003 AS '序號',TD004 AS '品號',TD005 AS '品名',TD006 AS '規格',(TD008-TD009+TD024-TD025) AS '訂單數量',TD010 AS '訂單單位'");
                 sbSql.AppendFormat(@"  ,CONVERT(DECIMAL(18,3),(CASE WHEN MD002=TD010   THEN (TD008-TD009+TD024-TD025)*MD004/MD003 ELSE (TD008-TD009+TD024-TD025) END )) AS '數量'");
                 sbSql.AppendFormat(@"  ,MB004 AS '單位',TC015 AS '單頭備註',TD020 AS '單身備註'");
                 sbSql.AppendFormat(@"  FROM [TK].dbo.COPTC,[TK].dbo.COPTD");
@@ -396,6 +396,7 @@ namespace TKMOC
         {
             textBox1.Text = null;
             textBox2.Text = null;
+            textBox4.Text = null;
 
             if (dataGridView1.CurrentRow != null)
             {
@@ -405,6 +406,7 @@ namespace TKMOC
                     DataGridViewRow row = dataGridView1.Rows[rowindex];
                     textBox1.Text = row.Cells["訂單"].Value.ToString();
                     textBox2.Text = row.Cells["訂單號"].Value.ToString();
+                    textBox4.Text = row.Cells["序號"].Value.ToString();
 
                     SEARCHCOPMOCPUR(textBox1.Text, textBox2.Text);
                 }
@@ -412,7 +414,7 @@ namespace TKMOC
                 {
                     textBox1.Text = null;
                     textBox2.Text = null;
-
+                    textBox4.Text = null;
                 }
             }
         }
