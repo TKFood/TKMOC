@@ -523,7 +523,7 @@ namespace TKMOC
             textBox1.Text = null;
             textBox2.Text = null;
             textBox4.Text = null;
-
+            textBox11.Text = null;
 
             if (dataGridView1.CurrentRow != null)
             {
@@ -534,7 +534,7 @@ namespace TKMOC
                     textBox1.Text = row.Cells["訂單"].Value.ToString();
                     textBox2.Text = row.Cells["訂單號"].Value.ToString();
                     textBox4.Text = row.Cells["序號"].Value.ToString();
-            
+                    textBox11.Text = row.Cells["單頭備註"].Value.ToString();
 
                     SEARCHCOPMOCPUR(textBox1.Text, textBox2.Text, textBox4.Text);
                 }
@@ -543,7 +543,7 @@ namespace TKMOC
                     textBox1.Text = null;
                     textBox2.Text = null;
                     textBox4.Text = null;
-
+                    textBox11.Text = null;
                 }
             }
         }
