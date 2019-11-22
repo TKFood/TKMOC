@@ -463,6 +463,7 @@ namespace TKMOC
             textBox2.Text = null;
             textBox4.Text = null;
 
+
             if (dataGridView1.CurrentRow != null)
             {
                 int rowindex = dataGridView1.CurrentRow.Index;
@@ -472,6 +473,7 @@ namespace TKMOC
                     textBox1.Text = row.Cells["訂單"].Value.ToString();
                     textBox2.Text = row.Cells["訂單號"].Value.ToString();
                     textBox4.Text = row.Cells["序號"].Value.ToString();
+            
 
                     SEARCHCOPMOCPUR(textBox1.Text, textBox2.Text, textBox4.Text);
                 }
@@ -480,6 +482,7 @@ namespace TKMOC
                     textBox1.Text = null;
                     textBox2.Text = null;
                     textBox4.Text = null;
+
                 }
             }
         }
@@ -489,6 +492,8 @@ namespace TKMOC
             textBox5.Text = null;
             textBox6.Text = null;
             textBox7.Text = null;
+            textBox9.Text = null;
+            textBox10.Text = null; 
 
             if (dataGridView3.CurrentRow != null)
             {
@@ -499,6 +504,8 @@ namespace TKMOC
                     textBox5.Text = row.Cells["製令單"].Value.ToString();
                     textBox6.Text = row.Cells["製令單號"].Value.ToString();
                     textBox7.Text = row.Cells["品號"].Value.ToString();
+                    textBox9.Text = row.Cells["單頭備註"].Value.ToString();
+                    textBox10.Text = row.Cells["單身備註"].Value.ToString();
 
                     SEARCHCOPMOCPUR(textBox5.Text, textBox6.Text, textBox4.Text);
                 }
@@ -507,6 +514,8 @@ namespace TKMOC
                     textBox5.Text = null;
                     textBox6.Text = null;
                     textBox7.Text = null;
+                    textBox9.Text = null;
+                    textBox10.Text = null;
                 }
             }
         }
