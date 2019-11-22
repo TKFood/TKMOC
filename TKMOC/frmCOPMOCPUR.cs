@@ -38,6 +38,8 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder4 = new SqlCommandBuilder();
         SqlDataAdapter adapter5 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder5 = new SqlCommandBuilder();
+        SqlDataAdapter adapter6 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder6 = new SqlCommandBuilder();
 
         SqlTransaction tran;
         SqlCommand cmd = new SqlCommand();
@@ -46,6 +48,7 @@ namespace TKMOC
         DataSet ds3 = new DataSet();
         DataSet ds4 = new DataSet();
         DataSet ds5 = new DataSet();
+        DataSet ds6 = new DataSet();
 
         DataTable dt = new DataTable();
         string tablename = null;
@@ -59,6 +62,9 @@ namespace TKMOC
         string TC001;
         string TC002;
         string TC003;
+        string TB001;
+        string TB002;
+        string TB003;
 
         public class PURTADATA
         {
@@ -457,6 +463,61 @@ namespace TKMOC
             }
         }
 
+        public void SEARCHCOPMOCPUR2(string MID, string DID, string SID)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+
+
+                sbSql.AppendFormat(@"  SELECT [TA001] AS '採購單',[TA002] AS '採購單號',[MID] AS '來源單別',[DID] AS '來源單號',[SID] AS '來源明細號'");
+                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[COPMOCPUR]");
+                sbSql.AppendFormat(@"  WHERE [MID]='{0}' AND [DID]='{1}' AND [SID]='{2}'", MID, DID, SID);
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+
+                adapter6 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder6 = new SqlCommandBuilder(adapter6);
+                sqlConn.Open();
+                ds6.Clear();
+                adapter6.Fill(ds6, "ds6");
+                sqlConn.Close();
+
+
+                if (ds6.Tables["ds6"].Rows.Count == 0)
+                {
+                    dataGridView4.DataSource = null;
+                }
+                else
+                {
+                    if (ds6.Tables["ds6"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView4.DataSource = ds6.Tables["ds6"];
+                        dataGridView4.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
             textBox1.Text = null;
@@ -507,7 +568,7 @@ namespace TKMOC
                     textBox9.Text = row.Cells["單頭備註"].Value.ToString();
                     textBox10.Text = row.Cells["單身備註"].Value.ToString();
 
-                    SEARCHCOPMOCPUR(textBox5.Text, textBox6.Text, textBox4.Text);
+                    SEARCHCOPMOCPUR2(textBox5.Text, textBox6.Text, textBox7.Text);
                 }
                 else
                 {
@@ -975,9 +1036,32 @@ namespace TKMOC
             SEARCHMOC(dateTimePicker5.Value, dateTimePicker6.Value);
         }
 
+        private void button4_Click(object sender, EventArgs e)
+        {
+            TA001 = textBox8.Text;
+            TA002 = GETMAXTA002(TA001, dateTimePicker3.Value.ToString("yyyyMMdd"));
 
+            TB001 = textBox5.Text;
+            TB002 = textBox6.Text;
+            TB003 = textBox7.Text;
+
+            ADDCOPMOCPUR(TB001, TB002, TB003, TA001, TA002);
+            //ADDPURTAPURTB(textBox1.Text, textBox2.Text, TA001, TA002, TC001, TC002, TC003, dateTimePicker4.Value.ToString("yyyyMMdd"), dateTimePicker4.Value.ToString("yyyyMMdd"));
+
+            SEARCHCOPMOCPUR(TB001, TB002, TB003);
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("要刪除了?", "要刪除了?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                DELETECOPMOCPUR(textBox5.Text, textBox6.Text, textBox7.Text);
+                SEARCHCOPMOCPUR2(textBox5.Text, textBox6.Text, textBox7.Text);
+            }
+        }
         #endregion
 
-     
+
     }
 }
