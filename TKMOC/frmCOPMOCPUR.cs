@@ -701,10 +701,10 @@ namespace TKMOC
             }
         }
 
-        public void ADDPURTAPURTB(string MID,string DID,string TA001,string TA002, string TC001, string TC002,string TC003,string TB011,string TB019)
+        public void ADDPURTAPURTB(string MID,string DID,string TA001,string TA002, string TC001, string TC002,string TC003,string TB011,string TB019,string TA006)
         {
             PURTADATA PURTA = new PURTADATA();
-            PURTA = SETPURTA(MID,DID,dateTimePicker3.Value,TA001,TA002);
+            PURTA = SETPURTA(MID,DID,dateTimePicker3.Value,TA001,TA002, TA006);
 
             if (!string.IsNullOrEmpty(MID) && !string.IsNullOrEmpty(DID) && !string.IsNullOrEmpty(TA001) && !string.IsNullOrEmpty(TA002))
             {
@@ -813,7 +813,7 @@ namespace TKMOC
             }
         }
 
-        public PURTADATA SETPURTA(string MID,string DID,DateTime dt,string TA001,string TA002)
+        public PURTADATA SETPURTA(string MID,string DID,DateTime dt,string TA001,string TA002,string TA006)
         {
             PURTADATA PURTA = new PURTADATA();
             PURTA.COMPANY = "TK";
@@ -839,7 +839,7 @@ namespace TKMOC
             PURTA.TA003 = dt.ToString("yyyyMMdd");
             PURTA.TA004 = "103500";
             PURTA.TA005 = null;
-            PURTA.TA006 = TC015;
+            PURTA.TA006 = TA006;
             PURTA.TA007 = "N";
             PURTA.TA008 = "0";
             PURTA.TA009 = "9";
@@ -1016,7 +1016,7 @@ namespace TKMOC
             TC002 = textBox2.Text;
             TC003 = textBox4.Text;
             ADDCOPMOCPUR(textBox1.Text, textBox2.Text, textBox4.Text, TA001, TA002);
-            ADDPURTAPURTB(textBox1.Text,textBox2.Text, TA001, TA002, TC001, TC002, TC003,dateTimePicker4.Value.ToString("yyyyMMdd"), dateTimePicker4.Value.ToString("yyyyMMdd"));
+            ADDPURTAPURTB(textBox1.Text,textBox2.Text, TA001, TA002, TC001, TC002, TC003,dateTimePicker4.Value.ToString("yyyyMMdd"), dateTimePicker4.Value.ToString("yyyyMMdd"),textBox11.Text);
 
             SEARCHCOPMOCPUR(textBox1.Text,textBox2.Text, textBox4.Text);
 
