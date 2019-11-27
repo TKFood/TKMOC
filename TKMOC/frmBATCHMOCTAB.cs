@@ -35,6 +35,9 @@ namespace TKMOC
         SqlCommand cmd = new SqlCommand();
         DataSet ds1 = new DataSet();
 
+        List<ADDITEM> ADDTARGET = new List<ADDITEM>();
+        List<ADDITEM> FIND = new List<ADDITEM>();
+
         public class ADDITEM
         {
             public string MB001;
@@ -49,14 +52,66 @@ namespace TKMOC
 
         public void TEST()
         {
-            List<ADDITEM> ADDS = new List<ADDITEM>();
+            ADDTARGET.Add(new ADDITEM { MB001 = "40101110430280", NUM =100 });
 
-            ADDS.Add(new ADDITEM { MB001 = "Honda", NUM =1.23 });
-            ADDS.Add(new ADDITEM { MB001 = "Vroom", NUM = 4.56 });
+            SERACH(ADDTARGET[0].MB001, ADDTARGET[0].NUM);
 
-            foreach(var add in ADDS)
+            foreach (var find in FIND)
             {
-                MessageBox.Show(add.MB001+" "+add.NUM);
+                MessageBox.Show(find.MB001 + " " + find.NUM);
+            }
+        }
+
+        public void SERACH(string MB001,double NUM)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  SELECT MD003,ROUND({0}*[BOMMD].MD006/[BOMMD].MD007*(1+[BOMMD].MD008),3) AS MD004",NUM);
+                sbSql.AppendFormat(@"  FROM [TK].dbo.[BOMMD],[TK].dbo.[INVMB]");
+                sbSql.AppendFormat(@"  WHERE [BOMMD].MD003=[INVMB].MB001");
+                sbSql.AppendFormat(@"  AND MD001='{0}'",MB001);
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "ds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["ds1"].Rows.Count == 0)
+                {
+                    
+                }
+                else
+                {
+                    if (ds1.Tables["ds1"].Rows.Count >= 1)
+                    {
+                        foreach (DataRow od in ds1.Tables["ds1"].Rows)
+                        {
+                            FIND.Add(new ADDITEM { MB001 = od["MD003"].ToString(), NUM =Convert.ToDouble(od["MD004"].ToString()) });
+                        }
+                        
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
             }
         }
 
