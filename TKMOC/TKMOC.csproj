@@ -102,6 +102,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="frmBATCHMOCTAB.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBATCHMOCTAB.Designer.cs">
+      <DependentUpon>frmBATCHMOCTAB.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmCOP.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -470,6 +476,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmBATCHMOCTAB.resx">
+      <DependentUpon>frmBATCHMOCTAB.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmCOP.resx">
       <DependentUpon>frmCOP.cs</DependentUpon>
     </EmbeddedResource>
