@@ -5688,33 +5688,50 @@ namespace TKMOC
                 sqlConn.Close();
 
 
-                if (ds27.Tables["ds27"].Rows.Count == 0)
+                if (MANU.Equals("新廠製二組"))
                 {
-                    textBox1.Text = null;
-                    textBox2.Text = null;
-                    textBox3.Text = null;
-                    textBox5.Text = null;
-                    textBox6.Text = null;
-                    textBox52.Text = null;
-                    textBox40.Text = null;
-                    textBox41.Text = null;
-                    textBox73.Text = null;
-                }
-                else
-                {
-                    if (ds27.Tables["ds27"].Rows.Count >= 1)
+                    if (ds27.Tables["ds27"].Rows.Count == 0)
                     {
-                        textBox1.Text= ds27.Tables["ds27"].Rows[0]["TD004"].ToString();
-                        textBox2.Text = ds27.Tables["ds27"].Rows[0]["TD005"].ToString();
-                        textBox3.Text = ds27.Tables["ds27"].Rows[0]["TD006"].ToString();
-                        textBox5.Text = ds27.Tables["ds27"].Rows[0]["NUM"].ToString();
-                        textBox6.Text = ds27.Tables["ds27"].Rows[0]["TC053"].ToString();
-                        textBox52.Text = ds27.Tables["ds27"].Rows[0]["TC015"].ToString();
-                        textBox40.Text = textBoxCOP1.Text;
-                        textBox41.Text = textBoxCOP2.Text;
-                        textBox73.Text = textBoxCOP3.Text;
+                        textBox1.Text = null;
+                        textBox2.Text = null;
+                        textBox3.Text = null;
+                        textBox5.Text = null;
+                        textBox6.Text = null;
+                        textBox52.Text = null;
+                        textBox40.Text = null;
+                        textBox41.Text = null;
+                        textBox73.Text = null;
+                    }
+                    else
+                    {
+                        if (ds27.Tables["ds27"].Rows.Count >= 1)
+                        {
+                            textBox1.Text = ds27.Tables["ds27"].Rows[0]["TD004"].ToString();
+                            textBox2.Text = ds27.Tables["ds27"].Rows[0]["TD005"].ToString();
+                            textBox3.Text = ds27.Tables["ds27"].Rows[0]["TD006"].ToString();
+                            textBox5.Text = ds27.Tables["ds27"].Rows[0]["NUM"].ToString();
+                            textBox6.Text = ds27.Tables["ds27"].Rows[0]["TC053"].ToString();
+                            textBox52.Text = ds27.Tables["ds27"].Rows[0]["TC015"].ToString();
+                            textBox40.Text = textBoxCOP1.Text;
+                            textBox41.Text = textBoxCOP2.Text;
+                            textBox73.Text = textBoxCOP3.Text;
+                        }
                     }
                 }
+                else if (MANU.Equals("新廠包裝線"))
+                {
+                   
+                }
+                else if (MANU.Equals("新廠製一組"))
+                {
+                    
+                }
+                else if (MANU.Equals("新廠製三組(手工)"))
+                {
+                   
+                }
+
+               
 
             }
             catch
