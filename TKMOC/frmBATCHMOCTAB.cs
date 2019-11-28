@@ -55,14 +55,21 @@ namespace TKMOC
 
         public void TEST()
         {
+            ADDTARGET.Clear();
             ADDTARGET.Add(new ADDITEM { MB001 = "40101110430280", NUM =100 });
 
             SERACH(ADDTARGET[0].MB001, ADDTARGET[0].NUM);
 
             foreach (var find in FIND)
             {
-                MessageBox.Show(find.MB001 + " " + find.NUM);
+                CHECKBOMMD(find.MB001, find.NUM);                
             }
+
+            foreach (var find in ADDTARGET)
+            {
+               MessageBox.Show(find.MB001 + " " + find.NUM);
+            }
+
         }
 
         public void SERACH(string MB001,double NUM)
@@ -126,6 +133,55 @@ namespace TKMOC
             }
         }
 
+        public void CHECKBOMMD(string MB001,double NUM)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  SELECT MD001,MD003");
+                sbSql.AppendFormat(@"  FROM [TK].dbo.BOMMD");
+                sbSql.AppendFormat(@"  WHERE MD001='{0}'",MB001);
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+                adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder2 = new SqlCommandBuilder(adapter2);
+                sqlConn.Open();
+                ds2.Clear();
+                adapter2.Fill(ds2, "ds2");
+                sqlConn.Close();
+
+
+                if (ds2.Tables["ds2"].Rows.Count == 0)
+                {
+
+                }
+                else
+                {
+                    if (ds2.Tables["ds2"].Rows.Count >= 1)
+                    {
+                        ADDTARGET.Add(new ADDITEM { MB001 = MB001, NUM = NUM });
+                        
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
     
 
 
