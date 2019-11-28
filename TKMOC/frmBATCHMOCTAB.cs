@@ -83,7 +83,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  INNER JOIN NODE TB2");
                 sbSql.AppendFormat(@"  ON TB1.MD003 = TB2.MD001");
                 sbSql.AppendFormat(@"  )");
-                sbSql.AppendFormat(@"  SELECT MD001,MD003,LAYER,MD004,MC004,PREMC004,MD006,MD007,MD008,USEDNUM ,PREUSEDNUM ,USEDNUM*PREUSEDNUM AS TOTALUSED FROM NODE");
+                sbSql.AppendFormat(@"  SELECT MD001,MD003,LAYER,MD004,MC004,PREMC004,MD006,MD007,MD008,USEDNUM ,PREUSEDNUM ,USEDNUM*PREUSEDNUM*{0} AS TOTALUSED FROM NODE",NUM);
                 sbSql.AppendFormat(@"  WHERE  MD001='{0}'",MB001);
                 sbSql.AppendFormat(@"  ORDER BY LAYER ,MD001, MD003");
                 sbSql.AppendFormat(@"  ");
