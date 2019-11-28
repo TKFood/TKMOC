@@ -80,6 +80,8 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder25 = new SqlCommandBuilder();
         SqlDataAdapter adapter26 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder26 = new SqlCommandBuilder();
+        SqlDataAdapter adapter27 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder27 = new SqlCommandBuilder();
 
 
         SqlDataAdapter adapterCALENDAR = new SqlDataAdapter();
@@ -114,6 +116,7 @@ namespace TKMOC
         DataSet ds24 = new DataSet();
         DataSet ds25 = new DataSet();
         DataSet ds26 = new DataSet();
+        DataSet ds27 = new DataSet();
 
         DataSet dsCALENDAR = new DataSet();
 
@@ -5655,6 +5658,75 @@ namespace TKMOC
                 }
             }
         }
+
+        public void SEARCHCOPDEFAULT(string TD001,string TD002,string TD003)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  SELECT TC053,TD004,TD005,TD006,(TD008+TD024) AS TD008,TD010,TC015");
+                sbSql.AppendFormat(@"  ,(CASE WHEN ISNULL(MD002,'')<>'' THEN (TD008+TD024)*MD004 ELSE (TD008+TD024)  END ) AS NUM");
+                sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB WITH(NOLOCK),[TK].dbo.COPTC WITH(NOLOCK),[TK].dbo.COPTD WITH(NOLOCK)");
+                sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.INVMD ON MD001=TD004 AND TD010=MD002");
+                sbSql.AppendFormat(@"  WHERE TC001=TD001 AND TC002=TD002");
+                sbSql.AppendFormat(@"  AND MB001=TD004");
+                sbSql.AppendFormat(@"  AND TD001='{0}' AND TD002='{1}' AND TD003='{2}'",TD001,TD002,TD003);
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+                adapter27 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder27 = new SqlCommandBuilder(adapter27);
+                sqlConn.Open();
+                ds27.Clear();
+                adapter27.Fill(ds27, "ds27");
+                sqlConn.Close();
+
+
+                if (ds27.Tables["ds27"].Rows.Count == 0)
+                {
+                    textBox1.Text = null;
+                    textBox2.Text = null;
+                    textBox3.Text = null;
+                    textBox5.Text = null;
+                    textBox6.Text = null;
+                    textBox52.Text = null;
+                    textBox40.Text = null;
+                    textBox41.Text = null;
+                    textBox73.Text = null;
+                }
+                else
+                {
+                    if (ds27.Tables["ds27"].Rows.Count >= 1)
+                    {
+                        textBox1.Text= ds27.Tables["ds27"].Rows[0]["TD004"].ToString();
+                        textBox2.Text = ds27.Tables["ds27"].Rows[0]["TD005"].ToString();
+                        textBox3.Text = ds27.Tables["ds27"].Rows[0]["TD006"].ToString();
+                        textBox5.Text = ds27.Tables["ds27"].Rows[0]["NUM"].ToString();
+                        textBox6.Text = ds27.Tables["ds27"].Rows[0]["TC053"].ToString();
+                        textBox52.Text = ds27.Tables["ds27"].Rows[0]["TC015"].ToString();
+                        textBox40.Text = textBoxCOP1.Text;
+                        textBox41.Text = textBoxCOP2.Text;
+                        textBox73.Text = textBoxCOP3.Text;
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+
         #endregion
 
         #region BUTTON
@@ -6182,12 +6254,19 @@ namespace TKMOC
         }
 
 
+        private void button36_Click_1(object sender, EventArgs e)
+        {
+            if(!string.IsNullOrEmpty(textBoxCOP1.Text)& !string.IsNullOrEmpty(textBoxCOP2.Text)& !string.IsNullOrEmpty(textBoxCOP3.Text))
+            {
+                SEARCHCOPDEFAULT(textBoxCOP1.Text, textBoxCOP2.Text, textBoxCOP3.Text);
+            }
+        }
 
 
 
 
         #endregion
 
-       
+
     }
 }
