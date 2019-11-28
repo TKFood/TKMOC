@@ -5718,7 +5718,31 @@ namespace TKMOC
                 }
                 else if (MANU.Equals("新廠包裝線"))
                 {
-                   
+                    if (ds27.Tables["ds27"].Rows.Count == 0)
+                    {
+                        textBox7.Text = null;
+                        textBox10.Text = null;
+                        textBox11.Text = null;
+                        textBox12.Text = null;
+                        textBox53.Text = null;
+                        textBox9.Text = null;
+                        textBox42.Text = null;
+                        textBox43.Text = null;
+                        textBox72.Text = null;
+                    }
+                    else
+                    {
+                        if (ds27.Tables["ds27"].Rows.Count >= 1)
+                        {
+                            textBox7.Text = ds27.Tables["ds27"].Rows[0]["TD004"].ToString();
+                            textBox10.Text = ds27.Tables["ds27"].Rows[0]["TD005"].ToString();
+                            textBox11.Text = ds27.Tables["ds27"].Rows[0]["TD006"].ToString();
+                            textBox12.Text = ds27.Tables["ds27"].Rows[0]["NUM"].ToString();
+                            textBox9.Text = ds27.Tables["ds27"].Rows[0]["TC053"].ToString();
+                            textBox53.Text = ds27.Tables["ds27"].Rows[0]["TC015"].ToString();
+
+                        }
+                    }
                 }
                 else if (MANU.Equals("新廠製一組"))
                 {
@@ -6108,27 +6132,7 @@ namespace TKMOC
             SEARCHMOCMANULINE();
         }
 
-        private void button36_Click(object sender, EventArgs e)
-        {
-            frmMOCMANULINECOP SUBfrmMOCMANULINECOP = new frmMOCMANULINECOP(SUBID,SUBBAR,SUBNUM,SUBBOX,SUBPACKAGE);
-            if (!string.IsNullOrEmpty(SUBID))
-            {
-                SUBfrmMOCMANULINECOP.ShowDialog();
-            }
-
-            
-        }
-        private void button37_Click(object sender, EventArgs e)
-        {
-
-            frmMOCMANULINECOP SUBfrmMOCMANULINECOP = new frmMOCMANULINECOP(SUBID2, SUBBAR2, SUBNUM2, SUBBOX2, SUBPACKAGE2);
-            if (!string.IsNullOrEmpty(SUBID2))
-            {
-                SUBfrmMOCMANULINECOP.ShowDialog();
-            }
-
-           
-        }
+       
 
         private void button38_Click(object sender, EventArgs e)
         {
@@ -6268,16 +6272,22 @@ namespace TKMOC
            
         }
 
-
-        private void button36_Click_1(object sender, EventArgs e)
+        private void button36_Click(object sender, EventArgs e)
         {
-            if(!string.IsNullOrEmpty(textBox40.Text)& !string.IsNullOrEmpty(textBox41.Text)& !string.IsNullOrEmpty(textBox73.Text))
+            if (!string.IsNullOrEmpty(textBox40.Text) & !string.IsNullOrEmpty(textBox41.Text) & !string.IsNullOrEmpty(textBox73.Text))
             {
                 SEARCHCOPDEFAULT(textBox40.Text, textBox41.Text, textBox73.Text);
             }
+
+
         }
-
-
+        private void button37_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBox42.Text) & !string.IsNullOrEmpty(textBox43.Text) & !string.IsNullOrEmpty(textBox72.Text))
+            {
+                SEARCHCOPDEFAULT(textBox42.Text, textBox43.Text, textBox72.Text);
+            }
+        }
 
 
         #endregion
