@@ -59,10 +59,10 @@ namespace TKMOC
 
             SERACH(ADDTARGET[0].MB001, ADDTARGET[0].NUM);
 
-            //foreach (var find in FIND)
-            //{
-            //    MessageBox.Show(find.MB001 + " " + find.NUM);
-            //}
+            foreach (var find in FIND)
+            {
+                MessageBox.Show(find.MB001 + " " + find.NUM);
+            }
         }
 
         public void SERACH(string MB001,double NUM)
@@ -75,10 +75,18 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  SELECT MD003,ROUND({0}*[BOMMD].MD006/[BOMMD].MD007*(1+[BOMMD].MD008),3) AS MD004",NUM);
-                sbSql.AppendFormat(@"  FROM [TK].dbo.[BOMMD],[TK].dbo.[INVMB]");
-                sbSql.AppendFormat(@"  WHERE [BOMMD].MD003=[INVMB].MB001");
-                sbSql.AppendFormat(@"  AND MD001='{0}'",MB001);
+                sbSql.AppendFormat(@"  WITH NODE (MD001,MD003,LAYER,MD004,MC004,PREMC004,MD006,MD007,MD008,USEDNUM ,PREUSEDNUM) AS");
+                sbSql.AppendFormat(@"  (");
+                sbSql.AppendFormat(@"  SELECT MD001,MD003,0 ,[MD004],[MC004],[MC004] AS PREMC004,[MD006],[MD007],[MD008],CONVERT(DECIMAL(18,4),([MD006]/[MD007]/[MC004]*(1+MD008))),CONVERT(DECIMAL(18,4),1) AS PREUSEDNUM  FROM [TK].[dbo].[VBOMMD]");
+                sbSql.AppendFormat(@"  UNION ALL");
+                sbSql.AppendFormat(@"  SELECT TB1.MD001,TB2.MD003,TB2.LAYER+1,TB2.MD004,TB2.MC004,TB1.MC004,TB2.MD006,TB2.MD007,TB2.MD008,TB2.USEDNUM,CONVERT(DECIMAL(18,4),(TB1.[MD006]/TB1.[MD007]/TB1.[MC004]*(1+TB1.MD008))) AS PREUSEDNUM FROM [TK].[dbo].[VBOMMD] TB1");
+                sbSql.AppendFormat(@"  INNER JOIN NODE TB2");
+                sbSql.AppendFormat(@"  ON TB1.MD003 = TB2.MD001");
+                sbSql.AppendFormat(@"  )");
+                sbSql.AppendFormat(@"  SELECT MD001,MD003,LAYER,MD004,MC004,PREMC004,MD006,MD007,MD008,USEDNUM ,PREUSEDNUM ,USEDNUM*PREUSEDNUM AS TOTALUSED FROM NODE");
+                sbSql.AppendFormat(@"  WHERE  MD001='{0}'",MB001);
+                sbSql.AppendFormat(@"  ORDER BY LAYER ,MD001, MD003");
+                sbSql.AppendFormat(@"  ");
                 sbSql.AppendFormat(@"  ");
                 sbSql.AppendFormat(@"  ");
 
@@ -101,7 +109,7 @@ namespace TKMOC
                     {
                         foreach (DataRow od in ds1.Tables["ds1"].Rows)
                         {
-                            FIND.Add(new ADDITEM { MB001 = od["MD003"].ToString(), NUM =Convert.ToDouble(od["MD004"].ToString()) });
+                            FIND.Add(new ADDITEM { MB001 = od["MD003"].ToString(), NUM =Convert.ToDouble(od["TOTALUSED"].ToString()) });
                         }
                         
                     }
@@ -118,60 +126,7 @@ namespace TKMOC
             }
         }
 
-        public void SERACHFIND(string MB001, double NUM)
-        {
-            try
-            {
-                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
-                sqlConn = new SqlConnection(connectionString);
-
-                sbSql.Clear();
-                sbSqlQuery.Clear();
-
-                sbSql.AppendFormat(@"  SELECT MD003,ROUND({0}*[BOMMD].MD006/[BOMMD].MD007*(1+[BOMMD].MD008),3) AS MD004", NUM);
-                sbSql.AppendFormat(@"  FROM [TK].dbo.[BOMMD],[TK].dbo.[INVMB]");
-                sbSql.AppendFormat(@"  WHERE [BOMMD].MD003=[INVMB].MB001");
-                sbSql.AppendFormat(@"  AND MD001='{0}'", MB001);
-                sbSql.AppendFormat(@"  ");
-                sbSql.AppendFormat(@"  ");
-
-                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
-                sqlConn.Open();
-                ds1.Clear();
-                adapter1.Fill(ds1, "ds1");
-                sqlConn.Close();
-
-
-                if (ds1.Tables["ds1"].Rows.Count == 0)
-                {
-
-                }
-                else
-                {
-                    if (ds1.Tables["ds1"].Rows.Count >= 1)
-                    {
-                        ADDTARGET.Add(new ADDITEM { MB001 = MB001, NUM = NUM });
-
-                        foreach (DataRow od in ds1.Tables["ds1"].Rows)
-                        {
-                            FIND.Add(new ADDITEM { MB001 = od["MD003"].ToString(), NUM = Convert.ToDouble(od["MD004"].ToString()) });
-                        }
-
-                    }
-                }
-
-            }
-            catch
-            {
-
-            }
-            finally
-            {
-
-            }
-        }
+    
 
 
         #region FUNCTION
