@@ -391,9 +391,6 @@
             this.comboBox12 = new System.Windows.Forms.ComboBox();
             this.dataGridView15 = new System.Windows.Forms.DataGridView();
             this.button36 = new System.Windows.Forms.Button();
-            this.textBoxCOP1 = new System.Windows.Forms.TextBox();
-            this.textBoxCOP3 = new System.Windows.Forms.TextBox();
-            this.textBoxCOP2 = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -610,13 +607,9 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.button36, 0, 6);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.dateTimePicker1, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.button1, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.textBoxCOP1, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.textBoxCOP2, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.textBoxCOP3, 0, 5);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -714,6 +707,7 @@
             this.tableLayoutPanel2.Controls.Add(this.label91, 0, 6);
             this.tableLayoutPanel2.Controls.Add(this.textBox41, 2, 6);
             this.tableLayoutPanel2.Controls.Add(this.button32, 6, 0);
+            this.tableLayoutPanel2.Controls.Add(this.button36, 6, 6);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -744,9 +738,10 @@
             // textBox40
             // 
             this.textBox40.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox40.Location = new System.Drawing.Point(67, 249);
+            this.textBox40.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.textBox40.Location = new System.Drawing.Point(67, 246);
             this.textBox40.Name = "textBox40";
-            this.textBox40.Size = new System.Drawing.Size(190, 22);
+            this.textBox40.Size = new System.Drawing.Size(190, 27);
             this.textBox40.TabIndex = 28;
             // 
             // label6
@@ -1090,9 +1085,10 @@
             // textBox73
             // 
             this.textBox73.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox73.Location = new System.Drawing.Point(403, 249);
+            this.textBox73.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.textBox73.Location = new System.Drawing.Point(403, 246);
             this.textBox73.Name = "textBox73";
-            this.textBox73.Size = new System.Drawing.Size(154, 22);
+            this.textBox73.Size = new System.Drawing.Size(154, 27);
             this.textBox73.TabIndex = 117;
             // 
             // label91
@@ -1111,9 +1107,10 @@
             // 
             this.textBox41.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel2.SetColumnSpan(this.textBox41, 2);
-            this.textBox41.Location = new System.Drawing.Point(263, 249);
+            this.textBox41.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.textBox41.Location = new System.Drawing.Point(263, 246);
             this.textBox41.Name = "textBox41";
-            this.textBox41.Size = new System.Drawing.Size(134, 22);
+            this.textBox41.Size = new System.Drawing.Size(134, 27);
             this.textBox41.TabIndex = 29;
             // 
             // splitContainer3
@@ -5068,40 +5065,13 @@
             // button36
             // 
             this.button36.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.button36.Location = new System.Drawing.Point(3, 243);
+            this.button36.Location = new System.Drawing.Point(623, 243);
             this.button36.Name = "button36";
             this.button36.Size = new System.Drawing.Size(94, 30);
             this.button36.TabIndex = 3;
             this.button36.Text = "帶入訂單";
             this.button36.UseVisualStyleBackColor = true;
             this.button36.Click += new System.EventHandler(this.button36_Click_1);
-            // 
-            // textBoxCOP1
-            // 
-            this.textBoxCOP1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxCOP1.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.textBoxCOP1.Location = new System.Drawing.Point(3, 126);
-            this.textBoxCOP1.Name = "textBoxCOP1";
-            this.textBoxCOP1.Size = new System.Drawing.Size(94, 27);
-            this.textBoxCOP1.TabIndex = 107;
-            // 
-            // textBoxCOP3
-            // 
-            this.textBoxCOP3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxCOP3.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.textBoxCOP3.Location = new System.Drawing.Point(3, 206);
-            this.textBoxCOP3.Name = "textBoxCOP3";
-            this.textBoxCOP3.Size = new System.Drawing.Size(94, 27);
-            this.textBoxCOP3.TabIndex = 108;
-            // 
-            // textBoxCOP2
-            // 
-            this.textBoxCOP2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxCOP2.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.textBoxCOP2.Location = new System.Drawing.Point(3, 166);
-            this.textBoxCOP2.Name = "textBoxCOP2";
-            this.textBoxCOP2.Size = new System.Drawing.Size(94, 27);
-            this.textBoxCOP2.TabIndex = 109;
             // 
             // frmMOCMANULINE
             // 
@@ -5603,8 +5573,5 @@
         private System.Windows.Forms.Label label98;
         private System.Windows.Forms.Label label99;
         private System.Windows.Forms.Button button36;
-        private System.Windows.Forms.TextBox textBoxCOP1;
-        private System.Windows.Forms.TextBox textBoxCOP2;
-        private System.Windows.Forms.TextBox textBoxCOP3;
     }
 }

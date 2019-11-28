@@ -5712,9 +5712,7 @@ namespace TKMOC
                             textBox5.Text = ds27.Tables["ds27"].Rows[0]["NUM"].ToString();
                             textBox6.Text = ds27.Tables["ds27"].Rows[0]["TC053"].ToString();
                             textBox52.Text = ds27.Tables["ds27"].Rows[0]["TC015"].ToString();
-                            textBox40.Text = textBoxCOP1.Text;
-                            textBox41.Text = textBoxCOP2.Text;
-                            textBox73.Text = textBoxCOP3.Text;
+                           
                         }
                     }
                 }
@@ -6273,9 +6271,9 @@ namespace TKMOC
 
         private void button36_Click_1(object sender, EventArgs e)
         {
-            if(!string.IsNullOrEmpty(textBoxCOP1.Text)& !string.IsNullOrEmpty(textBoxCOP2.Text)& !string.IsNullOrEmpty(textBoxCOP3.Text))
+            if(!string.IsNullOrEmpty(textBox40.Text)& !string.IsNullOrEmpty(textBox41.Text)& !string.IsNullOrEmpty(textBox73.Text))
             {
-                SEARCHCOPDEFAULT(textBoxCOP1.Text, textBoxCOP2.Text, textBoxCOP3.Text);
+                SEARCHCOPDEFAULT(textBox40.Text, textBox41.Text, textBox73.Text);
             }
         }
 
