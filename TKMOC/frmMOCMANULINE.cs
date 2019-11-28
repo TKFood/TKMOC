@@ -5774,7 +5774,31 @@ namespace TKMOC
                 }
                 else if (MANU.Equals("新廠製三組(手工)"))
                 {
-                   
+                    if (ds27.Tables["ds27"].Rows.Count == 0)
+                    {
+                        textBox20.Text = null;
+                        textBox24.Text = null;
+                        textBox25.Text = null;
+                        textBox23.Text = null;
+                        textBox22.Text = null;
+                        textBox55.Text = null;
+                        textBox46.Text = null;
+                        textBox47.Text = null;
+                        textBox75.Text = null;
+                    }
+                    else
+                    {
+                        if (ds27.Tables["ds27"].Rows.Count >= 1)
+                        {
+                            textBox20.Text = ds27.Tables["ds27"].Rows[0]["TD004"].ToString();
+                            textBox24.Text = ds27.Tables["ds27"].Rows[0]["TD005"].ToString();
+                            textBox25.Text = ds27.Tables["ds27"].Rows[0]["TD006"].ToString();
+                            textBox23.Text = ds27.Tables["ds27"].Rows[0]["NUM"].ToString();
+                            textBox22.Text = ds27.Tables["ds27"].Rows[0]["TC053"].ToString();
+                            textBox55.Text = ds27.Tables["ds27"].Rows[0]["TC015"].ToString();
+
+                        }
+                    }
                 }
 
                
@@ -6160,17 +6184,7 @@ namespace TKMOC
 
       
 
-        private void button39_Click(object sender, EventArgs e)
-        {
-
-            frmMOCMANULINECOP SUBfrmMOCMANULINECOP = new frmMOCMANULINECOP(SUBID4, SUBBAR4, SUBNUM4, SUBBOX4, SUBPACKAGE4);
-            if (!string.IsNullOrEmpty(SUBID4))
-            {
-                SUBfrmMOCMANULINECOP.ShowDialog();
-            }
-
-            
-        }
+       
 
         private void button40_Click(object sender, EventArgs e)
         {
@@ -6311,8 +6325,14 @@ namespace TKMOC
             }
         }
 
+        private void button39_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBox46.Text) & !string.IsNullOrEmpty(textBox47.Text) & !string.IsNullOrEmpty(textBox75.Text))
+            {
+                SEARCHCOPDEFAULT(textBox46.Text, textBox47.Text, textBox75.Text);
+            }
+        }
+
         #endregion
-
-
     }
 }

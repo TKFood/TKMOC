@@ -273,6 +273,7 @@
             this.label93 = new System.Windows.Forms.Label();
             this.textBox75 = new System.Windows.Forms.TextBox();
             this.button35 = new System.Windows.Forms.Button();
+            this.button39 = new System.Windows.Forms.Button();
             this.splitContainer15 = new System.Windows.Forms.SplitContainer();
             this.dataGridView7 = new System.Windows.Forms.DataGridView();
             this.splitContainer16 = new System.Windows.Forms.SplitContainer();
@@ -2959,6 +2960,7 @@
             this.tableLayoutPanel11.Controls.Add(this.label93, 0, 6);
             this.tableLayoutPanel11.Controls.Add(this.textBox75, 4, 6);
             this.tableLayoutPanel11.Controls.Add(this.button35, 6, 0);
+            this.tableLayoutPanel11.Controls.Add(this.button39, 6, 6);
             this.tableLayoutPanel11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel11.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel11.Name = "tableLayoutPanel11";
@@ -2990,9 +2992,10 @@
             // 
             this.textBox47.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel11.SetColumnSpan(this.textBox47, 2);
-            this.textBox47.Location = new System.Drawing.Point(253, 249);
+            this.textBox47.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.textBox47.Location = new System.Drawing.Point(253, 246);
             this.textBox47.Name = "textBox47";
-            this.textBox47.Size = new System.Drawing.Size(134, 22);
+            this.textBox47.Size = new System.Drawing.Size(134, 27);
             this.textBox47.TabIndex = 30;
             // 
             // button31
@@ -3010,9 +3013,10 @@
             // textBox46
             // 
             this.textBox46.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox46.Location = new System.Drawing.Point(73, 249);
+            this.textBox46.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.textBox46.Location = new System.Drawing.Point(73, 246);
             this.textBox46.Name = "textBox46";
-            this.textBox46.Size = new System.Drawing.Size(174, 22);
+            this.textBox46.Size = new System.Drawing.Size(174, 27);
             this.textBox46.TabIndex = 29;
             // 
             // label31
@@ -3345,9 +3349,10 @@
             // textBox75
             // 
             this.textBox75.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox75.Location = new System.Drawing.Point(393, 249);
+            this.textBox75.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.textBox75.Location = new System.Drawing.Point(393, 246);
             this.textBox75.Name = "textBox75";
-            this.textBox75.Size = new System.Drawing.Size(164, 22);
+            this.textBox75.Size = new System.Drawing.Size(164, 27);
             this.textBox75.TabIndex = 120;
             // 
             // button35
@@ -3360,6 +3365,17 @@
             this.button35.Text = "修改";
             this.button35.UseVisualStyleBackColor = true;
             this.button35.Click += new System.EventHandler(this.button35_Click);
+            // 
+            // button39
+            // 
+            this.button39.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.button39.Location = new System.Drawing.Point(623, 243);
+            this.button39.Name = "button39";
+            this.button39.Size = new System.Drawing.Size(94, 30);
+            this.button39.TabIndex = 122;
+            this.button39.Text = "帶入訂單";
+            this.button39.UseVisualStyleBackColor = true;
+            this.button39.Click += new System.EventHandler(this.button39_Click);
             // 
             // splitContainer15
             // 
@@ -5607,5 +5623,6 @@
         private System.Windows.Forms.Button button36;
         private System.Windows.Forms.Button button37;
         private System.Windows.Forms.Button button38;
+        private System.Windows.Forms.Button button39;
     }
 }
