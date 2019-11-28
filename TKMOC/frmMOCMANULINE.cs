@@ -5746,7 +5746,31 @@ namespace TKMOC
                 }
                 else if (MANU.Equals("新廠製一組"))
                 {
-                    
+                    if (ds27.Tables["ds27"].Rows.Count == 0)
+                    {
+                        textBox14.Text = null;
+                        textBox17.Text = null;
+                        textBox18.Text = null;
+                        textBox19.Text = null;
+                        textBox16.Text = null;
+                        textBox54.Text = null;
+                        textBox44.Text = null;
+                        textBox45.Text = null;
+                        textBox74.Text = null;
+                    }
+                    else
+                    {
+                        if (ds27.Tables["ds27"].Rows.Count >= 1)
+                        {
+                            textBox14.Text = ds27.Tables["ds27"].Rows[0]["TD004"].ToString();
+                            textBox17.Text = ds27.Tables["ds27"].Rows[0]["TD005"].ToString();
+                            textBox18.Text = ds27.Tables["ds27"].Rows[0]["TD006"].ToString();
+                            textBox19.Text = ds27.Tables["ds27"].Rows[0]["NUM"].ToString();
+                            textBox16.Text = ds27.Tables["ds27"].Rows[0]["TC053"].ToString();
+                            textBox54.Text = ds27.Tables["ds27"].Rows[0]["TC015"].ToString();
+
+                        }
+                    }
                 }
                 else if (MANU.Equals("新廠製三組(手工)"))
                 {
@@ -6134,17 +6158,7 @@ namespace TKMOC
 
        
 
-        private void button38_Click(object sender, EventArgs e)
-        {
-
-            frmMOCMANULINECOP SUBfrmMOCMANULINECOP = new frmMOCMANULINECOP(SUBID3, SUBBAR3, SUBNUM3, SUBBOX3, SUBPACKAGE3);
-            if (!string.IsNullOrEmpty(SUBID3))
-            {
-                SUBfrmMOCMANULINECOP.ShowDialog();
-            }
-
-           
-        }
+      
 
         private void button39_Click(object sender, EventArgs e)
         {
@@ -6289,6 +6303,13 @@ namespace TKMOC
             }
         }
 
+        private void button38_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBox44.Text) & !string.IsNullOrEmpty(textBox45.Text) & !string.IsNullOrEmpty(textBox74.Text))
+            {
+                SEARCHCOPDEFAULT(textBox44.Text, textBox45.Text, textBox74.Text);
+            }
+        }
 
         #endregion
 
