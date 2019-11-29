@@ -182,18 +182,120 @@ namespace TKMOC
 
             }
         }
-    
+
 
 
         #region FUNCTION
+        public void SEARCHCOP(DateTime dt1, DateTime dt2)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
 
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+
+                sbSql.AppendFormat(@"  SELECT TD013 AS '預交日',TD001 AS '訂單',TD002 AS '訂單號',TD003 AS '序號',TD004 AS '品號',TD005 AS '品名',TD006 AS '規格',(TD008-TD009+TD024-TD025) AS '訂單數量',TD010 AS '訂單單位'");
+                sbSql.AppendFormat(@"  ,CONVERT(DECIMAL(18,3),(CASE WHEN MD002=TD010   THEN (TD008-TD009+TD024-TD025)*MD004/MD003 ELSE (TD008-TD009+TD024-TD025) END )) AS '數量'");
+                sbSql.AppendFormat(@"  ,MB004 AS '單位',TC015 AS '單頭備註',TD020 AS '單身備註'");
+                sbSql.AppendFormat(@"  FROM [TK].dbo.COPTC,[TK].dbo.COPTD");
+                sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.INVMD ON MD001=TD004 AND MD002=TD010 ");
+                sbSql.AppendFormat(@"  ,[TK].dbo.INVMB");
+                sbSql.AppendFormat(@"  WHERE TC001=TD001 AND TC002=TD002");
+                sbSql.AppendFormat(@"  AND TD004=MB001");
+                //sbSql.AppendFormat(@"  AND (TD004 LIKE '410%')");
+                sbSql.AppendFormat(@"  AND (TD008-TD009)>0");
+                sbSql.AppendFormat(@"  AND TD013>='{0}' AND TD013<='{1}'", dt1.ToString("yyyyMMdd"), dt2.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(@"  ORDER BY TD013,TD001,TD002,TD004");
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "TEMPds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["TEMPds1"].Rows.Count == 0)
+                {
+                    dataGridView1.DataSource = null;
+                }
+                else
+                {
+                    if (ds1.Tables["TEMPds1"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView1.DataSource = ds1.Tables["TEMPds1"];
+                        dataGridView1.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+
+        }
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            textBox1.Text = null;
+            textBox2.Text = null; 
+            textBox3.Text = null;
+            textBox4.Text = null;
+            textBox5.Text = null;
+            textBox6.Text = null;
+
+            if (dataGridView1.CurrentRow != null)
+            {
+                int rowindex = dataGridView1.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView1.Rows[rowindex];
+                    textBox1.Text = row.Cells["訂單"].Value.ToString();
+                    textBox2.Text = row.Cells["訂單號"].Value.ToString();
+                    textBox3.Text = row.Cells["序號"].Value.ToString();
+                    textBox4.Text = row.Cells["品號"].Value.ToString();
+                    textBox5.Text = row.Cells["數量"].Value.ToString();
+                    textBox6.Text = row.Cells["單頭備註"].Value.ToString();
+                }
+                else
+                {
+                    textBox1.Text = null;
+                    textBox2.Text = null;
+                    textBox3.Text = null;
+                    textBox4.Text = null;
+                    textBox5.Text = null;
+                    textBox6.Text = null;
+                }
+            }
+        }
         #endregion
 
         #region BUTTON
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SEARCHCOP(dateTimePicker1.Value, dateTimePicker2.Value);
+        }
         private void button2_Click(object sender, EventArgs e)
         {
             TEST();
         }
+
         #endregion
+
+        
     }
 }
