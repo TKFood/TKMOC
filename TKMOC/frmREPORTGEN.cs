@@ -127,7 +127,7 @@ namespace TKMOC
             }
         }
 
-        public void SETFASTREPORT(string TA001,string TA002)
+        public void SETFASTREPORT(string TA001,string TA002, string COMMENT, string NUM)
         {
             string SQL;
             report1 = new Report();
@@ -139,8 +139,9 @@ namespace TKMOC
             SQL = SETFASETSQL(TA001, TA002);
             Table.SelectCommand = SQL;
 
-            report1.SetParameterValue("P1", textBox3.Text);
-           
+            report1.SetParameterValue("P1", COMMENT);
+            report1.SetParameterValue("P2", NUM);
+
             report1.Preview = previewControl1;
             report1.Show();
         }
@@ -172,7 +173,7 @@ namespace TKMOC
 
         private void button2_Click(object sender, EventArgs e)
         {
-            SETFASTREPORT(textBox1.Text,textBox2.Text);
+            SETFASTREPORT(textBox1.Text,textBox2.Text, textBox3.Text, textBox4.Text);
         }
 
         #endregion

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="11/14/2019 15:07:31" ReportInfo.Modified="12/05/2019 13:10:53" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="11/14/2019 15:07:31" ReportInfo.Modified="12/05/2019 14:43:57" ReportInfo.CreatorVersion="2016.4.4.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9I3QpeaX41QZ5l2qLGE3zXK">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9K3RCRhfdvVjwc+jEUdWp5X">
       <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT TA001 AS '製令',TA002 AS '製令號',SUBSTRING(TA003,1,4) AS '年',SUBSTRING(TA003,5,2) AS '月',SUBSTRING(TA003,7,2) AS '日',TA034 AS '品名',MB003 AS '規格'&#13;&#10;FROM [TK].dbo.MOCTA&#13;&#10;LEFT JOIN [TK].dbo.INVMB ON MB001=TA006&#13;&#10;WHERE TA009&gt;='20191113' AND TA009&lt;='20191113'&#13;&#10;ORDER BY TA001,TA002,TA034">
         <Column Name="製令" DataType="System.String"/>
         <Column Name="製令號" DataType="System.String"/>
@@ -13,6 +13,7 @@
       </TableDataSource>
     </MsSqlDataConnection>
     <Parameter Name="P1" DataType="System.String"/>
+    <Parameter Name="P2" DataType="System.String"/>
   </Dictionary>
   <ReportPage Name="Page1" PaperWidth="110" PaperHeight="140">
     <DataBand Name="Data1" Width="340.2" Height="434.7">
@@ -28,7 +29,7 @@
       <TextObject Name="Text10" Left="9.45" Top="378" Width="94.5" Height="28.35" Border.Lines="All" Text="備註" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
       <TextObject Name="Text11" Left="103.95" Top="56.7" Width="217.35" Height="56.7" Border.Lines="All" Text="[Table.品名]" VertAlign="Center" Font="標楷體, 12pt"/>
       <TextObject Name="Text12" Left="103.95" Top="113.4" Width="217.35" Height="28.35" Border.Lines="All" Text="[Table.規格]" VertAlign="Center" Font="標楷體, 12pt"/>
-      <TextObject Name="Text13" Left="103.95" Top="141.75" Width="217.35" Height="28.35" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text13" Left="103.95" Top="141.75" Width="217.35" Height="28.35" Border.Lines="All" Text="[P2]" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
       <TextObject Name="Text14" Left="103.95" Top="170.1" Width="217.35" Height="28.35" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
       <TextObject Name="Text15" Left="103.95" Top="198.45" Width="217.35" Height="28.35" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
       <TextObject Name="Text16" Left="103.95" Top="226.8" Width="217.35" Height="151.2" Border.Lines="All" Text="[P1]" VertAlign="Center" Font="標楷體, 12pt"/>
