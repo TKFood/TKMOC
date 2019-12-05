@@ -158,7 +158,7 @@ namespace TKMOC
             FASTSQL.AppendFormat(@"  FROM [TK].dbo.MOCTA");
             FASTSQL.AppendFormat(@"  LEFT JOIN [TK].dbo.INVMB ON MB001=TA006");
             FASTSQL.AppendFormat(@"  WHERE TA001='{0}' AND TA002='{1}'",TA001,TA002);
-            FASTSQL.AppendFormat(@"    ");
+            FASTSQL.AppendFormat(@"     ");
 
             return FASTSQL.ToString();
         }
