@@ -153,7 +153,7 @@ namespace TKMOC
             StringBuilder STRQUERY = new StringBuilder();
 
            
-            FASTSQL.AppendFormat(@" SELECT TA001 AS '製令',TA002 AS '製令號',SUBSTRING(TA003,1,4) AS '年',SUBSTRING(TA003,5,2) AS '月',SUBSTRING(TA003,7,2) AS '日',TA034 AS '品名',MB003 AS '規格'");
+            FASTSQL.AppendFormat(@" SELECT TA001 AS '製令',TA002 AS '製令號',SUBSTRING(TA002,1,4) AS '年',SUBSTRING(TA002,5,2) AS '月',SUBSTRING(TA002,7,2) AS '日',TA034 AS '品名',MB003 AS '規格'");
             FASTSQL.AppendFormat(@"  ,MB003 AS '規格' ");
             FASTSQL.AppendFormat(@"  FROM [TK].dbo.MOCTA");
             FASTSQL.AppendFormat(@"  LEFT JOIN [TK].dbo.INVMB ON MB001=TA006");
