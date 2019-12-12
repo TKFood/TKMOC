@@ -166,7 +166,7 @@ namespace TKMOC
 
             ADDTARGET.Add(new ADDITEM { MB001 =textBox4.Text , NUM = Convert.ToDouble(textBox5.Text) });
 
-            SERACH(ADDTARGET[0].MB001, ADDTARGET[0].NUM);
+            SERACH(ADDTARGET[0].MB001, ADDTARGET[0].NUM, FIND);
 
             foreach (var find in FIND)
             {
@@ -180,7 +180,7 @@ namespace TKMOC
 
         }
 
-        public void SERACH(string MB001, double NUM)
+        public void SERACH(string MB001, double NUM, List<ADDITEM> FIND)
         {
             try
             {
