@@ -55,6 +55,7 @@ namespace TKMOC
         {
             public string MB001;
             public double NUM;
+            public string MB068;
 
         }
 
@@ -82,6 +83,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  SELECT TD013 AS '預交日',TD001 AS '訂單',TD002 AS '訂單號',TD003 AS '序號',TD004 AS '品號',TD005 AS '品名',TD006 AS '規格',(TD008-TD009+TD024-TD025) AS '訂單數量',TD010 AS '訂單單位'");
                 sbSql.AppendFormat(@"  ,CONVERT(DECIMAL(18,3),(CASE WHEN MD002=TD010   THEN (TD008-TD009+TD024-TD025)*MD004/MD003 ELSE (TD008-TD009+TD024-TD025) END )) AS '數量'");
                 sbSql.AppendFormat(@"  ,MB004 AS '單位',TC015 AS '單頭備註',TD020 AS '單身備註'");
+                sbSql.AppendFormat(@"  ,MB068 AS '生產線別' ");
                 sbSql.AppendFormat(@"  FROM [TK].dbo.COPTC,[TK].dbo.COPTD");
                 sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.INVMD ON MD001=TD004 AND MD002=TD010 ");
                 sbSql.AppendFormat(@"  ,[TK].dbo.INVMB");
@@ -139,6 +141,7 @@ namespace TKMOC
             textBox4.Text = null;
             textBox5.Text = null;
             textBox6.Text = null;
+            textBox7.Text = null;
 
             if (dataGridView1.CurrentRow != null)
             {
@@ -152,6 +155,7 @@ namespace TKMOC
                     textBox4.Text = row.Cells["品號"].Value.ToString();
                     textBox5.Text = row.Cells["數量"].Value.ToString();
                     textBox6.Text = row.Cells["單頭備註"].Value.ToString();
+                    textBox7.Text = row.Cells["生產線別"].Value.ToString();
                 }
                 else
                 {
@@ -161,6 +165,7 @@ namespace TKMOC
                     textBox4.Text = null;
                     textBox5.Text = null;
                     textBox6.Text = null;
+                    textBox7.Text = null;
                 }
             }
         }
@@ -171,7 +176,7 @@ namespace TKMOC
             FIND.Clear();
             //ADDTARGET.RemoveAll(it => true);
 
-            ADDTARGET.Add(new ADDITEM { MB001 =textBox4.Text , NUM = Convert.ToDouble(textBox5.Text) });
+            ADDTARGET.Add(new ADDITEM { MB001 =textBox4.Text , NUM = Convert.ToDouble(textBox5.Text) ,MB068=textBox7.Text});
 
             SERACH(ADDTARGET[0].MB001, ADDTARGET[0].NUM, FIND);
 
@@ -258,9 +263,9 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  SELECT MD001,MD003");
-                sbSql.AppendFormat(@"  FROM [TK].dbo.BOMMD");
-                sbSql.AppendFormat(@"  WHERE MD001='{0}'", MB001);
+                sbSql.AppendFormat(@"  SELECT MD001,MD003,MB068");
+                sbSql.AppendFormat(@"  FROM [TK].dbo.BOMMD,[TK].dbo.INVMB ");
+                sbSql.AppendFormat(@"  WHERE MD001=MB001 AND MD001='{0}'", MB001);
                 sbSql.AppendFormat(@"  ");
                 sbSql.AppendFormat(@"  ");
                 sbSql.AppendFormat(@"  ");
@@ -282,7 +287,7 @@ namespace TKMOC
                 {
                     if (ds3.Tables["ds3"].Rows.Count >= 1)
                     {
-                        ADDTARGET.Add(new ADDITEM { MB001 = MB001, NUM = NUM });
+                        ADDTARGET.Add(new ADDITEM { MB001 = MB001, NUM = NUM,MB068= ds3.Tables["ds3"].Rows[0]["MB068"].ToString() });
 
                     }
                 }
@@ -300,12 +305,11 @@ namespace TKMOC
 
         public void GENMOCTAB(DateTime DTMOCTAB)
         {
-            TA001 = "A510";
-            TA002 = GETMAXTA002(TA001, DTMOCTAB);
-
             foreach (var find in ADDTARGET)
             {
-                MessageBox.Show(find.MB001 + " " + find.NUM+" "+ TA001+"-"+ TA002);
+                TA001 = "A510";
+                TA002 = GETMAXTA002(TA001, DTMOCTAB);
+                MessageBox.Show(find.MB001 + " " + find.NUM + " " + find.MB068 + " "+ TA001+"-"+ TA002);
             }
 
 
