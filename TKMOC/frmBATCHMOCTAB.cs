@@ -34,15 +34,22 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder2 = new SqlCommandBuilder();
         SqlDataAdapter adapter3= new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder3 = new SqlCommandBuilder();
+        SqlDataAdapter adapter4 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder4 = new SqlCommandBuilder();
 
         SqlTransaction tran;
         SqlCommand cmd = new SqlCommand();
         DataSet ds1 = new DataSet();
         DataSet ds2 = new DataSet();
         DataSet ds3 = new DataSet();
+        DataSet ds4 = new DataSet();
 
         List<ADDITEM> ADDTARGET = new List<ADDITEM>();
         List<ADDITEM> FIND = new List<ADDITEM>();
+
+        string TA001;
+        string TA002;
+        DateTime DTMOCTAB;
 
         public class ADDITEM
         {
@@ -173,10 +180,10 @@ namespace TKMOC
                 CHECKBOMMD(find.MB001, find.NUM);
             }
 
-            foreach (var find in ADDTARGET)
-            {
-                MessageBox.Show(find.MB001 + " " + find.NUM);
-            }
+            //foreach (var find in ADDTARGET)
+            //{
+            //    MessageBox.Show(find.MB001 + " " + find.NUM);
+            //}
 
         }
 
@@ -291,6 +298,93 @@ namespace TKMOC
             }
         }
 
+        public void GENMOCTAB(DateTime DTMOCTAB)
+        {
+            TA001 = "A510";
+            TA002 = GETMAXTA002(TA001, DTMOCTAB);
+
+            foreach (var find in ADDTARGET)
+            {
+                MessageBox.Show(find.MB001 + " " + find.NUM+" "+ TA001+"-"+ TA002);
+            }
+
+
+        }
+
+        public string GETMAXTA002(string TA001,DateTime DTMOCTAB)
+        {
+            string TA002;
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                StringBuilder sbSql = new StringBuilder();
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+                ds4.Clear();
+
+                sbSql.AppendFormat(@"  SELECT ISNULL(MAX(TA002),'00000000000') AS TA002");
+                sbSql.AppendFormat(@"  FROM [TK].[dbo].[MOCTA] ");
+                //sbSql.AppendFormat(@"  WHERE  TC001='{0}' AND TC003='{1}'", "A542","20170119");
+                sbSql.AppendFormat(@"  WHERE  TA001='{0}' AND TA003='{1}'", TA001, DTMOCTAB.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+                adapter4 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder4 = new SqlCommandBuilder(adapter4);
+                sqlConn.Open();
+                ds4.Clear();
+                adapter4.Fill(ds4, "TEMPds4");
+                sqlConn.Close();
+
+
+                if (ds4.Tables["TEMPds4"].Rows.Count == 0)
+                {
+                    return null;
+                }
+                else
+                {
+                    if (ds4.Tables["TEMPds4"].Rows.Count >= 1)
+                    {
+                        TA002 = SETTA002(ds4.Tables["TEMPds4"].Rows[0]["TA002"].ToString(), DTMOCTAB);
+                        return TA002;
+
+                    }
+                    return null;
+                }
+
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+
+        }
+        public string SETTA002(string TA002,DateTime DTMOCTAB)
+        {
+            if (TA002.Equals("00000000000"))
+            {
+                return DTMOCTAB.ToString("yyyyMMdd") + "001";
+            }
+
+            else
+            {
+                int serno = Convert.ToInt16(TA002.Substring(8, 3));
+                serno = serno + 1;
+                string temp = serno.ToString();
+                temp = temp.PadLeft(3, '0');
+                return DTMOCTAB.ToString("yyyyMMdd") + temp.ToString();
+            }
+
+        }
+
         #endregion
 
         #region BUTTON
@@ -300,7 +394,12 @@ namespace TKMOC
         }
         private void button2_Click(object sender, EventArgs e)
         {
+            DTMOCTAB = dateTimePicker3.Value;
+
             GENADDTARGET();
+            GENMOCTAB(DTMOCTAB);
+
+            
         }
 
         #endregion
