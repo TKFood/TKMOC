@@ -38,6 +38,8 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder4 = new SqlCommandBuilder();
         SqlDataAdapter adapter5 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder5= new SqlCommandBuilder();
+        SqlDataAdapter adapter6 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder6 = new SqlCommandBuilder();
 
         SqlTransaction tran;
         SqlCommand cmd = new SqlCommand();
@@ -46,6 +48,7 @@ namespace TKMOC
         DataSet ds3 = new DataSet();
         DataSet ds4 = new DataSet();
         DataSet ds5 = new DataSet();
+        DataSet ds6 = new DataSet();
 
         int result;
 
@@ -248,6 +251,8 @@ namespace TKMOC
                     textBox5.Text = row.Cells["數量"].Value.ToString();
                     textBox6.Text = row.Cells["單頭備註"].Value.ToString();
                     textBox7.Text = row.Cells["生產線別"].Value.ToString();
+
+                    SEARCHMOCTA(textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text);
                 }
                 else
                 {
@@ -260,6 +265,61 @@ namespace TKMOC
                     textBox7.Text = null;
                 }
             }
+        }
+
+        public void SEARCHMOCTA(string TA026,string TA027,string TA028,string TA004)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+
+                sbSql.AppendFormat(@" SELECT TA001 AS '製令單別',TA002 AS '製令單號',TA009 AS '預計完工',TA026 AS '訂單',TA027 AS '訂單號',TA028 AS '序號' ");
+                sbSql.AppendFormat(@" FROM [TK].dbo.MOCTA ");
+                sbSql.AppendFormat(@" WHERE TA026='{0}' AND TA027='{1}' AND TA028='{2}' AND TA006='{3}' ",TA026,TA027,TA028,TA004);
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+                adapter6 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder6 = new SqlCommandBuilder(adapter6);
+                sqlConn.Open();
+                ds6.Clear();
+                adapter6.Fill(ds6, "ds6");
+                sqlConn.Close();
+
+
+                if (ds6.Tables["ds6"].Rows.Count == 0)
+                {
+                    dataGridView2.DataSource = null;
+                }
+                else
+                {
+                    if (ds6.Tables["ds6"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView2.DataSource = ds6.Tables["ds6"];
+                        dataGridView2.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+
         }
 
         public void GENADDTARGET()
