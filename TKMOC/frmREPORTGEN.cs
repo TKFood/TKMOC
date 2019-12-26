@@ -57,7 +57,7 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@" SELECT TA001 AS '製令',TA002 AS '製令號',TA034 AS '品名' ,TA017 AS '已生產量',TA007 AS '單位',TA035  AS '規格',TA029 '備註'");
+                sbSql.AppendFormat(@" SELECT TA001 AS '製令',TA002 AS '製令號',TA034 AS '品名' ,TA015 AS '預計產量',TA007 AS '單位',TA035  AS '規格',TA029 '備註'");
                 sbSql.AppendFormat(@" FROM [TK].dbo.MOCTA ");
                 sbSql.AppendFormat(@" WHERE TA003>='{0}' AND TA003<='{1}' ", dt.ToString("yyyyMMdd"), dt2.ToString("yyyyMMdd"));
                 sbSql.AppendFormat(@" AND TA001 IN ('A510','A511','A512','A521','A522') ");
