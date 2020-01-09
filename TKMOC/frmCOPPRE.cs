@@ -128,30 +128,41 @@ namespace TKMOC
             DateTime wdt = new DateTime();
             wdt = DateTime.Now;
 
+            bool result;
+            string LASTMANU = "START";
+
             foreach (DataRow od in dt.Rows)
             {
                 TWORKHRS = 0;
                 CHECKHRS = Convert.ToInt16(od["HRS"].ToString());
 
+                //MessageBox.Show(LASTMANU+" "+ od["MANU"].ToString());
+                
+
                 while ((CHECKHRS) >= TWORKHRS)
                 {
-                    if (WORKHRS<=16)
+                    if (WORKHRS <= 16)
                     {
-                        ADDTARGET.Add(new ADDITEM { ORDERNO = od["ORDERNO"].ToString(), MB001 = od["MB001"].ToString(), AMOUNT = Convert.ToInt16(od["AMOUNT"].ToString()), PRIORITYS = Convert.ToInt16(od["PRIORITYS"].ToString()), MANU = od["MANU"].ToString(), TIMES = Convert.ToDecimal(od["TIMES"].ToString()), HRS = Convert.ToInt16(od["HRS"].ToString()), WDT = wdt.ToString("yyyyMMdd"), WHRS = (WORKHRS+2) });
+                        ADDTARGET.Add(new ADDITEM { ORDERNO = od["ORDERNO"].ToString(), MB001 = od["MB001"].ToString(), AMOUNT = Convert.ToInt16(od["AMOUNT"].ToString()), PRIORITYS = Convert.ToInt16(od["PRIORITYS"].ToString()), MANU = od["MANU"].ToString(), TIMES = Convert.ToDecimal(od["TIMES"].ToString()), HRS = Convert.ToInt16(od["HRS"].ToString()), WDT = wdt.ToString("yyyyMMdd"), WHRS = (WORKHRS + 2) });
                         WORKHRS = WORKHRS + 2;
                     }
-                    else if (WORKHRS>16)
+                    else if (WORKHRS > 16)
                     {
                         WORKHRS = 0;
                         day = day + 1;
-                        wdt=wdt.AddDays(day);
+                        wdt = wdt.AddDays(day);
 
                         ADDTARGET.Add(new ADDITEM { ORDERNO = od["ORDERNO"].ToString(), MB001 = od["MB001"].ToString(), AMOUNT = Convert.ToInt16(od["AMOUNT"].ToString()), PRIORITYS = Convert.ToInt16(od["PRIORITYS"].ToString()), MANU = od["MANU"].ToString(), TIMES = Convert.ToDecimal(od["TIMES"].ToString()), HRS = Convert.ToInt16(od["HRS"].ToString()), WDT = wdt.ToString("yyyyMMdd"), WHRS = (WORKHRS + 2) });
                         WORKHRS = WORKHRS + 2;
                     }
-                  
+
                     TWORKHRS = TWORKHRS + 2;
                 }
+                
+
+               
+
+                LASTMANU = od["MANU"].ToString();
             }
 
             
