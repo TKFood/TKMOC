@@ -35,10 +35,24 @@ namespace TKMOC
         SqlTransaction tran;
         SqlCommand cmd = new SqlCommand();
         DataSet ds1 = new DataSet();
-       
+
 
         int result;
 
+        
+
+        public class ADDITEM
+        {
+            public string ORDERNO { get; set; }
+            public string MB001 { get; set; }
+            public int AMOUNT { get; set; }
+            public int PRIORITYS { get; set; }
+            public string MANU { get; set; }
+            public decimal TIMES { get; set; }
+            public int HRS { get; set; }
+            public string WDT { get; set; }
+            public int WHRS { get; set; }
+        }
         public frmCOPPRE()
         {
             InitializeComponent();
@@ -76,16 +90,18 @@ namespace TKMOC
 
                 if (ds1.Tables["TEMPds1"].Rows.Count == 0)
                 {
-                    dataGridView1.DataSource = null;
+                    //dataGridView1.DataSource = null;
                 }
                 else
                 {
                     if (ds1.Tables["TEMPds1"].Rows.Count >= 1)
                     {
-                        //dataGridView1.Rows.Clear();
-                        dataGridView1.DataSource = ds1.Tables["TEMPds1"];
-                        dataGridView1.AutoResizeColumns();
-                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+                        ADDNEWTARGET(ds1.Tables["TEMPds1"]);
+
+                        ////dataGridView1.Rows.Clear();
+                        //dataGridView1.DataSource = ds1.Tables["TEMPds1"];
+                        //dataGridView1.AutoResizeColumns();
+                        ////dataGridView1.CurrentCell = dataGridView1[0, rownum];
 
                     }
                 }
@@ -99,6 +115,50 @@ namespace TKMOC
             {
                 sqlConn.Close();
             }
+        }
+
+        public void ADDNEWTARGET(DataTable dt)
+        {
+            List<ADDITEM> ADDTARGET = new List<ADDITEM>();
+
+            int WORKHRS = 0;
+            int TWORKHRS = 0;
+            int CHECKHRS = 0;
+            int day = 0;
+            DateTime wdt = new DateTime();
+            wdt = DateTime.Now;
+
+            foreach (DataRow od in dt.Rows)
+            {
+                TWORKHRS = 0;
+                CHECKHRS = Convert.ToInt16(od["HRS"].ToString());
+
+                while ((CHECKHRS) >= TWORKHRS)
+                {
+                    if (WORKHRS<=16)
+                    {
+                        ADDTARGET.Add(new ADDITEM { ORDERNO = od["ORDERNO"].ToString(), MB001 = od["MB001"].ToString(), AMOUNT = Convert.ToInt16(od["AMOUNT"].ToString()), PRIORITYS = Convert.ToInt16(od["PRIORITYS"].ToString()), MANU = od["MANU"].ToString(), TIMES = Convert.ToDecimal(od["TIMES"].ToString()), HRS = Convert.ToInt16(od["HRS"].ToString()), WDT = wdt.ToString("yyyyMMdd"), WHRS = (WORKHRS+2) });
+                        WORKHRS = WORKHRS + 2;
+                    }
+                    else if (WORKHRS>16)
+                    {
+                        WORKHRS = 0;
+                        day = day + 1;
+                        wdt=wdt.AddDays(day);
+
+                        ADDTARGET.Add(new ADDITEM { ORDERNO = od["ORDERNO"].ToString(), MB001 = od["MB001"].ToString(), AMOUNT = Convert.ToInt16(od["AMOUNT"].ToString()), PRIORITYS = Convert.ToInt16(od["PRIORITYS"].ToString()), MANU = od["MANU"].ToString(), TIMES = Convert.ToDecimal(od["TIMES"].ToString()), HRS = Convert.ToInt16(od["HRS"].ToString()), WDT = wdt.ToString("yyyyMMdd"), WHRS = (WORKHRS + 2) });
+                        WORKHRS = WORKHRS + 2;
+                    }
+                  
+                    TWORKHRS = TWORKHRS + 2;
+                }
+            }
+
+            
+            var bindingList = new BindingList<ADDITEM>(ADDTARGET);
+            var source = new BindingSource(bindingList, null);
+            dataGridView1.DataSource = source;
+            dataGridView1.AutoResizeColumns();
         }
 
         #endregion
