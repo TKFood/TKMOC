@@ -138,6 +138,15 @@ namespace TKMOC
 
                 //MessageBox.Show(LASTMANU+" "+ od["MANU"].ToString());
                 
+                if(!LASTMANU.Equals(od["MANU"].ToString()))
+                {
+                    WORKHRS = 0;
+                    TWORKHRS = 0;
+                    day = 0;
+                    wdt = DateTime.Now;
+
+                    //MessageBox.Show(LASTMANU + " " + od["MANU"].ToString());
+                }
 
                 while ((CHECKHRS) >= TWORKHRS)
                 {
