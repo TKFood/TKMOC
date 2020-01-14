@@ -34,12 +34,15 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder2 = new SqlCommandBuilder();
         SqlDataAdapter adapter3 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder3 = new SqlCommandBuilder();
+        SqlDataAdapter adapter4 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder4= new SqlCommandBuilder();
 
         SqlTransaction tran;
         SqlCommand cmd = new SqlCommand();
         DataSet ds1 = new DataSet();
         DataSet ds2 = new DataSet();
         DataSet ds3 = new DataSet();
+        DataSet ds4 = new DataSet();
 
         int result;
 
@@ -509,6 +512,113 @@ namespace TKMOC
             }
         }
 
+        public void SEARCHPREINVMB()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  SELECT [MB001] AS '品號',[MB002] AS '品名',[MB003] AS '規格'");
+                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[PREINVMB] ");
+                sbSql.AppendFormat(@"  ORDER BY [MB001]");
+                sbSql.AppendFormat(@"  ");
+
+                adapter4 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder4 = new SqlCommandBuilder(adapter4);
+                sqlConn.Open();
+                ds4.Clear();
+                adapter4.Fill(ds4, "ds4");
+                sqlConn.Close();
+
+
+                if (ds4.Tables["ds4"].Rows.Count == 0)
+                {
+                    dataGridView4.DataSource = null;
+                }
+                else
+                {
+                    if (ds4.Tables["ds4"].Rows.Count >= 1)
+                    {
+
+                        //dataGridView1.Rows.Clear();
+                        dataGridView4.DataSource = ds4.Tables["ds4"];
+                        dataGridView4.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+
+        public void ADDPREINVMB()
+        {
+            try
+            {
+
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat(" INSERT INTO  [TKMOC].[dbo].[PREINVMB]");
+                sbSql.AppendFormat(" ([MB001],[MB002],[MB003])");
+                sbSql.AppendFormat(" SELECT MB001,MB002,MB003");
+                sbSql.AppendFormat(" FROM [TK].dbo.INVMB");
+                sbSql.AppendFormat(" WHERE MB001 LIKE '4%'");
+                sbSql.AppendFormat(" AND MB002 NOT LIKE '%停%'");
+                sbSql.AppendFormat(" AND [MB001] NOT IN (SELECT [MB001] FROM [TKMOC].[dbo].[PREINVMB])");
+                sbSql.AppendFormat(" ");
+                sbSql.AppendFormat(" ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+                    MessageBox.Show("完成");
+                }
+
+
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
         #endregion
 
         #region BUTTON
@@ -549,6 +659,16 @@ namespace TKMOC
             SEARCHPREORDER();
         }
 
+        private void button7_Click(object sender, EventArgs e)
+        {
+            SEARCHPREINVMB();
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            ADDPREINVMB();
+            SEARCHPREINVMB();
+        }
         #endregion
 
 
