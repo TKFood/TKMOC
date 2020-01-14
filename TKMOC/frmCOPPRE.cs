@@ -195,9 +195,9 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
                 
-                sbSql.AppendFormat(@" SELECT [ORDERNO] AS '訂單',[OUTDATES] AS '預交日',[MB001] AS '品號',[MB002] AS '品名',[AMOUNT] AS '數量',[UNIT] AS '單位',[PRIORITYS] AS '優先權' ");
+                sbSql.AppendFormat(@" SELECT [ORDERNO] AS '訂單',[CLIENT] AS '客戶',[OUTDATES] AS '預交日',[MB001] AS '品號',[MB002] AS '品名',[AMOUNT] AS '數量',[UNIT] AS '單位',[PRIORITYS] AS '優先權'");
                 sbSql.AppendFormat(@" FROM [TKMOC].[dbo].[PREORDER] ");
-                sbSql.AppendFormat(@" ORDER BY [OUTDATES] ");
+                sbSql.AppendFormat(@" ORDER BY [CLIENT],[OUTDATES] ");
                 sbSql.AppendFormat(@"  ");
 
                 adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -239,12 +239,67 @@ namespace TKMOC
 
         public void SEARCHERPCOPTD()
         {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
 
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  SELECT TD001+TD002+TD003 AS '訂單',TC053 AS '客戶',TD013 AS '預交日',TD004 AS '品號',TD005 AS '品名',CASE WHEN ISNULL(MD001,'')<>'' THEN (TD008+TD024-TD009-TD025)*MD004 ELSE (TD008+TD024-TD009-TD025) END  AS '數量',MB004 AS '單位'");
+                sbSql.AppendFormat(@"  FROM [TK].dbo.COPTC,[TK].dbo.COPTD");
+                sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.[INVMD] ON MD001=TD004 AND MD002=TD010");
+                sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.[INVMB] ON MB001=TD004");
+                sbSql.AppendFormat(@"  WHERE TC001=TD001 AND TC002=TD002");
+                sbSql.AppendFormat(@"  AND TD016='N' AND TD021='Y'");
+                sbSql.AppendFormat(@"  AND TD004 LIKE '4%'");
+                sbSql.AppendFormat(@"  AND (TD008+TD024-TD009-TD025)>0");
+                sbSql.AppendFormat(@"  AND TD013>='{0}' AND TD013<='{1}'", dateTimePicker2.Value.ToString("yyyyMMdd"), dateTimePicker3.Value.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(@"  ORDER BY TC053,TD013");
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+                adapter3 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder3 = new SqlCommandBuilder(adapter3);
+                sqlConn.Open();
+                ds3.Clear();
+                adapter3.Fill(ds3, "ds3");
+                sqlConn.Close();
+
+
+                if (ds3.Tables["ds3"].Rows.Count == 0)
+                {
+                    dataGridView3.DataSource = null;
+                }
+                else
+                {
+                    if (ds3.Tables["ds3"].Rows.Count >= 1)
+                    {
+
+                        //dataGridView1.Rows.Clear();
+                        dataGridView3.DataSource = ds3.Tables["ds3"];
+                        dataGridView3.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
         }
 
         #endregion
 
-        #region BUTTON
+            #region BUTTON
         private void button1_Click(object sender, EventArgs e)
         {
             PRESCHEDULE();
@@ -255,6 +310,10 @@ namespace TKMOC
             SEARCHPREORDER();
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            SEARCHERPCOPTD();
+        }
 
         #endregion
 
