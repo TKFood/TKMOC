@@ -43,6 +43,9 @@ namespace TKMOC
 
         int result;
 
+        string ADDTC001002003;
+        string DELTC001002003;
+       
         
 
         public class ADDITEM
@@ -296,10 +299,50 @@ namespace TKMOC
 
             }
         }
+        private void dataGridView2_SelectionChanged(object sender, EventArgs e)
+        {
+            DELTC001002003 = null;
 
+            if (dataGridView2.CurrentRow != null)
+            {
+                int rowindex = dataGridView2.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView2.Rows[rowindex];
+                    DELTC001002003 = row.Cells["訂單"].Value.ToString();
+                   
+                }
+                else
+                {
+                    DELTC001002003 = null;
+                    
+                }
+            }
+        }
+
+        private void dataGridView3_SelectionChanged(object sender, EventArgs e)
+        {
+            ADDTC001002003 = null;
+
+            if (dataGridView3.CurrentRow != null)
+            {
+                int rowindex = dataGridView3.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView3.Rows[rowindex];
+                    ADDTC001002003 = row.Cells["訂單"].Value.ToString();
+
+                }
+                else
+                {
+                    ADDTC001002003 = null;
+
+                }
+            }
+        }
         #endregion
 
-            #region BUTTON
+        #region BUTTON
         private void button1_Click(object sender, EventArgs e)
         {
             PRESCHEDULE();
@@ -313,6 +356,16 @@ namespace TKMOC
         private void button3_Click(object sender, EventArgs e)
         {
             SEARCHERPCOPTD();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+
         }
 
         #endregion
