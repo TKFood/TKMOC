@@ -632,7 +632,7 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@" SELECT [ID],[MANU] FROM [TKMOC].[dbo].[PREMANU] ");
+                sbSql.AppendFormat(@" SELECT [ID] AS '代號',[MANU] AS '線別' FROM [TKMOC].[dbo].[PREMANU] ");
                 sbSql.AppendFormat(@"  ");
 
                 adapter5 = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -671,6 +671,31 @@ namespace TKMOC
 
             }
         }
+        private void dataGridView5_SelectionChanged(object sender, EventArgs e)
+        {
+            textBox1.Text = null;
+            textBox2.Text = null;
+
+            if (dataGridView5.CurrentRow != null)
+            {
+                int rowindex = dataGridView5.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView5.Rows[rowindex];
+                    textBox1.Text = row.Cells["代號"].Value.ToString();
+                    textBox2.Text = row.Cells["線別"].Value.ToString();
+
+                }
+                else
+                {
+                    textBox1.Text = null;
+                    textBox2.Text = null;
+
+                }
+            }
+        }
+
+
         #endregion
 
         #region BUTTON
@@ -741,8 +766,9 @@ namespace TKMOC
         {
 
         }
+
         #endregion
 
-
+        
     }
 }
