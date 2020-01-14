@@ -30,12 +30,12 @@ namespace TKMOC
         StringBuilder sbSqlQuery = new StringBuilder();
         SqlDataAdapter adapter1 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
-        SqlDataAdapter adapter2= new SqlDataAdapter();
+        SqlDataAdapter adapter2 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder2 = new SqlCommandBuilder();
         SqlDataAdapter adapter3 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder3 = new SqlCommandBuilder();
         SqlDataAdapter adapter4 = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder4= new SqlCommandBuilder();
+        SqlCommandBuilder sqlCmdBuilder4 = new SqlCommandBuilder();
         SqlDataAdapter adapter5 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder5 = new SqlCommandBuilder();
 
@@ -51,8 +51,9 @@ namespace TKMOC
 
         string ADDTC001002003;
         string DELTC001002003;
-       
-        
+
+        string STATUSPREMANU = null;
+
 
         public class ADDITEM
         {
@@ -150,8 +151,8 @@ namespace TKMOC
                 CHECKHRS = Convert.ToInt16(od["HRS"].ToString());
 
                 //MessageBox.Show(LASTMANU+" "+ od["MANU"].ToString());
-                
-                if(!LASTMANU.Equals(od["MANU"].ToString()))
+
+                if (!LASTMANU.Equals(od["MANU"].ToString()))
                 {
                     WORKHRS = 0;
                     TWORKHRS = 0;
@@ -180,14 +181,14 @@ namespace TKMOC
 
                     TWORKHRS = TWORKHRS + 2;
                 }
-                
 
-               
+
+
 
                 LASTMANU = od["MANU"].ToString();
             }
 
-            
+
             var bindingList = new BindingList<ADDITEM>(ADDTARGET);
             var source = new BindingSource(bindingList, null);
             dataGridView1.DataSource = source;
@@ -203,7 +204,7 @@ namespace TKMOC
 
                 sbSql.Clear();
                 sbSqlQuery.Clear();
-                
+
                 sbSql.AppendFormat(@" SELECT [ORDERNO] AS '訂單',[CLIENT] AS '客戶',[OUTDATES] AS '預交日',[MB001] AS '品號',[MB002] AS '品名',[AMOUNT] AS '數量',[UNIT] AS '單位',[PRIORITYS] AS '優先權'");
                 sbSql.AppendFormat(@" FROM [TKMOC].[dbo].[PREORDER] ");
                 sbSql.AppendFormat(@" ORDER BY [CLIENT],[OUTDATES] ");
@@ -317,12 +318,12 @@ namespace TKMOC
                 {
                     DataGridViewRow row = dataGridView2.Rows[rowindex];
                     DELTC001002003 = row.Cells["訂單"].Value.ToString();
-                   
+
                 }
                 else
                 {
                     DELTC001002003 = null;
-                    
+
                 }
             }
         }
@@ -350,11 +351,11 @@ namespace TKMOC
 
         public void ADDPREORDER(string ADDTC001002003)
         {
-            if(!string.IsNullOrEmpty(ADDTC001002003))
+            if (!string.IsNullOrEmpty(ADDTC001002003))
             {
                 try
                 {
-                  
+
                     connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
                     sqlConn = new SqlConnection(connectionString);
 
@@ -364,7 +365,7 @@ namespace TKMOC
 
                     sbSql.Clear();
 
-                   
+
                     sbSql.AppendFormat(" INSERT INTO  [TKMOC].[dbo].[PREORDER]");
                     sbSql.AppendFormat(" ([ORDERNO],[CLIENT],[OUTDATES],[MB001],[MB002],[AMOUNT],[UNIT],[PRIORITYS])");
                     sbSql.AppendFormat(" SELECT TD001+TD002+TD003,TC053,TD013,TD004,TD005,CASE WHEN ISNULL(MD001,'')<>'' THEN (TD008+TD024-TD009-TD025)*MD004 ELSE (TD008+TD024-TD009-TD025) END,MB004,'1'");
@@ -372,7 +373,7 @@ namespace TKMOC
                     sbSql.AppendFormat(" LEFT JOIN [TK].dbo.[INVMD] ON MD001=TD004 AND MD002=TD010");
                     sbSql.AppendFormat(" LEFT JOIN [TK].dbo.[INVMB] ON MB001=TD004");
                     sbSql.AppendFormat(" WHERE TC001=TD001 AND TC002=TD002");
-                    sbSql.AppendFormat(" AND TD001+TD002+TD003='{0}'",ADDTC001002003);
+                    sbSql.AppendFormat(" AND TD001+TD002+TD003='{0}'", ADDTC001002003);
                     sbSql.AppendFormat(" ");
 
 
@@ -392,7 +393,7 @@ namespace TKMOC
 
                         MessageBox.Show("完成");
                     }
-                   
+
 
 
                 }
@@ -695,6 +696,164 @@ namespace TKMOC
             }
         }
 
+        public void SETSTATUS()
+        {
+            textBox1.Text = null;
+            textBox2.Text = null;
+
+            textBox1.ReadOnly = false;
+            textBox2.ReadOnly = false;
+
+
+        }
+        public void SETSTATUS2()
+        {
+            textBox1.ReadOnly = false;
+            textBox2.ReadOnly = false;
+        }
+
+        public void SETSTAUSFIANL()
+        {
+            textBox1.ReadOnly = true;
+            textBox2.ReadOnly = true;
+
+        }
+        public void UPDATEPREMANU(string ID,string MANU)
+        {
+            try
+            {
+
+                //add ZWAREWHOUSEPURTH
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.AppendFormat(" UPDATE [TKMOC].[dbo].[PREMANU]");
+                sbSql.AppendFormat(" SET [MANU]='{0}'",MANU);
+                sbSql.AppendFormat(" WHERE [ID]='{0}'",ID);
+                sbSql.AppendFormat(" ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void ADDPREMANU(string ID, string MANU)
+        {
+            try
+            {
+
+                //add ZWAREWHOUSEPURTH
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[PREMANU]");
+                sbSql.AppendFormat(" ([ID],[MANU])");
+                sbSql.AppendFormat(" VALUES ('{0}','{1}')",ID,MANU);
+                sbSql.AppendFormat(" ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void DELPREMANU(string ID)
+        {
+            try
+            {
+
+                //add ZWAREWHOUSEPURTH
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.AppendFormat(" DELETE [TKMOC].[dbo].[PREMANU] ");
+                sbSql.AppendFormat(" WHERE [ID]='{0}'",ID);
+                sbSql.AppendFormat(" ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
 
         #endregion
 
@@ -754,21 +913,56 @@ namespace TKMOC
 
         private void button9_Click(object sender, EventArgs e)
         {
-
+            STATUSPREMANU = "ADD";
+            SETSTATUS();
         }
 
         private void button11_Click(object sender, EventArgs e)
         {
-
+            STATUSPREMANU = "EDIT";
+            SETSTATUS2();
         }
 
         private void button12_Click(object sender, EventArgs e)
         {
+            if (STATUSPREMANU.Equals("EDIT"))
+            {
+                UPDATEPREMANU(textBox1.Text,textBox2.Text);
+            }
+            else if (STATUSPREMANU.Equals("ADD"))
+            {
+                ADDPREMANU(textBox1.Text, textBox2.Text);
+            }
 
+            STATUSPREMANU = null;
+
+            SETSTAUSFIANL();
+            SERACHPREMANU();
+            MessageBox.Show("完成");
         }
 
+        private void button13_Click(object sender, EventArgs e)
+        {
+            STATUSPREMANU = null;
+            string message = " 要刪除了?";
+
+            DialogResult dialogResult = MessageBox.Show(message.ToString(), "要刪除了?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                DELPREMANU(textBox1.Text);
+
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                //do something else
+            }
+
+            SERACHPREMANU();
+            MessageBox.Show("完成");
+
+        }
         #endregion
 
-        
+
     }
 }
