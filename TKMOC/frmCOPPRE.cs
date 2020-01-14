@@ -259,6 +259,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  AND TD004 LIKE '4%'");
                 sbSql.AppendFormat(@"  AND (TD008+TD024-TD009-TD025)>0");
                 sbSql.AppendFormat(@"  AND TD013>='{0}' AND TD013<='{1}'", dateTimePicker2.Value.ToString("yyyyMMdd"), dateTimePicker3.Value.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(@"  AND TD001+TD002+TD003 NOT IN (SELECT [ORDERNO] FROM [TKMOC].[dbo].[PREORDER])");
                 sbSql.AppendFormat(@"  ORDER BY TC053,TD013");
                 sbSql.AppendFormat(@"  ");
                 sbSql.AppendFormat(@"  ");
@@ -340,6 +341,174 @@ namespace TKMOC
                 }
             }
         }
+
+        public void ADDPREORDER(string ADDTC001002003)
+        {
+            if(!string.IsNullOrEmpty(ADDTC001002003))
+            {
+                try
+                {
+                  
+                    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sqlConn.Close();
+                    sqlConn.Open();
+                    tran = sqlConn.BeginTransaction();
+
+                    sbSql.Clear();
+
+                   
+                    sbSql.AppendFormat(" INSERT INTO  [TKMOC].[dbo].[PREORDER]");
+                    sbSql.AppendFormat(" ([ORDERNO],[CLIENT],[OUTDATES],[MB001],[MB002],[AMOUNT],[UNIT],[PRIORITYS])");
+                    sbSql.AppendFormat(" SELECT TD001+TD002+TD003,TC053,TD013,TD004,TD005,CASE WHEN ISNULL(MD001,'')<>'' THEN (TD008+TD024-TD009-TD025)*MD004 ELSE (TD008+TD024-TD009-TD025) END,MB004,'1'");
+                    sbSql.AppendFormat(" FROM [TK].dbo.COPTC,[TK].dbo.COPTD");
+                    sbSql.AppendFormat(" LEFT JOIN [TK].dbo.[INVMD] ON MD001=TD004 AND MD002=TD010");
+                    sbSql.AppendFormat(" LEFT JOIN [TK].dbo.[INVMB] ON MB001=TD004");
+                    sbSql.AppendFormat(" WHERE TC001=TD001 AND TC002=TD002");
+                    sbSql.AppendFormat(" AND TD001+TD002+TD003='{0}'",ADDTC001002003);
+                    sbSql.AppendFormat(" ");
+
+
+                    cmd.Connection = sqlConn;
+                    cmd.CommandTimeout = 60;
+                    cmd.CommandText = sbSql.ToString();
+                    cmd.Transaction = tran;
+                    result = cmd.ExecuteNonQuery();
+
+                    if (result == 0)
+                    {
+                        tran.Rollback();    //交易取消
+                    }
+                    else
+                    {
+                        tran.Commit();      //執行交易  
+
+                        MessageBox.Show("完成");
+                    }
+                   
+
+
+                }
+                catch
+                {
+
+                }
+
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }
+        }
+
+        public void DELPREORDER(string DELTC001002003)
+        {
+            if (!string.IsNullOrEmpty(DELTC001002003))
+            {
+                try
+                {
+
+                    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sqlConn.Close();
+                    sqlConn.Open();
+                    tran = sqlConn.BeginTransaction();
+
+                    sbSql.Clear();
+
+                    sbSql.AppendFormat(" DELETE [TKMOC].[dbo].[PREORDER] WHERE [ORDERNO]='{0}'", DELTC001002003);
+                    sbSql.AppendFormat(" ");
+
+
+                    cmd.Connection = sqlConn;
+                    cmd.CommandTimeout = 60;
+                    cmd.CommandText = sbSql.ToString();
+                    cmd.Transaction = tran;
+                    result = cmd.ExecuteNonQuery();
+
+                    if (result == 0)
+                    {
+                        tran.Rollback();    //交易取消
+                    }
+                    else
+                    {
+                        tran.Commit();      //執行交易  
+
+                        MessageBox.Show("完成");
+                    }
+
+
+
+                }
+                catch
+                {
+
+                }
+
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }
+        }
+
+        public void UPDATEPREORDER(string ORDERNO, string PRIORITYS)
+        {
+            if (!string.IsNullOrEmpty(ORDERNO) && !string.IsNullOrEmpty(PRIORITYS))
+            {
+                try
+                {
+
+                    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sqlConn.Close();
+                    sqlConn.Open();
+                    tran = sqlConn.BeginTransaction();
+
+                    sbSql.Clear();
+
+                    sbSql.AppendFormat(" UPDATE [TKMOC].[dbo].[PREORDER]");
+                    sbSql.AppendFormat(" SET [PRIORITYS]='{0}'", PRIORITYS);
+                    sbSql.AppendFormat(" WHERE [ORDERNO]='{0}'", ORDERNO);
+                    sbSql.AppendFormat(" ");
+                    sbSql.AppendFormat(" ");
+                    sbSql.AppendFormat(" ");
+
+                    cmd.Connection = sqlConn;
+                    cmd.CommandTimeout = 60;
+                    cmd.CommandText = sbSql.ToString();
+                    cmd.Transaction = tran;
+                    result = cmd.ExecuteNonQuery();
+
+                    if (result == 0)
+                    {
+                        tran.Rollback();    //交易取消
+                    }
+                    else
+                    {
+                        tran.Commit();      //執行交易  
+
+                        MessageBox.Show("完成");
+                    }
+
+
+
+                }
+                catch
+                {
+
+                }
+
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }
+        }
+
         #endregion
 
         #region BUTTON
@@ -360,12 +529,24 @@ namespace TKMOC
 
         private void button4_Click(object sender, EventArgs e)
         {
+            ADDPREORDER(ADDTC001002003);
 
+            SEARCHPREORDER();
+            SEARCHERPCOPTD();
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
+            DELPREORDER(DELTC001002003);
 
+            SEARCHPREORDER();
+            SEARCHERPCOPTD();
+        }
+        private void button6_Click(object sender, EventArgs e)
+        {
+            UPDATEPREORDER(DELTC001002003, numericUpDown1.Value.ToString());
+
+            SEARCHPREORDER();
         }
 
         #endregion
