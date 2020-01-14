@@ -30,12 +30,16 @@ namespace TKMOC
         StringBuilder sbSqlQuery = new StringBuilder();
         SqlDataAdapter adapter1 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
-        
+        SqlDataAdapter adapter2= new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder2 = new SqlCommandBuilder();
+        SqlDataAdapter adapter3 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder3 = new SqlCommandBuilder();
 
         SqlTransaction tran;
         SqlCommand cmd = new SqlCommand();
         DataSet ds1 = new DataSet();
-
+        DataSet ds2 = new DataSet();
+        DataSet ds3 = new DataSet();
 
         int result;
 
@@ -181,6 +185,63 @@ namespace TKMOC
             dataGridView1.AutoResizeColumns();
         }
 
+        public void SEARCHPREORDER()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+                
+                sbSql.AppendFormat(@" SELECT [ORDERNO] AS '訂單',[OUTDATES] AS '預交日',[MB001] AS '品號',[MB002] AS '品名',[AMOUNT] AS '數量',[UNIT] AS '單位',[PRIORITYS] AS '優先權' ");
+                sbSql.AppendFormat(@" FROM [TKMOC].[dbo].[PREORDER] ");
+                sbSql.AppendFormat(@" ORDER BY [OUTDATES] ");
+                sbSql.AppendFormat(@"  ");
+
+                adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder2 = new SqlCommandBuilder(adapter2);
+                sqlConn.Open();
+                ds2.Clear();
+                adapter2.Fill(ds2, "ds2");
+                sqlConn.Close();
+
+
+                if (ds2.Tables["ds2"].Rows.Count == 0)
+                {
+                    dataGridView2.DataSource = null;
+                }
+                else
+                {
+                    if (ds2.Tables["ds2"].Rows.Count >= 1)
+                    {
+
+                        //dataGridView1.Rows.Clear();
+                        dataGridView2.DataSource = ds2.Tables["ds2"];
+                        dataGridView2.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void SEARCHERPCOPTD()
+        {
+
+        }
+
         #endregion
 
         #region BUTTON
@@ -188,6 +249,15 @@ namespace TKMOC
         {
             PRESCHEDULE();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            SEARCHPREORDER();
+        }
+
+
         #endregion
+
+
     }
 }
