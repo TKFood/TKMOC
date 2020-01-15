@@ -74,6 +74,8 @@ namespace TKMOC
             public int HRS { get; set; }
             public string WDT { get; set; }
             public int WHRS { get; set; }
+            public int WSHRS { get; set; }
+            public int WEHRS { get; set; }
         }
         public frmCOPPRE()
         {
@@ -184,8 +186,13 @@ namespace TKMOC
 
             int WORKHRS = 0;
             int TWORKHRS = 0;
-            int CHECKHRS = 0;
+            double CHECKHRS = 0;
             int day = 0;
+            int WSHRS = 8;
+            int WEHRS = 8;
+
+            double LIMITEHRS = 15.9;
+
             DateTime wdt = new DateTime();
             wdt = DateTime.Now;
 
@@ -195,35 +202,45 @@ namespace TKMOC
             foreach (DataRow od in dt.Rows)
             {
                 TWORKHRS = 0;
-                CHECKHRS = Convert.ToInt16(od["HRS"].ToString());
+             
+                CHECKHRS = (Convert.ToDouble(od["HRS"].ToString())-0.1);
 
                 //MessageBox.Show(LASTMANU+" "+ od["MANU"].ToString());
 
                 if (!LASTMANU.Equals(od["MANU"].ToString()))
                 {
-                    WORKHRS = 0;
+                    WORKHRS = 0;                  
                     TWORKHRS = 0;
                     day = 0;
                     wdt = DateTime.Now;
+
+                    WSHRS = 8;
+                    WEHRS = 8;
 
                     //MessageBox.Show(LASTMANU + " " + od["MANU"].ToString());
                 }
 
                 while ((CHECKHRS) >= TWORKHRS)
                 {
-                    if (WORKHRS <= 16)
+                    if (WORKHRS <= LIMITEHRS)
                     {
-                        ADDTARGET.Add(new ADDITEM { ORDERNO = od["ORDERNO"].ToString(), MB001 = od["MB001"].ToString(), MB002 = od["MB002"].ToString(), AMOUNT = Convert.ToInt16(od["AMOUNT"].ToString()), PRIORITYS = Convert.ToInt16(od["PRIORITYS"].ToString()), MANU = od["MANU"].ToString(), TIMES = Convert.ToDecimal(od["TIMES"].ToString()), HRS = Convert.ToInt16(od["HRS"].ToString()), WDT = wdt.ToString("yyyyMMdd"), WHRS = (WORKHRS + 2) });
+                        ADDTARGET.Add(new ADDITEM { ORDERNO = od["ORDERNO"].ToString(), MB001 = od["MB001"].ToString(), MB002 = od["MB002"].ToString(), AMOUNT = Convert.ToInt16(od["AMOUNT"].ToString()), PRIORITYS = Convert.ToInt16(od["PRIORITYS"].ToString()), MANU = od["MANU"].ToString(), TIMES = Convert.ToDecimal(od["TIMES"].ToString()), HRS = Convert.ToInt16(od["HRS"].ToString()), WDT = wdt.ToString("yyyyMMdd"), WHRS = (WORKHRS+2 ), WSHRS = WSHRS , WEHRS = WEHRS+2 });
                         WORKHRS = WORKHRS + 2;
+                        WSHRS = WSHRS + 2;
+                        WEHRS = WEHRS + 2;
                     }
-                    else if (WORKHRS > 16)
+                    else if (WORKHRS > LIMITEHRS)
                     {
                         WORKHRS = 0;
+                        WSHRS = 8;
+                        WEHRS = 8;
                         day = day + 1;
                         wdt = wdt.AddDays(day);
 
-                        ADDTARGET.Add(new ADDITEM { ORDERNO = od["ORDERNO"].ToString(), MB001 = od["MB001"].ToString(), MB002 = od["MB002"].ToString(), AMOUNT = Convert.ToInt16(od["AMOUNT"].ToString()), PRIORITYS = Convert.ToInt16(od["PRIORITYS"].ToString()), MANU = od["MANU"].ToString(), TIMES = Convert.ToDecimal(od["TIMES"].ToString()), HRS = Convert.ToInt16(od["HRS"].ToString()), WDT = wdt.ToString("yyyyMMdd"), WHRS = (WORKHRS + 2) });
+                        ADDTARGET.Add(new ADDITEM { ORDERNO = od["ORDERNO"].ToString(), MB001 = od["MB001"].ToString(), MB002 = od["MB002"].ToString(), AMOUNT = Convert.ToInt16(od["AMOUNT"].ToString()), PRIORITYS = Convert.ToInt16(od["PRIORITYS"].ToString()), MANU = od["MANU"].ToString(), TIMES = Convert.ToDecimal(od["TIMES"].ToString()), HRS = Convert.ToInt16(od["HRS"].ToString()), WDT = wdt.ToString("yyyyMMdd"), WHRS = (WORKHRS+2 ), WSHRS = WSHRS, WEHRS = WEHRS + 2 });
                         WORKHRS = WORKHRS + 2;
+                        WSHRS = WSHRS + 2;
+                        WEHRS = WEHRS + 2;
                     }
 
                     TWORKHRS = TWORKHRS + 2;
