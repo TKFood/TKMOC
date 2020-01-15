@@ -954,7 +954,7 @@ namespace TKMOC
             }
             finally
             {
-
+                sqlConn.Close();
             }
         }
 
@@ -980,6 +980,63 @@ namespace TKMOC
                 }
             }
         }
+
+        public void SEARCHPREINVMBMANU()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                if (!string.IsNullOrEmpty(textBox7.Text))
+                {
+                    sbSql.AppendFormat(@"  SELECT [MB001] AS '品號',[MB002] AS '品名',[MANU] AS '線別',[TIMES] AS '小時生產量'");
+                    sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[PREINVMBMANU]");
+                    sbSql.AppendFormat(@"  WHERE [MB001] LIKE '{0}%' ", textBox7.Text);
+                    sbSql.AppendFormat(@"  ");
+                }
+
+
+                adapter7 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder7 = new SqlCommandBuilder(adapter7);
+                sqlConn.Open();
+                ds7.Clear();
+                adapter7.Fill(ds7, "ds7");
+                sqlConn.Close();
+
+
+                if (ds7.Tables["ds7"].Rows.Count == 0)
+                {
+                    dataGridView7.DataSource = null;
+                }
+                else
+                {
+                    if (ds7.Tables["ds7"].Rows.Count >= 1)
+                    {
+
+                        //dataGridView1.Rows.Clear();
+                        dataGridView7.DataSource = ds7.Tables["ds7"];
+                        dataGridView7.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
         #endregion
 
         #region BUTTON
@@ -1090,9 +1147,13 @@ namespace TKMOC
         {
             SEARCHPREINVMB2();
         }
+        private void button14_Click(object sender, EventArgs e)
+        {
+            SEARCHPREINVMBMANU();
+        }
 
         #endregion
 
-       
+
     }
 }
