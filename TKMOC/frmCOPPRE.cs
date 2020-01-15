@@ -38,6 +38,10 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder4 = new SqlCommandBuilder();
         SqlDataAdapter adapter5 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder5 = new SqlCommandBuilder();
+        SqlDataAdapter adapter6 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder6 = new SqlCommandBuilder();
+        SqlDataAdapter adapter7 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder7 = new SqlCommandBuilder();
 
         SqlTransaction tran;
         SqlCommand cmd = new SqlCommand();
@@ -46,6 +50,8 @@ namespace TKMOC
         DataSet ds3 = new DataSet();
         DataSet ds4 = new DataSet();
         DataSet ds5 = new DataSet();
+        DataSet ds6 = new DataSet();
+        DataSet ds7 = new DataSet();
 
         int result;
 
@@ -70,10 +76,49 @@ namespace TKMOC
         public frmCOPPRE()
         {
             InitializeComponent();
+            combobox1load();
+            combobox2load();
         }
 
 
         #region FUNCTION
+        public void combobox1load()
+        {
+
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            String Sequel = "SELECT [MANU] FROM [TKMOC].[dbo].[PREMANU] ORDER BY [ID]";
+            SqlDataAdapter da = new SqlDataAdapter(Sequel, sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+            
+            dt.Columns.Add("MANU", typeof(string));
+            da.Fill(dt);
+            comboBox1.DataSource = dt.DefaultView;
+            comboBox1.ValueMember = "MANU";
+            comboBox1.DisplayMember = "MANU";
+            sqlConn.Close();
+
+        }
+
+        public void combobox2load()
+        {
+
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            String Sequel = "SELECT [MANU] FROM [TKMOC].[dbo].[PREMANU] ORDER BY [ID]";
+            SqlDataAdapter da = new SqlDataAdapter(Sequel, sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("MANU", typeof(string));
+            da.Fill(dt);
+            comboBox2.DataSource = dt.DefaultView;
+            comboBox2.ValueMember = "MANU";
+            comboBox2.DisplayMember = "MANU";
+            sqlConn.Close();
+
+        }
 
         public void PRESCHEDULE()
         {
@@ -855,6 +900,86 @@ namespace TKMOC
             }
         }
 
+
+        public void SEARCHPREINVMB2()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                if (!string.IsNullOrEmpty(textBox8.Text))
+                {
+                    sbSql.AppendFormat(@"  SELECT [MB001] AS '品號',[MB002] AS '品名',[MB003] AS '規格'");
+                    sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[PREINVMB] ");
+                    sbSql.AppendFormat(@"  WHERE [MB001] LIKE '{0}%' ", textBox8.Text);
+                    sbSql.AppendFormat(@"  ORDER BY [MB001]");
+                    sbSql.AppendFormat(@"  ");
+                }
+             
+
+                adapter6 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder6 = new SqlCommandBuilder(adapter6);
+                sqlConn.Open();
+                ds6.Clear();
+                adapter6.Fill(ds6, "ds6");
+                sqlConn.Close();
+
+
+                if (ds6.Tables["ds6"].Rows.Count == 0)
+                {
+                    dataGridView6.DataSource = null;
+                }
+                else
+                {
+                    if (ds6.Tables["ds6"].Rows.Count >= 1)
+                    {
+
+                        //dataGridView1.Rows.Clear();
+                        dataGridView6.DataSource = ds6.Tables["ds6"];
+                        dataGridView6.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+
+        private void dataGridView6_SelectionChanged(object sender, EventArgs e)
+        {
+            textBox3.Text = null;
+            textBox5.Text = null;
+
+            if (dataGridView6.CurrentRow != null)
+            {
+                int rowindex = dataGridView6.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView6.Rows[rowindex];
+                    textBox3.Text = row.Cells["品號"].Value.ToString();
+                    textBox5.Text = row.Cells["品名"].Value.ToString();
+                }
+                else
+                {
+                    textBox3.Text = null;
+                    textBox5.Text = null;
+
+                }
+            }
+        }
         #endregion
 
         #region BUTTON
@@ -961,8 +1086,13 @@ namespace TKMOC
             MessageBox.Show("完成");
 
         }
+        private void button16_Click(object sender, EventArgs e)
+        {
+            SEARCHPREINVMB2();
+        }
+
         #endregion
 
-
+       
     }
 }
