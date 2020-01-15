@@ -59,6 +59,7 @@ namespace TKMOC
         string DELTC001002003;
 
         string STATUSPREMANU = null;
+        string STATUSPREINVMBMANU = null;
 
 
         public class ADDITEM
@@ -763,6 +764,19 @@ namespace TKMOC
             textBox2.ReadOnly = true;
 
         }
+
+        public void SETSTATUS3()
+        {
+            textBox9.ReadOnly = false;
+           
+        }
+
+        public void SETSTAUSFIANL2()
+        {
+            textBox9.ReadOnly = true;          
+
+        }
+
         public void UPDATEPREMANU(string ID,string MANU)
         {
             try
@@ -972,7 +986,7 @@ namespace TKMOC
                     textBox3.Text = row.Cells["品號"].Value.ToString();
                     textBox5.Text = row.Cells["品名"].Value.ToString();
 
-                    SEARCHPREINVMBMANU2(textBox3.Text);
+                    SEARCHPREINVMBMANU(textBox3.Text);
                 }
                 else
                 {
@@ -983,7 +997,9 @@ namespace TKMOC
             }
         }
 
-        public void SEARCHPREINVMBMANU()
+       
+
+        public void SEARCHPREINVMBMANU(string MB001)
         {
             try
             {
@@ -993,65 +1009,9 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                if (!string.IsNullOrEmpty(textBox7.Text))
+                if (!string.IsNullOrEmpty(MB001))
                 {
-                    sbSql.AppendFormat(@"  SELECT [MB001] AS '品號',[MB002] AS '品名',[MANU] AS '線別',[TIMES] AS '小時生產量'");
-                    sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[PREINVMBMANU]");
-                    sbSql.AppendFormat(@"  WHERE [MB001] LIKE '{0}%' ", textBox7.Text);
-                    sbSql.AppendFormat(@"  ");
-                }
-
-
-                adapter7 = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                sqlCmdBuilder7 = new SqlCommandBuilder(adapter7);
-                sqlConn.Open();
-                ds7.Clear();
-                adapter7.Fill(ds7, "ds7");
-                sqlConn.Close();
-
-
-                if (ds7.Tables["ds7"].Rows.Count == 0)
-                {
-                    dataGridView7.DataSource = null;
-                }
-                else
-                {
-                    if (ds7.Tables["ds7"].Rows.Count >= 1)
-                    {
-
-                        //dataGridView1.Rows.Clear();
-                        dataGridView7.DataSource = ds7.Tables["ds7"];
-                        dataGridView7.AutoResizeColumns();
-                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
-
-                    }
-                }
-
-            }
-            catch
-            {
-
-            }
-            finally
-            {
-                sqlConn.Close();
-            }
-        }
-
-        public void SEARCHPREINVMBMANU2(string MB001)
-        {
-            try
-            {
-                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
-                sqlConn = new SqlConnection(connectionString);
-
-                sbSql.Clear();
-                sbSqlQuery.Clear();
-
-                if (!string.IsNullOrEmpty(textBox3.Text))
-                {
-                    sbSql.AppendFormat(@"  SELECT [MB001] AS '品號',[MB002] AS '品名',[MANU] AS '線別',[TIMES] AS '小時生產量'");
+                    sbSql.AppendFormat(@"  SELECT [MB001] AS '品號',[MB002] AS '品名',[MANU] AS '線別',[TIMES] AS '每小時生產量'");
                     sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[PREINVMBMANU]");
                     sbSql.AppendFormat(@"  WHERE [MB001] LIKE '{0}%' ", MB001);
                     sbSql.AppendFormat(@"  ");
@@ -1112,6 +1072,125 @@ namespace TKMOC
                 sbSql.AppendFormat(" ([MB001],[MB002],[MANU],[TIMES])");
                 sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}','{3}')",MB001,MB002,MANU,TIMES);
                 sbSql.AppendFormat(" ");
+                sbSql.AppendFormat(" ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void UPDATEPREINVMBMANU(string MB001,string MANU,decimal TIMES)
+        {
+            try
+            {
+
+                //add ZWAREWHOUSEPURTH
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.AppendFormat(" UPDATE [TKMOC].[dbo].[PREINVMBMANU]");
+                sbSql.AppendFormat(" SET [TIMES]='{0}'", TIMES);
+                sbSql.AppendFormat(" WHERE [MB001]='{0}' AND [MANU]='{1}'", MB001, MANU);
+                sbSql.AppendFormat(" ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        private void dataGridView7_SelectionChanged(object sender, EventArgs e)
+        {
+            textBox6.Text = null;
+            textBox9.Text = null;
+            comboBox2.Text = null;
+
+            if (dataGridView7.CurrentRow != null)
+            {
+                int rowindex = dataGridView7.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView7.Rows[rowindex];
+                    textBox6.Text = row.Cells["品號"].Value.ToString();
+                    textBox9.Text = row.Cells["每小時生產量"].Value.ToString();
+                    comboBox2.Text = row.Cells["線別"].Value.ToString();
+
+
+                }
+                else
+                {
+                    textBox6.Text = null;
+                    textBox9.Text = null;
+                    comboBox2.Text = null;
+
+                }
+            }
+        }
+
+        public void DELPREINVMBMANU(string MB001,string MANU)
+        {
+            try
+            {
+
+                //add ZWAREWHOUSEPURTH
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.AppendFormat(" DELETE [TKMOC].[dbo].[PREINVMBMANU]");              
+                sbSql.AppendFormat(" WHERE [MB001]='{0}' AND [MANU]='{1}'", MB001, MANU);
                 sbSql.AppendFormat(" ");
 
                 cmd.Connection = sqlConn;
@@ -1252,10 +1331,7 @@ namespace TKMOC
         {
             SEARCHPREINVMB2();
         }
-        private void button14_Click(object sender, EventArgs e)
-        {
-            SEARCHPREINVMBMANU();
-        }
+
 
         private void button15_Click(object sender, EventArgs e)
         {
@@ -1263,10 +1339,53 @@ namespace TKMOC
             {
                 ADDPREINVMBMANU(textBox3.Text, textBox5.Text, comboBox1.Text, Convert.ToDecimal(textBox4.Text));
 
-                SEARCHPREINVMBMANU2(textBox3.Text);
+                SEARCHPREINVMBMANU(textBox3.Text);
             }
            
         }
+        private void button17_Click(object sender, EventArgs e)
+        {
+            STATUSPREINVMBMANU = "EDIT";
+            SETSTATUS3();
+        }
+        private void button18_Click(object sender, EventArgs e)
+        {
+            if (STATUSPREINVMBMANU.Equals("EDIT"))
+            {
+                UPDATEPREINVMBMANU(textBox6.Text,comboBox2.Text,Convert.ToDecimal(textBox9.Text));
+            }
+
+            STATUSPREINVMBMANU = null;
+
+            SETSTAUSFIANL2();
+            SEARCHPREINVMBMANU(textBox6.Text);
+
+            MessageBox.Show("完成");
+        }
+
+        private void button19_Click(object sender, EventArgs e)
+        {
+
+            STATUSPREINVMBMANU = null;
+            string message = " 要刪除了?";
+
+            DialogResult dialogResult = MessageBox.Show(message.ToString(), "要刪除了?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                DELPREINVMBMANU(textBox6.Text, comboBox2.Text);
+
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                //do something else
+            }
+
+            SEARCHPREINVMBMANU(textBox6.Text);
+            MessageBox.Show("完成");
+
+           
+        }
+
         #endregion
 
 
