@@ -971,6 +971,8 @@ namespace TKMOC
                     DataGridViewRow row = dataGridView6.Rows[rowindex];
                     textBox3.Text = row.Cells["品號"].Value.ToString();
                     textBox5.Text = row.Cells["品名"].Value.ToString();
+
+                    SEARCHPREINVMBMANU2(textBox3.Text);
                 }
                 else
                 {
@@ -1031,6 +1033,109 @@ namespace TKMOC
             {
 
             }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void SEARCHPREINVMBMANU2(string MB001)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                if (!string.IsNullOrEmpty(textBox3.Text))
+                {
+                    sbSql.AppendFormat(@"  SELECT [MB001] AS '品號',[MB002] AS '品名',[MANU] AS '線別',[TIMES] AS '小時生產量'");
+                    sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[PREINVMBMANU]");
+                    sbSql.AppendFormat(@"  WHERE [MB001] LIKE '{0}%' ", MB001);
+                    sbSql.AppendFormat(@"  ");
+                }
+
+
+                adapter7 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder7 = new SqlCommandBuilder(adapter7);
+                sqlConn.Open();
+                ds7.Clear();
+                adapter7.Fill(ds7, "ds7");
+                sqlConn.Close();
+
+
+                if (ds7.Tables["ds7"].Rows.Count == 0)
+                {
+                    dataGridView7.DataSource = null;
+                }
+                else
+                {
+                    if (ds7.Tables["ds7"].Rows.Count >= 1)
+                    {
+
+                        //dataGridView1.Rows.Clear();
+                        dataGridView7.DataSource = ds7.Tables["ds7"];
+                        dataGridView7.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void ADDPREINVMBMANU(string MB001,string MB002,string MANU,decimal TIMES)
+        {
+            try
+            {
+
+                //add ZWAREWHOUSEPURTH
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[PREINVMBMANU]");
+                sbSql.AppendFormat(" ([MB001],[MB002],[MANU],[TIMES])");
+                sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}','{3}')",MB001,MB002,MANU,TIMES);
+                sbSql.AppendFormat(" ");
+                sbSql.AppendFormat(" ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+            }
+            catch
+            {
+
+            }
+
             finally
             {
                 sqlConn.Close();
@@ -1152,6 +1257,16 @@ namespace TKMOC
             SEARCHPREINVMBMANU();
         }
 
+        private void button15_Click(object sender, EventArgs e)
+        {
+            if(!string.IsNullOrEmpty(textBox3.Text)&& !string.IsNullOrEmpty(textBox5.Text)&& !string.IsNullOrEmpty(comboBox1.Text)&& !string.IsNullOrEmpty(textBox4.Text))
+            {
+                ADDPREINVMBMANU(textBox3.Text, textBox5.Text, comboBox1.Text, Convert.ToDecimal(textBox4.Text));
+
+                SEARCHPREINVMBMANU2(textBox3.Text);
+            }
+           
+        }
         #endregion
 
 
