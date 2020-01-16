@@ -74,6 +74,7 @@ namespace TKMOC
             public string MB001 { get; set; }
             public string MB002 { get; set; }
             public int AMOUNT { get; set; }
+            public string  UNIT { get; set; }
             public int PRIORITYS { get; set; }
             public string MANU { get; set; }
             public decimal TIMES { get; set; }
@@ -140,7 +141,7 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  SELECT [PREORDER].[ORDERNO],[PREORDER].[MB001],[PREORDER].[MB002],[PREORDER].[AMOUNT],[PREORDER].[PRIORITYS],[PREINVMBMANU].MANU,[PREINVMBMANU].TIMES");
+                sbSql.AppendFormat(@"  SELECT [PREORDER].[ORDERNO],[PREORDER].[MB001],[PREORDER].[MB002],[PREORDER].[AMOUNT],[PREORDER].[UNIT],[PREORDER].[PRIORITYS],[PREINVMBMANU].MANU,[PREINVMBMANU].TIMES");
                 sbSql.AppendFormat(@"  ,CONVERT(INT,ROUND([PREORDER].[AMOUNT]/[PREINVMBMANU].TIMES,0)) AS HRS");
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[PREORDER],[TKMOC].[dbo].[PREINVMBMANU]");
                 sbSql.AppendFormat(@"  WHERE [PREORDER].MB001=[PREINVMBMANU].MB001");
@@ -230,7 +231,7 @@ namespace TKMOC
                 {
                     if (WORKHRS <= LIMITEHRS)
                     {
-                        ADDTARGET.Add(new ADDITEM { ORDERNO = od["ORDERNO"].ToString(), MB001 = od["MB001"].ToString(), MB002 = od["MB002"].ToString(), AMOUNT = Convert.ToInt16(od["AMOUNT"].ToString()), PRIORITYS = Convert.ToInt16(od["PRIORITYS"].ToString()), MANU = od["MANU"].ToString(), TIMES = Convert.ToDecimal(od["TIMES"].ToString()), HRS = Convert.ToInt16(od["HRS"].ToString()), WDT = wdt.ToString("yyyyMMdd"), WHRS = (WORKHRS+2 ), WSHRS = WSHRS , WEHRS = WEHRS+2 });
+                        ADDTARGET.Add(new ADDITEM { ORDERNO = od["ORDERNO"].ToString(), MB001 = od["MB001"].ToString(), MB002 = od["MB002"].ToString(), AMOUNT = Convert.ToInt16(od["AMOUNT"].ToString()), UNIT = od["UNIT"].ToString(), PRIORITYS = Convert.ToInt16(od["PRIORITYS"].ToString()), MANU = od["MANU"].ToString(), TIMES = Convert.ToDecimal(od["TIMES"].ToString()), HRS = Convert.ToInt16(od["HRS"].ToString()), WDT = wdt.ToString("yyyyMMdd"), WHRS = (WORKHRS+2 ), WSHRS = WSHRS , WEHRS = WEHRS+2 });
                         WORKHRS = WORKHRS + 2;
                         WSHRS = WSHRS + 2;
                         WEHRS = WEHRS + 2;
@@ -243,7 +244,7 @@ namespace TKMOC
                         day = day + 1;
                         wdt = wdt.AddDays(day);
 
-                        ADDTARGET.Add(new ADDITEM { ORDERNO = od["ORDERNO"].ToString(), MB001 = od["MB001"].ToString(), MB002 = od["MB002"].ToString(), AMOUNT = Convert.ToInt16(od["AMOUNT"].ToString()), PRIORITYS = Convert.ToInt16(od["PRIORITYS"].ToString()), MANU = od["MANU"].ToString(), TIMES = Convert.ToDecimal(od["TIMES"].ToString()), HRS = Convert.ToInt16(od["HRS"].ToString()), WDT = wdt.ToString("yyyyMMdd"), WHRS = (WORKHRS+2 ), WSHRS = WSHRS, WEHRS = WEHRS + 2 });
+                        ADDTARGET.Add(new ADDITEM { ORDERNO = od["ORDERNO"].ToString(), MB001 = od["MB001"].ToString(), MB002 = od["MB002"].ToString(), AMOUNT = Convert.ToInt16(od["AMOUNT"].ToString()), UNIT = od["UNIT"].ToString(), PRIORITYS = Convert.ToInt16(od["PRIORITYS"].ToString()), MANU = od["MANU"].ToString(), TIMES = Convert.ToDecimal(od["TIMES"].ToString()), HRS = Convert.ToInt16(od["HRS"].ToString()), WDT = wdt.ToString("yyyyMMdd"), WHRS = (WORKHRS+2 ), WSHRS = WSHRS, WEHRS = WEHRS + 2 });
                         WORKHRS = WORKHRS + 2;
                         WSHRS = WSHRS + 2;
                         WEHRS = WEHRS + 2;
