@@ -67,6 +67,7 @@ namespace TKMOC
         string STATUSPREMANU = null;
         string STATUSPREINVMBMANU = null;
 
+        List<ADDITEM> ADDTARGET = new List<ADDITEM>();
 
         public class ADDITEM
         {
@@ -189,7 +190,7 @@ namespace TKMOC
 
         public void ADDNEWTARGET(DataTable dt)
         {
-            List<ADDITEM> ADDTARGET = new List<ADDITEM>();
+           
 
             int WORKHRS = 0;
             int TWORKHRS = 0;
@@ -1256,6 +1257,15 @@ namespace TKMOC
             }
         }
 
+        public void SAVETODB()
+        {
+           
+            foreach(var obj in ADDTARGET)
+            {
+                //MessageBox.Show(i.ToString() + " " + obj.ORDERNO.ToString() +" "+ obj.WHRS.ToString());
+                
+            }
+        }
         #endregion
 
         #region BUTTON
@@ -1419,6 +1429,10 @@ namespace TKMOC
             MessageBox.Show("完成");
 
            
+        }
+        private void button14_Click(object sender, EventArgs e)
+        {
+            SAVETODB();
         }
 
         #endregion
