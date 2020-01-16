@@ -56,7 +56,13 @@ namespace TKMOC
         int result;
 
         string ADDTC001002003;
+        string ADDTD001;
+        string ADDTD002;
+        string ADDTD003;
         string DELTC001002003;
+        string DELTD001;
+        string DELTD002;
+        string DELTD003;
 
         string STATUSPREMANU = null;
         string STATUSPREINVMBMANU = null;
@@ -321,7 +327,7 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  SELECT TD001+TD002+TD003 AS '訂單',TC053 AS '客戶',TD013 AS '預交日',TD004 AS '品號',TD005 AS '品名',CASE WHEN ISNULL(MD001,'')<>'' THEN (TD008+TD024-TD009-TD025)*MD004 ELSE (TD008+TD024-TD009-TD025) END  AS '數量',MB004 AS '單位'");
+                sbSql.AppendFormat(@"  SELECT TD001 AS '訂單',TD002  AS '訂單號',TD003  AS '訂單序',TC053 AS '客戶',TD013 AS '預交日',TD004 AS '品號',TD005 AS '品名',CASE WHEN ISNULL(MD001,'')<>'' THEN (TD008+TD024-TD009-TD025)*MD004 ELSE (TD008+TD024-TD009-TD025) END  AS '數量',MB004 AS '單位'");
                 sbSql.AppendFormat(@"  FROM [TK].dbo.COPTC,[TK].dbo.COPTD");
                 sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.[INVMD] ON MD001=TD004 AND MD002=TD010");
                 sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.[INVMB] ON MB001=TD004");
@@ -330,7 +336,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  AND TD004 LIKE '4%'");
                 sbSql.AppendFormat(@"  AND (TD008+TD024-TD009-TD025)>0");
                 sbSql.AppendFormat(@"  AND TD013>='{0}' AND TD013<='{1}'", dateTimePicker2.Value.ToString("yyyyMMdd"), dateTimePicker3.Value.ToString("yyyyMMdd"));
-                sbSql.AppendFormat(@"  AND TD001+TD002+TD003 NOT IN (SELECT [ORDERNO] FROM [TKMOC].[dbo].[PREORDER])");
+                sbSql.AppendFormat(@"  AND TD001+'-'+TD002+'-'+TD003 NOT IN (SELECT [ORDERNO] FROM [TKMOC].[dbo].[PREORDER])");
                 sbSql.AppendFormat(@"  ORDER BY TC053,TD013");
                 sbSql.AppendFormat(@"  ");
                 sbSql.AppendFormat(@"  ");
@@ -374,6 +380,7 @@ namespace TKMOC
         private void dataGridView2_SelectionChanged(object sender, EventArgs e)
         {
             DELTC001002003 = null;
+            
 
             if (dataGridView2.CurrentRow != null)
             {
@@ -382,11 +389,13 @@ namespace TKMOC
                 {
                     DataGridViewRow row = dataGridView2.Rows[rowindex];
                     DELTC001002003 = row.Cells["訂單"].Value.ToString();
+                   
 
                 }
                 else
                 {
                     DELTC001002003 = null;
+                  
 
                 }
             }
@@ -394,7 +403,10 @@ namespace TKMOC
 
         private void dataGridView3_SelectionChanged(object sender, EventArgs e)
         {
-            ADDTC001002003 = null;
+            ADDTD001 = null;
+            ADDTD002 = null;
+            ADDTD003 = null;
+
 
             if (dataGridView3.CurrentRow != null)
             {
@@ -402,20 +414,24 @@ namespace TKMOC
                 if (rowindex >= 0)
                 {
                     DataGridViewRow row = dataGridView3.Rows[rowindex];
-                    ADDTC001002003 = row.Cells["訂單"].Value.ToString();
+                    ADDTD001 = row.Cells["訂單"].Value.ToString();
+                    ADDTD002 = row.Cells["訂單號"].Value.ToString();
+                    ADDTD003 = row.Cells["訂單序"].Value.ToString();
 
                 }
                 else
                 {
-                    ADDTC001002003 = null;
+                    ADDTD001 = null;
+                    ADDTD002 = null;
+                    ADDTD003 = null;
 
                 }
             }
         }
 
-        public void ADDPREORDER(string ADDTC001002003)
+        public void ADDPREORDER(string ADDT2001,string ADDTD002,string ADDTD003)
         {
-            if (!string.IsNullOrEmpty(ADDTC001002003))
+            if (!string.IsNullOrEmpty(ADDT2001)&& !string.IsNullOrEmpty(ADDTD002) && !string.IsNullOrEmpty(ADDTD003))
             {
                 try
                 {
@@ -432,12 +448,12 @@ namespace TKMOC
 
                     sbSql.AppendFormat(" INSERT INTO  [TKMOC].[dbo].[PREORDER]");
                     sbSql.AppendFormat(" ([ORDERNO],[CLIENT],[OUTDATES],[MB001],[MB002],[AMOUNT],[UNIT],[PRIORITYS])");
-                    sbSql.AppendFormat(" SELECT TD001+TD002+TD003,TC053,TD013,TD004,TD005,CASE WHEN ISNULL(MD001,'')<>'' THEN (TD008+TD024-TD009-TD025)*MD004 ELSE (TD008+TD024-TD009-TD025) END,MB004,'1'");
+                    sbSql.AppendFormat(" SELECT TD001+'-'+TD002+'-'+TD003,TC053,TD013,TD004,TD005,CASE WHEN ISNULL(MD001,'')<>'' THEN (TD008+TD024-TD009-TD025)*MD004 ELSE (TD008+TD024-TD009-TD025) END,MB004,'1'");
                     sbSql.AppendFormat(" FROM [TK].dbo.COPTC,[TK].dbo.COPTD");
                     sbSql.AppendFormat(" LEFT JOIN [TK].dbo.[INVMD] ON MD001=TD004 AND MD002=TD010");
                     sbSql.AppendFormat(" LEFT JOIN [TK].dbo.[INVMB] ON MB001=TD004");
                     sbSql.AppendFormat(" WHERE TC001=TD001 AND TC002=TD002");
-                    sbSql.AppendFormat(" AND TD001+TD002+TD003='{0}'", ADDTC001002003);
+                    sbSql.AppendFormat(" AND TD001+TD002+TD003='{0}'", ADDTD001+ ADDTD002+ ADDTD003);
                     sbSql.AppendFormat(" ");
 
 
@@ -1259,7 +1275,7 @@ namespace TKMOC
 
         private void button4_Click(object sender, EventArgs e)
         {
-            ADDPREORDER(ADDTC001002003);
+            ADDPREORDER(ADDTD001,ADDTD002,ADDTD003);
 
             SEARCHPREORDER();
             SEARCHERPCOPTD();
