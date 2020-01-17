@@ -17,6 +17,8 @@ using System.Reflection;
 using System.Threading;
 using System.Globalization;
 using Calendar.NET;
+using FastReport;
+using FastReport.Data;
 
 namespace TKMOC
 {
@@ -1259,16 +1261,109 @@ namespace TKMOC
 
         public void SAVETODB()
         {
-           
-            foreach(var obj in ADDTARGET)
+            StringBuilder SQLINSERT = new StringBuilder();
+            SQLINSERT.Clear();
+
+
+            SQLINSERT.AppendFormat(@" DELETE [TKMOC].[dbo].[PRERESULT]");
+            SQLINSERT.AppendFormat(@" ");
+
+            foreach (var obj in ADDTARGET)
             {
-                //MessageBox.Show(i.ToString() + " " + obj.ORDERNO.ToString() +" "+ obj.WHRS.ToString());
-                
+                SQLINSERT.AppendFormat(@" INSERT INTO [TKMOC].[dbo].[PRERESULT]");
+                SQLINSERT.AppendFormat(@" ([ORDERNO],[MB001],[MB002],[AMOUNT],[UNIT],[PRIORITYS],[MANU],[TIMES],[HRS],[WDT],[WHRS],[WSHRS],[WEHRS])");
+                SQLINSERT.AppendFormat(@" VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}')",obj.ORDERNO.ToString(),obj.MB001.ToString(),obj.MB002.ToString(),obj.AMOUNT.ToString(),obj.UNIT.ToString(),obj.PRIORITYS.ToString(),obj.MANU.ToString(),obj.TIMES.ToString(),obj.HRS.ToString(),obj.WDT.ToString(),obj.WHRS.ToString(),obj.WSHRS.ToString(),obj.WEHRS.ToString());
+                SQLINSERT.AppendFormat(@" ");
+
             }
+
+
+            if(!string.IsNullOrEmpty(ADDTARGET.ToString()))
+            {
+                try
+                {
+
+                    //add ZWAREWHOUSEPURTH
+                    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sqlConn.Close();
+                    sqlConn.Open();
+                    tran = sqlConn.BeginTransaction();
+
+                    sbSql.Clear();
+
+                    sbSql.AppendFormat(@" DELETE [TKMOC].[dbo].[PRERESULT]");
+                    sbSql.AppendFormat(@" {0}", SQLINSERT.ToString());
+
+
+                    cmd.Connection = sqlConn;
+                    cmd.CommandTimeout = 60;
+                    cmd.CommandText = sbSql.ToString();
+                    cmd.Transaction = tran;
+                    result = cmd.ExecuteNonQuery();
+
+                    if (result == 0)
+                    {
+                        tran.Rollback();    //交易取消
+                    }
+                    else
+                    {
+                        tran.Commit();      //執行交易  
+
+
+                    }
+                }
+                catch
+                {
+
+                }
+
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }
+
         }
+
+        public void SETFASTREPORT()
+        {
+            StringBuilder SQL1 = new StringBuilder();
+            StringBuilder SQL2 = new StringBuilder();
+
+            SQL1 = SETSQL1();
+            
+
+            Report report1 = new Report();
+            report1.Load(@"REPORT\訂單預排報表.frx");
+
+            report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+            TableDataSource table = report1.GetDataSource("Table") as TableDataSource;
+            table.SelectCommand = SQL1.ToString();
+            
+
+            report1.Preview = previewControl1;
+            report1.Show();
+        }
+
+        public StringBuilder SETSQL1()
+        {
+            StringBuilder SB = new StringBuilder();
+
+            SB.AppendFormat(" SELECT [ORDERNO],[MB001],[MB002],[AMOUNT],[UNIT],[PRIORITYS],[MANU],[TIMES],[HRS],[WDT]");
+            SB.AppendFormat(" FROM [TKMOC].[dbo].[PRERESULT]");
+            SB.AppendFormat(" GROUP BY [ORDERNO],[MB001],[MB002],[AMOUNT],[UNIT],[PRIORITYS],[MANU],[TIMES],[HRS],[WDT]");
+            SB.AppendFormat(" ORDER BY [MANU],[PRIORITYS] DESC,[ORDERNO],[WDT]");
+            SB.AppendFormat(" ");
+
+            return SB;
+        }
+
+
         #endregion
 
-        #region BUTTON
+            #region BUTTON
         private void button1_Click(object sender, EventArgs e)
         {
             PRESCHEDULE();
@@ -1433,6 +1528,8 @@ namespace TKMOC
         private void button14_Click(object sender, EventArgs e)
         {
             SAVETODB();
+
+            SETFASTREPORT();
         }
 
         #endregion

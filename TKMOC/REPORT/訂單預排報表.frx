@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="01/17/2020 11:22:40" ReportInfo.Modified="01/17/2020 11:39:05" ReportInfo.CreatorVersion="2016.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9JcCzBkGF9DOLeDRfUBVwpO">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT [ORDERNO],[MB001],[MB002],[AMOUNT],[UNIT],[PRIORITYS],[MANU],[TIMES],[HRS],[WDT]&#13;&#10;FROM [TKMOC].[dbo].[PRERESULT]&#13;&#10;GROUP BY [ORDERNO],[MB001],[MB002],[AMOUNT],[UNIT],[PRIORITYS],[MANU],[TIMES],[HRS],[WDT]&#13;&#10;ORDER BY [MANU],[PRIORITYS] DESC,[ORDERNO],[WDT]">
+        <Column Name="ORDERNO" DataType="System.String"/>
+        <Column Name="MB001" DataType="System.String"/>
+        <Column Name="MB002" DataType="System.String"/>
+        <Column Name="AMOUNT" DataType="System.Int32"/>
+        <Column Name="UNIT" DataType="System.String"/>
+        <Column Name="PRIORITYS" DataType="System.Int32"/>
+        <Column Name="MANU" DataType="System.String"/>
+        <Column Name="TIMES" DataType="System.Decimal"/>
+        <Column Name="HRS" DataType="System.Int32"/>
+        <Column Name="WDT" DataType="System.String"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210">
+    <ColumnHeaderBand Name="ColumnHeader1" Width="1047.06" Height="18.9">
+      <TextObject Name="Text2" Left="103.95" Width="151.2" Height="18.9" Border.Lines="All" Text="訂單-序號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text4" Left="255.15" Width="122.85" Height="18.9" Border.Lines="All" Text="品號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text6" Left="378" Width="226.8" Height="18.9" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text8" Left="604.8" Width="75.6" Height="18.9" Border.Lines="All" Text="訂單量" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text10" Left="680.4" Width="56.7" Height="18.9" Border.Lines="All" Text="單位" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text12" Left="737.1" Width="56.7" Height="18.9" Border.Lines="All" Text="優先權" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text14" Width="103.95" Height="18.9" Border.Lines="All" Text="線別" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text16" Left="793.8" Width="94.5" Height="18.9" Border.Lines="All" Text="工時生產量" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text18" Left="888.3" Width="94.5" Height="18.9" Border.Lines="All" Text="預排日" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text20" Left="982.8" Width="66.15" Height="18.9" Border.Lines="All" Text="工時" HorzAlign="Center" VertAlign="Center"/>
+    </ColumnHeaderBand>
+    <DataBand Name="Data1" Top="22.75" Width="1047.06" Height="18.9" DataSource="Table">
+      <TextObject Name="Text1" Left="103.95" Width="151.2" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.ORDERNO]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text3" Left="255.15" Width="122.85" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.MB001]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text5" Left="378" Width="226.8" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.MB002]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text7" Left="604.8" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.AMOUNT]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text9" Left="680.4" Width="56.7" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.UNIT]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text11" Left="737.1" Width="56.7" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.PRIORITYS]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text15" Left="793.8" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.TIMES]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text17" Left="888.3" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.WDT]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text19" Left="982.8" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.HRS]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text13" Width="103.95" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.MANU]" HorzAlign="Center" VertAlign="Center"/>
+    </DataBand>
+  </ReportPage>
+</Report>
