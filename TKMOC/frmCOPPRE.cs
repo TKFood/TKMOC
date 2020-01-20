@@ -192,7 +192,6 @@ namespace TKMOC
 
         public void ADDNEWTARGET(DataTable dt)
         {
-           
 
             int WORKHRS = 0;
             int TWORKHRS = 0;
@@ -244,8 +243,8 @@ namespace TKMOC
                         WORKHRS = 0;
                         WSHRS = 8;
                         WEHRS = 8;
-                        day = day + 1;
-                        wdt = wdt.AddDays(day);
+                        //day = day + 1;
+                        wdt = wdt.AddDays(1);
 
                         ADDTARGET.Add(new ADDITEM { ORDERNO = od["ORDERNO"].ToString(), MB001 = od["MB001"].ToString(), MB002 = od["MB002"].ToString(), AMOUNT = Convert.ToInt16(od["AMOUNT"].ToString()), UNIT = od["UNIT"].ToString(), PRIORITYS = Convert.ToInt16(od["PRIORITYS"].ToString()), MANU = od["MANU"].ToString(), TIMES = Convert.ToDecimal(od["TIMES"].ToString()), HRS = Convert.ToInt16(od["HRS"].ToString()), WDT = wdt.ToString("yyyyMMdd"), WHRS = (WORKHRS+2 ), WSHRS = WSHRS, WEHRS = WEHRS + 2 });
                         WORKHRS = WORKHRS + 2;
@@ -1363,7 +1362,7 @@ namespace TKMOC
 
         #endregion
 
-            #region BUTTON
+        #region BUTTON
         private void button1_Click(object sender, EventArgs e)
         {
             PRESCHEDULE();
