@@ -190,20 +190,29 @@ namespace TKMOC
             }
         }
 
+        //先用sql把訂單、優先權、線別排出順序
+        //再用工時2小時去排序每張訂單的預計開工日、時間
+        //每張訂單的總時數要控制 TWORKHRS、CHECKHRS
+        //每天不得超過16小時。超過就跨天 WORKHRS
+        //星期日不排 DayOfWeek.Sunday
         public void ADDNEWTARGET(DataTable dt)
         {
 
-            int WORKHRS = 0;
-            int TWORKHRS = 0;
+            int WORKHRS = 0;    //每日工時累積
+            int TWORKHRS = 0;   //每張訂單的總工時
             double CHECKHRS = 0;
-            int day = 0;
-            int WSHRS = 8;
-            int WEHRS = 8;
+            int day = 0;    //日期是否跨日
+            int WSHRS = 8;  //開工時間
+            int WEHRS = 8;  //結束時間
 
             double LIMITEHRS = 15.9;
 
             DateTime wdt = new DateTime();
             wdt = DateTime.Now;
+            if (wdt.DayOfWeek==DayOfWeek.Sunday)
+            {
+                wdt = wdt.AddDays(1);
+            }
 
             bool result;
             string LASTMANU = "START";
@@ -221,7 +230,12 @@ namespace TKMOC
                     WORKHRS = 0;                  
                     TWORKHRS = 0;
                     day = 0;
+
                     wdt = DateTime.Now;
+                    if (wdt.DayOfWeek == DayOfWeek.Sunday)
+                    {
+                        wdt = wdt.AddDays(1);
+                    }
 
                     WSHRS = 8;
                     WEHRS = 8;
@@ -245,6 +259,10 @@ namespace TKMOC
                         WEHRS = 8;
                         //day = day + 1;
                         wdt = wdt.AddDays(1);
+                        if (wdt.DayOfWeek == DayOfWeek.Sunday)
+                        {
+                            wdt = wdt.AddDays(1);
+                        }
 
                         ADDTARGET.Add(new ADDITEM { ORDERNO = od["ORDERNO"].ToString(), MB001 = od["MB001"].ToString(), MB002 = od["MB002"].ToString(), AMOUNT = Convert.ToInt16(od["AMOUNT"].ToString()), UNIT = od["UNIT"].ToString(), PRIORITYS = Convert.ToInt16(od["PRIORITYS"].ToString()), MANU = od["MANU"].ToString(), TIMES = Convert.ToDecimal(od["TIMES"].ToString()), HRS = Convert.ToInt16(od["HRS"].ToString()), WDT = wdt.ToString("yyyyMMdd"), WHRS = (WORKHRS+2 ), WSHRS = WSHRS, WEHRS = WEHRS + 2 });
                         WORKHRS = WORKHRS + 2;
