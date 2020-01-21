@@ -1372,7 +1372,7 @@ namespace TKMOC
             SB.AppendFormat(" FROM [TKMOC].[dbo].[PRERESULT]");
             SB.AppendFormat(" GROUP BY [ORDERNO],[MB001],[MB002],[AMOUNT],[UNIT],[PRIORITYS],[MANU],[TIMES],[HRS],[WDT]");
             SB.AppendFormat(" ORDER BY [MANU],[PRIORITYS] DESC,[ORDERNO],[WDT]");
-            SB.AppendFormat(" ");
+            SB.AppendFormat("  ");
 
             return SB;
         }

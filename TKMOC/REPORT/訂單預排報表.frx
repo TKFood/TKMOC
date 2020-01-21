@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="01/17/2020 11:22:40" ReportInfo.Modified="01/17/2020 11:39:05" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="01/17/2020 11:22:40" ReportInfo.Modified="01/21/2020 14:37:06" ReportInfo.CreatorVersion="2016.4.4.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9JcCzBkGF9DOLeDRfUBVwpO">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9Kzg2OXxpv3ZJsHXUXZiUlu">
       <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT [ORDERNO],[MB001],[MB002],[AMOUNT],[UNIT],[PRIORITYS],[MANU],[TIMES],[HRS],[WDT]&#13;&#10;FROM [TKMOC].[dbo].[PRERESULT]&#13;&#10;GROUP BY [ORDERNO],[MB001],[MB002],[AMOUNT],[UNIT],[PRIORITYS],[MANU],[TIMES],[HRS],[WDT]&#13;&#10;ORDER BY [MANU],[PRIORITYS] DESC,[ORDERNO],[WDT]">
         <Column Name="ORDERNO" DataType="System.String"/>
         <Column Name="MB001" DataType="System.String"/>
@@ -40,6 +40,75 @@
       <TextObject Name="Text17" Left="888.3" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.WDT]" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text19" Left="982.8" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.HRS]" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text13" Width="103.95" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.MANU]" HorzAlign="Center" VertAlign="Center"/>
+    </DataBand>
+  </ReportPage>
+  <ReportPage Name="Page2" PaperWidth="800">
+    <DataBand Name="Data2" Width="2948.4" Height="110.85">
+      <MatrixObject Name="Matrix1" Top="9.45" Width="437.05" Height="66" FixedRows="2" FixedColumns="6" DataSource="Table">
+        <MatrixColumns>
+          <Header Expression="[Table.MANU]"/>
+          <Header Expression="[Table.WDT]" Totals="false"/>
+        </MatrixColumns>
+        <MatrixRows>
+          <Header Expression="[Table.ORDERNO]" Sort="None"/>
+          <Header Expression="[Table.MB001]" Sort="None" Totals="false"/>
+          <Header Expression="[Table.MB002]" Sort="None" Totals="false"/>
+          <Header Expression="[Table.AMOUNT]" Sort="None" Totals="false"/>
+          <Header Expression="[Table.UNIT]" Sort="None" Totals="false"/>
+          <Header Expression="[Table.PRIORITYS]" Sort="Descending" Totals="false"/>
+        </MatrixRows>
+        <MatrixCells>
+          <Cell Expression="[Table.HRS]"/>
+        </MatrixCells>
+        <TableColumn Name="Column1" Width="64.69" AutoSize="true"/>
+        <TableColumn Name="Column2" Width="52.31" AutoSize="true"/>
+        <TableColumn Name="Column3" Width="52.31" AutoSize="true"/>
+        <TableColumn Name="Column4" Width="58.5" AutoSize="true"/>
+        <TableColumn Name="Column5" Width="46.12" AutoSize="true"/>
+        <TableColumn Name="Column6" Width="77.06" AutoSize="true"/>
+        <TableColumn Name="Column7" Width="46.12" AutoSize="true"/>
+        <TableColumn Name="Column8" Width="39.94" AutoSize="true"/>
+        <TableRow Name="Row1" Height="16.5" AutoSize="true">
+          <TableCell Name="Cell1" Border.Lines="All" Text="ORDERNO" HorzAlign="Center" VertAlign="Center" RowSpan="2"/>
+          <TableCell Name="Cell2" Border.Lines="All" Text="MB001" HorzAlign="Center" VertAlign="Center" RowSpan="2"/>
+          <TableCell Name="Cell7" Border.Lines="All" Text="MB002" HorzAlign="Center" VertAlign="Center" RowSpan="2"/>
+          <TableCell Name="Cell16" Border.Lines="All" Text="AMOUNT" HorzAlign="Center" VertAlign="Center" RowSpan="2"/>
+          <TableCell Name="Cell24" Border.Lines="All" Text="UNIT" HorzAlign="Center" VertAlign="Center" RowSpan="2"/>
+          <TableCell Name="Cell28" Border.Lines="All" Text="PRIORITYS" HorzAlign="Center" VertAlign="Center" RowSpan="2"/>
+          <TableCell Name="Cell38" Border.Lines="All" Text="[MANU]" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell50" Border.Lines="All" Text="Total" HorzAlign="Center" VertAlign="Center" RowSpan="2"/>
+        </TableRow>
+        <TableRow Name="Row2" Height="16.5" AutoSize="true">
+          <TableCell Name="Cell3"/>
+          <TableCell Name="Cell4"/>
+          <TableCell Name="Cell8"/>
+          <TableCell Name="Cell17"/>
+          <TableCell Name="Cell25"/>
+          <TableCell Name="Cell29"/>
+          <TableCell Name="Cell39" Border.Lines="All" Text="[WDT]" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell51"/>
+        </TableRow>
+        <TableRow Name="Row3" Height="16.5" AutoSize="true">
+          <TableCell Name="Cell5" Border.Lines="All" Text="[ORDERNO]" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell6" Border.Lines="All" Text="[MB001]" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell9" Border.Lines="All" Text="[MB002]" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell18" Border.Lines="All" Text="[AMOUNT]" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell26" Border.Lines="All" Text="[UNIT]" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell30" Border.Lines="All" Text="[PRIORITYS]" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell40" Border.Lines="All" Text="[HRS]" HorzAlign="Right" VertAlign="Center"/>
+          <TableCell Name="Cell52" Border.Lines="All" HorzAlign="Right" VertAlign="Center"/>
+        </TableRow>
+        <TableRow Name="Row4" Height="16.5" AutoSize="true">
+          <TableCell Name="Cell13" Border.Lines="All" Text="Total" HorzAlign="Center" VertAlign="Center" ColSpan="6"/>
+          <TableCell Name="Cell14"/>
+          <TableCell Name="Cell15"/>
+          <TableCell Name="Cell19"/>
+          <TableCell Name="Cell27"/>
+          <TableCell Name="Cell31"/>
+          <TableCell Name="Cell41" Border.Lines="All" HorzAlign="Right" VertAlign="Center"/>
+          <TableCell Name="Cell53" Border.Lines="All" HorzAlign="Right" VertAlign="Center"/>
+        </TableRow>
+      </MatrixObject>
     </DataBand>
   </ReportPage>
 </Report>
