@@ -232,6 +232,7 @@ namespace TKMOC
                     day = 0;
 
                     wdt = DateTime.Now;
+                    //改成迴圈檢查行事曆
                     if (wdt.DayOfWeek == DayOfWeek.Sunday)
                     {
                         wdt = wdt.AddDays(1);
@@ -259,6 +260,7 @@ namespace TKMOC
                         WEHRS = 8;
                         //day = day + 1;
                         wdt = wdt.AddDays(1);
+
                         if (wdt.DayOfWeek == DayOfWeek.Sunday)
                         {
                             wdt = wdt.AddDays(1);
@@ -1068,7 +1070,7 @@ namespace TKMOC
                 {
                     sbSql.AppendFormat(@"  SELECT [MB001] AS '品號',[MB002] AS '品名',[MANU] AS '線別',[TIMES] AS '每小時生產量'");
                     sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[PREINVMBMANU]");
-                    sbSql.AppendFormat(@"  WHERE [MB001] LIKE '{0}%' ", MB001);
+                    sbSql.AppendFormat(@"  WHERE [MB001] LIKE '{0}%' ", MB001.Trim());
                     sbSql.AppendFormat(@"  ");
                 }
 
@@ -1549,6 +1551,10 @@ namespace TKMOC
             SETFASTREPORT();
         }
 
+        private void button20_Click(object sender, EventArgs e)
+        {
+            SEARCHPREINVMBMANU(textBox3.Text);
+        }
         #endregion
 
 
