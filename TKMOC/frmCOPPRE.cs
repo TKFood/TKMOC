@@ -1496,7 +1496,7 @@ namespace TKMOC
         {
             if(!string.IsNullOrEmpty(textBox3.Text)&& !string.IsNullOrEmpty(textBox5.Text)&& !string.IsNullOrEmpty(comboBox1.Text)&& !string.IsNullOrEmpty(textBox4.Text))
             {
-                ADDPREINVMBMANU(textBox3.Text, textBox5.Text, comboBox1.Text, Convert.ToDecimal(textBox4.Text));
+                ADDPREINVMBMANU(textBox3.Text.Trim(), textBox5.Text.Trim(), comboBox1.Text, Convert.ToDecimal(textBox4.Text));
 
                 SEARCHPREINVMBMANU(textBox3.Text);
             }
