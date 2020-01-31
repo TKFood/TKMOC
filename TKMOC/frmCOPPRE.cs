@@ -355,9 +355,9 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.[INVMD] ON MD001=TD004 AND MD002=TD010");
                 sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.[INVMB] ON MB001=TD004");
                 sbSql.AppendFormat(@"  WHERE TC001=TD001 AND TC002=TD002");
-                sbSql.AppendFormat(@"  AND TD016='N' AND TD021='Y'");
+                sbSql.AppendFormat(@"  AND TD021='Y' AND TD016='N' AND COPTD.UDF01='Y' ");
                 sbSql.AppendFormat(@"  AND TD004 LIKE '4%'");
-                sbSql.AppendFormat(@"  AND (TD008+TD024-TD009-TD025)>0");
+                sbSql.AppendFormat(@"  AND (TD008+TD024-TD009-TD025)>0");            
                 sbSql.AppendFormat(@"  AND TD013>='{0}' AND TD013<='{1}'", dateTimePicker2.Value.ToString("yyyyMMdd"), dateTimePicker3.Value.ToString("yyyyMMdd"));
                 sbSql.AppendFormat(@"  AND TD001+'-'+TD002+'-'+TD003 NOT IN (SELECT [ORDERNO] FROM [TKMOC].[dbo].[PREORDER])");
                 sbSql.AppendFormat(@"  ORDER BY TC053,TD013");
