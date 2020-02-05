@@ -209,7 +209,8 @@ namespace TKMOC
             double LIMITEHRS = 15.9;
 
             DateTime wdt = new DateTime();
-            wdt = DateTime.Now;
+            wdt = dateTimePicker1.Value;
+
             if (wdt.DayOfWeek==DayOfWeek.Sunday)
             {
                 wdt = wdt.AddDays(1);
@@ -232,7 +233,7 @@ namespace TKMOC
                     TWORKHRS = 0;
                     day = 0;
 
-                    wdt = DateTime.Now;
+                    wdt = dateTimePicker1.Value;
                     //改成迴圈檢查行事曆
                     if (wdt.DayOfWeek == DayOfWeek.Sunday)
                     {
