@@ -197,6 +197,7 @@ namespace TKMOC
         //星期日不排 DayOfWeek.Sunday
         public void ADDNEWTARGET(DataTable dt)
         {
+            ADDTARGET.Clear();
 
             int WORKHRS = 0;    //每日工時累積
             int TWORKHRS = 0;   //每張訂單的總工時
