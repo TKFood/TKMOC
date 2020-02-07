@@ -1687,7 +1687,7 @@ namespace TKMOC
                 }
                 else if (comboBox6.Text.Equals("新廠製一組"))
                 {
-                    sbSql.AppendFormat(@"  SELECT CONVERT(NVARCHAR,[MOCMANULINE].[MANUDATE],112)+' '+[MOCMANULINE].[MANU] AS MANUDATE ,[MOCMANULINE].[COPTD001]+'-'+[MOCMANULINE].[COPTD002]+'-'+[MOCMANULINE].[COPTD003]+'-'+INVMB.[MB002] AS ' MB002', CONVERT(NVARCHAR,CONVERT(INT,ROUND([NUM],0)))++' KG' AS 'PACKAGE'");
+                    sbSql.AppendFormat(@"  SELECT CONVERT(NVARCHAR,[MOCMANULINE].[MANUDATE],112)+' '+[MOCMANULINE].[MANU] AS MANUDATE ,[MOCMANULINE].[COPTD001]+'-'+[MOCMANULINE].[COPTD002]+'-'+[MOCMANULINE].[COPTD003]+'-'+INVMB.[MB002] AS ' MB002', CONVERT(NVARCHAR,CONVERT(INT,ROUND([NUM],0)))+' '+INVMB.MB004 AS 'PACKAGE'");
                     sbSql.AppendFormat(@"  ,'---' AS '-' ");
                     sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE],[TK].dbo.COPTD,[TK].dbo.INVMB ");
                     sbSql.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[PREINVMBMANU] ON [PREINVMBMANU].MB001=INVMB.MB001 AND [PREINVMBMANU].MANU LIKE '%新廠製一組%'");
