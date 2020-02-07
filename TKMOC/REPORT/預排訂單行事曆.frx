@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="02/07/2020 14:21:15" ReportInfo.Modified="02/07/2020 14:42:53" ReportInfo.CreatorVersion="2016.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9LbMllh537ARotXjMYl9igO">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT  [MOCMANULINE].[MANU],CONVERT(NVARCHAR,[MOCMANULINE].[MANUDATE],112) AS MANUDATE ,[MOCMANULINE].[COPTD001]+'-'+[MOCMANULINE].[COPTD002]+'-'+[MOCMANULINE].[COPTD003]+'-'+INVMB.[MB002]+' '+CONVERT(NVARCHAR,CONVERT(INT,ROUND([MOCMANULINE].[BOX],0)))+' 箱 '+CONVERT(NVARCHAR,CONVERT(INT,[MOCMANULINE].[PACKAGE]))+INVMB.MB004 AS 'PACKAGE'&#13;&#10;,ISNULL(ROUND(([PACKAGE]/NULLIF([PREINVMBMANU].TIMES,1)),0),0) AS HRS&#13;&#10;,INVMB.MB001&#13;&#10;FROM [TKMOC].[dbo].[MOCMANULINE],[TK].dbo.INVMB&#13;&#10;LEFT JOIN [TKMOC].[dbo].[PREINVMBMANU] ON [PREINVMBMANU].MB001=INVMB.MB001 AND [PREINVMBMANU].MANU LIKE '%包裝%'&#13;&#10;WHERE INVMB.MB001=MOCMANULINE.MB001                    &#13;&#10;AND CONVERT(NVARCHAR,[MANUDATE],112) &gt;='20200201' AND CONVERT(NVARCHAR,[MANUDATE],112) &lt;='20200228' &#13;&#10;AND [MOCMANULINE]. [MANU]='新廠包裝線'&#13;&#10;ORDER BY [MOCMANULINE].[MANU],[MANUDATE]">
+        <Column Name="MANU" DataType="System.String"/>
+        <Column Name="MANUDATE" DataType="System.String"/>
+        <Column Name="HRS" DataType="System.Decimal"/>
+        <Column Name="MB001" DataType="System.String"/>
+        <Column Name="PACKAGE" DataType="System.String"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="600" PaperHeight="600">
+    <ReportTitleBand Name="ReportTitle1" Width="2192.4" Height="18.9">
+      <TextObject Name="Text1" Width="94.5" Height="18.9" Text="預排訂單行事曆"/>
+    </ReportTitleBand>
+    <DataBand Name="Data1" Top="22.75" Width="2192.4" Height="90.82">
+      <MatrixObject Name="Matrix1" Width="215.39" Height="52.88" FixedRows="1" FixedColumns="2" DataSource="Table">
+        <MatrixColumns>
+          <Header Expression="[Table.MANUDATE]"/>
+        </MatrixColumns>
+        <MatrixRows>
+          <Header Expression="[Table.MANU]"/>
+          <Header Expression="[Table.PACKAGE]" Sort="None" Totals="false"/>
+        </MatrixRows>
+        <MatrixCells>
+          <Cell Expression="[Table.HRS]"/>
+        </MatrixCells>
+        <TableColumn Name="Column1" Width="46.12" AutoSize="true"/>
+        <TableColumn Name="Column2" Width="64.69" AutoSize="true"/>
+        <TableColumn Name="Column3" Width="70.87" AutoSize="true"/>
+        <TableColumn Name="Column4" Width="33.71" AutoSize="true"/>
+        <TableRow Name="Row1" Height="18.19" AutoSize="true">
+          <TableCell Name="Cell1" Border.Lines="All" Text="MANU" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell2" Border.Lines="All" Text="PACKAGE" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell5" Border.Lines="All" Text="[MANUDATE]" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell10" Border.Lines="All" Text="加總" HorzAlign="Center" VertAlign="Center"/>
+        </TableRow>
+        <TableRow Name="Row2" Height="16.5" AutoSize="true">
+          <TableCell Name="Cell3" Border.Lines="All" Text="[MANU]" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell4" Border.Lines="All" Text="[PACKAGE]" VertAlign="Center"/>
+          <TableCell Name="Cell6" Border.Lines="All" Text="[HRS]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center"/>
+          <TableCell Name="Cell11" Border.Lines="All" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center"/>
+        </TableRow>
+        <TableRow Name="Row3" Height="18.19" AutoSize="true">
+          <TableCell Name="Cell7" Border.Lines="All" Text="加總" HorzAlign="Center" VertAlign="Center" ColSpan="2"/>
+          <TableCell Name="Cell8"/>
+          <TableCell Name="Cell9" Border.Lines="All" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center"/>
+          <TableCell Name="Cell12" Border.Lines="All" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center"/>
+        </TableRow>
+      </MatrixObject>
+    </DataBand>
+  </ReportPage>
+</Report>

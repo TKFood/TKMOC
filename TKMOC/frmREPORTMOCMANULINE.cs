@@ -22,6 +22,8 @@ using System.Configuration;
 using NPOI.XSSF.UserModel;
 using Calendar.NET;
 using Excel = Microsoft.Office.Interop.Excel;
+using FastReport;
+using FastReport.Data;
 
 namespace TKMOC
 {
@@ -1854,6 +1856,66 @@ namespace TKMOC
         {
             SETDATE2();
         }
+
+        public void SETFASTREPORT()
+        {
+            StringBuilder SQL1 = new StringBuilder();
+
+            SQL1 = SETSQL1();
+            Report report1 = new Report();
+            report1.Load(@"REPORT\預排訂單行事曆.frx");
+
+            report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+            TableDataSource table = report1.GetDataSource("Table") as TableDataSource;
+            table.SelectCommand = SQL1.ToString();
+
+            report1.Preview = previewControl1;
+            report1.Show();
+        }
+
+        public StringBuilder SETSQL1()
+        {
+            StringBuilder SB = new StringBuilder();
+
+            if (comboBox6.Text.Equals("新廠包裝線"))
+            {
+                SB.AppendFormat(@"  SELECT  [MOCMANULINE].[MANU],CONVERT(NVARCHAR,[MOCMANULINE].[MANUDATE],112) AS MANUDATE ,[MOCMANULINE].[COPTD001]+'-'+[MOCMANULINE].[COPTD002]+'-'+[MOCMANULINE].[COPTD003]+'-'+INVMB.[MB002]+' '+CONVERT(NVARCHAR,CONVERT(INT,ROUND([MOCMANULINE].[BOX],0)))+' 箱 '+CONVERT(NVARCHAR,CONVERT(INT,[MOCMANULINE].[PACKAGE]))+INVMB.MB004 AS 'PACKAGE'");
+                SB.AppendFormat(@"  ,ISNULL(ROUND(([PACKAGE]/NULLIF([PREINVMBMANU].TIMES,1)),0),0) AS HRS");
+                SB.AppendFormat(@"  ,INVMB.MB001");
+                SB.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE],[TK].dbo.INVMB");
+                SB.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[PREINVMBMANU] ON [PREINVMBMANU].MB001=INVMB.MB001 AND [PREINVMBMANU].MANU LIKE '%包裝%'");
+                SB.AppendFormat(@"  WHERE INVMB.MB001=MOCMANULINE.MB001      ");
+                SB.AppendFormat(@"  AND CONVERT(NVARCHAR,[MANUDATE],112) >='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112) <='{1}' ",dateTimePicker11.Value.ToString("yyyyMMdd"), dateTimePicker14.Value.ToString("yyyyMMdd"));
+                SB.AppendFormat(@"  AND [MOCMANULINE]. [MANU]='新廠包裝線'");
+                SB.AppendFormat(@"  ORDER BY [MOCMANULINE].[MANU],[MANUDATE]");
+                SB.AppendFormat(@"  ");
+                SB.AppendFormat(@"  ");
+                SB.AppendFormat(@"  ");
+            }
+            else if (comboBox6.Text.Equals("新廠製二組"))
+            {
+                SB.AppendFormat(@"  ");
+                SB.AppendFormat(@"  ");
+                SB.AppendFormat(@"  ");
+            }
+            else if (comboBox6.Text.Equals("新廠製一組"))
+            {
+                SB.AppendFormat(@"  ");
+                SB.AppendFormat(@"  ");
+                SB.AppendFormat(@"  ");
+            }
+            else if (comboBox6.Text.Equals("新廠製三組(手工)"))
+            {
+                SB.AppendFormat(@"  ");
+                SB.AppendFormat(@"  ");
+                SB.AppendFormat(@"  ");
+            }
+
+
+            return SB;
+
+        }
+
         #endregion
 
         #region BUTTON
@@ -1929,9 +1991,13 @@ namespace TKMOC
             CLEAREXCEL();
         }
 
+        private void button15_Click(object sender, EventArgs e)
+        {
+            SETFASTREPORT();
+        }
 
         #endregion
 
-       
+
     }
 }
