@@ -6426,16 +6426,7 @@ namespace TKMOC
             }
         }
 
-        private void button52_Click(object sender, EventArgs e)
-        {
-            frmMOCMANULINECOP SUBfrmMOCMANULINECOP = new frmMOCMANULINECOP(SUBID5, SUBBAR5, SUBNUM5, SUBBOX5, SUBPACKAGE5);
-            if (!string.IsNullOrEmpty(SUBID5))
-            {
-                SUBfrmMOCMANULINECOP.ShowDialog();
-            }
-
-           
-        }
+     
 
         private void button36_Click(object sender, EventArgs e)
         {
@@ -6470,13 +6461,32 @@ namespace TKMOC
             }
         }
 
-        private void button52_Click_1(object sender, EventArgs e)
+        private void button52_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(textBox40.Text) & !string.IsNullOrEmpty(textBox41.Text) & !string.IsNullOrEmpty(textBox73.Text))
             {
                 SEARCHCOPDEFAULT2(textBox40.Text, textBox41.Text, textBox73.Text);
             }
+
         }
+
+        private void button53_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBox44.Text) & !string.IsNullOrEmpty(textBox45.Text) & !string.IsNullOrEmpty(textBox74.Text))
+            {
+                SEARCHCOPDEFAULT2(textBox44.Text, textBox45.Text, textBox74.Text);
+            }
+        }
+
+        private void button54_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBox46.Text) & !string.IsNullOrEmpty(textBox47.Text) & !string.IsNullOrEmpty(textBox75.Text))
+            {
+                SEARCHCOPDEFAULT2(textBox46.Text, textBox47.Text, textBox75.Text);
+            }
+        }
+
+       
 
         #endregion
 
