@@ -51,6 +51,8 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder4 = new SqlCommandBuilder();
         SqlDataAdapter adapter5 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder5 = new SqlCommandBuilder();
+        SqlDataAdapter adapter6= new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder6 = new SqlCommandBuilder();
         DataSet dsCALENDAR = new DataSet();
 
         SqlCommand cmd = new SqlCommand();
@@ -63,6 +65,8 @@ namespace TKMOC
         DataSet ds3 = new DataSet();
         DataSet ds4 = new DataSet();
         DataSet ds5 = new DataSet();
+        DataSet ds6 = new DataSet();
+
         string tablename = null;
         int rownum = 0;
 
@@ -1452,6 +1456,16 @@ namespace TKMOC
 
             DeleteDir(pathFile2 + ".xlsx");
         }
+
+        public void SETPATH3()
+        {
+            DATES = DateTime.Now.ToString("yyyyMMddHHmmss");
+            strDesktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            pathFile2 = @"" + strDesktopPath.ToString() + @"\" + "行事曆-製令" + DATES.ToString() + comboBox6.Text.ToString();
+
+
+            DeleteDir(pathFile2 + ".xlsx");
+        }
         public void SETFILE2()
         {
 
@@ -1497,6 +1511,60 @@ namespace TKMOC
 
 
             SEARCH2();
+
+            //if (!File.Exists(pathFile + ".xlsx"))
+            //{
+            //    //SEARCH()
+
+            //}
+
+        }
+
+        public void SETFILE3()
+        {
+
+
+            // 設定儲存檔名，不用設定副檔名，系統自動判斷 excel 版本，產生 .xls 或 .xlsx 副檔名 
+            Excel.Application excelApp;
+            Excel._Workbook wBook;
+            Excel._Worksheet wSheet;
+            Excel.Range wRange;
+
+            // 開啟一個新的應用程式
+            excelApp = new Excel.Application();
+            // 讓Excel文件可見
+            //excelApp.Visible = true;
+            // 停用警告訊息
+            excelApp.DisplayAlerts = false;
+            // 加入新的活頁簿
+            excelApp.Workbooks.Add(Type.Missing);
+            // 引用第一個活頁簿
+            wBook = excelApp.Workbooks[1];
+            // 設定活頁簿焦點
+            wBook.Activate();
+
+            if (!File.Exists(pathFile2 + ".xlsx"))
+            {
+                wBook.SaveAs(pathFile2, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Excel.XlSaveAsAccessMode.xlNoChange, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+            }
+
+
+
+            //關閉Excel
+            excelApp.Quit();
+
+            //釋放Excel資源
+            System.Runtime.InteropServices.Marshal.ReleaseComObject(excelApp);
+            wBook = null;
+            wSheet = null;
+            wRange = null;
+            excelApp = null;
+            GC.Collect();
+
+            Console.Read();
+
+
+            SEARCH3();
 
             //if (!File.Exists(pathFile + ".xlsx"))
             //{
@@ -1563,6 +1631,117 @@ namespace TKMOC
                     if (ds5.Tables["ds5"].Rows.Count >= 1)
                     {
                         ExportDataSetToExcel2(ds5, pathFile2);
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+        public void SEARCH3()
+        {
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                StringBuilder SB = new StringBuilder();
+
+                if (comboBox6.Text.Equals("新廠包裝線"))
+                {
+                    sbSql.AppendFormat(@"  SELECT  CONVERT(NVARCHAR,[MOCMANULINE].[MANUDATE],112)+' '+[MOCMANULINE].[MANU] AS MANUDATE ,[MOCMANULINE].[COPTD001]+'-'+[MOCMANULINE].[COPTD002]+'-'+[MOCMANULINE].[COPTD003]+'-'+INVMB.[MB002]+' '+CONVERT(NVARCHAR,CONVERT(INT,ROUND([MOCMANULINE].[BOX],0)))+' 箱 '+CONVERT(NVARCHAR,CONVERT(INT,[MOCMANULINE].[PACKAGE]))+INVMB.MB004 AS ' PACKAGE'");
+                    sbSql.AppendFormat(@"  ,'---' AS '-'");
+                    sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE],[TK].dbo.INVMB");
+                    sbSql.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[PREINVMBMANU] ON [PREINVMBMANU].MB001=INVMB.MB001 AND [PREINVMBMANU].MANU LIKE '%包裝%'");
+                    sbSql.AppendFormat(@"  WHERE INVMB.MB001=MOCMANULINE.MB001    ");
+                    sbSql.AppendFormat(@"  AND CONVERT(NVARCHAR,[MANUDATE],112) >='20200201' AND CONVERT(NVARCHAR,[MANUDATE],112) <='20200228' ");
+                    sbSql.AppendFormat(@"  AND [MOCMANULINE]. [MANU]='新廠包裝線'");
+                    sbSql.AppendFormat(@"  ORDER BY [MOCMANULINE].[MANU],[MANUDATE]");
+                    sbSql.AppendFormat(@"  ");
+                    sbSql.AppendFormat(@"  ");
+                }
+                else if (comboBox6.Text.Equals("新廠製二組"))
+                {
+                    sbSql.AppendFormat(@"  SELECT CONVERT(NVARCHAR,[MOCMANULINE].[MANUDATE],112)+' '+[MOCMANULINE].[MANU] AS MANUDATE ,[MOCMANULINE].[COPTD001]+'-'+[MOCMANULINE].[COPTD002]+'-'+[MOCMANULINE].[COPTD003]+'-'+INVMB.[MB002] AS ' MB002', CONVERT(NVARCHAR,CONVERT(INT,ROUND([NUM],0)))++' KG' AS 'PACKAGE'");
+                    sbSql.AppendFormat(@"  ,'---' AS '-' ");
+                    sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE],[TK].dbo.COPTD,[TK].dbo.INVMB ");
+                    sbSql.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[PREINVMBMANU] ON [PREINVMBMANU].MB001=INVMB.MB001 AND [PREINVMBMANU].MANU LIKE '%新廠製二組%'");
+                    sbSql.AppendFormat(@"  WHERE [MOCMANULINE].COPTD001=COPTD.TD001 AND [MOCMANULINE].COPTD002=COPTD.TD002 AND [MOCMANULINE].COPTD003=COPTD.TD003");
+                    sbSql.AppendFormat(@"  AND INVMB.MB001=COPTD.TD004            ");
+                    sbSql.AppendFormat(@"  AND CONVERT(NVARCHAR,[MANUDATE],112) >='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112) <='{1}' ", dateTimePicker11.Value.ToString("yyyyMMdd"), dateTimePicker14.Value.ToString("yyyyMMdd"));
+                    sbSql.AppendFormat(@"  AND [MOCMANULINE]. [MANU]='新廠製二組'");
+                    sbSql.AppendFormat(@"  ORDER BY [MOCMANULINE].[MANU], [MOCMANULINE].[MANUDATE]");
+                    sbSql.AppendFormat(@"  ");
+                    sbSql.AppendFormat(@"  ");
+                }
+                else if (comboBox6.Text.Equals("新廠製一組"))
+                {
+                    sbSql.AppendFormat(@"  SELECT CONVERT(NVARCHAR,[MOCMANULINE].[MANUDATE],112)+' '+[MOCMANULINE].[MANU] AS MANUDATE ,[MOCMANULINE].[COPTD001]+'-'+[MOCMANULINE].[COPTD002]+'-'+[MOCMANULINE].[COPTD003]+'-'+INVMB.[MB002] AS ' MB002', CONVERT(NVARCHAR,CONVERT(INT,ROUND([NUM],0)))++' KG' AS 'PACKAGE'");
+                    sbSql.AppendFormat(@"  ,'---' AS '-' ");
+                    sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE],[TK].dbo.COPTD,[TK].dbo.INVMB ");
+                    sbSql.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[PREINVMBMANU] ON [PREINVMBMANU].MB001=INVMB.MB001 AND [PREINVMBMANU].MANU LIKE '%新廠製一組%'");
+                    sbSql.AppendFormat(@"  WHERE [MOCMANULINE].COPTD001=COPTD.TD001 AND [MOCMANULINE].COPTD002=COPTD.TD002 AND [MOCMANULINE].COPTD003=COPTD.TD003");
+                    sbSql.AppendFormat(@"  AND INVMB.MB001=COPTD.TD004            ");
+                    sbSql.AppendFormat(@"  AND CONVERT(NVARCHAR,[MANUDATE],112) >='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112) <='{1}' ", dateTimePicker11.Value.ToString("yyyyMMdd"), dateTimePicker14.Value.ToString("yyyyMMdd"));
+                    sbSql.AppendFormat(@"  AND [MOCMANULINE]. [MANU]='新廠製一組'");
+                    sbSql.AppendFormat(@"  ORDER BY [MOCMANULINE].[MANU], [MOCMANULINE].[MANUDATE]");
+                    sbSql.AppendFormat(@"  ");
+                    sbSql.AppendFormat(@"  ");
+                }
+                else if (comboBox6.Text.Equals("新廠製三組(手工)"))
+                {
+                    sbSql.AppendFormat(@"  SELECT CONVERT(NVARCHAR,[MOCMANULINE].[MANUDATE],112)+' '+[MOCMANULINE].[MANU] AS MANUDATE ,[MOCMANULINE].[COPTD001]+'-'+[MOCMANULINE].[COPTD002]+'-'+[MOCMANULINE].[COPTD003]+'-'+INVMB.[MB002] AS ' MB002', CONVERT(NVARCHAR,CONVERT(INT,ROUND([NUM],0)))++' KG' AS 'PACKAGE'");
+                    sbSql.AppendFormat(@"  ,'---' AS '-' ");
+                    sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE],[TK].dbo.COPTD,[TK].dbo.INVMB ");
+                    sbSql.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[PREINVMBMANU] ON [PREINVMBMANU].MB001=INVMB.MB001 AND [PREINVMBMANU].MANU LIKE '%新廠製三組(手工)%'");
+                    sbSql.AppendFormat(@"  WHERE [MOCMANULINE].COPTD001=COPTD.TD001 AND [MOCMANULINE].COPTD002=COPTD.TD002 AND [MOCMANULINE].COPTD003=COPTD.TD003");
+                    sbSql.AppendFormat(@"  AND INVMB.MB001=COPTD.TD004            ");
+                    sbSql.AppendFormat(@"  AND CONVERT(NVARCHAR,[MANUDATE],112) >='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112) <='{1}' ", dateTimePicker11.Value.ToString("yyyyMMdd"), dateTimePicker14.Value.ToString("yyyyMMdd"));
+                    sbSql.AppendFormat(@"  AND [MOCMANULINE]. [MANU]='新廠製三組(手工)'");
+                    sbSql.AppendFormat(@"  ORDER BY [MOCMANULINE].[MANU], [MOCMANULINE].[MANUDATE]");
+                    sbSql.AppendFormat(@"  ");
+                    sbSql.AppendFormat(@"  ");
+                }
+
+                sbSql.AppendFormat(@"  ");
+
+                adapter6 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder6 = new SqlCommandBuilder(adapter6);
+                sqlConn.Open();
+                ds6.Clear();
+                adapter6.Fill(ds6, "ds6");
+                sqlConn.Close();
+
+
+                if (ds6.Tables["ds6"].Rows.Count == 0)
+                {
+                    //建立一筆新的DataRow，並且等於新的dt row
+                    DataRow row = ds6.Tables["ds6"].NewRow();
+
+                    //指定每個欄位要儲存的資料                   
+                    row[0] = "本日無資料"; ;
+
+                    //新增資料至DataTable的dt內
+                    ds6.Tables["ds6"].Rows.Add(row);
+
+                    //ExportDataSetToExcel2(ds5, pathFile2);
+                }
+                else
+                {
+                    if (ds6.Tables["ds6"].Rows.Count >= 1)
+                    {
+                        ExportDataSetToExcel2(ds6, pathFile2);
                     }
                 }
 
@@ -2022,8 +2201,21 @@ namespace TKMOC
         {
             SETFASTREPORT();
         }
+        private void button13_Click(object sender, EventArgs e)
+        {
+            RESET();
+            SETPATH3();
+            SETFILE3();
+
+            MessageBox.Show("OK");
+        }
+        private void button14_Click(object sender, EventArgs e)
+        {
+            CLEAREXCEL();
+        }
 
         #endregion
+
 
 
     }
