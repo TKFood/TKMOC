@@ -82,6 +82,8 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder26 = new SqlCommandBuilder();
         SqlDataAdapter adapter27 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder27 = new SqlCommandBuilder();
+        SqlDataAdapter adapter28 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder28 = new SqlCommandBuilder();
 
 
         SqlDataAdapter adapterCALENDAR = new SqlDataAdapter();
@@ -117,6 +119,7 @@ namespace TKMOC
         DataSet ds25 = new DataSet();
         DataSet ds26 = new DataSet();
         DataSet ds27 = new DataSet();
+        DataSet ds28 = new DataSet();
 
         DataSet dsCALENDAR = new DataSet();
 
@@ -5814,6 +5817,140 @@ namespace TKMOC
             }
         }
 
+        public void SEARCHCOPDEFAULT2(string TD001,string TD002,string TD003)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  SELECT TC053,TD004,TD005,TD006,(TD008+TD024) AS TD008,TD010,TC015");
+                sbSql.AppendFormat(@"  ,(CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TD008+TD024)*INVMD.MD004 ELSE (TD008+TD024)  END ) AS NUM");
+                sbSql.AppendFormat(@"  ,BOMMD.MD003,BOMMD.MD035,BOMMD.MD036,INVMB.UDF07");
+                sbSql.AppendFormat(@"  ,((CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TD008+TD024)*INVMD.MD004 ELSE (TD008+TD024)  END ))*INVMB.UDF07/1000 AS 'NUM2'");
+                sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB WITH(NOLOCK),[TK].dbo.COPTC WITH(NOLOCK),[TK].dbo.COPTD WITH(NOLOCK)");
+                sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.INVMD WITH(NOLOCK) ON INVMD.MD001=TD004 AND INVMD.MD002=TD010");
+                sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.BOMMD WITH(NOLOCK) ON BOMMD.MD001=TD004 ");
+                sbSql.AppendFormat(@"  WHERE TC001=TD001 AND TC002=TD002");
+                sbSql.AppendFormat(@"  AND MB001=TD004");
+                sbSql.AppendFormat(@"  AND BOMMD.MD003 LIKE '3%'");
+                sbSql.AppendFormat(@"  AND TD001='{0}' AND TD002='{1}' AND TD003='{2}'", TD001, TD002, TD003);
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+                adapter28 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder28 = new SqlCommandBuilder(adapter28);
+                sqlConn.Open();
+                ds28.Clear();
+                adapter28.Fill(ds28, "ds28");
+                sqlConn.Close();
+
+
+                if (MANU.Equals("新廠製二組"))
+                {
+                    if (ds28.Tables["ds28"].Rows.Count == 0)
+                    {
+                        textBox1.Text = null;
+                        textBox2.Text = null;
+                        textBox3.Text = null;
+                        textBox5.Text = null;
+                        textBox6.Text = null;
+                        textBox52.Text = null;
+                        textBox40.Text = null;
+                        textBox41.Text = null;
+                        textBox73.Text = null;
+                    }
+                    else
+                    {
+                        if (ds28.Tables["ds28"].Rows.Count >= 1)
+                        {
+                            textBox1.Text = ds28.Tables["ds28"].Rows[0]["MD003"].ToString();
+                            textBox2.Text = ds28.Tables["ds28"].Rows[0]["MD035"].ToString();
+                            textBox3.Text = ds28.Tables["ds28"].Rows[0]["MD036"].ToString();
+                            textBox5.Text = ds28.Tables["ds28"].Rows[0]["NUM2"].ToString();
+                            textBox6.Text = ds28.Tables["ds28"].Rows[0]["TC053"].ToString();
+                            textBox52.Text = ds28.Tables["ds28"].Rows[0]["TC015"].ToString();
+
+                        }
+                    }
+                }
+               
+                else if (MANU.Equals("新廠製一組"))
+                {
+                    if (ds28.Tables["ds28"].Rows.Count == 0)
+                    {
+                        textBox14.Text = null;
+                        textBox17.Text = null;
+                        textBox18.Text = null;
+                        textBox19.Text = null;
+                        textBox16.Text = null;
+                        textBox54.Text = null;
+                        textBox44.Text = null;
+                        textBox45.Text = null;
+                        textBox74.Text = null;
+                    }
+                    else
+                    {
+                        if (ds28.Tables["ds28"].Rows.Count >= 1)
+                        {
+                            textBox14.Text = ds28.Tables["ds28"].Rows[0]["MD003"].ToString();
+                            textBox17.Text = ds28.Tables["ds28"].Rows[0]["MD035"].ToString();
+                            textBox18.Text = ds28.Tables["ds28"].Rows[0]["MD036"].ToString();
+                            textBox19.Text = ds28.Tables["ds28"].Rows[0]["NUM2"].ToString();
+                            textBox16.Text = ds28.Tables["ds28"].Rows[0]["TC053"].ToString();
+                            textBox54.Text = ds28.Tables["ds28"].Rows[0]["TC015"].ToString();
+
+                        }
+                    }
+                }
+                else if (MANU.Equals("新廠製三組(手工)"))
+                {
+                    if (ds28.Tables["ds28"].Rows.Count == 0)
+                    {
+                        textBox20.Text = null;
+                        textBox24.Text = null;
+                        textBox25.Text = null;
+                        textBox23.Text = null;
+                        textBox22.Text = null;
+                        textBox55.Text = null;
+                        textBox46.Text = null;
+                        textBox47.Text = null;
+                        textBox75.Text = null;
+                    }
+                    else
+                    {
+                        if (ds28.Tables["ds28"].Rows.Count >= 1)
+                        {
+                            textBox20.Text = ds28.Tables["ds28"].Rows[0]["MD003"].ToString();
+                            textBox24.Text = ds28.Tables["ds28"].Rows[0]["MD035"].ToString();
+                            textBox25.Text = ds28.Tables["ds28"].Rows[0]["MD036"].ToString();
+                            textBox23.Text = ds28.Tables["ds28"].Rows[0]["NUM2"].ToString();
+                            textBox22.Text = ds28.Tables["ds28"].Rows[0]["TC053"].ToString();
+                            textBox55.Text = ds28.Tables["ds28"].Rows[0]["TC015"].ToString();
+
+                        }
+                    }
+                }
+
+
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+
+
         #endregion
 
         #region BUTTON
@@ -6333,6 +6470,16 @@ namespace TKMOC
             }
         }
 
+        private void button52_Click_1(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBox40.Text) & !string.IsNullOrEmpty(textBox41.Text) & !string.IsNullOrEmpty(textBox73.Text))
+            {
+                SEARCHCOPDEFAULT2(textBox40.Text, textBox41.Text, textBox73.Text);
+            }
+        }
+
         #endregion
+
+
     }
 }
