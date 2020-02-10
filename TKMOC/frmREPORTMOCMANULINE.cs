@@ -2068,7 +2068,7 @@ namespace TKMOC
             if (comboBox6.Text.Equals("新廠包裝線"))
             {
                 SB.AppendFormat(@"  SELECT  [MOCMANULINE].[MANU],CONVERT(NVARCHAR,[MOCMANULINE].[MANUDATE],112) AS MANUDATE ,[MOCMANULINE].[COPTD001]+'-'+[MOCMANULINE].[COPTD002]+'-'+[MOCMANULINE].[COPTD003]+'-'+INVMB.[MB002]+' '+CONVERT(NVARCHAR,CONVERT(INT,ROUND([MOCMANULINE].[BOX],0)))+' 箱 '+CONVERT(NVARCHAR,CONVERT(INT,[MOCMANULINE].[PACKAGE]))+INVMB.MB004 AS 'PACKAGE'");
-                SB.AppendFormat(@"  ,ISNULL(ROUND(([PACKAGE]/NULLIF([PREINVMBMANU].TIMES,1)),0),0) AS HRS");
+                SB.AppendFormat(@"  ,ISNULL(ROUND(([PACKAGE]/NULLIF([PREINVMBMANU].TIMES,1)),2),0) AS HRS");
                 SB.AppendFormat(@"  ,INVMB.MB001");
                 SB.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE],[TK].dbo.INVMB");
                 SB.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[PREINVMBMANU] ON [PREINVMBMANU].MB001=INVMB.MB001 AND [PREINVMBMANU].MANU LIKE '%包裝%'");
@@ -2083,7 +2083,7 @@ namespace TKMOC
             else if (comboBox6.Text.Equals("新廠製二組"))
             {
                 SB.AppendFormat(@"  SELECT  [MOCMANULINE].[MANU],CONVERT(NVARCHAR,[MOCMANULINE].[MANUDATE],112) AS MANUDATE ,[MOCMANULINE].[COPTD001]+'-'+[MOCMANULINE].[COPTD002]+'-'+[MOCMANULINE].[COPTD003]+'-'+INVMB.[MB002] AS 'PACKAGE'");
-                SB.AppendFormat(@"  ,ISNULL(ROUND(([NUM]/NULLIF([PREINVMBMANU].TIMES,1)),0),0) AS HRS");
+                SB.AppendFormat(@"  ,ISNULL(ROUND(([NUM]/NULLIF([PREINVMBMANU].TIMES,1)),2),0) AS HRS");
                 SB.AppendFormat(@"  ,INVMB.MB001");
                 SB.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE],[TK].dbo.COPTD,[TK].dbo.INVMB");
                 SB.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[PREINVMBMANU] ON [PREINVMBMANU].MB001=INVMB.MB001 AND [PREINVMBMANU].MANU LIKE '%新廠製二組%'");
@@ -2098,7 +2098,7 @@ namespace TKMOC
             else if (comboBox6.Text.Equals("新廠製一組"))
             {
                 SB.AppendFormat(@"  SELECT  [MOCMANULINE].[MANU],CONVERT(NVARCHAR,[MOCMANULINE].[MANUDATE],112) AS MANUDATE ,[MOCMANULINE].[COPTD001]+'-'+[MOCMANULINE].[COPTD002]+'-'+[MOCMANULINE].[COPTD003]+'-'+INVMB.[MB002] AS 'PACKAGE'");
-                SB.AppendFormat(@"  ,ISNULL(ROUND(([NUM]/NULLIF([PREINVMBMANU].TIMES,1)),0),0) AS HRS");
+                SB.AppendFormat(@"  ,ISNULL(ROUND(([NUM]/NULLIF([PREINVMBMANU].TIMES,1)),2),0) AS HRS");
                 SB.AppendFormat(@"  ,INVMB.MB001");
                 SB.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE],[TK].dbo.COPTD,[TK].dbo.INVMB");
                 SB.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[PREINVMBMANU] ON [PREINVMBMANU].MB001=INVMB.MB001 AND [PREINVMBMANU].MANU LIKE '%新廠製一組%'");
@@ -2113,7 +2113,7 @@ namespace TKMOC
             else if (comboBox6.Text.Equals("新廠製三組(手工)"))
             {
                 SB.AppendFormat(@"  SELECT  [MOCMANULINE].[MANU],CONVERT(NVARCHAR,[MOCMANULINE].[MANUDATE],112) AS MANUDATE ,[MOCMANULINE].[COPTD001]+'-'+[MOCMANULINE].[COPTD002]+'-'+[MOCMANULINE].[COPTD003]+'-'+INVMB.[MB002] AS 'PACKAGE'");
-                SB.AppendFormat(@"  ,ISNULL(ROUND(([NUM]/NULLIF([PREINVMBMANU].TIMES,1)),0),0) AS HRS");
+                SB.AppendFormat(@"  ,ISNULL(ROUND(([NUM]/NULLIF([PREINVMBMANU].TIMES,1)),2),0) AS HRS");
                 SB.AppendFormat(@"  ,INVMB.MB001");
                 SB.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE],[TK].dbo.COPTD,[TK].dbo.INVMB");
                 SB.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[PREINVMBMANU] ON [PREINVMBMANU].MB001=INVMB.MB001 AND [PREINVMBMANU].MANU LIKE '%新廠製三組(手工)%'");
@@ -2123,7 +2123,7 @@ namespace TKMOC
                 SB.AppendFormat(@"  AND [MOCMANULINE]. [MANU]='新廠製三組(手工)'");
                 SB.AppendFormat(@"  ORDER BY [MOCMANULINE].[MANU], [MOCMANULINE].[MANUDATE]");
                 SB.AppendFormat(@"  ");
-                SB.AppendFormat(@"  ");
+                SB.AppendFormat(@"   ");
             }
 
 
