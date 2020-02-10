@@ -2077,7 +2077,7 @@ namespace TKMOC
                 SB.AppendFormat(@"  AND [MOCMANULINE]. [MANU]='新廠包裝線'");
                 SB.AppendFormat(@"  ORDER BY [MOCMANULINE].[MANU],[MANUDATE]");
                 SB.AppendFormat(@"  ");
-                SB.AppendFormat(@"  ");
+                SB.AppendFormat(@"   ");
                 SB.AppendFormat(@"  ");
             }
             else if (comboBox6.Text.Equals("新廠製二組"))
