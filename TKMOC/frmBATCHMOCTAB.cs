@@ -252,7 +252,7 @@ namespace TKMOC
                     textBox6.Text = row.Cells["單頭備註"].Value.ToString();
                     textBox7.Text = row.Cells["生產線別"].Value.ToString();
 
-                    SEARCHMOCTA(textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text);
+                    SEARCHMOCTA(textBox1.Text, textBox2.Text, textBox3.Text);
                 }
                 else
                 {
@@ -267,7 +267,7 @@ namespace TKMOC
             }
         }
 
-        public void SEARCHMOCTA(string TA026,string TA027,string TA028,string TA004)
+        public void SEARCHMOCTA(string TA026,string TA027,string TA028)
         {
             try
             {
@@ -280,7 +280,7 @@ namespace TKMOC
 
                 sbSql.AppendFormat(@" SELECT TA001 AS '製令單別',TA002 AS '製令單號',TA009 AS '預計完工',TA026 AS '訂單',TA027 AS '訂單號',TA028 AS '序號' ");
                 sbSql.AppendFormat(@" FROM [TK].dbo.MOCTA ");
-                sbSql.AppendFormat(@" WHERE TA026='{0}' AND TA027='{1}' AND TA028='{2}' AND TA006='{3}' ",TA026,TA027,TA028,TA004);
+                sbSql.AppendFormat(@" WHERE TA026='{0}' AND TA027='{1}' AND TA028='{2}' ",TA026,TA027,TA028);
                 sbSql.AppendFormat(@"  ");
                 sbSql.AppendFormat(@"  ");
                 sbSql.AppendFormat(@"  ");
