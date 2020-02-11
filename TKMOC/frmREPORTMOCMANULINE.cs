@@ -2067,7 +2067,7 @@ namespace TKMOC
 
             if (comboBox6.Text.Equals("新廠包裝線"))
             {
-                SB.AppendFormat(@"  SELECT  [MOCMANULINE].[MANU],CONVERT(NVARCHAR,[MOCMANULINE].[MANUDATE],112) AS MANUDATE ,[MOCMANULINE].[COPTD001]+'-'+[MOCMANULINE].[COPTD002]+'-'+[MOCMANULINE].[COPTD003]+'-'+INVMB.[MB002]+' '+CONVERT(NVARCHAR,CONVERT(INT,ROUND([MOCMANULINE].[BOX],0)))+' 箱 '+CONVERT(NVARCHAR,CONVERT(INT,[MOCMANULINE].[PACKAGE]))+INVMB.MB004 AS 'PACKAGE'");
+                SB.AppendFormat(@"  SELECT  [PREINVMBMANU].[MANU],CONVERT(NVARCHAR,[MOCMANULINE].[MANUDATE],112) AS MANUDATE ,[MOCMANULINE].[COPTD001]+'-'+[MOCMANULINE].[COPTD002]+'-'+[MOCMANULINE].[COPTD003]+'-'+INVMB.[MB002]+' '+CONVERT(NVARCHAR,CONVERT(INT,ROUND([MOCMANULINE].[BOX],0)))+' 箱 '+CONVERT(NVARCHAR,CONVERT(INT,[MOCMANULINE].[PACKAGE]))+INVMB.MB004 AS 'PACKAGE'");
                 SB.AppendFormat(@"  ,ISNULL(ROUND(([PACKAGE]/NULLIF([PREINVMBMANU].TIMES,1)),2),0) AS HRS");
                 SB.AppendFormat(@"  ,INVMB.MB001");
                 SB.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE],[TK].dbo.INVMB");
@@ -2075,7 +2075,7 @@ namespace TKMOC
                 SB.AppendFormat(@"  WHERE INVMB.MB001=MOCMANULINE.MB001      ");
                 SB.AppendFormat(@"  AND CONVERT(NVARCHAR,[MANUDATE],112) >='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112) <='{1}' ",dateTimePicker11.Value.ToString("yyyyMMdd"), dateTimePicker14.Value.ToString("yyyyMMdd"));
                 SB.AppendFormat(@"  AND [MOCMANULINE]. [MANU]='新廠包裝線'");
-                SB.AppendFormat(@"  ORDER BY [MOCMANULINE].[MANU],[MANUDATE]");
+                SB.AppendFormat(@"  ORDER BY [PREINVMBMANU].[MANU],[MOCMANULINE].[MANU],[MANUDATE]  ");
                 SB.AppendFormat(@"  ");
                 SB.AppendFormat(@"   ");
                 SB.AppendFormat(@"  ");
