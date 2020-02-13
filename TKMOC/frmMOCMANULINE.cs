@@ -5826,21 +5826,42 @@ namespace TKMOC
 
                 sbSql.Clear();
                 sbSqlQuery.Clear();
-
-                sbSql.AppendFormat(@"  SELECT TC053,TD004,TD005,TD006,(TD008+TD024) AS TD008,TD010,TC015");
-                sbSql.AppendFormat(@"  ,(CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TD008+TD024)*INVMD.MD004 ELSE (TD008+TD024)  END ) AS NUM");
-                sbSql.AppendFormat(@"  ,BOMMD.MD003,BOMMD.MD035,BOMMD.MD036,INVMB.UDF07");
-                sbSql.AppendFormat(@"  ,((CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TD008+TD024)*INVMD.MD004 ELSE (TD008+TD024)  END ))*INVMB.UDF07/1000 AS 'NUM2'");
-                sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB WITH(NOLOCK),[TK].dbo.COPTC WITH(NOLOCK),[TK].dbo.COPTD WITH(NOLOCK)");
-                sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.INVMD WITH(NOLOCK) ON INVMD.MD001=TD004 AND INVMD.MD002=TD010");
-                sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.BOMMD WITH(NOLOCK) ON BOMMD.MD001=TD004 ");
-                sbSql.AppendFormat(@"  WHERE TC001=TD001 AND TC002=TD002");
-                sbSql.AppendFormat(@"  AND MB001=TD004");
-                sbSql.AppendFormat(@"  AND BOMMD.MD003 LIKE '3%'");
-                sbSql.AppendFormat(@"  AND TD001='{0}' AND TD002='{1}' AND TD003='{2}'", TD001, TD002, TD003);
-                sbSql.AppendFormat(@"  ");
-                sbSql.AppendFormat(@"  ");
-                sbSql.AppendFormat(@"  ");
+                //手工*INVMB.UDF08、其他*INVMB.UDF07
+                if (MANU.Equals("新廠製三組(手工)"))
+                {
+                    sbSql.AppendFormat(@"  SELECT TC053,TD004,TD005,TD006,(TD008+TD024) AS TD008,TD010,TC015");
+                    sbSql.AppendFormat(@"  ,(CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TD008+TD024)*INVMD.MD004 ELSE (TD008+TD024)  END ) AS NUM");
+                    sbSql.AppendFormat(@"  ,BOMMD.MD003,BOMMD.MD035,BOMMD.MD036,INVMB.UDF07");
+                    sbSql.AppendFormat(@"  ,((CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TD008+TD024)*INVMD.MD004 ELSE (TD008+TD024)  END ))*INVMB.UDF08/1000 AS 'NUM2'");
+                    sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB WITH(NOLOCK),[TK].dbo.COPTC WITH(NOLOCK),[TK].dbo.COPTD WITH(NOLOCK)");
+                    sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.INVMD WITH(NOLOCK) ON INVMD.MD001=TD004 AND INVMD.MD002=TD010");
+                    sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.BOMMD WITH(NOLOCK) ON BOMMD.MD001=TD004 ");
+                    sbSql.AppendFormat(@"  WHERE TC001=TD001 AND TC002=TD002");
+                    sbSql.AppendFormat(@"  AND MB001=TD004");
+                    sbSql.AppendFormat(@"  AND BOMMD.MD003 LIKE '3%'");
+                    sbSql.AppendFormat(@"  AND TD001='{0}' AND TD002='{1}' AND TD003='{2}'", TD001, TD002, TD003);
+                    sbSql.AppendFormat(@"  ");
+                    sbSql.AppendFormat(@"  ");
+                    sbSql.AppendFormat(@"  ");
+                }
+              
+                else
+                {
+                    sbSql.AppendFormat(@"  SELECT TC053,TD004,TD005,TD006,(TD008+TD024) AS TD008,TD010,TC015");
+                    sbSql.AppendFormat(@"  ,(CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TD008+TD024)*INVMD.MD004 ELSE (TD008+TD024)  END ) AS NUM");
+                    sbSql.AppendFormat(@"  ,BOMMD.MD003,BOMMD.MD035,BOMMD.MD036,INVMB.UDF07");
+                    sbSql.AppendFormat(@"  ,((CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TD008+TD024)*INVMD.MD004 ELSE (TD008+TD024)  END ))*INVMB.UDF07/1000 AS 'NUM2'");
+                    sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB WITH(NOLOCK),[TK].dbo.COPTC WITH(NOLOCK),[TK].dbo.COPTD WITH(NOLOCK)");
+                    sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.INVMD WITH(NOLOCK) ON INVMD.MD001=TD004 AND INVMD.MD002=TD010");
+                    sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.BOMMD WITH(NOLOCK) ON BOMMD.MD001=TD004 ");
+                    sbSql.AppendFormat(@"  WHERE TC001=TD001 AND TC002=TD002");
+                    sbSql.AppendFormat(@"  AND MB001=TD004");
+                    sbSql.AppendFormat(@"  AND BOMMD.MD003 LIKE '3%'");
+                    sbSql.AppendFormat(@"  AND TD001='{0}' AND TD002='{1}' AND TD003='{2}'", TD001, TD002, TD003);
+                    sbSql.AppendFormat(@"  ");
+                    sbSql.AppendFormat(@"  ");
+                    sbSql.AppendFormat(@"  ");
+                }
 
                 adapter28 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
