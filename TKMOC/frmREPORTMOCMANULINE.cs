@@ -2179,6 +2179,54 @@ namespace TKMOC
 
         }
 
+        public void SETFASTREPORT3()
+        {
+            StringBuilder SQL1 = new StringBuilder();
+
+            SQL1 = SETSQL3();
+            Report report1 = new Report();
+            report1.Load(@"REPORT\生產-檢查訂單是否有製令.frx");
+
+            report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+            TableDataSource table = report1.GetDataSource("Table") as TableDataSource;
+            table.SelectCommand = SQL1.ToString();
+
+            report1.Preview = previewControl3;
+            report1.Show();
+        }
+
+        public StringBuilder SETSQL3()
+        {
+            StringBuilder SB = new StringBuilder();
+
+            SB.AppendFormat(@"  SELECT TC053,TD013");
+            SB.AppendFormat(@"  ,CONVERT(NVARCHAR,MOCTA1.TA009,112)+' '+MOCTA1.TA001+'-'+MOCTA1.TA002  AS '新廠包裝線生產日'");
+            SB.AppendFormat(@"  ,CONVERT(NVARCHAR,MOCTA2.TA009,112)+' '+MOCTA2.TA001+'-'+MOCTA2.TA002   AS '新廠製一組生產日'");
+            SB.AppendFormat(@"  ,CONVERT(NVARCHAR,MOCTA3.TA009,112)+' '+MOCTA3.TA001+'-'+MOCTA3.TA002   AS '新廠製二組生產日'");
+            SB.AppendFormat(@"  ,CONVERT(NVARCHAR,MOCTA4.TA009,112)+' '+MOCTA4.TA001+'-'+MOCTA4.TA002   AS '新廠製三組(手工)生產日'");
+            SB.AppendFormat(@"  ,TD001,TD002,TD003,TD004,TD005,TD006,TD008,TD009,TD024,TD025");
+            SB.AppendFormat(@"  ,CASE WHEN MD002=TD010 THEN MD004*(TD008-TD009+TD024-TD025) ELSE (TD008-TD009+TD024-TD025) END AS 'NUM'");
+            SB.AppendFormat(@"  ,MOCTA1.TA015 '新廠包裝線生產數'");
+            SB.AppendFormat(@"  FROM [TK].dbo.COPTC,[TK].dbo.COPTD");
+            SB.AppendFormat(@"  LEFT JOIN [TK].dbo.INVMD ON MD001=TD004 AND MD002=TD010");
+            SB.AppendFormat(@"  LEFT JOIN [TK].dbo.MOCTA MOCTA1 ON MOCTA1.TA021='09' AND MOCTA1.TA026=TD001 AND MOCTA1.TA027=TD002 AND MOCTA1.TA028=TD003");
+            SB.AppendFormat(@"  LEFT JOIN [TK].dbo.MOCTA MOCTA2 ON MOCTA2.TA021='01' AND MOCTA2.TA026=TD001 AND MOCTA2.TA027=TD002 AND MOCTA2.TA028=TD003");
+            SB.AppendFormat(@"  LEFT JOIN [TK].dbo.MOCTA MOCTA3 ON MOCTA3.TA021='02' AND MOCTA3.TA026=TD001 AND MOCTA3.TA027=TD002 AND MOCTA3.TA028=TD003");
+            SB.AppendFormat(@"  LEFT JOIN [TK].dbo.MOCTA MOCTA4 ON MOCTA4.TA021='03' AND MOCTA4.TA026=TD001 AND MOCTA4.TA027=TD002 AND MOCTA4.TA028=TD003");
+            SB.AppendFormat(@"  WHERE TC001=TD001 AND TC002=TD002");
+            SB.AppendFormat(@"  AND COPTD.UDF01='Y' AND TD016='N' AND TD021='Y'");
+            SB.AppendFormat(@"  AND (TD004 LIKE '4%' OR TD004 LIKE '5%')");
+            SB.AppendFormat(@"  AND TD013>='{0}' AND  TD013<='{1}'", dateTimePicker15.Value.ToString("yyyyMMdd"), dateTimePicker16.Value.ToString("yyyyMMdd"));
+            SB.AppendFormat(@"  ORDER BY TC053,TD013,TD001,TD002,TD003");
+            SB.AppendFormat(@"   ");
+            SB.AppendFormat(@"  ");
+            SB.AppendFormat(@"  ");
+
+
+            return SB;
+
+        }
+
         #endregion
 
         #region BUTTON
@@ -2274,6 +2322,10 @@ namespace TKMOC
         private void button18_Click(object sender, EventArgs e)
         {
             SETFASTREPORT2();
+        }
+        private void button16_Click(object sender, EventArgs e)
+        {
+            SETFASTREPORT3();
         }
 
         #endregion

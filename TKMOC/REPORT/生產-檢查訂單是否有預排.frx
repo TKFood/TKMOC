@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="02/14/2020 11:15:13" ReportInfo.Modified="02/14/2020 11:23:07" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="02/14/2020 11:15:13" ReportInfo.Modified="02/14/2020 11:57:33" ReportInfo.CreatorVersion="2016.4.4.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9J2pD5wrm05YWCRUI6+SGX1">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9LuAnVSNExYKH5O1y9C9/ox">
       <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT TC053,TD013&#13;&#10;,CONVERT(NVARCHAR,MOCMANULINE1.[MANUDATE],112)  AS '新廠包裝線生產日'&#13;&#10;,CONVERT(NVARCHAR,MOCMANULINE2.[MANUDATE],112)  AS '新廠製一組生產日'&#13;&#10;,CONVERT(NVARCHAR,MOCMANULINE3.[MANUDATE],112)  AS '新廠製二組生產日'&#13;&#10;,CONVERT(NVARCHAR,MOCMANULINE4.[MANUDATE],112)  AS '新廠製三組(手工)生產日'&#13;&#10;,TD001,TD002,TD003,TD004,TD005,TD006,TD008,TD009,TD024,TD025&#13;&#10;,CASE WHEN MD002=TD010 THEN MD004*(TD008-TD009+TD024-TD025) ELSE (TD008-TD009+TD024-TD025) END AS 'NUM'&#13;&#10;,MOCMANULINE1.[PACKAGE] '新廠包裝線生產數'&#13;&#10;&#13;&#10;FROM [TK].dbo.COPTC,[TK].dbo.COPTD&#13;&#10;LEFT JOIN [TK].dbo.INVMD ON MD001=TD004 AND MD002=TD010&#13;&#10;LEFT JOIN [TKMOC].[dbo].[MOCMANULINE] MOCMANULINE1 ON MOCMANULINE1.[MANU]='新廠包裝線' AND MOCMANULINE1.[COPTD001]=TD001 AND MOCMANULINE1.[COPTD002]=TD002 AND MOCMANULINE1.[COPTD003]=TD003&#13;&#10;LEFT JOIN [TKMOC].[dbo].[MOCMANULINE] MOCMANULINE2 ON MOCMANULINE2.[MANU]='新廠製一組' AND MOCMANULINE2.[COPTD001]=TD001 AND MOCMANULINE2.[COPTD002]=TD002 AND MOCMANULINE2.[COPTD003]=TD003&#13;&#10;LEFT JOIN [TKMOC].[dbo].[MOCMANULINE] MOCMANULINE3 ON MOCMANULINE3.[MANU]='新廠製二組' AND MOCMANULINE3.[COPTD001]=TD001 AND MOCMANULINE3.[COPTD002]=TD002 AND MOCMANULINE3.[COPTD003]=TD003&#13;&#10;LEFT JOIN [TKMOC].[dbo].[MOCMANULINE] MOCMANULINE4 ON MOCMANULINE4.[MANU]='新廠製三組(手工)' AND MOCMANULINE4.[COPTD001]=TD001 AND MOCMANULINE4.[COPTD002]=TD002 AND MOCMANULINE4.[COPTD003]=TD003&#13;&#10;WHERE TC001=TD001 AND TC002=TD002&#13;&#10;AND COPTD.UDF01='Y' AND TD016='N' AND TD021='Y'&#13;&#10;AND (TD004 LIKE '4%' OR TD004 LIKE '5%')&#13;&#10;AND TD013&gt;='20200101' AND  TD013&lt;='20200229'&#13;&#10;ORDER BY TC053,TD013,TD001,TD002,TD003">
         <Column Name="TC053" DataType="System.String"/>
         <Column Name="TD013" DataType="System.String"/>
@@ -26,19 +26,19 @@
   </Dictionary>
   <ReportPage Name="Page1" Landscape="true" PaperWidth="500" PaperHeight="210">
     <ColumnHeaderBand Name="ColumnHeader1" Width="1814.4" Height="18.9">
-      <TextObject Name="Text2" Width="179.55" Height="18.9" Border.Lines="All" Text="TC053" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text4" Left="179.55" Width="94.5" Height="18.9" Border.Lines="All" Text="TD013" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text2" Width="179.55" Height="18.9" Border.Lines="All" Text="客戶" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text4" Left="179.55" Width="94.5" Height="18.9" Border.Lines="All" Text="預交日" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text6" Left="274.05" Width="113.4" Height="18.9" Border.Lines="All" Text="新廠包裝線生產日" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text8" Left="387.45" Width="113.4" Height="18.9" Border.Lines="All" Text="新廠製一組生產日" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text10" Left="500.85" Width="113.4" Height="18.9" Border.Lines="All" Text="新廠製二組生產日" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text12" Left="614.25" Width="151.2" Height="18.9" Border.Lines="All" Text="新廠製三組(手工)生產日" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text14" Left="765.45" Width="66.15" Height="18.9" Border.Lines="All" Text="TD001" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text16" Left="831.6" Width="94.5" Height="18.9" Border.Lines="All" Text="TD002" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text18" Left="926.1" Width="66.15" Height="18.9" Border.Lines="All" Text="TD003" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text20" Left="992.25" Width="170.1" Height="18.9" Border.Lines="All" Text="TD004" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text22" Left="1162.35" Width="264.6" Height="18.9" Border.Lines="All" Text="TD005" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text24" Left="1426.95" Width="141.75" Height="18.9" Border.Lines="All" Text="TD006" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text26" Left="1568.7" Width="94.5" Height="18.9" Border.Lines="All" Text="NUM" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text14" Left="765.45" Width="66.15" Height="18.9" Border.Lines="All" Text="訂單別" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text16" Left="831.6" Width="94.5" Height="18.9" Border.Lines="All" Text="訂單號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text18" Left="926.1" Width="66.15" Height="18.9" Border.Lines="All" Text="訂單序號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text20" Left="992.25" Width="170.1" Height="18.9" Border.Lines="All" Text="品號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text22" Left="1162.35" Width="264.6" Height="18.9" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text24" Left="1426.95" Width="141.75" Height="18.9" Border.Lines="All" Text="規格" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text26" Left="1568.7" Width="94.5" Height="18.9" Border.Lines="All" Text="訂單總數" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text28" Left="1663.2" Width="113.4" Height="18.9" Border.Lines="All" Text="新廠包裝線生產數" HorzAlign="Center" VertAlign="Center"/>
     </ColumnHeaderBand>
     <DataBand Name="Data1" Top="22.75" Width="1814.4" Height="18.9" CanGrow="true" DataSource="Table">

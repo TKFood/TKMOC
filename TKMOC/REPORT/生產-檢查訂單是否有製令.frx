@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="02/14/2020 11:15:13" ReportInfo.Modified="02/14/2020 11:56:32" ReportInfo.CreatorVersion="2016.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9JubiO5zxwC9c485dbwLtJz">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT TC053,TD013&#13;&#10;,CONVERT(NVARCHAR,MOCTA1.TA009,112)+' '+MOCTA1.TA001+'-'+MOCTA1.TA002  AS '新廠包裝線生產日'&#13;&#10;,CONVERT(NVARCHAR,MOCTA2.TA009,112)+' '+MOCTA2.TA001+'-'+MOCTA2.TA002   AS '新廠製一組生產日'&#13;&#10;,CONVERT(NVARCHAR,MOCTA3.TA009,112)+' '+MOCTA3.TA001+'-'+MOCTA3.TA002   AS '新廠製二組生產日'&#13;&#10;,CONVERT(NVARCHAR,MOCTA4.TA009,112)+' '+MOCTA4.TA001+'-'+MOCTA4.TA002   AS '新廠製三組(手工)生產日'&#13;&#10;,TD001,TD002,TD003,TD004,TD005,TD006,TD008,TD009,TD024,TD025&#13;&#10;,CASE WHEN MD002=TD010 THEN MD004*(TD008-TD009+TD024-TD025) ELSE (TD008-TD009+TD024-TD025) END AS 'NUM'&#13;&#10;,MOCTA1.TA015 '新廠包裝線生產數'&#13;&#10;FROM [TK].dbo.COPTC,[TK].dbo.COPTD&#13;&#10;LEFT JOIN [TK].dbo.INVMD ON MD001=TD004 AND MD002=TD010&#13;&#10;LEFT JOIN [TK].dbo.MOCTA MOCTA1 ON MOCTA1.TA021='09' AND MOCTA1.TA026=TD001 AND MOCTA1.TA027=TD002 AND MOCTA1.TA028=TD003&#13;&#10;LEFT JOIN [TK].dbo.MOCTA MOCTA2 ON MOCTA2.TA021='01' AND MOCTA2.TA026=TD001 AND MOCTA2.TA027=TD002 AND MOCTA2.TA028=TD003&#13;&#10;LEFT JOIN [TK].dbo.MOCTA MOCTA3 ON MOCTA3.TA021='02' AND MOCTA3.TA026=TD001 AND MOCTA3.TA027=TD002 AND MOCTA3.TA028=TD003&#13;&#10;LEFT JOIN [TK].dbo.MOCTA MOCTA4 ON MOCTA4.TA021='03' AND MOCTA4.TA026=TD001 AND MOCTA4.TA027=TD002 AND MOCTA4.TA028=TD003&#13;&#10;&#13;&#10;WHERE TC001=TD001 AND TC002=TD002&#13;&#10;AND COPTD.UDF01='Y' AND TD016='N' AND TD021='Y'&#13;&#10;AND (TD004 LIKE '4%' OR TD004 LIKE '5%')&#13;&#10;AND TD013&gt;='20200101' AND  TD013&lt;='20200229'&#13;&#10;ORDER BY TC053,TD013,TD001,TD002,TD003">
+        <Column Name="TC053" DataType="System.String"/>
+        <Column Name="TD013" DataType="System.String"/>
+        <Column Name="新廠包裝線生產日" DataType="System.String"/>
+        <Column Name="新廠製一組生產日" DataType="System.String"/>
+        <Column Name="新廠製二組生產日" DataType="System.String"/>
+        <Column Name="新廠製三組(手工)生產日" DataType="System.String"/>
+        <Column Name="TD001" DataType="System.String"/>
+        <Column Name="TD002" DataType="System.String"/>
+        <Column Name="TD003" DataType="System.String"/>
+        <Column Name="TD004" DataType="System.String"/>
+        <Column Name="TD005" DataType="System.String"/>
+        <Column Name="TD006" DataType="System.String"/>
+        <Column Name="TD008" DataType="System.Decimal"/>
+        <Column Name="TD009" DataType="System.Decimal"/>
+        <Column Name="TD024" DataType="System.Decimal"/>
+        <Column Name="TD025" DataType="System.Decimal"/>
+        <Column Name="NUM" DataType="System.Decimal"/>
+        <Column Name="新廠包裝線生產數" DataType="System.Decimal"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="600" PaperHeight="210">
+    <ColumnHeaderBand Name="ColumnHeader1" Width="2192.4" Height="18.9">
+      <TextObject Name="Text2" Width="179.55" Height="18.9" Border.Lines="All" Text="客戶" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text4" Left="179.55" Width="94.5" Height="18.9" Border.Lines="All" Text="預交日" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text6" Left="274.05" Width="198.45" Height="18.9" Border.Lines="All" Text="新廠包裝線生產日" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text8" Left="472.5" Width="189" Height="18.9" Border.Lines="All" Text="新廠製一組生產日" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text10" Left="661.5" Width="179.55" Height="18.9" Border.Lines="All" Text="新廠製二組生產日" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text12" Left="841.05" Width="198.45" Height="18.9" Border.Lines="All" Text="新廠製三組(手工)生產日" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text14" Left="1039.5" Width="66.15" Height="18.9" Border.Lines="All" Text="訂單別" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text16" Left="1105.65" Width="94.5" Height="18.9" Border.Lines="All" Text="訂單號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text18" Left="1200.15" Width="66.15" Height="18.9" Border.Lines="All" Text="訂單序號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text20" Left="1266.3" Width="170.1" Height="18.9" Border.Lines="All" Text="品號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text22" Left="1436.4" Width="264.6" Height="18.9" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text24" Left="1701" Width="141.75" Height="18.9" Border.Lines="All" Text="規格" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text26" Left="1842.75" Width="94.5" Height="18.9" Border.Lines="All" Text="訂單總數" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text28" Left="1937.25" Width="113.4" Height="18.9" Border.Lines="All" Text="新廠包裝線生產數" HorzAlign="Center" VertAlign="Center"/>
+    </ColumnHeaderBand>
+    <DataBand Name="Data1" Top="22.75" Width="2192.4" Height="18.9" CanGrow="true" DataSource="Table">
+      <TextObject Name="Text1" Width="179.55" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.TC053]" VertAlign="Center"/>
+      <TextObject Name="Text3" Left="179.55" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.TD013]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text5" Left="274.05" Width="198.45" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.新廠包裝線生產日]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text7" Left="472.5" Width="189" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.新廠製一組生產日]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text9" Left="661.5" Width="179.55" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.新廠製二組生產日]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text11" Left="841.05" Width="198.45" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.新廠製三組(手工)生產日]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text13" Left="1039.5" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.TD001]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text21" Left="1436.4" Width="264.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.TD005]" VertAlign="Center"/>
+      <TextObject Name="Text23" Left="1701" Width="141.75" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.TD006]" VertAlign="Center"/>
+      <TextObject Name="Text15" Left="1105.65" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.TD002]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text17" Left="1200.15" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.TD003]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text19" Left="1266.3" Width="170.1" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.TD004]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text27" Left="1937.25" Width="113.4" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.新廠包裝線生產數]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text25" Left="1842.75" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.NUM]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+    </DataBand>
+  </ReportPage>
+</Report>
