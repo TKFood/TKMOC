@@ -2131,6 +2131,54 @@ namespace TKMOC
 
         }
 
+        public void SETFASTREPORT2()
+        {
+            StringBuilder SQL1 = new StringBuilder();
+
+            SQL1 = SETSQL2();
+            Report report1 = new Report();
+            report1.Load(@"REPORT\生產-檢查訂單是否有預排.frx");
+
+            report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+            TableDataSource table = report1.GetDataSource("Table") as TableDataSource;
+            table.SelectCommand = SQL1.ToString();
+
+            report1.Preview = previewControl2;
+            report1.Show();
+        }
+
+        public StringBuilder SETSQL2()
+        {
+            StringBuilder SB = new StringBuilder();
+
+            SB.AppendFormat(@"  SELECT TC053,TD013");
+            SB.AppendFormat(@"  ,CONVERT(NVARCHAR,MOCMANULINE1.[MANUDATE],112)  AS '新廠包裝線生產日'");
+            SB.AppendFormat(@"  ,CONVERT(NVARCHAR,MOCMANULINE2.[MANUDATE],112)  AS '新廠製一組生產日'");
+            SB.AppendFormat(@"  ,CONVERT(NVARCHAR,MOCMANULINE3.[MANUDATE],112)  AS '新廠製二組生產日'");
+            SB.AppendFormat(@"  ,CONVERT(NVARCHAR,MOCMANULINE4.[MANUDATE],112)  AS '新廠製三組(手工)生產日'");
+            SB.AppendFormat(@"  ,TD001,TD002,TD003,TD004,TD005,TD006,TD008,TD009,TD024,TD025");
+            SB.AppendFormat(@"  ,CASE WHEN MD002=TD010 THEN MD004*(TD008-TD009+TD024-TD025) ELSE (TD008-TD009+TD024-TD025) END AS 'NUM'");
+            SB.AppendFormat(@"  ,MOCMANULINE1.[PACKAGE] '新廠包裝線生產數'");
+            SB.AppendFormat(@"  FROM [TK].dbo.COPTC,[TK].dbo.COPTD");
+            SB.AppendFormat(@"  LEFT JOIN [TK].dbo.INVMD ON MD001=TD004 AND MD002=TD010");
+            SB.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[MOCMANULINE] MOCMANULINE1 ON MOCMANULINE1.[MANU]='新廠包裝線' AND MOCMANULINE1.[COPTD001]=TD001 AND MOCMANULINE1.[COPTD002]=TD002 AND MOCMANULINE1.[COPTD003]=TD003");
+            SB.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[MOCMANULINE] MOCMANULINE2 ON MOCMANULINE2.[MANU]='新廠製一組' AND MOCMANULINE2.[COPTD001]=TD001 AND MOCMANULINE2.[COPTD002]=TD002 AND MOCMANULINE2.[COPTD003]=TD003");
+            SB.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[MOCMANULINE] MOCMANULINE3 ON MOCMANULINE3.[MANU]='新廠製二組' AND MOCMANULINE3.[COPTD001]=TD001 AND MOCMANULINE3.[COPTD002]=TD002 AND MOCMANULINE3.[COPTD003]=TD003");
+            SB.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[MOCMANULINE] MOCMANULINE4 ON MOCMANULINE4.[MANU]='新廠製三組(手工)' AND MOCMANULINE4.[COPTD001]=TD001 AND MOCMANULINE4.[COPTD002]=TD002 AND MOCMANULINE4.[COPTD003]=TD003");
+            SB.AppendFormat(@"  WHERE TC001=TD001 AND TC002=TD002");
+            SB.AppendFormat(@"  AND COPTD.UDF01='Y' AND TD016='N' AND TD021='Y'");
+            SB.AppendFormat(@"  AND (TD004 LIKE '4%' OR TD004 LIKE '5%')");
+            SB.AppendFormat(@"  AND TD013>='{0}' AND  TD013<='{1}'",dateTimePicker15.Value.ToString("yyyyMMdd"), dateTimePicker16.Value.ToString("yyyyMMdd"));
+            SB.AppendFormat(@"  ORDER BY TC053,TD013,TD001,TD002,TD003");
+            SB.AppendFormat(@"  ");
+            SB.AppendFormat(@"  ");
+            SB.AppendFormat(@"  ");
+
+
+            return SB;
+
+        }
+
         #endregion
 
         #region BUTTON
@@ -2223,8 +2271,12 @@ namespace TKMOC
             CLEAREXCEL();
         }
 
-        #endregion
+        private void button18_Click(object sender, EventArgs e)
+        {
+            SETFASTREPORT2();
+        }
 
+        #endregion
 
 
     }
