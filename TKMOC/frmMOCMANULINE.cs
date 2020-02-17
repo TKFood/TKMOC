@@ -346,6 +346,8 @@ namespace TKMOC
 
             //SET CALENDAR
             SETCALENDAR();
+
+            MANU = "新廠包裝線";
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
