@@ -5958,9 +5958,38 @@ namespace TKMOC
                     }
                 }
 
+                else if (MANU.Equals("新廠包裝線"))
+                {
+                    if (ds28.Tables["ds28"].Rows.Count == 0)
+                    {
+                        textBox7.Text = null;
+                        textBox10.Text = null;                    
+                        textBox11.Text = null;
+                        textBox12.Text = null;
+                        textBox9.Text = null;
+                        textBox53.Text = null;
+                        textBox42.Text = null;
+                        textBox43.Text = null;
+                        textBox72.Text = null;
+                    }
+                    else
+                    {
+                        if (ds28.Tables["ds28"].Rows.Count >= 1)
+                        {
+                            textBox7.Text = ds28.Tables["ds28"].Rows[0]["MD003"].ToString();
+                            textBox10.Text = ds28.Tables["ds28"].Rows[0]["MD035"].ToString();
+                            textBox11.Text = ds28.Tables["ds28"].Rows[0]["MD036"].ToString();
+                            textBox12.Text = ds28.Tables["ds28"].Rows[0]["NUM2"].ToString();
+                            textBox9.Text = ds28.Tables["ds28"].Rows[0]["TC053"].ToString();
+                            textBox53.Text = ds28.Tables["ds28"].Rows[0]["TC015"].ToString();
 
+                        }
+                    }
+                }
 
             }
+
+
             catch
             {
 
@@ -6507,7 +6536,14 @@ namespace TKMOC
             }
         }
 
-       
+
+        private void button55_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBox42.Text) & !string.IsNullOrEmpty(textBox43.Text) & !string.IsNullOrEmpty(textBox72.Text))
+            {
+                SEARCHCOPDEFAULT2(textBox42.Text, textBox43.Text, textBox72.Text);
+            }
+        }
 
         #endregion
 
