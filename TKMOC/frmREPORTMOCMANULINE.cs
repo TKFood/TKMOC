@@ -1665,7 +1665,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE],[TK].dbo.INVMB");
                     sbSql.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[PREINVMBMANU] ON [PREINVMBMANU].MB001=INVMB.MB001 AND [PREINVMBMANU].MANU LIKE '%包裝%'");
                     sbSql.AppendFormat(@"  WHERE INVMB.MB001=MOCMANULINE.MB001    ");
-                    sbSql.AppendFormat(@"  AND CONVERT(NVARCHAR,[MANUDATE],112) >='20200201' AND CONVERT(NVARCHAR,[MANUDATE],112) <='20200228' ");
+                    sbSql.AppendFormat(@"  AND CONVERT(NVARCHAR,[MANUDATE],112) >='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112) <='{1}' ", dateTimePicker11.Value.ToString("yyyyMMdd"), dateTimePicker14.Value.ToString("yyyyMMdd"));
                     sbSql.AppendFormat(@"  AND [MOCMANULINE]. [MANU]='新廠包裝線'");
                     sbSql.AppendFormat(@"  ORDER BY [MOCMANULINE].[MANU],[MANUDATE]");
                     sbSql.AppendFormat(@"  ");
