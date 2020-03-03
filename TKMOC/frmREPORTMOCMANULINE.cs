@@ -1841,7 +1841,7 @@ namespace TKMOC
 
                 if (comboBox6.Text.Equals("新廠包裝線"))
                 {
-                    sbSql.AppendFormat(@"  SELECT MANUDATE,線別 ,SUM(HRS) AS 'HRS'");
+                    sbSql.AppendFormat(@"  SELECT MANUDATE,線別 ,CONVERT(DECIMAL(16,2),SUM(HRS)) AS 'HRS'");
                     sbSql.AppendFormat(@"  FROM (");
                     sbSql.AppendFormat(@"  SELECT  '新廠包裝線' AS '線別',[MOCMANULINE].[MANU],CONVERT(NVARCHAR,[MOCMANULINE].[MANUDATE],112) AS MANUDATE ,[MOCMANULINE].[COPTD001]+'-'+[MOCMANULINE].[COPTD002]+'-'+[MOCMANULINE].[COPTD003]+'-'+INVMB.[MB002]+' '+CONVERT(NVARCHAR,CONVERT(INT,ROUND([MOCMANULINE].[BOX],0)))+' 箱 '+CONVERT(NVARCHAR,CONVERT(INT,[MOCMANULINE].[PACKAGE]))+INVMB.MB004 AS 'PACKAGE'");
                     sbSql.AppendFormat(@"  ,ISNULL(ROUND(([PACKAGE]/NULLIF([PREINVMBMANU].TIMES,1)),0),0) AS HRS");
@@ -1859,43 +1859,61 @@ namespace TKMOC
                 }
                 else if (comboBox6.Text.Equals("新廠製二組"))
                 {
-                    sbSql.AppendFormat(@"  SELECT CONVERT(NVARCHAR,[MOCMANULINE].[MANUDATE],112)+' '+[MOCMANULINE].[MANU] AS MANUDATE ,[MOCMANULINE].[COPTD001]+'-'+[MOCMANULINE].[COPTD002]+'-'+[MOCMANULINE].[COPTD003]+'-'+INVMB.[MB002] AS ' MB002', CONVERT(NVARCHAR,CONVERT(INT,ROUND([NUM],0)))++' KG' AS 'PACKAGE'");
-                    sbSql.AppendFormat(@"  ,'---' AS '-' ");
-                    sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE],[TK].dbo.COPTD,[TK].dbo.INVMB ");
-                    sbSql.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[PREINVMBMANU] ON [PREINVMBMANU].MB001=INVMB.MB001 AND [PREINVMBMANU].MANU LIKE '%新廠製二組%'");
+                    sbSql.AppendFormat(@"  SELECT MANUDATE,線別 ,CONVERT(DECIMAL(16,2),SUM(HRS)) AS 'HRS'");
+                    sbSql.AppendFormat(@"  FROM (");
+                    sbSql.AppendFormat(@"  SELECT  '新廠製二組' AS '線別',[MOCMANULINE].[MANU],CONVERT(NVARCHAR,[MOCMANULINE].[MANUDATE],112) AS MANUDATE ,[MOCMANULINE].[COPTD001]+'-'+[MOCMANULINE].[COPTD002]+'-'+[MOCMANULINE].[COPTD003]+'-'+INVMB.[MB002] AS 'PACKAGE'");
+                    sbSql.AppendFormat(@"  ,ISNULL(ROUND(([NUM]/NULLIF([PREINVMBMANU].TIMES,1)),2),0) AS HRS");
+                    sbSql.AppendFormat(@"  ,[MOCMANULINE].MB001");
+                    sbSql.AppendFormat(@"  FROM [TK].dbo.COPTD,[TK].dbo.INVMB,[TKMOC].[dbo].[MOCMANULINE]");
+                    sbSql.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[PREINVMBMANU] ON [PREINVMBMANU].MB001=[MOCMANULINE].MB001 AND [PREINVMBMANU].MANU LIKE '%新廠製二組%'");
                     sbSql.AppendFormat(@"  WHERE [MOCMANULINE].COPTD001=COPTD.TD001 AND [MOCMANULINE].COPTD002=COPTD.TD002 AND [MOCMANULINE].COPTD003=COPTD.TD003");
-                    sbSql.AppendFormat(@"  AND INVMB.MB001=COPTD.TD004            ");
+                    sbSql.AppendFormat(@"  AND INVMB.MB001=COPTD.TD004");
                     sbSql.AppendFormat(@"  AND CONVERT(NVARCHAR,[MANUDATE],112) >='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112) <='{1}' ", dateTimePicker11.Value.ToString("yyyyMMdd"), dateTimePicker14.Value.ToString("yyyyMMdd"));
                     sbSql.AppendFormat(@"  AND [MOCMANULINE]. [MANU]='新廠製二組'");
-                    sbSql.AppendFormat(@"  ORDER BY [MOCMANULINE].[MANU], [MOCMANULINE].[MANUDATE]");
+                    sbSql.AppendFormat(@"  ");
+                    sbSql.AppendFormat(@"  ) AS TEMP1");
+                    sbSql.AppendFormat(@"  GROUP BY 線別,MANUDATE");
+                    sbSql.AppendFormat(@"  ORDER BY 線別,MANUDATE");
                     sbSql.AppendFormat(@"  ");
                     sbSql.AppendFormat(@"  ");
                 }
                 else if (comboBox6.Text.Equals("新廠製一組"))
                 {
-                    sbSql.AppendFormat(@"  SELECT CONVERT(NVARCHAR,[MOCMANULINE].[MANUDATE],112)+' '+[MOCMANULINE].[MANU] AS MANUDATE ,[MOCMANULINE].[COPTD001]+'-'+[MOCMANULINE].[COPTD002]+'-'+[MOCMANULINE].[COPTD003]+'-'+INVMB.[MB002] AS ' MB002', CONVERT(NVARCHAR,CONVERT(INT,ROUND([NUM],0)))+' '+INVMB.MB004 AS 'PACKAGE'");
-                    sbSql.AppendFormat(@"  ,'---' AS '-' ");
-                    sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE],[TK].dbo.COPTD,[TK].dbo.INVMB ");
-                    sbSql.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[PREINVMBMANU] ON [PREINVMBMANU].MB001=INVMB.MB001 AND [PREINVMBMANU].MANU LIKE '%新廠製一組%'");
+                    sbSql.AppendFormat(@"  SELECT MANUDATE,線別 ,CONVERT(DECIMAL(16,2),SUM(HRS)) AS 'HRS'");
+                    sbSql.AppendFormat(@"  FROM (");
+                    sbSql.AppendFormat(@"  SELECT  '新廠製一組' AS '線別',[MOCMANULINE].[MANU],CONVERT(NVARCHAR,[MOCMANULINE].[MANUDATE],112) AS MANUDATE ,[MOCMANULINE].[COPTD001]+'-'+[MOCMANULINE].[COPTD002]+'-'+[MOCMANULINE].[COPTD003]+'-'+INVMB.[MB002] AS 'PACKAGE'");
+                    sbSql.AppendFormat(@"  ,ISNULL(ROUND(([NUM]/NULLIF([PREINVMBMANU].TIMES,1)),2),0) AS HRS");
+                    sbSql.AppendFormat(@"  ,[MOCMANULINE].MB001");
+                    sbSql.AppendFormat(@"  FROM [TK].dbo.COPTD,[TK].dbo.INVMB,[TKMOC].[dbo].[MOCMANULINE]");
+                    sbSql.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[PREINVMBMANU] ON [PREINVMBMANU].MB001=[MOCMANULINE].MB001 AND [PREINVMBMANU].MANU LIKE '%新廠製一組%'");
                     sbSql.AppendFormat(@"  WHERE [MOCMANULINE].COPTD001=COPTD.TD001 AND [MOCMANULINE].COPTD002=COPTD.TD002 AND [MOCMANULINE].COPTD003=COPTD.TD003");
-                    sbSql.AppendFormat(@"  AND INVMB.MB001=COPTD.TD004            ");
+                    sbSql.AppendFormat(@"  AND INVMB.MB001=COPTD.TD004");
                     sbSql.AppendFormat(@"  AND CONVERT(NVARCHAR,[MANUDATE],112) >='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112) <='{1}' ", dateTimePicker11.Value.ToString("yyyyMMdd"), dateTimePicker14.Value.ToString("yyyyMMdd"));
                     sbSql.AppendFormat(@"  AND [MOCMANULINE]. [MANU]='新廠製一組'");
-                    sbSql.AppendFormat(@"  ORDER BY [MOCMANULINE].[MANU], [MOCMANULINE].[MANUDATE]");
+                    sbSql.AppendFormat(@"  ");
+                    sbSql.AppendFormat(@"  ) AS TEMP1");
+                    sbSql.AppendFormat(@"  GROUP BY 線別,MANUDATE");
+                    sbSql.AppendFormat(@"  ORDER BY 線別,MANUDATE");
                     sbSql.AppendFormat(@"  ");
                     sbSql.AppendFormat(@"  ");
                 }
                 else if (comboBox6.Text.Equals("新廠製三組(手工)"))
                 {
-                    sbSql.AppendFormat(@"  SELECT CONVERT(NVARCHAR,[MOCMANULINE].[MANUDATE],112)+' '+[MOCMANULINE].[MANU] AS MANUDATE ,[MOCMANULINE].[COPTD001]+'-'+[MOCMANULINE].[COPTD002]+'-'+[MOCMANULINE].[COPTD003]+'-'+INVMB.[MB002] AS ' MB002', CONVERT(NVARCHAR,CONVERT(INT,ROUND([NUM],0)))++' KG' AS 'PACKAGE'");
-                    sbSql.AppendFormat(@"  ,'---' AS '-' ");
-                    sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE],[TK].dbo.COPTD,[TK].dbo.INVMB ");
-                    sbSql.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[PREINVMBMANU] ON [PREINVMBMANU].MB001=INVMB.MB001 AND [PREINVMBMANU].MANU LIKE '%新廠製三組(手工)%'");
+                    sbSql.AppendFormat(@"  SELECT MANUDATE,線別 ,CONVERT(DECIMAL(16,2),SUM(HRS)) AS 'HRS'");
+                    sbSql.AppendFormat(@"  FROM (");
+                    sbSql.AppendFormat(@"  SELECT  '新廠製三組(手工)' AS '線別',[MOCMANULINE].[MANU],CONVERT(NVARCHAR,[MOCMANULINE].[MANUDATE],112) AS MANUDATE ,[MOCMANULINE].[COPTD001]+'-'+[MOCMANULINE].[COPTD002]+'-'+[MOCMANULINE].[COPTD003]+'-'+INVMB.[MB002] AS 'PACKAGE'");
+                    sbSql.AppendFormat(@"  ,ISNULL(ROUND(([NUM]/NULLIF([PREINVMBMANU].TIMES,1)),2),0) AS HRS");
+                    sbSql.AppendFormat(@"  ,[MOCMANULINE].MB001");
+                    sbSql.AppendFormat(@"  FROM [TK].dbo.COPTD,[TK].dbo.INVMB,[TKMOC].[dbo].[MOCMANULINE]");
+                    sbSql.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[PREINVMBMANU] ON [PREINVMBMANU].MB001=[MOCMANULINE].MB001 AND [PREINVMBMANU].MANU LIKE '%新廠製三組(手工)%'");
                     sbSql.AppendFormat(@"  WHERE [MOCMANULINE].COPTD001=COPTD.TD001 AND [MOCMANULINE].COPTD002=COPTD.TD002 AND [MOCMANULINE].COPTD003=COPTD.TD003");
-                    sbSql.AppendFormat(@"  AND INVMB.MB001=COPTD.TD004            ");
+                    sbSql.AppendFormat(@"  AND INVMB.MB001=COPTD.TD004");
                     sbSql.AppendFormat(@"  AND CONVERT(NVARCHAR,[MANUDATE],112) >='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112) <='{1}' ", dateTimePicker11.Value.ToString("yyyyMMdd"), dateTimePicker14.Value.ToString("yyyyMMdd"));
                     sbSql.AppendFormat(@"  AND [MOCMANULINE]. [MANU]='新廠製三組(手工)'");
-                    sbSql.AppendFormat(@"  ORDER BY [MOCMANULINE].[MANU], [MOCMANULINE].[MANUDATE]");
+                    sbSql.AppendFormat(@"  ");
+                    sbSql.AppendFormat(@"  ) AS TEMP1");
+                    sbSql.AppendFormat(@"  GROUP BY 線別,MANUDATE");
+                    sbSql.AppendFormat(@"  ORDER BY 線別,MANUDATE");
                     sbSql.AppendFormat(@"  ");
                     sbSql.AppendFormat(@"  ");
                 }
@@ -1928,7 +1946,7 @@ namespace TKMOC
                 {
                     if (ds7.Tables["ds7"].Rows.Count >= 1)
                     {
-                        ExportDataSetToExcel2(ds7, pathFile4);
+                        ExportDataSetToExcel4(ds7, pathFile4,message4);
                     }
                 }
 
@@ -2158,6 +2176,255 @@ namespace TKMOC
                     //excelWorkSheet.Cells[EXCELX, EXCELY] = i;
 
                     excelWorkSheet.Cells[EXCELX, EXCELY] = message3[i - 1].ToString();
+
+                    //if (!string.IsNullOrEmpty(message[i-1].ToString()))
+                    //{
+                    //    excelWorkSheet.Cells[EXCELX, EXCELY] = message[i - 1].ToString();
+                    //}
+
+                }
+                //excelWorkSheet.Cells[1, 1] = dateTimePicker9.Value.ToString("yyyy/MM/") + "01";
+                //excelWorkSheet.Cells[2, days+1] = message1;
+                //message1 = null;
+
+
+                //靠左
+                string RangeLeft = "A2:G6";//設定範圍
+                excelWorkSheet.get_Range(RangeLeft).HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+
+                //設定為按照內容自動調整欄寬
+                //excelWorkSheet.get_Range(RangeLeft).Columns.AutoFit();
+                excelWorkSheet.get_Range(RangeLeft).ColumnWidth = 30;
+                //excelWorkSheet.Columns.AutoFit();
+
+                // 給儲存格加邊框
+                excelWorkSheet.get_Range(RangeLeft).Borders.LineStyle = Excel.XlBorderWeight.xlHairline;
+                //excelWorkSheet.get_Range(RangeLeft).Borders.LineStyle = Excel.XlBorderWeight.xlMedium;
+            }
+
+
+
+            excelWorkBook.Save();
+            excelWorkBook.Close();
+            excelApp.Quit();
+
+        }
+
+        public void ExportDataSetToExcel4(DataSet ds, string TopathFile, string[] message4)
+        {
+            int days = Convert.ToInt32(sdt.AddDays(-sdt.Day + 1).DayOfWeek.ToString("d"));
+            //MessageBox.Show(days.ToString());
+            int MONTHDAYS = DateTime.DaysInMonth(sdt.Year, sdt.Month);
+
+            int EXCELX = 2;
+            int EXCELY = 0;
+
+            //Creae an Excel application instance
+            Excel.Application excelApp = new Excel.Application();
+
+            //Create an Excel workbook instance and open it from the predefined location
+            Excel.Workbook excelWorkBook = excelApp.Workbooks.Open(TopathFile);
+            Excel.Range wRange;
+            Excel.Range wRangepathFile;
+            Excel.Range wRangepathFilePURTA;
+
+
+
+            foreach (DataTable table in ds.Tables)
+            {
+                //Add a new worksheet to workbook with the Datatable name
+                Excel.Worksheet excelWorkSheet = excelWorkBook.Sheets.Add();
+                excelWorkSheet.Name = table.TableName;
+
+                for (int j = 0; j < table.Rows.Count; j++)
+                {
+                    for (int k = 0; k < table.Columns.Count; k++)
+                    {
+                        //if (table.Rows[j].ItemArray[0].ToString().Substring(6,2).Equals("01"))
+                        if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 1)
+                        {
+                            message4[0] = message4[0] + table.Rows[j].ItemArray[k].ToString();
+                            message4[0] = message4[0] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 2)
+                        {
+                            message4[1] = message4[1] + table.Rows[j].ItemArray[k].ToString();
+                            message4[1] = message4[1] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 3)
+                        {
+                            message4[2] = message4[2] + table.Rows[j].ItemArray[k].ToString();
+                            message4[2] = message4[2] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 4)
+                        {
+                            message4[3] = message4[3] + table.Rows[j].ItemArray[k].ToString();
+                            message4[3] = message4[3] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 5)
+                        {
+                            message4[4] = message4[4] + table.Rows[j].ItemArray[k].ToString();
+                            message4[4] = message4[4] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 6)
+                        {
+                            message4[5] = message4[5] + table.Rows[j].ItemArray[k].ToString();
+                            message4[5] = message4[5] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 7)
+                        {
+                            message4[6] = message4[6] + table.Rows[j].ItemArray[k].ToString();
+                            message4[6] = message4[6] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 8)
+                        {
+                            message4[7] = message4[7] + table.Rows[j].ItemArray[k].ToString();
+                            message4[7] = message4[7] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 9)
+                        {
+                            message4[8] = message4[8] + table.Rows[j].ItemArray[k].ToString();
+                            message4[8] = message4[8] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 10)
+                        {
+                            message4[9] = message4[9] + table.Rows[j].ItemArray[k].ToString();
+                            message4[9] = message4[9] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 11)
+                        {
+                            message4[10] = message4[10] + table.Rows[j].ItemArray[k].ToString();
+                            message4[10] = message4[10] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 12)
+                        {
+                            message4[11] = message4[11] + table.Rows[j].ItemArray[k].ToString();
+                            message4[11] = message4[11] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 13)
+                        {
+                            message4[12] = message4[12] + table.Rows[j].ItemArray[k].ToString();
+                            message4[12] = message4[12] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 14)
+                        {
+                            message4[13] = message4[13] + table.Rows[j].ItemArray[k].ToString();
+                            message4[13] = message4[13] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 15)
+                        {
+                            message4[14] = message4[14] + table.Rows[j].ItemArray[k].ToString();
+                            message4[14] = message4[14] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 16)
+                        {
+                            message4[15] = message4[15] + table.Rows[j].ItemArray[k].ToString();
+                            message4[15] = message4[15] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 17)
+                        {
+                            message4[16] = message4[16] + table.Rows[j].ItemArray[k].ToString();
+                            message4[16] = message4[16] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 18)
+                        {
+                            message4[17] = message4[17] + table.Rows[j].ItemArray[k].ToString();
+                            message4[17] = message4[17] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 19)
+                        {
+                            message4[18] = message4[18] + table.Rows[j].ItemArray[k].ToString();
+                            message4[18] = message4[18] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 20)
+                        {
+                            message4[19] = message4[19] + table.Rows[j].ItemArray[k].ToString();
+                            message4[19] = message4[19] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 21)
+                        {
+                            message4[20] = message4[20] + table.Rows[j].ItemArray[k].ToString();
+                            message4[20] = message4[20] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 22)
+                        {
+                            message4[21] = message4[21] + table.Rows[j].ItemArray[k].ToString();
+                            message4[21] = message4[21] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 23)
+                        {
+                            message4[22] = message4[22] + table.Rows[j].ItemArray[k].ToString();
+                            message4[22] = message4[22] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 24)
+                        {
+                            message4[23] = message4[23] + table.Rows[j].ItemArray[k].ToString();
+                            message4[23] = message4[23] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 25)
+                        {
+                            message4[24] = message4[24] + table.Rows[j].ItemArray[k].ToString();
+                            message4[24] = message4[24] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 26)
+                        {
+                            message4[25] = message4[25] + table.Rows[j].ItemArray[k].ToString();
+                            message4[25] = message4[25] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 27)
+                        {
+                            message4[26] = message4[26] + table.Rows[j].ItemArray[k].ToString();
+                            message4[26] = message4[26] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 28)
+                        {
+                            message4[27] = message4[27] + table.Rows[j].ItemArray[k].ToString();
+                            message4[27] = message4[27] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 29)
+                        {
+                            message4[28] = message4[28] + table.Rows[j].ItemArray[k].ToString();
+                            message4[28] = message4[28] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 30)
+                        {
+                            message4[29] = message4[29] + table.Rows[j].ItemArray[k].ToString();
+                            message4[29] = message4[29] + '\n';
+                        }
+                        else if (Convert.ToInt32(table.Rows[j].ItemArray[0].ToString().Substring(6, 2)) == 31)
+                        {
+                            message4[30] = message4[30] + table.Rows[j].ItemArray[k].ToString();
+                            message4[30] = message4[30] + '\n';
+                        }
+                    }
+                    //message = message + '\n';
+                }
+
+                excelWorkSheet.Cells[1, 1] = "星期日";
+                excelWorkSheet.Cells[1, 2] = "星期一";
+                excelWorkSheet.Cells[1, 3] = "星期二";
+                excelWorkSheet.Cells[1, 4] = "星期三";
+                excelWorkSheet.Cells[1, 5] = "星期四";
+                excelWorkSheet.Cells[1, 6] = "星期五";
+                excelWorkSheet.Cells[1, 7] = "星期六";
+
+                //置中
+                string RangeCenter = "A1:G1";//設定範圍
+                excelWorkSheet.get_Range(RangeCenter).HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+
+                for (int i = 1; i <= MONTHDAYS; i++)
+                {
+
+                    EXCELX = 2 + Convert.ToInt32(Math.Truncate(Convert.ToDouble((i + days - 1) / 7)));
+                    EXCELY = (days + i) % 7;
+                    if (EXCELY == 0)
+                    {
+                        EXCELY = 7;
+                    }
+
+                    //excelWorkSheet.Cells[EXCELX, EXCELY] = i;
+
+                    excelWorkSheet.Cells[EXCELX, EXCELY] = message4[i - 1].ToString();
 
                     //if (!string.IsNullOrEmpty(message[i-1].ToString()))
                     //{
