@@ -1847,7 +1847,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE],[TK].dbo.INVMB");
                     sbSql.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[PREINVMBMANU] ON [PREINVMBMANU].MB001=INVMB.MB001 AND [PREINVMBMANU].MANU LIKE '%包裝%'");
                     sbSql.AppendFormat(@"  WHERE INVMB.MB001=MOCMANULINE.MB001    ");
-                    sbSql.AppendFormat(@"  AND CONVERT(NVARCHAR,[MANUDATE],112) >='20200301' AND CONVERT(NVARCHAR,[MANUDATE],112) <='20200331' ");
+                    sbSql.AppendFormat(@"  AND CONVERT(NVARCHAR,[MANUDATE],112) >='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112) <='{1}' ", dateTimePicker11.Value.ToString("yyyyMMdd"), dateTimePicker14.Value.ToString("yyyyMMdd"));
                     sbSql.AppendFormat(@"  AND [MOCMANULINE]. [MANU]='新廠包裝線'");
                     sbSql.AppendFormat(@"  GROUP BY [MOCMANULINE].[MANU],CONVERT(NVARCHAR,[MOCMANULINE].[MANUDATE],112) ");
                     sbSql.AppendFormat(@"  UNION ALL");
@@ -1857,7 +1857,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE],[TK].dbo.INVMB");
                     sbSql.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[PREINVMBMANU] ON [PREINVMBMANU].MB001=INVMB.MB001 AND [PREINVMBMANU].MANU LIKE '%包裝%'");
                     sbSql.AppendFormat(@"  WHERE INVMB.MB001=MOCMANULINE.MB001 ");
-                    sbSql.AppendFormat(@"  AND CONVERT(NVARCHAR,[MANUDATE],112) >='20200301' AND CONVERT(NVARCHAR,[MANUDATE],112) <='20200331' ");
+                    sbSql.AppendFormat(@"  AND CONVERT(NVARCHAR,[MANUDATE],112) >='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112) <='{1}' ", dateTimePicker11.Value.ToString("yyyyMMdd"), dateTimePicker14.Value.ToString("yyyyMMdd"));
                     sbSql.AppendFormat(@"  AND [MOCMANULINE]. [MANU]='新廠包裝線'");
                     sbSql.AppendFormat(@"  ) AS TEMP1");
                     sbSql.AppendFormat(@"  ORDER BY  [MANU],CONVERT(NVARCHAR,[MANUDATE],112),PACKAGE");
@@ -1866,61 +1866,84 @@ namespace TKMOC
                 }
                 else if (comboBox6.Text.Equals("新廠製二組"))
                 {
-                    sbSql.AppendFormat(@"  SELECT MANUDATE,線別 ,CONVERT(DECIMAL(16,2),SUM(HRS)) AS 'HRS'");
+                    sbSql.AppendFormat(@"  SELECT MANUDATE,MANU,PACKAGE,HRS,REMARK");
                     sbSql.AppendFormat(@"  FROM (");
-                    sbSql.AppendFormat(@"  SELECT  '新廠製二組' AS '線別',[MOCMANULINE].[MANU],CONVERT(NVARCHAR,[MOCMANULINE].[MANUDATE],112) AS MANUDATE ,[MOCMANULINE].[COPTD001]+'-'+[MOCMANULINE].[COPTD002]+'-'+[MOCMANULINE].[COPTD003]+'-'+INVMB.[MB002] AS 'PACKAGE'");
-                    sbSql.AppendFormat(@"  ,ISNULL(ROUND(([NUM]/NULLIF([PREINVMBMANU].TIMES,1)),2),0) AS HRS");
-                    sbSql.AppendFormat(@"  ,[MOCMANULINE].MB001");
+                    sbSql.AppendFormat(@"  SELECT  [MOCMANULINE].[MANU],CONVERT(NVARCHAR,[MOCMANULINE].[MANUDATE],112) AS MANUDATE,'-總工時- ' AS 'PACKAGE',SUM(CONVERT(DECIMAL(12,2),ISNULL(ROUND(([NUM]/NULLIF([PREINVMBMANU].TIMES,1)),2),0))) AS HRS,'---' AS 'REMARK'");
                     sbSql.AppendFormat(@"  FROM [TK].dbo.COPTD,[TK].dbo.INVMB,[TKMOC].[dbo].[MOCMANULINE]");
                     sbSql.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[PREINVMBMANU] ON [PREINVMBMANU].MB001=[MOCMANULINE].MB001 AND [PREINVMBMANU].MANU LIKE '%新廠製二組%'");
                     sbSql.AppendFormat(@"  WHERE [MOCMANULINE].COPTD001=COPTD.TD001 AND [MOCMANULINE].COPTD002=COPTD.TD002 AND [MOCMANULINE].COPTD003=COPTD.TD003");
                     sbSql.AppendFormat(@"  AND INVMB.MB001=COPTD.TD004");
                     sbSql.AppendFormat(@"  AND CONVERT(NVARCHAR,[MANUDATE],112) >='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112) <='{1}' ", dateTimePicker11.Value.ToString("yyyyMMdd"), dateTimePicker14.Value.ToString("yyyyMMdd"));
                     sbSql.AppendFormat(@"  AND [MOCMANULINE]. [MANU]='新廠製二組'");
-                    sbSql.AppendFormat(@"  ");
+                    sbSql.AppendFormat(@"  GROUP BY [MOCMANULINE].[MANU],CONVERT(NVARCHAR,[MOCMANULINE].[MANUDATE],112) ");
+                    sbSql.AppendFormat(@"  UNION ALL");
+                    sbSql.AppendFormat(@"  SELECT  [MOCMANULINE].[MANU],CONVERT(NVARCHAR,[MOCMANULINE].[MANUDATE],112) AS MANUDATE ,[MOCMANULINE].[COPTD001]+'-'+[MOCMANULINE].[COPTD002]+'-'+[MOCMANULINE].[COPTD003]+'-'+INVMB.[MB002] AS 'PACKAGE'");
+                    sbSql.AppendFormat(@"  ,ISNULL(ROUND(([NUM]/NULLIF([PREINVMBMANU].TIMES,1)),2),0) AS HRS");
+                    sbSql.AppendFormat(@"  ,'-'+[MOCMANULINE].MB001");
+                    sbSql.AppendFormat(@"  FROM [TK].dbo.COPTD,[TK].dbo.INVMB,[TKMOC].[dbo].[MOCMANULINE]");
+                    sbSql.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[PREINVMBMANU] ON [PREINVMBMANU].MB001=[MOCMANULINE].MB001 AND [PREINVMBMANU].MANU LIKE '%新廠製二組%'");
+                    sbSql.AppendFormat(@"  WHERE [MOCMANULINE].COPTD001=COPTD.TD001 AND [MOCMANULINE].COPTD002=COPTD.TD002 AND [MOCMANULINE].COPTD003=COPTD.TD003");
+                    sbSql.AppendFormat(@"  AND INVMB.MB001=COPTD.TD004");
+                    sbSql.AppendFormat(@"  AND CONVERT(NVARCHAR,[MANUDATE],112) >='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112) <='{1}' ", dateTimePicker11.Value.ToString("yyyyMMdd"), dateTimePicker14.Value.ToString("yyyyMMdd"));
+                    sbSql.AppendFormat(@"  AND [MOCMANULINE]. [MANU]='新廠製二組'");
                     sbSql.AppendFormat(@"  ) AS TEMP1");
-                    sbSql.AppendFormat(@"  GROUP BY 線別,MANUDATE");
-                    sbSql.AppendFormat(@"  ORDER BY 線別,MANUDATE");
+                    sbSql.AppendFormat(@"  ORDER BY  [MANU],CONVERT(NVARCHAR,[MANUDATE],112),PACKAGE");
                     sbSql.AppendFormat(@"  ");
                     sbSql.AppendFormat(@"  ");
                 }
                 else if (comboBox6.Text.Equals("新廠製一組"))
                 {
-                    sbSql.AppendFormat(@"  SELECT MANUDATE,線別 ,CONVERT(DECIMAL(16,2),SUM(HRS)) AS 'HRS'");
+
+                    sbSql.AppendFormat(@"  SELECT MANUDATE,MANU,PACKAGE,HRS,REMARK");
                     sbSql.AppendFormat(@"  FROM (");
-                    sbSql.AppendFormat(@"  SELECT  '新廠製一組' AS '線別',[MOCMANULINE].[MANU],CONVERT(NVARCHAR,[MOCMANULINE].[MANUDATE],112) AS MANUDATE ,[MOCMANULINE].[COPTD001]+'-'+[MOCMANULINE].[COPTD002]+'-'+[MOCMANULINE].[COPTD003]+'-'+INVMB.[MB002] AS 'PACKAGE'");
-                    sbSql.AppendFormat(@"  ,ISNULL(ROUND(([NUM]/NULLIF([PREINVMBMANU].TIMES,1)),2),0) AS HRS");
-                    sbSql.AppendFormat(@"  ,[MOCMANULINE].MB001");
+                    sbSql.AppendFormat(@"  SELECT  [MOCMANULINE].[MANU],CONVERT(NVARCHAR,[MOCMANULINE].[MANUDATE],112) AS MANUDATE,'-總工時- ' AS 'PACKAGE',SUM(CONVERT(DECIMAL(12,2),ISNULL(ROUND(([NUM]/NULLIF([PREINVMBMANU].TIMES,1)),2),0))) AS HRS,'---' AS 'REMARK'");
                     sbSql.AppendFormat(@"  FROM [TK].dbo.COPTD,[TK].dbo.INVMB,[TKMOC].[dbo].[MOCMANULINE]");
                     sbSql.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[PREINVMBMANU] ON [PREINVMBMANU].MB001=[MOCMANULINE].MB001 AND [PREINVMBMANU].MANU LIKE '%新廠製一組%'");
                     sbSql.AppendFormat(@"  WHERE [MOCMANULINE].COPTD001=COPTD.TD001 AND [MOCMANULINE].COPTD002=COPTD.TD002 AND [MOCMANULINE].COPTD003=COPTD.TD003");
                     sbSql.AppendFormat(@"  AND INVMB.MB001=COPTD.TD004");
                     sbSql.AppendFormat(@"  AND CONVERT(NVARCHAR,[MANUDATE],112) >='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112) <='{1}' ", dateTimePicker11.Value.ToString("yyyyMMdd"), dateTimePicker14.Value.ToString("yyyyMMdd"));
                     sbSql.AppendFormat(@"  AND [MOCMANULINE]. [MANU]='新廠製一組'");
-                    sbSql.AppendFormat(@"  ");
+                    sbSql.AppendFormat(@"  GROUP BY [MOCMANULINE].[MANU],CONVERT(NVARCHAR,[MOCMANULINE].[MANUDATE],112) ");
+                    sbSql.AppendFormat(@"  UNION ALL");
+                    sbSql.AppendFormat(@"  SELECT  [MOCMANULINE].[MANU],CONVERT(NVARCHAR,[MOCMANULINE].[MANUDATE],112) AS MANUDATE ,[MOCMANULINE].[COPTD001]+'-'+[MOCMANULINE].[COPTD002]+'-'+[MOCMANULINE].[COPTD003]+'-'+INVMB.[MB002] AS 'PACKAGE'");
+                    sbSql.AppendFormat(@"  ,ISNULL(ROUND(([NUM]/NULLIF([PREINVMBMANU].TIMES,1)),2),0) AS HRS");
+                    sbSql.AppendFormat(@"  ,'-'+[MOCMANULINE].MB001");
+                    sbSql.AppendFormat(@"  FROM [TK].dbo.COPTD,[TK].dbo.INVMB,[TKMOC].[dbo].[MOCMANULINE]");
+                    sbSql.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[PREINVMBMANU] ON [PREINVMBMANU].MB001=[MOCMANULINE].MB001 AND [PREINVMBMANU].MANU LIKE '%新廠製一組%'");
+                    sbSql.AppendFormat(@"  WHERE [MOCMANULINE].COPTD001=COPTD.TD001 AND [MOCMANULINE].COPTD002=COPTD.TD002 AND [MOCMANULINE].COPTD003=COPTD.TD003");
+                    sbSql.AppendFormat(@"  AND INVMB.MB001=COPTD.TD004");
+                    sbSql.AppendFormat(@"  AND CONVERT(NVARCHAR,[MANUDATE],112) >='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112) <='{1}' ", dateTimePicker11.Value.ToString("yyyyMMdd"), dateTimePicker14.Value.ToString("yyyyMMdd"));
+                    sbSql.AppendFormat(@"  AND [MOCMANULINE]. [MANU]='新廠製一組'");
                     sbSql.AppendFormat(@"  ) AS TEMP1");
-                    sbSql.AppendFormat(@"  GROUP BY 線別,MANUDATE");
-                    sbSql.AppendFormat(@"  ORDER BY 線別,MANUDATE");
+                    sbSql.AppendFormat(@"  ORDER BY  [MANU],CONVERT(NVARCHAR,[MANUDATE],112),PACKAGE");
                     sbSql.AppendFormat(@"  ");
                     sbSql.AppendFormat(@"  ");
                 }
                 else if (comboBox6.Text.Equals("新廠製三組(手工)"))
                 {
-                    sbSql.AppendFormat(@"  SELECT MANUDATE,線別 ,CONVERT(DECIMAL(16,2),SUM(HRS)) AS 'HRS'");
+
+                    sbSql.AppendFormat(@"  SELECT MANUDATE,MANU,PACKAGE,HRS,REMARK");
                     sbSql.AppendFormat(@"  FROM (");
-                    sbSql.AppendFormat(@"  SELECT  '新廠製三組(手工)' AS '線別',[MOCMANULINE].[MANU],CONVERT(NVARCHAR,[MOCMANULINE].[MANUDATE],112) AS MANUDATE ,[MOCMANULINE].[COPTD001]+'-'+[MOCMANULINE].[COPTD002]+'-'+[MOCMANULINE].[COPTD003]+'-'+INVMB.[MB002] AS 'PACKAGE'");
-                    sbSql.AppendFormat(@"  ,ISNULL(ROUND(([NUM]/NULLIF([PREINVMBMANU].TIMES,1)),2),0) AS HRS");
-                    sbSql.AppendFormat(@"  ,[MOCMANULINE].MB001");
+                    sbSql.AppendFormat(@"  SELECT  [MOCMANULINE].[MANU],CONVERT(NVARCHAR,[MOCMANULINE].[MANUDATE],112) AS MANUDATE,'-總工時- ' AS 'PACKAGE',SUM(CONVERT(DECIMAL(12,2),ISNULL(ROUND(([NUM]/NULLIF([PREINVMBMANU].TIMES,1)),2),0))) AS HRS,'---' AS 'REMARK'");
                     sbSql.AppendFormat(@"  FROM [TK].dbo.COPTD,[TK].dbo.INVMB,[TKMOC].[dbo].[MOCMANULINE]");
                     sbSql.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[PREINVMBMANU] ON [PREINVMBMANU].MB001=[MOCMANULINE].MB001 AND [PREINVMBMANU].MANU LIKE '%新廠製三組(手工)%'");
                     sbSql.AppendFormat(@"  WHERE [MOCMANULINE].COPTD001=COPTD.TD001 AND [MOCMANULINE].COPTD002=COPTD.TD002 AND [MOCMANULINE].COPTD003=COPTD.TD003");
                     sbSql.AppendFormat(@"  AND INVMB.MB001=COPTD.TD004");
                     sbSql.AppendFormat(@"  AND CONVERT(NVARCHAR,[MANUDATE],112) >='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112) <='{1}' ", dateTimePicker11.Value.ToString("yyyyMMdd"), dateTimePicker14.Value.ToString("yyyyMMdd"));
                     sbSql.AppendFormat(@"  AND [MOCMANULINE]. [MANU]='新廠製三組(手工)'");
-                    sbSql.AppendFormat(@"  ");
+                    sbSql.AppendFormat(@"  GROUP BY [MOCMANULINE].[MANU],CONVERT(NVARCHAR,[MOCMANULINE].[MANUDATE],112) ");
+                    sbSql.AppendFormat(@"  UNION ALL");
+                    sbSql.AppendFormat(@"  SELECT  [MOCMANULINE].[MANU],CONVERT(NVARCHAR,[MOCMANULINE].[MANUDATE],112) AS MANUDATE ,[MOCMANULINE].[COPTD001]+'-'+[MOCMANULINE].[COPTD002]+'-'+[MOCMANULINE].[COPTD003]+'-'+INVMB.[MB002] AS 'PACKAGE'");
+                    sbSql.AppendFormat(@"  ,ISNULL(ROUND(([NUM]/NULLIF([PREINVMBMANU].TIMES,1)),2),0) AS HRS");
+                    sbSql.AppendFormat(@"  ,'-'+[MOCMANULINE].MB001");
+                    sbSql.AppendFormat(@"  FROM [TK].dbo.COPTD,[TK].dbo.INVMB,[TKMOC].[dbo].[MOCMANULINE]");
+                    sbSql.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[PREINVMBMANU] ON [PREINVMBMANU].MB001=[MOCMANULINE].MB001 AND [PREINVMBMANU].MANU LIKE '%新廠製三組(手工)%'");
+                    sbSql.AppendFormat(@"  WHERE [MOCMANULINE].COPTD001=COPTD.TD001 AND [MOCMANULINE].COPTD002=COPTD.TD002 AND [MOCMANULINE].COPTD003=COPTD.TD003");
+                    sbSql.AppendFormat(@"  AND INVMB.MB001=COPTD.TD004");
+                    sbSql.AppendFormat(@"  AND CONVERT(NVARCHAR,[MANUDATE],112) >='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112) <='{1}' ", dateTimePicker11.Value.ToString("yyyyMMdd"), dateTimePicker14.Value.ToString("yyyyMMdd"));
+                    sbSql.AppendFormat(@"  AND [MOCMANULINE]. [MANU]='新廠製三組(手工)'");
                     sbSql.AppendFormat(@"  ) AS TEMP1");
-                    sbSql.AppendFormat(@"  GROUP BY 線別,MANUDATE");
-                    sbSql.AppendFormat(@"  ORDER BY 線別,MANUDATE");
+                    sbSql.AppendFormat(@"  ORDER BY  [MANU],CONVERT(NVARCHAR,[MANUDATE],112),PACKAGE");
                     sbSql.AppendFormat(@"  ");
                     sbSql.AppendFormat(@"  ");
                 }
