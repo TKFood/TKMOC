@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="03/05/2020 09:26:34" ReportInfo.Modified="03/05/2020 09:44:58" ReportInfo.CreatorVersion="2016.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9K2sqLJdrnXgqVOvCr7lxLT">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT TA014 AS '實際完工日期',TA001 AS '製令單別',TA002 AS '製令編號',TA006 AS '產品品號',TA034 AS '產品品名',TB003 AS '材料品號',TB012 AS '材料品名',TB004 AS '需領量',TB005 AS '實際領量',TB007 AS '領用單位',(TB005-TB004) AS '領用差異',(TB005-TB004)/ISNULL(NULLIF(TB005, 0),1) AS '實際損耗率',0 AS '標準損耗率',CONVERT(DECIMAL(12,2),TB005/MD006/MD007) AS '生產桶數',TA015 AS '預計產量',TA017 AS '已生產量',TA007 AS '產品單位'&#13;&#10;FROM [TK].dbo.MOCTA,[TK].dbo.MOCTB,[TK].dbo.BOMMD&#13;&#10;WHERE TA001=TB001 AND TA002=TB002&#13;&#10;AND MD001=TA006&#13;&#10;AND MD003=TB003&#13;&#10;AND TA014&gt;='20200301' AND TA009&lt;='20200305'&#13;&#10;AND TB003='101001002'&#13;&#10;ORDER BY TA014,TA001,TA002">
+        <Column Name="實際完工日期" DataType="System.String"/>
+        <Column Name="製令單別" DataType="System.String"/>
+        <Column Name="製令編號" DataType="System.String"/>
+        <Column Name="產品品號" DataType="System.String"/>
+        <Column Name="產品品名" DataType="System.String"/>
+        <Column Name="材料品號" DataType="System.String"/>
+        <Column Name="材料品名" DataType="System.String"/>
+        <Column Name="需領量" DataType="System.Decimal"/>
+        <Column Name="實際領量" DataType="System.Decimal"/>
+        <Column Name="領用單位" DataType="System.String"/>
+        <Column Name="領用差異" DataType="System.Decimal"/>
+        <Column Name="實際損耗率" DataType="System.Decimal"/>
+        <Column Name="標準損耗率" DataType="System.Int32"/>
+        <Column Name="生產桶數" DataType="System.Decimal"/>
+        <Column Name="預計產量" DataType="System.Decimal"/>
+        <Column Name="已生產量" DataType="System.Decimal"/>
+        <Column Name="產品單位" DataType="System.String"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="500" PaperHeight="210">
+    <ColumnHeaderBand Name="ColumnHeader1" Width="1814.4" Height="18.9">
+      <TextObject Name="Text2" Width="94.5" Height="18.9" Border.Lines="All" Text="實際完工日期" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text4" Left="94.5" Width="66.15" Height="18.9" Border.Lines="All" Text="製令單別" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text6" Left="160.65" Width="94.5" Height="18.9" Border.Lines="All" Text="製令編號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text8" Left="255.15" Width="122.85" Height="18.9" Border.Lines="All" Text="產品品號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text10" Left="378" Width="179.55" Height="18.9" Border.Lines="All" Text="產品品名" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text12" Left="557.55" Width="132.3" Height="18.9" Border.Lines="All" Text="材料品號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text14" Left="689.85" Width="132.3" Height="18.9" Border.Lines="All" Text="材料品名" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text16" Left="822.15" Width="94.5" Height="18.9" Border.Lines="All" Text="需領量" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text18" Left="916.65" Width="94.5" Height="18.9" Border.Lines="All" Text="實際領量" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text20" Left="1011.15" Width="66.15" Height="18.9" Border.Lines="All" Text="領用單位" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text22" Left="1077.3" Width="94.5" Height="18.9" Border.Lines="All" Text="領用差異" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text24" Left="1171.8" Width="94.5" Height="18.9" Border.Lines="All" Text="實際損耗率" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text26" Left="1266.3" Width="94.5" Height="18.9" Border.Lines="All" Text="標準損耗率" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text28" Left="1360.8" Width="75.6" Height="18.9" Border.Lines="All" Text="生產桶數" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text30" Left="1436.4" Width="75.6" Height="18.9" Border.Lines="All" Text="預計產量" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text32" Left="1512" Width="75.6" Height="18.9" Border.Lines="All" Text="已生產量" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text34" Left="1587.6" Width="66.15" Height="18.9" Border.Lines="All" Text="產品單位" HorzAlign="Center" VertAlign="Center"/>
+    </ColumnHeaderBand>
+    <DataBand Name="Data1" Top="22.75" Width="1814.4" Height="18.9" CanGrow="true" DataSource="Table">
+      <TextObject Name="Text1" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.實際完工日期]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text3" Left="94.5" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.製令單別]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text5" Left="160.65" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.製令編號]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text7" Left="255.15" Width="122.85" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.產品品號]" VertAlign="Center"/>
+      <TextObject Name="Text9" Left="378" Width="179.55" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.產品品名]" VertAlign="Center"/>
+      <TextObject Name="Text11" Left="557.55" Width="132.3" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.材料品號]" VertAlign="Center"/>
+      <TextObject Name="Text13" Left="689.85" Width="132.3" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.材料品名]" VertAlign="Center"/>
+      <TextObject Name="Text15" Left="822.15" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.需領量]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text17" Left="916.65" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.實際領量]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text19" Left="1011.15" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.領用單位]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text21" Left="1077.3" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.領用差異]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text23" Left="1171.8" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.實際損耗率]" Format="Percent" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text25" Left="1266.3" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.標準損耗率]" Format="Percent" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text27" Left="1360.8" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.生產桶數]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text29" Left="1436.4" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.預計產量]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text31" Left="1512" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.已生產量]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text33" Left="1587.6" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.產品單位]" HorzAlign="Center" VertAlign="Center"/>
+    </DataBand>
+  </ReportPage>
+</Report>
