@@ -139,6 +139,17 @@ namespace TKMOC
                         dataGridView1.AutoResizeColumns();
                         //dataGridView1.CurrentCell = dataGridView1[0, rownum];
 
+                        //根据列表中数据不同，显示不同颜色背景
+                        foreach (DataGridViewRow dgRow in dataGridView1.Rows)
+                        {
+                            //判断
+                            if (Convert.ToDecimal(dgRow.Cells[5].Value) > 0)
+                            {
+                                //将这行的背景色设置成Pink
+                                dgRow.DefaultCellStyle.BackColor = Color.Pink;
+                            }
+                        }
+
                     }
                 }
 
