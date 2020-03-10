@@ -65,7 +65,8 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  SELECT [MD003] AS '品號',[MD035] AS '品名',SUM(TNUM) AS '需求量',[MB004]  AS '單位'");
+                sbSql.AppendFormat(@"  SELECT [MD003] AS '品號',[MD035] AS '品名',SUM(TNUM) AS '需求量',[MB004]  AS '單位',ISNULL(SUM(LA005*LA011),0) AS '庫存量',(SUM(TNUM)-ISNULL(SUM(LA005*LA011),0)) AS '差異量'");
+                sbSql.AppendFormat(@"  ,(SELECT ISNULL(SUM(TD008-TD015),0) FROM [TK].dbo.PURTD WHERE TD004=[MD003] AND TD018='Y' AND TD016='N' AND TD012>='{0}' AND TD012<='{1}') AS '預計採購量'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
                 sbSql.AppendFormat(@"  FROM (");
                 sbSql.AppendFormat(@"  SELECT [MANU],[MANUDATE],[MB001],[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008],TNUM,[MB004]");
                 sbSql.AppendFormat(@"  FROM (");
@@ -110,6 +111,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
                 sbSql.AppendFormat(@"  ) AS TEMP ");
                 sbSql.AppendFormat(@"  ) AS TEMP2 ");
+                sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.INVLA ON LA001=MD003 AND LA009 IN ('20004','20005','20006')");
                 sbSql.AppendFormat(@"  GROUP BY [MD003],[MD035],[MB004]");
                 sbSql.AppendFormat(@"  ORDER BY [MD003],[MD035],[MB004]");
                 sbSql.AppendFormat(@"  ");
