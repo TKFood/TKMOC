@@ -46,6 +46,8 @@ namespace TKMOC
         string tablename = null;
 
         string MD003;
+        int rowIndexDG1 = -1;
+        int rowIndexDG2 = -1;
 
         public frmPREMANUUSED()
         {
@@ -266,6 +268,54 @@ namespace TKMOC
 
         }
 
+        public void SEARCHDG1(string SEARCHSTRING, int INDEX)
+        {
+            String searchValue = SEARCHSTRING;
+            rowIndexDG1 = INDEX;
+            int ROWS = 0;
+
+            for (int i = INDEX; i < dataGridView1.Rows.Count; i++)
+            {
+                ROWS = i;
+
+                if (dataGridView1.Rows[i].Cells[0].Value.ToString().Contains(searchValue))
+                {
+                    rowIndexDG1 = i;
+
+                    dataGridView1.CurrentRow.Selected = false;
+                    dataGridView1.Rows[i].Selected = true;
+                    int index = rowIndexDG1;
+                    dataGridView1.FirstDisplayedScrollingRowIndex = index;
+
+                    break;
+                }
+                if (dataGridView1.Rows[i].Cells[1].Value.ToString().Contains(searchValue))
+                {
+                    rowIndexDG1 = i;
+
+                    dataGridView1.CurrentRow.Selected = false;
+                    dataGridView1.Rows[i].Selected = true;
+                    int index = rowIndexDG1;
+                    dataGridView1.FirstDisplayedScrollingRowIndex = index;
+
+                    break;
+                }
+            }
+
+            if (ROWS == dataGridView1.Rows.Count - 1)
+            {
+                if (MessageBox.Show("已查到最後一筆，是否從頭開始?", "已查到最後一筆，是否從頭開始?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    SEARCHDG1(textBox1.Text.Trim(), 0);
+                }
+                else
+                {
+
+                }
+            }
+        }
+
+
 
         #endregion
 
@@ -276,8 +326,23 @@ namespace TKMOC
             SEARCHMOCMANULINE();
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            
+            if (rowIndexDG1 == -1)
+            {
+                SEARCHDG1(textBox1.Text.Trim(), 0);
+            }
+            else
+            {
+                SEARCHDG1(textBox1.Text.Trim(), rowIndexDG1 + 1);
+            }
+        }
+
+    
+
         #endregion
 
-      
+
     }
 }
