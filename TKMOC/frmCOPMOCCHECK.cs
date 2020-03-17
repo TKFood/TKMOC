@@ -744,6 +744,7 @@ namespace TKMOC
 
               
                 sbSql.AppendFormat(@"  SELECT TB003 AS '品號',TB012 AS '品名',SUM(TB004-TB005) AS '總需求量',SUM(TB004) AS '製令量',SUM(TB005) AS '已領量',TB007 AS '單位'");
+                sbSql.AppendFormat(@"  ,(SELECT ISNULL(SUM([NUM]),0) FROM [TKMOC].[dbo].[MOCMANULINE] WHERE [MB001]=TB003 AND [MANUDATE]>='20200317' AND [MANUDATE]<='20200331' ) AS '預排生產量'");
                 sbSql.AppendFormat(@"  FROM [TK].dbo.MOCTA,[TK].dbo.MOCTB");
                 sbSql.AppendFormat(@"  WHERE TA001=TB001 AND TA002=TB002");
                 sbSql.AppendFormat(@"  AND TA003>='{0}' AND TA003<='{1}' ",dateTimePicker3.Value.ToString("yyyyMMdd"),dateTimePicker4.Value.ToString("yyyyMMdd"));
