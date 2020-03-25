@@ -1013,6 +1013,51 @@ namespace TKMOC
             }
 
         }
+
+        public void UPDATEBATCHMOCTAB(string ID, decimal NUM)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat(" UPDATE [TKMOC].[dbo].[BATCHMOCTAB]");
+                sbSql.AppendFormat(" SET [NUM]={0}",NUM);
+                sbSql.AppendFormat(" WHERE ID='{0}'", ID);
+                sbSql.AppendFormat(" ");
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+                }
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
         private void dataGridView3_SelectionChanged(object sender, EventArgs e)
         {
             SETNULL();
@@ -1036,6 +1081,7 @@ namespace TKMOC
             }
         }
 
+      
         public void SETNULL()
         {
             textBox11.Text = null;
@@ -1044,6 +1090,7 @@ namespace TKMOC
             textBox14.Text = null;
 
         }
+
         #endregion
 
         #region BUTTON
@@ -1081,7 +1128,14 @@ namespace TKMOC
         }
         private void button5_Click(object sender, EventArgs e)
         {
+            if(!string.IsNullOrEmpty(textBox11.Text) && !string.IsNullOrEmpty(textBox14.Text))
+            {
+                
+                UPDATEBATCHMOCTAB(textBox11.Text.Trim(), Convert.ToDecimal(textBox14.Text.Trim()));
+            }        
 
+
+            SEARCHBATCHMOCTAB(dateTimePicker4.Value.ToString("yyyyMMdd"));
         }
 
         private void button4_Click(object sender, EventArgs e)
