@@ -46,6 +46,8 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder8 = new SqlCommandBuilder();
         SqlDataAdapter adapter9 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder9 = new SqlCommandBuilder();
+        SqlDataAdapter adapter10 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder10 = new SqlCommandBuilder();
 
         SqlTransaction tran;
         SqlCommand cmd = new SqlCommand();
@@ -58,6 +60,7 @@ namespace TKMOC
         DataSet ds7 = new DataSet();
         DataSet ds8 = new DataSet();
         DataSet ds9 = new DataSet();
+        DataSet ds10 = new DataSet();
 
         int result;
 
@@ -331,6 +334,61 @@ namespace TKMOC
 
         }
 
+        public void SEARCHMOCTA2(string TA029)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+
+                sbSql.AppendFormat(@" SELECT TA001 AS '製令單別',TA002 AS '製令單號',TA009 AS '預計完工',TA026 AS '訂單',TA027 AS '訂單號',TA028 AS '序號' ");
+                sbSql.AppendFormat(@" FROM [TK].dbo.MOCTA ");
+                sbSql.AppendFormat(@" WHERE TA029='{0}'  ", TA029);
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+                adapter10 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder10 = new SqlCommandBuilder(adapter10);
+                sqlConn.Open();
+                ds10.Clear();
+                adapter10.Fill(ds10, "ds10");
+                sqlConn.Close();
+
+
+                if (ds10.Tables["ds10"].Rows.Count == 0)
+                {
+                    dataGridView4.DataSource = null;
+                }
+                else
+                {
+                    if (ds10.Tables["ds10"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView4.DataSource = ds10.Tables["ds10"];
+                        dataGridView4.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+
+        }
+
         public void GENADDTARGET()
         {
             ADDTARGET.Clear();
@@ -353,13 +411,13 @@ namespace TKMOC
 
         }
 
-        public void GENADDTARGET2()
+        public void GENADDTARGET2(string MB001,double NUM,string MB068)
         {
             ADDTARGET.Clear();
             FIND.Clear();
             //ADDTARGET.RemoveAll(it => true);
 
-            ADDTARGET.Add(new ADDITEM { MB001 = textBox12.Text.Trim(), NUM = Convert.ToDouble(textBox14.Text), MB068 = textBox7.Text });
+            ADDTARGET.Add(new ADDITEM { MB001 = MB001, NUM = NUM, MB068 = MB068 });
 
             SERACH(ADDTARGET[0].MB001, ADDTARGET[0].NUM, FIND);
 
@@ -486,14 +544,28 @@ namespace TKMOC
             }
         }
 
-        public void GENMOCTAB(DateTime DTMOCTAB,string TA029,string TC001, string TC002, string TC003)
+        public void GENMOCTAB(DateTime DTMOCTAB,string TA021,string TA029,string TC001, string TC002, string TC003)
         {
             foreach (var find in ADDTARGET)
             {
                 TA001 = "A510";
                 TA002 = GETMAXTA002(TA001, DTMOCTAB);
 
-                ADDMOCTATB(TA001, TA002, find.MB001, find.NUM, find.MB068, DTMOCTAB, TA029, TC001, TC002, TC003);
+                ADDMOCTATB(TA001, TA002, find.MB001, find.NUM, find.MB068, DTMOCTAB, TA021, TA029, TC001, TC002, TC003);
+                //MessageBox.Show(find.MB001 + " " + find.NUM + " " + find.MB068 + " "+ TA001+"-"+ TA002);
+            }
+
+
+        }
+
+        public void GENMOCTAB2(DateTime DTMOCTAB,string TA021, string TA029)
+        {
+            foreach (var find in ADDTARGET)
+            {
+                TA001 = "A510";
+                TA002 = GETMAXTA002(TA001, DTMOCTAB);
+
+                ADDMOCTATB2(TA001, TA002, find.MB001, find.NUM, find.MB068, DTMOCTAB, TA021, TA029);
                 //MessageBox.Show(find.MB001 + " " + find.NUM + " " + find.MB068 + " "+ TA001+"-"+ TA002);
             }
 
@@ -574,10 +646,10 @@ namespace TKMOC
 
         }
 
-        public void ADDMOCTATB(string TA001,string TA002,string MB001,double NUM,string MB068,DateTime DTMOCTAB,string TA029, string TC001, string TC002, string TC003)
+        public void ADDMOCTATB(string TA001,string TA002,string MB001,double NUM,string MB068,DateTime DTMOCTAB,string TA021, string TA029, string TC001, string TC002, string TC003)
         {
             MOCTADATA MOCTA = new MOCTADATA();
-            MOCTA = SETMOCTA(TA001, TA002, MB001, NUM, MB068, DTMOCTAB,TA029,TC001,TC002,TC003);
+            MOCTA = SETMOCTA(TA001, TA002, MB001, NUM, MB068, DTMOCTAB, TA021, TA029,TC001,TC002,TC003);
 
             string MOCMB001 = null;
             decimal MOCTA004 = 0;
@@ -670,7 +742,102 @@ namespace TKMOC
             }
         }
 
-        public MOCTADATA SETMOCTA(string TA001, string TA002, string MB001, double NUM, string MB068, DateTime DTMOCTAB,string TA029, string TC001, string TC002, string TC003)
+        public void ADDMOCTATB2(string TA001, string TA002, string MB001, double NUM, string MB068, DateTime DTMOCTAB, string TA021, string TA029)
+        {
+            MOCTADATA MOCTA = new MOCTADATA();
+            MOCTA = SETMOCTA2(TA001, TA002, MB001, NUM, MB068, DTMOCTAB, TA021, TA029);
+
+            string MOCMB001 = null;
+            decimal MOCTA004 = 0;
+            string MOCTB009 = null;
+            
+
+            const int MaxLength = 100;
+
+            MOCMB001 = MB001;
+            MOCTA004 = Convert.ToDecimal(NUM) / MC004;
+
+            try
+            {
+                //check TA002=2,TA040=2
+                if (MOCTA.TA002.Substring(0, 1).Equals("2") && MOCTA.TA040.Substring(0, 1).Equals("2"))
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sqlConn.Close();
+                    sqlConn.Open();
+                    tran = sqlConn.BeginTransaction();
+
+                    sbSql.Clear();
+
+                    sbSql.AppendFormat(" INSERT INTO [TK].[dbo].[MOCTA]");
+                    sbSql.AppendFormat(" ([COMPANY],[CREATOR],[USR_GROUP],[CREATE_DATE],[MODIFIER],[MODI_DATE],[FLAG],[CREATE_TIME],[MODI_TIME],[TRANS_TYPE]");
+                    sbSql.AppendFormat(" ,[TRANS_NAME],[sync_count],[DataGroup],[TA001],[TA002],[TA003],[TA004],[TA005],[TA006],[TA007]");
+                    sbSql.AppendFormat(" ,[TA009],[TA010],[TA011],[TA012],[TA013],[TA014],[TA015],[TA016],[TA017],[TA018]");
+                    sbSql.AppendFormat(" ,[TA019],[TA020],[TA021],[TA022],[TA024],[TA025],[TA026],[TA027],[TA028],[TA029],[TA030],[TA031],[TA034],[TA035]");
+                    sbSql.AppendFormat(" ,[TA040],[TA041],[TA043],[TA044],[TA045],[TA046],[TA047],[TA049],[TA050],[TA200]");
+                    sbSql.AppendFormat(" ");
+                    sbSql.AppendFormat(" )");
+                    sbSql.AppendFormat(" VALUES");
+                    sbSql.AppendFormat(" ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}',", MOCTA.COMPANY, MOCTA.CREATOR, MOCTA.USR_GROUP, MOCTA.CREATE_DATE, MOCTA.MODIFIER, MOCTA.MODI_DATE, MOCTA.FLAG, MOCTA.CREATE_TIME, MOCTA.MODI_TIME, MOCTA.TRANS_TYPE);
+                    sbSql.AppendFormat(" '{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}',", MOCTA.TRANS_NAME, MOCTA.sync_count, MOCTA.DataGroup, MOCTA.TA001, MOCTA.TA002, MOCTA.TA003, MOCTA.TA004, MOCTA.TA005, MOCTA.TA006, MOCTA.TA007);
+                    sbSql.AppendFormat(" '{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}',", MOCTA.TA009, MOCTA.TA010, MOCTA.TA011, MOCTA.TA012, MOCTA.TA013, MOCTA.TA014, MOCTA.TA015, MOCTA.TA016, MOCTA.TA017, MOCTA.TA018);
+                    sbSql.AppendFormat(" '{0}','{1}','{2}','{3}','{4}','{5}',N'{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}',", MOCTA.TA019, MOCTA.TA020, MOCTA.TA021, MOCTA.TA022, MOCTA.TA024, MOCTA.TA025, MOCTA.TA026, MOCTA.TA027, MOCTA.TA028, MOCTA.TA029, MOCTA.TA030, MOCTA.TA031, MOCTA.TA034, MOCTA.TA035);
+                    sbSql.AppendFormat(" '{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}'", MOCTA.TA040, MOCTA.TA041, MOCTA.TA043, MOCTA.TA044, MOCTA.TA045, MOCTA.TA046, MOCTA.TA047, MOCTA.TA049, MOCTA.TA050, MOCTA.TA200);
+                    sbSql.AppendFormat(" )");
+                    sbSql.AppendFormat(" ");
+                    sbSql.AppendFormat(" ");
+                    sbSql.AppendFormat(" INSERT INTO [TK].dbo.[MOCTB]");
+                    sbSql.AppendFormat(" ([COMPANY],[CREATOR],[USR_GROUP],[CREATE_DATE],[MODIFIER],[MODI_DATE],[FLAG],[CREATE_TIME],[MODI_TIME],[TRANS_TYPE]");
+                    sbSql.AppendFormat(" ,[TRANS_NAME],[sync_count],[DataGroup],[TB001],[TB002],[TB003],[TB004],[TB005],[TB006],[TB007]");
+                    sbSql.AppendFormat(" ,[TB009],[TB011],[TB012],[TB013],[TB014],[TB018],[TB019],[TB020],[TB022],[TB024]");
+                    sbSql.AppendFormat(" ,[TB025],[TB026],[TB027],[TB029],[TB030],[TB031],[TB501],[TB554],[TB556],[TB560])");
+                    sbSql.AppendFormat(" (SELECT ");
+                    sbSql.AppendFormat(" '{0}' [COMPANY],'{1}' [CREATOR],'{2}' [USR_GROUP],'{3}' [CREATE_DATE],'{4}' [MODIFIER],'{5}' [MODI_DATE],'{6}' [FLAG],'{7}' [CREATE_TIME],'{8}' [MODI_TIME],'{9}' [TRANS_TYPE]", MOCTA.COMPANY, MOCTA.CREATOR, MOCTA.USR_GROUP, MOCTA.CREATE_DATE, MOCTA.MODIFIER, MOCTA.MODI_DATE, MOCTA.FLAG, MOCTA.CREATE_TIME, MOCTA.MODI_TIME, MOCTA.TRANS_TYPE);
+                    sbSql.AppendFormat(" ,'{0}' [TRANS_NAME],{1} [sync_count],'{2}' [DataGroup],'{3}' [TB001],'{4}' [TB002],[BOMMD].MD003 [TB003],ROUND({5}*[BOMMD].MD006/[BOMMD].MD007*(1+[BOMMD].MD008),3) [TB004],0 [TB005],'****' [TB006],[INVMB].MB004  [TB007]", MOCTA.TRANS_NAME, MOCTA.sync_count, MOCTA.DataGroup, MOCTA.TA001, MOCTA.TA002, MOCTA004);
+                    sbSql.AppendFormat(" ,[INVMB].MB017 [TB009],'1' [TB011],[INVMB].MB002 [TB012],[INVMB].MB003 [TB013],[BOMMD].MD001 [TB014],'N' [TB018],'0' [TB019],'0' [TB020],'2' [TB022],'0' [TB024]");
+                    sbSql.AppendFormat(" ,'****' [TB025],'0' [TB026],'1' [TB027],'0' [TB029],'0' [TB030],'0' [TB031],'0' [TB501],'N' [TB554],'0' [TB556],'0' [TB560]");
+                    sbSql.AppendFormat(" FROM [TK].dbo.[BOMMD],[TK].dbo.[INVMB]");
+                    sbSql.AppendFormat(" WHERE [BOMMD].MD003=[INVMB].MB001");
+                    sbSql.AppendFormat(" AND MD001='{0}' AND ISNULL(MD012,'')='' )", MOCMB001);
+                    sbSql.AppendFormat(" ");
+                    sbSql.AppendFormat(" ");
+                    sbSql.AppendFormat(" ");
+
+
+                    cmd.Connection = sqlConn;
+                    cmd.CommandTimeout = 60;
+                    cmd.CommandText = sbSql.ToString();
+                    cmd.Transaction = tran;
+                    result = cmd.ExecuteNonQuery();
+
+                    if (result == 0)
+                    {
+                        tran.Rollback();    //交易取消
+                    }
+                    else
+                    {
+                        tran.Commit();      //執行交易  
+
+
+                    }
+                }
+
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public MOCTADATA SETMOCTA(string TA001, string TA002, string MB001, double NUM, string MB068, DateTime DTMOCTAB, string TA021, string TA029, string TC001, string TC002, string TC003)
         {
             SEARCHBOMMC(MB001);
 
@@ -708,13 +875,78 @@ namespace TKMOC
             MOCTA.TA018 = "0";
             MOCTA.TA019 = "20";
             MOCTA.TA020 = IN;
-            MOCTA.TA021 = "02";
+            MOCTA.TA021 = TA021;
             MOCTA.TA022 = "0";
             MOCTA.TA024 = "A510";
             MOCTA.TA025 = TA002;
             MOCTA.TA026 = TC001;
             MOCTA.TA027 = TC002;
             MOCTA.TA028 = TC003;
+            MOCTA.TA029 = TA029;
+            MOCTA.TA030 = "1";
+            MOCTA.TA031 = "0";
+            MOCTA.TA034 = MB002;
+            MOCTA.TA035 = MB003;
+            MOCTA.TA040 = DTMOCTAB.ToString("yyyyMMdd");
+            MOCTA.TA041 = "";
+            MOCTA.TA043 = "1";
+            MOCTA.TA044 = "N";
+            MOCTA.TA045 = "0";
+            MOCTA.TA046 = "0";
+            MOCTA.TA047 = "0";
+            MOCTA.TA049 = "0";
+            MOCTA.TA050 = "0";
+            MOCTA.TA200 = "1";
+
+            return MOCTA;
+
+        }
+
+        public MOCTADATA SETMOCTA2(string TA001, string TA002, string MB001, double NUM, string MB068, DateTime DTMOCTAB,string TA021, string TA029)
+        {
+            SEARCHBOMMC(MB001);
+
+            MOCTADATA MOCTA = new MOCTADATA();
+            MOCTA.COMPANY = "TK";
+            MOCTA.CREATOR = "140020";
+            MOCTA.USR_GROUP = "103000";
+            //MOCTA.CREATE_DATE = dt1.ToString("yyyyMMdd");
+            MOCTA.CREATE_DATE = DateTime.Now.ToString("yyyyMMdd");
+            MOCTA.MODIFIER = "140020";
+            MOCTA.MODI_DATE = DTMOCTAB.ToString("yyyyMMdd");
+            MOCTA.FLAG = "0";
+            MOCTA.CREATE_TIME = DateTime.Now.ToString("HH:mm:dd");
+            MOCTA.MODI_TIME = DateTime.Now.ToString("HH:mm:dd");
+            MOCTA.TRANS_TYPE = "P001";
+            MOCTA.TRANS_NAME = "MOCMI02";
+            MOCTA.sync_count = "0";
+            MOCTA.DataGroup = "103000";
+            MOCTA.TA001 = "A510";
+            MOCTA.TA002 = TA002;
+            MOCTA.TA003 = DTMOCTAB.ToString("yyyyMMdd");
+            MOCTA.TA004 = DTMOCTAB.ToString("yyyyMMdd");
+            MOCTA.TA005 = BOMVARSION;
+            MOCTA.TA006 = MB001;
+            MOCTA.TA007 = UNIT;
+            MOCTA.TA009 = DTMOCTAB.ToString("yyyyMMdd");
+            MOCTA.TA010 = DTMOCTAB.ToString("yyyyMMdd");
+            MOCTA.TA011 = "1";
+            MOCTA.TA012 = DTMOCTAB.ToString("yyyyMMdd");
+            MOCTA.TA013 = "N";
+            MOCTA.TA014 = "";
+            MOCTA.TA015 = NUM.ToString();
+            MOCTA.TA016 = "0";
+            MOCTA.TA017 = "0";
+            MOCTA.TA018 = "0";
+            MOCTA.TA019 = "20";
+            MOCTA.TA020 = IN;
+            MOCTA.TA021 = TA021;
+            MOCTA.TA022 = "0";
+            MOCTA.TA024 = "A510";
+            MOCTA.TA025 = TA002;
+            MOCTA.TA026 = "";
+            MOCTA.TA027 = "";
+            MOCTA.TA028 = "";
             MOCTA.TA029 = TA029;
             MOCTA.TA030 = "1";
             MOCTA.TA031 = "0";
@@ -1096,7 +1328,9 @@ namespace TKMOC
                     textBox12.Text = row.Cells["品號"].Value.ToString();
                     textBox13.Text = row.Cells["品名"].Value.ToString();
                     textBox14.Text = row.Cells["數量"].Value.ToString();
-                    textBox16.Text = row.Cells["線別"].Value.ToString();
+                    textBox17.Text = row.Cells["線別"].Value.ToString();
+
+                    SEARCHMOCTA2(textBox11.Text);
                 }
                 else
                 {
@@ -1127,7 +1361,7 @@ namespace TKMOC
             DTMOCTAB = dateTimePicker3.Value;
 
             GENADDTARGET();
-            GENMOCTAB(DTMOCTAB,textBox7.Text,textBox1.Text, textBox2.Text, textBox3.Text);
+            GENMOCTAB(DTMOCTAB,textBox7.Text, textBox6.Text, textBox1.Text, textBox2.Text, textBox3.Text);
 
             SEARCHMOCTA(textBox1.Text, textBox2.Text, textBox3.Text);
         }
@@ -1166,8 +1400,10 @@ namespace TKMOC
         {
             DTMOCTAB = dateTimePicker4.Value;
 
-            GENADDTARGET2();
-            //GENMOCTAB2(DTMOCTAB, textBox7.Text, textBox1.Text, textBox2.Text, textBox3.Text);
+            GENADDTARGET2(textBox12.Text.Trim(), Convert.ToDouble(textBox14.Text.Trim()), textBox17.Text.Trim());
+            GENMOCTAB2(DTMOCTAB, textBox17.Text, textBox11.Text);
+
+            SEARCHMOCTA2(textBox11.Text);
         }
 
 
