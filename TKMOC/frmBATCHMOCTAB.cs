@@ -790,6 +790,8 @@ namespace TKMOC
 
             GENADDTARGET();
             GENMOCTAB(DTMOCTAB,textBox7.Text,textBox1.Text, textBox2.Text, textBox3.Text);
+
+            SEARCHMOCTA(textBox1.Text, textBox2.Text, textBox3.Text);
         }
 
         #endregion
