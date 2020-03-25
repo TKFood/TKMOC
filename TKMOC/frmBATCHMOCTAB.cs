@@ -353,6 +353,28 @@ namespace TKMOC
 
         }
 
+        public void GENADDTARGET2()
+        {
+            ADDTARGET.Clear();
+            FIND.Clear();
+            //ADDTARGET.RemoveAll(it => true);
+
+            ADDTARGET.Add(new ADDITEM { MB001 = textBox12.Text.Trim(), NUM = Convert.ToDouble(textBox14.Text), MB068 = textBox7.Text });
+
+            SERACH(ADDTARGET[0].MB001, ADDTARGET[0].NUM, FIND);
+
+            foreach (var find in FIND)
+            {
+                CHECKBOMMD(find.MB001, find.NUM);
+            }
+
+            //foreach (var find in ADDTARGET)
+            //{
+            //    MessageBox.Show(find.MB001 + " " + find.NUM);
+            //}
+
+        }
+
         public void SERACH(string MB001, double NUM, List<ADDITEM> FIND)
         {
             try
@@ -796,7 +818,7 @@ namespace TKMOC
                 sbSqlQuery.Clear();
 
 
-                sbSql.AppendFormat(@"  SELECT [ID]  AS '批號',[MB001]  AS '品號',[MB002]  AS '品名',[NUM]  AS '數量',[MB004] AS '單位',CONVERT(nvarchar,[IDDATE],112) AS '日期'");
+                sbSql.AppendFormat(@"  SELECT [ID]  AS '批號',[MB001]  AS '品號',[MB002]  AS '品名',[NUM]  AS '數量',[MB004] AS '單位',[MB068] AS '線別',CONVERT(nvarchar,[IDDATE],112) AS '日期'");
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[BATCHMOCTAB]");
                 sbSql.AppendFormat(@"  WHERE CONVERT(nvarchar,[IDDATE],112)='{0}'",IDDATE);
                 sbSql.AppendFormat(@"  ORDER BY [ID]");
@@ -929,7 +951,7 @@ namespace TKMOC
                 sbSqlQuery.Clear();
                 ds4.Clear();
 
-                sbSql.AppendFormat(@"  SELECT MB002,MB004 ");
+                sbSql.AppendFormat(@"  SELECT MB002,MB004,MB068 ");
                 sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB");
                 sbSql.AppendFormat(@"  WHERE MB001='{0}'", MB001);
                 sbSql.AppendFormat(@"  ");
@@ -953,6 +975,7 @@ namespace TKMOC
                     {
                         textBox9.Text = ds9.Tables["ds9"].Rows[0]["MB002"].ToString();
                         textBox15.Text = ds9.Tables["ds9"].Rows[0]["MB004"].ToString();
+                        textBox16.Text = ds9.Tables["ds9"].Rows[0]["MB068"].ToString();
 
                     }         
                 }
@@ -968,7 +991,7 @@ namespace TKMOC
             }
         }
 
-        public void ADDBATCHMOCTAB(string ID,string MB001,string MB002,string MB004,decimal NUM,string IDDATE)
+        public void ADDBATCHMOCTAB(string ID,string MB001,string MB002,string MB004, decimal NUM, string MB068, string IDDATE)
         {
             try
             {
@@ -982,8 +1005,8 @@ namespace TKMOC
                 sbSql.Clear();
 
                 sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[BATCHMOCTAB]");
-                sbSql.AppendFormat(" ([ID],[MB001],[MB002],[MB004],[NUM],[IDDATE])");
-                sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}','{3}',{4},'{5}')",ID,MB001,MB002,MB004,NUM,IDDATE);
+                sbSql.AppendFormat(" ([ID],[MB001],[MB002],[MB004],[NUM],[MB068],[IDDATE])");
+                sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}','{3}',{4},'{5}','{6}')", ID,MB001,MB002,MB004,NUM,MB068,IDDATE);
                 sbSql.AppendFormat(" ");
 
 
@@ -1073,6 +1096,7 @@ namespace TKMOC
                     textBox12.Text = row.Cells["品號"].Value.ToString();
                     textBox13.Text = row.Cells["品名"].Value.ToString();
                     textBox14.Text = row.Cells["數量"].Value.ToString();
+                    textBox16.Text = row.Cells["線別"].Value.ToString();
                 }
                 else
                 {
@@ -1119,9 +1143,9 @@ namespace TKMOC
             string ID= GETMAXBATCHMOCTABID(dateTimePicker4.Value.ToString("yyyyMMdd"));
             textBox11.Text = ID;
 
-            if(!string.IsNullOrEmpty(ID)&& !string.IsNullOrEmpty(textBox8.Text)&&!string.IsNullOrEmpty(textBox9.Text)&&!string.IsNullOrEmpty(textBox15.Text) && !string.IsNullOrEmpty(textBox10.Text))
+            if(!string.IsNullOrEmpty(ID)&& !string.IsNullOrEmpty(textBox8.Text)&&!string.IsNullOrEmpty(textBox9.Text)&&!string.IsNullOrEmpty(textBox15.Text) && !string.IsNullOrEmpty(textBox10.Text) && !string.IsNullOrEmpty(textBox16.Text))
             {
-                ADDBATCHMOCTAB(ID, textBox8.Text.Trim(), textBox9.Text.Trim(), textBox15.Text.Trim(),Convert.ToDecimal(textBox10.Text.Trim()), dateTimePicker4.Value.ToString("yyyyMMdd"));
+                ADDBATCHMOCTAB(ID, textBox8.Text.Trim(), textBox9.Text.Trim(), textBox15.Text.Trim(),Convert.ToDecimal(textBox10.Text.Trim()), textBox16.Text.Trim(), dateTimePicker4.Value.ToString("yyyyMMdd"));
                 SEARCHBATCHMOCTAB(dateTimePicker4.Value.ToString("yyyyMMdd"));
             }
             
@@ -1140,7 +1164,10 @@ namespace TKMOC
 
         private void button4_Click(object sender, EventArgs e)
         {
+            DTMOCTAB = dateTimePicker4.Value;
 
+            GENADDTARGET2();
+            //GENMOCTAB2(DTMOCTAB, textBox7.Text, textBox1.Text, textBox2.Text, textBox3.Text);
         }
 
 
