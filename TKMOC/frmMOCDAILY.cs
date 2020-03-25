@@ -331,7 +331,7 @@ namespace TKMOC
             SB.AppendFormat(" SELECT MD002 AS '線別',TA006 AS '品號',TA034 AS '品名',MB003 AS '規格' ,TA001 AS '製令單別',TA002 AS '製令單號',TA007 AS '生產單位',INVMB.UDF03 AS '類別',TA015 AS '預計產量',TA017 AS '生產量',INVMB.UDF07 AS '淨重',INVMB.UDF08 AS '單片重',INVMB.UDF09 AS '袋重',INVMB.UDF06 AS '蒸發率',INVMB.UDF01 AS '成品是否扣袋重',INVMB.UDF02 AS '領料是否扣袋重'");
             SB.AppendFormat(" ,(SELECT ISNULL(SUM(TB005),0) FROM [TK].dbo.MOCTB TB WHERE (TB.TB003 LIKE '1%' OR TB.TB003 LIKE '3%') AND TB.TB001=MOCTA.TA001 AND TB.TB002=MOCTA.TA002)  AS '原料用量'");
             SB.AppendFormat(" ,(SELECT ISNULL(SUM(TB005*MB.UDF07),0) FROM [TK].dbo.MOCTB TB,[TK].dbo.INVMB MB WHERE TB.TB003=MB.MB001 AND TB.TB003 LIKE '4%' AND TB.TB001=MOCTA.TA001 AND TB.TB002=MOCTA.TA002) AS '成品用量'");
-            SB.AppendFormat(" ,CASE WHEN INVMB.UDF08>0 AND   INVMB.UDF09>0  THEN 1/(INVMB.UDF08+INVMB.UDF09)*INVMB.UDF09 ELSE 1 END  AS '袋重比'");
+            SB.AppendFormat(" ,CASE WHEN INVMB.UDF08>0 AND   INVMB.UDF09>0  THEN 1/(INVMB.UDF08+INVMB.UDF09)*INVMB.UDF09 ELSE 0 END  AS '袋重比'");
             SB.AppendFormat(" FROM [TK].dbo.INVMB,[TK].dbo.MOCTA,[TK].dbo.CMSMD");
             SB.AppendFormat(" WHERE TA006=MB001 AND TA021=MD001");
             SB.AppendFormat(" AND ISNULL(INVMB.UDF03,'')<>''");
@@ -339,7 +339,7 @@ namespace TKMOC
             SB.AppendFormat(" ) AS TEMP");
             SB.AppendFormat(" WHERE 線別='{0}'",comboBox1.Text);
             SB.AppendFormat(" ORDER BY 線別,SUBSTRING(製令單號,1,8),品號");
-            SB.AppendFormat(" ");
+            SB.AppendFormat("  ");
             SB.AppendFormat(" ");
             SB.AppendFormat(" ");
             SB.AppendFormat(" ");
