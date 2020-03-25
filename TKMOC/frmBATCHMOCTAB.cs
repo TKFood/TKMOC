@@ -42,6 +42,10 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder6 = new SqlCommandBuilder();
         SqlDataAdapter adapter7 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder7 = new SqlCommandBuilder();
+        SqlDataAdapter adapter8 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder8 = new SqlCommandBuilder();
+        SqlDataAdapter adapter9 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder9 = new SqlCommandBuilder();
 
         SqlTransaction tran;
         SqlCommand cmd = new SqlCommand();
@@ -52,6 +56,8 @@ namespace TKMOC
         DataSet ds5 = new DataSet();
         DataSet ds6 = new DataSet();
         DataSet ds7 = new DataSet();
+        DataSet ds8 = new DataSet();
+        DataSet ds9 = new DataSet();
 
         int result;
 
@@ -790,7 +796,7 @@ namespace TKMOC
                 sbSqlQuery.Clear();
 
 
-                sbSql.AppendFormat(@"  SELECT [ID]  AS '批號',[MB001]  AS '品號',[MB002]  AS '品名',[NUM]  AS '數量',CONVERT(nvarchar,[IDDATE],112) AS '日期'");
+                sbSql.AppendFormat(@"  SELECT [ID]  AS '批號',[MB001]  AS '品號',[MB002]  AS '品名',[NUM]  AS '數量',[MB004] AS '單位',CONVERT(nvarchar,[IDDATE],112) AS '日期'");
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[BATCHMOCTAB]");
                 sbSql.AppendFormat(@"  WHERE CONVERT(nvarchar,[IDDATE],112)='{0}'",IDDATE);
                 sbSql.AppendFormat(@"  ORDER BY [ID]");
@@ -833,6 +839,134 @@ namespace TKMOC
             }
         }
 
+        public string GETMAXBATCHMOCTABID(string IDDATE)
+        {
+            string MAXID;
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                StringBuilder sbSql = new StringBuilder();
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+                ds4.Clear();
+
+                sbSql.AppendFormat(@"  SELECT ISNULL(MAX([ID]),'00000000000') AS ID ");
+                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[BATCHMOCTAB]");                
+                sbSql.AppendFormat(@"  WHERE CONVERT(nvarchar,[IDDATE],112)='{0}'", IDDATE);
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+                adapter8 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder8 = new SqlCommandBuilder(adapter8);
+                sqlConn.Open();
+                ds8.Clear();
+                adapter8.Fill(ds8, "ds8");
+                sqlConn.Close();
+
+
+                if (ds8.Tables["ds8"].Rows.Count == 0)
+                {
+                    return null;
+                }
+                else
+                {
+                    if (ds8.Tables["ds8"].Rows.Count >= 1)
+                    {
+                        MAXID = SETIDSTRING(ds8.Tables["ds8"].Rows[0]["ID"].ToString(), IDDATE);
+                        return MAXID;
+
+                    }
+                    return null;
+                }
+
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+
+        }
+
+        public string SETIDSTRING(string MAXID, string dt)
+        {
+            if (MAXID.Equals("00000000000"))
+            {
+                return dt + "001";
+            }
+
+            else
+            {
+                int serno = Convert.ToInt16(MAXID.Substring(8, 3));
+                serno = serno + 1;
+                string temp = serno.ToString();
+                temp = temp.PadLeft(3, '0');
+                return dt + temp.ToString();
+            }
+        }
+
+        private void textBox8_TextChanged(object sender, EventArgs e)
+        {
+            SEARCHINVMB(textBox8.Text.Trim());
+        }
+
+        public void SEARCHINVMB(string MB001)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                StringBuilder sbSql = new StringBuilder();
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+                ds4.Clear();
+
+                sbSql.AppendFormat(@"  SELECT MB002,MB004 ");
+                sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB");
+                sbSql.AppendFormat(@"  WHERE MB001='{0}'", MB001);
+                sbSql.AppendFormat(@"  ");
+
+                adapter9 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder9 = new SqlCommandBuilder(adapter9);
+                sqlConn.Open();
+                ds9.Clear();
+                adapter9.Fill(ds9, "ds9");
+                sqlConn.Close();
+
+
+                if (ds9.Tables["ds9"].Rows.Count == 0)
+                {
+                   
+                }
+                else
+                {
+                    if (ds9.Tables["ds9"].Rows.Count >= 1)
+                    {
+                        textBox9.Text = ds9.Tables["ds9"].Rows[0]["MB002"].ToString();
+                        textBox15.Text = ds9.Tables["ds9"].Rows[0]["MB004"].ToString();
+
+                    }         
+                }
+
+            }
+            catch
+            {
+                
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
         #endregion
 
         #region BUTTON
@@ -856,6 +990,8 @@ namespace TKMOC
 
         private void button6_Click(object sender, EventArgs e)
         {
+            string ID= GETMAXBATCHMOCTABID(dateTimePicker4.Value.ToString("yyyyMMdd"));
+
 
         }
         private void button5_Click(object sender, EventArgs e)
@@ -867,8 +1003,9 @@ namespace TKMOC
         {
 
         }
+
         #endregion
 
-
+       
     }
 }
