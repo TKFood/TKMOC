@@ -967,6 +967,83 @@ namespace TKMOC
                 sqlConn.Close();
             }
         }
+
+        public void ADDBATCHMOCTAB(string ID,string MB001,string MB002,string MB004,decimal NUM,string IDDATE)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[BATCHMOCTAB]");
+                sbSql.AppendFormat(" ([ID],[MB001],[MB002],[MB004],[NUM],[IDDATE])");
+                sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}','{3}',{4},'{5}')",ID,MB001,MB002,MB004,NUM,IDDATE);
+                sbSql.AppendFormat(" ");
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+                }
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+
+        }
+        private void dataGridView3_SelectionChanged(object sender, EventArgs e)
+        {
+            SETNULL();
+
+            if (dataGridView3.CurrentRow != null)
+            {
+                int rowindex = dataGridView3.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView3.Rows[rowindex];
+
+                    textBox11.Text = row.Cells["批號"].Value.ToString();
+                    textBox12.Text = row.Cells["品號"].Value.ToString();
+                    textBox13.Text = row.Cells["品名"].Value.ToString();
+                    textBox14.Text = row.Cells["數量"].Value.ToString();
+                }
+                else
+                {
+                    SETNULL();
+                }
+            }
+        }
+
+        public void SETNULL()
+        {
+            textBox11.Text = null;
+            textBox12.Text = null;
+            textBox13.Text = null;
+            textBox14.Text = null;
+
+        }
         #endregion
 
         #region BUTTON
@@ -990,9 +1067,17 @@ namespace TKMOC
 
         private void button6_Click(object sender, EventArgs e)
         {
+            textBox11.Text = null;
+
             string ID= GETMAXBATCHMOCTABID(dateTimePicker4.Value.ToString("yyyyMMdd"));
+            textBox11.Text = ID;
 
-
+            if(!string.IsNullOrEmpty(ID)&& !string.IsNullOrEmpty(textBox8.Text)&&!string.IsNullOrEmpty(textBox9.Text)&&!string.IsNullOrEmpty(textBox15.Text) && !string.IsNullOrEmpty(textBox10.Text))
+            {
+                ADDBATCHMOCTAB(ID, textBox8.Text.Trim(), textBox9.Text.Trim(), textBox15.Text.Trim(),Convert.ToDecimal(textBox10.Text.Trim()), dateTimePicker4.Value.ToString("yyyyMMdd"));
+                SEARCHBATCHMOCTAB(dateTimePicker4.Value.ToString("yyyyMMdd"));
+            }
+            
         }
         private void button5_Click(object sender, EventArgs e)
         {
@@ -1004,8 +1089,9 @@ namespace TKMOC
 
         }
 
+
         #endregion
 
-       
+    
     }
 }
