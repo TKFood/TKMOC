@@ -345,7 +345,7 @@ namespace TKMOC
                 sbSqlQuery.Clear();
 
 
-                sbSql.AppendFormat(@" SELECT TA001 AS '製令單別',TA002 AS '製令單號',TA009 AS '預計完工',TA026 AS '訂單',TA027 AS '訂單號',TA028 AS '序號' ");
+                sbSql.AppendFormat(@" SELECT TA001 AS '製令單別',TA002 AS '製令單號',TA009 AS '預計完工',TA029 AS '備註' ");
                 sbSql.AppendFormat(@" FROM [TK].dbo.MOCTA ");
                 sbSql.AppendFormat(@" WHERE TA029='{0}'  ", TA029);
                 sbSql.AppendFormat(@"  ");
@@ -562,7 +562,7 @@ namespace TKMOC
         {
             foreach (var find in ADDTARGET)
             {
-                TA001 = "A510";
+                TA001 = "A513";
                 TA002 = GETMAXTA002(TA001, DTMOCTAB);
 
                 ADDMOCTATB2(TA001, TA002, find.MB001, find.NUM, find.MB068, DTMOCTAB, TA021, TA029);
@@ -856,7 +856,7 @@ namespace TKMOC
             MOCTA.TRANS_NAME = "MOCMI02";
             MOCTA.sync_count = "0";
             MOCTA.DataGroup = "103000";
-            MOCTA.TA001 = "A510";
+            MOCTA.TA001 = TA001;
             MOCTA.TA002 = TA002;
             MOCTA.TA003 = DTMOCTAB.ToString("yyyyMMdd");
             MOCTA.TA004 = DTMOCTAB.ToString("yyyyMMdd");
@@ -921,7 +921,7 @@ namespace TKMOC
             MOCTA.TRANS_NAME = "MOCMI02";
             MOCTA.sync_count = "0";
             MOCTA.DataGroup = "103000";
-            MOCTA.TA001 = "A510";
+            MOCTA.TA001 = TA001;
             MOCTA.TA002 = TA002;
             MOCTA.TA003 = DTMOCTAB.ToString("yyyyMMdd");
             MOCTA.TA004 = DTMOCTAB.ToString("yyyyMMdd");
