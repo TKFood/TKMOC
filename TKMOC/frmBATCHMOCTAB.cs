@@ -40,6 +40,8 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder5= new SqlCommandBuilder();
         SqlDataAdapter adapter6 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder6 = new SqlCommandBuilder();
+        SqlDataAdapter adapter7 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder7 = new SqlCommandBuilder();
 
         SqlTransaction tran;
         SqlCommand cmd = new SqlCommand();
@@ -49,6 +51,7 @@ namespace TKMOC
         DataSet ds4 = new DataSet();
         DataSet ds5 = new DataSet();
         DataSet ds6 = new DataSet();
+        DataSet ds7 = new DataSet();
 
         int result;
 
@@ -776,6 +779,59 @@ namespace TKMOC
 
         }
        
+        public void SEARCHBATCHMOCTAB(string IDDATE)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+
+                sbSql.AppendFormat(@"  SELECT [ID]  AS '批號',[MB001]  AS '品號',[MB002]  AS '品名',[NUM]  AS '數量',CONVERT(nvarchar,[IDDATE],112) AS '日期'");
+                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[BATCHMOCTAB]");
+                sbSql.AppendFormat(@"  WHERE CONVERT(nvarchar,[IDDATE],112)='{0}'",IDDATE);
+                sbSql.AppendFormat(@"  ORDER BY [ID]");
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+                adapter7 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder7 = new SqlCommandBuilder(adapter7);
+                sqlConn.Open();
+                ds7.Clear();
+                adapter7.Fill(ds7, "ds7");
+                sqlConn.Close();
+
+
+                if (ds7.Tables["ds7"].Rows.Count == 0)
+                {
+                    dataGridView3.DataSource = null;
+                }
+                else
+                {
+                    if (ds7.Tables["ds7"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView3.DataSource = ds7.Tables["ds7"];
+                        dataGridView3.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
 
         #endregion
 
@@ -793,9 +849,26 @@ namespace TKMOC
 
             SEARCHMOCTA(textBox1.Text, textBox2.Text, textBox3.Text);
         }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            SEARCHBATCHMOCTAB(dateTimePicker4.Value.ToString("yyyyMMdd"));
+        }
 
+        private void button6_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void button5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+        }
         #endregion
 
-        
+
     }
 }
