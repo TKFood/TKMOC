@@ -691,7 +691,7 @@ namespace TKMOC
                 sbSql.AppendFormat(" ([MB001],[MB002],[MB003])");
                 sbSql.AppendFormat(" SELECT MB001,MB002,MB003");
                 sbSql.AppendFormat(" FROM [TK].dbo.INVMB");
-                sbSql.AppendFormat(" WHERE MB001 LIKE '4%'");
+                sbSql.AppendFormat(" WHERE (MB001 LIKE '3%' OR MB001 LIKE '4%')");
                 sbSql.AppendFormat(" AND MB002 NOT LIKE '%停%'");
                 sbSql.AppendFormat(" AND [MB001] NOT IN (SELECT [MB001] FROM [TKMOC].[dbo].[PREINVMB])");
                 sbSql.AppendFormat(" ");
@@ -1557,6 +1557,11 @@ namespace TKMOC
         {
             SEARCHPREINVMBMANU(textBox3.Text);
         }
+        private void button21_Click(object sender, EventArgs e)
+        {
+            ADDPREINVMB();
+        }
+
         #endregion
 
 
