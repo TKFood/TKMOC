@@ -38,11 +38,18 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
         SqlDataAdapter adapter2 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder2 = new SqlCommandBuilder();
+        SqlDataAdapter adapter3 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder3 = new SqlCommandBuilder();
+        SqlDataAdapter adapter4 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder4 = new SqlCommandBuilder();
 
         SqlCommand cmd = new SqlCommand();
 
         DataSet ds1 = new DataSet();
         DataSet ds2 = new DataSet();
+        DataSet ds3 = new DataSet();
+        DataSet ds4 = new DataSet();
+
         string tablename = null;
 
         string MD003;
@@ -440,7 +447,113 @@ namespace TKMOC
             }
         }
 
+        public void SEARCHPREMANUUSEDINVMB()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
 
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  SELECT [MB001] AS '品號' ,[MB002] AS '品名'");
+                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[PREMANUUSEDINVMB]");
+                sbSql.AppendFormat(@"  ORDER BY [MB001]");
+                sbSql.AppendFormat(@"  ");
+
+
+                adapter3 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder3 = new SqlCommandBuilder(adapter3);
+                sqlConn.Open();
+                ds3.Clear();
+                adapter3.Fill(ds3, "ds3");
+                sqlConn.Close();
+
+
+                if (ds3.Tables["ds3"].Rows.Count == 0)
+                {
+                    dataGridView3.DataSource = null;
+                }
+                else
+                {
+                    if (ds3.Tables["ds3"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView3.DataSource = ds3.Tables["ds3"];
+                        dataGridView3.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            SEARCHINVMB(textBox2.Text.Trim());
+        }
+
+        public void SEARCHINVMB(string MB001)
+        {
+            textBox3.Text = null;
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                StringBuilder sbSql = new StringBuilder();
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+                ds4.Clear();
+
+                sbSql.AppendFormat(@"  SELECT MB002,MB004,MB068 ");
+                sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB");
+                sbSql.AppendFormat(@"  WHERE MB001='{0}'", MB001);
+                sbSql.AppendFormat(@"  ");
+
+                adapter4 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder4 = new SqlCommandBuilder(adapter4);
+                sqlConn.Open();
+                ds4.Clear();
+                adapter4.Fill(ds4, "ds4");
+                sqlConn.Close();
+
+
+                if (ds4.Tables["ds4"].Rows.Count == 0)
+                {
+
+                }
+                else
+                {
+                    if (ds4.Tables["ds4"].Rows.Count >= 1)
+                    {
+                        textBox3.Text = ds4.Tables["ds4"].Rows[0]["MB002"].ToString();
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
 
         #endregion
 
@@ -464,10 +577,15 @@ namespace TKMOC
             }
         }
 
-    
+        private void button5_Click(object sender, EventArgs e)
+        {
+            SEARCHPREMANUUSEDINVMB();
+        }
+
+
 
         #endregion
 
-
+      
     }
 }
