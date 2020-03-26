@@ -44,6 +44,8 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder4 = new SqlCommandBuilder();
 
         SqlCommand cmd = new SqlCommand();
+        SqlTransaction tran;
+        int result;
 
         DataSet ds1 = new DataSet();
         DataSet ds2 = new DataSet();
@@ -555,6 +557,116 @@ namespace TKMOC
             }
         }
 
+        public void ADDPREMANUUSEDINVMB(string MB001,string MB002)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[PREMANUUSEDINVMB]");
+                sbSql.AppendFormat(" ([MB001],[MB002])");
+                sbSql.AppendFormat(" VALUES('{0}','{1}')",MB001,MB002);
+                sbSql.AppendFormat(" ");
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+                }
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+        private void dataGridView3_SelectionChanged(object sender, EventArgs e)
+        {
+            textBox4.Text = null;
+            textBox5.Text = null;
+
+            if (dataGridView3.CurrentRow != null)
+            {
+                int rowindex = dataGridView3.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView3.Rows[rowindex];
+                    textBox4.Text = row.Cells["品號"].Value.ToString().Trim();
+                    textBox5.Text = row.Cells["品名"].Value.ToString().Trim();
+
+                }
+                else
+                {
+                    MD003 = null;
+                }
+            }
+        }
+        public void DELETEPREMANUUSEDINVMB(string MB001)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat(" DELETE [TKMOC].[dbo].[PREMANUUSEDINVMB]");
+                sbSql.AppendFormat(" WHERE [MB001]='{0}'", MB001);          
+                sbSql.AppendFormat(" ");
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+                }
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+
         #endregion
 
         #region BUTTON
@@ -581,11 +693,31 @@ namespace TKMOC
         {
             SEARCHPREMANUUSEDINVMB();
         }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            ADDPREMANUUSEDINVMB(textBox2.Text.Trim(),textBox3.Text.Trim());
+            SEARCHPREMANUUSEDINVMB();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("要刪除了?", "要刪除了?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                DELETEPREMANUUSEDINVMB(textBox4.Text.Trim());
+                SEARCHPREMANUUSEDINVMB();
+
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                //do something else
+            }
+        }
 
 
 
         #endregion
 
-      
+
     }
 }
