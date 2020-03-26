@@ -74,7 +74,7 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                if (comboBox1.Text.Equals("不含水麵"))
+                if (comboBox1.Text.Equals("不含水麵")&& comboBox2.Text.Equals("過濾指定品號"))
                 {
                     sbSql.AppendFormat(@"  SELECT [MD003] AS '品號',[MD035] AS '品名',SUM(TNUM) AS '需求量',[MB004]  AS '單位'");
                     sbSql.AppendFormat(@"  ,(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WHERE  LA001=MD003 AND LA009 IN ('20004','20005','20006') )AS '庫存量'");
@@ -102,6 +102,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"  AND MC001=MD001");
                     sbSql.AppendFormat(@"  AND [MANU]='新廠製一組'");
                     sbSql.AppendFormat(@"  AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+                    sbSql.AppendFormat(@"  AND [MOCMANULINE].[MB001] NOT IN (SELECT [MB001] FROM [TKMOC].[dbo].[PREMANUUSEDINVMB] )");
                     sbSql.AppendFormat(@"  UNION ALL ");
                     sbSql.AppendFormat(@"  SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]");
                     sbSql.AppendFormat(@"  ,CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM");
@@ -112,6 +113,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"  AND MC001=MD001");
                     sbSql.AppendFormat(@"  AND [MANU]='新廠製二組'");
                     sbSql.AppendFormat(@"  AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+                    sbSql.AppendFormat(@"  AND [MOCMANULINE].[MB001] NOT IN (SELECT [MB001] FROM [TKMOC].[dbo].[PREMANUUSEDINVMB] )");
                     sbSql.AppendFormat(@"  UNION ALL ");
                     sbSql.AppendFormat(@"  SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]");
                     sbSql.AppendFormat(@"  ,CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM");
@@ -122,6 +124,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"  AND MC001=MD001");
                     sbSql.AppendFormat(@"  AND [MANU]='新廠製三組(手工)'");
                     sbSql.AppendFormat(@"  AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+                    sbSql.AppendFormat(@"  AND [MOCMANULINE].[MB001] NOT IN (SELECT [MB001] FROM [TKMOC].[dbo].[PREMANUUSEDINVMB] )");
                     sbSql.AppendFormat(@"  ) AS TEMP ");
                     sbSql.AppendFormat(@"  ) AS TEMP2 ");
                     sbSql.AppendFormat(@"  ");
@@ -130,8 +133,67 @@ namespace TKMOC
                     sbSql.AppendFormat(@"  ");
                     sbSql.AppendFormat(@"  ");
                 }
-               //針對製一組、製二組、手工，再往下多查一層bom
-                else if(comboBox1.Text.Equals("含水麵"))
+                else if (comboBox1.Text.Equals("不含水麵") && comboBox2.Text.Equals("不過濾指定品號"))
+                {
+                    sbSql.AppendFormat(@"  SELECT [MD003] AS '品號',[MD035] AS '品名',SUM(TNUM) AS '需求量',[MB004]  AS '單位'");
+                    sbSql.AppendFormat(@"  ,(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WHERE  LA001=MD003 AND LA009 IN ('20004','20005','20006') )AS '庫存量'");
+                    sbSql.AppendFormat(@"  ,(SUM(TNUM)-(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WHERE  LA001=MD003 AND LA009 IN ('20004','20005','20006') )) AS '差異量'");
+                    sbSql.AppendFormat(@"  ,(SELECT ISNULL(SUM(TD008-TD015),0) FROM [TK].dbo.PURTD WHERE TD004=[MD003] AND TD018='Y' AND TD016='N' AND TD012>='{0}' AND TD012<='{1}') AS '預計採購量'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+                    sbSql.AppendFormat(@"  FROM (");
+                    sbSql.AppendFormat(@"  SELECT [MANU],[MANUDATE],[MB001],[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008],TNUM,[MB004]");
+                    sbSql.AppendFormat(@"  FROM (");
+                    sbSql.AppendFormat(@"  SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]");
+                    sbSql.AppendFormat(@"  ,CONVERT(decimal(16,3),([PACKAGE]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM");
+                    sbSql.AppendFormat(@"  ,[MB004]");
+                    sbSql.AppendFormat(@"  FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD");
+                    sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003");
+                    sbSql.AppendFormat(@"  WHERE [MOCMANULINE].MB001=MC001");
+                    sbSql.AppendFormat(@"  AND MC001=MD001");
+                    sbSql.AppendFormat(@"  AND [MANU]='新廠包裝線'");
+                    sbSql.AppendFormat(@"  AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+                    sbSql.AppendFormat(@"  UNION ALL ");
+                    sbSql.AppendFormat(@"  SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]");
+                    sbSql.AppendFormat(@"  ,CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM");
+                    sbSql.AppendFormat(@"  ,[MB004]");
+                    sbSql.AppendFormat(@"  FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD");
+                    sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003");
+                    sbSql.AppendFormat(@"  WHERE [MOCMANULINE].MB001=MC001");
+                    sbSql.AppendFormat(@"  AND MC001=MD001");
+                    sbSql.AppendFormat(@"  AND [MANU]='新廠製一組'");
+                    sbSql.AppendFormat(@"  AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+                    
+                    sbSql.AppendFormat(@"  UNION ALL ");
+                    sbSql.AppendFormat(@"  SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]");
+                    sbSql.AppendFormat(@"  ,CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM");
+                    sbSql.AppendFormat(@"  ,[MB004]");
+                    sbSql.AppendFormat(@"  FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD");
+                    sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003");
+                    sbSql.AppendFormat(@"  WHERE [MOCMANULINE].MB001=MC001");
+                    sbSql.AppendFormat(@"  AND MC001=MD001");
+                    sbSql.AppendFormat(@"  AND [MANU]='新廠製二組'");
+                    sbSql.AppendFormat(@"  AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+                    
+                    sbSql.AppendFormat(@"  UNION ALL ");
+                    sbSql.AppendFormat(@"  SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]");
+                    sbSql.AppendFormat(@"  ,CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM");
+                    sbSql.AppendFormat(@"  ,[MB004]");
+                    sbSql.AppendFormat(@"  FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD");
+                    sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003");
+                    sbSql.AppendFormat(@"  WHERE [MOCMANULINE].MB001=MC001");
+                    sbSql.AppendFormat(@"  AND MC001=MD001");
+                    sbSql.AppendFormat(@"  AND [MANU]='新廠製三組(手工)'");
+                    sbSql.AppendFormat(@"  AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+                    
+                    sbSql.AppendFormat(@"  ) AS TEMP ");
+                    sbSql.AppendFormat(@"  ) AS TEMP2 ");
+                    sbSql.AppendFormat(@"  ");
+                    sbSql.AppendFormat(@"  GROUP BY [MD003],[MD035],[MB004]");
+                    sbSql.AppendFormat(@"  ORDER BY [MD003],[MD035],[MB004]");
+                    sbSql.AppendFormat(@"  ");
+                    sbSql.AppendFormat(@"  ");
+                }
+                //針對製一組、製二組、手工，再往下多查一層bom
+                else if(comboBox1.Text.Equals("含水麵") && comboBox2.Text.Equals("過濾指定品號"))
                 {
                     sbSql.AppendFormat(@"  SELECT [MD003] AS '品號',[MD035] AS '品名',SUM(TNUM) AS '需求量',MB004 AS '單位'");
                     sbSql.AppendFormat(@"  ,(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WHERE  LA001=MD003 AND LA009 IN ('20004','20005','20006') )AS '庫存量'");
@@ -157,6 +219,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"  AND MC1.MC001=MD1.MD001");
                     sbSql.AppendFormat(@"  AND [MANU]='新廠製一組'");
                     sbSql.AppendFormat(@"  AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+                    sbSql.AppendFormat(@"  AND [MOCMANULINE].[MB001] NOT IN (SELECT [MB001] FROM [TKMOC].[dbo].[PREMANUUSEDINVMB] )");
                     sbSql.AppendFormat(@"  UNION ALL ");
                     sbSql.AppendFormat(@"  SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],MC1.[MC001],MC1.[MC004],CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,CASE WHEN ISNULL(MD2.[MD035],'')='' THEN MD1.[MD035] ELSE MD2.[MD035] END,MD1.[MD006],MD1.[MD007],MD1.[MD008]");
                     sbSql.AppendFormat(@"  ,CASE WHEN ISNULL(MD2.[MD003],'')='' THEN CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))) ELSE CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))/MC2.[MC004]*MD2.[MD006]/MD2.[MD007]*(1+MD2.[MD008]) ) END  AS TNUM");
@@ -167,6 +230,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"  AND MC1.MC001=MD1.MD001");
                     sbSql.AppendFormat(@"  AND [MANU]='新廠製二組'");
                     sbSql.AppendFormat(@"  AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+                    sbSql.AppendFormat(@"  AND [MOCMANULINE].[MB001] NOT IN (SELECT [MB001] FROM [TKMOC].[dbo].[PREMANUUSEDINVMB] )");
                     sbSql.AppendFormat(@"  UNION ALL ");
                     sbSql.AppendFormat(@"  SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],MC1.[MC001],MC1.[MC004],CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,CASE WHEN ISNULL(MD2.[MD035],'')='' THEN MD1.[MD035] ELSE MD2.[MD035] END,MD1.[MD006],MD1.[MD007],MD1.[MD008]");
                     sbSql.AppendFormat(@"  ,CASE WHEN ISNULL(MD2.[MD003],'')='' THEN CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))) ELSE CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))/MC2.[MC004]*MD2.[MD006]/MD2.[MD007]*(1+MD2.[MD008]) ) END  AS TNUM");
@@ -177,6 +241,64 @@ namespace TKMOC
                     sbSql.AppendFormat(@"  AND MC1.MC001=MD1.MD001");
                     sbSql.AppendFormat(@"  AND [MANU]='新廠製三組(手工)'");
                     sbSql.AppendFormat(@"  AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+                    sbSql.AppendFormat(@"  AND [MOCMANULINE].[MB001] NOT IN (SELECT [MB001] FROM [TKMOC].[dbo].[PREMANUUSEDINVMB] )");
+                    sbSql.AppendFormat(@"  ");
+                    sbSql.AppendFormat(@"  ) AS TEMP ");
+                    sbSql.AppendFormat(@"  ) AS TEMP2");
+                    sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=TEMP2.[MD003]");
+                    sbSql.AppendFormat(@"  GROUP BY [MD003],[MD035],[MB004]");
+                    sbSql.AppendFormat(@"  ORDER BY [MD003],[MD035],[MB004]");
+                    sbSql.AppendFormat(@"  ");
+                }
+                else if (comboBox1.Text.Equals("含水麵") && comboBox2.Text.Equals("不過濾指定品號"))
+                {
+                    sbSql.AppendFormat(@"  SELECT [MD003] AS '品號',[MD035] AS '品名',SUM(TNUM) AS '需求量',MB004 AS '單位'");
+                    sbSql.AppendFormat(@"  ,(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WHERE  LA001=MD003 AND LA009 IN ('20004','20005','20006') )AS '庫存量'");
+                    sbSql.AppendFormat(@"  ,(SUM(TNUM)-(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WHERE  LA001=MD003 AND LA009 IN ('20004','20005','20006') )) AS '差異量'");
+                    sbSql.AppendFormat(@"  ,(SELECT ISNULL(SUM(TD008-TD015),0) FROM [TK].dbo.PURTD WHERE TD004=[MD003] AND TD018='Y' AND TD016='N' AND TD012>='{0}' AND TD012<='{1}') AS '預計採購量'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+                    sbSql.AppendFormat(@"  FROM (");
+                    sbSql.AppendFormat(@"  SELECT [MANU],[MANUDATE],TEMP.[MB001],TEMP.[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008],TNUM");
+                    sbSql.AppendFormat(@"  FROM (");
+                    sbSql.AppendFormat(@"  SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]");
+                    sbSql.AppendFormat(@"  ,CONVERT(decimal(16,3),([PACKAGE]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM");
+                    sbSql.AppendFormat(@"  FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD");
+                    sbSql.AppendFormat(@"  WHERE [MOCMANULINE].MB001=MC001");
+                    sbSql.AppendFormat(@"  AND MC001=MD001");
+                    sbSql.AppendFormat(@"  AND [MANU]='新廠包裝線'");
+                    sbSql.AppendFormat(@"  AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+                    sbSql.AppendFormat(@"  UNION ALL ");
+                    sbSql.AppendFormat(@"  SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],MC1.[MC001],MC1.[MC004],CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,CASE WHEN ISNULL(MD2.[MD035],'')='' THEN MD1.[MD035] ELSE MD2.[MD035] END,MD1.[MD006],MD1.[MD007],MD1.[MD008]");
+                    sbSql.AppendFormat(@"  ,CASE WHEN ISNULL(MD2.[MD003],'')='' THEN CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))) ELSE CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))/MC2.[MC004]*MD2.[MD006]/MD2.[MD007]*(1+MD2.[MD008]) ) END  AS TNUM");
+                    sbSql.AppendFormat(@"  FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1");
+                    sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003");
+                    sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.BOMMD MD2 ON MC2.MC001=MD2.MD001");
+                    sbSql.AppendFormat(@"  WHERE [MOCMANULINE].MB001=MC1.MC001");
+                    sbSql.AppendFormat(@"  AND MC1.MC001=MD1.MD001");
+                    sbSql.AppendFormat(@"  AND [MANU]='新廠製一組'");
+                    sbSql.AppendFormat(@"  AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+                    
+                    sbSql.AppendFormat(@"  UNION ALL ");
+                    sbSql.AppendFormat(@"  SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],MC1.[MC001],MC1.[MC004],CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,CASE WHEN ISNULL(MD2.[MD035],'')='' THEN MD1.[MD035] ELSE MD2.[MD035] END,MD1.[MD006],MD1.[MD007],MD1.[MD008]");
+                    sbSql.AppendFormat(@"  ,CASE WHEN ISNULL(MD2.[MD003],'')='' THEN CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))) ELSE CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))/MC2.[MC004]*MD2.[MD006]/MD2.[MD007]*(1+MD2.[MD008]) ) END  AS TNUM");
+                    sbSql.AppendFormat(@"  FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1");
+                    sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003");
+                    sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.BOMMD MD2 ON MC2.MC001=MD2.MD001");
+                    sbSql.AppendFormat(@"  WHERE [MOCMANULINE].MB001=MC1.MC001");
+                    sbSql.AppendFormat(@"  AND MC1.MC001=MD1.MD001");
+                    sbSql.AppendFormat(@"  AND [MANU]='新廠製二組'");
+                    sbSql.AppendFormat(@"  AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+                    
+                    sbSql.AppendFormat(@"  UNION ALL ");
+                    sbSql.AppendFormat(@"  SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],MC1.[MC001],MC1.[MC004],CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,CASE WHEN ISNULL(MD2.[MD035],'')='' THEN MD1.[MD035] ELSE MD2.[MD035] END,MD1.[MD006],MD1.[MD007],MD1.[MD008]");
+                    sbSql.AppendFormat(@"  ,CASE WHEN ISNULL(MD2.[MD003],'')='' THEN CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))) ELSE CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))/MC2.[MC004]*MD2.[MD006]/MD2.[MD007]*(1+MD2.[MD008]) ) END  AS TNUM");
+                    sbSql.AppendFormat(@"  FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1");
+                    sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003");
+                    sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.BOMMD MD2 ON MC2.MC001=MD2.MD001");
+                    sbSql.AppendFormat(@"  WHERE [MOCMANULINE].MB001=MC1.MC001");
+                    sbSql.AppendFormat(@"  AND MC1.MC001=MD1.MD001");
+                    sbSql.AppendFormat(@"  AND [MANU]='新廠製三組(手工)'");
+                    sbSql.AppendFormat(@"  AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+                    
                     sbSql.AppendFormat(@"  ");
                     sbSql.AppendFormat(@"  ) AS TEMP ");
                     sbSql.AppendFormat(@"  ) AS TEMP2");
