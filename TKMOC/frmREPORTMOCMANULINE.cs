@@ -88,6 +88,8 @@ namespace TKMOC
         DateTime edt;
         DateTime sdt2;
         DateTime edt2;
+        DateTime sdt4;
+        DateTime edt4;
 
         public frmREPORTMOCMANULINE()
         {
@@ -120,6 +122,15 @@ namespace TKMOC
 
             sdt2 = FirstDay;
             edt2 = LastDay;
+        }
+        public void SETDATE4()
+        {
+            DateTime SETDT = Convert.ToDateTime(dateTimePicker11.Value.ToString("yyyy/MM") + "/01");
+            DateTime FirstDay = SETDT.AddDays(-SETDT.Day + 1);
+            DateTime LastDay = SETDT.AddMonths(1).AddDays(-SETDT.AddMonths(1).Day);
+
+            sdt4= FirstDay;
+            edt4 = LastDay;
         }
         public void comboBox1load()
         {
@@ -1208,6 +1219,8 @@ namespace TKMOC
 
         public void ExportDataSetToExcel(DataSet ds, string TopathFile)
         {
+            SETDATE();
+
             int days =Convert.ToInt32( sdt.AddDays(-sdt.Day + 1).DayOfWeek.ToString("d"));
             //MessageBox.Show(days.ToString());
             int MONTHDAYS= DateTime.DaysInMonth(sdt.Year, sdt.Month);
@@ -1993,9 +2006,11 @@ namespace TKMOC
 
         public void ExportDataSetToExcel2(DataSet ds, string TopathFile)
         {
-            int days = Convert.ToInt32(sdt.AddDays(-sdt.Day + 1).DayOfWeek.ToString("d"));
+            SETDATE4();
+
+            int days = Convert.ToInt32(sdt4.AddDays(-sdt4.Day + 1).DayOfWeek.ToString("d"));
             //MessageBox.Show(days.ToString());
-            int MONTHDAYS = DateTime.DaysInMonth(sdt.Year, sdt.Month);
+            int MONTHDAYS = DateTime.DaysInMonth(sdt4.Year, sdt4.Month);
 
             int EXCELX = 2;
             int EXCELY = 0;
@@ -2242,9 +2257,11 @@ namespace TKMOC
 
         public void ExportDataSetToExcel4(DataSet ds, string TopathFile, string[] message4)
         {
-            int days = Convert.ToInt32(sdt.AddDays(-sdt.Day + 1).DayOfWeek.ToString("d"));
+            SETDATE4();
+
+            int days = Convert.ToInt32(sdt4.AddDays(-sdt4.Day + 1).DayOfWeek.ToString("d"));
             //MessageBox.Show(days.ToString());
-            int MONTHDAYS = DateTime.DaysInMonth(sdt.Year, sdt.Month);
+            int MONTHDAYS = DateTime.DaysInMonth(sdt4.Year, sdt4.Month);
 
             int EXCELX = 2;
             int EXCELY = 0;
