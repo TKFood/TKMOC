@@ -32,12 +32,12 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
         SqlDataAdapter adapter2 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder2 = new SqlCommandBuilder();
-        SqlDataAdapter adapter3= new SqlDataAdapter();
+        SqlDataAdapter adapter3 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder3 = new SqlCommandBuilder();
         SqlDataAdapter adapter4 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder4 = new SqlCommandBuilder();
         SqlDataAdapter adapter5 = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder5= new SqlCommandBuilder();
+        SqlCommandBuilder sqlCmdBuilder5 = new SqlCommandBuilder();
         SqlDataAdapter adapter6 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder6 = new SqlCommandBuilder();
         SqlDataAdapter adapter7 = new SqlDataAdapter();
@@ -49,7 +49,9 @@ namespace TKMOC
         SqlDataAdapter adapter10 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder10 = new SqlCommandBuilder();
         SqlDataAdapter adapter11 = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder11= new SqlCommandBuilder();
+        SqlCommandBuilder sqlCmdBuilder11 = new SqlCommandBuilder();
+        SqlDataAdapter adapter12 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder12 = new SqlCommandBuilder();
 
         SqlTransaction tran;
         SqlCommand cmd = new SqlCommand();
@@ -64,6 +66,7 @@ namespace TKMOC
         DataSet ds9 = new DataSet();
         DataSet ds10 = new DataSet();
         DataSet ds11 = new DataSet();
+        DataSet ds12 = new DataSet();
 
         int result;
 
@@ -80,7 +83,7 @@ namespace TKMOC
         string MB002;
         string MB003;
         string IN;
-        decimal MC004 = 0; 
+        decimal MC004 = 0;
 
         DataSet dsBOMMC = new DataSet();
         DataSet dsBOMMD = new DataSet();
@@ -174,7 +177,7 @@ namespace TKMOC
             InitializeComponent();
         }
 
-        
+
 
 
 
@@ -246,7 +249,7 @@ namespace TKMOC
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
             textBox1.Text = null;
-            textBox2.Text = null; 
+            textBox2.Text = null;
             textBox3.Text = null;
             textBox4.Text = null;
             textBox5.Text = null;
@@ -282,7 +285,7 @@ namespace TKMOC
             }
         }
 
-        public void SEARCHMOCTA(string TA026,string TA027,string TA028)
+        public void SEARCHMOCTA(string TA026, string TA027, string TA028)
         {
             try
             {
@@ -295,7 +298,7 @@ namespace TKMOC
 
                 sbSql.AppendFormat(@" SELECT TA001 AS '製令單別',TA002 AS '製令單號',TA009 AS '預計完工',TA026 AS '訂單',TA027 AS '訂單號',TA028 AS '序號' ");
                 sbSql.AppendFormat(@" FROM [TK].dbo.MOCTA ");
-                sbSql.AppendFormat(@" WHERE TA026='{0}' AND TA027='{1}' AND TA028='{2}' ",TA026,TA027,TA028);
+                sbSql.AppendFormat(@" WHERE TA026='{0}' AND TA027='{1}' AND TA028='{2}' ", TA026, TA027, TA028);
                 sbSql.AppendFormat(@"  ");
                 sbSql.AppendFormat(@"  ");
                 sbSql.AppendFormat(@"  ");
@@ -398,7 +401,7 @@ namespace TKMOC
             FIND.Clear();
             //ADDTARGET.RemoveAll(it => true);
 
-            ADDTARGET.Add(new ADDITEM { MB001 =textBox4.Text , NUM = Convert.ToDouble(textBox5.Text) ,MB068=textBox7.Text});
+            ADDTARGET.Add(new ADDITEM { MB001 = textBox4.Text, NUM = Convert.ToDouble(textBox5.Text), MB068 = textBox7.Text });
 
             SERACH(ADDTARGET[0].MB001, ADDTARGET[0].NUM, FIND);
 
@@ -414,7 +417,7 @@ namespace TKMOC
 
         }
 
-        public void GENADDTARGET2(string MB001,double NUM,string MB068)
+        public void GENADDTARGET2(string MB001, double NUM, string MB068)
         {
             ADDTARGET.Clear();
             FIND.Clear();
@@ -531,7 +534,7 @@ namespace TKMOC
                 {
                     if (ds3.Tables["ds3"].Rows.Count >= 1)
                     {
-                        ADDTARGET.Add(new ADDITEM { MB001 = MB001, NUM = NUM,MB068= ds3.Tables["ds3"].Rows[0]["MB068"].ToString() });
+                        ADDTARGET.Add(new ADDITEM { MB001 = MB001, NUM = NUM, MB068 = ds3.Tables["ds3"].Rows[0]["MB068"].ToString() });
 
                     }
                 }
@@ -547,7 +550,7 @@ namespace TKMOC
             }
         }
 
-        public void GENMOCTAB(DateTime DTMOCTAB,string TA021,string TA029,string TC001, string TC002, string TC003)
+        public void GENMOCTAB(DateTime DTMOCTAB, string TA021, string TA029, string TC001, string TC002, string TC003)
         {
             foreach (var find in ADDTARGET)
             {
@@ -561,7 +564,7 @@ namespace TKMOC
 
         }
 
-        public void GENMOCTAB2(DateTime DTMOCTAB,string TA021, string TA029)
+        public void GENMOCTAB2(DateTime DTMOCTAB, string TA021, string TA029)
         {
             foreach (var find in ADDTARGET)
             {
@@ -575,7 +578,7 @@ namespace TKMOC
 
         }
 
-        public string GETMAXTA002(string TA001,DateTime DTMOCTAB)
+        public string GETMAXTA002(string TA001, DateTime DTMOCTAB)
         {
             string TA002;
 
@@ -631,7 +634,7 @@ namespace TKMOC
             }
 
         }
-        public string SETTA002(string TA002,DateTime DTMOCTAB)
+        public string SETTA002(string TA002, DateTime DTMOCTAB)
         {
             if (TA002.Equals("00000000000"))
             {
@@ -649,10 +652,10 @@ namespace TKMOC
 
         }
 
-        public void ADDMOCTATB(string TA001,string TA002,string MB001,double NUM,string MB068,DateTime DTMOCTAB,string TA021, string TA029, string TC001, string TC002, string TC003)
+        public void ADDMOCTATB(string TA001, string TA002, string MB001, double NUM, string MB068, DateTime DTMOCTAB, string TA021, string TA029, string TC001, string TC002, string TC003)
         {
             MOCTADATA MOCTA = new MOCTADATA();
-            MOCTA = SETMOCTA(TA001, TA002, MB001, NUM, MB068, DTMOCTAB, TA021, TA029,TC001,TC002,TC003);
+            MOCTA = SETMOCTA(TA001, TA002, MB001, NUM, MB068, DTMOCTAB, TA021, TA029, TC001, TC002, TC003);
 
             string MOCMB001 = null;
             decimal MOCTA004 = 0;
@@ -663,7 +666,7 @@ namespace TKMOC
             const int MaxLength = 100;
 
             MOCMB001 = MB001;
-            MOCTA004 = Convert.ToDecimal(NUM)/ MC004;
+            MOCTA004 = Convert.ToDecimal(NUM) / MC004;
 
             try
             {
@@ -753,7 +756,7 @@ namespace TKMOC
             string MOCMB001 = null;
             decimal MOCTA004 = 0;
             string MOCTB009 = null;
-            
+
 
             const int MaxLength = 100;
 
@@ -870,8 +873,8 @@ namespace TKMOC
             MOCTA.TA010 = DTMOCTAB.ToString("yyyyMMdd");
             MOCTA.TA011 = "1";
             MOCTA.TA012 = DTMOCTAB.ToString("yyyyMMdd");
-            MOCTA.TA013 = "N";           
-            MOCTA.TA014 = "";          
+            MOCTA.TA013 = "N";
+            MOCTA.TA014 = "";
             MOCTA.TA015 = NUM.ToString();
             MOCTA.TA016 = "0";
             MOCTA.TA017 = "0";
@@ -905,7 +908,7 @@ namespace TKMOC
 
         }
 
-        public MOCTADATA SETMOCTA2(string TA001, string TA002, string MB001, double NUM, string MB068, DateTime DTMOCTAB,string TA021, string TA029)
+        public MOCTADATA SETMOCTA2(string TA001, string TA002, string MB001, double NUM, string MB068, DateTime DTMOCTAB, string TA021, string TA029)
         {
             SEARCHBOMMC(MB001);
 
@@ -979,7 +982,7 @@ namespace TKMOC
             MB002 = null;
             MB003 = null;
             MC004 = 0;
-        
+
             try
             {
                 connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
@@ -1023,7 +1026,7 @@ namespace TKMOC
                         //UNIT = dsBOMMC.Tables["dsBOMMC"].Rows[0]["MC002"].ToString();
                         UNIT = dsBOMMC.Tables["dsBOMMC"].Rows[0]["MB004"].ToString();
                         //BOMBAR = Convert.ToDecimal(dsBOMMC.Tables["dsBOMMC"].Rows[0]["MC004"].ToString());
-                        IN= dsBOMMC.Tables["dsBOMMC"].Rows[0]["MB017"].ToString();
+                        IN = dsBOMMC.Tables["dsBOMMC"].Rows[0]["MB017"].ToString();
                         MB002 = dsBOMMC.Tables["dsBOMMC"].Rows[0]["MB002"].ToString();
                         MB003 = dsBOMMC.Tables["dsBOMMC"].Rows[0]["MB003"].ToString();
                         MC004 = Convert.ToDecimal(dsBOMMC.Tables["dsBOMMC"].Rows[0]["MC004"].ToString()); ;
@@ -1041,7 +1044,7 @@ namespace TKMOC
             }
 
         }
-       
+
         public void SEARCHBATCHMOCTAB(string IDDATE)
         {
             try
@@ -1055,7 +1058,7 @@ namespace TKMOC
 
                 sbSql.AppendFormat(@"  SELECT [ID]  AS '批號',[MB001]  AS '品號',[MB002]  AS '品名',[NUM]  AS '數量',[MB004] AS '單位',[MB068] AS '線別',CONVERT(nvarchar,[IDDATE],112) AS '日期'");
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[BATCHMOCTAB]");
-                sbSql.AppendFormat(@"  WHERE CONVERT(nvarchar,[IDDATE],112)='{0}'",IDDATE);
+                sbSql.AppendFormat(@"  WHERE CONVERT(nvarchar,[IDDATE],112)='{0}'", IDDATE);
                 sbSql.AppendFormat(@"  ORDER BY [ID]");
                 sbSql.AppendFormat(@"  ");
                 sbSql.AppendFormat(@"  ");
@@ -1111,7 +1114,7 @@ namespace TKMOC
                 ds4.Clear();
 
                 sbSql.AppendFormat(@"  SELECT ISNULL(MAX([ID]),'00000000000') AS ID ");
-                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[BATCHMOCTAB]");                
+                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[BATCHMOCTAB]");
                 sbSql.AppendFormat(@"  WHERE CONVERT(nvarchar,[IDDATE],112)='{0}'", IDDATE);
                 sbSql.AppendFormat(@"  ");
                 sbSql.AppendFormat(@"  ");
@@ -1202,7 +1205,7 @@ namespace TKMOC
 
                 if (ds9.Tables["ds9"].Rows.Count == 0)
                 {
-                   
+
                 }
                 else
                 {
@@ -1212,13 +1215,13 @@ namespace TKMOC
                         textBox15.Text = ds9.Tables["ds9"].Rows[0]["MB004"].ToString();
                         textBox16.Text = ds9.Tables["ds9"].Rows[0]["MB068"].ToString();
 
-                    }         
+                    }
                 }
 
             }
             catch
             {
-                
+
             }
             finally
             {
@@ -1226,7 +1229,7 @@ namespace TKMOC
             }
         }
 
-        public void ADDBATCHMOCTAB(string ID,string MB001,string MB002,string MB004, decimal NUM, string MB068, string IDDATE)
+        public void ADDBATCHMOCTAB(string ID, string MB001, string MB002, string MB004, decimal NUM, string MB068, string IDDATE)
         {
             try
             {
@@ -1241,7 +1244,7 @@ namespace TKMOC
 
                 sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[BATCHMOCTAB]");
                 sbSql.AppendFormat(" ([ID],[MB001],[MB002],[MB004],[NUM],[MB068],[IDDATE])");
-                sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}','{3}',{4},'{5}','{6}')", ID,MB001,MB002,MB004,NUM,MB068,IDDATE);
+                sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}','{3}',{4},'{5}','{6}')", ID, MB001, MB002, MB004, NUM, MB068, IDDATE);
                 sbSql.AppendFormat(" ");
 
 
@@ -1286,7 +1289,7 @@ namespace TKMOC
                 sbSql.Clear();
 
                 sbSql.AppendFormat(" UPDATE [TKMOC].[dbo].[BATCHMOCTAB]");
-                sbSql.AppendFormat(" SET [NUM]={0}",NUM);
+                sbSql.AppendFormat(" SET [NUM]={0}", NUM);
                 sbSql.AppendFormat(" WHERE ID='{0}'", ID);
                 sbSql.AppendFormat(" ");
 
@@ -1343,7 +1346,7 @@ namespace TKMOC
             }
         }
 
-      
+
         public void SETNULL()
         {
             textBox11.Text = null;
@@ -1367,7 +1370,7 @@ namespace TKMOC
 
                 sbSql.AppendFormat(@"  SELECT [MD003] AS '品號',[MD035] AS '品名',[MD001] AS '主件'");
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[BATCHMOCLIMIT]");
-                sbSql.AppendFormat(@"  WHERE [MD001]='{0}'",MD001);
+                sbSql.AppendFormat(@"  WHERE [MD001]='{0}'", MD001);
                 sbSql.AppendFormat(@"  ");
 
                 adapter11 = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -1397,6 +1400,150 @@ namespace TKMOC
             {
 
             }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void ADDMOCLIMIT(string MD001, string MD003, string MD035)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[BATCHMOCLIMIT]");
+                sbSql.AppendFormat(" ([MD001],[MD003],[MD035])");
+                sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}')", MD001, MD003, MD035);
+                sbSql.AppendFormat(" ");
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+                }
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        private void textBox18_TextChanged(object sender, EventArgs e)
+        {
+            SEARCHINVMB2(textBox18.Text.Trim());
+        }
+
+        public void SEARCHINVMB2(string MB001)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                StringBuilder sbSql = new StringBuilder();
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+                ds4.Clear();
+
+                sbSql.AppendFormat(@"  SELECT MB002,MB004,MB068 ");
+                sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB");
+                sbSql.AppendFormat(@"  WHERE MB001='{0}'", MB001);
+                sbSql.AppendFormat(@"  ");
+
+                adapter12 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder12 = new SqlCommandBuilder(adapter12);
+                sqlConn.Open();
+                ds12.Clear();
+                adapter12.Fill(ds12, "ds12");
+                sqlConn.Close();
+
+
+                if (ds12.Tables["ds12"].Rows.Count == 0)
+                {
+
+                }
+                else
+                {
+                    if (ds12.Tables["ds12"].Rows.Count >= 1)
+                    {
+                        textBox19.Text = ds12.Tables["ds12"].Rows[0]["MB002"].ToString();
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void DELETEMOCLIMIT(string MD001,string MD003)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat(" DELETE [TKMOC].[dbo].[BATCHMOCLIMIT]");
+                sbSql.AppendFormat(" WHERE MD001='{0}' AND MD003='{1}'",MD001,MD003);
+                sbSql.AppendFormat(" ");
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+                }
+            }
+            catch
+            {
+
+            }
+
             finally
             {
                 sqlConn.Close();
@@ -1462,18 +1609,37 @@ namespace TKMOC
 
         private void button8_Click(object sender, EventArgs e)
         {
+            if(!string.IsNullOrEmpty(textBox12.Text.Trim())&& !string.IsNullOrEmpty(textBox18.Text.Trim()) && !string.IsNullOrEmpty(textBox19.Text.Trim()) )
+            {
+                ADDMOCLIMIT(textBox12.Text.Trim(), textBox18.Text.Trim(), textBox19.Text.Trim());
+                SEARCHBATCHMOCLIMIT(textBox12.Text.Trim());
+            }
 
-            SEARCHBATCHMOCLIMIT(textBox12.Text.Trim());
+
+            textBox18.Text = null;
+            textBox19.Text = null;
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
+            DialogResult dialogResult = MessageBox.Show("要刪除了?", "要刪除了?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                if (!string.IsNullOrEmpty(textBox12.Text.Trim()) && !string.IsNullOrEmpty(textBox18.Text.Trim()) && !string.IsNullOrEmpty(textBox19.Text.Trim()))
+                {
+                    DELETEMOCLIMIT(textBox12.Text.Trim(), textBox18.Text.Trim());
+                    SEARCHBATCHMOCLIMIT(textBox12.Text.Trim());
+                }
+                    
+            }
+            textBox18.Text = null;
+            textBox19.Text = null;
 
-            SEARCHBATCHMOCLIMIT(textBox12.Text.Trim());
         }
+
 
         #endregion
 
-
+      
     }
 }
