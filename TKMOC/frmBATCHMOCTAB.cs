@@ -48,6 +48,8 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder9 = new SqlCommandBuilder();
         SqlDataAdapter adapter10 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder10 = new SqlCommandBuilder();
+        SqlDataAdapter adapter11 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder11= new SqlCommandBuilder();
 
         SqlTransaction tran;
         SqlCommand cmd = new SqlCommand();
@@ -61,6 +63,7 @@ namespace TKMOC
         DataSet ds8 = new DataSet();
         DataSet ds9 = new DataSet();
         DataSet ds10 = new DataSet();
+        DataSet ds11 = new DataSet();
 
         int result;
 
@@ -1331,6 +1334,7 @@ namespace TKMOC
                     textBox17.Text = row.Cells["線別"].Value.ToString();
 
                     SEARCHMOCTA2(textBox11.Text);
+                    SEARCHBATCHMOCLIMIT(textBox12.Text.Trim());
                 }
                 else
                 {
@@ -1347,6 +1351,56 @@ namespace TKMOC
             textBox13.Text = null;
             textBox14.Text = null;
 
+        }
+
+        public void SEARCHBATCHMOCLIMIT(string MD001)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                StringBuilder sbSql = new StringBuilder();
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+                ds4.Clear();
+
+                sbSql.AppendFormat(@"  SELECT [MD003] AS '品號',[MD035] AS '品名',[MD001] AS '主件'");
+                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[BATCHMOCLIMIT]");
+                sbSql.AppendFormat(@"  WHERE [MD001]='{0}'",MD001);
+                sbSql.AppendFormat(@"  ");
+
+                adapter11 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder11 = new SqlCommandBuilder(adapter11);
+                sqlConn.Open();
+                ds11.Clear();
+                adapter11.Fill(ds11, "ds11");
+                sqlConn.Close();
+
+
+                if (ds11.Tables["ds11"].Rows.Count == 0)
+                {
+                    dataGridView5.DataSource = null;
+                }
+                else
+                {
+                    if (ds11.Tables["ds11"].Rows.Count >= 1)
+                    {
+                        dataGridView5.DataSource = ds11.Tables["ds11"];
+                        dataGridView5.AutoResizeColumns();
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
         }
 
         #endregion
@@ -1406,9 +1460,20 @@ namespace TKMOC
             SEARCHMOCTA2(textBox11.Text);
         }
 
+        private void button8_Click(object sender, EventArgs e)
+        {
+
+            SEARCHBATCHMOCLIMIT(textBox12.Text.Trim());
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+
+            SEARCHBATCHMOCLIMIT(textBox12.Text.Trim());
+        }
 
         #endregion
 
-    
+
     }
 }
