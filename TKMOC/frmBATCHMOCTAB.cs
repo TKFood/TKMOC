@@ -566,14 +566,29 @@ namespace TKMOC
 
         public void GENMOCTAB2(DateTime DTMOCTAB, string TA021, string TA029)
         {
-            foreach (var find in ADDTARGET)
+            if (ds11.Tables["ds11"].Rows.Count > 0)
             {
-                TA001 = "A513";
-                TA002 = GETMAXTA002(TA001, DTMOCTAB);
+                foreach (DataRow GEMITEMS in ds11.Tables["ds11"].Rows)
+                {
+                    //GEMITEMS["品號"].ToString();
 
-                ADDMOCTATB2(TA001, TA002, find.MB001, find.NUM, find.MB068, DTMOCTAB, TA021, TA029);
-                //MessageBox.Show(find.MB001 + " " + find.NUM + " " + find.MB068 + " "+ TA001+"-"+ TA002);
+                    foreach (var find in ADDTARGET)
+                    {
+                        if(find.MB001.Equals(GEMITEMS["品號"].ToString()))
+                        {
+                            TA001 = "A513";
+                            TA002 = GETMAXTA002(TA001, DTMOCTAB);
+
+                            ADDMOCTATB2(TA001, TA002, find.MB001, find.NUM, find.MB068, DTMOCTAB, TA021, TA029);
+
+                        }
+                        
+                        //MessageBox.Show(find.MB001 + " " + find.NUM + " " + find.MB068 + " "+ TA001+"-"+ TA002);
+                    }
+                }
             }
+
+          
 
 
         }
@@ -1371,6 +1386,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  SELECT [MD003] AS '品號',[MD035] AS '品名',[MD001] AS '主件'");
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[BATCHMOCLIMIT]");
                 sbSql.AppendFormat(@"  WHERE [MD001]='{0}'", MD001);
+                sbSql.AppendFormat(@"  ORDER BY [MD003] DESC");
                 sbSql.AppendFormat(@"  ");
 
                 adapter11 = new SqlDataAdapter(@"" + sbSql, sqlConn);
