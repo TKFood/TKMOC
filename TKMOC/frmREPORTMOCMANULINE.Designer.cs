@@ -37,10 +37,10 @@
             this.dateTimePicker11 = new System.Windows.Forms.DateTimePicker();
             this.comboBox6 = new System.Windows.Forms.ComboBox();
             this.label17 = new System.Windows.Forms.Label();
-            this.button13 = new System.Windows.Forms.Button();
-            this.button14 = new System.Windows.Forms.Button();
             this.dateTimePicker14 = new System.Windows.Forms.DateTimePicker();
             this.button15 = new System.Windows.Forms.Button();
+            this.button14 = new System.Windows.Forms.Button();
+            this.button13 = new System.Windows.Forms.Button();
             this.button17 = new System.Windows.Forms.Button();
             this.previewControl1 = new FastReport.Preview.PreviewControl();
             this.tabPage10 = new System.Windows.Forms.TabPage();
@@ -139,6 +139,7 @@
             this.button12 = new System.Windows.Forms.Button();
             this.comboBox5 = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
+            this.button19 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer7)).BeginInit();
@@ -223,7 +224,7 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1131, 655);
+            this.tabControl1.Size = new System.Drawing.Size(1131, 625);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage9
@@ -231,7 +232,7 @@
             this.tabPage9.Controls.Add(this.splitContainer7);
             this.tabPage9.Location = new System.Drawing.Point(4, 26);
             this.tabPage9.Name = "tabPage9";
-            this.tabPage9.Size = new System.Drawing.Size(1123, 625);
+            this.tabPage9.Size = new System.Drawing.Size(1123, 595);
             this.tabPage9.TabIndex = 8;
             this.tabPage9.Text = "業務-預排訂單行事曆";
             this.tabPage9.UseVisualStyleBackColor = true;
@@ -251,8 +252,8 @@
             // splitContainer7.Panel2
             // 
             this.splitContainer7.Panel2.Controls.Add(this.previewControl1);
-            this.splitContainer7.Size = new System.Drawing.Size(1123, 625);
-            this.splitContainer7.SplitterDistance = 194;
+            this.splitContainer7.Size = new System.Drawing.Size(1123, 595);
+            this.splitContainer7.SplitterDistance = 184;
             this.splitContainer7.TabIndex = 0;
             // 
             // tableLayoutPanel7
@@ -277,6 +278,7 @@
             this.tableLayoutPanel7.Controls.Add(this.button14, 4, 1);
             this.tableLayoutPanel7.Controls.Add(this.button13, 3, 2);
             this.tableLayoutPanel7.Controls.Add(this.button17, 4, 2);
+            this.tableLayoutPanel7.Controls.Add(this.button19, 5, 2);
             this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel7.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel7.Margin = new System.Windows.Forms.Padding(4);
@@ -286,7 +288,7 @@
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 53F));
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 53F));
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 53F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(1119, 190);
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(1119, 180);
             this.tableLayoutPanel7.TabIndex = 3;
             // 
             // label16
@@ -325,7 +327,7 @@
             "新廠吧台烘焙線",
             "新廠包裝線",
             "新廠托外加工"});
-            this.comboBox6.Location = new System.Drawing.Point(184, 69);
+            this.comboBox6.Location = new System.Drawing.Point(184, 67);
             this.comboBox6.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox6.Name = "comboBox6";
             this.comboBox6.Size = new System.Drawing.Size(172, 24);
@@ -343,30 +345,6 @@
             this.label17.TabIndex = 9;
             this.label17.Text = "線別";
             this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // button13
-            // 
-            this.button13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button13.Location = new System.Drawing.Point(515, 112);
-            this.button13.Margin = new System.Windows.Forms.Padding(4);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(201, 41);
-            this.button13.TabIndex = 3;
-            this.button13.Text = "匯出行事曆";
-            this.button13.UseVisualStyleBackColor = true;
-            this.button13.Click += new System.EventHandler(this.button13_Click);
-            // 
-            // button14
-            // 
-            this.button14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button14.Location = new System.Drawing.Point(724, 59);
-            this.button14.Margin = new System.Windows.Forms.Padding(4);
-            this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(172, 41);
-            this.button14.TabIndex = 8;
-            this.button14.Text = "關閉所有excel";
-            this.button14.UseVisualStyleBackColor = true;
-            this.button14.Click += new System.EventHandler(this.button14_Click);
             // 
             // dateTimePicker14
             // 
@@ -391,6 +369,30 @@
             this.button15.UseVisualStyleBackColor = true;
             this.button15.Click += new System.EventHandler(this.button15_Click);
             // 
+            // button14
+            // 
+            this.button14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button14.Location = new System.Drawing.Point(724, 59);
+            this.button14.Margin = new System.Windows.Forms.Padding(4);
+            this.button14.Name = "button14";
+            this.button14.Size = new System.Drawing.Size(172, 41);
+            this.button14.TabIndex = 8;
+            this.button14.Text = "關閉所有excel";
+            this.button14.UseVisualStyleBackColor = true;
+            this.button14.Click += new System.EventHandler(this.button14_Click);
+            // 
+            // button13
+            // 
+            this.button13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button13.Location = new System.Drawing.Point(515, 112);
+            this.button13.Margin = new System.Windows.Forms.Padding(4);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(201, 41);
+            this.button13.TabIndex = 3;
+            this.button13.Text = "匯出行事曆";
+            this.button13.UseVisualStyleBackColor = true;
+            this.button13.Click += new System.EventHandler(this.button13_Click);
+            // 
             // button17
             // 
             this.button17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -412,7 +414,7 @@
             this.previewControl1.Name = "previewControl1";
             this.previewControl1.PageOffset = new System.Drawing.Point(10, 10);
             this.previewControl1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.previewControl1.Size = new System.Drawing.Size(1119, 423);
+            this.previewControl1.Size = new System.Drawing.Size(1119, 403);
             this.previewControl1.TabIndex = 0;
             // 
             // tabPage10
@@ -758,7 +760,7 @@
             "新廠吧台烘焙線",
             "新廠包裝線",
             "新廠托外加工"});
-            this.comboBox1.Location = new System.Drawing.Point(184, 67);
+            this.comboBox1.Location = new System.Drawing.Point(184, 69);
             this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(172, 24);
@@ -1168,7 +1170,7 @@
             "新廠吧台烘焙線",
             "新廠包裝線",
             "新廠托外加工"});
-            this.comboBox2.Location = new System.Drawing.Point(184, 67);
+            this.comboBox2.Location = new System.Drawing.Point(184, 69);
             this.comboBox2.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(172, 24);
@@ -1348,7 +1350,7 @@
             "新廠吧台烘焙線",
             "新廠包裝線",
             "新廠托外加工"});
-            this.comboBox3.Location = new System.Drawing.Point(184, 67);
+            this.comboBox3.Location = new System.Drawing.Point(184, 69);
             this.comboBox3.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(172, 24);
@@ -1695,7 +1697,7 @@
             "新廠吧台烘焙線",
             "新廠包裝線",
             "新廠托外加工"});
-            this.comboBox4.Location = new System.Drawing.Point(184, 67);
+            this.comboBox4.Location = new System.Drawing.Point(184, 69);
             this.comboBox4.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox4.Name = "comboBox4";
             this.comboBox4.Size = new System.Drawing.Size(172, 24);
@@ -1816,7 +1818,7 @@
             "新廠吧台烘焙線",
             "新廠包裝線",
             "新廠托外加工"});
-            this.comboBox5.Location = new System.Drawing.Point(184, 69);
+            this.comboBox5.Location = new System.Drawing.Point(184, 67);
             this.comboBox5.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox5.Name = "comboBox5";
             this.comboBox5.Size = new System.Drawing.Size(172, 24);
@@ -1835,11 +1837,23 @@
             this.label15.Text = "線別";
             this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // button19
+            // 
+            this.button19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button19.Location = new System.Drawing.Point(904, 112);
+            this.button19.Margin = new System.Windows.Forms.Padding(4);
+            this.button19.Name = "button19";
+            this.button19.Size = new System.Drawing.Size(172, 41);
+            this.button19.TabIndex = 14;
+            this.button19.Text = "匯出各線工時到UOF行事曆";
+            this.button19.UseVisualStyleBackColor = true;
+            this.button19.Click += new System.EventHandler(this.button19_Click);
+            // 
             // frmREPORTMOCMANULINE
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1131, 655);
+            this.ClientSize = new System.Drawing.Size(1131, 625);
             this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -2035,5 +2049,6 @@
         private System.Windows.Forms.DateTimePicker dateTimePicker18;
         private System.Windows.Forms.Button button16;
         private System.Windows.Forms.Button button17;
+        private System.Windows.Forms.Button button19;
     }
 }
