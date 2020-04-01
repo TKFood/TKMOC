@@ -42,6 +42,8 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder3 = new SqlCommandBuilder();
         SqlDataAdapter adapter4 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder4 = new SqlCommandBuilder();
+        SqlDataAdapter adapter5 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder5 = new SqlCommandBuilder();
 
         SqlCommand cmd = new SqlCommand();
         SqlTransaction tran;
@@ -51,6 +53,7 @@ namespace TKMOC
         DataSet ds2 = new DataSet();
         DataSet ds3 = new DataSet();
         DataSet ds4 = new DataSet();
+        DataSet ds5 = new DataSet();
 
         string tablename = null;
 
@@ -82,7 +85,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"  SELECT [MD003] AS '品號',[MD035] AS '品名',SUM(TNUM) AS '需求量',[MB004]  AS '單位'");
                     sbSql.AppendFormat(@"  ,(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WHERE  LA001=MD003 AND LA009 IN ('20004','20005','20006') )AS '庫存量'");
                     sbSql.AppendFormat(@"  ,(SUM(TNUM)-(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WHERE  LA001=MD003 AND LA009 IN ('20004','20005','20006') )) AS '差異量'");
-                    sbSql.AppendFormat(@"  ,(SELECT ISNULL(SUM(TD008-TD015),0) FROM [TK].dbo.PURTD WHERE TD004=[MD003] AND TD018='Y' AND TD016='N' AND TD012>='{0}' AND TD012<='{1}') AS '預計採購量'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+                    sbSql.AppendFormat(@"  ,(SELECT ISNULL(SUM(TD008-TD015),0) FROM [TK].dbo.PURTD WHERE TD004=[MD003] AND TD018='Y' AND TD016='N' AND TD012>='{0}' AND TD012<='{1}') AS '採購未交數量'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
                     sbSql.AppendFormat(@"  FROM (");
                     sbSql.AppendFormat(@"  SELECT [MANU],[MANUDATE],[MB001],[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008],TNUM,[MB004]");
                     sbSql.AppendFormat(@"  FROM (");
@@ -141,7 +144,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"  SELECT [MD003] AS '品號',[MD035] AS '品名',SUM(TNUM) AS '需求量',[MB004]  AS '單位'");
                     sbSql.AppendFormat(@"  ,(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WHERE  LA001=MD003 AND LA009 IN ('20004','20005','20006') )AS '庫存量'");
                     sbSql.AppendFormat(@"  ,(SUM(TNUM)-(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WHERE  LA001=MD003 AND LA009 IN ('20004','20005','20006') )) AS '差異量'");
-                    sbSql.AppendFormat(@"  ,(SELECT ISNULL(SUM(TD008-TD015),0) FROM [TK].dbo.PURTD WHERE TD004=[MD003] AND TD018='Y' AND TD016='N' AND TD012>='{0}' AND TD012<='{1}') AS '預計採購量'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+                    sbSql.AppendFormat(@"  ,(SELECT ISNULL(SUM(TD008-TD015),0) FROM [TK].dbo.PURTD WHERE TD004=[MD003] AND TD018='Y' AND TD016='N' AND TD012>='{0}' AND TD012<='{1}') AS '採購未交數量'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
                     sbSql.AppendFormat(@"  FROM (");
                     sbSql.AppendFormat(@"  SELECT [MANU],[MANUDATE],[MB001],[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008],TNUM,[MB004]");
                     sbSql.AppendFormat(@"  FROM (");
@@ -201,7 +204,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"  SELECT [MD003] AS '品號',[MD035] AS '品名',SUM(TNUM) AS '需求量',MB004 AS '單位'");
                     sbSql.AppendFormat(@"  ,(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WHERE  LA001=MD003 AND LA009 IN ('20004','20005','20006') )AS '庫存量'");
                     sbSql.AppendFormat(@"  ,(SUM(TNUM)-(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WHERE  LA001=MD003 AND LA009 IN ('20004','20005','20006') )) AS '差異量'");
-                    sbSql.AppendFormat(@"  ,(SELECT ISNULL(SUM(TD008-TD015),0) FROM [TK].dbo.PURTD WHERE TD004=[MD003] AND TD018='Y' AND TD016='N' AND TD012>='{0}' AND TD012<='{1}') AS '預計採購量'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+                    sbSql.AppendFormat(@"  ,(SELECT ISNULL(SUM(TD008-TD015),0) FROM [TK].dbo.PURTD WHERE TD004=[MD003] AND TD018='Y' AND TD016='N' AND TD012>='{0}' AND TD012<='{1}') AS '採購未交數量'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
                     sbSql.AppendFormat(@"  FROM (");
                     sbSql.AppendFormat(@"  SELECT [MANU],[MANUDATE],TEMP.[MB001],TEMP.[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008],TNUM");
                     sbSql.AppendFormat(@"  FROM (");
@@ -258,7 +261,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"  SELECT [MD003] AS '品號',[MD035] AS '品名',SUM(TNUM) AS '需求量',MB004 AS '單位'");
                     sbSql.AppendFormat(@"  ,(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WHERE  LA001=MD003 AND LA009 IN ('20004','20005','20006') )AS '庫存量'");
                     sbSql.AppendFormat(@"  ,(SUM(TNUM)-(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WHERE  LA001=MD003 AND LA009 IN ('20004','20005','20006') )) AS '差異量'");
-                    sbSql.AppendFormat(@"  ,(SELECT ISNULL(SUM(TD008-TD015),0) FROM [TK].dbo.PURTD WHERE TD004=[MD003] AND TD018='Y' AND TD016='N' AND TD012>='{0}' AND TD012<='{1}') AS '預計採購量'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+                    sbSql.AppendFormat(@"  ,(SELECT ISNULL(SUM(TD008-TD015),0) FROM [TK].dbo.PURTD WHERE TD004=[MD003] AND TD018='Y' AND TD016='N' AND TD012>='{0}' AND TD012<='{1}') AS '採購未交數量'", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
                     sbSql.AppendFormat(@"  FROM (");
                     sbSql.AppendFormat(@"  SELECT [MANU],[MANUDATE],TEMP.[MB001],TEMP.[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008],TNUM");
                     sbSql.AppendFormat(@"  FROM (");
@@ -900,8 +903,80 @@ namespace TKMOC
                 sqlConn.Close();
             }
         }
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dataGridView1.CurrentCell.ColumnIndex.Equals(6) && e.RowIndex != -1)
+            {
+                if (dataGridView1.CurrentCell != null && dataGridView1.CurrentCell.Value != null)
+                {
+                    //MessageBox.Show(dataGridView1.CurrentCell.Value.ToString());
+                    SEARCHPUR(MD003,dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+                }
+
+            }
+        }
+
+        public void SEARCHPUR(string MD003,string SDay,string EDay)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  SELECT TD012 AS '預交日',TD004 AS '品號',TD005 AS '品名',TD006 AS '規格',ISNULL((TD008-TD015),0) AS '採購未交數量',TD009 AS '採購單位'");
+                sbSql.AppendFormat(@"  ,CONVERT(DECIMAL(14,2),(CASE WHEN ISNULL(MD002,'')<>'' THEN (ISNULL((TD008-TD015),0)*MD004/MD003) ELSE TD008 END )) AS '數量'");
+                sbSql.AppendFormat(@"  ,MB004 AS '單位',TD001 AS '採購單別',TD002 AS '採購單號',TD003 AS '序號',MD003,MD004");
+                sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB,[TK].dbo.PURTC,[TK].dbo.PURTD");
+                sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.INVMD ON MD001=TD004 AND MD002=TD009");
+                sbSql.AppendFormat(@"  WHERE TC001=TD001 AND TC002=TD002");
+                sbSql.AppendFormat(@"  AND TD004=MB001");
+                sbSql.AppendFormat(@"  AND TD018='Y' AND TD016='N'");
+                sbSql.AppendFormat(@"  AND TD012>='{0}' AND TD012<='{1}'",SDay,EDay);
+                sbSql.AppendFormat(@"  AND TD004='{0}'",MD003);
+                sbSql.AppendFormat(@"  ORDER BY TD012");
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
 
 
+                adapter5 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder5 = new SqlCommandBuilder(adapter5);
+                sqlConn.Open();
+                ds5.Clear();
+                adapter5.Fill(ds5, "ds5");
+                sqlConn.Close();
+
+
+                if (ds5.Tables["ds5"].Rows.Count == 0)
+                {
+                    dataGridView2.DataSource = null;
+                }
+                else
+                {
+                    if (ds5.Tables["ds5"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView2.DataSource = ds5.Tables["ds5"];
+                        dataGridView2.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+
+        }
         #endregion
 
         #region BUTTON
@@ -951,8 +1026,9 @@ namespace TKMOC
 
 
 
+
         #endregion
 
-
+  
     }
 }
