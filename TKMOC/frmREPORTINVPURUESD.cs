@@ -184,14 +184,14 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  AND CONVERT(NVARCHAR,[MANUDATE],112)>='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112)<='{1}'", SDay, EDay);
                 sbSql.AppendFormat(@"  AND [MD003]='{0}'", MD003);
                 sbSql.AppendFormat(@"  UNION");
-                sbSql.AppendFormat(@"  SELECT '進貨',TD012,TD004,MB002,CONVERT(DECIMAL(14,2),(CASE WHEN ISNULL(MD002,'')<>'' THEN (ISNULL(TD008-TD015,0)*MD004/MD003) ELSE (TD008-TD015) END )) ,MB004,NULL,NULL,NULL,TD001,TD002,TD003");
+                sbSql.AppendFormat(@"  SELECT '1進貨',TD012,TD004,MB002,CONVERT(DECIMAL(14,2),(CASE WHEN ISNULL(MD002,'')<>'' THEN (ISNULL(TD008-TD015,0)*MD004/MD003) ELSE (TD008-TD015) END )) ,MB004,NULL,NULL,NULL,TD001,TD002,TD003");
                 sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB,[TK].dbo.PURTC,[TK].dbo.PURTD ");
                 sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.INVMD ON MD001=TD004 AND MD002=TD009  ");
                 sbSql.AppendFormat(@"  WHERE TC001=TD001 AND TC002=TD002 AND TD004=MB001 AND TD018='Y' AND TD016='N'");
                 sbSql.AppendFormat(@"  AND TD012>='{0}' AND TD012<='{1}' ",SDay,EDay);
                 sbSql.AppendFormat(@"  AND TD004='{0}'", MD003);
                 sbSql.AppendFormat(@"  UNION ");
-                sbSql.AppendFormat(@"  SELECT '庫存' AS MANU,CONVERT(NVARCHAR,GETDATE(),112) AS MANUDATE,LA001 AS MD003,MB002,SUM(LA005*LA011) TNUM, MB004,NULL AS MB001,NULL AS MB002,NULL AS PACKAGE,NULL AS COPTD001,NULL AS COPTD002,NULL AS COPTD002");
+                sbSql.AppendFormat(@"  SELECT '0庫存' AS MANU,CONVERT(NVARCHAR,GETDATE(),112) AS MANUDATE,LA001 AS MD003,MB002,SUM(LA005*LA011) TNUM, MB004,NULL AS MB001,NULL AS MB002,NULL AS PACKAGE,NULL AS COPTD001,NULL AS COPTD002,NULL AS COPTD002");
                 sbSql.AppendFormat(@"  FROM [TK].dbo.INVLA,[TK].dbo.INVMB");
                 sbSql.AppendFormat(@"  WHERE LA001=MB001");
                 sbSql.AppendFormat(@"  AND  LA009 IN ('20004','20006' ) AND LA004<=CONVERT(NVARCHAR,GETDATE(),112) ");
@@ -221,14 +221,14 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  AND CONVERT(NVARCHAR,[MANUDATE],112)>='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112)<='{1}'", SDay, EDay);
                 sbSql.AppendFormat(@"  AND [MD003]='{0}'", MD003);
                 sbSql.AppendFormat(@"  UNION");
-                sbSql.AppendFormat(@"  SELECT '進貨',TD012,TD004,MB002,CONVERT(DECIMAL(14,2),(CASE WHEN ISNULL(MD002,'')<>'' THEN (ISNULL(TD008-TD015,0)*MD004/MD003) ELSE (TD008-TD015) END )) ,MB004,NULL,NULL,NULL,TD001,TD002,TD003");
+                sbSql.AppendFormat(@"  SELECT '1進貨',TD012,TD004,MB002,CONVERT(DECIMAL(14,2),(CASE WHEN ISNULL(MD002,'')<>'' THEN (ISNULL(TD008-TD015,0)*MD004/MD003) ELSE (TD008-TD015) END )) ,MB004,NULL,NULL,NULL,TD001,TD002,TD003");
                 sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB,[TK].dbo.PURTC,[TK].dbo.PURTD ");
                 sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.INVMD ON MD001=TD004 AND MD002=TD009 ");
                 sbSql.AppendFormat(@"  WHERE TC001=TD001 AND TC002=TD002 AND TD004=MB001 AND TD018='Y' AND TD016='N'");
                 sbSql.AppendFormat(@"  AND TD012>='{0}' AND TD012<='{1}' ", SDay, EDay);
                 sbSql.AppendFormat(@"  AND TD004='{0}'",MD003);
                 sbSql.AppendFormat(@"  UNION ");
-                sbSql.AppendFormat(@"  SELECT '庫存' AS MANU,CONVERT(NVARCHAR,GETDATE(),112) AS MANUDATE,LA001 AS MD003,MB002,SUM(LA005*LA011) TNUM, MB004,NULL AS MB001,NULL AS MB002,NULL AS PACKAGE,NULL AS COPTD001,NULL AS COPTD002,NULL AS COPTD002");
+                sbSql.AppendFormat(@"  SELECT '0庫存' AS MANU,CONVERT(NVARCHAR,GETDATE(),112) AS MANUDATE,LA001 AS MD003,MB002,SUM(LA005*LA011) TNUM, MB004,NULL AS MB001,NULL AS MB002,NULL AS PACKAGE,NULL AS COPTD001,NULL AS COPTD002,NULL AS COPTD002");
                 sbSql.AppendFormat(@"  FROM [TK].dbo.INVLA,[TK].dbo.INVMB");
                 sbSql.AppendFormat(@"  WHERE LA001=MB001");
                 sbSql.AppendFormat(@"  AND  LA009 IN ('20004','20006' ) AND LA004<=CONVERT(NVARCHAR,GETDATE(),112) ");
@@ -237,7 +237,8 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  ) AS TEMP3");
                 sbSql.AppendFormat(@"  ) AS TEMP4 ON TEMP2.ID>=TEMP4.ID");
                 sbSql.AppendFormat(@"  GROUP BY TEMP2.ID,TEMP2.MANU,TEMP2.MANUDATE,TEMP2.MD003,TEMP2.MD035,TEMP2.TNUM,TEMP2.MB004,TEMP2.MB001,TEMP2.MB002,TEMP2.PACKAGE,TEMP2.COPTD001,TEMP2.COPTD002,TEMP2.COPTD003");
-                sbSql.AppendFormat(@"  ORDER BY TEMP2.MANUDATE");
+                sbSql.AppendFormat(@"  ORDER BY TEMP2.MANUDATE, TEMP2.MANU
+");
                 sbSql.AppendFormat(@"  ");
                 sbSql.AppendFormat(@"  ");
                 sbSql.AppendFormat(@"  ");
