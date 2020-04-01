@@ -439,6 +439,7 @@ namespace TKMOC
 
         }
 
+        //要查到小數點5位數
         public void SERACH(string MB001, double NUM, List<ADDITEM> FIND)
         {
             try
@@ -451,9 +452,9 @@ namespace TKMOC
 
                 sbSql.AppendFormat(@"  WITH NODE (MD001,MD003,LAYER,MD004,MC004,PREMC004,MD006,MD007,MD008,USEDNUM ,PREUSEDNUM) AS");
                 sbSql.AppendFormat(@"  (");
-                sbSql.AppendFormat(@"  SELECT MD001,MD003,0 ,[MD004],[MC004],[MC004] AS PREMC004,[MD006],[MD007],[MD008],CONVERT(DECIMAL(18,4),([MD006]/[MD007]/[MC004]*(1+MD008))),CONVERT(DECIMAL(18,4),1) AS PREUSEDNUM  FROM [TK].[dbo].[VBOMMD]");
+                sbSql.AppendFormat(@"  SELECT MD001,MD003,0 ,[MD004],[MC004],[MC004] AS PREMC004,[MD006],[MD007],[MD008],CONVERT(DECIMAL(18,5),([MD006]/[MD007]/[MC004]*(1+MD008))),CONVERT(DECIMAL(18,5),1) AS PREUSEDNUM  FROM [TK].[dbo].[VBOMMD]");
                 sbSql.AppendFormat(@"  UNION ALL");
-                sbSql.AppendFormat(@"  SELECT TB1.MD001,TB2.MD003,TB2.LAYER+1,TB2.MD004,TB2.MC004,TB1.MC004,TB2.MD006,TB2.MD007,TB2.MD008,TB2.USEDNUM,CONVERT(DECIMAL(18,4),(TB1.[MD006]/TB1.[MD007]/TB1.[MC004]*(1+TB1.MD008))) AS PREUSEDNUM FROM [TK].[dbo].[VBOMMD] TB1");
+                sbSql.AppendFormat(@"  SELECT TB1.MD001,TB2.MD003,TB2.LAYER+1,TB2.MD004,TB2.MC004,TB1.MC004,TB2.MD006,TB2.MD007,TB2.MD008,TB2.USEDNUM,CONVERT(DECIMAL(18,5),(TB1.[MD006]/TB1.[MD007]/TB1.[MC004]*(1+TB1.MD008))) AS PREUSEDNUM FROM [TK].[dbo].[VBOMMD] TB1");
                 sbSql.AppendFormat(@"  INNER JOIN NODE TB2");
                 sbSql.AppendFormat(@"  ON TB1.MD003 = TB2.MD001");
                 sbSql.AppendFormat(@"  )");
