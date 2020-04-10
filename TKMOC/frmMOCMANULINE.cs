@@ -657,7 +657,7 @@ namespace TKMOC
                 }
                 finally
                 {
-
+                    sqlConn.Close();
                 }
             }
 
@@ -715,7 +715,7 @@ namespace TKMOC
                 }
                 finally
                 {
-
+                    sqlConn.Close();
                 }
             }
             else if (MANU.Equals("新廠製一組"))
@@ -772,7 +772,7 @@ namespace TKMOC
                 }
                 finally
                 {
-
+                    sqlConn.Close();
                 }
             }
             else if (MANU.Equals("新廠製三組(手工)"))
@@ -829,7 +829,7 @@ namespace TKMOC
                 }
                 finally
                 {
-
+                    sqlConn.Close();
                 }
             }
 
@@ -887,7 +887,7 @@ namespace TKMOC
                 }
                 finally
                 {
-
+                    sqlConn.Close();
                 }
             }
 
