@@ -3035,7 +3035,7 @@ namespace TKMOC
                 else
                 {
                     tran.Commit();      //執行交易  
-                    //Console.WriteLine("ADDTOUOFTB_EIP_SCH_MEMO_MOC OK");
+                    MessageBox.Show("完成");
 
                 }
 
