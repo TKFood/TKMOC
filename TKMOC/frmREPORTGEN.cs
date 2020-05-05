@@ -32,11 +32,16 @@ namespace TKMOC
         StringBuilder sbSqlQuery = new StringBuilder();
         SqlDataAdapter adapter1 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
-
+        SqlDataAdapter adapter2 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder2 = new SqlCommandBuilder();
 
         SqlTransaction tran;
         SqlCommand cmd = new SqlCommand();
+        int result;
+
         DataSet ds1 = new DataSet();
+        DataSet ds2 = new DataSet();
+        int ROWS=0;
 
         public Report report1 { get; private set; }
 
@@ -163,6 +168,115 @@ namespace TKMOC
             return FASTSQL.ToString();
         }
 
+        public int SERACHERPINVMB(string TA001, string TA002)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  SELECT [TA001],[TA002],SUBSTRING(TA002,1,4) AS 'YEARS',SUBSTRING(TA002,5,2) AS 'MONTHS',SUBSTRING(TA002,7,2) AS 'DAYS',INVMB.[MB001],INVMB.[MB002],INVMB.[MB003],TA017,CONVERT(INT,ROUND(TA017/[ERPINVMB].BOARDNUM,0)) AS 'ROWS',[ERPINVMB].BOARDNUM  ");
+                sbSql.AppendFormat(@"  FROM [TK].dbo.MOCTA");
+                sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MOCTA.TA006");
+                sbSql.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=INVMB.MB001 ");
+                sbSql.AppendFormat(@"  WHERE TA001='{0}' AND TA002='{1}'",TA001,TA002);
+                sbSql.AppendFormat(@"  ");
+
+                adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder2 = new SqlCommandBuilder(adapter2);
+                sqlConn.Open();
+                ds2.Clear();
+                adapter2.Fill(ds2, "ds2");
+                sqlConn.Close();
+
+
+                if (ds2.Tables["ds2"].Rows.Count == 0)
+                {
+                    return 0;
+                }
+                else
+                {
+                    if (ds2.Tables["ds2"].Rows.Count >= 1)
+                    {
+                        return Convert.ToInt32(ds2.Tables["ds2"].Rows[0]["ROWS"].ToString());
+                    }
+
+                    return 0;
+                }
+
+            }
+            catch
+            {
+                return 0;
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+        public void ADDREPORTGEN(string TA001,string TA002)
+        {
+            ROWS = SERACHERPINVMB(TA001, TA002);
+            if(ROWS > 0)
+            {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sqlConn.Close();
+                    sqlConn.Open();
+                    tran = sqlConn.BeginTransaction();
+
+                    sbSql.Clear();
+
+                    sbSql.AppendFormat("DELETE  [TKMOC].[dbo].[REPORTGEN]");
+                    for (int i=1;i<= ROWS;i++)
+                    {
+                        sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[REPORTGEN]");
+                        sbSql.AppendFormat(" ([TA001],[TA002],[YEARS],[MONTHS],[DAYS],[MB001],[MB002],[MB003],[GENNUM],[BORADNUM])");
+                        sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}',{8},{9})", ds2.Tables["ds2"].Rows[0]["TA001"].ToString(), ds2.Tables["ds2"].Rows[0]["TA002"].ToString(), ds2.Tables["ds2"].Rows[0]["YEARS"].ToString(), ds2.Tables["ds2"].Rows[0]["MONTHS"].ToString(), ds2.Tables["ds2"].Rows[0]["DAYS"].ToString(), ds2.Tables["ds2"].Rows[0]["MB001"].ToString(), ds2.Tables["ds2"].Rows[0]["MB002"].ToString(), ds2.Tables["ds2"].Rows[0]["MB003"].ToString(), ds2.Tables["ds2"].Rows[0]["TA017"].ToString(), i);
+                        sbSql.AppendFormat(" ");
+                    }
+
+                    sbSql.AppendFormat(" ");
+                    sbSql.AppendFormat(" ");
+
+
+                    cmd.Connection = sqlConn;
+                    cmd.CommandTimeout = 60;
+                    cmd.CommandText = sbSql.ToString();
+                    cmd.Transaction = tran;
+                    result = cmd.ExecuteNonQuery();
+
+                    if (result == 0)
+                    {
+                        tran.Rollback();    //交易取消
+                    }
+                    else
+                    {
+                        tran.Commit();      //執行交易  
+
+
+                    }
+
+                }
+                catch
+                {
+
+                }
+
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }
+            
+        }
         #endregion
 
         #region BUTTON
@@ -173,7 +287,17 @@ namespace TKMOC
 
         private void button2_Click(object sender, EventArgs e)
         {
-            SETFASTREPORT(textBox1.Text,textBox2.Text, textBox3.Text, textBox4.Text);
+            ADDREPORTGEN(textBox1.Text, textBox2.Text);
+
+            if(ROWS>0)
+            {
+                //SETFASTREPORT2(textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text);
+            }
+            else
+            {
+                SETFASTREPORT(textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text);
+            }
+            
         }
 
         #endregion
