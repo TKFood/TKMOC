@@ -42,6 +42,7 @@ namespace TKMOC
         DataSet ds1 = new DataSet();
         DataSet ds2 = new DataSet();
         int ROWS=0;
+        int TA017=0;
 
         public Report report1 { get; private set; }
 
@@ -168,7 +169,7 @@ namespace TKMOC
             return FASTSQL.ToString();
         }
 
-        public int SERACHERPINVMB(string TA001, string TA002)
+        public int SERACHERPINVMB(string TA001, string TA002,string TA017)
         {
             try
             {
@@ -178,7 +179,7 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  SELECT [TA001],[TA002],SUBSTRING(TA002,1,4) AS 'YEARS',SUBSTRING(TA002,5,2) AS 'MONTHS',SUBSTRING(TA002,7,2) AS 'DAYS',INVMB.[MB001],INVMB.[MB002],INVMB.[MB003],TA017,CONVERT(INT,ROUND(TA017/[ERPINVMB].BOARDNUM,0)) AS 'ROWS',[ERPINVMB].BOARDNUM  ");
+                sbSql.AppendFormat(@"  SELECT [TA001],[TA002],SUBSTRING(TA002,1,4) AS 'YEARS',SUBSTRING(TA002,5,2) AS 'MONTHS',SUBSTRING(TA002,7,2) AS 'DAYS',INVMB.[MB001],INVMB.[MB002],INVMB.[MB003],{0} AS 'TA017',CONVERT(INT,ROUND({0}/[ERPINVMB].BOARDNUM,0)) AS 'ROWS',[ERPINVMB].BOARDNUM  ", Convert.ToInt32(TA017));
                 sbSql.AppendFormat(@"  FROM [TK].dbo.MOCTA");
                 sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MOCTA.TA006");
                 sbSql.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=INVMB.MB001 ");
@@ -218,9 +219,9 @@ namespace TKMOC
                 sqlConn.Close();
             }
         }
-        public void ADDREPORTGEN(string TA001,string TA002)
+        public void ADDREPORTGEN(string TA001,string TA002,string TA017)
         {
-            ROWS = SERACHERPINVMB(TA001, TA002);
+            ROWS = SERACHERPINVMB(TA001, TA002, TA017);
             if(ROWS > 0)
             {
                 try
@@ -277,6 +278,42 @@ namespace TKMOC
             }
             
         }
+
+        public void SETFASTREPORT2(string TA001, string TA002, string COMMENT, string NUM)
+        {
+            string SQL;
+            report1 = new Report();
+            report1.Load(@"REPORT\生產入庫單(自動).frx");
+
+            report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+
+            TableDataSource Table = report1.GetDataSource("Table") as TableDataSource;
+            SQL = SETFASETSQL2(TA001, TA002);
+            Table.SelectCommand = SQL;
+
+            report1.SetParameterValue("P1", COMMENT);
+            report1.SetParameterValue("P2", NUM);
+
+            report1.Preview = previewControl1;
+            report1.Show();
+        }
+
+
+        public string SETFASETSQL2(string TA001, string TA002)
+        {
+            StringBuilder FASTSQL = new StringBuilder();
+            StringBuilder STRQUERY = new StringBuilder();
+
+
+            FASTSQL.AppendFormat(@" SELECT [TA001]  AS '製令',[TA002] AS '製令號',[YEARS] AS '年',[MONTHS] AS '月',[DAYS] AS '日',[MB001] AS '品號',[MB002] AS '品名',[MB003] AS '規格',[GENNUM]  AS '已生產量' ,[BORADNUM]  AS '版數'     ");
+            FASTSQL.AppendFormat(@" FROM [TKMOC].[dbo].[REPORTGEN]    ");
+            FASTSQL.AppendFormat(@" WHERE TA001='{0}' AND TA002='{1}'", TA001, TA002);
+            FASTSQL.AppendFormat(@" ORDER BY [TA001],[TA002],[BORADNUM]   ");
+            FASTSQL.AppendFormat(@"     ");
+
+            return FASTSQL.ToString();
+        }
+
         #endregion
 
         #region BUTTON
@@ -287,11 +324,11 @@ namespace TKMOC
 
         private void button2_Click(object sender, EventArgs e)
         {
-            ADDREPORTGEN(textBox1.Text, textBox2.Text);
+            ADDREPORTGEN(textBox1.Text, textBox2.Text,textBox4.Text);
 
             if(ROWS>0)
             {
-                //SETFASTREPORT2(textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text);
+                SETFASTREPORT2(textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text);
             }
             else
             {
