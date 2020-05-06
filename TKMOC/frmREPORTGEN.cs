@@ -40,7 +40,7 @@ namespace TKMOC
         SqlTransaction tran;
         SqlCommand cmd = new SqlCommand();
         int result;
-
+        int rownum = 0;
         DataSet ds1 = new DataSet();
         DataSet ds2 = new DataSet();
         DataSet ds3 = new DataSet();
@@ -433,7 +433,7 @@ namespace TKMOC
                     textBox7.Text = row.Cells["品名"].Value.ToString();
                     textBox8.Text = row.Cells["規格"].Value.ToString();
                     numericUpDown1.Value =Convert.ToInt32(row.Cells["箱數"].Value.ToString());
-                    numericUpDown1.Value = Convert.ToInt32(row.Cells["板數"].Value.ToString());
+                    numericUpDown2.Value = Convert.ToInt32(row.Cells["板數"].Value.ToString());
 
                 }
                 else
@@ -442,11 +442,57 @@ namespace TKMOC
                     textBox7.Text = null;
                     textBox8.Text = null;
                     numericUpDown1.Value = 0;
-                    numericUpDown1.Value = 0;
+                    numericUpDown2.Value = 0;
 
                 }
             }
         }
+
+        public void UPDATEERPINVMB()
+        {
+            try
+            {
+                //add ZWAREWHOUSEPURTH
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+                sbSql.AppendFormat(@" UPDATE [TKMOC].[dbo].[ERPINVMB] ");
+                sbSql.AppendFormat(@" SET [BOXNUM]='{0}',[BOARDNUM]='{1}' WHERE [MB001]='{2}' ",numericUpDown1.Value.ToString(), numericUpDown2.Value.ToString(),textBox6.Text.ToString().Trim());
+                sbSql.AppendFormat(@"  ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易   
+                    MessageBox.Show("完成");
+                }
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+
         #endregion
 
         #region BUTTON
@@ -476,11 +522,18 @@ namespace TKMOC
         private void button3_Click(object sender, EventArgs e)
         {
             ADDERPINVMB();
+            Search();
+        }
+        private void button6_Click(object sender, EventArgs e)
+        {
+            UPDATEERPINVMB();
+            Search();
+            
         }
 
 
         #endregion
 
-       
+
     }
 }
