@@ -34,6 +34,8 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
         SqlDataAdapter adapter2 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder2 = new SqlCommandBuilder();
+        SqlDataAdapter adapter3 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder3 = new SqlCommandBuilder();
 
         SqlTransaction tran;
         SqlCommand cmd = new SqlCommand();
@@ -41,6 +43,7 @@ namespace TKMOC
 
         DataSet ds1 = new DataSet();
         DataSet ds2 = new DataSet();
+        DataSet ds3 = new DataSet();
         int ROWS=0;
         int TA017=0;
 
@@ -314,6 +317,66 @@ namespace TKMOC
             return FASTSQL.ToString();
         }
 
+        public void Search()
+        {
+            StringBuilder Query = new StringBuilder();
+            if (!string.IsNullOrEmpty(textBox5.Text.ToString()))
+            {
+                Query.AppendFormat(@" AND MB001 LIKE '{0}%' ", textBox5.Text.ToString());
+            }
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@" SELECT [MB001] AS '品號',[MB002]  AS '品名',[MB003]  AS '規格',[BOXNUM]  AS '箱數',[BOARDNUM]  AS '板數'");
+                sbSql.AppendFormat(@" FROM [TKMOC].[dbo].[ERPINVMB] ");
+                sbSql.AppendFormat(@" WHERE 1=1 ");
+                sbSql.AppendFormat(@" {0}", Query.ToString());
+                sbSql.AppendFormat(@"  ORDER BY [MB001]");
+                sbSql.AppendFormat(@" ");
+
+                adapter3 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder3 = new SqlCommandBuilder(adapter3);
+                sqlConn.Open();
+                ds3.Clear();
+                adapter3.Fill(ds3, "ds3");
+                sqlConn.Close();
+
+
+                if (ds3.Tables["ds3"].Rows.Count == 0)
+                {
+                    dataGridView2.DataSource = null;
+                }
+                else
+                {
+                    if (ds3.Tables["ds3"].Rows.Count >= 1)
+                    {
+
+                        
+                        //dataGridView1.Rows.Clear();
+                        dataGridView2.DataSource = ds3.Tables["ds3"];
+                        dataGridView2.AutoResizeColumns();
+               
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+
         #endregion
 
         #region BUTTON
@@ -335,6 +398,10 @@ namespace TKMOC
                 SETFASTREPORT(textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text);
             }
             
+        }
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Search();
         }
 
         #endregion
