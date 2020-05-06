@@ -421,7 +421,32 @@ namespace TKMOC
             }
         }
 
+        private void dataGridView2_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView2.Rows.Count >= 1)
+            {
+                int rowindex = dataGridView2.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView2.Rows[rowindex];
+                    textBox6.Text = row.Cells["品號"].Value.ToString();
+                    textBox7.Text = row.Cells["品名"].Value.ToString();
+                    textBox8.Text = row.Cells["規格"].Value.ToString();
+                    numericUpDown1.Value =Convert.ToInt32(row.Cells["箱數"].Value.ToString());
+                    numericUpDown1.Value = Convert.ToInt32(row.Cells["板數"].Value.ToString());
 
+                }
+                else
+                {
+                    textBox6.Text = null;
+                    textBox7.Text = null;
+                    textBox8.Text = null;
+                    numericUpDown1.Value = 0;
+                    numericUpDown1.Value = 0;
+
+                }
+            }
+        }
         #endregion
 
         #region BUTTON
@@ -453,8 +478,9 @@ namespace TKMOC
             ADDERPINVMB();
         }
 
+
         #endregion
 
-
+       
     }
 }
