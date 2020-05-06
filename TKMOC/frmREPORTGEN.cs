@@ -46,6 +46,7 @@ namespace TKMOC
         DataSet ds3 = new DataSet();
         int ROWS=0;
         int TA017=0;
+        decimal CHECKROWS = 0;
 
         public Report report1 { get; private set; }
 
@@ -66,7 +67,7 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@" SELECT TA001 AS '製令',TA002 AS '製令號',TA034 AS '品名' ,TA015 AS '預計產量',TA007 AS '單位',TA035  AS '規格',TA029 '備註'");
+                sbSql.AppendFormat(@" SELECT TA001 AS '製令',TA002 AS '製令號',TA006 AS '品號',TA034 AS '品名' ,TA015 AS '預計產量',TA007 AS '單位',TA035  AS '規格',TA029 '備註'");
                 sbSql.AppendFormat(@" FROM [TK].dbo.MOCTA ");
                 sbSql.AppendFormat(@" WHERE TA003>='{0}' AND TA003<='{1}' ", dt.ToString("yyyyMMdd"), dt2.ToString("yyyyMMdd"));
                 sbSql.AppendFormat(@" AND TA001 IN ('A510','A511','A512','A521','A522') ");
@@ -182,7 +183,7 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  SELECT [TA001],[TA002],SUBSTRING(TA002,1,4) AS 'YEARS',SUBSTRING(TA002,5,2) AS 'MONTHS',SUBSTRING(TA002,7,2) AS 'DAYS',INVMB.[MB001],INVMB.[MB002],INVMB.[MB003],{0} AS 'TA017',CONVERT(INT,ROUND({0}/[ERPINVMB].BOARDNUM,0)) AS 'ROWS',[ERPINVMB].BOARDNUM  ", Convert.ToInt32(TA017));
+                sbSql.AppendFormat(@"  SELECT [TA001],[TA002],SUBSTRING(TA002,1,4) AS 'YEARS',SUBSTRING(TA002,5,2) AS 'MONTHS',SUBSTRING(TA002,7,2) AS 'DAYS',INVMB.[MB001],INVMB.[MB002],INVMB.[MB003],{0} AS 'TA017',CONVERT(DECIMAL(16,4),{0})/(CONVERT(DECIMAL(16,4),[ERPINVMB].BOXNUM)*CONVERT(DECIMAL(16,4),[ERPINVMB].BOARDNUM)) AS 'ROWS',[PROCESSTIME],[BOXNUM],[ERPINVMB].BOARDNUM  ", TA017);
                 sbSql.AppendFormat(@"  FROM [TK].dbo.MOCTA");
                 sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MOCTA.TA006");
                 sbSql.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=INVMB.MB001 ");
@@ -206,7 +207,8 @@ namespace TKMOC
                 {
                     if (ds2.Tables["ds2"].Rows.Count >= 1)
                     {
-                        return Convert.ToInt32(ds2.Tables["ds2"].Rows[0]["ROWS"].ToString());
+                        CHECKROWS = Convert.ToDecimal(ds2.Tables["ds2"].Rows[0]["ROWS"].ToString());
+                        return Convert.ToInt32(CHECKROWS);
                     }
 
                     return 0;
@@ -225,6 +227,7 @@ namespace TKMOC
         public void ADDREPORTGEN(string TA001,string TA002,string TA017)
         {
             ROWS = SERACHERPINVMB(TA001, TA002, TA017);
+            int fianl = 1;
             if(ROWS > 0)
             {
                 try
@@ -239,15 +242,36 @@ namespace TKMOC
                     sbSql.Clear();
 
                     sbSql.AppendFormat("DELETE  [TKMOC].[dbo].[REPORTGEN]");
-                    for (int i=1;i<= ROWS;i++)
+
+                    if(CHECKROWS== ROWS)
                     {
+                        for (int i = 1; i <= ROWS; i++)
+                        {
+                            sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[REPORTGEN]");
+                            sbSql.AppendFormat(" ([TA001],[TA002],[YEARS],[MONTHS],[DAYS],[MB001],[MB002],[MB003],[GENNUM],[BORADNUM])");
+                            sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}',{9})", ds2.Tables["ds2"].Rows[0]["TA001"].ToString(), ds2.Tables["ds2"].Rows[0]["TA002"].ToString(), ds2.Tables["ds2"].Rows[0]["YEARS"].ToString(), ds2.Tables["ds2"].Rows[0]["MONTHS"].ToString(), ds2.Tables["ds2"].Rows[0]["DAYS"].ToString(), ds2.Tables["ds2"].Rows[0]["MB001"].ToString(), ds2.Tables["ds2"].Rows[0]["MB002"].ToString(), ds2.Tables["ds2"].Rows[0]["MB003"].ToString(), ds2.Tables["ds2"].Rows[0]["BOARDNUM"].ToString()+'A', i);
+                            sbSql.AppendFormat(" ");                          
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 1; i < ROWS; i++)
+                        {
+                            sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[REPORTGEN]");
+                            sbSql.AppendFormat(" ([TA001],[TA002],[YEARS],[MONTHS],[DAYS],[MB001],[MB002],[MB003],[GENNUM],[BORADNUM])");
+                            sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}',{9})", ds2.Tables["ds2"].Rows[0]["TA001"].ToString(), ds2.Tables["ds2"].Rows[0]["TA002"].ToString(), ds2.Tables["ds2"].Rows[0]["YEARS"].ToString(), ds2.Tables["ds2"].Rows[0]["MONTHS"].ToString(), ds2.Tables["ds2"].Rows[0]["DAYS"].ToString(), ds2.Tables["ds2"].Rows[0]["MB001"].ToString(), ds2.Tables["ds2"].Rows[0]["MB002"].ToString(), ds2.Tables["ds2"].Rows[0]["MB003"].ToString(), ds2.Tables["ds2"].Rows[0]["BOARDNUM"].ToString()+'A', i);
+                            sbSql.AppendFormat(" ");
+                            fianl = fianl + 1;
+                        }
+
                         sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[REPORTGEN]");
                         sbSql.AppendFormat(" ([TA001],[TA002],[YEARS],[MONTHS],[DAYS],[MB001],[MB002],[MB003],[GENNUM],[BORADNUM])");
-                        sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}',{8},{9})", ds2.Tables["ds2"].Rows[0]["TA001"].ToString(), ds2.Tables["ds2"].Rows[0]["TA002"].ToString(), ds2.Tables["ds2"].Rows[0]["YEARS"].ToString(), ds2.Tables["ds2"].Rows[0]["MONTHS"].ToString(), ds2.Tables["ds2"].Rows[0]["DAYS"].ToString(), ds2.Tables["ds2"].Rows[0]["MB001"].ToString(), ds2.Tables["ds2"].Rows[0]["MB002"].ToString(), ds2.Tables["ds2"].Rows[0]["MB003"].ToString(), ds2.Tables["ds2"].Rows[0]["TA017"].ToString(), i);
+                        sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}',{9})", ds2.Tables["ds2"].Rows[0]["TA001"].ToString(), ds2.Tables["ds2"].Rows[0]["TA002"].ToString(), ds2.Tables["ds2"].Rows[0]["YEARS"].ToString(), ds2.Tables["ds2"].Rows[0]["MONTHS"].ToString(), ds2.Tables["ds2"].Rows[0]["DAYS"].ToString(), ds2.Tables["ds2"].Rows[0]["MB001"].ToString(), ds2.Tables["ds2"].Rows[0]["MB002"].ToString(), ds2.Tables["ds2"].Rows[0]["MB003"].ToString(),(Convert.ToInt32(textBox4.Text) - (Convert.ToInt32(ds2.Tables["ds2"].Rows[0]["BOXNUM"].ToString()) * Convert.ToInt32(ds2.Tables["ds2"].Rows[0]["BOARDNUM"].ToString())* ROWS)), fianl + 1);
                         sbSql.AppendFormat(" ");
                     }
+                   
 
-                    sbSql.AppendFormat(" ");
+                    sbSql.AppendFormat("  ");
                     sbSql.AppendFormat(" ");
 
 
