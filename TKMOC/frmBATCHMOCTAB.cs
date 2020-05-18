@@ -1384,7 +1384,7 @@ namespace TKMOC
                 sbSqlQuery.Clear();
                 ds4.Clear();
 
-                sbSql.AppendFormat(@"  SELECT [MD003] AS '品號',[MD035] AS '品名',[MD001] AS '主件'");
+                sbSql.AppendFormat(@"  SELECT [MD003] AS '品號',[MD035] AS '品名',[MD001] AS '主件',[FORM] AS '單別' ");
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[BATCHMOCLIMIT]");
                 sbSql.AppendFormat(@"  WHERE [MD001]='{0}'", MD001);
                 sbSql.AppendFormat(@"  ORDER BY [MD003] DESC");
@@ -1423,7 +1423,7 @@ namespace TKMOC
             }
         }
 
-        public void ADDMOCLIMIT(string MD001, string MD003, string MD035)
+        public void ADDMOCLIMIT(string MD001, string MD003, string MD035,string FORM)
         {
             try
             {
@@ -1437,8 +1437,8 @@ namespace TKMOC
                 sbSql.Clear();
 
                 sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[BATCHMOCLIMIT]");
-                sbSql.AppendFormat(" ([MD001],[MD003],[MD035])");
-                sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}')", MD001, MD003, MD035);
+                sbSql.AppendFormat(" ([MD001],[MD003],[MD035],[FORM])");
+                sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}','{3}')", MD001, MD003, MD035, FORM);
                 sbSql.AppendFormat(" ");
 
 
@@ -1626,9 +1626,9 @@ namespace TKMOC
 
         private void button8_Click(object sender, EventArgs e)
         {
-            if(!string.IsNullOrEmpty(textBox12.Text.Trim())&& !string.IsNullOrEmpty(textBox18.Text.Trim()) && !string.IsNullOrEmpty(textBox19.Text.Trim()) )
+            if(!string.IsNullOrEmpty(textBox12.Text.Trim())&& !string.IsNullOrEmpty(textBox18.Text.Trim()) && !string.IsNullOrEmpty(textBox19.Text.Trim()) && !string.IsNullOrEmpty(comboBox1.Text.Trim()))
             {
-                ADDMOCLIMIT(textBox12.Text.Trim(), textBox18.Text.Trim(), textBox19.Text.Trim());
+                ADDMOCLIMIT(textBox12.Text.Trim(), textBox18.Text.Trim(), textBox19.Text.Trim(), comboBox1.Text.Trim());
                 SEARCHBATCHMOCLIMIT(textBox12.Text.Trim());
             }
 
