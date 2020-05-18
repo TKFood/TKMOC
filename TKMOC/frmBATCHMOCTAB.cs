@@ -84,6 +84,7 @@ namespace TKMOC
         string MB003;
         string IN;
         decimal MC004 = 0;
+        string FORM;
 
         DataSet dsBOMMC = new DataSet();
         DataSet dsBOMMD = new DataSet();
@@ -565,7 +566,7 @@ namespace TKMOC
 
         }
 
-        public void GENMOCTAB2(DateTime DTMOCTAB, string TA021, string TA029)
+        public void GENMOCTAB2(DateTime DTMOCTAB, string TA021, string TA029,string FORM)
         {
             if (ds11.Tables["ds11"].Rows.Count > 0)
             {
@@ -577,7 +578,7 @@ namespace TKMOC
                     {
                         if(find.MB001.Equals(GEMITEMS["品號"].ToString()))
                         {
-                            TA001 = "A513";
+                            TA001 = FORM;
                             TA002 = GETMAXTA002(TA001, DTMOCTAB);
 
                             ADDMOCTATB2(TA001, TA002, find.MB001, find.NUM, find.MB068, DTMOCTAB, TA021, TA029);
@@ -1618,10 +1619,18 @@ namespace TKMOC
         {
             DTMOCTAB = dateTimePicker4.Value;
 
-            GENADDTARGET2(textBox12.Text.Trim(), Convert.ToDouble(textBox14.Text.Trim()), textBox17.Text.Trim());
-            GENMOCTAB2(DTMOCTAB, textBox17.Text, textBox11.Text);
+            if(ds11.Tables["ds11"].Rows.Count>0)
+            {
+                FORM = ds11.Tables["ds11"].Rows[0]["單別"].ToString();
 
-            SEARCHMOCTA2(textBox11.Text);
+                if (!string.IsNullOrEmpty(FORM))
+                {
+                    GENADDTARGET2(textBox12.Text.Trim(), Convert.ToDouble(textBox14.Text.Trim()), textBox17.Text.Trim());
+                    GENMOCTAB2(DTMOCTAB, textBox17.Text, textBox11.Text, FORM);
+
+                    SEARCHMOCTA2(textBox11.Text);
+                }
+            }           
         }
 
         private void button8_Click(object sender, EventArgs e)
