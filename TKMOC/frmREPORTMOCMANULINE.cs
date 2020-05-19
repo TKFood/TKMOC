@@ -3324,6 +3324,12 @@ namespace TKMOC
                 sbSql.AppendFormat(" WHERE INVMB.MB001=MOCMANULINE.MB001   ");
                 sbSql.AppendFormat(" AND CONVERT(NVARCHAR,[MANUDATE],112) >='{0}' ", DateTime.Now.ToString("yyyyMMdd"));
                 sbSql.AppendFormat(" AND [MOCMANULINE]. [MANU]='新廠製三組(手工)'");
+                sbSql.AppendFormat(" UNION");
+                sbSql.AppendFormat(" SELECT CONVERT(varchar(100),GETDATE(),21) AS [CREATE_TIME],'88789ece-41d1-4b48-94f1-6ffab05b05f4' AS [CREATE_USER],'新廠製三組(手工)'+TA001+'-'+TA002+TA034+CONVERT(NVARCHAR,CONVERT(INT,TA015))+TA007 AS [DESCRIPTION],CONVERT(NVARCHAR,TA003,112) AS [END_TIME],NEWID() AS [MEMO_GUID],'Display' AS [PERSONAL_TYPE],NULL AS [REPEAT_GUID],CONVERT(NVARCHAR,TA003,112)+' '+CONVERT(varchar(100),GETDATE(),14) AS [START_TIME],'新廠製三組(手工)'+TA001+'-'+TA002+TA034+CONVERT(NVARCHAR,CONVERT(INT,TA015))+TA007 AS [SUBJECT],NULL AS [REMINDER_GUID],'1' AS [ALL_DAY],'88789ece-41d1-4b48-94f1-6ffab05b05f4' AS [OWNER],NULL AS [UID],NULL AS [ICS_GUID]");
+                sbSql.AppendFormat(" FROM [TK].dbo.MOCTA");
+                sbSql.AppendFormat(" WHERE  TA021='04'");
+                sbSql.AppendFormat(" AND TA003>='{0}'", DateTime.Now.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(" ");
                 sbSql.AppendFormat(" ) AS TEMP");
                 sbSql.AppendFormat(" ORDER BY [START_TIME],[SUBJECT]");
                 sbSql.AppendFormat(" ");
