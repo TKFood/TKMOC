@@ -172,7 +172,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  ");
                 sbSql.AppendFormat(@"  SELECT ROW_NUMBER() OVER (ORDER BY TEMP.MANUDATE) AS ID,MANU,MANUDATE,MD003,MD035,TNUM,MB004,MB001,MB002,PACKAGE,COPTD001,COPTD002,COPTD003");
                 sbSql.AppendFormat(@"  FROM (");
-                sbSql.AppendFormat(@"  SELECT MD002 AS MANU ,TA003 AS MANUDATE ,TB003 AS MD003,TB012 AS MD035,TB004 AS TNUM,TB007 AS MB004,TA006 AS MB001,TA034 AS MB002,TA015 AS PACKAGE,TA026 AS COPTD001,TA027 AS COPTD002,TA028 COPTD003");
+                sbSql.AppendFormat(@"  SELECT MD002 AS MANU ,TA003 AS MANUDATE ,TB003 AS MD003,TB012 AS MD035,TB004*-1 AS TNUM,TB007 AS MB004,TA006 AS MB001,TA034 AS MB002,TA015 AS PACKAGE,TA026 AS COPTD001,TA027 AS COPTD002,TA028 COPTD003");
                 sbSql.AppendFormat(@"  FROM [TK].dbo.MOCTA,[TK].dbo.MOCTB,[TK].dbo.CMSMD");
                 sbSql.AppendFormat(@"  WHERE TA001=TB001 AND TA002=TB002");
                 sbSql.AppendFormat(@"  AND MD001=TA021");
@@ -194,18 +194,18 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  AND LA001='{0}' ", MD003);
                 sbSql.AppendFormat(@"  GROUP BY LA001,MB002,MB004");
                 sbSql.AppendFormat(@"  UNION");
-                sbSql.AppendFormat(@"  SELECT '1手動進貨',CONVERT(NVARCHAR,INVPURUESD.DATES,112),INVPURUESD.MB001,MB002,NUM ,MB004,NULL,NULL,NULL,NULL,NULL,NULL");
-                sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB,[TKMOC].dbo.INVPURUESD ");
-                sbSql.AppendFormat(@"  WHERE INVMB.MB001=INVPURUESD.MB001");
-                sbSql.AppendFormat(@"  AND INVPURUESD.DATES>='{0}' AND INVPURUESD.DATES<='{1}'", SDay, EDay);
-                sbSql.AppendFormat(@"  AND INVPURUESD.MB001='{0}'", MD003);
+                sbSql.AppendFormat(@"  SELECT '1手動進貨',CONVERT(NVARCHAR,INVPURUESDBREAD.DATES,112),INVPURUESDBREAD.MB001,MB002,NUM ,MB004,NULL,NULL,NULL,NULL,NULL,NULL");
+                sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB,[TKMOC].dbo.INVPURUESDBREAD ");
+                sbSql.AppendFormat(@"  WHERE INVMB.MB001=INVPURUESDBREAD.MB001");
+                sbSql.AppendFormat(@"  AND INVPURUESDBREAD.DATES>='{0}' AND INVPURUESDBREAD.DATES<='{1}'", SDay, EDay);
+                sbSql.AppendFormat(@"  AND INVPURUESDBREAD.MB001='{0}'", MD003);
                 sbSql.AppendFormat(@"  ");
                 sbSql.AppendFormat(@"  ) AS TEMP ");
                 sbSql.AppendFormat(@"  ");
                 sbSql.AppendFormat(@"  ) AS TEMP2 JOIN ");
                 sbSql.AppendFormat(@"  (SELECT ROW_NUMBER() OVER (ORDER BY TEMP3.MANUDATE) AS ID,MANU,MANUDATE,MD003,MD035,TNUM,MB004,MB001,MB002,PACKAGE,COPTD001,COPTD002,COPTD003");
                 sbSql.AppendFormat(@"  FROM (");
-                sbSql.AppendFormat(@"  SELECT MD002 AS MANU ,TA003 AS MANUDATE ,TB003 AS MD003,TB012 AS MD035,TB004 AS TNUM,TB007 AS MB004,TA006 AS MB001,TA034 AS MB002,TA015 AS PACKAGE,TA026 AS COPTD001,TA027 AS COPTD002,TA028 COPTD003");
+                sbSql.AppendFormat(@"  SELECT MD002 AS MANU ,TA003 AS MANUDATE ,TB003 AS MD003,TB012 AS MD035,TB004*-1 AS TNUM,TB007 AS MB004,TA006 AS MB001,TA034 AS MB002,TA015 AS PACKAGE,TA026 AS COPTD001,TA027 AS COPTD002,TA028 COPTD003");
                 sbSql.AppendFormat(@"  FROM [TK].dbo.MOCTA,[TK].dbo.MOCTB,[TK].dbo.CMSMD");
                 sbSql.AppendFormat(@"  WHERE TA001=TB001 AND TA002=TB002");
                 sbSql.AppendFormat(@"  AND MD001=TA021");
@@ -227,11 +227,11 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  AND LA001='{0}' ", MD003);
                 sbSql.AppendFormat(@"  GROUP BY LA001,MB002,MB004");
                 sbSql.AppendFormat(@"  UNION");
-                sbSql.AppendFormat(@"  SELECT '1手動進貨',CONVERT(NVARCHAR,INVPURUESD.DATES,112),INVPURUESD.MB001,MB002,NUM ,MB004,NULL,NULL,NULL,NULL,NULL,NULL");
-                sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB,[TKMOC].dbo.INVPURUESD ");
-                sbSql.AppendFormat(@"  WHERE INVMB.MB001=INVPURUESD.MB001");
-                sbSql.AppendFormat(@"  AND INVPURUESD.DATES>='{0}' AND INVPURUESD.DATES<='{1}'", SDay, EDay);
-                sbSql.AppendFormat(@"  AND INVPURUESD.MB001='{0}'", MD003);
+                sbSql.AppendFormat(@"  SELECT '1手動進貨',CONVERT(NVARCHAR,INVPURUESDBREAD.DATES,112),INVPURUESDBREAD.MB001,MB002,NUM ,MB004,NULL,NULL,NULL,NULL,NULL,NULL");
+                sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB,[TKMOC].dbo.INVPURUESDBREAD ");
+                sbSql.AppendFormat(@"  WHERE INVMB.MB001=INVPURUESDBREAD.MB001");
+                sbSql.AppendFormat(@"  AND INVPURUESDBREAD.DATES>='{0}' AND INVPURUESDBREAD.DATES<='{1}'", SDay, EDay);
+                sbSql.AppendFormat(@"  AND INVPURUESDBREAD.MB001='{0}'", MD003);
                 sbSql.AppendFormat(@"  ");
                 sbSql.AppendFormat(@"  ) AS TEMP3");
                 sbSql.AppendFormat(@"  ) AS TEMP4 ON TEMP2.ID>=TEMP4.ID");
@@ -336,6 +336,58 @@ namespace TKMOC
             }
         }
 
+        public void ADDINVPURUESDBREAD(string KIND, string DATES, string MB001, string NUM)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+
+                sbSql.AppendFormat(" DELETE [TKMOC].[dbo].[INVPURUESDBREAD]");
+                sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[INVPURUESDBREAD]");
+                sbSql.AppendFormat(" ([KIND],[DATES],[MB001],[NUM])");
+                sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}','{3}')", KIND, DATES, MB001, NUM);
+                sbSql.AppendFormat(" ");
+                sbSql.AppendFormat(" ");
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+
         #endregion
 
         #region BUTTON
@@ -355,6 +407,15 @@ namespace TKMOC
             }
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBox2.Text) && !string.IsNullOrEmpty(MD003))
+            {
+                ADDINVPURUESDBREAD("1手動進貨", dateTimePicker3.Value.ToString("yyyy/MM/dd"), MD003, textBox2.Text);
+            }
+
+            SEARCHINVPURMOC(MD003, dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+        }
 
         #endregion
 
