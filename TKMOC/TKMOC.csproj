@@ -444,6 +444,12 @@
     <Compile Include="frmREPORTINVPURUESD.Designer.cs">
       <DependentUpon>frmREPORTINVPURUESD.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmREPORTINVPURUESDBREAD.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmREPORTINVPURUESDBREAD.Designer.cs">
+      <DependentUpon>frmREPORTINVPURUESDBREAD.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmREPORTMOCBOMMD.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -670,6 +676,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmREPORTINVPURUESD.resx">
       <DependentUpon>frmREPORTINVPURUESD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmREPORTINVPURUESDBREAD.resx">
+      <DependentUpon>frmREPORTINVPURUESDBREAD.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmREPORTMOCBOMMD.resx">
       <DependentUpon>frmREPORTMOCBOMMD.cs</DependentUpon>
