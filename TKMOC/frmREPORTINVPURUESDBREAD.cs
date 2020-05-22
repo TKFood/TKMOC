@@ -107,7 +107,7 @@ namespace TKMOC
                         foreach (DataGridViewRow dgRow in dataGridView1.Rows)
                         {
                             //判断
-                            if (Convert.ToDecimal(dgRow.Cells[5].Value) > 0)
+                            if (Convert.ToDecimal(dgRow.Cells[4].Value) > 0)
                             {
                                 //将这行的背景色设置成Pink
                                 dgRow.DefaultCellStyle.BackColor = Color.Pink;
