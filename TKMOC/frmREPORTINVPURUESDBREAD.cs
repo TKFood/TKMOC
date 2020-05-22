@@ -75,7 +75,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  FROM [TK].dbo.MOCTA,[TK].dbo.MOCTB");
                 sbSql.AppendFormat(@"  WHERE TA001=TB001 AND TA002=TB002");
                 sbSql.AppendFormat(@"  AND TA021='04'");
-                sbSql.AppendFormat(@"  AND TA006 LIKE '409%'");
+                sbSql.AppendFormat(@"  AND (TA006 LIKE '409%' OR TA006 LIKE '309%')");
                 sbSql.AppendFormat(@"  AND TA003>='{0}' AND TA003<='{1}'", SDay, EDay);
                 sbSql.AppendFormat(@"  GROUP BY TB003,TB012");
                 sbSql.AppendFormat(@"  ORDER BY TB003,TB012");
@@ -178,7 +178,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  WHERE TA001=TB001 AND TA002=TB002");
                 sbSql.AppendFormat(@"  AND MD001=TA021");
                 sbSql.AppendFormat(@"  AND TA021='04'");
-                sbSql.AppendFormat(@"  AND TA006 LIKE '409%'");
+                sbSql.AppendFormat(@"  AND (TA006 LIKE '409%' OR TA006 LIKE '309%')");
                 sbSql.AppendFormat(@"  AND TA003>='{0}' AND TA003<='{1}'",SDay,EDay);
                 sbSql.AppendFormat(@"  AND TB003='{0}'", MD003);           
                 sbSql.AppendFormat(@"  UNION");
@@ -212,7 +212,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  WHERE TA001=TB001 AND TA002=TB002");
                 sbSql.AppendFormat(@"  AND MD001=TA021");
                 sbSql.AppendFormat(@"  AND TA021='04'");
-                sbSql.AppendFormat(@"  AND TA006 LIKE '409%'");
+                sbSql.AppendFormat(@"  AND (TA006 LIKE '409%' OR TA006 LIKE '309%')");
                 sbSql.AppendFormat(@"  AND TA003>='{0}' AND TA003<='{1}'", SDay, EDay);
                 sbSql.AppendFormat(@"  AND TB003='{0}'", MD003);   
                 sbSql.AppendFormat(@"  UNION");
