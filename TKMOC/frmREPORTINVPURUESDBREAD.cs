@@ -38,6 +38,8 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
         SqlDataAdapter adapter2 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder2 = new SqlCommandBuilder();
+        SqlDataAdapter adapter3 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder3 = new SqlCommandBuilder();
 
         SqlCommand cmd = new SqlCommand();
         SqlTransaction tran;
@@ -45,6 +47,7 @@ namespace TKMOC
 
         DataSet ds1 = new DataSet();
         DataSet ds2 = new DataSet();
+        DataSet ds3 = new DataSet();
 
         string tablename = null;
 
@@ -141,7 +144,7 @@ namespace TKMOC
                     MD003 = row.Cells["品號"].Value.ToString().Trim();
 
                     SEARCHINVPURMOC(MD003, dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
-
+                    SEARCHINVINVLA(MD003, dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
 
                 }
                 else
@@ -277,6 +280,64 @@ namespace TKMOC
                                 dgRow.DefaultCellStyle.BackColor = Color.Pink;
                             }
                         }
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+
+        public void SEARCHINVINVLA(string MD003, string SDay, string EDay)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+
+
+                sbSql.AppendFormat(@"  SELECT LA016 AS '批號',SUM(LA005*LA011) AS '庫存量', MB004 AS '單位',LA001 AS '品號',MB002 AS '品名'");
+                sbSql.AppendFormat(@"  FROM [TK].dbo.INVLA,[TK].dbo.INVMB");
+                sbSql.AppendFormat(@"  WHERE LA001=MB001");
+                sbSql.AppendFormat(@"  AND  LA009 IN ('20004','20006' ) AND LA004<='{0}'",SDay);
+                sbSql.AppendFormat(@"  AND LA001='{0}'",MD003);
+                sbSql.AppendFormat(@"  GROUP BY LA016,LA001,MB002,MB004");
+                sbSql.AppendFormat(@" HAVING SUM(LA005*LA011)>0 ");
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+                adapter3 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder3 = new SqlCommandBuilder(adapter3);
+                sqlConn.Open();
+                ds3.Clear();
+                adapter3.Fill(ds3, "ds3");
+                sqlConn.Close();
+
+
+                if (ds3.Tables["ds3"].Rows.Count == 0)
+                {
+                    dataGridView3.DataSource = null;
+                }
+                else
+                {
+                    if (ds3.Tables["ds3"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView3.DataSource = ds3.Tables["ds3"];
+                        dataGridView3.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                      
 
                     }
                 }
