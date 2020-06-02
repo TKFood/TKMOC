@@ -73,8 +73,8 @@ namespace TKMOC
                 sbSqlQuery.Clear();
 
                 sbSql.AppendFormat(@"  SELECT TB003 AS '品號',TB012  AS '品名',SUM(TB004)  AS '需領用量'");
-                sbSql.AppendFormat(@"  ,(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WHERE LA009 IN ('20004','20006') AND LA004<=CONVERT(NVARCHAR,GETDATE(),112) AND  LA001=TB003) AS '原料倉庫存'");
-                sbSql.AppendFormat(@"  ,((SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WHERE LA009 IN ('20004','20006') AND LA004<=CONVERT(NVARCHAR,GETDATE(),112) AND  LA001=TB003)-SUM(TB004)) AS '差異量'");
+                sbSql.AppendFormat(@"  ,(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WHERE LA009 IN ('20004','20006')  AND  LA001=TB003) AS '原料倉庫存'");
+                sbSql.AppendFormat(@"  ,((SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WHERE LA009 IN ('20004','20006')  AND  LA001=TB003)-SUM(TB004)) AS '差異量'");
                 sbSql.AppendFormat(@"  FROM [TK].dbo.MOCTA,[TK].dbo.MOCTB");
                 sbSql.AppendFormat(@"  WHERE TA001=TB001 AND TA002=TB002");
                 sbSql.AppendFormat(@"  AND TA021='04'");
@@ -195,7 +195,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  SELECT '0庫存' AS MANU,CONVERT(NVARCHAR,GETDATE(),112) AS MANUDATE,LA001 AS MD003,MB002,SUM(LA005*LA011) TNUM, MB004,NULL AS MB001,NULL AS MB002,NULL AS PACKAGE,NULL AS COPTD001,NULL AS COPTD002,NULL AS COPTD002");
                 sbSql.AppendFormat(@"  FROM [TK].dbo.INVLA,[TK].dbo.INVMB");
                 sbSql.AppendFormat(@"  WHERE LA001=MB001");
-                sbSql.AppendFormat(@"  AND  LA009 IN ('20004','20006' ) AND LA004<=CONVERT(NVARCHAR,GETDATE(),112) ");
+                sbSql.AppendFormat(@"  AND  LA009 IN ('20004','20006' )  ");
                 sbSql.AppendFormat(@"  AND LA001='{0}' ", MD003);
                 sbSql.AppendFormat(@"  GROUP BY LA001,MB002,MB004");
                 sbSql.AppendFormat(@"  UNION");
@@ -229,7 +229,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  SELECT '0庫存' AS MANU,CONVERT(NVARCHAR,GETDATE(),112) AS MANUDATE,LA001 AS MD003,MB002,SUM(LA005*LA011) TNUM, MB004,NULL AS MB001,NULL AS MB002,NULL AS PACKAGE,NULL AS COPTD001,NULL AS COPTD002,NULL AS COPTD002");
                 sbSql.AppendFormat(@"  FROM [TK].dbo.INVLA,[TK].dbo.INVMB");
                 sbSql.AppendFormat(@"  WHERE LA001=MB001");
-                sbSql.AppendFormat(@"  AND  LA009 IN ('20004','20006' ) AND LA004<=CONVERT(NVARCHAR,GETDATE(),112) ");
+                sbSql.AppendFormat(@"  AND  LA009 IN ('20004','20006' )  ");
                 sbSql.AppendFormat(@"  AND LA001='{0}' ", MD003);
                 sbSql.AppendFormat(@"  GROUP BY LA001,MB002,MB004");
                 sbSql.AppendFormat(@"  UNION");
@@ -308,7 +308,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  SELECT LA016 AS '批號',SUM(LA005*LA011) AS '庫存量', MB004 AS '單位',LA001 AS '品號',MB002 AS '品名'");
                 sbSql.AppendFormat(@"  FROM [TK].dbo.INVLA,[TK].dbo.INVMB");
                 sbSql.AppendFormat(@"  WHERE LA001=MB001");
-                sbSql.AppendFormat(@"  AND  LA009 IN ('20004','20006' ) AND LA004<='{0}'",SDay);
+                sbSql.AppendFormat(@"  AND  LA009 IN ('20004','20006' ) ");
                 sbSql.AppendFormat(@"  AND LA001='{0}'",MD003);
                 sbSql.AppendFormat(@"  GROUP BY LA016,LA001,MB002,MB004");
                 sbSql.AppendFormat(@" HAVING SUM(LA005*LA011)>0 ");
