@@ -73,8 +73,8 @@ namespace TKMOC
                 sbSqlQuery.Clear();
 
                 sbSql.AppendFormat(@"  SELECT TB003 AS '品號',TB012  AS '品名',SUM(TB004)  AS '需領用量'");
-                sbSql.AppendFormat(@"  ,(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WHERE LA009 IN ('20004','20006') AND  LA001=TB003) AS '原料倉庫存'");
-                sbSql.AppendFormat(@"  ,((SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WHERE LA009 IN ('20004','20006') AND  LA001=TB003)-SUM(TB004)) AS '差異量'");
+                sbSql.AppendFormat(@"  ,(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WHERE LA009 IN ('20004','20006') AND LA004<=CONVERT(NVARCHAR,GETDATE(),112) AND  LA001=TB003) AS '原料倉庫存'");
+                sbSql.AppendFormat(@"  ,((SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WHERE LA009 IN ('20004','20006') AND LA004<=CONVERT(NVARCHAR,GETDATE(),112) AND  LA001=TB003)-SUM(TB004)) AS '差異量'");
                 sbSql.AppendFormat(@"  FROM [TK].dbo.MOCTA,[TK].dbo.MOCTB");
                 sbSql.AppendFormat(@"  WHERE TA001=TB001 AND TA002=TB002");
                 sbSql.AppendFormat(@"  AND TA021='04'");
