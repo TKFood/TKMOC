@@ -46,14 +46,17 @@ namespace TKMOC
         string tablename = null;
         int rownum = 0;
 
-
+        string TA001;
+        string TA002;
+        string OLDMB001;
+        string NEWMB001;
 
         public frmMOCCHANGE()
         {
             InitializeComponent();
 
             comboBox1load();
-            comboBox1load2();
+            comboBox1load2("");
         }
 
         private void frmMOCCHANGE_Load(object sender, EventArgs e)
@@ -76,42 +79,49 @@ namespace TKMOC
             connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
             sqlConn = new SqlConnection(connectionString);
             StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT [PARAID],[PARANAME] FROM [TKMOC].[dbo].[TBPARA]WHERE [KIND]='MOCCHANGE' ORDER BY [PARAID]  ");
+            Sequel.AppendFormat(@" SELECT BOMMB.MB001,RTRIM(LTRIM(BOMMB.MB001))+' '+INVMB.MB002 AS MB002,BOMMB.MB004 FROM [TK].dbo.BOMMB,[TK] .dbo.INVMB WHERE BOMMB.MB001=INVMB.MB001 AND BOMMB.MB001 LIKE '1%'  GROUP BY BOMMB.MB001,INVMB.MB002,BOMMB.MB004  ");
             SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
             DataTable dt = new DataTable();
             sqlConn.Open();
 
-            dt.Columns.Add("PARAID", typeof(string));
-            dt.Columns.Add("PARANAME", typeof(string));
+            dt.Columns.Add("MB001", typeof(string));
+            dt.Columns.Add("MB002", typeof(string));
             da.Fill(dt);
             comboBox1.DataSource = dt.DefaultView;
-            comboBox1.ValueMember = "PARAID";
-            comboBox1.DisplayMember = "PARANAME";
+            comboBox1.ValueMember = "MB001";
+            comboBox1.DisplayMember = "MB002";
             sqlConn.Close();
 
 
         }
 
-        public void comboBox1load2()
+        public void comboBox1load2(string MB001)
         {
             connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
             sqlConn = new SqlConnection(connectionString);
             StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT [PARAID],[PARANAME] FROM [TKMOC].[dbo].[TBPARA]WHERE [KIND]='MOCCHANGE' ORDER BY [PARAID]  ");
+            Sequel.AppendFormat(@"SELECT BOMMB.MB004,RTRIM(LTRIM(BOMMB.MB004))+' '+INVMB.MB002 AS MB002 FROM [TK].dbo.BOMMB,[TK] .dbo.INVMB WHERE BOMMB.MB004=INVMB.MB001  AND BOMMB.MB001 LIKE '1%' AND BOMMB.MB001='{0}' ", MB001);
             SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
             DataTable dt = new DataTable();
             sqlConn.Open();
 
-            dt.Columns.Add("PARAID", typeof(string));
-            dt.Columns.Add("PARANAME", typeof(string));
+            dt.Columns.Add("MB004", typeof(string));
+            dt.Columns.Add("MB002", typeof(string));
             da.Fill(dt);
             comboBox2.DataSource = dt.DefaultView;
-            comboBox2.ValueMember = "PARAID";
-            comboBox2.DisplayMember = "PARANAME";
+            comboBox2.ValueMember = "MB004";
+            comboBox2.DisplayMember = "MB002";
             sqlConn.Close();
 
 
         }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            comboBox1load2(comboBox1.SelectedValue.ToString().Trim());
+        }
+
+
         public void SEARCH()
         {
             try
@@ -173,7 +183,86 @@ namespace TKMOC
             }
 
         }
+        public void CHANGEMULTI()
+        {
+            OLDMB001 = comboBox1.SelectedValue.ToString().Trim();
+            NEWMB001 = comboBox2.SelectedValue.ToString().Trim();
 
+            foreach (DataGridViewRow dr in this.dataGridView1.Rows)
+            {
+                if (dr.Cells[0].Value != null && (bool)dr.Cells[0].Value)
+                {
+                    TA001 = ((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[0].ToString();
+                    TA002 = ((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[1].ToString();
+
+                    //MessageBox.Show(OLDTA001+"-"+ OLDTA002);
+                    if (!string.IsNullOrEmpty(TA001) && !string.IsNullOrEmpty(TA002) && !string.IsNullOrEmpty(OLDMB001) && !string.IsNullOrEmpty(NEWMB001))
+                    {
+                        UPDATEMOCTB(TA001, TA002, OLDMB001, NEWMB001);
+                    }
+                }
+                else
+                {
+                    TA001 = null;
+                    TA002 = null;
+                }
+            }
+
+        }
+
+        public void UPDATEMOCTB(string TA001, string TA002, string OLDMB001, string NEWMB001)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+
+                sbSql.AppendFormat(" UPDATE [TK].dbo.MOCTB ");
+                sbSql.AppendFormat(" SET TB003=INVMB.MB001,TB012=INVMB.MB002,TB013=INVMB.MB003");
+                sbSql.AppendFormat(" FROM [TK].dbo.INVMB");
+                sbSql.AppendFormat(" WHERE INVMB.MB001='{0}'",NEWMB001);
+                sbSql.AppendFormat(" AND TB001='{0}' AND TB002='{1}' AND TB003='{2}' ",TA001, TA002,OLDMB001);
+                sbSql.AppendFormat(" ");
+                sbSql.AppendFormat(" ");
+
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+
+
+                }
+                else
+                {
+                    tran.Commit();      //執行交易                    
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
 
         #endregion
 
@@ -185,12 +274,23 @@ namespace TKMOC
 
         private void button4_Click(object sender, EventArgs e)
         {
+            DialogResult dialogResult = MessageBox.Show("要修改嗎?", "要修改嗎?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                CHANGEMULTI();
+                SEARCH();
 
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                //do something else
+            }
         }
+
 
 
         #endregion
 
-
+       
     }
 }
