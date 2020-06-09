@@ -252,6 +252,12 @@
     <Compile Include="frmMANUEMPLOYEE.Designer.cs">
       <DependentUpon>frmMANUEMPLOYEE.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmMOCCHANGE.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMOCCHANGE.Designer.cs">
+      <DependentUpon>frmMOCCHANGE.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMOCCOP.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -580,6 +586,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMANUEMPLOYEE.resx">
       <DependentUpon>frmMANUEMPLOYEE.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMOCCHANGE.resx">
+      <DependentUpon>frmMOCCHANGE.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMOCCOP.resx">
       <DependentUpon>frmMOCCOP.cs</DependentUpon>
