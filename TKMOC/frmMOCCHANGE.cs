@@ -51,6 +51,9 @@ namespace TKMOC
         public frmMOCCHANGE()
         {
             InitializeComponent();
+
+            comboBox1load();
+            comboBox1load2();
         }
 
         private void frmMOCCHANGE_Load(object sender, EventArgs e)
@@ -68,6 +71,47 @@ namespace TKMOC
         }
 
         #region FUNCTION
+        public void comboBox1load()
+        {
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT [PARAID],[PARANAME] FROM [TKMOC].[dbo].[TBPARA]WHERE [KIND]='MOCCHANGE' ORDER BY [PARAID]  ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("PARAID", typeof(string));
+            dt.Columns.Add("PARANAME", typeof(string));
+            da.Fill(dt);
+            comboBox1.DataSource = dt.DefaultView;
+            comboBox1.ValueMember = "PARAID";
+            comboBox1.DisplayMember = "PARANAME";
+            sqlConn.Close();
+
+
+        }
+
+        public void comboBox1load2()
+        {
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT [PARAID],[PARANAME] FROM [TKMOC].[dbo].[TBPARA]WHERE [KIND]='MOCCHANGE' ORDER BY [PARAID]  ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("PARAID", typeof(string));
+            dt.Columns.Add("PARANAME", typeof(string));
+            da.Fill(dt);
+            comboBox2.DataSource = dt.DefaultView;
+            comboBox2.ValueMember = "PARAID";
+            comboBox2.DisplayMember = "PARANAME";
+            sqlConn.Close();
+
+
+        }
         public void SEARCH()
         {
             try
@@ -139,10 +183,14 @@ namespace TKMOC
             SEARCH();
         }
 
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+        }
 
 
         #endregion
 
-       
+
     }
 }
