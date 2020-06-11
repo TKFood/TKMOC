@@ -84,6 +84,8 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder27 = new SqlCommandBuilder();
         SqlDataAdapter adapter28 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder28 = new SqlCommandBuilder();
+        SqlDataAdapter adapter29 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder29 = new SqlCommandBuilder();
 
 
         SqlDataAdapter adapterCALENDAR = new SqlDataAdapter();
@@ -120,6 +122,7 @@ namespace TKMOC
         DataSet ds26 = new DataSet();
         DataSet ds27 = new DataSet();
         DataSet ds28 = new DataSet();
+        DataSet ds29 = new DataSet();
 
         DataSet dsCALENDAR = new DataSet();
 
@@ -245,6 +248,8 @@ namespace TKMOC
         string TA026D;
         string TA027D;
         string TA028D;
+
+        string DELMOCMANULINECOPID;
 
         public class MOCTADATA
         {
@@ -1553,6 +1558,7 @@ namespace TKMOC
                     SEARCHMB017();
                     SEARCHMOCMANULINERESULT();
 
+                    SEARCHMOCMANULINECOP(ID1);
                     //SEARCHMOCMANULINECOP();
 
 ;
@@ -6197,6 +6203,60 @@ namespace TKMOC
             }
         }
 
+        public void SEARCHMOCMANULINECOP(string SID)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+
+                sbSql.AppendFormat(@"  SELECT [SERNO] AS '優先序',[TC001] AS '訂單單別',[TC002] AS '訂單單號',[TC003] AS '訂單序號',[NUM] AS '需求量',[ID],[SID]");
+                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINECOP]");
+                sbSql.AppendFormat(@"  WHERE [SID]='{0}'",SID);
+                sbSql.AppendFormat(@"  ORDER BY [SERNO]");
+                sbSql.AppendFormat(@"  ");
+
+                adapter29 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder29 = new SqlCommandBuilder(adapter29);
+                sqlConn.Open();
+                ds29.Clear();
+                adapter29.Fill(ds29, "ds29");
+                sqlConn.Close();
+
+
+                if (ds29.Tables["ds29"].Rows.Count == 0)
+                {
+                    dataGridView11.DataSource = null;
+                }
+                else
+                {
+                    if (ds29.Tables["ds29"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView11.DataSource = ds29.Tables["ds29"];
+                        dataGridView11.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+            
+        }
+
         public void INSERTMOCMANULINECOP(string SID,string TA001,string TA002,string TA003,string SERNO)
         {
             try
@@ -6246,7 +6306,68 @@ namespace TKMOC
                 sqlConn.Close();
             }
         }
-    
+
+        private void dataGridView11_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView11.CurrentRow != null)
+            {
+                int rowindex = dataGridView11.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView11.Rows[rowindex];
+                    DELMOCMANULINECOPID = row.Cells["ID"].Value.ToString();
+                    
+                }
+                else
+                {
+                    DELMOCMANULINECOPID = null;
+
+                }
+            }
+        }
+
+        public void DELMOCMANULINECOP(string ID)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+                sbSql.AppendFormat("  DELETE [TKMOC].[dbo].[MOCMANULINECOP]");
+                sbSql.AppendFormat("  WHERE ID='{0}'", ID);
+                sbSql.AppendFormat(" ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
 
         #endregion
 
@@ -6828,17 +6949,30 @@ namespace TKMOC
             if (!string.IsNullOrEmpty(ID1) & !string.IsNullOrEmpty(textBox40.Text) & !string.IsNullOrEmpty(textBox41.Text) & !string.IsNullOrEmpty(textBox73.Text) & !string.IsNullOrEmpty(textBox77.Text))
             {
                 INSERTMOCMANULINECOP(ID1,textBox40.Text, textBox41.Text, textBox73.Text, textBox77.Text);
+
+                SEARCHMOCMANULINECOP(ID1);
             }
                 
         }
 
         private void button62_Click(object sender, EventArgs e)
         {
+            DialogResult dialogResult = MessageBox.Show("要刪除了?", "要刪除了?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                if (!string.IsNullOrEmpty(DELMOCMANULINECOPID))
+                {
+                    DELMOCMANULINECOP(DELMOCMANULINECOPID);
+
+                    SEARCHMOCMANULINECOP(ID1);
+                }
+            }
 
         }
 
+
         #endregion
 
-
+       
     }
 }
