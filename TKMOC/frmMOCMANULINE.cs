@@ -86,6 +86,8 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder28 = new SqlCommandBuilder();
         SqlDataAdapter adapter29 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder29 = new SqlCommandBuilder();
+        SqlDataAdapter adapter30 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder30 = new SqlCommandBuilder();
 
 
         SqlDataAdapter adapterCALENDAR = new SqlDataAdapter();
@@ -123,6 +125,7 @@ namespace TKMOC
         DataSet ds27 = new DataSet();
         DataSet ds28 = new DataSet();
         DataSet ds29 = new DataSet();
+        DataSet ds30 = new DataSet();
 
         DataSet dsCALENDAR = new DataSet();
 
@@ -6259,6 +6262,8 @@ namespace TKMOC
 
         public void INSERTMOCMANULINECOP(string SID,string TA001,string TA002,string TA003,string SERNO)
         {
+            decimal TNUM = SEARCHINVMD(TA001.Trim(), TA002.Trim(), TA003.Trim());
+
             try
             {
                 connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
@@ -6273,7 +6278,7 @@ namespace TKMOC
                 sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINECOP]");
                 sbSql.AppendFormat(" ([ID],[SID],[SERNO],[TC001],[TC002],[TC003],[NUM])");
                 sbSql.AppendFormat(" VALUES");
-                sbSql.AppendFormat(" (NEWID(),'{0}','{1}','{2}','{3}','{4}',{5})",ID1,SERNO,TA001,TA002,TA003,0);
+                sbSql.AppendFormat(" (NEWID(),'{0}','{1}','{2}','{3}','{4}',{5})",ID1,SERNO,TA001,TA002,TA003, TNUM);
                 sbSql.AppendFormat(" ");
                 sbSql.AppendFormat(" ");
 
@@ -6368,6 +6373,78 @@ namespace TKMOC
                 sqlConn.Close();
             }
         }
+
+        public decimal SEARCHINVMD(string TA001,string TA002,string TA003)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+                sbSql.AppendFormat(" SELECT '{0}',TD001,TD002,TD003,TD004,TD005,NUM,MB004,MD003,MD035,CASE WHEN [MD003] LIKE '2%' THEN ROUND((NUM*CAL),0) ELSE (NUM*CAL) END AS TNUM,MD004", TA001+TA002+TA003);
+                sbSql.AppendFormat(" FROM (");
+                sbSql.AppendFormat(" SELECT   TD001,TD002,TD003,TC053 ,TD013,TD004,TD005,TD006");
+                sbSql.AppendFormat(" ,((CASE WHEN MB004=TD010 THEN ((TD008-TD009)+(TD024-TD025)) ELSE ((TD008-TD009)+(TD024-TD025))*INVMD.MD004 END)-ISNULL(MOCTA.TA017,0)) AS 'NUM'");
+                sbSql.AppendFormat(" ,MB004");
+                sbSql.AppendFormat(" ,((TD008-TD009)+(TD024-TD025)) AS 'COPNUM'");
+                sbSql.AppendFormat(" ,TD010");
+                sbSql.AppendFormat(" ,(CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN INVMD.MD002 ELSE TD010 END ) AS INVMDMD002");
+                sbSql.AppendFormat(" ,(CASE WHEN INVMD.MD003>0 THEN INVMD.MD003 ELSE 1 END) AS INVMDMD003");
+                sbSql.AppendFormat(" ,(CASE WHEN INVMD.MD004>0 THEN INVMD.MD004 ELSE (TD008-TD009) END ) AS INVMDMD004");
+                sbSql.AppendFormat(" ,ISNULL(MOCTA.TA017,0) AS TA017");
+                sbSql.AppendFormat(" ,[MC001],[MC004],BOMMD.[MD003],[MD035],BOMMD.[MD006],BOMMD.[MD007],BOMMD.[MD008],BOMMD.[MD004]");
+                sbSql.AppendFormat(" ,CONVERT(decimal(16,4),(1/[MC004]*BOMMD.[MD006]/BOMMD.[MD007]*(1+BOMMD.[MD008]))) AS CAL");
+                sbSql.AppendFormat(" FROM [TK].dbo.BOMMC,[TK].dbo.BOMMD,[TK].dbo.INVMB,[TK].dbo.COPTC,[TK].dbo.COPTD");
+                sbSql.AppendFormat(" LEFT JOIN [TK].dbo.INVMD ON MD001=TD004 AND TD010=MD002");
+                sbSql.AppendFormat(" LEFT JOIN [TK].dbo.MOCTA ON TA026=TD001 AND TA027=TD002 AND TD028=TD003 AND TA006=TD004");
+                sbSql.AppendFormat(" WHERE BOMMC.MC001=BOMMD.MD001");
+                sbSql.AppendFormat(" AND  BOMMD.MD001=TD004");
+                sbSql.AppendFormat(" AND TD004=MB001");
+                sbSql.AppendFormat(" AND TC001=TD001 AND TC002=TD002");
+                sbSql.AppendFormat(" AND TD001+TD002+TD003 IN ('{0}')", TA001 + TA002 + TA003);
+                sbSql.AppendFormat(" ) AS TEMP");
+                sbSql.AppendFormat("  WHERE MD003 LIKE '3%'");
+                sbSql.AppendFormat(" ");
+
+                adapter30 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder30 = new SqlCommandBuilder(adapter30);
+                sqlConn.Open();
+                ds30.Clear();
+                adapter30.Fill(ds30, "ds30");
+                sqlConn.Close();
+
+
+                if (ds30.Tables["ds30"].Rows.Count == 0)
+                {
+                    return 0;
+                }
+                else
+                {
+                    if (ds30.Tables["ds30"].Rows.Count >= 1)
+                    {
+                        return Convert.ToDecimal(ds30.Tables["ds30"].Rows[0]["TNUM"].ToString());
+                    }
+                    else
+                    {
+                        return 0;
+                    }
+                    
+                }
+
+            }
+            catch
+            {
+                return 0;
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
 
         #endregion
 
