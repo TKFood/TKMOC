@@ -6197,6 +6197,57 @@ namespace TKMOC
             }
         }
 
+        public void INSERTMOCMANULINECOP(string SID,string TA001,string TA002,string TA003,string SERNO)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINECOP]");
+                sbSql.AppendFormat(" ([ID],[SID],[SERNO],[TC001],[TC002],[TC003],[NUM])");
+                sbSql.AppendFormat(" VALUES");
+                sbSql.AppendFormat(" (NEWID(),'{0}','{1}','{2}','{3}','{4}',{5})",ID1,SERNO,TA001,TA002,TA003,0);
+                sbSql.AppendFormat(" ");
+                sbSql.AppendFormat(" ");
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+    
+
         #endregion
 
         #region BUTTON
@@ -6771,6 +6822,21 @@ namespace TKMOC
                 SEARCHCOPDEFAULT3(textBox46.Text, textBox47.Text, textBox75.Text);
             }
         }
+        private void button61_Click(object sender, EventArgs e)
+        {
+            
+            if (!string.IsNullOrEmpty(ID1) & !string.IsNullOrEmpty(textBox40.Text) & !string.IsNullOrEmpty(textBox41.Text) & !string.IsNullOrEmpty(textBox73.Text) & !string.IsNullOrEmpty(textBox77.Text))
+            {
+                INSERTMOCMANULINECOP(ID1,textBox40.Text, textBox41.Text, textBox73.Text, textBox77.Text);
+            }
+                
+        }
+
+        private void button62_Click(object sender, EventArgs e)
+        {
+
+        }
+
         #endregion
 
 
