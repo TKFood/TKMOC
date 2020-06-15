@@ -94,6 +94,8 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder32 = new SqlCommandBuilder();
         SqlDataAdapter adapter33 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder33 = new SqlCommandBuilder();
+        SqlDataAdapter adapter34 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder34 = new SqlCommandBuilder();
 
         SqlDataAdapter adapterCALENDAR = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilderCALENDAR = new SqlCommandBuilder();
@@ -134,6 +136,7 @@ namespace TKMOC
         DataSet ds31 = new DataSet();
         DataSet ds32 = new DataSet();
         DataSet ds33 = new DataSet();
+        DataSet ds34 = new DataSet();
 
         DataSet dsCALENDAR = new DataSet();
 
@@ -6752,6 +6755,62 @@ namespace TKMOC
             }
         }
 
+
+        public void CALSUMMOCMANULINEMERGE(string NO)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  SELECT [MOCMANULINEMERGE].[NO] AS '編號',[MOCMANULINE].[MB001] AS '品號',[MOCMANULINE].[MB002] AS '品名',SUM([MOCMANULINE].[NUM]) AS '加總數量' ");
+                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINEMERGE],[TKMOC].[dbo].[MOCMANULINE]");
+                sbSql.AppendFormat(@"  WHERE [MOCMANULINEMERGE].[SID]=[MOCMANULINE].[ID]");
+                sbSql.AppendFormat(@"  AND [MOCMANULINEMERGE].[NO]='{0}'",NO);
+                sbSql.AppendFormat(@"  GROUP BY [MOCMANULINEMERGE].[NO],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002]");
+                sbSql.AppendFormat(@"  ");
+
+                adapter34 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder34 = new SqlCommandBuilder(adapter34);
+                sqlConn.Open();
+                ds34.Clear();
+                adapter34.Fill(ds34, "ds34");
+                sqlConn.Close();
+
+
+                if (ds34.Tables["ds34"].Rows.Count == 0)
+                {
+                    dataGridView14.DataSource = null;
+                }
+                else
+                {
+                    if (ds34.Tables["ds34"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView14.DataSource = ds34.Tables["ds34"];
+                        dataGridView14.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                      
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
         #endregion
 
         #region BUTTON
@@ -7364,9 +7423,13 @@ namespace TKMOC
         }
 
 
+        private void button65_Click(object sender, EventArgs e)
+        {
+            CALSUMMOCMANULINEMERGE(textBox78.Text.Trim());
+        }
 
         #endregion
 
-    
+
     }
 }
