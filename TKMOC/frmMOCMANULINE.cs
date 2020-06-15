@@ -6514,6 +6514,13 @@ namespace TKMOC
                         dataGridView12.AutoResizeColumns();
                         //dataGridView1.CurrentCell = dataGridView1[0, rownum];
 
+                        //建立一個DataGridView的Column物件及其內容
+                        DataGridViewColumn dgvc = new DataGridViewCheckBoxColumn();
+                        dgvc.Width = 40;
+                        dgvc.Name = "選取";
+
+                        this.dataGridView12.Columns.Insert(0, dgvc);
+
                     }
                 }
 
@@ -6527,6 +6534,19 @@ namespace TKMOC
                 sqlConn.Close();
             }
 
+        }
+
+        public void INSERTMOCMANULINEMERGE()
+        {
+            foreach (DataGridViewRow dr in this.dataGridView12.Rows)
+            {
+                if (dr.Cells[0].Value != null && (bool)dr.Cells[0].Value)
+                {
+                    dr.Cells["ID"].Value.ToString();
+
+                    MessageBox.Show(dr.Cells["ID"].Value.ToString());
+                }
+            }
         }
 
         #endregion
@@ -7133,6 +7153,10 @@ namespace TKMOC
         private void button63_Click(object sender, EventArgs e)
         {
             SEARCHMOCMANULINE12(comboBox15.Text.Trim(),dateTimePicker20.Value.ToString("yyyyMMdd"), dateTimePicker21.Value.ToString("yyyyMMdd"));
+        }
+        private void button64_Click(object sender, EventArgs e)
+        {
+            INSERTMOCMANULINEMERGE();
         }
 
         #endregion
