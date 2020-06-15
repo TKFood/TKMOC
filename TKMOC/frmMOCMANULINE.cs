@@ -92,7 +92,8 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder31 = new SqlCommandBuilder();
         SqlDataAdapter adapter32 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder32 = new SqlCommandBuilder();
-
+        SqlDataAdapter adapter33 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder33 = new SqlCommandBuilder();
 
         SqlDataAdapter adapterCALENDAR = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilderCALENDAR = new SqlCommandBuilder();
@@ -132,6 +133,7 @@ namespace TKMOC
         DataSet ds30 = new DataSet();
         DataSet ds31 = new DataSet();
         DataSet ds32 = new DataSet();
+        DataSet ds33 = new DataSet();
 
         DataSet dsCALENDAR = new DataSet();
 
@@ -6473,7 +6475,7 @@ namespace TKMOC
             }
         }
 
-        public void SEARCHMOCMANULINE12(string MANU,string SDAY,string EDAY)
+        public void SEARCHMOCMANULINE12(string MANU, string SDAY, string EDAY)
         {
             try
             {
@@ -6491,7 +6493,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  ,[ID]");
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
                 sbSql.AppendFormat(@"  WHERE [MANU]='{0}' ", MANU);
-                sbSql.AppendFormat(@"  AND CONVERT(varchar(100),[MANUDATE],112)>='{0}' AND CONVERT(varchar(100),[MANUDATE],112)<='{1}'", SDAY,EDAY);
+                sbSql.AppendFormat(@"  AND CONVERT(varchar(100),[MANUDATE],112)>='{0}' AND CONVERT(varchar(100),[MANUDATE],112)<='{1}'", SDAY, EDAY);
                 sbSql.AppendFormat(@"  ORDER BY [MB001],[MANUDATE],[SERNO]");
                 sbSql.AppendFormat(@"  ");
 
@@ -6539,6 +6541,60 @@ namespace TKMOC
 
         }
 
+        public void SEARCHMOCMANULINEMERGE(DateTime dt)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  SELECT [MOCMANULINEMERGE].[NO] AS '編號', [MOCMANULINE].[MANU] AS '線別',[MOCMANULINE].[MB001] AS '品號',[MOCMANULINE].[MB002] AS '品名',[MOCMANULINE].[NUM] AS '數量'");
+                sbSql.AppendFormat(@"  ,[MOCMANULINEMERGE].[ID],[MOCMANULINEMERGE].[SID]");
+                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINEMERGE],[TKMOC].[dbo].[MOCMANULINE]");
+                sbSql.AppendFormat(@"  WHERE [MOCMANULINEMERGE].[SID]=[MOCMANULINE].[ID]");
+                sbSql.AppendFormat(@"  AND [MOCMANULINEMERGE].[NO] LIKE '{0}%'",dt.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(@"  ");
+
+                adapter33 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder33 = new SqlCommandBuilder(adapter33);
+                sqlConn.Open();
+                ds33.Clear();
+                adapter33.Fill(ds33, "ds33");
+                sqlConn.Close();
+
+
+                if (ds33.Tables["ds33"].Rows.Count == 0)
+                {
+                    dataGridView13.DataSource = null;
+                }
+                else
+                {
+                    if (ds33.Tables["ds33"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView13.DataSource = ds33.Tables["ds33"];
+                        dataGridView13.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
         public void INSERTMOCMANULINEMERGE(DateTime dt)
         {
             string NO = GETMAXNOMOCMANULINEMERGE(dt);
@@ -6547,9 +6603,14 @@ namespace TKMOC
             {
                 if (dr.Cells[0].Value != null && (bool)dr.Cells[0].Value)
                 {
-                    dr.Cells["ID"].Value.ToString();
+                    if(!string.IsNullOrEmpty(NO)&& !string.IsNullOrEmpty(dr.Cells["ID"].Value.ToString()))
+                    {
+                        ADDMOCMANULINEMERGE(NO.Trim(), dr.Cells["ID"].Value.ToString().Trim());
+                    }
+                   
 
-                    MessageBox.Show(NO+" "+dr.Cells["ID"].Value.ToString());
+                    //dr.Cells["ID"].Value.ToString();
+                    //MessageBox.Show(NO+" "+dr.Cells["ID"].Value.ToString());
                 }
             }
         }
@@ -6625,6 +6686,54 @@ namespace TKMOC
             }
 
           
+        }
+
+        public void ADDMOCMANULINEMERGE(string NO,string SID)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINEMERGE]");
+                sbSql.AppendFormat(" ([ID],[NO],[SID])");
+                sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}')", Guid.NewGuid(),NO, SID);
+                sbSql.AppendFormat(" ");
+                sbSql.AppendFormat(" ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
         }
         #endregion
 
@@ -7234,6 +7343,7 @@ namespace TKMOC
         private void button64_Click(object sender, EventArgs e)
         {
             INSERTMOCMANULINEMERGE(dateTimePicker22.Value);
+            SEARCHMOCMANULINEMERGE(dateTimePicker22.Value);
         }
 
         #endregion
