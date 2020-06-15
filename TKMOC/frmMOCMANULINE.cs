@@ -312,6 +312,7 @@ namespace TKMOC
             public string TA029;
             public string TA030;
             public string TA031;
+            public string TA033;
             public string TA034;
             public string TA035;
             public string TA040;
@@ -366,6 +367,7 @@ namespace TKMOC
             comboBox14load();
             comboBox15load();
             comboBox16load();
+            comboBox17load();
 
 
             SETIN();
@@ -666,6 +668,27 @@ namespace TKMOC
             comboBox16.DisplayMember = "MC002";
             sqlConn.Close();
 
+
+
+        }
+
+        public void comboBox17load()
+        {
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 LIKE '新廠製二組%'   ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("MD001", typeof(string));
+            dt.Columns.Add("MD002", typeof(string));
+            da.Fill(dt);
+            comboBox17.DataSource = dt.DefaultView;
+            comboBox17.ValueMember = "MD001";
+            comboBox17.DisplayMember = "MD002";
+            sqlConn.Close();
 
 
         }
@@ -4548,6 +4571,7 @@ namespace TKMOC
             IN2 = "20001";
             IN3 = "20001";
             IN4 = "20001";
+            label104.Text = "20001";
 
         }
         private void comboBox5_SelectedIndexChanged(object sender, EventArgs e)
@@ -6848,13 +6872,14 @@ namespace TKMOC
                     textBox80.Text = row.Cells["品號"].Value.ToString();
                     textBox81.Text = row.Cells["品名"].Value.ToString();
                     textBox82.Text = row.Cells["規格"].Value.ToString();
-
+                    textBox83.Text = row.Cells["加總數量"].Value.ToString();
                 }
                 else
                 {
                     textBox80.Text = null;
                     textBox81.Text = null;
                     textBox82.Text = null;
+                    textBox83.Text = null;
 
                 }
             }
@@ -6936,7 +6961,7 @@ namespace TKMOC
         }
 
 
-        public void ADDMOCTATBMERGE(string TA006, string TA020,string TA029)
+        public void ADDMOCTATBMERGE(string TA001, string TA002, string TA006, string TA034, string TA035, string TA020,string TA029,string TA021,string TA015,string TA033)
         {
             MOCTADATA MOCTA = new MOCTADATA();
             MOCTA = SETMOCTAMERGE(TA006,dateTimePicker22.Value);
@@ -6951,9 +6976,19 @@ namespace TKMOC
             MOCMB001 = TA006;
             MOCTA004 = BAR;
 
+            MOCTA.TA001 = TA001;
+            MOCTA.TA002 = TA002;
             MOCTA.TA006 = TA006;
+            MOCTA.TA015 = TA015;
             MOCTA.TA020 = TA020;
+            MOCTA.TA021 = TA021;
+            MOCTA.TA024 = TA001;
+            MOCTA.TA025 = TA002;
             MOCTA.TA029 = TA029;
+            MOCTA.TA033 = TA033;
+            MOCTA.TA034 = TA034;
+            MOCTA.TA035 = TA035;
+           
             //MOCTA.TA026 = TA026A;
             //MOCTA.TA027 = TA027A;
             //MOCTA.TA028 = TA028A;
@@ -6976,7 +7011,7 @@ namespace TKMOC
                     sbSql.AppendFormat(" ([COMPANY],[CREATOR],[USR_GROUP],[CREATE_DATE],[MODIFIER],[MODI_DATE],[FLAG],[CREATE_TIME],[MODI_TIME],[TRANS_TYPE]");
                     sbSql.AppendFormat(" ,[TRANS_NAME],[sync_count],[DataGroup],[TA001],[TA002],[TA003],[TA004],[TA005],[TA006],[TA007]");
                     sbSql.AppendFormat(" ,[TA009],[TA010],[TA011],[TA012],[TA013],[TA014],[TA015],[TA016],[TA017],[TA018]");
-                    sbSql.AppendFormat(" ,[TA019],[TA020],[TA021],[TA022],[TA024],[TA025],[TA029],[TA030],[TA031],[TA034],[TA035]");
+                    sbSql.AppendFormat(" ,[TA019],[TA020],[TA021],[TA022],[TA024],[TA025],[TA029],[TA030],[TA031],[TA033],[TA034],[TA035]");
                     sbSql.AppendFormat(" ,[TA040],[TA041],[TA043],[TA044],[TA045],[TA046],[TA047],[TA049],[TA050],[TA200]");
                     sbSql.AppendFormat(" ,[TA026],[TA027],[TA028]");
                     sbSql.AppendFormat(" )");
@@ -6984,24 +7019,24 @@ namespace TKMOC
                     sbSql.AppendFormat(" ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}',", MOCTA.COMPANY, MOCTA.CREATOR, MOCTA.USR_GROUP, MOCTA.CREATE_DATE, MOCTA.MODIFIER, MOCTA.MODI_DATE, MOCTA.FLAG, MOCTA.CREATE_TIME, MOCTA.MODI_TIME, MOCTA.TRANS_TYPE);
                     sbSql.AppendFormat(" '{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}',", MOCTA.TRANS_NAME, MOCTA.sync_count, MOCTA.DataGroup, MOCTA.TA001, MOCTA.TA002, MOCTA.TA003, MOCTA.TA004, MOCTA.TA005, MOCTA.TA006, MOCTA.TA007);
                     sbSql.AppendFormat(" '{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}',", MOCTA.TA009, MOCTA.TA010, MOCTA.TA011, MOCTA.TA012, MOCTA.TA013, MOCTA.TA014, MOCTA.TA015, MOCTA.TA016, MOCTA.TA017, MOCTA.TA018);
-                    sbSql.AppendFormat(" '{0}','{1}','{2}','{3}','{4}','{5}',N'{6}','{7}','{8}','{9}','{10}',", MOCTA.TA019, MOCTA.TA020, MOCTA.TA021, MOCTA.TA022, MOCTA.TA024, MOCTA.TA025, MOCTA.TA029, MOCTA.TA030, MOCTA.TA031, MOCTA.TA034, MOCTA.TA035);
+                    sbSql.AppendFormat(" '{0}','{1}','{2}','{3}','{4}','{5}',N'{6}','{7}','{8}','{9}','{10}','{11}',", MOCTA.TA019, MOCTA.TA020, MOCTA.TA021, MOCTA.TA022, MOCTA.TA024, MOCTA.TA025, MOCTA.TA029, MOCTA.TA030, MOCTA.TA031, MOCTA.TA033, MOCTA.TA034, MOCTA.TA035);
                     sbSql.AppendFormat(" '{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}',", MOCTA.TA040, MOCTA.TA041, MOCTA.TA043, MOCTA.TA044, MOCTA.TA045, MOCTA.TA046, MOCTA.TA047, MOCTA.TA049, MOCTA.TA050, MOCTA.TA200);
                     sbSql.AppendFormat(" '{0}','{1}','{2}'", MOCTA.TA026, MOCTA.TA027, MOCTA.TA028);
                     sbSql.AppendFormat(" )");
                     sbSql.AppendFormat(" ");
-                    sbSql.AppendFormat(" INSERT INTO [TK].dbo.[MOCTB]");
-                    sbSql.AppendFormat(" ([COMPANY],[CREATOR],[USR_GROUP],[CREATE_DATE],[MODIFIER],[MODI_DATE],[FLAG],[CREATE_TIME],[MODI_TIME],[TRANS_TYPE]");
-                    sbSql.AppendFormat(" ,[TRANS_NAME],[sync_count],[DataGroup],[TB001],[TB002],[TB003],[TB004],[TB005],[TB006],[TB007]");
-                    sbSql.AppendFormat(" ,[TB009],[TB011],[TB012],[TB013],[TB014],[TB018],[TB019],[TB020],[TB022],[TB024]");
-                    sbSql.AppendFormat(" ,[TB025],[TB026],[TB027],[TB029],[TB030],[TB031],[TB501],[TB554],[TB556],[TB560])");
-                    sbSql.AppendFormat(" (SELECT ");
-                    sbSql.AppendFormat(" '{0}' [COMPANY],'{1}' [CREATOR],'{2}' [USR_GROUP],'{3}' [CREATE_DATE],'{4}' [MODIFIER],'{5}' [MODI_DATE],'{6}' [FLAG],'{7}' [CREATE_TIME],'{8}' [MODI_TIME],'{9}' [TRANS_TYPE]", MOCTA.COMPANY, MOCTA.CREATOR, MOCTA.USR_GROUP, MOCTA.CREATE_DATE, MOCTA.MODIFIER, MOCTA.MODI_DATE, MOCTA.FLAG, MOCTA.CREATE_TIME, MOCTA.MODI_TIME, MOCTA.TRANS_TYPE);
-                    sbSql.AppendFormat(" ,'{0}' [TRANS_NAME],{1} [sync_count],'{2}' [DataGroup],'{3}' [TB001],'{4}' [TB002],[BOMMD].MD003 [TB003],ROUND({5}*[BOMMD].MD006/[BOMMD].MD007*(1+[BOMMD].MD008),3) [TB004],0 [TB005],'****' [TB006],[INVMB].MB004  [TB007]", MOCTA.TRANS_NAME, MOCTA.sync_count, MOCTA.DataGroup, MOCTA.TA001, MOCTA.TA002, MOCTA004);
-                    sbSql.AppendFormat(" ,[INVMB].MB017 [TB009],'1' [TB011],[INVMB].MB002 [TB012],[INVMB].MB003 [TB013],[BOMMD].MD001 [TB014],'N' [TB018],'0' [TB019],'0' [TB020],'2' [TB022],'0' [TB024]");
-                    sbSql.AppendFormat(" ,'****' [TB025],'0' [TB026],'1' [TB027],'0' [TB029],'0' [TB030],'0' [TB031],'0' [TB501],'N' [TB554],'0' [TB556],'0' [TB560]");
-                    sbSql.AppendFormat(" FROM [TK].dbo.[BOMMD],[TK].dbo.[INVMB]");
-                    sbSql.AppendFormat(" WHERE [BOMMD].MD003=[INVMB].MB001");
-                    sbSql.AppendFormat(" AND MD001='{0}' AND ISNULL(MD012,'')='' )", MOCMB001);
+                    //sbSql.AppendFormat(" INSERT INTO [TK].dbo.[MOCTB]");
+                    //sbSql.AppendFormat(" ([COMPANY],[CREATOR],[USR_GROUP],[CREATE_DATE],[MODIFIER],[MODI_DATE],[FLAG],[CREATE_TIME],[MODI_TIME],[TRANS_TYPE]");
+                    //sbSql.AppendFormat(" ,[TRANS_NAME],[sync_count],[DataGroup],[TB001],[TB002],[TB003],[TB004],[TB005],[TB006],[TB007]");
+                    //sbSql.AppendFormat(" ,[TB009],[TB011],[TB012],[TB013],[TB014],[TB018],[TB019],[TB020],[TB022],[TB024]");
+                    //sbSql.AppendFormat(" ,[TB025],[TB026],[TB027],[TB029],[TB030],[TB031],[TB501],[TB554],[TB556],[TB560])");
+                    //sbSql.AppendFormat(" (SELECT ");
+                    //sbSql.AppendFormat(" '{0}' [COMPANY],'{1}' [CREATOR],'{2}' [USR_GROUP],'{3}' [CREATE_DATE],'{4}' [MODIFIER],'{5}' [MODI_DATE],'{6}' [FLAG],'{7}' [CREATE_TIME],'{8}' [MODI_TIME],'{9}' [TRANS_TYPE]", MOCTA.COMPANY, MOCTA.CREATOR, MOCTA.USR_GROUP, MOCTA.CREATE_DATE, MOCTA.MODIFIER, MOCTA.MODI_DATE, MOCTA.FLAG, MOCTA.CREATE_TIME, MOCTA.MODI_TIME, MOCTA.TRANS_TYPE);
+                    //sbSql.AppendFormat(" ,'{0}' [TRANS_NAME],{1} [sync_count],'{2}' [DataGroup],'{3}' [TB001],'{4}' [TB002],[BOMMD].MD003 [TB003],ROUND({5}*[BOMMD].MD006/[BOMMD].MD007*(1+[BOMMD].MD008),3) [TB004],0 [TB005],'****' [TB006],[INVMB].MB004  [TB007]", MOCTA.TRANS_NAME, MOCTA.sync_count, MOCTA.DataGroup, MOCTA.TA001, MOCTA.TA002, MOCTA004);
+                    //sbSql.AppendFormat(" ,[INVMB].MB017 [TB009],'1' [TB011],[INVMB].MB002 [TB012],[INVMB].MB003 [TB013],[BOMMD].MD001 [TB014],'N' [TB018],'0' [TB019],'0' [TB020],'2' [TB022],'0' [TB024]");
+                    //sbSql.AppendFormat(" ,'****' [TB025],'0' [TB026],'1' [TB027],'0' [TB029],'0' [TB030],'0' [TB031],'0' [TB501],'N' [TB554],'0' [TB556],'0' [TB560]");
+                    //sbSql.AppendFormat(" FROM [TK].dbo.[BOMMD],[TK].dbo.[INVMB]");
+                    //sbSql.AppendFormat(" WHERE [BOMMD].MD003=[INVMB].MB001");
+                    //sbSql.AppendFormat(" AND MD001='{0}' AND ISNULL(MD012,'')='' )", MOCMB001);
                     sbSql.AppendFormat(" ");
                     sbSql.AppendFormat(" ");
                     sbSql.AppendFormat(" ");
@@ -7057,8 +7092,8 @@ namespace TKMOC
             MOCTA.TRANS_NAME = "MOCMI02";
             MOCTA.sync_count = "0";
             MOCTA.DataGroup = "103000";
-            MOCTA.TA001 = "A510";
-            MOCTA.TA002 = TA002;
+            MOCTA.TA001 = "";
+            MOCTA.TA002 = "";
             MOCTA.TA003 = dt.ToString("yyyyMMdd");
             MOCTA.TA004 = dt.ToString("yyyyMMdd");
             MOCTA.TA005 = BOMVARSION;
@@ -7081,13 +7116,14 @@ namespace TKMOC
             MOCTA.TA021 = "02";
             MOCTA.TA022 = "0";
             MOCTA.TA024 = "A510";
-            MOCTA.TA025 = TA002;
-            MOCTA.TA029 = TA029;
+            MOCTA.TA025 = "";
+            MOCTA.TA029 = "";
             MOCTA.TA030 = "1";
             MOCTA.TA031 = "0";
-            MOCTA.TA034 = MB002;
-            MOCTA.TA035 = MB003;
-            MOCTA.TA040 = dt1.ToString("yyyyMMdd");
+            MOCTA.TA033= "";
+            MOCTA.TA034 = "";
+            MOCTA.TA035 = "";
+            MOCTA.TA040 = dt.ToString("yyyyMMdd");
             MOCTA.TA041 = "";
             MOCTA.TA043 = "1";
             MOCTA.TA044 = "N";
@@ -7795,7 +7831,7 @@ namespace TKMOC
 
                 TA002 = GETMAXTA002MERGE(dateTimePicker22.Value,TA001);
 
-                ADDMOCTATBMERGE(textBox80.Text, label104.Text,textBox79.Text);
+                ADDMOCTATBMERGE(TA001, TA002,textBox80.Text, textBox81.Text, textBox82.Text, label104.Text,textBox79.Text,comboBox17.SelectedValue.ToString().Trim(), textBox83.Text.Trim(),textBox78.Text.Trim());
                 //SEARCHMOCMANULINERESULT();
 
                 MessageBox.Show(TA001+" "+ TA002+"完成");

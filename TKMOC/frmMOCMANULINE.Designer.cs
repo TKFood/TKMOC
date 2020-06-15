@@ -464,6 +464,9 @@
             this.textBox80 = new System.Windows.Forms.TextBox();
             this.textBox81 = new System.Windows.Forms.TextBox();
             this.textBox82 = new System.Windows.Forms.TextBox();
+            this.label105 = new System.Windows.Forms.Label();
+            this.comboBox17 = new System.Windows.Forms.ComboBox();
+            this.textBox83 = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).BeginInit();
@@ -4222,6 +4225,7 @@
             this.tableLayoutPanel17.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel17.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel17.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
+            this.tableLayoutPanel17.Controls.Add(this.textBox83, 2, 0);
             this.tableLayoutPanel17.Controls.Add(this.textBox82, 2, 1);
             this.tableLayoutPanel17.Controls.Add(this.textBox80, 0, 1);
             this.tableLayoutPanel17.Controls.Add(this.button65, 1, 0);
@@ -4314,11 +4318,13 @@
             this.tableLayoutPanel18.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel18.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel18.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
-            this.tableLayoutPanel18.Controls.Add(this.comboBox16, 0, 0);
             this.tableLayoutPanel18.Controls.Add(this.button66, 2, 0);
-            this.tableLayoutPanel18.Controls.Add(this.label104, 1, 0);
-            this.tableLayoutPanel18.Controls.Add(this.label103, 0, 1);
-            this.tableLayoutPanel18.Controls.Add(this.textBox79, 1, 1);
+            this.tableLayoutPanel18.Controls.Add(this.textBox79, 1, 2);
+            this.tableLayoutPanel18.Controls.Add(this.label103, 0, 2);
+            this.tableLayoutPanel18.Controls.Add(this.comboBox16, 1, 0);
+            this.tableLayoutPanel18.Controls.Add(this.label104, 0, 0);
+            this.tableLayoutPanel18.Controls.Add(this.label105, 0, 1);
+            this.tableLayoutPanel18.Controls.Add(this.comboBox17, 1, 1);
             this.tableLayoutPanel18.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel18.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel18.Name = "tableLayoutPanel18";
@@ -4337,7 +4343,7 @@
             this.comboBox16.Items.AddRange(new object[] {
             "製一組",
             "製二組"});
-            this.comboBox16.Location = new System.Drawing.Point(3, 8);
+            this.comboBox16.Location = new System.Drawing.Point(123, 8);
             this.comboBox16.Name = "comboBox16";
             this.comboBox16.Size = new System.Drawing.Size(114, 24);
             this.comboBox16.TabIndex = 21;
@@ -4359,7 +4365,7 @@
             this.label104.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label104.AutoSize = true;
             this.label104.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label104.Location = new System.Drawing.Point(123, 12);
+            this.label104.Location = new System.Drawing.Point(3, 12);
             this.label104.Name = "label104";
             this.label104.Size = new System.Drawing.Size(114, 16);
             this.label104.TabIndex = 23;
@@ -4371,7 +4377,7 @@
             this.label103.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label103.AutoSize = true;
             this.label103.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label103.Location = new System.Drawing.Point(3, 52);
+            this.label103.Location = new System.Drawing.Point(3, 92);
             this.label103.Name = "label103";
             this.label103.Size = new System.Drawing.Size(114, 16);
             this.label103.TabIndex = 112;
@@ -4383,7 +4389,7 @@
             this.textBox79.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel18.SetColumnSpan(this.textBox79, 2);
             this.textBox79.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.textBox79.Location = new System.Drawing.Point(123, 46);
+            this.textBox79.Location = new System.Drawing.Point(123, 86);
             this.textBox79.Name = "textBox79";
             this.textBox79.Size = new System.Drawing.Size(234, 27);
             this.textBox79.TabIndex = 205;
@@ -6060,6 +6066,41 @@
             this.textBox82.Size = new System.Drawing.Size(114, 27);
             this.textBox82.TabIndex = 12;
             // 
+            // label105
+            // 
+            this.label105.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label105.AutoSize = true;
+            this.label105.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label105.Location = new System.Drawing.Point(3, 52);
+            this.label105.Name = "label105";
+            this.label105.Size = new System.Drawing.Size(114, 16);
+            this.label105.TabIndex = 206;
+            this.label105.Text = "線別";
+            this.label105.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // comboBox17
+            // 
+            this.comboBox17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox17.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.comboBox17.FormattingEnabled = true;
+            this.comboBox17.Items.AddRange(new object[] {
+            "製一組",
+            "製二組"});
+            this.comboBox17.Location = new System.Drawing.Point(123, 48);
+            this.comboBox17.Name = "comboBox17";
+            this.comboBox17.Size = new System.Drawing.Size(114, 24);
+            this.comboBox17.TabIndex = 207;
+            // 
+            // textBox83
+            // 
+            this.textBox83.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox83.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.textBox83.Location = new System.Drawing.Point(243, 6);
+            this.textBox83.Name = "textBox83";
+            this.textBox83.ReadOnly = true;
+            this.textBox83.Size = new System.Drawing.Size(114, 27);
+            this.textBox83.TabIndex = 13;
+            // 
             // frmMOCMANULINE
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -6665,5 +6706,8 @@
         private System.Windows.Forms.TextBox textBox80;
         private System.Windows.Forms.TextBox textBox82;
         private System.Windows.Forms.TextBox textBox81;
+        private System.Windows.Forms.Label label105;
+        private System.Windows.Forms.ComboBox comboBox17;
+        private System.Windows.Forms.TextBox textBox83;
     }
 }
