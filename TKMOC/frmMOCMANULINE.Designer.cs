@@ -4171,6 +4171,7 @@
             this.dataGridView13.RowTemplate.Height = 24;
             this.dataGridView13.Size = new System.Drawing.Size(643, 128);
             this.dataGridView13.TabIndex = 6;
+            this.dataGridView13.SelectionChanged += new System.EventHandler(this.dataGridView13_SelectionChanged);
             // 
             // splitContainer24
             // 

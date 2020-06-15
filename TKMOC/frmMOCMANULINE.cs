@@ -5200,10 +5200,7 @@ namespace TKMOC
            
         }
 
-        private void dataGridView13_SelectionChanged(object sender, EventArgs e)
-        {
-            
-        }
+   
 
         private void dataGridView14_SelectionChanged(object sender, EventArgs e)
         {
@@ -6735,6 +6732,26 @@ namespace TKMOC
                 sqlConn.Close();
             }
         }
+
+        private void dataGridView13_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView13.CurrentRow != null)
+            {
+                int rowindex = dataGridView13.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView13.Rows[rowindex];
+                    textBox78.Text = row.Cells["編號"].Value.ToString();
+
+                }
+                else
+                {
+                    textBox78.Text = null;
+
+                }
+            }
+        }
+
         #endregion
 
         #region BUTTON
@@ -7346,8 +7363,10 @@ namespace TKMOC
             SEARCHMOCMANULINEMERGE(dateTimePicker22.Value);
         }
 
+
+
         #endregion
 
-
+    
     }
 }
