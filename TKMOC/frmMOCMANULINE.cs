@@ -90,6 +90,8 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder30 = new SqlCommandBuilder();
         SqlDataAdapter adapter31= new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder31 = new SqlCommandBuilder();
+        SqlDataAdapter adapter32 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder32 = new SqlCommandBuilder();
 
 
         SqlDataAdapter adapterCALENDAR = new SqlDataAdapter();
@@ -129,6 +131,7 @@ namespace TKMOC
         DataSet ds29 = new DataSet();
         DataSet ds30 = new DataSet();
         DataSet ds31 = new DataSet();
+        DataSet ds32 = new DataSet();
 
         DataSet dsCALENDAR = new DataSet();
 
@@ -6536,19 +6539,93 @@ namespace TKMOC
 
         }
 
-        public void INSERTMOCMANULINEMERGE()
+        public void INSERTMOCMANULINEMERGE(DateTime dt)
         {
+            string NO = GETMAXNOMOCMANULINEMERGE(dt);
+
             foreach (DataGridViewRow dr in this.dataGridView12.Rows)
             {
                 if (dr.Cells[0].Value != null && (bool)dr.Cells[0].Value)
                 {
                     dr.Cells["ID"].Value.ToString();
 
-                    MessageBox.Show(dr.Cells["ID"].Value.ToString());
+                    MessageBox.Show(NO+" "+dr.Cells["ID"].Value.ToString());
                 }
             }
         }
 
+        public string GETMAXNOMOCMANULINEMERGE(DateTime dt)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                StringBuilder sbSql = new StringBuilder();
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+                ds4.Clear();
+
+                sbSql.AppendFormat(@"  SELECT ISNULL(MAX(NO),'00000000000') AS NO");
+                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINEMERGE] ");
+                //sbSql.AppendFormat(@"  WHERE  TC001='{0}' AND TC003='{1}'", "A542","20170119");
+                sbSql.AppendFormat(@"  WHERE [NO] LIKE '{0}%' ", dt.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+                adapter32 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder32 = new SqlCommandBuilder(adapter32);
+                sqlConn.Open();
+                ds32.Clear();
+                adapter32.Fill(ds32, "ds32");
+                sqlConn.Close();
+
+
+                if (ds32.Tables["ds32"].Rows.Count == 0)
+                {
+                    return null;
+                }
+                else
+                {
+                    if (ds32.Tables["ds32"].Rows.Count >= 1)
+                    {
+                        TA002 = SETMAXNOMOCMANULINEMERG(dt,ds32.Tables["ds32"].Rows[0]["NO"].ToString());
+                        return TA002;
+
+                    }
+                    return null;
+                }
+
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public string SETMAXNOMOCMANULINEMERG(DateTime dt,string NO)
+        {
+            if (NO.Equals("00000000000"))
+            {
+                return dt.ToString("yyyyMMdd") + "001";
+            }
+
+            else
+            {
+                int serno = Convert.ToInt16(NO.Substring(8, 3));
+                serno = serno + 1;
+                string temp = serno.ToString();
+                temp = temp.PadLeft(3, '0');
+                return dt.ToString("yyyyMMdd") + temp.ToString();
+            }
+
+          
+        }
         #endregion
 
         #region BUTTON
@@ -7156,7 +7233,7 @@ namespace TKMOC
         }
         private void button64_Click(object sender, EventArgs e)
         {
-            INSERTMOCMANULINEMERGE();
+            INSERTMOCMANULINEMERGE(dateTimePicker22.Value);
         }
 
         #endregion
