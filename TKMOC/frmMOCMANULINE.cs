@@ -362,6 +362,7 @@ namespace TKMOC
             comboBox13load();
             comboBox14load();
             comboBox15load();
+            comboBox16load();
 
 
             SETIN();
@@ -639,6 +640,29 @@ namespace TKMOC
             comboBox15.ValueMember = "MD002";
             comboBox15.DisplayMember = "MD002";
             sqlConn.Close();
+
+
+        }
+
+        public void comboBox16load()
+        {
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT MC001 ,MC001+MC002 AS 'MC002' FROM [TK].dbo.CMSMC WHERE MC001 LIKE '2000%'  ORDER BY MC001 ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("MC001", typeof(string));
+            dt.Columns.Add("MC002", typeof(string));
+
+            da.Fill(dt);
+            comboBox16.DataSource = dt.DefaultView;
+            comboBox16.ValueMember = "MC001";
+            comboBox16.DisplayMember = "MC002";
+            sqlConn.Close();
+
 
 
         }
