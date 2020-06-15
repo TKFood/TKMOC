@@ -88,6 +88,8 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder29 = new SqlCommandBuilder();
         SqlDataAdapter adapter30 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder30 = new SqlCommandBuilder();
+        SqlDataAdapter adapter31= new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder31 = new SqlCommandBuilder();
 
 
         SqlDataAdapter adapterCALENDAR = new SqlDataAdapter();
@@ -126,6 +128,7 @@ namespace TKMOC
         DataSet ds28 = new DataSet();
         DataSet ds29 = new DataSet();
         DataSet ds30 = new DataSet();
+        DataSet ds31 = new DataSet();
 
         DataSet dsCALENDAR = new DataSet();
 
@@ -350,6 +353,9 @@ namespace TKMOC
 
             comboBox13load();
             comboBox14load();
+            comboBox15load();
+
+
             SETIN();
 
             //SET CALENDAR
@@ -608,7 +614,26 @@ namespace TKMOC
 
         }
 
+        public void comboBox15load()
+        {
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 LIKE '新廠%'   ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
 
+            dt.Columns.Add("MD001", typeof(string));
+            dt.Columns.Add("MD002", typeof(string));
+            da.Fill(dt);
+            comboBox15.DataSource = dt.DefaultView;
+            comboBox15.ValueMember = "MD002";
+            comboBox15.DisplayMember = "MD002";
+            sqlConn.Close();
+
+
+        }
         public void SEARCHMOCMANULINE()
         {
             if(MANU.Equals("新廠製二組"))
@@ -6445,6 +6470,64 @@ namespace TKMOC
             }
         }
 
+        public void SEARCHMOCMANULINE12(string MANU,string SDAY,string EDAY)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+
+                sbSql.AppendFormat(@"  SELECT ");
+                sbSql.AppendFormat(@"  [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名'");
+                sbSql.AppendFormat(@"  ,[MB003] AS '規格',[BOX] AS '箱數',[PACKAGE] AS '包裝數',[CLINET] AS '客戶',[MANUHOUR] AS '生產時間',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'");
+                sbSql.AppendFormat(@"  ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號'");
+                sbSql.AppendFormat(@"  ,[ID]");
+                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
+                sbSql.AppendFormat(@"  WHERE [MANU]='{0}' ", MANU);
+                sbSql.AppendFormat(@"  AND CONVERT(varchar(100),[MANUDATE],112)>='{0}' AND CONVERT(varchar(100),[MANUDATE],112)<='{1}'", SDAY,EDAY);
+                sbSql.AppendFormat(@"  ORDER BY [MB001],[MANUDATE],[SERNO]");
+                sbSql.AppendFormat(@"  ");
+
+                adapter31 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder31 = new SqlCommandBuilder(adapter31);
+                sqlConn.Open();
+                ds31.Clear();
+                adapter31.Fill(ds31, "ds31");
+                sqlConn.Close();
+
+
+                if (ds31.Tables["ds31"].Rows.Count == 0)
+                {
+                    dataGridView12.DataSource = null;
+                }
+                else
+                {
+                    if (ds31.Tables["ds31"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView12.DataSource = ds31.Tables["ds31"];
+                        dataGridView12.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+
+        }
 
         #endregion
 
@@ -7047,9 +7130,13 @@ namespace TKMOC
 
         }
 
+        private void button63_Click(object sender, EventArgs e)
+        {
+            SEARCHMOCMANULINE12(comboBox15.Text.Trim(),dateTimePicker20.Value.ToString("yyyyMMdd"), dateTimePicker21.Value.ToString("yyyyMMdd"));
+        }
 
         #endregion
 
-       
+
     }
 }
