@@ -6544,7 +6544,7 @@ namespace TKMOC
 
                 sbSql.AppendFormat(@"  SELECT ");
                 sbSql.AppendFormat(@"  [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名'");
-                sbSql.AppendFormat(@"  ,[MB003] AS '規格',[BOX] AS '箱數',[PACKAGE] AS '包裝數',[CLINET] AS '客戶',[MANUHOUR] AS '生產時間',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'");
+                sbSql.AppendFormat(@"  ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[BOX] AS '箱數',[PACKAGE] AS '包裝數',[CLINET] AS '客戶',[MANUHOUR] AS '生產時間',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'");
                 sbSql.AppendFormat(@"  ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號'");
                 sbSql.AppendFormat(@"  ,[ID]");
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
@@ -6607,11 +6607,12 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  SELECT [MOCMANULINEMERGE].[NO] AS '編號', [MOCMANULINE].[MANU] AS '線別',[MOCMANULINE].[MB001] AS '品號',[MOCMANULINE].[MB002] AS '品名',[MOCMANULINE].[NUM] AS '數量'");
+                sbSql.AppendFormat(@"  SELECT [MOCMANULINEMERGE].[NO] AS '編號', [MOCMANULINE].[MANU] AS '線別',[MOCMANULINE].[MB001] AS '品號',[MOCMANULINE].[MB002] AS '品名',[MOCMANULINE].[BAR] AS '桶數',[MOCMANULINE].[NUM] AS '數量'");
                 sbSql.AppendFormat(@"  ,[MOCMANULINEMERGE].[ID],[MOCMANULINEMERGE].[SID]");
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINEMERGE],[TKMOC].[dbo].[MOCMANULINE]");
                 sbSql.AppendFormat(@"  WHERE [MOCMANULINEMERGE].[SID]=[MOCMANULINE].[ID]");
                 sbSql.AppendFormat(@"  AND [MOCMANULINEMERGE].[NO] LIKE '{0}%'",dt.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(@"  ORDER BY [MOCMANULINEMERGE].[NO]");
                 sbSql.AppendFormat(@"  ");
 
                 adapter33 = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -6824,7 +6825,7 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  SELECT [MOCMANULINEMERGE].[NO] AS '編號',[MOCMANULINE].[MB001] AS '品號',[MOCMANULINE].[MB002] AS '品名',[MOCMANULINE].[MB003] AS '規格',SUM([MOCMANULINE].[NUM]) AS '加總數量' ");
+                sbSql.AppendFormat(@"  SELECT [MOCMANULINEMERGE].[NO] AS '編號',[MOCMANULINE].[MB001] AS '品號',[MOCMANULINE].[MB002] AS '品名',[MOCMANULINE].[MB003] AS '規格',SUM([MOCMANULINE].[BAR]) AS '加總桶數',SUM([MOCMANULINE].[NUM]) AS '加總數量' ");
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINEMERGE],[TKMOC].[dbo].[MOCMANULINE]");
                 sbSql.AppendFormat(@"  WHERE [MOCMANULINEMERGE].[SID]=[MOCMANULINE].[ID]");
                 sbSql.AppendFormat(@"  AND [MOCMANULINEMERGE].[NO]='{0}'",NO);
@@ -7001,9 +7002,9 @@ namespace TKMOC
                     sbSql.AppendFormat(" DELETE [TKMOC].[dbo].[MOCMANULINEMERGERESLUT]");
                     sbSql.AppendFormat(" ");
                     sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINEMERGERESLUT]");
-                    sbSql.AppendFormat(" ([NO],[MB001],[MB002],[MB003],[NUM])");
+                    sbSql.AppendFormat(" ([NO],[MB001],[MB002],[MB003],[NUM],[BAR])");
                     sbSql.AppendFormat(" VALUES");
-                    sbSql.AppendFormat(" ('{0}','{1}','{2}','{3}','{4}')", ds34.Tables["ds34"].Rows[0]["編號"].ToString(), ds34.Tables["ds34"].Rows[0]["品號"].ToString(), ds34.Tables["ds34"].Rows[0]["品名"].ToString(), ds34.Tables["ds34"].Rows[0]["規格"].ToString(), ds34.Tables["ds34"].Rows[0]["加總數量"].ToString());
+                    sbSql.AppendFormat(" ('{0}','{1}','{2}','{3}','{4}','{5}')", ds34.Tables["ds34"].Rows[0]["編號"].ToString(), ds34.Tables["ds34"].Rows[0]["品號"].ToString(), ds34.Tables["ds34"].Rows[0]["品名"].ToString(), ds34.Tables["ds34"].Rows[0]["規格"].ToString(), ds34.Tables["ds34"].Rows[0]["加總數量"].ToString(), ds34.Tables["ds34"].Rows[0]["加總桶數"].ToString());
                     sbSql.AppendFormat(" ");
                     sbSql.AppendFormat(" ");
 
