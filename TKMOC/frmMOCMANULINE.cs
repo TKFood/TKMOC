@@ -7386,6 +7386,18 @@ namespace TKMOC
             label104.Text = comboBox16.SelectedValue.ToString();
            
         }
+
+        public void  DATAGRIDCLEAR()
+        {
+            this.dataGridView12.Columns.RemoveAt(0);
+
+            dataGridView12.DataSource = null;
+            dataGridView13.DataSource = null;
+            dataGridView14.DataSource = null;
+            dataGridView18.DataSource = null;
+            dataGridView19.DataSource = null;
+        }
+
         #endregion
 
         #region BUTTON
@@ -8020,11 +8032,16 @@ namespace TKMOC
             {
                 MessageBox.Show("訂單沒有指定");
             }
-            #endregion
+            
 
 
         }
 
-       
+        private void button68_Click(object sender, EventArgs e)
+        {
+            DATAGRIDCLEAR();
+        }
+
+        #endregion
     }
 }
