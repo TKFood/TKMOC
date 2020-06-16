@@ -2753,6 +2753,44 @@ namespace TKMOC
             return SB;
 
         }
+
+        public void SETFASTREPORT4()
+        {
+            StringBuilder SQL1 = new StringBuilder();
+
+            SQL1 = SETSQL4();
+            Report report1 = new Report();
+            report1.Load(@"REPORT\預排製令矩陣.frx");
+
+            report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+            TableDataSource table = report1.GetDataSource("Table") as TableDataSource;
+            table.SelectCommand = SQL1.ToString();
+
+            report1.Preview = previewControl4;
+            report1.Show();
+        }
+
+        public StringBuilder SETSQL4()
+        {
+            StringBuilder SB = new StringBuilder();
+
+            SB.AppendFormat(@"  SELECT  [MOCMANULINE].[MANU] ,CONVERT(nvarchar,[MOCMANULINE].[MANUDATE],112) MANUDATE,[MOCMANULINE].[MB002]");
+            SB.AppendFormat(@"  ,ISNULL([MOCMANULINE].[BAR],0) BAR,ISNULL([MOCMANULINE].[NUM],0) NUM,ISNULL([MOCMANULINE].[PACKAGE],0) PACKAGE");
+            SB.AppendFormat(@"  ,[MOCMANULINE].[COPTD001]+' '+[MOCMANULINE].[COPTD002]+' '+[MOCMANULINE].[COPTD003] AS TD00123");
+            SB.AppendFormat(@"  ,[COPTC].TC053,[CMSMV].MV002");
+            SB.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
+            SB.AppendFormat(@"  LEFT JOIN [TK].dbo.[COPTD] ON [MOCMANULINE].[COPTD001]=[COPTD].TD001 AND [MOCMANULINE].[COPTD002]=[COPTD].TD002 AND[MOCMANULINE].[COPTD003]=[COPTD].TD003 ");
+            SB.AppendFormat(@"  LEFT JOIN [TK].dbo.[COPTC] ON [COPTD].TD001=[COPTC].TC001 AND [COPTD].TD002=[COPTC].TC002");
+            SB.AppendFormat(@"  LEFT JOIN [TK].dbo.[CMSMV] ON [CMSMV].MV001=[COPTC].TC006");
+            SB.AppendFormat(@"  WHERE CONVERT(nvarchar,[MOCMANULINE].[MANUDATE],112)>='{0}' AND CONVERT(nvarchar,[MOCMANULINE].[MANUDATE],112)<='{1}'",dateTimePicker19.Value.ToString("yyyyMMdd"), dateTimePicker20.Value.ToString("yyyyMMdd"));
+            SB.AppendFormat(@"  ORDER BY [MOCMANULINE].[MANU],CONVERT(nvarchar,[MOCMANULINE].[MANUDATE],112)");
+            SB.AppendFormat(@"   ");
+            SB.AppendFormat(@"  ");
+
+
+            return SB;
+
+        }
         public void ADDTOUOFTB_EIP_SCH_MEMO(string SDay,string EDay)
         {
             DataSet ds = new DataSet();
@@ -3480,6 +3518,11 @@ namespace TKMOC
         {
             //ADDTOUOFTB_EIP_SCH_MEMO(dateTimePicker11.Value.ToString("yyyyMMdd"), dateTimePicker14.Value.ToString("yyyyMMdd"));
             ADDTOUOFTB_EIP_SCH_MEMO_MOC(dateTimePicker11.Value.ToString("yyyyMMdd"));
+        }
+
+        private void button20_Click(object sender, EventArgs e)
+        {
+            SETFASTREPORT4();
         }
 
         #endregion
