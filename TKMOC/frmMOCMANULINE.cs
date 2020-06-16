@@ -6570,6 +6570,12 @@ namespace TKMOC
                 {
                     if (ds31.Tables["ds31"].Rows.Count >= 1)
                     {
+                        if(dataGridView12.Columns.Count>0)
+                        {
+                            this.dataGridView12.Columns.RemoveAt(0);
+                        }
+
+
                         //dataGridView1.Rows.Clear();
                         dataGridView12.DataSource = ds31.Tables["ds31"];
                         dataGridView12.AutoResizeColumns();
@@ -7390,7 +7396,7 @@ namespace TKMOC
 
         public void  DATAGRIDCLEAR()
         {
-            this.dataGridView12.Columns.RemoveAt(0);
+            
 
             dataGridView12.DataSource = null;
             dataGridView13.DataSource = null;
