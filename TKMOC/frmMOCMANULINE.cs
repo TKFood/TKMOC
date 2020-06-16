@@ -98,6 +98,10 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder34 = new SqlCommandBuilder();
         SqlDataAdapter adapter35 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder35 = new SqlCommandBuilder();
+        SqlDataAdapter adapter36 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder36 = new SqlCommandBuilder();
+        SqlDataAdapter adapter37 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder37 = new SqlCommandBuilder();
 
         SqlDataAdapter adapterCALENDAR = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilderCALENDAR = new SqlCommandBuilder();
@@ -140,6 +144,9 @@ namespace TKMOC
         DataSet ds33 = new DataSet();
         DataSet ds34 = new DataSet();
         DataSet ds35 = new DataSet();
+        DataSet ds36 = new DataSet();
+        DataSet ds37 = new DataSet();
+
 
         DataSet dsCALENDAR = new DataSet();
 
@@ -6795,6 +6802,8 @@ namespace TKMOC
                     DataGridViewRow row = dataGridView13.Rows[rowindex];
                     textBox78.Text = row.Cells["編號"].Value.ToString();
 
+                    SEARCHMOCTATA020(row.Cells["編號"].Value.ToString());
+                    SEARCHMOCMANULINENO(row.Cells["編號"].Value.ToString());
                 }
                 else
                 {
@@ -6847,6 +6856,117 @@ namespace TKMOC
                         //dataGridView1.CurrentCell = dataGridView1[0, rownum];
 
                       
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void SEARCHMOCTATA020(string TA033)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  SELECT TA001 AS '製令單別',TA002 AS '製令單號',TA020 AS '編號'");
+                sbSql.AppendFormat(@"  FROM [TK].dbo.MOCTA");
+                sbSql.AppendFormat(@"  WHERE TA033='{0}'", TA033);
+                sbSql.AppendFormat(@"  ");
+
+                adapter36 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder36 = new SqlCommandBuilder(adapter36);
+                sqlConn.Open();
+                ds36.Clear();
+                adapter36.Fill(ds36, "ds36");
+                sqlConn.Close();
+
+
+                if (ds36.Tables["ds36"].Rows.Count == 0)
+                {
+                    dataGridView18.DataSource = null;
+                }
+                else
+                {
+                    if (ds36.Tables["ds36"].Rows.Count >= 1)
+                    {
+                     
+                        //dataGridView1.Rows.Clear();
+                        dataGridView18.DataSource = ds36.Tables["ds36"];
+                        dataGridView18.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void SEARCHMOCMANULINENO(string NO)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  SELECT [MOCMANULINE].[MANU] AS '線別',CONVERT(NVARCHAR,[MOCMANULINE].[MANUDATE],112) AS '預排日',[MOCMANULINE].[MB001] AS '品號',[MOCMANULINE].[MB002] AS '品名',[MOCMANULINE].[NUM] AS '數量'");
+                sbSql.AppendFormat(@"  ,[MOCMANULINEMERGE].[ID],[MOCMANULINEMERGE].[NO],[MOCMANULINEMERGE].[SID]");
+                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINEMERGE],[TKMOC].[dbo].[MOCMANULINE]");
+                sbSql.AppendFormat(@"  WHERE [MOCMANULINEMERGE].[SID]=[MOCMANULINE].ID");
+                sbSql.AppendFormat(@"  AND [NO]='{0}'",NO);
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+                adapter37 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder37 = new SqlCommandBuilder(adapter37);
+                sqlConn.Open();
+                ds37.Clear();
+                adapter37.Fill(ds37, "ds37");
+                sqlConn.Close();
+
+
+                if (ds37.Tables["ds37"].Rows.Count == 0)
+                {
+                    dataGridView19.DataSource = null;
+                }
+                else
+                {
+                    if (ds37.Tables["ds37"].Rows.Count >= 1)
+                    {
+
+                        //dataGridView1.Rows.Clear();
+                        dataGridView19.DataSource = ds37.Tables["ds37"];
+                        dataGridView19.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+
 
                     }
                 }
