@@ -121,6 +121,8 @@ namespace TKMOC
 
             //comboBox1load();
 
+            comboBox7load();
+
             SETDATE();
             SETDATE2();
         }
@@ -170,6 +172,28 @@ namespace TKMOC
             comboBox1.DataSource = dt.DefaultView;
             comboBox1.ValueMember = "MD002";
             comboBox1.DisplayMember = "MD002";
+            sqlConn.Close();
+
+
+        }
+
+        public void comboBox7load()
+        {
+
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 LIKE '新廠%' UNION ALL SELECT '全部','全部'   ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("MD001", typeof(string));
+            dt.Columns.Add("MD002", typeof(string));
+            da.Fill(dt);
+            comboBox7.DataSource = dt.DefaultView;
+            comboBox7.ValueMember = "MD002";
+            comboBox7.DisplayMember = "MD002";
             sqlConn.Close();
 
 
@@ -2754,11 +2778,11 @@ namespace TKMOC
 
         }
 
-        public void SETFASTREPORT4()
+        public void SETFASTREPORT4(string MANU,string SDAY,string EDAY)
         {
             StringBuilder SQL1 = new StringBuilder();
 
-            SQL1 = SETSQL4();
+            SQL1 = SETSQL4(MANU, SDAY, EDAY);
             Report report1 = new Report();
             report1.Load(@"REPORT\預排製令矩陣.frx");
 
@@ -2770,8 +2794,19 @@ namespace TKMOC
             report1.Show();
         }
 
-        public StringBuilder SETSQL4()
+        public StringBuilder SETSQL4(string MANU, string SDAY, string EDAY)
         {
+            StringBuilder Query = new StringBuilder();
+
+            if(MANU.Equals("全部"))
+            {
+                Query.AppendFormat(@" ");
+            }
+            else
+            {
+                Query.AppendFormat(@" AND  [MOCMANULINE].[MANU]='{0}'",MANU);
+            }
+
             StringBuilder SB = new StringBuilder();
 
             SB.AppendFormat(@"  SELECT  [MOCMANULINE].[MANU] ,CONVERT(nvarchar,[MOCMANULINE].[MANUDATE],112) MANUDATE,[MOCMANULINE].[MB002]");
@@ -2782,7 +2817,8 @@ namespace TKMOC
             SB.AppendFormat(@"  LEFT JOIN [TK].dbo.[COPTD] ON [MOCMANULINE].[COPTD001]=[COPTD].TD001 AND [MOCMANULINE].[COPTD002]=[COPTD].TD002 AND[MOCMANULINE].[COPTD003]=[COPTD].TD003 ");
             SB.AppendFormat(@"  LEFT JOIN [TK].dbo.[COPTC] ON [COPTD].TD001=[COPTC].TC001 AND [COPTD].TD002=[COPTC].TC002");
             SB.AppendFormat(@"  LEFT JOIN [TK].dbo.[CMSMV] ON [CMSMV].MV001=[COPTC].TC006");
-            SB.AppendFormat(@"  WHERE CONVERT(nvarchar,[MOCMANULINE].[MANUDATE],112)>='{0}' AND CONVERT(nvarchar,[MOCMANULINE].[MANUDATE],112)<='{1}'",dateTimePicker19.Value.ToString("yyyyMMdd"), dateTimePicker20.Value.ToString("yyyyMMdd"));
+            SB.AppendFormat(@"  WHERE CONVERT(nvarchar,[MOCMANULINE].[MANUDATE],112)>='{0}' AND CONVERT(nvarchar,[MOCMANULINE].[MANUDATE],112)<='{1}'", SDAY, EDAY);
+            SB.AppendFormat(@"  {0}", Query.ToString());
             SB.AppendFormat(@"  ORDER BY [MOCMANULINE].[MANU],CONVERT(nvarchar,[MOCMANULINE].[MANUDATE],112)");
             SB.AppendFormat(@"   ");
             SB.AppendFormat(@"  ");
@@ -3522,7 +3558,7 @@ namespace TKMOC
 
         private void button20_Click(object sender, EventArgs e)
         {
-            SETFASTREPORT4();
+            SETFASTREPORT4(comboBox7.Text,dateTimePicker19.Value.ToString("yyyyMMdd"), dateTimePicker20.Value.ToString("yyyyMMdd"));
         }
 
         #endregion
