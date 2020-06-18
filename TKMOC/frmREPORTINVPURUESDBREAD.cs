@@ -189,6 +189,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB,[TK].dbo.PURTC,[TK].dbo.PURTD ");
                 sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.INVMD ON MD001=TD004 AND MD002=TD009  ");
                 sbSql.AppendFormat(@"  WHERE TC001=TD001 AND TC002=TD002 AND TD004=MB001 AND TD018='Y' AND TD016='N'");
+                sbSql.AppendFormat(@"  AND  TD007 IN ('20006') ");
                 sbSql.AppendFormat(@"  AND TD012>='{0}' AND TD012<='{1}' ", SDay, EDay);
                 sbSql.AppendFormat(@"  AND TD004='{0}'", MD003);
                 sbSql.AppendFormat(@"  UNION ");
@@ -223,6 +224,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB,[TK].dbo.PURTC,[TK].dbo.PURTD ");
                 sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.INVMD ON MD001=TD004 AND MD002=TD009 ");
                 sbSql.AppendFormat(@"  WHERE TC001=TD001 AND TC002=TD002 AND TD004=MB001 AND TD018='Y' AND TD016='N'");
+                sbSql.AppendFormat(@"  AND  TD007 IN ('20006') ");
                 sbSql.AppendFormat(@"  AND TD012>='{0}' AND TD012<='{1}' ", SDay, EDay);
                 sbSql.AppendFormat(@"  AND TD004='{0}'", MD003);
                 sbSql.AppendFormat(@"  UNION ");
