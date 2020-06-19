@@ -6531,8 +6531,10 @@ namespace TKMOC
             }
         }
 
-        public void SEARCHMOCMANULINE12(string MANU, string SDAY, string EDAY)
+        public void SEARCHMOCMANULINE12(string MANU, string SDAY, string EDAY,string SATUS)
         {
+            StringBuilder Query = new StringBuilder();
+
             try
             {
                 connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
@@ -6541,6 +6543,14 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
+                if(SATUS.Equals("過濾已合併的"))
+                {
+                    Query.AppendFormat(@" AND [ID] NOT IN (SELECT [SID]  FROM [TKMOC].[dbo].[MOCMANULINEMERGE]) ");
+                }
+                else
+                {
+                    Query.AppendFormat(@" ");
+                }
 
                 sbSql.AppendFormat(@"  SELECT ");
                 sbSql.AppendFormat(@"  [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名'");
@@ -6550,6 +6560,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
                 sbSql.AppendFormat(@"  WHERE [MANU]='{0}' ", MANU);
                 sbSql.AppendFormat(@"  AND CONVERT(varchar(100),[MANUDATE],112)>='{0}' AND CONVERT(varchar(100),[MANUDATE],112)<='{1}'", SDAY, EDAY);
+                sbSql.AppendFormat(@"  {0}",Query.ToString());
                 sbSql.AppendFormat(@"  ORDER BY [MB001],[MANUDATE],[SERNO]");
                 sbSql.AppendFormat(@"  ");
 
@@ -8008,7 +8019,7 @@ namespace TKMOC
 
         private void button63_Click(object sender, EventArgs e)
         {
-            SEARCHMOCMANULINE12(comboBox15.Text.Trim(),dateTimePicker20.Value.ToString("yyyyMMdd"), dateTimePicker21.Value.ToString("yyyyMMdd"));
+            SEARCHMOCMANULINE12(comboBox15.Text.Trim(),dateTimePicker20.Value.ToString("yyyyMMdd"), dateTimePicker21.Value.ToString("yyyyMMdd"),comboBox18.Text.Trim());
         }
         private void button64_Click(object sender, EventArgs e)
         {
