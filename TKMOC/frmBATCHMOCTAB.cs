@@ -566,7 +566,7 @@ namespace TKMOC
 
         }
 
-        public void GENMOCTAB2(DateTime DTMOCTAB, string TA021, string TA029,string FORM)
+        public void GENMOCTAB2(DateTime DTMOCTAB, string TA021, string TA029,string FORM, DateTime TA009)
         {
             if (ds11.Tables["ds11"].Rows.Count > 0)
             {
@@ -581,7 +581,7 @@ namespace TKMOC
                             TA001 = FORM;
                             TA002 = GETMAXTA002(TA001, DTMOCTAB);
 
-                            ADDMOCTATB2(TA001, TA002, find.MB001, find.NUM, find.MB068, DTMOCTAB, TA021, TA029);
+                            ADDMOCTATB2(TA001, TA002, find.MB001, find.NUM, find.MB068, DTMOCTAB, TA021, TA029, TA009);
 
                         }
                         
@@ -765,7 +765,7 @@ namespace TKMOC
             }
         }
 
-        public void ADDMOCTATB2(string TA001, string TA002, string MB001, double NUM, string MB068, DateTime DTMOCTAB, string TA021, string TA029)
+        public void ADDMOCTATB2(string TA001, string TA002, string MB001, double NUM, string MB068, DateTime DTMOCTAB, string TA021, string TA029, DateTime TA009)
         {
             MOCTADATA MOCTA = new MOCTADATA();
             MOCTA = SETMOCTA2(TA001, TA002, MB001, NUM, MB068, DTMOCTAB, TA021, TA029);
@@ -779,6 +779,7 @@ namespace TKMOC
 
             MOCMB001 = MB001;
             MOCTA004 = Convert.ToDecimal(NUM) / MC004;
+            MOCTA.TA009 = TA009.ToString("yyyyMMdd");
 
             try
             {
@@ -1626,7 +1627,7 @@ namespace TKMOC
                 if (!string.IsNullOrEmpty(FORM))
                 {
                     GENADDTARGET2(textBox12.Text.Trim(), Convert.ToDouble(textBox14.Text.Trim()), textBox17.Text.Trim());
-                    GENMOCTAB2(DTMOCTAB, textBox17.Text, textBox11.Text, FORM);
+                    GENMOCTAB2(DTMOCTAB, textBox17.Text, textBox11.Text, FORM,dateTimePicker5.Value);
 
                     SEARCHMOCTA2(textBox11.Text);
                 }

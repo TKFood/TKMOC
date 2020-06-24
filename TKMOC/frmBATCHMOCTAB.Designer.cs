@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle36 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle37 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle38 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle39 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle40 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
@@ -71,11 +71,13 @@
             this.splitContainer8 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.textBox18 = new System.Windows.Forms.TextBox();
-            this.button8 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
             this.label15 = new System.Windows.Forms.Label();
             this.textBox19 = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
+            this.label17 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.splitContainer9 = new System.Windows.Forms.SplitContainer();
             this.dataGridView5 = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
@@ -103,8 +105,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.dateTimePicker3 = new System.Windows.Forms.DateTimePicker();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.label17 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.dateTimePicker5 = new System.Windows.Forms.DateTimePicker();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).BeginInit();
@@ -212,9 +214,7 @@
             this.tableLayoutPanel3.Controls.Add(this.label4, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.dateTimePicker4, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.button3, 2, 0);
-            this.tableLayoutPanel3.Controls.Add(this.textBox8, 3, 1);
             this.tableLayoutPanel3.Controls.Add(this.button6, 6, 1);
-            this.tableLayoutPanel3.Controls.Add(this.label9, 2, 1);
             this.tableLayoutPanel3.Controls.Add(this.textBox10, 5, 1);
             this.tableLayoutPanel3.Controls.Add(this.label11, 2, 2);
             this.tableLayoutPanel3.Controls.Add(this.textBox9, 3, 2);
@@ -223,6 +223,8 @@
             this.tableLayoutPanel3.Controls.Add(this.label10, 4, 2);
             this.tableLayoutPanel3.Controls.Add(this.label14, 6, 2);
             this.tableLayoutPanel3.Controls.Add(this.textBox16, 7, 2);
+            this.tableLayoutPanel3.Controls.Add(this.textBox8, 3, 1);
+            this.tableLayoutPanel3.Controls.Add(this.label9, 2, 1);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -399,7 +401,7 @@
             // 
             this.splitContainer5.Panel2.Controls.Add(this.splitContainer7);
             this.splitContainer5.Size = new System.Drawing.Size(970, 465);
-            this.splitContainer5.SplitterDistance = 257;
+            this.splitContainer5.SplitterDistance = 282;
             this.splitContainer5.TabIndex = 0;
             // 
             // splitContainer6
@@ -416,22 +418,22 @@
             // splitContainer6.Panel2
             // 
             this.splitContainer6.Panel2.Controls.Add(this.tableLayoutPanel4);
-            this.splitContainer6.Size = new System.Drawing.Size(970, 257);
-            this.splitContainer6.SplitterDistance = 695;
+            this.splitContainer6.Size = new System.Drawing.Size(970, 282);
+            this.splitContainer6.SplitterDistance = 680;
             this.splitContainer6.TabIndex = 0;
             // 
             // dataGridView3
             // 
             this.dataGridView3.AllowUserToAddRows = false;
             this.dataGridView3.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle36.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.dataGridView3.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle36;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.dataGridView3.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView3.Location = new System.Drawing.Point(0, 0);
             this.dataGridView3.Name = "dataGridView3";
             this.dataGridView3.RowTemplate.Height = 24;
-            this.dataGridView3.Size = new System.Drawing.Size(691, 253);
+            this.dataGridView3.Size = new System.Drawing.Size(676, 278);
             this.dataGridView3.TabIndex = 5;
             this.dataGridView3.SelectionChanged += new System.EventHandler(this.dataGridView3_SelectionChanged);
             // 
@@ -439,8 +441,8 @@
             // 
             this.tableLayoutPanel4.BackColor = System.Drawing.Color.LightGreen;
             this.tableLayoutPanel4.ColumnCount = 3;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 78F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 162F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 97F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 143F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel4.Controls.Add(this.label5, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.label6, 0, 1);
@@ -452,12 +454,14 @@
             this.tableLayoutPanel4.Controls.Add(this.textBox14, 1, 3);
             this.tableLayoutPanel4.Controls.Add(this.label13, 0, 4);
             this.tableLayoutPanel4.Controls.Add(this.textBox17, 1, 4);
-            this.tableLayoutPanel4.Controls.Add(this.button4, 1, 5);
-            this.tableLayoutPanel4.Controls.Add(this.button5, 0, 5);
+            this.tableLayoutPanel4.Controls.Add(this.button4, 1, 6);
+            this.tableLayoutPanel4.Controls.Add(this.button5, 0, 6);
+            this.tableLayoutPanel4.Controls.Add(this.label18, 0, 5);
+            this.tableLayoutPanel4.Controls.Add(this.dateTimePicker5, 1, 5);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 8;
+            this.tableLayoutPanel4.RowCount = 7;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
@@ -465,9 +469,7 @@
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(267, 253);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(282, 278);
             this.tableLayoutPanel4.TabIndex = 5;
             // 
             // label5
@@ -477,7 +479,7 @@
             this.label5.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label5.Location = new System.Drawing.Point(3, 12);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(72, 16);
+            this.label5.Size = new System.Drawing.Size(91, 16);
             this.label5.TabIndex = 0;
             this.label5.Text = "批號";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -489,7 +491,7 @@
             this.label6.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label6.Location = new System.Drawing.Point(3, 52);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(72, 16);
+            this.label6.Size = new System.Drawing.Size(91, 16);
             this.label6.TabIndex = 6;
             this.label6.Text = "品號";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -501,7 +503,7 @@
             this.label7.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label7.Location = new System.Drawing.Point(3, 92);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(72, 16);
+            this.label7.Size = new System.Drawing.Size(91, 16);
             this.label7.TabIndex = 7;
             this.label7.Text = "品名";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -513,7 +515,7 @@
             this.label8.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label8.Location = new System.Drawing.Point(3, 132);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(72, 16);
+            this.label8.Size = new System.Drawing.Size(91, 16);
             this.label8.TabIndex = 8;
             this.label8.Text = "數量";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -521,36 +523,36 @@
             // textBox11
             // 
             this.textBox11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox11.Location = new System.Drawing.Point(81, 6);
+            this.textBox11.Location = new System.Drawing.Point(100, 6);
             this.textBox11.Name = "textBox11";
             this.textBox11.ReadOnly = true;
-            this.textBox11.Size = new System.Drawing.Size(156, 27);
+            this.textBox11.Size = new System.Drawing.Size(137, 27);
             this.textBox11.TabIndex = 11;
             // 
             // textBox12
             // 
             this.textBox12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox12.Location = new System.Drawing.Point(81, 46);
+            this.textBox12.Location = new System.Drawing.Point(100, 46);
             this.textBox12.Name = "textBox12";
             this.textBox12.ReadOnly = true;
-            this.textBox12.Size = new System.Drawing.Size(156, 27);
+            this.textBox12.Size = new System.Drawing.Size(137, 27);
             this.textBox12.TabIndex = 12;
             // 
             // textBox13
             // 
             this.textBox13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox13.Location = new System.Drawing.Point(81, 86);
+            this.textBox13.Location = new System.Drawing.Point(100, 86);
             this.textBox13.Name = "textBox13";
             this.textBox13.ReadOnly = true;
-            this.textBox13.Size = new System.Drawing.Size(156, 27);
+            this.textBox13.Size = new System.Drawing.Size(137, 27);
             this.textBox13.TabIndex = 13;
             // 
             // textBox14
             // 
             this.textBox14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox14.Location = new System.Drawing.Point(81, 126);
+            this.textBox14.Location = new System.Drawing.Point(100, 126);
             this.textBox14.Name = "textBox14";
-            this.textBox14.Size = new System.Drawing.Size(156, 27);
+            this.textBox14.Size = new System.Drawing.Size(137, 27);
             this.textBox14.TabIndex = 15;
             // 
             // label13
@@ -560,7 +562,7 @@
             this.label13.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label13.Location = new System.Drawing.Point(3, 172);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(72, 16);
+            this.label13.Size = new System.Drawing.Size(91, 16);
             this.label13.TabIndex = 16;
             this.label13.Text = "線別";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -568,16 +570,16 @@
             // textBox17
             // 
             this.textBox17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox17.Location = new System.Drawing.Point(81, 166);
+            this.textBox17.Location = new System.Drawing.Point(100, 166);
             this.textBox17.Name = "textBox17";
             this.textBox17.ReadOnly = true;
-            this.textBox17.Size = new System.Drawing.Size(156, 27);
+            this.textBox17.Size = new System.Drawing.Size(137, 27);
             this.textBox17.TabIndex = 17;
             // 
             // button4
             // 
             this.button4.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.button4.Location = new System.Drawing.Point(81, 203);
+            this.button4.Location = new System.Drawing.Point(100, 243);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(114, 34);
             this.button4.TabIndex = 2;
@@ -588,7 +590,7 @@
             // button5
             // 
             this.button5.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.button5.Location = new System.Drawing.Point(3, 203);
+            this.button5.Location = new System.Drawing.Point(3, 243);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(72, 34);
             this.button5.TabIndex = 3;
@@ -610,7 +612,7 @@
             // splitContainer7.Panel2
             // 
             this.splitContainer7.Panel2.Controls.Add(this.dataGridView4);
-            this.splitContainer7.Size = new System.Drawing.Size(970, 204);
+            this.splitContainer7.Size = new System.Drawing.Size(970, 179);
             this.splitContainer7.SplitterDistance = 608;
             this.splitContainer7.TabIndex = 0;
             // 
@@ -628,7 +630,7 @@
             // splitContainer8.Panel2
             // 
             this.splitContainer8.Panel2.Controls.Add(this.splitContainer9);
-            this.splitContainer8.Size = new System.Drawing.Size(608, 204);
+            this.splitContainer8.Size = new System.Drawing.Size(608, 179);
             this.splitContainer8.SplitterDistance = 257;
             this.splitContainer8.TabIndex = 0;
             // 
@@ -656,7 +658,7 @@
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(253, 200);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(253, 175);
             this.tableLayoutPanel5.TabIndex = 7;
             // 
             // textBox18
@@ -667,28 +669,6 @@
             this.textBox18.Size = new System.Drawing.Size(151, 27);
             this.textBox18.TabIndex = 16;
             this.textBox18.TextChanged += new System.EventHandler(this.textBox18_TextChanged);
-            // 
-            // button8
-            // 
-            this.button8.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.button8.Location = new System.Drawing.Point(86, 123);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(130, 34);
-            this.button8.TabIndex = 18;
-            this.button8.Text = "加入開製令";
-            this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
-            // 
-            // button7
-            // 
-            this.button7.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.button7.Location = new System.Drawing.Point(86, 163);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(130, 34);
-            this.button7.TabIndex = 17;
-            this.button7.Text = "刪除開製令";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // label15
             // 
@@ -723,6 +703,53 @@
             this.label16.Text = "品名";
             this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // button7
+            // 
+            this.button7.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.button7.Location = new System.Drawing.Point(86, 163);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(130, 34);
+            this.button7.TabIndex = 17;
+            this.button7.Text = "刪除開製令";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // button8
+            // 
+            this.button8.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.button8.Location = new System.Drawing.Point(86, 123);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(130, 34);
+            this.button8.TabIndex = 18;
+            this.button8.Text = "加入開製令";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
+            // label17
+            // 
+            this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label17.Location = new System.Drawing.Point(3, 92);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(77, 16);
+            this.label17.TabIndex = 22;
+            this.label17.Text = "單別";
+            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "A513",
+            "A510"});
+            this.comboBox1.Location = new System.Drawing.Point(86, 88);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(151, 24);
+            this.comboBox1.TabIndex = 23;
+            this.comboBox1.Text = "A513";
+            // 
             // splitContainer9
             // 
             this.splitContainer9.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -737,7 +764,7 @@
             // splitContainer9.Panel2
             // 
             this.splitContainer9.Panel2.Controls.Add(this.tableLayoutPanel6);
-            this.splitContainer9.Size = new System.Drawing.Size(347, 204);
+            this.splitContainer9.Size = new System.Drawing.Size(347, 179);
             this.splitContainer9.SplitterDistance = 273;
             this.splitContainer9.TabIndex = 0;
             // 
@@ -745,14 +772,14 @@
             // 
             this.dataGridView5.AllowUserToAddRows = false;
             this.dataGridView5.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle37.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.dataGridView5.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle37;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.dataGridView5.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView5.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView5.Location = new System.Drawing.Point(0, 0);
             this.dataGridView5.Name = "dataGridView5";
             this.dataGridView5.RowTemplate.Height = 24;
-            this.dataGridView5.Size = new System.Drawing.Size(269, 200);
+            this.dataGridView5.Size = new System.Drawing.Size(269, 175);
             this.dataGridView5.TabIndex = 6;
             // 
             // tableLayoutPanel6
@@ -773,21 +800,21 @@
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(66, 200);
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(66, 175);
             this.tableLayoutPanel6.TabIndex = 7;
             // 
             // dataGridView4
             // 
             this.dataGridView4.AllowUserToAddRows = false;
             this.dataGridView4.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle38.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.dataGridView4.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle38;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.dataGridView4.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView4.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView4.Location = new System.Drawing.Point(0, 0);
             this.dataGridView4.Name = "dataGridView4";
             this.dataGridView4.RowTemplate.Height = 24;
-            this.dataGridView4.Size = new System.Drawing.Size(354, 200);
+            this.dataGridView4.Size = new System.Drawing.Size(354, 175);
             this.dataGridView4.TabIndex = 5;
             // 
             // tabPage1
@@ -928,8 +955,8 @@
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle39.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle39;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
@@ -1085,8 +1112,8 @@
             // 
             this.dataGridView2.AllowUserToAddRows = false;
             this.dataGridView2.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle40.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.dataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle40;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.dataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView2.Location = new System.Drawing.Point(0, 0);
@@ -1095,30 +1122,28 @@
             this.dataGridView2.Size = new System.Drawing.Size(555, 260);
             this.dataGridView2.TabIndex = 4;
             // 
-            // label17
+            // label18
             // 
-            this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label17.Location = new System.Drawing.Point(3, 92);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(77, 16);
-            this.label17.TabIndex = 22;
-            this.label17.Text = "單別";
-            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label18.Location = new System.Drawing.Point(3, 212);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(91, 16);
+            this.label18.TabIndex = 18;
+            this.label18.Text = "預計開工日";
+            this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // comboBox1
+            // dateTimePicker5
             // 
-            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "A513",
-            "A510"});
-            this.comboBox1.Location = new System.Drawing.Point(86, 90);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(151, 24);
-            this.comboBox1.TabIndex = 23;
-            this.comboBox1.Text = "A513";
+            this.dateTimePicker5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.dateTimePicker5.CustomFormat = "yyyy/MM/dd";
+            this.dateTimePicker5.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.dateTimePicker5.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker5.Location = new System.Drawing.Point(100, 206);
+            this.dateTimePicker5.Name = "dateTimePicker5";
+            this.dateTimePicker5.Size = new System.Drawing.Size(137, 27);
+            this.dateTimePicker5.TabIndex = 19;
             // 
             // frmBATCHMOCTAB
             // 
@@ -1262,5 +1287,7 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.DateTimePicker dateTimePicker5;
     }
 }
