@@ -373,7 +373,7 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  SELECT TA001 AS '製令',TA002 AS '單號',TA003 AS '生產日',TA006 AS '品號',TA034 AS '品名',TA015 AS '生產量',TA007 AS '單位',TA021 AS '線別',TA026 AS '訂單',TA027 AS '單號',TA028 AS '序號'");
+                sbSql.AppendFormat(@"  SELECT TA001 AS '製令',TA002 AS '單號',TA003 AS '生產日',TA009 AS '預計開工',TA006 AS '品號',TA034 AS '品名',TA015 AS '生產量',TA007 AS '單位',TA021 AS '線別',TA026 AS '訂單',TA027 AS '單號',TA028 AS '序號'");
                 sbSql.AppendFormat(@"  FROM [TK].dbo.MOCTA");
                 sbSql.AppendFormat(@"  WHERE TA003>='{0}' AND TA003<='{1}' ", SDAY,EDAY);
                 sbSql.AppendFormat(@"  ORDER BY TA001,TA002,TA003");
@@ -497,6 +497,84 @@ namespace TKMOC
             }
         }
 
+        public void CHANGEMULTI2()
+        {
+            string NEWDATES = dateTimePicker5.Value.ToString("yyyyMMdd");
+
+            foreach (DataGridViewRow dr in this.dataGridView3.Rows)
+            {
+                if (dr.Cells[0].Value != null && (bool)dr.Cells[0].Value)
+                {
+                    string TA001 = ((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[0].ToString();
+                    string TA002 = ((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[1].ToString();
+
+                    //MessageBox.Show(OLDTA001+"-"+ OLDTA002);
+                    if (!string.IsNullOrEmpty(TA001) && !string.IsNullOrEmpty(TA002) && !string.IsNullOrEmpty(NEWDATES) )
+                    {
+                        UPDATEMOCTA(TA001, TA002, NEWDATES);
+                    }
+                }
+                else
+                {
+                    TA001 = null;
+                    TA002 = null;
+                }
+            }
+
+        }
+
+        public void UPDATEMOCTA(string TA001, string TA002, string TA009)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+
+
+                sbSql.AppendFormat(" UPDATE [TK].dbo.MOCTA");
+                sbSql.AppendFormat(" SET TA009='{0}'",TA009);
+                sbSql.AppendFormat(" WHERE TA001='{0}' AND TA002='{1}'",TA001,TA002);
+                sbSql.AppendFormat(" ");
+                sbSql.AppendFormat(" ");
+
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+
+
+                }
+                else
+                {
+                    tran.Commit();      //執行交易                    
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
         #endregion
 
         #region BUTTON
@@ -530,7 +608,17 @@ namespace TKMOC
 
         private void button2_Click(object sender, EventArgs e)
         {
+            DialogResult dialogResult = MessageBox.Show("要修改嗎?", "要修改嗎?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                CHANGEMULTI2();
+                SEARCH2(dateTimePicker3.Value.ToString("yyyyMMdd"), dateTimePicker4.Value.ToString("yyyyMMdd"));
 
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                //do something else
+            }
         }
 
         #endregion
