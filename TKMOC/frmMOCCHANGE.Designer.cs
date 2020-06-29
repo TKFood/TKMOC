@@ -759,6 +759,7 @@
             this.button5.TabIndex = 16;
             this.button5.Text = "查詢";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // splitContainer8
             // 
@@ -775,7 +776,7 @@
             // 
             this.splitContainer8.Panel2.Controls.Add(this.splitContainer9);
             this.splitContainer8.Size = new System.Drawing.Size(976, 478);
-            this.splitContainer8.SplitterDistance = 565;
+            this.splitContainer8.SplitterDistance = 701;
             this.splitContainer8.TabIndex = 0;
             // 
             // dataGridView5
@@ -786,7 +787,7 @@
             this.dataGridView5.Location = new System.Drawing.Point(0, 0);
             this.dataGridView5.Name = "dataGridView5";
             this.dataGridView5.RowTemplate.Height = 24;
-            this.dataGridView5.Size = new System.Drawing.Size(561, 474);
+            this.dataGridView5.Size = new System.Drawing.Size(697, 474);
             this.dataGridView5.TabIndex = 5;
             // 
             // splitContainer9
@@ -804,7 +805,7 @@
             // splitContainer9.Panel2
             // 
             this.splitContainer9.Panel2.Controls.Add(this.dataGridView6);
-            this.splitContainer9.Size = new System.Drawing.Size(407, 478);
+            this.splitContainer9.Size = new System.Drawing.Size(271, 478);
             this.splitContainer9.SplitterDistance = 199;
             this.splitContainer9.TabIndex = 0;
             // 
@@ -826,7 +827,7 @@
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(403, 195);
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(267, 195);
             this.tableLayoutPanel6.TabIndex = 2;
             // 
             // label10
@@ -870,7 +871,7 @@
             this.dataGridView6.Location = new System.Drawing.Point(0, 0);
             this.dataGridView6.Name = "dataGridView6";
             this.dataGridView6.RowTemplate.Height = 24;
-            this.dataGridView6.Size = new System.Drawing.Size(403, 271);
+            this.dataGridView6.Size = new System.Drawing.Size(267, 271);
             this.dataGridView6.TabIndex = 5;
             // 
             // frmMOCCHANGE

@@ -88,6 +88,18 @@ namespace TKMOC
             cbCol3.TrueValue = true;
             cbCol3.FalseValue = false;
             dataGridView3.Columns.Insert(0, cbCol3);
+
+            //dataGridView5
+            dataGridView5.AlternatingRowsDefaultCellStyle.BackColor = Color.PaleTurquoise;      //奇數列顏色
+
+            //先建立個 CheckBox 欄
+            DataGridViewCheckBoxColumn cbCol5 = new DataGridViewCheckBoxColumn();
+            cbCol5.Width = 50;   //設定寬度
+            cbCol5.HeaderText = "選擇";
+            cbCol5.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;   //置中
+            cbCol5.TrueValue = true;
+            cbCol5.FalseValue = false;
+            dataGridView5.Columns.Insert(0, cbCol5);
         }
 
         #region FUNCTION
@@ -435,6 +447,70 @@ namespace TKMOC
 
             }
         }
+
+        public void SEARCH3(string SDAY, string EDAY)
+        {
+            SqlConnection sqlConn = new SqlConnection();
+            string connectionString;
+            StringBuilder sbSql = new StringBuilder();
+
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder = new SqlCommandBuilder();
+
+            DataSet ds = new DataSet();
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  SELECT TA001 AS '製令',TA002 AS '單號',TB003 AS '品號',TB012 AS '品名',TB004 AS '需領用量',TB009 AS '庫別' ");
+                sbSql.AppendFormat(@"  FROM [TK].dbo.MOCTA,[TK].dbo.MOCTB");
+                sbSql.AppendFormat(@"  WHERE TA001=TB001 AND TA002=TB002");
+                sbSql.AppendFormat(@"  AND TB003='106061011'");
+                sbSql.AppendFormat(@"  AND TA003>='{0}' AND TA003<='{1}'",SDAY,EDAY);
+                sbSql.AppendFormat(@"  ORDER BY TA001,TA002,TB003");
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder = new SqlCommandBuilder(adapter);
+                sqlConn.Open();
+                ds.Clear();
+                adapter.Fill(ds, "TEMPds");
+                sqlConn.Close();
+
+
+                if (ds.Tables["TEMPds"].Rows.Count == 0)
+                {
+                    dataGridView5.DataSource = null;
+                }
+                else
+                {
+                    if (ds.Tables["TEMPds"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView5.DataSource = ds.Tables["TEMPds"];
+                        dataGridView5.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
         private void dataGridView3_SelectionChanged(object sender, EventArgs e)
         {
             if (dataGridView3.CurrentRow != null)
@@ -641,10 +717,16 @@ namespace TKMOC
                 //do something else
             }
         }
+        private void button5_Click(object sender, EventArgs e)
+        {
+            SEARCH3(dateTimePicker6.Value.ToString("yyyyMMdd"), dateTimePicker7.Value.ToString("yyyyMMdd"));
+        }
+
         private void button6_Click(object sender, EventArgs e)
         {
 
         }
+
 
         #endregion
 
