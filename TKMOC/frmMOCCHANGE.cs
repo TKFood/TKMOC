@@ -672,6 +672,85 @@ namespace TKMOC
                 sqlConn.Close();
             }
         }
+
+        public void CHANGEMULTI3()
+        {
+            foreach (DataGridViewRow dr in this.dataGridView5.Rows)
+            {
+                if (dr.Cells[0].Value != null && (bool)dr.Cells[0].Value)
+                {
+                    string TB001 = ((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[0].ToString();
+                    string TB002 = ((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[1].ToString();
+                    string TB009 = comboBox3.Text;
+
+                    if(!string.IsNullOrEmpty(TB001)&& !string.IsNullOrEmpty(TB002) && !string.IsNullOrEmpty(TB009) )
+                    {
+                        UPDATEMOCTB(TB001.Trim(), TB002.Trim(), TB009.Trim());
+                    }
+
+                    //MessageBox.Show(OLDTA001+"-"+ OLDTA002);
+
+                }
+                else
+                {
+                  
+                }
+            }
+
+        }
+
+        public void UPDATEMOCTB(string TB001, string TB002, string TB009)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+
+
+                sbSql.AppendFormat(" UPDATE [TK].dbo.MOCTB");
+                sbSql.AppendFormat(" SET TB009='{0}'", TB009);
+                sbSql.AppendFormat(" WHERE TB003='106061011' AND TB001='{0}' AND TB002='{1}'", TB001, TB002);
+                sbSql.AppendFormat(" ");
+                sbSql.AppendFormat(" ");
+
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+
+
+                }
+                else
+                {
+                    tran.Commit();      //執行交易                    
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
         #endregion
 
         #region BUTTON
@@ -724,7 +803,17 @@ namespace TKMOC
 
         private void button6_Click(object sender, EventArgs e)
         {
+            DialogResult dialogResult = MessageBox.Show("要修改嗎?", "要修改嗎?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                CHANGEMULTI3();
+                SEARCH3(dateTimePicker6.Value.ToString("yyyyMMdd"), dateTimePicker7.Value.ToString("yyyyMMdd"));
 
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                //do something else
+            }
         }
 
 
