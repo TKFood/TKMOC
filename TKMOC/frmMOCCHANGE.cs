@@ -60,6 +60,7 @@ namespace TKMOC
 
             comboBox1load();
             comboBox1load2("");
+            comboBox1load3();
         }
 
         private void frmMOCCHANGE_Load(object sender, EventArgs e)
@@ -132,6 +133,26 @@ namespace TKMOC
 
         }
 
+        public void comboBox1load3()
+        {
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT MC001,MC002 FROM [TK].dbo.CMSMC    WHERE MC001 IN ('20006','20004','20005') ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("MC001", typeof(string));
+            dt.Columns.Add("MC002", typeof(string));
+            da.Fill(dt);
+            comboBox3.DataSource = dt.DefaultView;
+            comboBox3.ValueMember = "MC001";
+            comboBox3.DisplayMember = "MC001";
+            sqlConn.Close();
+
+
+        }
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             comboBox1load2(comboBox1.SelectedValue.ToString().Trim());
@@ -620,9 +641,13 @@ namespace TKMOC
                 //do something else
             }
         }
+        private void button6_Click(object sender, EventArgs e)
+        {
+
+        }
 
         #endregion
 
-      
+
     }
 }
