@@ -406,7 +406,7 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  SELECT TA001 AS '製令',TA002 AS '單號',TA003 AS '生產日',TA009 AS '預計開工',TA006 AS '品號',TA034 AS '品名',TA015 AS '生產量',TA007 AS '單位',TA021 AS '線別',TA026 AS '訂單',TA027 AS '單號',TA028 AS '序號'");
+                sbSql.AppendFormat(@"  SELECT TA001 AS '製令',TA002 AS '單號',TA003 AS '生產日',TA009 AS '預計開工',TA012 AS '實際開工',TA006 AS '品號',TA034 AS '品名',TA015 AS '生產量',TA007 AS '單位',TA021 AS '線別',TA026 AS '訂單',TA027 AS '單號',TA028 AS '序號'");
                 sbSql.AppendFormat(@"  FROM [TK].dbo.MOCTA");
                 sbSql.AppendFormat(@"  WHERE TA003>='{0}' AND TA003<='{1}' ", SDAY,EDAY);
                 sbSql.AppendFormat(@"  ORDER BY TA001,TA002,TA003");
@@ -552,7 +552,7 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  SELECT TA009 AS '預計開工'");
+                sbSql.AppendFormat(@"  SELECT TA009 AS '預計開工',TA012 AS '實際開工' ");
                 sbSql.AppendFormat(@"  FROM [TK].dbo.MOCTA");
                 sbSql.AppendFormat(@"  WHERE TA001='{0}' AND TA002='{1}'", TA001, TA002);
                 sbSql.AppendFormat(@"  ");
@@ -636,7 +636,7 @@ namespace TKMOC
 
 
                 sbSql.AppendFormat(" UPDATE [TK].dbo.MOCTA");
-                sbSql.AppendFormat(" SET TA009='{0}'",TA009);
+                sbSql.AppendFormat(" SET TA009='{0}',TA012='{0}'", TA009);
                 sbSql.AppendFormat(" WHERE TA001='{0}' AND TA002='{1}'",TA001,TA002);
                 sbSql.AppendFormat(" ");
                 sbSql.AppendFormat(" ");
