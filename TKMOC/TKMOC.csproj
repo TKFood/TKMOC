@@ -504,6 +504,12 @@
     <Compile Include="frmUPDATEMOCTA.Designer.cs">
       <DependentUpon>frmUPDATEMOCTA.cs</DependentUpon>
     </Compile>
+    <Compile Include="MOCDAILYWORKHRS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MOCDAILYWORKHRS.Designer.cs">
+      <DependentUpon>MOCDAILYWORKHRS.cs</DependentUpon>
+    </Compile>
     <Compile Include="PleaseWait.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -712,6 +718,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmUPDATEMOCTA.resx">
       <DependentUpon>frmUPDATEMOCTA.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MOCDAILYWORKHRS.resx">
+      <DependentUpon>MOCDAILYWORKHRS.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PleaseWait.resx">
       <DependentUpon>PleaseWait.cs</DependentUpon>
