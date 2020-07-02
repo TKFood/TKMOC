@@ -780,6 +780,7 @@ namespace TKMOC
             MOCMB001 = MB001;
             MOCTA004 = Convert.ToDecimal(NUM) / MC004;
             MOCTA.TA009 = TA009.ToString("yyyyMMdd");
+            MOCTA.TA012 = TA009.ToString("yyyyMMdd");
 
             try
             {
