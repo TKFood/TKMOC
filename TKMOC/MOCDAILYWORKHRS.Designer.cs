@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -145,7 +145,7 @@
             this.numericUpDown62 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown72 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown82 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown18 = new System.Windows.Forms.NumericUpDown();
+            this.dateTimePicker38 = new System.Windows.Forms.DateTimePicker();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -176,7 +176,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown62)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown72)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown82)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown18)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -349,8 +348,8 @@
             // 
             this.dataGridView3.AllowUserToAddRows = false;
             this.dataGridView3.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.dataGridView3.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.dataGridView3.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
             this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView3.Location = new System.Drawing.Point(0, 0);
@@ -374,8 +373,6 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Controls.Add(this.numericUpDown18, 9, 0);
-            this.tableLayoutPanel1.Controls.Add(this.dateTimePicker37, 8, 0);
             this.tableLayoutPanel1.Controls.Add(this.textBox31, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.textBox24, 7, 1);
             this.tableLayoutPanel1.Controls.Add(this.textBox23, 5, 1);
@@ -476,6 +473,8 @@
             this.tableLayoutPanel1.Controls.Add(this.numericUpDown62, 9, 5);
             this.tableLayoutPanel1.Controls.Add(this.numericUpDown72, 9, 6);
             this.tableLayoutPanel1.Controls.Add(this.numericUpDown82, 9, 7);
+            this.tableLayoutPanel1.Controls.Add(this.dateTimePicker37, 7, 0);
+            this.tableLayoutPanel1.Controls.Add(this.dateTimePicker38, 8, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -1377,7 +1376,7 @@
             this.dateTimePicker37.CustomFormat = "HH:mm";
             this.dateTimePicker37.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.dateTimePicker37.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker37.Location = new System.Drawing.Point(803, 6);
+            this.dateTimePicker37.Location = new System.Drawing.Point(703, 6);
             this.dateTimePicker37.Name = "dateTimePicker37";
             this.dateTimePicker37.Size = new System.Drawing.Size(94, 27);
             this.dateTimePicker37.TabIndex = 166;
@@ -1535,14 +1534,16 @@
             this.numericUpDown82.Size = new System.Drawing.Size(94, 27);
             this.numericUpDown82.TabIndex = 183;
             // 
-            // numericUpDown18
+            // dateTimePicker38
             // 
-            this.numericUpDown18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown18.Enabled = false;
-            this.numericUpDown18.Location = new System.Drawing.Point(903, 6);
-            this.numericUpDown18.Name = "numericUpDown18";
-            this.numericUpDown18.Size = new System.Drawing.Size(94, 27);
-            this.numericUpDown18.TabIndex = 184;
+            this.dateTimePicker38.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.dateTimePicker38.CustomFormat = "HH:mm";
+            this.dateTimePicker38.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.dateTimePicker38.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker38.Location = new System.Drawing.Point(803, 6);
+            this.dateTimePicker38.Name = "dateTimePicker38";
+            this.dateTimePicker38.Size = new System.Drawing.Size(94, 27);
+            this.dateTimePicker38.TabIndex = 184;
             // 
             // MOCDAILYWORKHRS
             // 
@@ -1586,7 +1587,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown62)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown72)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown82)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown18)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1694,7 +1694,6 @@
         private System.Windows.Forms.DateTimePicker dateTimePicker36;
         private System.Windows.Forms.NumericUpDown numericUpDown31;
         private System.Windows.Forms.NumericUpDown numericUpDown41;
-        private System.Windows.Forms.NumericUpDown numericUpDown18;
         private System.Windows.Forms.NumericUpDown numericUpDown51;
         private System.Windows.Forms.NumericUpDown numericUpDown61;
         private System.Windows.Forms.NumericUpDown numericUpDown71;
@@ -1710,5 +1709,6 @@
         private System.Windows.Forms.NumericUpDown numericUpDown62;
         private System.Windows.Forms.NumericUpDown numericUpDown72;
         private System.Windows.Forms.NumericUpDown numericUpDown82;
+        private System.Windows.Forms.DateTimePicker dateTimePicker38;
     }
 }
