@@ -225,6 +225,24 @@ namespace TKMOC
             SETENDTIMES(dateTimePicker38.Value);
         }
 
+        private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void dateTimePicker3_ValueChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        public void CALTIMES()
+        {
+            TimeSpan TS = new TimeSpan();
+
+            numericUpDown31.Value = Convert.ToDecimal(new TimeSpan(dateTimePicker3.Value.Ticks - dateTimePicker2.Value.Ticks).TotalHours);
+
+        }
+
         public void SETTEXT1()
         {
             textBox21.Text = null;
@@ -274,6 +292,9 @@ namespace TKMOC
             dateTimePicker34.Value = dt;
             dateTimePicker36.Value = dt;
         }
+
+
+
         #endregion
 
         #region BUTTON
@@ -305,8 +326,9 @@ namespace TKMOC
 
 
 
+
         #endregion
 
-      
+       
     }
 }

@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -348,8 +348,8 @@
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("新細明體", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("新細明體", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
@@ -1002,6 +1002,7 @@
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.Size = new System.Drawing.Size(94, 27);
             this.dateTimePicker2.TabIndex = 132;
+            this.dateTimePicker2.ValueChanged += new System.EventHandler(this.dateTimePicker2_ValueChanged);
             // 
             // dateTimePicker3
             // 
@@ -1013,6 +1014,7 @@
             this.dateTimePicker3.Name = "dateTimePicker3";
             this.dateTimePicker3.Size = new System.Drawing.Size(94, 27);
             this.dateTimePicker3.TabIndex = 133;
+            this.dateTimePicker3.ValueChanged += new System.EventHandler(this.dateTimePicker3_ValueChanged);
             // 
             // dateTimePicker5
             // 
@@ -1369,6 +1371,7 @@
             // numericUpDown31
             // 
             this.numericUpDown31.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown31.DecimalPlaces = 2;
             this.numericUpDown31.Enabled = false;
             this.numericUpDown31.Location = new System.Drawing.Point(403, 86);
             this.numericUpDown31.Name = "numericUpDown31";
@@ -1378,6 +1381,7 @@
             // numericUpDown41
             // 
             this.numericUpDown41.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown41.DecimalPlaces = 2;
             this.numericUpDown41.Enabled = false;
             this.numericUpDown41.Location = new System.Drawing.Point(403, 126);
             this.numericUpDown41.Name = "numericUpDown41";
@@ -1387,6 +1391,7 @@
             // numericUpDown51
             // 
             this.numericUpDown51.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown51.DecimalPlaces = 2;
             this.numericUpDown51.Enabled = false;
             this.numericUpDown51.Location = new System.Drawing.Point(403, 166);
             this.numericUpDown51.Name = "numericUpDown51";
@@ -1396,6 +1401,7 @@
             // numericUpDown61
             // 
             this.numericUpDown61.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown61.DecimalPlaces = 2;
             this.numericUpDown61.Enabled = false;
             this.numericUpDown61.Location = new System.Drawing.Point(403, 206);
             this.numericUpDown61.Name = "numericUpDown61";
@@ -1405,6 +1411,7 @@
             // numericUpDown71
             // 
             this.numericUpDown71.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown71.DecimalPlaces = 2;
             this.numericUpDown71.Enabled = false;
             this.numericUpDown71.Location = new System.Drawing.Point(403, 246);
             this.numericUpDown71.Name = "numericUpDown71";
@@ -1414,6 +1421,7 @@
             // numericUpDown81
             // 
             this.numericUpDown81.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown81.DecimalPlaces = 2;
             this.numericUpDown81.Enabled = false;
             this.numericUpDown81.Location = new System.Drawing.Point(403, 286);
             this.numericUpDown81.Name = "numericUpDown81";
@@ -1423,6 +1431,7 @@
             // numericUpDown91
             // 
             this.numericUpDown91.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown91.DecimalPlaces = 2;
             this.numericUpDown91.Enabled = false;
             this.numericUpDown91.Location = new System.Drawing.Point(403, 326);
             this.numericUpDown91.Name = "numericUpDown91";
@@ -1432,6 +1441,7 @@
             // numericUpDown101
             // 
             this.numericUpDown101.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown101.DecimalPlaces = 2;
             this.numericUpDown101.Enabled = false;
             this.numericUpDown101.Location = new System.Drawing.Point(403, 366);
             this.numericUpDown101.Name = "numericUpDown101";
@@ -1441,6 +1451,7 @@
             // numericUpDown111
             // 
             this.numericUpDown111.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown111.DecimalPlaces = 2;
             this.numericUpDown111.Enabled = false;
             this.numericUpDown111.Location = new System.Drawing.Point(403, 406);
             this.numericUpDown111.Name = "numericUpDown111";
@@ -1450,6 +1461,7 @@
             // numericUpDown121
             // 
             this.numericUpDown121.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown121.DecimalPlaces = 2;
             this.numericUpDown121.Enabled = false;
             this.numericUpDown121.Location = new System.Drawing.Point(403, 446);
             this.numericUpDown121.Name = "numericUpDown121";
@@ -1459,6 +1471,7 @@
             // numericUpDown131
             // 
             this.numericUpDown131.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown131.DecimalPlaces = 2;
             this.numericUpDown131.Enabled = false;
             this.numericUpDown131.Location = new System.Drawing.Point(403, 486);
             this.numericUpDown131.Name = "numericUpDown131";
@@ -1468,6 +1481,7 @@
             // numericUpDown32
             // 
             this.numericUpDown32.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown32.DecimalPlaces = 2;
             this.numericUpDown32.Enabled = false;
             this.numericUpDown32.Location = new System.Drawing.Point(903, 86);
             this.numericUpDown32.Name = "numericUpDown32";
@@ -1477,6 +1491,7 @@
             // numericUpDown42
             // 
             this.numericUpDown42.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown42.DecimalPlaces = 2;
             this.numericUpDown42.Enabled = false;
             this.numericUpDown42.Location = new System.Drawing.Point(903, 126);
             this.numericUpDown42.Name = "numericUpDown42";
@@ -1486,6 +1501,7 @@
             // numericUpDown52
             // 
             this.numericUpDown52.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown52.DecimalPlaces = 2;
             this.numericUpDown52.Enabled = false;
             this.numericUpDown52.Location = new System.Drawing.Point(903, 166);
             this.numericUpDown52.Name = "numericUpDown52";
@@ -1495,6 +1511,7 @@
             // numericUpDown62
             // 
             this.numericUpDown62.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown62.DecimalPlaces = 2;
             this.numericUpDown62.Enabled = false;
             this.numericUpDown62.Location = new System.Drawing.Point(903, 206);
             this.numericUpDown62.Name = "numericUpDown62";
@@ -1504,6 +1521,7 @@
             // numericUpDown72
             // 
             this.numericUpDown72.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown72.DecimalPlaces = 2;
             this.numericUpDown72.Enabled = false;
             this.numericUpDown72.Location = new System.Drawing.Point(903, 246);
             this.numericUpDown72.Name = "numericUpDown72";
@@ -1513,6 +1531,7 @@
             // numericUpDown82
             // 
             this.numericUpDown82.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown82.DecimalPlaces = 2;
             this.numericUpDown82.Enabled = false;
             this.numericUpDown82.Location = new System.Drawing.Point(903, 286);
             this.numericUpDown82.Name = "numericUpDown82";
