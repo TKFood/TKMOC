@@ -31,13 +31,19 @@ namespace TKMOC
 
         SqlTransaction tran;
         SqlCommand cmd = new SqlCommand();
+
+        int result;
+        string STATUS = null;
+        string DELID = null;
      
 
         public MOCDAILYWORKHRS()
         {
             InitializeComponent();
 
+            SETTIMES();
             comboBox1load();
+
         }
 
 
@@ -215,14 +221,142 @@ namespace TKMOC
             }
         }
 
+        public void ADDMOCDAILYWORKHRS(string ID, string DATS, string MANU, string TA001, string TA002, string MB001, string MB002, string NUMS, string MOCNUM
+            , string WORKSTART, string WORKEND, string WORKHRS, string WORKTIMES, string AVGWORKHRS
+            , string WATERNOODLESEMP, string WATERNOODLESSTART, string WATERNOODLESEND, string WATERNOODLESTIMES
+            , string OILPASTRYEMP, string OILPASTRYSTART, string OILPASTRYEND, string OILPASTRYTIMES
+            , string FOLDEMP, string FOLDSTART, string FOLDEND, string FOLDTIMES
+            , string TYPECOOKEMP, string TYPECOOKSTART, string TYPECOOKEND, string TYPECOOKTIMES
+            , string TYPEEMP, string TYPESTART, string TYPEEND, string TYPETIMES
+            , string OVENCOOKEMP, string OVENCOOKSTART, string OVENCOOKEND, string OVENCOOKTIMES
+            , string COLDCOOKEMP, string COLDCOOKSTART, string COLDCOOKEND, string COLDCOOKTIMES
+            , string ARRAYEMP, string ARRAYSTART, string ARRAYEND, string ARRAYTIMES
+            , string PACKEMP, string PACKSTART, string PACKEND, string PACKTIMES
+            , string PACKPICKEMP, string PACKPICKSTART, string PACKPICKEND, string PACKPICKTIMES
+            , string BOXSEMP, string BOXSSTART, string BOXSEND, string BOXSTIMES
+            , string HANDCOOKEMP, string HANDCOOKSTART, string HANDCOOKEND, string HANDCOOKTIMES
+            , string SCALESWEIGHTEMP, string SCALESWEIGHTSTART, string SCALESWEIGHTEND, string SCALESWEIGHTTIMES
+            , string OUTBOXSEMP, string OUTBOXSSTART, string OUTBOXSEND, string OUTBOXSTIMES
+            , string SEALEMP, string SEALSTART, string SEALEND, string SEALTIMES
+            , string THROWEMP, string THROWSTART, string THROWEND, string THROWTIMES
+            , string BOXPACKEMP, string BOXPACKSTART, string BOXPACKEND, string BOXPACKTIMES                            
+            )
+        {
+            try
+            {
+                //add ZWAREWHOUSEPURTH
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat("  INSERT INTO [TKMOC].[dbo].[MOCDAILYWORKHRS]");
+                sbSql.AppendFormat("  (");
+                sbSql.AppendFormat("  [ID],[DATS],[MANU],[TA001],[TA002],[MB001],[MB002],[NUMS],[MOCNUM]");
+                sbSql.AppendFormat("  ,[WORKSTART],[WORKEND],[WORKHRS],[WORKTIMES],[AVGWORKHRS]");
+                sbSql.AppendFormat("  ,[WATERNOODLESEMP],[WATERNOODLESSTART],[WATERNOODLESEND],[WATERNOODLESTIMES]");
+                sbSql.AppendFormat("  ,[OILPASTRYEMP],[OILPASTRYSTART],[OILPASTRYEND],[OILPASTRYTIMES]");
+                sbSql.AppendFormat("  ,[FOLDEMP],[FOLDSTART],[FOLDEND],[FOLDTIMES]");
+                sbSql.AppendFormat("  ,[TYPECOOKEMP],[TYPECOOKSTART],[TYPECOOKEND],[TYPECOOKTIMES]");
+                sbSql.AppendFormat("  ,[TYPEEMP],[TYPESTART],[TYPEEND],[TYPETIMES]");
+                sbSql.AppendFormat("  ,[OVENCOOKEMP],[OVENCOOKSTART],[OVENCOOKEND],[OVENCOOKTIMES]");
+                sbSql.AppendFormat("  ,[COLDCOOKEMP],[COLDCOOKSTART],[COLDCOOKEND],[COLDCOOKTIMES]");
+                sbSql.AppendFormat("  ,[ARRAYEMP],[ARRAYSTART],[ARRAYEND],[ARRAYTIMES]");
+                sbSql.AppendFormat("  ,[PACKEMP],[PACKSTART],[PACKEND],[PACKTIMES]");
+                sbSql.AppendFormat("  ,[PACKPICKEMP],[PACKPICKSTART],[PACKPICKEND],[PACKPICKTIMES]");
+                sbSql.AppendFormat("  ,[BOXSEMP],[BOXSSTART],[BOXSEND],[BOXSTIMES]");
+                sbSql.AppendFormat("  ,[HANDCOOKEMP],[HANDCOOKSTART],[HANDCOOKEND],[HANDCOOKTIMES]");
+                sbSql.AppendFormat("  ,[SCALESWEIGHTEMP],[SCALESWEIGHTSTART],[SCALESWEIGHTEND],[SCALESWEIGHTTIMES]");
+                sbSql.AppendFormat("  ,[OUTBOXSEMP],[OUTBOXSSTART],[OUTBOXSEND],[OUTBOXSTIMES]");
+                sbSql.AppendFormat("  ,[SEALEMP],[SEALSTART],[SEALEND],[SEALTIMES]");
+                sbSql.AppendFormat("  ,[THROWEMP],[THROWSTART],[THROWEND],[THROWTIMES]");
+                sbSql.AppendFormat("  ,[BOXPACKEMP],[BOXPACKSTART],[BOXPACKEND],[BOXPACKTIMES]");
+                sbSql.AppendFormat("  )");
+                sbSql.AppendFormat("  VALUES");
+                sbSql.AppendFormat("  (");
+                sbSql.AppendFormat("  '{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}',", ID, DATS, MANU, TA001, TA002, MB001, MB002, NUMS, MOCNUM);
+                sbSql.AppendFormat("  '{0}','{1}','{2}','{3}','{4}',", WORKSTART, WORKEND, WORKHRS, WORKTIMES, AVGWORKHRS);
+                sbSql.AppendFormat("  '{0}','{1}','{2}','{3}',", WATERNOODLESEMP, WATERNOODLESSTART, WATERNOODLESEND, WATERNOODLESTIMES);
+                sbSql.AppendFormat("  '{0}','{1}','{2}','{3}',", OILPASTRYEMP, OILPASTRYSTART, OILPASTRYEND, OILPASTRYTIMES);
+                sbSql.AppendFormat("  '{0}','{1}','{2}','{3}',", FOLDEMP, FOLDSTART, FOLDEND, FOLDTIMES);
+                sbSql.AppendFormat("  '{0}','{1}','{2}','{3}',", TYPECOOKEMP, TYPECOOKSTART, TYPECOOKEND, TYPECOOKTIMES);
+                sbSql.AppendFormat("  '{0}','{1}','{2}','{3}',", TYPEEMP, TYPESTART, TYPEEND, TYPETIMES);
+                sbSql.AppendFormat("  '{0}','{1}','{2}','{3}',", OVENCOOKEMP, OVENCOOKSTART, OVENCOOKEND, OVENCOOKTIMES);
+                sbSql.AppendFormat("  '{0}','{1}','{2}','{3}',", COLDCOOKEMP, COLDCOOKSTART, COLDCOOKEND, COLDCOOKTIMES);
+                sbSql.AppendFormat("  '{0}','{1}','{2}','{3}',", ARRAYEMP, ARRAYSTART, ARRAYEND, ARRAYTIMES);
+                sbSql.AppendFormat("  '{0}','{1}','{2}','{3}',", PACKEMP, PACKSTART, PACKEND, PACKTIMES);
+                sbSql.AppendFormat("  '{0}','{1}','{2}','{3}',", PACKPICKEMP, PACKPICKSTART, PACKPICKEND, PACKPICKTIMES);
+                sbSql.AppendFormat("  '{0}','{1}','{2}','{3}',", BOXSEMP, BOXSSTART, BOXSEND, BOXSTIMES);
+                sbSql.AppendFormat("  '{0}','{1}','{2}','{3}',", HANDCOOKEMP, HANDCOOKSTART, HANDCOOKEND, HANDCOOKTIMES);
+                sbSql.AppendFormat("  '{0}','{1}','{2}','{3}',", SCALESWEIGHTEMP, SCALESWEIGHTSTART, SCALESWEIGHTEND, SCALESWEIGHTTIMES);
+                sbSql.AppendFormat("  '{0}','{1}','{2}','{3}',", OUTBOXSEMP, OUTBOXSSTART, OUTBOXSEND, OUTBOXSTIMES);
+                sbSql.AppendFormat("  '{0}','{1}','{2}','{3}',", SEALEMP, SEALSTART, SEALEND, SEALTIMES);
+                sbSql.AppendFormat("  '{0}','{1}','{2}','{3}',", THROWEMP, THROWSTART, THROWEND, THROWTIMES);
+                sbSql.AppendFormat("  '{0}','{1}','{2}','{3}'", BOXPACKEMP, BOXPACKSTART, BOXPACKEND, BOXPACKTIMES);
+                sbSql.AppendFormat("  )");
+                sbSql.AppendFormat("  ");
+                sbSql.AppendFormat("  ");
+                sbSql.AppendFormat("  ");
+                sbSql.AppendFormat("  ");
+                sbSql.AppendFormat("  ");
+                sbSql.AppendFormat("  ");
+                sbSql.AppendFormat("  ");
+                sbSql.AppendFormat("  ");
+                sbSql.AppendFormat("  ");
+                sbSql.AppendFormat("  ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void UPDATEMOCDAILYWORKHRS()
+        {
+
+        }
+
+        public void DELMOCDAILYWORKHRS()
+        {
+
+        }
+
         private void dateTimePicker37_ValueChanged(object sender, EventArgs e)
         {
             SETSTARTTIMES(dateTimePicker37.Value);
+            CALTIMES();
         }
 
         private void dateTimePicker38_ValueChanged(object sender, EventArgs e)
         {
             SETENDTIMES(dateTimePicker38.Value);
+            CALTIMES();
         }
 
         private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
@@ -397,8 +531,12 @@ namespace TKMOC
         public void CALTIMES()
         {
             TimeSpan TS = new TimeSpan();
+            if (Convert.ToDecimal(new TimeSpan(dateTimePicker38.Value.Ticks - dateTimePicker37.Value.Ticks).TotalHours) > 0)
+            {            
+                numericUpDown11.Value = Convert.ToDecimal(new TimeSpan(dateTimePicker38.Value.Ticks - dateTimePicker37.Value.Ticks).TotalHours);
+            }
 
-            if(Convert.ToDecimal(new TimeSpan(dateTimePicker3.Value.Ticks - dateTimePicker2.Value.Ticks).TotalHours)>0)
+            if (Convert.ToDecimal(new TimeSpan(dateTimePicker3.Value.Ticks - dateTimePicker2.Value.Ticks).TotalHours)>0)
             {
                 numericUpDown31.Value = Convert.ToDecimal(new TimeSpan(dateTimePicker3.Value.Ticks - dateTimePicker2.Value.Ticks).TotalHours);
             }
@@ -495,6 +633,49 @@ namespace TKMOC
             textBox24.Text = null;
         }
 
+        public void SETTIMES()
+        {
+            DateTime dt = Convert.ToDateTime(DateTime.Now.Year+"/"+ DateTime.Now.Month + "/" + DateTime.Now.Day+" "+ DateTime.Now.Hour+":"+ DateTime.Now.Minute);
+            dateTimePicker2.Value = dt;
+            dateTimePicker5.Value = dt;
+            dateTimePicker7.Value = dt;
+            dateTimePicker9.Value = dt;
+            dateTimePicker11.Value = dt;
+            dateTimePicker13.Value = dt;
+            dateTimePicker15.Value = dt;
+            dateTimePicker17.Value = dt;
+            dateTimePicker19.Value = dt;
+            dateTimePicker21.Value = dt;
+            dateTimePicker23.Value = dt;
+            dateTimePicker25.Value = dt;
+            dateTimePicker27.Value = dt;
+            dateTimePicker29.Value = dt;
+            dateTimePicker31.Value = dt;
+            dateTimePicker33.Value = dt;
+            dateTimePicker35.Value = dt;
+
+            dateTimePicker3.Value = dt;
+            dateTimePicker6.Value = dt;
+            dateTimePicker8.Value = dt;
+            dateTimePicker10.Value = dt;
+            dateTimePicker12.Value = dt;
+            dateTimePicker14.Value = dt;
+            dateTimePicker16.Value = dt;
+            dateTimePicker18.Value = dt;
+            dateTimePicker20.Value = dt;
+            dateTimePicker22.Value = dt;
+            dateTimePicker24.Value = dt;
+            dateTimePicker26.Value = dt;
+            dateTimePicker28.Value = dt;
+            dateTimePicker30.Value = dt;
+            dateTimePicker32.Value = dt;
+            dateTimePicker34.Value = dt;
+            dateTimePicker36.Value = dt;
+
+            dateTimePicker37.Value = dt;
+            dateTimePicker38.Value = dt;
+        }
+
         public void SETSTARTTIMES(DateTime dt)
         {
             dateTimePicker2.Value = dt;
@@ -538,6 +719,28 @@ namespace TKMOC
         }
 
 
+        public void SETTEXTBOX1()
+        {
+            textBox11.Text = null;
+            textBox12.Text = null;
+            textBox31.Text = null;
+            textBox41.Text = null;
+            textBox51.Text = null;
+            textBox61.Text = null;
+            textBox71.Text = null;
+            textBox81.Text = null;
+            textBox91.Text = null;
+            textBox101.Text = null;
+            textBox111.Text = null;
+            textBox121.Text = null;
+            textBox131.Text = null;
+            textBox32.Text = null;
+            textBox42.Text = null;
+            textBox52.Text = null;
+            textBox62.Text = null;
+            textBox72.Text = null;
+            textBox82.Text = null;
+        }
 
         #endregion
 
@@ -549,20 +752,63 @@ namespace TKMOC
 
         private void button2_Click(object sender, EventArgs e)
         {
+            STATUS = "ADD";
+            label26.Text= "ADD";
+            //SETTEXTBOX1();
 
         }
         private void button3_Click(object sender, EventArgs e)
         {
+            STATUS = "EDIT";
+            label26.Text = "EDIT";
 
         }
         private void button4_Click(object sender, EventArgs e)
         {
+            if(STATUS.Equals("ADD"))
+            {
+                ADDMOCDAILYWORKHRS(Guid.NewGuid().ToString(), dateTimePicker4.Value.ToString("yyyy/MM/dd"), comboBox1.Text.Trim(), textBox11.Text, textBox12.Text, textBox21.Text, textBox22.Text, textBox23.Text, textBox24.Text
+                , dateTimePicker37.Value.ToString("HH:ss"), dateTimePicker38.Value.ToString("HH:ss"), numericUpDown11.Value.ToString(), "0","0"
+                , textBox31.Text, dateTimePicker2.Value.ToString("HH:ss"), dateTimePicker3.Value.ToString("HH:ss"), numericUpDown31.Value.ToString()
+                , textBox41.Text, dateTimePicker5.Value.ToString("HH:ss"), dateTimePicker6.Value.ToString("HH:ss"), numericUpDown41.Value.ToString()
+                , textBox51.Text, dateTimePicker7.Value.ToString("HH:ss"), dateTimePicker8.Value.ToString("HH:ss"), numericUpDown51.Value.ToString()
+                , textBox61.Text, dateTimePicker9.Value.ToString("HH:ss"), dateTimePicker10.Value.ToString("HH:ss"), numericUpDown61.Value.ToString()
+                , textBox71.Text, dateTimePicker11.Value.ToString("HH:ss"), dateTimePicker12.Value.ToString("HH:ss"), numericUpDown71.Value.ToString()
+                , textBox81.Text, dateTimePicker13.Value.ToString("HH:ss"), dateTimePicker14.Value.ToString("HH:ss"), numericUpDown81.Value.ToString()
+                , textBox91.Text, dateTimePicker15.Value.ToString("HH:ss"), dateTimePicker16.Value.ToString("HH:ss"), numericUpDown91.Value.ToString()
+                , textBox101.Text, dateTimePicker17.Value.ToString("HH:ss"), dateTimePicker18.Value.ToString("HH:ss"), numericUpDown101.Value.ToString()
+                , textBox111.Text, dateTimePicker19.Value.ToString("HH:ss"), dateTimePicker20.Value.ToString("HH:ss"), numericUpDown111.Value.ToString()
+                , textBox121.Text, dateTimePicker21.Value.ToString("HH:ss"), dateTimePicker22.Value.ToString("HH:ss"), numericUpDown121.Value.ToString()
+                , textBox131.Text, dateTimePicker23.Value.ToString("HH:ss"), dateTimePicker24.Value.ToString("HH:ss"), numericUpDown131.Value.ToString()
+                , textBox32.Text, dateTimePicker25.Value.ToString("HH:ss"), dateTimePicker26.Value.ToString("HH:ss"), numericUpDown32.Value.ToString()
+                , textBox42.Text, dateTimePicker27.Value.ToString("HH:ss"), dateTimePicker28.Value.ToString("HH:ss"), numericUpDown42.Value.ToString()
+                , textBox52.Text, dateTimePicker29.Value.ToString("HH:ss"), dateTimePicker30.Value.ToString("HH:ss"), numericUpDown52.Value.ToString()
+                , textBox62.Text, dateTimePicker31.Value.ToString("HH:ss"), dateTimePicker32.Value.ToString("HH:ss"), numericUpDown62.Value.ToString()
+                , textBox72.Text, dateTimePicker33.Value.ToString("HH:ss"), dateTimePicker34.Value.ToString("HH:ss"), numericUpDown72.Value.ToString()
+                , textBox82.Text, dateTimePicker35.Value.ToString("HH:ss"), dateTimePicker36.Value.ToString("HH:ss"), numericUpDown82.Value.ToString()
+                );
+            }
+            else if(STATUS.Equals("EDIT"))
+            {
 
+            }
+
+            STATUS = null;
+            label26.Text = "STATUS";
+            SEARCH(dateTimePicker1.Value.ToString("yyyyMMdd"));
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
+            DialogResult dialogResult = MessageBox.Show("要刪除了?", "要刪除了?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
 
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                //do something else
+            }
         }
 
 

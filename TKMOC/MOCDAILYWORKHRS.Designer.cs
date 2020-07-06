@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -146,6 +146,8 @@
             this.dateTimePicker37 = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker38 = new System.Windows.Forms.DateTimePicker();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.numericUpDown11 = new System.Windows.Forms.NumericUpDown();
+            this.label26 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -176,6 +178,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown62)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown72)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown82)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown11)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -238,6 +241,7 @@
             this.tableLayoutPanel3.Controls.Add(this.button3, 5, 0);
             this.tableLayoutPanel3.Controls.Add(this.button5, 7, 0);
             this.tableLayoutPanel3.Controls.Add(this.dateTimePicker1, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.label26, 3, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -348,8 +352,8 @@
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("新細明體", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("新細明體", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
@@ -466,7 +470,6 @@
             this.tableLayoutPanel1.Controls.Add(this.numericUpDown101, 4, 9);
             this.tableLayoutPanel1.Controls.Add(this.numericUpDown111, 4, 10);
             this.tableLayoutPanel1.Controls.Add(this.numericUpDown121, 4, 11);
-            this.tableLayoutPanel1.Controls.Add(this.numericUpDown131, 4, 12);
             this.tableLayoutPanel1.Controls.Add(this.numericUpDown32, 9, 2);
             this.tableLayoutPanel1.Controls.Add(this.numericUpDown42, 9, 3);
             this.tableLayoutPanel1.Controls.Add(this.numericUpDown52, 9, 4);
@@ -475,6 +478,8 @@
             this.tableLayoutPanel1.Controls.Add(this.numericUpDown82, 9, 7);
             this.tableLayoutPanel1.Controls.Add(this.dateTimePicker37, 7, 0);
             this.tableLayoutPanel1.Controls.Add(this.dateTimePicker38, 8, 0);
+            this.tableLayoutPanel1.Controls.Add(this.numericUpDown131, 4, 12);
+            this.tableLayoutPanel1.Controls.Add(this.numericUpDown11, 9, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -1604,6 +1609,28 @@
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // numericUpDown11
+            // 
+            this.numericUpDown11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown11.DecimalPlaces = 2;
+            this.numericUpDown11.Enabled = false;
+            this.numericUpDown11.Location = new System.Drawing.Point(903, 6);
+            this.numericUpDown11.Name = "numericUpDown11";
+            this.numericUpDown11.Size = new System.Drawing.Size(94, 27);
+            this.numericUpDown11.TabIndex = 185;
+            // 
+            // label26
+            // 
+            this.label26.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label26.Location = new System.Drawing.Point(363, 12);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(114, 16);
+            this.label26.TabIndex = 11;
+            this.label26.Text = "STATUS";
+            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // MOCDAILYWORKHRS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -1646,6 +1673,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown62)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown72)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown82)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown11)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1769,5 +1797,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDown72;
         private System.Windows.Forms.NumericUpDown numericUpDown82;
         private System.Windows.Forms.DateTimePicker dateTimePicker38;
+        private System.Windows.Forms.NumericUpDown numericUpDown11;
+        private System.Windows.Forms.Label label26;
     }
 }
