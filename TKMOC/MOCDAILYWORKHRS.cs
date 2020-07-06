@@ -235,11 +235,255 @@ namespace TKMOC
             CALTIMES();
         }
 
+        private void dateTimePicker5_ValueChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void dateTimePicker6_ValueChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void dateTimePicker7_ValueChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void dateTimePicker8_ValueChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void dateTimePicker9_ValueChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void dateTimePicker10_ValueChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void dateTimePicker11_ValueChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void dateTimePicker12_ValueChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void dateTimePicker13_ValueChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void dateTimePicker14_ValueChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void dateTimePicker15_ValueChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void dateTimePicker16_ValueChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void dateTimePicker17_ValueChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void dateTimePicker18_ValueChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void dateTimePicker19_ValueChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void dateTimePicker20_ValueChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void dateTimePicker21_ValueChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void dateTimePicker22_ValueChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void dateTimePicker23_ValueChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void dateTimePicker24_ValueChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void dateTimePicker25_ValueChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void dateTimePicker26_ValueChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void dateTimePicker27_ValueChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void dateTimePicker28_ValueChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void dateTimePicker29_ValueChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void dateTimePicker30_ValueChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void dateTimePicker31_ValueChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void dateTimePicker32_ValueChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void dateTimePicker33_ValueChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void dateTimePicker34_ValueChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void dateTimePicker35_ValueChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void dateTimePicker36_ValueChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
         public void CALTIMES()
         {
             TimeSpan TS = new TimeSpan();
 
-            numericUpDown31.Value = Convert.ToDecimal(new TimeSpan(dateTimePicker3.Value.Ticks - dateTimePicker2.Value.Ticks).TotalHours);
+            if(Convert.ToDecimal(new TimeSpan(dateTimePicker3.Value.Ticks - dateTimePicker2.Value.Ticks).TotalHours)>0)
+            {
+                numericUpDown31.Value = Convert.ToDecimal(new TimeSpan(dateTimePicker3.Value.Ticks - dateTimePicker2.Value.Ticks).TotalHours);
+            }
+
+            if (Convert.ToDecimal(new TimeSpan(dateTimePicker6.Value.Ticks - dateTimePicker5.Value.Ticks).TotalHours) > 0)
+            {
+                numericUpDown41.Value = Convert.ToDecimal(new TimeSpan(dateTimePicker6.Value.Ticks - dateTimePicker5.Value.Ticks).TotalHours);
+            }
+            if (Convert.ToDecimal(new TimeSpan(dateTimePicker8.Value.Ticks - dateTimePicker7.Value.Ticks).TotalHours) > 0)
+            {
+                numericUpDown51.Value = Convert.ToDecimal(new TimeSpan(dateTimePicker8.Value.Ticks - dateTimePicker7.Value.Ticks).TotalHours);
+               
+            }
+            if (Convert.ToDecimal(new TimeSpan(dateTimePicker10.Value.Ticks - dateTimePicker9.Value.Ticks).TotalHours) > 0)
+            {
+                numericUpDown61.Value = Convert.ToDecimal(new TimeSpan(dateTimePicker10.Value.Ticks - dateTimePicker9.Value.Ticks).TotalHours);
+               
+            }
+            if (Convert.ToDecimal(new TimeSpan(dateTimePicker12.Value.Ticks - dateTimePicker11.Value.Ticks).TotalHours) > 0)
+            {
+                numericUpDown71.Value = Convert.ToDecimal(new TimeSpan(dateTimePicker12.Value.Ticks - dateTimePicker11.Value.Ticks).TotalHours);
+                
+            }
+            if (Convert.ToDecimal(new TimeSpan(dateTimePicker14.Value.Ticks - dateTimePicker13.Value.Ticks).TotalHours) > 0)
+            {
+                numericUpDown81.Value = Convert.ToDecimal(new TimeSpan(dateTimePicker14.Value.Ticks - dateTimePicker13.Value.Ticks).TotalHours);
+               
+            }
+            if (Convert.ToDecimal(new TimeSpan(dateTimePicker16.Value.Ticks - dateTimePicker15.Value.Ticks).TotalHours) > 0)
+            {
+                numericUpDown91.Value = Convert.ToDecimal(new TimeSpan(dateTimePicker16.Value.Ticks - dateTimePicker15.Value.Ticks).TotalHours);
+               
+            }
+            if (Convert.ToDecimal(new TimeSpan(dateTimePicker18.Value.Ticks - dateTimePicker17.Value.Ticks).TotalHours) > 0)
+            {
+                numericUpDown101.Value = Convert.ToDecimal(new TimeSpan(dateTimePicker18.Value.Ticks - dateTimePicker17.Value.Ticks).TotalHours);
+                
+            }
+            if (Convert.ToDecimal(new TimeSpan(dateTimePicker20.Value.Ticks - dateTimePicker19.Value.Ticks).TotalHours) > 0)
+            {
+                numericUpDown111.Value = Convert.ToDecimal(new TimeSpan(dateTimePicker20.Value.Ticks - dateTimePicker19.Value.Ticks).TotalHours);
+               
+            }
+            if (Convert.ToDecimal(new TimeSpan(dateTimePicker22.Value.Ticks - dateTimePicker21.Value.Ticks).TotalHours) > 0)
+            {
+                numericUpDown121.Value = Convert.ToDecimal(new TimeSpan(dateTimePicker22.Value.Ticks - dateTimePicker21.Value.Ticks).TotalHours);
+                
+            }
+            if (Convert.ToDecimal(new TimeSpan(dateTimePicker24.Value.Ticks - dateTimePicker23.Value.Ticks).TotalHours) > 0)
+            {
+                numericUpDown131.Value = Convert.ToDecimal(new TimeSpan(dateTimePicker24.Value.Ticks - dateTimePicker23.Value.Ticks).TotalHours);
+
+              
+            }
+            if (Convert.ToDecimal(new TimeSpan(dateTimePicker26.Value.Ticks - dateTimePicker25.Value.Ticks).TotalHours) > 0)
+            {
+                numericUpDown32.Value = Convert.ToDecimal(new TimeSpan(dateTimePicker26.Value.Ticks - dateTimePicker25.Value.Ticks).TotalHours);
+              
+            }
+            if (Convert.ToDecimal(new TimeSpan(dateTimePicker28.Value.Ticks - dateTimePicker27.Value.Ticks).TotalHours) > 0)
+            {
+                numericUpDown42.Value = Convert.ToDecimal(new TimeSpan(dateTimePicker28.Value.Ticks - dateTimePicker27.Value.Ticks).TotalHours);
+               
+            }
+            if (Convert.ToDecimal(new TimeSpan(dateTimePicker30.Value.Ticks - dateTimePicker29.Value.Ticks).TotalHours) > 0)
+            {
+                numericUpDown52.Value = Convert.ToDecimal(new TimeSpan(dateTimePicker30.Value.Ticks - dateTimePicker29.Value.Ticks).TotalHours);
+              
+            }
+            if (Convert.ToDecimal(new TimeSpan(dateTimePicker32.Value.Ticks - dateTimePicker31.Value.Ticks).TotalHours) > 0)
+            {
+                numericUpDown62.Value = Convert.ToDecimal(new TimeSpan(dateTimePicker32.Value.Ticks - dateTimePicker31.Value.Ticks).TotalHours);
+                
+            }
+            if (Convert.ToDecimal(new TimeSpan(dateTimePicker34.Value.Ticks - dateTimePicker33.Value.Ticks).TotalHours) > 0)
+            {               
+                numericUpDown72.Value = Convert.ToDecimal(new TimeSpan(dateTimePicker34.Value.Ticks - dateTimePicker33.Value.Ticks).TotalHours);
+                            }
+            if (Convert.ToDecimal(new TimeSpan(dateTimePicker36.Value.Ticks - dateTimePicker35.Value.Ticks).TotalHours) > 0)
+            {
+                numericUpDown82.Value = Convert.ToDecimal(new TimeSpan(dateTimePicker36.Value.Ticks - dateTimePicker35.Value.Ticks).TotalHours);
+
+            }
+
+
 
         }
 
@@ -320,6 +564,7 @@ namespace TKMOC
         {
 
         }
+
 
 
 

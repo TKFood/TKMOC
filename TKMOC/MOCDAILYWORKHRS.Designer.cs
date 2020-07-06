@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -348,8 +348,8 @@
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("新細明體", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("新細明體", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
@@ -1026,6 +1026,7 @@
             this.dateTimePicker5.Name = "dateTimePicker5";
             this.dateTimePicker5.Size = new System.Drawing.Size(94, 27);
             this.dateTimePicker5.TabIndex = 134;
+            this.dateTimePicker5.ValueChanged += new System.EventHandler(this.dateTimePicker5_ValueChanged);
             // 
             // dateTimePicker6
             // 
@@ -1037,6 +1038,7 @@
             this.dateTimePicker6.Name = "dateTimePicker6";
             this.dateTimePicker6.Size = new System.Drawing.Size(94, 27);
             this.dateTimePicker6.TabIndex = 135;
+            this.dateTimePicker6.ValueChanged += new System.EventHandler(this.dateTimePicker6_ValueChanged);
             // 
             // dateTimePicker7
             // 
@@ -1048,6 +1050,7 @@
             this.dateTimePicker7.Name = "dateTimePicker7";
             this.dateTimePicker7.Size = new System.Drawing.Size(94, 27);
             this.dateTimePicker7.TabIndex = 136;
+            this.dateTimePicker7.ValueChanged += new System.EventHandler(this.dateTimePicker7_ValueChanged);
             // 
             // dateTimePicker8
             // 
@@ -1059,6 +1062,7 @@
             this.dateTimePicker8.Name = "dateTimePicker8";
             this.dateTimePicker8.Size = new System.Drawing.Size(94, 27);
             this.dateTimePicker8.TabIndex = 137;
+            this.dateTimePicker8.ValueChanged += new System.EventHandler(this.dateTimePicker8_ValueChanged);
             // 
             // dateTimePicker9
             // 
@@ -1070,6 +1074,7 @@
             this.dateTimePicker9.Name = "dateTimePicker9";
             this.dateTimePicker9.Size = new System.Drawing.Size(94, 27);
             this.dateTimePicker9.TabIndex = 138;
+            this.dateTimePicker9.ValueChanged += new System.EventHandler(this.dateTimePicker9_ValueChanged);
             // 
             // dateTimePicker10
             // 
@@ -1081,6 +1086,7 @@
             this.dateTimePicker10.Name = "dateTimePicker10";
             this.dateTimePicker10.Size = new System.Drawing.Size(94, 27);
             this.dateTimePicker10.TabIndex = 139;
+            this.dateTimePicker10.ValueChanged += new System.EventHandler(this.dateTimePicker10_ValueChanged);
             // 
             // dateTimePicker11
             // 
@@ -1092,6 +1098,7 @@
             this.dateTimePicker11.Name = "dateTimePicker11";
             this.dateTimePicker11.Size = new System.Drawing.Size(94, 27);
             this.dateTimePicker11.TabIndex = 140;
+            this.dateTimePicker11.ValueChanged += new System.EventHandler(this.dateTimePicker11_ValueChanged);
             // 
             // dateTimePicker12
             // 
@@ -1103,6 +1110,7 @@
             this.dateTimePicker12.Name = "dateTimePicker12";
             this.dateTimePicker12.Size = new System.Drawing.Size(94, 27);
             this.dateTimePicker12.TabIndex = 141;
+            this.dateTimePicker12.ValueChanged += new System.EventHandler(this.dateTimePicker12_ValueChanged);
             // 
             // dateTimePicker13
             // 
@@ -1114,6 +1122,7 @@
             this.dateTimePicker13.Name = "dateTimePicker13";
             this.dateTimePicker13.Size = new System.Drawing.Size(94, 27);
             this.dateTimePicker13.TabIndex = 142;
+            this.dateTimePicker13.ValueChanged += new System.EventHandler(this.dateTimePicker13_ValueChanged);
             // 
             // dateTimePicker14
             // 
@@ -1125,6 +1134,7 @@
             this.dateTimePicker14.Name = "dateTimePicker14";
             this.dateTimePicker14.Size = new System.Drawing.Size(94, 27);
             this.dateTimePicker14.TabIndex = 143;
+            this.dateTimePicker14.ValueChanged += new System.EventHandler(this.dateTimePicker14_ValueChanged);
             // 
             // dateTimePicker15
             // 
@@ -1136,6 +1146,7 @@
             this.dateTimePicker15.Name = "dateTimePicker15";
             this.dateTimePicker15.Size = new System.Drawing.Size(94, 27);
             this.dateTimePicker15.TabIndex = 144;
+            this.dateTimePicker15.ValueChanged += new System.EventHandler(this.dateTimePicker15_ValueChanged);
             // 
             // dateTimePicker16
             // 
@@ -1147,6 +1158,7 @@
             this.dateTimePicker16.Name = "dateTimePicker16";
             this.dateTimePicker16.Size = new System.Drawing.Size(94, 27);
             this.dateTimePicker16.TabIndex = 145;
+            this.dateTimePicker16.ValueChanged += new System.EventHandler(this.dateTimePicker16_ValueChanged);
             // 
             // dateTimePicker17
             // 
@@ -1158,6 +1170,7 @@
             this.dateTimePicker17.Name = "dateTimePicker17";
             this.dateTimePicker17.Size = new System.Drawing.Size(94, 27);
             this.dateTimePicker17.TabIndex = 146;
+            this.dateTimePicker17.ValueChanged += new System.EventHandler(this.dateTimePicker17_ValueChanged);
             // 
             // dateTimePicker18
             // 
@@ -1169,6 +1182,7 @@
             this.dateTimePicker18.Name = "dateTimePicker18";
             this.dateTimePicker18.Size = new System.Drawing.Size(94, 27);
             this.dateTimePicker18.TabIndex = 147;
+            this.dateTimePicker18.ValueChanged += new System.EventHandler(this.dateTimePicker18_ValueChanged);
             // 
             // dateTimePicker19
             // 
@@ -1180,6 +1194,7 @@
             this.dateTimePicker19.Name = "dateTimePicker19";
             this.dateTimePicker19.Size = new System.Drawing.Size(94, 27);
             this.dateTimePicker19.TabIndex = 148;
+            this.dateTimePicker19.ValueChanged += new System.EventHandler(this.dateTimePicker19_ValueChanged);
             // 
             // dateTimePicker20
             // 
@@ -1191,6 +1206,7 @@
             this.dateTimePicker20.Name = "dateTimePicker20";
             this.dateTimePicker20.Size = new System.Drawing.Size(94, 27);
             this.dateTimePicker20.TabIndex = 149;
+            this.dateTimePicker20.ValueChanged += new System.EventHandler(this.dateTimePicker20_ValueChanged);
             // 
             // dateTimePicker21
             // 
@@ -1202,6 +1218,7 @@
             this.dateTimePicker21.Name = "dateTimePicker21";
             this.dateTimePicker21.Size = new System.Drawing.Size(94, 27);
             this.dateTimePicker21.TabIndex = 150;
+            this.dateTimePicker21.ValueChanged += new System.EventHandler(this.dateTimePicker21_ValueChanged);
             // 
             // dateTimePicker22
             // 
@@ -1213,6 +1230,7 @@
             this.dateTimePicker22.Name = "dateTimePicker22";
             this.dateTimePicker22.Size = new System.Drawing.Size(94, 27);
             this.dateTimePicker22.TabIndex = 151;
+            this.dateTimePicker22.ValueChanged += new System.EventHandler(this.dateTimePicker22_ValueChanged);
             // 
             // dateTimePicker23
             // 
@@ -1224,6 +1242,7 @@
             this.dateTimePicker23.Name = "dateTimePicker23";
             this.dateTimePicker23.Size = new System.Drawing.Size(94, 27);
             this.dateTimePicker23.TabIndex = 152;
+            this.dateTimePicker23.ValueChanged += new System.EventHandler(this.dateTimePicker23_ValueChanged);
             // 
             // dateTimePicker24
             // 
@@ -1235,6 +1254,7 @@
             this.dateTimePicker24.Name = "dateTimePicker24";
             this.dateTimePicker24.Size = new System.Drawing.Size(94, 27);
             this.dateTimePicker24.TabIndex = 153;
+            this.dateTimePicker24.ValueChanged += new System.EventHandler(this.dateTimePicker24_ValueChanged);
             // 
             // dateTimePicker25
             // 
@@ -1246,6 +1266,7 @@
             this.dateTimePicker25.Name = "dateTimePicker25";
             this.dateTimePicker25.Size = new System.Drawing.Size(94, 27);
             this.dateTimePicker25.TabIndex = 154;
+            this.dateTimePicker25.ValueChanged += new System.EventHandler(this.dateTimePicker25_ValueChanged);
             // 
             // dateTimePicker26
             // 
@@ -1257,6 +1278,7 @@
             this.dateTimePicker26.Name = "dateTimePicker26";
             this.dateTimePicker26.Size = new System.Drawing.Size(94, 27);
             this.dateTimePicker26.TabIndex = 155;
+            this.dateTimePicker26.ValueChanged += new System.EventHandler(this.dateTimePicker26_ValueChanged);
             // 
             // dateTimePicker27
             // 
@@ -1268,6 +1290,7 @@
             this.dateTimePicker27.Name = "dateTimePicker27";
             this.dateTimePicker27.Size = new System.Drawing.Size(94, 27);
             this.dateTimePicker27.TabIndex = 156;
+            this.dateTimePicker27.ValueChanged += new System.EventHandler(this.dateTimePicker27_ValueChanged);
             // 
             // dateTimePicker28
             // 
@@ -1279,6 +1302,7 @@
             this.dateTimePicker28.Name = "dateTimePicker28";
             this.dateTimePicker28.Size = new System.Drawing.Size(94, 27);
             this.dateTimePicker28.TabIndex = 157;
+            this.dateTimePicker28.ValueChanged += new System.EventHandler(this.dateTimePicker28_ValueChanged);
             // 
             // dateTimePicker29
             // 
@@ -1290,6 +1314,7 @@
             this.dateTimePicker29.Name = "dateTimePicker29";
             this.dateTimePicker29.Size = new System.Drawing.Size(94, 27);
             this.dateTimePicker29.TabIndex = 158;
+            this.dateTimePicker29.ValueChanged += new System.EventHandler(this.dateTimePicker29_ValueChanged);
             // 
             // dateTimePicker30
             // 
@@ -1301,6 +1326,7 @@
             this.dateTimePicker30.Name = "dateTimePicker30";
             this.dateTimePicker30.Size = new System.Drawing.Size(94, 27);
             this.dateTimePicker30.TabIndex = 159;
+            this.dateTimePicker30.ValueChanged += new System.EventHandler(this.dateTimePicker30_ValueChanged);
             // 
             // dateTimePicker31
             // 
@@ -1312,6 +1338,7 @@
             this.dateTimePicker31.Name = "dateTimePicker31";
             this.dateTimePicker31.Size = new System.Drawing.Size(94, 27);
             this.dateTimePicker31.TabIndex = 160;
+            this.dateTimePicker31.ValueChanged += new System.EventHandler(this.dateTimePicker31_ValueChanged);
             // 
             // dateTimePicker32
             // 
@@ -1323,6 +1350,7 @@
             this.dateTimePicker32.Name = "dateTimePicker32";
             this.dateTimePicker32.Size = new System.Drawing.Size(94, 27);
             this.dateTimePicker32.TabIndex = 161;
+            this.dateTimePicker32.ValueChanged += new System.EventHandler(this.dateTimePicker32_ValueChanged);
             // 
             // dateTimePicker33
             // 
@@ -1334,6 +1362,7 @@
             this.dateTimePicker33.Name = "dateTimePicker33";
             this.dateTimePicker33.Size = new System.Drawing.Size(94, 27);
             this.dateTimePicker33.TabIndex = 162;
+            this.dateTimePicker33.ValueChanged += new System.EventHandler(this.dateTimePicker33_ValueChanged);
             // 
             // dateTimePicker34
             // 
@@ -1345,6 +1374,7 @@
             this.dateTimePicker34.Name = "dateTimePicker34";
             this.dateTimePicker34.Size = new System.Drawing.Size(94, 27);
             this.dateTimePicker34.TabIndex = 163;
+            this.dateTimePicker34.ValueChanged += new System.EventHandler(this.dateTimePicker34_ValueChanged);
             // 
             // dateTimePicker35
             // 
@@ -1356,6 +1386,7 @@
             this.dateTimePicker35.Name = "dateTimePicker35";
             this.dateTimePicker35.Size = new System.Drawing.Size(94, 27);
             this.dateTimePicker35.TabIndex = 164;
+            this.dateTimePicker35.ValueChanged += new System.EventHandler(this.dateTimePicker35_ValueChanged);
             // 
             // dateTimePicker36
             // 
@@ -1367,6 +1398,7 @@
             this.dateTimePicker36.Name = "dateTimePicker36";
             this.dateTimePicker36.Size = new System.Drawing.Size(94, 27);
             this.dateTimePicker36.TabIndex = 165;
+            this.dateTimePicker36.ValueChanged += new System.EventHandler(this.dateTimePicker36_ValueChanged);
             // 
             // numericUpDown31
             // 
