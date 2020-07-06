@@ -22,26 +22,54 @@ namespace TKMOC
 {
     public partial class MOCDAILYWORKHRS : Form
     {
+        private ComponentResourceManager _ResourceManager = new ComponentResourceManager();
+        SqlConnection sqlConn = new SqlConnection();
+        SqlCommand sqlComm = new SqlCommand();
+        string connectionString;
+        StringBuilder sbSql = new StringBuilder();
+        StringBuilder sbSqlQuery = new StringBuilder();
+
+        SqlTransaction tran;
+        SqlCommand cmd = new SqlCommand();
+     
+
         public MOCDAILYWORKHRS()
         {
             InitializeComponent();
+
+            comboBox1load();
         }
 
 
 
         #region FUNCTION
+
+        public void comboBox1load()
+        {
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 LIKE '新廠%'   ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("MD001", typeof(string));
+            dt.Columns.Add("MD002", typeof(string));
+            da.Fill(dt);
+            comboBox1.DataSource = dt.DefaultView;
+            comboBox1.ValueMember = "MD002";
+            comboBox1.DisplayMember = "MD002";
+            sqlConn.Close();
+
+
+        }
+
         public void SEARCH(string IDDATE)
         {
-            SqlConnection sqlConn = new SqlConnection();
-            SqlCommand sqlComm = new SqlCommand();
-            string connectionString;
-            StringBuilder sbSql = new StringBuilder();
-            StringBuilder sbSqlQuery = new StringBuilder();
             SqlDataAdapter adapter1 = new SqlDataAdapter();
             SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
-
-            SqlTransaction tran;
-            SqlCommand cmd = new SqlCommand();
+           
             DataSet ds1 = new DataSet();
 
             try
@@ -113,7 +141,87 @@ namespace TKMOC
                 sqlConn.Close();
             }
         }
+        private void textBox11_TextChanged(object sender, EventArgs e)
+        {
+            if(!string.IsNullOrEmpty(textBox11.Text)&& !string.IsNullOrEmpty(textBox12.Text))
+            {
+                SEARCHMOCTA(textBox11.Text.Trim(), textBox12.Text.Trim());
+            }
+        }
 
+        private void textBox12_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBox11.Text) && !string.IsNullOrEmpty(textBox12.Text))
+            {
+                SEARCHMOCTA(textBox11.Text.Trim(), textBox12.Text.Trim());
+            }
+        }
+
+        public void SEARCHMOCTA(string TA001,string TA002)
+        {
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+
+            DataSet ds1 = new DataSet();
+
+            SETTEXT1();
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+
+                sbSql.AppendFormat(@" SELECT TA006,TA034,TA015,TA017 FROM [TK].dbo.MOCTA WHERE TA001='{0}' AND TA002='{1}' ", TA001,TA002);
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "ds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["ds1"].Rows.Count == 0)
+                {
+                    
+                }
+                else
+                {
+                    if (ds1.Tables["ds1"].Rows.Count >= 1)
+                    {
+                        textBox21.Text = ds1.Tables["ds1"].Rows[0]["TA006"].ToString();
+                        textBox22.Text = ds1.Tables["ds1"].Rows[0]["TA034"].ToString();
+                        textBox23.Text = ds1.Tables["ds1"].Rows[0]["TA017"].ToString();
+                        textBox24.Text = ds1.Tables["ds1"].Rows[0]["TA015"].ToString();
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void SETTEXT1()
+        {
+            textBox21.Text = null;
+            textBox22.Text = null;
+            textBox23.Text = null;
+            textBox24.Text = null;
+        }
         #endregion
 
         #region BUTTON
@@ -140,10 +248,11 @@ namespace TKMOC
 
         }
 
+
+
+
         #endregion
 
-
-
-
+   
     }
 }
