@@ -215,12 +215,64 @@ namespace TKMOC
             }
         }
 
+        private void dateTimePicker37_ValueChanged(object sender, EventArgs e)
+        {
+            SETSTARTTIMES(dateTimePicker37.Value);
+        }
+
+        private void dateTimePicker38_ValueChanged(object sender, EventArgs e)
+        {
+            SETENDTIMES(dateTimePicker38.Value);
+        }
+
         public void SETTEXT1()
         {
             textBox21.Text = null;
             textBox22.Text = null;
             textBox23.Text = null;
             textBox24.Text = null;
+        }
+
+        public void SETSTARTTIMES(DateTime dt)
+        {
+            dateTimePicker2.Value = dt;
+            dateTimePicker5.Value = dt;
+            dateTimePicker7.Value = dt;
+            dateTimePicker9.Value = dt;
+            dateTimePicker11.Value = dt;
+            dateTimePicker13.Value = dt;
+            dateTimePicker15.Value = dt;
+            dateTimePicker17.Value = dt;
+            dateTimePicker19.Value = dt;
+            dateTimePicker21.Value = dt;
+            dateTimePicker23.Value = dt;
+            dateTimePicker25.Value = dt;
+            dateTimePicker27.Value = dt;
+            dateTimePicker29.Value = dt;
+            dateTimePicker31.Value = dt;
+            dateTimePicker33.Value = dt;
+            dateTimePicker35.Value = dt;
+        }
+
+        public void SETENDTIMES(DateTime dt)
+        {
+            dateTimePicker3.Value = dt;
+            dateTimePicker6.Value = dt;
+            dateTimePicker8.Value = dt;
+            dateTimePicker10.Value = dt;
+            dateTimePicker12.Value = dt;
+            dateTimePicker14.Value = dt;
+            dateTimePicker16.Value = dt;
+            dateTimePicker18.Value = dt;
+            dateTimePicker20.Value = dt;
+            dateTimePicker22.Value = dt;
+            dateTimePicker24.Value = dt;
+            dateTimePicker26.Value = dt;
+            dateTimePicker28.Value = dt;
+            dateTimePicker30.Value = dt;
+            dateTimePicker32.Value = dt;
+            dateTimePicker34.Value = dt;
+            dateTimePicker36.Value = dt;
         }
         #endregion
 
@@ -251,8 +303,10 @@ namespace TKMOC
 
 
 
+
+
         #endregion
 
-   
+      
     }
 }

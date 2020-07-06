@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -348,8 +348,8 @@
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("新細明體", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("新細明體", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
@@ -1529,6 +1529,7 @@
             this.dateTimePicker37.Name = "dateTimePicker37";
             this.dateTimePicker37.Size = new System.Drawing.Size(94, 27);
             this.dateTimePicker37.TabIndex = 166;
+            this.dateTimePicker37.ValueChanged += new System.EventHandler(this.dateTimePicker37_ValueChanged);
             // 
             // dateTimePicker38
             // 
@@ -1540,6 +1541,7 @@
             this.dateTimePicker38.Name = "dateTimePicker38";
             this.dateTimePicker38.Size = new System.Drawing.Size(94, 27);
             this.dateTimePicker38.TabIndex = 184;
+            this.dateTimePicker38.ValueChanged += new System.EventHandler(this.dateTimePicker38_ValueChanged);
             // 
             // tabPage2
             // 
