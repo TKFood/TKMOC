@@ -842,6 +842,9 @@ namespace TKMOC
 
                     DateTime dt1 = Convert.ToDateTime(row.Cells["日期"].Value.ToString().Substring(0, 4) + "/" + row.Cells["日期"].Value.ToString().Substring(4, 2) + "/" + row.Cells["日期"].Value.ToString().Substring(6, 2));
                     dateTimePicker4.Value = dt1;
+                    dateTimePicker37.Value = Convert.ToDateTime("1911-1-1 " + row.Cells["開始時間"].Value.ToString().Substring(0, 8));
+                    dateTimePicker38.Value = Convert.ToDateTime("1911-1-1 " + row.Cells["結束時間"].Value.ToString().Substring(0, 8));
+
                     comboBox1.Text = "";
                     textBox11.Text = "";
                     textBox12.Text = "";
