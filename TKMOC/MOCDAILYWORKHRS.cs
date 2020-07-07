@@ -995,11 +995,11 @@ namespace TKMOC
         }
 
 
-        public void SETFASTREPORT(string SDAY,string EDAY)
+        public void SETFASTREPORT(string SDAY,string EDAY,string MB001)
         {
             StringBuilder SQL1 = new StringBuilder();
 
-            SQL1 = SETSQL1(SDAY, EDAY);
+            SQL1 = SETSQL1(SDAY, EDAY, MB001);
             Report report1 = new Report();
             report1.Load(@"REPORT\生產工時記錄.frx");
 
@@ -1011,11 +1011,16 @@ namespace TKMOC
             report1.Show();
         }
 
-        public StringBuilder SETSQL1(string SDAY, string EDAY)
+        public StringBuilder SETSQL1(string SDAY, string EDAY, string MB001)
         {
             StringBuilder SB = new StringBuilder();
+            StringBuilder SBQUERY = new StringBuilder();
 
-            SB.AppendFormat(" ");
+            if(!string.IsNullOrEmpty(MB001))
+            {
+                SBQUERY.AppendFormat(" AND MB001 LIKE '%{0}%'", MB001);
+            }
+            
 
             SB.AppendFormat(@"  SELECT  CONVERT(NVARCHAR,[DATS],112) AS '日期',[MANU] AS '產線別',[TA001] AS '製令單',[TA002] AS '製令單號',[MB001] AS '品號',[MB002] AS '品名',[NUMS] AS '入庫量',[MOCNUM] AS '預計生產量'");
             SB.AppendFormat(@"  ,CONVERT(NVARCHAR,[WORKSTART],114) AS '開始時間',CONVERT(NVARCHAR,[WORKEND],114) AS '結束時間',[WORKHRS] AS '工時',[WORKTIMES] AS '工時(分)',[AVGWORKHRS] AS '平均工時'");
@@ -1039,9 +1044,10 @@ namespace TKMOC
             SB.AppendFormat(@"  ,[ID]");
             SB.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCDAILYWORKHRS] ");
             SB.AppendFormat(@"  WHERE  CONVERT(NVARCHAR,[DATS],112)>='{0}' AND  CONVERT(NVARCHAR,[DATS],112)<='{1}'",SDAY,EDAY);
+            SB.AppendFormat(@"   {0}",SBQUERY.ToString());
             SB.AppendFormat(@"  ORDER BY [TA001],[TA002]");
             SB.AppendFormat(@"   ");
-
+            SB.AppendFormat(@"   ");
 
 
             return SB;
@@ -1142,7 +1148,7 @@ namespace TKMOC
 
         private void button6_Click(object sender, EventArgs e)
         {
-            SETFASTREPORT(dateTimePicker39.Value.ToString("yyyyMMdd"),dateTimePicker40.Value.ToString("yyyyMMdd"));
+            SETFASTREPORT(dateTimePicker39.Value.ToString("yyyyMMdd"),dateTimePicker40.Value.ToString("yyyyMMdd"),textBox1.Text.Trim());
         }
 
 

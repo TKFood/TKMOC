@@ -154,6 +154,8 @@
             this.dateTimePicker39 = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker40 = new System.Windows.Forms.DateTimePicker();
             this.previewControl1 = new FastReport.Preview.PreviewControl();
+            this.label28 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -506,7 +508,8 @@
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 13;
+            this.tableLayoutPanel1.RowCount = 14;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
@@ -1764,10 +1767,12 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 126F));
+            this.tableLayoutPanel2.Controls.Add(this.label28, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.label27, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.dateTimePicker39, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.button6, 3, 0);
             this.tableLayoutPanel2.Controls.Add(this.dateTimePicker40, 2, 0);
+            this.tableLayoutPanel2.Controls.Add(this.textBox1, 1, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -1834,6 +1839,27 @@
             this.previewControl1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.previewControl1.Size = new System.Drawing.Size(966, 562);
             this.previewControl1.TabIndex = 4;
+            // 
+            // label28
+            // 
+            this.label28.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label28.Location = new System.Drawing.Point(3, 58);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(114, 16);
+            this.label28.TabIndex = 12;
+            this.label28.Text = "料號";
+            this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel2.SetColumnSpan(this.textBox1, 2);
+            this.textBox1.Location = new System.Drawing.Point(123, 52);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(234, 27);
+            this.textBox1.TabIndex = 13;
             // 
             // MOCDAILYWORKHRS
             // 
@@ -2017,5 +2043,7 @@
         private System.Windows.Forms.DateTimePicker dateTimePicker39;
         private System.Windows.Forms.DateTimePicker dateTimePicker40;
         private FastReport.Preview.PreviewControl previewControl1;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
