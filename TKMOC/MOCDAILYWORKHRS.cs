@@ -128,8 +128,7 @@ namespace TKMOC
                 else
                 {
                     if (ds1.Tables["ds1"].Rows.Count >= 1)
-                    {
-                        //dataGridView1.Rows.Clear();
+                    {                        //dataGridView1.Rows.Clear();
                         dataGridView1.DataSource = ds1.Tables["ds1"];
                         dataGridView1.AutoResizeColumns();
                         //dataGridView1.CurrentCell = dataGridView1[0, rownum];
@@ -845,9 +844,9 @@ namespace TKMOC
                     dateTimePicker37.Value = Convert.ToDateTime("1911-1-1 " + row.Cells["開始時間"].Value.ToString().Substring(0, 8));
                     dateTimePicker38.Value = Convert.ToDateTime("1911-1-1 " + row.Cells["結束時間"].Value.ToString().Substring(0, 8));
 
-                    comboBox1.Text = "";
-                    textBox11.Text = "";
-                    textBox12.Text = "";
+                    comboBox1.Text = row.Cells["產線別"].Value.ToString();
+                    textBox11.Text = row.Cells["製令單"].Value.ToString();
+                    textBox12.Text = row.Cells["製令單號"].Value.ToString();
                 }
             }
             else
