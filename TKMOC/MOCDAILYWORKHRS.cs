@@ -852,6 +852,88 @@ namespace TKMOC
                     dateTimePicker2.Value = Convert.ToDateTime("1911-1-1 " + row.Cells["水麵攪拌開始時間"].Value.ToString().Substring(0, 8));
                     dateTimePicker3.Value = Convert.ToDateTime("1911-1-1 " + row.Cells["水麵攪拌結束時間"].Value.ToString().Substring(0, 8));
                     numericUpDown31.Value = Convert.ToDecimal(row.Cells["水麵攪拌工時"].Value.ToString());
+
+                    textBox41.Text = row.Cells["油酥攪拌"].Value.ToString();
+                    dateTimePicker5.Value = Convert.ToDateTime("1911-1-1 " + row.Cells["油酥攪拌開始時間"].Value.ToString().Substring(0, 8));
+                    dateTimePicker6.Value = Convert.ToDateTime("1911-1-1 " + row.Cells["油酥攪拌結束時間"].Value.ToString().Substring(0, 8));
+                    numericUpDown41.Value = Convert.ToDecimal(row.Cells["油酥攪拌工時"].Value.ToString());
+
+                    textBox51.Text = row.Cells["摺疊"].Value.ToString();
+                    dateTimePicker7.Value = Convert.ToDateTime("1911-1-1 " + row.Cells["摺疊開始時間"].Value.ToString().Substring(0, 8));
+                    dateTimePicker8.Value = Convert.ToDateTime("1911-1-1 " + row.Cells["摺疊結束時間"].Value.ToString().Substring(0, 8));
+                    numericUpDown51.Value = Convert.ToDecimal(row.Cells["摺疊工時"].Value.ToString());
+
+                    textBox61.Text = row.Cells["舖餅"].Value.ToString();
+                    dateTimePicker9.Value = Convert.ToDateTime("1911-1-1 " + row.Cells["舖餅開始時間"].Value.ToString().Substring(0, 8));
+                    dateTimePicker10.Value = Convert.ToDateTime("1911-1-1 " + row.Cells["舖餅結束時間"].Value.ToString().Substring(0, 8));
+                    numericUpDown61.Value = Convert.ToDecimal(row.Cells["舖餅工時"].Value.ToString());
+
+                    textBox71.Text = row.Cells["成型/烘烤"].Value.ToString();
+                    dateTimePicker11.Value = Convert.ToDateTime("1911-1-1 " + row.Cells["烤箱篩餅開始時間"].Value.ToString().Substring(0, 8));
+                    dateTimePicker12.Value = Convert.ToDateTime("1911-1-1 " + row.Cells["烤箱篩餅結束時間"].Value.ToString().Substring(0, 8));
+                    numericUpDown71.Value = Convert.ToDecimal(row.Cells["烤箱篩餅工時"].Value.ToString());
+
+                    textBox81.Text = row.Cells["烤箱篩餅"].Value.ToString();
+                    dateTimePicker13.Value = Convert.ToDateTime("1911-1-1 " + row.Cells["冷卻篩餅開始時間"].Value.ToString().Substring(0, 8));
+                    dateTimePicker14.Value = Convert.ToDateTime("1911-1-1 " + row.Cells["冷卻篩餅結束時間"].Value.ToString().Substring(0, 8));
+                    numericUpDown81.Value = Convert.ToDecimal(row.Cells["冷卻篩餅工時"].Value.ToString());
+
+                    textBox91.Text = row.Cells["冷卻篩餅"].Value.ToString();
+                    dateTimePicker15.Value = Convert.ToDateTime("1911-1-1 " + row.Cells["冷卻篩餅開始時間"].Value.ToString().Substring(0, 8));
+                    dateTimePicker16.Value = Convert.ToDateTime("1911-1-1 " + row.Cells["冷卻篩餅結束時間"].Value.ToString().Substring(0, 8));
+                    numericUpDown91.Value = Convert.ToDecimal(row.Cells["冷卻篩餅工時"].Value.ToString());
+
+                    textBox101.Text = row.Cells["排餅/裝罐"].Value.ToString();
+                    dateTimePicker17.Value = Convert.ToDateTime("1911-1-1 " + row.Cells["排餅/裝罐開始時間"].Value.ToString().Substring(0, 8));
+                    dateTimePicker18.Value = Convert.ToDateTime("1911-1-1 " + row.Cells["排餅/裝罐結束時間"].Value.ToString().Substring(0, 8));
+                    numericUpDown101.Value = Convert.ToDecimal(row.Cells["排餅/裝罐工時"].Value.ToString());
+
+                    textBox111.Text = row.Cells["包裝機"].Value.ToString();
+                    dateTimePicker19.Value = Convert.ToDateTime("1911-1-1 " + row.Cells["包裝機開始時間"].Value.ToString().Substring(0, 8));
+                    dateTimePicker20.Value = Convert.ToDateTime("1911-1-1 " + row.Cells["包裝機結束時間"].Value.ToString().Substring(0, 8));
+                    numericUpDown111.Value = Convert.ToDecimal(row.Cells["包裝機工時"].Value.ToString());
+
+                    textBox121.Text = row.Cells["包裝篩餅"].Value.ToString();
+                    dateTimePicker21.Value = Convert.ToDateTime("1911-1-1 " + row.Cells["包裝篩餅開始時間"].Value.ToString().Substring(0, 8));
+                    dateTimePicker22.Value = Convert.ToDateTime("1911-1-1 " + row.Cells["包裝篩餅結束時間"].Value.ToString().Substring(0, 8));
+                    numericUpDown121.Value = Convert.ToDecimal(row.Cells["包裝篩餅工時"].Value.ToString());
+
+                    textBox131.Text = row.Cells["裝箱"].Value.ToString();
+                    dateTimePicker23.Value = Convert.ToDateTime("1911-1-1 " + row.Cells["裝箱開始時間"].Value.ToString().Substring(0, 8));
+                    dateTimePicker24.Value = Convert.ToDateTime("1911-1-1 " + row.Cells["裝箱結束時間"].Value.ToString().Substring(0, 8));
+                    numericUpDown131.Value = Convert.ToDecimal(row.Cells["裝箱工時"].Value.ToString());
+
+                    textBox32.Text = row.Cells["撿餅"].Value.ToString();
+                    dateTimePicker25.Value = Convert.ToDateTime("1911-1-1 " + row.Cells["撿餅開始時間"].Value.ToString().Substring(0, 8));
+                    dateTimePicker26.Value = Convert.ToDateTime("1911-1-1 " + row.Cells["撿餅結束時間"].Value.ToString().Substring(0, 8));
+                    numericUpDown32.Value = Convert.ToDecimal(row.Cells["撿餅工時"].Value.ToString());
+
+                    textBox42.Text = row.Cells["秤重"].Value.ToString();
+                    dateTimePicker27.Value = Convert.ToDateTime("1911-1-1 " + row.Cells["秤重開始時間"].Value.ToString().Substring(0, 8));
+                    dateTimePicker28.Value = Convert.ToDateTime("1911-1-1 " + row.Cells["秤重結束時間"].Value.ToString().Substring(0, 8));
+                    numericUpDown42.Value = Convert.ToDecimal(row.Cells["秤重工時"].Value.ToString());
+
+                    textBox52.Text = row.Cells["外裝箱"].Value.ToString();
+                    dateTimePicker29.Value = Convert.ToDateTime("1911-1-1 " + row.Cells["外裝箱開始時間"].Value.ToString().Substring(0, 8));
+                    dateTimePicker30.Value = Convert.ToDateTime("1911-1-1 " + row.Cells["外裝箱結束時間"].Value.ToString().Substring(0, 8));
+                    numericUpDown52.Value = Convert.ToDecimal(row.Cells["外裝箱工時"].Value.ToString());
+
+                    textBox62.Text = row.Cells["封箱"].Value.ToString();
+                    dateTimePicker31.Value = Convert.ToDateTime("1911-1-1 " + row.Cells["封箱開始時間"].Value.ToString().Substring(0, 8));
+                    dateTimePicker32.Value = Convert.ToDateTime("1911-1-1 " + row.Cells["封箱結束時間"].Value.ToString().Substring(0, 8));
+                    numericUpDown62.Value = Convert.ToDecimal(row.Cells["封箱工時"].Value.ToString());
+
+                    textBox72.Text = row.Cells["倒餅"].Value.ToString();
+                    dateTimePicker33.Value = Convert.ToDateTime("1911-1-1 " + row.Cells["倒餅開始時間"].Value.ToString().Substring(0, 8));
+                    dateTimePicker34.Value = Convert.ToDateTime("1911-1-1 " + row.Cells["倒餅結束時間"].Value.ToString().Substring(0, 8));
+                    numericUpDown72.Value = Convert.ToDecimal(row.Cells["倒餅工時"].Value.ToString());
+
+                    textBox82.Text = row.Cells["封盒機"].Value.ToString();
+                    dateTimePicker35.Value = Convert.ToDateTime("1911-1-1 " + row.Cells["封盒機開始時間"].Value.ToString().Substring(0, 8));
+                    dateTimePicker36.Value = Convert.ToDateTime("1911-1-1 " + row.Cells["封盒機結束時間"].Value.ToString().Substring(0, 8));
+                    numericUpDown82.Value = Convert.ToDecimal(row.Cells["封盒機工時"].Value.ToString());
+
+
                 }
             }
             else
