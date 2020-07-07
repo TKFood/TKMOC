@@ -34,7 +34,7 @@ namespace TKMOC
 
         int result;
         string STATUS = null;
-        string DELID = null;
+        string ID = null;
      
 
         public MOCDAILYWORKHRS()
@@ -428,9 +428,57 @@ namespace TKMOC
             }
         }
 
-        public void DELMOCDAILYWORKHRS()
+        public void DELMOCDAILYWORKHRS(string ID)
         {
+            try
+            {
+                //add ZWAREWHOUSEPURTH
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
 
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat("  DELETE [TKMOC].[dbo].[MOCDAILYWORKHRS]");               
+                sbSql.AppendFormat("  WHERE [ID]='{0}'", ID);
+                sbSql.AppendFormat("  ");
+                sbSql.AppendFormat("  ");
+                sbSql.AppendFormat("  ");
+                sbSql.AppendFormat("  ");
+                sbSql.AppendFormat("  ");
+                sbSql.AppendFormat("  ");
+                sbSql.AppendFormat("  ");
+                sbSql.AppendFormat("  ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
         }
 
         private void dateTimePicker37_ValueChanged(object sender, EventArgs e)
@@ -837,7 +885,7 @@ namespace TKMOC
                 if (rowindex >= 0)
                 {
                     DataGridViewRow row = dataGridView1.Rows[rowindex];
-                    DELID = row.Cells["ID"].Value.ToString();
+                    ID = row.Cells["ID"].Value.ToString();
 
                     DateTime dt1 = Convert.ToDateTime(row.Cells["日期"].Value.ToString().Substring(0, 4) + "/" + row.Cells["日期"].Value.ToString().Substring(4, 2) + "/" + row.Cells["日期"].Value.ToString().Substring(6, 2));
                     dateTimePicker4.Value = dt1;
@@ -938,13 +986,13 @@ namespace TKMOC
             }
             else
             {
-                DELID = null;
+                ID = null;
             }
 
           
         }
 
-
+        
         #endregion
 
         #region BUTTON
@@ -957,7 +1005,7 @@ namespace TKMOC
         {
             STATUS = "ADD";
             label26.Text= "ADD";
-            //SETTEXTBOX1();
+            SETTEXTBOX1();
 
         }
         private void button3_Click(object sender, EventArgs e)
@@ -971,29 +1019,48 @@ namespace TKMOC
             if(STATUS.Equals("ADD"))
             {
                 ADDMOCDAILYWORKHRS(Guid.NewGuid().ToString(), dateTimePicker4.Value.ToString("yyyy/MM/dd"), comboBox1.Text.Trim(), textBox11.Text, textBox12.Text, textBox21.Text, textBox22.Text, textBox23.Text, textBox24.Text
-                , dateTimePicker37.Value.ToString("HH:ss"), dateTimePicker38.Value.ToString("HH:ss"), numericUpDown11.Value.ToString(), "0","0"
-                , textBox31.Text, dateTimePicker2.Value.ToString("HH:ss"), dateTimePicker3.Value.ToString("HH:ss"), numericUpDown31.Value.ToString()
-                , textBox41.Text, dateTimePicker5.Value.ToString("HH:ss"), dateTimePicker6.Value.ToString("HH:ss"), numericUpDown41.Value.ToString()
-                , textBox51.Text, dateTimePicker7.Value.ToString("HH:ss"), dateTimePicker8.Value.ToString("HH:ss"), numericUpDown51.Value.ToString()
-                , textBox61.Text, dateTimePicker9.Value.ToString("HH:ss"), dateTimePicker10.Value.ToString("HH:ss"), numericUpDown61.Value.ToString()
-                , textBox71.Text, dateTimePicker11.Value.ToString("HH:ss"), dateTimePicker12.Value.ToString("HH:ss"), numericUpDown71.Value.ToString()
-                , textBox81.Text, dateTimePicker13.Value.ToString("HH:ss"), dateTimePicker14.Value.ToString("HH:ss"), numericUpDown81.Value.ToString()
-                , textBox91.Text, dateTimePicker15.Value.ToString("HH:ss"), dateTimePicker16.Value.ToString("HH:ss"), numericUpDown91.Value.ToString()
-                , textBox101.Text, dateTimePicker17.Value.ToString("HH:ss"), dateTimePicker18.Value.ToString("HH:ss"), numericUpDown101.Value.ToString()
-                , textBox111.Text, dateTimePicker19.Value.ToString("HH:ss"), dateTimePicker20.Value.ToString("HH:ss"), numericUpDown111.Value.ToString()
-                , textBox121.Text, dateTimePicker21.Value.ToString("HH:ss"), dateTimePicker22.Value.ToString("HH:ss"), numericUpDown121.Value.ToString()
-                , textBox131.Text, dateTimePicker23.Value.ToString("HH:ss"), dateTimePicker24.Value.ToString("HH:ss"), numericUpDown131.Value.ToString()
-                , textBox32.Text, dateTimePicker25.Value.ToString("HH:ss"), dateTimePicker26.Value.ToString("HH:ss"), numericUpDown32.Value.ToString()
-                , textBox42.Text, dateTimePicker27.Value.ToString("HH:ss"), dateTimePicker28.Value.ToString("HH:ss"), numericUpDown42.Value.ToString()
-                , textBox52.Text, dateTimePicker29.Value.ToString("HH:ss"), dateTimePicker30.Value.ToString("HH:ss"), numericUpDown52.Value.ToString()
-                , textBox62.Text, dateTimePicker31.Value.ToString("HH:ss"), dateTimePicker32.Value.ToString("HH:ss"), numericUpDown62.Value.ToString()
-                , textBox72.Text, dateTimePicker33.Value.ToString("HH:ss"), dateTimePicker34.Value.ToString("HH:ss"), numericUpDown72.Value.ToString()
-                , textBox82.Text, dateTimePicker35.Value.ToString("HH:ss"), dateTimePicker36.Value.ToString("HH:ss"), numericUpDown82.Value.ToString()
+                , dateTimePicker37.Value.ToString("HH:mm"), dateTimePicker38.Value.ToString("HH:mm"), numericUpDown11.Value.ToString(), "0","0"
+                , textBox31.Text, dateTimePicker2.Value.ToString("HH:mm"), dateTimePicker3.Value.ToString("HH:mm"), numericUpDown31.Value.ToString()
+                , textBox41.Text, dateTimePicker5.Value.ToString("HH:mm"), dateTimePicker6.Value.ToString("HH:mm"), numericUpDown41.Value.ToString()
+                , textBox51.Text, dateTimePicker7.Value.ToString("HH:mm"), dateTimePicker8.Value.ToString("HH:mm"), numericUpDown51.Value.ToString()
+                , textBox61.Text, dateTimePicker9.Value.ToString("HH:mm"), dateTimePicker10.Value.ToString("HH:mm"), numericUpDown61.Value.ToString()
+                , textBox71.Text, dateTimePicker11.Value.ToString("HH:mm"), dateTimePicker12.Value.ToString("HH:mm"), numericUpDown71.Value.ToString()
+                , textBox81.Text, dateTimePicker13.Value.ToString("HH:mm"), dateTimePicker14.Value.ToString("HH:mm"), numericUpDown81.Value.ToString()
+                , textBox91.Text, dateTimePicker15.Value.ToString("HH:mm"), dateTimePicker16.Value.ToString("HH:mm"), numericUpDown91.Value.ToString()
+                , textBox101.Text, dateTimePicker17.Value.ToString("HH:mm"), dateTimePicker18.Value.ToString("HH:mm"), numericUpDown101.Value.ToString()
+                , textBox111.Text, dateTimePicker19.Value.ToString("HH:mm"), dateTimePicker20.Value.ToString("HH:mm"), numericUpDown111.Value.ToString()
+                , textBox121.Text, dateTimePicker21.Value.ToString("HH:mm"), dateTimePicker22.Value.ToString("HH:mm"), numericUpDown121.Value.ToString()
+                , textBox131.Text, dateTimePicker23.Value.ToString("HH:mm"), dateTimePicker24.Value.ToString("HH:mm"), numericUpDown131.Value.ToString()
+                , textBox32.Text, dateTimePicker25.Value.ToString("HH:mm"), dateTimePicker26.Value.ToString("HH:mm"), numericUpDown32.Value.ToString()
+                , textBox42.Text, dateTimePicker27.Value.ToString("HH:mm"), dateTimePicker28.Value.ToString("HH:mm"), numericUpDown42.Value.ToString()
+                , textBox52.Text, dateTimePicker29.Value.ToString("HH:mm"), dateTimePicker30.Value.ToString("HH:mm"), numericUpDown52.Value.ToString()
+                , textBox62.Text, dateTimePicker31.Value.ToString("HH:mm"), dateTimePicker32.Value.ToString("HH:mm"), numericUpDown62.Value.ToString()
+                , textBox72.Text, dateTimePicker33.Value.ToString("HH:mm"), dateTimePicker34.Value.ToString("HH:mm"), numericUpDown72.Value.ToString()
+                , textBox82.Text, dateTimePicker35.Value.ToString("HH:mm"), dateTimePicker36.Value.ToString("HH:mm"), numericUpDown82.Value.ToString()
                 );
             }
             else if(STATUS.Equals("EDIT"))
             {
-
+                UPDATEMOCDAILYWORKHRS(ID, dateTimePicker4.Value.ToString("yyyy/MM/dd"), comboBox1.Text.Trim(), textBox11.Text, textBox12.Text, textBox21.Text, textBox22.Text, textBox23.Text, textBox24.Text
+               , dateTimePicker37.Value.ToString("HH:mm"), dateTimePicker38.Value.ToString("HH:mm"), numericUpDown11.Value.ToString(), "0", "0"
+               , textBox31.Text, dateTimePicker2.Value.ToString("HH:mm"), dateTimePicker3.Value.ToString("HH:mm"), numericUpDown31.Value.ToString()
+               , textBox41.Text, dateTimePicker5.Value.ToString("HH:mm"), dateTimePicker6.Value.ToString("HH:mm"), numericUpDown41.Value.ToString()
+               , textBox51.Text, dateTimePicker7.Value.ToString("HH:mm"), dateTimePicker8.Value.ToString("HH:mm"), numericUpDown51.Value.ToString()
+               , textBox61.Text, dateTimePicker9.Value.ToString("HH:mm"), dateTimePicker10.Value.ToString("HH:mm"), numericUpDown61.Value.ToString()
+               , textBox71.Text, dateTimePicker11.Value.ToString("HH:mm"), dateTimePicker12.Value.ToString("HH:mm"), numericUpDown71.Value.ToString()
+               , textBox81.Text, dateTimePicker13.Value.ToString("HH:mm"), dateTimePicker14.Value.ToString("HH:mm"), numericUpDown81.Value.ToString()
+               , textBox91.Text, dateTimePicker15.Value.ToString("HH:mm"), dateTimePicker16.Value.ToString("HH:mm"), numericUpDown91.Value.ToString()
+               , textBox101.Text, dateTimePicker17.Value.ToString("HH:mm"), dateTimePicker18.Value.ToString("HH:mm"), numericUpDown101.Value.ToString()
+               , textBox111.Text, dateTimePicker19.Value.ToString("HH:mm"), dateTimePicker20.Value.ToString("HH:mm"), numericUpDown111.Value.ToString()
+               , textBox121.Text, dateTimePicker21.Value.ToString("HH:mm"), dateTimePicker22.Value.ToString("HH:mm"), numericUpDown121.Value.ToString()
+               , textBox131.Text, dateTimePicker23.Value.ToString("HH:mm"), dateTimePicker24.Value.ToString("HH:mm"), numericUpDown131.Value.ToString()
+               , textBox32.Text, dateTimePicker25.Value.ToString("HH:mm"), dateTimePicker26.Value.ToString("HH:mm"), numericUpDown32.Value.ToString()
+               , textBox42.Text, dateTimePicker27.Value.ToString("HH:mm"), dateTimePicker28.Value.ToString("HH:mm"), numericUpDown42.Value.ToString()
+               , textBox52.Text, dateTimePicker29.Value.ToString("HH:mm"), dateTimePicker30.Value.ToString("HH:mm"), numericUpDown52.Value.ToString()
+               , textBox62.Text, dateTimePicker31.Value.ToString("HH:mm"), dateTimePicker32.Value.ToString("HH:mm"), numericUpDown62.Value.ToString()
+               , textBox72.Text, dateTimePicker33.Value.ToString("HH:mm"), dateTimePicker34.Value.ToString("HH:mm"), numericUpDown72.Value.ToString()
+               , textBox82.Text, dateTimePicker35.Value.ToString("HH:mm"), dateTimePicker36.Value.ToString("HH:mm"), numericUpDown82.Value.ToString()
+               );
             }
 
             STATUS = null;
@@ -1006,7 +1073,8 @@ namespace TKMOC
             DialogResult dialogResult = MessageBox.Show("要刪除了?", "要刪除了?", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
-
+                DELMOCDAILYWORKHRS(ID);
+                SEARCH(dateTimePicker1.Value.ToString("yyyyMMdd"));
             }
             else if (dialogResult == DialogResult.No)
             {
