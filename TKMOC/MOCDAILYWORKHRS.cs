@@ -88,24 +88,24 @@ namespace TKMOC
 
 
                 sbSql.AppendFormat(@"  SELECT  CONVERT(NVARCHAR,[DATS],112) AS '日期',[MANU] AS '產線別',[TA001] AS '製令單',[TA002] AS '製令單號',[MB001] AS '品號',[MB002] AS '品名',[NUMS] AS '入庫量',[MOCNUM] AS '預計生產量'");
-                sbSql.AppendFormat(@"  ,[WORKSTART] AS '開始時間',[WORKEND] AS '結束時間',[WORKHRS] AS '工時',[WORKTIMES] AS '工時(分)',[AVGWORKHRS] AS '平均工時'");
-                sbSql.AppendFormat(@"  ,[WATERNOODLESEMP] AS '水麵攪拌',[WATERNOODLESSTART] AS '水麵攪拌開始時間',[WATERNOODLESEND] AS '水麵攪拌結束時間',[WATERNOODLESTIMES] AS '水麵攪拌工時'");
-                sbSql.AppendFormat(@"  ,[OILPASTRYEMP] AS '油酥攪拌',[OILPASTRYSTART] AS '油酥攪拌開始時間',[OILPASTRYEND] AS '油酥攪拌結束時間',[OILPASTRYTIMES] AS '油酥攪拌工時'");
-                sbSql.AppendFormat(@"  ,[FOLDEMP] AS '摺疊',[FOLDSTART] AS '摺疊開始時間',[FOLDEND] AS '摺疊結束時間',[FOLDTIMES] AS '摺疊工時'");
-                sbSql.AppendFormat(@"  ,[TYPECOOKEMP] AS '舖餅',[TYPECOOKSTART] AS '舖餅開始時間',[TYPECOOKEND] AS '舖餅結束時間',[TYPECOOKTIMES] AS '舖餅工時'");
-                sbSql.AppendFormat(@"  ,[TYPEEMP] AS '成型/烘烤',[TYPESTART] AS '成型/烘烤開始時間',[TYPEEND] AS '成型/烘烤結束時間',[TYPETIMES] AS '成型/烘烤工時'");
-                sbSql.AppendFormat(@"  ,[OVENCOOKEMP] AS '烤箱篩餅',[OVENCOOKSTART] AS '烤箱篩餅開始時間',[OVENCOOKEND] AS '烤箱篩餅結束時間',[OVENCOOKTIMES] AS '烤箱篩餅工時'");
-                sbSql.AppendFormat(@"  ,[COLDCOOKEMP] AS '冷卻篩餅',[COLDCOOKSTART] AS '冷卻篩餅開始時間',[COLDCOOKEND] AS '冷卻篩餅結束時間',[COLDCOOKTIMES] AS '冷卻篩餅工時'");
-                sbSql.AppendFormat(@"  ,[ARRAYEMP] AS '排餅/裝罐',[ARRAYSTART] AS '排餅/裝罐開始時間',[ARRAYEND] AS '排餅/裝罐結束時間',[ARRAYTIMES] AS '排餅/裝罐工時'");
-                sbSql.AppendFormat(@"  ,[PACKEMP] AS '包裝機',[PACKSTART] AS '包裝機開始時間',[PACKEND] AS '包裝機結束時間',[PACKTIMES] AS '包裝機工時'");
-                sbSql.AppendFormat(@"  ,[PACKPICKEMP] AS '包裝篩餅',[PACKPICKSTART] AS '包裝篩餅開始時間',[PACKPICKEND] AS '包裝篩餅結束時間',[PACKPICKTIMES] AS '包裝篩餅工時'");
-                sbSql.AppendFormat(@"  ,[BOXSEMP] AS '裝箱',[BOXSSTART] AS '裝箱開始時間',[BOXSEND] AS '裝箱結束時間',[BOXSTIMES] AS '裝箱工時'");
-                sbSql.AppendFormat(@"  ,[HANDCOOKEMP] AS '撿餅',[HANDCOOKSTART] AS '撿餅開始時間',[HANDCOOKEND] AS '撿餅結束時間',[HANDCOOKTIMES] AS '撿餅工時'");
-                sbSql.AppendFormat(@"  ,[SCALESWEIGHTEMP] AS '秤重',[SCALESWEIGHTSTART] AS '秤重',[SCALESWEIGHTEND] AS '秤重結束時間',[SCALESWEIGHTTIMES] AS '秤重工時'");
-                sbSql.AppendFormat(@"  ,[OUTBOXSEMP] AS '外裝箱',[OUTBOXSSTART] AS '外裝箱開始時間',[OUTBOXSEND] AS '外裝箱結束時間',[OUTBOXSTIMES] AS '外裝箱工時'");
-                sbSql.AppendFormat(@"  ,[SEALEMP] AS '封箱',[SEALSTART] AS '封箱開始時間',[SEALEND] AS '封箱結束時間',[SEALTIMES] AS '封箱工時'");
-                sbSql.AppendFormat(@"  ,[THROWEMP] AS '倒餅',[THROWSTART] AS '倒餅開始時間',[THROWEND] AS '倒餅結束時間',[THROWTIMES] AS '倒餅工時'");
-                sbSql.AppendFormat(@"  ,[BOXPACKEMP] AS '封盒機',[BOXPACKSTART] AS '封盒機開始時間',[BOXPACKEND] AS '封盒機結束時間',[BOXPACKTIMES] AS '封盒機工時'");
+                sbSql.AppendFormat(@"  ,CONVERT(NVARCHAR,[WORKSTART],114) AS '開始時間',CONVERT(NVARCHAR,[WORKEND],114) AS '結束時間',[WORKHRS] AS '工時',[WORKTIMES] AS '工時(分)',[AVGWORKHRS] AS '平均工時'");
+                sbSql.AppendFormat(@"  ,[WATERNOODLESEMP] AS '水麵攪拌',CONVERT(NVARCHAR,[WATERNOODLESSTART],114) AS '水麵攪拌開始時間',CONVERT(NVARCHAR,[WATERNOODLESEND],114) AS '水麵攪拌結束時間',[WATERNOODLESTIMES] AS '水麵攪拌工時'");
+                sbSql.AppendFormat(@"  ,[OILPASTRYEMP] AS '油酥攪拌',CONVERT(NVARCHAR,[OILPASTRYSTART],114) AS '油酥攪拌開始時間',CONVERT(NVARCHAR,[OILPASTRYEND],114) AS '油酥攪拌結束時間',[OILPASTRYTIMES] AS '油酥攪拌工時'");
+                sbSql.AppendFormat(@"  ,[FOLDEMP] AS '摺疊',CONVERT(NVARCHAR,[FOLDSTART],114) AS '摺疊開始時間',CONVERT(NVARCHAR,[FOLDEND],114) AS '摺疊結束時間',[FOLDTIMES] AS '摺疊工時'");
+                sbSql.AppendFormat(@"  ,[TYPECOOKEMP] AS '舖餅',CONVERT(NVARCHAR,[TYPECOOKSTART],114) AS '舖餅開始時間',CONVERT(NVARCHAR,[TYPECOOKEND],114) AS '舖餅結束時間',[TYPECOOKTIMES] AS '舖餅工時'");
+                sbSql.AppendFormat(@"  ,[TYPEEMP] AS '成型/烘烤',CONVERT(NVARCHAR,[TYPESTART],114) AS '成型/烘烤開始時間',CONVERT(NVARCHAR,[TYPEEND],114) AS '成型/烘烤結束時間',[TYPETIMES] AS '成型/烘烤工時'");
+                sbSql.AppendFormat(@"  ,[OVENCOOKEMP] AS '烤箱篩餅',CONVERT(NVARCHAR,[OVENCOOKSTART],114) AS '烤箱篩餅開始時間',CONVERT(NVARCHAR,[OVENCOOKEND],114) AS '烤箱篩餅結束時間',[OVENCOOKTIMES] AS '烤箱篩餅工時'");
+                sbSql.AppendFormat(@"  ,[COLDCOOKEMP] AS '冷卻篩餅',CONVERT(NVARCHAR,[COLDCOOKSTART],114) AS '冷卻篩餅開始時間',CONVERT(NVARCHAR,[COLDCOOKEND],114) AS '冷卻篩餅結束時間',[COLDCOOKTIMES] AS '冷卻篩餅工時'");
+                sbSql.AppendFormat(@"  ,[ARRAYEMP] AS '排餅/裝罐',CONVERT(NVARCHAR,[ARRAYSTART],114) AS '排餅/裝罐開始時間',CONVERT(NVARCHAR,[ARRAYEND],114) AS '排餅/裝罐結束時間',[ARRAYTIMES] AS '排餅/裝罐工時'");
+                sbSql.AppendFormat(@"  ,[PACKEMP] AS '包裝機',CONVERT(NVARCHAR,[PACKSTART],114) AS '包裝機開始時間',CONVERT(NVARCHAR,[PACKEND],114) AS '包裝機結束時間',[PACKTIMES] AS '包裝機工時'");
+                sbSql.AppendFormat(@"  ,[PACKPICKEMP] AS '包裝篩餅',CONVERT(NVARCHAR,[PACKPICKSTART],114) AS '包裝篩餅開始時間',CONVERT(NVARCHAR,[PACKPICKEND],114) AS '包裝篩餅結束時間',[PACKPICKTIMES] AS '包裝篩餅工時'");
+                sbSql.AppendFormat(@"  ,[BOXSEMP] AS '裝箱',CONVERT(NVARCHAR,[BOXSSTART],114) AS '裝箱開始時間',CONVERT(NVARCHAR,[BOXSEND],114) AS '裝箱結束時間',[BOXSTIMES] AS '裝箱工時'");
+                sbSql.AppendFormat(@"  ,[HANDCOOKEMP] AS '撿餅',CONVERT(NVARCHAR,[HANDCOOKSTART],114) AS '撿餅開始時間',CONVERT(NVARCHAR,[HANDCOOKEND],114) AS '撿餅結束時間',[HANDCOOKTIMES] AS '撿餅工時'");
+                sbSql.AppendFormat(@"  ,[SCALESWEIGHTEMP] AS '秤重',CONVERT(NVARCHAR,[SCALESWEIGHTSTART],114) AS '秤重開始時間',CONVERT(NVARCHAR,[SCALESWEIGHTEND],114) AS '秤重結束時間',[SCALESWEIGHTTIMES] AS '秤重工時'");
+                sbSql.AppendFormat(@"  ,[OUTBOXSEMP] AS '外裝箱',CONVERT(NVARCHAR,[OUTBOXSSTART],114) AS '外裝箱開始時間',CONVERT(NVARCHAR,[OUTBOXSEND],114) AS '外裝箱結束時間',[OUTBOXSTIMES] AS '外裝箱工時'");
+                sbSql.AppendFormat(@"  ,[SEALEMP] AS '封箱',CONVERT(NVARCHAR,[SEALSTART],114) AS '封箱開始時間',CONVERT(NVARCHAR,[SEALEND],114) AS '封箱結束時間',[SEALTIMES] AS '封箱工時'");
+                sbSql.AppendFormat(@"  ,[THROWEMP] AS '倒餅',CONVERT(NVARCHAR,[THROWSTART],114) AS '倒餅開始時間',CONVERT(NVARCHAR,[THROWEND],114) AS '倒餅結束時間',[THROWTIMES] AS '倒餅工時'");
+                sbSql.AppendFormat(@"  ,[BOXPACKEMP] AS '封盒機',CONVERT(NVARCHAR,[BOXPACKSTART],114) AS '封盒機開始時間',CONVERT(NVARCHAR,[BOXPACKEND],114) AS '封盒機結束時間',[BOXPACKTIMES] AS '封盒機工時'");
                 sbSql.AppendFormat(@"  ,[ID]");
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCDAILYWORKHRS] ");
                 sbSql.AppendFormat(@"  WHERE  CONVERT(NVARCHAR,[DATS],112)='{0}'", IDDATE);
@@ -337,9 +337,96 @@ namespace TKMOC
             }
         }
 
-        public void UPDATEMOCDAILYWORKHRS()
+        public void UPDATEMOCDAILYWORKHRS(
+            string ID, string DATS, string MANU, string TA001, string TA002, string MB001, string MB002, string NUMS, string MOCNUM
+            , string WORKSTART, string WORKEND, string WORKHRS, string WORKTIMES, string AVGWORKHRS
+            , string WATERNOODLESEMP, string WATERNOODLESSTART, string WATERNOODLESEND, string WATERNOODLESTIMES
+            , string OILPASTRYEMP, string OILPASTRYSTART, string OILPASTRYEND, string OILPASTRYTIMES
+            , string FOLDEMP, string FOLDSTART, string FOLDEND, string FOLDTIMES
+            , string TYPECOOKEMP, string TYPECOOKSTART, string TYPECOOKEND, string TYPECOOKTIMES
+            , string TYPEEMP, string TYPESTART, string TYPEEND, string TYPETIMES
+            , string OVENCOOKEMP, string OVENCOOKSTART, string OVENCOOKEND, string OVENCOOKTIMES
+            , string COLDCOOKEMP, string COLDCOOKSTART, string COLDCOOKEND, string COLDCOOKTIMES
+            , string ARRAYEMP, string ARRAYSTART, string ARRAYEND, string ARRAYTIMES
+            , string PACKEMP, string PACKSTART, string PACKEND, string PACKTIMES
+            , string PACKPICKEMP, string PACKPICKSTART, string PACKPICKEND, string PACKPICKTIMES
+            , string BOXSEMP, string BOXSSTART, string BOXSEND, string BOXSTIMES
+            , string HANDCOOKEMP, string HANDCOOKSTART, string HANDCOOKEND, string HANDCOOKTIMES
+            , string SCALESWEIGHTEMP, string SCALESWEIGHTSTART, string SCALESWEIGHTEND, string SCALESWEIGHTTIMES
+            , string OUTBOXSEMP, string OUTBOXSSTART, string OUTBOXSEND, string OUTBOXSTIMES
+            , string SEALEMP, string SEALSTART, string SEALEND, string SEALTIMES
+            , string THROWEMP, string THROWSTART, string THROWEND, string THROWTIMES
+            , string BOXPACKEMP, string BOXPACKSTART, string BOXPACKEND, string BOXPACKTIMES
+            )
         {
+            try
+            {
+                //add ZWAREWHOUSEPURTH
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
 
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat("  UPDATE [TKMOC].[dbo].[MOCDAILYWORKHRS]");
+                sbSql.AppendFormat("  SET [DATS]='{0}',[MANU]='{1}',[TA001]='{2}',[TA002]='{3}',[MB001]='{4}',[MB002]='{5}',[NUMS]='{6}',[MOCNUM]='{7}'", DATS, MANU, TA001, TA002, MB001, MB002, NUMS, MOCNUM);
+                sbSql.AppendFormat("  ,[WORKSTART]='{0}',[WORKEND]='{1}',[WORKHRS]='{2}',[WORKTIMES]='{3}',[AVGWORKHRS]='{4}'", WORKSTART, WORKEND, WORKHRS, WORKTIMES, AVGWORKHRS);
+                sbSql.AppendFormat("  ,[WATERNOODLESEMP]='{0}',[WATERNOODLESSTART]='{1}',[WATERNOODLESEND]='{2}',[WATERNOODLESTIMES]='{3}'", WATERNOODLESEMP, WATERNOODLESSTART, WATERNOODLESEND, WATERNOODLESTIMES);
+                sbSql.AppendFormat("  ,[OILPASTRYEMP]='{0}',[OILPASTRYSTART]='{1}',[OILPASTRYEND]='{2}',[OILPASTRYTIMES]='{3}'", OILPASTRYEMP, OILPASTRYSTART, OILPASTRYEND, OILPASTRYTIMES);
+                sbSql.AppendFormat("  ,[FOLDEMP]='{0}',[FOLDSTART]='{1}',[FOLDEND]='{2}',[FOLDTIMES]='{3}'", FOLDEMP, FOLDSTART, FOLDEND, FOLDTIMES);
+                sbSql.AppendFormat("  ,[TYPECOOKEMP]='{0}',[TYPECOOKSTART]='{1}',[TYPECOOKEND]='{2}',[TYPECOOKTIMES]='{3}'", TYPECOOKEMP, TYPECOOKSTART, TYPECOOKEND, TYPECOOKTIMES);
+                sbSql.AppendFormat("  ,[TYPEEMP]='{0}',[TYPESTART]='{1}',[TYPEEND]='{2}',[TYPETIMES]='{3}'", TYPEEMP, TYPESTART, TYPEEND, TYPETIMES);
+                sbSql.AppendFormat("  ,[OVENCOOKEMP]='{0}',[OVENCOOKSTART]='{1}',[OVENCOOKEND]='{2}',[OVENCOOKTIMES]='{3}'", OVENCOOKEMP, OVENCOOKSTART, OVENCOOKEND, OVENCOOKTIMES);
+                sbSql.AppendFormat("  ,[COLDCOOKEMP]='{0}',[COLDCOOKSTART]='{1}',[COLDCOOKEND]='{2}',[COLDCOOKTIMES]='{3}'", COLDCOOKEMP, COLDCOOKSTART, COLDCOOKEND, COLDCOOKTIMES);
+                sbSql.AppendFormat("  ,[ARRAYEMP]='{0}',[ARRAYSTART]='{1}',[ARRAYEND]='{2}',[ARRAYTIMES]='{3}'", ARRAYEMP, ARRAYSTART, ARRAYEND, ARRAYTIMES);
+                sbSql.AppendFormat("  ,[PACKEMP]='{0}',[PACKSTART]='{1}',[PACKEND]='{2}',[PACKTIMES]='{3}'", PACKEMP, PACKSTART, PACKEND, PACKTIMES);
+                sbSql.AppendFormat("  ,[PACKPICKEMP]='{0}',[PACKPICKSTART]='{1}',[PACKPICKEND]='{2}',[PACKPICKTIMES]='{3}'", PACKPICKEMP, PACKPICKSTART, PACKPICKEND, PACKPICKTIMES);
+                sbSql.AppendFormat("  ,[BOXSEMP]='{0}',[BOXSSTART]='{1}',[BOXSEND]='{2}',[BOXSTIMES]='{3}'", BOXSEMP, BOXSSTART, BOXSEND, BOXSTIMES);
+                sbSql.AppendFormat("  ,[HANDCOOKEMP]='{0}',[HANDCOOKSTART]='{1}',[HANDCOOKEND]='{2}',[HANDCOOKTIMES]='{3}'", HANDCOOKEMP, HANDCOOKSTART, HANDCOOKEND, HANDCOOKTIMES);
+                sbSql.AppendFormat("  ,[SCALESWEIGHTEMP]='{0}',[SCALESWEIGHTSTART]='{1}',[SCALESWEIGHTEND]='{2}',[SCALESWEIGHTTIMES]='{3}'", SCALESWEIGHTEMP, SCALESWEIGHTSTART, SCALESWEIGHTEND, SCALESWEIGHTTIMES);
+                sbSql.AppendFormat("  ,[OUTBOXSEMP]='{0}',[OUTBOXSSTART]='{1}',[OUTBOXSEND]='{2}',[OUTBOXSTIMES]='{3}'", OUTBOXSEMP, OUTBOXSSTART, OUTBOXSEND, OUTBOXSTIMES);
+                sbSql.AppendFormat("  ,[SEALEMP]='{0}',[SEALSTART]='{1}',[SEALEND]='{2}',[SEALTIMES]='{3}'", SEALEMP, SEALSTART, SEALEND, SEALTIMES);
+                sbSql.AppendFormat("  ,[THROWEMP]='{0}',[THROWSTART]='{1}',[THROWEND]='{2}',[THROWTIMES]='{3}'", THROWEMP, THROWSTART, THROWEND, THROWTIMES);
+                sbSql.AppendFormat("  ,[BOXPACKEMP]='{0}',[BOXPACKSTART]='{1}',[BOXPACKEND]='{2}',[BOXPACKTIMES]='{3}'", BOXPACKEMP, BOXPACKSTART, BOXPACKEND, BOXPACKTIMES);
+                sbSql.AppendFormat("  WHERE [ID]='{0}'",ID);
+                sbSql.AppendFormat("  ");
+                sbSql.AppendFormat("  ");
+                sbSql.AppendFormat("  ");
+                sbSql.AppendFormat("  ");
+                sbSql.AppendFormat("  ");
+                sbSql.AppendFormat("  ");
+                sbSql.AppendFormat("  ");
+                sbSql.AppendFormat("  ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
         }
 
         public void DELMOCDAILYWORKHRS()
@@ -742,6 +829,33 @@ namespace TKMOC
             textBox82.Text = null;
         }
 
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView1.Rows.Count >= 1)
+            {
+                int rowindex = dataGridView1.CurrentRow.Index;
+
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView1.Rows[rowindex];
+                    DELID = row.Cells["ID"].Value.ToString();
+
+                    DateTime dt1 = Convert.ToDateTime(row.Cells["日期"].Value.ToString().Substring(0, 4) + "/" + row.Cells["日期"].Value.ToString().Substring(4, 2) + "/" + row.Cells["日期"].Value.ToString().Substring(6, 2));
+                    dateTimePicker4.Value = dt1;
+                    comboBox1.Text = "";
+                    textBox11.Text = "";
+                    textBox12.Text = "";
+                }
+            }
+            else
+            {
+                DELID = null;
+            }
+
+          
+        }
+
+
         #endregion
 
         #region BUTTON
@@ -818,8 +932,9 @@ namespace TKMOC
 
 
 
+
         #endregion
 
-       
+     
     }
 }
