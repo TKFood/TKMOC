@@ -17,6 +17,8 @@ using System.Reflection;
 using System.Threading;
 using System.Globalization;
 using Calendar.NET;
+using FastReport;
+using FastReport.Data;
 
 namespace TKMOC
 {
@@ -109,7 +111,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  ,[ID]");
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCDAILYWORKHRS] ");
                 sbSql.AppendFormat(@"  WHERE  CONVERT(NVARCHAR,[DATS],112)='{0}'", IDDATE);
-                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ORDER BY [TA001],[TA002]");
                 sbSql.AppendFormat(@"  ");
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -992,7 +994,59 @@ namespace TKMOC
           
         }
 
-        
+
+        public void SETFASTREPORT(string SDAY,string EDAY)
+        {
+            StringBuilder SQL1 = new StringBuilder();
+
+            SQL1 = SETSQL1(SDAY, EDAY);
+            Report report1 = new Report();
+            report1.Load(@"REPORT\生產工時記錄.frx");
+
+            report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+            TableDataSource table = report1.GetDataSource("Table") as TableDataSource;
+            table.SelectCommand = SQL1.ToString();
+
+            report1.Preview = previewControl1;
+            report1.Show();
+        }
+
+        public StringBuilder SETSQL1(string SDAY, string EDAY)
+        {
+            StringBuilder SB = new StringBuilder();
+
+            SB.AppendFormat(" ");
+
+            SB.AppendFormat(@"  SELECT  CONVERT(NVARCHAR,[DATS],112) AS '日期',[MANU] AS '產線別',[TA001] AS '製令單',[TA002] AS '製令單號',[MB001] AS '品號',[MB002] AS '品名',[NUMS] AS '入庫量',[MOCNUM] AS '預計生產量'");
+            SB.AppendFormat(@"  ,CONVERT(NVARCHAR,[WORKSTART],114) AS '開始時間',CONVERT(NVARCHAR,[WORKEND],114) AS '結束時間',[WORKHRS] AS '工時',[WORKTIMES] AS '工時(分)',[AVGWORKHRS] AS '平均工時'");
+            SB.AppendFormat(@"  ,[WATERNOODLESEMP] AS '水麵攪拌',CONVERT(NVARCHAR,[WATERNOODLESSTART],114) AS '水麵攪拌開始時間',CONVERT(NVARCHAR,[WATERNOODLESEND],114) AS '水麵攪拌結束時間',[WATERNOODLESTIMES] AS '水麵攪拌工時'");
+            SB.AppendFormat(@"  ,[OILPASTRYEMP] AS '油酥攪拌',CONVERT(NVARCHAR,[OILPASTRYSTART],114) AS '油酥攪拌開始時間',CONVERT(NVARCHAR,[OILPASTRYEND],114) AS '油酥攪拌結束時間',[OILPASTRYTIMES] AS '油酥攪拌工時'");
+            SB.AppendFormat(@"  ,[FOLDEMP] AS '摺疊',CONVERT(NVARCHAR,[FOLDSTART],114) AS '摺疊開始時間',CONVERT(NVARCHAR,[FOLDEND],114) AS '摺疊結束時間',[FOLDTIMES] AS '摺疊工時'");
+            SB.AppendFormat(@"  ,[TYPECOOKEMP] AS '舖餅',CONVERT(NVARCHAR,[TYPECOOKSTART],114) AS '舖餅開始時間',CONVERT(NVARCHAR,[TYPECOOKEND],114) AS '舖餅結束時間',[TYPECOOKTIMES] AS '舖餅工時'");
+            SB.AppendFormat(@"  ,[TYPEEMP] AS '成型/烘烤',CONVERT(NVARCHAR,[TYPESTART],114) AS '成型/烘烤開始時間',CONVERT(NVARCHAR,[TYPEEND],114) AS '成型/烘烤結束時間',[TYPETIMES] AS '成型/烘烤工時'");
+            SB.AppendFormat(@"  ,[OVENCOOKEMP] AS '烤箱篩餅',CONVERT(NVARCHAR,[OVENCOOKSTART],114) AS '烤箱篩餅開始時間',CONVERT(NVARCHAR,[OVENCOOKEND],114) AS '烤箱篩餅結束時間',[OVENCOOKTIMES] AS '烤箱篩餅工時'");
+            SB.AppendFormat(@"  ,[COLDCOOKEMP] AS '冷卻篩餅',CONVERT(NVARCHAR,[COLDCOOKSTART],114) AS '冷卻篩餅開始時間',CONVERT(NVARCHAR,[COLDCOOKEND],114) AS '冷卻篩餅結束時間',[COLDCOOKTIMES] AS '冷卻篩餅工時'");
+            SB.AppendFormat(@"  ,[ARRAYEMP] AS '排餅/裝罐',CONVERT(NVARCHAR,[ARRAYSTART],114) AS '排餅/裝罐開始時間',CONVERT(NVARCHAR,[ARRAYEND],114) AS '排餅/裝罐結束時間',[ARRAYTIMES] AS '排餅/裝罐工時'");
+            SB.AppendFormat(@"  ,[PACKEMP] AS '包裝機',CONVERT(NVARCHAR,[PACKSTART],114) AS '包裝機開始時間',CONVERT(NVARCHAR,[PACKEND],114) AS '包裝機結束時間',[PACKTIMES] AS '包裝機工時'");
+            SB.AppendFormat(@"  ,[PACKPICKEMP] AS '包裝篩餅',CONVERT(NVARCHAR,[PACKPICKSTART],114) AS '包裝篩餅開始時間',CONVERT(NVARCHAR,[PACKPICKEND],114) AS '包裝篩餅結束時間',[PACKPICKTIMES] AS '包裝篩餅工時'");
+            SB.AppendFormat(@"  ,[BOXSEMP] AS '裝箱',CONVERT(NVARCHAR,[BOXSSTART],114) AS '裝箱開始時間',CONVERT(NVARCHAR,[BOXSEND],114) AS '裝箱結束時間',[BOXSTIMES] AS '裝箱工時'");
+            SB.AppendFormat(@"  ,[HANDCOOKEMP] AS '撿餅',CONVERT(NVARCHAR,[HANDCOOKSTART],114) AS '撿餅開始時間',CONVERT(NVARCHAR,[HANDCOOKEND],114) AS '撿餅結束時間',[HANDCOOKTIMES] AS '撿餅工時'");
+            SB.AppendFormat(@"  ,[SCALESWEIGHTEMP] AS '秤重',CONVERT(NVARCHAR,[SCALESWEIGHTSTART],114) AS '秤重開始時間',CONVERT(NVARCHAR,[SCALESWEIGHTEND],114) AS '秤重結束時間',[SCALESWEIGHTTIMES] AS '秤重工時'");
+            SB.AppendFormat(@"  ,[OUTBOXSEMP] AS '外裝箱',CONVERT(NVARCHAR,[OUTBOXSSTART],114) AS '外裝箱開始時間',CONVERT(NVARCHAR,[OUTBOXSEND],114) AS '外裝箱結束時間',[OUTBOXSTIMES] AS '外裝箱工時'");
+            SB.AppendFormat(@"  ,[SEALEMP] AS '封箱',CONVERT(NVARCHAR,[SEALSTART],114) AS '封箱開始時間',CONVERT(NVARCHAR,[SEALEND],114) AS '封箱結束時間',[SEALTIMES] AS '封箱工時'");
+            SB.AppendFormat(@"  ,[THROWEMP] AS '倒餅',CONVERT(NVARCHAR,[THROWSTART],114) AS '倒餅開始時間',CONVERT(NVARCHAR,[THROWEND],114) AS '倒餅結束時間',[THROWTIMES] AS '倒餅工時'");
+            SB.AppendFormat(@"  ,[BOXPACKEMP] AS '封盒機',CONVERT(NVARCHAR,[BOXPACKSTART],114) AS '封盒機開始時間',CONVERT(NVARCHAR,[BOXPACKEND],114) AS '封盒機結束時間',[BOXPACKTIMES] AS '封盒機工時'");
+            SB.AppendFormat(@"  ,[ID]");
+            SB.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCDAILYWORKHRS] ");
+            SB.AppendFormat(@"  WHERE  CONVERT(NVARCHAR,[DATS],112)>='{0}' AND  CONVERT(NVARCHAR,[DATS],112)<='{1}'",SDAY,EDAY);
+            SB.AppendFormat(@"  ORDER BY [TA001],[TA002]");
+            SB.AppendFormat(@"   ");
+
+
+
+            return SB;
+
+        }
         #endregion
 
         #region BUTTON
@@ -1086,12 +1140,16 @@ namespace TKMOC
 
 
 
+        private void button6_Click(object sender, EventArgs e)
+        {
+            SETFASTREPORT(dateTimePicker39.Value.ToString("yyyyMMdd"),dateTimePicker40.Value.ToString("yyyyMMdd"));
+        }
 
 
 
 
         #endregion
 
-     
+
     }
 }
