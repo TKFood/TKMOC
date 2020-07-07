@@ -847,6 +847,11 @@ namespace TKMOC
                     comboBox1.Text = row.Cells["產線別"].Value.ToString();
                     textBox11.Text = row.Cells["製令單"].Value.ToString();
                     textBox12.Text = row.Cells["製令單號"].Value.ToString();
+
+                    textBox31.Text = row.Cells["水麵攪拌"].Value.ToString();
+                    dateTimePicker2.Value = Convert.ToDateTime("1911-1-1 " + row.Cells["水麵攪拌開始時間"].Value.ToString().Substring(0, 8));
+                    dateTimePicker3.Value = Convert.ToDateTime("1911-1-1 " + row.Cells["水麵攪拌結束時間"].Value.ToString().Substring(0, 8));
+                    numericUpDown31.Value = Convert.ToDecimal(row.Cells["水麵攪拌工時"].Value.ToString());
                 }
             }
             else
