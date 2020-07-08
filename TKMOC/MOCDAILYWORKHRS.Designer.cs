@@ -142,20 +142,18 @@
             this.numericUpDown62 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown72 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown82 = new System.Windows.Forms.NumericUpDown();
-            this.dateTimePicker37 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker38 = new System.Windows.Forms.DateTimePicker();
             this.numericUpDown131 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown11 = new System.Windows.Forms.NumericUpDown();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.label27 = new System.Windows.Forms.Label();
-            this.button6 = new System.Windows.Forms.Button();
-            this.dateTimePicker39 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker40 = new System.Windows.Forms.DateTimePicker();
-            this.previewControl1 = new FastReport.Preview.PreviewControl();
             this.label28 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.dateTimePicker39 = new System.Windows.Forms.DateTimePicker();
+            this.button6 = new System.Windows.Forms.Button();
+            this.dateTimePicker40 = new System.Windows.Forms.DateTimePicker();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.previewControl1 = new FastReport.Preview.PreviewControl();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -501,10 +499,8 @@
             this.tableLayoutPanel1.Controls.Add(this.numericUpDown62, 9, 5);
             this.tableLayoutPanel1.Controls.Add(this.numericUpDown72, 9, 6);
             this.tableLayoutPanel1.Controls.Add(this.numericUpDown82, 9, 7);
-            this.tableLayoutPanel1.Controls.Add(this.dateTimePicker37, 7, 0);
-            this.tableLayoutPanel1.Controls.Add(this.dateTimePicker38, 8, 0);
             this.tableLayoutPanel1.Controls.Add(this.numericUpDown131, 4, 12);
-            this.tableLayoutPanel1.Controls.Add(this.numericUpDown11, 9, 0);
+            this.tableLayoutPanel1.Controls.Add(this.numericUpDown11, 8, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -1671,30 +1667,6 @@
             this.numericUpDown82.Size = new System.Drawing.Size(94, 27);
             this.numericUpDown82.TabIndex = 183;
             // 
-            // dateTimePicker37
-            // 
-            this.dateTimePicker37.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.dateTimePicker37.CustomFormat = "HH:mm";
-            this.dateTimePicker37.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.dateTimePicker37.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker37.Location = new System.Drawing.Point(703, 6);
-            this.dateTimePicker37.Name = "dateTimePicker37";
-            this.dateTimePicker37.Size = new System.Drawing.Size(94, 27);
-            this.dateTimePicker37.TabIndex = 166;
-            this.dateTimePicker37.ValueChanged += new System.EventHandler(this.dateTimePicker37_ValueChanged);
-            // 
-            // dateTimePicker38
-            // 
-            this.dateTimePicker38.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.dateTimePicker38.CustomFormat = "HH:mm";
-            this.dateTimePicker38.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.dateTimePicker38.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker38.Location = new System.Drawing.Point(803, 6);
-            this.dateTimePicker38.Name = "dateTimePicker38";
-            this.dateTimePicker38.Size = new System.Drawing.Size(94, 27);
-            this.dateTimePicker38.TabIndex = 184;
-            this.dateTimePicker38.ValueChanged += new System.EventHandler(this.dateTimePicker38_ValueChanged);
-            // 
             // numericUpDown131
             // 
             this.numericUpDown131.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -1715,7 +1687,7 @@
             this.numericUpDown11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDown11.DecimalPlaces = 2;
             this.numericUpDown11.Enabled = false;
-            this.numericUpDown11.Location = new System.Drawing.Point(903, 6);
+            this.numericUpDown11.Location = new System.Drawing.Point(803, 6);
             this.numericUpDown11.Maximum = new decimal(new int[] {
             99999999,
             0,
@@ -1782,6 +1754,18 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(966, 92);
             this.tableLayoutPanel2.TabIndex = 6;
             // 
+            // label28
+            // 
+            this.label28.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label28.Location = new System.Drawing.Point(3, 58);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(114, 16);
+            this.label28.TabIndex = 12;
+            this.label28.Text = "料號";
+            this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // label27
             // 
             this.label27.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -1794,17 +1778,6 @@
             this.label27.Text = "日期";
             this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // button6
-            // 
-            this.button6.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.button6.Location = new System.Drawing.Point(363, 3);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(114, 34);
-            this.button6.TabIndex = 3;
-            this.button6.Text = "查詢";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
-            // 
             // dateTimePicker39
             // 
             this.dateTimePicker39.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -1816,6 +1789,17 @@
             this.dateTimePicker39.Size = new System.Drawing.Size(114, 27);
             this.dateTimePicker39.TabIndex = 10;
             // 
+            // button6
+            // 
+            this.button6.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.button6.Location = new System.Drawing.Point(363, 3);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(114, 34);
+            this.button6.TabIndex = 3;
+            this.button6.Text = "查詢";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
             // dateTimePicker40
             // 
             this.dateTimePicker40.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -1826,6 +1810,15 @@
             this.dateTimePicker40.Name = "dateTimePicker40";
             this.dateTimePicker40.Size = new System.Drawing.Size(114, 27);
             this.dateTimePicker40.TabIndex = 11;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel2.SetColumnSpan(this.textBox1, 2);
+            this.textBox1.Location = new System.Drawing.Point(123, 52);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(234, 27);
+            this.textBox1.TabIndex = 13;
             // 
             // previewControl1
             // 
@@ -1839,27 +1832,6 @@
             this.previewControl1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.previewControl1.Size = new System.Drawing.Size(966, 562);
             this.previewControl1.TabIndex = 4;
-            // 
-            // label28
-            // 
-            this.label28.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label28.AutoSize = true;
-            this.label28.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label28.Location = new System.Drawing.Point(3, 58);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(114, 16);
-            this.label28.TabIndex = 12;
-            this.label28.Text = "料號";
-            this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel2.SetColumnSpan(this.textBox1, 2);
-            this.textBox1.Location = new System.Drawing.Point(123, 52);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(234, 27);
-            this.textBox1.TabIndex = 13;
             // 
             // MOCDAILYWORKHRS
             // 
@@ -1981,7 +1953,6 @@
         private System.Windows.Forms.TextBox textBox82;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
-        private System.Windows.Forms.DateTimePicker dateTimePicker37;
         private System.Windows.Forms.DateTimePicker dateTimePicker3;
         private System.Windows.Forms.DateTimePicker dateTimePicker5;
         private System.Windows.Forms.DateTimePicker dateTimePicker6;
@@ -2032,7 +2003,6 @@
         private System.Windows.Forms.NumericUpDown numericUpDown62;
         private System.Windows.Forms.NumericUpDown numericUpDown72;
         private System.Windows.Forms.NumericUpDown numericUpDown82;
-        private System.Windows.Forms.DateTimePicker dateTimePicker38;
         private System.Windows.Forms.NumericUpDown numericUpDown11;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.DataGridView dataGridView1;

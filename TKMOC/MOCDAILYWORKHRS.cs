@@ -483,25 +483,17 @@ namespace TKMOC
             }
         }
 
-        private void dateTimePicker37_ValueChanged(object sender, EventArgs e)
-        {
-            SETSTARTTIMES(dateTimePicker37.Value);
-            CALTIMES();
-        }
-
-        private void dateTimePicker38_ValueChanged(object sender, EventArgs e)
-        {
-            SETENDTIMES(dateTimePicker38.Value);
-            CALTIMES();
-        }
+      
 
         private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
         {
+            SETSTARTTIMES(dateTimePicker2.Value);
             CALTIMES();
         }
 
         private void dateTimePicker3_ValueChanged(object sender, EventArgs e)
         {
+            SETENDTIMES(dateTimePicker3.Value);
             CALTIMES();
         }
 
@@ -667,10 +659,7 @@ namespace TKMOC
         public void CALTIMES()
         {
             TimeSpan TS = new TimeSpan();
-            if (Convert.ToDecimal(new TimeSpan(dateTimePicker38.Value.Ticks - dateTimePicker37.Value.Ticks).TotalHours) > 0)
-            {            
-                numericUpDown11.Value = Convert.ToDecimal(new TimeSpan(dateTimePicker38.Value.Ticks - dateTimePicker37.Value.Ticks).TotalHours);
-            }
+           
 
             if (Convert.ToDecimal(new TimeSpan(dateTimePicker3.Value.Ticks - dateTimePicker2.Value.Ticks).TotalHours)>0)
             {
@@ -808,8 +797,7 @@ namespace TKMOC
             dateTimePicker34.Value = dt;
             dateTimePicker36.Value = dt;
 
-            dateTimePicker37.Value = dt;
-            dateTimePicker38.Value = dt;
+         
         }
 
         public void SETSTARTTIMES(DateTime dt)
@@ -891,8 +879,7 @@ namespace TKMOC
 
                     DateTime dt1 = Convert.ToDateTime(row.Cells["日期"].Value.ToString().Substring(0, 4) + "/" + row.Cells["日期"].Value.ToString().Substring(4, 2) + "/" + row.Cells["日期"].Value.ToString().Substring(6, 2));
                     dateTimePicker4.Value = dt1;
-                    dateTimePicker37.Value = Convert.ToDateTime("1911-1-1 " + row.Cells["開始時間"].Value.ToString().Substring(0, 8));
-                    dateTimePicker38.Value = Convert.ToDateTime("1911-1-1 " + row.Cells["結束時間"].Value.ToString().Substring(0, 8));
+                   
 
                     comboBox1.Text = row.Cells["產線別"].Value.ToString();
                     textBox11.Text = row.Cells["製令單"].Value.ToString();
@@ -1079,7 +1066,7 @@ namespace TKMOC
             if(STATUS.Equals("ADD"))
             {
                 ADDMOCDAILYWORKHRS(Guid.NewGuid().ToString(), dateTimePicker4.Value.ToString("yyyy/MM/dd"), comboBox1.Text.Trim(), textBox11.Text, textBox12.Text, textBox21.Text, textBox22.Text, textBox23.Text, textBox24.Text
-                , dateTimePicker37.Value.ToString("HH:mm"), dateTimePicker38.Value.ToString("HH:mm"), numericUpDown11.Value.ToString(), "0","0"
+                , dateTimePicker2.Value.ToString("HH:mm"), dateTimePicker3.Value.ToString("HH:mm"), numericUpDown11.Value.ToString(), "0","0"
                 , textBox31.Text, dateTimePicker2.Value.ToString("HH:mm"), dateTimePicker3.Value.ToString("HH:mm"), numericUpDown31.Value.ToString()
                 , textBox41.Text, dateTimePicker5.Value.ToString("HH:mm"), dateTimePicker6.Value.ToString("HH:mm"), numericUpDown41.Value.ToString()
                 , textBox51.Text, dateTimePicker7.Value.ToString("HH:mm"), dateTimePicker8.Value.ToString("HH:mm"), numericUpDown51.Value.ToString()
@@ -1102,7 +1089,7 @@ namespace TKMOC
             else if(STATUS.Equals("EDIT"))
             {
                 UPDATEMOCDAILYWORKHRS(ID, dateTimePicker4.Value.ToString("yyyy/MM/dd"), comboBox1.Text.Trim(), textBox11.Text, textBox12.Text, textBox21.Text, textBox22.Text, textBox23.Text, textBox24.Text
-               , dateTimePicker37.Value.ToString("HH:mm"), dateTimePicker38.Value.ToString("HH:mm"), numericUpDown11.Value.ToString(), "0", "0"
+               , dateTimePicker2.Value.ToString("HH:mm"), dateTimePicker3.Value.ToString("HH:mm"), numericUpDown11.Value.ToString(), "0", "0"
                , textBox31.Text, dateTimePicker2.Value.ToString("HH:mm"), dateTimePicker3.Value.ToString("HH:mm"), numericUpDown31.Value.ToString()
                , textBox41.Text, dateTimePicker5.Value.ToString("HH:mm"), dateTimePicker6.Value.ToString("HH:mm"), numericUpDown41.Value.ToString()
                , textBox51.Text, dateTimePicker7.Value.ToString("HH:mm"), dateTimePicker8.Value.ToString("HH:mm"), numericUpDown51.Value.ToString()
