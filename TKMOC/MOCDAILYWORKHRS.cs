@@ -831,7 +831,7 @@ namespace TKMOC
 
             }
 
-
+            numericUpDown11.Value = numericUpDown31.Value + numericUpDown41.Value + numericUpDown51.Value + numericUpDown61.Value + numericUpDown71.Value + numericUpDown81.Value + numericUpDown91.Value + numericUpDown101.Value + numericUpDown111.Value + numericUpDown121.Value + numericUpDown131.Value + numericUpDown32.Value + numericUpDown42.Value + numericUpDown52.Value + numericUpDown62.Value + numericUpDown72.Value + numericUpDown82.Value;
 
         }
 
