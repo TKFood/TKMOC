@@ -1175,7 +1175,7 @@ namespace TKMOC
             SB.AppendFormat(@"  WHERE  CONVERT(NVARCHAR,[DATS],112)>='{0}' AND  CONVERT(NVARCHAR,[DATS],112)<='{1}'",SDAY,EDAY);
             SB.AppendFormat(@"   {0}",SBQUERY.ToString());
             SB.AppendFormat(@"  ORDER BY [TA001],[TA002]");
-            SB.AppendFormat(@"   ");
+            SB.AppendFormat(@"    ");
             SB.AppendFormat(@"   ");
 
 

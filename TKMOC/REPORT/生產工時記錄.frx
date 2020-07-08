@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="07/07/2020 10:16:53" ReportInfo.Modified="07/07/2020 10:34:09" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="07/07/2020 10:16:53" ReportInfo.Modified="07/08/2020 11:31:07" ReportInfo.CreatorVersion="2016.4.4.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9JvKloWJ0YczXZyV/qmyqpS">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9LIrU3LpEuEQeLRUd5g9CVu">
       <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT  CONVERT(NVARCHAR,[DATS],112) AS '日期',[MANU] AS '產線別',[TA001] AS '製令單',[TA002] AS '製令單號',[MB001] AS '品號',[MB002] AS '品名',[NUMS] AS '入庫量',[MOCNUM] AS '預計生產量'&#13;&#10;, CONVERT(NVARCHAR,[WORKSTART],114) AS '開始時間',CONVERT(NVARCHAR,[WORKEND],114) AS '結束時間',[WORKHRS] AS '工時',[WORKTIMES] AS '工時(分)',[AVGWORKHRS] AS '平均工時'&#13;&#10;,[WATERNOODLESEMP] AS '水麵攪拌',CONVERT(NVARCHAR,[WATERNOODLESSTART],114) AS '水麵攪拌開始時間',CONVERT(NVARCHAR,[WATERNOODLESEND],114) AS '水麵攪拌結束時間',[WATERNOODLESTIMES] AS '水麵攪拌工時'&#13;&#10;,[OILPASTRYEMP] AS '油酥攪拌',CONVERT(NVARCHAR,[OILPASTRYSTART],114) AS '油酥攪拌開始時間',CONVERT(NVARCHAR,[OILPASTRYEND],114) AS '油酥攪拌結束時間',[OILPASTRYTIMES] AS '油酥攪拌工時'&#13;&#10;,[FOLDEMP] AS '摺疊',CONVERT(NVARCHAR,[FOLDSTART],114) AS '摺疊開始時間',CONVERT(NVARCHAR,[FOLDEND],114) AS '摺疊結束時間',[FOLDTIMES] AS '摺疊工時'&#13;&#10;,[TYPECOOKEMP] AS '舖餅',CONVERT(NVARCHAR,[TYPECOOKSTART],114) AS '舖餅開始時間',CONVERT(NVARCHAR,[TYPECOOKEND],114) AS '舖餅結束時間',[TYPECOOKTIMES] AS '舖餅工時'&#13;&#10;,[TYPEEMP] AS '成型/烘烤',CONVERT(NVARCHAR,[TYPESTART],114) AS '成型/烘烤開始時間',CONVERT(NVARCHAR,[TYPEEND],114) AS '成型/烘烤結束時間',[TYPETIMES] AS '成型/烘烤工時'&#13;&#10;,[OVENCOOKEMP] AS '烤箱篩餅',CONVERT(NVARCHAR,[OVENCOOKSTART],114) AS '烤箱篩餅開始時間',CONVERT(NVARCHAR,[OVENCOOKEND],114) AS '烤箱篩餅結束時間',[OVENCOOKTIMES] AS '烤箱篩餅工時'&#13;&#10;,[COLDCOOKEMP] AS '冷卻篩餅',CONVERT(NVARCHAR,[COLDCOOKSTART],114) AS '冷卻篩餅開始時間',CONVERT(NVARCHAR,[COLDCOOKEND],114) AS '冷卻篩餅結束時間',[COLDCOOKTIMES] AS '冷卻篩餅工時'&#13;&#10;,[ARRAYEMP] AS '排餅/裝罐',CONVERT(NVARCHAR,[ARRAYSTART],114) AS '排餅/裝罐開始時間',CONVERT(NVARCHAR,[ARRAYEND],114) AS '排餅/裝罐結束時間',[ARRAYTIMES] AS '排餅/裝罐工時'&#13;&#10;,[PACKEMP] AS '包裝機',CONVERT(NVARCHAR,[PACKSTART],114) AS '包裝機開始時間',CONVERT(NVARCHAR,[PACKEND],114) AS '包裝機結束時間',[PACKTIMES] AS '包裝機工時'&#13;&#10;,[PACKPICKEMP] AS '包裝篩餅',CONVERT(NVARCHAR,[PACKPICKSTART],114) AS '包裝篩餅開始時間',CONVERT(NVARCHAR,[PACKPICKEND],114) AS '包裝篩餅結束時間',[PACKPICKTIMES] AS '包裝篩餅工時'&#13;&#10;,[BOXSEMP] AS '裝箱',CONVERT(NVARCHAR,[BOXSSTART],114) AS '裝箱開始時間',CONVERT(NVARCHAR,[BOXSEND],114) AS '裝箱結束時間',[BOXSTIMES] AS '裝箱工時'&#13;&#10;,[HANDCOOKEMP] AS '撿餅',CONVERT(NVARCHAR,[HANDCOOKSTART],114) AS '撿餅開始時間',CONVERT(NVARCHAR,[HANDCOOKEND],114) AS '撿餅結束時間',[HANDCOOKTIMES] AS '撿餅工時'&#13;&#10;,[SCALESWEIGHTEMP] AS '秤重',CONVERT(NVARCHAR,[SCALESWEIGHTSTART],114) AS '秤重開始時間',CONVERT(NVARCHAR,[SCALESWEIGHTEND],114) AS '秤重結束時間',[SCALESWEIGHTTIMES] AS '秤重工時'&#13;&#10;,[OUTBOXSEMP] AS '外裝箱',CONVERT(NVARCHAR,[OUTBOXSSTART],114) AS '外裝箱開始時間',CONVERT(NVARCHAR,[OUTBOXSEND],114) AS '外裝箱結束時間',[OUTBOXSTIMES] AS '外裝箱工時'&#13;&#10;,[SEALEMP] AS '封箱',CONVERT(NVARCHAR,[SEALSTART],114) AS '封箱開始時間',CONVERT(NVARCHAR,[SEALEND],114) AS '封箱結束時間',[SEALTIMES] AS '封箱工時'&#13;&#10;,[THROWEMP] AS '倒餅',CONVERT(NVARCHAR,[THROWSTART],114) AS '倒餅開始時間',CONVERT(NVARCHAR,[THROWEND],114) AS '倒餅結束時間',[THROWTIMES] AS '倒餅工時'&#13;&#10;,[BOXPACKEMP] AS '封盒機',CONVERT(NVARCHAR,[BOXPACKSTART],114) AS '封盒機開始時間',CONVERT(NVARCHAR,[BOXPACKEND],114) AS '封盒機結束時間',[BOXPACKTIMES] AS '封盒機工時'&#13;&#10;,[ID]&#13;&#10;FROM [TKMOC].[dbo].[MOCDAILYWORKHRS] &#13;&#10;WHERE CONVERT(NVARCHAR,[DATS],112)&gt;='20200707' AND CONVERT(NVARCHAR,[DATS],112)&lt;='20200707'&#13;&#10;ORDER BY [TA001],[TA002]">
         <Column Name="日期" DataType="System.String"/>
         <Column Name="產線別" DataType="System.String"/>
@@ -92,7 +92,7 @@
     <ReportTitleBand Name="ReportTitle1" Width="8240.4" Height="18.9">
       <TextObject Name="Text1" Width="1048.95" Height="18.9" Text="生產工時記錄" HorzAlign="Center" VertAlign="Center"/>
     </ReportTitleBand>
-    <ColumnHeaderBand Name="ColumnHeader1" Top="22.75" Width="8240.4" Height="28.35">
+    <ColumnHeaderBand Name="ColumnHeader1" Top="24.31" Width="8240.4" Height="28.35">
       <TextObject Name="Text3" Left="-9.45" Width="94.5" Height="28.35" Border.Lines="All" Text="日期" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text5" Left="85.05" Width="151.2" Height="28.35" Border.Lines="All" Text="產線別" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text7" Left="236.25" Width="94.5" Height="28.35" Border.Lines="All" Text="製令單" HorzAlign="Center" VertAlign="Center"/>
@@ -101,80 +101,78 @@
       <TextObject Name="Text13" Left="585.9" Width="359.1" Height="28.35" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text15" Left="945" Width="94.5" Height="28.35" Border.Lines="All" Text="入庫量" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text17" Left="1039.5" Width="94.5" Height="28.35" Border.Lines="All" Text="預計生產量" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text19" Left="1134" Width="94.5" Height="28.35" Border.Lines="All" Text="開始時間" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text21" Left="1228.5" Width="94.5" Height="28.35" Border.Lines="All" Text="結束時間" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text23" Left="1323" Width="94.5" Height="28.35" Border.Lines="All" Text="工時" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text25" Left="1417.5" Width="94.5" Height="28.35" Border.Lines="All" Text="平均工時" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text27" Left="1512" Width="94.5" Height="28.35" Border.Lines="All" Text="水麵攪拌" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text29" Left="1606.5" Width="94.5" Height="28.35" Border.Lines="All" Text="水麵攪拌開始時間" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text31" Left="1701" Width="94.5" Height="28.35" Border.Lines="All" Text="水麵攪拌結束時間" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text33" Left="1795.5" Width="94.5" Height="28.35" Border.Lines="All" Text="水麵攪拌工時" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text35" Left="1890" Width="94.5" Height="28.35" Border.Lines="All" Text="油酥攪拌" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text37" Left="1984.5" Width="94.5" Height="28.35" Border.Lines="All" Text="油酥攪拌開始時間" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text39" Left="2079" Width="94.5" Height="28.35" Border.Lines="All" Text="油酥攪拌結束時間" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text41" Left="2173.5" Width="94.5" Height="28.35" Border.Lines="All" Text="油酥攪拌工時" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text43" Left="2268" Width="94.5" Height="28.35" Border.Lines="All" Text="摺疊" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text45" Left="2362.5" Width="94.5" Height="28.35" Border.Lines="All" Text="摺疊開始時間" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text47" Left="2457" Width="94.5" Height="28.35" Border.Lines="All" Text="摺疊結束時間" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text49" Left="2551.5" Width="94.5" Height="28.35" Border.Lines="All" Text="摺疊工時" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text51" Left="2646" Width="94.5" Height="28.35" Border.Lines="All" Text="舖餅" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text53" Left="2740.5" Width="94.5" Height="28.35" Border.Lines="All" Text="舖餅開始時間" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text55" Left="2835" Width="94.5" Height="28.35" Border.Lines="All" Text="舖餅結束時間" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text57" Left="2929.5" Width="94.5" Height="28.35" Border.Lines="All" Text="舖餅工時" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text59" Left="3024" Width="94.5" Height="28.35" Border.Lines="All" Text="成型/烘烤" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text61" Left="3118.5" Width="94.5" Height="28.35" Border.Lines="All" Text="成型/烘烤開始時間" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text63" Left="3213" Width="94.5" Height="28.35" Border.Lines="All" Text="成型/烘烤結束時間" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text65" Left="3307.5" Width="94.5" Height="28.35" Border.Lines="All" Text="成型/烘烤工時" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text67" Left="3402" Width="94.5" Height="28.35" Border.Lines="All" Text="烤箱篩餅" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text69" Left="3496.5" Width="94.5" Height="28.35" Border.Lines="All" Text="烤箱篩餅開始時間" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text71" Left="3591" Width="94.5" Height="28.35" Border.Lines="All" Text="烤箱篩餅結束時間" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text73" Left="3685.5" Width="94.5" Height="28.35" Border.Lines="All" Text="烤箱篩餅工時" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text75" Left="3780" Width="94.5" Height="28.35" Border.Lines="All" Text="冷卻篩餅" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text77" Left="3874.5" Width="94.5" Height="28.35" Border.Lines="All" Text="冷卻篩餅開始時間" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text79" Left="3969" Width="94.5" Height="28.35" Border.Lines="All" Text="冷卻篩餅結束時間" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text81" Left="4063.5" Width="94.5" Height="28.35" Border.Lines="All" Text="冷卻篩餅工時" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text83" Left="4158" Width="94.5" Height="28.35" Border.Lines="All" Text="排餅/裝罐" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text85" Left="4252.5" Width="94.5" Height="28.35" Border.Lines="All" Text="排餅/裝罐開始時間" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text87" Left="4347" Width="94.5" Height="28.35" Border.Lines="All" Text="排餅/裝罐結束時間" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text89" Left="4441.5" Width="94.5" Height="28.35" Border.Lines="All" Text="排餅/裝罐工時" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text91" Left="4536" Width="94.5" Height="28.35" Border.Lines="All" Text="包裝機" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text93" Left="4630.5" Width="94.5" Height="28.35" Border.Lines="All" Text="包裝機開始時間" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text95" Left="4725" Width="94.5" Height="28.35" Border.Lines="All" Text="包裝機結束時間" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text97" Left="4819.5" Width="94.5" Height="28.35" Border.Lines="All" Text="包裝機工時" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text99" Left="4914" Width="94.5" Height="28.35" Border.Lines="All" Text="包裝篩餅" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text101" Left="5008.5" Width="94.5" Height="28.35" Border.Lines="All" Text="包裝篩餅開始時間" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text103" Left="5103" Width="94.5" Height="28.35" Border.Lines="All" Text="包裝篩餅結束時間" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text105" Left="5197.5" Width="94.5" Height="28.35" Border.Lines="All" Text="包裝篩餅工時" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text107" Left="5292" Width="94.5" Height="28.35" Border.Lines="All" Text="裝箱" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text109" Left="5386.5" Width="94.5" Height="28.35" Border.Lines="All" Text="裝箱開始時間" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text111" Left="5481" Width="94.5" Height="28.35" Border.Lines="All" Text="裝箱結束時間" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text113" Left="5575.5" Width="94.5" Height="28.35" Border.Lines="All" Text="裝箱工時" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text115" Left="5670" Width="94.5" Height="28.35" Border.Lines="All" Text="撿餅" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text117" Left="5764.5" Width="94.5" Height="28.35" Border.Lines="All" Text="撿餅開始時間" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text119" Left="5859" Width="94.5" Height="28.35" Border.Lines="All" Text="撿餅結束時間" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text121" Left="5953.5" Width="94.5" Height="28.35" Border.Lines="All" Text="撿餅工時" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text123" Left="6048" Width="94.5" Height="28.35" Border.Lines="All" Text="秤重" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text125" Left="6142.5" Width="94.5" Height="28.35" Border.Lines="All" Text="秤重開始時間" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text127" Left="6237" Width="94.5" Height="28.35" Border.Lines="All" Text="秤重結束時間" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text129" Left="6331.5" Width="94.5" Height="28.35" Border.Lines="All" Text="秤重工時" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text131" Left="6426" Width="94.5" Height="28.35" Border.Lines="All" Text="外裝箱" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text133" Left="6520.5" Width="94.5" Height="28.35" Border.Lines="All" Text="外裝箱開始時間" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text135" Left="6615" Width="94.5" Height="28.35" Border.Lines="All" Text="外裝箱結束時間" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text137" Left="6709.5" Width="94.5" Height="28.35" Border.Lines="All" Text="外裝箱工時" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text139" Left="6804" Width="94.5" Height="28.35" Border.Lines="All" Text="封箱" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text141" Left="6898.5" Width="94.5" Height="28.35" Border.Lines="All" Text="封箱開始時間" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text143" Left="6993" Width="94.5" Height="28.35" Border.Lines="All" Text="封箱結束時間" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text145" Left="7087.5" Width="94.5" Height="28.35" Border.Lines="All" Text="封箱工時" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text147" Left="7182" Width="94.5" Height="28.35" Border.Lines="All" Text="倒餅" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text149" Left="7276.5" Width="94.5" Height="28.35" Border.Lines="All" Text="倒餅開始時間" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text151" Left="7371" Width="94.5" Height="28.35" Border.Lines="All" Text="倒餅結束時間" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text153" Left="7465.5" Width="94.5" Height="28.35" Border.Lines="All" Text="倒餅工時" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text155" Left="7560" Width="94.5" Height="28.35" Border.Lines="All" Text="封盒機" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text157" Left="7654.5" Width="94.5" Height="28.35" Border.Lines="All" Text="封盒機開始時間" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text159" Left="7749" Width="94.5" Height="28.35" Border.Lines="All" Text="封盒機結束時間" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text161" Left="7843.5" Width="94.5" Height="28.35" Border.Lines="All" Text="封盒機工時" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text23" Left="1134" Width="94.5" Height="28.35" Border.Lines="All" Text="總工時" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text25" Left="1228.5" Width="94.5" Height="28.35" Border.Lines="All" Text="平均工時" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text27" Left="1323" Width="94.5" Height="28.35" Border.Lines="All" Text="水麵攪拌" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text29" Left="1417.5" Width="94.5" Height="28.35" Border.Lines="All" Text="水麵攪拌開始時間" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text31" Left="1512" Width="94.5" Height="28.35" Border.Lines="All" Text="水麵攪拌結束時間" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text33" Left="1606.5" Width="94.5" Height="28.35" Border.Lines="All" Text="水麵攪拌工時" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text35" Left="1701" Width="94.5" Height="28.35" Border.Lines="All" Text="油酥攪拌" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text37" Left="1795.5" Width="94.5" Height="28.35" Border.Lines="All" Text="油酥攪拌開始時間" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text39" Left="1890" Width="94.5" Height="28.35" Border.Lines="All" Text="油酥攪拌結束時間" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text41" Left="1984.5" Width="94.5" Height="28.35" Border.Lines="All" Text="油酥攪拌工時" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text43" Left="2079" Width="94.5" Height="28.35" Border.Lines="All" Text="摺疊" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text45" Left="2173.5" Width="94.5" Height="28.35" Border.Lines="All" Text="摺疊開始時間" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text47" Left="2268" Width="94.5" Height="28.35" Border.Lines="All" Text="摺疊結束時間" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text49" Left="2362.5" Width="94.5" Height="28.35" Border.Lines="All" Text="摺疊工時" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text51" Left="2457" Width="94.5" Height="28.35" Border.Lines="All" Text="舖餅" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text53" Left="2551.5" Width="94.5" Height="28.35" Border.Lines="All" Text="舖餅開始時間" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text55" Left="2646" Width="94.5" Height="28.35" Border.Lines="All" Text="舖餅結束時間" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text57" Left="2740.5" Width="94.5" Height="28.35" Border.Lines="All" Text="舖餅工時" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text59" Left="2835" Width="94.5" Height="28.35" Border.Lines="All" Text="成型/烘烤" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text61" Left="2929.5" Width="94.5" Height="28.35" Border.Lines="All" Text="成型/烘烤開始時間" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text91" Left="4347" Width="94.5" Height="28.35" Border.Lines="All" Text="包裝機" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text93" Left="4441.5" Width="94.5" Height="28.35" Border.Lines="All" Text="包裝機開始時間" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text95" Left="4536" Width="94.5" Height="28.35" Border.Lines="All" Text="包裝機結束時間" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text97" Left="4630.5" Width="94.5" Height="28.35" Border.Lines="All" Text="包裝機工時" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text99" Left="4725" Width="94.5" Height="28.35" Border.Lines="All" Text="包裝篩餅" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text101" Left="4819.5" Width="94.5" Height="28.35" Border.Lines="All" Text="包裝篩餅開始時間" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text103" Left="4914" Width="94.5" Height="28.35" Border.Lines="All" Text="包裝篩餅結束時間" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text105" Left="5008.5" Width="94.5" Height="28.35" Border.Lines="All" Text="包裝篩餅工時" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text107" Left="5103" Width="94.5" Height="28.35" Border.Lines="All" Text="裝箱" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text109" Left="5197.5" Width="94.5" Height="28.35" Border.Lines="All" Text="裝箱開始時間" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text111" Left="5292" Width="94.5" Height="28.35" Border.Lines="All" Text="裝箱結束時間" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text113" Left="5386.5" Width="94.5" Height="28.35" Border.Lines="All" Text="裝箱工時" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text115" Left="5481" Width="94.5" Height="28.35" Border.Lines="All" Text="撿餅" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text117" Left="5575.5" Width="94.5" Height="28.35" Border.Lines="All" Text="撿餅開始時間" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text119" Left="5670" Width="94.5" Height="28.35" Border.Lines="All" Text="撿餅結束時間" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text121" Left="5764.5" Width="94.5" Height="28.35" Border.Lines="All" Text="撿餅工時" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text123" Left="5859" Width="94.5" Height="28.35" Border.Lines="All" Text="秤重" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text125" Left="5953.5" Width="94.5" Height="28.35" Border.Lines="All" Text="秤重開始時間" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text127" Left="6048" Width="94.5" Height="28.35" Border.Lines="All" Text="秤重結束時間" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text129" Left="6142.5" Width="94.5" Height="28.35" Border.Lines="All" Text="秤重工時" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text131" Left="6237" Width="94.5" Height="28.35" Border.Lines="All" Text="外裝箱" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text133" Left="6331.5" Width="94.5" Height="28.35" Border.Lines="All" Text="外裝箱開始時間" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text135" Left="6426" Width="94.5" Height="28.35" Border.Lines="All" Text="外裝箱結束時間" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text137" Left="6520.5" Width="94.5" Height="28.35" Border.Lines="All" Text="外裝箱工時" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text139" Left="6615" Width="94.5" Height="28.35" Border.Lines="All" Text="封箱" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text141" Left="6709.5" Width="94.5" Height="28.35" Border.Lines="All" Text="封箱開始時間" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text143" Left="6804" Width="94.5" Height="28.35" Border.Lines="All" Text="封箱結束時間" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text145" Left="6898.5" Width="94.5" Height="28.35" Border.Lines="All" Text="封箱工時" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text147" Left="6993" Width="94.5" Height="28.35" Border.Lines="All" Text="倒餅" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text149" Left="7087.5" Width="94.5" Height="28.35" Border.Lines="All" Text="倒餅開始時間" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text151" Left="7182" Width="94.5" Height="28.35" Border.Lines="All" Text="倒餅結束時間" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text153" Left="7276.5" Width="94.5" Height="28.35" Border.Lines="All" Text="倒餅工時" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text155" Left="7371" Width="94.5" Height="28.35" Border.Lines="All" Text="封盒機" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text157" Left="7465.5" Width="94.5" Height="28.35" Border.Lines="All" Text="封盒機開始時間" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text159" Left="7560" Width="94.5" Height="28.35" Border.Lines="All" Text="封盒機結束時間" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text161" Left="7654.5" Width="94.5" Height="28.35" Border.Lines="All" Text="封盒機工時" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text75" Left="3591" Width="94.5" Height="28.35" Border.Lines="All" Text="冷卻篩餅" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text63" Left="3024" Width="94.5" Height="28.35" Border.Lines="All" Text="成型/烘烤結束時間" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text65" Left="3118.5" Width="94.5" Height="28.35" Border.Lines="All" Text="成型/烘烤工時" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text67" Left="3213" Width="94.5" Height="28.35" Border.Lines="All" Text="烤箱篩餅" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text69" Left="3307.5" Width="94.5" Height="28.35" Border.Lines="All" Text="烤箱篩餅開始時間" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text71" Left="3402" Width="94.5" Height="28.35" Border.Lines="All" Text="烤箱篩餅結束時間" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text73" Left="3496.5" Width="94.5" Height="28.35" Border.Lines="All" Text="烤箱篩餅工時" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text77" Left="3685.5" Width="94.5" Height="28.35" Border.Lines="All" Text="冷卻篩餅開始時間" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text79" Left="3780" Width="94.5" Height="28.35" Border.Lines="All" Text="冷卻篩餅結束時間" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text81" Left="3874.5" Width="94.5" Height="28.35" Border.Lines="All" Text="冷卻篩餅工時" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text83" Left="3969" Width="94.5" Height="28.35" Border.Lines="All" Text="排餅/裝罐" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text85" Left="4063.5" Width="94.5" Height="28.35" Border.Lines="All" Text="排餅/裝罐開始時間" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text87" Left="4158" Width="94.5" Height="28.35" Border.Lines="All" Text="排餅/裝罐結束時間" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text89" Left="4252.5" Width="94.5" Height="28.35" Border.Lines="All" Text="排餅/裝罐工時" HorzAlign="Center" VertAlign="Center"/>
     </ColumnHeaderBand>
-    <DataBand Name="Data1" Top="54.94" Width="8240.4" Height="18.9" DataSource="Table">
+    <DataBand Name="Data1" Top="58.06" Width="8240.4" Height="18.9" DataSource="Table">
       <TextObject Name="Text2" Left="-9.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.日期]" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text4" Left="85.05" Width="151.2" Height="18.9" Border.Lines="All" Text="[Table.產線別]" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text6" Left="236.25" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.製令單]" HorzAlign="Center" VertAlign="Center"/>
@@ -183,78 +181,76 @@
       <TextObject Name="Text12" Left="585.9" Width="359.1" Height="18.9" Border.Lines="All" Text="[Table.品名]" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text14" Left="945" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.入庫量]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
       <TextObject Name="Text16" Left="1039.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.預計生產量]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text18" Left="1134" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.開始時間]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text20" Left="1228.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.結束時間]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text22" Left="1323" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text24" Left="1417.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.平均工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text26" Left="1512" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.水麵攪拌]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text28" Left="1606.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.水麵攪拌開始時間]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text30" Left="1701" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.水麵攪拌結束時間]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text32" Left="1795.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.水麵攪拌工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text34" Left="1890" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.油酥攪拌]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text36" Left="1984.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.油酥攪拌開始時間]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text38" Left="2079" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.油酥攪拌結束時間]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text40" Left="2173.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.油酥攪拌工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text42" Left="2268" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.摺疊]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text44" Left="2362.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.摺疊開始時間]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text46" Left="2457" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.摺疊結束時間]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text48" Left="2551.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.摺疊工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text50" Left="2646" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.舖餅]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text52" Left="2740.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.舖餅開始時間]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text54" Left="2835" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.舖餅結束時間]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text56" Left="2929.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.舖餅工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text58" Left="3024" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.成型/烘烤]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text60" Left="3118.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.成型/烘烤開始時間]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text62" Left="3213" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.成型/烘烤結束時間]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text64" Left="3307.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.成型/烘烤工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text66" Left="3402" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.烤箱篩餅]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text68" Left="3496.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.烤箱篩餅開始時間]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text70" Left="3591" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.烤箱篩餅結束時間]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text72" Left="3685.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.烤箱篩餅工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text74" Left="3780" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.冷卻篩餅]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text76" Left="3874.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.冷卻篩餅開始時間]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text78" Left="3969" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.冷卻篩餅結束時間]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text80" Left="4063.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.冷卻篩餅工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text82" Left="4158" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.排餅/裝罐]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text84" Left="4252.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.排餅/裝罐開始時間]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text86" Left="4347" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.排餅/裝罐結束時間]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text88" Left="4441.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.排餅/裝罐工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text90" Left="4536" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.包裝機]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text92" Left="4630.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.包裝機開始時間]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text94" Left="4725" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.包裝機結束時間]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text96" Left="4819.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.包裝機工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text98" Left="4914" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.包裝篩餅]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text100" Left="5008.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.包裝篩餅開始時間]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text102" Left="5103" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.包裝篩餅結束時間]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text104" Left="5197.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.包裝篩餅工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text106" Left="5292" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.裝箱]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text108" Left="5386.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.裝箱開始時間]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text110" Left="5481" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.裝箱結束時間]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text112" Left="5575.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.裝箱工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text114" Left="5670" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.撿餅]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text116" Left="5764.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.撿餅開始時間]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text118" Left="5859" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.撿餅結束時間]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text120" Left="5953.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.撿餅工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text122" Left="6048" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.秤重]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text124" Left="6142.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.秤重開始時間]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text126" Left="6237" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.秤重結束時間]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text128" Left="6331.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.秤重工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text130" Left="6426" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.外裝箱]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text132" Left="6520.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.外裝箱開始時間]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text134" Left="6615" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.外裝箱結束時間]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text136" Left="6709.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.外裝箱工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text138" Left="6804" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.封箱]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text140" Left="6898.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.封箱開始時間]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text142" Left="6993" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.封箱結束時間]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text144" Left="7087.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.封箱工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text146" Left="7182" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.倒餅]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text148" Left="7276.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.倒餅開始時間]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text150" Left="7371" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.倒餅結束時間]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text152" Left="7465.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.倒餅工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text154" Left="7560" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.封盒機]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text156" Left="7654.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.封盒機開始時間]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text158" Left="7749" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.封盒機結束時間]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text160" Left="7843.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.封盒機工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text22" Left="1134" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text24" Left="1228.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.平均工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text26" Left="1323" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.水麵攪拌]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text28" Left="1417.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.水麵攪拌開始時間]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text30" Left="1512" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.水麵攪拌結束時間]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text32" Left="1606.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.水麵攪拌工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text34" Left="1701" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.油酥攪拌]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text36" Left="1795.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.油酥攪拌開始時間]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text38" Left="1890" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.油酥攪拌結束時間]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text40" Left="1984.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.油酥攪拌工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text42" Left="2079" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.摺疊]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text44" Left="2173.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.摺疊開始時間]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text46" Left="2268" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.摺疊結束時間]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text48" Left="2362.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.摺疊工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text50" Left="2457" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.舖餅]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text52" Left="2551.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.舖餅開始時間]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text54" Left="2646" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.舖餅結束時間]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text56" Left="2740.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.舖餅工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text58" Left="2835" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.成型/烘烤]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text60" Left="2929.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.成型/烘烤開始時間]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text90" Left="4347" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.包裝機]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text92" Left="4441.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.包裝機開始時間]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text94" Left="4536" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.包裝機結束時間]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text96" Left="4630.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.包裝機工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text98" Left="4725" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.包裝篩餅]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text100" Left="4819.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.包裝篩餅開始時間]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text102" Left="4914" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.包裝篩餅結束時間]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text104" Left="5008.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.包裝篩餅工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text106" Left="5103" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.裝箱]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text108" Left="5197.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.裝箱開始時間]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text110" Left="5292" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.裝箱結束時間]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text112" Left="5386.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.裝箱工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text114" Left="5481" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.撿餅]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text116" Left="5575.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.撿餅開始時間]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text118" Left="5670" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.撿餅結束時間]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text120" Left="5764.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.撿餅工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text122" Left="5859" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.秤重]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text124" Left="5953.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.秤重開始時間]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text126" Left="6048" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.秤重結束時間]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text128" Left="6142.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.秤重工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text130" Left="6237" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.外裝箱]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text132" Left="6331.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.外裝箱開始時間]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text134" Left="6426" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.外裝箱結束時間]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text136" Left="6520.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.外裝箱工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text138" Left="6615" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.封箱]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text140" Left="6709.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.封箱開始時間]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text142" Left="6804" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.封箱結束時間]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text144" Left="6898.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.封箱工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text146" Left="6993" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.倒餅]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text148" Left="7087.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.倒餅開始時間]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text150" Left="7182" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.倒餅結束時間]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text152" Left="7276.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.倒餅工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text154" Left="7371" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.封盒機]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text156" Left="7465.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.封盒機開始時間]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text158" Left="7560" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.封盒機結束時間]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text160" Left="7654.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.封盒機工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text62" Left="3024" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.成型/烘烤結束時間]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text64" Left="3118.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.成型/烘烤工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text66" Left="3213" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.烤箱篩餅]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text68" Left="3307.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.烤箱篩餅開始時間]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text70" Left="3402" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.烤箱篩餅結束時間]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text72" Left="3496.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.烤箱篩餅工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text74" Left="3591" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.冷卻篩餅]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text88" Left="4252.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.排餅/裝罐工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text76" Left="3685.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.冷卻篩餅開始時間]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text78" Left="3780" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.冷卻篩餅結束時間]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text80" Left="3874.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.冷卻篩餅工時]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text82" Left="3969" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.排餅/裝罐]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text84" Left="4063.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.排餅/裝罐開始時間]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text86" Left="4158" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.排餅/裝罐結束時間]" HorzAlign="Center" VertAlign="Center"/>
     </DataBand>
   </ReportPage>
 </Report>
