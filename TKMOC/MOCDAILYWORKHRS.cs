@@ -66,7 +66,7 @@ namespace TKMOC
             dt.Columns.Add("MD002", typeof(string));
             da.Fill(dt);
             comboBox1.DataSource = dt.DefaultView;
-            comboBox1.ValueMember = "MD002";
+            comboBox1.ValueMember = "MD001";
             comboBox1.DisplayMember = "MD002";
             sqlConn.Close();
 
@@ -656,93 +656,178 @@ namespace TKMOC
         {
             CALTIMES();
         }
+
+        private void textBox31_TextChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+        private void textBox41_TextChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void textBox51_TextChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void textBox61_TextChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void textBox71_TextChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void textBox81_TextChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void textBox91_TextChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void textBox101_TextChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void textBox111_TextChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void textBox121_TextChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void textBox131_TextChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void textBox32_TextChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+
+        }
+
+        private void textBox42_TextChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void textBox52_TextChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void textBox62_TextChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void textBox72_TextChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
+
+        private void textBox82_TextChanged(object sender, EventArgs e)
+        {
+            CALTIMES();
+        }
         public void CALTIMES()
         {
             TimeSpan TS = new TimeSpan();
            
 
-            if (Convert.ToDecimal(new TimeSpan(dateTimePicker3.Value.Ticks - dateTimePicker2.Value.Ticks).TotalHours)>0)
+            if (!string.IsNullOrEmpty(textBox31.Text) && Convert.ToDecimal(new TimeSpan(dateTimePicker3.Value.Ticks - dateTimePicker2.Value.Ticks).TotalHours)>0)
             {
-                numericUpDown31.Value = Convert.ToDecimal(new TimeSpan(dateTimePicker3.Value.Ticks - dateTimePicker2.Value.Ticks).TotalHours);
+                numericUpDown31.Value = Convert.ToDecimal(textBox31.Text) * Convert.ToDecimal(new TimeSpan(dateTimePicker3.Value.Ticks - dateTimePicker2.Value.Ticks).TotalHours);
             }
 
-            if (Convert.ToDecimal(new TimeSpan(dateTimePicker6.Value.Ticks - dateTimePicker5.Value.Ticks).TotalHours) > 0)
+            if (!string.IsNullOrEmpty(textBox41.Text) && Convert.ToDecimal(new TimeSpan(dateTimePicker6.Value.Ticks - dateTimePicker5.Value.Ticks).TotalHours) > 0)
             {
-                numericUpDown41.Value = Convert.ToDecimal(new TimeSpan(dateTimePicker6.Value.Ticks - dateTimePicker5.Value.Ticks).TotalHours);
+                numericUpDown41.Value = Convert.ToDecimal(textBox41.Text) * Convert.ToDecimal(new TimeSpan(dateTimePicker6.Value.Ticks - dateTimePicker5.Value.Ticks).TotalHours);
             }
-            if (Convert.ToDecimal(new TimeSpan(dateTimePicker8.Value.Ticks - dateTimePicker7.Value.Ticks).TotalHours) > 0)
+            if (!string.IsNullOrEmpty(textBox51.Text) && Convert.ToDecimal(new TimeSpan(dateTimePicker8.Value.Ticks - dateTimePicker7.Value.Ticks).TotalHours) > 0)
             {
-                numericUpDown51.Value = Convert.ToDecimal(new TimeSpan(dateTimePicker8.Value.Ticks - dateTimePicker7.Value.Ticks).TotalHours);
+                numericUpDown51.Value = Convert.ToDecimal(textBox51.Text) * Convert.ToDecimal(new TimeSpan(dateTimePicker8.Value.Ticks - dateTimePicker7.Value.Ticks).TotalHours);
                
             }
-            if (Convert.ToDecimal(new TimeSpan(dateTimePicker10.Value.Ticks - dateTimePicker9.Value.Ticks).TotalHours) > 0)
+            if (!string.IsNullOrEmpty(textBox61.Text) && Convert.ToDecimal(new TimeSpan(dateTimePicker10.Value.Ticks - dateTimePicker9.Value.Ticks).TotalHours) > 0)
             {
-                numericUpDown61.Value = Convert.ToDecimal(new TimeSpan(dateTimePicker10.Value.Ticks - dateTimePicker9.Value.Ticks).TotalHours);
+                numericUpDown61.Value = Convert.ToDecimal(textBox61.Text) * Convert.ToDecimal(new TimeSpan(dateTimePicker10.Value.Ticks - dateTimePicker9.Value.Ticks).TotalHours);
                
             }
-            if (Convert.ToDecimal(new TimeSpan(dateTimePicker12.Value.Ticks - dateTimePicker11.Value.Ticks).TotalHours) > 0)
+            if (!string.IsNullOrEmpty(textBox71.Text) && Convert.ToDecimal(new TimeSpan(dateTimePicker12.Value.Ticks - dateTimePicker11.Value.Ticks).TotalHours) > 0)
             {
-                numericUpDown71.Value = Convert.ToDecimal(new TimeSpan(dateTimePicker12.Value.Ticks - dateTimePicker11.Value.Ticks).TotalHours);
+                numericUpDown71.Value = Convert.ToDecimal(textBox71.Text) * Convert.ToDecimal(new TimeSpan(dateTimePicker12.Value.Ticks - dateTimePicker11.Value.Ticks).TotalHours);
                 
             }
-            if (Convert.ToDecimal(new TimeSpan(dateTimePicker14.Value.Ticks - dateTimePicker13.Value.Ticks).TotalHours) > 0)
+            if (!string.IsNullOrEmpty(textBox81.Text) && Convert.ToDecimal(new TimeSpan(dateTimePicker14.Value.Ticks - dateTimePicker13.Value.Ticks).TotalHours) > 0)
             {
-                numericUpDown81.Value = Convert.ToDecimal(new TimeSpan(dateTimePicker14.Value.Ticks - dateTimePicker13.Value.Ticks).TotalHours);
+                numericUpDown81.Value = Convert.ToDecimal(textBox81.Text) * Convert.ToDecimal(new TimeSpan(dateTimePicker14.Value.Ticks - dateTimePicker13.Value.Ticks).TotalHours);
                
             }
-            if (Convert.ToDecimal(new TimeSpan(dateTimePicker16.Value.Ticks - dateTimePicker15.Value.Ticks).TotalHours) > 0)
+            if (!string.IsNullOrEmpty(textBox91.Text) && Convert.ToDecimal(new TimeSpan(dateTimePicker16.Value.Ticks - dateTimePicker15.Value.Ticks).TotalHours) > 0)
             {
-                numericUpDown91.Value = Convert.ToDecimal(new TimeSpan(dateTimePicker16.Value.Ticks - dateTimePicker15.Value.Ticks).TotalHours);
+                numericUpDown91.Value = Convert.ToDecimal(textBox91.Text) * Convert.ToDecimal(new TimeSpan(dateTimePicker16.Value.Ticks - dateTimePicker15.Value.Ticks).TotalHours);
                
             }
-            if (Convert.ToDecimal(new TimeSpan(dateTimePicker18.Value.Ticks - dateTimePicker17.Value.Ticks).TotalHours) > 0)
+            if (!string.IsNullOrEmpty(textBox101.Text) && Convert.ToDecimal(new TimeSpan(dateTimePicker18.Value.Ticks - dateTimePicker17.Value.Ticks).TotalHours) > 0)
             {
-                numericUpDown101.Value = Convert.ToDecimal(new TimeSpan(dateTimePicker18.Value.Ticks - dateTimePicker17.Value.Ticks).TotalHours);
+                numericUpDown101.Value = Convert.ToDecimal(textBox101.Text) * Convert.ToDecimal(new TimeSpan(dateTimePicker18.Value.Ticks - dateTimePicker17.Value.Ticks).TotalHours);
                 
             }
-            if (Convert.ToDecimal(new TimeSpan(dateTimePicker20.Value.Ticks - dateTimePicker19.Value.Ticks).TotalHours) > 0)
+            if (!string.IsNullOrEmpty(textBox111.Text) && Convert.ToDecimal(new TimeSpan(dateTimePicker20.Value.Ticks - dateTimePicker19.Value.Ticks).TotalHours) > 0)
             {
-                numericUpDown111.Value = Convert.ToDecimal(new TimeSpan(dateTimePicker20.Value.Ticks - dateTimePicker19.Value.Ticks).TotalHours);
+                numericUpDown111.Value = Convert.ToDecimal(textBox111.Text) * Convert.ToDecimal(new TimeSpan(dateTimePicker20.Value.Ticks - dateTimePicker19.Value.Ticks).TotalHours);
                
             }
-            if (Convert.ToDecimal(new TimeSpan(dateTimePicker22.Value.Ticks - dateTimePicker21.Value.Ticks).TotalHours) > 0)
+            if (!string.IsNullOrEmpty(textBox121.Text) && Convert.ToDecimal(new TimeSpan(dateTimePicker22.Value.Ticks - dateTimePicker21.Value.Ticks).TotalHours) > 0)
             {
-                numericUpDown121.Value = Convert.ToDecimal(new TimeSpan(dateTimePicker22.Value.Ticks - dateTimePicker21.Value.Ticks).TotalHours);
+                numericUpDown121.Value = Convert.ToDecimal(textBox121.Text) * Convert.ToDecimal(new TimeSpan(dateTimePicker22.Value.Ticks - dateTimePicker21.Value.Ticks).TotalHours);
                 
             }
-            if (Convert.ToDecimal(new TimeSpan(dateTimePicker24.Value.Ticks - dateTimePicker23.Value.Ticks).TotalHours) > 0)
+            if (!string.IsNullOrEmpty(textBox131.Text) && Convert.ToDecimal(new TimeSpan(dateTimePicker24.Value.Ticks - dateTimePicker23.Value.Ticks).TotalHours) > 0)
             {
-                numericUpDown131.Value = Convert.ToDecimal(new TimeSpan(dateTimePicker24.Value.Ticks - dateTimePicker23.Value.Ticks).TotalHours);
+                numericUpDown131.Value = Convert.ToDecimal(textBox131.Text) * Convert.ToDecimal(new TimeSpan(dateTimePicker24.Value.Ticks - dateTimePicker23.Value.Ticks).TotalHours);
 
               
             }
-            if (Convert.ToDecimal(new TimeSpan(dateTimePicker26.Value.Ticks - dateTimePicker25.Value.Ticks).TotalHours) > 0)
+            if (!string.IsNullOrEmpty(textBox32.Text) && Convert.ToDecimal(new TimeSpan(dateTimePicker26.Value.Ticks - dateTimePicker25.Value.Ticks).TotalHours) > 0)
             {
-                numericUpDown32.Value = Convert.ToDecimal(new TimeSpan(dateTimePicker26.Value.Ticks - dateTimePicker25.Value.Ticks).TotalHours);
+                numericUpDown32.Value = Convert.ToDecimal(textBox32.Text) * Convert.ToDecimal(new TimeSpan(dateTimePicker26.Value.Ticks - dateTimePicker25.Value.Ticks).TotalHours);
               
             }
-            if (Convert.ToDecimal(new TimeSpan(dateTimePicker28.Value.Ticks - dateTimePicker27.Value.Ticks).TotalHours) > 0)
+            if (!string.IsNullOrEmpty(textBox42.Text) && Convert.ToDecimal(new TimeSpan(dateTimePicker28.Value.Ticks - dateTimePicker27.Value.Ticks).TotalHours) > 0)
             {
-                numericUpDown42.Value = Convert.ToDecimal(new TimeSpan(dateTimePicker28.Value.Ticks - dateTimePicker27.Value.Ticks).TotalHours);
+                numericUpDown42.Value = Convert.ToDecimal(textBox42.Text) * Convert.ToDecimal(new TimeSpan(dateTimePicker28.Value.Ticks - dateTimePicker27.Value.Ticks).TotalHours);
                
             }
-            if (Convert.ToDecimal(new TimeSpan(dateTimePicker30.Value.Ticks - dateTimePicker29.Value.Ticks).TotalHours) > 0)
+            if (!string.IsNullOrEmpty(textBox52.Text) && Convert.ToDecimal(new TimeSpan(dateTimePicker30.Value.Ticks - dateTimePicker29.Value.Ticks).TotalHours) > 0)
             {
-                numericUpDown52.Value = Convert.ToDecimal(new TimeSpan(dateTimePicker30.Value.Ticks - dateTimePicker29.Value.Ticks).TotalHours);
+                numericUpDown52.Value = Convert.ToDecimal(textBox52.Text) * Convert.ToDecimal(new TimeSpan(dateTimePicker30.Value.Ticks - dateTimePicker29.Value.Ticks).TotalHours);
               
             }
-            if (Convert.ToDecimal(new TimeSpan(dateTimePicker32.Value.Ticks - dateTimePicker31.Value.Ticks).TotalHours) > 0)
+            if (!string.IsNullOrEmpty(textBox62.Text) && Convert.ToDecimal(new TimeSpan(dateTimePicker32.Value.Ticks - dateTimePicker31.Value.Ticks).TotalHours) > 0)
             {
-                numericUpDown62.Value = Convert.ToDecimal(new TimeSpan(dateTimePicker32.Value.Ticks - dateTimePicker31.Value.Ticks).TotalHours);
+                numericUpDown62.Value = Convert.ToDecimal(textBox62.Text) * Convert.ToDecimal(new TimeSpan(dateTimePicker32.Value.Ticks - dateTimePicker31.Value.Ticks).TotalHours);
                 
             }
-            if (Convert.ToDecimal(new TimeSpan(dateTimePicker34.Value.Ticks - dateTimePicker33.Value.Ticks).TotalHours) > 0)
+            if (!string.IsNullOrEmpty(textBox72.Text) && Convert.ToDecimal(new TimeSpan(dateTimePicker34.Value.Ticks - dateTimePicker33.Value.Ticks).TotalHours) > 0)
             {               
-                numericUpDown72.Value = Convert.ToDecimal(new TimeSpan(dateTimePicker34.Value.Ticks - dateTimePicker33.Value.Ticks).TotalHours);
+                numericUpDown72.Value = Convert.ToDecimal(textBox72.Text) * Convert.ToDecimal(new TimeSpan(dateTimePicker34.Value.Ticks - dateTimePicker33.Value.Ticks).TotalHours);
                             }
-            if (Convert.ToDecimal(new TimeSpan(dateTimePicker36.Value.Ticks - dateTimePicker35.Value.Ticks).TotalHours) > 0)
+            if (!string.IsNullOrEmpty(textBox82.Text) && Convert.ToDecimal(new TimeSpan(dateTimePicker36.Value.Ticks - dateTimePicker35.Value.Ticks).TotalHours) > 0)
             {
-                numericUpDown82.Value = Convert.ToDecimal(new TimeSpan(dateTimePicker36.Value.Ticks - dateTimePicker35.Value.Ticks).TotalHours);
+                numericUpDown82.Value = Convert.ToDecimal(textBox82.Text) * Convert.ToDecimal(new TimeSpan(dateTimePicker36.Value.Ticks - dateTimePicker35.Value.Ticks).TotalHours);
 
             }
 
@@ -1141,8 +1226,10 @@ namespace TKMOC
 
 
 
+
+
         #endregion
 
-
+      
     }
 }
