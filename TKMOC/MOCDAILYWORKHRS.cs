@@ -984,23 +984,23 @@ namespace TKMOC
         {
             textBox11.Text = null;
             textBox12.Text = null;
-            textBox31.Text = null;
-            textBox41.Text = null;
-            textBox51.Text = null;
-            textBox61.Text = null;
-            textBox71.Text = null;
-            textBox81.Text = null;
-            textBox91.Text = null;
-            textBox101.Text = null;
-            textBox111.Text = null;
-            textBox121.Text = null;
-            textBox131.Text = null;
-            textBox32.Text = null;
-            textBox42.Text = null;
-            textBox52.Text = null;
-            textBox62.Text = null;
-            textBox72.Text = null;
-            textBox82.Text = null;
+            textBox31.Text = "0";
+            textBox41.Text = "0";
+            textBox51.Text = "0";
+            textBox61.Text = "0";
+            textBox71.Text = "0";
+            textBox81.Text = "0";
+            textBox91.Text = "0";
+            textBox101.Text = "0";
+            textBox111.Text = "0";
+            textBox121.Text = "0";
+            textBox131.Text = "0";
+            textBox32.Text = "0";
+            textBox42.Text = "0";
+            textBox52.Text = "0";
+            textBox62.Text = "0";
+            textBox72.Text = "0";
+            textBox82.Text = "0";
 
             textBox21.Text = null;
             textBox22.Text = null;
@@ -1254,7 +1254,51 @@ namespace TKMOC
 
         public void UPDATECSTMB(string MB001, string MB002, string MB003, string MB004, string MB005, string MB006, string MB007)
         {
+            try
+            {
+                //add ZWAREWHOUSEPURTH
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
 
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+               
+                sbSql.AppendFormat("  UPDATE [TK].[dbo].[CSTMB]");
+                sbSql.AppendFormat("  SET [MB005]='{0}',[MB006]='{1}'",MB005,MB006);
+                sbSql.AppendFormat("  WHERE [MB003]='{0}' AND [MB004]='{1}'",MB003,MB004);
+                sbSql.AppendFormat("  ");
+                sbSql.AppendFormat("  ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
         }
 
         public DATACSTMB SETCSTMB()
@@ -1385,6 +1429,8 @@ namespace TKMOC
                , textBox72.Text, dateTimePicker33.Value.ToString("HH:mm"), dateTimePicker34.Value.ToString("HH:mm"), numericUpDown72.Value.ToString()
                , textBox82.Text, dateTimePicker35.Value.ToString("HH:mm"), dateTimePicker36.Value.ToString("HH:mm"), numericUpDown82.Value.ToString()
                );
+
+                UPDATECSTMB(comboBox1.SelectedValue.ToString().Trim(), dateTimePicker4.Value.ToString("yyyyMMdd"), textBox11.Text.Trim(), textBox12.Text.Trim(), numericUpDown11.Value.ToString(), "0", textBox21.Text.Trim());
             }
 
             STATUS = null;
