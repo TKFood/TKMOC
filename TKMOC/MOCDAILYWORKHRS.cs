@@ -47,7 +47,59 @@ namespace TKMOC
             comboBox1load();
 
         }
+        public class DATACSTMB
+        {
+            public string COMPANY;
+            public string CREATOR;
+            public string USR_GROUP;
+            public string CREATE_DATE;
+            public string MODIFIER;
+            public string MODI_DATE;
+            public string FLAG;
+            public string CREATE_TIME;
+            public string MODI_TIME;
+            public string TRANS_TYPE;
+            public string TRANS_NAME;
+            public string sync_date;
+            public string sync_time;
+            public string sync_mark;
+            public string sync_count;
+            public string DataUser;
+            public string DataGroup;
+            public string MB001;
+            public string MB002;
+            public string MB003;
+            public string MB004;
+            public string MB005;
+            public string MB006;
+            public string MB007;
+            public string MB008;
+            public string MB009;
+            public string MB010;
+            public string MB011;
+            public string MB012;
+            public string MB013;
+            public string MB014;
+            public string MB015;
+            public string MB016;
+            public string MB017;
+            public string MB018;
+            public string MB019;
+            public string MB020;
+            public string MB021;
+            public string MB022;
+            public string UDF01;
+            public string UDF02;
+            public string UDF03;
+            public string UDF04;
+            public string UDF05;
+            public string UDF06;
+            public string UDF07;
+            public string UDF08;
+            public string UDF09;
+            public string UDF10;
 
+        }
 
 
         #region FUNCTION
@@ -949,6 +1001,11 @@ namespace TKMOC
             textBox62.Text = null;
             textBox72.Text = null;
             textBox82.Text = null;
+
+            textBox21.Text = null;
+            textBox22.Text = null;
+            textBox23.Text = null;
+            textBox24.Text = null;
         }
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
@@ -1125,6 +1182,139 @@ namespace TKMOC
             return SB;
 
         }
+
+        public void ADDCSTMB(string MB001,string MB002,string MB003,string MB004,string MB005,string MB006, string MB007)
+        {
+            DATACSTMB CSTMB = new DATACSTMB();
+            CSTMB = SETCSTMB();
+
+            try
+            {
+                //add ZWAREWHOUSEPURTH
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat("  INSERT INTO  [TK].[dbo].[CSTMB]");
+                sbSql.AppendFormat("  (");
+                sbSql.AppendFormat("  [COMPANY],[CREATOR],[USR_GROUP],[CREATE_DATE],[MODIFIER],[MODI_DATE],[FLAG],[CREATE_TIME],[MODI_TIME],[TRANS_TYPE]");
+                sbSql.AppendFormat("  ,[TRANS_NAME],[sync_date],[sync_time],[sync_mark],[sync_count],[DataUser],[DataGroup]");
+                sbSql.AppendFormat("  ,[MB001],[MB002],[MB003],[MB004],[MB005],[MB006],[MB007],[MB008],[MB009],[MB010]");
+                sbSql.AppendFormat("  ,[MB011],[MB012],[MB013],[MB014],[MB015],[MB016],[MB017],[MB018],[MB019],[MB020]");
+                sbSql.AppendFormat("  ,[MB021],[MB022]");
+                sbSql.AppendFormat("  ,[UDF01],[UDF02],[UDF03],[UDF04],[UDF05],[UDF06],[UDF07],[UDF08],[UDF09],[UDF10]");
+                sbSql.AppendFormat("  )");
+                sbSql.AppendFormat("  VALUES");
+                sbSql.AppendFormat("  (");
+                sbSql.AppendFormat("  '{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}'", CSTMB.COMPANY, CSTMB.CREATOR, CSTMB.USR_GROUP, MB002, CSTMB.MODIFIER, CSTMB.MODI_DATE, CSTMB.FLAG, CSTMB.CREATE_TIME, CSTMB.MODI_TIME, CSTMB.TRANS_TYPE);
+                sbSql.AppendFormat("  ,'{0}','{1}','{2}','{3}','{4}','{5}','{6}'", CSTMB.TRANS_NAME, CSTMB.sync_date, CSTMB.sync_time, CSTMB.sync_mark, CSTMB.sync_count, CSTMB.DataUser, CSTMB.DataGroup);
+                sbSql.AppendFormat("  ,'{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}'", MB001, MB002,MB003, MB004, MB005, MB006, MB007, CSTMB.MB008, CSTMB.MB009, CSTMB.MB010);
+                sbSql.AppendFormat("  ,'{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}'", CSTMB.MB011, CSTMB.MB012, CSTMB.MB013, CSTMB.MB014, CSTMB.MB015, CSTMB.MB016, CSTMB.MB017, CSTMB.MB018, CSTMB.MB019, CSTMB.MB020);
+                sbSql.AppendFormat("  ,'{0}','{1}'", CSTMB.MB021, CSTMB.MB022);
+                sbSql.AppendFormat("  ,'{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}'", CSTMB.UDF01, CSTMB.UDF02, CSTMB.UDF03, CSTMB.UDF04, CSTMB.UDF05, CSTMB.UDF06, CSTMB.UDF07, CSTMB.UDF08, CSTMB.UDF09, CSTMB.UDF10);
+                sbSql.AppendFormat("  )");
+                sbSql.AppendFormat("  ");
+                sbSql.AppendFormat("  ");
+                sbSql.AppendFormat("  ");
+                sbSql.AppendFormat("  ");
+                sbSql.AppendFormat("  ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void UPDATECSTMB(string MB001, string MB002, string MB003, string MB004, string MB005, string MB006, string MB007)
+        {
+
+        }
+
+        public DATACSTMB SETCSTMB()
+        {
+            DATACSTMB CSTMB = new DATACSTMB();
+            CSTMB.COMPANY = "TK";
+            CSTMB.CREATOR = "100008";
+            CSTMB.USR_GROUP = "103000";
+            CSTMB.CREATE_DATE = "";
+            CSTMB.MODIFIER = "";
+            CSTMB.MODI_DATE = "";
+            CSTMB.FLAG = "1";
+            CSTMB.CREATE_TIME = DateTime.Now.ToString("HH:mm:ss");
+            CSTMB.MODI_TIME = "";
+            CSTMB.TRANS_TYPE = "P001";
+            CSTMB.TRANS_NAME = "CSTI02";
+            CSTMB.sync_date = "";
+            CSTMB.sync_time = DateTime.Now.ToString("HH:mm:ss");
+            CSTMB.sync_mark = "";
+            CSTMB.sync_count = "0";
+            CSTMB.DataUser = "";
+            CSTMB.DataGroup = "103000";
+            CSTMB.MB001 = "";
+            CSTMB.MB002 = "";
+            CSTMB.MB003 = "";
+            CSTMB.MB004 = "";
+            CSTMB.MB005 = "";
+            CSTMB.MB006 = "0";
+            CSTMB.MB007 = "";
+            CSTMB.MB008 = "0";
+            CSTMB.MB009 = "0";
+            CSTMB.MB010 = "";
+            CSTMB.MB011 = "";
+            CSTMB.MB012 = "";
+            CSTMB.MB013 = "0";
+            CSTMB.MB014 = "0";
+            CSTMB.MB015 = "0";
+            CSTMB.MB016 = "0";
+            CSTMB.MB017 = "";
+            CSTMB.MB018 = "";
+            CSTMB.MB019 = "";
+            CSTMB.MB020 = "";
+            CSTMB.MB021 = "";
+            CSTMB.MB022 = "";
+            CSTMB.UDF01 = "";
+            CSTMB.UDF02 = "";
+            CSTMB.UDF03 = "";
+            CSTMB.UDF04 = "";
+            CSTMB.UDF05 = "";
+            CSTMB.UDF06 = "0";
+            CSTMB.UDF07 = "0";
+            CSTMB.UDF08 = "0";
+            CSTMB.UDF09 = "0";
+            CSTMB.UDF10 = "0";
+
+
+            return CSTMB;
+        }
+
+
         #endregion
 
         #region BUTTON
@@ -1170,6 +1360,8 @@ namespace TKMOC
                 , textBox72.Text, dateTimePicker33.Value.ToString("HH:mm"), dateTimePicker34.Value.ToString("HH:mm"), numericUpDown72.Value.ToString()
                 , textBox82.Text, dateTimePicker35.Value.ToString("HH:mm"), dateTimePicker36.Value.ToString("HH:mm"), numericUpDown82.Value.ToString()
                 );
+
+                ADDCSTMB(comboBox1.SelectedValue.ToString().Trim(),dateTimePicker4.Value.ToString("yyyyMMdd"),textBox11.Text.Trim(),textBox12.Text.Trim(),numericUpDown11.Value.ToString(),"0",textBox21.Text.Trim());
             }
             else if(STATUS.Equals("EDIT"))
             {
