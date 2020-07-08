@@ -234,7 +234,7 @@ namespace TKMOC
                 sbSqlQuery.Clear();
 
 
-                sbSql.AppendFormat(@" SELECT TA006,TA034,TA015,TA017 FROM [TK].dbo.MOCTA WHERE TA001='{0}' AND TA002='{1}' ", TA001,TA002);
+                sbSql.AppendFormat(@" SELECT TA006,TA034,TA015,TA017,TA021 FROM [TK].dbo.MOCTA WHERE TA001='{0}' AND TA002='{1}' ", TA001,TA002);
                 sbSql.AppendFormat(@"  ");
                 sbSql.AppendFormat(@"  ");
 
@@ -259,6 +259,8 @@ namespace TKMOC
                         textBox22.Text = ds1.Tables["ds1"].Rows[0]["TA034"].ToString();
                         textBox23.Text = ds1.Tables["ds1"].Rows[0]["TA017"].ToString();
                         textBox24.Text = ds1.Tables["ds1"].Rows[0]["TA015"].ToString();
+
+                        comboBox1.SelectedValue= ds1.Tables["ds1"].Rows[0]["TA021"].ToString();
 
                     }
                 }
