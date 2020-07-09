@@ -205,7 +205,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  AND LA001='{0}' ",MD003);
                 sbSql.AppendFormat(@"  GROUP BY LA001,MB002,MB004");
                 sbSql.AppendFormat(@"  UNION");
-                sbSql.AppendFormat(@"  SELECT '1手動進貨',CONVERT(NVARCHAR,INVPURUESD.DATES,112),INVPURUESD.MB001,MB002,NUM ,MB004,NULL,NULL,NULL,NULL,NULL,NULL");
+                sbSql.AppendFormat(@"  SELECT '1手動進出貨',CONVERT(NVARCHAR,INVPURUESD.DATES,112),INVPURUESD.MB001,MB002,NUM ,MB004,NULL,NULL,NULL,NULL,NULL,NULL");
                 sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB,[TKMOC].dbo.INVPURUESD ");
                 sbSql.AppendFormat(@"  WHERE INVMB.MB001=INVPURUESD.MB001");
                 sbSql.AppendFormat(@"  AND INVPURUESD.DATES>='{0}' AND INVPURUESD.DATES<='{1}'", SDay, EDay);
@@ -248,7 +248,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  AND LA001='{0}' ", MD003);
                 sbSql.AppendFormat(@"  GROUP BY LA001,MB002,MB004");
                 sbSql.AppendFormat(@"  UNION");
-                sbSql.AppendFormat(@"  SELECT '1手動進貨',CONVERT(NVARCHAR,INVPURUESD.DATES,112),INVPURUESD.MB001,MB002,NUM ,MB004,NULL,NULL,NULL,NULL,NULL,NULL");
+                sbSql.AppendFormat(@"  SELECT '1手動進出貨',CONVERT(NVARCHAR,INVPURUESD.DATES,112),INVPURUESD.MB001,MB002,NUM ,MB004,NULL,NULL,NULL,NULL,NULL,NULL");
                 sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB,[TKMOC].dbo.INVPURUESD ");
                 sbSql.AppendFormat(@"  WHERE INVMB.MB001=INVPURUESD.MB001");
                 sbSql.AppendFormat(@"  AND INVPURUESD.DATES>='{0}' AND INVPURUESD.DATES<='{1}'", SDay, EDay);
@@ -371,11 +371,59 @@ namespace TKMOC
                 sbSql.Clear();
 
 
-                sbSql.AppendFormat(" DELETE [TKMOC].[dbo].[INVPURUESD]");
+                //sbSql.AppendFormat(" DELETE [TKMOC].[dbo].[INVPURUESD]");
                 sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[INVPURUESD]");
                 sbSql.AppendFormat(" ([KIND],[DATES],[MB001],[NUM])");
                 sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}','{3}')",KIND,DATES,MB001,NUM);
                 sbSql.AppendFormat(" ");
+                sbSql.AppendFormat(" ");
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+        
+        public void DELINVPURUESD(string MB001)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+
+                sbSql.AppendFormat(" DELETE [TKMOC].[dbo].[INVPURUESD]");               
+                sbSql.AppendFormat(" WHERE MB001='{0}'",MB001);
                 sbSql.AppendFormat(" ");
 
 
@@ -435,6 +483,19 @@ namespace TKMOC
             }
 
             SEARCHINVPURMOC(MD003, dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+        }
+        private void button4_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show(MD003+" 要刪除了?", MD003+ " 要刪除了?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                DELINVPURUESD(MD003);
+                SEARCHINVPURMOC(MD003, dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                //do something else
+            }
         }
 
         #endregion
