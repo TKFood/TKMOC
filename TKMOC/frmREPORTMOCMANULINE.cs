@@ -2770,7 +2770,7 @@ namespace TKMOC
             SB.AppendFormat(@"  AND TD013>='{0}' AND  TD013<='{1}'", dateTimePicker15.Value.ToString("yyyyMMdd"), dateTimePicker16.Value.ToString("yyyyMMdd"));
             SB.AppendFormat(@"  ORDER BY TC053,TD013,TD001,TD002,TD003");
             SB.AppendFormat(@"   ");
-            SB.AppendFormat(@"  ");
+            SB.AppendFormat(@"   ");
             SB.AppendFormat(@"  ");
 
 

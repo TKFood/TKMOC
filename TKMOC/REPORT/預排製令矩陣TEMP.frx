@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="06/16/2020 15:46:56" ReportInfo.Modified="07/09/2020 16:25:10" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="06/16/2020 15:46:56" ReportInfo.Modified="07/09/2020 16:58:35" ReportInfo.CreatorVersion="2016.4.4.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -27,14 +27,20 @@ namespace FastReport
     private void Cell36_BeforePrint(object sender, EventArgs e)
     {
       //Cell36.Text=Cell36.Text+&quot;/33-&quot;+(Convert.ToDecimal(Cell36.Text)/33).ToString()+&quot;%&quot;;
-      Cell36.Text=Cell36.Text+&quot;\n 33-&quot;;
-           
+      //Cell36.Text=Cell36.Text+&quot;\n 33-&quot;;
+     
+      
+    }
+
+    private void Matrix1_ManualBuild(object sender, EventArgs e)
+    {
+     
     }
   }
 }
 </ScriptText>
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9IK1HLmaadIR42kzGp+jWMl">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9JhHzKDnGmIu2ULac8PTAOK">
       <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT  [MOCMANULINE].[MANU] ,CONVERT(nvarchar,[MOCMANULINE].[MANUDATE],112) MANUDATE,[MOCMANULINE].[MB002]&#13;&#10;,ISNULL([MOCMANULINE].[BAR],0) BAR,ISNULL([MOCMANULINE].[NUM],0) NUM,ISNULL([MOCMANULINE].[PACKAGE],0) PACKAGE&#13;&#10;,[MOCMANULINE].[COPTD001]+' '+[MOCMANULINE].[COPTD002]+' '+[MOCMANULINE].[COPTD003] AS TD00123&#13;&#10;,[COPTC].TC053,[CMSMV].MV002&#13;&#10;,ISNULL([MOCMANULINERESULT].[MOCTA001],'')+ISNULL([MOCMANULINERESULT].[MOCTA002],'')+ISNULL([MOCTA].TA001,'')+ISNULL([MOCTA].TA002,'') AS 'MOCTA001002'&#13;&#10;,(SELECT ISNULL(SUM(TG011),0) FROM  [TK].dbo.[MOCTG] WHERE TG014=[MOCMANULINERESULT].[MOCTA001] AND TG015=[MOCMANULINERESULT].[MOCTA002]) AS '入庫量'&#13;&#10;,[MOCMANULINEMERGE].[NO],[MOCTA].TA033&#13;&#10;,ISNULL([MOCMANULINERESULT].[MOCTA001],'') AS MOCTA001A,ISNULL([MOCMANULINERESULT].[MOCTA002],'')  AS MOCTA002A,ISNULL([MOCTA].TA001,'')  AS MOCTA001B,ISNULL([MOCTA].TA002,'')  AS MOCTA002B&#13;&#10;FROM [TKMOC].[dbo].[MOCMANULINE]&#13;&#10;LEFT JOIN [TK].dbo.[COPTD] ON [MOCMANULINE].[COPTD001]=[COPTD].TD001 AND [MOCMANULINE].[COPTD002]=[COPTD].TD002 AND[MOCMANULINE].[COPTD003]=[COPTD].TD003 &#13;&#10;LEFT JOIN [TK].dbo.[COPTC] ON [COPTD].TD001=[COPTC].TC001 AND [COPTD].TD002=[COPTC].TC002&#13;&#10;LEFT JOIN [TK].dbo.[CMSMV] ON [CMSMV].MV001=[COPTC].TC006&#13;&#10;LEFT JOIN [TKMOC].[dbo].[MOCMANULINERESULT] ON [MOCMANULINERESULT].[SID]=[MOCMANULINE].[ID]&#13;&#10;LEFT JOIN [TKMOC].[dbo].[MOCMANULINEMERGE] ON [MOCMANULINEMERGE].[SID]=[MOCMANULINE].[ID]&#13;&#10;LEFT JOIN [TK].dbo.[MOCTA] ON [MOCTA].TA033=[MOCMANULINEMERGE].[NO]&#13;&#10;WHERE CONVERT(nvarchar,[MOCMANULINE].[MANUDATE],112)&gt;='20200701' AND CONVERT(nvarchar,[MOCMANULINE].[MANUDATE],112)&lt;='20200731'&#13;&#10;ORDER BY [MOCMANULINE].[MANU],CONVERT(nvarchar,[MOCMANULINE].[MANUDATE],112)">
         <Column Name="MANU" DataType="System.String"/>
         <Column Name="MANUDATE" DataType="System.String"/>
@@ -58,7 +64,7 @@ namespace FastReport
   </Dictionary>
   <ReportPage Name="Page1" Landscape="true" PaperWidth="5000" PaperHeight="5000">
     <DataBand Name="Data1" Width="18824.4" Height="107.45">
-      <MatrixObject Name="Matrix1" Width="811.98" Height="90.95" FixedRows="2" FixedColumns="8" CellsSideBySide="true" DataSource="Table">
+      <MatrixObject Name="Matrix1" Width="811.98" Height="90.95" FixedRows="2" FixedColumns="8" CellsSideBySide="true" DataSource="Table" ManualBuildEvent="Matrix1_ManualBuild">
         <MatrixColumns>
           <Header Expression="[Table.MANUDATE]"/>
         </MatrixColumns>
