@@ -1191,8 +1191,7 @@ namespace TKMOC
             CSTMB = SETCSTMB();
 
             try
-            {
-                //add ZWAREWHOUSEPURTH
+            {                
                 connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
                 sqlConn = new SqlConnection(connectionString);
 
@@ -1256,6 +1255,9 @@ namespace TKMOC
 
         public void UPDATECSTMB(string MB001, string MB002, string MB003, string MB004, string MB005, string MB006, string MB007)
         {
+            string WORKHRS = SERACHMOCDAILYWORKHRSWORKHRS(MB003, MB004);
+            MB005 = WORKHRS;
+
             try
             {
                 //add ZWAREWHOUSEPURTH
@@ -1360,6 +1362,119 @@ namespace TKMOC
             return CSTMB;
         }
 
+        public string CHEKCCSTMB(string TA001, string TA002)
+        {
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+
+            DataSet ds1 = new DataSet();
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  SELECT MB003+MB004 AS MB003004");
+                sbSql.AppendFormat(@"  FROM [TK].[dbo].[CSTMB]");
+                sbSql.AppendFormat(@"  WHERE MB003='{0} ' AND MB004='{1}'", TA001, TA002);
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "ds1");
+                sqlConn.Close();
+
+
+
+                if (ds1.Tables["ds1"].Rows.Count >= 1)
+                {
+                    return "UPDATE";
+                }
+                else if (ds1.Tables["ds1"].Rows.Count == 0)
+                {
+                    return "ADD";
+                }
+                else
+                {
+                    return "ADD";
+                }
+
+            }
+            catch
+            {
+                return "";
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+        public string SERACHMOCDAILYWORKHRSWORKHRS(string TA001,string TA002)
+        {
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+
+            DataSet ds1 = new DataSet();
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  SELECT ISNULL(SUM(WORKHRS),0) AS WORKHRS");
+                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCDAILYWORKHRS]");
+                sbSql.AppendFormat(@"  WHERE TA001='{0} ' AND TA002='{1}'",TA001,TA002);
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "ds1");
+                sqlConn.Close();
+
+
+
+                if (ds1.Tables["ds1"].Rows.Count >= 1)
+                {
+                    return ds1.Tables["ds1"].Rows[0]["WORKHRS"].ToString();
+                }
+                else if (ds1.Tables["ds1"].Rows.Count ==0)
+                {
+                    return "0";
+                }
+                else
+                {
+                    return "0";
+                }
+
+            }
+            catch
+            {
+                return "0";
+            }
+            finally
+            {          
+                sqlConn.Close();
+            }
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            dateTimePicker4.Value = dateTimePicker1.Value;
+        }
 
         #endregion
 
@@ -1407,7 +1522,17 @@ namespace TKMOC
                 , textBox82.Text, dateTimePicker35.Value.ToString("HH:mm"), dateTimePicker36.Value.ToString("HH:mm"), numericUpDown82.Value.ToString()
                 );
 
-                ADDCSTMB(comboBox1.SelectedValue.ToString().Trim(),dateTimePicker4.Value.ToString("yyyyMMdd"),textBox11.Text.Trim(),textBox12.Text.Trim(),numericUpDown11.Value.ToString(),"0",textBox21.Text.Trim());
+
+                string ADDYN = CHEKCCSTMB(textBox11.Text, textBox12.Text);
+                if(ADDYN.Equals("ADD"))
+                {
+                    ADDCSTMB(comboBox1.SelectedValue.ToString().Trim(), dateTimePicker4.Value.ToString("yyyyMMdd"), textBox11.Text.Trim(), textBox12.Text.Trim(), numericUpDown11.Value.ToString(), "0", textBox21.Text.Trim());
+                }
+                else if(ADDYN.Equals("UPDATE"))
+                {
+                    UPDATECSTMB(comboBox1.SelectedValue.ToString().Trim(), dateTimePicker4.Value.ToString("yyyyMMdd"), textBox11.Text.Trim(), textBox12.Text.Trim(), numericUpDown11.Value.ToString(), "0", textBox21.Text.Trim());
+                }
+                
             }
             else if(STATUS.Equals("EDIT"))
             {
@@ -1468,8 +1593,9 @@ namespace TKMOC
 
 
 
+
         #endregion
 
-      
+       
     }
 }
