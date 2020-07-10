@@ -1268,9 +1268,9 @@ namespace TKMOC
 
                 sbSql.Clear();
 
-               
+
                 sbSql.AppendFormat("  UPDATE [TK].[dbo].[CSTMB]");
-                sbSql.AppendFormat("  SET [MB005]='{0}',[MB006]='{1}'",MB005,MB006);
+                sbSql.AppendFormat("  SET [MB005]='{0}',[MB006]='{1}',[MB002]='{2}'", MB005,MB006, MB002);
                 sbSql.AppendFormat("  WHERE [MB003]='{0}' AND [MB004]='{1}'",MB003,MB004);
                 sbSql.AppendFormat("  ");
                 sbSql.AppendFormat("  ");
