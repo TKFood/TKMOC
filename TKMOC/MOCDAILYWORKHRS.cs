@@ -1476,7 +1476,7 @@ namespace TKMOC
             dateTimePicker4.Value = dateTimePicker1.Value;
         }
 
-        #endregion
+       #endregion
 
         #region BUTTON
         private void button1_Click(object sender, EventArgs e)
@@ -1571,6 +1571,15 @@ namespace TKMOC
             if (dialogResult == DialogResult.Yes)
             {
                 DELMOCDAILYWORKHRS(ID);
+
+                string WORKHRS = SERACHMOCDAILYWORKHRSWORKHRS(textBox11.Text, textBox12.Text);
+                if(!WORKHRS.Equals("0.0000"))
+                {
+                    UPDATECSTMB(comboBox1.SelectedValue.ToString().Trim(), dateTimePicker4.Value.ToString("yyyyMMdd"), textBox11.Text.Trim(), textBox12.Text.Trim(), numericUpDown11.Value.ToString(), "0", textBox21.Text.Trim());
+                }
+             
+               
+
                 SEARCH(dateTimePicker1.Value.ToString("yyyyMMdd"));
             }
             else if (dialogResult == DialogResult.No)
