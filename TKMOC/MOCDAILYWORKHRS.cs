@@ -886,6 +886,15 @@ namespace TKMOC
             }
 
             numericUpDown11.Value = numericUpDown31.Value + numericUpDown41.Value + numericUpDown51.Value + numericUpDown61.Value + numericUpDown71.Value + numericUpDown81.Value + numericUpDown91.Value + numericUpDown101.Value + numericUpDown111.Value + numericUpDown121.Value + numericUpDown131.Value + numericUpDown32.Value + numericUpDown42.Value + numericUpDown52.Value + numericUpDown62.Value + numericUpDown72.Value + numericUpDown82.Value;
+            if(!string.IsNullOrEmpty(textBox23.Text)&& Convert.ToDecimal(textBox23.Text)>0)
+            {
+                numericUpDown12.Value = numericUpDown11.Value / Convert.ToDecimal(textBox23.Text)*100;
+            }
+            else
+            {
+                numericUpDown12.Value = 0;
+            }
+            
 
         }
 
@@ -1503,7 +1512,7 @@ namespace TKMOC
             if(STATUS.Equals("ADD"))
             {
                 ADDMOCDAILYWORKHRS(Guid.NewGuid().ToString(), dateTimePicker4.Value.ToString("yyyy/MM/dd"), comboBox1.Text.Trim(), textBox11.Text, textBox12.Text, textBox21.Text, textBox22.Text, textBox23.Text, textBox24.Text
-                , dateTimePicker2.Value.ToString("HH:mm"), dateTimePicker3.Value.ToString("HH:mm"), numericUpDown11.Value.ToString(), "0","0"
+                , dateTimePicker2.Value.ToString("HH:mm"), dateTimePicker3.Value.ToString("HH:mm"), numericUpDown11.Value.ToString(), "0", numericUpDown12.Value.ToString()
                 , textBox31.Text, dateTimePicker2.Value.ToString("HH:mm"), dateTimePicker3.Value.ToString("HH:mm"), numericUpDown31.Value.ToString()
                 , textBox41.Text, dateTimePicker5.Value.ToString("HH:mm"), dateTimePicker6.Value.ToString("HH:mm"), numericUpDown41.Value.ToString()
                 , textBox51.Text, dateTimePicker7.Value.ToString("HH:mm"), dateTimePicker8.Value.ToString("HH:mm"), numericUpDown51.Value.ToString()
@@ -1538,7 +1547,7 @@ namespace TKMOC
             else if(STATUS.Equals("EDIT"))
             {
                 UPDATEMOCDAILYWORKHRS(ID, dateTimePicker4.Value.ToString("yyyy/MM/dd"), comboBox1.Text.Trim(), textBox11.Text, textBox12.Text, textBox21.Text, textBox22.Text, textBox23.Text, textBox24.Text
-               , dateTimePicker2.Value.ToString("HH:mm"), dateTimePicker3.Value.ToString("HH:mm"), numericUpDown11.Value.ToString(), "0", "0"
+               , dateTimePicker2.Value.ToString("HH:mm"), dateTimePicker3.Value.ToString("HH:mm"), numericUpDown11.Value.ToString(), "0",  numericUpDown12.Value.ToString()
                , textBox31.Text, dateTimePicker2.Value.ToString("HH:mm"), dateTimePicker3.Value.ToString("HH:mm"), numericUpDown31.Value.ToString()
                , textBox41.Text, dateTimePicker5.Value.ToString("HH:mm"), dateTimePicker6.Value.ToString("HH:mm"), numericUpDown41.Value.ToString()
                , textBox51.Text, dateTimePicker7.Value.ToString("HH:mm"), dateTimePicker8.Value.ToString("HH:mm"), numericUpDown51.Value.ToString()

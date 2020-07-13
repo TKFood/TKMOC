@@ -155,6 +155,8 @@
             this.dateTimePicker40 = new System.Windows.Forms.DateTimePicker();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.previewControl1 = new FastReport.Preview.PreviewControl();
+            this.numericUpDown12 = new System.Windows.Forms.NumericUpDown();
+            this.label30 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -192,6 +194,7 @@
             this.splitContainer3.Panel2.SuspendLayout();
             this.splitContainer3.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown12)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -504,6 +507,8 @@
             this.tableLayoutPanel1.Controls.Add(this.numericUpDown131, 4, 12);
             this.tableLayoutPanel1.Controls.Add(this.numericUpDown11, 8, 0);
             this.tableLayoutPanel1.Controls.Add(this.label29, 7, 0);
+            this.tableLayoutPanel1.Controls.Add(this.numericUpDown12, 9, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label30, 9, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -1882,6 +1887,33 @@
             this.previewControl1.Size = new System.Drawing.Size(966, 562);
             this.previewControl1.TabIndex = 4;
             // 
+            // numericUpDown12
+            // 
+            this.numericUpDown12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown12.DecimalPlaces = 3;
+            this.numericUpDown12.Enabled = false;
+            this.numericUpDown12.Location = new System.Drawing.Point(903, 6);
+            this.numericUpDown12.Maximum = new decimal(new int[] {
+            99999999,
+            0,
+            0,
+            0});
+            this.numericUpDown12.Name = "numericUpDown12";
+            this.numericUpDown12.Size = new System.Drawing.Size(94, 27);
+            this.numericUpDown12.TabIndex = 187;
+            // 
+            // label30
+            // 
+            this.label30.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label30.AutoSize = true;
+            this.label30.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label30.Location = new System.Drawing.Point(903, 52);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(94, 16);
+            this.label30.TabIndex = 188;
+            this.label30.Text = "100pcs";
+            this.label30.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // MOCDAILYWORKHRS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -1932,6 +1964,7 @@
             this.splitContainer3.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown12)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2065,5 +2098,7 @@
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.NumericUpDown numericUpDown12;
+        private System.Windows.Forms.Label label30;
     }
 }
