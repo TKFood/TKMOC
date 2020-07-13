@@ -1119,6 +1119,7 @@ namespace TKMOC
             }
             else
             {
+                dateTimePicker4.Value = dateTimePicker1.Value;
                 ID = null;
             }
 
@@ -1255,7 +1256,7 @@ namespace TKMOC
 
         public void UPDATECSTMB(string MB001, string MB002, string MB003, string MB004, string MB005, string MB006, string MB007)
         {
-            string WORKHRS = SERACHMOCDAILYWORKHRSWORKHRS(MB003, MB004);
+            string WORKHRS = SERACHMOCDAILYWORKHRSWORKHRS(MB003, MB004, MB002,comboBox1.Text.ToString().Trim());
             MB005 = WORKHRS;
 
             try
@@ -1273,7 +1274,7 @@ namespace TKMOC
 
                 sbSql.AppendFormat("  UPDATE [TK].[dbo].[CSTMB]");
                 sbSql.AppendFormat("  SET [MB005]='{0}',[MB006]='{1}',[MB002]='{2}'", MB005,MB006, MB002);
-                sbSql.AppendFormat("  WHERE [MB003]='{0}' AND [MB004]='{1}'",MB003,MB004);
+                sbSql.AppendFormat("  WHERE [MB003]='{0}' AND [MB004]='{1}' AND [MB002]='{2}' AND [MB001]='{3}' ",MB003,MB004, MB002, MB001);
                 sbSql.AppendFormat("  ");
                 sbSql.AppendFormat("  ");
 
@@ -1362,7 +1363,7 @@ namespace TKMOC
             return CSTMB;
         }
 
-        public string CHEKCCSTMB(string TA001, string TA002)
+        public string CHEKCCSTMB(string TA001, string TA002,string MB002, string MB001)
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
             SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
@@ -1379,7 +1380,7 @@ namespace TKMOC
 
                 sbSql.AppendFormat(@"  SELECT MB003+MB004 AS MB003004");
                 sbSql.AppendFormat(@"  FROM [TK].[dbo].[CSTMB]");
-                sbSql.AppendFormat(@"  WHERE MB003='{0} ' AND MB004='{1}'", TA001, TA002);
+                sbSql.AppendFormat(@"  WHERE MB003='{0} ' AND MB004='{1}' AND MB002='{2}' AND MB001='{3}'", TA001, TA002, MB002, MB001);
                 sbSql.AppendFormat(@"  ");
                 sbSql.AppendFormat(@"  ");
 
@@ -1416,7 +1417,7 @@ namespace TKMOC
                 sqlConn.Close();
             }
         }
-        public string SERACHMOCDAILYWORKHRSWORKHRS(string TA001,string TA002)
+        public string SERACHMOCDAILYWORKHRSWORKHRS(string TA001,string TA002,string DATS, string MANU)
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
             SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
@@ -1433,7 +1434,7 @@ namespace TKMOC
 
                 sbSql.AppendFormat(@"  SELECT ISNULL(SUM(WORKHRS),0) AS WORKHRS");
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCDAILYWORKHRS]");
-                sbSql.AppendFormat(@"  WHERE TA001='{0} ' AND TA002='{1}'",TA001,TA002);
+                sbSql.AppendFormat(@"  WHERE TA001='{0} ' AND TA002='{1}' AND CONVERT(nvarchar,[DATS],112)='{2}' AND [MANU]='{3}'", TA001,TA002, DATS, MANU);
                 sbSql.AppendFormat(@"  ");
                 sbSql.AppendFormat(@"  ");
 
@@ -1523,7 +1524,7 @@ namespace TKMOC
                 );
 
 
-                string ADDYN = CHEKCCSTMB(textBox11.Text, textBox12.Text);
+                string ADDYN = CHEKCCSTMB(textBox11.Text, textBox12.Text, dateTimePicker4.Value.ToString("yyyyMMdd"), comboBox1.SelectedValue.ToString().Trim());
                 if(ADDYN.Equals("ADD"))
                 {
                     ADDCSTMB(comboBox1.SelectedValue.ToString().Trim(), dateTimePicker4.Value.ToString("yyyyMMdd"), textBox11.Text.Trim(), textBox12.Text.Trim(), numericUpDown11.Value.ToString(), "0", textBox21.Text.Trim());
@@ -1572,10 +1573,14 @@ namespace TKMOC
             {
                 DELMOCDAILYWORKHRS(ID);
 
-                string WORKHRS = SERACHMOCDAILYWORKHRSWORKHRS(textBox11.Text, textBox12.Text);
+                string WORKHRS = SERACHMOCDAILYWORKHRSWORKHRS(textBox11.Text, textBox12.Text,dateTimePicker4.Value.ToString("yyyyMMdd"),comboBox1.Text.ToString().Trim());
                 if(!WORKHRS.Equals("0.0000"))
                 {
                     UPDATECSTMB(comboBox1.SelectedValue.ToString().Trim(), dateTimePicker4.Value.ToString("yyyyMMdd"), textBox11.Text.Trim(), textBox12.Text.Trim(), numericUpDown11.Value.ToString(), "0", textBox21.Text.Trim());
+                }
+                else if(WORKHRS.Equals("0.0000"))
+                {
+                    UPDATECSTMB(comboBox1.SelectedValue.ToString().Trim(), dateTimePicker4.Value.ToString("yyyyMMdd"), textBox11.Text.Trim(), textBox12.Text.Trim(), "0", "0", textBox21.Text.Trim());
                 }
              
                
