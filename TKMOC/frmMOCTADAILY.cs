@@ -311,8 +311,52 @@ namespace TKMOC
             }
         }
 
-        public void UPDATEMOCTADAILY()
+        public void UPDATEMOCTADAILY(string ID,string NUM,string NGNUM,string SDATES,string EDATES)
         {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+
+                sbSql.AppendFormat("  UPDATE [TKMOC].[dbo].[MOCTADAILY]");
+                sbSql.AppendFormat("  SET [NUM]='{0}',[NGNUM]='{1}',[SDATES]='{2}',[EDATES]='{3}'", NUM,NGNUM,SDATES,EDATES);
+                sbSql.AppendFormat("  WHERE ID='{0}'",ID);
+                sbSql.AppendFormat("  ");
+                sbSql.AppendFormat("  ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
 
         }
 
@@ -326,9 +370,18 @@ namespace TKMOC
                 {
                     DataGridViewRow row = dataGridView1.Rows[rowindex];
                     ID = row.Cells["ID"].Value.ToString();
-                    
+
+                    textBox111.Text = row.Cells["品號"].Value.ToString();
+                    textBox112.Text = row.Cells["品名"].Value.ToString();
+                    textBox113.Text = row.Cells["規格"].Value.ToString();
+                    textBox121.Text = row.Cells["生產量"].Value.ToString();
+                    textBox122.Text= row.Cells["入庫量"].Value.ToString();
+                    textBox123.Text = row.Cells["未熟量"].Value.ToString();
+
                     comboBox1.Text = row.Cells["線別"].Value.ToString();
-                    
+
+                    dateTimePicker2.Value = Convert.ToDateTime(row.Cells["開始時間"].Value.ToString());
+                    dateTimePicker3.Value = Convert.ToDateTime(row.Cells["結束時間"].Value.ToString());
 
                 }
             }
@@ -368,7 +421,7 @@ namespace TKMOC
             }
             else if (STATUS.Equals("EDIT"))
             {
-
+                UPDATEMOCTADAILY(ID,textBox122.Text.Trim(),textBox123.Text.Trim(),dateTimePicker2.Value.ToString("yyyy/MM/dd HH:mm:ss"), dateTimePicker3.Value.ToString("yyyy/MM/dd HH:mm:ss"));
             }
 
             SETTEXTBOX2();
