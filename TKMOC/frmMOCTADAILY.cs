@@ -85,7 +85,7 @@ namespace TKMOC
 
 
                 sbSql.AppendFormat(@"  SELECT ");
-                sbSql.AppendFormat(@"  [TA001] AS '製令',[TA002] AS '單號',[TA021] AS '線別',[MB001] AS '品號',[MB002] AS '品名',[MB003] AS '規格',[TA017] AS '生產量',[NUM] AS '入庫量',[NGNUM] AS '未熟量',[SDATES] AS '開始時間',[EDATES] AS '結束時間'");
+                sbSql.AppendFormat(@"  [TA001] AS '製令',[TA002] AS '單號',[TA021] AS '線別',[MB001] AS '品號',[MB002] AS '品名',[MB003] AS '規格',[TA017] AS '生產量',[NUM] AS '入庫量',[NGNUM] AS '未熟量',CONVERT(VARCHAR, [SDATES], 120) AS '開始時間',CONVERT(VARCHAR,[EDATES], 120)  AS '結束時間'");
                 sbSql.AppendFormat(@"  ,[TEMPERAVG] AS '溫度-平均',[TEMPERMIN] AS '溫度-最小',[TEMPERMAX] AS '溫度-最大',[HUMIAVG] AS '溼度-平均',[HUMIMIN] AS '溼度-最小',[HUMIMAX] AS '溼度-最大'");
                 sbSql.AppendFormat(@"  ,[ASPEED] AS '大線爐速',[BSPEED] AS '小線爐速'");
                 sbSql.AppendFormat(@"  ,[A1AAVG] AS '大線-1段-上爐-平均',[A1AMIN] AS '大線-1段-上爐-最小',[A1AMAX] AS '大線-1段-上爐-最大'");
@@ -127,7 +127,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  ,[B5ALAVG] AS '小線-5段-上左爐-平均',[B5ALMIN] AS '小線-5段-上左爐-最小',[B5ALMAX] AS '小線-5段-上左爐-最大'");
                 sbSql.AppendFormat(@"  ,[B5BLAVG] AS '小線-5段-下左爐-平均',[B5BLMIN] AS '小線-5段-下左爐-最小',[B5BLMAX] AS '小線-5段-下左爐-最大'");
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCTADAILY]");
-                sbSql.AppendFormat(@"  WHERE [TA002] LIKE '{0}%'",IDDATE);
+                sbSql.AppendFormat(@"  WHERE CONVERT(VARCHAR, [SDATES], 112)='{0}'", IDDATE);
                 sbSql.AppendFormat(@"  ORDER BY  [TA001],[TA002],[TA021]");
                 sbSql.AppendFormat(@"  ");
 
@@ -243,6 +243,21 @@ namespace TKMOC
             }
         }
 
+        public void SETTEXTBOX1()
+        {
+            textBox1.ReadOnly = false;
+            textBox2.ReadOnly = false;
+        }
+
+        public void SETTEXTBOX2()
+        {
+            textBox1.ReadOnly = true;
+            textBox2.ReadOnly = true;
+
+            textBox1.Text = null;
+            textBox2.Text = null;
+        }
+
 
         #endregion
 
@@ -252,9 +267,89 @@ namespace TKMOC
         {
             SEARCH(dateTimePicker1.Value.ToString("yyyyMMdd"));
         }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            STATUS = "ADD";
+            label26.Text = "ADD";
+            SETTEXTBOX1();
+        }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            STATUS = "EDIT";
+            label26.Text = "EDIT";
+        }
 
+        public void  ADDMOCTADAILY(string TA001, string TA002, string TA021, string MB001, string MB002, string MB003, string TA017, string NUM, string NGNUM, string SDATES, string EDATES)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat("  INSERT INTO  [TKMOC].[dbo].[MOCTADAILY] ");
+                sbSql.AppendFormat("  ([TA001],[TA002],[TA021],[MB001],[MB002],[MB003],[TA017],[NUM],[NGNUM],[SDATES],[EDATES]) ");
+                sbSql.AppendFormat("  VALUES");
+                sbSql.AppendFormat("  ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}')",TA001,TA002,TA021,MB001,MB002,MB003,TA017,NUM,NGNUM,SDATES,EDATES);
+                sbSql.AppendFormat("  ");
+                sbSql.AppendFormat("  ");
+                sbSql.AppendFormat("  ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void UPDATEMOCTADAILY()
+        {
+
+        }
         #endregion
 
-       
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (STATUS.Equals("ADD"))
+            {
+                ADDMOCTADAILY(textBox1.Text.Trim(), textBox2.Text.Trim(), comboBox1.Text.ToString().Trim(), textBox111.Text.Trim(), textBox112.Text.Trim(), textBox113.Text.Trim(), textBox121.Text.Trim(), textBox122.Text.Trim(), textBox123.Text.Trim(), dateTimePicker2.Value.ToString("yyyy/MM/dd HH:mm:ss"), dateTimePicker3.Value.ToString("yyyy/MM/dd HH:mm:ss"));
+            }
+            else if (STATUS.Equals("EDIT"))
+            {
+               
+            }
+
+            SETTEXTBOX2();
+
+            STATUS = null;
+            label26.Text = "STATUS";
+            SEARCH(dateTimePicker1.Value.ToString("yyyyMMdd"));
+        }
     }
 }
