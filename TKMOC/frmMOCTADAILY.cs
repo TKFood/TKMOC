@@ -41,9 +41,32 @@ namespace TKMOC
         public frmMOCTADAILY()
         {
             InitializeComponent();
+
+            comboBox1load();
         }
 
         #region FUNCTION
+
+        public void comboBox1load()
+        {
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 LIKE '新廠%'   ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("MD001", typeof(string));
+            dt.Columns.Add("MD002", typeof(string));
+            da.Fill(dt);
+            comboBox1.DataSource = dt.DefaultView;
+            comboBox1.ValueMember = "MD001";
+            comboBox1.DisplayMember = "MD002";
+            sqlConn.Close();
+
+
+        }
 
         public void SEARCH(string IDDATE)
         {
@@ -144,6 +167,83 @@ namespace TKMOC
             }
         }
 
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBox1.Text) && !string.IsNullOrEmpty(textBox2.Text))
+            {
+                SEARCHMOCTA(textBox1.Text.Trim(), textBox2.Text.Trim());
+            }
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBox1.Text) && !string.IsNullOrEmpty(textBox2.Text))
+            {
+                SEARCHMOCTA(textBox1.Text.Trim(), textBox2.Text.Trim());
+            }
+        }
+
+        public void SEARCHMOCTA(string TA001, string TA002)
+        {
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+
+            DataSet ds1 = new DataSet();
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+
+                sbSql.AppendFormat(@" SELECT TA006,TA015,TA017,TA021,TA034,TA035 FROM [TK].dbo.MOCTA WHERE TA001='{0}' AND TA002='{1}' ", TA001, TA002);
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "ds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["ds1"].Rows.Count == 0)
+                {
+
+                }
+                else
+                {
+                    if (ds1.Tables["ds1"].Rows.Count >= 1)
+                    {
+                        textBox111.Text = ds1.Tables["ds1"].Rows[0]["TA006"].ToString();
+                        textBox112.Text = ds1.Tables["ds1"].Rows[0]["TA034"].ToString();
+                        textBox113.Text = ds1.Tables["ds1"].Rows[0]["TA035"].ToString();
+                        textBox121.Text = ds1.Tables["ds1"].Rows[0]["TA015"].ToString();
+                        textBox122.Text = ds1.Tables["ds1"].Rows[0]["TA017"].ToString();
+                        textBox123.Text ="";
+
+                        comboBox1.SelectedValue = ds1.Tables["ds1"].Rows[0]["TA021"].ToString();
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+
         #endregion
 
         #region BUTTON
@@ -154,5 +254,7 @@ namespace TKMOC
         }
 
         #endregion
+
+       
     }
 }
