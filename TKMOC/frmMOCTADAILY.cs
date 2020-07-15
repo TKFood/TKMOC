@@ -37,6 +37,9 @@ namespace TKMOC
         int result;
         string STATUS = null;
         string ID = null;
+        string TA001 = null;
+        string TA002 = null;
+        string TA021 = null;
 
         public frmMOCTADAILY()
         {
@@ -126,6 +129,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  ,[B5BMAVG] AS '小線-5段-下中爐-平均',[B5BMMIN] AS '小線-5段-下中爐-最小',[B5BMMAX] AS '小線-5段-下中爐-最大'");
                 sbSql.AppendFormat(@"  ,[B5ALAVG] AS '小線-5段-上左爐-平均',[B5ALMIN] AS '小線-5段-上左爐-最小',[B5ALMAX] AS '小線-5段-上左爐-最大'");
                 sbSql.AppendFormat(@"  ,[B5BLAVG] AS '小線-5段-下左爐-平均',[B5BLMIN] AS '小線-5段-下左爐-最小',[B5BLMAX] AS '小線-5段-下左爐-最大'");
+                sbSql.AppendFormat(@"  ,[ID]");
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCTADAILY]");
                 sbSql.AppendFormat(@"  WHERE CONVERT(VARCHAR, [SDATES], 112)='{0}'", IDDATE);
                 sbSql.AppendFormat(@"  ORDER BY  [TA001],[TA002],[TA021]");
@@ -258,28 +262,7 @@ namespace TKMOC
             textBox2.Text = null;
         }
 
-
-        #endregion
-
-        #region BUTTON
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            SEARCH(dateTimePicker1.Value.ToString("yyyyMMdd"));
-        }
-        private void button2_Click(object sender, EventArgs e)
-        {
-            STATUS = "ADD";
-            label26.Text = "ADD";
-            SETTEXTBOX1();
-        }
-        private void button3_Click(object sender, EventArgs e)
-        {
-            STATUS = "EDIT";
-            label26.Text = "EDIT";
-        }
-
-        public void  ADDMOCTADAILY(string TA001, string TA002, string TA021, string MB001, string MB002, string MB003, string TA017, string NUM, string NGNUM, string SDATES, string EDATES)
+        public void ADDMOCTADAILY(string ID,string TA001, string TA002, string TA021, string MB001, string MB002, string MB003, string TA017, string NUM, string NGNUM, string SDATES, string EDATES)
         {
             try
             {
@@ -293,9 +276,9 @@ namespace TKMOC
                 sbSql.Clear();
 
                 sbSql.AppendFormat("  INSERT INTO  [TKMOC].[dbo].[MOCTADAILY] ");
-                sbSql.AppendFormat("  ([TA001],[TA002],[TA021],[MB001],[MB002],[MB003],[TA017],[NUM],[NGNUM],[SDATES],[EDATES]) ");
+                sbSql.AppendFormat("  ([ID],[TA001],[TA002],[TA021],[MB001],[MB002],[MB003],[TA017],[NUM],[NGNUM],[SDATES],[EDATES]) ");
                 sbSql.AppendFormat("  VALUES");
-                sbSql.AppendFormat("  ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}')",TA001,TA002,TA021,MB001,MB002,MB003,TA017,NUM,NGNUM,SDATES,EDATES);
+                sbSql.AppendFormat("  ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}')", ID,TA001, TA002, TA021, MB001, MB002, MB003, TA017, NUM, NGNUM, SDATES, EDATES);
                 sbSql.AppendFormat("  ");
                 sbSql.AppendFormat("  ");
                 sbSql.AppendFormat("  ");
@@ -332,17 +315,60 @@ namespace TKMOC
         {
 
         }
+
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView1.Rows.Count >= 1)
+            {
+                int rowindex = dataGridView1.CurrentRow.Index;
+
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView1.Rows[rowindex];
+                    ID = row.Cells["ID"].Value.ToString();
+                    
+                    comboBox1.Text = row.Cells["線別"].Value.ToString();
+                    
+
+                }
+            }
+            else
+            {
+                
+                ID = null;
+            }
+        }
+
         #endregion
 
+        #region BUTTON
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SEARCH(dateTimePicker1.Value.ToString("yyyyMMdd"));
+        }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            STATUS = "ADD";
+            label26.Text = "ADD";
+            SETTEXTBOX1();
+        }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            STATUS = "EDIT";
+            label26.Text = "EDIT";
+        }
+
+      
         private void button4_Click(object sender, EventArgs e)
         {
             if (STATUS.Equals("ADD"))
             {
-                ADDMOCTADAILY(textBox1.Text.Trim(), textBox2.Text.Trim(), comboBox1.Text.ToString().Trim(), textBox111.Text.Trim(), textBox112.Text.Trim(), textBox113.Text.Trim(), textBox121.Text.Trim(), textBox122.Text.Trim(), textBox123.Text.Trim(), dateTimePicker2.Value.ToString("yyyy/MM/dd HH:mm:ss"), dateTimePicker3.Value.ToString("yyyy/MM/dd HH:mm:ss"));
+                ADDMOCTADAILY(Guid.NewGuid().ToString(), textBox1.Text.Trim(), textBox2.Text.Trim(), comboBox1.Text.ToString().Trim(), textBox111.Text.Trim(), textBox112.Text.Trim(), textBox113.Text.Trim(), textBox121.Text.Trim(), textBox122.Text.Trim(), textBox123.Text.Trim(), dateTimePicker2.Value.ToString("yyyy/MM/dd HH:mm:ss"), dateTimePicker3.Value.ToString("yyyy/MM/dd HH:mm:ss"));
             }
             else if (STATUS.Equals("EDIT"))
             {
-               
+
             }
 
             SETTEXTBOX2();
@@ -351,5 +377,10 @@ namespace TKMOC
             label26.Text = "STATUS";
             SEARCH(dateTimePicker1.Value.ToString("yyyyMMdd"));
         }
+        #endregion
+
+
+
+
     }
 }
