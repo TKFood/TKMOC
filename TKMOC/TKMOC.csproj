@@ -360,6 +360,12 @@
     <Compile Include="frmMOCReport.Designer.cs">
       <DependentUpon>frmMOCReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmMOCTADAILY.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMOCTADAILY.Designer.cs">
+      <DependentUpon>frmMOCTADAILY.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMOCTIME.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -646,6 +652,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMOCReport.resx">
       <DependentUpon>frmMOCReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMOCTADAILY.resx">
+      <DependentUpon>frmMOCTADAILY.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMOCTIME.resx">
       <DependentUpon>frmMOCTIME.cs</DependentUpon>
