@@ -448,12 +448,72 @@ namespace TKMOC
                     dateTimePicker2.Value = Convert.ToDateTime(row.Cells["開始時間"].Value.ToString());
                     dateTimePicker3.Value = Convert.ToDateTime(row.Cells["結束時間"].Value.ToString());
 
+                    textBox211.Text = row.Cells["大線爐速"].Value.ToString();
+                    textBox231.Text = row.Cells["大線-1段-上爐-平均"].Value.ToString();
+                    textBox232.Text = row.Cells["大線-1段-上爐-最小"].Value.ToString();
+                    textBox233.Text = row.Cells["大線-1段-上爐-最大"].Value.ToString();
+                    textBox234.Text = row.Cells["大線-1段-下爐-平均"].Value.ToString();
+                    textBox235.Text = row.Cells["大線-1段-下爐-最小"].Value.ToString();
+                    textBox236.Text = row.Cells["大線-1段-下爐-最大"].Value.ToString();
+                    textBox241.Text = row.Cells["大線-2段-上爐-平均"].Value.ToString();
+                    textBox242.Text = row.Cells["大線-2段-上爐-最小"].Value.ToString();
+                    textBox243.Text = row.Cells["大線-2段-上爐-最大"].Value.ToString();
+                    textBox244.Text = row.Cells["大線-2段-下爐-平均"].Value.ToString();
+                    textBox245.Text = row.Cells["大線-2段-下爐-最小"].Value.ToString();
+                    textBox246.Text = row.Cells["大線-2段-下爐-最大"].Value.ToString();
+                    textBox251.Text = row.Cells["大線-3段-上爐-平均"].Value.ToString();
+                    textBox252.Text = row.Cells["大線-3段-上爐-最小"].Value.ToString();
+                    textBox253.Text = row.Cells["大線-3段-上爐-最大"].Value.ToString();
+                    textBox254.Text = row.Cells["大線-3段-下爐-平均"].Value.ToString();
+                    textBox255.Text = row.Cells["大線-3段-下爐-最小"].Value.ToString();
+                    textBox256.Text = row.Cells["大線-3段-下爐-最大"].Value.ToString();
+                    textBox261.Text = row.Cells["大線-4段-上爐-平均"].Value.ToString();
+                    textBox262.Text = row.Cells["大線-4段-上爐-最小"].Value.ToString();
+                    textBox263.Text = row.Cells["大線-4段-上爐-最大"].Value.ToString();
+                    textBox264.Text = row.Cells["大線-4段-下爐-平均"].Value.ToString();
+                    textBox265.Text = row.Cells["大線-4段-下爐-最小"].Value.ToString();
+                    textBox266.Text = row.Cells["大線-4段-下爐-最大"].Value.ToString();
                 }
             }
             else
             {
                 
                 ID = null;
+
+                textBox111.Text = null;
+                textBox112.Text = null;
+                textBox113.Text = null;
+                textBox121.Text = null;
+                textBox122.Text = null;
+                textBox123.Text = null;
+
+
+                textBox211.Text = null;
+                textBox231.Text = null;
+                textBox232.Text = null;
+                textBox233.Text = null;
+                textBox234.Text = null;
+                textBox235.Text = null;
+                textBox236.Text = null;
+                textBox241.Text = null;
+                textBox242.Text = null;
+                textBox243.Text = null;
+                textBox244.Text = null;
+                textBox245.Text = null;
+                textBox246.Text = null;
+                textBox251.Text = null;
+                textBox252.Text = null;
+                textBox253.Text = null;
+                textBox254.Text = null;
+                textBox255.Text = null;
+                textBox256.Text = null;
+                textBox261.Text = null;
+                textBox262.Text = null;
+                textBox263.Text = null;
+                textBox264.Text = null;
+                textBox265.Text = null;
+                textBox266.Text = null;
+
             }
         }
 
