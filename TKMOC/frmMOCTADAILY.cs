@@ -329,7 +329,13 @@ namespace TKMOC
             }
         }
 
-        public void UPDATEMOCTADAILY(string ID,string NUM,string NGNUM,string SDATES,string EDATES)
+        public void UPDATEMOCTADAILY(string ID,string NUM,string NGNUM,string SDATES,string EDATES
+            , string ASPEED
+            , string A1AAVG, string A1AMIN, string A1AMAX, string A1BAVG, string A1BMIN, string A1BMAX
+            , string A2AAVG, string A2AMIN, string A2AMAX, string A2BAVG, string A2BMIN, string A2BMAX
+            , string A3AAVG, string A3AMIN, string A3AMAX, string A3BAVG, string A3BMIN, string A3BMAX
+            , string A4AAVG, string A4AMIN, string A4AMAX, string A4BAVG, string A4BMIN, string A4BMAX
+            )
         {
             try
             {
@@ -345,6 +351,11 @@ namespace TKMOC
 
                 sbSql.AppendFormat("  UPDATE [TKMOC].[dbo].[MOCTADAILY]");
                 sbSql.AppendFormat("  SET [NUM]='{0}',[NGNUM]='{1}',[SDATES]='{2}',[EDATES]='{3}'", NUM,NGNUM,SDATES,EDATES);
+                sbSql.AppendFormat("  ,[ASPEED]='{0}'", ASPEED);
+                sbSql.AppendFormat("  ,A1AAVG='{0}',A1AMIN='{1}',A1AMAX='{2}',A1BAVG='{3}',A1BMIN='{4}',A1BMAX='{5}'", A1AAVG, A1AMIN, A1AMAX, A1BAVG, A1BMIN, A1BMAX);
+                sbSql.AppendFormat("  ,A2AAVG='{0}',A2AMIN='{1}',A2AMAX='{2}',A2BAVG='{3}',A2BMIN='{4}',A2BMAX='{5}'", A2AAVG, A2AMIN, A2AMAX, A2BAVG, A2BMIN, A2BMAX);
+                sbSql.AppendFormat("  ,A3AAVG='{0}',A3AMIN='{1}',A3AMAX='{2}',A3BAVG='{3}',A3BMIN='{4}',A3BMAX='{5}'", A3AAVG, A3AMIN, A3AMAX, A3BAVG, A3BMIN, A3BMAX);
+                sbSql.AppendFormat("  ,A4AAVG='{0}',A4AMIN='{1}',A4AMAX='{2}',A4BAVG='{3}',A4BMIN='{4}',A4BMAX='{5}'", A4AAVG, A4AMIN, A4AMAX, A4BAVG, A4BMIN, A4BMAX);
                 sbSql.AppendFormat("  WHERE ID='{0}'",ID);
                 sbSql.AppendFormat("  ");
                 sbSql.AppendFormat("  ");
@@ -554,7 +565,13 @@ namespace TKMOC
             }
             else if (STATUS.Equals("EDIT"))
             {
-                UPDATEMOCTADAILY(ID,textBox122.Text.Trim(),textBox123.Text.Trim(),dateTimePicker2.Value.ToString("yyyy/MM/dd HH:mm:ss"), dateTimePicker3.Value.ToString("yyyy/MM/dd HH:mm:ss"));
+                UPDATEMOCTADAILY(ID,textBox122.Text.Trim(),textBox123.Text.Trim(),dateTimePicker2.Value.ToString("yyyy/MM/dd HH:mm:ss"), dateTimePicker3.Value.ToString("yyyy/MM/dd HH:mm:ss")
+                    , textBox211.Text.Trim()
+                    , textBox231.Text.Trim(), textBox232.Text.Trim(), textBox233.Text.Trim(), textBox234.Text.Trim(), textBox235.Text.Trim(), textBox236.Text.Trim()
+                    , textBox241.Text.Trim(), textBox242.Text.Trim(), textBox243.Text.Trim(), textBox244.Text.Trim(), textBox245.Text.Trim(), textBox246.Text.Trim()
+                    , textBox251.Text.Trim(), textBox252.Text.Trim(), textBox253.Text.Trim(), textBox254.Text.Trim(), textBox255.Text.Trim(), textBox256.Text.Trim()
+                    , textBox261.Text.Trim(), textBox262.Text.Trim(), textBox263.Text.Trim(), textBox264.Text.Trim(), textBox265.Text.Trim(), textBox266.Text.Trim()
+                    );
             }
 
             SETTEXTBOX2();
