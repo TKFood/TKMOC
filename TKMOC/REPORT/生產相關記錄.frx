@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="07/15/2020 16:43:58" ReportInfo.Modified="07/15/2020 16:47:26" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="07/15/2020 16:43:58" ReportInfo.Modified="07/16/2020 15:42:17" ReportInfo.CreatorVersion="2016.4.4.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9L50zg4lwge5DIKdKpMddxt">
-      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="/****** SSMS 中 SelectTopNRows 命令的指令碼  ******/&#13;&#10;SELECT &#13;&#10; [TA001] AS '製令',[TA002] AS '單號',[TA021] AS '線別',[MB001] AS '品號',[MB002] AS '品名',[MB003] AS '規格',[TA017] AS '生產量',[NUM] AS '入庫量',[NGNUM] AS '未熟量',[SDATES] AS '開始時間',[EDATES] AS '結束時間'&#13;&#10; ,[TEMPERAVG] AS '溫度-平均',[TEMPERMIN] AS '溫度-最小',[TEMPERMAX] AS '溫度-最大',[HUMIAVG] AS '溼度-平均',[HUMIMIN] AS '溼度-最小',[HUMIMAX] AS '溼度-最大'&#13;&#10;,[ASPEED] AS '大線爐速',[BSPEED] AS '小線爐速'&#13;&#10;,[A1AAVG] AS '大線-1段-上爐-平均',[A1AMIN] AS '大線-1段-上爐-最小',[A1AMAX] AS '大線-1段-上爐-最大'&#13;&#10;,[A1BAVG] AS '大線-1段-下爐-平均',[A1BMIN] AS '大線-1段-下爐-最小',[A1BMAX] AS '大線-1段-下爐-最大'&#13;&#10;,[A2AAVG] AS '大線-2段-上爐-平均',[A2AMIN] AS '大線-2段-上爐-最小',[A2AMAX] AS '大線-2段-上爐-最大'&#13;&#10;,[A2BAVG] AS '大線-2段-下爐-平均',[A2BMIN] AS '大線-2段-下爐-最小',[A2BMAX] AS '大線-2段-下爐-最大'&#13;&#10;,[A3AAVG] AS '大線-3段-上爐-平均',[A3AMIN] AS '大線-3段-上爐-最小',[A3AMAX] AS '大線-3段-上爐-最大'&#13;&#10;,[A3BAVG] AS '大線-3段-下爐-平均',[A3BMIN] AS '大線-3段-下爐-最小',[A3BMAX] AS '大線-3段-下爐-最大'&#13;&#10;,[A4AAVG] AS '大線-4段-上爐-平均',[A4AMIN] AS '大線-4段-上爐-最小',[A4AMAX] AS '大線-4段-上爐-最大'&#13;&#10;,[A4BAVG] AS '大線-4段-下爐-平均',[A4BMIN] AS '大線-4段-下爐-最小',[A4BMAX] AS '大線-4段-下爐-最大'&#13;&#10;,[B1ARAVG] AS '小線-1段-上右爐-平均',[B1ARMIN] AS '小線-1段-上右爐-最小',[B1ARMAX] AS '小線-1段-上右爐-最大'&#13;&#10;,[B1BRAVG] AS '小線-1段-下右爐-平均',[B1BRMIN] AS '小線-1段-下右爐-最小',[B1BRMAX] AS '小線-1段-下右爐-最大'&#13;&#10;,[B1AMAVG] AS '小線-1段-上中爐-平均',[B1AMMIN] AS '小線-1段-上中爐-最小',[B1AMMAX] AS '小線-1段-上中爐-最大'&#13;&#10;,[B1BMAVG] AS '小線-1段-下中爐-平均',[B1BMMIN] AS '小線-1段-下中爐-最小',[B1BMMAX] AS '小線-1段-下中爐-最大'&#13;&#10;,[B1ALAVG] AS '小線-1段-上左爐-平均',[B1ALMIN] AS '小線-1段-上左爐-最小',[B1ALMAX] AS '小線-1段-上左爐-最大'&#13;&#10;,[B1BLAVG] AS '小線-1段-下左爐-平均',[B1BLMIN] AS '小線-1段-下左爐-最小',[B1BLMAX] AS '小線-1段-下左爐-最大'&#13;&#10;,[B2ARAVG] AS '小線-2段-上右爐-平均',[B2ARMIN] AS '小線-2段-上右爐-最小',[B2ARNAX] AS '小線-2段-上右爐-最大'&#13;&#10;,[B2BRAVG] AS '小線-2段-下右爐-平均',[B2BRMIN] AS '小線-2段-下右爐-最小',[B2BRMAX] AS '小線-2段-下右爐-最大'&#13;&#10;,[B2AMAVG] AS '小線-2段-上中爐-平均',[B2AMMIN] AS '小線-2段-上中爐-最小',[B2AMMAX] AS '小線-2段-上中爐-最大'&#13;&#10;,[B2BMAVG] AS '小線-2段-下中爐-平均',[B2BMMIN] AS '小線-2段-下中爐-最小',[B2BMMAX] AS '小線-2段-下中爐-最大'&#13;&#10;,[B2ALAVG] AS '小線-2段-上左爐-平均',[B2ALMIN] AS '小線-2段-上左爐-最小',[B2ALMAX] AS '小線-2段-上左爐-最大'&#13;&#10;,[B2BLAVG] AS '小線-2段-下左爐-平均',[B2BLMIN] AS '小線-2段-下左爐-最小',[B2BLMAX] AS '小線-2段-下左爐-最大'&#13;&#10;,[B3ARAVG] AS '小線-3段-上右爐-平均',[B3ARMIN] AS '小線-3段-上右爐-最小',[B3ARMAX] AS '小線-3段-上右爐-最大'&#13;&#10;,[B3BRAVG] AS '小線-3段-下右爐-平均',[B3BRMIN] AS '小線-3段-下右爐-最小',[B3BRMAX] AS '小線-3段-下右爐-最大'&#13;&#10;,[B3AMAVG] AS '小線-3段-上右爐-平均',[B3AMMIN] AS '小線-3段-上中爐-最小',[B3AMMAX] AS '小線-3段-上中爐-最大'&#13;&#10;,[B3BMAVG] AS '小線-3段-下中爐-平均',[B3BMMIN] AS '小線-3段-下中爐-最小',[B3BMMAX] AS '小線-3段-下中爐-最大'&#13;&#10;,[B3ALAVG] AS '小線-3段-上中爐-平均',[B3ALMIN] AS '小線-3段-上左爐-最小',[B3ALMAX] AS '小線-3段-上左爐-最大'&#13;&#10;,[B3BLAVG] AS '小線-3段-下左爐-平均',[B3BLMIN] AS '小線-3段-下左爐-最小',[B3BLMAX] AS '小線-3段-下左爐-最大'&#13;&#10;,[B4ARAVG] AS '小線-4段-上右爐-平均',[B4ARMIN] AS '小線-4段-上右爐-最小',[B4ARMAX] AS '小線-4段-上右爐-最大'&#13;&#10;,[B4BRAVG] AS '小線-4段-下右爐-平均',[B4BRMIN] AS '小線-4段-下右爐-最小',[B4BRMAX] AS '小線-4段-下右爐-最大'&#13;&#10;,[B4AMAVG] AS '小線-4段-上中爐-平均',[B4AMMIN] AS '小線-4段-上中爐-最小',[B4AMMAX] AS '小線-4段-上中爐-最大'&#13;&#10;,[B4BMAVG] AS '小線-4段-下中爐-平均',[B4BMMIN] AS '小線-4段-下中爐-最小',[B4BMMAX] AS '小線-4段-下中爐-最大'&#13;&#10;,[B4ALAVG] AS '小線-4段-上左爐-平均',[B4ALMIN] AS '小線-4段-上左爐-最小',[B4ALMAX] AS '小線-4段-上左爐-最大'&#13;&#10;,[B4BLAVG] AS '小線-4段-下左爐-平均',[B4BLMIN] AS '小線-4段-下左爐-最小',[B4BLMAX] AS '小線-4段-下左爐-最大'&#13;&#10;,[B5ARAVG] AS '小線-5段-上右爐-平均',[B5ARMIN] AS '小線-5段-上右爐-最小',[B5ARMAX] AS '小線-5段-上右爐-最大'&#13;&#10;,[B5BRAVG] AS '小線-5段-下右爐-平均',[B5BRMIN] AS '小線-5段-下右爐-最小',[B5BRMAX] AS '小線-5段-下右爐-最大'&#13;&#10;,[B5AMAVG] AS '小線-5段-上中爐-平均',[B5AMMIN] AS '小線-5段-上中爐-最小',[B5AMMAX] AS '小線-5段-上中爐-最大'&#13;&#10;,[B5BMAVG] AS '小線-5段-下中爐-平均',[B5BMMIN] AS '小線-5段-下中爐-最小',[B5BMMAX] AS '小線-5段-下中爐-最大'&#13;&#10;,[B5ALAVG] AS '小線-5段-上左爐-平均',[B5ALMIN] AS '小線-5段-上左爐-最小',[B5ALMAX] AS '小線-5段-上左爐-最大'&#13;&#10;,[B5BLAVG] AS '小線-5段-下左爐-平均',[B5BLMIN] AS '小線-5段-下左爐-最小',[B5BLMAX] AS '小線-5段-下左爐-最大'&#13;&#10;FROM [TKMOC].[dbo].[MOCTADAILY]&#13;&#10;WHERE CONVERT(VARCHAR, [SDATES], 112)&gt;='20200701' AND CONVERT(VARCHAR, [SDATES], 112)&lt;='20200715'&#13;&#10;ORDER BY  [TA001],[TA002],[TA021]">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9KIPdSm5zr/9PbqLrgFJXJ9">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand=" SELECT &#13;&#10; [TA001] AS '製令',[TA002] AS '單號',[TA021] AS '線別',[MB001] AS '品號',[MB002] AS '品名',[MB003] AS '規格',[TA017] AS '生產量',[NUM] AS '入庫量',[NGNUM] AS '未熟量',CONVERT(VARCHAR, [SDATES], 120) AS '開始時間',CONVERT(VARCHAR,[EDATES], 120)  AS '結束時間'&#13;&#10; ,[TEMPERAVG] AS '溫度-平均',[TEMPERMIN] AS '溫度-最小',[TEMPERMAX] AS '溫度-最大',[HUMIAVG] AS '溼度-平均',[HUMIMIN] AS '溼度-最小',[HUMIMAX] AS '溼度-最大'&#13;&#10; ,[ASPEED] AS '大線爐速',[BSPEED] AS '小線爐速'&#13;&#10; ,[A1AAVG] AS '大線-1段-上爐-平均',[A1AMIN] AS '大線-1段-上爐-最小',[A1AMAX] AS '大線-1段-上爐-最大'&#13;&#10; ,[A1BAVG] AS '大線-1段-下爐-平均',[A1BMIN] AS '大線-1段-下爐-最小',[A1BMAX] AS '大線-1段-下爐-最大'&#13;&#10; ,[A2AAVG] AS '大線-2段-上爐-平均',[A2AMIN] AS '大線-2段-上爐-最小',[A2AMAX] AS '大線-2段-上爐-最大'&#13;&#10; ,[A2BAVG] AS '大線-2段-下爐-平均',[A2BMIN] AS '大線-2段-下爐-最小',[A2BMAX] AS '大線-2段-下爐-最大'&#13;&#10; ,[A3AAVG] AS '大線-3段-上爐-平均',[A3AMIN] AS '大線-3段-上爐-最小',[A3AMAX] AS '大線-3段-上爐-最大'&#13;&#10; ,[A3BAVG] AS '大線-3段-下爐-平均',[A3BMIN] AS '大線-3段-下爐-最小',[A3BMAX] AS '大線-3段-下爐-最大'&#13;&#10; ,[A4AAVG] AS '大線-4段-上爐-平均',[A4AMIN] AS '大線-4段-上爐-最小',[A4AMAX] AS '大線-4段-上爐-最大'&#13;&#10; ,[A4BAVG] AS '大線-4段-下爐-平均',[A4BMIN] AS '大線-4段-下爐-最小',[A4BMAX] AS '大線-4段-下爐-最大'&#13;&#10; ,[B1ARAVG] AS '小線-1段-上右爐-平均',[B1ARMIN] AS '小線-1段-上右爐-最小',[B1ARMAX] AS '小線-1段-上右爐-最大'&#13;&#10; ,[B1BRAVG] AS '小線-1段-下右爐-平均',[B1BRMIN] AS '小線-1段-下右爐-最小',[B1BRMAX] AS '小線-1段-下右爐-最大'&#13;&#10; ,[B1AMAVG] AS '小線-1段-上中爐-平均',[B1AMMIN] AS '小線-1段-上中爐-最小',[B1AMMAX] AS '小線-1段-上中爐-最大'&#13;&#10; ,[B1BMAVG] AS '小線-1段-下中爐-平均',[B1BMMIN] AS '小線-1段-下中爐-最小',[B1BMMAX] AS '小線-1段-下中爐-最大'&#13;&#10; ,[B1ALAVG] AS '小線-1段-上左爐-平均',[B1ALMIN] AS '小線-1段-上左爐-最小',[B1ALMAX] AS '小線-1段-上左爐-最大'&#13;&#10; ,[B1BLAVG] AS '小線-1段-下左爐-平均',[B1BLMIN] AS '小線-1段-下左爐-最小',[B1BLMAX] AS '小線-1段-下左爐-最大'&#13;&#10; ,[B2ARAVG] AS '小線-2段-上右爐-平均',[B2ARMIN] AS '小線-2段-上右爐-最小',[B2ARNAX] AS '小線-2段-上右爐-最大'&#13;&#10; ,[B2BRAVG] AS '小線-2段-下右爐-平均',[B2BRMIN] AS '小線-2段-下右爐-最小',[B2BRMAX] AS '小線-2段-下右爐-最大'&#13;&#10; ,[B2AMAVG] AS '小線-2段-上中爐-平均',[B2AMMIN] AS '小線-2段-上中爐-最小',[B2AMMAX] AS '小線-2段-上中爐-最大'&#13;&#10; ,[B2BMAVG] AS '小線-2段-下中爐-平均',[B2BMMIN] AS '小線-2段-下中爐-最小',[B2BMMAX] AS '小線-2段-下中爐-最大'&#13;&#10; ,[B2ALAVG] AS '小線-2段-上左爐-平均',[B2ALMIN] AS '小線-2段-上左爐-最小',[B2ALMAX] AS '小線-2段-上左爐-最大'&#13;&#10; ,[B2BLAVG] AS '小線-2段-下左爐-平均',[B2BLMIN] AS '小線-2段-下左爐-最小',[B2BLMAX] AS '小線-2段-下左爐-最大'&#13;&#10; ,[B3ARAVG] AS '小線-3段-上右爐-平均',[B3ARMIN] AS '小線-3段-上右爐-最小',[B3ARMAX] AS '小線-3段-上右爐-最大'&#13;&#10; ,[B3BRAVG] AS '小線-3段-下右爐-平均',[B3BRMIN] AS '小線-3段-下右爐-最小',[B3BRMAX] AS '小線-3段-下右爐-最大'&#13;&#10; ,[B3AMAVG] AS '小線-3段-上中爐-平均',[B3AMMIN] AS '小線-3段-上中爐-最小',[B3AMMAX] AS '小線-3段-上中爐-最大'&#13;&#10; ,[B3BMAVG] AS '小線-3段-下中爐-平均',[B3BMMIN] AS '小線-3段-下中爐-最小',[B3BMMAX] AS '小線-3段-下中爐-最大'&#13;&#10; ,[B3ALAVG] AS '小線-3段-上左爐-平均',[B3ALMIN] AS '小線-3段-上左爐-最小',[B3ALMAX] AS '小線-3段-上左爐-最大'&#13;&#10; ,[B3BLAVG] AS '小線-3段-下左爐-平均',[B3BLMIN] AS '小線-3段-下左爐-最小',[B3BLMAX] AS '小線-3段-下左爐-最大'&#13;&#10; ,[B4ARAVG] AS '小線-4段-上右爐-平均',[B4ARMIN] AS '小線-4段-上右爐-最小',[B4ARMAX] AS '小線-4段-上右爐-最大'&#13;&#10; ,[B4BRAVG] AS '小線-4段-下右爐-平均',[B4BRMIN] AS '小線-4段-下右爐-最小',[B4BRMAX] AS '小線-4段-下右爐-最大'&#13;&#10; ,[B4AMAVG] AS '小線-4段-上中爐-平均',[B4AMMIN] AS '小線-4段-上中爐-最小',[B4AMMAX] AS '小線-4段-上中爐-最大'&#13;&#10; ,[B4BMAVG] AS '小線-4段-下中爐-平均',[B4BMMIN] AS '小線-4段-下中爐-最小',[B4BMMAX] AS '小線-4段-下中爐-最大'&#13;&#10; ,[B4ALAVG] AS '小線-4段-上左爐-平均',[B4ALMIN] AS '小線-4段-上左爐-最小',[B4ALMAX] AS '小線-4段-上左爐-最大'&#13;&#10; ,[B4BLAVG] AS '小線-4段-下左爐-平均',[B4BLMIN] AS '小線-4段-下左爐-最小',[B4BLMAX] AS '小線-4段-下左爐-最大'&#13;&#10; ,[B5ARAVG] AS '小線-5段-上右爐-平均',[B5ARMIN] AS '小線-5段-上右爐-最小',[B5ARMAX] AS '小線-5段-上右爐-最大'&#13;&#10; ,[B5BRAVG] AS '小線-5段-下右爐-平均',[B5BRMIN] AS '小線-5段-下右爐-最小',[B5BRMAX] AS '小線-5段-下右爐-最大'&#13;&#10; ,[B5AMAVG] AS '小線-5段-上中爐-平均',[B5AMMIN] AS '小線-5段-上中爐-最小',[B5AMMAX] AS '小線-5段-上中爐-最大'&#13;&#10; ,[B5BMAVG] AS '小線-5段-下中爐-平均',[B5BMMIN] AS '小線-5段-下中爐-最小',[B5BMMAX] AS '小線-5段-下中爐-最大'&#13;&#10; ,[B5ALAVG] AS '小線-5段-上左爐-平均',[B5ALMIN] AS '小線-5段-上左爐-最小',[B5ALMAX] AS '小線-5段-上左爐-最大'&#13;&#10; ,[B5BLAVG] AS '小線-5段-下左爐-平均',[B5BLMIN] AS '小線-5段-下左爐-最小',[B5BLMAX] AS '小線-5段-下左爐-最大'&#13;&#10; ,[ID]&#13;&#10; FROM [TKMOC].[dbo].[MOCTADAILY]&#13;&#10; WHERE CONVERT(VARCHAR, [SDATES], 112)='20200715'&#13;&#10; ORDER BY  [TA001],[TA002],[TA021]">
         <Column Name="製令" DataType="System.String"/>
         <Column Name="單號" DataType="System.String"/>
         <Column Name="線別" DataType="System.String"/>
@@ -12,8 +12,8 @@
         <Column Name="生產量" DataType="System.Decimal"/>
         <Column Name="入庫量" DataType="System.Decimal"/>
         <Column Name="未熟量" DataType="System.Decimal"/>
-        <Column Name="開始時間" DataType="System.DateTime"/>
-        <Column Name="結束時間" DataType="System.DateTime"/>
+        <Column Name="開始時間" DataType="System.String"/>
+        <Column Name="結束時間" DataType="System.String"/>
         <Column Name="溫度-平均" DataType="System.Decimal"/>
         <Column Name="溫度-最小" DataType="System.Decimal"/>
         <Column Name="溫度-最大" DataType="System.Decimal"/>
@@ -88,13 +88,13 @@
         <Column Name="小線-3段-下右爐-平均" DataType="System.Decimal"/>
         <Column Name="小線-3段-下右爐-最小" DataType="System.Decimal"/>
         <Column Name="小線-3段-下右爐-最大" DataType="System.Decimal"/>
-        <Column Name="小線-3段-上右爐-平均1" DataType="System.Decimal"/>
+        <Column Name="小線-3段-上中爐-平均" DataType="System.Decimal"/>
         <Column Name="小線-3段-上中爐-最小" DataType="System.Decimal"/>
         <Column Name="小線-3段-上中爐-最大" DataType="System.Decimal"/>
         <Column Name="小線-3段-下中爐-平均" DataType="System.Decimal"/>
         <Column Name="小線-3段-下中爐-最小" DataType="System.Decimal"/>
         <Column Name="小線-3段-下中爐-最大" DataType="System.Decimal"/>
-        <Column Name="小線-3段-上中爐-平均" DataType="System.Decimal"/>
+        <Column Name="小線-3段-上左爐-平均" DataType="System.Decimal"/>
         <Column Name="小線-3段-上左爐-最小" DataType="System.Decimal"/>
         <Column Name="小線-3段-上左爐-最大" DataType="System.Decimal"/>
         <Column Name="小線-3段-下左爐-平均" DataType="System.Decimal"/>
@@ -136,29 +136,284 @@
         <Column Name="小線-5段-下左爐-平均" DataType="System.Decimal"/>
         <Column Name="小線-5段-下左爐-最小" DataType="System.Decimal"/>
         <Column Name="小線-5段-下左爐-最大" DataType="System.Decimal"/>
+        <Column Name="ID" DataType="System.Guid"/>
       </TableDataSource>
     </MsSqlDataConnection>
   </Dictionary>
-  <ReportPage Name="Page1" Landscape="true" PaperWidth="2000" PaperHeight="210">
-    <ReportTitleBand Name="ReportTitle1" Width="7484.4" Height="18.9">
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="4000" PaperHeight="210">
+    <ReportTitleBand Name="ReportTitle1" Width="15044.4" Height="18.9">
       <TextObject Name="Text1" Width="94.5" Height="18.9" Text="生產記錄"/>
     </ReportTitleBand>
-    <ColumnHeaderBand Name="ColumnHeader1" Top="22.75" Width="7484.4" Height="28.35">
-      <TextObject Name="Text3" Width="94.5" Height="18.9" Border.Lines="All" Text="製令" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text5" Left="94.5" Width="94.5" Height="18.9" Border.Lines="All" Text="單號" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text7" Left="189" Width="94.5" Height="18.9" Border.Lines="All" Text="線別" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text9" Left="283.5" Width="132.3" Height="18.9" Border.Lines="All" Text="品號" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text11" Left="415.8" Width="255.15" Height="18.9" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text13" Left="670.95" Width="132.3" Height="18.9" Border.Lines="All" Text="規格" HorzAlign="Center" VertAlign="Center"/>
+    <ColumnHeaderBand Name="ColumnHeader1" Top="24.7" Width="15044.4" Height="28.35">
+      <TextObject Name="Text3" Width="94.5" Height="28.35" Border.Lines="All" Text="製令" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text5" Left="94.5" Width="94.5" Height="28.35" Border.Lines="All" Text="單號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text7" Left="189" Width="94.5" Height="28.35" Border.Lines="All" Text="線別" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text9" Left="283.5" Width="132.3" Height="28.35" Border.Lines="All" Text="品號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text11" Left="415.8" Width="255.15" Height="28.35" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text13" Left="670.95" Width="132.3" Height="28.35" Border.Lines="All" Text="規格" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text15" Left="803.25" Width="94.5" Height="28.35" Border.Lines="All" Text="生產量" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text17" Left="897.75" Width="94.5" Height="28.35" Border.Lines="All" Text="入庫量" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text19" Left="992.25" Width="94.5" Height="28.35" Border.Lines="All" Text="未熟量" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text21" Left="1086.75" Width="170.1" Height="28.35" Border.Lines="All" Text="開始時間" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text23" Left="1256.85" Width="170.1" Height="28.35" Border.Lines="All" Text="結束時間" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text25" Left="1426.95" Width="94.5" Height="28.35" Border.Lines="All" Text="溫度-平均" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text27" Left="1521.45" Width="94.5" Height="28.35" Border.Lines="All" Text="溫度-最小" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text29" Left="1615.95" Width="94.5" Height="28.35" Border.Lines="All" Text="溫度-最大" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text31" Left="1710.45" Width="94.5" Height="28.35" Border.Lines="All" Text="溼度-平均" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text33" Left="1804.95" Width="94.5" Height="28.35" Border.Lines="All" Text="溼度-最小" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text35" Left="1899.45" Width="94.5" Height="28.35" Border.Lines="All" Text="溼度-最大" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text37" Left="1993.95" Width="94.5" Height="28.35" Border.Lines="All" Text="大線爐速" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text39" Left="2088.45" Width="94.5" Height="28.35" Border.Lines="All" Text="小線爐速" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text41" Left="2182.95" Width="94.5" Height="28.35" Border.Lines="All" Text="大線-1段-上爐-平均" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text43" Left="2277.45" Width="94.5" Height="28.35" Border.Lines="All" Text="大線-1段-上爐-最小" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text45" Left="2371.95" Width="94.5" Height="28.35" Border.Lines="All" Text="大線-1段-上爐-最大" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text47" Left="2466.45" Width="94.5" Height="28.35" Border.Lines="All" Text="大線-1段-下爐-平均" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text49" Left="2560.95" Width="94.5" Height="28.35" Border.Lines="All" Text="大線-1段-下爐-最小" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text51" Left="2655.45" Width="94.5" Height="28.35" Border.Lines="All" Text="大線-1段-下爐-最大" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text53" Left="2749.95" Width="94.5" Height="28.35" Border.Lines="All" Text="大線-2段-上爐-平均" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text55" Left="2844.45" Width="94.5" Height="28.35" Border.Lines="All" Text="大線-2段-上爐-最小" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text57" Left="2938.95" Width="94.5" Height="28.35" Border.Lines="All" Text="大線-2段-上爐-最大" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text59" Left="3033.45" Width="94.5" Height="28.35" Border.Lines="All" Text="大線-2段-下爐-平均" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text61" Left="3127.95" Width="94.5" Height="28.35" Border.Lines="All" Text="大線-2段-下爐-最小" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text63" Left="3222.45" Width="94.5" Height="28.35" Border.Lines="All" Text="大線-2段-下爐-最大" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text65" Left="3316.95" Width="94.5" Height="28.35" Border.Lines="All" Text="大線-3段-上爐-平均" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text67" Left="3411.45" Width="94.5" Height="28.35" Border.Lines="All" Text="大線-3段-上爐-最小" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text69" Left="3505.95" Width="94.5" Height="28.35" Border.Lines="All" Text="大線-3段-上爐-最大" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text71" Left="3600.45" Width="94.5" Height="28.35" Border.Lines="All" Text="大線-3段-下爐-平均" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text73" Left="3694.95" Width="94.5" Height="28.35" Border.Lines="All" Text="大線-3段-下爐-最小" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text75" Left="3789.45" Width="94.5" Height="28.35" Border.Lines="All" Text="大線-3段-下爐-最大" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text77" Left="3883.95" Width="94.5" Height="28.35" Border.Lines="All" Text="大線-4段-上爐-平均" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text79" Left="3978.45" Width="94.5" Height="28.35" Border.Lines="All" Text="大線-4段-上爐-最小" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text81" Left="4072.95" Width="94.5" Height="28.35" Border.Lines="All" Text="大線-4段-上爐-最大" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text83" Left="4167.45" Width="94.5" Height="28.35" Border.Lines="All" Text="大線-4段-下爐-平均" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text85" Left="4261.95" Width="94.5" Height="28.35" Border.Lines="All" Text="大線-4段-下爐-最小" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text87" Left="4356.45" Width="94.5" Height="28.35" Border.Lines="All" Text="大線-4段-下爐-最大" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text89" Left="4450.95" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-1段-上右爐-平均" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text91" Left="4545.45" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-1段-上右爐-最小" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text93" Left="4639.95" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-1段-上右爐-最大" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text95" Left="4734.45" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-1段-下右爐-平均" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text97" Left="4828.95" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-1段-下右爐-最小" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text99" Left="4923.45" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-1段-下右爐-最大" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text101" Left="5017.95" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-1段-上中爐-平均" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text103" Left="5112.45" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-1段-上中爐-最小" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text105" Left="5206.95" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-1段-上中爐-最大" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text107" Left="5301.45" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-1段-下中爐-平均" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text109" Left="5395.95" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-1段-下中爐-最小" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text111" Left="5490.45" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-1段-下中爐-最大" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text113" Left="5584.95" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-1段-上左爐-平均" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text115" Left="5679.45" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-1段-上左爐-最小" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text117" Left="5773.95" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-1段-上左爐-最大" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text119" Left="5868.45" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-1段-下左爐-平均" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text121" Left="5962.95" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-1段-下左爐-最小" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text123" Left="6057.45" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-1段-下左爐-最大" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text125" Left="6151.95" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-2段-上右爐-平均" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text127" Left="6246.45" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-2段-上右爐-最小" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text129" Left="6340.95" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-2段-上右爐-最大" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text131" Left="6435.45" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-2段-下右爐-平均" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text133" Left="6529.95" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-2段-下右爐-最小" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text135" Left="6624.45" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-2段-下右爐-最大" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text137" Left="6718.95" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-2段-上中爐-平均" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text139" Left="6813.45" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-2段-上中爐-最小" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text141" Left="6907.95" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-2段-上中爐-最大" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text143" Left="7002.45" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-2段-下中爐-平均" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text145" Left="7096.95" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-2段-下中爐-最小" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text147" Left="7191.45" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-2段-下中爐-最大" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text149" Left="7285.95" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-2段-上左爐-平均" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text151" Left="7380.45" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-2段-上左爐-最小" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text153" Left="7474.95" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-2段-上左爐-最大" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text155" Left="7569.45" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-2段-下左爐-平均" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text157" Left="7663.95" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-2段-下左爐-最小" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text159" Left="7758.45" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-2段-下左爐-最大" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text161" Left="7852.95" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-3段-上右爐-平均" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text163" Left="7947.45" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-3段-上右爐-最小" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text165" Left="8041.95" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-3段-上右爐-最大" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text167" Left="8136.45" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-3段-下右爐-平均" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text169" Left="8230.95" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-3段-下右爐-最小" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text171" Left="8325.45" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-3段-下右爐-最大" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text173" Left="8514.45" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-3段-上中爐-最小" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text175" Left="8608.95" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-3段-上中爐-最大" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text177" Left="8703.45" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-3段-下中爐-平均" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text179" Left="8797.95" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-3段-下中爐-最小" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text181" Left="8892.45" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-3段-下中爐-最大" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text185" Left="9081.45" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-3段-上左爐-最小" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text187" Left="9175.95" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-3段-上左爐-最大" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text189" Left="9270.45" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-3段-下左爐-平均" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text191" Left="9364.95" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-3段-下左爐-最小" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text193" Left="9459.45" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-3段-下左爐-最大" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text195" Left="9553.95" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-4段-上右爐-平均" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text197" Left="9648.45" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-4段-上右爐-最小" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text199" Left="9742.95" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-4段-上右爐-最大" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text201" Left="9837.45" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-4段-下右爐-平均" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text203" Left="9931.95" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-4段-下右爐-最小" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text205" Left="10026.45" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-4段-下右爐-最大" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text207" Left="10120.95" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-4段-上中爐-平均" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text209" Left="10215.45" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-4段-上中爐-最小" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text211" Left="10309.95" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-4段-上中爐-最大" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text213" Left="10404.45" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-4段-下中爐-平均" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text215" Left="10498.95" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-4段-下中爐-最小" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text217" Left="10593.45" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-4段-下中爐-最大" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text219" Left="10687.95" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-4段-上左爐-平均" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text221" Left="10782.45" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-4段-上左爐-最小" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text223" Left="10876.95" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-4段-上左爐-最大" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text225" Left="10971.45" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-4段-下左爐-平均" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text227" Left="11065.95" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-4段-下左爐-最小" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text229" Left="11160.45" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-4段-下左爐-最大" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text231" Left="11254.95" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-5段-上右爐-平均" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text233" Left="11340" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-5段-上右爐-最小" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text235" Left="11434.5" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-5段-上右爐-最大" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text237" Left="11529" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-5段-下右爐-平均" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text239" Left="11623.5" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-5段-下右爐-最小" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text241" Left="11718" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-5段-下右爐-最大" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text243" Left="11812.5" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-5段-上中爐-平均" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text245" Left="11907" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-5段-上中爐-最小" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text247" Left="12001.5" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-5段-上中爐-最大" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text249" Left="12096" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-5段-下中爐-平均" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text251" Left="12190.5" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-5段-下中爐-最小" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text253" Left="12285" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-5段-下中爐-最大" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text255" Left="12379.5" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-5段-上左爐-平均" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text257" Left="12474" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-5段-上左爐-最小" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text259" Left="12568.5" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-5段-上左爐-最大" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text261" Left="12663" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-5段-下左爐-平均" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text263" Left="12757.5" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-5段-下左爐-最小" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text265" Left="12852" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-5段-下左爐-最大" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text183" Left="8986.95" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-3段-上左爐-平均" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text267" Left="8419.95" Width="94.5" Height="28.35" Border.Lines="All" Text="小線-3段-上中爐-平均" HorzAlign="Center" VertAlign="Center"/>
     </ColumnHeaderBand>
-    <DataBand Name="Data1" Top="54.94" Width="7484.4" Height="28.35" DataSource="Table">
+    <DataBand Name="Data1" Top="58.84" Width="15044.4" Height="18.9" DataSource="Table">
       <TextObject Name="Text2" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.製令]" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text4" Left="94.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.單號]" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text6" Left="189" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.線別]" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text8" Left="283.5" Width="132.3" Height="18.9" Border.Lines="All" Text="[Table.品號]" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text10" Left="415.8" Width="255.15" Height="18.9" Border.Lines="All" Text="[Table.品名]" VertAlign="Center"/>
       <TextObject Name="Text12" Left="670.95" Width="132.3" Height="18.9" Border.Lines="All" Text="[Table.規格]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text14" Left="803.25" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.生產量]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text16" Left="897.75" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.入庫量]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text18" Left="992.25" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.未熟量]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text20" Left="1086.75" Width="170.1" Height="18.9" Border.Lines="All" Text="[Table.開始時間]" Format="Custom" Format.Format="yyyy/MM/dd HH:mm:ss" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text22" Left="1256.85" Width="170.1" Height="18.9" Border.Lines="All" Text="[Table.結束時間]" Format="Custom" Format.Format="yyyy/MM/dd HH:mm:ss" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text24" Left="1426.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.溫度-平均]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text26" Left="1521.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.溫度-最小]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text28" Left="1615.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.溫度-最大]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text30" Left="1710.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.溼度-平均]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text32" Left="1804.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.溼度-最小]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text34" Left="1899.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.溼度-最大]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text36" Left="1993.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.大線爐速]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text38" Left="2088.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線爐速]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text40" Left="2182.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.大線-1段-上爐-平均]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text42" Left="2277.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.大線-1段-上爐-最小]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text44" Left="2371.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.大線-1段-上爐-最大]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text46" Left="2466.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.大線-1段-下爐-平均]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text48" Left="2560.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.大線-1段-下爐-最小]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text50" Left="2655.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.大線-1段-下爐-最大]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text52" Left="2749.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.大線-2段-上爐-平均]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text54" Left="2844.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.大線-2段-上爐-最小]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text56" Left="2938.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.大線-2段-上爐-最大]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text58" Left="3033.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.大線-2段-下爐-平均]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text60" Left="3127.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.大線-2段-下爐-最小]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text62" Left="3222.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.大線-2段-下爐-最大]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text64" Left="3316.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.大線-3段-上爐-平均]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text66" Left="3411.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.大線-3段-上爐-最小]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text68" Left="3505.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.大線-3段-上爐-最大]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text70" Left="3600.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.大線-3段-下爐-平均]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text72" Left="3694.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.大線-3段-下爐-最小]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text74" Left="3789.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.大線-3段-下爐-最大]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text76" Left="3883.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.大線-4段-上爐-平均]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text78" Left="3978.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.大線-4段-上爐-最小]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text80" Left="4072.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.大線-4段-上爐-最大]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text82" Left="4167.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.大線-4段-下爐-平均]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text84" Left="4261.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.大線-4段-下爐-最小]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text86" Left="4356.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.大線-4段-下爐-最大]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text88" Left="4450.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-1段-上右爐-平均]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text90" Left="4545.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-1段-上右爐-最小]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text92" Left="4639.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-1段-上右爐-最大]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text94" Left="4734.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-1段-下右爐-平均]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text96" Left="4828.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-1段-下右爐-最小]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text98" Left="4923.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-1段-下右爐-最大]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text100" Left="5017.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-1段-上中爐-平均]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text102" Left="5112.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-1段-上中爐-最小]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text104" Left="5206.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-1段-上中爐-最大]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text106" Left="5301.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-1段-下中爐-平均]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text108" Left="5395.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-1段-下中爐-最小]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text110" Left="5490.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-1段-下中爐-最大]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text112" Left="5584.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-1段-上左爐-平均]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text114" Left="5679.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-1段-上左爐-最小]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text116" Left="5773.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-1段-上左爐-最大]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text118" Left="5868.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-1段-下左爐-平均]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text120" Left="5962.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-1段-下左爐-最小]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text122" Left="6057.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-1段-下左爐-最大]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text124" Left="6151.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-2段-上右爐-平均]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text126" Left="6246.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-2段-上右爐-最小]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text128" Left="6340.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-2段-上右爐-最大]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text130" Left="6435.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-2段-下右爐-平均]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text132" Left="6529.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-2段-下右爐-最小]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text134" Left="6624.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-2段-下右爐-最大]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text136" Left="6718.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-2段-上中爐-平均]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text138" Left="6813.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-2段-上中爐-最小]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text140" Left="6907.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-2段-上中爐-最大]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text142" Left="7002.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-2段-下中爐-平均]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text144" Left="7096.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-2段-下中爐-最小]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text146" Left="7191.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-2段-下中爐-最大]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text148" Left="7285.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-2段-上左爐-平均]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text150" Left="7380.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-2段-上左爐-最小]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text152" Left="7474.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-2段-上左爐-最大]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text154" Left="7569.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-2段-下左爐-平均]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text156" Left="7663.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-2段-下左爐-最小]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text158" Left="7758.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-2段-下左爐-最大]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text160" Left="7852.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-3段-上右爐-平均]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text162" Left="7947.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-3段-上右爐-最小]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text164" Left="8041.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-3段-上右爐-最大]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text166" Left="8136.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-3段-下右爐-平均]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text168" Left="8230.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-3段-下右爐-最小]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text170" Left="8325.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-3段-下右爐-最大]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text172" Left="8514.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-3段-上中爐-最小]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text174" Left="8608.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-3段-上中爐-最大]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text176" Left="8703.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-3段-下中爐-平均]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text178" Left="8797.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-3段-下中爐-最小]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text180" Left="8892.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-3段-下中爐-最大]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text184" Left="9081.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-3段-上左爐-最小]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text186" Left="9175.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-3段-上左爐-最大]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text188" Left="9270.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-3段-下左爐-平均]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text190" Left="9364.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-3段-下左爐-最小]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text192" Left="9459.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-3段-下左爐-最大]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text194" Left="9553.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-4段-上右爐-平均]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text196" Left="9648.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-4段-上右爐-最小]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text198" Left="9742.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-4段-上右爐-最大]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text200" Left="9837.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-4段-下右爐-平均]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text202" Left="9931.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-4段-下右爐-最小]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text204" Left="10026.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-4段-下右爐-最大]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text206" Left="10120.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-4段-上中爐-平均]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text208" Left="10215.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-4段-上中爐-最小]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text210" Left="10309.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-4段-上中爐-最大]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text212" Left="10404.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-4段-下中爐-平均]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text214" Left="10498.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-4段-下中爐-最小]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text216" Left="10593.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-4段-下中爐-最大]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text218" Left="10687.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-4段-上左爐-平均]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text220" Left="10782.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-4段-上左爐-最小]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text222" Left="10876.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-4段-上左爐-最大]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text224" Left="10971.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-4段-下左爐-平均]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text226" Left="11065.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-4段-下左爐-最小]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text228" Left="11160.45" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-4段-下左爐-最大]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text230" Left="11254.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-5段-上右爐-平均]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text232" Left="11340" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-5段-上右爐-最小]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text234" Left="11434.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-5段-上右爐-最大]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text236" Left="11529" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-5段-下右爐-平均]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text238" Left="11623.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-5段-下右爐-最小]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text240" Left="11718" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-5段-下右爐-最大]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text242" Left="11812.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-5段-上中爐-平均]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text244" Left="11907" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-5段-上中爐-最小]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text246" Left="12001.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-5段-上中爐-最大]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text248" Left="12096" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-5段-下中爐-平均]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text250" Left="12190.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-5段-下中爐-最小]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text252" Left="12285" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-5段-下中爐-最大]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text254" Left="12379.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-5段-上左爐-平均]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text256" Left="12474" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-5段-上左爐-最小]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text258" Left="12568.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-5段-上左爐-最大]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text260" Left="12663" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-5段-下左爐-平均]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text262" Left="12757.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-5段-下左爐-最小]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text264" Left="12852" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-5段-下左爐-最大]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text182" Left="8986.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-3段-上左爐-平均]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text266" Left="8419.95" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線-3段-上中爐-平均]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
     </DataBand>
-    <PageFooterBand Name="PageFooter1" Top="87.14" Width="7484.4" Height="18.9"/>
+    <PageFooterBand Name="PageFooter1" Top="83.54" Width="15044.4" Height="18.9"/>
   </ReportPage>
 </Report>
