@@ -363,6 +363,74 @@ namespace TKMOC
 
             textBox1.Text = null;
             textBox2.Text = null;
+
+            textBox111.Text = null;
+            textBox112.Text = null;
+            textBox113.Text = null;
+            textBox121.Text = null;
+            textBox122.Text = null;
+            textBox123.Text = null;
+
+
+            textBox211.Text = "0";
+            textBox231.Text = "0";
+            textBox232.Text = "0";
+            textBox233.Text = "0";
+            textBox234.Text = "0";
+            textBox235.Text = "0";
+            textBox236.Text = "0";
+            textBox241.Text = "0";
+            textBox242.Text = "0";
+            textBox243.Text = "0";
+            textBox244.Text = "0";
+            textBox245.Text = "0";
+            textBox246.Text = "0";
+            textBox251.Text = "0";
+            textBox252.Text = "0";
+            textBox253.Text = "0";
+            textBox254.Text = "0";
+            textBox255.Text = "0";
+            textBox256.Text = "0";
+            textBox261.Text = "0";
+            textBox262.Text = "0";
+            textBox263.Text = "0";
+            textBox264.Text = "0";
+            textBox265.Text = "0";
+            textBox266.Text = "0";
+
+
+            textBox311.Text = null;
+
+            textBox331.Text = null;
+            textBox332.Text = null;
+            textBox333.Text = null;
+            textBox334.Text = null;
+            textBox335.Text = null;
+            textBox336.Text = null;
+            textBox341.Text = null;
+            textBox342.Text = null;
+            textBox343.Text = null;
+            textBox344.Text = null;
+            textBox345.Text = null;
+            textBox346.Text = null;
+            textBox351.Text = null;
+            textBox352.Text = null;
+            textBox353.Text = null;
+            textBox354.Text = null;
+            textBox355.Text = null;
+            textBox356.Text = null;
+            textBox361.Text = null;
+            textBox362.Text = null;
+            textBox363.Text = null;
+            textBox364.Text = null;
+            textBox365.Text = null;
+            textBox366.Text = null;
+            textBox371.Text = null;
+            textBox372.Text = null;
+            textBox373.Text = null;
+            textBox374.Text = null;
+            textBox375.Text = null;
+            textBox376.Text = null;
         }
 
         public void SETTEXTBOX2()
@@ -673,6 +741,40 @@ namespace TKMOC
                 textBox264.Text = null;
                 textBox265.Text = null;
                 textBox266.Text = null;
+
+
+                textBox311.Text = null;
+
+                textBox331.Text = null;
+                textBox332.Text = null;
+                textBox333.Text = null;
+                textBox334.Text = null;
+                textBox335.Text = null;
+                textBox336.Text = null; 
+                textBox341.Text = null;
+                textBox342.Text = null;
+                textBox343.Text = null;
+                textBox344.Text = null; 
+                textBox345.Text = null;
+                textBox346.Text = null;
+                textBox351.Text = null;
+                textBox352.Text = null;
+                textBox353.Text = null;
+                textBox354.Text = null;
+                textBox355.Text = null;
+                textBox356.Text = null;
+                textBox361.Text = null;
+                textBox362.Text = null;
+                textBox363.Text = null;
+                textBox364.Text = null;
+                textBox365.Text = null;
+                textBox366.Text = null;
+                textBox371.Text = null;
+                textBox372.Text = null;
+                textBox373.Text = null;
+                textBox374.Text = null;
+                textBox375.Text = null;
+                textBox376.Text = null;
 
             }
         }
