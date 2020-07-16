@@ -159,6 +159,8 @@
             this.dateTimePicker4 = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker5 = new System.Windows.Forms.DateTimePicker();
             this.previewControl1 = new FastReport.Preview.PreviewControl();
+            this.label37 = new System.Windows.Forms.Label();
+            this.textBox151 = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -519,6 +521,8 @@
             this.tableLayoutPanel2.Controls.Add(this.dateTimePicker2, 1, 2);
             this.tableLayoutPanel2.Controls.Add(this.label11, 0, 3);
             this.tableLayoutPanel2.Controls.Add(this.dateTimePicker3, 1, 3);
+            this.tableLayoutPanel2.Controls.Add(this.label37, 0, 4);
+            this.tableLayoutPanel2.Controls.Add(this.textBox151, 1, 4);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -1750,6 +1754,27 @@
             this.previewControl1.Size = new System.Drawing.Size(1118, 569);
             this.previewControl1.TabIndex = 5;
             // 
+            // label37
+            // 
+            this.label37.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label37.AutoSize = true;
+            this.label37.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label37.Location = new System.Drawing.Point(3, 172);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(114, 16);
+            this.label37.TabIndex = 26;
+            this.label37.Text = "ID";
+            this.label37.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // textBox151
+            // 
+            this.textBox151.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox151.Location = new System.Drawing.Point(123, 166);
+            this.textBox151.Name = "textBox151";
+            this.textBox151.ReadOnly = true;
+            this.textBox151.Size = new System.Drawing.Size(114, 27);
+            this.textBox151.TabIndex = 27;
+            // 
             // frmMOCTADAILY
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -1933,5 +1958,7 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.DateTimePicker dateTimePicker5;
         private FastReport.Preview.PreviewControl previewControl1;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.TextBox textBox151;
     }
 }

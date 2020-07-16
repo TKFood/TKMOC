@@ -558,7 +558,7 @@ namespace TKMOC
                 {
                     DataGridViewRow row = dataGridView1.Rows[rowindex];
                     ID = row.Cells["ID"].Value.ToString();
-
+                    textBox151.Text = row.Cells["ID"].Value.ToString();
 
                     textBox1.Text = row.Cells["製令"].Value.ToString();
                     textBox2.Text = row.Cells["單號"].Value.ToString();
@@ -644,24 +644,393 @@ namespace TKMOC
             }
         }
 
-        public void UPDATEMOCTADAILYDETAIL(string TA001,string TA002,string TA021,string SDATES,string EDATES)
+        public void UPDATEMOCTADAILYDETAIL(string ID,string SDATES,string EDATES)
         {
             DATAMOCTADAILY MOCTADAILY = new DATAMOCTADAILY();
+            MOCTADAILY = CALSDEEP(MOCTADAILY, SDATES, EDATES);
             MOCTADAILY = CALTEMPERHUMI(MOCTADAILY,SDATES,EDATES);
             MOCTADAILY = CALTEMPERAVG(MOCTADAILY, SDATES, EDATES);
 
-            MessageBox.Show(MOCTADAILY.TEMPERAVG+" "+ MOCTADAILY.B1ALAVG);
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat("  UPDATE [TKMOC].[dbo].[MOCTADAILY]");
+                sbSql.AppendFormat("  SET ");
+                sbSql.AppendFormat("  [BSPEED]='{0}'", MOCTADAILY.BSPEED);
+                sbSql.AppendFormat("  ,[TEMPERAVG]='{0}',[TEMPERMIN]='{1}',[TEMPERMAX]='{2}'", MOCTADAILY.TEMPERAVG, MOCTADAILY.TEMPERMIN, MOCTADAILY.TEMPERMAX);
+                sbSql.AppendFormat("  ,[HUMIAVG]='{0}',[HUMIMIN]='{1}',[HUMIMAX]='{2}'", MOCTADAILY.HUMIAVG, MOCTADAILY.HUMIMIN, MOCTADAILY.HUMIMAX);
+                sbSql.AppendFormat("  ,[B1ARAVG]='{0}',[B1ARMIN]='{1}',[B1ARMAX]='{2}',[B1BRAVG]='{3}',[B1BRMIN]='{4}',[B1BRMAX]='{5}',[B1AMAVG]='{6}',[B1AMMIN]='{7}',[B1AMMAX]='{8}',[B1BMAVG]='{9}',[B1BMMIN]='{10}',[B1BMMAX]='{11}',[B1ALAVG]='{12}',[B1ALMIN]='{13}',[B1ALMAX]='{14}',[B1BLAVG]='{15}',[B1BLMIN]='{16}',[B1BLMAX]='{17}'", MOCTADAILY.B1ARAVG, MOCTADAILY.B1ARMIN, MOCTADAILY.B1ARMAX, MOCTADAILY.B1BRAVG, MOCTADAILY.B1BRMIN, MOCTADAILY.B1BRMAX, MOCTADAILY.B1AMAVG, MOCTADAILY.B1AMMIN, MOCTADAILY.B1AMMAX, MOCTADAILY.B1BMAVG, MOCTADAILY.B1BMMIN, MOCTADAILY.B1BMMAX, MOCTADAILY.B1ALAVG, MOCTADAILY.B1ALMIN, MOCTADAILY.B1ALMAX, MOCTADAILY.B1BLAVG, MOCTADAILY.B1BLMIN, MOCTADAILY.B1BLMAX);
+                sbSql.AppendFormat("  ,[B2ARAVG]='{0}',[B2ARMIN]='{1}',[B2ARNAX]='{2}',[B2BRAVG]='{3}',[B2BRMIN]='{4}',[B2BRMAX]='{5}',[B2AMAVG]='{6}',[B2AMMIN]='{7}',[B2AMMAX]='{8}',[B2BMAVG]='{9}',[B2BMMIN]='{10}',[B2BMMAX]='{11}',[B2ALAVG]='{12}',[B2ALMIN]='{13}',[B2ALMAX]='{14}',[B2BLAVG]='{15}',[B2BLMIN]='{16}',[B2BLMAX]='{17}'", MOCTADAILY.B2ARAVG, MOCTADAILY.B2ARMIN, MOCTADAILY.B2ARMAX, MOCTADAILY.B2BRAVG, MOCTADAILY.B2BRMIN, MOCTADAILY.B2BRMAX, MOCTADAILY.B2AMAVG, MOCTADAILY.B2AMMIN, MOCTADAILY.B2AMMAX, MOCTADAILY.B2BMAVG, MOCTADAILY.B2BMMIN, MOCTADAILY.B2BMMAX, MOCTADAILY.B2ALAVG, MOCTADAILY.B2ALMIN, MOCTADAILY.B2ALMAX, MOCTADAILY.B2BLAVG, MOCTADAILY.B2BLMIN, MOCTADAILY.B2BLMAX);
+                sbSql.AppendFormat("  ,[B3ARAVG]='{0}',[B3ARMIN]='{1}',[B3ARMAX]='{2}',[B3BRAVG]='{3}',[B3BRMIN]='{4}',[B3BRMAX]='{5}',[B3AMAVG]='{6}',[B3AMMIN]='{7}',[B3AMMAX]='{8}',[B3BMAVG]='{9}',[B3BMMIN]='{10}',[B3BMMAX]='{11}',[B3ALAVG]='{12}',[B3ALMIN]='{13}',[B3ALMAX]='{14}',[B3BLAVG]='{15}',[B3BLMIN]='{16}',[B3BLMAX]='{17}'", MOCTADAILY.B3ARAVG, MOCTADAILY.B3ARMIN, MOCTADAILY.B3ARMAX, MOCTADAILY.B3BRAVG, MOCTADAILY.B3BRMIN, MOCTADAILY.B3BRMAX, MOCTADAILY.B3AMAVG, MOCTADAILY.B3AMMIN, MOCTADAILY.B3AMMAX, MOCTADAILY.B3BMAVG, MOCTADAILY.B3BMMIN, MOCTADAILY.B3BMMAX, MOCTADAILY.B3ALAVG, MOCTADAILY.B3ALMIN, MOCTADAILY.B3ALMAX, MOCTADAILY.B3BLAVG, MOCTADAILY.B3BLMIN, MOCTADAILY.B3BLMAX);
+                sbSql.AppendFormat("  ,[B4ARAVG]='{0}',[B4ARMIN]='{1}',[B4ARMAX]='{2}',[B4BRAVG]='{3}',[B4BRMIN]='{4}',[B4BRMAX]='{5}',[B4AMAVG]='{6}',[B4AMMIN]='{7}',[B4AMMAX]='{8}',[B4BMAVG]='{9}',[B4BMMIN]='{10}',[B4BMMAX]='{11}',[B4ALAVG]='{12}',[B4ALMIN]='{13}',[B4ALMAX]='{14}',[B4BLAVG]='{15}',[B4BLMIN]='{16}',[B4BLMAX]='{17}'", MOCTADAILY.B4ARAVG, MOCTADAILY.B4ARMIN, MOCTADAILY.B4ARMAX, MOCTADAILY.B4BRAVG, MOCTADAILY.B4BRMIN, MOCTADAILY.B4BRMAX, MOCTADAILY.B4AMAVG, MOCTADAILY.B4AMMIN, MOCTADAILY.B4AMMAX, MOCTADAILY.B4BMAVG, MOCTADAILY.B4BMMIN, MOCTADAILY.B4BMMAX, MOCTADAILY.B4ALAVG, MOCTADAILY.B4ALMIN, MOCTADAILY.B4ALMAX, MOCTADAILY.B4BLAVG, MOCTADAILY.B4BLMIN, MOCTADAILY.B4BLMAX);
+                sbSql.AppendFormat("  ,[B5ARAVG]='{0}',[B5ARMIN]='{1}',[B5ARMAX]='{2}',[B5BRAVG]='{3}',[B5BRMIN]='{4}',[B5BRMAX]='{5}',[B5AMAVG]='{6}',[B5AMMIN]='{7}',[B5AMMAX]='{8}',[B5BMAVG]='{9}',[B5BMMIN]='{10}',[B5BMMAX]='{11}',[B5ALAVG]='{12}',[B5ALMIN]='{13}',[B5ALMAX]='{14}',[B5BLAVG]='{15}',[B5BLMIN]='{16}',[B5BLMAX]='{17}'", MOCTADAILY.B5ARAVG, MOCTADAILY.B5ARMIN, MOCTADAILY.B5ARMAX, MOCTADAILY.B5BRAVG, MOCTADAILY.B5BRMIN, MOCTADAILY.B5BRMAX, MOCTADAILY.B5AMAVG, MOCTADAILY.B5AMMIN, MOCTADAILY.B5AMMAX, MOCTADAILY.B5BMAVG, MOCTADAILY.B5BMMIN, MOCTADAILY.B5BMMAX, MOCTADAILY.B5ALAVG, MOCTADAILY.B5ALMIN, MOCTADAILY.B5ALMAX, MOCTADAILY.B5BLAVG, MOCTADAILY.B5BLMIN, MOCTADAILY.B5BLMAX);
+                sbSql.AppendFormat("  WHERE ID='{0}'", ID);
+                sbSql.AppendFormat("  ");
+                sbSql.AppendFormat("  ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+
+            //MessageBox.Show(MOCTADAILY.TEMPERAVG+" "+ MOCTADAILY.B1ALAVG);
+        }
+
+        public DATAMOCTADAILY CALSDEEP(DATAMOCTADAILY MOCTADAILY, string SDATES, string EDATES)
+        {
+
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+
+            DataSet ds1 = new DataSet();
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbMOC"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+
+                sbSql.AppendFormat(@"  SELECT AVG(CONVERT(decimal(16,4),控項_1)) AS 'BSPEED'");
+                sbSql.AppendFormat(@"  FROM [TK_FOOD].[dbo].[log_table]");
+                sbSql.AppendFormat(@"  WHERE [機台名稱]='烤爐_小線' AND [類型]='速度段'");
+                sbSql.AppendFormat(@"  AND CONVERT(VARCHAR,[日期時間], 120)>='{0}' AND CONVERT(VARCHAR,[日期時間], 120)<='{1}'", SDATES, EDATES);
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "ds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["ds1"].Rows.Count == 0)
+                {
+
+                }
+                else
+                {
+                    if (ds1.Tables["ds1"].Rows.Count >= 1)
+                    {
+                        MOCTADAILY.BSPEED = ds1.Tables["ds1"].Rows[0]["BSPEED"].ToString();
+                        
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+
+            return MOCTADAILY;
         }
 
         public DATAMOCTADAILY CALTEMPERHUMI(DATAMOCTADAILY MOCTADAILY, string SDATES, string EDATES)
         {
-            MOCTADAILY.TEMPERAVG = "30.6";
+
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+
+            DataSet ds1 = new DataSet();
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbMOC"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+
+                sbSql.AppendFormat(@"  SELECT AVG(CONVERT(decimal(16,4),[控項_1])) AS TEMPERAVG,MIN(CONVERT(decimal(16,4),[控項_1])) AS TEMPERMIN,MAX(CONVERT(decimal(16,4),[控項_1])) AS TEMPERMAX,AVG(CONVERT(decimal(16,4),[控項_4])) AS HUMIAVG,MIN(CONVERT(decimal(16,4),[控項_4])) AS HUMIMIN,MAX(CONVERT(decimal(16,4),[控項_4])) AS HUMIMAX");
+                sbSql.AppendFormat(@"  FROM [TK_FOOD].[dbo].[log_table]");
+                sbSql.AppendFormat(@"  WHERE [機台名稱]='溫濕度6'");
+                sbSql.AppendFormat(@"  AND CONVERT(VARCHAR,[日期時間], 120)>='{0}' AND CONVERT(VARCHAR,[日期時間], 120)<='{1}'",SDATES,EDATES);
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "ds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["ds1"].Rows.Count == 0)
+                {
+
+                }
+                else
+                {
+                    if (ds1.Tables["ds1"].Rows.Count >= 1)
+                    {
+                        MOCTADAILY.TEMPERAVG = ds1.Tables["ds1"].Rows[0]["TEMPERAVG"].ToString();
+                        MOCTADAILY.TEMPERMIN = ds1.Tables["ds1"].Rows[0]["TEMPERMIN"].ToString();
+                        MOCTADAILY.TEMPERMAX = ds1.Tables["ds1"].Rows[0]["TEMPERMAX"].ToString();
+                        MOCTADAILY.HUMIAVG = ds1.Tables["ds1"].Rows[0]["HUMIAVG"].ToString();
+                        MOCTADAILY.HUMIMIN = ds1.Tables["ds1"].Rows[0]["HUMIMIN"].ToString();
+                        MOCTADAILY.HUMIMAX = ds1.Tables["ds1"].Rows[0]["HUMIMAX"].ToString();
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+
             return MOCTADAILY;
         }
 
         public DATAMOCTADAILY CALTEMPERAVG(DATAMOCTADAILY MOCTADAILY, string SDATES, string EDATES)
         {
-            MOCTADAILY.B1ALAVG = "250";
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+
+            DataSet ds1 = new DataSet();
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbMOC"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+
+                sbSql.AppendFormat(@"  SELECT '1' AS NOS");
+                sbSql.AppendFormat(@"  ,AVG(CONVERT(decimal(16,4),[控項_2])) AS 'BARAVG',MIN(CONVERT(decimal(16,4),[控項_2])) AS 'BARMIN',MAX(CONVERT(decimal(16,4),[控項_2])) AS 'BARMAX'");
+                sbSql.AppendFormat(@"  ,AVG(CONVERT(decimal(16,4),[控項_6]))  AS 'BBRAVG',MIN(CONVERT(decimal(16,4),[控項_6]))  AS 'BBRMIN',MAX(CONVERT(decimal(16,4),[控項_6]))  AS 'BBRMAX'");
+                sbSql.AppendFormat(@"  ,AVG(CONVERT(decimal(16,4),[控項_10]))  AS 'BAMAVG',MIN(CONVERT(decimal(16,4),[控項_10]))  AS 'BAMMIN',MAX(CONVERT(decimal(16,4),[控項_10]))  AS 'BAMMAX'");
+                sbSql.AppendFormat(@"  ,AVG(CONVERT(decimal(16,4),[控項_14]))  AS 'BBMAVG',MIN(CONVERT(decimal(16,4),[控項_14]))  AS 'BBMMIN',MAX(CONVERT(decimal(16,4),[控項_14]))  AS 'BBMMAX'");
+                sbSql.AppendFormat(@"  ,AVG(CONVERT(decimal(16,4),[控項_18]))  AS 'BALAVG',MIN(CONVERT(decimal(16,4),[控項_18]))  AS 'BALMIN',MAX(CONVERT(decimal(16,4),[控項_18]))  AS 'BALMAX'");
+                sbSql.AppendFormat(@"  ,AVG(CONVERT(decimal(16,4),[控項_22]))  AS 'BBLAVG',MIN(CONVERT(decimal(16,4),[控項_22]))  AS 'BBLMIN',MAX(CONVERT(decimal(16,4),[控項_22]))  AS 'BBLMAX' ");
+                sbSql.AppendFormat(@"  FROM [TK_FOOD].[dbo].[log_table]");
+                sbSql.AppendFormat(@"  WHERE [機台名稱]='烤爐_小線' AND [類型]='第一段'");
+                sbSql.AppendFormat(@"  AND CONVERT(VARCHAR,[日期時間], 120)>='{0}' AND CONVERT(VARCHAR,[日期時間], 120)<='{1}'", SDATES, EDATES);
+                sbSql.AppendFormat(@"  UNION ALL");
+                sbSql.AppendFormat(@"  SELECT '2' AS NOS");
+                sbSql.AppendFormat(@"  ,AVG(CONVERT(decimal(16,4),[控項_2])) AS 'BARAVG',MIN(CONVERT(decimal(16,4),[控項_2])) AS 'BARMIN',MAX(CONVERT(decimal(16,4),[控項_2])) AS 'BARMAX'");
+                sbSql.AppendFormat(@"  ,AVG(CONVERT(decimal(16,4),[控項_6]))  AS 'BBRAVG',MIN(CONVERT(decimal(16,4),[控項_6]))  AS 'BBRMIN',MAX(CONVERT(decimal(16,4),[控項_6]))  AS 'BBRMAX'");
+                sbSql.AppendFormat(@"  ,AVG(CONVERT(decimal(16,4),[控項_10]))  AS 'BAMAVG',MIN(CONVERT(decimal(16,4),[控項_10]))  AS 'BAMMIN',MAX(CONVERT(decimal(16,4),[控項_10]))  AS 'BAMMAX'");
+                sbSql.AppendFormat(@"  ,AVG(CONVERT(decimal(16,4),[控項_14]))  AS 'BBMAVG',MIN(CONVERT(decimal(16,4),[控項_14]))  AS 'BBMMIN',MAX(CONVERT(decimal(16,4),[控項_14]))  AS 'BBMMAX'");
+                sbSql.AppendFormat(@"  ,AVG(CONVERT(decimal(16,4),[控項_18]))  AS 'BALAVG',MIN(CONVERT(decimal(16,4),[控項_18]))  AS 'BALMIN',MAX(CONVERT(decimal(16,4),[控項_18]))  AS 'BALMAX'");
+                sbSql.AppendFormat(@"  ,AVG(CONVERT(decimal(16,4),[控項_22]))  AS 'BBLAVG',MIN(CONVERT(decimal(16,4),[控項_22]))  AS 'BBLMIN',MAX(CONVERT(decimal(16,4),[控項_22]))  AS 'BBLMAX' ");
+                sbSql.AppendFormat(@"  FROM [TK_FOOD].[dbo].[log_table]");
+                sbSql.AppendFormat(@"  WHERE [機台名稱]='烤爐_小線' AND [類型]='第二段'");
+                sbSql.AppendFormat(@"  AND CONVERT(VARCHAR,[日期時間], 120)>='{0}' AND CONVERT(VARCHAR,[日期時間], 120)<='{1}'", SDATES, EDATES);
+                sbSql.AppendFormat(@"  UNION ALL");
+                sbSql.AppendFormat(@"  SELECT '3' AS NOS");
+                sbSql.AppendFormat(@"  ,AVG(CONVERT(decimal(16,4),[控項_2])) AS 'BARAVG',MIN(CONVERT(decimal(16,4),[控項_2])) AS 'BARMIN',MAX(CONVERT(decimal(16,4),[控項_2])) AS 'BARMAX'");
+                sbSql.AppendFormat(@"  ,AVG(CONVERT(decimal(16,4),[控項_6]))  AS 'BBRAVG',MIN(CONVERT(decimal(16,4),[控項_6]))  AS 'BBRMIN',MAX(CONVERT(decimal(16,4),[控項_6]))  AS 'BBRMAX'");
+                sbSql.AppendFormat(@"  ,AVG(CONVERT(decimal(16,4),[控項_10]))  AS 'BAMAVG',MIN(CONVERT(decimal(16,4),[控項_10]))  AS 'BAMMIN',MAX(CONVERT(decimal(16,4),[控項_10]))  AS 'BAMMAX'");
+                sbSql.AppendFormat(@"  ,AVG(CONVERT(decimal(16,4),[控項_14]))  AS 'BBMAVG',MIN(CONVERT(decimal(16,4),[控項_14]))  AS 'BBMMIN',MAX(CONVERT(decimal(16,4),[控項_14]))  AS 'BBMMAX'");
+                sbSql.AppendFormat(@"  ,AVG(CONVERT(decimal(16,4),[控項_18]))  AS 'BALAVG',MIN(CONVERT(decimal(16,4),[控項_18]))  AS 'BALMIN',MAX(CONVERT(decimal(16,4),[控項_18]))  AS 'BALMAX'");
+                sbSql.AppendFormat(@"  ,AVG(CONVERT(decimal(16,4),[控項_22]))  AS 'BBLAVG',MIN(CONVERT(decimal(16,4),[控項_22]))  AS 'BBLMIN',MAX(CONVERT(decimal(16,4),[控項_22]))  AS 'BBLMAX' ");
+                sbSql.AppendFormat(@"  FROM [TK_FOOD].[dbo].[log_table]");
+                sbSql.AppendFormat(@"  WHERE [機台名稱]='烤爐_小線' AND [類型]='第三段'");
+                sbSql.AppendFormat(@"  AND CONVERT(VARCHAR,[日期時間], 120)>='{0}' AND CONVERT(VARCHAR,[日期時間], 120)<='{1}'", SDATES, EDATES);
+                sbSql.AppendFormat(@"  UNION ALL");
+                sbSql.AppendFormat(@"  SELECT '4' AS NOS");
+                sbSql.AppendFormat(@"  ,AVG(CONVERT(decimal(16,4),[控項_2])) AS 'BARAVG',MIN(CONVERT(decimal(16,4),[控項_2])) AS 'BARMIN',MAX(CONVERT(decimal(16,4),[控項_2])) AS 'BARMAX'");
+                sbSql.AppendFormat(@"  ,AVG(CONVERT(decimal(16,4),[控項_6]))  AS 'BBRAVG',MIN(CONVERT(decimal(16,4),[控項_6]))  AS 'BBRMIN',MAX(CONVERT(decimal(16,4),[控項_6]))  AS 'BBRMAX'");
+                sbSql.AppendFormat(@"  ,AVG(CONVERT(decimal(16,4),[控項_10]))  AS 'BAMAVG',MIN(CONVERT(decimal(16,4),[控項_10]))  AS 'BAMMIN',MAX(CONVERT(decimal(16,4),[控項_10]))  AS 'BAMMAX'");
+                sbSql.AppendFormat(@"  ,AVG(CONVERT(decimal(16,4),[控項_14]))  AS 'BBMAVG',MIN(CONVERT(decimal(16,4),[控項_14]))  AS 'BBMMIN',MAX(CONVERT(decimal(16,4),[控項_14]))  AS 'BBMMAX'");
+                sbSql.AppendFormat(@"  ,AVG(CONVERT(decimal(16,4),[控項_18]))  AS 'BALAVG',MIN(CONVERT(decimal(16,4),[控項_18]))  AS 'BALMIN',MAX(CONVERT(decimal(16,4),[控項_18]))  AS 'BALMAX'");
+                sbSql.AppendFormat(@"  ,AVG(CONVERT(decimal(16,4),[控項_22]))  AS 'BBLAVG',MIN(CONVERT(decimal(16,4),[控項_22]))  AS 'BBLMIN',MAX(CONVERT(decimal(16,4),[控項_22]))  AS 'BBLMAX' ");
+                sbSql.AppendFormat(@"  FROM [TK_FOOD].[dbo].[log_table]");
+                sbSql.AppendFormat(@"  WHERE [機台名稱]='烤爐_小線' AND [類型]='第四段'");
+                sbSql.AppendFormat(@"  AND CONVERT(VARCHAR,[日期時間], 120)>='{0}' AND CONVERT(VARCHAR,[日期時間], 120)<='{1}'", SDATES, EDATES);
+                sbSql.AppendFormat(@"  UNION ALL");
+                sbSql.AppendFormat(@"  SELECT '5' AS NOS");
+                sbSql.AppendFormat(@"  ,AVG(CONVERT(decimal(16,4),[控項_2])) AS 'BARAVG',MIN(CONVERT(decimal(16,4),[控項_2])) AS 'BARMIN',MAX(CONVERT(decimal(16,4),[控項_2])) AS 'BARMAX'");
+                sbSql.AppendFormat(@"  ,AVG(CONVERT(decimal(16,4),[控項_6]))  AS 'BBRAVG',MIN(CONVERT(decimal(16,4),[控項_6]))  AS 'BBRMIN',MAX(CONVERT(decimal(16,4),[控項_6]))  AS 'BBRMAX'");
+                sbSql.AppendFormat(@"  ,AVG(CONVERT(decimal(16,4),[控項_10]))  AS 'BAMAVG',MIN(CONVERT(decimal(16,4),[控項_10]))  AS 'BAMMIN',MAX(CONVERT(decimal(16,4),[控項_10]))  AS 'BAMMAX'");
+                sbSql.AppendFormat(@"  ,AVG(CONVERT(decimal(16,4),[控項_14]))  AS 'BBMAVG',MIN(CONVERT(decimal(16,4),[控項_14]))  AS 'BBMMIN',MAX(CONVERT(decimal(16,4),[控項_14]))  AS 'BBMMAX'");
+                sbSql.AppendFormat(@"  ,AVG(CONVERT(decimal(16,4),[控項_18]))  AS 'BALAVG',MIN(CONVERT(decimal(16,4),[控項_18]))  AS 'BALMIN',MAX(CONVERT(decimal(16,4),[控項_18]))  AS 'BALMAX'");
+                sbSql.AppendFormat(@"  ,AVG(CONVERT(decimal(16,4),[控項_22]))  AS 'BBLAVG',MIN(CONVERT(decimal(16,4),[控項_22]))  AS 'BBLMIN',MAX(CONVERT(decimal(16,4),[控項_22]))  AS 'BBLMAX' ");
+                sbSql.AppendFormat(@"  FROM [TK_FOOD].[dbo].[log_table]");
+                sbSql.AppendFormat(@"  WHERE [機台名稱]='烤爐_小線' AND [類型]='第五段'");
+                sbSql.AppendFormat(@"  AND CONVERT(VARCHAR,[日期時間], 120)>='{0}' AND CONVERT(VARCHAR,[日期時間], 120)<='{1}'", SDATES, EDATES);  
+                sbSql.AppendFormat(@"  ORDER BY NOS");
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "ds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["ds1"].Rows.Count == 0)
+                {
+
+                }
+                else
+                {
+                    if (ds1.Tables["ds1"].Rows.Count >= 1)
+                    {
+                        MOCTADAILY.B1ARAVG = ds1.Tables["ds1"].Rows[0]["BARAVG"].ToString();
+                        MOCTADAILY.B1ARMIN = ds1.Tables["ds1"].Rows[0]["BARMIN"].ToString();
+                        MOCTADAILY.B1ARMAX = ds1.Tables["ds1"].Rows[0]["BARMAX"].ToString();
+                        MOCTADAILY.B1BRAVG = ds1.Tables["ds1"].Rows[0]["BBRAVG"].ToString();
+                        MOCTADAILY.B1BRMIN = ds1.Tables["ds1"].Rows[0]["BBRMIN"].ToString();
+                        MOCTADAILY.B1BRMAX = ds1.Tables["ds1"].Rows[0]["BBRMAX"].ToString();
+                        MOCTADAILY.B1AMAVG = ds1.Tables["ds1"].Rows[0]["BAMAVG"].ToString();
+                        MOCTADAILY.B1AMMIN = ds1.Tables["ds1"].Rows[0]["BAMMIN"].ToString();
+                        MOCTADAILY.B1AMMAX = ds1.Tables["ds1"].Rows[0]["BAMMAX"].ToString();
+                        MOCTADAILY.B1BMAVG = ds1.Tables["ds1"].Rows[0]["BBMAVG"].ToString();
+                        MOCTADAILY.B1BMMIN = ds1.Tables["ds1"].Rows[0]["BBMMIN"].ToString();
+                        MOCTADAILY.B1BMMAX = ds1.Tables["ds1"].Rows[0]["BBMMAX"].ToString();
+                        MOCTADAILY.B1ALAVG = ds1.Tables["ds1"].Rows[0]["BALAVG"].ToString();
+                        MOCTADAILY.B1ALMIN = ds1.Tables["ds1"].Rows[0]["BALMIN"].ToString();
+                        MOCTADAILY.B1ALMAX = ds1.Tables["ds1"].Rows[0]["BALMAX"].ToString();
+                        MOCTADAILY.B1BLAVG = ds1.Tables["ds1"].Rows[0]["BBLAVG"].ToString();
+                        MOCTADAILY.B1BLMIN = ds1.Tables["ds1"].Rows[0]["BBLMIN"].ToString();
+                        MOCTADAILY.B1BLMAX = ds1.Tables["ds1"].Rows[0]["BBLMAX"].ToString();
+
+                        MOCTADAILY.B2ARAVG = ds1.Tables["ds1"].Rows[1]["BARAVG"].ToString();
+                        MOCTADAILY.B2ARMIN = ds1.Tables["ds1"].Rows[1]["BARMIN"].ToString();
+                        MOCTADAILY.B2ARMAX = ds1.Tables["ds1"].Rows[1]["BARMAX"].ToString();
+                        MOCTADAILY.B2BRAVG = ds1.Tables["ds1"].Rows[1]["BBRAVG"].ToString();
+                        MOCTADAILY.B2BRMIN = ds1.Tables["ds1"].Rows[1]["BBRMIN"].ToString();
+                        MOCTADAILY.B2BRMAX = ds1.Tables["ds1"].Rows[1]["BBRMAX"].ToString();
+                        MOCTADAILY.B2AMAVG = ds1.Tables["ds1"].Rows[1]["BAMAVG"].ToString();
+                        MOCTADAILY.B2AMMIN = ds1.Tables["ds1"].Rows[1]["BAMMIN"].ToString();
+                        MOCTADAILY.B2AMMAX = ds1.Tables["ds1"].Rows[1]["BAMMAX"].ToString();
+                        MOCTADAILY.B2BMAVG = ds1.Tables["ds1"].Rows[1]["BBMAVG"].ToString();
+                        MOCTADAILY.B2BMMIN = ds1.Tables["ds1"].Rows[1]["BBMMIN"].ToString();
+                        MOCTADAILY.B2BMMAX = ds1.Tables["ds1"].Rows[1]["BBMMAX"].ToString();
+                        MOCTADAILY.B2ALAVG = ds1.Tables["ds1"].Rows[1]["BALAVG"].ToString();
+                        MOCTADAILY.B2ALMIN = ds1.Tables["ds1"].Rows[1]["BALMIN"].ToString();
+                        MOCTADAILY.B2ALMAX = ds1.Tables["ds1"].Rows[1]["BALMAX"].ToString();
+                        MOCTADAILY.B2BLAVG = ds1.Tables["ds1"].Rows[1]["BBLAVG"].ToString();
+                        MOCTADAILY.B2BLMIN = ds1.Tables["ds1"].Rows[1]["BBLMIN"].ToString();
+                        MOCTADAILY.B2BLMAX = ds1.Tables["ds1"].Rows[1]["BBLMAX"].ToString();
+
+                        MOCTADAILY.B3ARAVG = ds1.Tables["ds1"].Rows[2]["BARAVG"].ToString();
+                        MOCTADAILY.B3ARMIN = ds1.Tables["ds1"].Rows[2]["BARMIN"].ToString();
+                        MOCTADAILY.B3ARMAX = ds1.Tables["ds1"].Rows[2]["BARMAX"].ToString();
+                        MOCTADAILY.B3BRAVG = ds1.Tables["ds1"].Rows[2]["BBRAVG"].ToString();
+                        MOCTADAILY.B3BRMIN = ds1.Tables["ds1"].Rows[2]["BBRMIN"].ToString();
+                        MOCTADAILY.B3BRMAX = ds1.Tables["ds1"].Rows[2]["BBRMAX"].ToString();
+                        MOCTADAILY.B3AMAVG = ds1.Tables["ds1"].Rows[2]["BAMAVG"].ToString();
+                        MOCTADAILY.B3AMMIN = ds1.Tables["ds1"].Rows[2]["BAMMIN"].ToString();
+                        MOCTADAILY.B3AMMAX = ds1.Tables["ds1"].Rows[2]["BAMMAX"].ToString();
+                        MOCTADAILY.B3BMAVG = ds1.Tables["ds1"].Rows[2]["BBMAVG"].ToString();
+                        MOCTADAILY.B3BMMIN = ds1.Tables["ds1"].Rows[2]["BBMMIN"].ToString();
+                        MOCTADAILY.B3BMMAX = ds1.Tables["ds1"].Rows[2]["BBMMAX"].ToString();
+                        MOCTADAILY.B3ALAVG = ds1.Tables["ds1"].Rows[2]["BALAVG"].ToString();
+                        MOCTADAILY.B3ALMIN = ds1.Tables["ds1"].Rows[2]["BALMIN"].ToString();
+                        MOCTADAILY.B3ALMAX = ds1.Tables["ds1"].Rows[2]["BALMAX"].ToString();
+                        MOCTADAILY.B3BLAVG = ds1.Tables["ds1"].Rows[2]["BBLAVG"].ToString();
+                        MOCTADAILY.B3BLMIN = ds1.Tables["ds1"].Rows[2]["BBLMIN"].ToString();
+                        MOCTADAILY.B3BLMAX = ds1.Tables["ds1"].Rows[2]["BBLMAX"].ToString();
+
+                        MOCTADAILY.B4ARAVG = ds1.Tables["ds1"].Rows[3]["BARAVG"].ToString();
+                        MOCTADAILY.B4ARMIN = ds1.Tables["ds1"].Rows[3]["BARMIN"].ToString();
+                        MOCTADAILY.B4ARMAX = ds1.Tables["ds1"].Rows[3]["BARMAX"].ToString();
+                        MOCTADAILY.B4BRAVG = ds1.Tables["ds1"].Rows[3]["BBRAVG"].ToString();
+                        MOCTADAILY.B4BRMIN = ds1.Tables["ds1"].Rows[3]["BBRMIN"].ToString();
+                        MOCTADAILY.B4BRMAX = ds1.Tables["ds1"].Rows[3]["BBRMAX"].ToString();
+                        MOCTADAILY.B4AMAVG = ds1.Tables["ds1"].Rows[3]["BAMAVG"].ToString();
+                        MOCTADAILY.B4AMMIN = ds1.Tables["ds1"].Rows[3]["BAMMIN"].ToString();
+                        MOCTADAILY.B4AMMAX = ds1.Tables["ds1"].Rows[3]["BAMMAX"].ToString();
+                        MOCTADAILY.B4BMAVG = ds1.Tables["ds1"].Rows[3]["BBMAVG"].ToString();
+                        MOCTADAILY.B4BMMIN = ds1.Tables["ds1"].Rows[3]["BBMMIN"].ToString();
+                        MOCTADAILY.B4BMMAX = ds1.Tables["ds1"].Rows[3]["BBMMAX"].ToString();
+                        MOCTADAILY.B4ALAVG = ds1.Tables["ds1"].Rows[3]["BALAVG"].ToString();
+                        MOCTADAILY.B4ALMIN = ds1.Tables["ds1"].Rows[3]["BALMIN"].ToString();
+                        MOCTADAILY.B4ALMAX = ds1.Tables["ds1"].Rows[3]["BALMAX"].ToString();
+                        MOCTADAILY.B4BLAVG = ds1.Tables["ds1"].Rows[3]["BBLAVG"].ToString();
+                        MOCTADAILY.B4BLMIN = ds1.Tables["ds1"].Rows[3]["BBLMIN"].ToString();
+                        MOCTADAILY.B4BLMAX = ds1.Tables["ds1"].Rows[3]["BBLMAX"].ToString();
+
+                        MOCTADAILY.B5ARAVG = ds1.Tables["ds1"].Rows[4]["BARAVG"].ToString();
+                        MOCTADAILY.B5ARMIN = ds1.Tables["ds1"].Rows[4]["BARMIN"].ToString();
+                        MOCTADAILY.B5ARMAX = ds1.Tables["ds1"].Rows[4]["BARMAX"].ToString();
+                        MOCTADAILY.B5BRAVG = ds1.Tables["ds1"].Rows[4]["BBRAVG"].ToString();
+                        MOCTADAILY.B5BRMIN = ds1.Tables["ds1"].Rows[4]["BBRMIN"].ToString();
+                        MOCTADAILY.B5BRMAX = ds1.Tables["ds1"].Rows[4]["BBRMAX"].ToString();
+                        MOCTADAILY.B5AMAVG = ds1.Tables["ds1"].Rows[4]["BAMAVG"].ToString();
+                        MOCTADAILY.B5AMMIN = ds1.Tables["ds1"].Rows[4]["BAMMIN"].ToString();
+                        MOCTADAILY.B5AMMAX = ds1.Tables["ds1"].Rows[4]["BAMMAX"].ToString();
+                        MOCTADAILY.B5BMAVG = ds1.Tables["ds1"].Rows[4]["BBMAVG"].ToString();
+                        MOCTADAILY.B5BMMIN = ds1.Tables["ds1"].Rows[4]["BBMMIN"].ToString();
+                        MOCTADAILY.B5BMMAX = ds1.Tables["ds1"].Rows[4]["BBMMAX"].ToString();
+                        MOCTADAILY.B5ALAVG = ds1.Tables["ds1"].Rows[4]["BALAVG"].ToString();
+                        MOCTADAILY.B5ALMIN = ds1.Tables["ds1"].Rows[4]["BALMIN"].ToString();
+                        MOCTADAILY.B5ALMAX = ds1.Tables["ds1"].Rows[4]["BALMAX"].ToString();
+                        MOCTADAILY.B5BLAVG = ds1.Tables["ds1"].Rows[4]["BBLAVG"].ToString();
+                        MOCTADAILY.B5BLMIN = ds1.Tables["ds1"].Rows[4]["BBLMIN"].ToString();
+                        MOCTADAILY.B5BLMAX = ds1.Tables["ds1"].Rows[4]["BBLMAX"].ToString();
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+
             return MOCTADAILY;
         }
 
@@ -709,7 +1078,7 @@ namespace TKMOC
                     , textBox261.Text.Trim(), textBox262.Text.Trim(), textBox263.Text.Trim(), textBox264.Text.Trim(), textBox265.Text.Trim(), textBox266.Text.Trim()
                     );
 
-                UPDATEMOCTADAILYDETAIL(textBox1.Text.Trim(),textBox2.Text.Trim(),comboBox1.Text.Trim(),dateTimePicker2.Value.ToString("yyyy-MM-dd HH:mm:ss"), dateTimePicker3.Value.ToString("yyyy-MM-dd HH:mm:ss"));
+                UPDATEMOCTADAILYDETAIL(textBox151.Text.Trim(),dateTimePicker2.Value.ToString("yyyy-MM-dd HH:mm:ss"), dateTimePicker3.Value.ToString("yyyy-MM-dd HH:mm:ss"));
 
             }
 
