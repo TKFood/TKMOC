@@ -48,6 +48,115 @@ namespace TKMOC
             comboBox1load();
         }
 
+        public class DATAMOCTADAILY
+        {
+            public string TEMPERAVG;
+            public string TEMPERMIN;
+            public string TEMPERMAX;
+            public string HUMIAVG;
+            public string HUMIMIN;
+            public string HUMIMAX;
+            public string BSPEED;
+            public string B1ARAVG;
+            public string B1ARMIN;
+            public string B1ARMAX;
+            public string B1BRAVG;
+            public string B1BRMIN;
+            public string B1BRMAX;
+            public string B1AMAVG;
+            public string B1AMMIN;
+            public string B1AMMAX;
+            public string B1BMAVG;
+            public string B1BMMIN;
+            public string B1BMMAX;
+            public string B1ALAVG;
+            public string B1ALMIN;
+            public string B1ALMAX;
+            public string B1BLAVG;
+            public string B1BLMIN;
+            public string B1BLMAX;
+
+            public string B2ARAVG;
+            public string B2ARMIN;
+            public string B2ARMAX;
+            public string B2BRAVG;
+            public string B2BRMIN;
+            public string B2BRMAX;
+            public string B2AMAVG;
+            public string B2AMMIN;
+            public string B2AMMAX;
+            public string B2BMAVG;
+            public string B2BMMIN;
+            public string B2BMMAX;
+            public string B2ALAVG;
+            public string B2ALMIN;
+            public string B2ALMAX;
+            public string B2BLAVG;
+            public string B2BLMIN;
+            public string B2BLMAX;
+
+            public string B3ARAVG;
+            public string B3ARMIN;
+            public string B3ARMAX;
+            public string B3BRAVG;
+            public string B3BRMIN;
+            public string B3BRMAX;
+            public string B3AMAVG;
+            public string B3AMMIN;
+            public string B3AMMAX;
+            public string B3BMAVG;
+            public string B3BMMIN;
+            public string B3BMMAX;
+            public string B3ALAVG;
+            public string B3ALMIN;
+            public string B3ALMAX;
+            public string B3BLAVG;
+            public string B3BLMIN;
+            public string B3BLMAX;
+
+            public string B4ARAVG;
+            public string B4ARMIN;
+            public string B4ARMAX;
+            public string B4BRAVG;
+            public string B4BRMIN;
+            public string B4BRMAX;
+            public string B4AMAVG;
+            public string B4AMMIN;
+            public string B4AMMAX;
+            public string B4BMAVG;
+            public string B4BMMIN;
+            public string B4BMMAX;
+            public string B4ALAVG;
+            public string B4ALMIN;
+            public string B4ALMAX;
+            public string B4BLAVG;
+            public string B4BLMIN;
+            public string B4BLMAX;
+
+            public string B5ARAVG;
+            public string B5ARMIN;
+            public string B5ARMAX;
+            public string B5BRAVG;
+            public string B5BRMIN;
+            public string B5BRMAX;
+            public string B5AMAVG;
+            public string B5AMMIN;
+            public string B5AMMAX;
+            public string B5BMAVG;
+            public string B5BMMIN;
+            public string B5BMMAX;
+            public string B5ALAVG;
+            public string B5ALMIN;
+            public string B5ALMAX;
+            public string B5BLAVG;
+            public string B5BLMIN;
+            public string B5BLMAX;
+
+
+
+
+
+        }
         #region FUNCTION
 
         public void comboBox1load()
@@ -251,6 +360,9 @@ namespace TKMOC
         {
             textBox1.ReadOnly = false;
             textBox2.ReadOnly = false;
+
+            textBox1.Text = null;
+            textBox2.Text = null;
         }
 
         public void SETTEXTBOX2()
@@ -447,6 +559,10 @@ namespace TKMOC
                     DataGridViewRow row = dataGridView1.Rows[rowindex];
                     ID = row.Cells["ID"].Value.ToString();
 
+
+                    textBox1.Text = row.Cells["製令"].Value.ToString();
+                    textBox2.Text = row.Cells["單號"].Value.ToString();
+
                     textBox111.Text = row.Cells["品號"].Value.ToString();
                     textBox112.Text = row.Cells["品名"].Value.ToString();
                     textBox113.Text = row.Cells["規格"].Value.ToString();
@@ -528,7 +644,27 @@ namespace TKMOC
             }
         }
 
-    
+        public void UPDATEMOCTADAILYDETAIL(string TA001,string TA002,string TA021,string SDATES,string EDATES)
+        {
+            DATAMOCTADAILY MOCTADAILY = new DATAMOCTADAILY();
+            MOCTADAILY = CALTEMPERHUMI(MOCTADAILY,SDATES,EDATES);
+            MOCTADAILY = CALTEMPERAVG(MOCTADAILY, SDATES, EDATES);
+
+            MessageBox.Show(MOCTADAILY.TEMPERAVG+" "+ MOCTADAILY.B1ALAVG);
+        }
+
+        public DATAMOCTADAILY CALTEMPERHUMI(DATAMOCTADAILY MOCTADAILY, string SDATES, string EDATES)
+        {
+            MOCTADAILY.TEMPERAVG = "30.6";
+            return MOCTADAILY;
+        }
+
+        public DATAMOCTADAILY CALTEMPERAVG(DATAMOCTADAILY MOCTADAILY, string SDATES, string EDATES)
+        {
+            MOCTADAILY.B1ALAVG = "250";
+            return MOCTADAILY;
+        }
+
 
         #endregion
 
@@ -555,7 +691,7 @@ namespace TKMOC
         {
             if (STATUS.Equals("ADD"))
             {
-                ADDMOCTADAILY(Guid.NewGuid().ToString(), textBox1.Text.Trim(), textBox2.Text.Trim(), comboBox1.Text.ToString().Trim(), textBox111.Text.Trim(), textBox112.Text.Trim(), textBox113.Text.Trim(), textBox121.Text.Trim(), textBox122.Text.Trim(), textBox123.Text.Trim(), dateTimePicker2.Value.ToString("yyyy/MM/dd HH:mm:ss"), dateTimePicker3.Value.ToString("yyyy/MM/dd HH:mm:ss")
+                ADDMOCTADAILY(Guid.NewGuid().ToString(), textBox1.Text.Trim(), textBox2.Text.Trim(), comboBox1.Text.ToString().Trim(), textBox111.Text.Trim(), textBox112.Text.Trim(), textBox113.Text.Trim(), textBox121.Text.Trim(), textBox122.Text.Trim(), textBox123.Text.Trim(), dateTimePicker2.Value.ToString("yyyy-MM-dd HH:mm:ss"), dateTimePicker3.Value.ToString("yyyy-MM-dd HH:mm:ss")
                     ,textBox211.Text.Trim()
                     ,textBox231.Text.Trim(), textBox232.Text.Trim(), textBox233.Text.Trim(), textBox234.Text.Trim(), textBox235.Text.Trim(), textBox236.Text.Trim()
                     ,textBox241.Text.Trim(), textBox242.Text.Trim(), textBox243.Text.Trim(), textBox244.Text.Trim(), textBox245.Text.Trim(), textBox246.Text.Trim()
@@ -565,13 +701,16 @@ namespace TKMOC
             }
             else if (STATUS.Equals("EDIT"))
             {
-                UPDATEMOCTADAILY(ID,textBox122.Text.Trim(),textBox123.Text.Trim(),dateTimePicker2.Value.ToString("yyyy/MM/dd HH:mm:ss"), dateTimePicker3.Value.ToString("yyyy/MM/dd HH:mm:ss")
+                UPDATEMOCTADAILY(ID,textBox122.Text.Trim(),textBox123.Text.Trim(),dateTimePicker2.Value.ToString("yyyy-MM-dd HH:mm:ss"), dateTimePicker3.Value.ToString("yyyy-MM-dd HH:mm:ss")
                     , textBox211.Text.Trim()
                     , textBox231.Text.Trim(), textBox232.Text.Trim(), textBox233.Text.Trim(), textBox234.Text.Trim(), textBox235.Text.Trim(), textBox236.Text.Trim()
                     , textBox241.Text.Trim(), textBox242.Text.Trim(), textBox243.Text.Trim(), textBox244.Text.Trim(), textBox245.Text.Trim(), textBox246.Text.Trim()
                     , textBox251.Text.Trim(), textBox252.Text.Trim(), textBox253.Text.Trim(), textBox254.Text.Trim(), textBox255.Text.Trim(), textBox256.Text.Trim()
                     , textBox261.Text.Trim(), textBox262.Text.Trim(), textBox263.Text.Trim(), textBox264.Text.Trim(), textBox265.Text.Trim(), textBox266.Text.Trim()
                     );
+
+                UPDATEMOCTADAILYDETAIL(textBox1.Text.Trim(),textBox2.Text.Trim(),comboBox1.Text.Trim(),dateTimePicker2.Value.ToString("yyyy-MM-dd HH:mm:ss"), dateTimePicker3.Value.ToString("yyyy-MM-dd HH:mm:ss"));
+
             }
 
             SETTEXTBOX2();
