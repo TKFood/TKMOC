@@ -1060,13 +1060,18 @@ namespace TKMOC
         {
             if (STATUS.Equals("ADD"))
             {
-                ADDMOCTADAILY(Guid.NewGuid().ToString(), textBox1.Text.Trim(), textBox2.Text.Trim(), comboBox1.Text.ToString().Trim(), textBox111.Text.Trim(), textBox112.Text.Trim(), textBox113.Text.Trim(), textBox121.Text.Trim(), textBox122.Text.Trim(), textBox123.Text.Trim(), dateTimePicker2.Value.ToString("yyyy-MM-dd HH:mm:ss"), dateTimePicker3.Value.ToString("yyyy-MM-dd HH:mm:ss")
+                string ID = null;
+                ID = Guid.NewGuid().ToString();
+
+                ADDMOCTADAILY(ID, textBox1.Text.Trim(), textBox2.Text.Trim(), comboBox1.Text.ToString().Trim(), textBox111.Text.Trim(), textBox112.Text.Trim(), textBox113.Text.Trim(), textBox121.Text.Trim(), textBox122.Text.Trim(), textBox123.Text.Trim(), dateTimePicker2.Value.ToString("yyyy-MM-dd HH:mm:ss"), dateTimePicker3.Value.ToString("yyyy-MM-dd HH:mm:ss")
                     ,textBox211.Text.Trim()
                     ,textBox231.Text.Trim(), textBox232.Text.Trim(), textBox233.Text.Trim(), textBox234.Text.Trim(), textBox235.Text.Trim(), textBox236.Text.Trim()
                     ,textBox241.Text.Trim(), textBox242.Text.Trim(), textBox243.Text.Trim(), textBox244.Text.Trim(), textBox245.Text.Trim(), textBox246.Text.Trim()
                     ,textBox251.Text.Trim(), textBox252.Text.Trim(), textBox253.Text.Trim(), textBox254.Text.Trim(), textBox255.Text.Trim(), textBox256.Text.Trim()
                     ,textBox261.Text.Trim(), textBox262.Text.Trim(), textBox263.Text.Trim(), textBox264.Text.Trim(), textBox265.Text.Trim(), textBox266.Text.Trim()
                     );
+
+                UPDATEMOCTADAILYDETAIL(ID, dateTimePicker2.Value.ToString("yyyy-MM-dd HH:mm:ss"), dateTimePicker3.Value.ToString("yyyy-MM-dd HH:mm:ss"));
             }
             else if (STATUS.Equals("EDIT"))
             {
