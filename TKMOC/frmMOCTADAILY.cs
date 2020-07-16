@@ -262,7 +262,13 @@ namespace TKMOC
             textBox2.Text = null;
         }
 
-        public void ADDMOCTADAILY(string ID,string TA001, string TA002, string TA021, string MB001, string MB002, string MB003, string TA017, string NUM, string NGNUM, string SDATES, string EDATES)
+        public void ADDMOCTADAILY(string ID,string TA001, string TA002, string TA021, string MB001, string MB002, string MB003, string TA017, string NUM, string NGNUM, string SDATES, string EDATES
+            , string ASPEED
+            , string A1AAVG, string A1AMIN, string A1AMAX, string A1BAVG, string A1BMIN, string A1BMAX
+            , string A2AAVG, string A2AMIN, string A2AMAX, string A2BAVG, string A2BMIN, string A2BMAX
+            , string A3AAVG, string A3AMIN, string A3AMAX, string A3BAVG, string A3BMIN, string A3BMAX
+            , string A4AAVG, string A4AMIN, string A4AMAX, string A4BAVG, string A4BMIN, string A4BMAX
+            )
         {
             try
             {
@@ -276,9 +282,21 @@ namespace TKMOC
                 sbSql.Clear();
 
                 sbSql.AppendFormat("  INSERT INTO  [TKMOC].[dbo].[MOCTADAILY] ");
-                sbSql.AppendFormat("  ([ID],[TA001],[TA002],[TA021],[MB001],[MB002],[MB003],[TA017],[NUM],[NGNUM],[SDATES],[EDATES]) ");
+                sbSql.AppendFormat("  ([ID],[TA001],[TA002],[TA021],[MB001],[MB002],[MB003],[TA017],[NUM],[NGNUM],[SDATES],[EDATES] ");
+                sbSql.AppendFormat("  ,[ASPEED] ");
+                sbSql.AppendFormat("  ,[A1AAVG],[A1AMIN],[A1AMAX],[A1BAVG],[A1BMIN],[A1BMAX]");
+                sbSql.AppendFormat("  ,[A2AAVG],[A2AMIN],[A2AMAX],[A2BAVG],[A2BMIN],[A2BMAX]");
+                sbSql.AppendFormat("  ,[A3AAVG],[A3AMIN],[A3AMAX],[A3BAVG],[A3BMIN],[A3BMAX]");
+                sbSql.AppendFormat("  ,[A4AAVG],[A4AMIN],[A4AMAX],[A4BAVG],[A4BMIN],[A4BMAX]");
+                sbSql.AppendFormat("  )");
                 sbSql.AppendFormat("  VALUES");
-                sbSql.AppendFormat("  ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}')", ID,TA001, TA002, TA021, MB001, MB002, MB003, TA017, NUM, NGNUM, SDATES, EDATES);
+                sbSql.AppendFormat("  ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}'", ID,TA001, TA002, TA021, MB001, MB002, MB003, TA017, NUM, NGNUM, SDATES, EDATES);
+                sbSql.AppendFormat("  ,'{0}'", ASPEED);
+                sbSql.AppendFormat("  ,'{0}','{1}','{2}','{3}','{4}','{5}'", A1AAVG, A1AMIN, A1AMAX, A1BAVG, A1BMIN, A1BMAX);
+                sbSql.AppendFormat("  ,'{0}','{1}','{2}','{3}','{4}','{5}'", A2AAVG, A2AMIN, A2AMAX, A2BAVG, A2BMIN, A2BMAX);
+                sbSql.AppendFormat("  ,'{0}','{1}','{2}','{3}','{4}','{5}'", A3AAVG, A3AMIN, A3AMAX, A3BAVG, A3BMIN, A3BMAX);
+                sbSql.AppendFormat("  ,'{0}','{1}','{2}','{3}','{4}','{5}'", A4AAVG, A4AMIN, A4AMAX, A4BAVG, A4BMIN, A4BMAX);
+                sbSql.AppendFormat("  )");
                 sbSql.AppendFormat("  ");
                 sbSql.AppendFormat("  ");
                 sbSql.AppendFormat("  ");
@@ -466,7 +484,13 @@ namespace TKMOC
         {
             if (STATUS.Equals("ADD"))
             {
-                ADDMOCTADAILY(Guid.NewGuid().ToString(), textBox1.Text.Trim(), textBox2.Text.Trim(), comboBox1.Text.ToString().Trim(), textBox111.Text.Trim(), textBox112.Text.Trim(), textBox113.Text.Trim(), textBox121.Text.Trim(), textBox122.Text.Trim(), textBox123.Text.Trim(), dateTimePicker2.Value.ToString("yyyy/MM/dd HH:mm:ss"), dateTimePicker3.Value.ToString("yyyy/MM/dd HH:mm:ss"));
+                ADDMOCTADAILY(Guid.NewGuid().ToString(), textBox1.Text.Trim(), textBox2.Text.Trim(), comboBox1.Text.ToString().Trim(), textBox111.Text.Trim(), textBox112.Text.Trim(), textBox113.Text.Trim(), textBox121.Text.Trim(), textBox122.Text.Trim(), textBox123.Text.Trim(), dateTimePicker2.Value.ToString("yyyy/MM/dd HH:mm:ss"), dateTimePicker3.Value.ToString("yyyy/MM/dd HH:mm:ss")
+                    ,textBox211.Text.Trim()
+                    ,textBox231.Text.Trim(), textBox232.Text.Trim(), textBox233.Text.Trim(), textBox234.Text.Trim(), textBox235.Text.Trim(), textBox236.Text.Trim()
+                    ,textBox241.Text.Trim(), textBox242.Text.Trim(), textBox243.Text.Trim(), textBox244.Text.Trim(), textBox245.Text.Trim(), textBox246.Text.Trim()
+                    ,textBox251.Text.Trim(), textBox252.Text.Trim(), textBox253.Text.Trim(), textBox254.Text.Trim(), textBox255.Text.Trim(), textBox256.Text.Trim()
+                    ,textBox261.Text.Trim(), textBox262.Text.Trim(), textBox263.Text.Trim(), textBox264.Text.Trim(), textBox265.Text.Trim(), textBox266.Text.Trim()
+                    );
             }
             else if (STATUS.Equals("EDIT"))
             {
