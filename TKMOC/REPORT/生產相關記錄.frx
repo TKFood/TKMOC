@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="07/15/2020 16:43:58" ReportInfo.Modified="07/15/2020 16:47:26" ReportInfo.CreatorVersion="2016.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9L50zg4lwge5DIKdKpMddxt">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="/****** SSMS 中 SelectTopNRows 命令的指令碼  ******/&#13;&#10;SELECT &#13;&#10; [TA001] AS '製令',[TA002] AS '單號',[TA021] AS '線別',[MB001] AS '品號',[MB002] AS '品名',[MB003] AS '規格',[TA017] AS '生產量',[NUM] AS '入庫量',[NGNUM] AS '未熟量',[SDATES] AS '開始時間',[EDATES] AS '結束時間'&#13;&#10; ,[TEMPERAVG] AS '溫度-平均',[TEMPERMIN] AS '溫度-最小',[TEMPERMAX] AS '溫度-最大',[HUMIAVG] AS '溼度-平均',[HUMIMIN] AS '溼度-最小',[HUMIMAX] AS '溼度-最大'&#13;&#10;,[ASPEED] AS '大線爐速',[BSPEED] AS '小線爐速'&#13;&#10;,[A1AAVG] AS '大線-1段-上爐-平均',[A1AMIN] AS '大線-1段-上爐-最小',[A1AMAX] AS '大線-1段-上爐-最大'&#13;&#10;,[A1BAVG] AS '大線-1段-下爐-平均',[A1BMIN] AS '大線-1段-下爐-最小',[A1BMAX] AS '大線-1段-下爐-最大'&#13;&#10;,[A2AAVG] AS '大線-2段-上爐-平均',[A2AMIN] AS '大線-2段-上爐-最小',[A2AMAX] AS '大線-2段-上爐-最大'&#13;&#10;,[A2BAVG] AS '大線-2段-下爐-平均',[A2BMIN] AS '大線-2段-下爐-最小',[A2BMAX] AS '大線-2段-下爐-最大'&#13;&#10;,[A3AAVG] AS '大線-3段-上爐-平均',[A3AMIN] AS '大線-3段-上爐-最小',[A3AMAX] AS '大線-3段-上爐-最大'&#13;&#10;,[A3BAVG] AS '大線-3段-下爐-平均',[A3BMIN] AS '大線-3段-下爐-最小',[A3BMAX] AS '大線-3段-下爐-最大'&#13;&#10;,[A4AAVG] AS '大線-4段-上爐-平均',[A4AMIN] AS '大線-4段-上爐-最小',[A4AMAX] AS '大線-4段-上爐-最大'&#13;&#10;,[A4BAVG] AS '大線-4段-下爐-平均',[A4BMIN] AS '大線-4段-下爐-最小',[A4BMAX] AS '大線-4段-下爐-最大'&#13;&#10;,[B1ARAVG] AS '小線-1段-上右爐-平均',[B1ARMIN] AS '小線-1段-上右爐-最小',[B1ARMAX] AS '小線-1段-上右爐-最大'&#13;&#10;,[B1BRAVG] AS '小線-1段-下右爐-平均',[B1BRMIN] AS '小線-1段-下右爐-最小',[B1BRMAX] AS '小線-1段-下右爐-最大'&#13;&#10;,[B1AMAVG] AS '小線-1段-上中爐-平均',[B1AMMIN] AS '小線-1段-上中爐-最小',[B1AMMAX] AS '小線-1段-上中爐-最大'&#13;&#10;,[B1BMAVG] AS '小線-1段-下中爐-平均',[B1BMMIN] AS '小線-1段-下中爐-最小',[B1BMMAX] AS '小線-1段-下中爐-最大'&#13;&#10;,[B1ALAVG] AS '小線-1段-上左爐-平均',[B1ALMIN] AS '小線-1段-上左爐-最小',[B1ALMAX] AS '小線-1段-上左爐-最大'&#13;&#10;,[B1BLAVG] AS '小線-1段-下左爐-平均',[B1BLMIN] AS '小線-1段-下左爐-最小',[B1BLMAX] AS '小線-1段-下左爐-最大'&#13;&#10;,[B2ARAVG] AS '小線-2段-上右爐-平均',[B2ARMIN] AS '小線-2段-上右爐-最小',[B2ARNAX] AS '小線-2段-上右爐-最大'&#13;&#10;,[B2BRAVG] AS '小線-2段-下右爐-平均',[B2BRMIN] AS '小線-2段-下右爐-最小',[B2BRMAX] AS '小線-2段-下右爐-最大'&#13;&#10;,[B2AMAVG] AS '小線-2段-上中爐-平均',[B2AMMIN] AS '小線-2段-上中爐-最小',[B2AMMAX] AS '小線-2段-上中爐-最大'&#13;&#10;,[B2BMAVG] AS '小線-2段-下中爐-平均',[B2BMMIN] AS '小線-2段-下中爐-最小',[B2BMMAX] AS '小線-2段-下中爐-最大'&#13;&#10;,[B2ALAVG] AS '小線-2段-上左爐-平均',[B2ALMIN] AS '小線-2段-上左爐-最小',[B2ALMAX] AS '小線-2段-上左爐-最大'&#13;&#10;,[B2BLAVG] AS '小線-2段-下左爐-平均',[B2BLMIN] AS '小線-2段-下左爐-最小',[B2BLMAX] AS '小線-2段-下左爐-最大'&#13;&#10;,[B3ARAVG] AS '小線-3段-上右爐-平均',[B3ARMIN] AS '小線-3段-上右爐-最小',[B3ARMAX] AS '小線-3段-上右爐-最大'&#13;&#10;,[B3BRAVG] AS '小線-3段-下右爐-平均',[B3BRMIN] AS '小線-3段-下右爐-最小',[B3BRMAX] AS '小線-3段-下右爐-最大'&#13;&#10;,[B3AMAVG] AS '小線-3段-上右爐-平均',[B3AMMIN] AS '小線-3段-上中爐-最小',[B3AMMAX] AS '小線-3段-上中爐-最大'&#13;&#10;,[B3BMAVG] AS '小線-3段-下中爐-平均',[B3BMMIN] AS '小線-3段-下中爐-最小',[B3BMMAX] AS '小線-3段-下中爐-最大'&#13;&#10;,[B3ALAVG] AS '小線-3段-上中爐-平均',[B3ALMIN] AS '小線-3段-上左爐-最小',[B3ALMAX] AS '小線-3段-上左爐-最大'&#13;&#10;,[B3BLAVG] AS '小線-3段-下左爐-平均',[B3BLMIN] AS '小線-3段-下左爐-最小',[B3BLMAX] AS '小線-3段-下左爐-最大'&#13;&#10;,[B4ARAVG] AS '小線-4段-上右爐-平均',[B4ARMIN] AS '小線-4段-上右爐-最小',[B4ARMAX] AS '小線-4段-上右爐-最大'&#13;&#10;,[B4BRAVG] AS '小線-4段-下右爐-平均',[B4BRMIN] AS '小線-4段-下右爐-最小',[B4BRMAX] AS '小線-4段-下右爐-最大'&#13;&#10;,[B4AMAVG] AS '小線-4段-上中爐-平均',[B4AMMIN] AS '小線-4段-上中爐-最小',[B4AMMAX] AS '小線-4段-上中爐-最大'&#13;&#10;,[B4BMAVG] AS '小線-4段-下中爐-平均',[B4BMMIN] AS '小線-4段-下中爐-最小',[B4BMMAX] AS '小線-4段-下中爐-最大'&#13;&#10;,[B4ALAVG] AS '小線-4段-上左爐-平均',[B4ALMIN] AS '小線-4段-上左爐-最小',[B4ALMAX] AS '小線-4段-上左爐-最大'&#13;&#10;,[B4BLAVG] AS '小線-4段-下左爐-平均',[B4BLMIN] AS '小線-4段-下左爐-最小',[B4BLMAX] AS '小線-4段-下左爐-最大'&#13;&#10;,[B5ARAVG] AS '小線-5段-上右爐-平均',[B5ARMIN] AS '小線-5段-上右爐-最小',[B5ARMAX] AS '小線-5段-上右爐-最大'&#13;&#10;,[B5BRAVG] AS '小線-5段-下右爐-平均',[B5BRMIN] AS '小線-5段-下右爐-最小',[B5BRMAX] AS '小線-5段-下右爐-最大'&#13;&#10;,[B5AMAVG] AS '小線-5段-上中爐-平均',[B5AMMIN] AS '小線-5段-上中爐-最小',[B5AMMAX] AS '小線-5段-上中爐-最大'&#13;&#10;,[B5BMAVG] AS '小線-5段-下中爐-平均',[B5BMMIN] AS '小線-5段-下中爐-最小',[B5BMMAX] AS '小線-5段-下中爐-最大'&#13;&#10;,[B5ALAVG] AS '小線-5段-上左爐-平均',[B5ALMIN] AS '小線-5段-上左爐-最小',[B5ALMAX] AS '小線-5段-上左爐-最大'&#13;&#10;,[B5BLAVG] AS '小線-5段-下左爐-平均',[B5BLMIN] AS '小線-5段-下左爐-最小',[B5BLMAX] AS '小線-5段-下左爐-最大'&#13;&#10;FROM [TKMOC].[dbo].[MOCTADAILY]&#13;&#10;WHERE CONVERT(VARCHAR, [SDATES], 112)&gt;='20200701' AND CONVERT(VARCHAR, [SDATES], 112)&lt;='20200715'&#13;&#10;ORDER BY  [TA001],[TA002],[TA021]">
+        <Column Name="製令" DataType="System.String"/>
+        <Column Name="單號" DataType="System.String"/>
+        <Column Name="線別" DataType="System.String"/>
+        <Column Name="品號" DataType="System.String"/>
+        <Column Name="品名" DataType="System.String"/>
+        <Column Name="規格" DataType="System.String"/>
+        <Column Name="生產量" DataType="System.Decimal"/>
+        <Column Name="入庫量" DataType="System.Decimal"/>
+        <Column Name="未熟量" DataType="System.Decimal"/>
+        <Column Name="開始時間" DataType="System.DateTime"/>
+        <Column Name="結束時間" DataType="System.DateTime"/>
+        <Column Name="溫度-平均" DataType="System.Decimal"/>
+        <Column Name="溫度-最小" DataType="System.Decimal"/>
+        <Column Name="溫度-最大" DataType="System.Decimal"/>
+        <Column Name="溼度-平均" DataType="System.Decimal"/>
+        <Column Name="溼度-最小" DataType="System.Decimal"/>
+        <Column Name="溼度-最大" DataType="System.Decimal"/>
+        <Column Name="大線爐速" DataType="System.Decimal"/>
+        <Column Name="小線爐速" DataType="System.Decimal"/>
+        <Column Name="大線-1段-上爐-平均" DataType="System.Decimal"/>
+        <Column Name="大線-1段-上爐-最小" DataType="System.Decimal"/>
+        <Column Name="大線-1段-上爐-最大" DataType="System.Decimal"/>
+        <Column Name="大線-1段-下爐-平均" DataType="System.Decimal"/>
+        <Column Name="大線-1段-下爐-最小" DataType="System.Decimal"/>
+        <Column Name="大線-1段-下爐-最大" DataType="System.Decimal"/>
+        <Column Name="大線-2段-上爐-平均" DataType="System.Decimal"/>
+        <Column Name="大線-2段-上爐-最小" DataType="System.Decimal"/>
+        <Column Name="大線-2段-上爐-最大" DataType="System.Decimal"/>
+        <Column Name="大線-2段-下爐-平均" DataType="System.Decimal"/>
+        <Column Name="大線-2段-下爐-最小" DataType="System.Decimal"/>
+        <Column Name="大線-2段-下爐-最大" DataType="System.Decimal"/>
+        <Column Name="大線-3段-上爐-平均" DataType="System.Decimal"/>
+        <Column Name="大線-3段-上爐-最小" DataType="System.Decimal"/>
+        <Column Name="大線-3段-上爐-最大" DataType="System.Decimal"/>
+        <Column Name="大線-3段-下爐-平均" DataType="System.Decimal"/>
+        <Column Name="大線-3段-下爐-最小" DataType="System.Decimal"/>
+        <Column Name="大線-3段-下爐-最大" DataType="System.Decimal"/>
+        <Column Name="大線-4段-上爐-平均" DataType="System.Decimal"/>
+        <Column Name="大線-4段-上爐-最小" DataType="System.Decimal"/>
+        <Column Name="大線-4段-上爐-最大" DataType="System.Decimal"/>
+        <Column Name="大線-4段-下爐-平均" DataType="System.Decimal"/>
+        <Column Name="大線-4段-下爐-最小" DataType="System.Decimal"/>
+        <Column Name="大線-4段-下爐-最大" DataType="System.Decimal"/>
+        <Column Name="小線-1段-上右爐-平均" DataType="System.Decimal"/>
+        <Column Name="小線-1段-上右爐-最小" DataType="System.Decimal"/>
+        <Column Name="小線-1段-上右爐-最大" DataType="System.Decimal"/>
+        <Column Name="小線-1段-下右爐-平均" DataType="System.Decimal"/>
+        <Column Name="小線-1段-下右爐-最小" DataType="System.Decimal"/>
+        <Column Name="小線-1段-下右爐-最大" DataType="System.Decimal"/>
+        <Column Name="小線-1段-上中爐-平均" DataType="System.Decimal"/>
+        <Column Name="小線-1段-上中爐-最小" DataType="System.Decimal"/>
+        <Column Name="小線-1段-上中爐-最大" DataType="System.Decimal"/>
+        <Column Name="小線-1段-下中爐-平均" DataType="System.Decimal"/>
+        <Column Name="小線-1段-下中爐-最小" DataType="System.Decimal"/>
+        <Column Name="小線-1段-下中爐-最大" DataType="System.Decimal"/>
+        <Column Name="小線-1段-上左爐-平均" DataType="System.Decimal"/>
+        <Column Name="小線-1段-上左爐-最小" DataType="System.Decimal"/>
+        <Column Name="小線-1段-上左爐-最大" DataType="System.Decimal"/>
+        <Column Name="小線-1段-下左爐-平均" DataType="System.Decimal"/>
+        <Column Name="小線-1段-下左爐-最小" DataType="System.Decimal"/>
+        <Column Name="小線-1段-下左爐-最大" DataType="System.Decimal"/>
+        <Column Name="小線-2段-上右爐-平均" DataType="System.Decimal"/>
+        <Column Name="小線-2段-上右爐-最小" DataType="System.Decimal"/>
+        <Column Name="小線-2段-上右爐-最大" DataType="System.Decimal"/>
+        <Column Name="小線-2段-下右爐-平均" DataType="System.Decimal"/>
+        <Column Name="小線-2段-下右爐-最小" DataType="System.Decimal"/>
+        <Column Name="小線-2段-下右爐-最大" DataType="System.Decimal"/>
+        <Column Name="小線-2段-上中爐-平均" DataType="System.Decimal"/>
+        <Column Name="小線-2段-上中爐-最小" DataType="System.Decimal"/>
+        <Column Name="小線-2段-上中爐-最大" DataType="System.Decimal"/>
+        <Column Name="小線-2段-下中爐-平均" DataType="System.Decimal"/>
+        <Column Name="小線-2段-下中爐-最小" DataType="System.Decimal"/>
+        <Column Name="小線-2段-下中爐-最大" DataType="System.Decimal"/>
+        <Column Name="小線-2段-上左爐-平均" DataType="System.Decimal"/>
+        <Column Name="小線-2段-上左爐-最小" DataType="System.Decimal"/>
+        <Column Name="小線-2段-上左爐-最大" DataType="System.Decimal"/>
+        <Column Name="小線-2段-下左爐-平均" DataType="System.Decimal"/>
+        <Column Name="小線-2段-下左爐-最小" DataType="System.Decimal"/>
+        <Column Name="小線-2段-下左爐-最大" DataType="System.Decimal"/>
+        <Column Name="小線-3段-上右爐-平均" DataType="System.Decimal"/>
+        <Column Name="小線-3段-上右爐-最小" DataType="System.Decimal"/>
+        <Column Name="小線-3段-上右爐-最大" DataType="System.Decimal"/>
+        <Column Name="小線-3段-下右爐-平均" DataType="System.Decimal"/>
+        <Column Name="小線-3段-下右爐-最小" DataType="System.Decimal"/>
+        <Column Name="小線-3段-下右爐-最大" DataType="System.Decimal"/>
+        <Column Name="小線-3段-上右爐-平均1" DataType="System.Decimal"/>
+        <Column Name="小線-3段-上中爐-最小" DataType="System.Decimal"/>
+        <Column Name="小線-3段-上中爐-最大" DataType="System.Decimal"/>
+        <Column Name="小線-3段-下中爐-平均" DataType="System.Decimal"/>
+        <Column Name="小線-3段-下中爐-最小" DataType="System.Decimal"/>
+        <Column Name="小線-3段-下中爐-最大" DataType="System.Decimal"/>
+        <Column Name="小線-3段-上中爐-平均" DataType="System.Decimal"/>
+        <Column Name="小線-3段-上左爐-最小" DataType="System.Decimal"/>
+        <Column Name="小線-3段-上左爐-最大" DataType="System.Decimal"/>
+        <Column Name="小線-3段-下左爐-平均" DataType="System.Decimal"/>
+        <Column Name="小線-3段-下左爐-最小" DataType="System.Decimal"/>
+        <Column Name="小線-3段-下左爐-最大" DataType="System.Decimal"/>
+        <Column Name="小線-4段-上右爐-平均" DataType="System.Decimal"/>
+        <Column Name="小線-4段-上右爐-最小" DataType="System.Decimal"/>
+        <Column Name="小線-4段-上右爐-最大" DataType="System.Decimal"/>
+        <Column Name="小線-4段-下右爐-平均" DataType="System.Decimal"/>
+        <Column Name="小線-4段-下右爐-最小" DataType="System.Decimal"/>
+        <Column Name="小線-4段-下右爐-最大" DataType="System.Decimal"/>
+        <Column Name="小線-4段-上中爐-平均" DataType="System.Decimal"/>
+        <Column Name="小線-4段-上中爐-最小" DataType="System.Decimal"/>
+        <Column Name="小線-4段-上中爐-最大" DataType="System.Decimal"/>
+        <Column Name="小線-4段-下中爐-平均" DataType="System.Decimal"/>
+        <Column Name="小線-4段-下中爐-最小" DataType="System.Decimal"/>
+        <Column Name="小線-4段-下中爐-最大" DataType="System.Decimal"/>
+        <Column Name="小線-4段-上左爐-平均" DataType="System.Decimal"/>
+        <Column Name="小線-4段-上左爐-最小" DataType="System.Decimal"/>
+        <Column Name="小線-4段-上左爐-最大" DataType="System.Decimal"/>
+        <Column Name="小線-4段-下左爐-平均" DataType="System.Decimal"/>
+        <Column Name="小線-4段-下左爐-最小" DataType="System.Decimal"/>
+        <Column Name="小線-4段-下左爐-最大" DataType="System.Decimal"/>
+        <Column Name="小線-5段-上右爐-平均" DataType="System.Decimal"/>
+        <Column Name="小線-5段-上右爐-最小" DataType="System.Decimal"/>
+        <Column Name="小線-5段-上右爐-最大" DataType="System.Decimal"/>
+        <Column Name="小線-5段-下右爐-平均" DataType="System.Decimal"/>
+        <Column Name="小線-5段-下右爐-最小" DataType="System.Decimal"/>
+        <Column Name="小線-5段-下右爐-最大" DataType="System.Decimal"/>
+        <Column Name="小線-5段-上中爐-平均" DataType="System.Decimal"/>
+        <Column Name="小線-5段-上中爐-最小" DataType="System.Decimal"/>
+        <Column Name="小線-5段-上中爐-最大" DataType="System.Decimal"/>
+        <Column Name="小線-5段-下中爐-平均" DataType="System.Decimal"/>
+        <Column Name="小線-5段-下中爐-最小" DataType="System.Decimal"/>
+        <Column Name="小線-5段-下中爐-最大" DataType="System.Decimal"/>
+        <Column Name="小線-5段-上左爐-平均" DataType="System.Decimal"/>
+        <Column Name="小線-5段-上左爐-最小" DataType="System.Decimal"/>
+        <Column Name="小線-5段-上左爐-最大" DataType="System.Decimal"/>
+        <Column Name="小線-5段-下左爐-平均" DataType="System.Decimal"/>
+        <Column Name="小線-5段-下左爐-最小" DataType="System.Decimal"/>
+        <Column Name="小線-5段-下左爐-最大" DataType="System.Decimal"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="2000" PaperHeight="210">
+    <ReportTitleBand Name="ReportTitle1" Width="7484.4" Height="18.9">
+      <TextObject Name="Text1" Width="94.5" Height="18.9" Text="生產記錄"/>
+    </ReportTitleBand>
+    <ColumnHeaderBand Name="ColumnHeader1" Top="22.75" Width="7484.4" Height="28.35">
+      <TextObject Name="Text3" Width="94.5" Height="18.9" Border.Lines="All" Text="製令" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text5" Left="94.5" Width="94.5" Height="18.9" Border.Lines="All" Text="單號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text7" Left="189" Width="94.5" Height="18.9" Border.Lines="All" Text="線別" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text9" Left="283.5" Width="132.3" Height="18.9" Border.Lines="All" Text="品號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text11" Left="415.8" Width="255.15" Height="18.9" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text13" Left="670.95" Width="132.3" Height="18.9" Border.Lines="All" Text="規格" HorzAlign="Center" VertAlign="Center"/>
+    </ColumnHeaderBand>
+    <DataBand Name="Data1" Top="54.94" Width="7484.4" Height="28.35" DataSource="Table">
+      <TextObject Name="Text2" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.製令]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text4" Left="94.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.單號]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text6" Left="189" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.線別]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text8" Left="283.5" Width="132.3" Height="18.9" Border.Lines="All" Text="[Table.品號]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text10" Left="415.8" Width="255.15" Height="18.9" Border.Lines="All" Text="[Table.品名]" VertAlign="Center"/>
+      <TextObject Name="Text12" Left="670.95" Width="132.3" Height="18.9" Border.Lines="All" Text="[Table.規格]" HorzAlign="Center" VertAlign="Center"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="87.14" Width="7484.4" Height="18.9"/>
+  </ReportPage>
+</Report>
