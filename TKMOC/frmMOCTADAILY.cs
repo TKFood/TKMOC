@@ -222,9 +222,9 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  ,[B2BLAVG] AS '小線-2段-下左爐-平均',[B2BLMIN] AS '小線-2段-下左爐-最小',[B2BLMAX] AS '小線-2段-下左爐-最大'");
                 sbSql.AppendFormat(@"  ,[B3ARAVG] AS '小線-3段-上右爐-平均',[B3ARMIN] AS '小線-3段-上右爐-最小',[B3ARMAX] AS '小線-3段-上右爐-最大'");
                 sbSql.AppendFormat(@"  ,[B3BRAVG] AS '小線-3段-下右爐-平均',[B3BRMIN] AS '小線-3段-下右爐-最小',[B3BRMAX] AS '小線-3段-下右爐-最大'");
-                sbSql.AppendFormat(@"  ,[B3AMAVG] AS '小線-3段-上右爐-平均',[B3AMMIN] AS '小線-3段-上中爐-最小',[B3AMMAX] AS '小線-3段-上中爐-最大'");
+                sbSql.AppendFormat(@"  ,[B3AMAVG] AS '小線-3段-上中爐-平均',[B3AMMIN] AS '小線-3段-上中爐-最小',[B3AMMAX] AS '小線-3段-上中爐-最大'");
                 sbSql.AppendFormat(@"  ,[B3BMAVG] AS '小線-3段-下中爐-平均',[B3BMMIN] AS '小線-3段-下中爐-最小',[B3BMMAX] AS '小線-3段-下中爐-最大'");
-                sbSql.AppendFormat(@"  ,[B3ALAVG] AS '小線-3段-上中爐-平均',[B3ALMIN] AS '小線-3段-上左爐-最小',[B3ALMAX] AS '小線-3段-上左爐-最大'");
+                sbSql.AppendFormat(@"  ,[B3ALAVG] AS '小線-3段-上左爐-平均',[B3ALMIN] AS '小線-3段-上左爐-最小',[B3ALMAX] AS '小線-3段-上左爐-最大'");
                 sbSql.AppendFormat(@"  ,[B3BLAVG] AS '小線-3段-下左爐-平均',[B3BLMIN] AS '小線-3段-下左爐-最小',[B3BLMAX] AS '小線-3段-下左爐-最大'");
                 sbSql.AppendFormat(@"  ,[B4ARAVG] AS '小線-4段-上右爐-平均',[B4ARMIN] AS '小線-4段-上右爐-最小',[B4ARMAX] AS '小線-4段-上右爐-最大'");
                 sbSql.AppendFormat(@"  ,[B4BRAVG] AS '小線-4段-下右爐-平均',[B4BRMIN] AS '小線-4段-下右爐-最小',[B4BRMAX] AS '小線-4段-下右爐-最大'");
@@ -600,6 +600,39 @@ namespace TKMOC
                     textBox264.Text = row.Cells["大線-4段-下爐-平均"].Value.ToString();
                     textBox265.Text = row.Cells["大線-4段-下爐-最小"].Value.ToString();
                     textBox266.Text = row.Cells["大線-4段-下爐-最大"].Value.ToString();
+
+                    textBox311.Text = row.Cells["小線爐速"].Value.ToString();
+
+                    textBox331.Text = row.Cells["小線-1段-上右爐-平均"].Value.ToString();
+                    textBox332.Text = row.Cells["小線-1段-下右爐-平均"].Value.ToString();
+                    textBox333.Text = row.Cells["小線-1段-上中爐-平均"].Value.ToString();
+                    textBox334.Text = row.Cells["小線-1段-下中爐-平均"].Value.ToString();
+                    textBox335.Text = row.Cells["小線-1段-上左爐-平均"].Value.ToString();
+                    textBox336.Text = row.Cells["小線-1段-下左爐-平均"].Value.ToString();
+                    textBox341.Text = row.Cells["小線-2段-上右爐-平均"].Value.ToString();
+                    textBox342.Text = row.Cells["小線-2段-下右爐-平均"].Value.ToString();
+                    textBox343.Text = row.Cells["小線-2段-上中爐-平均"].Value.ToString();
+                    textBox344.Text = row.Cells["小線-2段-下中爐-平均"].Value.ToString();
+                    textBox345.Text = row.Cells["小線-2段-上左爐-平均"].Value.ToString();
+                    textBox346.Text = row.Cells["小線-2段-下左爐-平均"].Value.ToString();
+                    textBox351.Text = row.Cells["小線-3段-上右爐-平均"].Value.ToString();
+                    textBox352.Text = row.Cells["小線-3段-下右爐-平均"].Value.ToString();
+                    textBox353.Text = row.Cells["小線-3段-上中爐-平均"].Value.ToString();
+                    textBox354.Text = row.Cells["小線-3段-下中爐-平均"].Value.ToString();
+                    textBox355.Text = row.Cells["小線-3段-上左爐-平均"].Value.ToString();
+                    textBox356.Text = row.Cells["小線-3段-下左爐-平均"].Value.ToString();
+                    textBox361.Text = row.Cells["小線-4段-上右爐-平均"].Value.ToString();
+                    textBox362.Text = row.Cells["小線-4段-下右爐-平均"].Value.ToString();
+                    textBox363.Text = row.Cells["小線-4段-上中爐-平均"].Value.ToString();
+                    textBox364.Text = row.Cells["小線-4段-下中爐-平均"].Value.ToString();
+                    textBox365.Text = row.Cells["小線-4段-上左爐-平均"].Value.ToString();
+                    textBox366.Text = row.Cells["小線-4段-下左爐-平均"].Value.ToString();
+                    textBox371.Text = row.Cells["小線-5段-上右爐-平均"].Value.ToString();
+                    textBox372.Text = row.Cells["小線-5段-下右爐-平均"].Value.ToString();
+                    textBox373.Text = row.Cells["小線-5段-上中爐-平均"].Value.ToString();
+                    textBox374.Text = row.Cells["小線-5段-下中爐-平均"].Value.ToString();
+                    textBox375.Text = row.Cells["小線-5段-上左爐-平均"].Value.ToString();
+                    textBox376.Text = row.Cells["小線-5段-下左爐-平均"].Value.ToString();
                 }
             }
             else
