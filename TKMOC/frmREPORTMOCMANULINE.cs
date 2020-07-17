@@ -2784,7 +2784,32 @@ namespace TKMOC
 
             SQL1 = SETSQL4(MANU, SDAY, EDAY);
             Report report1 = new Report();
-            report1.Load(@"REPORT\預排製令矩陣.frx");
+
+            if(comboBox8.Text.Trim().Equals("1.桶數"))
+            {
+                report1.Load(@"REPORT\預排製令矩陣-1.桶數.frx");
+            }
+            else if (comboBox8.Text.Trim().Equals("2.包裝量"))
+            {
+                report1.Load(@"REPORT\預排製令矩陣-2.包裝量.frx");
+            }
+            else if (comboBox8.Text.Trim().Equals("3.數量+入庫量"))
+            {
+                report1.Load(@"REPORT\預排製令矩陣-3.數量+入庫量.frx");
+            }
+            else if (comboBox8.Text.Trim().Equals("4.包裝量+入庫量"))
+            {
+                report1.Load(@"REPORT\預排製令矩陣-4.包裝量+入庫量.frx");
+            }
+            else if (comboBox8.Text.Trim().Equals("5.桶數+數量"))
+            {
+                report1.Load(@"REPORT\預排製令矩陣-5.桶數+數量.frx");
+            }
+            else
+            {
+                report1.Load(@"REPORT\預排製令矩陣.frx");
+            }
+           
 
             report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
             TableDataSource table = report1.GetDataSource("Table") as TableDataSource;

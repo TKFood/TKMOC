@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="06/16/2020 15:46:56" ReportInfo.Modified="07/17/2020 14:21:30" ReportInfo.CreatorVersion="2016.4.4.0">
+  <ScriptText>using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
+using System.Drawing;
+using System.Data;
+using FastReport;
+using FastReport.Data;
+using FastReport.Dialog;
+using FastReport.Barcode;
+using FastReport.Table;
+using FastReport.Utils;
+
+namespace FastReport
+{
+  public class ReportScript
+  {
+
+    private void Cell66_BeforePrint(object sender, EventArgs e)
+    {
+            
+    }
+
+    private void Cell36_BeforePrint(object sender, EventArgs e)
+    {
+      //Cell36.Text=Cell36.Text+&quot;/33-&quot;+(Convert.ToDecimal(Cell36.Text)/33).ToString()+&quot;%&quot;;
+      Cell36.Text=Cell36.Text+&quot;\n 33-&quot;;
+           
+    }
+  }
+}
+</ScriptText>
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9LF6Trta9m82QmzMrfUMtA8">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT  [MOCMANULINE].[MANU] ,CONVERT(nvarchar,[MOCMANULINE].[MANUDATE],112) MANUDATE,[MOCMANULINE].[MB002]&#13;&#10;,ISNULL([MOCMANULINE].[BAR],0) BAR,ISNULL([MOCMANULINE].[NUM],0) NUM,ISNULL([MOCMANULINE].[PACKAGE],0) PACKAGE&#13;&#10;,[MOCMANULINE].[COPTD001]+' '+[MOCMANULINE].[COPTD002]+' '+[MOCMANULINE].[COPTD003] AS TD00123&#13;&#10;,[COPTC].TC053,[CMSMV].MV002&#13;&#10;,ISNULL([MOCMANULINERESULT].[MOCTA001],'')+ISNULL([MOCMANULINERESULT].[MOCTA002],'')+ISNULL([MOCTA].TA001,'')+ISNULL([MOCTA].TA002,'') AS 'MOCTA001002'&#13;&#10;,(SELECT ISNULL(SUM(TG011),0) FROM  [TK].dbo.[MOCTG] WHERE TG014=[MOCMANULINERESULT].[MOCTA001] AND TG015=[MOCMANULINERESULT].[MOCTA002]) AS '入庫量'&#13;&#10;,[MOCMANULINEMERGE].[NO],[MOCTA].TA033&#13;&#10;,ISNULL([MOCMANULINERESULT].[MOCTA001],'') AS MOCTA001A,ISNULL([MOCMANULINERESULT].[MOCTA002],'')  AS MOCTA002A,ISNULL([MOCTA].TA001,'')  AS MOCTA001B,ISNULL([MOCTA].TA002,'')  AS MOCTA002B&#13;&#10;FROM [TKMOC].[dbo].[MOCMANULINE]&#13;&#10;LEFT JOIN [TK].dbo.[COPTD] ON [MOCMANULINE].[COPTD001]=[COPTD].TD001 AND [MOCMANULINE].[COPTD002]=[COPTD].TD002 AND[MOCMANULINE].[COPTD003]=[COPTD].TD003 &#13;&#10;LEFT JOIN [TK].dbo.[COPTC] ON [COPTD].TD001=[COPTC].TC001 AND [COPTD].TD002=[COPTC].TC002&#13;&#10;LEFT JOIN [TK].dbo.[CMSMV] ON [CMSMV].MV001=[COPTC].TC006&#13;&#10;LEFT JOIN [TKMOC].[dbo].[MOCMANULINERESULT] ON [MOCMANULINERESULT].[SID]=[MOCMANULINE].[ID]&#13;&#10;LEFT JOIN [TKMOC].[dbo].[MOCMANULINEMERGE] ON [MOCMANULINEMERGE].[SID]=[MOCMANULINE].[ID]&#13;&#10;LEFT JOIN [TK].dbo.[MOCTA] ON [MOCTA].TA033=[MOCMANULINEMERGE].[NO]&#13;&#10;WHERE CONVERT(nvarchar,[MOCMANULINE].[MANUDATE],112)&gt;='20200701' AND CONVERT(nvarchar,[MOCMANULINE].[MANUDATE],112)&lt;='20200731'&#13;&#10;ORDER BY [MOCMANULINE].[MANU],CONVERT(nvarchar,[MOCMANULINE].[MANUDATE],112)">
+        <Column Name="MANU" DataType="System.String"/>
+        <Column Name="MANUDATE" DataType="System.String"/>
+        <Column Name="MB002" DataType="System.String"/>
+        <Column Name="BAR" DataType="System.Decimal"/>
+        <Column Name="NUM" DataType="System.Decimal"/>
+        <Column Name="PACKAGE" DataType="System.Decimal"/>
+        <Column Name="TD00123" DataType="System.String"/>
+        <Column Name="TC053" DataType="System.String"/>
+        <Column Name="MV002" DataType="System.String"/>
+        <Column Name="入庫量" DataType="System.Decimal"/>
+        <Column Name="MOCTA001002" DataType="System.String"/>
+        <Column Name="NO" DataType="System.String"/>
+        <Column Name="TA033" DataType="System.String"/>
+        <Column Name="MOCTA001A" DataType="System.String"/>
+        <Column Name="MOCTA002A" DataType="System.String"/>
+        <Column Name="MOCTA001B" DataType="System.String"/>
+        <Column Name="MOCTA002B" DataType="System.String"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="5000" PaperHeight="5000">
+    <DataBand Name="Data1" Width="18824.4" Height="107.45">
+      <MatrixObject Name="Matrix1" Width="627.57" Height="90.95" FixedRows="2" FixedColumns="8" CellsSideBySide="true" DataSource="Table">
+        <MatrixColumns>
+          <Header Expression="[Table.MANUDATE]"/>
+        </MatrixColumns>
+        <MatrixRows>
+          <Header Expression="[Table.MANU]" Sort="None"/>
+          <Header Sort="None"/>
+          <Header Expression="[Table.MANUDATE]" Totals="false"/>
+          <Header Expression="[Table.TD00123]" Sort="None" Totals="false"/>
+          <Header Expression="[Table.MV002]" Sort="None" Totals="false"/>
+          <Header Expression="[Table.TC053]" Sort="None" Totals="false"/>
+          <Header Expression="[Table.MB002]" Sort="None" Totals="false"/>
+          <Header Expression="[Table.MOCTA001002]" Sort="None" Totals="false"/>
+        </MatrixRows>
+        <MatrixCells>
+          <Cell Expression="[Table.NUM]"/>
+          <Cell Expression="[Table.入庫量]"/>
+        </MatrixCells>
+        <TableColumn Name="Column1" Width="46.12" AutoSize="true"/>
+        <TableColumn Name="Column2" Width="21.37" AutoSize="true"/>
+        <TableColumn Name="Column3" Width="70.87" AutoSize="true"/>
+        <TableColumn Name="Column4" Width="64.69" AutoSize="true"/>
+        <TableColumn Name="Column5" Width="52.31" AutoSize="true"/>
+        <TableColumn Name="Column6" Width="52.31" AutoSize="true"/>
+        <TableColumn Name="Column7" Width="52.31" AutoSize="true"/>
+        <TableColumn Name="Column8" Width="89.44" AutoSize="true"/>
+        <TableColumn Name="Column9" Width="39.94" AutoSize="true"/>
+        <TableColumn Name="Column10" Width="58.43" AutoSize="true"/>
+        <TableColumn Name="Column11" Width="33.71" AutoSize="true"/>
+        <TableColumn Name="Column12" Width="46.07" AutoSize="true"/>
+        <TableRow Name="Row1" Height="18.19" AutoSize="true">
+          <TableCell Name="Cell1" Border.Lines="All" Text="線別" HorzAlign="Center" VertAlign="Center" RowSpan="2"/>
+          <TableCell Name="Cell2" Border.Lines="All" HorzAlign="Center" VertAlign="Center" RowSpan="2"/>
+          <TableCell Name="Cell7" Border.Lines="All" Text="預計日期" HorzAlign="Center" VertAlign="Center" RowSpan="2"/>
+          <TableCell Name="Cell10" Border.Lines="All" Text="訂單" HorzAlign="Center" VertAlign="Center" RowSpan="2"/>
+          <TableCell Name="Cell13" Border.Lines="All" Text="業務" HorzAlign="Center" VertAlign="Center" RowSpan="2"/>
+          <TableCell Name="Cell14" Border.Lines="All" Text="客戶" HorzAlign="Center" VertAlign="Center" RowSpan="2"/>
+          <TableCell Name="Cell25" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center" RowSpan="2"/>
+          <TableCell Name="Cell26" Border.Lines="All" Text="製令" HorzAlign="Center" VertAlign="Center" RowSpan="2"/>
+          <TableCell Name="Cell33" Border.Lines="All" Text="[MANUDATE]" HorzAlign="Center" VertAlign="Center" ColSpan="2"/>
+          <TableCell Name="Cell46"/>
+          <TableCell Name="Cell50" Border.Lines="All" Text="加總" HorzAlign="Center" VertAlign="Center" ColSpan="2"/>
+          <TableCell Name="Cell69"/>
+        </TableRow>
+        <TableRow Name="Row2" Height="18.19" AutoSize="true">
+          <TableCell Name="Cell3"/>
+          <TableCell Name="Cell4"/>
+          <TableCell Name="Cell8"/>
+          <TableCell Name="Cell11"/>
+          <TableCell Name="Cell15"/>
+          <TableCell Name="Cell16"/>
+          <TableCell Name="Cell27"/>
+          <TableCell Name="Cell28"/>
+          <TableCell Name="Cell34" Border.Lines="All" Text="數量" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell47" Border.Lines="All" Fill.Color="Aqua" Text="入庫量" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell51" Border.Lines="All" Text="數量" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell70" Border.Lines="All" Fill.Color="Aqua" Text="入庫量" HorzAlign="Center" VertAlign="Center"/>
+        </TableRow>
+        <TableRow Name="Row3" Height="18.19" AutoSize="true">
+          <TableCell Name="Cell5" Border.Lines="All" Text="[MANU]" HorzAlign="Center" VertAlign="Center" RowSpan="2"/>
+          <TableCell Name="Cell6" Border.Lines="All" Text="[]" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell9" Border.Lines="All" Text="[MANUDATE]" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell12" Border.Lines="All" Text="[TD00123]" VertAlign="Center"/>
+          <TableCell Name="Cell17" Border.Lines="All" Text="[MV002]" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell18" Border.Lines="All" Text="[TC053]" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell29" Border.Lines="All" Text="[MB002]" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell30" Border.Lines="All" Text="[MOCTA001002]" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell35" Border.Lines="All" Text="[NUM]" HorzAlign="Right" VertAlign="Center"/>
+          <TableCell Name="Cell48" Border.Lines="All" Fill.Color="Aqua" Text="[入庫量]" HorzAlign="Right" VertAlign="Center"/>
+          <TableCell Name="Cell52" Border.Lines="All" HorzAlign="Right" VertAlign="Center"/>
+          <TableCell Name="Cell71" Border.Lines="All" Fill.Color="Aqua" HorzAlign="Right" VertAlign="Center"/>
+        </TableRow>
+        <TableRow Name="Row4" Height="18.19" AutoSize="true">
+          <TableCell Name="Cell19"/>
+          <TableCell Name="Cell20" Border.Lines="All" Fill.Color="LightGoldenrodYellow" Text="線別加總" HorzAlign="Center" VertAlign="Center" ColSpan="7"/>
+          <TableCell Name="Cell21"/>
+          <TableCell Name="Cell22"/>
+          <TableCell Name="Cell23"/>
+          <TableCell Name="Cell24"/>
+          <TableCell Name="Cell31"/>
+          <TableCell Name="Cell32"/>
+          <TableCell Name="Cell36" Border.Lines="All" Fill.Color="LightGoldenrodYellow" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center"/>
+          <TableCell Name="Cell49" Border.Lines="All" Fill.Color="LightGoldenrodYellow" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center"/>
+          <TableCell Name="Cell53" Border.Lines="All" Fill.Color="LightGoldenrodYellow" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center"/>
+          <TableCell Name="Cell72" Border.Lines="All" Fill.Color="LightGoldenrodYellow" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center"/>
+        </TableRow>
+        <TableRow Name="Row5" Height="18.19" AutoSize="true">
+          <TableCell Name="Cell58" Border.Lines="All" Text="加總" HorzAlign="Center" VertAlign="Center" ColSpan="8"/>
+          <TableCell Name="Cell59"/>
+          <TableCell Name="Cell60"/>
+          <TableCell Name="Cell61"/>
+          <TableCell Name="Cell62"/>
+          <TableCell Name="Cell63"/>
+          <TableCell Name="Cell64"/>
+          <TableCell Name="Cell65"/>
+          <TableCell Name="Cell66" Border.Lines="All" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center"/>
+          <TableCell Name="Cell67" Border.Lines="All" Fill.Color="Aqua" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center"/>
+          <TableCell Name="Cell68" Border.Lines="All" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center"/>
+          <TableCell Name="Cell73" Border.Lines="All" Fill.Color="Aqua" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center"/>
+        </TableRow>
+      </MatrixObject>
+    </DataBand>
+  </ReportPage>
+</Report>
