@@ -377,6 +377,8 @@ namespace TKMOC
             comboBox17load();
 
 
+            comboBox19load();
+
             SETIN();
 
             //SET CALENDAR
@@ -699,6 +701,28 @@ namespace TKMOC
 
 
         }
+
+        public void comboBox19load()
+        {
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 LIKE '新廠%'   ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("MD001", typeof(string));
+            dt.Columns.Add("MD002", typeof(string));
+            da.Fill(dt);
+            comboBox19.DataSource = dt.DefaultView;
+            comboBox19.ValueMember = "MD002";
+            comboBox19.DisplayMember = "MD002";
+            sqlConn.Close();
+
+
+        }
+
         public void SEARCHMOCMANULINE()
         {
             if(MANU.Equals("新廠製二組"))
@@ -987,6 +1011,68 @@ namespace TKMOC
                 {
                     sqlConn.Close();
                 }
+            }
+
+        }
+
+        public void SEARCHMOCMANULINETEMP()
+        {
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            DataSet ds1 = new DataSet();
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+
+                sbSql.AppendFormat(@"  SELECT ");
+                sbSql.AppendFormat(@"  [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名' ");
+                sbSql.AppendFormat(@"  ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[CLINET] AS '客戶',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'");
+                sbSql.AppendFormat(@"  ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號'");
+                sbSql.AppendFormat(@"  ,[ID]");
+                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINETEMP]");
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ORDER BY [MANUDATE],[SERNO]");
+                sbSql.AppendFormat(@"  ");
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "TEMPds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["TEMPds1"].Rows.Count == 0)
+                {
+
+                }
+                else
+                {
+                    if (ds1.Tables["TEMPds1"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView20.DataSource = ds1.Tables["TEMPds1"];
+                        dataGridView20.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
             }
 
         }
@@ -2287,6 +2373,8 @@ namespace TKMOC
                 sqlConn.Close();
             }
         }
+
+
 
         public MOCTADATA SETMOCTA()
         {
@@ -8060,7 +8148,13 @@ namespace TKMOC
         {
             DATAGRIDCLEAR();
         }
+        private void button76_Click(object sender, EventArgs e)
+        {
+            SEARCHMOCMANULINETEMP();
+        }
 
         #endregion
+
+
     }
 }
