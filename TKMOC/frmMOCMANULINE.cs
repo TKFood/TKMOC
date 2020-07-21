@@ -4023,6 +4023,10 @@ namespace TKMOC
         private void textBox7_TextChanged(object sender, EventArgs e)
         {
             SEARCHMB001();
+
+            SEARCHMOCMANULINETEMPDATS(textBox7.Text.Trim());
+
+
         }
         private void dataGridView3_SelectionChanged(object sender, EventArgs e)
         {
@@ -7901,6 +7905,225 @@ namespace TKMOC
                 }
             }
         }
+
+        public void SEARCHMOCMANULINETEMPDATS(string MB001)
+        {
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            DataSet ds1 = new DataSet();
+
+            SqlDataAdapter adapter2= new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder2= new SqlCommandBuilder();
+            DataSet ds2 = new DataSet();
+
+            SqlDataAdapter adapter3 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder3 = new SqlCommandBuilder();
+            DataSet ds3 = new DataSet();
+
+            SqlDataAdapter adapter4 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder4 = new SqlCommandBuilder();
+            DataSet ds4 = new DataSet();
+
+            if (MANU.Equals("新廠製二組"))
+            {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sbSql.Clear();
+                    sbSqlQuery.Clear();
+
+
+                    sbSql.AppendFormat(@"  ");
+
+                    adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                    sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                    sqlConn.Open();
+                    ds1.Clear();
+                    adapter1.Fill(ds1, "TEMPds1");
+                    sqlConn.Close();
+
+
+                    if (ds1.Tables["TEMPds1"].Rows.Count == 0)
+                    {
+
+                    }
+                    else
+                    {
+                        if (ds1.Tables["TEMPds1"].Rows.Count >= 1)
+                        {
+                            //dataGridView1.Rows.Clear();
+                            //dataGridView1.DataSource = ds1.Tables["TEMPds1"];
+                            //dataGridView1.AutoResizeColumns();
+                            //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                        }
+                    }
+
+                }
+                catch
+                {
+
+                }
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }
+
+            else if (MANU.Equals("新廠包裝線"))
+            {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sbSql.Clear();
+                    sbSqlQuery.Clear();
+
+                    sbSql.AppendFormat(@" SELECT [ID]  FROM [TKMOC].[dbo].[MOCMANULINETEMP] WHERE [MB001]='{0}'", MB001);
+                    sbSql.AppendFormat(@"  ");
+
+                    adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                    sqlCmdBuilder2 = new SqlCommandBuilder(adapter2);
+                    sqlConn.Open();
+                    ds2.Clear();
+                    adapter2.Fill(ds2, "ds2");
+                    sqlConn.Close();
+
+
+                    if (ds2.Tables["ds2"].Rows.Count == 0)
+                    {
+
+                    }
+                    else
+                    {
+                        if (ds2.Tables["ds2"].Rows.Count >= 1)
+                        {
+                            //dataGridView1.Rows.Clear();
+                            //dataGridView3.DataSource = ds5.Tables["TEMPds5"];
+                            //dataGridView3.AutoResizeColumns();
+                            //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                            frmMOCMANULINESubTEMPADD MOCMANULINESubTEMPADD = new frmMOCMANULINESubTEMPADD(MB001);
+                            MOCMANULINESubTEMPADD.ShowDialog();
+                        }
+                    }
+
+                }
+                catch
+                {
+
+                }
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }
+            else if (MANU.Equals("新廠製一組"))
+            {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sbSql.Clear();
+                    sbSqlQuery.Clear();
+
+
+                    sbSql.AppendFormat(@"  ");
+
+                    adapter3 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                    sqlCmdBuilder3 = new SqlCommandBuilder(adapter3);
+                    sqlConn.Open();
+                    ds3.Clear();
+                    adapter3.Fill(ds3, "ds3");
+                    sqlConn.Close();
+
+
+                    if (ds3.Tables["ds3"].Rows.Count == 0)
+                    {
+
+                    }
+                    else
+                    {
+                        if (ds3.Tables["ds3"].Rows.Count >= 1)
+                        {
+                            ////dataGridView1.Rows.Clear();
+                            //dataGridView5.DataSource = ds7.Tables["TEMPds7"];
+                            //dataGridView5.AutoResizeColumns();
+                            //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                        }
+                    }
+
+                }
+                catch
+                {
+
+                }
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }
+            else if (MANU.Equals("新廠製三組(手工)"))
+            {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sbSql.Clear();
+                    sbSqlQuery.Clear();
+
+
+                    sbSql.AppendFormat(@"  ");
+
+                    adapter4 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                    sqlCmdBuilder4 = new SqlCommandBuilder(adapter4);
+                    sqlConn.Open();
+                    ds4.Clear();
+                    adapter4.Fill(ds4, "ds4");
+                    sqlConn.Close();
+
+
+                    if (ds4.Tables["ds4"].Rows.Count == 0)
+                    {
+
+                    }
+                    else
+                    {
+                        if (ds4.Tables["ds4"].Rows.Count >= 1)
+                        {
+                            //dataGridView1.Rows.Clear();
+                            //dataGridView7.DataSource = ds8.Tables["TEMPds8"];
+                            //dataGridView7.AutoResizeColumns();
+                            //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                        }
+                    }
+
+                }
+                catch
+                {
+
+                }
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }
+
+            
+
+        }
+
         #endregion
 
         #region BUTTON
