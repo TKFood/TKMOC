@@ -194,6 +194,13 @@ namespace TKMOC
         string DELMOCTA002F;
         string IN6 = "20021";
 
+        string ID10;
+        DateTime dt10;
+        string DELID10;
+        string DELMOCTA001J;
+        string DELMOCTA002J;
+        string IN10 = "20021";
+
         string TA001 = "A510";
         string TA002;
         string TA029;
@@ -5294,6 +5301,11 @@ namespace TKMOC
                 frmMOCMANULINESub MOCMANULINESub = new frmMOCMANULINESub(ID6);
                 MOCMANULINESub.ShowDialog();
             }
+            else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage10"])
+            {
+                frmMOCMANULINESubTEMP MOCMANULINESub = new frmMOCMANULINESubTEMP(ID10);
+                MOCMANULINESub.ShowDialog();
+            }
 
 
 
@@ -5326,6 +5338,10 @@ namespace TKMOC
             else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage8"])
             {
                 CHECKID = ID6;
+            }
+            else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage10"])
+            {
+                CHECKID = ID10;
             }
 
             try
@@ -7796,6 +7812,52 @@ namespace TKMOC
             CALPRODUCTDETAIL();
         }
 
+        private void dataGridView20_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView20.CurrentRow != null)
+            {
+                int rowindex = dataGridView20.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView20.Rows[rowindex];
+                    ID10 = row.Cells["ID"].Value.ToString();
+
+                    //dt2 = Convert.ToDateTime(row.Cells["生產日"].Value.ToString().Substring(0, 4) + "/" + row.Cells["生產日"].Value.ToString().Substring(4, 2) + "/" + row.Cells["生產日"].Value.ToString().Substring(6, 2));
+                    //MB001B = row.Cells["品號"].Value.ToString();
+                    //MB002B = row.Cells["品名"].Value.ToString();
+                    //MB003B = row.Cells["規格"].Value.ToString();
+                    //BOX = Convert.ToDecimal(row.Cells["包裝數"].Value.ToString());
+                    //SUM2 = Convert.ToDecimal(row.Cells["包裝數"].Value.ToString());
+                    //TA029 = row.Cells["備註"].Value.ToString();
+                    //TA026 = row.Cells["訂單單別"].Value.ToString();
+                    //TA027 = row.Cells["訂單號"].Value.ToString();
+                    //TA028 = row.Cells["訂單序號"].Value.ToString();
+
+                    //SUBID2 = row.Cells["ID"].Value.ToString();
+                    //SUBBAR2 = "";
+                    //SUBNUM2 = "";
+                    //SUBBOX2 = row.Cells["箱數"].Value.ToString();
+                    //SUBPACKAGE2 = row.Cells["包裝數"].Value.ToString();
+
+                    //SEARCHMOCMANULINERESULT();
+                    //SEARCHMOCMANULINECOP();
+
+                }
+                else
+                {
+                    ID10 = null;
+                    //SUBID2 = null;
+                    //SUBBAR2 = null;
+                    //SUBNUM2 = null;
+                    //SUBBOX2 = null;
+                    //SUBPACKAGE2 = null;
+                    //TA026 = null;
+                    //TA027 = null;
+                    //TA028 = null;
+
+                }
+            }
+        }
         #endregion
 
         #region BUTTON
@@ -8488,12 +8550,14 @@ namespace TKMOC
 
         private void button72_Click(object sender, EventArgs e)
         {
-
+            CHECKMOCTAB();
+            SEARCHMOCMANULINETEMP();
         }
+
 
 
         #endregion
 
-
+       
     }
 }
