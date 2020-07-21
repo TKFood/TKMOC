@@ -153,7 +153,7 @@ namespace TKMOC
         DataSet dsBOMMC = new DataSet();
         DataSet dsBOMMD = new DataSet();
 
-        private DataSet TEMPds;
+        DataSet TEMPds = new DataSet();
 
 
         DataTable dt = new DataTable();
@@ -6185,11 +6185,14 @@ namespace TKMOC
                         {
                             textBox7.Text = ds27.Tables["ds27"].Rows[0]["TD004"].ToString();
                             textBox10.Text = ds27.Tables["ds27"].Rows[0]["TD005"].ToString();
-                            textBox11.Text = ds27.Tables["ds27"].Rows[0]["TD006"].ToString();
-                            textBox12.Text = ds27.Tables["ds27"].Rows[0]["NUM"].ToString();
+                            textBox11.Text = ds27.Tables["ds27"].Rows[0]["TD006"].ToString();                            
                             textBox9.Text = ds27.Tables["ds27"].Rows[0]["TC053"].ToString();
                             textBox53.Text = ds27.Tables["ds27"].Rows[0]["TC015"].ToString();
 
+                            if(Convert.ToDecimal(textBox12.Text)>0)
+                            {
+                                textBox12.Text = (Convert.ToDecimal(textBox12.Text) + Convert.ToDecimal(ds27.Tables["ds27"].Rows[0]["NUM"].ToString())).ToString();
+                            }
                         }
                     }
                 }
@@ -8012,10 +8015,36 @@ namespace TKMOC
                             //dataGridView3.AutoResizeColumns();
                             //dataGridView1.CurrentCell = dataGridView1[0, rownum];
 
+                            TEMPds.Clear();
                             frmMOCMANULINESubTEMPADD MOCMANULINESubTEMPADD = new frmMOCMANULINESubTEMPADD(MB001, TEMPds);
                             MOCMANULINESubTEMPADD.ShowDialog();
 
-                            this.TEMPds = MOCMANULINESubTEMPADD.SETDATASET;
+                            TEMPds = MOCMANULINESubTEMPADD.SETDATASET;
+
+                            if(TEMPds.Tables[0].Rows.Count>= 1)
+                            {
+                                decimal SUM1 = 0;
+                                decimal SUM2 = 0;
+                                foreach (DataRow dr in TEMPds.Tables[0].Rows)
+                                {
+                                    SUM1 = SUM1 + Convert.ToDecimal(dr["包裝數"].ToString());
+                                    SUM2 = SUM2 + Convert.ToDecimal(dr["箱數"].ToString());
+                                }
+
+                                textBox12.Text = SUM1.ToString();
+                                textBox8.Text = SUM2.ToString();
+
+                                //if(Convert.ToDecimal(textBox12.Text)>0)
+                                //{
+                                //    textBox12.Text = (Convert.ToDecimal(textBox12.Text) + SUM1).ToString();
+                                //}
+                                //if (Convert.ToDecimal(textBox8.Text) > 0)
+                                //{
+                                //    textBox8.Text = (Convert.ToDecimal(textBox8.Text) + SUM2).ToString();
+                                //}
+
+
+                            }
                         }
                     }
 
