@@ -6218,6 +6218,34 @@ namespace TKMOC
                         }
                     }
                 }
+                else if (MANU.Equals("少量訂單"))
+                {
+                    if (ds28.Tables["ds28"].Rows.Count == 0)
+                    {
+                        textBox731.Text = null;
+                        textBox721.Text = null;
+                        textBox732.Text = null;
+                        textBox741.Text = null;
+                        textBox761.Text = null;
+                        textBox751.Text = null;
+                        textBox771.Text = null;
+                        textBox772.Text = null;
+                        textBox773.Text = null;
+                    }
+                    else
+                    {
+                        if (ds28.Tables["ds28"].Rows.Count >= 1)
+                        {
+                            textBox731.Text = ds28.Tables["ds28"].Rows[0]["MD003"].ToString();
+                            textBox721.Text = ds28.Tables["ds28"].Rows[0]["MD035"].ToString();
+                            textBox732.Text = ds28.Tables["ds28"].Rows[0]["MD036"].ToString();
+                            textBox741.Text = ds28.Tables["ds28"].Rows[0]["NUM2"].ToString();
+                            textBox751.Text = ds28.Tables["ds28"].Rows[0]["TC053"].ToString();
+                            textBox761.Text = ds28.Tables["ds28"].Rows[0]["TC015"].ToString();
+
+                        }
+                    }
+                }
 
             }
 
@@ -6408,8 +6436,38 @@ namespace TKMOC
                         }
                     }
                 }
+                else if (MANU.Equals("少量訂單"))
+                {
+                    if (ds28.Tables["ds28"].Rows.Count == 0)
+                    {
+                        textBox731.Text = null;
+                        textBox721.Text = null;
+                        textBox732.Text = null;
+                        textBox741.Text = null;
+                        textBox761.Text = null;
+                        textBox751.Text = null;
+                        textBox771.Text = null;
+                        textBox772.Text = null;
+                        textBox773.Text = null;
+                    }
+                    else
+                    {
+                        if (ds28.Tables["ds28"].Rows.Count >= 1)
+                        {
+                            textBox731.Text = ds28.Tables["ds28"].Rows[0]["MD003"].ToString();
+                            textBox721.Text = ds28.Tables["ds28"].Rows[0]["MD035"].ToString();
+                            textBox732.Text = ds28.Tables["ds28"].Rows[0]["MD036"].ToString();
+                            textBox741.Text = ds28.Tables["ds28"].Rows[0]["NUM2"].ToString();
+                            textBox751.Text = ds28.Tables["ds28"].Rows[0]["TC053"].ToString();
+                            //textBox761.Text = ds28.Tables["ds28"].Rows[0]["TC015"].ToString();
+                            textBox761.Text = null;
+
+                        }
+                    }
+                }
 
             }
+
 
 
             catch
@@ -8204,12 +8262,18 @@ namespace TKMOC
 
         private void button73_Click(object sender, EventArgs e)
         {
-
+            if (!string.IsNullOrEmpty(textBox771.Text) & !string.IsNullOrEmpty(textBox772.Text) & !string.IsNullOrEmpty(textBox773.Text))
+            {
+                SEARCHCOPDEFAULT2(textBox771.Text, textBox772.Text, textBox773.Text);
+            }
         }
 
         private void button74_Click(object sender, EventArgs e)
         {
-
+            if (!string.IsNullOrEmpty(textBox771.Text) & !string.IsNullOrEmpty(textBox772.Text) & !string.IsNullOrEmpty(textBox773.Text))
+            {
+                SEARCHCOPDEFAULT3(textBox771.Text, textBox772.Text, textBox773.Text);
+            }
         }
         #endregion
 
