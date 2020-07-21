@@ -1680,6 +1680,56 @@ namespace TKMOC
                 }
             }
 
+            else if (MANU.Equals("少量訂單"))
+            {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sqlConn.Close();
+                    sqlConn.Open();
+                    tran = sqlConn.BeginTransaction();
+
+                    sbSql.Clear();
+
+
+                    sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINETEMP]");
+                    sbSql.AppendFormat(" ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[CLINET],[MANUHOUR],[BOX],[PACKAGE],[OUTDATE],[TA029],[HALFPRO],[COPTD001],[COPTD002],[COPTD003])");
+                    sbSql.AppendFormat(" VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}',N'{11}','{12}','{13}','{14}','{15}')", "NEWID()", comboBox19.Text, dateTimePicker23.Value.ToString("yyyy/MM/dd"), textBox731.Text, textBox721.Text, textBox732.Text, textBox751.Text, textBox752.Text, textBox743.Text, textBox741.Text, dateTimePicker24.Value.ToString("yyyy/MM/dd"), textBox761.Text, textBox762.Text, textBox771.Text, textBox772.Text, textBox773.Text);
+                    sbSql.AppendFormat(" ");
+                    sbSql.AppendFormat(" ");
+
+
+                    cmd.Connection = sqlConn;
+                    cmd.CommandTimeout = 60;
+                    cmd.CommandText = sbSql.ToString();
+                    cmd.Transaction = tran;
+                    result = cmd.ExecuteNonQuery();
+
+                    if (result == 0)
+                    {
+                        tran.Rollback();    //交易取消
+                    }
+                    else
+                    {
+                        tran.Commit();      //執行交易  
+
+
+                    }
+
+                }
+                catch
+                {
+
+                }
+
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }
+
             SEARCHMOCMANULINE();
         }
         public void SETNULL2()
@@ -1762,6 +1812,23 @@ namespace TKMOC
             textBox56.Text = null;
             textBox66.Text = null;
             textBox76.Text = null;
+        }
+
+        public void SETNULL8()
+        {
+            textBox731.Text = null;
+            textBox743.Text = null;
+            textBox751.Text = null;
+            textBox721.Text = null;
+            textBox732.Text = null;
+            textBox741.Text = null;
+            textBox752.Text = "0";
+            textBox742.Text = "0";
+            textBox761.Text = null;
+            textBox762.Text = "0";
+            textBox771.Text = null;
+            textBox772.Text = null;
+            textBox773.Text = null;
         }
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
@@ -8400,10 +8467,33 @@ namespace TKMOC
                 SEARCHCOPDEFAULT3(textBox771.Text, textBox772.Text, textBox773.Text);
             }
         }
+        private void button69_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBox731.Text))
+            {
+                ADDMOCMANULINE();
+                SEARCHMOCMANULINETEMP();
+                SETNULL8();
+            }
+            else
+            {
+                MessageBox.Show("品名錯誤");
+            }
+        }
+
+        private void button71_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button72_Click(object sender, EventArgs e)
+        {
+
+        }
 
 
         #endregion
 
-       
+
     }
 }
