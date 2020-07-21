@@ -1443,6 +1443,8 @@ namespace TKMOC
        
         public void ADDMOCMANULINE()
         {
+            Guid NEWGUID = new Guid(); 
+
             if(MANU.Equals("新廠製二組"))
             {
                 try
@@ -1494,6 +1496,8 @@ namespace TKMOC
             }
             else if (MANU.Equals("新廠包裝線"))
             {
+                NEWGUID = Guid.NewGuid();
+
                 try
                 {
                     connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
@@ -1508,7 +1512,7 @@ namespace TKMOC
 
                     sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINE]");
                     sbSql.AppendFormat(" ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[CLINET],[MANUHOUR],[BOX],[PACKAGE],[OUTDATE],[TA029],[HALFPRO],[COPTD001],[COPTD002],[COPTD003])");
-                    sbSql.AppendFormat(" VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}',N'{11}','{12}','{13}','{14}','{15}')", "NEWID()", comboBox2.Text, dateTimePicker4.Value.ToString("yyyy/MM/dd"), textBox7.Text, textBox10.Text, textBox11.Text, textBox9.Text, textBox13.Text, textBox8.Text, textBox12.Text, dateTimePicker5.Value.ToString("yyyy/MM/dd"), textBox53.Text,textBox68.Text,textBox42.Text, textBox43.Text, textBox72.Text);
+                    sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}',N'{11}','{12}','{13}','{14}','{15}')", NEWGUID.ToString(), comboBox2.Text, dateTimePicker4.Value.ToString("yyyy/MM/dd"), textBox7.Text, textBox10.Text, textBox11.Text, textBox9.Text, textBox13.Text, textBox8.Text, textBox12.Text, dateTimePicker5.Value.ToString("yyyy/MM/dd"), textBox53.Text,textBox68.Text,textBox42.Text, textBox43.Text, textBox72.Text);
                     sbSql.AppendFormat(" ");
                     sbSql.AppendFormat(" ");
 
@@ -1521,11 +1525,12 @@ namespace TKMOC
 
                     if (result == 0)
                     {
-                        tran.Rollback();    //交易取消
+                        tran.Rollback();    //交易取消                       
                     }
                     else
                     {
                         tran.Commit();      //執行交易  
+                        UPDATEMOCMANULINETEMP(NEWGUID, TEMPds);
 
 
                     }
@@ -8170,6 +8175,77 @@ namespace TKMOC
                 TEMPds = value;
             }
         }
+
+        public void UPDATEMOCMANULINETEMP(Guid NEWGUID,DataSet ds)
+        {
+            StringBuilder IDMOCMANULINETEMP = new StringBuilder();
+
+            if (ds.Tables[0].Rows.Count >= 1)
+            {               
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    IDMOCMANULINETEMP.AppendFormat(@"'{0}', ", dr["ID"].ToString());
+                   
+                }
+
+            }
+
+            IDMOCMANULINETEMP.AppendFormat(@"'d22acdff-fee6-40f4-92cd-acce2a353749' ");
+
+            if(ds.Tables[0].Rows.Count >= 1)
+            {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sqlConn.Close();
+                    sqlConn.Open();
+                    tran = sqlConn.BeginTransaction();
+
+                    sbSql.Clear();
+
+
+                    sbSql.AppendFormat(" UPDATE [TKMOC].[dbo].[MOCMANULINETEMP]");
+                    sbSql.AppendFormat(" SET [TID]='{0}'", NEWGUID.ToString());
+                    sbSql.AppendFormat(" WHERE [ID] IN ({0})", IDMOCMANULINETEMP.ToString());
+                    sbSql.AppendFormat(" ");
+                    sbSql.AppendFormat(" ");
+                    sbSql.AppendFormat(" ");
+
+                    cmd.Connection = sqlConn;
+                    cmd.CommandTimeout = 60;
+                    cmd.CommandText = sbSql.ToString();
+                    cmd.Transaction = tran;
+                    result = cmd.ExecuteNonQuery();
+
+                    if (result == 0)
+                    {
+                        tran.Rollback();    //交易取消
+                    }
+                    else
+                    {
+                        tran.Commit();      //執行交易  
+
+
+                    }
+
+                }
+                catch
+                {
+
+                }
+
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }
+           
+
+
+        }
+
 
         #endregion
 
