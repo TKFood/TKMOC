@@ -1356,6 +1356,64 @@ namespace TKMOC
 
 
             }
+
+            else if (MANU.Equals("少量訂單"))
+            {
+
+
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sbSql.Clear();
+                    sbSqlQuery.Clear();
+
+                    sbSql.AppendFormat(@"  SELECT MB001,MB002,MB003,MC004 ,MB017 ");
+                    sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB,[TK].dbo.BOMMC");
+                    sbSql.AppendFormat(@"  WHERE MB001=MC001");
+                    sbSql.AppendFormat(@"  AND MB001='{0}'", textBox731.Text.Trim());
+                    sbSql.AppendFormat(@"  ");
+
+                    adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                    sqlCmdBuilder2 = new SqlCommandBuilder(adapter2);
+                    sqlConn.Open();
+                    ds2.Clear();
+                    adapter2.Fill(ds2, "TEMPds2");
+                    sqlConn.Close();
+
+
+                    if (ds2.Tables["TEMPds2"].Rows.Count == 0)
+                    {
+
+                    }
+                    else
+                    {
+                        if (ds2.Tables["TEMPds2"].Rows.Count >= 1)
+                        {
+                            textBox721.Text = ds2.Tables["TEMPds2"].Rows[0]["MB002"].ToString();
+                            textBox732.Text = ds2.Tables["TEMPds2"].Rows[0]["MB003"].ToString();
+                            textBox742.Text = ds2.Tables["TEMPds2"].Rows[0]["MC004"].ToString();
+                            //comboBox6.SelectedValue = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
+                            //label52.Text = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
+
+                        }
+                    }
+
+                }
+                catch
+                {
+
+                }
+                finally
+                {
+
+                }
+
+
+            }
+
         }
 
         public void SETNULL1()
@@ -4528,6 +4586,11 @@ namespace TKMOC
                     SEARCHMB001BOX();
                     textBox59.Text = Math.Round(Convert.ToDecimal(textBox61.Text) / Convert.ToDecimal(textBox60.Text) / BOXNUMERB, 4).ToString();
                 }
+                else if (MANU.Equals("少量訂單"))
+                {
+                    SEARCHMB001BOX();
+                    textBox743.Text = Math.Round(Convert.ToDecimal(textBox741.Text) / Convert.ToDecimal(textBox742.Text) / BOXNUMERB, 4).ToString();
+                }
             }
             catch
             {
@@ -5337,6 +5400,57 @@ namespace TKMOC
                         if (ds24.Tables["TEMPds24"].Rows.Count >= 1)
                         {
                             BOXNUMERB = (Convert.ToInt32(ds24.Tables["TEMPds24"].Rows[0]["MD007"].ToString()) / Convert.ToInt32(ds24.Tables["TEMPds24"].Rows[0]["MD010"].ToString()));
+                        }
+                    }
+
+                }
+                catch
+                {
+
+                }
+                finally
+                {
+
+                }
+
+
+            }
+            else if (MANU.Equals("少量訂單"))
+            {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+
+                    sbSql.Clear();
+                    sbSqlQuery.Clear();
+
+                    sbSql.AppendFormat(@"  SELECT TOP 1 MD001,MD003,MB001,MB002,ISNULL(MD007,1) AS MD007,ISNULL(MD010,1) AS MD010");
+                    sbSql.AppendFormat(@"  FROM [TK].dbo.BOMMD,[TK].dbo.INVMB");
+                    sbSql.AppendFormat(@"  WHERE MD003=MB001");
+                    sbSql.AppendFormat(@"  AND MB002 LIKE '%箱%'");
+                    sbSql.AppendFormat(@"  AND MD003 LIKE '2%'");
+                    sbSql.AppendFormat(@"  AND MD001='{0}'", textBox7.Text);
+                    sbSql.AppendFormat(@"  ");
+
+                    adapter20 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                    sqlCmdBuilder20 = new SqlCommandBuilder(adapter20);
+                    sqlConn.Open();
+                    ds20.Clear();
+                    adapter20.Fill(ds20, "TEMPds20");
+                    sqlConn.Close();
+
+
+                    if (ds20.Tables["TEMPds20"].Rows.Count == 0)
+                    {
+                        BOXNUMERB = 1;
+                    }
+                    else
+                    {
+                        if (ds20.Tables["TEMPds20"].Rows.Count >= 1)
+                        {
+                            BOXNUMERB = (Convert.ToInt32(ds20.Tables["TEMPds20"].Rows[0]["MD007"].ToString()) / Convert.ToInt32(ds20.Tables["TEMPds20"].Rows[0]["MD010"].ToString()));
                         }
                     }
 
@@ -7604,6 +7718,17 @@ namespace TKMOC
             dataGridView19.DataSource = null;
         }
 
+        private void textBox731_TextChanged(object sender, EventArgs e)
+        {
+            SEARCHMB001();
+            SEARCHBOMMD();
+        }
+
+        private void textBox741_TextChanged(object sender, EventArgs e)
+        {
+            CALPRODUCTDETAIL();
+        }
+
         #endregion
 
         #region BUTTON
@@ -8275,8 +8400,10 @@ namespace TKMOC
                 SEARCHCOPDEFAULT3(textBox771.Text, textBox772.Text, textBox773.Text);
             }
         }
+
+
         #endregion
 
-
+       
     }
 }
