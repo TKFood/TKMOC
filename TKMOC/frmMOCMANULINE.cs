@@ -153,6 +153,9 @@ namespace TKMOC
         DataSet dsBOMMC = new DataSet();
         DataSet dsBOMMD = new DataSet();
 
+        private DataSet TEMPds;
+
+
         DataTable dt = new DataTable();
         string tablename = null;
         int result;
@@ -4024,7 +4027,7 @@ namespace TKMOC
         {
             SEARCHMB001();
 
-            SEARCHMOCMANULINETEMPDATS(textBox7.Text.Trim());
+            SEARCHMOCMANULINETEMPDATAS(textBox7.Text.Trim());
 
 
         }
@@ -7906,7 +7909,7 @@ namespace TKMOC
             }
         }
 
-        public void SEARCHMOCMANULINETEMPDATS(string MB001)
+        public void SEARCHMOCMANULINETEMPDATAS(string MB001)
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
             SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
@@ -7923,6 +7926,7 @@ namespace TKMOC
             SqlDataAdapter adapter4 = new SqlDataAdapter();
             SqlCommandBuilder sqlCmdBuilder4 = new SqlCommandBuilder();
             DataSet ds4 = new DataSet();
+
 
             if (MANU.Equals("新廠製二組"))
             {
@@ -8008,8 +8012,10 @@ namespace TKMOC
                             //dataGridView3.AutoResizeColumns();
                             //dataGridView1.CurrentCell = dataGridView1[0, rownum];
 
-                            frmMOCMANULINESubTEMPADD MOCMANULINESubTEMPADD = new frmMOCMANULINESubTEMPADD(MB001);
+                            frmMOCMANULINESubTEMPADD MOCMANULINESubTEMPADD = new frmMOCMANULINESubTEMPADD(MB001, TEMPds);
                             MOCMANULINESubTEMPADD.ShowDialog();
+
+                            this.TEMPds = MOCMANULINESubTEMPADD.SETDATASET;
                         }
                     }
 
@@ -8122,6 +8128,18 @@ namespace TKMOC
 
             
 
+        }
+
+        public DataSet SETTEMPDATASET
+        {
+            get
+            {
+                return TEMPds;
+            }
+            set
+            {              
+                TEMPds = value;
+            }
         }
 
         #endregion
