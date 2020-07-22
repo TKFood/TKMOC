@@ -154,6 +154,10 @@ namespace TKMOC
         DataSet dsBOMMD = new DataSet();
 
         DataSet TEMPds = new DataSet();
+        decimal SUM11 = 0;
+        decimal SUM21 = 0;
+        decimal SUM31 = 0;
+        decimal SUM41 = 0;
 
 
         DataTable dt = new DataTable();
@@ -6199,9 +6203,11 @@ namespace TKMOC
                             textBox6.Text = ds27.Tables["ds27"].Rows[0]["TC053"].ToString();
                             textBox52.Text = ds27.Tables["ds27"].Rows[0]["TC015"].ToString();
 
-                            if (!string.IsNullOrEmpty(textBox5.Text))
+                            if (SUM11>0)
                             {
-                                textBox5.Text = (Convert.ToDecimal(textBox5.Text) + Convert.ToDecimal(ds27.Tables["ds27"].Rows[0]["NUM"].ToString())).ToString();
+                                textBox5.Text = (SUM11 + Convert.ToDecimal(ds27.Tables["ds27"].Rows[0]["NUM"].ToString())).ToString();
+
+                                SUM11 = 0;
                             }
                             else
                             {
@@ -6234,9 +6240,11 @@ namespace TKMOC
                             textBox9.Text = ds27.Tables["ds27"].Rows[0]["TC053"].ToString();
                             textBox53.Text = ds27.Tables["ds27"].Rows[0]["TC015"].ToString();
 
-                            if(!string.IsNullOrEmpty(textBox12.Text))
+                            if (SUM21 > 0)
                             {
-                                textBox12.Text = (Convert.ToDecimal(textBox12.Text) + Convert.ToDecimal(ds27.Tables["ds27"].Rows[0]["NUM"].ToString())).ToString();
+                                textBox12.Text = (SUM21 + Convert.ToDecimal(ds27.Tables["ds27"].Rows[0]["NUM"].ToString())).ToString();
+
+                                SUM21 = 0;
                             }
                             else
                             {
@@ -6270,9 +6278,11 @@ namespace TKMOC
                             textBox16.Text = ds27.Tables["ds27"].Rows[0]["TC053"].ToString();
                             textBox54.Text = ds27.Tables["ds27"].Rows[0]["TC015"].ToString();
 
-                            if (!string.IsNullOrEmpty(textBox19.Text))
+                            if (SUM31 > 0)
                             {
-                                textBox19.Text = (Convert.ToDecimal(textBox19.Text) + Convert.ToDecimal(ds27.Tables["ds27"].Rows[0]["NUM"].ToString())).ToString();
+                                textBox19.Text = (SUM31 + Convert.ToDecimal(ds27.Tables["ds27"].Rows[0]["NUM"].ToString())).ToString();
+
+                                SUM31 = 0;
                             }
                             else
                             {
@@ -6307,9 +6317,11 @@ namespace TKMOC
                             textBox55.Text = ds27.Tables["ds27"].Rows[0]["TC015"].ToString();
 
 
-                            if (!string.IsNullOrEmpty(textBox23.Text))
+                            if (SUM41 > 0)
                             {
-                                textBox23.Text = (Convert.ToDecimal(textBox23.Text) + Convert.ToDecimal(ds27.Tables["ds27"].Rows[0]["NUM"].ToString())).ToString();
+                                textBox23.Text = (SUM41 + Convert.ToDecimal(ds27.Tables["ds27"].Rows[0]["NUM"].ToString())).ToString();
+
+                                SUM41 = 0;
                             }
                             else
                             {
@@ -7996,6 +8008,10 @@ namespace TKMOC
             SqlCommandBuilder sqlCmdBuilder4 = new SqlCommandBuilder();
             DataSet ds4 = new DataSet();
 
+            SUM11 = 0;
+            SUM21 = 0;
+            SUM31 = 0;
+            SUM41 = 0;
 
             if (MANU.Equals("新廠製二組"))
             {
@@ -8040,17 +8056,11 @@ namespace TKMOC
 
                             if (TEMPds.Tables[0].Rows.Count >= 1)
                             {
-                                decimal SUM1 = 0;
-                                decimal SUM2 = 0;
                                 foreach (DataRow dr in TEMPds.Tables[0].Rows)
                                 {
-                                    SUM1 = SUM1 + Convert.ToDecimal(dr["數量"].ToString());
-                                    SUM2 = SUM2 + Convert.ToDecimal(dr["桶數"].ToString());
+                                    SUM11 = SUM11 + Convert.ToDecimal(dr["數量"].ToString());
+                                    //SUM2 = SUM2 + Convert.ToDecimal(dr["桶數"].ToString());
                                 }
-
-                                textBox5.Text = SUM1.ToString();
-                                textBox4.Text = SUM2.ToString();
-
                             }
                         }
                     }
@@ -8108,28 +8118,12 @@ namespace TKMOC
                             TEMPds = MOCMANULINESubTEMPADD.SETDATASET;
 
                             if(TEMPds.Tables[0].Rows.Count>= 1)
-                            {
-                                decimal SUM1 = 0;
-                                decimal SUM2 = 0;
+                            {                               
                                 foreach (DataRow dr in TEMPds.Tables[0].Rows)
                                 {
-                                    SUM1 = SUM1 + Convert.ToDecimal(dr["包裝數"].ToString());
-                                    SUM2 = SUM2 + Convert.ToDecimal(dr["箱數"].ToString());
+                                    SUM21 = SUM21 + Convert.ToDecimal(dr["包裝數"].ToString());
+                                    //SUM2 = SUM2 + Convert.ToDecimal(dr["箱數"].ToString());
                                 }
-
-                                textBox12.Text = SUM1.ToString();
-                                textBox8.Text = SUM2.ToString();
-
-                                //if(Convert.ToDecimal(textBox12.Text)>0)
-                                //{
-                                //    textBox12.Text = (Convert.ToDecimal(textBox12.Text) + SUM1).ToString();
-                                //}
-                                //if (Convert.ToDecimal(textBox8.Text) > 0)
-                                //{
-                                //    textBox8.Text = (Convert.ToDecimal(textBox8.Text) + SUM2).ToString();
-                                //}
-
-
                             }
                         }
                     }
@@ -8186,18 +8180,13 @@ namespace TKMOC
                             TEMPds = MOCMANULINESubTEMPADD.SETDATASET;
 
                             if (TEMPds.Tables[0].Rows.Count >= 1)
-                            {
-                                decimal SUM1 = 0;
-                                decimal SUM2 = 0;
+                            {                             
                                 foreach (DataRow dr in TEMPds.Tables[0].Rows)
                                 {
-                                    SUM1 = SUM1 + Convert.ToDecimal(dr["數量"].ToString());
-                                    SUM2 = SUM2 + Convert.ToDecimal(dr["桶數"].ToString());
+                                    SUM31 = SUM31 + Convert.ToDecimal(dr["數量"].ToString());
+                                    //SUM2 = SUM2 + Convert.ToDecimal(dr["桶數"].ToString());
                                 }
-
-                                textBox19.Text = SUM1.ToString();
-                                textBox15.Text = SUM2.ToString();
-
+                                
                             }
                         }
                     }
@@ -8254,17 +8243,12 @@ namespace TKMOC
                             TEMPds = MOCMANULINESubTEMPADD.SETDATASET;
 
                             if (TEMPds.Tables[0].Rows.Count >= 1)
-                            {
-                                decimal SUM1 = 0;
-                                decimal SUM2 = 0;
+                            {                               
                                 foreach (DataRow dr in TEMPds.Tables[0].Rows)
                                 {
-                                    SUM1 = SUM1 + Convert.ToDecimal(dr["數量"].ToString());
-                                    SUM2 = SUM2 + Convert.ToDecimal(dr["桶數"].ToString());
+                                    SUM41 = SUM41 + Convert.ToDecimal(dr["數量"].ToString());
+                                    //SUM2 = SUM2 + Convert.ToDecimal(dr["桶數"].ToString());
                                 }
-
-                                textBox23.Text = SUM1.ToString();
-                                textBox21.Text = SUM2.ToString();
 
                             }
                         }
