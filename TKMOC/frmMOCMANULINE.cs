@@ -1077,7 +1077,7 @@ namespace TKMOC
 
                 if (ds1.Tables["TEMPds1"].Rows.Count == 0)
                 {
-
+                    dataGridView20.DataSource = null;
                 }
                 else
                 {
