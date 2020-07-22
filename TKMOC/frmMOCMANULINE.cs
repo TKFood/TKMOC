@@ -1025,7 +1025,7 @@ namespace TKMOC
 
         }
 
-        public void SEARCHMOCMANULINETEMP()
+        public void SEARCHMOCMANULINETEMP(string STATUS)
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
             SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
@@ -1039,15 +1039,31 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
+                if(STATUS.Equals("否"))
+                {
+                    sbSqlQuery.AppendFormat(@" WHERE  [TID] IS NULL ");
+                }
+                else if (STATUS.Equals("是"))
+                {
+                    sbSqlQuery.AppendFormat(@"WHERE [TID] IS NOT NULL ");
+                }
+                else
+                {
+                    sbSqlQuery.AppendFormat(@"  ");
+                }
+
 
                 sbSql.AppendFormat(@"  SELECT ");
-                sbSql.AppendFormat(@"  [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名' ");
-                sbSql.AppendFormat(@"  ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[CLINET] AS '客戶',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'");
-                sbSql.AppendFormat(@"  ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號'");
-                sbSql.AppendFormat(@"  ,[ID]");
+                sbSql.AppendFormat(@"  [MOCMANULINETEMP].[MANU] AS '線別',CONVERT(varchar(100),[MOCMANULINETEMP].[MANUDATE],112) AS '生產日',[MOCMANULINETEMP].[MB001] AS '品號',[MOCMANULINETEMP].[MB002] AS '品名' ");
+                sbSql.AppendFormat(@"  ,[MOCMANULINETEMP].[MB003] AS '規格',[MOCMANULINETEMP].[BAR] AS '桶數',[MOCMANULINETEMP].[NUM] AS '數量',[MOCMANULINETEMP].[CLINET] AS '客戶',[MOCMANULINETEMP].[OUTDATE] AS '交期',[MOCMANULINETEMP].[TA029] AS '備註',[MOCMANULINETEMP].[HALFPRO] AS '半成品數量'");
+                sbSql.AppendFormat(@"  ,[MOCMANULINETEMP].[COPTD001] AS '訂單單別',[MOCMANULINETEMP].[COPTD002] AS '訂單號',[MOCMANULINETEMP].[COPTD003] AS '訂單序號'");
+                sbSql.AppendFormat(@"  ,[MOCTA001] AS '製令',[MOCTA002] AS '製令號'");
+                sbSql.AppendFormat(@"  ,[MOCMANULINETEMP].[ID],[MOCMANULINETEMP].[TID]");
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINETEMP]");
-                sbSql.AppendFormat(@"  ");
-                sbSql.AppendFormat(@"  ORDER BY [MANUDATE],[SERNO]");
+                sbSql.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[MOCMANULINE] ON [MOCMANULINE].ID=[MOCMANULINETEMP].[TID]");
+                sbSql.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[MOCMANULINERESULT] ON [MOCMANULINERESULT].[SID]=[MOCMANULINETEMP].[TID]");
+                sbSql.AppendFormat(@"  {0}", sbSqlQuery.ToString());
+                sbSql.AppendFormat(@"  ORDER BY [MOCMANULINETEMP].[MANUDATE],[MOCMANULINETEMP].[SERNO]");
                 sbSql.AppendFormat(@"  ");
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -8972,7 +8988,7 @@ namespace TKMOC
         }
         private void button76_Click(object sender, EventArgs e)
         {
-            SEARCHMOCMANULINETEMP();
+            SEARCHMOCMANULINETEMP(comboBox20.Text.Trim());
         }
 
         private void button75_Click(object sender, EventArgs e)
@@ -9003,7 +9019,7 @@ namespace TKMOC
             if (!string.IsNullOrEmpty(textBox731.Text))
             {
                 ADDMOCMANULINE();
-                SEARCHMOCMANULINETEMP();
+                SEARCHMOCMANULINETEMP(comboBox20.Text.Trim());
                 SETNULL8();
             }
             else
@@ -9018,7 +9034,7 @@ namespace TKMOC
             if (dialogResult == DialogResult.Yes)
             {
                 DELMOCMANULINE();
-                SEARCHMOCMANULINETEMP();
+                SEARCHMOCMANULINETEMP(comboBox20.Text.Trim());
             }
             else if (dialogResult == DialogResult.No)
             {
@@ -9029,7 +9045,7 @@ namespace TKMOC
         private void button72_Click(object sender, EventArgs e)
         {
             CHECKMOCTAB();
-            SEARCHMOCMANULINETEMP();
+            SEARCHMOCMANULINETEMP(comboBox20.Text.Trim());
         }
 
 

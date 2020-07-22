@@ -515,6 +515,8 @@
             this.label63 = new System.Windows.Forms.Label();
             this.comboBox12 = new System.Windows.Forms.ComboBox();
             this.dataGridView15 = new System.Windows.Forms.DataGridView();
+            this.label121 = new System.Windows.Forms.Label();
+            this.comboBox20 = new System.Windows.Forms.ComboBox();
             this.tabControl1.SuspendLayout();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).BeginInit();
@@ -5076,6 +5078,8 @@
             this.tableLayoutPanel24.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 142F));
             this.tableLayoutPanel24.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 109F));
             this.tableLayoutPanel24.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 331F));
+            this.tableLayoutPanel24.Controls.Add(this.comboBox20, 0, 7);
+            this.tableLayoutPanel24.Controls.Add(this.label121, 0, 7);
             this.tableLayoutPanel24.Controls.Add(this.label107, 0, 5);
             this.tableLayoutPanel24.Controls.Add(this.button67, 2, 4);
             this.tableLayoutPanel24.Controls.Add(this.textBox771, 1, 6);
@@ -6743,6 +6747,33 @@
             this.dataGridView15.TabIndex = 6;
             this.dataGridView15.SelectionChanged += new System.EventHandler(this.dataGridView15_SelectionChanged);
             // 
+            // label121
+            // 
+            this.label121.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label121.AutoSize = true;
+            this.label121.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label121.Location = new System.Drawing.Point(3, 286);
+            this.label121.Name = "label121";
+            this.label121.Size = new System.Drawing.Size(64, 32);
+            this.label121.TabIndex = 124;
+            this.label121.Text = "是否完工狀態";
+            this.label121.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // comboBox20
+            // 
+            this.comboBox20.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox20.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.comboBox20.FormattingEnabled = true;
+            this.comboBox20.Items.AddRange(new object[] {
+            "否",
+            "是",
+            "全部"});
+            this.comboBox20.Location = new System.Drawing.Point(73, 290);
+            this.comboBox20.Name = "comboBox20";
+            this.comboBox20.Size = new System.Drawing.Size(174, 24);
+            this.comboBox20.TabIndex = 125;
+            this.comboBox20.Text = "否";
+            // 
             // frmMOCMANULINE
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -7404,5 +7435,7 @@
         private System.Windows.Forms.Button button75;
         private System.Windows.Forms.DataGridView dataGridView20;
         private System.Windows.Forms.Button button76;
+        private System.Windows.Forms.ComboBox comboBox20;
+        private System.Windows.Forms.Label label121;
     }
 }
