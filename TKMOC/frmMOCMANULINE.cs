@@ -2038,6 +2038,8 @@ namespace TKMOC
                     else
                     {
                         tran.Commit();      //執行交易  
+
+                        UPDATEMOCMANULINETEMPTONULL(ID3);
                     }
 
                 }
@@ -2080,6 +2082,8 @@ namespace TKMOC
                     else
                     {
                         tran.Commit();      //執行交易  
+
+                        UPDATEMOCMANULINETEMPTONULL(ID4);
                     }
 
                 }
@@ -4110,6 +4114,8 @@ namespace TKMOC
         {
             SEARCHMB001();
             SEARCHBOMMD();
+
+            SEARCHMOCMANULINETEMPDATAS(textBox14.Text.Trim());
         }
         private void dataGridView5_SelectionChanged(object sender, EventArgs e)
         {
@@ -4164,6 +4170,8 @@ namespace TKMOC
         {
             SEARCHMB001();
             SEARCHBOMMD();
+
+            SEARCHMOCMANULINETEMPDATAS(textBox20.Text.Trim());
         }
         private void dataGridView7_SelectionChanged(object sender, EventArgs e)
         {
@@ -6249,10 +6257,14 @@ namespace TKMOC
                             textBox14.Text = ds27.Tables["ds27"].Rows[0]["TD004"].ToString();
                             textBox17.Text = ds27.Tables["ds27"].Rows[0]["TD005"].ToString();
                             textBox18.Text = ds27.Tables["ds27"].Rows[0]["TD006"].ToString();
-                            textBox19.Text = ds27.Tables["ds27"].Rows[0]["NUM"].ToString();
+                            //textBox19.Text = ds27.Tables["ds27"].Rows[0]["NUM"].ToString();
                             textBox16.Text = ds27.Tables["ds27"].Rows[0]["TC053"].ToString();
                             textBox54.Text = ds27.Tables["ds27"].Rows[0]["TC015"].ToString();
 
+                            if (Convert.ToDecimal(textBox19.Text) > 0)
+                            {
+                                textBox19.Text = (Convert.ToDecimal(textBox19.Text) + Convert.ToDecimal(ds27.Tables["ds27"].Rows[0]["NUM"].ToString())).ToString();
+                            }
                         }
                     }
                 }
@@ -6277,10 +6289,15 @@ namespace TKMOC
                             textBox20.Text = ds27.Tables["ds27"].Rows[0]["TD004"].ToString();
                             textBox24.Text = ds27.Tables["ds27"].Rows[0]["TD005"].ToString();
                             textBox25.Text = ds27.Tables["ds27"].Rows[0]["TD006"].ToString();
-                            textBox23.Text = ds27.Tables["ds27"].Rows[0]["NUM"].ToString();
+                            //textBox23.Text = ds27.Tables["ds27"].Rows[0]["NUM"].ToString();
                             textBox22.Text = ds27.Tables["ds27"].Rows[0]["TC053"].ToString();
                             textBox55.Text = ds27.Tables["ds27"].Rows[0]["TC015"].ToString();
 
+
+                            if (Convert.ToDecimal(textBox23.Text) > 0)
+                            {
+                                textBox23.Text = (Convert.ToDecimal(textBox23.Text) + Convert.ToDecimal(ds27.Tables["ds27"].Rows[0]["NUM"].ToString())).ToString();
+                            }
                         }
                     }
                 }
@@ -8144,7 +8161,26 @@ namespace TKMOC
                             //dataGridView5.DataSource = ds7.Tables["TEMPds7"];
                             //dataGridView5.AutoResizeColumns();
                             //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+                            TEMPds.Clear();
+                            frmMOCMANULINESubTEMPADD MOCMANULINESubTEMPADD = new frmMOCMANULINESubTEMPADD(MB001, TEMPds);
+                            MOCMANULINESubTEMPADD.ShowDialog();
 
+                            TEMPds = MOCMANULINESubTEMPADD.SETDATASET;
+
+                            if (TEMPds.Tables[0].Rows.Count >= 1)
+                            {
+                                decimal SUM1 = 0;
+                                decimal SUM2 = 0;
+                                foreach (DataRow dr in TEMPds.Tables[0].Rows)
+                                {
+                                    SUM1 = SUM1 + Convert.ToDecimal(dr["數量"].ToString());
+                                    SUM2 = SUM2 + Convert.ToDecimal(dr["桶數"].ToString());
+                                }
+
+                                textBox19.Text = SUM1.ToString();
+                                textBox15.Text = SUM2.ToString();
+
+                            }
                         }
                     }
 
@@ -8193,6 +8229,26 @@ namespace TKMOC
                             //dataGridView7.AutoResizeColumns();
                             //dataGridView1.CurrentCell = dataGridView1[0, rownum];
 
+                            TEMPds.Clear();
+                            frmMOCMANULINESubTEMPADD MOCMANULINESubTEMPADD = new frmMOCMANULINESubTEMPADD(MB001, TEMPds);
+                            MOCMANULINESubTEMPADD.ShowDialog();
+
+                            TEMPds = MOCMANULINESubTEMPADD.SETDATASET;
+
+                            if (TEMPds.Tables[0].Rows.Count >= 1)
+                            {
+                                decimal SUM1 = 0;
+                                decimal SUM2 = 0;
+                                foreach (DataRow dr in TEMPds.Tables[0].Rows)
+                                {
+                                    SUM1 = SUM1 + Convert.ToDecimal(dr["數量"].ToString());
+                                    SUM2 = SUM2 + Convert.ToDecimal(dr["桶數"].ToString());
+                                }
+
+                                textBox23.Text = SUM1.ToString();
+                                textBox21.Text = SUM2.ToString();
+
+                            }
                         }
                     }
 
