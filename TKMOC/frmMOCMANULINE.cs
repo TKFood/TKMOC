@@ -1059,7 +1059,7 @@ namespace TKMOC
 
                 sbSql.AppendFormat(@"  SELECT ");
                 sbSql.AppendFormat(@"  [MOCMANULINETEMP].[MANU] AS '線別',CONVERT(varchar(100),[MOCMANULINETEMP].[MANUDATE],112) AS '生產日',[MOCMANULINETEMP].[MB001] AS '品號',[MOCMANULINETEMP].[MB002] AS '品名' ");
-                sbSql.AppendFormat(@"  ,[MOCMANULINETEMP].[MB003] AS '規格',[MOCMANULINETEMP].[BAR] AS '桶數',[MOCMANULINETEMP].[NUM] AS '數量',[MOCMANULINETEMP].[CLINET] AS '客戶',[MOCMANULINETEMP].[OUTDATE] AS '交期',[MOCMANULINETEMP].[TA029] AS '備註',[MOCMANULINETEMP].[HALFPRO] AS '半成品數量'");
+                sbSql.AppendFormat(@"  ,[MOCMANULINETEMP].[MB003] AS '規格',[MOCMANULINETEMP].[NUM] AS '數量',[MOCMANULINETEMP].[BAR] AS '桶數',[MOCMANULINETEMP].[PACKAGE] AS'包裝數',[MOCMANULINETEMP].[BOX] AS'箱數',[MOCMANULINETEMP].[CLINET] AS '客戶',[MOCMANULINETEMP].[OUTDATE] AS '交期',[MOCMANULINETEMP].[TA029] AS '備註',[MOCMANULINETEMP].[HALFPRO] AS '半成品數量'");
                 sbSql.AppendFormat(@"  ,[MOCMANULINETEMP].[COPTD001] AS '訂單單別',[MOCMANULINETEMP].[COPTD002] AS '訂單號',[MOCMANULINETEMP].[COPTD003] AS '訂單序號'");
                 sbSql.AppendFormat(@"  ,[MOCTA001] AS '製令',[MOCTA002] AS '製令號'");
                 sbSql.AppendFormat(@"  ,[MOCMANULINETEMP].[ID],[MOCMANULINETEMP].[TID]");
