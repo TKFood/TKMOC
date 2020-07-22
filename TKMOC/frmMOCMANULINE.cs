@@ -1091,6 +1091,8 @@ namespace TKMOC
         {
             SEARCHMB001();
             SEARCHBOMMD();
+
+            SEARCHMOCMANULINETEMPDATAS(textBox1.Text.Trim());
         }
 
         public void SEARCHMB001()
@@ -1443,9 +1445,10 @@ namespace TKMOC
        
         public void ADDMOCMANULINE()
         {
-            Guid NEWGUID = new Guid(); 
+            Guid NEWGUID = new Guid();
+            NEWGUID = Guid.NewGuid();
 
-            if(MANU.Equals("新廠製二組"))
+            if (MANU.Equals("新廠製二組"))
             {
                 try
                 {
@@ -1461,7 +1464,7 @@ namespace TKMOC
 
                     sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINE]");
                     sbSql.AppendFormat(" ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET],[TA029],[OUTDATE],[HALFPRO],[COPTD001],[COPTD002],[COPTD003])");
-                    sbSql.AppendFormat(" VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}',N'{9}','{10}','{11}','{12}','{13}','{14}')", "NEWID()", comboBox1.Text, dateTimePicker2.Value.ToString("yyyy/MM/dd"), textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, textBox5.Text, textBox6.Text, textBox52.Text, dateTimePicker14.Value.ToString("yyyy/MM/dd"),textBox67.Text, textBox40.Text, textBox41.Text, textBox73.Text);
+                    sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}',N'{9}','{10}','{11}','{12}','{13}','{14}')", NEWGUID.ToString(), comboBox1.Text, dateTimePicker2.Value.ToString("yyyy/MM/dd"), textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, textBox5.Text, textBox6.Text, textBox52.Text, dateTimePicker14.Value.ToString("yyyy/MM/dd"),textBox67.Text, textBox40.Text, textBox41.Text, textBox73.Text);
                     sbSql.AppendFormat(" ");
                     sbSql.AppendFormat(" ");
 
@@ -1479,7 +1482,7 @@ namespace TKMOC
                     else
                     {
                         tran.Commit();      //執行交易  
-
+                        UPDATEMOCMANULINETEMP(NEWGUID, TEMPds);
 
                     }
 
@@ -1496,7 +1499,7 @@ namespace TKMOC
             }
             else if (MANU.Equals("新廠包裝線"))
             {
-                NEWGUID = Guid.NewGuid();
+               
 
                 try
                 {
@@ -1930,6 +1933,8 @@ namespace TKMOC
                     else
                     {
                         tran.Commit();      //執行交易  
+
+                        UPDATEMOCMANULINETEMPTONULL(ID1);
                     }
 
                 }
@@ -1973,6 +1978,8 @@ namespace TKMOC
                     else
                     {
                         tran.Commit();      //執行交易  
+
+                        UPDATEMOCMANULINETEMPTONULL(ID2);
                     }
 
                 }
@@ -6166,7 +6173,11 @@ namespace TKMOC
                             textBox5.Text = ds27.Tables["ds27"].Rows[0]["NUM"].ToString();
                             textBox6.Text = ds27.Tables["ds27"].Rows[0]["TC053"].ToString();
                             textBox52.Text = ds27.Tables["ds27"].Rows[0]["TC015"].ToString();
-                           
+
+                            if (Convert.ToDecimal(textBox5.Text) > 0)
+                            {
+                                textBox5.Text = (Convert.ToDecimal(textBox5.Text) + Convert.ToDecimal(ds27.Tables["ds27"].Rows[0]["NUM"].ToString())).ToString();
+                            }
                         }
                     }
                 }
@@ -7946,7 +7957,7 @@ namespace TKMOC
                     sbSql.Clear();
                     sbSqlQuery.Clear();
 
-
+                    sbSql.AppendFormat(@" SELECT [ID]  FROM [TKMOC].[dbo].[MOCMANULINETEMP] WHERE [MB001]='{0}'", MB001);
                     sbSql.AppendFormat(@"  ");
 
                     adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -7971,6 +7982,26 @@ namespace TKMOC
                             //dataGridView1.AutoResizeColumns();
                             //dataGridView1.CurrentCell = dataGridView1[0, rownum];
 
+                            TEMPds.Clear();
+                            frmMOCMANULINESubTEMPADD MOCMANULINESubTEMPADD = new frmMOCMANULINESubTEMPADD(MB001, TEMPds);
+                            MOCMANULINESubTEMPADD.ShowDialog();
+
+                            TEMPds = MOCMANULINESubTEMPADD.SETDATASET;
+
+                            if (TEMPds.Tables[0].Rows.Count >= 1)
+                            {
+                                decimal SUM1 = 0;
+                                decimal SUM2 = 0;
+                                foreach (DataRow dr in TEMPds.Tables[0].Rows)
+                                {
+                                    SUM1 = SUM1 + Convert.ToDecimal(dr["數量"].ToString());
+                                    SUM2 = SUM2 + Convert.ToDecimal(dr["桶數"].ToString());
+                                }
+
+                                textBox5.Text = SUM1.ToString();
+                                textBox4.Text = SUM2.ToString();
+
+                            }
                         }
                     }
 
@@ -8208,7 +8239,7 @@ namespace TKMOC
 
                     sbSql.AppendFormat(" UPDATE [TKMOC].[dbo].[MOCMANULINETEMP]");
                     sbSql.AppendFormat(" SET [TID]='{0}'", NEWGUID.ToString());
-                    sbSql.AppendFormat(" WHERE [ID] IN ({0})", IDMOCMANULINETEMP.ToString());
+                    sbSql.AppendFormat(" WHERE [TID] IS NULL AND [ID] IN ({0})", IDMOCMANULINETEMP.ToString());
                     sbSql.AppendFormat(" ");
                     sbSql.AppendFormat(" ");
                     sbSql.AppendFormat(" ");
@@ -8241,11 +8272,60 @@ namespace TKMOC
                     sqlConn.Close();
                 }
             }
-           
-
 
         }
 
+        public void UPDATEMOCMANULINETEMPTONULL(string NEWGUID)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+
+                sbSql.AppendFormat(" UPDATE [TKMOC].[dbo].[MOCMANULINETEMP]");
+                sbSql.AppendFormat(" SET [TID]=NULL");
+                sbSql.AppendFormat(" WHERE [TID] IS NOT NULL AND [TID]='{0}'", NEWGUID.ToString());
+                sbSql.AppendFormat(" ");
+                sbSql.AppendFormat(" ");
+                sbSql.AppendFormat(" ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+
+
+        }
 
         #endregion
 
