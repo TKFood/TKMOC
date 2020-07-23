@@ -2829,11 +2829,13 @@ namespace TKMOC
             }
             else
             {
-                Query.AppendFormat(@" AND  [MOCMANULINE].[MANU]='{0}'",MANU);
+                Query.AppendFormat(@" WHERE  TEMP.MANU='{0}'", MANU);
             }
 
             StringBuilder SB = new StringBuilder();
 
+            SB.AppendFormat(@"  SELECT MANU,MANUDATE,[MB002],BAR,NUM,PACKAGE,TD00123,TC053,MV002,MOCTA001002,入庫量,[NO],TA033,MOCTA001A,MOCTA002B,MOCTA001B,MOCTA002B");
+            SB.AppendFormat(@"  FROM (");
             SB.AppendFormat(@"  SELECT  [MOCMANULINE].[MANU] ,CONVERT(nvarchar,[MOCMANULINE].[MANUDATE],112) MANUDATE,[MOCMANULINE].[MB002]");
             SB.AppendFormat(@"  ,ISNULL([MOCMANULINE].[BAR],0) BAR,ISNULL([MOCMANULINE].[NUM],0) NUM,ISNULL([MOCMANULINE].[PACKAGE],0) PACKAGE");
             SB.AppendFormat(@"  ,[MOCMANULINE].[COPTD001]+' '+[MOCMANULINE].[COPTD002]+' '+[MOCMANULINE].[COPTD003] AS TD00123");
@@ -2851,8 +2853,29 @@ namespace TKMOC
             SB.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[MOCMANULINEMERGE] ON [MOCMANULINEMERGE].[SID]=[MOCMANULINE].[ID]  ");
             SB.AppendFormat(@"  LEFT JOIN [TK].dbo.[MOCTA] ON [MOCTA].TA033=[MOCMANULINEMERGE].[NO]  ");
             SB.AppendFormat(@"  WHERE CONVERT(nvarchar,[MOCMANULINE].[MANUDATE],112)>='{0}' AND CONVERT(nvarchar,[MOCMANULINE].[MANUDATE],112)<='{1}'", SDAY, EDAY);
+            SB.AppendFormat(@"  UNION ALL  ");
+            SB.AppendFormat(@"  SELECT  [MOCMANULINETEMP].[MANU] ,CONVERT(nvarchar,[MOCMANULINETEMP].[MANUDATE],112) MANUDATE,[MOCMANULINETEMP].[MB002]");
+            SB.AppendFormat(@"  ,ISNULL([MOCMANULINETEMP].[BAR],0) BAR,ISNULL([MOCMANULINETEMP].[NUM],0) NUM,ISNULL([MOCMANULINETEMP].[PACKAGE],0) PACKAGE");
+            SB.AppendFormat(@"  ,[MOCMANULINETEMP].[COPTD001]+' '+[MOCMANULINETEMP].[COPTD002]+' '+[MOCMANULINETEMP].[COPTD003] AS TD00123");
+            SB.AppendFormat(@"  ,[COPTC].TC053,[CMSMV].MV002");
+            SB.AppendFormat(@"  ,ISNULL([MOCMANULINERESULT].[MOCTA001],'')+ISNULL([MOCMANULINERESULT].[MOCTA002],'')+ISNULL([MOCTA].TA001,'')+ISNULL([MOCTA].TA002,'') AS 'MOCTA001002' ");
+            SB.AppendFormat(@"  ,(SELECT ISNULL(SUM(TG011),0) FROM  [TK].dbo.[MOCTG] WHERE TG014=[MOCMANULINERESULT].[MOCTA001] AND TG015=[MOCMANULINERESULT].[MOCTA002])+(SELECT ISNULL(SUM(TG011),0) FROM  [TK].dbo.[MOCTG] WHERE TG014=[MOCTA].TA001 AND TG015=[MOCTA].TA002)  AS '入庫量'  ");
+            SB.AppendFormat(@"  ,(SELECT ISNULL(SUM(TG011),0) FROM  [TK].dbo.[MOCTG] WHERE TG014=[MOCMANULINERESULT].[MOCTA001] AND TG015=[MOCMANULINERESULT].[MOCTA002]) AS '入庫量A'  ");
+            SB.AppendFormat(@"  ,(SELECT ISNULL(SUM(TG011),0) FROM  [TK].dbo.[MOCTG] WHERE TG014=[MOCTA].TA001 AND TG015=[MOCTA].TA002)  AS '入庫量B'  ");
+            SB.AppendFormat(@"  ,[MOCMANULINEMERGE].[NO],[MOCTA].TA033,ISNULL([MOCMANULINERESULT].[MOCTA001],'') AS MOCTA001A,ISNULL([MOCMANULINERESULT].[MOCTA002],'')  AS MOCTA002A,ISNULL([MOCTA].TA001,'')  AS MOCTA001B,ISNULL([MOCTA].TA002,'')  AS MOCTA002B  ");
+            SB.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINETEMP]  ");
+            SB.AppendFormat(@"  LEFT JOIN [TK].dbo.[COPTD] ON [MOCMANULINETEMP].[COPTD001]=[COPTD].TD001 AND [MOCMANULINETEMP].[COPTD002]=[COPTD].TD002 AND[MOCMANULINETEMP].[COPTD003]=[COPTD].TD003   ");
+            SB.AppendFormat(@"  LEFT JOIN [TK].dbo.[COPTC] ON [COPTD].TD001=[COPTC].TC001 AND [COPTD].TD002=[COPTC].TC002  ");
+            SB.AppendFormat(@"  LEFT JOIN [TK].dbo.[CMSMV] ON [CMSMV].MV001=[COPTC].TC006  ");
+            SB.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[MOCMANULINE] ON [MOCMANULINE].ID=[MOCMANULINETEMP].TID  ");
+            SB.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[MOCMANULINERESULT] ON [MOCMANULINERESULT].[SID]=[MOCMANULINE].[ID]  ");
+            SB.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[MOCMANULINEMERGE] ON [MOCMANULINEMERGE].[SID]=[MOCMANULINE].[ID]  ");
+            SB.AppendFormat(@"  LEFT JOIN [TK].dbo.[MOCTA] ON [MOCTA].TA033=[MOCMANULINEMERGE].[NO]  ");
+            SB.AppendFormat(@"  WHERE CONVERT(nvarchar,[MOCMANULINETEMP].[MANUDATE],112)>='{0}' AND CONVERT(nvarchar,[MOCMANULINETEMP].[MANUDATE],112)<='{1}'  ", SDAY, EDAY);
+            SB.AppendFormat(@"  AND [MOCMANULINETEMP].TID IS NULL  ");
+            SB.AppendFormat(@"  ) AS TEMP");
             SB.AppendFormat(@"  {0}", Query.ToString());
-            SB.AppendFormat(@"  ORDER BY [MOCMANULINE].[MANU],CONVERT(nvarchar,[MOCMANULINE].[MANUDATE],112)");
+            SB.AppendFormat(@"  ORDER BY  TEMP.[MANU],CONVERT(nvarchar, TEMP.[MANUDATE],112)");
             SB.AppendFormat(@"    ");
             SB.AppendFormat(@"  ");
 
