@@ -2854,7 +2854,7 @@ namespace TKMOC
             SB.AppendFormat(@"  LEFT JOIN [TK].dbo.[MOCTA] ON [MOCTA].TA033=[MOCMANULINEMERGE].[NO]  ");
             SB.AppendFormat(@"  WHERE CONVERT(nvarchar,[MOCMANULINE].[MANUDATE],112)>='{0}' AND CONVERT(nvarchar,[MOCMANULINE].[MANUDATE],112)<='{1}'", SDAY, EDAY);
             SB.AppendFormat(@"  UNION ALL  ");
-            SB.AppendFormat(@"  SELECT  [MOCMANULINETEMP].[MANU] ,CONVERT(nvarchar,[MOCMANULINETEMP].[MANUDATE],112) MANUDATE,[MOCMANULINETEMP].[MB002]");
+            SB.AppendFormat(@"  SELECT  [MOCMANULINETEMP].[MANU] ,CONVERT(nvarchar,dateadd(ms,-3,dateadd(yy, datediff(yy,0,getdate())+1, 0)) ,112) MANUDATE,[MOCMANULINETEMP].[MB002]");
             SB.AppendFormat(@"  ,ISNULL([MOCMANULINETEMP].[BAR],0) BAR,ISNULL([MOCMANULINETEMP].[NUM],0) NUM,ISNULL([MOCMANULINETEMP].[PACKAGE],0) PACKAGE");
             SB.AppendFormat(@"  ,[MOCMANULINETEMP].[COPTD001]+' '+[MOCMANULINETEMP].[COPTD002]+' '+[MOCMANULINETEMP].[COPTD003] AS TD00123");
             SB.AppendFormat(@"  ,[COPTC].TC053,[CMSMV].MV002");
