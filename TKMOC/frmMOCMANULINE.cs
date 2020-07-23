@@ -1426,7 +1426,7 @@ namespace TKMOC
                         {
                             textBox721.Text = ds2.Tables["TEMPds2"].Rows[0]["MB002"].ToString();
                             textBox732.Text = ds2.Tables["TEMPds2"].Rows[0]["MB003"].ToString();
-                            textBox742.Text = ds2.Tables["TEMPds2"].Rows[0]["MC004"].ToString();
+                            textBox752.Text = ds2.Tables["TEMPds2"].Rows[0]["MC004"].ToString();
                             //comboBox6.SelectedValue = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
                             //label52.Text = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
 
@@ -1734,8 +1734,8 @@ namespace TKMOC
 
 
                     sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINETEMP]");
-                    sbSql.AppendFormat(" ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[CLINET],[MANUHOUR],[BOX],[PACKAGE],[OUTDATE],[TA029],[HALFPRO],[COPTD001],[COPTD002],[COPTD003])");
-                    sbSql.AppendFormat(" VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}',N'{11}','{12}','{13}','{14}','{15}')", "NEWID()", comboBox19.Text, dateTimePicker23.Value.ToString("yyyy/MM/dd"), textBox731.Text, textBox721.Text, textBox732.Text, textBox751.Text, textBox752.Text, textBox743.Text, textBox741.Text, dateTimePicker24.Value.ToString("yyyy/MM/dd"), textBox761.Text, textBox762.Text, textBox771.Text, textBox772.Text, textBox773.Text);
+                    sbSql.AppendFormat(" ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[CLINET],[MANUHOUR],[BAR],[NUM],[BOX],[PACKAGE],[OUTDATE],[TA029],[HALFPRO],[COPTD001],[COPTD002],[COPTD003])");
+                    sbSql.AppendFormat(" VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}',N'{11}','{12}','{13}','{14}','{15}','{16}','{17}')", "NEWID()", comboBox19.Text, dateTimePicker23.Value.ToString("yyyy/MM/dd"), textBox731.Text, textBox721.Text, textBox732.Text, textBox761.Text, textBox762.Text, textBox741.Text, textBox742.Text, textBox753.Text, textBox751.Text, dateTimePicker24.Value.ToString("yyyy/MM/dd"), textBox771.Text, textBox772.Text, textBox781.Text, textBox782.Text, textBox783.Text);
                     sbSql.AppendFormat(" ");
                     sbSql.AppendFormat(" ");
 
@@ -1856,18 +1856,18 @@ namespace TKMOC
         public void SETNULL8()
         {
             textBox731.Text = null;
-            textBox743.Text = null;
-            textBox751.Text = null;
+            textBox753.Text = null;
+            textBox761.Text = null;
             textBox721.Text = null;
             textBox732.Text = null;
-            textBox741.Text = null;
-            textBox752.Text = "0";
-            textBox742.Text = "0";
-            textBox761.Text = null;
+            textBox751.Text = null;
             textBox762.Text = "0";
+            textBox752.Text = "0";
             textBox771.Text = null;
-            textBox772.Text = null;
-            textBox773.Text = null;
+            textBox772.Text = "0";
+            textBox781.Text = null;
+            textBox782.Text = null;
+            textBox783.Text = null;
         }
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
@@ -4754,7 +4754,7 @@ namespace TKMOC
                 else if (MANU.Equals("少量訂單"))
                 {
                     SEARCHMB001BOX();
-                    textBox743.Text = Math.Round(Convert.ToDecimal(textBox741.Text) / Convert.ToDecimal(textBox742.Text) / BOXNUMERB, 4).ToString();
+                    textBox753.Text = Math.Round(Convert.ToDecimal(textBox751.Text) / Convert.ToDecimal(textBox752.Text) / BOXNUMERB, 4).ToString();
                 }
             }
             catch
@@ -6337,12 +6337,12 @@ namespace TKMOC
                         textBox731.Text = null;
                         textBox721.Text = null;
                         textBox732.Text = null;
-                        textBox741.Text = null;
-                        textBox761.Text = null;
                         textBox751.Text = null;
                         textBox771.Text = null;
-                        textBox772.Text = null;
-                        textBox773.Text = null;
+                        textBox761.Text = null;
+                        textBox781.Text = null;
+                        textBox782.Text = null;
+                        textBox783.Text = null;
                     }
                     else
                     {
@@ -6351,9 +6351,9 @@ namespace TKMOC
                             textBox731.Text = ds27.Tables["ds27"].Rows[0]["TD004"].ToString();
                             textBox721.Text = ds27.Tables["ds27"].Rows[0]["TD005"].ToString();
                             textBox732.Text = ds27.Tables["ds27"].Rows[0]["TD006"].ToString();
-                            textBox741.Text = ds27.Tables["ds27"].Rows[0]["NUM"].ToString();
-                            textBox751.Text = ds27.Tables["ds27"].Rows[0]["TC053"].ToString();
-                            textBox761.Text = ds27.Tables["ds27"].Rows[0]["TC015"].ToString();
+                            textBox751.Text = ds27.Tables["ds27"].Rows[0]["NUM"].ToString();
+                            textBox761.Text = ds27.Tables["ds27"].Rows[0]["TC053"].ToString();
+                            textBox771.Text = ds27.Tables["ds27"].Rows[0]["TC015"].ToString();
 
                         }
                     }
@@ -6553,12 +6553,12 @@ namespace TKMOC
                         textBox731.Text = null;
                         textBox721.Text = null;
                         textBox732.Text = null;
-                        textBox741.Text = null;
-                        textBox761.Text = null;
                         textBox751.Text = null;
                         textBox771.Text = null;
-                        textBox772.Text = null;
-                        textBox773.Text = null;
+                        textBox761.Text = null;
+                        textBox781.Text = null;
+                        textBox782.Text = null;
+                        textBox783.Text = null;
                     }
                     else
                     {
@@ -6567,9 +6567,9 @@ namespace TKMOC
                             textBox731.Text = ds28.Tables["ds28"].Rows[0]["MD003"].ToString();
                             textBox721.Text = ds28.Tables["ds28"].Rows[0]["MD035"].ToString();
                             textBox732.Text = ds28.Tables["ds28"].Rows[0]["MD036"].ToString();
-                            textBox741.Text = ds28.Tables["ds28"].Rows[0]["NUM2"].ToString();
-                            textBox751.Text = ds28.Tables["ds28"].Rows[0]["TC053"].ToString();
-                            textBox761.Text = ds28.Tables["ds28"].Rows[0]["TC015"].ToString();
+                            textBox751.Text = ds28.Tables["ds28"].Rows[0]["NUM2"].ToString();
+                            textBox761.Text = ds28.Tables["ds28"].Rows[0]["TC053"].ToString();
+                            textBox771.Text = ds28.Tables["ds28"].Rows[0]["TC015"].ToString();
 
                         }
                     }
@@ -6771,12 +6771,12 @@ namespace TKMOC
                         textBox731.Text = null;
                         textBox721.Text = null;
                         textBox732.Text = null;
-                        textBox741.Text = null;
-                        textBox761.Text = null;
                         textBox751.Text = null;
                         textBox771.Text = null;
-                        textBox772.Text = null;
-                        textBox773.Text = null;
+                        textBox761.Text = null;
+                        textBox781.Text = null;
+                        textBox782.Text = null;
+                        textBox783.Text = null;
                     }
                     else
                     {
@@ -6785,10 +6785,10 @@ namespace TKMOC
                             textBox731.Text = ds28.Tables["ds28"].Rows[0]["MD003"].ToString();
                             textBox721.Text = ds28.Tables["ds28"].Rows[0]["MD035"].ToString();
                             textBox732.Text = ds28.Tables["ds28"].Rows[0]["MD036"].ToString();
-                            textBox741.Text = ds28.Tables["ds28"].Rows[0]["NUM2"].ToString();
-                            textBox751.Text = ds28.Tables["ds28"].Rows[0]["TC053"].ToString();
+                            textBox751.Text = ds28.Tables["ds28"].Rows[0]["NUM2"].ToString();
+                            textBox761.Text = ds28.Tables["ds28"].Rows[0]["TC053"].ToString();
                             //textBox761.Text = ds28.Tables["ds28"].Rows[0]["TC015"].ToString();
-                            textBox761.Text = null;
+                            textBox771.Text = null;
 
                         }
                     }
@@ -9051,25 +9051,25 @@ namespace TKMOC
 
         private void button75_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(textBox771.Text) & !string.IsNullOrEmpty(textBox772.Text) & !string.IsNullOrEmpty(textBox773.Text))
+            if (!string.IsNullOrEmpty(textBox781.Text) & !string.IsNullOrEmpty(textBox782.Text) & !string.IsNullOrEmpty(textBox783.Text))
             {
-                SEARCHCOPDEFAULT(textBox771.Text, textBox772.Text, textBox773.Text);
+                SEARCHCOPDEFAULT(textBox781.Text, textBox782.Text, textBox783.Text);
             }
         }
 
         private void button73_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(textBox771.Text) & !string.IsNullOrEmpty(textBox772.Text) & !string.IsNullOrEmpty(textBox773.Text))
+            if (!string.IsNullOrEmpty(textBox781.Text) & !string.IsNullOrEmpty(textBox782.Text) & !string.IsNullOrEmpty(textBox783.Text))
             {
-                SEARCHCOPDEFAULT2(textBox771.Text, textBox772.Text, textBox773.Text);
+                SEARCHCOPDEFAULT2(textBox781.Text, textBox782.Text, textBox783.Text);
             }
         }
 
         private void button74_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(textBox771.Text) & !string.IsNullOrEmpty(textBox772.Text) & !string.IsNullOrEmpty(textBox773.Text))
+            if (!string.IsNullOrEmpty(textBox781.Text) & !string.IsNullOrEmpty(textBox782.Text) & !string.IsNullOrEmpty(textBox783.Text))
             {
-                SEARCHCOPDEFAULT3(textBox771.Text, textBox772.Text, textBox773.Text);
+                SEARCHCOPDEFAULT3(textBox781.Text, textBox782.Text, textBox783.Text);
             }
         }
         private void button69_Click(object sender, EventArgs e)
