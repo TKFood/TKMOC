@@ -1860,6 +1860,7 @@ namespace TKMOC
             textBox761.Text = null;
             textBox721.Text = null;
             textBox732.Text = null;
+            textBox741.Text = null;
             textBox751.Text = null;
             textBox762.Text = "0";
             textBox752.Text = "0";
@@ -4755,6 +4756,7 @@ namespace TKMOC
                 {
                     SEARCHMB001BOX();
                     textBox753.Text = Math.Round(Convert.ToDecimal(textBox751.Text) / Convert.ToDecimal(textBox752.Text) / BOXNUMERB, 4).ToString();
+                    textBox741.Text = Math.Round(Convert.ToDecimal(textBox742.Text) / Convert.ToDecimal(textBox752.Text), 4).ToString();
                 }
             }
             catch
@@ -6351,6 +6353,7 @@ namespace TKMOC
                             textBox731.Text = ds27.Tables["ds27"].Rows[0]["TD004"].ToString();
                             textBox721.Text = ds27.Tables["ds27"].Rows[0]["TD005"].ToString();
                             textBox732.Text = ds27.Tables["ds27"].Rows[0]["TD006"].ToString();
+                            textBox742.Text = ds27.Tables["ds27"].Rows[0]["NUM"].ToString();
                             textBox751.Text = ds27.Tables["ds27"].Rows[0]["NUM"].ToString();
                             textBox761.Text = ds27.Tables["ds27"].Rows[0]["TC053"].ToString();
                             textBox771.Text = ds27.Tables["ds27"].Rows[0]["TC015"].ToString();
@@ -8401,6 +8404,11 @@ namespace TKMOC
 
         }
 
+        private void textBox742_TextChanged(object sender, EventArgs e)
+        {
+            CALPRODUCTDETAIL();
+        }
+
         #endregion
 
         #region BUTTON
@@ -9108,8 +9116,9 @@ namespace TKMOC
 
 
 
+
         #endregion
 
-       
+   
     }
 }
