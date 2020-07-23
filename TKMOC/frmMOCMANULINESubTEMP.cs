@@ -180,7 +180,10 @@ namespace TKMOC
 
                 sbSql.Clear();
 
-                sbSql.AppendFormat(" UPDATE [TKMOC].[dbo].[MOCMANULINETEMP] SET [BAR]={0},[NUM]={1},[BOX]={2},[PACKAGE]={3},[CLINET]='{4}',MANUDATE='{5}',[OUTDATE]='{6}',[TA029]=N'{7}',[MANUHOUR]={8},HALFPRO={9},COPTD001='{10}',COPTD002='{11}',COPTD003='{12}'", textBox6.Text, textBox7.Text, textBox8.Text, textBox9.Text, textBox10.Text, dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"), textBox2.Text, textBox13.Text, textBox12.Text, textBox40.Text, textBox41.Text, textBox42.Text);
+                sbSql.AppendFormat(" UPDATE [TKMOC].[dbo].[MOCMANULINETEMP] ");
+                sbSql.AppendFormat(" SET [BAR]={0},[NUM]={1},[PACKAGE]={2},[BOX]={3},[CLINET]='{4}',MANUDATE='{5}'", textBox6.Text, textBox7.Text, textBox8.Text, textBox9.Text, textBox10.Text, dateTimePicker1.Value.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(" ,MANU='{0}',[OUTDATE]='{1}',[TA029]=N'{2}',[MANUHOUR]={3},HALFPRO={4},COPTD001='{5}'", textBox1.Text, dateTimePicker2.Value.ToString("yyyyMMdd"), textBox2.Text, textBox13.Text, textBox12.Text, textBox40.Text);
+                sbSql.AppendFormat(" ,COPTD002='{0}',COPTD003='{1}'", textBox41.Text, textBox42.Text);
                 sbSql.AppendFormat(" WHERE  [ID]='{0}'", textBoxID.Text);
                 sbSql.AppendFormat(" ");
 
@@ -224,9 +227,9 @@ namespace TKMOC
                     textBox6.Text = Math.Round(Convert.ToDecimal(textBox7.Text) / Convert.ToDecimal(textBox32.Text), 4).ToString();
                 }
                 
-                if (Decimal.TryParse(textBox9.Text, out num1) && Decimal.TryParse(textBox32.Text, out num2))
+                if (Decimal.TryParse(textBox8.Text, out num1) && Decimal.TryParse(textBox32.Text, out num2))
                 {
-                    textBox8.Text = Math.Round(Convert.ToDecimal(textBox9.Text) / Convert.ToDecimal(textBox32.Text) / BOXNUMERB, 4).ToString();
+                    textBox9.Text = Math.Round(Convert.ToDecimal(textBox8.Text) / Convert.ToDecimal(textBox32.Text) / BOXNUMERB, 4).ToString();
                 }
 
             }
@@ -247,10 +250,10 @@ namespace TKMOC
 
         private void textBox9_TextChanged(object sender, EventArgs e)
         {
-            SEARCHMB001BOX();
-            textBox11.Text = BOXNUMERB.ToString();
+            //SEARCHMB001BOX();
+            //textBox11.Text = BOXNUMERB.ToString();
 
-            CALPRODUCTDETAIL();
+            //CALPRODUCTDETAIL();
         }
 
         public void SEARCHMB001BOX()
@@ -309,6 +312,14 @@ namespace TKMOC
 
 
         }
+
+        private void textBox8_TextChanged(object sender, EventArgs e)
+        {
+            SEARCHMB001BOX();
+            textBox11.Text = BOXNUMERB.ToString();
+
+            CALPRODUCTDETAIL();
+        }
         #region BUTTON
 
         private void button1_Click(object sender, EventArgs e)
@@ -322,8 +333,9 @@ namespace TKMOC
         }
 
 
+
         #endregion
 
-        
+       
     }
 }
