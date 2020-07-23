@@ -8409,6 +8409,114 @@ namespace TKMOC
             CALPRODUCTDETAIL();
         }
 
+
+        public void INSERTTOMOCMANULINE(string ID)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+
+                sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINE]");
+                sbSql.AppendFormat(" (");
+                sbSql.AppendFormat(" [ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET],[MANUHOUR],[BOX],[PACKAGE],[OUTDATE],[TA029],[HALFPRO],[COPTD001],[COPTD002],[COPTD003]");
+                sbSql.AppendFormat(" )");
+                sbSql.AppendFormat(" SELECT [ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET],[MANUHOUR],[BOX],[PACKAGE],[OUTDATE],[TA029],[HALFPRO],[COPTD001],[COPTD002],[COPTD003]");
+                sbSql.AppendFormat(" FROM [TKMOC].[dbo].[MOCMANULINETEMP]");
+                sbSql.AppendFormat(" WHERE  [ID]='{0}'",ID);
+                sbSql.AppendFormat(" ");
+                sbSql.AppendFormat(" ");
+                sbSql.AppendFormat(" ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+                    UPDATEMOCMANULINETEMPTID(ID);
+
+                    MessageBox.Show("移轉成功");
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void UPDATEMOCMANULINETEMPTID(string ID)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+
+               
+                sbSql.AppendFormat(" UPDATE [TKMOC].[dbo].[MOCMANULINETEMP]");
+                sbSql.AppendFormat(" SET [TID]='{0}' ", ID);
+                sbSql.AppendFormat(" WHERE  [ID]='{0}'", ID);
+                sbSql.AppendFormat(" ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        
+
         #endregion
 
         #region BUTTON
@@ -9115,10 +9223,20 @@ namespace TKMOC
         }
 
 
+        private void button77_Click(object sender, EventArgs e)
+        {
+            if(!string.IsNullOrEmpty(ID10))
+            {
+                INSERTTOMOCMANULINE(ID10);
+
+                SEARCHMOCMANULINETEMP(comboBox20.Text.Trim());
+            }
+            
+        }
 
 
         #endregion
 
-   
+
     }
 }
