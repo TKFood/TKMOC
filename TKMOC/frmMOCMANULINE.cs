@@ -28,6 +28,7 @@ namespace TKMOC
         string connectionString;
         StringBuilder sbSql = new StringBuilder();
         StringBuilder sbSqlQuery = new StringBuilder();
+        StringBuilder sbSqlQuery2 = new StringBuilder();
         SqlDataAdapter adapter1 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
         SqlDataAdapter adapter2 = new SqlDataAdapter();
@@ -1030,7 +1031,7 @@ namespace TKMOC
 
         }
 
-        public void SEARCHMOCMANULINETEMP(string STATUS)
+        public void SEARCHMOCMANULINETEMP(string STATUS,string TD002)
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
             SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
@@ -1043,8 +1044,9 @@ namespace TKMOC
 
                 sbSql.Clear();
                 sbSqlQuery.Clear();
+                sbSqlQuery2.Clear();
 
-                if(STATUS.Equals("否"))
+                if (STATUS.Equals("否"))
                 {
                     sbSqlQuery.AppendFormat(@" WHERE  [TID] IS NULL ");
                 }
@@ -1054,9 +1056,17 @@ namespace TKMOC
                 }
                 else
                 {
-                    sbSqlQuery.AppendFormat(@"  ");
+                    sbSqlQuery.AppendFormat(@" WHERE 1=1 ");
                 }
 
+                if(!string.IsNullOrEmpty(TD002))
+                {
+                    sbSqlQuery2.AppendFormat(@" AND   [MOCMANULINETEMP].[COPTD002] LIKE '%{0}%'", TD002);
+                }
+                else
+                {
+                    sbSqlQuery2.AppendFormat(@" ");
+                }
 
                 sbSql.AppendFormat(@"  SELECT ");
                 sbSql.AppendFormat(@"  [MOCMANULINETEMP].[MANU] AS '線別',CONVERT(varchar(100),[MOCMANULINETEMP].[MANUDATE],112) AS '生產日',[MOCMANULINETEMP].[MB001] AS '品號',[MOCMANULINETEMP].[MB002] AS '品名' ");
@@ -1068,6 +1078,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[MOCMANULINE] ON [MOCMANULINE].ID=[MOCMANULINETEMP].[TID]");
                 sbSql.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[MOCMANULINERESULT] ON [MOCMANULINERESULT].[SID]=[MOCMANULINETEMP].[TID]");
                 sbSql.AppendFormat(@"  {0}", sbSqlQuery.ToString());
+                sbSql.AppendFormat(@"  {0}", sbSqlQuery2.ToString());
                 sbSql.AppendFormat(@"  ORDER BY [MOCMANULINETEMP].[MANUDATE],[MOCMANULINETEMP].[SERNO]");
                 sbSql.AppendFormat(@"  ");
 
@@ -9251,7 +9262,7 @@ namespace TKMOC
         }
         private void button76_Click(object sender, EventArgs e)
         {
-            SEARCHMOCMANULINETEMP(comboBox20.Text.Trim());
+            SEARCHMOCMANULINETEMP(comboBox20.Text.Trim(),textBox722.Text.Trim());
         }
 
         private void button75_Click(object sender, EventArgs e)
@@ -9282,7 +9293,7 @@ namespace TKMOC
             if (!string.IsNullOrEmpty(textBox731.Text))
             {
                 ADDMOCMANULINE();
-                SEARCHMOCMANULINETEMP(comboBox20.Text.Trim());
+                SEARCHMOCMANULINETEMP(comboBox20.Text.Trim(), textBox722.Text.Trim());
                 SETNULL8();
             }
             else
@@ -9297,7 +9308,7 @@ namespace TKMOC
             if (dialogResult == DialogResult.Yes)
             {
                 DELMOCMANULINE();
-                SEARCHMOCMANULINETEMP(comboBox20.Text.Trim());
+                SEARCHMOCMANULINETEMP(comboBox20.Text.Trim(), textBox722.Text.Trim());
             }
             else if (dialogResult == DialogResult.No)
             {
@@ -9309,7 +9320,7 @@ namespace TKMOC
         {
             textBox722.Text = LIMITSERCHTD002;
             CHECKMOCTAB();
-            SEARCHMOCMANULINETEMP(comboBox20.Text.Trim());
+            SEARCHMOCMANULINETEMP(comboBox20.Text.Trim(), textBox722.Text.Trim());
         }
 
 
@@ -9319,15 +9330,12 @@ namespace TKMOC
             {
                 INSERTTOMOCMANULINE(ID10);
 
-                SEARCHMOCMANULINETEMP(comboBox20.Text.Trim());
+                SEARCHMOCMANULINETEMP(comboBox20.Text.Trim(), textBox722.Text.Trim());
             }
             
         }
 
-        private void button78_Click(object sender, EventArgs e)
-        {
-            SEARCHMOCMANULINETEMPTD002(comboBox20.Text.Trim(),textBox722.Text.Trim());
-        }
+      
 
 
         #endregion
