@@ -700,7 +700,7 @@ namespace TKMOC
             connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
             sqlConn = new SqlConnection(connectionString);
             StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 LIKE '新廠製二組%'   ");
+            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 LIKE '新廠%'   ");
             SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
             DataTable dt = new DataTable();
             sqlConn.Open();
@@ -8515,7 +8515,10 @@ namespace TKMOC
             }
         }
 
-        
+        private void comboBox15_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            comboBox17.SelectedIndex = comboBox15.SelectedIndex;
+        }
 
         #endregion
 
@@ -9235,8 +9238,9 @@ namespace TKMOC
         }
 
 
+
         #endregion
 
-
+      
     }
 }
