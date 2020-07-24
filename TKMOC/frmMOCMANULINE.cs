@@ -6161,7 +6161,7 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  SELECT TC053,TD004,TD005,TD006,(TD008+TD024) AS TD008,TD010,TC015");
+                sbSql.AppendFormat(@"  SELECT TC053,TD004,TD005,TD006,(TD008+TD024) AS TD008,TD010,TC015,TD013");
                 sbSql.AppendFormat(@"  ,(CASE WHEN ISNULL(MD002,'')<>'' THEN (TD008+TD024)*MD004 ELSE (TD008+TD024)  END ) AS NUM");
                 sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB WITH(NOLOCK),[TK].dbo.COPTC WITH(NOLOCK),[TK].dbo.COPTD WITH(NOLOCK)");
                 sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.INVMD ON MD001=TD004 AND TD010=MD002");
@@ -6204,6 +6204,7 @@ namespace TKMOC
                             //textBox5.Text = ds27.Tables["ds27"].Rows[0]["NUM"].ToString();
                             textBox6.Text = ds27.Tables["ds27"].Rows[0]["TC053"].ToString();
                             textBox52.Text = ds27.Tables["ds27"].Rows[0]["TC015"].ToString();
+                            dateTimePicker14.Value = Convert.ToDateTime(ds27.Tables["ds27"].Rows[0]["TD013"].ToString().Substring(0, 4) + "/" + ds27.Tables["ds27"].Rows[0]["TD013"].ToString().Substring(4, 2) + "/" + ds27.Tables["ds27"].Rows[0]["TD013"].ToString().Substring(6, 2));
 
                             if (SUM11>0)
                             {
@@ -6241,6 +6242,7 @@ namespace TKMOC
                             textBox11.Text = ds27.Tables["ds27"].Rows[0]["TD006"].ToString();                            
                             textBox9.Text = ds27.Tables["ds27"].Rows[0]["TC053"].ToString();
                             textBox53.Text = ds27.Tables["ds27"].Rows[0]["TC015"].ToString();
+                            dateTimePicker5.Value = Convert.ToDateTime(ds27.Tables["ds27"].Rows[0]["TD013"].ToString().Substring(0, 4) + "/" + ds27.Tables["ds27"].Rows[0]["TD013"].ToString().Substring(4, 2) + "/" + ds27.Tables["ds27"].Rows[0]["TD013"].ToString().Substring(6, 2));
 
                             if (SUM21 > 0)
                             {
@@ -6279,6 +6281,7 @@ namespace TKMOC
                             //textBox19.Text = ds27.Tables["ds27"].Rows[0]["NUM"].ToString();
                             textBox16.Text = ds27.Tables["ds27"].Rows[0]["TC053"].ToString();
                             textBox54.Text = ds27.Tables["ds27"].Rows[0]["TC015"].ToString();
+                            dateTimePicker15.Value = Convert.ToDateTime(ds27.Tables["ds27"].Rows[0]["TD013"].ToString().Substring(0, 4) + "/" + ds27.Tables["ds27"].Rows[0]["TD013"].ToString().Substring(4, 2) + "/" + ds27.Tables["ds27"].Rows[0]["TD013"].ToString().Substring(6, 2));
 
                             if (SUM31 > 0)
                             {
@@ -6317,7 +6320,7 @@ namespace TKMOC
                             //textBox23.Text = ds27.Tables["ds27"].Rows[0]["NUM"].ToString();
                             textBox22.Text = ds27.Tables["ds27"].Rows[0]["TC053"].ToString();
                             textBox55.Text = ds27.Tables["ds27"].Rows[0]["TC015"].ToString();
-
+                            dateTimePicker16.Value = Convert.ToDateTime(ds27.Tables["ds27"].Rows[0]["TD013"].ToString().Substring(0, 4) + "/" + ds27.Tables["ds27"].Rows[0]["TD013"].ToString().Substring(4, 2) + "/" + ds27.Tables["ds27"].Rows[0]["TD013"].ToString().Substring(6, 2));
 
                             if (SUM41 > 0)
                             {
@@ -6357,6 +6360,8 @@ namespace TKMOC
                             textBox751.Text = ds27.Tables["ds27"].Rows[0]["NUM"].ToString();
                             textBox761.Text = ds27.Tables["ds27"].Rows[0]["TC053"].ToString();
                             textBox771.Text = ds27.Tables["ds27"].Rows[0]["TC015"].ToString();
+
+                            dateTimePicker24.Value = Convert.ToDateTime(ds27.Tables["ds27"].Rows[0]["TD013"].ToString().Substring(0,4)+"/"+ ds27.Tables["ds27"].Rows[0]["TD013"].ToString().Substring(4, 2) + "/" + ds27.Tables["ds27"].Rows[0]["TD013"].ToString().Substring(6, 2));
 
                         }
                     }
