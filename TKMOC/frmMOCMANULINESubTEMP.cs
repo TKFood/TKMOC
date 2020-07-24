@@ -50,6 +50,8 @@ namespace TKMOC
             EDITID = ID;
             InitializeComponent();
 
+            comboBox1load();
+
             SEARCHMOCMANULINE();
         }
 
@@ -64,7 +66,26 @@ namespace TKMOC
         }
 
         #region FUNCTION
+        public void comboBox1load()
+        {
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 LIKE '新廠%'   ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
 
+            dt.Columns.Add("MD001", typeof(string));
+            dt.Columns.Add("MD002", typeof(string));
+            da.Fill(dt);
+            comboBox1.DataSource = dt.DefaultView;
+            comboBox1.ValueMember = "MD002";
+            comboBox1.DisplayMember = "MD002";
+            sqlConn.Close();
+
+
+        }
         #endregion
         public void SEARCHMOCMANULINE()
         {
@@ -127,6 +148,8 @@ namespace TKMOC
                         textBox40.Text = ds1.Tables["TEMPds1"].Rows[0]["訂單單別"].ToString();
                         textBox41.Text = ds1.Tables["TEMPds1"].Rows[0]["訂單號"].ToString();
                         textBox42.Text = ds1.Tables["TEMPds1"].Rows[0]["訂單序號"].ToString();
+
+                        comboBox1.Text = ds1.Tables["TEMPds1"].Rows[0]["線別"].ToString();
 
                         string yy = ds1.Tables["TEMPds1"].Rows[0]["生產日"].ToString().Substring(0, 4);
                         string MM = ds1.Tables["TEMPds1"].Rows[0]["生產日"].ToString().Substring(4, 2);
@@ -320,6 +343,13 @@ namespace TKMOC
 
             CALPRODUCTDETAIL();
         }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            textBox1.Text = comboBox1.Text;
+        }
+
+
         #region BUTTON
 
         private void button1_Click(object sender, EventArgs e)
@@ -334,8 +364,9 @@ namespace TKMOC
 
 
 
+
         #endregion
 
-       
+      
     }
 }
