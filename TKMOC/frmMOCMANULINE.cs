@@ -288,6 +288,7 @@ namespace TKMOC
         string TA028D;
 
         string DELMOCMANULINECOPID;
+        string LIMITSERCHTD002;
 
         public class MOCTADATA
         {
@@ -1107,6 +1108,85 @@ namespace TKMOC
 
         }
 
+        public void SEARCHMOCMANULINETEMPTD002(string STATUS,string TD002)
+        {
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            DataSet ds1 = new DataSet();
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                if (STATUS.Equals("否"))
+                {
+                    sbSqlQuery.AppendFormat(@" WHERE  [TID] IS NULL ");
+                    sbSqlQuery.AppendFormat(@" AND  [MOCMANULINETEMP].[COPTD002] LIKE '%{0}%'",TD002);
+                }
+                else if (STATUS.Equals("是"))
+                {
+                    sbSqlQuery.AppendFormat(@"WHERE [TID] IS NOT NULL ");
+                    sbSqlQuery.AppendFormat(@" AND  [MOCMANULINETEMP].[COPTD002] LIKE '%{0}%'", TD002);
+                }
+                else
+                {
+                    sbSqlQuery.AppendFormat(@"  ");
+                }
+
+
+                sbSql.AppendFormat(@"  SELECT ");
+                sbSql.AppendFormat(@"  [MOCMANULINETEMP].[MANU] AS '線別',CONVERT(varchar(100),[MOCMANULINETEMP].[MANUDATE],112) AS '生產日',[MOCMANULINETEMP].[MB001] AS '品號',[MOCMANULINETEMP].[MB002] AS '品名' ");
+                sbSql.AppendFormat(@"  ,[MOCMANULINETEMP].[MB003] AS '規格',[MOCMANULINETEMP].[NUM] AS '數量',[MOCMANULINETEMP].[BAR] AS '桶數',[MOCMANULINETEMP].[PACKAGE] AS'包裝數',[MOCMANULINETEMP].[BOX] AS'箱數',[MOCMANULINETEMP].[CLINET] AS '客戶',[MOCMANULINETEMP].[OUTDATE] AS '交期',[MOCMANULINETEMP].[TA029] AS '備註',[MOCMANULINETEMP].[HALFPRO] AS '半成品數量'");
+                sbSql.AppendFormat(@"  ,[MOCMANULINETEMP].[COPTD001] AS '訂單單別',[MOCMANULINETEMP].[COPTD002] AS '訂單號',[MOCMANULINETEMP].[COPTD003] AS '訂單序號'");
+                sbSql.AppendFormat(@"  ,[MOCTA001] AS '製令',[MOCTA002] AS '製令號'");
+                sbSql.AppendFormat(@"  ,[MOCMANULINETEMP].[ID],[MOCMANULINETEMP].[TID]");
+                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINETEMP]");
+                sbSql.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[MOCMANULINE] ON [MOCMANULINE].ID=[MOCMANULINETEMP].[TID]");
+                sbSql.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[MOCMANULINERESULT] ON [MOCMANULINERESULT].[SID]=[MOCMANULINETEMP].[TID]");
+                sbSql.AppendFormat(@"  {0}", sbSqlQuery.ToString());
+                sbSql.AppendFormat(@"  ORDER BY [MOCMANULINETEMP].[MANUDATE],[MOCMANULINETEMP].[SERNO]");
+                sbSql.AppendFormat(@"  ");
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "TEMPds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["TEMPds1"].Rows.Count == 0)
+                {
+                    dataGridView20.DataSource = null;
+                }
+                else
+                {
+                    if (ds1.Tables["TEMPds1"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView20.DataSource = ds1.Tables["TEMPds1"];
+                        dataGridView20.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+
+        }
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             SEARCHMB001();
@@ -7960,6 +8040,7 @@ namespace TKMOC
                 {
                     DataGridViewRow row = dataGridView20.Rows[rowindex];
                     ID10 = row.Cells["ID"].Value.ToString();
+                    LIMITSERCHTD002 = row.Cells["訂單號"].Value.ToString();
 
                     //dt2 = Convert.ToDateTime(row.Cells["生產日"].Value.ToString().Substring(0, 4) + "/" + row.Cells["生產日"].Value.ToString().Substring(4, 2) + "/" + row.Cells["生產日"].Value.ToString().Substring(6, 2));
                     //MB001B = row.Cells["品號"].Value.ToString();
@@ -9226,6 +9307,7 @@ namespace TKMOC
 
         private void button72_Click(object sender, EventArgs e)
         {
+            textBox722.Text = LIMITSERCHTD002;
             CHECKMOCTAB();
             SEARCHMOCMANULINETEMP(comboBox20.Text.Trim());
         }
@@ -9242,10 +9324,14 @@ namespace TKMOC
             
         }
 
+        private void button78_Click(object sender, EventArgs e)
+        {
+            SEARCHMOCMANULINETEMPTD002(comboBox20.Text.Trim(),textBox722.Text.Trim());
+        }
 
 
         #endregion
 
-      
+
     }
 }
