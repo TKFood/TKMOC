@@ -34,10 +34,13 @@ namespace TKMOC
         SqlTransaction tran;
         SqlCommand cmd = new SqlCommand();
         DataSet ds1 = new DataSet();
+        int result;
 
         public frmMOCMANULINESubTEMPADDBACTH()
         {
             InitializeComponent();
+
+            comboBox1load();
         }
 
         #region FUNCTION
@@ -86,6 +89,26 @@ namespace TKMOC
 
         }
 
+        public void comboBox1load()
+        {
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 LIKE '新廠%'   ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("MD001", typeof(string));
+            dt.Columns.Add("MD002", typeof(string));
+            da.Fill(dt);
+            comboBox1.DataSource = dt.DefaultView;
+            comboBox1.ValueMember = "MD002";
+            comboBox1.DisplayMember = "MD002";
+            sqlConn.Close();
+
+
+        }
         public void SEARCHCOPTD(string TD001,string TD002)
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
@@ -105,12 +128,13 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  SELECT ");
                 sbSql.AppendFormat(@"  TD001 AS '訂單',TD002 AS '訂單號',TD003 AS '訂單序號',TD013 AS '生產日',TD004 AS '品號'");
                 sbSql.AppendFormat(@"  ,TD005 AS '品名',TD005 AS '規格',(TD008+TD024) AS '數量',(TD008+TD024)/(ISNULL(MD007,1)) AS '箱數',(TD008+TD024) AS '包裝數'");
-                sbSql.AppendFormat(@"  ,0 AS '桶數',TC053 AS '客戶',TD013 AS '生產日',0 AS '工時',TD020 '備註'");
+                sbSql.AppendFormat(@"  ,0 AS '桶數',TC053 AS '客戶',TD013 AS '預交日',0 AS '工時',TD020 '備註'");
                 sbSql.AppendFormat(@"  ,0 AS '半成品','' AS TID,'' AS TCOPTD001,'' AS TCOPTD002,'' AS TCOPTD003");
                 sbSql.AppendFormat(@"  FROM [TK].dbo.COPTC,[TK].dbo.COPTD");
                 sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.BOMMD ON MD003 LIKE '2%' AND MD007>1 AND MD001=TD004");
                 sbSql.AppendFormat(@"  WHERE TC001=TD001 AND TC002=TD002 ");
                 sbSql.AppendFormat(@"  AND TD001='{0}' AND TD002='{1}'", TD001, TD002);
+                sbSql.AppendFormat(@"  AND TD001+TD002+TD003 NOT IN (SELECT COPTD001+COPTD002+COPTD003 FROM [TKMOC].dbo.MOCMANULINETEMP)");
                 sbSql.AppendFormat(@"  ");
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -149,7 +173,72 @@ namespace TKMOC
             }
         }
 
+        public void ADDMOCMANULINETEMP(
+            Guid ID,  string MANU, string MANUDATE, string MB001
+            , string MB002, string MB003, string BAR, string NUM, string CLINET
+            , string MANUHOUR, string BOX, string PACKAGE, string OUTDATE, string TA029
+            , string HALFPRO, string COPTD001, string COPTD002, string COPTD003, string TID
+            , string TCOPTD001, string TCOPTD002, string TCOPTD003
+            )
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
 
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINETEMP]");
+                sbSql.AppendFormat(" (");
+                sbSql.AppendFormat(" [ID],[MANU],[MANUDATE],[MB001]");
+                sbSql.AppendFormat(" ,[MB002],[MB003],[BAR],[NUM],[CLINET]");
+                sbSql.AppendFormat(" ,[MANUHOUR],[BOX],[PACKAGE],[OUTDATE],[TA029]");
+                sbSql.AppendFormat(" ,[HALFPRO],[COPTD001],[COPTD002],[COPTD003]");
+                sbSql.AppendFormat(" ,[TCOPTD001],[TCOPTD002],[TCOPTD003]");
+                sbSql.AppendFormat(" )");
+                sbSql.AppendFormat(" VALUES");
+                sbSql.AppendFormat(" (");
+                sbSql.AppendFormat(" '{0}','{1}','{2}','{3}',", ID.ToString(), MANU, MANUDATE, MB001);
+                sbSql.AppendFormat(" '{0}','{1}','{2}','{3}','{4}',", MB002, MB003, BAR, NUM, CLINET);
+                sbSql.AppendFormat(" '{0}','{1}','{2}','{3}','{4}',", MANUHOUR, BOX, PACKAGE, OUTDATE, TA029);
+                sbSql.AppendFormat(" '{0}','{1}','{2}','{3}',", HALFPRO, COPTD001, COPTD002, COPTD003);
+                sbSql.AppendFormat(" '{0}','{1}','{2}'", TCOPTD001, TCOPTD002, TCOPTD003);
+                sbSql.AppendFormat(" )");
+                sbSql.AppendFormat(" ");
+                sbSql.AppendFormat(" ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+                   
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
         #endregion
 
         #region BUTTON
@@ -158,8 +247,46 @@ namespace TKMOC
             SEARCHCOPTD(textBox1.Text.Trim(),textBox2.Text.Trim());
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow dr in this.dataGridView1.Rows)
+            {
+                if (dr.Cells[0].Value != null && (bool)dr.Cells[0].Value)
+                {
+                    Guid NEWGUID = new Guid();
+                    NEWGUID = Guid.NewGuid();
+                    string SERNO = dr.Cells[""].Value.ToString().Trim();
+                    string MANU = comboBox1.Text.Trim();
+                    string MANUDATE = dateTimePicker1.Value.ToString("yyyyMMdd");
+                    string MB001 = dr.Cells["品號"].Value.ToString().Trim();
+                    string MB002 = dr.Cells["品名"].Value.ToString().Trim();
+                    string MB003 = dr.Cells["規格"].Value.ToString().Trim();
+                    string BAR = dr.Cells["桶數"].Value.ToString().Trim();
+                    string NUM = dr.Cells["數量"].Value.ToString().Trim();
+                    string CLINET = dr.Cells["客戶"].Value.ToString().Trim();
+                    string MANUHOUR = dr.Cells["工時"].Value.ToString().Trim();
+                    string BOX = dr.Cells["箱數"].Value.ToString().Trim();
+                    string PACKAGE = dr.Cells["包裝數"].Value.ToString().Trim();
+                    string OUTDATE = dr.Cells["預交日"].Value.ToString().Trim();
+                    string TA029 = dr.Cells["備註"].Value.ToString().Trim();
+                    string HALFPRO = dr.Cells["半成品"].Value.ToString().Trim();
+                    string COPTD001 = dr.Cells["訂單"].Value.ToString().Trim();
+                    string COPTD002 = dr.Cells["訂單號"].Value.ToString().Trim();
+                    string COPTD003 = dr.Cells["訂單序號"].Value.ToString().Trim();
+                    string TID = dr.Cells["TID"].Value.ToString().Trim();
+                    string TCOPTD001 = dr.Cells["TCOPTD001"].Value.ToString().Trim();
+                    string TCOPTD002 = dr.Cells["TCOPTD002"].Value.ToString().Trim();
+                    string TCOPTD003 = dr.Cells["TCOPTD003"].Value.ToString().Trim();
+
+                    ADDMOCMANULINETEMP(NEWGUID,  MANU, MANUDATE, MB001, MB002, MB003, BAR, NUM, CLINET, MANUHOUR, BOX, PACKAGE, OUTDATE, TA029, HALFPRO, COPTD001, COPTD002, COPTD003, TID, TCOPTD001, TCOPTD002, TCOPTD003);
+                }
+            }
+
+            MessageBox.Show("完成");
+            this.Close();
+        }
         #endregion
 
-       
+
     }
 }

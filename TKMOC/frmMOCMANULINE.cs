@@ -9338,6 +9338,8 @@ namespace TKMOC
         {
             frmMOCMANULINESubTEMPADDBACTH SUBfrmMOCMANULINESubTEMPADDBACTH = new frmMOCMANULINESubTEMPADDBACTH();
             SUBfrmMOCMANULINESubTEMPADDBACTH.ShowDialog();
+
+            SEARCHMOCMANULINETEMP(comboBox20.Text.Trim(), textBox722.Text.Trim());
         }
 
 
