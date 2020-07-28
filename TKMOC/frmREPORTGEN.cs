@@ -272,7 +272,7 @@ namespace TKMOC
                    
 
                     sbSql.AppendFormat("  ");
-                    sbSql.AppendFormat(" ");
+                    sbSql.AppendFormat("  ");
 
 
                     cmd.Connection = sqlConn;

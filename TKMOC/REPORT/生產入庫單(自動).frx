@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="11/14/2019 15:07:31" ReportInfo.Modified="05/06/2020 14:34:58" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="11/14/2019 15:07:31" ReportInfo.Modified="07/28/2020 10:14:25" ReportInfo.CreatorVersion="2016.4.4.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9JoCts4HG4rlaVRXz33b3WR">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9KoRXPIF5a5FXc8NXTmPlc3">
       <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT [TA001]  AS '製令'&#13;&#10;,[TA002] AS '製令號'&#13;&#10;,[YEARS] AS '年'&#13;&#10;,[MONTHS] AS '月'&#13;&#10;,[DAYS] AS '日'&#13;&#10;,[MB001] AS '品號'&#13;&#10;,[MB002] AS '品名'&#13;&#10;,[MB003] AS '規格'&#13;&#10;,[GENNUM]  AS '已生產量' &#13;&#10;,[BORADNUM]  AS '版數' &#13;&#10;FROM [TKMOC].[dbo].[REPORTGEN]&#13;&#10;ORDER BY [TA001],[TA002],[BORADNUM]">
         <Column Name="製令" DataType="System.String"/>
         <Column Name="製令號" DataType="System.String"/>
@@ -19,7 +19,7 @@
     <Parameter Name="P2" DataType="System.String"/>
   </Dictionary>
   <ReportPage Name="Page1" PaperWidth="110" PaperHeight="140">
-    <DataBand Name="Data1" Width="340.2" Height="434.7" DataSource="Table">
+    <DataBand Name="Data1" Width="340.2" Height="425.25" DataSource="Table">
       <TextObject Name="Text1" Left="9.45" Top="28.35" Width="94.5" Height="28.35" Border.Lines="All" Text="入庫單" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
       <TextObject Name="Text2" Left="103.95" Top="28.35" Width="217.35" Height="28.35" Border.Lines="All" Text="[Table.年]年 [Table.月] 月 [Table.日] 日" HorzAlign="Right" VertAlign="Center" Font="標楷體, 14pt"/>
       <TextObject Name="Text3" Left="9.45" Width="207.9" Height="28.35" Text="老楊食品股份有限公司" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
@@ -37,8 +37,8 @@
       <TextObject Name="Text15" Left="103.95" Top="226.8" Width="217.35" Height="28.35" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
       <TextObject Name="Text16" Left="103.95" Top="255.15" Width="217.35" Height="122.85" Border.Lines="All" Text="[P1]" VertAlign="Center" Font="標楷體, 12pt"/>
       <TextObject Name="Text17" Left="103.95" Top="378" Width="217.35" Height="28.35" Border.Lines="All" Text="[Table.製令]-[Table.製令號]" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
-      <TextObject Name="Text18" Left="9.45" Top="406.35" Width="160.65" Height="28.35" Text="本文件不得擅自塗改及影印   " VertAlign="Center" Font="標楷體, 8pt"/>
-      <TextObject Name="Text19" Left="170.1" Top="406.35" Width="151.2" Height="28.35" Text="FM0757-02" HorzAlign="Right" VertAlign="Center" Font="標楷體, 8pt"/>
+      <TextObject Name="Text18" Left="9.45" Top="406.35" Width="160.65" Height="18.9" Text="本文件不得擅自塗改及影印   " VertAlign="Center" Font="標楷體, 8pt"/>
+      <TextObject Name="Text19" Left="170.1" Top="406.35" Width="151.2" Height="18.9" Text="FM0757-02" HorzAlign="Right" VertAlign="Center" Font="標楷體, 8pt"/>
       <TextObject Name="Text39" Left="217.35" Width="103.95" Height="28.35" Text="流水號:[Table.版數]     " VertAlign="Bottom" Font="標楷體, 10pt"/>
     </DataBand>
   </ReportPage>
