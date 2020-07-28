@@ -324,6 +324,12 @@
     <Compile Include="frmMOCMANULINESubTEMPADD.Designer.cs">
       <DependentUpon>frmMOCMANULINESubTEMPADD.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmMOCMANULINESubTEMPADDBACTH.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMOCMANULINESubTEMPADDBACTH.Designer.cs">
+      <DependentUpon>frmMOCMANULINESubTEMPADDBACTH.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMOCMONTH.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -646,6 +652,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMOCMANULINESubTEMPADD.resx">
       <DependentUpon>frmMOCMANULINESubTEMPADD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMOCMANULINESubTEMPADDBACTH.resx">
+      <DependentUpon>frmMOCMANULINESubTEMPADDBACTH.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMOCMONTH.resx">
       <DependentUpon>frmMOCMONTH.cs</DependentUpon>

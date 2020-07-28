@@ -9334,8 +9334,13 @@ namespace TKMOC
             }
             
         }
+        private void button78_Click(object sender, EventArgs e)
+        {
+            frmMOCMANULINESubTEMPADDBACTH SUBfrmMOCMANULINESubTEMPADDBACTH = new frmMOCMANULINESubTEMPADDBACTH();
+            SUBfrmMOCMANULINESubTEMPADDBACTH.ShowDialog();
+        }
 
-      
+
 
 
         #endregion
