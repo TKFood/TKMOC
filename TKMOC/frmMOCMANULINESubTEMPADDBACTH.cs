@@ -128,10 +128,11 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  SELECT ");
                 sbSql.AppendFormat(@"  TD001 AS '訂單',TD002 AS '訂單號',TD003 AS '訂單序號',TD013 AS '生產日',TD004 AS '品號'");
                 sbSql.AppendFormat(@"  ,TD005 AS '品名',TD005 AS '規格',(TD008+TD024) AS '數量',(TD008+TD024)/(ISNULL(MD007,1)) AS '箱數',(TD008+TD024) AS '包裝數'");
-                sbSql.AppendFormat(@"  ,0 AS '桶數',TC053 AS '客戶',TD013 AS '預交日',0 AS '工時',TD020 '備註'");
+                sbSql.AppendFormat(@"  ,(TD008+TD024)/(ISNULL(MC004,1)) AS '桶數',TC053 AS '客戶',TD013 AS '預交日',0 AS '工時',TD020 '備註'");
                 sbSql.AppendFormat(@"  ,0 AS '半成品','' AS TID,'' AS TCOPTD001,'' AS TCOPTD002,'' AS TCOPTD003");
                 sbSql.AppendFormat(@"  FROM [TK].dbo.COPTC,[TK].dbo.COPTD");
                 sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.BOMMD ON MD003 LIKE '2%' AND MD007>1 AND MD001=TD004");
+                sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.BOMMC ON MC001=TD004");
                 sbSql.AppendFormat(@"  WHERE TC001=TD001 AND TC002=TD002 ");
                 sbSql.AppendFormat(@"  AND TD001='{0}' AND TD002='{1}'", TD001, TD002);
                 sbSql.AppendFormat(@"  AND TD001+TD002+TD003 NOT IN (SELECT COPTD001+COPTD002+COPTD003 FROM [TKMOC].dbo.MOCMANULINETEMP)");
@@ -261,12 +262,10 @@ namespace TKMOC
                     string MB001 = dr.Cells["品號"].Value.ToString().Trim();
                     string MB002 = dr.Cells["品名"].Value.ToString().Trim();
                     string MB003 = dr.Cells["規格"].Value.ToString().Trim();
-                    string BAR = dr.Cells["桶數"].Value.ToString().Trim();
-                    string NUM = dr.Cells["數量"].Value.ToString().Trim();
+                    
                     string CLINET = dr.Cells["客戶"].Value.ToString().Trim();
                     string MANUHOUR = dr.Cells["工時"].Value.ToString().Trim();
-                    string BOX = dr.Cells["箱數"].Value.ToString().Trim();
-                    string PACKAGE = dr.Cells["包裝數"].Value.ToString().Trim();
+                   
                     string OUTDATE = dr.Cells["預交日"].Value.ToString().Trim();
                     string TA029 = dr.Cells["備註"].Value.ToString().Trim();
                     string HALFPRO = dr.Cells["半成品"].Value.ToString().Trim();
@@ -277,6 +276,26 @@ namespace TKMOC
                     string TCOPTD001 = dr.Cells["TCOPTD001"].Value.ToString().Trim();
                     string TCOPTD002 = dr.Cells["TCOPTD002"].Value.ToString().Trim();
                     string TCOPTD003 = dr.Cells["TCOPTD003"].Value.ToString().Trim();
+
+                    string BAR = "0";
+                    string NUM = "0";
+                    string BOX = "0";
+                    string PACKAGE = "0";
+
+                    if (comboBox1.Text.Equals("新廠包裝線"))
+                    {
+                        BAR = "0";
+                        NUM = dr.Cells["數量"].Value.ToString().Trim();
+                        BOX = dr.Cells["箱數"].Value.ToString().Trim();
+                        PACKAGE = dr.Cells["包裝數"].Value.ToString().Trim();
+                    }
+                    else
+                    {
+                        BAR = dr.Cells["桶數"].Value.ToString().Trim();
+                        NUM = dr.Cells["數量"].Value.ToString().Trim();
+                        BOX = "0";
+                        PACKAGE = "0";
+                    }
 
                     ADDMOCMANULINETEMP(NEWGUID,  MANU, MANUDATE, MB001, MB002, MB003, BAR, NUM, CLINET, MANUHOUR, BOX, PACKAGE, OUTDATE, TA029, HALFPRO, COPTD001, COPTD002, COPTD003, TID, TCOPTD001, TCOPTD002, TCOPTD003);
                 }
