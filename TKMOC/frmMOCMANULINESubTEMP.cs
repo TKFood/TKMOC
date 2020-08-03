@@ -138,8 +138,8 @@ namespace TKMOC
                         textBox5.Text = ds1.Tables["TEMPds1"].Rows[0]["規格"].ToString();
                         textBox6.Text = ds1.Tables["TEMPds1"].Rows[0]["桶數"].ToString();
                         textBox7.Text = ds1.Tables["TEMPds1"].Rows[0]["數量"].ToString();
-                        textBox8.Text = ds1.Tables["TEMPds1"].Rows[0]["箱數"].ToString();
-                        textBox9.Text = ds1.Tables["TEMPds1"].Rows[0]["片數"].ToString();
+                        textBox8.Text = ds1.Tables["TEMPds1"].Rows[0]["片數"].ToString();
+                        textBox9.Text = ds1.Tables["TEMPds1"].Rows[0]["箱數"].ToString();
                         textBox10.Text = ds1.Tables["TEMPds1"].Rows[0]["客戶"].ToString();
                         textBox32.Text = ds1.Tables["TEMPds1"].Rows[0]["MC004"].ToString();
                         textBox2.Text = ds1.Tables["TEMPds1"].Rows[0]["備註"].ToString();

@@ -5487,8 +5487,8 @@ namespace TKMOC
             }
             else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage10"])
             {
-                frmMOCMANULINESubTEMP MOCMANULINESub = new frmMOCMANULINESubTEMP(ID10);
-                MOCMANULINESub.ShowDialog();
+                frmMOCMANULINESubTEMP frmMOCMANULINESubTEMP = new frmMOCMANULINESubTEMP(ID10);
+                frmMOCMANULINESubTEMP.ShowDialog();
             }
 
 
