@@ -7239,7 +7239,7 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  SELECT [MOCMANULINEMERGE].[NO] AS '編號', [MOCMANULINE].[MANU] AS '線別',[MOCMANULINE].[MB001] AS '品號',[MOCMANULINE].[MB002] AS '品名',[MOCMANULINE].[BAR] AS '桶數',[MOCMANULINE].[NUM] AS '數量'");
+                sbSql.AppendFormat(@"  SELECT [MOCMANULINEMERGE].[NO] AS '編號', [MOCMANULINE].[MANU] AS '線別',[MOCMANULINE].[MB001] AS '品號',[MOCMANULINE].[MB002] AS '品名',[MOCMANULINE].[BAR] AS '桶數',[MOCMANULINE].[NUM] AS '數量',[MOCMANULINE].[BOX] AS '箱數',[MOCMANULINE].[PACKAGE] AS '包裝數'");
                 sbSql.AppendFormat(@"  ,[MOCMANULINEMERGE].[ID],[MOCMANULINEMERGE].[SID]");
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINEMERGE],[TKMOC].[dbo].[MOCMANULINE]");
                 sbSql.AppendFormat(@"  WHERE [MOCMANULINEMERGE].[SID]=[MOCMANULINE].[ID]");
@@ -7457,7 +7457,7 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  SELECT [MOCMANULINEMERGE].[NO] AS '編號',[MOCMANULINE].[MB001] AS '品號',[MOCMANULINE].[MB002] AS '品名',[MOCMANULINE].[MB003] AS '規格',SUM([MOCMANULINE].[BAR]) AS '加總桶數',SUM([MOCMANULINE].[NUM]) AS '加總數量' ");
+                sbSql.AppendFormat(@"  SELECT [MOCMANULINEMERGE].[NO] AS '編號',[MOCMANULINE].[MB001] AS '品號',[MOCMANULINE].[MB002] AS '品名',[MOCMANULINE].[MB003] AS '規格',SUM([MOCMANULINE].[BAR]) AS '加總桶數',SUM([MOCMANULINE].[NUM]) AS '加總數量',SUM([MOCMANULINE].[BOX]) AS '加總箱數',SUM([MOCMANULINE].[PACKAGE]) AS '加總包裝數' ");
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINEMERGE],[TKMOC].[dbo].[MOCMANULINE]");
                 sbSql.AppendFormat(@"  WHERE [MOCMANULINEMERGE].[SID]=[MOCMANULINE].[ID]");
                 sbSql.AppendFormat(@"  AND [MOCMANULINEMERGE].[NO]='{0}'",NO);
@@ -7672,6 +7672,11 @@ namespace TKMOC
 
         private void dataGridView14_SelectionChanged(object sender, EventArgs e)
         {
+            textBox80.Text = null;
+            textBox81.Text = null;
+            textBox82.Text = null;
+            textBox83.Text = null;
+            textBox84.Text = null;
 
             if (dataGridView14.CurrentRow != null)
             {
@@ -7683,6 +7688,7 @@ namespace TKMOC
                     textBox81.Text = row.Cells["品名"].Value.ToString();
                     textBox82.Text = row.Cells["規格"].Value.ToString();
                     textBox83.Text = row.Cells["加總數量"].Value.ToString();
+                    textBox84.Text = row.Cells["加總包裝數"].Value.ToString();
                 }
                 else
                 {
@@ -7690,6 +7696,7 @@ namespace TKMOC
                     textBox81.Text = null;
                     textBox82.Text = null;
                     textBox83.Text = null;
+                    textBox84.Text = null;
 
                 }
             }
@@ -9242,7 +9249,17 @@ namespace TKMOC
 
                 TA002 = GETMAXTA002MERGE(dateTimePicker22.Value,TA001);
 
-                ADDMOCTATBMERGE(TA001, TA002,textBox80.Text, textBox81.Text, textBox82.Text, label104.Text,textBox79.Text,comboBox17.SelectedValue.ToString().Trim(), textBox83.Text.Trim(),textBox78.Text.Trim());
+                if(comboBox17.Text.Equals("新廠包裝線"))
+                {
+                    //TA015=textBox84
+                    ADDMOCTATBMERGE(TA001, TA002, textBox80.Text, textBox81.Text, textBox82.Text, label104.Text, textBox79.Text, comboBox17.SelectedValue.ToString().Trim(), textBox84.Text.Trim(), textBox78.Text.Trim());
+                }
+                else
+                {
+                    //TA015=textBox83
+                    ADDMOCTATBMERGE(TA001, TA002, textBox80.Text, textBox81.Text, textBox82.Text, label104.Text, textBox79.Text, comboBox17.SelectedValue.ToString().Trim(), textBox83.Text.Trim(), textBox78.Text.Trim());
+                }
+                
                 //SEARCHMOCMANULINERESULT();
 
                 MessageBox.Show(TA001+" "+ TA002+"完成");
