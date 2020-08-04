@@ -127,7 +127,7 @@ namespace TKMOC
 
                 sbSql.AppendFormat(@"  SELECT ");
                 sbSql.AppendFormat(@"  TD001 AS '訂單',TD002 AS '訂單號',TD003 AS '訂單序號',TD013 AS '生產日',TD004 AS '品號'");
-                sbSql.AppendFormat(@"  ,TD005 AS '品名',TD005 AS '規格',(TD008+TD024) AS '數量',(TD008+TD024)/(ISNULL(MD007,1)) AS '箱數',(TD008+TD024) AS '包裝數'");
+                sbSql.AppendFormat(@"  ,TD005 AS '品名',TD006 AS '規格',(TD008+TD024) AS '數量',(TD008+TD024)/(ISNULL(MD007,1)) AS '箱數',(TD008+TD024) AS '包裝數'");
                 sbSql.AppendFormat(@"  ,(TD008+TD024)/(ISNULL(MC004,1)) AS '桶數',TC053 AS '客戶',TD013 AS '預交日',0 AS '工時',TD020 '備註'");
                 sbSql.AppendFormat(@"  ,0 AS '半成品','' AS TID,'' AS TCOPTD001,'' AS TCOPTD002,'' AS TCOPTD003");
                 sbSql.AppendFormat(@"  FROM [TK].dbo.COPTC,[TK].dbo.COPTD");
