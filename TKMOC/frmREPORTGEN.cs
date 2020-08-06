@@ -336,7 +336,7 @@ namespace TKMOC
             FASTSQL.AppendFormat(@" FROM [TKMOC].[dbo].[REPORTGEN]    ");
             FASTSQL.AppendFormat(@" WHERE TA001='{0}' AND TA002='{1}'", TA001, TA002);
             FASTSQL.AppendFormat(@" ORDER BY [TA001],[TA002],[BORADNUM]   ");
-            FASTSQL.AppendFormat(@"     ");
+            FASTSQL.AppendFormat(@"    ");
 
             return FASTSQL.ToString();
         }
