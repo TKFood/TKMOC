@@ -96,6 +96,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  ,[ID]");
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINETEMP]");
                 sbSql.AppendFormat(@"  WHERE  [MB001]='{0}'",MB001);
+                sbSql.AppendFormat(@"  AND [ID] NOT IN (SELECT [ID] FROM [TKMOC].[dbo].[MOCMANULINE] )");
                 sbSql.AppendFormat(@"  ORDER BY [SERNO]");
                 sbSql.AppendFormat(@"  ");
 

@@ -8130,7 +8130,7 @@ namespace TKMOC
                     sbSql.Clear();
                     sbSqlQuery.Clear();
 
-                    sbSql.AppendFormat(@" SELECT [ID]  FROM [TKMOC].[dbo].[MOCMANULINETEMP] WHERE [MB001]='{0}'", MB001);
+                    sbSql.AppendFormat(@" SELECT [ID]  FROM [TKMOC].[dbo].[MOCMANULINETEMP] WHERE [MB001]='{0}' AND [ID] NOT IN (SELECT [ID] FROM [TKMOC].[dbo].[MOCMANULINE] )", MB001);
                     sbSql.AppendFormat(@"  ");
 
                     adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -8193,7 +8193,7 @@ namespace TKMOC
                     sbSql.Clear();
                     sbSqlQuery.Clear();
 
-                    sbSql.AppendFormat(@" SELECT [ID]  FROM [TKMOC].[dbo].[MOCMANULINETEMP] WHERE [MB001]='{0}'", MB001);
+                    sbSql.AppendFormat(@" SELECT [ID]  FROM [TKMOC].[dbo].[MOCMANULINETEMP] WHERE [MB001]='{0}' AND [ID] NOT IN (SELECT [ID] FROM [TKMOC].[dbo].[MOCMANULINE] )", MB001);
                     sbSql.AppendFormat(@"  ");
 
                     adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -8255,7 +8255,7 @@ namespace TKMOC
                     sbSql.Clear();
                     sbSqlQuery.Clear();
 
-                    sbSql.AppendFormat(@" SELECT [ID]  FROM [TKMOC].[dbo].[MOCMANULINETEMP] WHERE [MB001]='{0}'", MB001);
+                    sbSql.AppendFormat(@" SELECT [ID]  FROM [TKMOC].[dbo].[MOCMANULINETEMP] WHERE [MB001]='{0}' AND [ID] NOT IN (SELECT [ID] FROM [TKMOC].[dbo].[MOCMANULINE] )", MB001);
                     sbSql.AppendFormat(@"  ");
 
                     adapter3 = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -8318,7 +8318,7 @@ namespace TKMOC
                     sbSql.Clear();
                     sbSqlQuery.Clear();
 
-                    sbSql.AppendFormat(@" SELECT [ID]  FROM [TKMOC].[dbo].[MOCMANULINETEMP] WHERE [MB001]='{0}'", MB001);
+                    sbSql.AppendFormat(@" SELECT [ID]  FROM [TKMOC].[dbo].[MOCMANULINETEMP] WHERE [MB001]='{0}' AND [ID] NOT IN (SELECT [ID] FROM [TKMOC].[dbo].[MOCMANULINE] )", MB001);
                     sbSql.AppendFormat(@"  ");
 
                     adapter4 = new SqlDataAdapter(@"" + sbSql, sqlConn);
