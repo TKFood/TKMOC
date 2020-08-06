@@ -8532,7 +8532,7 @@ namespace TKMOC
                 sbSql.AppendFormat(" (");
                 sbSql.AppendFormat(" [ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET],[MANUHOUR],[BOX],[PACKAGE],[OUTDATE],[TA029],[HALFPRO],[COPTD001],[COPTD002],[COPTD003]");
                 sbSql.AppendFormat(" )");
-                sbSql.AppendFormat(" SELECT [ID],[MANU],'{0}',[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET],[MANUHOUR],[BOX],[PACKAGE],'{0}',[TA029],[HALFPRO],[COPTD001],[COPTD002],[COPTD003]", MANUDATE.ToString("yyyy/MM/dd"));
+                sbSql.AppendFormat(" SELECT [ID],[MANU],'{0}',[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET],[MANUHOUR],[BOX],[PACKAGE],[OUTDATE],[TA029],[HALFPRO],[COPTD001],[COPTD002],[COPTD003]", MANUDATE.ToString("yyyy/MM/dd"));
                 sbSql.AppendFormat(" FROM [TKMOC].[dbo].[MOCMANULINETEMP]");
                 sbSql.AppendFormat(" WHERE  [ID]='{0}'",ID);
                 sbSql.AppendFormat(" ");

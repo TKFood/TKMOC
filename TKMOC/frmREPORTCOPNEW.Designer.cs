@@ -68,7 +68,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(984, 761);
+            this.tabControl1.Size = new System.Drawing.Size(984, 702);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
@@ -77,7 +77,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 26);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(976, 731);
+            this.tabPage1.Size = new System.Drawing.Size(976, 672);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -97,8 +97,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.previewControl1);
-            this.splitContainer1.Size = new System.Drawing.Size(970, 725);
-            this.splitContainer1.SplitterDistance = 94;
+            this.splitContainer1.Size = new System.Drawing.Size(970, 666);
+            this.splitContainer1.SplitterDistance = 86;
             this.splitContainer1.TabIndex = 1;
             // 
             // tableLayoutPanel1
@@ -143,7 +143,7 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(966, 90);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(966, 82);
             this.tableLayoutPanel1.TabIndex = 9;
             // 
             // label1
@@ -194,7 +194,7 @@
             this.checkBox7.AutoSize = true;
             this.checkBox7.Checked = true;
             this.checkBox7.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox7.Location = new System.Drawing.Point(3, 55);
+            this.checkBox7.Location = new System.Drawing.Point(3, 51);
             this.checkBox7.Name = "checkBox7";
             this.checkBox7.Size = new System.Drawing.Size(94, 20);
             this.checkBox7.TabIndex = 40;
@@ -207,7 +207,7 @@
             this.checkBox1.AutoSize = true;
             this.checkBox1.Checked = true;
             this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(103, 55);
+            this.checkBox1.Location = new System.Drawing.Point(103, 51);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(94, 20);
             this.checkBox1.TabIndex = 32;
@@ -220,7 +220,7 @@
             this.checkBox2.AutoSize = true;
             this.checkBox2.Checked = true;
             this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox2.Location = new System.Drawing.Point(203, 55);
+            this.checkBox2.Location = new System.Drawing.Point(203, 51);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(94, 20);
             this.checkBox2.TabIndex = 33;
@@ -233,7 +233,7 @@
             this.checkBox4.AutoSize = true;
             this.checkBox4.Checked = true;
             this.checkBox4.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox4.Location = new System.Drawing.Point(303, 55);
+            this.checkBox4.Location = new System.Drawing.Point(303, 51);
             this.checkBox4.Name = "checkBox4";
             this.checkBox4.Size = new System.Drawing.Size(94, 20);
             this.checkBox4.TabIndex = 35;
@@ -246,7 +246,7 @@
             this.checkBox5.AutoSize = true;
             this.checkBox5.Checked = true;
             this.checkBox5.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox5.Location = new System.Drawing.Point(403, 55);
+            this.checkBox5.Location = new System.Drawing.Point(403, 51);
             this.checkBox5.Name = "checkBox5";
             this.checkBox5.Size = new System.Drawing.Size(94, 20);
             this.checkBox5.TabIndex = 36;
@@ -259,7 +259,7 @@
             this.checkBox6.AutoSize = true;
             this.checkBox6.Checked = true;
             this.checkBox6.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox6.Location = new System.Drawing.Point(503, 55);
+            this.checkBox6.Location = new System.Drawing.Point(503, 51);
             this.checkBox6.Name = "checkBox6";
             this.checkBox6.Size = new System.Drawing.Size(94, 20);
             this.checkBox6.TabIndex = 37;
@@ -273,7 +273,7 @@
             this.comboBox3.Items.AddRange(new object[] {
             "明細",
             "月報"});
-            this.comboBox3.Location = new System.Drawing.Point(719, 10);
+            this.comboBox3.Location = new System.Drawing.Point(719, 8);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(114, 24);
             this.comboBox3.TabIndex = 43;
@@ -297,7 +297,7 @@
             this.comboBox2.Items.AddRange(new object[] {
             "依品名排序",
             "依日期排序"});
-            this.comboBox2.Location = new System.Drawing.Point(603, 10);
+            this.comboBox2.Location = new System.Drawing.Point(603, 8);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(110, 24);
             this.comboBox2.TabIndex = 42;
@@ -311,7 +311,7 @@
             "全部",
             "已確認",
             "未確認"});
-            this.comboBox1.Location = new System.Drawing.Point(503, 8);
+            this.comboBox1.Location = new System.Drawing.Point(503, 10);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(94, 24);
             this.comboBox1.TabIndex = 41;
@@ -323,7 +323,7 @@
             this.checkBox3.AutoSize = true;
             this.checkBox3.Checked = true;
             this.checkBox3.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox3.Location = new System.Drawing.Point(603, 55);
+            this.checkBox3.Location = new System.Drawing.Point(603, 51);
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(110, 20);
             this.checkBox3.TabIndex = 44;
@@ -347,7 +347,7 @@
             this.checkBox8.AutoSize = true;
             this.checkBox8.Checked = true;
             this.checkBox8.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox8.Location = new System.Drawing.Point(719, 55);
+            this.checkBox8.Location = new System.Drawing.Point(719, 51);
             this.checkBox8.Name = "checkBox8";
             this.checkBox8.Size = new System.Drawing.Size(114, 20);
             this.checkBox8.TabIndex = 46;
@@ -363,7 +363,7 @@
             this.previewControl1.Name = "previewControl1";
             this.previewControl1.PageOffset = new System.Drawing.Point(10, 10);
             this.previewControl1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.previewControl1.Size = new System.Drawing.Size(966, 623);
+            this.previewControl1.Size = new System.Drawing.Size(966, 572);
             this.previewControl1.TabIndex = 1;
             // 
             // tabPage2
@@ -380,7 +380,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(984, 761);
+            this.ClientSize = new System.Drawing.Size(984, 702);
             this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Margin = new System.Windows.Forms.Padding(4);
