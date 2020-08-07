@@ -1222,7 +1222,7 @@ namespace TKMOC
                 sbSql.AppendFormat("  )");
                 sbSql.AppendFormat("  VALUES");
                 sbSql.AppendFormat("  (");
-                sbSql.AppendFormat("  '{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}'", CSTMB.COMPANY, CSTMB.CREATOR, CSTMB.USR_GROUP, MB002, CSTMB.MODIFIER, CSTMB.MODI_DATE, CSTMB.FLAG, CSTMB.CREATE_TIME, CSTMB.MODI_TIME, CSTMB.TRANS_TYPE);
+                sbSql.AppendFormat("  '{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}'", CSTMB.COMPANY, CSTMB.CREATOR, CSTMB.USR_GROUP, CSTMB.CREATE_DATE, CSTMB.MODIFIER, CSTMB.MODI_DATE, CSTMB.FLAG, CSTMB.CREATE_TIME, CSTMB.MODI_TIME, CSTMB.TRANS_TYPE);
                 sbSql.AppendFormat("  ,'{0}','{1}','{2}','{3}','{4}','{5}','{6}'", CSTMB.TRANS_NAME, CSTMB.sync_date, CSTMB.sync_time, CSTMB.sync_mark, CSTMB.sync_count, CSTMB.DataUser, CSTMB.DataGroup);
                 sbSql.AppendFormat("  ,'{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}'", MB001, MB002,MB003, MB004, MB005, MB006, MB007, CSTMB.MB008, CSTMB.MB009, CSTMB.MB010);
                 sbSql.AppendFormat("  ,'{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}'", CSTMB.MB011, CSTMB.MB012, CSTMB.MB013, CSTMB.MB014, CSTMB.MB015, CSTMB.MB016, CSTMB.MB017, CSTMB.MB018, CSTMB.MB019, CSTMB.MB020);
@@ -1282,7 +1282,7 @@ namespace TKMOC
 
 
                 sbSql.AppendFormat("  UPDATE [TK].[dbo].[CSTMB]");
-                sbSql.AppendFormat("  SET [MB005]='{0}',[MB006]='{1}',[MB002]='{2}'", MB005,MB006, MB002);
+                sbSql.AppendFormat("  SET [MB005]='{0}',[MB006]='{1}',[MB002]='{2}',[MODI_DATE]='{3}'", MB005,MB006, MB002,DateTime.Now.ToString("yyyyMMdd"));
                 sbSql.AppendFormat("  WHERE [MB003]='{0}' AND [MB004]='{1}' AND [MB002]='{2}' AND [MB001]='{3}' ",MB003,MB004, MB002, MB001);
                 sbSql.AppendFormat("  ");
                 sbSql.AppendFormat("  ");
@@ -1321,7 +1321,7 @@ namespace TKMOC
             CSTMB.COMPANY = "TK";
             CSTMB.CREATOR = "100008";
             CSTMB.USR_GROUP = "103000";
-            CSTMB.CREATE_DATE = "";
+            CSTMB.CREATE_DATE = DateTime.Now.ToString("yyyyMMdd");
             CSTMB.MODIFIER = "";
             CSTMB.MODI_DATE = "";
             CSTMB.FLAG = "1";
