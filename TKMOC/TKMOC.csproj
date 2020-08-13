@@ -522,6 +522,12 @@
     <Compile Include="frmSUBMOCMANULINE.Designer.cs">
       <DependentUpon>frmSUBMOCMANULINE.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmTRACEBACK.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTRACEBACK.Designer.cs">
+      <DependentUpon>frmTRACEBACK.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmUPDATEMOCTA.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -751,6 +757,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmSUBMOCMANULINE.resx">
       <DependentUpon>frmSUBMOCMANULINE.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTRACEBACK.resx">
+      <DependentUpon>frmTRACEBACK.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmUPDATEMOCTA.resx">
       <DependentUpon>frmUPDATEMOCTA.cs</DependentUpon>
