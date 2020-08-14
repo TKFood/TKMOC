@@ -228,6 +228,8 @@ namespace TKMOC
         {
             ROWS = SERACHERPINVMB(TA001, TA002, TA017);
             int fianl = 1;
+            int BOSNUMS = 1;
+
             if(ROWS > 0)
             {
                 try
@@ -245,7 +247,7 @@ namespace TKMOC
 
                     if(CHECKROWS== ROWS)
                     {
-                        for (int i = 1; i < ROWS; i++)
+                        for (int i = 1; i <=ROWS; i++)
                         {
                             sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[REPORTGEN]");
                             sbSql.AppendFormat(" ([TA001],[TA002],[YEARS],[MONTHS],[DAYS],[MB001],[MB002],[MB003],[GENNUM],[BORADNUM])");
@@ -255,18 +257,30 @@ namespace TKMOC
                     }
                     else
                     {
-                        for (int i = 1; i < ROWS; i++)
+                        while(CHECKROWS>1)
                         {
                             sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[REPORTGEN]");
                             sbSql.AppendFormat(" ([TA001],[TA002],[YEARS],[MONTHS],[DAYS],[MB001],[MB002],[MB003],[GENNUM],[BORADNUM])");
-                            sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}',{9})", ds2.Tables["ds2"].Rows[0]["TA001"].ToString(), ds2.Tables["ds2"].Rows[0]["TA002"].ToString(), ds2.Tables["ds2"].Rows[0]["YEARS"].ToString(), ds2.Tables["ds2"].Rows[0]["MONTHS"].ToString(), ds2.Tables["ds2"].Rows[0]["DAYS"].ToString(), ds2.Tables["ds2"].Rows[0]["MB001"].ToString(), ds2.Tables["ds2"].Rows[0]["MB002"].ToString(), ds2.Tables["ds2"].Rows[0]["MB003"].ToString(), ds2.Tables["ds2"].Rows[0]["BOARDNUM"].ToString()+'A', i);
+                            sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}',{9})", ds2.Tables["ds2"].Rows[0]["TA001"].ToString(), ds2.Tables["ds2"].Rows[0]["TA002"].ToString(), ds2.Tables["ds2"].Rows[0]["YEARS"].ToString(), ds2.Tables["ds2"].Rows[0]["MONTHS"].ToString(), ds2.Tables["ds2"].Rows[0]["DAYS"].ToString(), ds2.Tables["ds2"].Rows[0]["MB001"].ToString(), ds2.Tables["ds2"].Rows[0]["MB002"].ToString(), ds2.Tables["ds2"].Rows[0]["MB003"].ToString(), ds2.Tables["ds2"].Rows[0]["BOARDNUM"].ToString()+'A', BOSNUMS);
                             sbSql.AppendFormat(" ");
                             fianl = fianl + 1;
+                            BOSNUMS = BOSNUMS + 1;
+
+                            CHECKROWS = CHECKROWS - 1;
                         }
 
+                        decimal GENNUMS;
+                        if(Math.Ceiling((Convert.ToDecimal(Convert.ToInt32(textBox4.Text) - (Convert.ToInt32(ds2.Tables["ds2"].Rows[0]["BOXNUM"].ToString()) * Convert.ToInt32(ds2.Tables["ds2"].Rows[0]["BOARDNUM"].ToString()) * ROWS))) / (Convert.ToDecimal(ds2.Tables["ds2"].Rows[0]["BOXNUM"].ToString())))<0)
+                        {
+                            GENNUMS = Convert.ToInt32(ds2.Tables["ds2"].Rows[0]["BOARDNUM"].ToString()) + Math.Ceiling((Convert.ToDecimal(Convert.ToInt32(textBox4.Text) - (Convert.ToInt32(ds2.Tables["ds2"].Rows[0]["BOXNUM"].ToString()) * Convert.ToInt32(ds2.Tables["ds2"].Rows[0]["BOARDNUM"].ToString()) * ROWS))) / (Convert.ToDecimal(ds2.Tables["ds2"].Rows[0]["BOXNUM"].ToString())));
+                        }
+                        else 
+                        {
+                            GENNUMS =  Math.Ceiling((Convert.ToDecimal(Convert.ToInt32(textBox4.Text) - (Convert.ToInt32(ds2.Tables["ds2"].Rows[0]["BOXNUM"].ToString()) * Convert.ToInt32(ds2.Tables["ds2"].Rows[0]["BOARDNUM"].ToString()) * ROWS))) / (Convert.ToDecimal(ds2.Tables["ds2"].Rows[0]["BOXNUM"].ToString())));
+                        }
                         sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[REPORTGEN]");
                         sbSql.AppendFormat(" ([TA001],[TA002],[YEARS],[MONTHS],[DAYS],[MB001],[MB002],[MB003],[GENNUM],[BORADNUM])");
-                        sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8} A',{9})", ds2.Tables["ds2"].Rows[0]["TA001"].ToString(), ds2.Tables["ds2"].Rows[0]["TA002"].ToString(), ds2.Tables["ds2"].Rows[0]["YEARS"].ToString(), ds2.Tables["ds2"].Rows[0]["MONTHS"].ToString(), ds2.Tables["ds2"].Rows[0]["DAYS"].ToString(), ds2.Tables["ds2"].Rows[0]["MB001"].ToString(), ds2.Tables["ds2"].Rows[0]["MB002"].ToString(), ds2.Tables["ds2"].Rows[0]["MB003"].ToString(), Convert.ToInt32(ds2.Tables["ds2"].Rows[0]["BOARDNUM"].ToString()) + Math.Ceiling((Convert.ToDecimal(Convert.ToInt32(textBox4.Text) - (Convert.ToInt32(ds2.Tables["ds2"].Rows[0]["BOXNUM"].ToString()) * Convert.ToInt32(ds2.Tables["ds2"].Rows[0]["BOARDNUM"].ToString()) * ROWS))) / (Convert.ToDecimal(ds2.Tables["ds2"].Rows[0]["BOXNUM"].ToString()))), fianl);
+                        sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8} A',{9})", ds2.Tables["ds2"].Rows[0]["TA001"].ToString(), ds2.Tables["ds2"].Rows[0]["TA002"].ToString(), ds2.Tables["ds2"].Rows[0]["YEARS"].ToString(), ds2.Tables["ds2"].Rows[0]["MONTHS"].ToString(), ds2.Tables["ds2"].Rows[0]["DAYS"].ToString(), ds2.Tables["ds2"].Rows[0]["MB001"].ToString(), ds2.Tables["ds2"].Rows[0]["MB002"].ToString(), ds2.Tables["ds2"].Rows[0]["MB003"].ToString(), Convert.ToInt32(GENNUMS), fianl);
                         sbSql.AppendFormat(" ");
                     }
                    
