@@ -245,7 +245,7 @@ namespace TKMOC
 
                     if(CHECKROWS== ROWS)
                     {
-                        for (int i = 1; i <= ROWS; i++)
+                        for (int i = 1; i < ROWS; i++)
                         {
                             sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[REPORTGEN]");
                             sbSql.AppendFormat(" ([TA001],[TA002],[YEARS],[MONTHS],[DAYS],[MB001],[MB002],[MB003],[GENNUM],[BORADNUM])");
@@ -255,7 +255,7 @@ namespace TKMOC
                     }
                     else
                     {
-                        for (int i = 1; i <= ROWS; i++)
+                        for (int i = 1; i < ROWS; i++)
                         {
                             sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[REPORTGEN]");
                             sbSql.AppendFormat(" ([TA001],[TA002],[YEARS],[MONTHS],[DAYS],[MB001],[MB002],[MB003],[GENNUM],[BORADNUM])");
