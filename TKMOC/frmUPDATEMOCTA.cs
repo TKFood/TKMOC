@@ -59,6 +59,41 @@ namespace TKMOC
         }
 
         #region FUNCTION
+        private void frmUPDATEMOCTA_Load(object sender, EventArgs e)
+        {
+            dataGridView1.AlternatingRowsDefaultCellStyle.BackColor = Color.PaleTurquoise;      //奇數列顏色
+
+            //先建立個 CheckBox 欄
+            DataGridViewCheckBoxColumn cbCol = new DataGridViewCheckBoxColumn();
+            cbCol.Width = 50;   //設定寬度
+            cbCol.HeaderText = "選擇";
+            cbCol.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;   //置中
+            cbCol.TrueValue = true;
+            cbCol.FalseValue = false;
+            dataGridView1.Columns.Insert(0, cbCol);
+
+            #region 建立全选 CheckBox
+
+            ////建立个矩形，等下计算 CheckBox 嵌入 GridView 的位置
+            //Rectangle rect = dataGridView3.GetCellDisplayRectangle(0, -1, true);
+            //rect.X = rect.Location.X + rect.Width / 4 - 18;
+            //rect.Y = rect.Location.Y + (rect.Height / 2 - 9);
+
+            //CheckBox cbHeader = new CheckBox();
+            //cbHeader.Name = "checkboxHeader";
+            //cbHeader.Size = new Size(18, 18);
+            //cbHeader.Location = rect.Location;
+
+            ////全选要设定的事件
+            //cbHeader.CheckedChanged += new EventHandler(cbHeader_CheckedChanged);
+
+            ////将 CheckBox 加入到 dataGridView
+            //dataGridView3.Controls.Add(cbHeader);
+
+
+            #endregion
+        }
+
         public void SEARCH()
         {
             try
@@ -195,6 +230,78 @@ namespace TKMOC
             }
         }
 
+        public void CHANGEMULTI()
+        {
+            StringBuilder TA001TA002 = new StringBuilder();
+            TA001TA002.Clear();
+
+            foreach (DataGridViewRow dr in this.dataGridView1.Rows)
+            {
+                if (dr.Cells[0].Value != null && (bool)dr.Cells[0].Value)
+                {
+                    if(!string.IsNullOrEmpty(dr.Cells["製令"].Value.ToString())&& !string.IsNullOrEmpty(dr.Cells["單號"].Value.ToString()))
+                    {
+                        TA001TA002.AppendFormat(@" '{0}{1}',", dr.Cells["製令"].Value.ToString().Trim(), dr.Cells["單號"].Value.ToString().Trim());
+                     
+                    }
+                }
+             
+            }
+
+            TA001TA002.AppendFormat(@" 'A311'");
+
+            UPDATEMULTITA033(TA001TA002.ToString());
+            //MessageBox.Show(TA001TA002.ToString());
+
+        }
+
+        public void UPDATEMULTITA033(string TA001TA002)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+
+                sbSql.AppendFormat(" UPDATE [TK].dbo.MOCTA SET TA033='{0}'", textBox4.Text);
+                sbSql.AppendFormat(" WHERE TA001+TA002 IN ({0})", TA001TA002);
+                sbSql.AppendFormat(" ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+
+
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+                    MessageBox.Show("完成");
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
         #endregion
 
         #region BUTTON
@@ -205,12 +312,13 @@ namespace TKMOC
 
         private void button2_Click(object sender, EventArgs e)
         {
-            UPDATETA033();
+            CHANGEMULTI();
             SEARCH();
         }
 
+
         #endregion
 
-     
+      
     }
 }
