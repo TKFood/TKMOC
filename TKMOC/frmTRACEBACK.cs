@@ -614,7 +614,23 @@ namespace TKMOC
 
                 sbSql.Clear();
 
-                sbSql.AppendFormat(@" ");
+                sbSql.AppendFormat(@" 
+                                    INSERT INTO [TKMOC].[dbo].[TRACEBACK]
+                                    ([MMB001],[MLOTNO],[KINDS],[LEVELS],[DATES],[MID],[DID],[SID],[MB001],[MB002],[LOTNO],[NUMS])
+
+                                    SELECT MF001,MF002,'3生產入庫','0',MF003,MF004,MF005,MF006,MF001,'',MF002,MF010
+                                    FROM [TK].dbo.INVME WITH (NOLOCK),[TK].dbo.INVMF WITH (NOLOCK),[TK].dbo.CMSMQ WITH (NOLOCK)
+                                    WHERE MF001=ME001 AND MF002=ME002
+                                    AND MQ001=MF004
+                                    AND MQ003='58'
+                                    AND RTRIM(LTRIM(MF001))+RTRIM(LTRIM(MF002)) IN
+                                    (
+                                    SELECT RTRIM(LTRIM([MB001]))+RTRIM(LTRIM([LOTNO]))
+                                    FROM [TKMOC].[dbo].[TRACEBACK]
+                                    )
+                                    ORDER BY INVMF.MF002,MF003,MF004,MF005
+
+                                    ",MB001,LOTNO);
 
                 cmd.Connection = sqlConn;
                 cmd.CommandTimeout = 60;
