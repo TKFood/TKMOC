@@ -17,6 +17,8 @@ using System.Reflection;
 using System.Threading;
 using System.Globalization;
 using Calendar.NET;
+using FastReport;
+using FastReport.Data;
 
 namespace TKMOC
 {
@@ -847,6 +849,39 @@ namespace TKMOC
             }
         }
 
+        public void SETFASTREPORT()
+        {
+            StringBuilder SQL = new StringBuilder();
+            Report report1 = new Report();
+
+            SQL = SETSQL();
+
+            report1.Load(@"REPORT\追踨表.frx");
+
+            report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+            TableDataSource table = report1.GetDataSource("Table") as TableDataSource;
+            table.SelectCommand = SQL.ToString();
+
+            report1.Preview = previewControl1;
+            report1.Show();
+        }
+
+        public StringBuilder SETSQL()
+        {
+            StringBuilder SB = new StringBuilder();
+         
+            SB.AppendFormat(@" 
+                            SELECT [MMB001] AS '主品號',[MMB002] AS '主品名',[MLOTNO] AS '主批號',[KINDS] AS '類別',[LEVELS] AS '層別',[DATES] AS '日期',[MID] AS '單別',[DID] AS '單號',[SID] AS '序號',[TG014] AS '製令',[TG015] AS '製令號',[MB001] AS '品號',[MB002] AS '品名',[LOTNO] AS '批號',[NUMS] AS '數量'
+                            FROM [TKMOC].[dbo].[TRACEBACK]
+                            ORDER BY [KINDS],[MMB001],[MLOTNO],[MID],[DID],[SID],[TG014],[TG015]
+
+
+                            ");
+
+            return SB;
+
+        }
+
         #endregion
 
         #region BUTTON
@@ -869,6 +904,8 @@ namespace TKMOC
 
 
             }
+
+            SETFASTREPORT();
         }
 
         #endregion
