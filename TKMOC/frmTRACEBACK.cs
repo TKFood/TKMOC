@@ -130,7 +130,7 @@ namespace TKMOC
                     ADDTRACEBACKOUT2(MB001, LOTNO);
                     ADDTRACEBACKMOC2(MB001, LOTNO);
                     ADDTRACEBACKMOCOUTIN2(MB001, LOTNO);
-                    //ADDTRACEBACKINVMF(MB001, LOTNO);
+                    ADDTRACEBACKINVMF2(MB001, LOTNO);
                 }
 
             }
@@ -732,6 +732,121 @@ namespace TKMOC
             }
         }
 
+        public void ADDTRACEBACKINVMF2(string MB001, string LOTNO)
+        {
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat(@" INSERT INTO [TKMOC].[dbo].[TRACEBACK]
+                                    ([MMB001],[MLOTNO],[KINDS],[LEVELS],[DATES],[MID],[DID],[SID],[MB001],[MB002],[LOTNO],[NUMS])
+
+                                    SELECT MF001,MF002,'6其他','0',MF003,MF004,MF005,MF006,MF001,'',MF002,MF010
+                                    FROM [TK].dbo.INVME WITH (NOLOCK),[TK].dbo.INVMF WITH (NOLOCK),[TK].dbo.CMSMQ WITH (NOLOCK)
+                                    WHERE MF001=ME001 AND MF002=ME002
+                                    AND MQ001=MF004
+                                    AND MQ003 IN ('13','14','15','16','17')
+                                    AND RTRIM(LTRIM(MF001))+RTRIM(LTRIM(MF002)) IN
+                                    (
+                                    SELECT RTRIM(LTRIM([MB001]))+RTRIM(LTRIM([LOTNO]))
+                                    FROM [TKMOC].[dbo].[TRACEBACK]
+                                    )
+                                    ORDER BY INVMF.MF002,MF003,MF004,MF005
+
+                                ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void UPDATETRACEBACK()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat(@" 
+                                    UPDATE [TKMOC].[dbo].[TRACEBACK]
+                                    SET [MMB002]=INVMB.MB002
+                                    FROM [TK].dbo.INVMB
+                                    WHERE [MMB001]=INVMB.MB001
+
+                                    UPDATE [TKMOC].[dbo].[TRACEBACK]
+                                    SET [MB002]=INVMB.MB002
+                                    FROM [TK].dbo.INVMB
+                                    WHERE [TRACEBACK].[MB001]=INVMB.MB001
+
+                                ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
         #endregion
 
         #region BUTTON
@@ -744,10 +859,12 @@ namespace TKMOC
                 if(comboBox1.Text.Trim().Equals("成品逆溯"))
                 {
                     SEARCHOUT(textBox1.Text.Trim(), textBox2.Text.Trim());
+                    UPDATETRACEBACK();
                 }
                 else if (comboBox1.Text.Trim().Equals("原料順溯"))
                 {
                     SEARCHOUT2(textBox1.Text.Trim(), textBox2.Text.Trim());
+                    UPDATETRACEBACK();
                 }
 
 
