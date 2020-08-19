@@ -4188,8 +4188,9 @@ namespace TKMOC
                     SUBPACKAGE2 = row.Cells["包裝數"].Value.ToString();
 
                     SEARCHMOCMANULINERESULT();
+                    MOCMANULINEMERGERESLUTMOCTA(ID2.ToString());
                     //SEARCHMOCMANULINECOP();
-                    
+
                 }
                 else
                 {
@@ -8648,6 +8649,72 @@ namespace TKMOC
         private void comboBox15_SelectedIndexChanged(object sender, EventArgs e)
         {
             comboBox17.SelectedIndex = comboBox15.SelectedIndex;
+        }
+
+        public void MOCMANULINEMERGERESLUTMOCTA(string ID)
+        {
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            DataSet ds1 = new DataSet();
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+     
+                sbSql.AppendFormat(@"  
+                                SELECT '合併' AS '合',TA001 AS '製',TA002 AS '單號',TA033 AS '批號'
+                                FROM [TK].dbo.MOCTA
+                                WHERE TA033 IN (
+                                SELECT [NO]
+                                FROM [TKMOC].[dbo].[MOCMANULINEMERGE]
+                                WHERE [SID] IN (
+                                SELECT ID
+                                FROM [TKMOC].[dbo].[MOCMANULINE]
+                                WHERE ID='{0}'
+                                )
+                                )
+                                ",ID);
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "ds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["ds1"].Rows.Count == 0)
+                {
+                    dataGridView21.DataSource = null;
+                }
+                else
+                {
+                    if (ds1.Tables["ds1"].Rows.Count >= 1)
+                    {
+
+                        dataGridView21.DataSource = ds1.Tables["ds1"];
+                        dataGridView21.Columns[0].Width = 40;
+                        dataGridView21.Columns[1].Width = 60;
+                        dataGridView21.Columns[2].Width = 120;
+                        dataGridView21.Columns[3].Width = 120;
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+
         }
 
         #endregion
