@@ -7458,6 +7458,13 @@ namespace TKMOC
                 sbSqlQuery.Clear();
 
                 sbSql.AppendFormat(@"  SELECT [MOCMANULINEMERGE].[NO] AS '編號',[MOCMANULINE].[MB001] AS '品號',[MOCMANULINE].[MB002] AS '品名',[MOCMANULINE].[MB003] AS '規格',SUM([MOCMANULINE].[BAR]) AS '加總桶數',SUM([MOCMANULINE].[NUM]) AS '加總數量',SUM([MOCMANULINE].[BOX]) AS '加總箱數',SUM([MOCMANULINE].[PACKAGE]) AS '加總包裝數' ");
+                sbSql.AppendFormat(@"  ,SUBSTRING( ");
+                sbSql.AppendFormat(@"  ( ");
+                sbSql.AppendFormat(@"  SELECT ',' +[MOCMANULINE].TA029 AS 'data()'");
+                sbSql.AppendFormat(@"  FROM   [TKMOC].[dbo].[MOCMANULINEMERGE],[TKMOC].[dbo].[MOCMANULINE]");
+                sbSql.AppendFormat(@"  WHERE [MOCMANULINEMERGE].[SID]=[MOCMANULINE].[ID]");
+                sbSql.AppendFormat(@"  AND [MOCMANULINEMERGE].[NO]='{0}' FOR XML PATH('') ",NO);
+                sbSql.AppendFormat(@"  ), 2 , 250) As 備註");
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINEMERGE],[TKMOC].[dbo].[MOCMANULINE]");
                 sbSql.AppendFormat(@"  WHERE [MOCMANULINEMERGE].[SID]=[MOCMANULINE].[ID]");
                 sbSql.AppendFormat(@"  AND [MOCMANULINEMERGE].[NO]='{0}'",NO);
@@ -7636,9 +7643,9 @@ namespace TKMOC
                         sbSql.AppendFormat(" DELETE [TKMOC].[dbo].[MOCMANULINEMERGERESLUT]");
                         sbSql.AppendFormat(" ");
                         sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINEMERGERESLUT]");
-                        sbSql.AppendFormat(" ([NO],[MB001],[MB002],[MB003],[NUM],[BAR])");
+                        sbSql.AppendFormat(" ([NO],[MB001],[MB002],[MB003],[NUM],[BAR],[COMMENT])");
                         sbSql.AppendFormat(" VALUES");
-                        sbSql.AppendFormat(" ('{0}','{1}','{2}','{3}','{4}','{5}')", ds34.Tables["ds34"].Rows[0]["編號"].ToString(), ds34.Tables["ds34"].Rows[0]["品號"].ToString(), ds34.Tables["ds34"].Rows[0]["品名"].ToString(), ds34.Tables["ds34"].Rows[0]["規格"].ToString(), ds34.Tables["ds34"].Rows[0]["加總包裝數"].ToString(), ds34.Tables["ds34"].Rows[0]["加總箱數"].ToString());
+                        sbSql.AppendFormat(" ('{0}','{1}','{2}','{3}','{4}','{5}','{6}')", ds34.Tables["ds34"].Rows[0]["編號"].ToString(), ds34.Tables["ds34"].Rows[0]["品號"].ToString(), ds34.Tables["ds34"].Rows[0]["品名"].ToString(), ds34.Tables["ds34"].Rows[0]["規格"].ToString(), ds34.Tables["ds34"].Rows[0]["加總包裝數"].ToString(), ds34.Tables["ds34"].Rows[0]["加總箱數"].ToString(), ds34.Tables["ds34"].Rows[0]["備註"].ToString());
                         sbSql.AppendFormat(" ");
                         sbSql.AppendFormat(" ");
                     }
@@ -7647,9 +7654,9 @@ namespace TKMOC
                         sbSql.AppendFormat(" DELETE [TKMOC].[dbo].[MOCMANULINEMERGERESLUT]");
                         sbSql.AppendFormat(" ");
                         sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINEMERGERESLUT]");
-                        sbSql.AppendFormat(" ([NO],[MB001],[MB002],[MB003],[NUM],[BAR])");
+                        sbSql.AppendFormat(" ([NO],[MB001],[MB002],[MB003],[NUM],[BAR],[COMMENT])");
                         sbSql.AppendFormat(" VALUES");
-                        sbSql.AppendFormat(" ('{0}','{1}','{2}','{3}','{4}','{5}')", ds34.Tables["ds34"].Rows[0]["編號"].ToString(), ds34.Tables["ds34"].Rows[0]["品號"].ToString(), ds34.Tables["ds34"].Rows[0]["品名"].ToString(), ds34.Tables["ds34"].Rows[0]["規格"].ToString(), ds34.Tables["ds34"].Rows[0]["加總數量"].ToString(), ds34.Tables["ds34"].Rows[0]["加總桶數"].ToString());
+                        sbSql.AppendFormat(" ('{0}','{1}','{2}','{3}','{4}','{5}','{6}')", ds34.Tables["ds34"].Rows[0]["編號"].ToString(), ds34.Tables["ds34"].Rows[0]["品號"].ToString(), ds34.Tables["ds34"].Rows[0]["品名"].ToString(), ds34.Tables["ds34"].Rows[0]["規格"].ToString(), ds34.Tables["ds34"].Rows[0]["加總數量"].ToString(), ds34.Tables["ds34"].Rows[0]["加總桶數"].ToString(), ds34.Tables["ds34"].Rows[0]["備註"].ToString());
                         sbSql.AppendFormat(" ");
                         sbSql.AppendFormat(" ");
                     }
@@ -7693,6 +7700,7 @@ namespace TKMOC
             textBox82.Text = null;
             textBox83.Text = null;
             textBox84.Text = null;
+            textBox79.Text = null;
 
             if (dataGridView14.CurrentRow != null)
             {
@@ -7705,6 +7713,7 @@ namespace TKMOC
                     textBox82.Text = row.Cells["規格"].Value.ToString();
                     textBox83.Text = row.Cells["加總數量"].Value.ToString();
                     textBox84.Text = row.Cells["加總包裝數"].Value.ToString();
+                    textBox79.Text = row.Cells["備註"].Value.ToString();
                 }
                 else
                 {
@@ -7713,6 +7722,7 @@ namespace TKMOC
                     textBox82.Text = null;
                     textBox83.Text = null;
                     textBox84.Text = null;
+                    textBox79.Text = null;
 
                 }
             }
