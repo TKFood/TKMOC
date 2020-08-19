@@ -51,7 +51,9 @@ namespace TKMOC
         string tablename = null;
         int rownum = 0;
 
-       
+        string TA033;
+
+
 
         public frmUPDATEMOCTA()
         {
@@ -302,6 +304,83 @@ namespace TKMOC
                 sqlConn.Close();
             }
         }
+
+        public string GETMAXMOCTATA033(DateTime dt)
+        {
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();         
+            DataSet ds1 = new DataSet();
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                StringBuilder sbSql = new StringBuilder();
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+                ds1.Clear();
+
+                sbSql.AppendFormat(@" 
+                            SELECT ISNULL(MAX(TA033),'00000000000') AS TA033
+                            FROM [TK].[dbo].[MOCTA] 
+                            WHERE [TA033] LIKE '{0}%'
+                            ", dt.ToString("yyyyMMdd"));
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "ds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["ds1"].Rows.Count == 0)
+                {
+                    return null;
+                }
+                else
+                {
+                    if (ds1.Tables["ds1"].Rows.Count >= 1)
+                    {
+                        TA033 = SETMAXNO(dt, ds1.Tables["ds1"].Rows[0]["TA033"].ToString());
+                        return TA033;
+
+                    }
+                    return null;
+                }
+
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public string SETMAXNO(DateTime dt, string NO)
+        {
+            if (NO.Equals("00000000000"))
+            {
+                return dt.ToString("yyyyMMdd") + "001";
+            }
+
+            else
+            {
+                int serno = Convert.ToInt16(NO.Substring(8, 3));
+                serno = serno + 1;
+                string temp = serno.ToString();
+                temp = temp.PadLeft(3, '0');
+                return dt.ToString("yyyyMMdd") + temp.ToString();
+            }
+
+
+        }
+
         #endregion
 
         #region BUTTON
@@ -316,9 +395,13 @@ namespace TKMOC
             SEARCH();
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            textBox4.Text = GETMAXMOCTATA033(DateTime.Now);
+        }
 
         #endregion
 
-      
+
     }
 }
