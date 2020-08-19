@@ -7631,14 +7631,30 @@ namespace TKMOC
                     sbSql.Clear();
 
 
-                    sbSql.AppendFormat(" DELETE [TKMOC].[dbo].[MOCMANULINEMERGERESLUT]");
-                    sbSql.AppendFormat(" ");
-                    sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINEMERGERESLUT]");
-                    sbSql.AppendFormat(" ([NO],[MB001],[MB002],[MB003],[NUM],[BAR])");
-                    sbSql.AppendFormat(" VALUES");
-                    sbSql.AppendFormat(" ('{0}','{1}','{2}','{3}','{4}','{5}')", ds34.Tables["ds34"].Rows[0]["編號"].ToString(), ds34.Tables["ds34"].Rows[0]["品號"].ToString(), ds34.Tables["ds34"].Rows[0]["品名"].ToString(), ds34.Tables["ds34"].Rows[0]["規格"].ToString(), ds34.Tables["ds34"].Rows[0]["加總數量"].ToString(), ds34.Tables["ds34"].Rows[0]["加總桶數"].ToString());
-                    sbSql.AppendFormat(" ");
-                    sbSql.AppendFormat(" ");
+                    if (comboBox15.Text.Equals("新廠包裝線"))
+                    {
+                        sbSql.AppendFormat(" DELETE [TKMOC].[dbo].[MOCMANULINEMERGERESLUT]");
+                        sbSql.AppendFormat(" ");
+                        sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINEMERGERESLUT]");
+                        sbSql.AppendFormat(" ([NO],[MB001],[MB002],[MB003],[NUM],[BAR])");
+                        sbSql.AppendFormat(" VALUES");
+                        sbSql.AppendFormat(" ('{0}','{1}','{2}','{3}','{4}','{5}')", ds34.Tables["ds34"].Rows[0]["編號"].ToString(), ds34.Tables["ds34"].Rows[0]["品號"].ToString(), ds34.Tables["ds34"].Rows[0]["品名"].ToString(), ds34.Tables["ds34"].Rows[0]["規格"].ToString(), ds34.Tables["ds34"].Rows[0]["加總包裝數"].ToString(), ds34.Tables["ds34"].Rows[0]["加總箱數"].ToString());
+                        sbSql.AppendFormat(" ");
+                        sbSql.AppendFormat(" ");
+                    }
+                    else
+                    {
+                        sbSql.AppendFormat(" DELETE [TKMOC].[dbo].[MOCMANULINEMERGERESLUT]");
+                        sbSql.AppendFormat(" ");
+                        sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINEMERGERESLUT]");
+                        sbSql.AppendFormat(" ([NO],[MB001],[MB002],[MB003],[NUM],[BAR])");
+                        sbSql.AppendFormat(" VALUES");
+                        sbSql.AppendFormat(" ('{0}','{1}','{2}','{3}','{4}','{5}')", ds34.Tables["ds34"].Rows[0]["編號"].ToString(), ds34.Tables["ds34"].Rows[0]["品號"].ToString(), ds34.Tables["ds34"].Rows[0]["品名"].ToString(), ds34.Tables["ds34"].Rows[0]["規格"].ToString(), ds34.Tables["ds34"].Rows[0]["加總數量"].ToString(), ds34.Tables["ds34"].Rows[0]["加總桶數"].ToString());
+                        sbSql.AppendFormat(" ");
+                        sbSql.AppendFormat(" ");
+                    }
+
+                   
 
                     cmd.Connection = sqlConn;
                     cmd.CommandTimeout = 60;
@@ -9239,6 +9255,8 @@ namespace TKMOC
         private void button65_Click(object sender, EventArgs e)
         {
             CALSUMMOCMANULINEMERGE(textBox78.Text.Trim());
+
+               
         }
 
         private void button66_Click(object sender, EventArgs e)
