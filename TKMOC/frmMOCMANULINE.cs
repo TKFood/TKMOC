@@ -1994,9 +1994,10 @@ namespace TKMOC
                     SEARCHMOCMANULINERESULT();
 
                     SEARCHMOCMANULINECOP(ID1);
+                    SEARCHMOCMANULINEMERGERESLUTMOCTA(ID1.ToString());
                     //SEARCHMOCMANULINECOP();
 
-;
+                    ;
                 }
                 else
                 {
@@ -4162,7 +4163,6 @@ namespace TKMOC
         }
         private void dataGridView3_SelectionChanged(object sender, EventArgs e)
         {
-     
             if (dataGridView3.CurrentRow != null)
             {
                 int rowindex = dataGridView3.CurrentRow.Index;
@@ -4188,7 +4188,7 @@ namespace TKMOC
                     SUBPACKAGE2 = row.Cells["包裝數"].Value.ToString();
 
                     SEARCHMOCMANULINERESULT();
-                    MOCMANULINEMERGERESLUTMOCTA(ID2.ToString());
+                    SEARCHMOCMANULINEMERGERESLUTMOCTA(ID2.ToString());
                     //SEARCHMOCMANULINECOP();
 
                 }
@@ -4245,8 +4245,9 @@ namespace TKMOC
                     SUBPACKAGE3 = null;
 
                     SEARCHMOCMANULINERESULT();
+                    SEARCHMOCMANULINEMERGERESLUTMOCTA(ID3.ToString());
                     //SEARCHMOCMANULINECOP();
-                    
+
                 }
                 else
                 {
@@ -4303,8 +4304,9 @@ namespace TKMOC
                     SUBPACKAGE4 = null;
 
                     SEARCHMOCMANULINERESULT();
+                    SEARCHMOCMANULINEMERGERESLUTMOCTA(ID4.ToString());
                     //SEARCHMOCMANULINECOP();
-                    
+
                 }
                 else
                 {
@@ -8651,11 +8653,13 @@ namespace TKMOC
             comboBox17.SelectedIndex = comboBox15.SelectedIndex;
         }
 
-        public void MOCMANULINEMERGERESLUTMOCTA(string ID)
+        public void SEARCHMOCMANULINEMERGERESLUTMOCTA(string ID)
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
             SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
             DataSet ds1 = new DataSet();
+
+          
 
             try
             {
@@ -8688,22 +8692,84 @@ namespace TKMOC
                 sqlConn.Close();
 
 
-                if (ds1.Tables["ds1"].Rows.Count == 0)
+                if (MANU.Equals("新廠製二組"))
                 {
-                    dataGridView21.DataSource = null;
-                }
-                else
-                {
-                    if (ds1.Tables["ds1"].Rows.Count >= 1)
+                    if (ds1.Tables["ds1"].Rows.Count == 0)
                     {
+                        dataGridView11.DataSource = null;
+                    }
+                    else
+                    {
+                        if (ds1.Tables["ds1"].Rows.Count >= 1)
+                        {
 
-                        dataGridView21.DataSource = ds1.Tables["ds1"];
-                        dataGridView21.Columns[0].Width = 40;
-                        dataGridView21.Columns[1].Width = 60;
-                        dataGridView21.Columns[2].Width = 120;
-                        dataGridView21.Columns[3].Width = 120;
+                            dataGridView11.DataSource = ds1.Tables["ds1"];
+                            dataGridView11.Columns[0].Width = 40;
+                            dataGridView11.Columns[1].Width = 60;
+                            dataGridView11.Columns[2].Width = 120;
+                            dataGridView11.Columns[3].Width = 120;
+                        }
                     }
                 }
+                else if (MANU.Equals("新廠包裝線"))
+                {
+                    if (ds1.Tables["ds1"].Rows.Count == 0)
+                    {
+                        dataGridView21.DataSource = null;
+                    }
+                    else
+                    {
+                        if (ds1.Tables["ds1"].Rows.Count >= 1)
+                        {
+
+                            dataGridView21.DataSource = ds1.Tables["ds1"];
+                            dataGridView21.Columns[0].Width = 40;
+                            dataGridView21.Columns[1].Width = 60;
+                            dataGridView21.Columns[2].Width = 120;
+                            dataGridView21.Columns[3].Width = 120;
+                        }
+                    }
+                }
+                else if (MANU.Equals("新廠製一組"))
+                {
+                    if (ds1.Tables["ds1"].Rows.Count == 0)
+                    {
+                        dataGridView22.DataSource = null;
+                    }
+                    else
+                    {
+                        if (ds1.Tables["ds1"].Rows.Count >= 1)
+                        {
+
+                            dataGridView22.DataSource = ds1.Tables["ds1"];
+                            dataGridView22.Columns[0].Width = 40;
+                            dataGridView22.Columns[1].Width = 60;
+                            dataGridView22.Columns[2].Width = 120;
+                            dataGridView22.Columns[3].Width = 120;
+                        }
+                    }
+                }
+                else if (MANU.Equals("新廠製三組(手工)"))
+                {
+                    if (ds1.Tables["ds1"].Rows.Count == 0)
+                    {
+                        dataGridView22.DataSource = null;
+                    }
+                    else
+                    {
+                        if (ds1.Tables["ds1"].Rows.Count >= 1)
+                        {
+
+                            dataGridView23.DataSource = ds1.Tables["ds1"];
+                            dataGridView23.Columns[0].Width = 40;
+                            dataGridView23.Columns[1].Width = 60;
+                            dataGridView23.Columns[2].Width = 120;
+                            dataGridView23.Columns[3].Width = 120;
+                        }
+                    }
+                }
+
+               
 
             }
             catch
