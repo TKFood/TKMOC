@@ -6515,7 +6515,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.BOMMD WITH(NOLOCK) ON BOMMD.MD001=TD004 ");
                     sbSql.AppendFormat(@"  WHERE TC001=TD001 AND TC002=TD002");
                     sbSql.AppendFormat(@"  AND MB001=TD004");
-                    sbSql.AppendFormat(@"  AND BOMMD.MD003 LIKE '3%'");
+                    sbSql.AppendFormat(@"  AND (BOMMD.MD003 LIKE '3%' OR BOMMD.MD003 LIKE '4%')");
                     sbSql.AppendFormat(@"  AND TD001='{0}' AND TD002='{1}' AND TD003='{2}'", TD001, TD002, TD003);
                     
                     sbSql.AppendFormat(@"  ");
@@ -6732,7 +6732,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.BOMMD WITH(NOLOCK) ON BOMMD.MD001=TD004 ");
                     sbSql.AppendFormat(@"  WHERE TC001=TD001 AND TC002=TD002");
                     sbSql.AppendFormat(@"  AND MB001=TD004");
-                    sbSql.AppendFormat(@"  AND BOMMD.MD003 LIKE '3%'");
+                    sbSql.AppendFormat(@"  AND (BOMMD.MD003 LIKE '3%' OR BOMMD.MD003 LIKE '4%') ");
                     sbSql.AppendFormat(@"  AND TD001='{0}' AND TD002='{1}' AND TD003='{2}'", TD001, TD002, TD003);
 
                     sbSql.AppendFormat(@"  ");
