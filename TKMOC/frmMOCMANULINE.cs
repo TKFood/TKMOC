@@ -8619,7 +8619,7 @@ namespace TKMOC
 
                     UPDATEMOCMANULINETEMPTID(ID);
 
-                    MessageBox.Show("移轉成功");
+                   
                 }
 
             }
@@ -9731,13 +9731,19 @@ namespace TKMOC
 
         private void button77_Click(object sender, EventArgs e)
         {
-            if(!string.IsNullOrEmpty(ID10))
+            foreach (DataGridViewRow dr in this.dataGridView20.Rows)
             {
-                INSERTTOMOCMANULINE(ID10,dateTimePicker25.Value);
-
-                SEARCHMOCMANULINETEMP(comboBox20.Text.Trim(), textBox722.Text.Trim());
+                ID10 = ((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[18].ToString();
+                if (dr.Cells[0].Value != null && (bool)dr.Cells[0].Value)
+                {
+                    INSERTTOMOCMANULINE(ID10, dateTimePicker25.Value);
+                }
             }
-            
+
+            MessageBox.Show("移轉成功");
+
+            SEARCHMOCMANULINETEMP(comboBox20.Text.Trim(), textBox722.Text.Trim());
+
         }
         private void button78_Click(object sender, EventArgs e)
         {
