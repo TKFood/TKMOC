@@ -413,6 +413,41 @@ namespace TKMOC
         }
 
         #region FUNCTION
+
+        private void frmMOCMANULINE_Load(object sender, EventArgs e)
+        {
+            dataGridView20.AlternatingRowsDefaultCellStyle.BackColor = Color.PaleTurquoise;      //奇數列顏色
+
+            //先建立個 CheckBox 欄
+            DataGridViewCheckBoxColumn cbCol = new DataGridViewCheckBoxColumn();
+            cbCol.Width = 50;   //設定寬度
+            cbCol.HeaderText = "選擇";
+            cbCol.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;   //置中
+            cbCol.TrueValue = true;
+            cbCol.FalseValue = false;
+            dataGridView20.Columns.Insert(0, cbCol);
+
+            #region 建立全选 CheckBox
+
+            ////建立个矩形，等下计算 CheckBox 嵌入 GridView 的位置
+            //Rectangle rect = dataGridView3.GetCellDisplayRectangle(0, -1, true);
+            //rect.X = rect.Location.X + rect.Width / 4 - 18;
+            //rect.Y = rect.Location.Y + (rect.Height / 2 - 9);
+
+            //CheckBox cbHeader = new CheckBox();
+            //cbHeader.Name = "checkboxHeader";
+            //cbHeader.Size = new Size(18, 18);
+            //cbHeader.Location = rect.Location;
+
+            ////全选要设定的事件
+            //cbHeader.CheckedChanged += new EventHandler(cbHeader_CheckedChanged);
+
+            ////将 CheckBox 加入到 dataGridView
+            //dataGridView3.Controls.Add(cbHeader);
+
+
+            #endregion
+        }
         public void comboBox1load()
         {
             connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
@@ -9719,8 +9754,9 @@ namespace TKMOC
             ADDMULTIMOCMANULINETEMP(textBox781.Text.Trim(), textBox782.Text.Trim(), textBox783.Text.Trim());
         }
 
+
         #endregion
 
-
+       
     }
 }
