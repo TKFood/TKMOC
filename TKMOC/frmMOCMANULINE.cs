@@ -7495,19 +7495,21 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  SELECT [MOCMANULINEMERGE].[NO] AS '編號',[MOCMANULINE].[MB001] AS '品號',[MOCMANULINE].[MB002] AS '品名',[MOCMANULINE].[MB003] AS '規格',SUM([MOCMANULINE].[BAR]) AS '加總桶數',SUM([MOCMANULINE].[NUM]) AS '加總數量',SUM([MOCMANULINE].[BOX]) AS '加總箱數',SUM([MOCMANULINE].[PACKAGE]) AS '加總包裝數' ");
-                sbSql.AppendFormat(@"  ,SUBSTRING( ");
-                sbSql.AppendFormat(@"  ( ");
-                sbSql.AppendFormat(@"  SELECT ',' +[MOCMANULINE].TA029 AS 'data()'");
-                sbSql.AppendFormat(@"  FROM   [TKMOC].[dbo].[MOCMANULINEMERGE],[TKMOC].[dbo].[MOCMANULINE]");
-                sbSql.AppendFormat(@"  WHERE [MOCMANULINEMERGE].[SID]=[MOCMANULINE].[ID]");
-                sbSql.AppendFormat(@"  AND [MOCMANULINEMERGE].[NO]='{0}' FOR XML PATH('') ",NO);
-                sbSql.AppendFormat(@"  ), 2 , 250) As 備註");
-                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINEMERGE],[TKMOC].[dbo].[MOCMANULINE]");
-                sbSql.AppendFormat(@"  WHERE [MOCMANULINEMERGE].[SID]=[MOCMANULINE].[ID]");
-                sbSql.AppendFormat(@"  AND [MOCMANULINEMERGE].[NO]='{0}'",NO);
-                sbSql.AppendFormat(@"  GROUP BY [MOCMANULINEMERGE].[NO],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[MOCMANULINE].[MB003]");
-                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  
+                                    SELECT [MOCMANULINEMERGE].[NO] AS '編號',[MOCMANULINE].[MB001] AS '品號',[INVMB].MB002 AS '品名',[INVMB].MB003 AS '規格',SUM([MOCMANULINE].[BAR]) AS '加總桶數',SUM([MOCMANULINE].[NUM]) AS '加總數量',SUM([MOCMANULINE].[BOX]) AS '加總箱數',SUM([MOCMANULINE].[PACKAGE]) AS '加總包裝數' 
+                                    ,SUBSTRING( 
+                                    ( 
+                                    SELECT ',' +[MOCMANULINE].TA029 AS 'data()'
+                                    FROM   [TKMOC].[dbo].[MOCMANULINEMERGE],[TKMOC].[dbo].[MOCMANULINE]
+                                    WHERE [MOCMANULINEMERGE].[SID]=[MOCMANULINE].[ID]
+                                    AND [MOCMANULINEMERGE].[NO]='{0}' FOR XML PATH('') 
+                                    ), 2 , 250) As 備註
+                                    FROM [TKMOC].[dbo].[MOCMANULINEMERGE],[TKMOC].[dbo].[MOCMANULINE],[TK].dbo.[INVMB]
+                                    WHERE [INVMB].MB001=[MOCMANULINE].[MB001]
+                                    AND [MOCMANULINEMERGE].[SID]=[MOCMANULINE].[ID]
+                                    AND [MOCMANULINEMERGE].[NO]='{0}'
+                                    GROUP BY [MOCMANULINEMERGE].[NO],[MOCMANULINE].[MB001],[INVMB].MB002,[INVMB].MB003
+                                    ", NO);
 
                 adapter34 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
