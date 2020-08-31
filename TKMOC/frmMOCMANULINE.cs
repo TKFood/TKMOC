@@ -6290,7 +6290,7 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  SELECT TC053,TD004,TD005,TD006,(TD008+TD024) AS TD008,TD010,TC015,TD013");
+                sbSql.AppendFormat(@"  SELECT TC053,TD004,TD005,TD006,(TD008+TD024) AS TD008,TD010,(TC015+'-'+TD020) TC015 ,TD013");
                 sbSql.AppendFormat(@"  ,(CASE WHEN ISNULL(MD002,'')<>'' THEN (TD008+TD024)*MD004 ELSE (TD008+TD024)  END ) AS NUM");
                 sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB WITH(NOLOCK),[TK].dbo.COPTC WITH(NOLOCK),[TK].dbo.COPTD WITH(NOLOCK)");
                 sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.INVMD ON MD001=TD004 AND TD010=MD002");
