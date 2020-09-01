@@ -47,6 +47,7 @@ namespace TKMOC
         int ROWS=0;
         int TA017=0;
         decimal CHECKROWS = 0;
+        string MB001 = null;
 
         public Report report1 { get; private set; }
 
@@ -116,6 +117,7 @@ namespace TKMOC
             textBox1.Text = null;
             textBox2.Text = null;
             textBox3.Text = null;
+            MB001 = null;
 
             if (dataGridView1.CurrentRow != null)
             {
@@ -126,12 +128,14 @@ namespace TKMOC
                     textBox1.Text = row.Cells["製令"].Value.ToString();
                     textBox2.Text = row.Cells["製令號"].Value.ToString();
                     textBox3.Text = row.Cells["備註"].Value.ToString();
+                    MB001 = row.Cells["品號"].Value.ToString();
                 }
                 else
                 {
                     textBox1.Text = null;
                     textBox2.Text = null;
                     textBox3.Text = null;
+                    MB001 = null;
 
                 }
             }
@@ -245,13 +249,16 @@ namespace TKMOC
 
                     sbSql.AppendFormat("DELETE  [TKMOC].[dbo].[REPORTGEN]");
 
-                    if(CHECKROWS== ROWS)
+                    string BOARDNUM = ds2.Tables["ds2"].Rows[0]["BOARDNUM"].ToString();
+                    int BOARDNUMGENNUM = Convert.ToInt32(Convert.ToDecimal(BOARDNUM));
+
+                    if (CHECKROWS== ROWS)
                     {
                         for (int i = 1; i <=ROWS; i++)
                         {
                             sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[REPORTGEN]");
                             sbSql.AppendFormat(" ([TA001],[TA002],[YEARS],[MONTHS],[DAYS],[MB001],[MB002],[MB003],[GENNUM],[BORADNUM])");
-                            sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}',{9})", ds2.Tables["ds2"].Rows[0]["TA001"].ToString(), ds2.Tables["ds2"].Rows[0]["TA002"].ToString(), ds2.Tables["ds2"].Rows[0]["YEARS"].ToString(), ds2.Tables["ds2"].Rows[0]["MONTHS"].ToString(), ds2.Tables["ds2"].Rows[0]["DAYS"].ToString(), ds2.Tables["ds2"].Rows[0]["MB001"].ToString(), ds2.Tables["ds2"].Rows[0]["MB002"].ToString(), ds2.Tables["ds2"].Rows[0]["MB003"].ToString(), ds2.Tables["ds2"].Rows[0]["BOARDNUM"].ToString()+'A', i);
+                            sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}',{9})", ds2.Tables["ds2"].Rows[0]["TA001"].ToString(), ds2.Tables["ds2"].Rows[0]["TA002"].ToString(), ds2.Tables["ds2"].Rows[0]["YEARS"].ToString(), ds2.Tables["ds2"].Rows[0]["MONTHS"].ToString(), ds2.Tables["ds2"].Rows[0]["DAYS"].ToString(), ds2.Tables["ds2"].Rows[0]["MB001"].ToString(), ds2.Tables["ds2"].Rows[0]["MB002"].ToString(), ds2.Tables["ds2"].Rows[0]["MB003"].ToString(), BOARDNUMGENNUM.ToString() + 'A', i);
                             sbSql.AppendFormat(" ");                          
                         }
                     }
@@ -263,22 +270,34 @@ namespace TKMOC
 
                             sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[REPORTGEN]");
                             sbSql.AppendFormat(" ([TA001],[TA002],[YEARS],[MONTHS],[DAYS],[MB001],[MB002],[MB003],[GENNUM],[BORADNUM])");
-                            sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}',{9})", ds2.Tables["ds2"].Rows[0]["TA001"].ToString(), ds2.Tables["ds2"].Rows[0]["TA002"].ToString(), ds2.Tables["ds2"].Rows[0]["YEARS"].ToString(), ds2.Tables["ds2"].Rows[0]["MONTHS"].ToString(), ds2.Tables["ds2"].Rows[0]["DAYS"].ToString(), ds2.Tables["ds2"].Rows[0]["MB001"].ToString(), ds2.Tables["ds2"].Rows[0]["MB002"].ToString(), ds2.Tables["ds2"].Rows[0]["MB003"].ToString(), ds2.Tables["ds2"].Rows[0]["BOARDNUM"].ToString()+'A', BOSNUMS);
+                            sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}',{9})", ds2.Tables["ds2"].Rows[0]["TA001"].ToString(), ds2.Tables["ds2"].Rows[0]["TA002"].ToString(), ds2.Tables["ds2"].Rows[0]["YEARS"].ToString(), ds2.Tables["ds2"].Rows[0]["MONTHS"].ToString(), ds2.Tables["ds2"].Rows[0]["DAYS"].ToString(), ds2.Tables["ds2"].Rows[0]["MB001"].ToString(), ds2.Tables["ds2"].Rows[0]["MB002"].ToString(), ds2.Tables["ds2"].Rows[0]["MB003"].ToString(), BOARDNUMGENNUM.ToString()+ 'A', BOSNUMS);
                             sbSql.AppendFormat(" ");
                             fianl = fianl + 1;
 
                             CHECKROWS = CHECKROWS - 1;
                         }
 
-                        decimal GENNUMS = Math.Ceiling((Convert.ToDecimal(Convert.ToInt32(textBox4.Text) - (Convert.ToInt32(ds2.Tables["ds2"].Rows[0]["BOXNUM"].ToString()) * Convert.ToInt32(ds2.Tables["ds2"].Rows[0]["BOARDNUM"].ToString()) * (BOSNUMS)))) / (Convert.ToDecimal(ds2.Tables["ds2"].Rows[0]["BOXNUM"].ToString()))); 
-                        //if(Math.Ceiling((Convert.ToDecimal(Convert.ToInt32(textBox4.Text) - (Convert.ToInt32(ds2.Tables["ds2"].Rows[0]["BOXNUM"].ToString()) * Convert.ToInt32(ds2.Tables["ds2"].Rows[0]["BOARDNUM"].ToString()) * ROWS))) / (Convert.ToDecimal(ds2.Tables["ds2"].Rows[0]["BOXNUM"].ToString())))<0)
-                        //{
-                        //    GENNUMS = Convert.ToInt32(ds2.Tables["ds2"].Rows[0]["BOARDNUM"].ToString()) + Math.Ceiling((Convert.ToDecimal(Convert.ToInt32(textBox4.Text) - (Convert.ToInt32(ds2.Tables["ds2"].Rows[0]["BOXNUM"].ToString()) * Convert.ToInt32(ds2.Tables["ds2"].Rows[0]["BOARDNUM"].ToString()) * ROWS))) / (Convert.ToDecimal(ds2.Tables["ds2"].Rows[0]["BOXNUM"].ToString())));
-                        //}
-                        //else 
-                        //{
-                        //    GENNUMS =  Math.Ceiling((Convert.ToDecimal(Convert.ToInt32(textBox4.Text) - (Convert.ToInt32(ds2.Tables["ds2"].Rows[0]["BOXNUM"].ToString()) * Convert.ToInt32(ds2.Tables["ds2"].Rows[0]["BOARDNUM"].ToString()) * ROWS))) / (Convert.ToDecimal(ds2.Tables["ds2"].Rows[0]["BOXNUM"].ToString())));
-                        //}
+                        decimal GENNUMS = 0;
+
+                        if (MB001.Substring(0,1).Equals("4"))
+                        {
+                            decimal INPUT = Convert.ToDecimal(textBox4.Text);
+                            decimal OTHERS = Convert.ToDecimal(ds2.Tables["ds2"].Rows[0]["BOXNUM"].ToString()) * Convert.ToDecimal(ds2.Tables["ds2"].Rows[0]["BOARDNUM"].ToString())* BOSNUMS ;
+                            GENNUMS = Math.Ceiling((INPUT - OTHERS) / Convert.ToDecimal(ds2.Tables["ds2"].Rows[0]["BOXNUM"].ToString()));
+
+                            
+                        }
+                        else if (MB001.Substring(0, 1).Equals("3"))
+                        {
+                            decimal INPUT = Convert.ToDecimal(textBox4.Text);
+                            decimal OTHERS = Convert.ToDecimal(ds2.Tables["ds2"].Rows[0]["BOXNUM"].ToString()) * Convert.ToDecimal(ds2.Tables["ds2"].Rows[0]["BOARDNUM"].ToString()) * BOSNUMS;
+                            GENNUMS = Math.Ceiling((INPUT - OTHERS) / Convert.ToDecimal(ds2.Tables["ds2"].Rows[0]["BOXNUM"].ToString()));
+
+                            //GENNUMS = Math.Ceiling((Convert.ToDecimal(Convert.ToDecimal(textBox4.Text) - (Convert.ToDecimal(ds2.Tables["ds2"].Rows[0]["BOXNUM"].ToString()) * Convert.ToDecimal(ds2.Tables["ds2"].Rows[0]["BOARDNUM"].ToString()) * (BOSNUMS)))) / (Convert.ToDecimal(ds2.Tables["ds2"].Rows[0]["BOXNUM"].ToString())));
+                        }
+
+
+
                         sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[REPORTGEN]");
                         sbSql.AppendFormat(" ([TA001],[TA002],[YEARS],[MONTHS],[DAYS],[MB001],[MB002],[MB003],[GENNUM],[BORADNUM])");
                         sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8} A',{9})", ds2.Tables["ds2"].Rows[0]["TA001"].ToString(), ds2.Tables["ds2"].Rows[0]["TA002"].ToString(), ds2.Tables["ds2"].Rows[0]["YEARS"].ToString(), ds2.Tables["ds2"].Rows[0]["MONTHS"].ToString(), ds2.Tables["ds2"].Rows[0]["DAYS"].ToString(), ds2.Tables["ds2"].Rows[0]["MB001"].ToString(), ds2.Tables["ds2"].Rows[0]["MB002"].ToString(), ds2.Tables["ds2"].Rows[0]["MB003"].ToString(), Convert.ToInt32(GENNUMS), fianl);
@@ -471,8 +490,8 @@ namespace TKMOC
                     textBox6.Text = row.Cells["品號"].Value.ToString();
                     textBox7.Text = row.Cells["品名"].Value.ToString();
                     textBox8.Text = row.Cells["規格"].Value.ToString();
-                    numericUpDown1.Value =Convert.ToInt32(row.Cells["箱數"].Value.ToString());
-                    numericUpDown2.Value = Convert.ToInt32(row.Cells["板數"].Value.ToString());
+                    numericUpDown1.Value =Convert.ToDecimal(row.Cells["箱數"].Value.ToString());
+                    numericUpDown2.Value = Convert.ToDecimal(row.Cells["板數"].Value.ToString());
 
                 }
                 else
