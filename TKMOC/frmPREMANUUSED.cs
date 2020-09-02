@@ -892,220 +892,252 @@ namespace TKMOC
 
                 sbSql.Clear();
                 sbSqlQuery.Clear();
-
-                if (comboBox1.Text.Equals("不含水麵") && comboBox2.Text.Equals("過濾指定品號的原料"))
+                if (comboBox3.Text.Equals("不含少量") && comboBox1.Text.Equals("含水麵") && comboBox2.Text.Equals("過濾指定品號的原料"))
                 {
-                    sbSql.AppendFormat(@"  
-                                        SELECT [MANU] AS '線別',CONVERT(nvarchar,[MANUDATE],112) AS '生產日',[MD003] AS '組件',[MD035] AS '組件名',TNUM AS '需求量',[MB004] AS '單位'
-                                        ,[MB001] AS '成品',[MB002] AS '成品名',[COPTD001] AS '訂單單別',[COPTD002] AS '訂單單號',[COPTD003] AS '訂單序號',[BAR] AS '桶數',[NUM] AS '數量',[PACKAGE] AS '包裝數',[MC001] AS '主件',[MC004] AS '批量',[MD006] AS '分子',[MD007] AS '分母',[MD008] AS '損秏率'
-                                        FROM (
-                                        SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
-                                        ,CONVERT(decimal(16,3),([PACKAGE]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
-                                        ,[MB004]
-                                        FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
-                                        LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
-                                        WHERE [MOCMANULINE].MB001=MC001
-                                        AND MC001=MD001
-                                        AND [MANU]='新廠包裝線'
-                                        AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
-                                        UNION ALL 
-                                        SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
-                                        ,CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
-                                        ,[MB004]
-                                        FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
-                                        LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
-                                        WHERE [MOCMANULINE].MB001=MC001
-                                        AND MC001=MD001
-                                        AND [MANU]='新廠製一組'
-                                        AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
-                                        AND REPLACE([MC001],' ','')+REPLACE([MD003] ,' ','') NOT IN ( SELECT REPLACE([MB001],' ','')+REPLACE(MD1.[MD003] ,' ','')  FROM [TKMOC].[dbo].[PREMANUUSEDINVMB],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1 WHERE [PREMANUUSEDINVMB].MB001=MC1.MC001 AND MC1.MC001=MD1.MD001 AND  (REPLACE(MD1.[MD003] ,' ','')  LIKE '1%'  OR (REPLACE(MD1.[MD003] ,' ','')  LIKE '203%' ) )) 
-                                        UNION ALL 
-                                        SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
-                                        ,CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
-                                        ,[MB004]
-                                        FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
-                                        LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
-                                        WHERE [MOCMANULINE].MB001=MC001
-                                        AND MC001=MD001
-                                        AND [MANU]='新廠製二組'
-                                        AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
-                                        AND REPLACE([MC001],' ','')+REPLACE([MD003] ,' ','') NOT IN ( SELECT REPLACE([MB001],' ','')+REPLACE(MD1.[MD003] ,' ','')  FROM [TKMOC].[dbo].[PREMANUUSEDINVMB],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1 WHERE [PREMANUUSEDINVMB].MB001=MC1.MC001 AND MC1.MC001=MD1.MD001 AND  (REPLACE(MD1.[MD003] ,' ','')  LIKE '1%'  OR (REPLACE(MD1.[MD003] ,' ','')  LIKE '203%' ) )) 
-                                        UNION ALL 
-                                        SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
-                                        ,CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
-                                        ,[MB004]
-                                        FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
-                                        LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
-                                        WHERE [MOCMANULINE].MB001=MC001
-                                        AND MC001=MD001
-                                        AND [MANU]='新廠製三組(手工)'
-                                        AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
-                                        AND REPLACE([MC001],' ','')+REPLACE([MD003] ,' ','') NOT IN ( SELECT REPLACE([MB001],' ','')+REPLACE(MD1.[MD003] ,' ','')  FROM [TKMOC].[dbo].[PREMANUUSEDINVMB],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1 WHERE [PREMANUUSEDINVMB].MB001=MC1.MC001 AND MC1.MC001=MD1.MD001 AND  (REPLACE(MD1.[MD003] ,' ','')  LIKE '1%'  OR (REPLACE(MD1.[MD003] ,' ','')  LIKE '203%' ) )) 
-                                        AND MD2.[MD003]='{2}'
-                                        ) AS TEMP 
-                                        WHERE [MD003]='{3}'
-                                        ORDER BY [MANU] ,[MANUDATE],[MD003]
-                                        ", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"), MD003);
-
+                    sbSql = DQUERY1(dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"), MD003);
                 }
-                else if (comboBox1.Text.Equals("不含水麵") && comboBox2.Text.Equals("不過濾指定品號的原料"))
+                else if (comboBox3.Text.Equals("含少量") && comboBox1.Text.Equals("含水麵") && comboBox2.Text.Equals("過濾指定品號的原料"))
                 {
-                    sbSql.AppendFormat(@"  
-                                        SELECT [MANU] AS '線別',CONVERT(nvarchar,[MANUDATE],112) AS '生產日',[MD003] AS '組件',[MD035] AS '組件名',TNUM AS '需求量',[MB004] AS '單位'
-                                        ,[MB001] AS '成品',[MB002] AS '成品名',[COPTD001] AS '訂單單別',[COPTD002] AS '訂單單號',[COPTD003] AS '訂單序號',[BAR] AS '桶數',[NUM] AS '數量',[PACKAGE] AS '包裝數',[MC001] AS '主件',[MC004] AS '批量',[MD006] AS '分子',[MD007] AS '分母',[MD008] AS '損秏率'
-                                        FROM (
-                                        SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
-                                        ,CONVERT(decimal(16,3),([PACKAGE]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
-                                        ,[MB004]
-                                        FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
-                                        LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
-                                        WHERE [MOCMANULINE].MB001=MC001
-                                        AND MC001=MD001
-                                        AND [MANU]='新廠包裝線'
-                                        AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
-                                        UNION ALL 
-                                        SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
-                                        ,CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
-                                        ,[MB004]
-                                        FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
-                                        LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
-                                        WHERE [MOCMANULINE].MB001=MC001
-                                        AND MC001=MD001
-                                        AND [MANU]='新廠製一組'
-                                        AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
-                    
-                                        UNION ALL 
-                                        SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
-                                        ,CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
-                                        ,[MB004]
-                                        FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
-                                        LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
-                                        WHERE [MOCMANULINE].MB001=MC001
-                                        AND MC001=MD001
-                                        AND [MANU]='新廠製二組'
-                                        AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
-                    
-                                        UNION ALL 
-                                        SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
-                                        ,CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
-                                        ,[MB004]
-                                        FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
-                                        LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
-                                        WHERE [MOCMANULINE].MB001=MC001
-                                        AND MC001=MD001
-                                        AND [MANU]='新廠製三組(手工)'
-                                        AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
-                    
-                                        ) AS TEMP 
-                                        WHERE [MD003]='{2}'
-                                        ORDER BY [MANU] ,[MANUDATE],[MD003]
-                    
-                                        ", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"), MD003);
- 
+                    sbSql = DQUERY2(dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"), MD003);
                 }
-                else if (comboBox1.Text.Equals("含水麵") && comboBox2.Text.Equals("過濾指定品號的原料"))
+                else if (comboBox3.Text.Equals("不含少量") && comboBox1.Text.Equals("不含水麵") && comboBox2.Text.Equals("過濾指定品號的原料"))
                 {
-                    sbSql.AppendFormat(@" 
-                                        SELECT [MANU] AS '線別',CONVERT(nvarchar,[MANUDATE],112) AS '生產日',[MD003] AS '組件',[MD035] AS '組件名',TNUM AS '需求量'
-                                        ,[MB001] AS '成品',[MB002] AS '成品名',[COPTD001] AS '訂單單別',[COPTD002] AS '訂單單號',[COPTD003] AS '訂單序號',[BAR] AS '桶數',[NUM] AS '數量',[PACKAGE] AS '包裝數',[MC001] AS '主件',[MC004] AS '批量',[MD006] AS '分子',[MD007] AS '分母',[MD008] AS '損秏率'
-                                        FROM (
-                                        SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
-                                        ,CONVERT(decimal(16,3),([PACKAGE]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
-                                        FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
-                                        WHERE [MOCMANULINE].MB001=MC001
-                                        AND MC001=MD001
-                                        AND [MANU]='新廠包裝線'
-                                        AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
-                                        UNION ALL 
-                                        SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],MC1.[MC001],MC1.[MC004],CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,CASE WHEN ISNULL(MD2.[MD035],'')='' THEN MD1.[MD035] ELSE MD2.[MD035] END,MD1.[MD006],MD1.[MD007],MD1.[MD008]
-                                        ,CASE WHEN ISNULL(MD2.[MD003],'')='' THEN CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))) ELSE CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))/MC2.[MC004]*MD2.[MD006]/MD2.[MD007]*(1+MD2.[MD008]) ) END  AS TNUM
-                                        FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1
-                                        LEFT JOIN [TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003
-                                        LEFT JOIN [TK].dbo.BOMMD MD2 ON MC2.MC001=MD2.MD001
-                                        WHERE [MOCMANULINE].MB001=MC1.MC001
-                                        AND MC1.MC001=MD1.MD001
-                                        AND [MANU]='新廠製一組'
-                                        AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
-                                        AND REPLACE(MC1.[MC001],' ','')+REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') NOT IN (SELECT REPLACE([MB001],' ','')+REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') FROM [TKMOC].[dbo].[PREMANUUSEDINVMB],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1 LEFT JOIN [TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003 LEFT JOIN [TK].dbo.BOMMD MD2 ON MC2.MC001=MD2.MD001 WHERE [PREMANUUSEDINVMB].MB001=MC1.MC001 AND MC1.MC001=MD1.MD001 AND  (REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') LIKE '1%' OR REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') LIKE '203%' ) )
-                                        UNION ALL 
-                                        SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],MC1.[MC001],MC1.[MC004],CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,CASE WHEN ISNULL(MD2.[MD035],'')='' THEN MD1.[MD035] ELSE MD2.[MD035] END,MD1.[MD006],MD1.[MD007],MD1.[MD008]
-                                        ,CASE WHEN ISNULL(MD2.[MD003],'')='' THEN CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))) ELSE CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))/MC2.[MC004]*MD2.[MD006]/MD2.[MD007]*(1+MD2.[MD008]) ) END  AS TNUM
-                                        FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1
-                                        LEFT JOIN [TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003
-                                        LEFT JOIN [TK].dbo.BOMMD MD2 ON MC2.MC001=MD2.MD001
-                                        WHERE [MOCMANULINE].MB001=MC1.MC001
-                                        AND MC1.MC001=MD1.MD001
-                                        AND [MANU]='新廠製二組'
-                                        AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
-                                        AND REPLACE(MC1.[MC001],' ','')+REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') NOT IN (SELECT REPLACE([MB001],' ','')+REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') FROM [TKMOC].[dbo].[PREMANUUSEDINVMB],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1 LEFT JOIN [TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003 LEFT JOIN [TK].dbo.BOMMD MD2 ON MC2.MC001=MD2.MD001 WHERE [PREMANUUSEDINVMB].MB001=MC1.MC001 AND MC1.MC001=MD1.MD001 AND  (REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') LIKE '1%' OR REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') LIKE '203%' ) )
-                                        UNION ALL 
-                                        SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],MC1.[MC001],MC1.[MC004],CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,CASE WHEN ISNULL(MD2.[MD035],'')='' THEN MD1.[MD035] ELSE MD2.[MD035] END,MD1.[MD006],MD1.[MD007],MD1.[MD008]
-                                        ,CASE WHEN ISNULL(MD2.[MD003],'')='' THEN CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))) ELSE CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))/MC2.[MC004]*MD2.[MD006]/MD2.[MD007]*(1+MD2.[MD008]) ) END  AS TNUM
-                                        FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1
-                                        LEFT JOIN [TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003
-                                        LEFT JOIN [TK].dbo.BOMMD MD2 ON MC2.MC001=MD2.MD001
-                                        WHERE [MOCMANULINE].MB001=MC1.MC001
-                                        AND MC1.MC001=MD1.MD001
-                                        AND [MANU]='新廠製三組(手工)'
-                                        AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
-                                        AND REPLACE(MC1.[MC001],' ','')+REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') NOT IN (SELECT REPLACE([MB001],' ','')+REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') FROM [TKMOC].[dbo].[PREMANUUSEDINVMB],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1 LEFT JOIN [TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003 LEFT JOIN [TK].dbo.BOMMD MD2 ON MC2.MC001=MD2.MD001 WHERE [PREMANUUSEDINVMB].MB001=MC1.MC001 AND MC1.MC001=MD1.MD001 AND  (REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') LIKE '1%' OR REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') LIKE '203%' ) )
-                                        AND MD2.[MD003]='{2}'
-                                        ) AS TEMP 
-                                        WHERE [MD003]='{2}'
-                                        ORDER BY [MANU] ,[MANUDATE],[MD003]
-                                        ", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"), MD003);
+                    sbSql = DQUERY3(dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"), MD003);
                 }
-                else if (comboBox1.Text.Equals("含水麵") && comboBox2.Text.Equals("不過濾指定品號的原料"))
+                else if (comboBox3.Text.Equals("含少量") && comboBox1.Text.Equals("不含水麵") && comboBox2.Text.Equals("過濾指定品號的原料"))
                 {
-                    sbSql.AppendFormat(@"  
-                                        SELECT [MANU] AS '線別',CONVERT(nvarchar,[MANUDATE],112) AS '生產日',[MD003] AS '組件',[MD035] AS '組件名',TNUM AS '需求量'
-                                        ,[MB001] AS '成品',[MB002] AS '成品名',[COPTD001] AS '訂單單別',[COPTD002] AS '訂單單號',[COPTD003] AS '訂單序號',[BAR] AS '桶數',[NUM] AS '數量',[PACKAGE] AS '包裝數',[MC001] AS '主件',[MC004] AS '批量',[MD006] AS '分子',[MD007] AS '分母',[MD008] AS '損秏率'
-                                        FROM (
-                                        SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
-                                        ,CONVERT(decimal(16,3),([PACKAGE]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
-                                        FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
-                                        WHERE [MOCMANULINE].MB001=MC001
-                                        AND MC001=MD001
-                                        AND [MANU]='新廠包裝線'
-                                        AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
-
-                                        UNION ALL 
-                                        SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],MC1.[MC001],MC1.[MC004],CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,CASE WHEN ISNULL(MD2.[MD035],'')='' THEN MD1.[MD035] ELSE MD2.[MD035] END,MD1.[MD006],MD1.[MD007],MD1.[MD008]
-                                        ,CASE WHEN ISNULL(MD2.[MD003],'')='' THEN CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))) ELSE CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))/MC2.[MC004]*MD2.[MD006]/MD2.[MD007]*(1+MD2.[MD008]) ) END  AS TNUM
-                                        FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1
-                                        LEFT JOIN [TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003
-                                        LEFT JOIN [TK].dbo.BOMMD MD2 ON MC2.MC001=MD2.MD001
-                                        WHERE [MOCMANULINE].MB001=MC1.MC001
-                                        AND MC1.MC001=MD1.MD001
-                                        AND [MANU]='新廠製一組'
-                                        AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
-
-                                        UNION ALL 
-                                        SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],MC1.[MC001],MC1.[MC004],CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,CASE WHEN ISNULL(MD2.[MD035],'')='' THEN MD1.[MD035] ELSE MD2.[MD035] END,MD1.[MD006],MD1.[MD007],MD1.[MD008]
-                                        ,CASE WHEN ISNULL(MD2.[MD003],'')='' THEN CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))) ELSE CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))/MC2.[MC004]*MD2.[MD006]/MD2.[MD007]*(1+MD2.[MD008]) ) END  AS TNUM
-                                        FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1
-                                        LEFT JOIN [TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003
-                                        LEFT JOIN [TK].dbo.BOMMD MD2 ON MC2.MC001=MD2.MD001
-                                        WHERE [MOCMANULINE].MB001=MC1.MC001
-                                        AND MC1.MC001=MD1.MD001
-                                        AND [MANU]='新廠製二組'
-                                        AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
-
-                                        UNION ALL 
-                                        SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],MC1.[MC001],MC1.[MC004],CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,CASE WHEN ISNULL(MD2.[MD035],'')='' THEN MD1.[MD035] ELSE MD2.[MD035] END,MD1.[MD006],MD1.[MD007],MD1.[MD008]
-                                        ,CASE WHEN ISNULL(MD2.[MD003],'')='' THEN CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))) ELSE CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))/MC2.[MC004]*MD2.[MD006]/MD2.[MD007]*(1+MD2.[MD008]) ) END  AS TNUM
-                                        FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1
-                                        LEFT JOIN [TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003
-                                        LEFT JOIN [TK].dbo.BOMMD MD2 ON MC2.MC001=MD2.MD001
-                                        WHERE [MOCMANULINE].MB001=MC1.MC001
-                                        AND MC1.MC001=MD1.MD001
-                                        AND [MANU]='新廠製三組(手工)'
-                                        AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
-                                        ) AS TEMP 
-                                        WHERE [MD003]='{2}'
-                                        ORDER BY [MANU] ,[MANUDATE],[MD003]
-                                        ", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"), MD003);
+                    sbSql = DQUERY4(dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"), MD003);
                 }
+                else if (comboBox3.Text.Equals("不含少量") && comboBox1.Text.Equals("含水麵") && comboBox2.Text.Equals("不過濾指定品號的原料"))
+                {
+                    sbSql = DQUERY5(dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"), MD003);
+                }
+                else if (comboBox3.Text.Equals("含少量") && comboBox1.Text.Equals("含水麵") && comboBox2.Text.Equals("不過濾指定品號的原料"))
+                {
+                    sbSql = DQUERY6(dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"), MD003);
+                }
+                else if (comboBox3.Text.Equals("不含少量") && comboBox1.Text.Equals("不含水麵") && comboBox2.Text.Equals("不過濾指定品號的原料"))
+                {
+                    sbSql = DQUERY7(dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"), MD003);
+                }
+                else if (comboBox3.Text.Equals("含少量") && comboBox1.Text.Equals("不含水麵") && comboBox2.Text.Equals("不過濾指定品號的原料"))
+                {
+                    sbSql = DQUERY8(dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"), MD003);
+                }
+
+                //if (comboBox1.Text.Equals("不含水麵") && comboBox2.Text.Equals("過濾指定品號的原料"))
+                //{
+                //    sbSql.AppendFormat(@"  
+                //                        SELECT [MANU] AS '線別',CONVERT(nvarchar,[MANUDATE],112) AS '生產日',[MD003] AS '組件',[MD035] AS '組件名',TNUM AS '需求量',[MB004] AS '單位'
+                //                        ,[MB001] AS '成品',[MB002] AS '成品名',[COPTD001] AS '訂單單別',[COPTD002] AS '訂單單號',[COPTD003] AS '訂單序號',[BAR] AS '桶數',[NUM] AS '數量',[PACKAGE] AS '包裝數',[MC001] AS '主件',[MC004] AS '批量',[MD006] AS '分子',[MD007] AS '分母',[MD008] AS '損秏率'
+                //                        FROM (
+                //                        SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
+                //                        ,CONVERT(decimal(16,3),([PACKAGE]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
+                //                        ,[MB004]
+                //                        FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
+                //                        LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
+                //                        WHERE [MOCMANULINE].MB001=MC001
+                //                        AND MC001=MD001
+                //                        AND [MANU]='新廠包裝線'
+                //                        AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
+                //                        UNION ALL 
+                //                        SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
+                //                        ,CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
+                //                        ,[MB004]
+                //                        FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
+                //                        LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
+                //                        WHERE [MOCMANULINE].MB001=MC001
+                //                        AND MC001=MD001
+                //                        AND [MANU]='新廠製一組'
+                //                        AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
+                //                        AND REPLACE([MC001],' ','')+REPLACE([MD003] ,' ','') NOT IN ( SELECT REPLACE([MB001],' ','')+REPLACE(MD1.[MD003] ,' ','')  FROM [TKMOC].[dbo].[PREMANUUSEDINVMB],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1 WHERE [PREMANUUSEDINVMB].MB001=MC1.MC001 AND MC1.MC001=MD1.MD001 AND  (REPLACE(MD1.[MD003] ,' ','')  LIKE '1%'  OR (REPLACE(MD1.[MD003] ,' ','')  LIKE '203%' ) )) 
+                //                        UNION ALL 
+                //                        SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
+                //                        ,CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
+                //                        ,[MB004]
+                //                        FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
+                //                        LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
+                //                        WHERE [MOCMANULINE].MB001=MC001
+                //                        AND MC001=MD001
+                //                        AND [MANU]='新廠製二組'
+                //                        AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
+                //                        AND REPLACE([MC001],' ','')+REPLACE([MD003] ,' ','') NOT IN ( SELECT REPLACE([MB001],' ','')+REPLACE(MD1.[MD003] ,' ','')  FROM [TKMOC].[dbo].[PREMANUUSEDINVMB],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1 WHERE [PREMANUUSEDINVMB].MB001=MC1.MC001 AND MC1.MC001=MD1.MD001 AND  (REPLACE(MD1.[MD003] ,' ','')  LIKE '1%'  OR (REPLACE(MD1.[MD003] ,' ','')  LIKE '203%' ) )) 
+                //                        UNION ALL 
+                //                        SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
+                //                        ,CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
+                //                        ,[MB004]
+                //                        FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
+                //                        LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
+                //                        WHERE [MOCMANULINE].MB001=MC001
+                //                        AND MC001=MD001
+                //                        AND [MANU]='新廠製三組(手工)'
+                //                        AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
+                //                        AND REPLACE([MC001],' ','')+REPLACE([MD003] ,' ','') NOT IN ( SELECT REPLACE([MB001],' ','')+REPLACE(MD1.[MD003] ,' ','')  FROM [TKMOC].[dbo].[PREMANUUSEDINVMB],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1 WHERE [PREMANUUSEDINVMB].MB001=MC1.MC001 AND MC1.MC001=MD1.MD001 AND  (REPLACE(MD1.[MD003] ,' ','')  LIKE '1%'  OR (REPLACE(MD1.[MD003] ,' ','')  LIKE '203%' ) )) 
+                //                        AND MD2.[MD003]='{2}'
+                //                        ) AS TEMP 
+                //                        WHERE [MD003]='{3}'
+                //                        ORDER BY [MANU] ,[MANUDATE],[MD003]
+                //                        ", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"), MD003);
+
+                //}
+                //else if (comboBox1.Text.Equals("不含水麵") && comboBox2.Text.Equals("不過濾指定品號的原料"))
+                //{
+                //    sbSql.AppendFormat(@"  
+                //                        SELECT [MANU] AS '線別',CONVERT(nvarchar,[MANUDATE],112) AS '生產日',[MD003] AS '組件',[MD035] AS '組件名',TNUM AS '需求量',[MB004] AS '單位'
+                //                        ,[MB001] AS '成品',[MB002] AS '成品名',[COPTD001] AS '訂單單別',[COPTD002] AS '訂單單號',[COPTD003] AS '訂單序號',[BAR] AS '桶數',[NUM] AS '數量',[PACKAGE] AS '包裝數',[MC001] AS '主件',[MC004] AS '批量',[MD006] AS '分子',[MD007] AS '分母',[MD008] AS '損秏率'
+                //                        FROM (
+                //                        SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
+                //                        ,CONVERT(decimal(16,3),([PACKAGE]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
+                //                        ,[MB004]
+                //                        FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
+                //                        LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
+                //                        WHERE [MOCMANULINE].MB001=MC001
+                //                        AND MC001=MD001
+                //                        AND [MANU]='新廠包裝線'
+                //                        AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
+                //                        UNION ALL 
+                //                        SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
+                //                        ,CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
+                //                        ,[MB004]
+                //                        FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
+                //                        LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
+                //                        WHERE [MOCMANULINE].MB001=MC001
+                //                        AND MC001=MD001
+                //                        AND [MANU]='新廠製一組'
+                //                        AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
+
+                //                        UNION ALL 
+                //                        SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
+                //                        ,CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
+                //                        ,[MB004]
+                //                        FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
+                //                        LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
+                //                        WHERE [MOCMANULINE].MB001=MC001
+                //                        AND MC001=MD001
+                //                        AND [MANU]='新廠製二組'
+                //                        AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
+
+                //                        UNION ALL 
+                //                        SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
+                //                        ,CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
+                //                        ,[MB004]
+                //                        FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
+                //                        LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
+                //                        WHERE [MOCMANULINE].MB001=MC001
+                //                        AND MC001=MD001
+                //                        AND [MANU]='新廠製三組(手工)'
+                //                        AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
+
+                //                        ) AS TEMP 
+                //                        WHERE [MD003]='{2}'
+                //                        ORDER BY [MANU] ,[MANUDATE],[MD003]
+
+                //                        ", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"), MD003);
+
+                //}
+                //else if (comboBox1.Text.Equals("含水麵") && comboBox2.Text.Equals("過濾指定品號的原料"))
+                //{
+                //    sbSql.AppendFormat(@" 
+                //                        SELECT [MANU] AS '線別',CONVERT(nvarchar,[MANUDATE],112) AS '生產日',[MD003] AS '組件',[MD035] AS '組件名',TNUM AS '需求量'
+                //                        ,[MB001] AS '成品',[MB002] AS '成品名',[COPTD001] AS '訂單單別',[COPTD002] AS '訂單單號',[COPTD003] AS '訂單序號',[BAR] AS '桶數',[NUM] AS '數量',[PACKAGE] AS '包裝數',[MC001] AS '主件',[MC004] AS '批量',[MD006] AS '分子',[MD007] AS '分母',[MD008] AS '損秏率'
+                //                        FROM (
+                //                        SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
+                //                        ,CONVERT(decimal(16,3),([PACKAGE]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
+                //                        FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
+                //                        WHERE [MOCMANULINE].MB001=MC001
+                //                        AND MC001=MD001
+                //                        AND [MANU]='新廠包裝線'
+                //                        AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
+                //                        UNION ALL 
+                //                        SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],MC1.[MC001],MC1.[MC004],CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,CASE WHEN ISNULL(MD2.[MD035],'')='' THEN MD1.[MD035] ELSE MD2.[MD035] END,MD1.[MD006],MD1.[MD007],MD1.[MD008]
+                //                        ,CASE WHEN ISNULL(MD2.[MD003],'')='' THEN CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))) ELSE CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))/MC2.[MC004]*MD2.[MD006]/MD2.[MD007]*(1+MD2.[MD008]) ) END  AS TNUM
+                //                        FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1
+                //                        LEFT JOIN [TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003
+                //                        LEFT JOIN [TK].dbo.BOMMD MD2 ON MC2.MC001=MD2.MD001
+                //                        WHERE [MOCMANULINE].MB001=MC1.MC001
+                //                        AND MC1.MC001=MD1.MD001
+                //                        AND [MANU]='新廠製一組'
+                //                        AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
+                //                        AND REPLACE(MC1.[MC001],' ','')+REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') NOT IN (SELECT REPLACE([MB001],' ','')+REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') FROM [TKMOC].[dbo].[PREMANUUSEDINVMB],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1 LEFT JOIN [TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003 LEFT JOIN [TK].dbo.BOMMD MD2 ON MC2.MC001=MD2.MD001 WHERE [PREMANUUSEDINVMB].MB001=MC1.MC001 AND MC1.MC001=MD1.MD001 AND  (REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') LIKE '1%' OR REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') LIKE '203%' ) )
+                //                        UNION ALL 
+                //                        SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],MC1.[MC001],MC1.[MC004],CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,CASE WHEN ISNULL(MD2.[MD035],'')='' THEN MD1.[MD035] ELSE MD2.[MD035] END,MD1.[MD006],MD1.[MD007],MD1.[MD008]
+                //                        ,CASE WHEN ISNULL(MD2.[MD003],'')='' THEN CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))) ELSE CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))/MC2.[MC004]*MD2.[MD006]/MD2.[MD007]*(1+MD2.[MD008]) ) END  AS TNUM
+                //                        FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1
+                //                        LEFT JOIN [TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003
+                //                        LEFT JOIN [TK].dbo.BOMMD MD2 ON MC2.MC001=MD2.MD001
+                //                        WHERE [MOCMANULINE].MB001=MC1.MC001
+                //                        AND MC1.MC001=MD1.MD001
+                //                        AND [MANU]='新廠製二組'
+                //                        AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
+                //                        AND REPLACE(MC1.[MC001],' ','')+REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') NOT IN (SELECT REPLACE([MB001],' ','')+REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') FROM [TKMOC].[dbo].[PREMANUUSEDINVMB],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1 LEFT JOIN [TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003 LEFT JOIN [TK].dbo.BOMMD MD2 ON MC2.MC001=MD2.MD001 WHERE [PREMANUUSEDINVMB].MB001=MC1.MC001 AND MC1.MC001=MD1.MD001 AND  (REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') LIKE '1%' OR REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') LIKE '203%' ) )
+                //                        UNION ALL 
+                //                        SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],MC1.[MC001],MC1.[MC004],CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,CASE WHEN ISNULL(MD2.[MD035],'')='' THEN MD1.[MD035] ELSE MD2.[MD035] END,MD1.[MD006],MD1.[MD007],MD1.[MD008]
+                //                        ,CASE WHEN ISNULL(MD2.[MD003],'')='' THEN CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))) ELSE CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))/MC2.[MC004]*MD2.[MD006]/MD2.[MD007]*(1+MD2.[MD008]) ) END  AS TNUM
+                //                        FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1
+                //                        LEFT JOIN [TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003
+                //                        LEFT JOIN [TK].dbo.BOMMD MD2 ON MC2.MC001=MD2.MD001
+                //                        WHERE [MOCMANULINE].MB001=MC1.MC001
+                //                        AND MC1.MC001=MD1.MD001
+                //                        AND [MANU]='新廠製三組(手工)'
+                //                        AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
+                //                        AND REPLACE(MC1.[MC001],' ','')+REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') NOT IN (SELECT REPLACE([MB001],' ','')+REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') FROM [TKMOC].[dbo].[PREMANUUSEDINVMB],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1 LEFT JOIN [TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003 LEFT JOIN [TK].dbo.BOMMD MD2 ON MC2.MC001=MD2.MD001 WHERE [PREMANUUSEDINVMB].MB001=MC1.MC001 AND MC1.MC001=MD1.MD001 AND  (REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') LIKE '1%' OR REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') LIKE '203%' ) )
+                //                        AND MD2.[MD003]='{2}'
+                //                        ) AS TEMP 
+                //                        WHERE [MD003]='{2}'
+                //                        ORDER BY [MANU] ,[MANUDATE],[MD003]
+                //                        ", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"), MD003);
+                //}
+                //else if (comboBox1.Text.Equals("含水麵") && comboBox2.Text.Equals("不過濾指定品號的原料"))
+                //{
+                //    sbSql.AppendFormat(@"  
+                //                        SELECT [MANU] AS '線別',CONVERT(nvarchar,[MANUDATE],112) AS '生產日',[MD003] AS '組件',[MD035] AS '組件名',TNUM AS '需求量'
+                //                        ,[MB001] AS '成品',[MB002] AS '成品名',[COPTD001] AS '訂單單別',[COPTD002] AS '訂單單號',[COPTD003] AS '訂單序號',[BAR] AS '桶數',[NUM] AS '數量',[PACKAGE] AS '包裝數',[MC001] AS '主件',[MC004] AS '批量',[MD006] AS '分子',[MD007] AS '分母',[MD008] AS '損秏率'
+                //                        FROM (
+                //                        SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
+                //                        ,CONVERT(decimal(16,3),([PACKAGE]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
+                //                        FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
+                //                        WHERE [MOCMANULINE].MB001=MC001
+                //                        AND MC001=MD001
+                //                        AND [MANU]='新廠包裝線'
+                //                        AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
+
+                //                        UNION ALL 
+                //                        SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],MC1.[MC001],MC1.[MC004],CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,CASE WHEN ISNULL(MD2.[MD035],'')='' THEN MD1.[MD035] ELSE MD2.[MD035] END,MD1.[MD006],MD1.[MD007],MD1.[MD008]
+                //                        ,CASE WHEN ISNULL(MD2.[MD003],'')='' THEN CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))) ELSE CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))/MC2.[MC004]*MD2.[MD006]/MD2.[MD007]*(1+MD2.[MD008]) ) END  AS TNUM
+                //                        FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1
+                //                        LEFT JOIN [TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003
+                //                        LEFT JOIN [TK].dbo.BOMMD MD2 ON MC2.MC001=MD2.MD001
+                //                        WHERE [MOCMANULINE].MB001=MC1.MC001
+                //                        AND MC1.MC001=MD1.MD001
+                //                        AND [MANU]='新廠製一組'
+                //                        AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
+
+                //                        UNION ALL 
+                //                        SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],MC1.[MC001],MC1.[MC004],CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,CASE WHEN ISNULL(MD2.[MD035],'')='' THEN MD1.[MD035] ELSE MD2.[MD035] END,MD1.[MD006],MD1.[MD007],MD1.[MD008]
+                //                        ,CASE WHEN ISNULL(MD2.[MD003],'')='' THEN CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))) ELSE CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))/MC2.[MC004]*MD2.[MD006]/MD2.[MD007]*(1+MD2.[MD008]) ) END  AS TNUM
+                //                        FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1
+                //                        LEFT JOIN [TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003
+                //                        LEFT JOIN [TK].dbo.BOMMD MD2 ON MC2.MC001=MD2.MD001
+                //                        WHERE [MOCMANULINE].MB001=MC1.MC001
+                //                        AND MC1.MC001=MD1.MD001
+                //                        AND [MANU]='新廠製二組'
+                //                        AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
+
+                //                        UNION ALL 
+                //                        SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],MC1.[MC001],MC1.[MC004],CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,CASE WHEN ISNULL(MD2.[MD035],'')='' THEN MD1.[MD035] ELSE MD2.[MD035] END,MD1.[MD006],MD1.[MD007],MD1.[MD008]
+                //                        ,CASE WHEN ISNULL(MD2.[MD003],'')='' THEN CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))) ELSE CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))/MC2.[MC004]*MD2.[MD006]/MD2.[MD007]*(1+MD2.[MD008]) ) END  AS TNUM
+                //                        FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1
+                //                        LEFT JOIN [TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003
+                //                        LEFT JOIN [TK].dbo.BOMMD MD2 ON MC2.MC001=MD2.MD001
+                //                        WHERE [MOCMANULINE].MB001=MC1.MC001
+                //                        AND MC1.MC001=MD1.MD001
+                //                        AND [MANU]='新廠製三組(手工)'
+                //                        AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
+                //                        ) AS TEMP 
+                //                        WHERE [MD003]='{2}'
+                //                        ORDER BY [MANU] ,[MANUDATE],[MD003]
+                //                        ", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"), MD003);
+                //}
 
 
                 adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -1142,6 +1174,703 @@ namespace TKMOC
             {
 
             }
+
+        }
+
+        //不含少量+含水麵+過濾指定品號的原料
+        public StringBuilder DQUERY1(string SDAY, string EDAY,string MD003)
+        {
+            StringBuilder SB = new StringBuilder();
+
+            SB.AppendFormat(@"  
+                            SELECT [MANU] AS '線別',CONVERT(nvarchar,[MANUDATE],112) AS '生產日',[MD003] AS '組件',[MD035] AS '組件名',TNUM AS '需求量',[MB004] AS '單位'
+                            ,TEMP2.[MB001] AS '成品',TEMP2.[MB002] AS '成品名',[COPTD001] AS '訂單單別',[COPTD002] AS '訂單單號',[COPTD003] AS '訂單序號',[BAR] AS '桶數',[NUM] AS '數量',[PACKAGE] AS '包裝數',[MC001] AS '主件',[MC004] AS '批量',[MD006] AS '分子',[MD007] AS '分母',[MD008] AS '損秏率'
+                            FROM(
+                            SELECT[MANU],[MANUDATE], TEMP.[MB001], TEMP.[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008], TNUM
+                            FROM(
+                            SELECT[MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
+                            , CONVERT(decimal(16, 3), ([PACKAGE] /[MC004] *[MD006] /[MD007] * (1 +[MD008]))) AS TNUM
+                            FROM[TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
+                            WHERE[MOCMANULINE].MB001 = MC001
+                            AND MC001 = MD001
+                            AND[MANU] = '新廠包裝線'
+                            AND[MANUDATE] >= '{0}' AND[MANUDATE] <= '{1}'
+                            UNION ALL
+                            SELECT[MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003], MC1.[MC001], MC1.[MC004], CASE WHEN ISNULL(MD2.[MD003], '') = '' THEN MD1.[MD003] ELSE MD2.[MD003] END, CASE WHEN ISNULL(MD2.[MD035], '') = '' THEN MD1.[MD035] ELSE MD2.[MD035] END, MD1.[MD006], MD1.[MD007], MD1.[MD008]
+                            , CASE WHEN ISNULL(MD2.[MD003], '') = '' THEN CONVERT(decimal(16, 3), ([NUM] / MC1.[MC004] * MD1.[MD006] / MD1.[MD007] * (1 + MD1.[MD008]))) ELSE CONVERT(decimal(16, 3), ([NUM] / MC1.[MC004] * MD1.[MD006] / MD1.[MD007] * (1 + MD1.[MD008])) / MC2.[MC004] * MD2.[MD006] / MD2.[MD007] * (1 + MD2.[MD008])) END  AS TNUM
+                            FROM[TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1
+                            LEFT JOIN[TK].dbo.BOMMC MC2 ON MC2.MC001 = MD1.MD003
+                            LEFT JOIN[TK].dbo.BOMMD MD2 ON MC2.MC001 = MD2.MD001
+                            WHERE[MOCMANULINE].MB001 = MC1.MC001
+                            AND MC1.MC001 = MD1.MD001
+                            AND[MANU] = '新廠製一組'
+                            AND[MANUDATE] >= '{0}' AND[MANUDATE] <= '{1}'
+                            AND REPLACE(MC1.[MC001], ' ', '') + REPLACE(CASE WHEN ISNULL(MD2.[MD003], '') = '' THEN MD1.[MD003] ELSE MD2.[MD003] END, ' ', '') NOT IN(SELECT REPLACE([MB001], ' ', '') + REPLACE(CASE WHEN ISNULL(MD2.[MD003], '') = '' THEN MD1.[MD003] ELSE MD2.[MD003] END, ' ', '') FROM[TKMOC].[dbo].[PREMANUUSEDINVMB],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1 LEFT JOIN[TK].dbo.BOMMC MC2 ON MC2.MC001 = MD1.MD003 LEFT JOIN[TK].dbo.BOMMD MD2 ON MC2.MC001 = MD2.MD001 WHERE[PREMANUUSEDINVMB].MB001 = MC1.MC001 AND MC1.MC001 = MD1.MD001 AND(REPLACE(CASE WHEN ISNULL(MD2.[MD003], '') = '' THEN MD1.[MD003] ELSE MD2.[MD003] END, ' ', '') LIKE '1%' OR REPLACE(CASE WHEN ISNULL(MD2.[MD003], '') = '' THEN MD1.[MD003] ELSE MD2.[MD003] END, ' ', '') LIKE '203%'))
+                            UNION ALL
+                            SELECT[MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003], MC1.[MC001], MC1.[MC004], CASE WHEN ISNULL(MD2.[MD003], '') = '' THEN MD1.[MD003] ELSE MD2.[MD003] END, CASE WHEN ISNULL(MD2.[MD035], '') = '' THEN MD1.[MD035] ELSE MD2.[MD035] END, MD1.[MD006], MD1.[MD007], MD1.[MD008]
+                            , CASE WHEN ISNULL(MD2.[MD003], '') = '' THEN CONVERT(decimal(16, 3), ([NUM] / MC1.[MC004] * MD1.[MD006] / MD1.[MD007] * (1 + MD1.[MD008]))) ELSE CONVERT(decimal(16, 3), ([NUM] / MC1.[MC004] * MD1.[MD006] / MD1.[MD007] * (1 + MD1.[MD008])) / MC2.[MC004] * MD2.[MD006] / MD2.[MD007] * (1 + MD2.[MD008])) END  AS TNUM
+                            FROM[TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1
+                            LEFT JOIN[TK].dbo.BOMMC MC2 ON MC2.MC001 = MD1.MD003
+                            LEFT JOIN[TK].dbo.BOMMD MD2 ON MC2.MC001 = MD2.MD001
+                            WHERE[MOCMANULINE].MB001 = MC1.MC001
+                            AND MC1.MC001 = MD1.MD001
+                            AND[MANU] = '新廠製二組'
+                            AND[MANUDATE] >= '{0}' AND[MANUDATE] <= '{1}'
+                            AND REPLACE(MC1.[MC001], ' ', '') + REPLACE(CASE WHEN ISNULL(MD2.[MD003], '') = '' THEN MD1.[MD003] ELSE MD2.[MD003] END, ' ', '') NOT IN(SELECT REPLACE([MB001], ' ', '') + REPLACE(CASE WHEN ISNULL(MD2.[MD003], '') = '' THEN MD1.[MD003] ELSE MD2.[MD003] END, ' ', '') FROM[TKMOC].[dbo].[PREMANUUSEDINVMB],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1 LEFT JOIN[TK].dbo.BOMMC MC2 ON MC2.MC001 = MD1.MD003 LEFT JOIN[TK].dbo.BOMMD MD2 ON MC2.MC001 = MD2.MD001 WHERE[PREMANUUSEDINVMB].MB001 = MC1.MC001 AND MC1.MC001 = MD1.MD001 AND(REPLACE(CASE WHEN ISNULL(MD2.[MD003], '') = '' THEN MD1.[MD003] ELSE MD2.[MD003] END, ' ', '') LIKE '1%' OR REPLACE(CASE WHEN ISNULL(MD2.[MD003], '') = '' THEN MD1.[MD003] ELSE MD2.[MD003] END, ' ', '') LIKE '203%'))
+                            UNION ALL
+                            SELECT[MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],MC1.[MC001],MC1.[MC004],CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END , CASE WHEN ISNULL(MD2.[MD035],'')='' THEN MD1.[MD035] ELSE MD2.[MD035] END, MD1.[MD006], MD1.[MD007], MD1.[MD008]
+
+                            , CASE WHEN ISNULL(MD2.[MD003],'')='' THEN CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))) ELSE CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))/MC2.[MC004]*MD2.[MD006]/MD2.[MD007]*(1+MD2.[MD008]) ) END AS TNUM
+                            FROM[TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1
+                            LEFT JOIN[TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003
+                            LEFT JOIN[TK].dbo.BOMMD MD2 ON MC2.MC001= MD2.MD001
+
+                            WHERE[MOCMANULINE].MB001= MC1.MC001
+
+                            AND MC1.MC001= MD1.MD001
+
+                            AND[MANU]= '新廠製三組(手工)'
+
+                            AND[MANUDATE]>='{0}' AND[MANUDATE]<='{1}'
+
+                            AND REPLACE(MC1.[MC001],' ','')+REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') NOT IN (SELECT REPLACE([MB001],' ','')+REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') FROM[TKMOC].[dbo].[PREMANUUSEDINVMB],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1 LEFT JOIN[TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003 LEFT JOIN[TK].dbo.BOMMD MD2 ON MC2.MC001= MD2.MD001 WHERE[PREMANUUSEDINVMB].MB001= MC1.MC001 AND MC1.MC001= MD1.MD001 AND  (REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') LIKE '1%' OR REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') LIKE '203%' ) )
+                            AND MD2.[MD003]='{2}'
+                            ) AS TEMP 
+                            ) AS TEMP2
+                            LEFT JOIN[TK].dbo.INVMB ON INVMB.MB001=TEMP2.[MD003]
+                            WHERE [MD003]='{2}'
+     
+                            ", SDAY, EDAY, MD003);
+
+            return SB;
+
+        }
+        //含少量+含水麵+過濾指定品號的原料
+        public StringBuilder DQUERY2(string SDAY, string EDAY, string MD003)
+        {
+            StringBuilder SB = new StringBuilder();
+
+            SB.AppendFormat(@"  
+                            SELECT [MANU] AS '線別',CONVERT(nvarchar,[MANUDATE],112) AS '生產日',[MD003] AS '組件',[MD035] AS '組件名',TNUM AS '需求量',[MB004] AS '單位'
+                            ,TEMP2.[MB001] AS '成品',TEMP2.[MB002] AS '成品名',[COPTD001] AS '訂單單別',[COPTD002] AS '訂單單號',[COPTD003] AS '訂單序號',[BAR] AS '桶數',[NUM] AS '數量',[PACKAGE] AS '包裝數',[MC001] AS '主件',[MC004] AS '批量',[MD006] AS '分子',[MD007] AS '分母',[MD008] AS '損秏率'
+                            FROM(
+                            SELECT[MANU],[MANUDATE], TEMP.[MB001], TEMP.[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008], TNUM
+                            FROM(
+                            SELECT[MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
+                            , CONVERT(decimal(16, 3), ([PACKAGE] /[MC004] *[MD006] /[MD007] * (1 +[MD008]))) AS TNUM
+                            FROM[TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
+                            WHERE[MOCMANULINE].MB001 = MC001
+                            AND MC001 = MD001
+                            AND[MANU] = '新廠包裝線'
+                            AND[MANUDATE] >= '{0}' AND[MANUDATE] <= '{1}'
+                            UNION ALL
+                            SELECT[MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003], MC1.[MC001], MC1.[MC004], CASE WHEN ISNULL(MD2.[MD003], '') = '' THEN MD1.[MD003] ELSE MD2.[MD003] END, CASE WHEN ISNULL(MD2.[MD035], '') = '' THEN MD1.[MD035] ELSE MD2.[MD035] END, MD1.[MD006], MD1.[MD007], MD1.[MD008]
+                            , CASE WHEN ISNULL(MD2.[MD003], '') = '' THEN CONVERT(decimal(16, 3), ([NUM] / MC1.[MC004] * MD1.[MD006] / MD1.[MD007] * (1 + MD1.[MD008]))) ELSE CONVERT(decimal(16, 3), ([NUM] / MC1.[MC004] * MD1.[MD006] / MD1.[MD007] * (1 + MD1.[MD008])) / MC2.[MC004] * MD2.[MD006] / MD2.[MD007] * (1 + MD2.[MD008])) END  AS TNUM
+                            FROM[TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1
+                            LEFT JOIN[TK].dbo.BOMMC MC2 ON MC2.MC001 = MD1.MD003
+                            LEFT JOIN[TK].dbo.BOMMD MD2 ON MC2.MC001 = MD2.MD001
+                            WHERE[MOCMANULINE].MB001 = MC1.MC001
+                            AND MC1.MC001 = MD1.MD001
+                            AND[MANU] = '新廠製一組'
+                            AND[MANUDATE] >= '{0}' AND[MANUDATE] <= '{1}'
+                            AND REPLACE(MC1.[MC001], ' ', '') + REPLACE(CASE WHEN ISNULL(MD2.[MD003], '') = '' THEN MD1.[MD003] ELSE MD2.[MD003] END, ' ', '') NOT IN(SELECT REPLACE([MB001], ' ', '') + REPLACE(CASE WHEN ISNULL(MD2.[MD003], '') = '' THEN MD1.[MD003] ELSE MD2.[MD003] END, ' ', '') FROM[TKMOC].[dbo].[PREMANUUSEDINVMB],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1 LEFT JOIN[TK].dbo.BOMMC MC2 ON MC2.MC001 = MD1.MD003 LEFT JOIN[TK].dbo.BOMMD MD2 ON MC2.MC001 = MD2.MD001 WHERE[PREMANUUSEDINVMB].MB001 = MC1.MC001 AND MC1.MC001 = MD1.MD001 AND(REPLACE(CASE WHEN ISNULL(MD2.[MD003], '') = '' THEN MD1.[MD003] ELSE MD2.[MD003] END, ' ', '') LIKE '1%' OR REPLACE(CASE WHEN ISNULL(MD2.[MD003], '') = '' THEN MD1.[MD003] ELSE MD2.[MD003] END, ' ', '') LIKE '203%'))
+                            UNION ALL
+                            SELECT[MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003], MC1.[MC001], MC1.[MC004], CASE WHEN ISNULL(MD2.[MD003], '') = '' THEN MD1.[MD003] ELSE MD2.[MD003] END, CASE WHEN ISNULL(MD2.[MD035], '') = '' THEN MD1.[MD035] ELSE MD2.[MD035] END, MD1.[MD006], MD1.[MD007], MD1.[MD008]
+                            , CASE WHEN ISNULL(MD2.[MD003], '') = '' THEN CONVERT(decimal(16, 3), ([NUM] / MC1.[MC004] * MD1.[MD006] / MD1.[MD007] * (1 + MD1.[MD008]))) ELSE CONVERT(decimal(16, 3), ([NUM] / MC1.[MC004] * MD1.[MD006] / MD1.[MD007] * (1 + MD1.[MD008])) / MC2.[MC004] * MD2.[MD006] / MD2.[MD007] * (1 + MD2.[MD008])) END  AS TNUM
+                            FROM[TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1
+                            LEFT JOIN[TK].dbo.BOMMC MC2 ON MC2.MC001 = MD1.MD003
+                            LEFT JOIN[TK].dbo.BOMMD MD2 ON MC2.MC001 = MD2.MD001
+                            WHERE[MOCMANULINE].MB001 = MC1.MC001
+                            AND MC1.MC001 = MD1.MD001
+                            AND[MANU] = '新廠製二組'
+                            AND[MANUDATE] >= '{0}' AND[MANUDATE] <= '{1}'
+                            AND REPLACE(MC1.[MC001], ' ', '') + REPLACE(CASE WHEN ISNULL(MD2.[MD003], '') = '' THEN MD1.[MD003] ELSE MD2.[MD003] END, ' ', '') NOT IN(SELECT REPLACE([MB001], ' ', '') + REPLACE(CASE WHEN ISNULL(MD2.[MD003], '') = '' THEN MD1.[MD003] ELSE MD2.[MD003] END, ' ', '') FROM[TKMOC].[dbo].[PREMANUUSEDINVMB],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1 LEFT JOIN[TK].dbo.BOMMC MC2 ON MC2.MC001 = MD1.MD003 LEFT JOIN[TK].dbo.BOMMD MD2 ON MC2.MC001 = MD2.MD001 WHERE[PREMANUUSEDINVMB].MB001 = MC1.MC001 AND MC1.MC001 = MD1.MD001 AND(REPLACE(CASE WHEN ISNULL(MD2.[MD003], '') = '' THEN MD1.[MD003] ELSE MD2.[MD003] END, ' ', '') LIKE '1%' OR REPLACE(CASE WHEN ISNULL(MD2.[MD003], '') = '' THEN MD1.[MD003] ELSE MD2.[MD003] END, ' ', '') LIKE '203%'))
+                            UNION ALL
+                            SELECT[MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],MC1.[MC001],MC1.[MC004],CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END , CASE WHEN ISNULL(MD2.[MD035],'')='' THEN MD1.[MD035] ELSE MD2.[MD035] END, MD1.[MD006], MD1.[MD007], MD1.[MD008]
+                            , CASE WHEN ISNULL(MD2.[MD003],'')='' THEN CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))) ELSE CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))/MC2.[MC004]*MD2.[MD006]/MD2.[MD007]*(1+MD2.[MD008]) ) END AS TNUM
+                            FROM[TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1
+                            LEFT JOIN[TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003
+                            LEFT JOIN[TK].dbo.BOMMD MD2 ON MC2.MC001= MD2.MD001
+                            WHERE[MOCMANULINE].MB001= MC1.MC001
+                            AND MC1.MC001= MD1.MD001
+                            AND[MANU]= '新廠製三組(手工)'
+                            AND[MANUDATE]>='{0}' AND[MANUDATE]<='{1}'
+                            AND REPLACE(MC1.[MC001],' ','')+REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') NOT IN (SELECT REPLACE([MB001],' ','')+REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') FROM[TKMOC].[dbo].[PREMANUUSEDINVMB],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1 LEFT JOIN[TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003 LEFT JOIN[TK].dbo.BOMMD MD2 ON MC2.MC001= MD2.MD001 WHERE[PREMANUUSEDINVMB].MB001= MC1.MC001 AND MC1.MC001= MD1.MD001 AND  (REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') LIKE '1%' OR REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') LIKE '203%' ) )
+     
+                            UNION ALL
+                            SELECT [MANU],[MANUDATE],[MOCMANULINETEMP].[MB001],[MOCMANULINETEMP].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
+                            , CONVERT(decimal(16, 3), ([PACKAGE] /[MC004] *[MD006] /[MD007] * (1 +[MD008]))) AS TNUM
+                            FROM[TKMOC].dbo.[MOCMANULINETEMP],[TK].dbo.BOMMC,[TK].dbo.BOMMD
+                            WHERE [MOCMANULINETEMP].MB001 = MC001
+                            AND MC001 = MD001
+                            AND[MANU] = '新廠包裝線'                           
+                            AND [ID] NOT IN (SELECT [ID] FROM [TKMOC].[dbo].[MOCMANULINE])
+                            UNION ALL
+                            SELECT[MANU],[MANUDATE],[MOCMANULINETEMP].[MB001],[MOCMANULINETEMP].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003], MC1.[MC001], MC1.[MC004], CASE WHEN ISNULL(MD2.[MD003], '') = '' THEN MD1.[MD003] ELSE MD2.[MD003] END, CASE WHEN ISNULL(MD2.[MD035], '') = '' THEN MD1.[MD035] ELSE MD2.[MD035] END, MD1.[MD006], MD1.[MD007], MD1.[MD008]
+                            , CASE WHEN ISNULL(MD2.[MD003], '') = '' THEN CONVERT(decimal(16, 3), ([NUM] / MC1.[MC004] * MD1.[MD006] / MD1.[MD007] * (1 + MD1.[MD008]))) ELSE CONVERT(decimal(16, 3), ([NUM] / MC1.[MC004] * MD1.[MD006] / MD1.[MD007] * (1 + MD1.[MD008])) / MC2.[MC004] * MD2.[MD006] / MD2.[MD007] * (1 + MD2.[MD008])) END  AS TNUM
+                            FROM[TKMOC].dbo.[MOCMANULINETEMP],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1
+                            LEFT JOIN[TK].dbo.BOMMC MC2 ON MC2.MC001 = MD1.MD003
+                            LEFT JOIN[TK].dbo.BOMMD MD2 ON MC2.MC001 = MD2.MD001
+                            WHERE [MOCMANULINETEMP].MB001 = MC1.MC001
+                            AND MC1.MC001 = MD1.MD001
+                            AND[MANU] = '新廠製一組'      
+                            AND [ID] NOT IN (SELECT [ID] FROM [TKMOC].[dbo].[MOCMANULINE])
+                            AND REPLACE(MC1.[MC001], ' ', '') + REPLACE(CASE WHEN ISNULL(MD2.[MD003], '') = '' THEN MD1.[MD003] ELSE MD2.[MD003] END, ' ', '') NOT IN(SELECT REPLACE([MB001], ' ', '') + REPLACE(CASE WHEN ISNULL(MD2.[MD003], '') = '' THEN MD1.[MD003] ELSE MD2.[MD003] END, ' ', '') FROM[TKMOC].[dbo].[PREMANUUSEDINVMB],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1 LEFT JOIN[TK].dbo.BOMMC MC2 ON MC2.MC001 = MD1.MD003 LEFT JOIN[TK].dbo.BOMMD MD2 ON MC2.MC001 = MD2.MD001 WHERE[PREMANUUSEDINVMB].MB001 = MC1.MC001 AND MC1.MC001 = MD1.MD001 AND(REPLACE(CASE WHEN ISNULL(MD2.[MD003], '') = '' THEN MD1.[MD003] ELSE MD2.[MD003] END, ' ', '') LIKE '1%' OR REPLACE(CASE WHEN ISNULL(MD2.[MD003], '') = '' THEN MD1.[MD003] ELSE MD2.[MD003] END, ' ', '') LIKE '203%'))                            
+                            UNION ALL
+                            SELECT[MANU],[MANUDATE],[MOCMANULINETEMP].[MB001],[MOCMANULINETEMP].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003], MC1.[MC001], MC1.[MC004], CASE WHEN ISNULL(MD2.[MD003], '') = '' THEN MD1.[MD003] ELSE MD2.[MD003] END, CASE WHEN ISNULL(MD2.[MD035], '') = '' THEN MD1.[MD035] ELSE MD2.[MD035] END, MD1.[MD006], MD1.[MD007], MD1.[MD008]
+                            , CASE WHEN ISNULL(MD2.[MD003], '') = '' THEN CONVERT(decimal(16, 3), ([NUM] / MC1.[MC004] * MD1.[MD006] / MD1.[MD007] * (1 + MD1.[MD008]))) ELSE CONVERT(decimal(16, 3), ([NUM] / MC1.[MC004] * MD1.[MD006] / MD1.[MD007] * (1 + MD1.[MD008])) / MC2.[MC004] * MD2.[MD006] / MD2.[MD007] * (1 + MD2.[MD008])) END  AS TNUM
+                            FROM[TKMOC].dbo.[MOCMANULINETEMP],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1
+                            LEFT JOIN[TK].dbo.BOMMC MC2 ON MC2.MC001 = MD1.MD003
+                            LEFT JOIN[TK].dbo.BOMMD MD2 ON MC2.MC001 = MD2.MD001
+                            WHERE [MOCMANULINETEMP].MB001 = MC1.MC001
+                            AND MC1.MC001 = MD1.MD001
+                            AND[MANU] = '新廠製二組'
+                            AND [ID] NOT IN (SELECT [ID] FROM [TKMOC].[dbo].[MOCMANULINE])
+                            AND REPLACE(MC1.[MC001], ' ', '') + REPLACE(CASE WHEN ISNULL(MD2.[MD003], '') = '' THEN MD1.[MD003] ELSE MD2.[MD003] END, ' ', '') NOT IN(SELECT REPLACE([MB001], ' ', '') + REPLACE(CASE WHEN ISNULL(MD2.[MD003], '') = '' THEN MD1.[MD003] ELSE MD2.[MD003] END, ' ', '') FROM[TKMOC].[dbo].[PREMANUUSEDINVMB],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1 LEFT JOIN[TK].dbo.BOMMC MC2 ON MC2.MC001 = MD1.MD003 LEFT JOIN[TK].dbo.BOMMD MD2 ON MC2.MC001 = MD2.MD001 WHERE[PREMANUUSEDINVMB].MB001 = MC1.MC001 AND MC1.MC001 = MD1.MD001 AND(REPLACE(CASE WHEN ISNULL(MD2.[MD003], '') = '' THEN MD1.[MD003] ELSE MD2.[MD003] END, ' ', '') LIKE '1%' OR REPLACE(CASE WHEN ISNULL(MD2.[MD003], '') = '' THEN MD1.[MD003] ELSE MD2.[MD003] END, ' ', '') LIKE '203%'))                            
+                            UNION ALL
+                            SELECT[MANU],[MANUDATE],[MOCMANULINETEMP].[MB001],[MOCMANULINETEMP].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],MC1.[MC001],MC1.[MC004],CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END , CASE WHEN ISNULL(MD2.[MD035],'')='' THEN MD1.[MD035] ELSE MD2.[MD035] END, MD1.[MD006], MD1.[MD007], MD1.[MD008]
+                            , CASE WHEN ISNULL(MD2.[MD003],'')='' THEN CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))) ELSE CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))/MC2.[MC004]*MD2.[MD006]/MD2.[MD007]*(1+MD2.[MD008]) ) END AS TNUM
+                            FROM [TKMOC].dbo.[MOCMANULINETEMP],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1
+                            LEFT JOIN[TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003
+                            LEFT JOIN[TK].dbo.BOMMD MD2 ON MC2.MC001= MD2.MD001
+                            WHERE [MOCMANULINETEMP].MB001= MC1.MC001
+                            AND MC1.MC001= MD1.MD001
+                            AND[MANU]= '新廠製三組(手工)'
+                            AND [ID] NOT IN (SELECT [ID] FROM [TKMOC].[dbo].[MOCMANULINE]) 
+                            AND REPLACE(MC1.[MC001],' ','')+REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') NOT IN (SELECT REPLACE([MB001],' ','')+REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') FROM[TKMOC].[dbo].[PREMANUUSEDINVMB],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1 LEFT JOIN[TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003 LEFT JOIN[TK].dbo.BOMMD MD2 ON MC2.MC001= MD2.MD001 WHERE[PREMANUUSEDINVMB].MB001= MC1.MC001 AND MC1.MC001= MD1.MD001 AND  (REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') LIKE '1%' OR REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') LIKE '203%' ) )                             
+                            AND MD2.[MD003]='{2}'
+                            ) AS TEMP 
+                            ) AS TEMP2
+
+                            LEFT JOIN[TK].dbo.INVMB ON INVMB.MB001=TEMP2.[MD003]
+                            WHERE [MD003]='{2}'
+     
+                            ", SDAY, EDAY, MD003);
+
+            return SB;
+
+        }
+        //不含少量+不含水麵+過濾指定品號的原料
+        public StringBuilder DQUERY3(string SDAY, string EDAY, string MD003)
+        {
+            StringBuilder SB = new StringBuilder();
+
+            SB.AppendFormat(@" 
+                            SELECT [MD003] AS '品號',[MD035] AS '品名',SUM(TNUM) AS '需求量',[MB004]  AS '單位'
+                            ,(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WHERE  LA001=MD003 AND LA009 IN ('20004','20005','20006') )AS '庫存量'
+                            ,(SUM(TNUM)-(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WHERE  LA001=MD003 AND LA009 IN ('20004','20005','20006') )) AS '差異量'
+                            ,(SELECT ISNULL(SUM(TD008-TD015),0) FROM [TK].dbo.PURTD WHERE TD004=[MD003] AND TD018='Y' AND TD016='N' AND TD012>='{0}' AND TD012<='{1}') AS '採購未交數量'
+                            FROM (
+                            SELECT [MANU],[MANUDATE],[MB001],[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008],TNUM,[MB004]
+                            FROM (
+                            SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
+                            ,CONVERT(decimal(16,3),([PACKAGE]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
+                            ,[MB004]
+                            FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
+                            LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
+                            WHERE [MOCMANULINE].MB001=MC001
+                            AND MC001=MD001
+                            AND [MANU]='新廠包裝線'
+                            AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
+                            UNION ALL 
+                            SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
+                            ,CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
+                            ,[MB004]
+                            FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
+                            LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
+                            WHERE [MOCMANULINE].MB001=MC001
+                            AND MC001=MD001
+                            AND [MANU]='新廠製一組'
+                            AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
+                            AND REPLACE([MC001],' ','')+REPLACE([MD003] ,' ','') NOT IN ( SELECT REPLACE([MB001],' ','')+REPLACE(MD1.[MD003] ,' ','')  FROM [TKMOC].[dbo].[PREMANUUSEDINVMB],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1 WHERE [PREMANUUSEDINVMB].MB001=MC1.MC001 AND MC1.MC001=MD1.MD001 AND  (REPLACE(MD1.[MD003] ,' ','')  LIKE '1%'  OR (REPLACE(MD1.[MD003] ,' ','')  LIKE '203%' ) )) 
+                            UNION ALL 
+                            SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
+                            ,CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
+                            ,[MB004]
+                            FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
+                            LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
+                            WHERE [MOCMANULINE].MB001=MC001
+                            AND MC001=MD001
+                            AND [MANU]='新廠製二組'
+                            AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
+                            AND REPLACE([MC001],' ','')+REPLACE([MD003] ,' ','') NOT IN ( SELECT REPLACE([MB001],' ','')+REPLACE(MD1.[MD003] ,' ','')  FROM [TKMOC].[dbo].[PREMANUUSEDINVMB],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1 WHERE [PREMANUUSEDINVMB].MB001=MC1.MC001 AND MC1.MC001=MD1.MD001 AND (REPLACE(MD1.[MD003] ,' ','')  LIKE '1%'  OR (REPLACE(MD1.[MD003] ,' ','')  LIKE '203%' ))) 
+                            UNION ALL 
+                            SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
+                            ,CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
+                            ,[MB004]
+                            FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
+                            LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
+                            WHERE [MOCMANULINE].MB001=MC001
+                            AND MC001=MD001
+                            AND [MANU]='新廠製三組(手工)'
+                            AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
+                            AND REPLACE([MC001],' ','')+REPLACE([MD003] ,' ','') NOT IN ( SELECT REPLACE([MB001],' ','')+REPLACE(MD1.[MD003] ,' ','')  FROM [TKMOC].[dbo].[PREMANUUSEDINVMB],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1 WHERE [PREMANUUSEDINVMB].MB001=MC1.MC001 AND MC1.MC001=MD1.MD001 AND  (REPLACE(MD1.[MD003] ,' ','')  LIKE '1%'  OR (REPLACE(MD1.[MD003] ,' ','')  LIKE '203%' ) )) 
+                            ) AS TEMP 
+                            ) AS TEMP2 
+                            WHERE [MD003]='{2}'
+                            GROUP BY [MD003],[MD035],[MB004]
+                            ORDER BY [MD003],[MD035],[MB004]
+                            ", SDAY, EDAY, MD003);
+
+            return SB;
+
+        }
+        //含少量+不含水麵+過濾指定品號的原料
+        public StringBuilder DQUERY4(string SDAY, string EDAY, string MD003)
+        {
+            StringBuilder SB = new StringBuilder();
+
+            SB.AppendFormat(@" 
+                            SELECT [MD003] AS '品號',[MD035] AS '品名',SUM(TNUM) AS '需求量',[MB004]  AS '單位'
+                            ,(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WHERE  LA001=MD003 AND LA009 IN ('20004','20005','20006') )AS '庫存量'
+                            ,(SUM(TNUM)-(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WHERE  LA001=MD003 AND LA009 IN ('20004','20005','20006') )) AS '差異量'
+                            ,(SELECT ISNULL(SUM(TD008-TD015),0) FROM [TK].dbo.PURTD WHERE TD004=[MD003] AND TD018='Y' AND TD016='N' AND TD012>='{0}' AND TD012<='{1}') AS '採購未交數量'
+                            FROM (
+                            SELECT [MANU],[MANUDATE],[MB001],[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008],TNUM,[MB004]
+                            FROM (
+                            SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
+                            ,CONVERT(decimal(16,3),([PACKAGE]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
+                            ,[MB004]
+                            FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
+                            LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
+                            WHERE [MOCMANULINE].MB001=MC001
+                            AND MC001=MD001
+                            AND [MANU]='新廠包裝線'
+                            AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
+                            UNION ALL 
+                            SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
+                            ,CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
+                            ,[MB004]
+                            FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
+                            LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
+                            WHERE [MOCMANULINE].MB001=MC001
+                            AND MC001=MD001
+                            AND [MANU]='新廠製一組'
+                            AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
+                            AND REPLACE([MC001],' ','')+REPLACE([MD003] ,' ','') NOT IN ( SELECT REPLACE([MB001],' ','')+REPLACE(MD1.[MD003] ,' ','')  FROM [TKMOC].[dbo].[PREMANUUSEDINVMB],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1 WHERE [PREMANUUSEDINVMB].MB001=MC1.MC001 AND MC1.MC001=MD1.MD001 AND  (REPLACE(MD1.[MD003] ,' ','')  LIKE '1%'  OR (REPLACE(MD1.[MD003] ,' ','')  LIKE '203%' ) )) 
+                            UNION ALL 
+                            SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
+                            ,CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
+                            ,[MB004]
+                            FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
+                            LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
+                            WHERE [MOCMANULINE].MB001=MC001
+                            AND MC001=MD001
+                            AND [MANU]='新廠製二組'
+                            AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
+                            AND REPLACE([MC001],' ','')+REPLACE([MD003] ,' ','') NOT IN ( SELECT REPLACE([MB001],' ','')+REPLACE(MD1.[MD003] ,' ','')  FROM [TKMOC].[dbo].[PREMANUUSEDINVMB],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1 WHERE [PREMANUUSEDINVMB].MB001=MC1.MC001 AND MC1.MC001=MD1.MD001 AND (REPLACE(MD1.[MD003] ,' ','')  LIKE '1%'  OR (REPLACE(MD1.[MD003] ,' ','')  LIKE '203%' ))) 
+                            UNION ALL 
+                            SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
+                            ,CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
+                            ,[MB004]
+                            FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
+                            LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
+                            WHERE [MOCMANULINE].MB001=MC001
+                            AND MC001=MD001
+                            AND [MANU]='新廠製三組(手工)'
+                            AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
+                            AND REPLACE([MC001],' ','')+REPLACE([MD003] ,' ','') NOT IN ( SELECT REPLACE([MB001],' ','')+REPLACE(MD1.[MD003] ,' ','')  FROM [TKMOC].[dbo].[PREMANUUSEDINVMB],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1 WHERE [PREMANUUSEDINVMB].MB001=MC1.MC001 AND MC1.MC001=MD1.MD001 AND  (REPLACE(MD1.[MD003] ,' ','')  LIKE '1%'  OR (REPLACE(MD1.[MD003] ,' ','')  LIKE '203%' ) )) 
+
+                            UNION ALL 
+                            SELECT [MANU],[MANUDATE],[MOCMANULINETEMP].[MB001],[MOCMANULINETEMP].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
+                            ,CONVERT(decimal(16,3),([PACKAGE]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
+                            ,[MB004]
+                            FROM [TKMOC].dbo.[MOCMANULINETEMP],[TK].dbo.BOMMC,[TK].dbo.BOMMD
+                            LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
+                            WHERE [MOCMANULINETEMP].MB001=MC001
+                            AND MC001=MD001
+                            AND [MANU]='新廠包裝線'
+                            AND [ID] NOT IN (SELECT [ID] FROM [TKMOC].[dbo].[MOCMANULINE])
+                            UNION ALL 
+                            SELECT [MANU],[MANUDATE],[MOCMANULINETEMP].[MB001],[MOCMANULINETEMP].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
+                            ,CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
+                            ,[MB004]
+                            FROM [TKMOC].dbo.[MOCMANULINETEMP],[TK].dbo.BOMMC,[TK].dbo.BOMMD
+                            LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
+                            WHERE [MOCMANULINETEMP].MB001=MC001
+                            AND MC001=MD001
+                            AND [MANU]='新廠製一組'
+                            AND [ID] NOT IN (SELECT [ID] FROM [TKMOC].[dbo].[MOCMANULINE])
+                            AND REPLACE([MC001],' ','')+REPLACE([MD003] ,' ','') NOT IN ( SELECT REPLACE([MB001],' ','')+REPLACE(MD1.[MD003] ,' ','')  FROM [TKMOC].[dbo].[PREMANUUSEDINVMB],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1 WHERE [PREMANUUSEDINVMB].MB001=MC1.MC001 AND MC1.MC001=MD1.MD001 AND  (REPLACE(MD1.[MD003] ,' ','')  LIKE '1%'  OR (REPLACE(MD1.[MD003] ,' ','')  LIKE '203%' ) )) 
+                            UNION ALL 
+                            SELECT [MANU],[MANUDATE],[MOCMANULINETEMP].[MB001],[MOCMANULINETEMP].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
+                            ,CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
+                            ,[MB004]
+                            FROM [TKMOC].dbo.[MOCMANULINETEMP],[TK].dbo.BOMMC,[TK].dbo.BOMMD
+                            LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
+                            WHERE [MOCMANULINETEMP].MB001=MC001
+                            AND MC001=MD001
+                            AND [MANU]='新廠製二組'
+                            AND [ID] NOT IN (SELECT [ID] FROM [TKMOC].[dbo].[MOCMANULINE])
+                            AND REPLACE([MC001],' ','')+REPLACE([MD003] ,' ','') NOT IN ( SELECT REPLACE([MB001],' ','')+REPLACE(MD1.[MD003] ,' ','')  FROM [TKMOC].[dbo].[PREMANUUSEDINVMB],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1 WHERE [PREMANUUSEDINVMB].MB001=MC1.MC001 AND MC1.MC001=MD1.MD001 AND (REPLACE(MD1.[MD003] ,' ','')  LIKE '1%'  OR (REPLACE(MD1.[MD003] ,' ','')  LIKE '203%' ))) 
+                            UNION ALL 
+                            SELECT [MANU],[MANUDATE],[MOCMANULINETEMP].[MB001],[MOCMANULINETEMP].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
+                            ,CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
+                            ,[MB004]
+                            FROM [TKMOC].dbo.[MOCMANULINETEMP],[TK].dbo.BOMMC,[TK].dbo.BOMMD
+                            LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
+                            WHERE [MOCMANULINETEMP].MB001=MC001
+                            AND MC001=MD001
+                            AND [ID] NOT IN (SELECT [ID] FROM [TKMOC].[dbo].[MOCMANULINE])
+                            AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
+                            AND REPLACE([MC001],' ','')+REPLACE([MD003] ,' ','') NOT IN ( SELECT REPLACE([MB001],' ','')+REPLACE(MD1.[MD003] ,' ','')  FROM [TKMOC].[dbo].[PREMANUUSEDINVMB],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1 WHERE [PREMANUUSEDINVMB].MB001=MC1.MC001 AND MC1.MC001=MD1.MD001 AND  (REPLACE(MD1.[MD003] ,' ','')  LIKE '1%'  OR (REPLACE(MD1.[MD003] ,' ','')  LIKE '203%' ) )) 
+
+
+                            ) AS TEMP 
+                            ) AS TEMP2 
+                            WHERE [MD003]='{2}'
+                            GROUP BY [MD003],[MD035],[MB004]
+                            ORDER BY [MD003],[MD035],[MB004]
+                             ", SDAY, EDAY, MD003);
+
+            return SB;
+
+        }
+        //不含少量+含水麵+不過濾指定品號的原料
+        public StringBuilder DQUERY5(string SDAY, string EDAY, string MD003)
+        {
+            StringBuilder SB = new StringBuilder();
+
+            SB.AppendFormat(@" 
+                            SELECT [MD003] AS '品號',[MD035] AS '品名',SUM(TNUM) AS '需求量',MB004 AS '單位'
+                            ,(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WHERE  LA001=MD003 AND LA009 IN ('20004','20005','20006') )AS '庫存量'
+                            ,(SUM(TNUM)-(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WHERE  LA001=MD003 AND LA009 IN ('20004','20005','20006') )) AS '差異量'
+                            ,(SELECT ISNULL(SUM(TD008-TD015),0) FROM [TK].dbo.PURTD WHERE TD004=[MD003] AND TD018='Y' AND TD016='N' AND TD012>='{0}' AND TD012<='{1}') AS '採購未交數量'
+                            FROM (
+                            SELECT [MANU],[MANUDATE],TEMP.[MB001],TEMP.[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008],TNUM
+                            FROM (
+                            SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
+                            ,CONVERT(decimal(16,3),([PACKAGE]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
+                            FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
+                            WHERE [MOCMANULINE].MB001=MC001
+                            AND MC001=MD001
+                            AND [MANU]='新廠包裝線'
+                            AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
+                            UNION ALL 
+                            SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],MC1.[MC001],MC1.[MC004],CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,CASE WHEN ISNULL(MD2.[MD035],'')='' THEN MD1.[MD035] ELSE MD2.[MD035] END,MD1.[MD006],MD1.[MD007],MD1.[MD008]
+                            ,CASE WHEN ISNULL(MD2.[MD003],'')='' THEN CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))) ELSE CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))/MC2.[MC004]*MD2.[MD006]/MD2.[MD007]*(1+MD2.[MD008]) ) END  AS TNUM
+                            FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1
+                            LEFT JOIN [TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003
+                            LEFT JOIN [TK].dbo.BOMMD MD2 ON MC2.MC001=MD2.MD001
+                            WHERE [MOCMANULINE].MB001=MC1.MC001
+                            AND MC1.MC001=MD1.MD001
+                            AND [MANU]='新廠製一組'
+                            AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
+                    
+                            UNION ALL 
+                            SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],MC1.[MC001],MC1.[MC004],CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,CASE WHEN ISNULL(MD2.[MD035],'')='' THEN MD1.[MD035] ELSE MD2.[MD035] END,MD1.[MD006],MD1.[MD007],MD1.[MD008]
+                            ,CASE WHEN ISNULL(MD2.[MD003],'')='' THEN CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))) ELSE CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))/MC2.[MC004]*MD2.[MD006]/MD2.[MD007]*(1+MD2.[MD008]) ) END  AS TNUM
+                            FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1
+                            LEFT JOIN [TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003
+                            LEFT JOIN [TK].dbo.BOMMD MD2 ON MC2.MC001=MD2.MD001
+                            WHERE [MOCMANULINE].MB001=MC1.MC001
+                            AND MC1.MC001=MD1.MD001
+                            AND [MANU]='新廠製二組'
+                            AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
+                    
+                            UNION ALL 
+                            SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],MC1.[MC001],MC1.[MC004],CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,CASE WHEN ISNULL(MD2.[MD035],'')='' THEN MD1.[MD035] ELSE MD2.[MD035] END,MD1.[MD006],MD1.[MD007],MD1.[MD008]
+                            ,CASE WHEN ISNULL(MD2.[MD003],'')='' THEN CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))) ELSE CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))/MC2.[MC004]*MD2.[MD006]/MD2.[MD007]*(1+MD2.[MD008]) ) END  AS TNUM
+                            FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1
+                            LEFT JOIN [TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003
+                            LEFT JOIN [TK].dbo.BOMMD MD2 ON MC2.MC001=MD2.MD001
+                            WHERE [MOCMANULINE].MB001=MC1.MC001
+                            AND MC1.MC001=MD1.MD001
+                            AND [MANU]='新廠製三組(手工)'
+                            AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
+                    
+                      
+                            ) AS TEMP 
+                            ) AS TEMP2
+
+                            LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=TEMP2.[MD003]
+                            WHERE [MD003]='{2}'
+                            GROUP BY [MD003],[MD035],[MB004]
+                            ORDER BY [MD003],[MD035],[MB004]
+                            ", SDAY, EDAY, MD003);
+
+            return SB;
+
+        }
+        //含少量+含水麵+不過濾指定品號的原料
+        public StringBuilder DQUERY6(string SDAY, string EDAY, string MD003)
+        {
+            StringBuilder SB = new StringBuilder();
+
+            SB.AppendFormat(@" 
+                            SELECT [MD003] AS '品號',[MD035] AS '品名',SUM(TNUM) AS '需求量',MB004 AS '單位'
+                            ,(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WHERE  LA001=MD003 AND LA009 IN ('20004','20005','20006') )AS '庫存量'
+                            ,(SUM(TNUM)-(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WHERE  LA001=MD003 AND LA009 IN ('20004','20005','20006') )) AS '差異量'
+                            ,(SELECT ISNULL(SUM(TD008-TD015),0) FROM [TK].dbo.PURTD WHERE TD004=[MD003] AND TD018='Y' AND TD016='N' AND TD012>='{0}' AND TD012<='{1}') AS '採購未交數量'
+                            FROM (
+                            SELECT [MANU],[MANUDATE],TEMP.[MB001],TEMP.[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008],TNUM
+                            FROM (
+                            SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
+                            ,CONVERT(decimal(16,3),([PACKAGE]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
+                            FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
+                            WHERE [MOCMANULINE].MB001=MC001
+                            AND MC001=MD001
+                            AND [MANU]='新廠包裝線'
+                            AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
+                            UNION ALL 
+                            SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],MC1.[MC001],MC1.[MC004],CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,CASE WHEN ISNULL(MD2.[MD035],'')='' THEN MD1.[MD035] ELSE MD2.[MD035] END,MD1.[MD006],MD1.[MD007],MD1.[MD008]
+                            ,CASE WHEN ISNULL(MD2.[MD003],'')='' THEN CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))) ELSE CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))/MC2.[MC004]*MD2.[MD006]/MD2.[MD007]*(1+MD2.[MD008]) ) END  AS TNUM
+                            FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1
+                            LEFT JOIN [TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003
+                            LEFT JOIN [TK].dbo.BOMMD MD2 ON MC2.MC001=MD2.MD001
+                            WHERE [MOCMANULINE].MB001=MC1.MC001
+                            AND MC1.MC001=MD1.MD001
+                            AND [MANU]='新廠製一組'
+                            AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'                    
+                            UNION ALL 
+                            SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],MC1.[MC001],MC1.[MC004],CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,CASE WHEN ISNULL(MD2.[MD035],'')='' THEN MD1.[MD035] ELSE MD2.[MD035] END,MD1.[MD006],MD1.[MD007],MD1.[MD008]
+                            ,CASE WHEN ISNULL(MD2.[MD003],'')='' THEN CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))) ELSE CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))/MC2.[MC004]*MD2.[MD006]/MD2.[MD007]*(1+MD2.[MD008]) ) END  AS TNUM
+                            FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1
+                            LEFT JOIN [TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003
+                            LEFT JOIN [TK].dbo.BOMMD MD2 ON MC2.MC001=MD2.MD001
+                            WHERE [MOCMANULINE].MB001=MC1.MC001
+                            AND MC1.MC001=MD1.MD001
+                            AND [MANU]='新廠製二組'
+                            AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'                    
+                            UNION ALL 
+                            SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],MC1.[MC001],MC1.[MC004],CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,CASE WHEN ISNULL(MD2.[MD035],'')='' THEN MD1.[MD035] ELSE MD2.[MD035] END,MD1.[MD006],MD1.[MD007],MD1.[MD008]
+                            ,CASE WHEN ISNULL(MD2.[MD003],'')='' THEN CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))) ELSE CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))/MC2.[MC004]*MD2.[MD006]/MD2.[MD007]*(1+MD2.[MD008]) ) END  AS TNUM
+                            FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1
+                            LEFT JOIN [TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003
+                            LEFT JOIN [TK].dbo.BOMMD MD2 ON MC2.MC001=MD2.MD001
+                            WHERE [MOCMANULINE].MB001=MC1.MC001
+                            AND MC1.MC001=MD1.MD001
+                            AND [MANU]='新廠製三組(手工)'
+                            AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
+                    
+                            UNION ALL
+                            SELECT [MANU],[MANUDATE],[MOCMANULINETEMP].[MB001],[MOCMANULINETEMP].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
+                            ,CONVERT(decimal(16,3),([PACKAGE]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
+                            FROM [TKMOC].dbo.[MOCMANULINETEMP],[TK].dbo.BOMMC,[TK].dbo.BOMMD
+                            WHERE [MOCMANULINETEMP].MB001=MC001
+                            AND MC001=MD001
+                            AND [MANU]='新廠包裝線'
+                            AND [ID] NOT IN (SELECT [ID] FROM [TKMOC].[dbo].[MOCMANULINE])
+                            UNION ALL 
+                            SELECT [MANU],[MANUDATE],[MOCMANULINETEMP].[MB001],[MOCMANULINETEMP].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],MC1.[MC001],MC1.[MC004],CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,CASE WHEN ISNULL(MD2.[MD035],'')='' THEN MD1.[MD035] ELSE MD2.[MD035] END,MD1.[MD006],MD1.[MD007],MD1.[MD008]
+                            ,CASE WHEN ISNULL(MD2.[MD003],'')='' THEN CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))) ELSE CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))/MC2.[MC004]*MD2.[MD006]/MD2.[MD007]*(1+MD2.[MD008]) ) END  AS TNUM
+                            FROM [TKMOC].dbo.[MOCMANULINETEMP],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1
+                            LEFT JOIN [TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003
+                            LEFT JOIN [TK].dbo.BOMMD MD2 ON MC2.MC001=MD2.MD001
+                            WHERE [MOCMANULINETEMP].MB001=MC1.MC001
+                            AND MC1.MC001=MD1.MD001
+                            AND [MANU]='新廠製一組'
+                            AND [ID] NOT IN (SELECT [ID] FROM [TKMOC].[dbo].[MOCMANULINE])              
+                            UNION ALL 
+                            SELECT [MANU],[MANUDATE],[MOCMANULINETEMP].[MB001],[MOCMANULINETEMP].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],MC1.[MC001],MC1.[MC004],CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,CASE WHEN ISNULL(MD2.[MD035],'')='' THEN MD1.[MD035] ELSE MD2.[MD035] END,MD1.[MD006],MD1.[MD007],MD1.[MD008]
+                            ,CASE WHEN ISNULL(MD2.[MD003],'')='' THEN CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))) ELSE CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))/MC2.[MC004]*MD2.[MD006]/MD2.[MD007]*(1+MD2.[MD008]) ) END  AS TNUM
+                            FROM [TKMOC].dbo.[MOCMANULINETEMP],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1
+                            LEFT JOIN [TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003
+                            LEFT JOIN [TK].dbo.BOMMD MD2 ON MC2.MC001=MD2.MD001
+                            WHERE [MOCMANULINETEMP].MB001=MC1.MC001
+                            AND MC1.MC001=MD1.MD001
+                            AND [MANU]='新廠製二組'
+                            AND [ID] NOT IN (SELECT [ID] FROM [TKMOC].[dbo].[MOCMANULINE])                 
+                            UNION ALL 
+                            SELECT [MANU],[MANUDATE],[MOCMANULINETEMP].[MB001],[MOCMANULINETEMP].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],MC1.[MC001],MC1.[MC004],CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,CASE WHEN ISNULL(MD2.[MD035],'')='' THEN MD1.[MD035] ELSE MD2.[MD035] END,MD1.[MD006],MD1.[MD007],MD1.[MD008]
+                            ,CASE WHEN ISNULL(MD2.[MD003],'')='' THEN CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))) ELSE CONVERT(decimal(16,3),([NUM]/MC1.[MC004]*MD1.[MD006]/MD1.[MD007]*(1+MD1.[MD008]))/MC2.[MC004]*MD2.[MD006]/MD2.[MD007]*(1+MD2.[MD008]) ) END  AS TNUM
+                            FROM [TKMOC].dbo.[MOCMANULINETEMP],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1
+                            LEFT JOIN [TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003
+                            LEFT JOIN [TK].dbo.BOMMD MD2 ON MC2.MC001=MD2.MD001
+                            WHERE [MOCMANULINETEMP].MB001=MC1.MC001
+                            AND MC1.MC001=MD1.MD001
+                            AND [MANU]='新廠製三組(手工)'
+                            AND [ID] NOT IN (SELECT [ID] FROM [TKMOC].[dbo].[MOCMANULINE])
+                      
+                            ) AS TEMP 
+                            ) AS TEMP2
+                            LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=TEMP2.[MD003]
+                            WHERE [MD003]='{2}'
+                            GROUP BY [MD003],[MD035],[MB004]
+                            ORDER BY [MD003],[MD035],[MB004]
+                            ", SDAY, EDAY, MD003);
+
+            return SB;
+
+        }
+        //不含少量+不含水麵+過濾指定品號的原料
+        public StringBuilder DQUERY7(string SDAY, string EDAY, string MD003)
+        {
+            StringBuilder SB = new StringBuilder();
+
+            SB.AppendFormat(@"  
+                            SELECT [MD003] AS '品號',[MD035] AS '品名',SUM(TNUM) AS '需求量',[MB004]  AS '單位'
+                            ,(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WHERE  LA001=MD003 AND LA009 IN ('20004','20005','20006') )AS '庫存量'
+                            ,(SUM(TNUM)-(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WHERE  LA001=MD003 AND LA009 IN ('20004','20005','20006') )) AS '差異量'
+                            ,(SELECT ISNULL(SUM(TD008-TD015),0) FROM [TK].dbo.PURTD WHERE TD004=[MD003] AND TD018='Y' AND TD016='N' AND TD012>='{0}' AND TD012<='{1}') AS '採購未交數量'
+                            FROM (
+                            SELECT [MANU],[MANUDATE],[MB001],[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008],TNUM,[MB004]
+                            FROM (
+                            SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
+                            ,CONVERT(decimal(16,3),([PACKAGE]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
+                            ,[MB004]
+                            FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
+                            LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
+                            WHERE [MOCMANULINE].MB001=MC001
+                            AND MC001=MD001
+                            AND [MANU]='新廠包裝線'
+                            AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
+
+                            UNION ALL 
+                            SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
+                            ,CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
+                            ,[MB004]
+                            FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
+                            LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
+                            WHERE [MOCMANULINE].MB001=MC001
+                            AND MC001=MD001
+                            AND [MANU]='新廠製一組'
+                            AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
+                            AND REPLACE([MC001],' ','')+REPLACE([MD003] ,' ','') NOT IN ( SELECT REPLACE([MB001],' ','')+REPLACE(MD1.[MD003] ,' ','')  FROM [TKMOC].[dbo].[PREMANUUSEDINVMB],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1 WHERE [PREMANUUSEDINVMB].MB001=MC1.MC001 AND MC1.MC001=MD1.MD001 AND  (REPLACE(MD1.[MD003] ,' ','')  LIKE '1%'  OR (REPLACE(MD1.[MD003] ,' ','')  LIKE '203%' ) )) 
+                            UNION ALL 
+                            SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
+                            ,CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
+                            ,[MB004]
+                            FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
+                            LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
+                            WHERE [MOCMANULINE].MB001=MC001
+                            AND MC001=MD001
+                            AND [MANU]='新廠製二組'
+                            AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
+                            AND REPLACE([MC001],' ','')+REPLACE([MD003] ,' ','') NOT IN ( SELECT REPLACE([MB001],' ','')+REPLACE(MD1.[MD003] ,' ','')  FROM [TKMOC].[dbo].[PREMANUUSEDINVMB],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1 WHERE [PREMANUUSEDINVMB].MB001=MC1.MC001 AND MC1.MC001=MD1.MD001 AND  (REPLACE(MD1.[MD003] ,' ','')  LIKE '1%'  OR (REPLACE(MD1.[MD003] ,' ','')  LIKE '203%' ) )) 
+                            UNION ALL 
+                            SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
+                            ,CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
+                            ,[MB004]
+                            FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
+                            LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
+                            WHERE [MOCMANULINE].MB001=MC001
+                            AND MC001=MD001
+                            AND [MANU]='新廠製三組(手工)'
+                            AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
+                            AND REPLACE([MC001],' ','')+REPLACE([MD003] ,' ','') NOT IN ( SELECT REPLACE([MB001],' ','')+REPLACE(MD1.[MD003] ,' ','')  FROM [TKMOC].[dbo].[PREMANUUSEDINVMB],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1 WHERE [PREMANUUSEDINVMB].MB001=MC1.MC001 AND MC1.MC001=MD1.MD001 AND  (REPLACE(MD1.[MD003] ,' ','')  LIKE '1%'  OR (REPLACE(MD1.[MD003] ,' ','')  LIKE '203%' ) )) 
+                            ) AS TEMP 
+                            ) AS TEMP2 
+                            WHERE [MD003]='{2}'
+                            GROUP BY [MD003],[MD035],[MB004]
+                            ORDER BY [MD003],[MD035],[MB004]
+
+                            ", SDAY, EDAY, MD003);
+
+
+            return SB;
+
+        }
+        //不含少量+不含水麵+不過濾指定品號的原料
+        public StringBuilder DQUERY8(string SDAY, string EDAY, string MD003)
+        {
+            StringBuilder SB = new StringBuilder();
+            SB.AppendFormat(@"  
+                            SELECT [MD003] AS '品號',[MD035] AS '品名',SUM(TNUM) AS '需求量',[MB004]  AS '單位'
+                            ,(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WHERE  LA001=MD003 AND LA009 IN ('20004','20005','20006') )AS '庫存量'
+                            ,(SUM(TNUM)-(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WHERE  LA001=MD003 AND LA009 IN ('20004','20005','20006') )) AS '差異量'
+                            ,(SELECT ISNULL(SUM(TD008-TD015),0) FROM [TK].dbo.PURTD WHERE TD004=[MD003] AND TD018='Y' AND TD016='N' AND TD012>='{0}' AND TD012<='{1}') AS '採購未交數量'
+                            FROM (
+                            SELECT [MANU],[MANUDATE],[MB001],[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008],TNUM,[MB004]
+                            FROM (
+                            SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
+                            ,CONVERT(decimal(16,3),([PACKAGE]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
+                            ,[MB004]
+                            FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
+                            LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
+                            WHERE [MOCMANULINE].MB001=MC001
+                            AND MC001=MD001
+                            AND [MANU]='新廠包裝線'
+                            AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
+
+                            UNION ALL 
+                            SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
+                            ,CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
+                            ,[MB004]
+                            FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
+                            LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
+                            WHERE [MOCMANULINE].MB001=MC001
+                            AND MC001=MD001
+                            AND [MANU]='新廠製一組'
+                            AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
+                            AND REPLACE([MC001],' ','')+REPLACE([MD003] ,' ','') NOT IN ( SELECT REPLACE([MB001],' ','')+REPLACE(MD1.[MD003] ,' ','')  FROM [TKMOC].[dbo].[PREMANUUSEDINVMB],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1 WHERE [PREMANUUSEDINVMB].MB001=MC1.MC001 AND MC1.MC001=MD1.MD001 AND  (REPLACE(MD1.[MD003] ,' ','')  LIKE '1%'  OR (REPLACE(MD1.[MD003] ,' ','')  LIKE '203%' ) )) 
+                            UNION ALL 
+                            SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
+                            ,CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
+                            ,[MB004]
+                            FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
+                            LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
+                            WHERE [MOCMANULINE].MB001=MC001
+                            AND MC001=MD001
+                            AND [MANU]='新廠製二組'
+                            AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
+                            AND REPLACE([MC001],' ','')+REPLACE([MD003] ,' ','') NOT IN ( SELECT REPLACE([MB001],' ','')+REPLACE(MD1.[MD003] ,' ','')  FROM [TKMOC].[dbo].[PREMANUUSEDINVMB],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1 WHERE [PREMANUUSEDINVMB].MB001=MC1.MC001 AND MC1.MC001=MD1.MD001 AND  (REPLACE(MD1.[MD003] ,' ','')  LIKE '1%'  OR (REPLACE(MD1.[MD003] ,' ','')  LIKE '203%' ) )) 
+                            UNION ALL 
+                            SELECT [MANU],[MANUDATE],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
+                            ,CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
+                            ,[MB004]
+                            FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
+                            LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
+                            WHERE [MOCMANULINE].MB001=MC001
+                            AND MC001=MD001
+                            AND [MANU]='新廠製三組(手工)'
+                            AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
+                            AND REPLACE([MC001],' ','')+REPLACE([MD003] ,' ','') NOT IN ( SELECT REPLACE([MB001],' ','')+REPLACE(MD1.[MD003] ,' ','')  FROM [TKMOC].[dbo].[PREMANUUSEDINVMB],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1 WHERE [PREMANUUSEDINVMB].MB001=MC1.MC001 AND MC1.MC001=MD1.MD001 AND  (REPLACE(MD1.[MD003] ,' ','')  LIKE '1%'  OR (REPLACE(MD1.[MD003] ,' ','')  LIKE '203%' ) )) 
+
+                            UNION ALL
+                            SELECT [MANU],[MANUDATE],[MOCMANULINETEMP].[MB001],[MOCMANULINETEMP].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
+                            ,CONVERT(decimal(16,3),([PACKAGE]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
+                            ,[MB004]
+                            FROM [TKMOC].dbo.[MOCMANULINETEMP],[TK].dbo.BOMMC,[TK].dbo.BOMMD
+                            LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
+                            WHERE [MOCMANULINETEMP].MB001=MC001
+                            AND MC001=MD001
+                            AND [MANU]='新廠包裝線'
+                            AND [ID] NOT IN (SELECT [ID] FROM [TKMOC].[dbo].[MOCMANULINE])
+                            UNION ALL 
+                            SELECT [MANU],[MANUDATE],[MOCMANULINETEMP].[MB001],[MOCMANULINETEMP].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
+                            ,CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
+                            ,[MB004]
+                            FROM [TKMOC].dbo.[MOCMANULINETEMP],[TK].dbo.BOMMC,[TK].dbo.BOMMD
+                            LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
+                            WHERE [MOCMANULINETEMP].MB001=MC001
+                            AND MC001=MD001
+                            AND [MANU]='新廠製一組'
+                            AND [ID] NOT IN (SELECT [ID] FROM [TKMOC].[dbo].[MOCMANULINE])
+                            AND REPLACE([MC001],' ','')+REPLACE([MD003] ,' ','') NOT IN ( SELECT REPLACE([MB001],' ','')+REPLACE(MD1.[MD003] ,' ','')  FROM [TKMOC].[dbo].[PREMANUUSEDINVMB],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1 WHERE [PREMANUUSEDINVMB].MB001=MC1.MC001 AND MC1.MC001=MD1.MD001 AND  (REPLACE(MD1.[MD003] ,' ','')  LIKE '1%'  OR (REPLACE(MD1.[MD003] ,' ','')  LIKE '203%' ) )) 
+                            UNION ALL 
+                            SELECT [MANU],[MANUDATE],[MOCMANULINETEMP].[MB001],[MOCMANULINETEMP].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
+                            ,CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
+                            ,[MB004]
+                            FROM [TKMOC].dbo.[MOCMANULINETEMP],[TK].dbo.BOMMC,[TK].dbo.BOMMD
+                            LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
+                            WHERE [MOCMANULINETEMP].MB001=MC001
+                            AND MC001=MD001
+                            AND [MANU]='新廠製二組'
+                            AND [ID] NOT IN (SELECT [ID] FROM [TKMOC].[dbo].[MOCMANULINE])
+                            AND REPLACE([MC001],' ','')+REPLACE([MD003] ,' ','') NOT IN ( SELECT REPLACE([MB001],' ','')+REPLACE(MD1.[MD003] ,' ','')  FROM [TKMOC].[dbo].[PREMANUUSEDINVMB],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1 WHERE [PREMANUUSEDINVMB].MB001=MC1.MC001 AND MC1.MC001=MD1.MD001 AND  (REPLACE(MD1.[MD003] ,' ','')  LIKE '1%'  OR (REPLACE(MD1.[MD003] ,' ','')  LIKE '203%' ) )) 
+                            UNION ALL 
+                            SELECT [MANU],[MANUDATE],[MOCMANULINETEMP].[MB001],[MOCMANULINETEMP].[MB002],[BAR],[NUM],[PACKAGE],[COPTD001],[COPTD002],[COPTD003],[MC001],[MC004],[MD003],[MD035],[MD006],[MD007],[MD008]
+                            ,CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008]))) AS TNUM
+                            ,[MB004]
+                            FROM [TKMOC].dbo.[MOCMANULINETEMP],[TK].dbo.BOMMC,[TK].dbo.BOMMD
+                            LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
+                            WHERE [MOCMANULINETEMP].MB001=MC001
+                            AND MC001=MD001
+                            AND [MANU]='新廠製三組(手工)'
+                            AND [ID] NOT IN (SELECT [ID] FROM [TKMOC].[dbo].[MOCMANULINE])
+                            AND REPLACE([MC001],' ','')+REPLACE([MD003] ,' ','') NOT IN ( SELECT REPLACE([MB001],' ','')+REPLACE(MD1.[MD003] ,' ','')  FROM [TKMOC].[dbo].[PREMANUUSEDINVMB],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1 WHERE [PREMANUUSEDINVMB].MB001=MC1.MC001 AND MC1.MC001=MD1.MD001 AND  (REPLACE(MD1.[MD003] ,' ','')  LIKE '1%'  OR (REPLACE(MD1.[MD003] ,' ','')  LIKE '203%' ) )) 
+                            ) AS TEMP 
+                            ) AS TEMP2   
+                            WHERE [MD003]='{2}'
+                            GROUP BY [MD003],[MD035],[MB004]
+                            ORDER BY [MD003],[MD035],[MB004]
+
+                            ", SDAY, EDAY, MD003);
+
+
+
+            return SB;
 
         }
 
