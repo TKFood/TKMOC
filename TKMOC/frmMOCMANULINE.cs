@@ -1114,6 +1114,8 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[MOCMANULINERESULT] ON [MOCMANULINERESULT].[SID]=[MOCMANULINETEMP].[TID]");
                 sbSql.AppendFormat(@"  {0}", sbSqlQuery.ToString());
                 sbSql.AppendFormat(@"  {0}", sbSqlQuery2.ToString());
+                sbSql.AppendFormat(@"  AND [MOCMANULINETEMP].[ID] NOT IN (SELECT [ID] FROM [TKMOC].[dbo].[MOCMANULINE]) ");
+                sbSql.AppendFormat(@"  AND RTRIM(LTRIM([MOCMANULINETEMP].[MANU]))+RTRIM(LTRIM([MOCMANULINETEMP].[COPTD001]))+RTRIM(LTRIM([MOCMANULINETEMP].[COPTD002]))+RTRIM(LTRIM([MOCMANULINETEMP].[COPTD003])) NOT IN (SELECT (RTRIM(LTRIM([MOCMANULINE].[MANU])))+(RTRIM(LTRIM([MOCMANULINE].[COPTD001])))+(RTRIM(LTRIM([MOCMANULINE].[COPTD002])))+(RTRIM(LTRIM([MOCMANULINE].[COPTD003]))) FROM [TKMOC].[dbo].[MOCMANULINE] WHERE ISNULL([MOCMANULINE].[COPTD002],'')<>''  ) ");
                 sbSql.AppendFormat(@"  ORDER BY [MOCMANULINETEMP].[MANUDATE],[MOCMANULINETEMP].[SERNO]");
                 sbSql.AppendFormat(@"  ");
 
