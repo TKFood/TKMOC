@@ -9144,12 +9144,115 @@ namespace TKMOC
 
         }
 
+        public string SEARCHMOCMANULINELIMITBARCOUNT1(string MANUDATE)
+        {
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            DataSet ds1 = new DataSet();
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+                sbSqlQuery2.Clear();
+
+                sbSql.AppendFormat(@"  
+                                    SELECT ISNULL(SUM([BAR]),0) AS BARS
+                                    FROM [TKMOC].[dbo].[MOCMANULINE]
+                                    WHERE [MANU]='新廠製二組'
+                                    AND [MANUDATE]='{0}'
+                                    AND [MB001] NOT IN  (SELECT MB001 FROM [TKMOC].[dbo].[MOCMANULINELIMITBARCOUNT])
+                                    GROUP BY  [MANU],[MANUDATE] ", MANUDATE);
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "TEMPds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["TEMPds1"].Rows.Count >= 1)
+                {                   
+                    return ds1.Tables["TEMPds1"].Rows[0]["BARS"].ToString();                }
+                else
+                {
+                    return "0";
+                }
+            }
+            catch
+            {
+                return "0";
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public string SEARCHMOCMANULINELIMITBARCOUNT2(string MANUDATE)
+        {
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            DataSet ds1 = new DataSet();
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+                sbSqlQuery2.Clear();
+
+                sbSql.AppendFormat(@"  
+                                    SELECT ISNULL(SUM([BAR]),0) AS BARS
+                                    FROM [TKMOC].[dbo].[MOCMANULINE]
+                                    WHERE [MANU]='新廠製一組'
+                                    AND [MANUDATE]='{0}'
+                                    AND [MB001] NOT IN  (SELECT MB001 FROM [TKMOC].[dbo].[MOCMANULINELIMITBARCOUNT])
+                                    GROUP BY  [MANU],[MANUDATE] ", MANUDATE);
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "TEMPds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["TEMPds1"].Rows.Count >= 1)
+                {
+                    return ds1.Tables["TEMPds1"].Rows[0]["BARS"].ToString();
+                }
+                else
+                {
+                    return "0";
+                }
+
+            }
+            catch
+            {
+                return "0";
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
         #endregion
 
         #region BUTTON
         private void button1_Click(object sender, EventArgs e)
         {
             SEARCHMOCMANULINE();
+
+            textBox86.Text=SEARCHMOCMANULINELIMITBARCOUNT1(dateTimePicker1.Value.ToString("yyyyMMdd"));
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -9258,6 +9361,8 @@ namespace TKMOC
         private void button11_Click(object sender, EventArgs e)
         {
             SEARCHMOCMANULINE();
+
+            textBox87.Text = SEARCHMOCMANULINELIMITBARCOUNT2(dateTimePicker6.Value.ToString("yyyyMMdd"));
         }
         private void button12_Click(object sender, EventArgs e)
         {
