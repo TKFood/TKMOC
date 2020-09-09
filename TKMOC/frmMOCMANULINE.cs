@@ -9106,7 +9106,9 @@ namespace TKMOC
                                     ,[ID]
                                     FROM [TKMOC].[dbo].[MOCMANULINETEMP]
                                     WHERE [COPTD002]='{0}'
-                                    ORDER BY [MANU],[COPTD001],[COPTD002],[COPTD003]
+                                    AND [MOCMANULINETEMP].[ID] NOT IN(SELECT[ID] FROM[TKMOC].[dbo].[MOCMANULINE]) 
+                                    AND RTRIM(LTRIM([MOCMANULINETEMP].[MANU]))+RTRIM(LTRIM([MOCMANULINETEMP].[COPTD001]))+RTRIM(LTRIM([MOCMANULINETEMP].[COPTD002]))+RTRIM(LTRIM([MOCMANULINETEMP].[COPTD003])) NOT IN (SELECT (RTRIM(LTRIM([MOCMANULINE].[MANU])))+(RTRIM(LTRIM([MOCMANULINE].[COPTD001])))+(RTRIM(LTRIM([MOCMANULINE].[COPTD002])))+(RTRIM(LTRIM([MOCMANULINE].[COPTD003]))) FROM [TKMOC].[dbo].[MOCMANULINE] WHERE ISNULL([MOCMANULINE].[COPTD002],'')<>''  ) 
+                                     ORDER    BY [MANU],[COPTD001],[COPTD002],[COPTD003]
                                     ", COPTD002);
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
