@@ -9249,6 +9249,69 @@ namespace TKMOC
                 sqlConn.Close();
             }
         }
+
+        public void SEARCHMOCMANULINELIMITBARCOUNT()
+        {
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            DataSet ds1 = new DataSet();
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+                sbSqlQuery2.Clear();
+
+
+
+
+                sbSql.AppendFormat(@"  
+                                    SELECT  [MB001] AS '品號',[MB002] AS '品名',[MB003] AS '規格'
+                                    FROM [TKMOC].[dbo].[MOCMANULINELIMITBARCOUNT]
+                                    ORDER BY [MB001]
+                                  ");
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "TEMPds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["TEMPds1"].Rows.Count == 0)
+                {
+                    dataGridView26.DataSource = null;
+                }
+                else
+                {
+                    if (ds1.Tables["TEMPds1"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView26.DataSource = ds1.Tables["TEMPds1"];
+                        dataGridView26.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+
+        }
+
+
         #endregion
 
         #region BUTTON
@@ -10008,6 +10071,20 @@ namespace TKMOC
             SEARCHMOCMANULINEQUERY2(textBox85.Text.Trim());
         }
 
+        private void button81_Click(object sender, EventArgs e)
+        {
+            SEARCHMOCMANULINELIMITBARCOUNT();
+        }
+
+        private void button82_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button83_Click(object sender, EventArgs e)
+        {
+
+        }
 
         #endregion
 
