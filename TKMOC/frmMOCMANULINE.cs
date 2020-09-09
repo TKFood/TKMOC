@@ -9332,6 +9332,107 @@ namespace TKMOC
             }
         }
 
+        public void ADDMOCMANULINELIMITBARCOUNT(string MB001)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+
+                sbSql.AppendFormat(@" 
+                                    INSERT INTO  [TKMOC].[dbo].[MOCMANULINELIMITBARCOUNT]
+                                    ([MB001],[MB002],[MB003])
+                                    SELECT RTRIM(LTRIM(MB001)) MB001,RTRIM(LTRIM(MB002)) MB002, RTRIM(LTRIM(MB003)) MB003 FROM [TK].dbo.INVMB WHERE MB001='{0}'
+
+                                    ",MB001);
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+                    MessageBox.Show("完成");
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void DELETEMOCMANULINELIMITBARCOUNT(string MB001)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+
+                sbSql.AppendFormat(@" 
+                                    DELETE  [TKMOC].[dbo].[MOCMANULINELIMITBARCOUNT]
+                                    WHERE [MB001]='{0}'
+
+                                    ", MB001);
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+                    MessageBox.Show("完成");
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
         #endregion
 
         #region BUTTON
@@ -10098,12 +10199,14 @@ namespace TKMOC
 
         private void button82_Click(object sender, EventArgs e)
         {
-
+            ADDMOCMANULINELIMITBARCOUNT(textBox88.Text.Trim());
+            SEARCHMOCMANULINELIMITBARCOUNT();
         }
 
         private void button83_Click(object sender, EventArgs e)
         {
-
+            DELETEMOCMANULINELIMITBARCOUNT(textBox88.Text.Trim());
+            SEARCHMOCMANULINELIMITBARCOUNT();
         }
 
 
