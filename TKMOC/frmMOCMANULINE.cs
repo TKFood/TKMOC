@@ -9311,6 +9311,26 @@ namespace TKMOC
 
         }
 
+        private void dataGridView26_SelectionChanged(object sender, EventArgs e)
+        {
+            textBox88.Text = null;           
+
+            if (dataGridView26.CurrentRow != null)
+            {
+                int rowindex = dataGridView26.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView26.Rows[rowindex];
+                   
+                    MB001 = row.Cells["品號"].Value.ToString();
+                    textBox88.Text = MB001;
+                }
+                else
+                {
+                    textBox88.Text = null;
+                }
+            }
+        }
 
         #endregion
 
@@ -10086,8 +10106,9 @@ namespace TKMOC
 
         }
 
+
         #endregion
 
-
+     
     }
 }
