@@ -1234,7 +1234,7 @@ namespace TKMOC
                             AND[MANUDATE]>='{0}' AND[MANUDATE]<='{1}'
 
                             AND REPLACE(MC1.[MC001],' ','')+REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') NOT IN (SELECT REPLACE([MB001],' ','')+REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') FROM[TKMOC].[dbo].[PREMANUUSEDINVMB],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1 LEFT JOIN[TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003 LEFT JOIN[TK].dbo.BOMMD MD2 ON MC2.MC001= MD2.MD001 WHERE[PREMANUUSEDINVMB].MB001= MC1.MC001 AND MC1.MC001= MD1.MD001 AND  (REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') LIKE '1%' OR REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') LIKE '203%' ) )
-                            AND MD2.[MD003]='{2}'
+                            AND (MD2.[MD003]='{2}' OR MD1.[MD003]='{2}' )
                             ) AS TEMP 
                             ) AS TEMP2
                             LEFT JOIN[TK].dbo.INVMB ON INVMB.MB001=TEMP2.[MD003]
@@ -1338,7 +1338,7 @@ namespace TKMOC
                             AND[MANU]= '新廠製三組(手工)'
                             AND [ID] NOT IN (SELECT [ID] FROM [TKMOC].[dbo].[MOCMANULINE]) 
                             AND REPLACE(MC1.[MC001],' ','')+REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') NOT IN (SELECT REPLACE([MB001],' ','')+REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') FROM[TKMOC].[dbo].[PREMANUUSEDINVMB],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1 LEFT JOIN[TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003 LEFT JOIN[TK].dbo.BOMMD MD2 ON MC2.MC001= MD2.MD001 WHERE[PREMANUUSEDINVMB].MB001= MC1.MC001 AND MC1.MC001= MD1.MD001 AND  (REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') LIKE '1%' OR REPLACE(CASE WHEN ISNULL(MD2.[MD003],'')='' THEN MD1.[MD003] ELSE MD2.[MD003] END ,' ','') LIKE '203%' ) )                             
-                            AND MD2.[MD003]='{2}'
+                             AND (MD2.[MD003]='{2}' OR MD1.[MD003]='{2}' )
                             ) AS TEMP 
                             ) AS TEMP2
 
