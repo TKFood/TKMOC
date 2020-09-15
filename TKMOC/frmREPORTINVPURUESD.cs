@@ -674,11 +674,13 @@ namespace TKMOC
         }
         private void button5_Click(object sender, EventArgs e)
         {
+            textBox4.Text = null;
             SEARCHCOPTD(textBox3.Text.Trim());
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
+            textBox1.Text = null;
             SEARCHBOM(textBox4.Text.Trim());
         }
 
