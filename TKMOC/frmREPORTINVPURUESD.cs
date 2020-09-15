@@ -327,6 +327,12 @@ namespace TKMOC
                     dataGridView1.CurrentRow.Selected = false;
                     dataGridView1.Rows[i].Selected = true;
                     int index = rowIndexDG1;
+
+                    DataGridViewRow row = dataGridView1.Rows[index];
+                    MD003 = row.Cells["品號"].Value.ToString().Trim();
+
+                    SEARCHINVPURMOC(MD003, dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+
                     dataGridView1.FirstDisplayedScrollingRowIndex = index;
 
                     break;
@@ -338,6 +344,12 @@ namespace TKMOC
                     dataGridView1.CurrentRow.Selected = false;
                     dataGridView1.Rows[i].Selected = true;
                     int index = rowIndexDG1;
+
+                    DataGridViewRow row = dataGridView1.Rows[index];
+                    MD003 = row.Cells["品號"].Value.ToString().Trim();
+
+                    SEARCHINVPURMOC(MD003, dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+
                     dataGridView1.FirstDisplayedScrollingRowIndex = index;
 
                     break;
