@@ -834,7 +834,7 @@ namespace TKMOC
         {
             StringBuilder SB = new StringBuilder();
 
-            //新廠製二組，每日加總不計成品
+            //新廠製二組，每日加總不計成品 AND TA034 NOT LIKE '%水麵%'
             //新廠製一組，每日加總計成品
             if (comboBox2.Text.Equals("新廠製二組"))
             {
@@ -898,7 +898,7 @@ namespace TKMOC
                                 WHERE TA006=MB001 AND TA021=MD001
                                 AND ISNULL(INVMB.UDF03,'')<>''
                                 AND TA003>='{0}' AND TA003<='{1}'
-       
+                                AND TA034 NOT LIKE '%水麵%'
                                 ) AS TEMP
                                 ) AS TEMP2
                                 WHERE 線別='{2}'
