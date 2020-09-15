@@ -587,6 +587,50 @@ namespace TKMOC
             }
         }
 
+        private void dataGridView3_SelectionChanged(object sender, EventArgs e)
+        {
+            textBox4.Text = null;
+
+            if (dataGridView3.CurrentRow != null)
+            {
+                int rowindex = dataGridView3.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView3.Rows[rowindex];
+                    MD003 = row.Cells["品號"].Value.ToString().Trim();
+
+                    textBox4.Text = MD003;
+                }
+                else
+                {
+                    textBox4.Text = null;
+                }
+            }
+        }
+
+        private void dataGridView4_SelectionChanged(object sender, EventArgs e)
+        {
+
+            textBox1.Text = null;
+
+            if (dataGridView4.CurrentRow != null)
+            {
+                int rowindex = dataGridView4.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView4.Rows[rowindex];
+                    MD003 = row.Cells["品號"].Value.ToString().Trim();
+
+                    textBox1.Text = MD003;
+                }
+                else
+                {
+                    textBox1.Text = null;
+                }
+            }
+        }
+
+
         #endregion
 
         #region BUTTON
@@ -637,6 +681,7 @@ namespace TKMOC
         {
             SEARCHBOM(textBox4.Text.Trim());
         }
+
 
         #endregion
 
