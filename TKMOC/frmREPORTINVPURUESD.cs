@@ -456,6 +456,137 @@ namespace TKMOC
             }
         }
 
+        public void SEARCHCOPTD(string TD002)
+        {
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();    
+            DataSet ds1 = new DataSet();
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"
+                                    SELECT TD004 AS '品號',TD005  AS '品名',TD006  AS '規格'
+                                    FROM [TK].dbo.COPTD
+                                    WHERE TD002='{0}'
+                                    ORDER BY TD004
+                                    ", TD002);
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "ds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["ds1"].Rows.Count == 0)
+                {
+                    dataGridView3.DataSource = null;
+                }
+                else
+                {
+                    if (ds1.Tables["ds1"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView3.DataSource = ds1.Tables["ds1"];
+                        dataGridView3.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                     
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+
+        public void SEARCHBOM(string MD001)
+        {
+
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            DataSet ds1 = new DataSet();
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"
+                                    ;WITH BOMOrder AS (
+
+                                    SELECT MD001, MD003 ,MD006,MD007,MD008 ,1 AS BOMLevel,CONVERT(DECIMAL(16,5),1*MD006/MD007) AS NUM,MC004
+                                    FROM [TK].dbo.VBOMMD 
+                                    UNION ALL	
+                                    SELECT A.MD001, B.MD003,B.MD006,B.MD007,B.MD008, (B.BOMLevel + 1) AS BOMLevel,CONVERT(DECIMAL(16,5),B.NUM*A.MD006/A.MD007) AS NUM,B.MC004
+                                    FROM [TK].dbo.VBOMMD A
+                                    INNER JOIN BOMOrder B ON A.MD003 = B.MD001
+                                    )
+                                    SELECT  MD003 AS '品號' ,MB002  AS '品名',MD001  AS '成品號'
+                                    FROM BOMOrder,[TK].dbo.INVMB
+                                    WHERE BOMLevel<=5
+                                    AND MD003=MB001
+                                    AND MD001='{0}'
+                                    GROUP BY MD001, MD003 ,MB002
+                                    ORDER BY MD003
+                                    ", MD001);
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "ds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["ds1"].Rows.Count == 0)
+                {
+                    dataGridView4.DataSource = null;
+                }
+                else
+                {
+                    if (ds1.Tables["ds1"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView4.DataSource = ds1.Tables["ds1"];
+                        dataGridView4.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+
         #endregion
 
         #region BUTTON
@@ -496,6 +627,15 @@ namespace TKMOC
             {
                 //do something else
             }
+        }
+        private void button5_Click(object sender, EventArgs e)
+        {
+            SEARCHCOPTD(textBox3.Text.Trim());
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            SEARCHBOM(textBox4.Text.Trim());
         }
 
         #endregion
