@@ -490,6 +490,7 @@
             this.dataGridView3.RowTemplate.Height = 24;
             this.dataGridView3.Size = new System.Drawing.Size(535, 133);
             this.dataGridView3.TabIndex = 6;
+            this.dataGridView3.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView3_CellDoubleClick);
             this.dataGridView3.SelectionChanged += new System.EventHandler(this.dataGridView3_SelectionChanged);
             // 
             // splitContainer5
@@ -543,6 +544,7 @@
             this.dataGridView4.RowTemplate.Height = 24;
             this.dataGridView4.Size = new System.Drawing.Size(423, 119);
             this.dataGridView4.TabIndex = 7;
+            this.dataGridView4.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView4_CellDoubleClick);
             this.dataGridView4.SelectionChanged += new System.EventHandler(this.dataGridView4_SelectionChanged);
             // 
             // tableLayoutPanel2

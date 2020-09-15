@@ -346,6 +346,7 @@ namespace TKMOC
 
             if (ROWS == dataGridView1.Rows.Count - 1)
             {
+
                 if (MessageBox.Show("已查到最後一筆，是否從頭開始?", "已查到最後一筆，是否從頭開始?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     SEARCHDG1(textBox1.Text.Trim(), 0);
@@ -629,8 +630,16 @@ namespace TKMOC
                 }
             }
         }
+        private void dataGridView3_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            textBox1.Text = null;
+            SEARCHBOM(textBox4.Text.Trim());
+        }
 
-
+        private void dataGridView4_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            SEARCHDG1(textBox1.Text.Trim(), 0);
+        }
         #endregion
 
         #region BUTTON
@@ -685,8 +694,10 @@ namespace TKMOC
         }
 
 
+
+
         #endregion
 
-
+      
     }
 }
