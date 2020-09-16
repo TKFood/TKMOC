@@ -543,24 +543,33 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
+                //找下層bom
                 sbSql.AppendFormat(@"
-                                    ;WITH BOMOrder AS (
-
-                                    SELECT MD001, MD003 ,MD006,MD007,MD008 ,1 AS BOMLevel,CONVERT(DECIMAL(16,5),1*MD006/MD007) AS NUM,MC004
-                                    FROM [TK].dbo.VBOMMD 
-                                    UNION ALL	
-                                    SELECT A.MD001, B.MD003,B.MD006,B.MD007,B.MD008, (B.BOMLevel + 1) AS BOMLevel,CONVERT(DECIMAL(16,5),B.NUM*A.MD006/A.MD007) AS NUM,B.MC004
-                                    FROM [TK].dbo.VBOMMD A
-                                    INNER JOIN BOMOrder B ON A.MD003 = B.MD001
-                                    )
-                                    SELECT  MD003 AS '品號' ,MB002  AS '品名',MD001  AS '成品號'
-                                    FROM BOMOrder,[TK].dbo.INVMB
-                                    WHERE BOMLevel<=5
-                                    AND MD003=MB001
-                                    AND MD001='{0}'
-                                    GROUP BY MD001, MD003 ,MB002
-                                    ORDER BY MD003
+                                   SELECT MD003  AS '品號',MD035 AS '品名',MD001 AS '成品號'
+                                    FROM [TK].dbo.BOMMD
+                                    WHERE  MD001='{0}'
+                                    ORDER BY  MD001,MD003
                                     ", MD001);
+
+                //找所有階層的bom
+                //sbSql.AppendFormat(@"
+                //                    ;WITH BOMOrder AS (
+
+                //                    SELECT MD001, MD003 ,MD006,MD007,MD008 ,1 AS BOMLevel,CONVERT(DECIMAL(16,5),1*MD006/MD007) AS NUM,MC004
+                //                    FROM [TK].dbo.VBOMMD 
+                //                    UNION ALL	
+                //                    SELECT A.MD001, B.MD003,B.MD006,B.MD007,B.MD008, (B.BOMLevel + 1) AS BOMLevel,CONVERT(DECIMAL(16,5),B.NUM*A.MD006/A.MD007) AS NUM,B.MC004
+                //                    FROM [TK].dbo.VBOMMD A
+                //                    INNER JOIN BOMOrder B ON A.MD003 = B.MD001
+                //                    )
+                //                    SELECT  MD003 AS '品號' ,MB002  AS '品名',MD001  AS '成品號'
+                //                    FROM BOMOrder,[TK].dbo.INVMB
+                //                    WHERE BOMLevel<=5
+                //                    AND MD003=MB001
+                //                    AND MD001='{0}'
+                //                    GROUP BY MD001, MD003 ,MB002
+                //                    ORDER BY MD003
+                //                    ", MD001);
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
