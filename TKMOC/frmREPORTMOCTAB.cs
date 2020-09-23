@@ -239,12 +239,12 @@ namespace TKMOC
         {
             string SQL;
             report1 = new Report();
-            report1.Load(@"REPORT\生產入庫單(自動).frx");
+            report1.Load(@"REPORT\製令明細表2020.frx");
 
             report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
 
             TableDataSource Table = report1.GetDataSource("Table") as TableDataSource;
-            SQL = SETFASETSQL2(SDAY, EDAY);
+            SQL = SETFASETSQL(SDAY, EDAY);
             Table.SelectCommand = SQL;
 
             report1.SetParameterValue("P1", CODE);
@@ -255,12 +255,26 @@ namespace TKMOC
         }
 
 
-        public string SETFASETSQL2(string SDAY, string EDAY)
+        public string (string SDAY, string EDAY)
         {
             StringBuilder FASTSQL = new StringBuilder();
 
             FASTSQL.AppendFormat(@"    
-
+                                SELECT TA003 AS '製令日期' ,TA001 AS '製令別',TA002 AS '製令編號',TA021 AS '生產線別',TA006 AS '品號',TA034 AS '品名',TA035 AS '規格',TA015 AS '預計產量',TA017 AS '實際產出',TA007 AS '單位',TA029 AS '備註',MB023,MB198
+                                ,CASE WHEN MB198='2' THEN  CONVERT(NVARCHAR,DATEADD(DAY,-1,DATEADD(MONTH,MB023,TA003)),112) ELSE CONVERT(NVARCHAR,DATEADD(DAY,-1,DATEADD(DAY,MB023,TA003)),112) END AS '有效日期'
+                                ,CASE WHEN TA006 NOT LIKE '4%' THEN CONVERT(decimal(16,2),TA017/ISNULL(MC004,1)) ELSE 0 END AS '桶數'
+                                ,CASE WHEN TA006  LIKE '4%' THEN CONVERT(decimal(16,2),TA017/ISNULL(MD007,1)*ISNULL(MD010,1)) ELSE 0 END AS '箱數'
+                                ,[PCT] AS '比例'
+                                ,[ALLERGEN]  AS '過敏原'
+                                ,ISNULL(MC004,1) MC004
+                                ,ISNULL(MD007,1) AS MD007,ISNULL(MD010,1) AS MD010
+                                FROM [TK].dbo.MOCTA
+                                LEFT JOIN [TK].dbo.INVMB ON MB001=TA006
+                                LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=TA006
+                                LEFT JOIN [TK].dbo.BOMMC ON MC001=TA006
+                                LEFT JOIN [TK].dbo.BOMMD ON MD035 LIKE '%箱%' AND MD003 LIKE '2%' AND MD001=TA006
+                                WHERE TA003>='{0}' AND TA003<='{1}'
+                                ORDER BY TA003,TA021,TA001,TA002  
                                 ", SDAY, EDAY);
 
             return FASTSQL.ToString();
