@@ -255,7 +255,7 @@ namespace TKMOC
         }
 
 
-        public string (string SDAY, string EDAY)
+        public string SETFASETSQL(string SDAY, string EDAY)
         {
             StringBuilder FASTSQL = new StringBuilder();
 
