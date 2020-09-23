@@ -504,6 +504,12 @@
     <Compile Include="frmREPORTMOCSTAT.Designer.cs">
       <DependentUpon>frmREPORTMOCSTAT.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmREPORTMOCTAB.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmREPORTMOCTAB.Designer.cs">
+      <DependentUpon>frmREPORTMOCTAB.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmREPORTYIELDRATE.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -748,6 +754,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmREPORTMOCSTAT.resx">
       <DependentUpon>frmREPORTMOCSTAT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmREPORTMOCTAB.resx">
+      <DependentUpon>frmREPORTMOCTAB.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmREPORTYIELDRATE.resx">
       <DependentUpon>frmREPORTYIELDRATE.cs</DependentUpon>

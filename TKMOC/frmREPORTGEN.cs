@@ -98,6 +98,7 @@ namespace TKMOC
                         dataGridView1.AutoResizeColumns();
                         //dataGridView1.CurrentCell = dataGridView1[0, rownum];
 
+
                     }
                 }
 
@@ -420,7 +421,12 @@ namespace TKMOC
                         //dataGridView1.Rows.Clear();
                         dataGridView2.DataSource = ds3.Tables["ds3"];
                         dataGridView2.AutoResizeColumns();
-               
+
+                        dataGridView2.Columns["品號"].Width = 160;
+                        dataGridView2.Columns["品名"].Width = 260;
+                        dataGridView2.Columns["規格"].Width = 100;
+                        dataGridView2.Columns["箱數"].Width = 100;
+                        dataGridView2.Columns["板數"].Width = 100;
                     }
                 }
 
