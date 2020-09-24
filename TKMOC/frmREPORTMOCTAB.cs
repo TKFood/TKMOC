@@ -259,13 +259,16 @@ namespace TKMOC
         {
             StringBuilder FASTSQL = new StringBuilder();
 
+            //,CASE WHEN TA006 NOT LIKE '4%' THEN CONVERT(decimal(16,3),TA015/ISNULL(MC004,1)) ELSE 0 END AS '桶數'
+            //,CASE WHEN TA006 LIKE '4%' THEN CONVERT(decimal(16, 3), TA015 / ISNULL(MD007, 1) * ISNULL(MD010, 1)) ELSE 0 END AS '箱數'
+
             FASTSQL.AppendFormat(@"    
                                 SELECT TA003 AS '製令日期' ,TA001 AS '製令別',TA002 AS '製令編號',TA021 AS '生產線別',TA006 AS '品號',TA034 AS '品名',TA035 AS '規格',TA015 AS '預計產量',TA017 AS '實際產出',TA007 AS '單位',TA029 AS '備註',MB023,MB198
                                 ,CASE WHEN MB198='2' THEN  CONVERT(NVARCHAR,DATEADD(DAY,-1,DATEADD(MONTH,MB023,TA003)),112) ELSE CONVERT(NVARCHAR,DATEADD(DAY,-1,DATEADD(DAY,MB023,TA003)),112) END AS '有效日期'
-                                ,CASE WHEN TA006 NOT LIKE '4%' THEN CONVERT(decimal(16,3),TA015/ISNULL(MC004,1)) ELSE 0 END AS '桶數'
-                                ,CASE WHEN TA006  LIKE '4%' THEN CONVERT(decimal(16,3),TA015/ISNULL(MD007,1)*ISNULL(MD010,1)) ELSE 0 END AS '箱數'
-                                ,[PCT] AS '比例'
+                                  ,[PCT] AS '比例'
                                 ,[ALLERGEN]  AS '過敏原'
+                                ,CONVERT(decimal(16,3),TA015/ISNULL(MC004,1)) AS '桶數'
+                                ,CONVERT(decimal(16, 3), TA015 / ISNULL(MD007, 1) * ISNULL(MD010, 1)) AS '箱數'
                                 ,ISNULL(MC004,1) MC004
                                 ,ISNULL(MD007,1) AS MD007,ISNULL(MD010,1) AS MD010
                                 FROM [TK].dbo.MOCTA
