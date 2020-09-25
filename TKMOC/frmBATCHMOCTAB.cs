@@ -89,6 +89,18 @@ namespace TKMOC
         DataSet dsBOMMC = new DataSet();
         DataSet dsBOMMD = new DataSet();
 
+
+       
+        string BATCHMOCTABMB001=null;
+        string BATCHMOCTABMB002 = null;
+        string BATCHMOCTABMB004 = null;
+        decimal BATCHMOCTABNUM = 0;
+        string BATCHMOCTABMB068 = null;
+        string BATCHMOCTABIDDATE = null;
+
+
+
+
         public class ADDITEM
         {
             public string MB001;
@@ -173,9 +185,12 @@ namespace TKMOC
 
         }
 
+
+
         public frmBATCHMOCTAB()
         {
             InitializeComponent();
+           
         }
 
 
@@ -1341,6 +1356,14 @@ namespace TKMOC
         {
             SETNULL();
 
+            BATCHMOCTABMB001 = null;
+            BATCHMOCTABMB002 = null;
+            BATCHMOCTABMB004 = null;
+            BATCHMOCTABNUM = 0;
+            BATCHMOCTABMB068 = null;
+            BATCHMOCTABIDDATE = null;
+
+
             if (dataGridView3.CurrentRow != null)
             {
                 int rowindex = dataGridView3.CurrentRow.Index;
@@ -1353,6 +1376,14 @@ namespace TKMOC
                     textBox13.Text = row.Cells["品名"].Value.ToString();
                     textBox14.Text = row.Cells["數量"].Value.ToString();
                     textBox17.Text = row.Cells["線別"].Value.ToString();
+
+
+                    BATCHMOCTABMB001 = row.Cells["品號"].Value.ToString();
+                    BATCHMOCTABMB002 =row.Cells["品名"].Value.ToString();
+                    BATCHMOCTABMB004 = row.Cells["單位"].Value.ToString();
+                    BATCHMOCTABNUM = Convert.ToDecimal(row.Cells["數量"].Value.ToString());
+                    BATCHMOCTABMB068 = row.Cells["線別"].Value.ToString();
+
 
                     SEARCHMOCTA2(textBox11.Text);
                     SEARCHBATCHMOCLIMIT(textBox12.Text.Trim());
@@ -1665,7 +1696,19 @@ namespace TKMOC
         }
         private void button9_Click(object sender, EventArgs e)
         {
+            string ID = GETMAXBATCHMOCTABID(dateTimePicker6.Value.ToString("yyyyMMdd"));
+            string MB001 = BATCHMOCTABMB001;
+            string MB002 = BATCHMOCTABMB002;
+            string MB004 = BATCHMOCTABMB004;
+            decimal NUM = BATCHMOCTABNUM;
+            string MB068 = BATCHMOCTABMB068;
+            
 
+            if (!string.IsNullOrEmpty(ID) && !string.IsNullOrEmpty(MB001) && !string.IsNullOrEmpty(MB002) && !string.IsNullOrEmpty(MB004) && !string.IsNullOrEmpty(NUM.ToString()) && !string.IsNullOrEmpty(MB068))
+            {
+                ADDBATCHMOCTAB(ID, MB001.Trim(), MB002.Trim(), MB004.Trim(), NUM, MB068.Trim(), dateTimePicker6.Value.ToString("yyyyMMdd"));
+                SEARCHBATCHMOCTAB(dateTimePicker4.Value.ToString("yyyyMMdd"));
+            }
         }
 
 
