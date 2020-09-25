@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="09/23/2020 16:02:45" ReportInfo.Modified="09/24/2020 09:45:32" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="09/23/2020 16:02:45" ReportInfo.Modified="09/25/2020 14:20:43" ReportInfo.CreatorVersion="2016.4.4.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9L+oZ+eSUZwixW6YbQgVh60">
-      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT TA003 AS '製令日期' ,TA001 AS '製令別',TA002 AS '製令編號',TA021 AS '生產線別',TA006 AS '品號',TA034 AS '品名',TA035 AS '規格',TA015 AS '預計產量',TA017 AS '實際產出',TA007 AS '單位',TA029 AS '備註',MB023,MB198&#13;&#10;,CASE WHEN MB198='2' THEN  CONVERT(NVARCHAR,DATEADD(DAY,-1,DATEADD(MONTH,MB023,TA003)),112) ELSE CONVERT(NVARCHAR,DATEADD(DAY,-1,DATEADD(DAY,MB023,TA003)),112) END AS '有效日期'&#13;&#10;,CASE WHEN TA006 NOT LIKE '4%' THEN CONVERT(decimal(16,2),TA017/ISNULL(MC004,1)) ELSE 0 END AS '桶數'&#13;&#10;,CASE WHEN TA006  LIKE '4%' THEN CONVERT(decimal(16,2),TA017/ISNULL(MD007,1)*ISNULL(MD010,1)) ELSE 0 END AS '箱數'&#13;&#10;,[PCT] AS '比例'&#13;&#10;,[ALLERGEN]  AS '過敏原'&#13;&#10;,ISNULL(MC004,1) MC004&#13;&#10;,ISNULL(MD007,1) AS MD007,ISNULL(MD010,1) AS MD010&#13;&#10;FROM [TK].dbo.MOCTA&#13;&#10;LEFT JOIN [TK].dbo.INVMB ON MB001=TA006&#13;&#10;LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=TA006&#13;&#10;LEFT JOIN [TK].dbo.BOMMC ON MC001=TA006&#13;&#10;LEFT JOIN [TK].dbo.BOMMD ON MD035 LIKE '%箱%' AND MD003 LIKE '2%' AND MD007&gt;1 AND MD001=TA006&#13;&#10;WHERE TA003&gt;='20200922' AND TA003&lt;='20200922'&#13;&#10;ORDER BY TA003,TA021,TA001,TA002  ">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9Ioucd2XWMhuPORMuPA6C2f">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT TA003 AS '製令日期' ,TA001 AS '製令別',TA002 AS '製令編號',TA021 AS '生產線別',TA006 AS '品號',TA034 AS '品名',TA035 AS '規格',TA015 AS '預計產量',TA017 AS '實際產出',TA007 AS '單位',TA029 AS '備註',MB023,MB198&#13;&#10;,CASE WHEN MB198='2' THEN  CONVERT(NVARCHAR,DATEADD(DAY,-1,DATEADD(MONTH,MB023,TA003)),112) ELSE CONVERT(NVARCHAR,DATEADD(DAY,-1,DATEADD(DAY,MB023,TA003)),112) END AS '有效日期'&#13;&#10;,CASE WHEN TA006 NOT LIKE '4%' THEN CONVERT(decimal(16,2),TA017/ISNULL(MC004,1)) ELSE 0 END AS '桶數'&#13;&#10;,CASE WHEN TA006  LIKE '4%' THEN CONVERT(decimal(16,2),TA017/ISNULL(MD007,1)*ISNULL(MD010,1)) ELSE 0 END AS '箱數'&#13;&#10;,[PCT] AS '比例'&#13;&#10;,[ALLERGEN]  AS '過敏原'&#13;&#10;,MOCTA.UDF01 AS '順序'&#13;&#10;,ISNULL(MC004,1) MC004&#13;&#10;,ISNULL(MD007,1) AS MD007,ISNULL(MD010,1) AS MD010&#13;&#10;FROM [TK].dbo.MOCTA&#13;&#10;LEFT JOIN [TK].dbo.INVMB ON MB001=TA006&#13;&#10;LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=TA006&#13;&#10;LEFT JOIN [TK].dbo.BOMMC ON MC001=TA006&#13;&#10;LEFT JOIN [TK].dbo.BOMMD ON MD035 LIKE '%箱%' AND MD003 LIKE '2%' AND MD007&gt;1 AND MD001=TA006&#13;&#10;WHERE TA003&gt;='20200922' AND TA003&lt;='20200922'&#13;&#10;ORDER BY TA003,TA021,TA001,TA002  ">
         <Column Name="製令別" DataType="System.String"/>
         <Column Name="製令編號" DataType="System.String"/>
         <Column Name="生產線別" DataType="System.String"/>
@@ -24,6 +24,7 @@
         <Column Name="比例" DataType="System.String"/>
         <Column Name="過敏原" DataType="System.String"/>
         <Column Name="製令日期" DataType="System.String"/>
+        <Column Name="順序" DataType="System.String"/>
       </TableDataSource>
     </MsSqlDataConnection>
     <Parameter Name="P1" DataType="System.String"/>
@@ -59,7 +60,7 @@
       <TextObject Name="Text3" Left="66.15" Width="47.25" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.製令別]" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text5" Left="113.4" Width="85.05" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.製令編號]" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text7" Left="292.95" Width="226.8" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.品名]" VertAlign="Center"/>
-      <TextObject Name="Text12" Left="245.7" Width="47.25" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text12" Left="245.7" Width="47.25" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.順序]" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text9" Left="198.45" Width="47.25" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.比例]" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text13" Left="519.75" Width="56.7" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.過敏原]" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text15" Left="576.45" Width="132.3" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.規格]" VertAlign="Center"/>

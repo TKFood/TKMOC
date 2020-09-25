@@ -269,6 +269,7 @@ namespace TKMOC
                                 ,[ALLERGEN]  AS '過敏原'
                                 ,CONVERT(decimal(16,3),TA015/ISNULL(MC004,1)) AS '桶數'
                                 ,CONVERT(decimal(16, 3), TA015 / ISNULL(MD007, 1) * ISNULL(MD010, 1)) AS '箱數'
+                                ,MOCTA.UDF01 AS '順序'
                                 ,ISNULL(MC004,1) MC004
                                 ,ISNULL(MD007,1) AS MD007,ISNULL(MD010,1) AS MD010
                                 FROM [TK].dbo.MOCTA
