@@ -1074,13 +1074,12 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-
-                sbSql.AppendFormat(@"  SELECT [ID]  AS '批號',[MB001]  AS '品號',[MB002]  AS '品名',[NUM]  AS '數量',[MB004] AS '單位',[MB068] AS '線別',CONVERT(nvarchar,[IDDATE],112) AS '日期'");
-                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[BATCHMOCTAB]");
-                sbSql.AppendFormat(@"  WHERE CONVERT(nvarchar,[IDDATE],112)='{0}'", IDDATE);
-                sbSql.AppendFormat(@"  ORDER BY [ID]");
-                sbSql.AppendFormat(@"  ");
-                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  
+                                    SELECT [ID]  AS '批號',[MB001]  AS '品號',[MB002]  AS '品名',[NUM]  AS '數量',[MB004] AS '單位',[MB068] AS '線別',CONVERT(nvarchar,[IDDATE],112) AS '日期'
+                                    FROM [TKMOC].[dbo].[BATCHMOCTAB]
+                                    WHERE CONVERT(nvarchar,[IDDATE],112)='{0}'
+                                    ORDER BY [ID]
+                                    ", IDDATE);
 
                 adapter7 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -1664,10 +1663,14 @@ namespace TKMOC
             textBox19.Text = null;
 
         }
+        private void button9_Click(object sender, EventArgs e)
+        {
+
+        }
 
 
         #endregion
 
-      
+
     }
 }
