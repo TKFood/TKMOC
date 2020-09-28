@@ -2785,9 +2785,9 @@ namespace TKMOC
             SQL1 = SETSQL4(MANU, SDAY, EDAY);
             Report report1 = new Report();
 
-            if(comboBox8.Text.Trim().Equals("1.桶數"))
+            if(comboBox8.Text.Trim().Equals("1.總桶數"))
             {
-                report1.Load(@"REPORT\預排製令矩陣-1.桶數.frx");
+                report1.Load(@"REPORT\預排製令矩陣-1.總桶數.frx");
             }
             else if (comboBox8.Text.Trim().Equals("2.包裝量"))
             {
@@ -2804,6 +2804,10 @@ namespace TKMOC
             else if (comboBox8.Text.Trim().Equals("5.桶數+數量"))
             {
                 report1.Load(@"REPORT\預排製令矩陣-5.桶數+數量.frx");
+            }
+            else if (comboBox8.Text.Trim().Equals("6.桶數"))
+            {
+                report1.Load(@"REPORT\預排製令矩陣-6.桶數.frx");
             }
             else
             {
