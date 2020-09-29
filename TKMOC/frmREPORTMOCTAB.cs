@@ -460,6 +460,8 @@ namespace TKMOC
 
         public void UPDATEMOCTA()
         {
+            sbSql.Clear();
+
             foreach (DataGridViewRow row in dataGridView1.Rows)
             {
                 string TA001 = row.Cells[1].Value.ToString().Trim();
@@ -468,8 +470,56 @@ namespace TKMOC
 
                 if(!string.IsNullOrEmpty(UDF01))
                 {
-                    MessageBox.Show(TA001+" "+TA002+" "+UDF01);
+                    sbSql.AppendFormat(@" UPDATE  [TK].dbo.MOCTA SET UDF01='{2}' WHERE TA001='{0}' AND  TA002='{1}'", TA001, TA002,UDF01);
+                    sbSql.AppendFormat(@" ");
                 }
+                else
+                {
+                    sbSql.AppendFormat(@" UPDATE  [TK].dbo.MOCTA SET UDF01=NULL WHERE TA001='{0}' AND  TA002='{1}'", TA001, TA002, UDF01);
+                    sbSql.AppendFormat(@" ");
+                }
+            }
+
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+
+                sbSql.AppendFormat(@" ");
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
             }
         }
         #endregion
@@ -509,6 +559,7 @@ namespace TKMOC
         private void button5_Click(object sender, EventArgs e)
         {
             UPDATEMOCTA();
+            SearchMOCTA(dateTimePicker2.Value.ToString("yyyyMMdd"));
         }
 
         #endregion
