@@ -455,7 +455,20 @@ namespace TKMOC
             }
         }
 
+        public void UPDATEMOCTA()
+        {
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                string TA001 = row.Cells[1].Value.ToString().Trim();
+                string TA002 = row.Cells[2].Value.ToString().Trim();
+                string UDF01 = row.Cells[3].Value.ToString().Trim();
 
+                if(!string.IsNullOrEmpty(UDF01))
+                {
+                    MessageBox.Show(TA001+" "+TA002+" "+UDF01);
+                }
+            }
+        }
         #endregion
 
         #region BUTTON
@@ -490,6 +503,10 @@ namespace TKMOC
             SearchMOCTA(dateTimePicker2.Value.ToString("yyyyMMdd"));
         }
 
+        private void button5_Click(object sender, EventArgs e)
+        {
+            UPDATEMOCTA();
+        }
 
         #endregion
 
