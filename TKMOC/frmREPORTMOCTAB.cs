@@ -439,6 +439,9 @@ namespace TKMOC
                         dataGridView1.DataSource = ds1.Tables["ds1"];
                         dataGridView1.AutoResizeColumns();
 
+                        dataGridView1.Columns["生產線別"].ReadOnly = true;
+                        dataGridView1.Columns["製令單"].ReadOnly = true;
+                        dataGridView1.Columns["製令單號"].ReadOnly = true;
                        
 
                     }
