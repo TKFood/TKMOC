@@ -235,7 +235,7 @@ namespace TKMOC
 
 
 
-        public void SETFASTREPORT(string SDAY,string EDAY, string CODE)
+        public void SETFASTREPORT(string SDAY, string CODE)
         {
             string SQL;
             report1 = new Report();
@@ -244,7 +244,7 @@ namespace TKMOC
             report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
 
             TableDataSource Table = report1.GetDataSource("Table") as TableDataSource;
-            SQL = SETFASETSQL(SDAY, EDAY);
+            SQL = SETFASETSQL(SDAY);
             Table.SelectCommand = SQL;
 
             report1.SetParameterValue("P1", CODE);
@@ -255,7 +255,7 @@ namespace TKMOC
         }
 
 
-        public string SETFASETSQL(string SDAY, string EDAY)
+        public string SETFASETSQL(string SDAY)
         {
             StringBuilder FASTSQL = new StringBuilder();
 
@@ -277,9 +277,9 @@ namespace TKMOC
                                 LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=TA006
                                 LEFT JOIN [TK].dbo.BOMMC ON MC001=TA006
                                 LEFT JOIN [TK].dbo.BOMMD ON MD035 LIKE '%箱%' AND MD003 LIKE '2%' AND MD007>1 AND MD001=TA006
-                                WHERE TA003>='{0}' AND TA003<='{1}'
+                                WHERE TA003='{0}' 
                                 ORDER BY TA003,TA021,TA001,TA002   
-                                ", SDAY, EDAY);
+                                ", SDAY);
 
             return FASTSQL.ToString();
         }
@@ -302,7 +302,7 @@ namespace TKMOC
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            SETFASTREPORT(dateTimePicker1.Value.ToString("yyyyMMdd"),dateTimePicker2.Value.ToString("yyyyMMdd"),textBox3.Text.Trim());
+            SETFASTREPORT(dateTimePicker1.Value.ToString("yyyyMMdd"),textBox3.Text.Trim());
         }
 
         #endregion
