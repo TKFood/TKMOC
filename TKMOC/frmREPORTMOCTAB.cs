@@ -392,6 +392,70 @@ namespace TKMOC
                 sqlConn.Close();
             }
         }
+
+
+        public void SearchMOCTA(string TA003)
+        {
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            DataSet ds1 = new DataSet();
+
+            StringBuilder Query = new StringBuilder();
+
+      
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@" 
+                                    SELECT TA021 AS '生產線別',TA001  AS '製令單',TA002  AS '製令單號',UDF01  AS '生產順序'
+                                    FROM [TK].dbo.MOCTA
+                                    WHERE TA003='{0}'
+                                    ORDER BY TA021,TA001,TA002,UDF01
+                                    ", TA003);
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "ds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["ds1"].Rows.Count == 0)
+                {
+                    dataGridView1.DataSource = null;
+                }
+                else
+                {
+                    if (ds1.Tables["ds1"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView1.DataSource = ds1.Tables["ds1"];
+                        dataGridView1.AutoResizeColumns();
+
+                       
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+
+
         #endregion
 
         #region BUTTON
@@ -421,10 +485,14 @@ namespace TKMOC
             SETFASTREPORT(dateTimePicker1.Value.ToString("yyyyMMdd"),textBox3.Text.Trim());
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            SearchMOCTA(dateTimePicker2.Value.ToString("yyyyMMdd"));
+        }
 
 
         #endregion
 
-     
+
     }
 }
