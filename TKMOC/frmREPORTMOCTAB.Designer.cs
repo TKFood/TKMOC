@@ -170,6 +170,7 @@
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(114, 27);
             this.dateTimePicker1.TabIndex = 1;
+            this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
             // label3
             // 
@@ -505,6 +506,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmREPORTMOCTAB";
             this.Text = "frmREPORTMOCTAB";
+            this.Load += new System.EventHandler(this.frmREPORTMOCTAB_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);

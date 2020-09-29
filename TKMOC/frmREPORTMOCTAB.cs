@@ -48,6 +48,10 @@ namespace TKMOC
         }
 
         #region FUNCTION
+        private void frmREPORTMOCTAB_Load(object sender, EventArgs e)
+        {
+            textBox3.Text = SEARCHMOCLOTNO(dateTimePicker1.Value.ToString("yyyyMMdd"));
+        }
         public void Search()
         {         
             SqlDataAdapter adapter1 = new SqlDataAdapter();
@@ -283,6 +287,111 @@ namespace TKMOC
 
             return FASTSQL.ToString();
         }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            textBox3.Text = SEARCHMOCLOTNO(dateTimePicker1.Value.ToString("yyyyMMdd"));
+        }
+
+        public string SEARCHMOCLOTNO(string MOCDATES)
+        {
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            DataSet ds1 = new DataSet();
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  
+                                    SELECT  [MOCDATES],[LOTNO]
+                                    FROM [TKMOC].[dbo].[MOCLOTNO]
+                                    WHERE [MOCDATES]='{0}'
+                                    ", MOCDATES);
+
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "TEMPds1");
+                sqlConn.Close();
+
+                if (ds1.Tables["TEMPds1"].Rows.Count >= 1)
+                {
+                    return ds1.Tables["TEMPds1"].Rows[0]["LOTNO"].ToString().Trim();
+                }
+                else
+                {
+                    return null;
+
+                }
+
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void ADDDELETEMOCLOTNO(string MOCDATES,string LOTNO)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+                sbSql.AppendFormat(@" 
+                                    DELETE [TKMOC].[dbo].[MOCLOTNO] WHERE [MOCDATES]='{0}'
+
+                                    INSERT INTO  [TKMOC].[dbo].[MOCLOTNO] ( [MOCDATES],[LOTNO])
+                                    VALUES ('{0}','{1}')
+                                    ", MOCDATES, LOTNO);
+
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
         #endregion
 
         #region BUTTON
@@ -302,11 +411,20 @@ namespace TKMOC
         }
         private void button1_Click(object sender, EventArgs e)
         {
+            if(!string.IsNullOrEmpty(textBox3.Text.Trim()))
+            {
+                ADDDELETEMOCLOTNO(dateTimePicker1.Value.ToString("yyyyMMdd"), textBox3.Text.Trim());
+            }
+
+            textBox3.Text = SEARCHMOCLOTNO(dateTimePicker1.Value.ToString("yyyyMMdd"));
+
             SETFASTREPORT(dateTimePicker1.Value.ToString("yyyyMMdd"),textBox3.Text.Trim());
         }
 
+
+
         #endregion
 
-
+     
     }
 }
