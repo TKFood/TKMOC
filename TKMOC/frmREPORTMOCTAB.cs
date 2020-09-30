@@ -73,7 +73,7 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@" SELECT [MB001] AS '品號',[MB002]  AS '品名',[MB003]  AS '規格',[PCT]  AS '比例',[ALLERGEN]  AS '過敏原'");
+                sbSql.AppendFormat(@" SELECT [MB001] AS '品號',[MB002]  AS '品名',[MB003]  AS '規格',[PCT]  AS '比例',[ALLERGEN]  AS '過敏原',[SPEC] AS '餅體'");
                 sbSql.AppendFormat(@" FROM [TKMOC].[dbo].[ERPINVMB] ");
                 sbSql.AppendFormat(@" WHERE 1=1 ");
                 sbSql.AppendFormat(@" {0}", Query.ToString());
@@ -106,6 +106,7 @@ namespace TKMOC
                         dataGridView2.Columns["規格"].Width = 100;
                         dataGridView2.Columns["比例"].Width = 100;
                         dataGridView2.Columns["過敏原"].Width = 100;
+                        dataGridView2.Columns["餅體"].Width = 100;
 
                     }
                 }
@@ -134,6 +135,7 @@ namespace TKMOC
                     textBox8.Text = row.Cells["規格"].Value.ToString();
                     textBox1.Text = row.Cells["比例"].Value.ToString();
                     textBox2.Text = row.Cells["過敏原"].Value.ToString();
+                    textBox4.Text = row.Cells["餅體"].Value.ToString();
 
                 }
                 else
@@ -143,7 +145,7 @@ namespace TKMOC
                     textBox8.Text = null;
                     textBox1.Text = null;
                     textBox2.Text = null;
-
+                    textBox4.Text = null;
 
                 }
             }
@@ -207,7 +209,7 @@ namespace TKMOC
 
                 sbSql.Clear();
                 sbSql.AppendFormat(@" UPDATE [TKMOC].[dbo].[ERPINVMB] ");
-                sbSql.AppendFormat(@" SET [PCT]='{0}',[ALLERGEN]='{1}' WHERE [MB001]='{2}' ", textBox1.Text.ToString().Trim(), textBox2.Text.ToString().Trim(), textBox6.Text.ToString().Trim());
+                sbSql.AppendFormat(@" SET [PCT]='{0}',[ALLERGEN]='{1}',[SPEC]='{3}' WHERE [MB001]='{2}' ", textBox1.Text.ToString().Trim(), textBox2.Text.ToString().Trim(), textBox6.Text.ToString().Trim(), textBox4.Text.ToString().Trim());
                 sbSql.AppendFormat(@"  ");
 
                 cmd.Connection = sqlConn;
