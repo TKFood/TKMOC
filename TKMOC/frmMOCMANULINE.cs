@@ -5738,7 +5738,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"  WHERE MD003=MB001");
                     sbSql.AppendFormat(@"  AND MB002 LIKE '%箱%'");
                     sbSql.AppendFormat(@"  AND MD003 LIKE '2%'");
-                    sbSql.AppendFormat(@"  AND MD001='{0}'", textBox7.Text);
+                    sbSql.AppendFormat(@"  AND MD001='{0}'", textBox731.Text);
                     sbSql.AppendFormat(@"  ");
 
                     adapter20 = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -6522,7 +6522,7 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
                 //手工*INVMB.UDF08、其他*INVMB.UDF07
-                if (MANU.Equals("新廠製三組(手工)"))
+                if (MANU.Equals("新廠製三組(手工)")|| MANU.Equals("少量訂單"))
                 {
                    
                     sbSql.AppendFormat(@" 
@@ -6723,10 +6723,11 @@ namespace TKMOC
                     {
                         if (ds28.Tables["ds28"].Rows.Count >= 1)
                         {
-                            textBox731.Text = ds28.Tables["ds28"].Rows[0]["MD003"].ToString();
-                            textBox721.Text = ds28.Tables["ds28"].Rows[0]["MD035"].ToString();
-                            textBox732.Text = ds28.Tables["ds28"].Rows[0]["MD036"].ToString();
-                            textBox751.Text = ds28.Tables["ds28"].Rows[0]["NUM2"].ToString();
+                            textBox731.Text = ds28.Tables["ds28"].Rows[0]["MB001"].ToString();
+                            textBox721.Text = ds28.Tables["ds28"].Rows[0]["MB002"].ToString();
+                            textBox732.Text = ds28.Tables["ds28"].Rows[0]["MB003"].ToString();
+                            textBox742.Text = ds28.Tables["ds28"].Rows[0]["NUM"].ToString();
+                            textBox751.Text = ds28.Tables["ds28"].Rows[0]["NUM"].ToString();
                             textBox761.Text = ds28.Tables["ds28"].Rows[0]["TC053"].ToString();
                             textBox771.Text = ds28.Tables["ds28"].Rows[0]["TC015"].ToString();
 
@@ -6758,7 +6759,7 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
                 //手工*INVMB.UDF08、其他*INVMB.UDF07
-                if (MANU.Equals("新廠製三組(手工)"))
+                if (MANU.Equals("新廠製三組(手工)") || MANU.Equals("少量訂單"))
                 {
 
                     sbSql.AppendFormat(@" 
@@ -6961,10 +6962,11 @@ namespace TKMOC
                     {
                         if (ds28.Tables["ds28"].Rows.Count >= 1)
                         {
-                            textBox731.Text = ds28.Tables["ds28"].Rows[0]["MD003"].ToString();
-                            textBox721.Text = ds28.Tables["ds28"].Rows[0]["MD035"].ToString();
-                            textBox732.Text = ds28.Tables["ds28"].Rows[0]["MD036"].ToString();
-                            textBox751.Text = ds28.Tables["ds28"].Rows[0]["NUM2"].ToString();
+                            textBox731.Text = ds28.Tables["ds28"].Rows[0]["MB001"].ToString();
+                            textBox721.Text = ds28.Tables["ds28"].Rows[0]["MB002"].ToString();
+                            textBox732.Text = ds28.Tables["ds28"].Rows[0]["MB003"].ToString();
+                            textBox742.Text = ds28.Tables["ds28"].Rows[0]["NUM"].ToString();
+                            textBox751.Text = ds28.Tables["ds28"].Rows[0]["NUM"].ToString();
                             textBox761.Text = ds28.Tables["ds28"].Rows[0]["TC053"].ToString();
                             //textBox761.Text = ds28.Tables["ds28"].Rows[0]["TC015"].ToString();
                             textBox771.Text = null;
