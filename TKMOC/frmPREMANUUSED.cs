@@ -600,6 +600,7 @@ namespace TKMOC
                             LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
                             WHERE [MOCMANULINETEMP].MB001=MC001
                             AND MC001=MD001
+                            AND [MANU]='新廠製三組(手工)'
                             AND [ID] NOT IN (SELECT [ID] FROM [TKMOC].[dbo].[MOCMANULINE])
                             AND [MANUDATE]>='{0}' AND [MANUDATE]<='{1}'
                             AND REPLACE([MC001],' ','')+REPLACE([MD003] ,' ','') NOT IN ( SELECT REPLACE([MB001],' ','')+REPLACE(MD1.[MD003] ,' ','')  FROM [TKMOC].[dbo].[PREMANUUSEDINVMB],[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1 WHERE [PREMANUUSEDINVMB].MB001=MC1.MC001 AND MC1.MC001=MD1.MD001 AND  (REPLACE(MD1.[MD003] ,' ','')  LIKE '1%'  OR (REPLACE(MD1.[MD003] ,' ','')  LIKE '203%' ) )) 
