@@ -62,7 +62,7 @@ namespace TKMOC
 
             if (!string.IsNullOrEmpty(textBox5.Text.ToString()))
             {
-                Query.AppendFormat(@" AND MB001 LIKE '{0}%' ", textBox5.Text.ToString());
+                Query.AppendFormat(@" AND ( MB001 LIKE '{0}%'  OR MB002 LIKE '%{0}%')", textBox5.Text.ToString().Trim());
             }
 
             try
