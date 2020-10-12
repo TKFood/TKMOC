@@ -285,7 +285,7 @@ namespace TKMOC
                                 LEFT JOIN [TK].dbo.BOMMC ON MC001=TA006
                                 LEFT JOIN [TK].dbo.BOMMD ON MD035 LIKE '%箱%' AND MD003 LIKE '2%' AND MD007>1 AND MD001=TA006
                                 WHERE TA003='{0}' 
-                                ORDER BY TA003,TA021,TA001,TA002   
+                                ORDER BY TA003,TA021,TA001,TA002    
                                 ", SDAY);
 
             return FASTSQL.ToString();

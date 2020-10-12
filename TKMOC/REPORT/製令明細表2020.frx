@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="09/23/2020 16:02:45" ReportInfo.Modified="09/30/2020 14:55:07" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="09/23/2020 16:02:45" ReportInfo.Modified="10/12/2020 13:23:07" ReportInfo.CreatorVersion="2016.4.4.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9KypcTWB0iFFWCN0ynhHqBH">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9JntCokOYKHt1wlelWfHa9I">
       <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT TA003 AS '製令日期' ,TA001 AS '製令別',TA002 AS '製令編號',TA021 AS '生產線別',TA006 AS '品號',TA034 AS '品名',TA035 AS '規格',TA015 AS '預計產量',TA017 AS '實際產出',TA007 AS '單位',TA029 AS '備註',MB023,MB198&#13;&#10;,CASE WHEN MB198='2' THEN  CONVERT(NVARCHAR,DATEADD(DAY,-1,DATEADD(MONTH,MB023,TA003)),112) ELSE CONVERT(NVARCHAR,DATEADD(DAY,-1,DATEADD(DAY,MB023,TA003)),112) END AS '有效日期'&#13;&#10;,CASE WHEN TA006 NOT LIKE '4%' THEN CONVERT(decimal(16,2),TA017/ISNULL(MC004,1)) ELSE 0 END AS '桶數'&#13;&#10;,CASE WHEN TA006  LIKE '4%' THEN CONVERT(decimal(16,2),TA017/ISNULL(MD007,1)*ISNULL(MD010,1)) ELSE 0 END AS '箱數'&#13;&#10;,ERPINVMB.[PCT] AS '比例'&#13;&#10;,ERPINVMB.[ALLERGEN]  AS '過敏原'&#13;&#10;,ERPINVMB.[SPEC] AS '餅體'&#13;&#10;,MOCTA.UDF01 AS '順序'&#13;&#10;,ISNULL(MC004,1) MC004&#13;&#10;,ISNULL(MD007,1) AS MD007,ISNULL(MD010,1) AS MD010&#13;&#10;FROM [TK].dbo.MOCTA&#13;&#10;LEFT JOIN [TK].dbo.INVMB ON MB001=TA006&#13;&#10;LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=TA006&#13;&#10;LEFT JOIN [TK].dbo.BOMMC ON MC001=TA006&#13;&#10;LEFT JOIN [TK].dbo.BOMMD ON MD035 LIKE '%箱%' AND MD003 LIKE '2%' AND MD007&gt;1 AND MD001=TA006&#13;&#10;WHERE TA003&gt;='20200922' AND TA003&lt;='20200922'&#13;&#10;ORDER BY TA003,TA021,TA001,TA002  ">
         <Column Name="製令別" DataType="System.String"/>
         <Column Name="製令編號" DataType="System.String"/>
@@ -31,15 +31,15 @@
     <Parameter Name="P1" DataType="System.String"/>
   </Dictionary>
   <ReportPage Name="Page1" Landscape="true" PaperWidth="420" PaperHeight="210">
-    <ReportTitleBand Name="ReportTitle1" Width="1512" Height="66.15">
+    <ReportTitleBand Name="ReportTitle1" Width="1512" Height="85.05">
       <TextObject Name="Text31" Width="1512" Height="18.9" Text="老楊食品股份有限公司" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text32" Left="-1.03" Top="47.25" Width="245.7" Height="18.9" Text="製表日期:[Year([Date])]/[Month([Date])]/[Day([Date])]" VertAlign="Center"/>
-      <TextObject Name="Text33" Left="1265.27" Top="47.25" Width="245.7" Height="18.9" Text="生產日期:[Substring([Table.製令日期],0,4)]/[Substring([Table.製令日期],4,2)]/[Substring([Table.製令日期],6,2)]" VertAlign="Center"/>
-      <TextObject Name="Text34" Left="1266.3" Top="18.9" Width="245.7" Height="18.9" Text="[P1]" VertAlign="Center" Font="宋体, 14pt"/>
+      <TextObject Name="Text32" Left="-1.03" Top="66.15" Width="245.7" Height="18.9" Text="製表日期:[Year([Date])]/[Month([Date])]/[Day([Date])]" VertAlign="Center"/>
+      <TextObject Name="Text33" Left="1265.27" Top="66.15" Width="245.7" Height="18.9" Text="生產日期:[Substring([Table.製令日期],0,4)]/[Substring([Table.製令日期],4,2)]/[Substring([Table.製令日期],6,2)]" VertAlign="Center"/>
+      <TextObject Name="Text34" Left="1266.3" Top="47.25" Width="245.7" Height="18.9" Text="[P1]" VertAlign="Center" Font="宋体, 14pt"/>
       <TextObject Name="Text35" Top="18.9" Width="1512" Height="18.9" Text="製令明細表" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text36" Width="245.7" Height="47.25" Text="[Substring([Table.製令日期],4,2)]/[Substring([Table.製令日期],6,2)]" VertAlign="Center" Font="宋体, 18pt"/>
+      <TextObject Name="Text36" Width="245.7" Height="66.15" Text="[Substring([Table.製令日期],4,2)]/[Substring([Table.製令日期],6,2)]" VertAlign="Center" Font="宋体, 18pt"/>
     </ReportTitleBand>
-    <PageHeaderBand Name="PageHeader1" Top="70.27" Width="1512" Height="18.9">
+    <PageHeaderBand Name="PageHeader1" Top="89.17" Width="1512" Height="18.9" Guides="9.45">
       <TextObject Name="Text2" Width="66.15" Height="18.9" Border.Lines="All" Text="生產線別" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text4" Left="66.15" Width="47.25" Height="18.9" Border.Lines="All" Text="製令別" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text6" Left="113.4" Width="85.05" Height="18.9" Border.Lines="All" Text="製令編號" HorzAlign="Center" VertAlign="Center"/>
@@ -57,7 +57,7 @@
       <TextObject Name="Text30" Left="1124.55" Width="94.5" Height="18.9" Border.Lines="All" Text="有效日期" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text38" Left="708.75" Width="85.05" Height="18.9" Border.Lines="All" Text="餅體" HorzAlign="Center" VertAlign="Center"/>
     </PageHeaderBand>
-    <DataBand Name="Data1" Top="93.3" Width="1512" Height="18.9" CanGrow="true" DataSource="Table">
+    <DataBand Name="Data1" Top="112.2" Width="1512" Height="18.9" CanGrow="true" DataSource="Table">
       <TextObject Name="Text1" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.生產線別]" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text3" Left="66.15" Width="47.25" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.製令別]" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text5" Left="113.4" Width="85.05" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.製令編號]" HorzAlign="Center" VertAlign="Center"/>
@@ -75,6 +75,6 @@
       <TextObject Name="Text29" Left="1124.55" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.有效日期]" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text37" Left="708.75" Width="85.05" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.餅體]" HorzAlign="Center" VertAlign="Center"/>
     </DataBand>
-    <PageFooterBand Name="PageFooter1" Top="116.32" Width="1512" Height="18.9"/>
+    <PageFooterBand Name="PageFooter1" Top="135.22" Width="1512" Height="18.9"/>
   </ReportPage>
 </Report>
