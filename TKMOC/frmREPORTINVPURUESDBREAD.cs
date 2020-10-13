@@ -72,17 +72,18 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  SELECT TB003 AS '品號',TB012  AS '品名',SUM(TB004)  AS '需領用量'");
-                sbSql.AppendFormat(@"  ,(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WHERE LA009 IN ('20004','20006')  AND  LA001=TB003) AS '原料倉庫存'");
-                sbSql.AppendFormat(@"  ,((SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WHERE LA009 IN ('20004','20006')  AND  LA001=TB003)-SUM(TB004)) AS '差異量'");
-                sbSql.AppendFormat(@"  FROM [TK].dbo.MOCTA,[TK].dbo.MOCTB");
-                sbSql.AppendFormat(@"  WHERE TA001=TB001 AND TA002=TB002");
-                sbSql.AppendFormat(@"  AND TA021='04'");
-                sbSql.AppendFormat(@"  AND (TA006 LIKE '409%' OR TA006 LIKE '309%')");
-                sbSql.AppendFormat(@"  AND TA003>='{0}' AND TA003<='{1}'", SDay, EDay);
-                sbSql.AppendFormat(@"  GROUP BY TB003,TB012");
-                sbSql.AppendFormat(@"  ORDER BY TB003,TB012");
-                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  
+                                    SELECT TB003 AS '品號',TB012  AS '品名',SUM(TB004)  AS '需領用量'
+                                    ,(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WHERE ((LA009 IN ('20004','20006')  AND  LA001=TB003 ) OR (LA001=TB003 AND TB003 IN ('3090200101','3090300902') AND LA009 IN ('20004','20005','20006')))) AS '原料倉庫存'
+                                    ,((SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WHERE ((LA009 IN ('20004','20006')  AND  LA001=TB003 ) OR (LA001=TB003 AND TB003 IN ('3090200101','3090300902') AND LA009 IN ('20004','20005','20006'))))-SUM(TB004)) AS '差異量'
+                                    FROM [TK].dbo.MOCTA,[TK].dbo.MOCTB
+                                    WHERE TA001=TB001 AND TA002=TB002
+                                    AND TA021='04'
+                                    AND (TA006 LIKE '409%' OR TA006 LIKE '309%')
+                                    AND TA003>='{0}' AND TA003<='{1}'
+                                    GROUP BY TB003,TB012
+                                    ORDER BY TB003,TB012
+                                    ",SDay,EDay);
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
