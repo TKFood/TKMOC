@@ -306,9 +306,7 @@ namespace TKMOC
 
                 sbSql.AppendFormat(@"  SELECT LA016 AS '批號',SUM(LA005*LA011) AS '庫存量', MB004 AS '單位',LA001 AS '品號',MB002 AS '品名'");
                 sbSql.AppendFormat(@"  FROM [TK].dbo.INVLA,[TK].dbo.INVMB");
-                sbSql.AppendFormat(@"  WHERE LA001=MB001");
-                sbSql.AppendFormat(@"  AND  LA009 IN ('20004','20006' ) ");
-                sbSql.AppendFormat(@"  AND LA001='{0}'",MD003);
+                sbSql.AppendFormat(@"  WHERE ((LA001=MB001 AND  LA009 IN ('20004','20006' )  AND LA001='{0}') OR (LA001=MB001 AND LA001 IN ('3090200101','3090300902') AND  LA009 IN ('20005' )  AND LA001='{0}') )", MD003);
                 sbSql.AppendFormat(@"  GROUP BY LA016,LA001,MB002,MB004");
                 sbSql.AppendFormat(@" HAVING SUM(LA005*LA011)>0 ");
                 sbSql.AppendFormat(@"  ");
