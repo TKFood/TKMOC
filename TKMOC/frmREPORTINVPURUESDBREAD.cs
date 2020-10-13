@@ -196,9 +196,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  UNION ");
                 sbSql.AppendFormat(@"  SELECT '0庫存' AS MANU,CONVERT(NVARCHAR,GETDATE(),112) AS MANUDATE,LA001 AS MD003,MB002,SUM(LA005*LA011) TNUM, MB004,NULL AS MB001,NULL AS MB002,NULL AS PACKAGE,NULL AS COPTD001,NULL AS COPTD002,NULL AS COPTD002");
                 sbSql.AppendFormat(@"  FROM [TK].dbo.INVLA,[TK].dbo.INVMB");
-                sbSql.AppendFormat(@"  WHERE LA001=MB001");
-                sbSql.AppendFormat(@"  AND  LA009 IN ('20004','20006' )  ");
-                sbSql.AppendFormat(@"  AND LA001='{0}' ", MD003);
+                sbSql.AppendFormat(@"  WHERE ((LA001=MB001 AND  LA009 IN ('20004','20006' )  AND LA001='{0}' ) OR (LA001=MB001 AND LA001 IN ('3090200101','3090300902') AND LA009 IN ('20004','20005','20006')  AND LA001='{0}' )) ", MD003);
                 sbSql.AppendFormat(@"  GROUP BY LA001,MB002,MB004");
                 sbSql.AppendFormat(@"  UNION");
                 sbSql.AppendFormat(@"  SELECT '1手動進出貨',CONVERT(NVARCHAR,INVPURUESDBREAD.DATES,112),INVPURUESDBREAD.MB001,MB002,NUM ,MB004,NULL,NULL,NULL,NULL,NULL,NULL");
@@ -231,9 +229,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  UNION ");
                 sbSql.AppendFormat(@"  SELECT '0庫存' AS MANU,CONVERT(NVARCHAR,GETDATE(),112) AS MANUDATE,LA001 AS MD003,MB002,SUM(LA005*LA011) TNUM, MB004,NULL AS MB001,NULL AS MB002,NULL AS PACKAGE,NULL AS COPTD001,NULL AS COPTD002,NULL AS COPTD002");
                 sbSql.AppendFormat(@"  FROM [TK].dbo.INVLA,[TK].dbo.INVMB");
-                sbSql.AppendFormat(@"  WHERE LA001=MB001");
-                sbSql.AppendFormat(@"  AND  LA009 IN ('20004','20006' )  ");
-                sbSql.AppendFormat(@"  AND LA001='{0}' ", MD003);
+                sbSql.AppendFormat(@"  WHERE ((LA001=MB001 AND  LA009 IN ('20004','20006' )  AND LA001='{0}' ) OR (LA001=MB001 AND LA001 IN ('3090200101','3090300902') AND LA009 IN ('20004','20005','20006')  AND LA001='{0}' )) ", MD003);
                 sbSql.AppendFormat(@"  GROUP BY LA001,MB002,MB004");
                 sbSql.AppendFormat(@"  UNION");
                 sbSql.AppendFormat(@"  SELECT '1手動進出貨',CONVERT(NVARCHAR,INVPURUESDBREAD.DATES,112),INVPURUESDBREAD.MB001,MB002,NUM ,MB004,NULL,NULL,NULL,NULL,NULL,NULL");
