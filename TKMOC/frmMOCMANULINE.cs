@@ -1862,11 +1862,12 @@ namespace TKMOC
                     sbSql.Clear();
 
 
-                    sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINETEMP]");
-                    sbSql.AppendFormat(" ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[CLINET],[MANUHOUR],[BAR],[NUM],[BOX],[PACKAGE],[OUTDATE],[TA029],[HALFPRO],[COPTD001],[COPTD002],[COPTD003])");
-                    sbSql.AppendFormat(" VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}',N'{11}','{12}','{13}','{14}','{15}','{16}','{17}')", "NEWID()", comboBox19.Text, dateTimePicker23.Value.ToString("yyyy/MM/dd"), textBox731.Text, textBox721.Text, textBox732.Text, textBox761.Text, textBox762.Text, textBox741.Text, textBox742.Text, textBox753.Text, textBox751.Text, dateTimePicker24.Value.ToString("yyyy/MM/dd"), textBox771.Text, textBox772.Text, textBox781.Text, textBox782.Text, textBox783.Text);
-                    sbSql.AppendFormat(" ");
-                    sbSql.AppendFormat(" ");
+                    sbSql.AppendFormat(@" 
+                                        INSERT INTO [TKMOC].[dbo].[MOCMANULINETEMP]
+                                        ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[CLINET],[MANUHOUR],[BAR],[NUM],[BOX],[PACKAGE],[OUTDATE],[TA029],[HALFPRO],[COPTD001],[COPTD002],[COPTD003])
+                                        VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}',N'{11}','{12}','{13}','{14}','{15}','{16}','{17}')"
+                                        ,"NEWID()", comboBox19.Text, dateTimePicker23.Value.ToString("yyyy/MM/dd"), textBox731.Text, textBox721.Text, textBox732.Text, textBox761.Text, textBox762.Text, textBox741.Text, textBox742.Text, textBox753.Text, textBox751.Text, dateTimePicker24.Value.ToString("yyyy/MM/dd"), textBox771.Text.Replace("'",""), textBox772.Text, textBox781.Text, textBox782.Text, textBox783.Text);
+
 
 
                     cmd.Connection = sqlConn;
