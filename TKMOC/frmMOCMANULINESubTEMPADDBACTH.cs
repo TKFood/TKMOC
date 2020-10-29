@@ -133,7 +133,7 @@ namespace TKMOC
                                     ,0 AS '半成品','' AS TID,'' AS TCOPTD001,'' AS TCOPTD002,'' AS TCOPTD003
                                     FROM [TK].dbo.COPTC,[TK].dbo.COPTD
                                     LEFT JOIN [TK].dbo.INVMD ON INVMD.MD001=TD004 AND TD010=INVMD.MD002
-                                    LEFT JOIN [TK].dbo.BOMMD ON BOMMD.MD003 LIKE '2%' AND BOMMD.MD007>1 AND BOMMD.MD001=TD004
+                                    LEFT JOIN [TK].dbo.BOMMD ON BOMMD.MD003 LIKE '201%' AND BOMMD.MD007>1 AND BOMMD.MD001=TD004
                                     LEFT JOIN [TK].dbo.BOMMC ON MC001=TD004
                                     WHERE TC001=TD001 AND TC002=TD002 
                                     AND TD001='{0}' AND TD002='{1}'
