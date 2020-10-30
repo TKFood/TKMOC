@@ -291,6 +291,7 @@ namespace TKMOC
         string DELMOCMANULINECOPID;
         string LIMITSERCHTD002;
         string dataGridView20SORTNAME=null;
+        string dataGridView20SORTMODE=null;
 
         public class MOCTADATA
         {
@@ -1144,7 +1145,16 @@ namespace TKMOC
 
                         if (!string.IsNullOrEmpty(dataGridView20SORTNAME))
                         {
-                            dataGridView20.Sort(dataGridView20.Columns[""+ dataGridView20SORTNAME + ""], ListSortDirection.Ascending);
+                            if(dataGridView20SORTMODE.Equals("Ascending"))
+                            {
+                                dataGridView20.Sort(dataGridView20.Columns["" + dataGridView20SORTNAME + ""], ListSortDirection.Ascending);
+                            }
+                            else
+                            {
+                                dataGridView20.Sort(dataGridView20.Columns["" + dataGridView20SORTNAME + ""], ListSortDirection.Descending);
+                            }
+                            
+                            
                         }
                        
 
@@ -9529,7 +9539,8 @@ namespace TKMOC
         {
             DataGridViewColumn newColumn = dataGridView20.Columns[e.ColumnIndex];
             dataGridView20SORTNAME = newColumn.Name;
-
+            dataGridView20SORTMODE = dataGridView20.SortOrder.ToString();
+           
             //DataGridViewColumn oldColumn = dataGridView20.SortedColumn;
             //ListSortDirection direction;
 
