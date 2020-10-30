@@ -290,6 +290,7 @@ namespace TKMOC
 
         string DELMOCMANULINECOPID;
         string LIMITSERCHTD002;
+        string dataGridView20SORTNAME=null;
 
         public class MOCTADATA
         {
@@ -1140,6 +1141,13 @@ namespace TKMOC
                         //dataGridView1.Rows.Clear();
                         dataGridView20.DataSource = ds1.Tables["TEMPds1"];
                         dataGridView20.AutoResizeColumns();
+
+                        if (!string.IsNullOrEmpty(dataGridView20SORTNAME))
+                        {
+                            dataGridView20.Sort(dataGridView20.Columns[""+ dataGridView20SORTNAME + ""], ListSortDirection.Ascending);
+                        }
+                       
+
                         //dataGridView1.CurrentCell = dataGridView1[0, rownum];
 
                     }
@@ -9479,6 +9487,79 @@ namespace TKMOC
             }
         }
 
+        /// <summary>
+        /// 記錄人工排序的欄位
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dataGridView3_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            DataGridViewColumn newColumn = dataGridView3.Columns[e.ColumnIndex];
+            DataGridViewColumn oldColumn = dataGridView3.SortedColumn;
+            ListSortDirection direction;
+
+            // If oldColumn is null, then the DataGridView is not sorted.
+            if (oldColumn != null)
+            {
+                // Sort the same column again, reversing the SortOrder.
+                if (oldColumn == newColumn && dataGridView3.SortOrder == System.Windows.Forms.SortOrder.Ascending)
+                {
+                    direction = ListSortDirection.Descending;
+                }
+                else
+                {
+                    // Sort a new column and remove the old SortGlyph.
+                    direction = ListSortDirection.Ascending;
+                    oldColumn.HeaderCell.SortGlyphDirection = System.Windows.Forms.SortOrder.None;
+                }
+            }
+            else
+            {
+                direction = ListSortDirection.Ascending;
+            }
+
+            // Sort the selected column.
+            dataGridView3.Sort(newColumn, direction);
+            newColumn.HeaderCell.SortGlyphDirection =
+                direction == ListSortDirection.Ascending ?
+               System.Windows.Forms.SortOrder.Ascending : System.Windows.Forms.SortOrder.Descending;
+        }
+
+        private void dataGridView20_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            DataGridViewColumn newColumn = dataGridView20.Columns[e.ColumnIndex];
+            dataGridView20SORTNAME = newColumn.Name;
+
+            //DataGridViewColumn oldColumn = dataGridView20.SortedColumn;
+            //ListSortDirection direction;
+
+            //// If oldColumn is null, then the DataGridView is not sorted.
+            //if (oldColumn != null)
+            //{
+            //    // Sort the same column again, reversing the SortOrder.
+            //    if (oldColumn == newColumn && dataGridView20.SortOrder == System.Windows.Forms.SortOrder.Ascending)
+            //    {
+            //        direction = ListSortDirection.Descending;
+            //    }
+            //    else
+            //    {
+            //        // Sort a new column and remove the old SortGlyph.
+            //        direction = ListSortDirection.Ascending;
+            //        oldColumn.HeaderCell.SortGlyphDirection = System.Windows.Forms.SortOrder.None;
+            //    }
+            //}
+            //else
+            //{
+            //    direction = ListSortDirection.Ascending;
+            //}
+
+            //// Sort the selected column.
+            //dataGridView20.Sort(newColumn, direction);
+            //newColumn.HeaderCell.SortGlyphDirection =
+            //    direction == ListSortDirection.Ascending ?
+            //   System.Windows.Forms.SortOrder.Ascending : System.Windows.Forms.SortOrder.Descending;
+        }
+
         #endregion
 
         #region BUTTON
@@ -10256,8 +10337,10 @@ namespace TKMOC
         }
 
 
+
+
         #endregion
 
-     
+      
     }
 }
