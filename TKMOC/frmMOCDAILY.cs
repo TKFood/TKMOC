@@ -899,9 +899,9 @@ namespace TKMOC
                                 AND ISNULL(INVMB.UDF03,'')<>''
                                 AND TA003>='{0}' AND TA003<='{1}'
                                 AND TA034 NOT LIKE '%水麵%'
+                                AND MD002='{2}'
                                 ) AS TEMP
                                 ) AS TEMP2
-                                WHERE 線別='{2}'
                                 GROUP BY 線別,SUBSTRING(製令單號,1,8)
                                 ORDER BY 線別,SUBSTRING(製令單號,1,8)"
                                , dateTimePicker4.Value.ToString("yyyyMMdd"), dateTimePicker5.Value.ToString("yyyyMMdd"), comboBox2.Text);
@@ -929,7 +929,7 @@ namespace TKMOC
                                 ,CASE WHEN 領料是否扣袋重 IN ('Y') AND 成品是否扣袋重 IN ('Y') AND  類別 NOT IN ('半成品','個','試吃','片','單包','kg') AND (原料用量*(1-(蒸發率/100))+(成品用量/1000)-(袋重比*原料用量))>0 THEN (生產量*淨重*(1-袋重比)/1000) ELSE 0 END  AS '領料扣成品扣的入庫量'
                                 ,CASE WHEN 領料是否扣袋重 IN ('Y') AND 成品是否扣袋重 IN ('Y') AND  類別 NOT IN ('半成品','個','試吃','片','單包','kg') AND (原料用量*(1-(蒸發率/100))+(成品用量/1000)-(袋重比*原料用量))>0 THEN (原料用量*(1-(蒸發率/100))+(成品用量/1000)-(袋重比*原料用量)) ELSE 0 END  AS '領料扣成品扣的投入量'
                                 ,CASE WHEN 領料是否扣袋重 IN ('Y') AND 成品是否扣袋重 IN ('N') AND  類別 NOT IN ('半成品','個','試吃','片','單包','kg') AND (原料用量*(1-(蒸發率/100))+(成品用量/1000))>0 THEN ((生產量*淨重)/1000) ELSE 0 END AS '領料扣成品不扣的入庫量'
-                                ,CASE WHEN 領料是否扣袋重 IN ('Y') AND 成品是否扣袋重 IN ('N') AND  類別 NOT IN ('半成品','個','試吃','片','單包','kg') AND (原料用量*(1-(蒸發率/100))+(成品用量/1000))>0 THEN (原料用量*(1-蒸發率)+(成品用量/1000)-(袋重比*原料用量)) ELSE 0 END AS '領料扣成品不扣的投入量'
+                                ,CASE WHEN 領料是否扣袋重 IN ('Y') AND 成品是否扣袋重 IN ('N') AND  類別 NOT IN ('半成品','個','試吃','片','單包','kg') AND (原料用量*(1-(蒸發率/100))+(成品用量/1000))>0 THEN (原料用量*(1-(蒸發率/100))+(成品用量/1000)-(袋重比*原料用量)) ELSE 0 END AS '領料扣成品不扣的投入量'
                                 ,CASE WHEN 領料是否扣袋重 IN ('N') AND 成品是否扣袋重 IN ('Y') AND  類別 NOT IN ('半成品','個','試吃','片','單包','kg') AND (原料用量*(1-(蒸發率/100))+(成品用量/1000)-(袋重比*原料用量))>0 THEN (((生產量*淨重*(1-袋重比)))/1000) ELSE 0 END AS '領料不扣成品扣的入庫量'
                                 ,CASE WHEN 領料是否扣袋重 IN ('N') AND 成品是否扣袋重 IN ('Y') AND  類別 NOT IN ('半成品','個','試吃','片','單包','kg') AND (原料用量*(1-(蒸發率/100))+(成品用量/1000)-(袋重比*原料用量))>0 THEN (原料用量*(1-(蒸發率/100))+(成品用量/1000)) ELSE 0 END AS '領料不扣成品扣的投入量'
                                 ,CASE WHEN 領料是否扣袋重 IN ('N') AND 成品是否扣袋重 IN ('N') AND  類別 NOT IN ('半成品','個','試吃','片','單包','kg') AND (原料用量*(1-(蒸發率/100))+(成品用量/1000))>0 THEN ((生產量*淨重)/1000) ELSE 0 END AS '領料不扣成品不扣的入庫量'
@@ -970,9 +970,10 @@ namespace TKMOC
                                 WHERE TA006=MB001 AND TA021=MD001
                                 AND ISNULL(INVMB.UDF03,'')<>''
                                 AND TA003>='{0}' AND TA003<='{1}'
+                                AND MD002='{2}'
                                 ) AS TEMP
                                 ) AS TEMP2
-                                WHERE 線別='{2}'
+                                
                                 GROUP BY 線別,SUBSTRING(製令單號,1,8)
                                 ORDER BY 線別,SUBSTRING(製令單號,1,8)"
                                 , dateTimePicker4.Value.ToString("yyyyMMdd"), dateTimePicker5.Value.ToString("yyyyMMdd"), comboBox2.Text);
