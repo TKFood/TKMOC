@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="09/23/2020 16:02:45" ReportInfo.Modified="11/11/2020 15:22:25" ReportInfo.CreatorVersion="2016.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9J+L0KJofMDas4dmhVsh2AF">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="/****** SSMS 中 SelectTopNRows 命令的指令碼  ******/&#13;&#10;SELECT &#13;&#10; [ID]&#13;&#10;,[MANULINE] AS '生產線別'&#13;&#10;,[LOTNO] AS 'LOTNO'&#13;&#10;,[TA001] AS '製令別'&#13;&#10;,[TA002] AS '製令編號'&#13;&#10;,CONVERT(NVARCHAR,[TA003],112) AS '製令日期'&#13;&#10;,[TA006] AS '品號'&#13;&#10;,[TA007] AS '單位'&#13;&#10;,[TA015] AS '預計產量'&#13;&#10;,[TA017] AS '實際產出'&#13;&#10;,[MB002] AS '品名'&#13;&#10;,[MB003] AS '規格'&#13;&#10;,[PCTS] AS '比例'&#13;&#10;,[SEQ] AS '順序'&#13;&#10;,[ALLERGEN]  AS '過敏原'&#13;&#10;,[COOKIES] AS '餅體'&#13;&#10;,[BARS] AS '桶數'&#13;&#10;,[BOXS] AS '箱數'&#13;&#10;,CONVERT(NVARCHAR,[VDATES],112) AS '有效日期'&#13;&#10;,[COMMENT] AS '備註'&#13;&#10;FROM [TKMOC].[dbo].[REPORTMOCMANULINE]&#13;&#10;WHERE CONVERT(NVARCHAR,TA003,112)='20201110' &#13;&#10;ORDER BY TA003,[MANULINE],TA001,TA002   ">
+        <Column Name="製令別" DataType="System.String"/>
+        <Column Name="製令編號" DataType="System.String"/>
+        <Column Name="生產線別" DataType="System.String"/>
+        <Column Name="品號" DataType="System.String"/>
+        <Column Name="品名" DataType="System.String"/>
+        <Column Name="規格" DataType="System.String"/>
+        <Column Name="預計產量" DataType="System.Decimal"/>
+        <Column Name="實際產出" DataType="System.Decimal"/>
+        <Column Name="單位" DataType="System.String"/>
+        <Column Name="備註" DataType="System.String"/>
+        <Column Name="有效日期" DataType="System.String"/>
+        <Column Name="桶數" DataType="System.Decimal"/>
+        <Column Name="箱數" DataType="System.Decimal"/>
+        <Column Name="比例" DataType="System.String"/>
+        <Column Name="過敏原" DataType="System.String"/>
+        <Column Name="製令日期" DataType="System.String"/>
+        <Column Name="順序" DataType="System.String"/>
+        <Column Name="餅體" DataType="System.String"/>
+        <Column Name="ID" DataType="System.Guid"/>
+        <Column Name="LOTNO" DataType="System.String"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="P1" DataType="System.String"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="420" PaperHeight="210">
+    <ReportTitleBand Name="ReportTitle1" Width="1512" Height="85.05">
+      <TextObject Name="Text31" Width="1512" Height="18.9" Text="老楊食品股份有限公司" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text32" Left="-1.03" Top="66.15" Width="245.7" Height="18.9" Text="製表日期:[Year([Date])]/[Month([Date])]/[Day([Date])]" VertAlign="Center"/>
+      <TextObject Name="Text33" Left="1265.27" Top="66.15" Width="245.7" Height="18.9" Text="生產日期:[Substring([Table.製令日期],0,4)]/[Substring([Table.製令日期],4,2)]/[Substring([Table.製令日期],6,2)]" VertAlign="Center"/>
+      <TextObject Name="Text34" Left="1266.3" Top="47.25" Width="245.7" Height="18.9" Text="[Table.LOTNO]" VertAlign="Center" Font="宋体, 14pt"/>
+      <TextObject Name="Text35" Top="18.9" Width="1512" Height="18.9" Text="製令明細表" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text36" Width="245.7" Height="66.15" Text="[Substring([Table.製令日期],4,2)]/[Substring([Table.製令日期],6,2)]" VertAlign="Center" Font="宋体, 18pt"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="89.17" Width="1512" Height="18.9" Guides="9.45">
+      <TextObject Name="Text2" Width="66.15" Height="18.9" Border.Lines="All" Text="生產線別" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text4" Left="66.15" Width="47.25" Height="18.9" Border.Lines="All" Text="製令別" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text6" Left="113.4" Width="85.05" Height="18.9" Border.Lines="All" Text="製令編號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text8" Left="292.95" Width="226.8" Height="18.9" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text11" Left="245.7" Width="47.25" Height="18.9" Border.Lines="All" Text="順序" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text10" Left="198.45" Width="47.25" Height="18.9" Border.Lines="All" Text="比例" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text14" Left="519.75" Width="56.7" Height="18.9" Border.Lines="All" Text="過敏原" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text16" Left="576.45" Width="132.3" Height="18.9" Border.Lines="All" Text="規格" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text18" Left="793.8" Width="66.15" Height="18.9" Border.Lines="All" Text="預計產量" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text20" Left="859.95" Width="66.15" Height="18.9" Border.Lines="All" Text="實際產出" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text22" Left="926.1" Width="66.15" Height="18.9" Border.Lines="All" Text="單位" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text24" Left="992.25" Width="66.15" Height="18.9" Border.Lines="All" Text="桶數" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text26" Left="1058.4" Width="66.15" Height="18.9" Border.Lines="All" Text="箱數" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text28" Left="1219.05" Width="292.95" Height="18.9" Border.Lines="All" Text="備註" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text30" Left="1124.55" Width="94.5" Height="18.9" Border.Lines="All" Text="有效日期" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text38" Left="708.75" Width="85.05" Height="18.9" Border.Lines="All" Text="餅體" HorzAlign="Center" VertAlign="Center"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="112.2" Width="1512" Height="18.9" CanGrow="true" DataSource="Table">
+      <TextObject Name="Text1" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.生產線別]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text3" Left="66.15" Width="47.25" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.製令別]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text5" Left="113.4" Width="85.05" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.製令編號]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text7" Left="292.95" Width="226.8" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.品名]" VertAlign="Center"/>
+      <TextObject Name="Text12" Left="245.7" Width="47.25" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.順序]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text9" Left="198.45" Width="47.25" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.比例]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text13" Left="519.75" Width="56.7" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.過敏原]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text15" Left="576.45" Width="132.3" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.規格]" VertAlign="Center"/>
+      <TextObject Name="Text17" Left="793.8" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.預計產量]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text19" Left="859.95" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.實際產出]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text21" Left="926.1" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.單位]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text23" Left="992.25" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.桶數]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="3" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text25" Left="1058.4" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.箱數]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text27" Left="1219.05" Width="292.95" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.備註]" VertAlign="Center"/>
+      <TextObject Name="Text29" Left="1124.55" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.有效日期]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text37" Left="708.75" Width="85.05" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.餅體]" HorzAlign="Center" VertAlign="Center"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="135.22" Width="1512" Height="18.9"/>
+  </ReportPage>
+</Report>

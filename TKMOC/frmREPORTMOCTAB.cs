@@ -291,6 +291,60 @@ namespace TKMOC
             return FASTSQL.ToString();
         }
 
+        public void SETFASTREPORT2(string SDAY)
+        {
+            string SQL;
+            report1 = new Report();
+            report1.Load(@"REPORT\製令明細表2020V2.frx");
+
+            report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+
+            TableDataSource Table = report1.GetDataSource("Table") as TableDataSource;
+            SQL = SETFASETSQL2(SDAY);
+            Table.SelectCommand = SQL;
+
+            report1.Preview = previewControl1;
+            report1.Show();
+        }
+
+
+        public string SETFASETSQL2(string SDAY)
+        {
+            StringBuilder FASTSQL = new StringBuilder();
+
+            //,CASE WHEN TA006 NOT LIKE '4%' THEN CONVERT(decimal(16,3),TA015/ISNULL(MC004,1)) ELSE 0 END AS '桶數'
+            //,CASE WHEN TA006 LIKE '4%' THEN CONVERT(decimal(16, 3), TA015 / ISNULL(MD007, 1) * ISNULL(MD010, 1)) ELSE 0 END AS '箱數'
+
+            FASTSQL.AppendFormat(@"    
+                                SELECT 
+                                 [ID]
+                                ,[MANULINE] AS '生產線別'
+                                ,[LOTNO] AS 'LOTNO'
+                                ,[TA001] AS '製令別'
+                                ,[TA002] AS '製令編號'
+                                ,CONVERT(NVARCHAR,[TA003],112) AS '製令日期'
+                                ,[TA006] AS '品號'
+                                ,[TA007] AS '單位'
+                                ,[TA015] AS '預計產量'
+                                ,[TA017] AS '實際產出'
+                                ,[MB002] AS '品名'
+                                ,[MB003] AS '規格'
+                                ,[PCTS] AS '比例'
+                                ,[SEQ] AS '順序'
+                                ,[ALLERGEN]  AS '過敏原'
+                                ,[COOKIES] AS '餅體'
+                                ,[BARS] AS '桶數'
+                                ,[BOXS] AS '箱數'
+                                ,CONVERT(NVARCHAR,[VDATES],112) AS '有效日期'
+                                ,[COMMENT] AS '備註'
+                                FROM [TKMOC].[dbo].[REPORTMOCMANULINE]
+                                WHERE CONVERT(NVARCHAR,TA003,112)='{0}' 
+                                ORDER BY TA003,[MANULINE],TA001,TA002   
+                                ", SDAY);
+
+            return FASTSQL.ToString();
+        }
+
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
             textBox3.Text = SEARCHMOCLOTNO(dateTimePicker1.Value.ToString("yyyyMMdd"));
@@ -525,6 +579,70 @@ namespace TKMOC
                 sqlConn.Close();
             }
         }
+
+
+
+        public void ADDREPORTMOCMANULINE(string LOTNO ,string TA003)
+        {
+            sbSql.Clear();
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+
+                sbSql.AppendFormat(@" 
+                                    INSERT INTO [TKMOC].[dbo].[REPORTMOCMANULINE]
+                                    ([ID],[MANULINE],[LOTNO],[TA001],[TA002],[TA003],[TA006],[TA007],[TA015],[TA017],[MB002],[MB003],[PCTS],[SEQ],[ALLERGEN],[COOKIES],[BARS],[BOXS],[VDATES],[COMMENT])
+
+                                    SELECT NEWID(),TA021,'{0}',TA001,TA002,TA003,TA006,TA007,TA015,TA017,TA034,TA035,[ERPINVMB].[PCT],MOCTA.UDF01,[ERPINVMB].[ALLERGEN] ,[ERPINVMB].[SPEC] ,CONVERT(decimal(16,3),TA015/ISNULL(MC004,1)),CONVERT(decimal(16, 3), TA015 / ISNULL(MD007, 1) * ISNULL(MD010, 1)),
+                                    CASE WHEN MB198='2' THEN  CONVERT(NVARCHAR,DATEADD(DAY,-1,DATEADD(MONTH,MB023,TA003)),112) ELSE CONVERT(NVARCHAR,DATEADD(DAY,-1,DATEADD(DAY,MB023,TA003)),112) END
+                                    ,TA029
+                                    FROM [TK].dbo.MOCTA
+                                    LEFT JOIN [TK].dbo.INVMB ON MB001=TA006
+                                    LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=TA006
+                                    LEFT JOIN [TK].dbo.BOMMC ON MC001=TA006
+                                    LEFT JOIN [TK].dbo.BOMMD ON MD035 LIKE '%箱%' AND MD003 LIKE '2%' AND MD007>1 AND MD001=TA006
+                                    WHERE [TA001]+[TA002] NOT IN (SELECT [TA001]+[TA002] FROM [TKMOC].[dbo].[REPORTMOCMANULINE] WHERE TA003='{1}')
+                                    AND TA003='{1}' 
+                                    ORDER BY TA003,TA021,TA001,TA002    
+                                    ", LOTNO, TA003);
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
         #endregion
 
         #region BUTTON
@@ -544,14 +662,16 @@ namespace TKMOC
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            if(!string.IsNullOrEmpty(textBox3.Text.Trim()))
-            {
-                ADDDELETEMOCLOTNO(dateTimePicker1.Value.ToString("yyyyMMdd"), textBox3.Text.Trim());
-            }
+            SETFASTREPORT2(dateTimePicker1.Value.ToString("yyyyMMdd"));
 
-            textBox3.Text = SEARCHMOCLOTNO(dateTimePicker1.Value.ToString("yyyyMMdd"));
+            //if(!string.IsNullOrEmpty(textBox3.Text.Trim()))
+            //{
+            //    ADDDELETEMOCLOTNO(dateTimePicker1.Value.ToString("yyyyMMdd"), textBox3.Text.Trim());
+            //}
 
-            SETFASTREPORT(dateTimePicker1.Value.ToString("yyyyMMdd"),textBox3.Text.Trim());
+            //textBox3.Text = SEARCHMOCLOTNO(dateTimePicker1.Value.ToString("yyyyMMdd"));
+
+            //SETFASTREPORT(dateTimePicker1.Value.ToString("yyyyMMdd"),textBox3.Text.Trim());
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -565,6 +685,20 @@ namespace TKMOC
             SearchMOCTA(dateTimePicker2.Value.ToString("yyyyMMdd"));
         }
 
+        private void button7_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBox3.Text.Trim()))
+            {
+                ADDDELETEMOCLOTNO(dateTimePicker1.Value.ToString("yyyyMMdd"), textBox3.Text.Trim());
+                textBox3.Text = SEARCHMOCLOTNO(dateTimePicker1.Value.ToString("yyyyMMdd"));
+
+                ADDREPORTMOCMANULINE(textBox3.Text.Trim(), dateTimePicker1.Value.ToString("yyyyMMdd"));
+
+                MessageBox.Show("完成");
+            }
+
+            
+        }
         #endregion
 
 
