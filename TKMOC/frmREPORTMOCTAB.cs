@@ -643,6 +643,291 @@ namespace TKMOC
             }
         }
 
+        public void SEARCHMOCLOTNO2(string MOCDATES)
+        {
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            DataSet ds1 = new DataSet();
+
+            StringBuilder Query = new StringBuilder();
+
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@" 
+                                    SELECT 
+                                    [MOCDATES] AS '日期'
+                                    ,[LOTNO] AS '代碼'
+                                    FROM [TKMOC].[dbo].[MOCLOTNO]
+                                    WHERE [MOCDATES]='{0}'
+                                    ", MOCDATES);
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "ds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["ds1"].Rows.Count == 0)
+                {
+                    dataGridView3.DataSource = null;
+                }
+                else
+                {
+                    if (ds1.Tables["ds1"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView3.DataSource = ds1.Tables["ds1"];
+                        dataGridView3.AutoResizeColumns();
+
+                        dataGridView3.Columns["日期"].ReadOnly = true;
+                        dataGridView3.Columns["代碼"].ReadOnly = true;
+                     
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+
+
+        private void dataGridView3_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView3.Rows.Count >= 1)
+            {
+                int rowindex = dataGridView3.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView3.Rows[rowindex];
+                    textBox9.Text = row.Cells["日期"].Value.ToString();
+                  
+
+                }
+                else
+                {                   
+                    textBox9.Text = null;
+
+                }
+            }
+        }
+
+        public void DELETEMOCLOTNO(string MOCDATES)
+        {
+            sbSql.Clear();
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+
+                sbSql.AppendFormat(@" 
+                                   DELETE [TKMOC].[dbo].[MOCLOTNO]
+                                   WHERE [MOCDATES]='{0}'
+                                    ", MOCDATES);
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void SEARCHREPORTMOCMANULINE(string TA003)
+        {
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            DataSet ds1 = new DataSet();
+
+            StringBuilder Query = new StringBuilder();
+
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@" 
+                                    SELECT 
+                                     [ID]
+                                    ,[MANULINE] AS '生產線別'
+                                    ,[LOTNO] AS 'LOTNO'
+                                    ,[TA001] AS '製令別'
+                                    ,[TA002] AS '製令編號'
+                                    ,CONVERT(NVARCHAR,[TA003],112) AS '製令日期'
+                                    ,[TA006] AS '品號'
+                                    ,[TA007] AS '單位'
+                                    ,[TA015] AS '預計產量'
+                                    ,[TA017] AS '實際產出'
+                                    ,[MB002] AS '品名'
+                                    ,[MB003] AS '規格'
+                                    ,[PCTS] AS '比例'
+                                    ,[SEQ] AS '順序'
+                                    ,[ALLERGEN]  AS '過敏原'
+                                    ,[COOKIES] AS '餅體'
+                                    ,[BARS] AS '桶數'
+                                    ,[BOXS] AS '箱數'
+                                    ,CONVERT(NVARCHAR,[VDATES],112) AS '有效日期'
+                                    ,[COMMENT] AS '備註'
+                                    FROM [TKMOC].[dbo].[REPORTMOCMANULINE]
+                                    WHERE CONVERT(NVARCHAR,TA003,112)='{0}' 
+                                    ORDER BY TA003,[MANULINE],TA001,TA002   
+                                    ", TA003);
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "ds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["ds1"].Rows.Count == 0)
+                {
+                    dataGridView4.DataSource = null;
+                }
+                else
+                {
+                    if (ds1.Tables["ds1"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView4.DataSource = ds1.Tables["ds1"];
+                        dataGridView4.AutoResizeColumns();
+
+
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+
+        private void dataGridView4_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView4.Rows.Count >= 1)
+            {
+                int rowindex = dataGridView4.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView4.Rows[rowindex];
+                    textBox10.Text = row.Cells["ID"].Value.ToString();
+
+
+                }
+                else
+                {
+                    textBox10.Text = null;
+
+                }
+            }
+        }
+
+        public void DELREPORTMOCMANULINE(string ID)
+        {
+            sbSql.Clear();
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+
+                sbSql.AppendFormat(@" 
+                                  DELETE [TKMOC].[dbo].[REPORTMOCMANULINE]
+                                  WHERE [ID]='{0}'
+                                    ", ID);
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+
         #endregion
 
         #region BUTTON
@@ -699,8 +984,33 @@ namespace TKMOC
 
             
         }
+
+      
+        private void button9_Click(object sender, EventArgs e)
+        {
+            SEARCHMOCLOTNO2(dateTimePicker4.Value.ToString("yyyyMMdd"));
+        }
+        private void button10_Click(object sender, EventArgs e)
+        {
+            DELETEMOCLOTNO(textBox9.Text);
+            SEARCHMOCLOTNO2(dateTimePicker4.Value.ToString("yyyyMMdd"));
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            SEARCHREPORTMOCMANULINE(dateTimePicker3.Value.ToString("yyyyMMdd"));
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            DELREPORTMOCMANULINE(textBox10.Text);
+            SEARCHREPORTMOCMANULINE(dateTimePicker3.Value.ToString("yyyyMMdd"));
+        }
+
+
+
         #endregion
 
-
+       
     }
 }
