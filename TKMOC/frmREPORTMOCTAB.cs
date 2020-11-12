@@ -610,7 +610,7 @@ namespace TKMOC
                                     LEFT JOIN [TK].dbo.BOMMD ON MD035 LIKE '%箱%' AND MD003 LIKE '2%' AND MD007>1 AND MD001=TA006
                                     WHERE [TA001]+[TA002] NOT IN (SELECT [TA001]+[TA002] FROM [TKMOC].[dbo].[REPORTMOCMANULINE] WHERE TA003='{1}')
                                     AND TA003='{1}' 
-                                    ORDER BY TA003,TA021,TA001,TA002    
+                                    ORDER BY TA003,TA021,TA001,TA002     
                                     ", LOTNO, TA003);
 
 
