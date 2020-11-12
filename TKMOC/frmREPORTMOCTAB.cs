@@ -927,6 +927,55 @@ namespace TKMOC
             }
         }
 
+        public void DELREPORTMOCMANULINE2(string TA003)
+        {
+            sbSql.Clear();
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+
+                sbSql.AppendFormat(@" 
+                                  DELETE [TKMOC].[dbo].[REPORTMOCMANULINE]
+                                  WHERE CONVERT(NVARCHAR,TA003,112)='{0}'
+                                    ", TA003);
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
 
         #endregion
 
@@ -1003,7 +1052,8 @@ namespace TKMOC
 
         private void button11_Click(object sender, EventArgs e)
         {
-            DELREPORTMOCMANULINE(textBox10.Text);
+            //DELREPORTMOCMANULINE(textBox10.Text);
+            DELREPORTMOCMANULINE2(dateTimePicker3.Value.ToString("yyyyMMdd"));
             SEARCHREPORTMOCMANULINE(dateTimePicker3.Value.ToString("yyyyMMdd"));
         }
 
