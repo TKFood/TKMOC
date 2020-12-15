@@ -318,28 +318,33 @@ namespace TKMOC
             FASTSQL.AppendFormat(@"    
                                 SELECT 
                                  [ID]
-                                ,[MANULINE] AS '生產線別'
-                                ,[LOTNO] AS 'LOTNO'
-                                ,[TA001] AS '製令別'
-                                ,[TA002] AS '製令編號'
-                                ,CONVERT(NVARCHAR,[TA003],112) AS '製令日期'
-                                ,[TA006] AS '品號'
-                                ,[TA007] AS '單位'
-                                ,[TA015] AS '預計產量'
-                                ,[TA017] AS '實際產出'
-                                ,[MB002] AS '品名'
-                                ,[MB003] AS '規格'
-                                ,[PCTS] AS '比例'
-                                ,[SEQ] AS '順序'
-                                ,[ALLERGEN]  AS '過敏原'
-                                ,[COOKIES] AS '餅體'
-                                ,[BARS] AS '桶數'
-                                ,[BOXS] AS '箱數'
-                                ,CONVERT(NVARCHAR,[VDATES],112) AS '有效日期'
-                                ,[COMMENT] AS '備註'
+                                ,[REPORTMOCMANULINE].[MANULINE] AS '生產線別'
+                                ,[REPORTMOCMANULINE].[LOTNO] AS 'LOTNO'
+                                ,[REPORTMOCMANULINE].[TA001] AS '製令別'
+                                ,[REPORTMOCMANULINE].[TA002] AS '製令編號'
+                                ,CONVERT(NVARCHAR,[REPORTMOCMANULINE].[TA003],112) AS '製令日期'
+                                ,[REPORTMOCMANULINE].[TA006] AS '品號'
+                                ,[REPORTMOCMANULINE].[TA007] AS '單位'
+                                ,[REPORTMOCMANULINE].[TA015] AS '預計產量'
+                                ,[REPORTMOCMANULINE].[TA017] AS '實際產出'
+                                ,[REPORTMOCMANULINE].[MB002] AS '品名'
+                                ,[REPORTMOCMANULINE].[MB003] AS '規格'
+                                ,[REPORTMOCMANULINE].[PCTS] AS '比例'
+                                ,[REPORTMOCMANULINE].[SEQ] AS '順序'
+                                ,[REPORTMOCMANULINE].[ALLERGEN]  AS '過敏原'
+                                ,[REPORTMOCMANULINE].[COOKIES] AS '餅體'
+                                ,[REPORTMOCMANULINE].[BARS] AS '桶數'
+                                ,[REPORTMOCMANULINE].[BOXS] AS '箱數'
+                                ,CONVERT(NVARCHAR,[REPORTMOCMANULINE].[VDATES],112) AS '有效日期'
+                                ,[REPORTMOCMANULINE].[COMMENT] AS '備註'
+                                ,MOCTA.TA026 AS '訂單別'
+                                ,MOCTA.TA027 AS '訂單號'
+                                ,TC053  AS '客戶'
                                 FROM [TKMOC].[dbo].[REPORTMOCMANULINE]
-                                WHERE CONVERT(NVARCHAR,TA003,112)='{0}' 
-                                ORDER BY TA003,[MANULINE],TA001,TA002   
+                                LEFT JOIN [TK].dbo.MOCTA ON [REPORTMOCMANULINE].TA001=MOCTA.[TA001] AND [REPORTMOCMANULINE].[TA002]=MOCTA.[TA002]
+                                LEFT JOIN [TK].dbo.COPTC ON TC001= TA026 AND TC002=TA027 
+                                WHERE CONVERT(NVARCHAR,[REPORTMOCMANULINE].TA003,112)='{0}'   
+                                ORDER BY [REPORTMOCMANULINE].TA003,[MANULINE],[REPORTMOCMANULINE].TA001,[REPORTMOCMANULINE].TA002   
                                 ", SDAY);
 
             return FASTSQL.ToString();

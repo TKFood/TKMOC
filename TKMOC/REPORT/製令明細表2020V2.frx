@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="09/23/2020 16:02:45" ReportInfo.Modified="11/12/2020 15:55:16" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="09/23/2020 16:02:45" ReportInfo.Modified="12/15/2020 11:22:21" ReportInfo.CreatorVersion="2016.4.4.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9L+SnyfNCtPDEHnziZNqG2j">
-      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="/****** SSMS 中 SelectTopNRows 命令的指令碼  ******/&#13;&#10;SELECT &#13;&#10; [ID]&#13;&#10;,[MANULINE] AS '生產線別'&#13;&#10;,[LOTNO] AS 'LOTNO'&#13;&#10;,[TA001] AS '製令別'&#13;&#10;,[TA002] AS '製令編號'&#13;&#10;,CONVERT(NVARCHAR,[TA003],112) AS '製令日期'&#13;&#10;,[TA006] AS '品號'&#13;&#10;,[TA007] AS '單位'&#13;&#10;,[TA015] AS '預計產量'&#13;&#10;,[TA017] AS '實際產出'&#13;&#10;,[MB002] AS '品名'&#13;&#10;,[MB003] AS '規格'&#13;&#10;,[PCTS] AS '比例'&#13;&#10;,[SEQ] AS '順序'&#13;&#10;,[ALLERGEN]  AS '過敏原'&#13;&#10;,[COOKIES] AS '餅體'&#13;&#10;,[BARS] AS '桶數'&#13;&#10;,[BOXS] AS '箱數'&#13;&#10;,CONVERT(NVARCHAR,[VDATES],112) AS '有效日期'&#13;&#10;,[COMMENT] AS '備註'&#13;&#10;FROM [TKMOC].[dbo].[REPORTMOCMANULINE]&#13;&#10;WHERE CONVERT(NVARCHAR,TA003,112)='20201110' &#13;&#10;ORDER BY TA003,[MANULINE],TA001,TA002   ">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9K9Qm0EQ3oHwFYaelxc5NLS">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT &#13;&#10; [ID]&#13;&#10;,[REPORTMOCMANULINE].[MANULINE] AS '生產線別'&#13;&#10;,[REPORTMOCMANULINE].[LOTNO] AS 'LOTNO'&#13;&#10;,[REPORTMOCMANULINE].[TA001] AS '製令別'&#13;&#10;,[REPORTMOCMANULINE].[TA002] AS '製令編號'&#13;&#10;,CONVERT(NVARCHAR,[REPORTMOCMANULINE].[TA003],112) AS '製令日期'&#13;&#10;,[REPORTMOCMANULINE].[TA006] AS '品號'&#13;&#10;,[REPORTMOCMANULINE].[TA007] AS '單位'&#13;&#10;,[REPORTMOCMANULINE].[TA015] AS '預計產量'&#13;&#10;,[REPORTMOCMANULINE].[TA017] AS '實際產出'&#13;&#10;,[REPORTMOCMANULINE].[MB002] AS '品名'&#13;&#10;,[REPORTMOCMANULINE].[MB003] AS '規格'&#13;&#10;,[REPORTMOCMANULINE].[PCTS] AS '比例'&#13;&#10;,[REPORTMOCMANULINE].[SEQ] AS '順序'&#13;&#10;,[REPORTMOCMANULINE].[ALLERGEN]  AS '過敏原'&#13;&#10;,[REPORTMOCMANULINE].[COOKIES] AS '餅體'&#13;&#10;,[REPORTMOCMANULINE].[BARS] AS '桶數'&#13;&#10;,[REPORTMOCMANULINE].[BOXS] AS '箱數'&#13;&#10;,CONVERT(NVARCHAR,[REPORTMOCMANULINE].[VDATES],112) AS '有效日期'&#13;&#10;,[REPORTMOCMANULINE].[COMMENT] AS '備註'&#13;&#10;,MOCTA.TA026 AS '訂單別'&#13;&#10;,MOCTA.TA027 AS '訂單號'&#13;&#10;,TC053  AS '客戶'&#13;&#10;FROM [TKMOC].[dbo].[REPORTMOCMANULINE]&#13;&#10;LEFT JOIN [TK].dbo.MOCTA ON [REPORTMOCMANULINE].TA001=MOCTA.[TA001] AND [REPORTMOCMANULINE].[TA002]=MOCTA.[TA002]&#13;&#10;LEFT JOIN [TK].dbo.COPTC ON TC001= TA026 AND TC002=TA027 &#13;&#10;WHERE CONVERT(NVARCHAR,[REPORTMOCMANULINE].TA003,112)='20201215' &#13;&#10;ORDER BY [REPORTMOCMANULINE].TA003,[MANULINE],[REPORTMOCMANULINE].TA001,[REPORTMOCMANULINE].TA002   ">
         <Column Name="製令別" DataType="System.String"/>
         <Column Name="製令編號" DataType="System.String"/>
         <Column Name="生產線別" DataType="System.String"/>
@@ -23,20 +23,23 @@
         <Column Name="餅體" DataType="System.String"/>
         <Column Name="ID" DataType="System.Guid"/>
         <Column Name="LOTNO" DataType="System.String"/>
+        <Column Name="訂單別" DataType="System.String"/>
+        <Column Name="訂單號" DataType="System.String"/>
+        <Column Name="客戶" DataType="System.String"/>
       </TableDataSource>
     </MsSqlDataConnection>
     <Parameter Name="P1" DataType="System.String"/>
   </Dictionary>
-  <ReportPage Name="Page1" Landscape="true" PaperWidth="420" PaperHeight="210">
-    <ReportTitleBand Name="ReportTitle1" Width="1512" Height="85.05">
-      <TextObject Name="Text31" Width="1512" Height="18.9" Text="老楊食品股份有限公司" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text32" Left="-1.03" Top="66.15" Width="245.7" Height="18.9" Text="製表日期:[Year([Date])]/[Month([Date])]/[Day([Date])]" VertAlign="Center"/>
-      <TextObject Name="Text33" Left="1265.27" Top="66.15" Width="245.7" Height="18.9" Text="生產日期:[Substring([Table.製令日期],0,4)]/[Substring([Table.製令日期],4,2)]/[Substring([Table.製令日期],6,2)]" VertAlign="Center"/>
-      <TextObject Name="Text34" Left="1266.3" Top="47.25" Width="245.7" Height="18.9" Text="[Table.LOTNO]" VertAlign="Center" Font="宋体, 14pt"/>
-      <TextObject Name="Text35" Top="18.9" Width="1512" Height="18.9" Text="製令明細表" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text36" Width="245.7" Height="66.15" Text="[Substring([Table.製令日期],4,2)]/[Substring([Table.製令日期],6,2)]" VertAlign="Center" Font="宋体, 18pt"/>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="500" PaperHeight="210">
+    <ReportTitleBand Name="ReportTitle1" Width="1814.4" Height="56.7">
+      <TextObject Name="Text31" Width="1814.4" Height="18.9" Text="老楊食品股份有限公司" HorzAlign="Center" VertAlign="Center" Font="宋体, 10pt"/>
+      <TextObject Name="Text32" Left="-1.03" Top="37.8" Width="387.45" Height="18.9" Text="製表日期:[Year([Date])]/[Month([Date])]/[Day([Date])]" VertAlign="Center" Font="宋体, 10pt"/>
+      <TextObject Name="Text33" Left="1369.22" Top="37.8" Width="245.7" Height="18.9" Text="生產日期:[Substring([Table.製令日期],0,4)]/[Substring([Table.製令日期],4,2)]/[Substring([Table.製令日期],6,2)]" VertAlign="Center" Font="宋体, 10pt"/>
+      <TextObject Name="Text34" Left="1105.65" Top="37.8" Width="245.7" Height="18.9" Text="包裝代碼[Table.LOTNO]" VertAlign="Center" Font="宋体, 10pt"/>
+      <TextObject Name="Text36" Top="18.9" Width="1814.4" Height="18.9" Text="[Substring([Table.製令日期],0,4)]年/[Substring([Table.製令日期],4,2)]月/[Substring([Table.製令日期],6,2)]日  生產排程確認表" HorzAlign="Center" VertAlign="Center" Font="宋体, 10pt"/>
+      <TextObject Name="Text35" Left="1644.3" Top="37.8" Width="94.5" Height="18.9" Text="有效日期：" Font="宋体, 10pt"/>
     </ReportTitleBand>
-    <PageHeaderBand Name="PageHeader1" Top="89.17" Width="1512" Height="18.9" Guides="9.45">
+    <PageHeaderBand Name="PageHeader1" Top="61.19" Width="1814.4" Height="19.35" Guides="9.45">
       <TextObject Name="Text2" Width="66.15" Height="18.9" Border.Lines="All" Text="生產線別" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text4" Left="66.15" Width="47.25" Height="18.9" Border.Lines="All" Text="製令別" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text6" Left="113.4" Width="85.05" Height="18.9" Border.Lines="All" Text="製令編號" HorzAlign="Center" VertAlign="Center"/>
@@ -53,8 +56,10 @@
       <TextObject Name="Text28" Left="1219.05" Width="292.95" Height="18.9" Border.Lines="All" Text="備註" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text30" Left="1124.55" Width="94.5" Height="18.9" Border.Lines="All" Text="有效日期" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text38" Left="708.75" Width="85.05" Height="18.9" Border.Lines="All" Text="餅體" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text40" Left="1512" Width="189" Height="18.9" Border.Lines="All" Text="客戶簡稱" HorzAlign="Center" VertAlign="Center" Font="宋体, 10pt"/>
+      <TextObject Name="Text41" Left="1701" Width="113.4" Height="18.9" Border.Lines="All" Text="包材確認及簽名" HorzAlign="Center" VertAlign="Center" Font="宋体, 10pt"/>
     </PageHeaderBand>
-    <DataBand Name="Data1" Top="112.2" Width="1512" Height="18.9" CanGrow="true" DataSource="Table">
+    <DataBand Name="Data1" Top="85.04" Width="1814.4" Height="18.9" CanGrow="true" DataSource="Table">
       <TextObject Name="Text1" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.生產線別]" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text3" Left="66.15" Width="47.25" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.製令別]" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text5" Left="113.4" Width="85.05" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.製令編號]" HorzAlign="Center" VertAlign="Center"/>
@@ -71,7 +76,16 @@
       <TextObject Name="Text27" Left="1219.05" Width="292.95" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.備註]" VertAlign="Center"/>
       <TextObject Name="Text29" Left="1124.55" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.有效日期]" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text37" Left="708.75" Width="85.05" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.餅體]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text39" Left="1512" Width="189" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.客戶]" VertAlign="Center" Font="宋体, 10pt"/>
+      <TextObject Name="Text42" Left="1701" Width="113.4" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" HorzAlign="Center" VertAlign="Center" Font="宋体, 10pt"/>
     </DataBand>
-    <PageFooterBand Name="PageFooter1" Top="135.22" Width="1512" Height="18.9"/>
+    <ReportSummaryBand Name="ReportSummary1" Top="108.43" Width="1814.4" Height="132.3">
+      <TextObject Name="Text43" Width="1512" Height="132.3" Text="◎產品過敏原：由少至多&#13;&#10;◎產品素別:全素→ 奶素→ 蛋奶素→ 植物五辛素&#13;&#10;◎產品氣味:氣味重的最後生產&#13;&#10;◎製一組：03/製二組：02/製三組(手工)：04/包裝線：09/△：換桶/■(灰底)：品項進烤爐須一進一出&#13;&#10;◎生管課應跟產線各課組幹部確認好生產品線的生產順序及包裝順序，最晚生產前一日11點前需經主管審核後送交品保部。品檢課按「生產排程確認表」進行生產前一日包材抽檢檢查及生產當天按排程進行製程檢查。&#13;&#10;◎異常原因說明：&#13;&#10;  異常處理：&#13;&#10;  異常處理員：" VertAlign="Center" Font="宋体, 10pt"/>
+      <TextObject Name="Text44" Left="1512" Width="302.4" Height="18.9" Text="主管：                  生管：" VertAlign="Center" Font="宋体, 10pt"/>
+    </ReportSummaryBand>
+    <PageFooterBand Name="PageFooter1" Top="245.23" Width="1814.4" Height="37.8">
+      <TextObject Name="Text45" Width="784.35" Height="18.9" Text="本文件不得擅自塗改或影印(文件品保部留存)   " VertAlign="Center" Font="宋体, 10pt"/>
+      <TextObject Name="Text46" Left="1682.1" Width="132.3" Height="18.9" Text="A13-10-00-02A" HorzAlign="Right" VertAlign="Center" Font="宋体, 10pt"/>
+    </PageFooterBand>
   </ReportPage>
 </Report>
