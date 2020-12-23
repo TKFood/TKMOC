@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="12/23/2020 14:20:34" ReportInfo.Modified="12/23/2020 14:58:01" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="12/23/2020 14:20:34" ReportInfo.Modified="12/23/2020 15:18:54" ReportInfo.CreatorVersion="2016.4.4.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9KXUDjJR7dd5YmR/08sCEHa">
-      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT TC003 AS '領料日期',TC001+TC002 AS '領料單號',TC014 AS '單據日期',TE004 AS '材料品號',TE005 AS '領料數量',TE006 AS '單位',MC002 AS '庫別',TE009 AS '製程代號',TE010 AS '批號'&#13;&#10;,TE011+TE012 AS '製令單號',TE013 AS '領料說明',TE014 AS '備註'&#13;&#10;,TE017 AS '品名',TE018 AS '規格'&#13;&#10;FROM [TK].dbo.MOCTC,[TK].dbo.MOCTE&#13;&#10;LEFT JOIN [TK].dbo.CMSMC ON MC001=TE010&#13;&#10;WHERE TC001=TE001 AND TC002=TE002&#13;&#10;AND TC001 LIKE 'A54%'&#13;&#10;AND TE011+TE012 IN (SELECT TA001+TA002 FROM [TKMOC].dbo.COSTCO)&#13;&#10;ORDER BY TE011+TE012">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9K1PBkVHmNLVbfDJN4hTqOI">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT TC003 AS '領料日期',TC001+TC002 AS '領料單號',TC014 AS '單據日期',TE004 AS '材料品號',TE005 AS '領料數量',TE006 AS '單位',MC002 AS '庫別',TE009 AS '製程代號',TE010 AS '批號'&#13;&#10;,TE011+TE012 AS '製令單號',TE013 AS '領料說明',TE014 AS '備註'&#13;&#10;,TE017 AS '品名',TE018 AS '規格'&#13;&#10;FROM [TK].dbo.MOCTC,[TK].dbo.MOCTE&#13;&#10;LEFT JOIN [TK].dbo.CMSMC ON MC001=TE008&#13;&#10;WHERE TC001=TE001 AND TC002=TE002&#13;&#10;AND TC001 LIKE 'A54%'&#13;&#10;AND TE011+TE012 IN (SELECT TA001+TA002 FROM [TKMOC].dbo.COSTCO)&#13;&#10;ORDER BY TE011+TE012">
         <Column Name="領料日期" DataType="System.String"/>
         <Column Name="領料單號" DataType="System.String"/>
         <Column Name="單據日期" DataType="System.String"/>

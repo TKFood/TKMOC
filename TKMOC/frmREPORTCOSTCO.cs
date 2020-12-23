@@ -126,6 +126,42 @@ namespace TKMOC
             return FASTSQL.ToString();
         }
 
+        public void SETFASTREPORT3()
+        {
+            string SQL;
+            report1 = new Report();
+            report1.Load(@"REPORT\COSTCO-入庫表.frx");
+
+            report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+
+            TableDataSource Table = report1.GetDataSource("Table") as TableDataSource;
+            SQL = SETFASETSQL3();
+            Table.SelectCommand = SQL;
+
+            report1.Preview = previewControl3;
+            report1.Show();
+        }
+
+
+        public string SETFASETSQL3()
+        {
+            StringBuilder FASTSQL = new StringBuilder();
+
+            //,CASE WHEN TA006 NOT LIKE '4%' THEN CONVERT(decimal(16,3),TA015/ISNULL(MC004,1)) ELSE 0 END AS '桶數'
+            //,CASE WHEN TA006 LIKE '4%' THEN CONVERT(decimal(16, 3), TA015 / ISNULL(MD007, 1) * ISNULL(MD010, 1)) ELSE 0 END AS '箱數'
+
+            FASTSQL.AppendFormat(@"    
+                                SELECT TF003 AS '入庫日期',TF001+TF002 AS '單別-單號',TF012  AS '單據日期',TG004  AS '品號',TG005  AS '品名',TG006  AS '規格',TG011  AS '入庫數量',TG007  AS '單位',TG013 AS '驗收數量','合格' AS '檢驗狀態',TG014+TG015  AS '製令編號',TG017 AS '批號',TG020 AS '備註',MC002 AS '庫別'
+                                FROM [TK].dbo.MOCTF,[TK].dbo.MOCTG
+                                LEFT JOIN [TK].dbo.CMSMC ON MC001=TG010
+                                WHERE TF001=TG001 AND TF002=TG002
+                                AND TG014+TG015 IN (SELECT TA001+TA002 FROM [TKMOC].dbo.COSTCO)
+                                ORDER BY TG014+TG015
+                                ");
+
+            return FASTSQL.ToString();
+        }
+
         #endregion
 
         #region BUTTON
@@ -138,6 +174,10 @@ namespace TKMOC
         private void button2_Click(object sender, EventArgs e)
         {
             SETFASTREPORT2();
+        }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            SETFASTREPORT3();
         }
 
         #endregion

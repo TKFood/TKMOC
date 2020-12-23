@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="12/23/2020 15:19:03" ReportInfo.Modified="12/23/2020 15:41:02" ReportInfo.CreatorVersion="2016.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9JPJfjgfrgpJHNLxQOozLGf">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT TF003 AS '入庫日期',TF001+TF002 AS '單別-單號',TF012  AS '單據日期',TG004  AS '品號',TG005  AS '品名',TG006  AS '規格',TG011  AS '入庫數量',TG007  AS '單位',TG013 AS '驗收數量','合格' AS '檢驗狀態',TG014+TG015  AS '製令編號',TG017 AS '批號',TG020 AS '備註',MC002 AS '庫別'&#13;&#10;FROM [TK].dbo.MOCTF,[TK].dbo.MOCTG&#13;&#10;LEFT JOIN [TK].dbo.CMSMC ON MC001=TG010&#13;&#10;WHERE TF001=TG001 AND TF002=TG002&#13;&#10;AND TG014+TG015 IN (SELECT TA001+TA002 FROM [TKMOC].dbo.COSTCO)&#13;&#10;ORDER BY TG014+TG015">
+        <Column Name="入庫日期" DataType="System.String"/>
+        <Column Name="單別-單號" DataType="System.String"/>
+        <Column Name="單據日期" DataType="System.String"/>
+        <Column Name="品號" DataType="System.String"/>
+        <Column Name="品名" DataType="System.String"/>
+        <Column Name="規格" DataType="System.String"/>
+        <Column Name="入庫數量" DataType="System.Decimal"/>
+        <Column Name="單位" DataType="System.String"/>
+        <Column Name="驗收數量" DataType="System.Decimal"/>
+        <Column Name="檢驗狀態" DataType="System.String"/>
+        <Column Name="製令編號" DataType="System.String"/>
+        <Column Name="批號" DataType="System.String"/>
+        <Column Name="備註" DataType="System.String"/>
+        <Column Name="庫別" DataType="System.String"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="400" PaperHeight="210">
+    <ReportTitleBand Name="ReportTitle1" Width="1436.4" Height="56.7">
+      <TextObject Name="Text29" Width="1436.4" Height="18.9" Text="老楊食品股份有限公司" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text30" Top="18.9" Width="1436.4" Height="18.9" Text="生產入庫單明細表" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text31" Top="37.8" Width="1436.4" Height="18.9" Text="製表日期: 2020/12/23" VertAlign="Center"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="62.95" Width="1436.4" Height="18.9">
+      <TextObject Name="Text2" Width="75.6" Height="18.9" Border.Lines="Top" Border.Width="3" Text="入庫日期" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text4" Left="75.6" Width="113.4" Height="18.9" Border.Lines="Top" Border.Width="3" Text="單別-單號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text6" Left="189" Width="85.05" Height="18.9" Border.Lines="Top" Border.Width="3" Text="單據日期" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text8" Left="274.05" Width="103.95" Height="18.9" Border.Lines="Top" Border.Width="3" Text="品號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text10" Left="378" Width="151.2" Height="18.9" Border.Lines="Top" Border.Width="3" Text="品名" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text12" Left="529.2" Width="170.1" Height="18.9" Border.Lines="Top" Border.Width="3" Text="規格" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text14" Left="699.3" Width="94.5" Height="18.9" Border.Lines="Top" Border.Width="3" Text="入庫數量" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text16" Left="793.8" Width="56.7" Height="18.9" Border.Lines="Top" Border.Width="3" Text="單位" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text18" Left="850.5" Width="94.5" Height="18.9" Border.Lines="Top" Border.Width="3" Text="驗收數量" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text20" Left="945" Width="66.15" Height="18.9" Border.Lines="Top" Border.Width="3" Text="檢驗狀態" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text22" Left="1323" Width="113.4" Height="18.9" Border.Lines="Top" Border.Width="3" Text="製令編號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text24" Left="1011.15" Width="94.5" Height="18.9" Border.Lines="Top" Border.Width="3" Text="庫別" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text26" Left="1105.65" Width="94.5" Height="18.9" Border.Lines="Top" Border.Width="3" Text="批號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text28" Left="1200.15" Width="122.85" Height="18.9" Border.Lines="Top" Border.Width="3" Text="備註" HorzAlign="Center" VertAlign="Center"/>
+    </PageHeaderBand>
+    <GroupHeaderBand Name="GroupHeader1" Top="88.1" Width="1436.4" Condition="[Table.製令編號]">
+      <DataBand Name="Data1" Top="94.35" Width="1436.4" Height="18.9" CanGrow="true" DataSource="Table">
+        <TextObject Name="Text1" Width="75.6" Height="18.9" Border.Lines="Top" Border.Width="3" CanGrow="true" GrowToBottom="true" Text="[Table.入庫日期]" VertAlign="Center"/>
+        <TextObject Name="Text3" Left="75.6" Width="113.4" Height="18.9" Border.Lines="Top" Border.Width="3" CanGrow="true" GrowToBottom="true" Text="[Table.單別-單號]" VertAlign="Center"/>
+        <TextObject Name="Text5" Left="189" Width="85.05" Height="18.9" Border.Lines="Top" Border.Width="3" CanGrow="true" GrowToBottom="true" Text="[Table.單據日期]" VertAlign="Center"/>
+        <TextObject Name="Text7" Left="274.05" Width="103.95" Height="18.9" Border.Lines="Top" Border.Width="3" CanGrow="true" GrowToBottom="true" Text="[Table.品號]" VertAlign="Center"/>
+        <TextObject Name="Text9" Left="378" Width="151.2" Height="18.9" Border.Lines="Top" Border.Width="3" CanGrow="true" GrowToBottom="true" Text="[Table.品名]" VertAlign="Center"/>
+        <TextObject Name="Text11" Left="529.2" Width="170.1" Height="18.9" Border.Lines="Top" Border.Width="3" CanGrow="true" GrowToBottom="true" Text="[Table.規格]" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text13" Left="699.3" Width="94.5" Height="18.9" Border.Lines="Top" Border.Width="3" CanGrow="true" GrowToBottom="true" Text="[Table.入庫數量]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text15" Left="793.8" Width="56.7" Height="18.9" Border.Lines="Top" Border.Width="3" CanGrow="true" GrowToBottom="true" Text="[Table.單位]" VertAlign="Center"/>
+        <TextObject Name="Text17" Left="850.5" Width="94.5" Height="18.9" Border.Lines="Top" Border.Width="3" CanGrow="true" GrowToBottom="true" Text="[Table.驗收數量]" Format="Number" Format.UseLocale="true" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text19" Left="945" Width="66.15" Height="18.9" Border.Lines="Top" Border.Width="3" CanGrow="true" GrowToBottom="true" Text="[Table.檢驗狀態]" VertAlign="Center"/>
+        <TextObject Name="Text21" Left="1323" Width="113.4" Height="18.9" Border.Lines="Top" Border.Width="3" CanGrow="true" GrowToBottom="true" Text="[Table.製令編號]" VertAlign="Center"/>
+        <TextObject Name="Text23" Left="1011.15" Width="94.5" Height="18.9" Border.Lines="Top" Border.Width="3" CanGrow="true" GrowToBottom="true" Text="[Table.庫別]" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text25" Left="1105.65" Width="94.5" Height="18.9" Border.Lines="Top" Border.Width="3" CanGrow="true" GrowToBottom="true" Text="[Table.批號]" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text27" Left="1200.15" Width="122.85" Height="18.9" Border.Lines="Top" Border.Width="3" CanGrow="true" GrowToBottom="true" Text="[Table.備註]" HorzAlign="Center" VertAlign="Center"/>
+      </DataBand>
+      <GroupFooterBand Name="GroupFooter1" Top="119.5" Width="1436.4"/>
+    </GroupHeaderBand>
+    <PageFooterBand Name="PageFooter1" Top="125.75" Width="1436.4" Height="18.9"/>
+  </ReportPage>
+</Report>
