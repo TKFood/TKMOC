@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="12/23/2020 14:20:34" ReportInfo.Modified="12/23/2020 15:16:45" ReportInfo.CreatorVersion="2016.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9KFdU3mOQJ9MIsyt2adPggV">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT TC003 AS '退料日期',TC001+TC002 AS '退料單號',TC014 AS '單據日期',TE004 AS '材料品號',TE005 AS '退料數量',TE006 AS '單位',MC002 AS '庫別',TE009 AS '製程代號',TE010 AS '批號'&#13;&#10;,TE011+TE012 AS '製令單號',TE013 AS '領料說明',TE014 AS '備註'&#13;&#10;,TE017 AS '品名',TE018 AS '規格'&#13;&#10;FROM [TK].dbo.MOCTC,[TK].dbo.MOCTE&#13;&#10;LEFT JOIN [TK].dbo.CMSMC ON MC001=TE008&#13;&#10;WHERE TC001=TE001 AND TC002=TE002&#13;&#10;AND TC001 LIKE 'A56%'&#13;&#10;AND TE011+TE012 IN (SELECT TA001+TA002 FROM [TKMOC].dbo.COSTCO)&#13;&#10;ORDER BY TE011+TE012">
+        <Column Name="單據日期" DataType="System.String"/>
+        <Column Name="材料品號" DataType="System.String"/>
+        <Column Name="單位" DataType="System.String"/>
+        <Column Name="庫別" DataType="System.String"/>
+        <Column Name="領料說明" DataType="System.String"/>
+        <Column Name="備註" DataType="System.String"/>
+        <Column Name="品名" DataType="System.String"/>
+        <Column Name="規格" DataType="System.String"/>
+        <Column Name="製令單號" DataType="System.String"/>
+        <Column Name="批號" DataType="System.String"/>
+        <Column Name="製程代號" DataType="System.String"/>
+        <Column Name="退料日期" DataType="System.String"/>
+        <Column Name="退料單號" DataType="System.String"/>
+        <Column Name="退料數量" DataType="System.Decimal"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+  </Dictionary>
+  <ReportPage Name="Page1">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="56.7">
+      <TextObject Name="Text27" Width="718.2" Height="18.9" Text="老楊食品股份有限公司" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text28" Top="18.9" Width="718.2" Height="18.9" Text="退料單明細表" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text29" Top="37.8" Width="718.2" Height="18.9" Text="製表日期: 2020/12/23" VertAlign="Center"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="61.19" Width="718.2" Height="75.6">
+      <TextObject Name="Text2" Top="9.45" Width="75.6" Height="18.9" Text="退料日期" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text4" Left="75.6" Top="9.45" Width="113.4" Height="18.9" Text="退料單號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text6" Left="75.6" Top="28.35" Width="113.4" Height="18.9" Text="單據日期" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text8" Left="189" Top="9.45" Width="189" Height="18.9" Text="材料品號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text10" Left="189" Top="28.35" Width="189" Height="18.9" Text="品名" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text12" Left="189" Top="47.25" Width="189" Height="18.9" Text="規格" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text14" Left="378" Top="9.45" Width="75.6" Height="18.9" Text="退料數量" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text16" Left="378" Top="28.35" Width="75.6" Height="18.9" Text="單位" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text18" Left="453.6" Top="9.45" Width="122.85" Height="18.9" Text="製令單號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text20" Left="453.6" Top="28.35" Width="122.85" Height="18.9" Text="庫別" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text22" Left="576.45" Top="9.45" Width="141.75" Height="18.9" Text="批號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text24" Left="576.45" Top="28.35" Width="141.75" Height="18.9" Text="領料說明" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text26" Left="576.45" Top="47.25" Width="141.75" Height="18.9" Text="備註" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text30" Width="718.2" Height="9.45" Border.Lines="Top" Border.Width="3" HorzAlign="Center" VertAlign="Center"/>
+    </PageHeaderBand>
+    <GroupHeaderBand Name="GroupHeader1" Top="141.29" Width="718.2" StartNewPage="true" Condition="[Table.製令單號]">
+      <DataBand Name="Data1" Top="145.78" Width="718.2" Height="66.15" DataSource="Table">
+        <TextObject Name="Text1" Top="9.45" Width="75.6" Height="18.9" Text="[Table.退料日期]" VertAlign="Center"/>
+        <TextObject Name="Text3" Left="75.6" Top="9.45" Width="113.4" Height="18.9" Text="[Table.退料單號]" VertAlign="Center"/>
+        <TextObject Name="Text5" Left="75.6" Top="28.35" Width="113.4" Height="18.9" Text="[Table.單據日期]" VertAlign="Center"/>
+        <TextObject Name="Text7" Left="189" Top="9.45" Width="189" Height="18.9" Text="[Table.材料品號]" VertAlign="Center"/>
+        <TextObject Name="Text9" Left="189" Top="28.35" Width="189" Height="18.9" Text="[Table.品名]" VertAlign="Center"/>
+        <TextObject Name="Text11" Left="189" Top="47.25" Width="189" Height="18.9" Text="[Table.規格]" VertAlign="Center"/>
+        <TextObject Name="Text13" Left="378" Top="9.45" Width="75.6" Height="18.9" Text="[Table.退料數量]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="3" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text15" Left="378" Top="28.35" Width="75.6" Height="18.9" Text="[Table.單位]" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text17" Left="453.6" Top="9.45" Width="122.85" Height="18.9" Text="[Table.製令單號]" VertAlign="Center"/>
+        <TextObject Name="Text21" Left="576.45" Top="9.45" Width="141.75" Height="18.9" Text="[Table.批號]" VertAlign="Center"/>
+        <TextObject Name="Text23" Left="576.45" Top="28.35" Width="141.75" Height="18.9" Text="[Table.領料說明]" VertAlign="Center"/>
+        <TextObject Name="Text25" Left="576.45" Top="47.25" Width="141.75" Height="18.9" Text="[Table.備註]" VertAlign="Center"/>
+        <TextObject Name="Text19" Left="453.6" Top="28.35" Width="122.85" Height="18.9" Text="[Table.庫別]" VertAlign="Center"/>
+        <TextObject Name="Text32" Top="56.7" Width="718.2" Height="9.45" Border.Lines="Bottom" Border.Width="3" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text31" Width="718.2" Height="9.45" Border.Lines="Top" Border.Width="3" HorzAlign="Center" VertAlign="Center"/>
+      </DataBand>
+      <GroupFooterBand Name="GroupFooter1" Top="216.43" Width="718.2"/>
+    </GroupHeaderBand>
+    <PageFooterBand Name="PageFooter1" Top="220.92" Width="718.2" Height="18.9"/>
+  </ReportPage>
+</Report>
