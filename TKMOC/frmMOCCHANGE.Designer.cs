@@ -1066,6 +1066,7 @@
             this.dataGridView7.RowTemplate.Height = 24;
             this.dataGridView7.Size = new System.Drawing.Size(682, 516);
             this.dataGridView7.TabIndex = 4;
+            this.dataGridView7.SelectionChanged += new System.EventHandler(this.dataGridView7_SelectionChanged);
             // 
             // splitContainer12
             // 

@@ -36,10 +36,13 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder = new SqlCommandBuilder();
         SqlDataAdapter adapter2 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder2 = new SqlCommandBuilder();
+        SqlDataAdapter adapter3 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder3 = new SqlCommandBuilder();
 
         SqlCommand cmd = new SqlCommand();
         DataSet ds = new DataSet();
         DataSet ds2 = new DataSet();
+        DataSet ds3 = new DataSet();
 
         DataSet dsCHECKMOCTDMOCTG = new DataSet();
         DataTable dt = new DataTable();
@@ -816,6 +819,160 @@ namespace TKMOC
             }
         }
 
+
+        public void CHANGEMULTI4()
+        {
+            foreach (DataGridViewRow dr in this.dataGridView7.Rows)
+            {
+                if (dr.Cells[0].Value != null && (bool)dr.Cells[0].Value)
+                {
+                    string TB001 = ((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[0].ToString();
+                    string TB002 = ((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[1].ToString();
+
+                    if (!string.IsNullOrEmpty(TB001) && !string.IsNullOrEmpty(TB002) )
+                    {
+                        UPDATEMOCTB2(TB001.Trim(), TB002.Trim());
+                    }
+
+                    //MessageBox.Show(OLDTA001+"-"+ OLDTA002);
+
+                }
+                else
+                {
+
+                }
+            }
+
+        }
+
+        public void UPDATEMOCTB2(string TB001, string TB002)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+
+
+                sbSql.AppendFormat(@" 
+                                    UPDATE [TK].dbo.MOCTB
+                                    SET TB004=ROUND(TB004,0)
+                                    WHERE TB003 IN ('201001','202003','202006','210071','205031','205032','203022')
+                                    AND TB001='{0}' AND TB002='{1}'
+                                    ", TB001, TB002);
+
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+
+
+                }
+                else
+                {
+                    tran.Commit();      //執行交易                    
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        private void dataGridView7_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView7.CurrentRow != null)
+            {
+                int rowindex = dataGridView7.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView7.Rows[rowindex];
+                    TA001 = row.Cells["製令"].Value.ToString().Trim();
+                    TA002 = row.Cells["單號"].Value.ToString().Trim();
+
+                    SEARCHMOCTB3(TA001, TA002);
+
+                }
+                else
+                {
+                    SEARCHMOCTB3("", "");
+
+                }
+            }
+        }
+
+        public void SEARCHMOCTB3(string ta001, string TA002)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+
+                sbSql.AppendFormat(@"  
+                                SELECT TB003 AS '材料品號',TB012 AS '材料品名',TB004 AS '需領用量'
+                                FROM [TK].dbo.MOCTB
+                                WHERE TB001='{0}' AND TB002='{1}'
+                                ", TA001, TA002);
+
+                adapter3 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder3 = new SqlCommandBuilder(adapter3);
+                sqlConn.Open();
+                ds3.Clear();
+                adapter3.Fill(ds3, "ds3");
+                sqlConn.Close();
+
+
+                if (ds3.Tables["ds3"].Rows.Count == 0)
+                {
+                    dataGridView8.DataSource = null;
+                }
+                else
+                {
+                    if (ds3.Tables["ds3"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView8.DataSource = ds3.Tables["ds3"];
+                        dataGridView8.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
         #endregion
 
         #region BUTTON
@@ -889,10 +1046,20 @@ namespace TKMOC
 
         private void button8_Click(object sender, EventArgs e)
         {
-
+            DialogResult dialogResult = MessageBox.Show("要修改嗎?", "要修改嗎?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                CHANGEMULTI4();
+                SEARCH4(dateTimePicker8.Value.ToString("yyyyMMdd"), dateTimePicker9.Value.ToString("yyyyMMdd"));
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                //do something else
+            }
         }
 
         #endregion
 
+       
     }
 }
