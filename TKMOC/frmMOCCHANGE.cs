@@ -933,7 +933,7 @@ namespace TKMOC
 
 
                 sbSql.AppendFormat(@"  
-                                SELECT TB003 AS '材料品號',TB012 AS '材料品名',TB004 AS '需領用量'
+                                SELECT  LTRIM(RTRIM(TB003)) AS '材料品號',LTRIM(RTRIM(TB012)) AS '材料品名',TB004 AS '需領用量'
                                 FROM [TK].dbo.MOCTB
                                 WHERE TB001='{0}' AND TB002='{1}'
                                 ", TA001, TA002);
@@ -958,8 +958,12 @@ namespace TKMOC
                         //dataGridView1.Rows.Clear();
                         dataGridView8.DataSource = ds3.Tables["ds3"];
                         dataGridView8.AutoResizeColumns();
-                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
 
+                        dataGridView8.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 9);
+                        dataGridView8.DefaultCellStyle.Font = new Font("Tahoma", 10);
+                        dataGridView8.Columns[0].Width = 120;
+                        dataGridView8.Columns[1].Width = 100;
+                        dataGridView8.Columns[2].Width = 100;
                     }
                 }
 
