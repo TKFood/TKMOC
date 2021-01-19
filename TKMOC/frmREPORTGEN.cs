@@ -561,7 +561,7 @@ namespace TKMOC
             }
         }
 
-        public void ADDREPORTGENDETAIL(string TA001,string TA002,int NUMS)
+        public void ADDREPORTGENDETAIL(string TA001,string TA002, string COMMENTS)
         {
             try
             {
@@ -577,9 +577,9 @@ namespace TKMOC
                 
                 sbSql.AppendFormat(@"  
                                     INSERT INTO [TKMOC].[dbo].[REPORTGENDETAIL]
-                                    ([TA001],[TA002],[NUMS])
-                                    VALUES ('{0}','{1}',{2})
-                                    ",TA001,TA002,NUMS);
+                                    ([TA001],[TA002],[COMMENTS])
+                                    VALUES ('{0}','{1}','{2}')
+                                    ", TA001,TA002, COMMENTS);
 
                 cmd.Connection = sqlConn;
                 cmd.CommandTimeout = 60;
@@ -619,10 +619,11 @@ namespace TKMOC
                 sbSqlQuery.Clear();
 
                 sbSql.AppendFormat(@"  
-                                    SELECT ISNULL(SUM([NUMS]),0) NUMS 
+                                    SELECT TOP 1  COMMENTS 
                                     FROM [TKMOC].[dbo].[REPORTGENDETAIL]
                                     WHERE TA001='{0}' AND TA002='{1}'
-                                    ",TA001,TA002);
+                                    ORDER BY CDATES DESC
+                                    ", TA001,TA002);
 
                 adapter4 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -641,7 +642,7 @@ namespace TKMOC
                 {
                     if (ds4.Tables["ds4"].Rows.Count >= 1)
                     {                        
-                        textBox9.Text = ds4.Tables["ds4"].Rows[0]["NUMS"].ToString();
+                        textBox9.Text = ds4.Tables["ds4"].Rows[0]["COMMENTS"].ToString();
                     }
                 }
 
@@ -667,7 +668,7 @@ namespace TKMOC
         private void button2_Click(object sender, EventArgs e)
         {
             ADDREPORTGEN(textBox1.Text, textBox2.Text,textBox4.Text);
-            ADDREPORTGENDETAIL(textBox1.Text, textBox2.Text, Convert.ToInt32(textBox4.Text));
+            ADDREPORTGENDETAIL(textBox1.Text, textBox2.Text, textBox4.Text);
 
             if (ROWS>0)
             {

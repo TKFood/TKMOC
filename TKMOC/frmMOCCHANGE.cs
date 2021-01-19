@@ -100,6 +100,15 @@ namespace TKMOC
             cbCol5.TrueValue = true;
             cbCol5.FalseValue = false;
             dataGridView5.Columns.Insert(0, cbCol5);
+
+            //先建立個 CheckBox 欄
+            DataGridViewCheckBoxColumn cbCol7 = new DataGridViewCheckBoxColumn();
+            cbCol7.Width = 50;   //設定寬度
+            cbCol7.HeaderText = "選擇";
+            cbCol7.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;   //置中
+            cbCol7.TrueValue = true;
+            cbCol7.FalseValue = false;
+            dataGridView7.Columns.Insert(0, cbCol7);
         }
 
         #region FUNCTION
@@ -751,6 +760,62 @@ namespace TKMOC
                 sqlConn.Close();
             }
         }
+
+
+        public void SEARCH4(string SDATES,string EDATES)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+
+                sbSql.AppendFormat(@"  
+                                    SELECT TA001 AS '製令',TA002 AS '單號',TA003 AS '生產日',TA006 AS '品號',TA034 AS '品名',TA015 AS '生產量',TA007 AS '單位',TA021 AS '線別',TA026 AS '訂單',TA027 AS '單號',TA028 AS '序號'
+                                    FROM [TK].dbo.MOCTA
+                                    WHERE TA003>='{0}' AND TA003<='{1}' 
+                                    ORDER BY TA001,TA002,TA003
+                                    ", SDATES, EDATES);
+
+                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder = new SqlCommandBuilder(adapter);
+                sqlConn.Open();
+                ds.Clear();
+                adapter.Fill(ds, "TEMPds");
+                sqlConn.Close();
+
+
+                if (ds.Tables["TEMPds"].Rows.Count == 0)
+                {
+                    dataGridView7.DataSource = null;
+                }
+                else
+                {
+                    if (ds.Tables["TEMPds"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView7.DataSource = ds.Tables["TEMPds"];
+                        dataGridView7.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+
         #endregion
 
         #region BUTTON
@@ -817,8 +882,17 @@ namespace TKMOC
         }
 
 
-        #endregion
+        private void button7_Click(object sender, EventArgs e)
+        {
+            SEARCH4(dateTimePicker8.Value.ToString("yyyyMMdd"), dateTimePicker9.Value.ToString("yyyyMMdd"));
+        }
 
+        private void button8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        #endregion
 
     }
 }
