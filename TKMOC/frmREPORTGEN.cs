@@ -36,6 +36,8 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder2 = new SqlCommandBuilder();
         SqlDataAdapter adapter3 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder3 = new SqlCommandBuilder();
+        SqlDataAdapter adapter4 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder4 = new SqlCommandBuilder();
 
         SqlTransaction tran;
         SqlCommand cmd = new SqlCommand();
@@ -44,6 +46,7 @@ namespace TKMOC
         DataSet ds1 = new DataSet();
         DataSet ds2 = new DataSet();
         DataSet ds3 = new DataSet();
+        DataSet ds4 = new DataSet();
         int ROWS=0;
         int TA017=0;
         decimal CHECKROWS = 0;
@@ -130,6 +133,8 @@ namespace TKMOC
                     textBox2.Text = row.Cells["製令號"].Value.ToString();
                     textBox3.Text = row.Cells["備註"].Value.ToString();
                     MB001 = row.Cells["品號"].Value.ToString();
+
+                    SEARCHREPORTGENDETAIL(textBox1.Text, textBox2.Text);
                 }
                 else
                 {
@@ -556,6 +561,100 @@ namespace TKMOC
             }
         }
 
+        public void ADDREPORTGENDETAIL(string TA001,string TA002,int NUMS)
+        {
+            try
+            {
+                //add ZWAREWHOUSEPURTH
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+                
+                sbSql.AppendFormat(@"  
+                                    INSERT INTO [TKMOC].[dbo].[REPORTGENDETAIL]
+                                    ([TA001],[TA002],[NUMS])
+                                    VALUES ('{0}','{1}',{2})
+                                    ",TA001,TA002,NUMS);
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易   
+                    
+                }
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void SEARCHREPORTGENDETAIL(string TA001, string TA002)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  
+                                    SELECT ISNULL(SUM([NUMS]),0) NUMS 
+                                    FROM [TKMOC].[dbo].[REPORTGENDETAIL]
+                                    WHERE TA001='{0}' AND TA002='{1}'
+                                    ",TA001,TA002);
+
+                adapter4 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder4 = new SqlCommandBuilder(adapter4);
+                sqlConn.Open();
+                ds4.Clear();
+                adapter4.Fill(ds4, "ds4");
+                sqlConn.Close();
+
+
+                if (ds4.Tables["ds4"].Rows.Count == 0)
+                {
+                    textBox9.Text = null;
+                }
+                else
+                {
+                    if (ds4.Tables["ds4"].Rows.Count >= 1)
+                    {                        
+                        textBox9.Text = ds4.Tables["ds4"].Rows[0]["NUMS"].ToString();
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
 
         #endregion
 
@@ -568,8 +667,9 @@ namespace TKMOC
         private void button2_Click(object sender, EventArgs e)
         {
             ADDREPORTGEN(textBox1.Text, textBox2.Text,textBox4.Text);
+            ADDREPORTGENDETAIL(textBox1.Text, textBox2.Text, Convert.ToInt32(textBox4.Text));
 
-            if(ROWS>0)
+            if (ROWS>0)
             {
                 SETFASTREPORT2(textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text);
             }
@@ -577,7 +677,10 @@ namespace TKMOC
             {
                 SETFASTREPORT(textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text);
             }
-            
+
+            SEARCHREPORTGENDETAIL(textBox1.Text, textBox2.Text);
+
+
         }
         private void button4_Click(object sender, EventArgs e)
         {

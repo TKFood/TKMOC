@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -72,6 +72,8 @@
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.textBox9 = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -255,8 +257,8 @@
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
@@ -299,6 +301,8 @@
             this.tableLayoutPanel2.Controls.Add(this.label4, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.label5, 0, 3);
             this.tableLayoutPanel2.Controls.Add(this.textBox4, 1, 3);
+            this.tableLayoutPanel2.Controls.Add(this.textBox9, 1, 5);
+            this.tableLayoutPanel2.Controls.Add(this.label12, 0, 5);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -702,6 +706,27 @@
             this.label8.TabIndex = 3;
             this.label8.Text = "品號";
             // 
+            // label12
+            // 
+            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label12.Location = new System.Drawing.Point(3, 212);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(114, 16);
+            this.label12.TabIndex = 8;
+            this.label12.Text = "列印備註:已印";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // textBox9
+            // 
+            this.textBox9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox9.Location = new System.Drawing.Point(123, 206);
+            this.textBox9.Name = "textBox9";
+            this.textBox9.ReadOnly = true;
+            this.textBox9.Size = new System.Drawing.Size(114, 27);
+            this.textBox9.TabIndex = 9;
+            // 
             // frmREPORTGEN
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -796,5 +821,7 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox textBox9;
     }
 }
