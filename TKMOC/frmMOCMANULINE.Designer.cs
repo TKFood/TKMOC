@@ -7585,7 +7585,7 @@
             this.ClientSize = new System.Drawing.Size(984, 625);
             this.Controls.Add(this.tabControl1);
             this.Name = "frmMOCMANULINE";
-            this.Text = "預排製令";
+            this.Text = "frmMOCMANULINE";
             this.Load += new System.EventHandler(this.frmMOCMANULINE_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
