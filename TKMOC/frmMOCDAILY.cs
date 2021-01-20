@@ -336,10 +336,11 @@ namespace TKMOC
                                 FROM[TK].dbo.INVMB,[TK].dbo.MOCTA,[TK].dbo.CMSMD
                                 WHERE TA006=MB001 AND TA021=MD001
                                 AND ISNULL(INVMB.UDF03,'')<>''
+                                AND TA013 IN ('Y','N')
                                 AND TA003>='{0}' AND TA003<='{1}'
                                 ) AS TEMP
                                 WHERE 線別 = '{2}'
-                                ORDER BY 線別,SUBSTRING(製令單號,1,8),品號",dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"), comboBox1.Text);
+                                ORDER BY 線別,SUBSTRING(製令單號,1,8),品號", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"), comboBox1.Text);
 
 
             return SB;

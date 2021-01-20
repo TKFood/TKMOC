@@ -117,6 +117,7 @@ namespace TKMOC
                                 FROM[TK].dbo.INVMB,[TK].dbo.MOCTA,[TK].dbo.CMSMD
                                 WHERE TA006=MB001 AND TA021=MD001
                                 AND ISNULL(INVMB.UDF03,'')<>''
+                                AND TA013 IN ('Y','N')
                                 AND TA003>='{0}' AND TA003<='{1}'
                                 AND TA006 = '{2}'
 
@@ -129,6 +130,7 @@ namespace TKMOC
                                 FROM[TK].dbo.INVMB,[TK].dbo.MOCTA,[TK].dbo.CMSMD
                                 WHERE TA006=MB001 AND TA021=MD001
                                 AND ISNULL(INVMB.UDF03,'')<>''
+                                AND TA013 IN ('Y','N')
                                 AND TA003>='{0}' AND TA003<='{1}'
                                 AND TA006 IN (SELECT MD003 FROM [TK].dbo.BOMMD WHERE MD003 LIKE '3%' AND  MD001='{2}')
 
