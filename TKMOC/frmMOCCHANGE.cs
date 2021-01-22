@@ -863,7 +863,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@" 
                                     UPDATE [TK].dbo.MOCTB
                                     SET TB004=ROUND(TB004,0)
-                                    WHERE ((TB003 LIKE '201001%')  OR (TB003 LIKE '201002%')  OR (TB003 LIKE '202003%') OR (TB003 LIKE '202004%') OR (TB003 LIKE '202005%') OR (TB003 LIKE '202006%') OR (TB003 LIKE '210071%') OR (TB003 LIKE '205031%') OR (TB003 LIKE '205032%') OR (TB003 LIKE '203022%')  )
+                                    WHERE ((TB003 LIKE '201001%')  OR (TB003 LIKE '201002%')  OR (TB003 LIKE '202003%') OR (TB003 LIKE '202004%') OR (TB003 LIKE '202005%') OR (TB003 LIKE '202006%') OR (TB003 LIKE '202012%') OR (TB003 LIKE '210071%') OR (TB003 LIKE '205031%') OR (TB003 LIKE '205032%') OR (TB003 LIKE '203022%')  )
                                     AND TB001='{0}' AND TB002='{1}'
                                     ", TB001, TB002);
 
