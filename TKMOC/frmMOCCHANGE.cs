@@ -38,11 +38,14 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder2 = new SqlCommandBuilder();
         SqlDataAdapter adapter3 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder3 = new SqlCommandBuilder();
+        SqlDataAdapter adapter4= new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder4 = new SqlCommandBuilder();
 
         SqlCommand cmd = new SqlCommand();
         DataSet ds = new DataSet();
         DataSet ds2 = new DataSet();
         DataSet ds3 = new DataSet();
+        DataSet ds4 = new DataSet();
 
         DataSet dsCHECKMOCTDMOCTG = new DataSet();
         DataTable dt = new DataTable();
@@ -847,6 +850,8 @@ namespace TKMOC
 
         public void UPDATEMOCTB2(string TB001, string TB002)
         {
+            string SQLLIKE = SEARCHMOCCHANGE();
+
             try
             {
                 connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
@@ -863,9 +868,9 @@ namespace TKMOC
                 sbSql.AppendFormat(@" 
                                     UPDATE [TK].dbo.MOCTB
                                     SET TB004=ROUND(TB004,0)
-                                    WHERE ((TB003 LIKE '201001%')  OR (TB003 LIKE '201002%')  OR (TB003 LIKE '202003%') OR (TB003 LIKE '202004%') OR (TB003 LIKE '202005%') OR (TB003 LIKE '202006%') OR (TB003 LIKE '202012%') OR (TB003 LIKE '210071%') OR (TB003 LIKE '205031%') OR (TB003 LIKE '205032%') OR (TB003 LIKE '203022%')  )
+                                    WHERE ( {2} )
                                     AND TB001='{0}' AND TB002='{1}'
-                                    ", TB001, TB002);
+                                    ", TB001, TB002, SQLLIKE.ToString());
 
 
 
@@ -899,6 +904,59 @@ namespace TKMOC
             }
         }
 
+        public string SEARCHMOCCHANGE()
+        {
+            StringBuilder MB001 = new StringBuilder();
+            MB001.Clear();
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+
+                sbSql.AppendFormat(@"  
+                                    SELECT [MB001] FROM [TKMOC].[dbo].[MOCCHANGE]
+                                    ");
+
+                adapter4 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder4 = new SqlCommandBuilder(adapter4);
+                sqlConn.Open();
+                ds4.Clear();
+                adapter4.Fill(ds4, "ds4");
+                sqlConn.Close();
+
+
+                if (ds4.Tables["ds4"].Rows.Count >= 1)
+                {
+                    for (int i = 0; i < ds4.Tables["ds4"].Rows.Count; i++)
+                    {
+                        MB001.AppendFormat(@" (TB003 LIKE '{0}%') OR ", ds4.Tables["ds4"].Rows[i]["MB001"].ToString());
+                    }
+
+                    MB001.AppendFormat(@" (TB003 LIKE 'NA%') ");
+                    return MB001.ToString();
+
+                }
+                else
+                {
+                    return "";
+                }
+
+            }
+            catch
+            {
+                return "";
+            }
+            finally
+            {
+
+            }
+        }
         private void dataGridView7_SelectionChanged(object sender, EventArgs e)
         {
             if (dataGridView7.CurrentRow != null)
