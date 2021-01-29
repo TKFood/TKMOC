@@ -128,7 +128,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@" 
                                     SELECT 
                                     TD001 AS '訂單',TD002 AS '訂單號',TD003 AS '訂單序號',TD013 AS '生產日',TD004 AS '品號'
-                                    ,TD005 AS '品名',TD006 AS '規格',(CASE WHEN BOMMD.MD003 LIKE '4%' THEN 0 ELSE CONVERT(DECIMAL(16,4),((TD008+TD024)/MC004))  END ) AS '數量',(TD008+TD024) AS '箱數',(CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TD008+TD024)*INVMD.MD004 ELSE (TD008+TD024)  END ) AS '包裝數'
+                                    ,TD005 AS '品名',TD006 AS '規格',(TD008+TD024) AS '數量',(TD008+TD024) AS '箱數',(CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TD008+TD024)*INVMD.MD004 ELSE (TD008+TD024)  END ) AS '包裝數'
                                     ,(CASE WHEN BOMMD.MD003 LIKE '4%' THEN 0 ELSE CONVERT(DECIMAL(16,4),((TD008+TD024)/MC004))  END )  AS '桶數',TC053 AS '客戶',TD013 AS '預交日',0 AS '工時',(TC015+'-'+TD020) '備註'
                                     ,0 AS '半成品','' AS TID,'' AS TCOPTD001,'' AS TCOPTD002,'' AS TCOPTD003
                                     FROM [TK].dbo.COPTC,[TK].dbo.COPTD
