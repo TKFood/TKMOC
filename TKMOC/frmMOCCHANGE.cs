@@ -488,14 +488,16 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  SELECT TA001 AS '製令',TA002 AS '單號',TB003 AS '品號',TB012 AS '品名',TB004 AS '需領用量',TB009 AS '庫別' ");
-                sbSql.AppendFormat(@"  FROM [TK].dbo.MOCTA,[TK].dbo.MOCTB");
-                sbSql.AppendFormat(@"  WHERE TA001=TB001 AND TA002=TB002");
-                sbSql.AppendFormat(@"  AND TB003='106061011'");
-                sbSql.AppendFormat(@"  AND TA003>='{0}' AND TA003<='{1}'",SDAY,EDAY);
-                sbSql.AppendFormat(@"  ORDER BY TA001,TA002,TB003");
-                sbSql.AppendFormat(@"  ");
-                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"
+                                    SELECT TA001 AS '製令',TA002 AS '單號',TB003 AS '品號',TB012 AS '品名',TB004 AS '需領用量',TB009 AS '庫別' ,MD002 AS '線別'
+                                    FROM [TK].dbo.MOCTA,[TK].dbo.MOCTB,[TK].dbo.CMSMD
+                                    WHERE TA021=MD001
+                                    AND TA001=TB001 AND TA002=TB002
+                                    AND TB003='106061011'
+                                    AND TA003>='{0}' AND TA003<='{1}'
+                                    ORDER BY TA001,TA002,TB003
+                    
+                                    ", SDAY, EDAY);
 
                 adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
