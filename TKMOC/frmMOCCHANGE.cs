@@ -792,9 +792,8 @@ namespace TKMOC
 
                 sbSql.AppendFormat(@"  
                                     SELECT TA001 AS '製令',TA002 AS '單號',TA003 AS '生產日',TA006 AS '品號',TA034 AS '品名',TA015 AS '生產量',TA007 AS '單位',MD002 AS '線別',TA026 AS '訂單',TA027 AS '單號',TA028 AS '序號'
-                                    FROM [TK].dbo.MOCTA,[TK].dbo.MOCTB,[TK].dbo.CMSMD
-                                    WHERE TA001=TB001 AND TA002=TB002
-                                    AND TA021=MD001
+                                    FROM [TK].dbo.MOCTA,[TK].dbo.CMSMD
+                                    WHERE  TA021=MD001
                                     AND TA003>='{0}' AND TA003<='{1}' 
                                     ORDER BY TA001,TA002,TA003
                                     ", SDATES, EDATES);
