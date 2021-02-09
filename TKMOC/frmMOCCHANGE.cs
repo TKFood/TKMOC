@@ -40,12 +40,15 @@ namespace TKMOC
         SqlCommandBuilder sqlCmdBuilder3 = new SqlCommandBuilder();
         SqlDataAdapter adapter4= new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder4 = new SqlCommandBuilder();
+        SqlDataAdapter adapter5 = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder5 = new SqlCommandBuilder();
 
         SqlCommand cmd = new SqlCommand();
         DataSet ds = new DataSet();
         DataSet ds2 = new DataSet();
         DataSet ds3 = new DataSet();
         DataSet ds4 = new DataSet();
+        DataSet ds5 = new DataSet();
 
         DataSet dsCHECKMOCTDMOCTG = new DataSet();
         DataTable dt = new DataTable();
@@ -788,31 +791,33 @@ namespace TKMOC
 
 
                 sbSql.AppendFormat(@"  
-                                    SELECT TA001 AS '製令',TA002 AS '單號',TA003 AS '生產日',TA006 AS '品號',TA034 AS '品名',TA015 AS '生產量',TA007 AS '單位',TA021 AS '線別',TA026 AS '訂單',TA027 AS '單號',TA028 AS '序號'
-                                    FROM [TK].dbo.MOCTA
-                                    WHERE TA003>='{0}' AND TA003<='{1}' 
+                                    SELECT TA001 AS '製令',TA002 AS '單號',TA003 AS '生產日',TA006 AS '品號',TA034 AS '品名',TA015 AS '生產量',TA007 AS '單位',MD002 AS '線別',TA026 AS '訂單',TA027 AS '單號',TA028 AS '序號'
+                                    FROM [TK].dbo.MOCTA,[TK].dbo.MOCTB,[TK].dbo.CMSMD
+                                    WHERE TA001=TB001 AND TA002=TB002
+                                    AND TA021=MD001
+                                    AND TA003>='{0}' AND TA003<='{1}' 
                                     ORDER BY TA001,TA002,TA003
                                     ", SDATES, EDATES);
 
-                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+                adapter5 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder = new SqlCommandBuilder(adapter);
+                sqlCmdBuilder5 = new SqlCommandBuilder(adapter5);
                 sqlConn.Open();
-                ds.Clear();
-                adapter.Fill(ds, "TEMPds");
+                ds5.Clear();
+                adapter5.Fill(ds5, "ds5");
                 sqlConn.Close();
 
 
-                if (ds.Tables["TEMPds"].Rows.Count == 0)
+                if (ds5.Tables["ds5"].Rows.Count == 0)
                 {
                     dataGridView7.DataSource = null;
                 }
                 else
                 {
-                    if (ds.Tables["TEMPds"].Rows.Count >= 1)
+                    if (ds5.Tables["ds5"].Rows.Count >= 1)
                     {
                         //dataGridView1.Rows.Clear();
-                        dataGridView7.DataSource = ds.Tables["TEMPds"];
+                        dataGridView7.DataSource = ds5.Tables["ds5"];
                         dataGridView7.AutoResizeColumns();
                         //dataGridView1.CurrentCell = dataGridView1[0, rownum];
 
@@ -1253,6 +1258,158 @@ namespace TKMOC
             }
         }
 
+        private void checkBox7_CheckedChanged(object sender, EventArgs e)
+        {
+            //checkBox7-新廠製一組
+            if (checkBox7.Checked)
+            {
+                dataGridView5checkBox7True();
+            }
+            else
+            {
+                dataGridView5checkBox7False();
+            }
+        }
+
+        private void checkBox8_CheckedChanged(object sender, EventArgs e)
+        {
+            //checkBox8-新廠製二組
+            if (checkBox8.Checked)
+            {
+                dataGridView5checkBox8True();
+            }
+            else
+            {
+                dataGridView5checkBox8False();
+            }
+        }
+
+        private void checkBox9_CheckedChanged(object sender, EventArgs e)
+        {
+
+            //checkBox9-新廠包裝線
+            if (checkBox9.Checked)
+            {
+                dataGridView5checkBox9True();
+            }
+            else
+            {
+                dataGridView5checkBox9False();
+            }
+        }
+
+        public void dataGridView5checkBox7True()
+        {
+            for (int i = 0; i < dataGridView5.Rows.Count; i++)
+            {
+                if (dataGridView5.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠製一組"))
+                {
+                    dataGridView5.Rows[i].Cells[0].Value = 1;
+                }
+
+            }
+        }
+        public void dataGridView5checkBox7False()
+        {
+            for (int i = 0; i < dataGridView5.Rows.Count; i++)
+            {
+                if (dataGridView5.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠製一組"))
+                {
+                    dataGridView5.Rows[i].Cells[0].Value = 0;
+                }
+
+            }
+        }
+        public void dataGridView5checkBox8True()
+        {
+            for (int i = 0; i < dataGridView5.Rows.Count; i++)
+            {
+                if (dataGridView5.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠製二組"))
+                {
+                    dataGridView5.Rows[i].Cells[0].Value = 1;
+                }
+
+            }
+        }
+        public void dataGridView5checkBox8False()
+        {
+            for (int i = 0; i < dataGridView5.Rows.Count; i++)
+            {
+                if (dataGridView5.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠製二組"))
+                {
+                    dataGridView5.Rows[i].Cells[0].Value = 0;
+                }
+
+            }
+        }
+        public void dataGridView5checkBox9True()
+        {
+            for (int i = 0; i < dataGridView5.Rows.Count; i++)
+            {
+                if (dataGridView5.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠包裝線"))
+                {
+                    dataGridView5.Rows[i].Cells[0].Value = 1;
+                }
+
+            }
+        }
+        public void dataGridView5checkBox9False()
+        {
+            for (int i = 0; i < dataGridView5.Rows.Count; i++)
+            {
+                if (dataGridView5.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠包裝線"))
+                {
+                    dataGridView5.Rows[i].Cells[0].Value = 0;
+                }
+
+            }
+        }
+
+        private void checkBox10_CheckedChanged(object sender, EventArgs e)
+        {
+            //checkBox10-新廠製一組
+            if (checkBox10.Checked)
+            {
+                dataGridView7checkBox10True();
+            }
+            else
+            {
+                dataGridView7checkBox10False();
+            }
+        }
+
+        private void checkBox11_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox12_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        public void dataGridView7checkBox10True()
+        {
+            for (int i = 0; i < dataGridView7.Rows.Count; i++)
+            {
+                if (dataGridView7.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠製一組"))
+                {
+                    dataGridView7.Rows[i].Cells[0].Value = 1;
+                }
+
+            }
+        }
+        public void dataGridView7checkBox10False()
+        {
+            for (int i = 0; i < dataGridView7.Rows.Count; i++)
+            {
+                if (dataGridView7.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠製一組"))
+                {
+                    dataGridView7.Rows[i].Cells[0].Value = 0;
+                }
+
+            }
+        }
 
         #endregion
 
@@ -1342,8 +1499,10 @@ namespace TKMOC
 
 
 
+
+
         #endregion
 
-      
+     
     }
 }

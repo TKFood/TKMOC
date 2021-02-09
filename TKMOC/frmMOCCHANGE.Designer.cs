@@ -1222,6 +1222,7 @@
             this.checkBox7.TabIndex = 38;
             this.checkBox7.Text = "新廠製一組";
             this.checkBox7.UseVisualStyleBackColor = true;
+            this.checkBox7.CheckedChanged += new System.EventHandler(this.checkBox7_CheckedChanged);
             // 
             // checkBox8
             // 
@@ -1233,6 +1234,7 @@
             this.checkBox8.TabIndex = 39;
             this.checkBox8.Text = "新廠製二組";
             this.checkBox8.UseVisualStyleBackColor = true;
+            this.checkBox8.CheckedChanged += new System.EventHandler(this.checkBox8_CheckedChanged);
             // 
             // checkBox9
             // 
@@ -1244,6 +1246,7 @@
             this.checkBox9.TabIndex = 40;
             this.checkBox9.Text = "新廠包裝線";
             this.checkBox9.UseVisualStyleBackColor = true;
+            this.checkBox9.CheckedChanged += new System.EventHandler(this.checkBox9_CheckedChanged);
             // 
             // checkBox10
             // 
@@ -1255,6 +1258,7 @@
             this.checkBox10.TabIndex = 41;
             this.checkBox10.Text = "新廠製一組";
             this.checkBox10.UseVisualStyleBackColor = true;
+            this.checkBox10.CheckedChanged += new System.EventHandler(this.checkBox10_CheckedChanged);
             // 
             // checkBox11
             // 
@@ -1266,6 +1270,7 @@
             this.checkBox11.TabIndex = 42;
             this.checkBox11.Text = "新廠製二組";
             this.checkBox11.UseVisualStyleBackColor = true;
+            this.checkBox11.CheckedChanged += new System.EventHandler(this.checkBox11_CheckedChanged);
             // 
             // checkBox12
             // 
@@ -1277,6 +1282,7 @@
             this.checkBox12.TabIndex = 43;
             this.checkBox12.Text = "新廠包裝線";
             this.checkBox12.UseVisualStyleBackColor = true;
+            this.checkBox12.CheckedChanged += new System.EventHandler(this.checkBox12_CheckedChanged);
             // 
             // frmMOCCHANGE
             // 
