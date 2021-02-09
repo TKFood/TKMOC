@@ -198,9 +198,10 @@ namespace TKMOC
 
 
                 sbSql.AppendFormat(@"  
-                                    SELECT TA001 AS '製令',TA002 AS '單號',TA003 AS '生產日',TA006 AS '品號',TA034 AS '品名',TA015 AS '生產量',TA007 AS '單位',TA021 AS '線別',TA026 AS '訂單',TA027 AS '單號',TA028 AS '序號'
-                                    FROM [TK].dbo.MOCTA
-                                    WHERE TA003>='{0}' AND TA003<='{1}' 
+                                  SELECT TA001 AS '製令',TA002 AS '單號',TA003 AS '生產日',TA006 AS '品號',TA034 AS '品名',TA015 AS '生產量',TA007 AS '單位',MD002 AS '線別',TA026 AS '訂單',TA027 AS '單號',TA028 AS '序號'
+                                    FROM [TK].dbo.MOCTA,[TK].dbo.CMSMD
+                                    WHERE TA021=MD001
+                                    AND TA003>='{0}' AND TA003<='{1}' 
                                     ORDER BY TA001,TA002,TA003
                                     ", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
 
@@ -1037,6 +1038,111 @@ namespace TKMOC
 
             }
         }
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            //checkBox1-新廠製一組
+            if (checkBox1.Checked)
+            {
+                dataGridView1checkBox1True();
+            }
+            else
+            {
+                dataGridView1checkBox1False();
+            }
+        }
+
+        public void dataGridView1checkBox1True()
+        {
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
+                if(dataGridView1.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠製一組"))
+                {
+                    dataGridView1.Rows[i].Cells[0].Value = 1;
+                }
+                
+            }
+        }
+        public void dataGridView1checkBox1False()
+        {
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
+                if (dataGridView1.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠製一組"))
+                {
+                    dataGridView1.Rows[i].Cells[0].Value = 0;
+                }
+
+            }
+        }
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            //checkBox1-新廠製二組
+            if (checkBox2.Checked)
+            {
+                dataGridView1checkBox2True();
+            }
+            else
+            {
+                dataGridView1checkBox2False();
+            }
+        }
+
+        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        {
+            //checkBox1-新廠包裝線
+            if (checkBox3.Checked)
+            {
+                dataGridView1checkBox3True();
+            }
+            else
+            {
+                dataGridView1checkBox3False();
+            }
+        }
+        public void dataGridView1checkBox2True()
+        {
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
+                if (dataGridView1.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠製二組"))
+                {
+                    dataGridView1.Rows[i].Cells[0].Value = 1;
+                }
+
+            }
+        }
+        public void dataGridView1checkBox2False()
+        {
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
+                if (dataGridView1.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠製二組"))
+                {
+                    dataGridView1.Rows[i].Cells[0].Value = 0;
+                }
+
+            }
+        }
+        public void dataGridView1checkBox3True()
+        {
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
+                if (dataGridView1.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠包裝線"))
+                {
+                    dataGridView1.Rows[i].Cells[0].Value = 1;
+                }
+
+            }
+        }
+        public void dataGridView1checkBox3False()
+        {
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
+                if (dataGridView1.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠包裝線"))
+                {
+                    dataGridView1.Rows[i].Cells[0].Value = 0;
+                }
+
+            }
+        }
+
         #endregion
 
         #region BUTTON
@@ -1121,6 +1227,8 @@ namespace TKMOC
                 //do something else
             }
         }
+
+
 
         #endregion
 

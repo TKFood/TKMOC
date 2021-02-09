@@ -1130,8 +1130,9 @@
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(144, 20);
             this.checkBox1.TabIndex = 32;
-            this.checkBox1.Text = "小線";
+            this.checkBox1.Text = "新廠製一組";
             this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // checkBox2
             // 
@@ -1141,8 +1142,9 @@
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(144, 20);
             this.checkBox2.TabIndex = 33;
-            this.checkBox2.Text = "大線";
+            this.checkBox2.Text = "新廠製二組";
             this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
             // checkBox3
             // 
@@ -1152,8 +1154,9 @@
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(144, 20);
             this.checkBox3.TabIndex = 34;
-            this.checkBox3.Text = "手工線";
+            this.checkBox3.Text = "新廠包裝線";
             this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
             // 
             // frmMOCCHANGE
             // 
