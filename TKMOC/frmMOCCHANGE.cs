@@ -424,11 +424,14 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  SELECT TA001 AS '製令',TA002 AS '單號',TA003 AS '生產日',TA009 AS '預計開工',TA012 AS '實際開工',TA006 AS '品號',TA034 AS '品名',TA015 AS '生產量',TA007 AS '單位',TA021 AS '線別',TA026 AS '訂單',TA027 AS '單號',TA028 AS '序號'");
-                sbSql.AppendFormat(@"  FROM [TK].dbo.MOCTA");
-                sbSql.AppendFormat(@"  WHERE TA003>='{0}' AND TA003<='{1}' ", SDAY,EDAY);
-                sbSql.AppendFormat(@"  ORDER BY TA001,TA002,TA003");
-                sbSql.AppendFormat(@"  ");
+
+                sbSql.AppendFormat(@"  
+                                    SELECT TA001 AS '製令',TA002 AS '單號',TA003 AS '生產日',TA006 AS '品號',TA034 AS '品名',TA015 AS '生產量',TA007 AS '單位',MD002 AS '線別',TA026 AS '訂單',TA027 AS '單號',TA028 AS '序號'
+                                    FROM [TK].dbo.MOCTA,[TK].dbo.CMSMD
+                                    WHERE TA021=MD001
+                                    AND TA003>='{0}' AND TA003<='{1}' 
+                                    ORDER BY TA001,TA002,TA003
+                                    ", SDAY, EDAY);
 
                 adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -1075,7 +1078,7 @@ namespace TKMOC
         }
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
-            //checkBox1-新廠製二組
+            //checkBox2-新廠製二組
             if (checkBox2.Checked)
             {
                 dataGridView1checkBox2True();
@@ -1088,7 +1091,7 @@ namespace TKMOC
 
         private void checkBox3_CheckedChanged(object sender, EventArgs e)
         {
-            //checkBox1-新廠包裝線
+            //checkBox3-新廠包裝線
             if (checkBox3.Checked)
             {
                 dataGridView1checkBox3True();
@@ -1142,7 +1145,51 @@ namespace TKMOC
 
             }
         }
+        private void checkBox4_CheckedChanged(object sender, EventArgs e)
+        {
+            //checkBox4-新廠製一組
+            if (checkBox4.Checked)
+            {
+                dataGridView3checkBox4True();
+            }
+            else
+            {
+                dataGridView3checkBox4False();
+            }
+        }
 
+        private void checkBox5_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox6_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        public void dataGridView3checkBox4True()
+        {
+            for (int i = 0; i < dataGridView3.Rows.Count; i++)
+            {
+                if (dataGridView3.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠製一組"))
+                {
+                    dataGridView3.Rows[i].Cells[0].Value = 1;
+                }
+
+            }
+        }
+        public void dataGridView3checkBox4False()
+        {
+            for (int i = 0; i < dataGridView3.Rows.Count; i++)
+            {
+                if (dataGridView3.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠製一組"))
+                {
+                    dataGridView3.Rows[i].Cells[0].Value = 0;
+                }
+
+            }
+        }
         #endregion
 
         #region BUTTON
@@ -1230,8 +1277,9 @@ namespace TKMOC
 
 
 
+
         #endregion
 
-       
+      
     }
 }
