@@ -456,6 +456,12 @@
     <Compile Include="frmREPORTCOPNEW.Designer.cs">
       <DependentUpon>frmREPORTCOPNEW.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmREPORTCOPTETF.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmREPORTCOPTETF.Designer.cs">
+      <DependentUpon>frmREPORTCOPTETF.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmREPORTCOSTCO.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -742,6 +748,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmREPORTCOPNEW.resx">
       <DependentUpon>frmREPORTCOPNEW.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmREPORTCOPTETF.resx">
+      <DependentUpon>frmREPORTCOPTETF.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmREPORTCOSTCO.resx">
       <DependentUpon>frmREPORTCOSTCO.cs</DependentUpon>

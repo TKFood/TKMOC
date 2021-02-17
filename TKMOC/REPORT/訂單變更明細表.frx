@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="02/17/2021 16:25:00" ReportInfo.Modified="02/17/2021 16:29:42" ReportInfo.CreatorVersion="2016.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9Jr0w/t0avJOxqqGe2nwPzn">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT TE004 AS '變更日',TE006 AS '單頭變更原因',TF032 AS '單身變更原因',TE007 AS '客代',MA002 AS '客戶',TF001 AS '訂單單別',TF002 AS '訂單單號',TF004 AS '訂單序號',TF003 AS '訂單版次',TF005 AS '品號',TF006 AS '品名',TF015 AS '預交日',TF009 AS '數量',TF010 AS '單位'&#13;&#10;FROM [TK].dbo.COPTC,[TK].dbo.COPTD,[TK].dbo.COPTE,[TK].dbo.COPTF,[TK].dbo.COPMA&#13;&#10;WHERE TC001=TD001 AND TC002=TD002&#13;&#10;AND TC001=TE001 AND TC002=TE002&#13;&#10;AND TD001=TF001 AND TD002=TF002 AND TD003=TF104&#13;&#10;AND TE007=MA001&#13;&#10;AND COPTD.UDF01='Y'&#13;&#10;AND TE004&gt;='20210101' AND TE004&lt;='20210131'&#13;&#10;ORDER BY TE004,TF001,TF002,TF004,TF003">
+        <Column Name="變更日" DataType="System.String"/>
+        <Column Name="單頭變更原因" DataType="System.String"/>
+        <Column Name="單身變更原因" DataType="System.String"/>
+        <Column Name="客代" DataType="System.String"/>
+        <Column Name="客戶" DataType="System.String"/>
+        <Column Name="訂單單別" DataType="System.String"/>
+        <Column Name="訂單單號" DataType="System.String"/>
+        <Column Name="訂單序號" DataType="System.String"/>
+        <Column Name="訂單版次" DataType="System.String"/>
+        <Column Name="品號" DataType="System.String"/>
+        <Column Name="品名" DataType="System.String"/>
+        <Column Name="預交日" DataType="System.String"/>
+        <Column Name="數量" DataType="System.Decimal"/>
+        <Column Name="單位" DataType="System.String"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="500" PaperHeight="210">
+    <ReportTitleBand Name="ReportTitle1" Width="1814.4" Height="18.9">
+      <TextObject Name="Text29" Width="1804.95" Height="18.9" Text="訂單變更明細表" HorzAlign="Center" VertAlign="Center"/>
+    </ReportTitleBand>
+    <ColumnHeaderBand Name="ColumnHeader1" Top="23.39" Width="1814.4" Height="18.9">
+      <TextObject Name="Text2" Width="94.5" Height="18.9" Border.Lines="All" Text="變更日" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text4" Left="94.5" Width="217.35" Height="18.9" Border.Lines="All" Text="單頭變更原因" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text6" Left="311.85" Width="207.9" Height="18.9" Border.Lines="All" Text="單身變更原因" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text8" Left="519.75" Width="94.5" Height="18.9" Border.Lines="All" Text="客代" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text10" Left="614.25" Width="151.2" Height="18.9" Border.Lines="All" Text="客戶" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text12" Left="765.45" Width="94.5" Height="18.9" Border.Lines="All" Text="訂單單別" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text14" Left="859.95" Width="94.5" Height="18.9" Border.Lines="All" Text="訂單單號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text16" Left="954.45" Width="94.5" Height="18.9" Border.Lines="All" Text="訂單序號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text18" Left="1048.95" Width="94.5" Height="18.9" Border.Lines="All" Text="訂單版次" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text20" Left="1143.45" Width="132.3" Height="18.9" Border.Lines="All" Text="品號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text22" Left="1275.75" Width="255.15" Height="18.9" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text24" Left="1530.9" Width="94.5" Height="18.9" Border.Lines="All" Text="預交日" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text26" Left="1625.4" Width="94.5" Height="18.9" Border.Lines="All" Text="數量" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text28" Left="1719.9" Width="94.5" Height="18.9" Border.Lines="All" Text="單位" HorzAlign="Center" VertAlign="Center"/>
+    </ColumnHeaderBand>
+    <DataBand Name="Data1" Top="46.79" Width="1814.4" Height="18.9" CanGrow="true" DataSource="Table">
+      <TextObject Name="Text1" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.變更日]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text3" Left="94.5" Width="217.35" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.單頭變更原因]" VertAlign="Center"/>
+      <TextObject Name="Text5" Left="311.85" Width="207.9" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.單身變更原因]" VertAlign="Center"/>
+      <TextObject Name="Text7" Left="519.75" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.客代]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text9" Left="614.25" Width="151.2" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.客戶]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text11" Left="765.45" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.訂單單別]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text13" Left="859.95" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.訂單單號]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text15" Left="954.45" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.訂單序號]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text17" Left="1048.95" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.訂單版次]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text19" Left="1143.45" Width="132.3" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.品號]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text21" Left="1275.75" Width="255.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.品名]" VertAlign="Center"/>
+      <TextObject Name="Text23" Left="1530.9" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.預交日]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text25" Left="1625.4" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.數量]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text27" Left="1719.9" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.單位]" HorzAlign="Center" VertAlign="Center"/>
+    </DataBand>
+  </ReportPage>
+</Report>
