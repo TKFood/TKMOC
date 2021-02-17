@@ -260,12 +260,14 @@ namespace TKMOC
 
             foreach (DataGridViewRow dr in this.dataGridView1.Rows)
             {
-                if (dr.Cells[0].Value != null && (bool)dr.Cells[0].Value)
+                DataGridViewCheckBoxCell cbx = (DataGridViewCheckBoxCell)dr.Cells[0];
+
+                if ((bool)cbx.FormattedValue)
                 {
                     TA001 = ((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[0].ToString();
                     TA002 = ((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[1].ToString();
 
-                    //MessageBox.Show(OLDTA001+"-"+ OLDTA002);
+                    //MessageBox.Show(TA001 + "-"+ TA002);
                     if (!string.IsNullOrEmpty(TA001) && !string.IsNullOrEmpty(TA002) && !string.IsNullOrEmpty(OLDMB001) && !string.IsNullOrEmpty(NEWMB001))
                     {
                         UPDATEMOCTB(TA001, TA002, OLDMB001, NEWMB001);
@@ -626,7 +628,9 @@ namespace TKMOC
 
             foreach (DataGridViewRow dr in this.dataGridView3.Rows)
             {
-                if (dr.Cells[0].Value != null && (bool)dr.Cells[0].Value)
+                DataGridViewCheckBoxCell cbx = (DataGridViewCheckBoxCell)dr.Cells[0];
+
+                if ((bool)cbx.FormattedValue)
                 {
                     string TA001 = ((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[0].ToString();
                     string TA002 = ((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[1].ToString();
@@ -703,7 +707,9 @@ namespace TKMOC
         {
             foreach (DataGridViewRow dr in this.dataGridView5.Rows)
             {
-                if (dr.Cells[0].Value != null && (bool)dr.Cells[0].Value)
+                DataGridViewCheckBoxCell cbx = (DataGridViewCheckBoxCell)dr.Cells[0];
+
+                if ((bool)cbx.FormattedValue)
                 {
                     string TB001 = ((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[0].ToString();
                     string TB002 = ((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[1].ToString();
@@ -839,7 +845,9 @@ namespace TKMOC
         {
             foreach (DataGridViewRow dr in this.dataGridView7.Rows)
             {
-                if (dr.Cells[0].Value != null && (bool)dr.Cells[0].Value)
+                DataGridViewCheckBoxCell cbx = (DataGridViewCheckBoxCell)dr.Cells[0];
+
+                if ((bool)cbx.FormattedValue)
                 {
                     string TB001 = ((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[0].ToString();
                     string TB002 = ((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[1].ToString();
@@ -1469,7 +1477,21 @@ namespace TKMOC
 
             }
         }
-
+        public void SETCHECK()
+        {
+            checkBox1.Checked = false;
+            checkBox2.Checked = false;
+            checkBox3.Checked = false;
+            checkBox4.Checked = false;
+            checkBox5.Checked = false;
+            checkBox6.Checked = false;
+            checkBox7.Checked = false;
+            checkBox8.Checked = false;
+            checkBox9.Checked = false;
+            checkBox10.Checked = false;
+            checkBox11.Checked = false;
+            checkBox12.Checked = false;
+        }
         #endregion
 
         #region BUTTON
@@ -1485,6 +1507,7 @@ namespace TKMOC
             {
                 CHANGEMULTI();
                 SEARCH();
+                SETCHECK();
 
             }
             else if (dialogResult == DialogResult.No)
@@ -1508,6 +1531,7 @@ namespace TKMOC
             {
                 CHANGEMULTI2();
                 SEARCH2(dateTimePicker3.Value.ToString("yyyyMMdd"), dateTimePicker4.Value.ToString("yyyyMMdd"));
+                SETCHECK();
 
             }
             else if (dialogResult == DialogResult.No)
@@ -1527,6 +1551,7 @@ namespace TKMOC
             {
                 CHANGEMULTI3();
                 SEARCH3(dateTimePicker6.Value.ToString("yyyyMMdd"), dateTimePicker7.Value.ToString("yyyyMMdd"));
+                SETCHECK();
 
             }
             else if (dialogResult == DialogResult.No)
@@ -1548,6 +1573,7 @@ namespace TKMOC
             {
                 CHANGEMULTI4();
                 SEARCH4(dateTimePicker8.Value.ToString("yyyyMMdd"), dateTimePicker9.Value.ToString("yyyyMMdd"));
+                SETCHECK();
             }
             else if (dialogResult == DialogResult.No)
             {
