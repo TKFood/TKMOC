@@ -1508,6 +1508,7 @@
             this.dataGridView9.RowTemplate.Height = 24;
             this.dataGridView9.Size = new System.Drawing.Size(663, 464);
             this.dataGridView9.TabIndex = 5;
+            this.dataGridView9.SelectionChanged += new System.EventHandler(this.dataGridView9_SelectionChanged);
             // 
             // splitContainer15
             // 

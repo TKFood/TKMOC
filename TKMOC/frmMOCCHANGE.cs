@@ -630,6 +630,66 @@ namespace TKMOC
 
             }
         }
+        public void SEARCHMOCTB9(string TA001, string TA002)
+        {
+            SqlConnection sqlConn = new SqlConnection();
+            string connectionString;
+            StringBuilder sbSql = new StringBuilder();
+
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder = new SqlCommandBuilder();
+
+            DataSet ds = new DataSet();
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  SELECT TA010 AS '預計完工' ");
+                sbSql.AppendFormat(@"  FROM [TK].dbo.MOCTA");
+                sbSql.AppendFormat(@"  WHERE TA001='{0}' AND TA002='{1}'", TA001, TA002);
+                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  ");
+
+                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder = new SqlCommandBuilder(adapter);
+                sqlConn.Open();
+                ds.Clear();
+                adapter.Fill(ds, "ds");
+                sqlConn.Close();
+
+
+                if (ds.Tables["ds"].Rows.Count == 0)
+                {
+                    dataGridView10.DataSource = null;
+                }
+                else
+                {
+                    if (ds.Tables["ds"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView10.DataSource = ds.Tables["ds"];
+                        dataGridView10.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
 
         public void CHANGEMULTI2()
         {
@@ -659,6 +719,34 @@ namespace TKMOC
 
         }
 
+        public void CHANGEMULTI5()
+        {
+            string NEWDATES = dateTimePicker12.Value.ToString("yyyyMMdd");
+
+            foreach (DataGridViewRow dr in this.dataGridView9.Rows)
+            {
+                DataGridViewCheckBoxCell cbx = (DataGridViewCheckBoxCell)dr.Cells[0];
+
+                if ((bool)cbx.FormattedValue)
+                {
+                    string TA001 = ((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[0].ToString();
+                    string TA002 = ((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[1].ToString();
+
+                    //MessageBox.Show(OLDTA001+"-"+ OLDTA002);
+                    if (!string.IsNullOrEmpty(TA001) && !string.IsNullOrEmpty(TA002) && !string.IsNullOrEmpty(NEWDATES))
+                    {
+                        UPDATEMOCTATA010(TA001, TA002, NEWDATES);
+                    }
+                }
+                else
+                {
+                    TA001 = null;
+                    TA002 = null;
+                }
+            }
+
+        }
+
         public void UPDATEMOCTA(string TA001, string TA002, string TA009)
         {
             try
@@ -677,6 +765,59 @@ namespace TKMOC
                 sbSql.AppendFormat(" UPDATE [TK].dbo.MOCTA");
                 sbSql.AppendFormat(" SET TA009='{0}',TA012='{0}'", TA009);
                 sbSql.AppendFormat(" WHERE TA001='{0}' AND TA002='{1}'",TA001,TA002);
+                sbSql.AppendFormat(" ");
+                sbSql.AppendFormat(" ");
+
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+
+
+                }
+                else
+                {
+                    tran.Commit();      //執行交易                    
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void UPDATEMOCTATA010(string TA001, string TA002, string TA009)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+
+
+                sbSql.AppendFormat(" UPDATE [TK].dbo.MOCTA");
+                sbSql.AppendFormat(" SET TA010='{0}'", TA009);
+                sbSql.AppendFormat(" WHERE TA001='{0}' AND TA002='{1}'", TA001, TA002);
                 sbSql.AppendFormat(" ");
                 sbSql.AppendFormat(" ");
 
@@ -1570,17 +1711,130 @@ namespace TKMOC
 
         private void checkBox13_CheckedChanged(object sender, EventArgs e)
         {
-
+            //checkBox4-新廠製一組
+            if (checkBox13.Checked)
+            {
+                dataGridView9checkBox13True();
+            }
+            else
+            {
+                dataGridView9checkBox13False();
+            }
         }
 
         private void checkBox14_CheckedChanged(object sender, EventArgs e)
         {
-
+            //checkBox5-新廠製二組
+            if (checkBox14.Checked)
+            {
+                dataGridView9checkBox14True();
+            }
+            else
+            {
+                dataGridView9checkBox14False();
+            }
         }
 
         private void checkBox15_CheckedChanged(object sender, EventArgs e)
         {
+            //checkBox9-新廠包裝線
+            if (checkBox15.Checked)
+            {
+                dataGridView9checkBox15True();
+            }
+            else
+            {
+                dataGridView9checkBox15False();
+            }
+        }
 
+        public void dataGridView9checkBox13True()
+        {
+            for (int i = 0; i < dataGridView9.Rows.Count; i++)
+            {
+                if (dataGridView9.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠製一組"))
+                {
+                    dataGridView9.Rows[i].Cells[0].Value = 1;
+                }
+
+            }
+        }
+        public void dataGridView9checkBox13False()
+        {
+            for (int i = 0; i < dataGridView9.Rows.Count; i++)
+            {
+                if (dataGridView9.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠製一組"))
+                {
+                    dataGridView9.Rows[i].Cells[0].Value = 0;
+                }
+
+            }
+        }
+        public void dataGridView9checkBox14True()
+        {
+            for (int i = 0; i < dataGridView9.Rows.Count; i++)
+            {
+                if (dataGridView9.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠製二組"))
+                {
+                    dataGridView9.Rows[i].Cells[0].Value = 1;
+                }
+
+            }
+        }
+        public void dataGridView9checkBox14False()
+        {
+            for (int i = 0; i < dataGridView9.Rows.Count; i++)
+            {
+                if (dataGridView9.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠製二組"))
+                {
+                    dataGridView9.Rows[i].Cells[0].Value = 0;
+                }
+
+            }
+        }
+        public void dataGridView9checkBox15True()
+        {
+            for (int i = 0; i < dataGridView9.Rows.Count; i++)
+            {
+                if (dataGridView9.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠包裝線"))
+                {
+                    dataGridView9.Rows[i].Cells[0].Value = 1;
+                }
+
+            }
+        }
+        public void dataGridView9checkBox15False()
+        {
+            for (int i = 0; i < dataGridView9.Rows.Count; i++)
+            {
+                if (dataGridView9.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠包裝線"))
+                {
+                    dataGridView9.Rows[i].Cells[0].Value = 0;
+                }
+
+            }
+        }
+
+        private void dataGridView9_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView9.CurrentRow != null)
+            {
+                int rowindex = dataGridView9.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView9.Rows[rowindex];
+                    string TA001 = row.Cells["製令"].Value.ToString().Trim();
+                    string TA002 = row.Cells["單號"].Value.ToString().Trim();
+
+                    SEARCHMOCTB9(TA001, TA002);
+
+                }
+                else
+                {
+                    SEARCHMOCTB9("", "");
+
+                }
+            }
         }
 
         #endregion
@@ -1683,12 +1937,25 @@ namespace TKMOC
 
         private void button10_Click(object sender, EventArgs e)
         {
+            DialogResult dialogResult = MessageBox.Show("要修改嗎?", "要修改嗎?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                CHANGEMULTI5();
+                SEARCH5(dateTimePicker3.Value.ToString("yyyyMMdd"), dateTimePicker4.Value.ToString("yyyyMMdd"));
+                SETCHECK();
 
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                //do something else
+            }
         }
+
 
 
         #endregion
 
-     
+      
     }
+    
 }
