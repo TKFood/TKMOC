@@ -118,6 +118,15 @@ namespace TKMOC
             cbCol7.TrueValue = true;
             cbCol7.FalseValue = false;
             dataGridView7.Columns.Insert(0, cbCol7);
+
+            //先建立個 CheckBox 欄
+            DataGridViewCheckBoxColumn cbCol9 = new DataGridViewCheckBoxColumn();
+            cbCol9.Width = 50;   //設定寬度
+            cbCol9.HeaderText = "選擇";
+            cbCol9.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;   //置中
+            cbCol9.TrueValue = true;
+            cbCol9.FalseValue = false;
+            dataGridView9.Columns.Insert(0, cbCol9);
         }
 
         #region FUNCTION
@@ -840,6 +849,69 @@ namespace TKMOC
             }
         }
 
+        public void SEARCH5(string SDAY, string EDAY)
+        {
+            SqlConnection sqlConn = new SqlConnection();
+            string connectionString;
+            StringBuilder sbSql = new StringBuilder();
+
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder = new SqlCommandBuilder();
+
+            DataSet ds = new DataSet();
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+
+                sbSql.AppendFormat(@"  
+                                    SELECT TA001 AS '製令',TA002 AS '單號',TA003 AS '生產日',TA006 AS '品號',TA034 AS '品名',TA015 AS '生產量',TA007 AS '單位',MD002 AS '線別',TA026 AS '訂單',TA027 AS '單號',TA028 AS '序號'
+                                    FROM [TK].dbo.MOCTA,[TK].dbo.CMSMD
+                                    WHERE TA021=MD001
+                                    AND TA003>='{0}' AND TA003<='{1}' 
+                                    ORDER BY TA001,TA002,TA003
+                                    ", SDAY, EDAY);
+
+                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder = new SqlCommandBuilder(adapter);
+                sqlConn.Open();
+                ds.Clear();
+                adapter.Fill(ds, "TEMPds");
+                sqlConn.Close();
+
+
+                if (ds.Tables["TEMPds"].Rows.Count == 0)
+                {
+                    dataGridView9.DataSource = null;
+                }
+                else
+                {
+                    if (ds.Tables["TEMPds"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView9.DataSource = ds.Tables["TEMPds"];
+                        dataGridView9.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
 
         public void CHANGEMULTI4()
         {
@@ -1491,7 +1563,26 @@ namespace TKMOC
             checkBox10.Checked = false;
             checkBox11.Checked = false;
             checkBox12.Checked = false;
+            checkBox13.Checked = false;
+            checkBox14.Checked = false;
+            checkBox15.Checked = false;
         }
+
+        private void checkBox13_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox14_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox15_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
         #endregion
 
         #region BUTTON
@@ -1584,6 +1675,16 @@ namespace TKMOC
 
 
 
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            SEARCH5(dateTimePicker10.Value.ToString("yyyyMMdd"), dateTimePicker11.Value.ToString("yyyyMMdd"));
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+
+        }
 
 
         #endregion
