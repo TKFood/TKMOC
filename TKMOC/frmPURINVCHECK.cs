@@ -1245,7 +1245,7 @@ namespace TKMOC
                     DataGridViewRow row = dataGridView3.Rows[rowindex];
                     MD003 = row.Cells["品號"].Value.ToString().Trim();
 
-                    SEARCHINVPURMOC(MD003, dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+                    SEARCHINVPURMOC(MD003, dateTimePicker2.Value.ToString("yyyyMMdd"), dateTimePicker3.Value.ToString("yyyyMMdd"));
 
 
                 }
@@ -1297,7 +1297,7 @@ namespace TKMOC
                                       WHERE [MOCMANULINE].MB001=MC001
                                       AND MC001=MD001
                                       AND [MANU] NOT IN ('新廠包裝線')
-                                      AND CONVERT(NVARCHAR,[MANUDATE],112)>='{2}' AND CONVERT(NVARCHAR,[MANUDATE],112)<='{1}'
+                                      AND CONVERT(NVARCHAR,[MANUDATE],112)>='{1}' AND CONVERT(NVARCHAR,[MANUDATE],112)<='{2}'
                                       AND [MD003]='{0}'
                                       UNION
                                       SELECT '1進貨',TD012,TD004,MB002,CONVERT(DECIMAL(14,2),(CASE WHEN ISNULL(MD002,'')<>'' THEN (ISNULL(TD008-TD015,0)*MD004/MD003) ELSE (TD008-TD015) END )) ,MB004,NULL,NULL,NULL,TD001,TD002,TD003

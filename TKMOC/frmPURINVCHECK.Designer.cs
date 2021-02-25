@@ -456,7 +456,7 @@
             this.label2.Size = new System.Drawing.Size(112, 16);
             this.label2.TabIndex = 23;
             this.label2.Text = "庫存安全水位";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // button3
             // 
