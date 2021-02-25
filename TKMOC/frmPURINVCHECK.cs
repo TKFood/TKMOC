@@ -368,7 +368,8 @@ namespace TKMOC
                                     ,(SELECT SUM(LA005*LA011) FROM [TK].dbo.INVLA WHERE LA009 IN ('20004','20006') AND LA001=MOCINV.MB001) AS '庫存量'
                                     ,(SELECT ISNULL(SUM(TD008 - TD015), 0) FROM[TK].dbo.PURTD WHERE TD004 =MOCINV.MB001 AND TD018 = 'Y' AND TD016 = 'N' AND TD012>='{0}'  AND TD012<='{1}' ) AS '採購未交數量'
                                     ,(SELECT TOP 1 ISNULL(TD012,'')+' 預計到貨:'+CONVERT(nvarchar,CONVERT(DECIMAL(16,2),NUM))  FROM [TK].dbo.VPURTDINVMD WHERE  TD004=MOCINV.MB001 AND TD007=TD007 AND TD012>='{0}') AS '最快採購日'
-                                    ,TEMP2.TNUM AS '需求量'
+                                    ,ISNULL(TEMP2.TNUM,0)  AS '需求量'
+                                    ,CASE WHEN ((SELECT SUM(LA005*LA011) FROM [TK].dbo.INVLA WHERE LA009 IN ('20004','20006') AND LA001=MOCINV.MB001)-ISNULL(TEMP2.TNUM,0))<NUMS THEN '低於水位' ELSE '' END AS '庫存-需求'
                                     FROM [TKMOC].dbo.MOCINV
                                     LEFT JOIN (
 	                                    SELECT [MD003],SUM(TNUM) TNUM
@@ -451,6 +452,16 @@ namespace TKMOC
                         dataGridView3.DataSource = ds.Tables["ds"];
                         dataGridView3.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;//調整寬度(標題+儲存格)
 
+                        //根据列表中数据不同，显示不同颜色背景
+                        foreach (DataGridViewRow dgRow in dataGridView3.Rows)
+                        {
+                            //判断
+                            if (!string.IsNullOrEmpty(dgRow.Cells[7].Value.ToString()))
+                            {
+                                //将这行的背景色设置成Pink
+                                dgRow.DefaultCellStyle.BackColor = Color.Pink;
+                            }
+                        }
                         //dataGridView1.AutoResizeColumns();
                     }
                 }

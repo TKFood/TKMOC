@@ -527,7 +527,7 @@
             // 
             this.splitContainer5.Panel2.Controls.Add(this.dataGridView4);
             this.splitContainer5.Size = new System.Drawing.Size(1122, 514);
-            this.splitContainer5.SplitterDistance = 665;
+            this.splitContainer5.SplitterDistance = 724;
             this.splitContainer5.TabIndex = 0;
             // 
             // dataGridView3
@@ -538,7 +538,7 @@
             this.dataGridView3.Location = new System.Drawing.Point(0, 0);
             this.dataGridView3.Name = "dataGridView3";
             this.dataGridView3.RowTemplate.Height = 24;
-            this.dataGridView3.Size = new System.Drawing.Size(661, 510);
+            this.dataGridView3.Size = new System.Drawing.Size(720, 510);
             this.dataGridView3.TabIndex = 2;
             // 
             // dataGridView4
@@ -549,7 +549,7 @@
             this.dataGridView4.Location = new System.Drawing.Point(0, 0);
             this.dataGridView4.Name = "dataGridView4";
             this.dataGridView4.RowTemplate.Height = 24;
-            this.dataGridView4.Size = new System.Drawing.Size(449, 510);
+            this.dataGridView4.Size = new System.Drawing.Size(390, 510);
             this.dataGridView4.TabIndex = 2;
             // 
             // frmPURINVCHECK
