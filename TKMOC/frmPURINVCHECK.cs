@@ -364,12 +364,23 @@ namespace TKMOC
 
                 
                 sbSql.AppendFormat(@"  
-                                    SELECT MOCINV.MB001 AS '品號',MOCINV.MB002 AS '品名',NUMS AS '安全水位'
+                                    SELECT 品號,品名,安全水位,庫存量,採購未交數量,最快採購日,需求量
+                                    ,CASE WHEN (庫存量-需求量)<安全水位 THEN '低於水位' ELSE '' END AS '庫存-需求'
+                                    
+                                    FROM (
+                                    SELECT MOCINV.MB001 AS '品號',MOCINV.MB002 AS '品名'
+                                    ,CASE WHEN  DATEPART(month,GETDATE()) IN ('1','2','3') THEN NUMS ELSE 
+                                    (CASE WHEN  DATEPART(month,GETDATE()) IN ('4','5','6') THEN NUMS2 ELSE 
+                                    (CASE WHEN  DATEPART(month,GETDATE()) IN ('7','8','9') THEN NUMS3 ELSE 
+                                    (CASE WHEN  DATEPART(month,GETDATE()) IN ('10','11','12') THEN NUMS4 ELSE 0 END)
+                                     END)  
+                                    END) 
+                                    END AS '安全水位'
                                     ,(SELECT SUM(LA005*LA011) FROM [TK].dbo.INVLA WHERE LA009 IN ('20004','20006') AND LA001=MOCINV.MB001) AS '庫存量'
-                                    ,(SELECT ISNULL(SUM(TD008 - TD015), 0) FROM[TK].dbo.PURTD WHERE TD004 =MOCINV.MB001 AND TD018 = 'Y' AND TD016 = 'N' AND TD012>='{0}'  AND TD012<='{1}' ) AS '採購未交數量'
-                                    ,(SELECT TOP 1 ISNULL(TD012,'')+' 預計到貨:'+CONVERT(nvarchar,CONVERT(DECIMAL(16,2),NUM))  FROM [TK].dbo.VPURTDINVMD WHERE  TD004=MOCINV.MB001 AND TD007=TD007 AND TD012>='{0}') AS '最快採購日'
+                                    ,(SELECT ISNULL(SUM(TD008 - TD015), 0) FROM[TK].dbo.PURTD WHERE TD004 =MOCINV.MB001 AND TD018 = 'Y' AND TD016 = 'N' AND TD012>='20210226'  AND TD012<='20210305' ) AS '採購未交數量'
+                                    ,(SELECT TOP 1 ISNULL(TD012,'')+' 預計到貨:'+CONVERT(nvarchar,CONVERT(DECIMAL(16,2),NUM))  FROM [TK].dbo.VPURTDINVMD WHERE  TD004=MOCINV.MB001 AND TD007=TD007 AND TD012>='20210226') AS '最快採購日'
                                     ,ISNULL(TEMP2.TNUM,0)  AS '需求量'
-                                    ,CASE WHEN ((SELECT SUM(LA005*LA011) FROM [TK].dbo.INVLA WHERE LA009 IN ('20004','20006') AND LA001=MOCINV.MB001)-ISNULL(TEMP2.TNUM,0))<NUMS THEN '低於水位' ELSE '' END AS '庫存-需求'
+                                    ,NUMS ,NUMS2 ,NUMS3 ,NUMS4 
                                     FROM [TKMOC].dbo.MOCINV
                                     LEFT JOIN (
 	                                    SELECT [MD003],SUM(TNUM) TNUM
@@ -417,8 +428,8 @@ namespace TKMOC
       
                                         ) AS TEMP  GROUP BY [MD003]
                                     ) TEMP2 ON TEMP2.MD003=MOCINV.MB001
-                                    ORDER BY MOCINV.MB001
-
+                                    ) TMEP3
+                                    ORDER BY TMEP3.品號
 
                                     ", SDAY, EDAY);
 
