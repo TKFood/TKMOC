@@ -32,7 +32,8 @@ namespace TKMOC
         StringBuilder sbSqlQuery = new StringBuilder();
         SqlDataAdapter adapter1 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
-
+        SqlDataAdapter adapter = new SqlDataAdapter();
+        SqlCommandBuilder sqlCmdBuilder = new SqlCommandBuilder();
 
         SqlTransaction tran;
         SqlCommand cmd = new SqlCommand();
@@ -50,7 +51,15 @@ namespace TKMOC
         #region FUNCTION
         private void frmREPORTMOCTAB_Load(object sender, EventArgs e)
         {
-            textBox3.Text = SEARCHMOCLOTNO(dateTimePicker1.Value.ToString("yyyyMMdd"));
+
+            SETCODE();
+
+            //textBox3.Text = SEARCHMOCLOTNO(dateTimePicker1.Value.ToString("yyyyMMdd"));
+
+            //if(!string.IsNullOrEmpty(textBox3.Text))
+            //{
+            //    SETCODE();
+            //}
         }
         public void Search()
         {         
@@ -352,7 +361,14 @@ namespace TKMOC
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-            textBox3.Text = SEARCHMOCLOTNO(dateTimePicker1.Value.ToString("yyyyMMdd"));
+            SETCODE();
+
+            //textBox3.Text = SEARCHMOCLOTNO(dateTimePicker1.Value.ToString("yyyyMMdd"));
+
+            //if (!string.IsNullOrEmpty(textBox3.Text))
+            //{
+            //    SETCODE();
+            //}
         }
 
         public string SEARCHMOCLOTNO(string MOCDATES)
@@ -981,6 +997,73 @@ namespace TKMOC
             }
         }
 
+        public void SETCODE()
+        {
+            DataSet ds = new DataSet();
+            string yyyyMMdd = dateTimePicker1.Value.ToString("yyyyMMdd");
+            string MM = Convert.ToUInt32(yyyyMMdd.Substring(4,2)).ToString();//除0開頭
+            string d1 = yyyyMMdd.Substring(6,1);
+            string d2 = yyyyMMdd.Substring(7,1);
+            string CODE = "";
+            string CODE1= "";
+            string CODE2 = "";
+            string CODE3 = "";
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+
+                sbSql.AppendFormat(@"  
+                                    SELECT [ID],[CODE] FROM [TKMOC].[dbo].[MOCCODE]
+                                    ");
+
+                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder = new SqlCommandBuilder(adapter);
+
+
+                sqlConn.Open();
+                ds.Clear();
+                adapter.Fill(ds, "ds");
+                sqlConn.Close();
+
+
+                if (ds.Tables["ds"].Rows.Count >= 1)
+                {
+                    foreach (DataRow od in ds.Tables["ds"].Rows)
+                    {
+                        if(MM.Equals(od["ID"].ToString()))
+                        {
+                            CODE1 = od["CODE"].ToString();
+                        }
+                        if (d1.Equals(od["ID"].ToString()))
+                        {
+                            CODE2 = od["CODE"].ToString();
+                        }
+                        if (d2.Equals(od["ID"].ToString()))
+                        {
+                            CODE3 = od["CODE"].ToString();
+                        }
+                    }
+
+                    textBox3.Text = CODE1 + CODE2 + CODE3;
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
 
         #endregion
 
