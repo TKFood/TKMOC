@@ -66,6 +66,9 @@ namespace TKMOC
         string MAXID;
         string MF004 = null;
 
+        int rowIndexDG1 = -1;
+        string MD003;
+
         public class PURTA
         {
             public string COMPANY;
@@ -1427,7 +1430,62 @@ namespace TKMOC
 
             }
         }
+        public void SEARCHDG3(string SEARCHSTRING, int INDEX)
+        {
+            String searchValue = SEARCHSTRING;
+            rowIndexDG1 = INDEX;
+            int ROWS = 0;
 
+            for (int i = INDEX; i < dataGridView3.Rows.Count; i++)
+            {
+                ROWS = i;
+
+                if (dataGridView3.Rows[i].Cells[0].Value.ToString().Contains(searchValue))
+                {
+                    rowIndexDG1 = i;
+
+                    dataGridView3.CurrentRow.Selected = false;
+                    dataGridView3.Rows[i].Selected = true;
+                    int index = rowIndexDG1;
+                    dataGridView3.FirstDisplayedScrollingRowIndex = index;
+
+                    DataGridViewRow row = dataGridView3.Rows[index];
+                    MD003 = row.Cells["品號"].Value.ToString().Trim();
+
+                    SEARCHINVPURMOC(MD003, dateTimePicker2.Value.ToString("yyyyMMdd"), dateTimePicker3.Value.ToString("yyyyMMdd"));
+
+                    break;
+                }
+                if (dataGridView3.Rows[i].Cells[1].Value.ToString().Contains(searchValue))
+                {
+                    rowIndexDG1 = i;
+
+                    dataGridView3.CurrentRow.Selected = false;
+                    dataGridView3.Rows[i].Selected = true;
+                    int index = rowIndexDG1;
+                    dataGridView3.FirstDisplayedScrollingRowIndex = index;
+
+                    DataGridViewRow row = dataGridView3.Rows[index];
+                    MD003 = row.Cells["品號"].Value.ToString().Trim();
+
+                    SEARCHINVPURMOC(MD003, dateTimePicker2.Value.ToString("yyyyMMdd"), dateTimePicker3.Value.ToString("yyyyMMdd"));
+
+                    break;
+                }
+            }
+
+            if (ROWS == dataGridView1.Rows.Count - 1)
+            {
+                if (MessageBox.Show("已查到最後一筆，是否從頭開始?", "已查到最後一筆，是否從頭開始?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    SEARCHDG3(textBox2.Text.Trim(), 0);
+                }
+                else
+                {
+
+                }
+            }
+        }
 
         #endregion
 
@@ -1480,11 +1538,22 @@ namespace TKMOC
 
 
 
+        private void button6_Click(object sender, EventArgs e)
+        {
+            if (rowIndexDG1 == -1)
+            {
+                SEARCHDG3(textBox2.Text.Trim(), 0);
+            }
+            else
+            {
+                SEARCHDG3(textBox2.Text.Trim(), rowIndexDG1 + 1);
+            }
+        }
 
 
 
         #endregion
 
-      
+
     }
 }
