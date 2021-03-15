@@ -9078,7 +9078,7 @@ namespace TKMOC
             }
         }
 
-        public void SEARCHMOCMANULINEQUERY1(string COPTD002)
+        public void SEARCHMOCMANULINEQUERY1(string COPTD001,string COPTD002)
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
             SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
@@ -9094,9 +9094,23 @@ namespace TKMOC
                 sbSqlQuery2.Clear();
 
              
+                if(!String.IsNullOrEmpty(COPTD001))
+                {
+                    sbSql.AppendFormat(@"  
+                                    SELECT 
+                                    [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名' 
+                                    ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[CLINET] AS '客戶',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'
+                                    ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號'
+                                    ,[ID]
+                                    FROM [TKMOC].[dbo].[MOCMANULINE]
+                                    WHERE [COPTD001]='{0}' AND [COPTD002]='{1}'
+                                     ORDER BY [MANU],[COPTD001],[COPTD002],[COPTD003]
+                                    ",COPTD001, COPTD002);
 
-               
-                sbSql.AppendFormat(@"  
+                }
+                else
+                {
+                    sbSql.AppendFormat(@"  
                                     SELECT 
                                     [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名' 
                                     ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[CLINET] AS '客戶',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'
@@ -9106,6 +9120,8 @@ namespace TKMOC
                                     WHERE [COPTD002]='{0}'
                                      ORDER BY [MANU],[COPTD001],[COPTD002],[COPTD003]
                                     ", COPTD002);
+                }
+
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -9144,7 +9160,7 @@ namespace TKMOC
 
         }
 
-        public void SEARCHMOCMANULINEQUERY2(string COPTD002)
+        public void SEARCHMOCMANULINEQUERY2(string COPTD001, string COPTD002)
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
             SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
@@ -9160,9 +9176,24 @@ namespace TKMOC
                 sbSqlQuery2.Clear();
 
 
-
-
-                sbSql.AppendFormat(@"  
+                if(!String.IsNullOrEmpty(COPTD001))
+                {
+                    sbSql.AppendFormat(@"  
+                                    SELECT 
+                                    '少量'+[MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名' 
+                                    ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[CLINET] AS '客戶',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'
+                                    ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號'
+                                    ,[ID]
+                                    FROM [TKMOC].[dbo].[MOCMANULINETEMP]
+                                    WHERE [COPTD001]='{0}' AND  [COPTD002]='{1}'
+                                    AND [MOCMANULINETEMP].[ID] NOT IN(SELECT[ID] FROM[TKMOC].[dbo].[MOCMANULINE]) 
+                                    AND RTRIM(LTRIM([MOCMANULINETEMP].[MANU]))+RTRIM(LTRIM([MOCMANULINETEMP].[MB001]))+RTRIM(LTRIM([MOCMANULINETEMP].[COPTD001]))+RTRIM(LTRIM([MOCMANULINETEMP].[COPTD002]))+RTRIM(LTRIM([MOCMANULINETEMP].[COPTD003])) NOT IN (SELECT (RTRIM(LTRIM([MOCMANULINE].[MANU])))+RTRIM(LTRIM([MOCMANULINE].[MB001]))+(RTRIM(LTRIM([MOCMANULINE].[COPTD001])))+(RTRIM(LTRIM([MOCMANULINE].[COPTD002])))+(RTRIM(LTRIM([MOCMANULINE].[COPTD003]))) FROM [TKMOC].[dbo].[MOCMANULINE] WHERE ISNULL([MOCMANULINE].[COPTD002],'')<>''  )   
+                                     ORDER    BY [MANU],[COPTD001],[COPTD002],[COPTD003]
+                                    ", COPTD001, COPTD002);
+                }
+                else
+                {
+                    sbSql.AppendFormat(@"  
                                     SELECT 
                                     '少量'+[MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名' 
                                     ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[CLINET] AS '客戶',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'
@@ -9174,6 +9205,9 @@ namespace TKMOC
                                     AND RTRIM(LTRIM([MOCMANULINETEMP].[MANU]))+RTRIM(LTRIM([MOCMANULINETEMP].[MB001]))+RTRIM(LTRIM([MOCMANULINETEMP].[COPTD001]))+RTRIM(LTRIM([MOCMANULINETEMP].[COPTD002]))+RTRIM(LTRIM([MOCMANULINETEMP].[COPTD003])) NOT IN (SELECT (RTRIM(LTRIM([MOCMANULINE].[MANU])))+RTRIM(LTRIM([MOCMANULINE].[MB001]))+(RTRIM(LTRIM([MOCMANULINE].[COPTD001])))+(RTRIM(LTRIM([MOCMANULINE].[COPTD002])))+(RTRIM(LTRIM([MOCMANULINE].[COPTD003]))) FROM [TKMOC].[dbo].[MOCMANULINE] WHERE ISNULL([MOCMANULINE].[COPTD002],'')<>''  )   
                                      ORDER    BY [MANU],[COPTD001],[COPTD002],[COPTD003]
                                     ", COPTD002);
+                }
+
+                
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -10326,8 +10360,8 @@ namespace TKMOC
         }
         private void button80_Click(object sender, EventArgs e)
         {
-            SEARCHMOCMANULINEQUERY1(textBox85.Text.Trim());
-            SEARCHMOCMANULINEQUERY2(textBox85.Text.Trim());
+            SEARCHMOCMANULINEQUERY1(textBox89.Text.Trim(),textBox85.Text.Trim());
+            SEARCHMOCMANULINEQUERY2(textBox89.Text.Trim(),textBox85.Text.Trim());
         }
 
         private void button81_Click(object sender, EventArgs e)
