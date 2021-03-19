@@ -69,16 +69,18 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  SELECT MD003 AS '品號',MD035 AS '品名'");
-                sbSql.AppendFormat(@"  FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD");
-                sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003");
-                sbSql.AppendFormat(@"  WHERE [MOCMANULINE].MB001=MC001");
-                sbSql.AppendFormat(@"  AND MC001=MD001");
-                sbSql.AppendFormat(@"  AND CONVERT(NVARCHAR,[MANUDATE],112)>='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112)<='{1}' ",SDay,EDay);
-                sbSql.AppendFormat(@"  GROUP BY MD003,MD035");
-                sbSql.AppendFormat(@"  ORDER BY MD003,MD035");
-                sbSql.AppendFormat(@"  ");
-                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  
+                                    SELECT MD003 AS '品號',MD035 AS '品名'
+                                    ,(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WHERE LA001=MD003 AND LA009='20019') AS '20019外倉'
+                                    FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
+                                    LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
+                                    WHERE [MOCMANULINE].MB001=MC001
+                                    AND MC001=MD001
+                                    AND CONVERT(NVARCHAR,[MANUDATE],112)>='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112)<='{1}' 
+                                    GROUP BY MD003,MD035
+                                    ORDER BY MD003,MD035
+
+                                    ", SDay, EDay);
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -105,13 +107,20 @@ namespace TKMOC
                         //根据列表中数据不同，显示不同颜色背景
                         foreach (DataGridViewRow dgRow in dataGridView1.Rows)
                         {
-                            //判断
-                            if (Convert.ToDecimal(dgRow.Cells[5].Value) > 0)
-                            {
-                                //将这行的背景色设置成Pink
-                                dgRow.DefaultCellStyle.BackColor = Color.Pink;
-                            }
+                            ////判断
+                            //if (Convert.ToDecimal(dgRow.Cells[5].Value) > 0)
+                            //{
+                            //    //将这行的背景色设置成Pink
+                            //    dgRow.DefaultCellStyle.BackColor = Color.Pink;
+                        
+                            //}
                         }
+
+                        dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 10);
+                        dataGridView1.DefaultCellStyle.Font = new Font("Tahoma", 11);
+                        dataGridView1.Columns["品號"].Width = 100;
+                        dataGridView1.Columns["品名"].Width = 220;
+                        dataGridView1.Columns["20019外倉"].Width = 60;
 
                     }
                 }
