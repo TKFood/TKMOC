@@ -577,6 +577,8 @@
             this.label128 = new System.Windows.Forms.Label();
             this.button83 = new System.Windows.Forms.Button();
             this.button82 = new System.Windows.Forms.Button();
+            this.label129 = new System.Windows.Forms.Label();
+            this.textBox89 = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).BeginInit();
@@ -7258,9 +7260,11 @@
             this.tableLayoutPanel25.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel25.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel25.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 132F));
-            this.tableLayoutPanel25.Controls.Add(this.button80, 2, 1);
-            this.tableLayoutPanel25.Controls.Add(this.label125, 0, 1);
-            this.tableLayoutPanel25.Controls.Add(this.textBox85, 1, 1);
+            this.tableLayoutPanel25.Controls.Add(this.button80, 4, 1);
+            this.tableLayoutPanel25.Controls.Add(this.textBox85, 3, 1);
+            this.tableLayoutPanel25.Controls.Add(this.label125, 2, 1);
+            this.tableLayoutPanel25.Controls.Add(this.label129, 0, 1);
+            this.tableLayoutPanel25.Controls.Add(this.textBox89, 1, 1);
             this.tableLayoutPanel25.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel25.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel25.Name = "tableLayoutPanel25";
@@ -7278,7 +7282,7 @@
             // button80
             // 
             this.button80.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.button80.Location = new System.Drawing.Point(243, 43);
+            this.button80.Location = new System.Drawing.Point(483, 43);
             this.button80.Name = "button80";
             this.button80.Size = new System.Drawing.Size(94, 30);
             this.button80.TabIndex = 2;
@@ -7291,7 +7295,7 @@
             this.label125.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label125.AutoSize = true;
             this.label125.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label125.Location = new System.Drawing.Point(3, 52);
+            this.label125.Location = new System.Drawing.Point(243, 52);
             this.label125.Name = "label125";
             this.label125.Size = new System.Drawing.Size(114, 16);
             this.label125.TabIndex = 0;
@@ -7302,7 +7306,7 @@
             // 
             this.textBox85.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox85.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.textBox85.Location = new System.Drawing.Point(123, 46);
+            this.textBox85.Location = new System.Drawing.Point(363, 46);
             this.textBox85.Name = "textBox85";
             this.textBox85.Size = new System.Drawing.Size(114, 27);
             this.textBox85.TabIndex = 9;
@@ -7577,6 +7581,27 @@
             this.button82.Text = "新增";
             this.button82.UseVisualStyleBackColor = true;
             this.button82.Click += new System.EventHandler(this.button82_Click);
+            // 
+            // label129
+            // 
+            this.label129.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label129.AutoSize = true;
+            this.label129.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label129.Location = new System.Drawing.Point(3, 52);
+            this.label129.Name = "label129";
+            this.label129.Size = new System.Drawing.Size(114, 16);
+            this.label129.TabIndex = 10;
+            this.label129.Text = "訂單";
+            this.label129.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // textBox89
+            // 
+            this.textBox89.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox89.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.textBox89.Location = new System.Drawing.Point(123, 46);
+            this.textBox89.Name = "textBox89";
+            this.textBox89.Size = new System.Drawing.Size(114, 27);
+            this.textBox89.TabIndex = 11;
             // 
             // frmMOCMANULINE
             // 
@@ -8325,5 +8350,7 @@
         private System.Windows.Forms.Label label128;
         private System.Windows.Forms.Button button82;
         private System.Windows.Forms.Button button83;
+        private System.Windows.Forms.Label label129;
+        private System.Windows.Forms.TextBox textBox89;
     }
 }
