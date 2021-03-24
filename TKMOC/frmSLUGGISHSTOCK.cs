@@ -26,7 +26,7 @@ using FastReport;
 using FastReport.Data;
 
 namespace TKMOC
-{
+{   
     public partial class frmSLUGGISHSTOCK : Form
     {
         SqlConnection sqlConn = new SqlConnection();
@@ -150,6 +150,7 @@ namespace TKMOC
                     textBox2.Text = row.Cells["品名"].Value.ToString().Trim();
                     textBox3.Text = row.Cells["批號"].Value.ToString().Trim();
                     textBox4.Text = row.Cells["庫存量"].Value.ToString().Trim();
+                    textBox6.Text = row.Cells["在倉日期"].Value.ToString().Trim();
 
                     SEARCHSLUGGISHSTOCK(row.Cells["品號"].Value.ToString().Trim(), row.Cells["批號"].Value.ToString().Trim());
                 }
@@ -161,7 +162,7 @@ namespace TKMOC
         }
 
 
-        public void ADDSLUGGISHSTOCK(string ID,string MB001,string MB002,string LOTNO,string NUMS,string COMMENTS)
+        public void ADDSLUGGISHSTOCK(string ID,string MB001,string MB002,string LOTNO,string NUMS,string STAYDAYS,string COMMENTS)
         {
             try
             {
@@ -176,10 +177,10 @@ namespace TKMOC
 
                 sbSql.AppendFormat(@" 
                                     INSERT INTO [TKMOC].[dbo].[SLUGGISHSTOCK]
-                                    ([ID],[MB001],[MB002],[LOTNO],[NUMS],[COMMENTS])
+                                    ([ID],[MB001],[MB002],[LOTNO],[NUMS],[STAYDAYS],[COMMENTS])
                                     VALUES
-                                    ('{0}','{1}','{2}','{3}','{4}','{5}')
-                                    ", ID, MB001, MB002, LOTNO, NUMS, COMMENTS);
+                                    ('{0}','{1}','{2}','{3}','{4}','{5}','{6}')
+                                    ", ID, MB001, MB002, LOTNO, NUMS, STAYDAYS, COMMENTS);
 
 
                 cmd.Connection = sqlConn;
@@ -331,7 +332,7 @@ namespace TKMOC
 
         private void button3_Click(object sender, EventArgs e)
         {
-            ADDSLUGGISHSTOCK(DateTime.Now.ToString("yyyyMMddHHmmss"),textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, textBox5.Text);
+            ADDSLUGGISHSTOCK(DateTime.Now.ToString("yyyyMMddHHmmss"),textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, textBox6.Text, textBox5.Text);
 
             SEARCHSLUGGISHSTOCK(textBox1.Text,textBox3.Text);
             SETNULL();
