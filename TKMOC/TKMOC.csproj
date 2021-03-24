@@ -534,6 +534,12 @@
     <Compile Include="frmREPORTYIELDRATE.Designer.cs">
       <DependentUpon>frmREPORTYIELDRATE.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmSLUGGISHSTOCK.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSLUGGISHSTOCK.Designer.cs">
+      <DependentUpon>frmSLUGGISHSTOCK.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmSUBMOCCOPMA.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -787,6 +793,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmREPORTYIELDRATE.resx">
       <DependentUpon>frmREPORTYIELDRATE.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSLUGGISHSTOCK.resx">
+      <DependentUpon>frmSLUGGISHSTOCK.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSUBMOCCOPMA.resx">
       <DependentUpon>frmSUBMOCCOPMA.cs</DependentUpon>
