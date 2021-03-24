@@ -138,6 +138,141 @@ namespace TKMOC
 
         }
 
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView1.CurrentRow != null)
+            {
+                int rowindex = dataGridView1.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView1.Rows[rowindex];
+                    textBox1.Text = row.Cells["品號"].Value.ToString().Trim();
+                    textBox2.Text = row.Cells["品名"].Value.ToString().Trim();
+                    textBox3.Text = row.Cells["批號"].Value.ToString().Trim();
+                    textBox4.Text = row.Cells["庫存量"].Value.ToString().Trim();
+
+                    SEARCHSLUGGISHSTOCK(row.Cells["品號"].Value.ToString().Trim(), row.Cells["批號"].Value.ToString().Trim());
+                }
+                else
+                {
+                  
+                }
+            }
+        }
+
+
+        public void ADDSLUGGISHSTOCK(string ID,string MB001,string MB002,string LOTNO,string NUMS,string COMMENTS)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat(@" 
+                                    INSERT INTO [TKMOC].[dbo].[SLUGGISHSTOCK]
+                                    ([ID],[MB001],[MB002],[LOTNO],[NUMS],[COMMENTS])
+                                    VALUES
+                                    ('{0}','{1}','{2}','{3}','{4}','{5}')
+                                    ", ID, MB001, MB002, LOTNO, NUMS, COMMENTS);
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+
+        public void SEARCHSLUGGISHSTOCK(string MB001,string LOTNO)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  
+                                    SELECT
+                                    [LOTNO] AS '批號',[NUMS] AS '庫存量',[COMMENTS] AS '記錄',[ID] AS 'ID',[MB001] AS '品號',[MB002] AS '品名'
+                                    FROM [TKMOC].[dbo].[SLUGGISHSTOCK]
+                                    WHERE [MB001]='{0}' AND [LOTNO]='{1}'
+                                    ORDER BY [ID] DESC
+
+                                    ", MB001, LOTNO);
+
+                adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder2 = new SqlCommandBuilder(adapter2);
+                sqlConn.Open();
+                ds2.Clear();
+                adapter2.Fill(ds2, "ds2");
+                sqlConn.Close();
+
+
+                if (ds2.Tables["ds2"].Rows.Count == 0)
+                {
+                    dataGridView2.DataSource = null;
+                }
+                else
+                {
+                    if (ds2.Tables["ds2"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView2.DataSource = ds2.Tables["ds2"];
+                        dataGridView2.AutoResizeColumns();
+                       
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+
+        }
+
+
+        public void SETNULL()
+        {
+            textBox5.Text = null;
+        }
         #endregion
 
         #region BUTTON
@@ -146,7 +281,16 @@ namespace TKMOC
             SEARCH(DateTime.Now.ToString("yyyyMMdd"));
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            ADDSLUGGISHSTOCK(DateTime.Now.ToString("yyyyMMddHHmmss"),textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, textBox5.Text);
+
+            SEARCHSLUGGISHSTOCK(textBox1.Text,textBox3.Text);
+            SETNULL();
+        }
 
         #endregion
+
+
     }
 }

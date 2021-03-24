@@ -171,6 +171,7 @@
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(620, 551);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             // 
             // dataGridView2
             // 
@@ -226,14 +227,14 @@
             this.tableLayoutPanel7.Controls.Add(this.label17, 0, 1);
             this.tableLayoutPanel7.Controls.Add(this.textBox1, 1, 1);
             this.tableLayoutPanel7.Controls.Add(this.textBox2, 1, 2);
-            this.tableLayoutPanel7.Controls.Add(this.textBox4, 1, 3);
-            this.tableLayoutPanel7.Controls.Add(this.textBox3, 1, 4);
             this.tableLayoutPanel7.Controls.Add(this.label2, 0, 2);
             this.tableLayoutPanel7.Controls.Add(this.label4, 0, 3);
             this.tableLayoutPanel7.Controls.Add(this.label1, 0, 4);
             this.tableLayoutPanel7.Controls.Add(this.label3, 0, 5);
             this.tableLayoutPanel7.Controls.Add(this.textBox5, 1, 5);
             this.tableLayoutPanel7.Controls.Add(this.button3, 1, 8);
+            this.tableLayoutPanel7.Controls.Add(this.textBox4, 1, 4);
+            this.tableLayoutPanel7.Controls.Add(this.textBox3, 1, 3);
             this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel7.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel7.Margin = new System.Windows.Forms.Padding(4);
@@ -291,6 +292,7 @@
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox1.Location = new System.Drawing.Point(83, 46);
             this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(194, 27);
             this.textBox1.TabIndex = 13;
             // 
@@ -304,28 +306,32 @@
             this.button3.TabIndex = 14;
             this.button3.Text = "存檔";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // textBox2
             // 
             this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox2.Location = new System.Drawing.Point(83, 86);
             this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
             this.textBox2.Size = new System.Drawing.Size(194, 27);
             this.textBox2.TabIndex = 16;
             // 
             // textBox3
             // 
             this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox3.Location = new System.Drawing.Point(83, 166);
+            this.textBox3.Location = new System.Drawing.Point(83, 126);
             this.textBox3.Name = "textBox3";
+            this.textBox3.ReadOnly = true;
             this.textBox3.Size = new System.Drawing.Size(194, 27);
             this.textBox3.TabIndex = 17;
             // 
             // textBox4
             // 
             this.textBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox4.Location = new System.Drawing.Point(83, 126);
+            this.textBox4.Location = new System.Drawing.Point(83, 166);
             this.textBox4.Name = "textBox4";
+            this.textBox4.ReadOnly = true;
             this.textBox4.Size = new System.Drawing.Size(194, 27);
             this.textBox4.TabIndex = 18;
             // 
@@ -338,7 +344,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(72, 16);
             this.label1.TabIndex = 19;
-            this.label1.Text = "數量";
+            this.label1.Text = "庫存量";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label2
