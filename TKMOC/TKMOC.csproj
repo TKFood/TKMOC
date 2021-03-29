@@ -540,6 +540,12 @@
     <Compile Include="frmSLUGGISHSTOCK.Designer.cs">
       <DependentUpon>frmSLUGGISHSTOCK.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmSLUGGISHSTOCKMATERIAL.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSLUGGISHSTOCKMATERIAL.Designer.cs">
+      <DependentUpon>frmSLUGGISHSTOCKMATERIAL.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmSLUGGISHSTOCKPRODUCT.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -802,6 +808,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmSLUGGISHSTOCK.resx">
       <DependentUpon>frmSLUGGISHSTOCK.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSLUGGISHSTOCKMATERIAL.resx">
+      <DependentUpon>frmSLUGGISHSTOCKMATERIAL.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSLUGGISHSTOCKPRODUCT.resx">
       <DependentUpon>frmSLUGGISHSTOCKPRODUCT.cs</DependentUpon>
