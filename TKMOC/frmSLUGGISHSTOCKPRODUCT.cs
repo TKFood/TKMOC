@@ -26,8 +26,8 @@ using FastReport;
 using FastReport.Data;
 
 namespace TKMOC
-{   
-    public partial class frmSLUGGISHSTOCK : Form
+{
+    public partial class frmSLUGGISHSTOCKPRODUCT : Form
     {
         SqlConnection sqlConn = new SqlConnection();
         SqlCommand sqlComm = new SqlCommand();
@@ -48,7 +48,8 @@ namespace TKMOC
 
         string tablename = null;
 
-        public frmSLUGGISHSTOCK()
+
+        public frmSLUGGISHSTOCKPRODUCT()
         {
             InitializeComponent();
         }
@@ -76,7 +77,8 @@ namespace TKMOC
                                     ,(SELECT TOP 1 TC006+' '+MV002 FROM [TK].dbo.COPTC,[TK].dbo.CMSMV WHERE TC006=MV001 AND  TC001+TC002 IN (SELECT TOP 1 TA026+TA027 FROM [TK].dbo.MOCTA WHERE TA001+TA002 IN (SELECT TOP 1 TG014+TG015 FROM [TK].dbo.MOCTG WHERE TG004=LA001 AND TG017=LA016))) AS '業務'
                                     FROM [TK].dbo.INVLA WITH (NOLOCK) 
                                     LEFT JOIN  [TK].dbo.INVMB WITH (NOLOCK) ON MB001=LA001  
-                                    WHERE  (LA009='20005') 
+                                    WHERE  (LA009='20001') 
+                                    AND LA001 NOT LIKE '501%'
                                     GROUP BY  LA001,LA009,MB002,MB003,LA016,MB023,MB198,MB004
                                     HAVING SUM(LA005*LA011)<>0 
                                     ) AS TEMP
@@ -152,17 +154,72 @@ namespace TKMOC
                     textBox4.Text = row.Cells["庫存量"].Value.ToString().Trim();
                     textBox6.Text = row.Cells["在倉日期"].Value.ToString().Trim();
 
-                    SEARCHSLUGGISHSTOCK(row.Cells["品號"].Value.ToString().Trim(), row.Cells["批號"].Value.ToString().Trim());
+                    SEARCHSLUGGISHSTOCKPRODUCT(row.Cells["品號"].Value.ToString().Trim(), row.Cells["批號"].Value.ToString().Trim());
                 }
                 else
                 {
-                  
+
                 }
             }
         }
 
+        public void SEARCHSLUGGISHSTOCKPRODUCT(string MB001, string LOTNO)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
 
-        public void ADDSLUGGISHSTOCK(string ID,string MB001,string MB002,string LOTNO,string NUMS,string STAYDAYS,string COMMENTS)
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  
+                                    SELECT
+                                    [LOTNO] AS '批號',[NUMS] AS '庫存量',[COMMENTS] AS '記錄',[ID] AS 'ID',[MB001] AS '品號',[MB002] AS '品名'
+                                    FROM [TKMOC].[dbo].[SLUGGISHSTOCKPRODUCT]
+                                    WHERE [MB001]='{0}' AND [LOTNO]='{1}'
+                                    ORDER BY [ID] DESC
+
+                                    ", MB001, LOTNO);
+
+                adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder2 = new SqlCommandBuilder(adapter2);
+                sqlConn.Open();
+                ds2.Clear();
+                adapter2.Fill(ds2, "ds2");
+                sqlConn.Close();
+
+
+                if (ds2.Tables["ds2"].Rows.Count == 0)
+                {
+                    dataGridView2.DataSource = null;
+                }
+                else
+                {
+                    if (ds2.Tables["ds2"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView2.DataSource = ds2.Tables["ds2"];
+                        dataGridView2.AutoResizeColumns();
+
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+
+        }
+
+        public void ADDSLUGGISHSTOCKPRODUCTK(string ID, string MB001, string MB002, string LOTNO, string NUMS, string STAYDAYS, string COMMENTS)
         {
             try
             {
@@ -176,7 +233,7 @@ namespace TKMOC
                 sbSql.Clear();
 
                 sbSql.AppendFormat(@" 
-                                    INSERT INTO [TKMOC].[dbo].[SLUGGISHSTOCK]
+                                    INSERT INTO [TKMOC].[dbo].[SLUGGISHSTOCKPRODUCT]
                                     ([ID],[MB001],[MB002],[LOTNO],[NUMS],[STAYDAYS],[COMMENTS])
                                     VALUES
                                     ('{0}','{1}','{2}','{3}','{4}','{5}','{6}')
@@ -212,63 +269,10 @@ namespace TKMOC
             }
         }
 
-
-        public void SEARCHSLUGGISHSTOCK(string MB001,string LOTNO)
+        public void SETNULL()
         {
-            try
-            {
-                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
-                sqlConn = new SqlConnection(connectionString);
-
-                sbSql.Clear();
-                sbSqlQuery.Clear();
-
-                sbSql.AppendFormat(@"  
-                                    SELECT
-                                    [LOTNO] AS '批號',[NUMS] AS '庫存量',[COMMENTS] AS '記錄',[ID] AS 'ID',[MB001] AS '品號',[MB002] AS '品名'
-                                    FROM [TKMOC].[dbo].[SLUGGISHSTOCK]
-                                    WHERE [MB001]='{0}' AND [LOTNO]='{1}'
-                                    ORDER BY [ID] DESC
-
-                                    ", MB001, LOTNO);
-
-                adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                sqlCmdBuilder2 = new SqlCommandBuilder(adapter2);
-                sqlConn.Open();
-                ds2.Clear();
-                adapter2.Fill(ds2, "ds2");
-                sqlConn.Close();
-
-
-                if (ds2.Tables["ds2"].Rows.Count == 0)
-                {
-                    dataGridView2.DataSource = null;
-                }
-                else
-                {
-                    if (ds2.Tables["ds2"].Rows.Count >= 1)
-                    {
-                        //dataGridView1.Rows.Clear();
-                        dataGridView2.DataSource = ds2.Tables["ds2"];
-                        dataGridView2.AutoResizeColumns();
-                       
-
-                    }
-                }
-
-            }
-            catch
-            {
-
-            }
-            finally
-            {
-
-            }
-
+            textBox5.Text = null;
         }
-
 
         public void SETFASTREPORT()
         {
@@ -278,7 +282,7 @@ namespace TKMOC
             SQL1 = SETSQL1(DateTime.Now.ToString("yyyyMMdd"));
 
             Report report1 = new Report();
-            report1.Load(@"REPORT\呆滯表記錄-半成品.frx");
+            report1.Load(@"REPORT\呆滯表記錄-成品.frx");
 
             report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
             TableDataSource table = report1.GetDataSource("Table") as TableDataSource;
@@ -294,7 +298,7 @@ namespace TKMOC
 
             SB.AppendFormat(@"
                                 SELECT 品號, 品名, 批號, 庫存量, 單位, 在倉日期, 有效天數, 業務
-                                ,(SELECT TOP 1 [COMMENTS] FROM  [TKMOC].[dbo].[SLUGGISHSTOCK] WHERE [MB001]=品號 AND [LOTNO]=批號 ORDER BY [ID] DESC)     AS '記錄'       
+                                ,(SELECT TOP 1 [COMMENTS] FROM  [TKMOC].[dbo].[SLUGGISHSTOCKPRODUCT] WHERE [MB001]=品號 AND [LOTNO]=批號 ORDER BY [ID] DESC)     AS '記錄'       
                                 FROM(
                                 SELECT   LA001 AS '品號', INVMB.MB002 AS '品名', INVMB.MB003 AS '規格', LA016 AS '批號'
                                 , CONVERT(DECIMAL(16, 3), SUM(LA005 * LA011)) AS '庫存量', INVMB.MB004 AS '單位'
@@ -304,7 +308,8 @@ namespace TKMOC
                                 ,(SELECT TOP 1 TC006 + ' ' + MV002 FROM[TK].dbo.COPTC,[TK].dbo.CMSMV WHERE TC006=MV001 AND  TC001+TC002 IN(SELECT TOP 1 TA026+TA027 FROM [TK].dbo.MOCTA WHERE TA001+TA002 IN (SELECT TOP 1 TG014+TG015 FROM [TK].dbo.MOCTG WHERE TG004= LA001 AND TG017 = LA016))) AS '業務'
                                 FROM[TK].dbo.INVLA WITH(NOLOCK)
                                 LEFT JOIN[TK].dbo.INVMB WITH(NOLOCK) ON MB001 = LA001
-                                WHERE(LA009= '20005')
+                                WHERE(LA009= '20001')
+                                AND LA001 NOT LIKE '501%'
                                 GROUP BY  LA001,LA009,MB002,MB003,LA016,MB023,MB198,MB004
                                 HAVING SUM(LA005* LA011)<>0 
                                 ) AS TEMP
@@ -317,11 +322,6 @@ namespace TKMOC
         }
 
 
-
-        public void SETNULL()
-        {
-            textBox5.Text = null;
-        }
         #endregion
 
         #region BUTTON
@@ -332,16 +332,16 @@ namespace TKMOC
 
         private void button3_Click(object sender, EventArgs e)
         {
-            ADDSLUGGISHSTOCK(DateTime.Now.ToString("yyyyMMddHHmmss"),textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, textBox6.Text, textBox5.Text);
+            ADDSLUGGISHSTOCKPRODUCTK(DateTime.Now.ToString("yyyyMMddHHmmss"), textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, textBox6.Text, textBox5.Text);
 
-            SEARCHSLUGGISHSTOCK(textBox1.Text,textBox3.Text);
+            SEARCHSLUGGISHSTOCKPRODUCT(textBox1.Text, textBox3.Text);
             SETNULL();
         }
+
         private void button2_Click(object sender, EventArgs e)
         {
             SETFASTREPORT();
         }
-
 
         #endregion
 
