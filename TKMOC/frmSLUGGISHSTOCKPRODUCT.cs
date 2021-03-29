@@ -335,7 +335,7 @@ namespace TKMOC
             ADDSLUGGISHSTOCKPRODUCTK(DateTime.Now.ToString("yyyyMMddHHmmss"), textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, textBox6.Text, textBox5.Text);
 
             SEARCHSLUGGISHSTOCKPRODUCT(textBox1.Text, textBox3.Text);
-            SETNULL();
+            SETNULL(); 
         }
 
         private void button2_Click(object sender, EventArgs e)

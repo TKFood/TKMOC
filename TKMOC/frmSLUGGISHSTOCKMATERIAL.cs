@@ -158,7 +158,7 @@ namespace TKMOC
                     textBox4.Text = row.Cells["庫存量"].Value.ToString().Trim();
                     textBox6.Text = row.Cells["在倉日期"].Value.ToString().Trim();
 
-                    SEARCHSLUGGISHSTOCKPRODUCT(row.Cells["品號"].Value.ToString().Trim(), row.Cells["批號"].Value.ToString().Trim());
+                    SEARCHSLUGGISHSTOCKMATERIAL(row.Cells["品號"].Value.ToString().Trim(), row.Cells["批號"].Value.ToString().Trim());
                 }
                 else
                 {
@@ -167,7 +167,7 @@ namespace TKMOC
             }
         }
 
-        public void SEARCHSLUGGISHSTOCKPRODUCT(string MB001, string LOTNO)
+        public void SEARCHSLUGGISHSTOCKMATERIAL(string MB001, string LOTNO)
         {
             try
             {
@@ -180,7 +180,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  
                                     SELECT
                                     [LOTNO] AS '批號',[NUMS] AS '庫存量',[COMMENTS] AS '記錄',[ID] AS 'ID',[MB001] AS '品號',[MB002] AS '品名'
-                                    FROM [TKMOC].[dbo].[SLUGGISHSTOCKPRODUCT]
+                                    FROM [TKMOC].[dbo].[SLUGGISHSTOCKMATERIAL]
                                     WHERE [MB001]='{0}' AND [LOTNO]='{1}'
                                     ORDER BY [ID] DESC
 
@@ -223,7 +223,7 @@ namespace TKMOC
 
         }
 
-        public void ADDSLUGGISHSTOCKPRODUCTK(string ID, string MB001, string MB002, string LOTNO, string NUMS, string STAYDAYS, string COMMENTS)
+        public void ADDSLUGGISHSTOCKMATERIAL(string ID, string MB001, string MB002, string LOTNO, string NUMS, string STAYDAYS, string COMMENTS)
         {
             try
             {
@@ -237,7 +237,7 @@ namespace TKMOC
                 sbSql.Clear();
 
                 sbSql.AppendFormat(@" 
-                                    INSERT INTO [TKMOC].[dbo].[SLUGGISHSTOCKPRODUCT]
+                                    INSERT INTO [TKMOC].[dbo].[SLUGGISHSTOCKMATERIAL]
                                     ([ID],[MB001],[MB002],[LOTNO],[NUMS],[STAYDAYS],[COMMENTS])
                                     VALUES
                                     ('{0}','{1}','{2}','{3}','{4}','{5}','{6}')
@@ -286,7 +286,7 @@ namespace TKMOC
             SQL1 = SETSQL1(DateTime.Now.ToString("yyyyMMdd"));
 
             Report report1 = new Report();
-            report1.Load(@"REPORT\呆滯表記錄-成品.frx");
+            report1.Load(@"REPORT\呆滯表記錄-原料.frx");
 
             report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
             TableDataSource table = report1.GetDataSource("Table") as TableDataSource;
@@ -301,23 +301,25 @@ namespace TKMOC
             StringBuilder SB = new StringBuilder();
 
             SB.AppendFormat(@"
-                                SELECT 品號, 品名, 批號, 庫存量, 單位, 在倉日期, 有效天數, 業務
-                                ,(SELECT TOP 1 [COMMENTS] FROM  [TKMOC].[dbo].[SLUGGISHSTOCKPRODUCT] WHERE [MB001]=品號 AND [LOTNO]=批號 ORDER BY [ID] DESC)     AS '記錄'       
+                                SELECT 品號, 品名, 批號, 庫存量, 單位, 在倉日期, 有效天數
+                                ,(SELECT TOP 1 [COMMENTS] FROM  [TKMOC].[dbo].[SLUGGISHSTOCKMATERIAL] WHERE [MB001]=品號 AND [LOTNO]=批號 ORDER BY [ID] DESC)     AS '記錄'       
                                 FROM(
                                 SELECT   LA001 AS '品號', INVMB.MB002 AS '品名', INVMB.MB003 AS '規格', LA016 AS '批號'
                                 , CONVERT(DECIMAL(16, 3), SUM(LA005 * LA011)) AS '庫存量', INVMB.MB004 AS '單位'
                                 , DATEDIFF(DAY, LA016, '{0}') AS '在倉日期old'
                                 , (CASE WHEN DATEDIFF(DAY, LA016, '{0}') >= 0 THEN DATEDIFF(DAY, LA016, '{0}') ELSE(CASE WHEN DATEDIFF(DAY, LA016, '{0}') < 0 THEN(CASE WHEN MB198 = '2' THEN DATEDIFF(DAY, DATEADD(month, -1 * MB023, LA016), '{0}') END) END) END) AS '在倉日期'
-                                , (CASE WHEN MB198 = '2' THEN DATEDIFF(DAY, '{0}', DATEADD(month, MB023, '{0}')) END) - (CASE WHEN DATEDIFF(DAY, LA016,'{0}')>= 0 THEN DATEDIFF(DAY, LA016,'{0}') ELSE(CASE WHEN DATEDIFF(DAY, LA016, '{0}') < 0 THEN(CASE WHEN MB198 = '2' THEN DATEDIFF(DAY, DATEADD(month, -1 * MB023, LA016), '{0}') END) END) END)  AS '有效天數'
+                                 ,(DATEDIFF(DAY, '{0}', LA016))   AS '有效天數'
                                 ,(SELECT TOP 1 TC006 + ' ' + MV002 FROM[TK].dbo.COPTC,[TK].dbo.CMSMV WHERE TC006=MV001 AND  TC001+TC002 IN(SELECT TOP 1 TA026+TA027 FROM [TK].dbo.MOCTA WHERE TA001+TA002 IN (SELECT TOP 1 TG014+TG015 FROM [TK].dbo.MOCTG WHERE TG004= LA001 AND TG017 = LA016))) AS '業務'
                                 FROM[TK].dbo.INVLA WITH(NOLOCK)
                                 LEFT JOIN[TK].dbo.INVMB WITH(NOLOCK) ON MB001 = LA001
-                                WHERE(LA009= '20001')
-                                AND LA001 NOT LIKE '501%'
+                                WHERE(LA009= '20006')
+                                AND LA001 NOT LIKE '122221001'
+                                AND LA001 NOT LIKE '114141009'
+                                AND LA001 NOT LIKE '301%'
                                 GROUP BY  LA001,LA009,MB002,MB003,LA016,MB023,MB198,MB004
                                 HAVING SUM(LA005* LA011)<>0 
                                 ) AS TEMP
-                                ORDER BY 在倉日期 DESC   
+                                ORDER BY 有效天數    
 
                                 ", SDay);
 
@@ -336,12 +338,15 @@ namespace TKMOC
         }
         private void button3_Click(object sender, EventArgs e)
         {
+            ADDSLUGGISHSTOCKMATERIAL(DateTime.Now.ToString("yyyyMMddHHmmss"), textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, textBox6.Text, textBox5.Text);
 
+            SEARCHSLUGGISHSTOCKMATERIAL(textBox1.Text, textBox3.Text);
+            SETNULL(); 
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            SETFASTREPORT();
         }
         #endregion
 

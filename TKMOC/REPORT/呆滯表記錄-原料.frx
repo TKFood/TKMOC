@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="03/24/2021 11:57:07" ReportInfo.Modified="03/29/2021 11:58:13" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="03/24/2021 11:57:07" ReportInfo.Modified="03/29/2021 11:58:35" ReportInfo.CreatorVersion="2016.4.4.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9Lv8+8n33gJ49F7WbtZKW2X">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9I1oOhO1rfBDcgl+lgXhZBu">
       <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="&#13;&#10;SELECT 品號,品名,批號,庫存量,單位,在倉日期,有效天數,業務                        &#13;&#10;,(SELECT TOP 1 [COMMENTS] FROM  [TKMOC].[dbo].[SLUGGISHSTOCK] WHERE [MB001]=品號 AND [LOTNO]=批號 ORDER BY [ID] DESC)     AS '記錄'       &#13;&#10;FROM (&#13;&#10;SELECT   LA001 AS '品號' ,INVMB.MB002 AS '品名',INVMB.MB003 AS '規格',LA016 AS '批號'&#13;&#10;,CONVERT(DECIMAL(16,3),SUM(LA005*LA011)) AS '庫存量',INVMB.MB004 AS '單位'&#13;&#10;,DATEDIFF(DAY,LA016,'20210324') AS '在倉日期old' &#13;&#10;,(CASE WHEN DATEDIFF(DAY,LA016,'20210324')&gt;=0 THEN DATEDIFF(DAY,LA016,'20210324') ELSE (CASE WHEN DATEDIFF(DAY,LA016,'20210324')&lt;0 THEN  (CASE WHEN MB198='2' THEN DATEDIFF(DAY,DATEADD(month, -1*MB023, LA016 ),'20210324') END ) END ) END) AS '在倉日期' &#13;&#10;,(CASE WHEN MB198='2' THEN DATEDIFF(DAY,'20210324',DATEADD(month, MB023, '20210324' )) END)-(CASE WHEN DATEDIFF(DAY,LA016,'20210324')&gt;=0 THEN DATEDIFF(DAY,LA016,'20210324') ELSE (CASE WHEN DATEDIFF(DAY,LA016,'20210324')&lt;0 THEN  (CASE WHEN MB198='2' THEN DATEDIFF(DAY,DATEADD(month, -1*MB023, LA016 ),'20210324') END ) END ) END)  AS '有效天數'&#13;&#10;,(SELECT TOP 1 TC006+' '+MV002 FROM [TK].dbo.COPTC,[TK].dbo.CMSMV WHERE TC006=MV001 AND  TC001+TC002 IN (SELECT TOP 1 TA026+TA027 FROM [TK].dbo.MOCTA WHERE TA001+TA002 IN (SELECT TOP 1 TG014+TG015 FROM [TK].dbo.MOCTG WHERE TG004=LA001 AND TG017=LA016))) AS '業務'&#13;&#10;FROM [TK].dbo.INVLA WITH (NOLOCK) &#13;&#10;LEFT JOIN  [TK].dbo.INVMB WITH (NOLOCK) ON MB001=LA001  &#13;&#10;WHERE  (LA009='20005') &#13;&#10;GROUP BY  LA001,LA009,MB002,MB003,LA016,MB023,MB198,MB004&#13;&#10;HAVING SUM(LA005*LA011)&lt;&gt;0 &#13;&#10;) AS TEMP&#13;&#10;ORDER BY 在倉日期 DESC ">
         <Column Name="品號" DataType="System.String"/>
         <Column Name="品名" DataType="System.String"/>
@@ -26,8 +26,7 @@
       <TextObject Name="Text9" Left="396.9" Width="94.5" Height="18.9" Border.Lines="All" Text="庫存量" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text11" Left="491.4" Width="56.7" Height="18.9" Border.Lines="All" Text="單位" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text13" Left="548.1" Width="66.15" Height="18.9" Border.Lines="All" Text="在倉日期" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text15" Left="614.25" Width="94.5" Height="18.9" Border.Lines="All" Text="業務" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text17" Left="708.75" Width="330.75" Height="18.9" Border.Lines="All" Text="記錄" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text17" Left="614.25" Width="425.25" Height="18.9" Border.Lines="All" Text="記錄" HorzAlign="Center" VertAlign="Center"/>
     </PageHeaderBand>
     <DataBand Name="Data1" Top="65.69" Width="1047.06" Height="18.9" CanGrow="true" DataSource="Table">
       <TextObject Name="Text2" Width="113.4" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.品號]" HorzAlign="Center" VertAlign="Center"/>
@@ -36,8 +35,7 @@
       <TextObject Name="Text8" Left="396.9" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.庫存量]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="3" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
       <TextObject Name="Text10" Left="491.4" Width="56.7" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.單位]" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text12" Left="548.1" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.在倉日期]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text14" Left="614.25" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.業務]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text16" Left="708.75" Width="330.75" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.記錄]" VertAlign="Center"/>
+      <TextObject Name="Text16" Left="614.25" Width="425.25" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.記錄]" VertAlign="Center"/>
     </DataBand>
   </ReportPage>
 </Report>
