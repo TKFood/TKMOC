@@ -747,6 +747,12 @@ namespace TKMOC
 
         }
 
+        public void CHANGEMOCTATA012(string YYYYMM)
+        {
+            UPDATEMOCTATA012(YYYYMM);
+
+        }
+
         public void UPDATEMOCTA(string TA001, string TA002, string TA009)
         {
             try
@@ -820,6 +826,60 @@ namespace TKMOC
                 sbSql.AppendFormat(" WHERE TA001='{0}' AND TA002='{1}'", TA001, TA002);
                 sbSql.AppendFormat(" ");
                 sbSql.AppendFormat(" ");
+
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+
+
+                }
+                else
+                {
+                    tran.Commit();      //執行交易                    
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void UPDATEMOCTATA012(string YYYYMM)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+
+
+                sbSql.AppendFormat(@" 
+                                    UPDATE [TK].dbo.MOCTA
+                                    SET TA012=(SELECT TOP 1 TC003 FROM  [TK].dbo.MOCTC,[TK].dbo.MOCTE WHERE TC001=TE001 AND TC002=TE002 AND TA001=TE011 AND TA002=TE012 ORDER BY TC003 )
+                                    WHERE TA012<>(SELECT TOP 1 TC003 FROM  [TK].dbo.MOCTC,[TK].dbo.MOCTE WHERE TC001=TE001 AND TC002=TE002 AND TA001=TE011 AND TA002=TE012 ORDER BY TC003 )
+                                    AND TA003 LIKE '{0}%'
+                                    ",YYYYMM);
 
 
 
@@ -1038,6 +1098,71 @@ namespace TKMOC
                         //dataGridView1.Rows.Clear();
                         dataGridView9.DataSource = ds.Tables["TEMPds"];
                         dataGridView9.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+
+        public void SEARCHMOCTATA012(string YYYYMM)
+        {
+            SqlConnection sqlConn = new SqlConnection();
+            string connectionString;
+            StringBuilder sbSql = new StringBuilder();
+
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder = new SqlCommandBuilder();
+
+            DataSet ds = new DataSet();
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+
+                sbSql.AppendFormat(@"  
+                                   SELECT TA001 AS '製令單別',TA002 AS '製令單號',TA012 AS '目前的實際開工日'
+                                    ,(SELECT TOP 1 TC003 FROM  [TK].dbo.MOCTC,[TK].dbo.MOCTE WHERE TC001=TE001 AND TC002=TE002 AND TA001=TE011 AND TA002=TE012 ORDER BY TC003 ) AS '最早的領料日'
+                                    FROM [TK].dbo.MOCTA
+                                    WHERE TA012<>(SELECT TOP 1 TC003 FROM  [TK].dbo.MOCTC,[TK].dbo.MOCTE WHERE TC001=TE001 AND TC002=TE002 AND TA001=TE011 AND TA002=TE012 ORDER BY TC003 )
+                                    AND TA003 LIKE '{0}%'
+
+                                    ", YYYYMM);
+
+                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder = new SqlCommandBuilder(adapter);
+                sqlConn.Open();
+                ds.Clear();
+                adapter.Fill(ds, "TEMPds");
+                sqlConn.Close();
+
+
+                if (ds.Tables["TEMPds"].Rows.Count == 0)
+                {
+                    dataGridView11.DataSource = null;
+                }
+                else
+                {
+                    if (ds.Tables["TEMPds"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView11.DataSource = ds.Tables["TEMPds"];
+                        dataGridView11.AutoResizeColumns();
                         //dataGridView1.CurrentCell = dataGridView1[0, rownum];
 
                     }
@@ -1951,11 +2076,31 @@ namespace TKMOC
             }
         }
 
+        private void button11_Click(object sender, EventArgs e)
+        {
+            SEARCHMOCTATA012(dateTimePicker13.Value.ToString("yyyyMM"));
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("要修改嗎?", "要修改嗎?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                CHANGEMOCTATA012(dateTimePicker13.Value.ToString("yyyyMM"));
+                SEARCHMOCTATA012(dateTimePicker13.Value.ToString("yyyyMM"));
+
+
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                //do something else
+            }
+        }
+
 
 
         #endregion
 
-      
     }
     
 }
