@@ -48,6 +48,13 @@ namespace TKMOC
 
         string tablename = null;
 
+        //水麵倍數
+        decimal CAL1;
+        //油酥倍數
+        decimal CAL2;
+        //油酥所需的水面倍數
+        decimal CAL3;
+
         public frmCALBOMMD()
         {
             InitializeComponent();
@@ -80,17 +87,63 @@ namespace TKMOC
 
         }
 
+        public void comboBox2load(string MD003)
+        {
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"
+                                SELECT MD001,MB002
+                                FROM [TK].dbo.BOMMD
+                                LEFT JOIN [TK].dbo.INVMB ON MB001=BOMMD.MD001
+                                WHERE MD003='{0}'
+                                AND MB002 NOT LIKE '%暫停%'
+                                ORDER BY MD001
+                                ", MD003);
+
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("MD001", typeof(string));
+            dt.Columns.Add("MB002", typeof(string));
+            da.Fill(dt);
+            comboBox2.DataSource = dt.DefaultView;
+            comboBox2.ValueMember = "MD001";
+            comboBox2.DisplayMember = "MB002";
+            sqlConn.Close();
+
+          
+
+        }
+
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(!string.IsNullOrEmpty(comboBox1.SelectedValue.ToString()))
+            if(!string.IsNullOrEmpty(comboBox1.SelectedValue.ToString().Trim()))
             {
-                textBox1.Text = comboBox1.SelectedValue.ToString();
+                textBox1.Text = comboBox1.SelectedValue.ToString().Trim();
+
+                comboBox2load(comboBox1.SelectedValue.ToString().Trim());
             }
             else
             {
                 textBox1.Text = "";
             }
 
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(comboBox2.SelectedValue.ToString().Trim()))
+            {
+                textBox5.Text = comboBox2.SelectedValue.ToString().Trim();
+
+              
+            }
+            else
+            {
+                textBox5.Text = "";
+            }
         }
 
         //一桶水面-先算出中筋一桶的倍率=66
@@ -210,6 +263,122 @@ namespace TKMOC
             }
         }
 
+        //--一桶水面-合計用量
+        public void SEARCH3(string MD003, decimal CAL)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                SqlDataAdapter adapter1 = new SqlDataAdapter();
+                SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+                DataSet ds1 = new DataSet();
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  
+                                    SELECT BOMMD.MD001,SUM(BOMMD.MD006*({1})) AS 'SUMCALMD006' 
+                                    ,(SELECT TOP 1 [MOCSEPECIALCAL].[WATERNUMS] FROM [TKMOC].[dbo].[MOCSEPECIALCAL] WHERE [MOCSEPECIALCAL].MD003 =BOMMD.MD001 ) AS 'WATERNUM'
+                                    ,(SUM(BOMMD.MD006*({1}))/((SELECT TOP 1 [MOCSEPECIALCAL].[WATERNUMS] FROM [TKMOC].[dbo].[MOCSEPECIALCAL] WHERE [MOCSEPECIALCAL].MD003=BOMMD.MD001 ) )) AS 'WATERNUMS'
+                                    FROM[TK].dbo.BOMMD
+                                    WHERE  BOMMD.MD003 LIKE '1%'
+                                    AND BOMMD.MD003 NOT IN ('101001009')
+                                    AND BOMMD.MD001='{0}'
+                                    GROUP BY BOMMD.MD001
+                                    ", MD003, CAL);
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "TEMPds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["TEMPds1"].Rows.Count >= 1)
+                {
+                    textBox3.Text = ds1.Tables["TEMPds1"].Rows[0]["WATERNUMS"].ToString();
+
+                    //dataGridView1.Rows.Clear();
+                    //dataGridView1.DataSource = ds1.Tables["TEMPds1"];
+                    //dataGridView1.AutoResizeColumns();
+                    //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                }
+                else
+                {
+
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void SEARCH4(string MD003)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                SqlDataAdapter adapter1 = new SqlDataAdapter();
+                SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+                DataSet ds1 = new DataSet();
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"
+                                    SELECT [MD003],[MB002],[WATERNUMS],[OILNUMS]
+                                    FROM [TKMOC].[dbo].[MOCSEPECIALCAL]
+                                    WHERE [MD003]='{0}'
+                                    ", MD003);
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "TEMPds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["TEMPds1"].Rows.Count >= 1)
+                {
+                    textBox4.Text = ds1.Tables["TEMPds1"].Rows[0]["WATERNUMS"].ToString();
+
+                    //dataGridView1.Rows.Clear();
+                    //dataGridView1.DataSource = ds1.Tables["TEMPds1"];
+                    //dataGridView1.AutoResizeColumns();
+                    //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                }
+                else
+                {
+
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
         #endregion
 
         #region BUTTON
@@ -221,11 +390,20 @@ namespace TKMOC
 
                 decimal CAL = Convert.ToDecimal(textBox2.Text);
                 SEARCH2(comboBox1.SelectedValue.ToString().Trim(), CAL);
+                SEARCH3(comboBox1.SelectedValue.ToString().Trim(), CAL);
+                SEARCH4(comboBox1.SelectedValue.ToString().Trim());
             }
                 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
         #endregion
 
-      
+       
     }
 }
