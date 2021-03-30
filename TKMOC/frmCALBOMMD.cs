@@ -125,7 +125,9 @@ namespace TKMOC
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(!string.IsNullOrEmpty(comboBox1.SelectedValue.ToString().Trim()))
+            SETNULL();
+
+            if (!string.IsNullOrEmpty(comboBox1.SelectedValue.ToString().Trim()))
             {
                 textBox1.Text = comboBox1.SelectedValue.ToString().Trim();
 
@@ -740,6 +742,7 @@ namespace TKMOC
             }
         }
 
+        //輸入桶數就可得知所需水面原料
         public void SEARCH11(string MD003, decimal CAL1, decimal CAL2)
         {
             try
@@ -797,7 +800,91 @@ namespace TKMOC
             }
         }
 
+        //--輸入桶數就可得知所需水面原料SUM
+        public void SEARCH12(string MD003, decimal CAL1, decimal CAL2)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
 
+                SqlDataAdapter adapter1 = new SqlDataAdapter();
+                SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+                DataSet ds1 = new DataSet();
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"
+                                    SELECT SUM(CONVERT(decimal(16,4),BOMMD.MD006*({1})*({2}))) AS '用量' 
+                                    ,(SELECT TOP 1 [MOCSEPECIALCAL].[WATERNUMS] FROM [TKMOC].[dbo].[MOCSEPECIALCAL] WHERE [MOCSEPECIALCAL].MD003 =BOMMD.MD001 ) AS 'WATERNUM'
+                                    ,(SUM(BOMMD.MD006*({1})*({2}))/((SELECT TOP 1 [MOCSEPECIALCAL].[WATERNUMS] FROM [TKMOC].[dbo].[MOCSEPECIALCAL] WHERE [MOCSEPECIALCAL].MD003=BOMMD.MD001 ) )) AS 'WATERNUMS'
+
+                                    FROM[TK].dbo.BOMMD
+                                    LEFT JOIN [TK].dbo.INVMB ON MB001=BOMMD.MD003
+                                    WHERE  BOMMD.MD003 LIKE '1%'
+                                    AND BOMMD.MD003 NOT IN ('{0}')
+                                    AND BOMMD.MD001='3010000115'
+                                    GROUP BY BOMMD.MD001
+                                    ", MD003, CAL1, CAL2);
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "TEMPds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["TEMPds1"].Rows.Count >= 1)
+                {
+                    textBox14.Text = ds1.Tables["TEMPds1"].Rows[0]["WATERNUMS"].ToString();
+
+                    //dataGridView1.Rows.Clear();
+                    //dataGridView1.DataSource = ds1.Tables["TEMPds1"];
+                    //dataGridView1.AutoResizeColumns();
+                    //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                }
+                else
+                {
+
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void SETNULL()
+        {
+            textBox2.Text = null;
+            textBox3.Text = null;
+            textBox4.Text = null;
+            textBox5.Text = null;
+            textBox6.Text = null;
+            textBox7.Text = null;
+            textBox8.Text = null;
+            textBox9.Text = null;
+            textBox10.Text = null;
+            textBox11.Text = null;
+            textBox12.Text = null;
+            textBox13.Text = null;
+            textBox14.Text = null;
+
+            dataGridView1.DataSource = null;
+            dataGridView2.DataSource = null;
+            dataGridView3.DataSource = null;
+            dataGridView4.DataSource = null;
+
+        }
         #endregion
 
         #region BUTTON
@@ -846,7 +933,7 @@ namespace TKMOC
         {
             if(!string.IsNullOrEmpty(textBox11.Text))
             {
-                int WORKNUMS = Convert.ToInt32(textBox11.Text);
+                decimal WORKNUMS = Convert.ToDecimal(textBox11.Text);
 
                 if(WORKNUMS>0&& CALNUM3 > 0)
                 {
@@ -859,6 +946,8 @@ namespace TKMOC
                 }
 
                 SEARCH11(comboBox1.SelectedValue.ToString().Trim(), CAL1, CAL3);
+
+                SEARCH12(comboBox1.SelectedValue.ToString().Trim(), CAL1, CAL3);
             }
             
         }
