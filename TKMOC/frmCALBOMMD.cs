@@ -379,6 +379,65 @@ namespace TKMOC
             }
         }
 
+        public void SEARCH5(string MD003)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                SqlDataAdapter adapter1 = new SqlDataAdapter();
+                SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+                DataSet ds1 = new DataSet();
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"
+                                    SELECT BOMMD.[MD001],66/BOMMD.MD006 AS 'CAL'
+                                    FROM [TK].dbo.BOMMD
+                                    WHERE  BOMMD.MD003 LIKE '1%'
+                                    AND BOMMD.MD003='101001002'
+                                    AND BOMMD.MD001='{0}'
+
+                                    ORDER BY BOMMD.[MD001]
+                                    ", MD003);
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "TEMPds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["TEMPds1"].Rows.Count >= 1)
+                {
+                    textBox6.Text = ds1.Tables["TEMPds1"].Rows[0]["CAL"].ToString();
+
+                    //dataGridView1.Rows.Clear();
+                    //dataGridView1.DataSource = ds1.Tables["TEMPds1"];
+                    //dataGridView1.AutoResizeColumns();
+                    //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                }
+                else
+                {
+
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
         #endregion
 
         #region BUTTON
@@ -398,7 +457,7 @@ namespace TKMOC
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            SEARCH5(comboBox2.SelectedValue.ToString().Trim());
         }
 
 
