@@ -58,6 +58,8 @@ namespace TKMOC
         decimal CALNUM1;
         //油酥顆數
         decimal CALNUM2;
+        //油酥所需的水面顆數
+        decimal CALNUM3;
 
         public frmCALBOMMD()
         {
@@ -676,6 +678,126 @@ namespace TKMOC
             }
         }
 
+        //--一桶油酥所需的水面原料SUM
+        public void SEARCH10(string MD003, decimal CAL1, decimal CAL2)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                SqlDataAdapter adapter1 = new SqlDataAdapter();
+                SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+                DataSet ds1 = new DataSet();
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"
+                                    SELECT BOMMD.MD001,SUM(BOMMD.MD006*({1})*({2})) AS 'SUMCALMD006' 
+                                    ,(SELECT TOP 1 [MOCSEPECIALCAL].[WATERNUMS] FROM [TKMOC].[dbo].[MOCSEPECIALCAL] WHERE [MOCSEPECIALCAL].MD003 =BOMMD.MD001 ) AS 'WATERNUM'
+                                    ,(SUM(BOMMD.MD006*({1})*({2}))/((SELECT TOP 1 [MOCSEPECIALCAL].[WATERNUMS] FROM [TKMOC].[dbo].[MOCSEPECIALCAL] WHERE [MOCSEPECIALCAL].MD003=BOMMD.MD001 ) )) AS 'WATERNUMS'
+
+                                    FROM[TK].dbo.BOMMD
+                                    WHERE  BOMMD.MD003 LIKE '1%'
+                                    AND BOMMD.MD003 NOT IN ('101001009')
+                                    AND BOMMD.MD001='{0}'
+                                    GROUP BY BOMMD.MD001
+                                    ", MD003, CAL1, CAL2);
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "TEMPds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["TEMPds1"].Rows.Count >= 1)
+                {
+                    textBox10.Text = ds1.Tables["TEMPds1"].Rows[0]["WATERNUMS"].ToString();
+
+                    //dataGridView1.Rows.Clear();
+                    //dataGridView1.DataSource = ds1.Tables["TEMPds1"];
+                    //dataGridView1.AutoResizeColumns();
+                    //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                }
+                else
+                {
+
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void SEARCH11(string MD003, decimal CAL1, decimal CAL2)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                SqlDataAdapter adapter1 = new SqlDataAdapter();
+                SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+                DataSet ds1 = new DataSet();
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"
+                                    SELECT BOMMD.MD003 AS '元件品號',MB002  AS '品名',CONVERT(decimal(16,4),BOMMD.MD006*({1})*({2})) AS '用量' ,BOMMD .MD007  AS '底數',BOMMD.MD008  AS '損耗率%',BOMMD.MD001 AS '主件品號'
+                                    FROM[TK].dbo.BOMMD
+                                    LEFT JOIN [TK].dbo.INVMB ON MB001=BOMMD.MD003
+                                    WHERE  BOMMD.MD003 LIKE '1%'
+                                    AND BOMMD.MD003 NOT IN ('101001009')
+                                    AND BOMMD.MD001='{0}'
+                                    ORDER BY BOMMD.MD003
+                                    ", MD003, CAL1, CAL2);
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "TEMPds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["TEMPds1"].Rows.Count >= 1)
+                {
+                    //dataGridView1.Rows.Clear();
+                    dataGridView4.DataSource = ds1.Tables["TEMPds1"];
+                    dataGridView4.AutoResizeColumns();
+                    //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                }
+                else
+                {
+
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+
         #endregion
 
         #region BUTTON
@@ -714,10 +836,31 @@ namespace TKMOC
             {
                 textBox9.Text = (CALNUM2 / CALNUM1).ToString();
                 CAL3 = (CALNUM2 / CALNUM1);
-
+                CALNUM3 = CALNUM1 * CAL3;
                 SEARCH9(comboBox1.SelectedValue.ToString().Trim(),CAL1, CAL3);
+                SEARCH10(comboBox1.SelectedValue.ToString().Trim(), CAL1, CAL3);
 
             }
+        }
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if(!string.IsNullOrEmpty(textBox11.Text))
+            {
+                int WORKNUMS = Convert.ToInt32(textBox11.Text);
+
+                if(WORKNUMS>0&& CALNUM3 > 0)
+                {
+                    textBox12.Text = (CALNUM3 * WORKNUMS).ToString();
+                }
+                if (WORKNUMS > 0 && CALNUM3 > 0 && CALNUM1 > 0)
+                {
+                    textBox13.Text = (CALNUM3 * WORKNUMS/ CALNUM1).ToString();
+                    CAL3 = (CALNUM3 * WORKNUMS / CALNUM1);
+                }
+
+                SEARCH11(comboBox1.SelectedValue.ToString().Trim(), CAL1, CAL3);
+            }
+            
         }
 
         #endregion
