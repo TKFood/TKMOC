@@ -743,7 +743,7 @@ namespace TKMOC
         }
 
         //輸入桶數就可得知所需水面原料
-        public void SEARCH11(string MD003, decimal CAL1, decimal CAL2)
+        public void SEARCH11(string MD003, decimal CAL1, decimal CAL3, string MD001, decimal CAL2, decimal WORKNUMS)
         {
             try
             {
@@ -758,14 +758,26 @@ namespace TKMOC
                 sbSqlQuery.Clear();
 
                 sbSql.AppendFormat(@"
-                                    SELECT BOMMD.MD003 AS '元件品號',MB002  AS '品名',CONVERT(decimal(16,4),BOMMD.MD006*({1})*({2})) AS '用量' ,BOMMD .MD007  AS '底數',BOMMD.MD008  AS '損耗率%',BOMMD.MD001 AS '主件品號'
+                                    SELECT 類型,元件品號,品名,用量
+                                    FROM(
+                                    SELECT '水面' AS '類型', BOMMD.MD003 AS '元件品號',MB002  AS '品名',CONVERT(decimal(16,4),BOMMD.MD006*({1})*({2})) AS '用量' ,BOMMD .MD007  AS '底數',BOMMD.MD008  AS '損耗率%',BOMMD.MD001 AS '主件品號'
                                     FROM[TK].dbo.BOMMD
                                     LEFT JOIN [TK].dbo.INVMB ON MB001=BOMMD.MD003
                                     WHERE  BOMMD.MD003 LIKE '1%'
                                     AND BOMMD.MD003 NOT IN ('101001009')
                                     AND BOMMD.MD001='{0}'
-                                    ORDER BY BOMMD.MD003
-                                    ", MD003, CAL1, CAL2);
+                                    UNION ALL
+                                    
+                                    SELECT '油酥' AS '類型',BOMMD.MD003 AS '元件品號',MB002  AS '品名',CONVERT(decimal(16,4),BOMMD.MD006*({4})*({5}) ) AS '用量' ,BOMMD .MD007  AS '底數',BOMMD.MD008  AS '損耗率%',BOMMD.MD001 AS '主件品號'
+                                    FROM[TK].dbo.BOMMD
+                                    LEFT JOIN [TK].dbo.INVMB ON MB001=BOMMD.MD003
+                                    WHERE  BOMMD.MD003 LIKE '1%'
+                                    AND BOMMD.MD003 NOT IN ('101001009')
+                                    AND BOMMD.MD001='{3}'
+                                   
+                                    ) AS TEMP
+                                    ORDER BY 類型,元件品號
+                                    ", MD003, CAL1, CAL3, MD001, CAL2, WORKNUMS);
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -945,7 +957,7 @@ namespace TKMOC
                     CAL3 = (CALNUM3 * WORKNUMS / CALNUM1);
                 }
 
-                SEARCH11(comboBox1.SelectedValue.ToString().Trim(), CAL1, CAL3);
+                SEARCH11(comboBox1.SelectedValue.ToString().Trim(), CAL1, CAL3, comboBox2.SelectedValue.ToString().Trim(), CAL2, WORKNUMS);
 
                 SEARCH12(comboBox1.SelectedValue.ToString().Trim(), CAL1, CAL3);
             }
