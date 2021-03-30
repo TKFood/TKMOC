@@ -54,6 +54,10 @@ namespace TKMOC
         decimal CAL2;
         //油酥所需的水面倍數
         decimal CAL3;
+        //水麵顆數
+        decimal CALNUM1;
+        //油酥顆數
+        decimal CALNUM2;
 
         public frmCALBOMMD()
         {
@@ -459,8 +463,8 @@ namespace TKMOC
                                     FROM[TK].dbo.BOMMD
                                     LEFT JOIN [TK].dbo.INVMB ON MB001=BOMMD.MD003
                                     WHERE  BOMMD.MD003 LIKE '1%'
-                                    AND BOMMD.MD003 NOT IN ('{0}')
-                                    AND BOMMD.MD001='3010103108'
+                                    AND BOMMD.MD003 NOT IN ('101001009')
+                                    AND BOMMD.MD001='{0}'
                                     ORDER BY BOMMD.MD003
                                     ", MD003, CAL);
 
@@ -613,6 +617,65 @@ namespace TKMOC
                 sqlConn.Close();
             }
         }
+
+        //--一桶油酥所需的水面原料
+        public void SEARCH9(string MD003, decimal CAL1, decimal CAL2)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                SqlDataAdapter adapter1 = new SqlDataAdapter();
+                SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+                DataSet ds1 = new DataSet();
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"
+                                    SELECT BOMMD.MD003 AS '元件品號',MB002  AS '品名',CONVERT(decimal(16,4),BOMMD.MD006*({1})*({2})) AS '用量' ,BOMMD .MD007  AS '底數',BOMMD.MD008  AS '損耗率%',BOMMD.MD001 AS '主件品號'
+                                    FROM[TK].dbo.BOMMD
+                                    LEFT JOIN [TK].dbo.INVMB ON MB001=BOMMD.MD003
+                                    WHERE  BOMMD.MD003 LIKE '1%'
+                                    AND BOMMD.MD003 NOT IN ('101001009')
+                                    AND BOMMD.MD001='{0}'
+                                    ORDER BY BOMMD.MD003
+                                    ", MD003, CAL1, CAL2);
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "TEMPds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["TEMPds1"].Rows.Count >= 1)
+                {
+                    //dataGridView1.Rows.Clear();
+                    dataGridView3.DataSource = ds1.Tables["TEMPds1"];
+                    dataGridView3.AutoResizeColumns();
+                    //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                }
+                else
+                {
+
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
         #endregion
 
         #region BUTTON
@@ -626,6 +689,8 @@ namespace TKMOC
                 SEARCH2(comboBox1.SelectedValue.ToString().Trim(), CAL1);
                 SEARCH3(comboBox1.SelectedValue.ToString().Trim(), CAL1);
                 SEARCH4(comboBox1.SelectedValue.ToString().Trim());
+
+                CALNUM1 = Convert.ToDecimal(textBox3.Text);
             }
                 
         }
@@ -639,11 +704,24 @@ namespace TKMOC
             SEARCH7(comboBox2.SelectedValue.ToString().Trim(), CAL2);
             SEARCH8(comboBox1.SelectedValue.ToString().Trim());
 
+            CALNUM2 = Convert.ToDecimal(textBox7.Text);
+
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if(CALNUM1 > 0 && CALNUM2 > 0)
+            {
+                textBox9.Text = (CALNUM2 / CALNUM1).ToString();
+                CAL3 = (CALNUM2 / CALNUM1);
+
+                SEARCH9(comboBox1.SelectedValue.ToString().Trim(),CAL1, CAL3);
+
+            }
+        }
 
         #endregion
 
-       
+
     }
 }
