@@ -139,7 +139,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer5);
             this.splitContainer1.Size = new System.Drawing.Size(970, 666);
-            this.splitContainer1.SplitterDistance = 585;
+            this.splitContainer1.SplitterDistance = 572;
             this.splitContainer1.TabIndex = 0;
             // 
             // splitContainer2
@@ -157,7 +157,7 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.splitContainer3);
-            this.splitContainer2.Size = new System.Drawing.Size(585, 666);
+            this.splitContainer2.Size = new System.Drawing.Size(572, 666);
             this.splitContainer2.SplitterDistance = 77;
             this.splitContainer2.TabIndex = 0;
             // 
@@ -176,7 +176,7 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.splitContainer4);
-            this.splitContainer3.Size = new System.Drawing.Size(585, 585);
+            this.splitContainer3.Size = new System.Drawing.Size(572, 585);
             this.splitContainer3.SplitterDistance = 214;
             this.splitContainer3.TabIndex = 0;
             // 
@@ -195,7 +195,7 @@
             // splitContainer4.Panel2
             // 
             this.splitContainer4.Panel2.Controls.Add(this.dataGridView2);
-            this.splitContainer4.Size = new System.Drawing.Size(585, 367);
+            this.splitContainer4.Size = new System.Drawing.Size(572, 367);
             this.splitContainer4.SplitterDistance = 82;
             this.splitContainer4.TabIndex = 0;
             // 
@@ -210,7 +210,7 @@
             // splitContainer5.Panel2
             // 
             this.splitContainer5.Panel2.Controls.Add(this.splitContainer6);
-            this.splitContainer5.Size = new System.Drawing.Size(381, 666);
+            this.splitContainer5.Size = new System.Drawing.Size(394, 666);
             this.splitContainer5.SplitterDistance = 61;
             this.splitContainer5.TabIndex = 0;
             // 
@@ -225,7 +225,7 @@
             // splitContainer6.Panel2
             // 
             this.splitContainer6.Panel2.Controls.Add(this.splitContainer7);
-            this.splitContainer6.Size = new System.Drawing.Size(381, 601);
+            this.splitContainer6.Size = new System.Drawing.Size(394, 601);
             this.splitContainer6.SplitterDistance = 221;
             this.splitContainer6.TabIndex = 0;
             // 
@@ -236,7 +236,7 @@
             this.splitContainer7.Location = new System.Drawing.Point(0, 0);
             this.splitContainer7.Name = "splitContainer7";
             this.splitContainer7.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            this.splitContainer7.Size = new System.Drawing.Size(381, 376);
+            this.splitContainer7.Size = new System.Drawing.Size(394, 376);
             this.splitContainer7.SplitterDistance = 82;
             this.splitContainer7.TabIndex = 0;
             // 
@@ -265,7 +265,7 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(581, 73);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(568, 73);
             this.tableLayoutPanel1.TabIndex = 3;
             // 
             // button1
@@ -318,7 +318,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(581, 210);
+            this.dataGridView1.Size = new System.Drawing.Size(568, 210);
             this.dataGridView1.TabIndex = 1;
             // 
             // textBox2
@@ -354,7 +354,7 @@
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(581, 78);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(568, 78);
             this.tableLayoutPanel2.TabIndex = 4;
             // 
             // label1
@@ -415,7 +415,7 @@
             this.dataGridView2.Location = new System.Drawing.Point(0, 0);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowTemplate.Height = 24;
-            this.dataGridView2.Size = new System.Drawing.Size(581, 277);
+            this.dataGridView2.Size = new System.Drawing.Size(568, 277);
             this.dataGridView2.TabIndex = 2;
             // 
             // label2
