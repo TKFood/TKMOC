@@ -135,7 +135,7 @@ namespace TKMOC
             connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
             sqlConn = new SqlConnection(connectionString);
             StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@" SELECT BOMMB.MB001,RTRIM(LTRIM(BOMMB.MB001))+' '+INVMB.MB002 AS MB002 FROM [TK].dbo.BOMMB,[TK] .dbo.INVMB WHERE BOMMB.MB001=INVMB.MB001 AND BOMMB.MB001 LIKE '1%'  GROUP BY BOMMB.MB001,INVMB.MB002 ");
+            Sequel.AppendFormat(@" SELECT BOMMB.MB001,RTRIM(LTRIM(BOMMB.MB001))+' '+INVMB.MB002 AS MB002 FROM [TK].dbo.BOMMB,[TK] .dbo.INVMB WHERE BOMMB.MB001=INVMB.MB001 AND INVMB.MB002 NOT LIKE '%停%' AND  (BOMMB.MB001 LIKE '1%' OR BOMMB.MB001 LIKE '2%' ) GROUP BY BOMMB.MB001,INVMB.MB002 ORDER BY BOMMB.MB001 ");
             SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
             DataTable dt = new DataTable();
             sqlConn.Open();
@@ -156,7 +156,7 @@ namespace TKMOC
             connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
             sqlConn = new SqlConnection(connectionString);
             StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT BOMMB.MB004,RTRIM(LTRIM(BOMMB.MB004))+' '+INVMB.MB002 AS MB002 FROM [TK].dbo.BOMMB,[TK] .dbo.INVMB WHERE BOMMB.MB004=INVMB.MB001  AND BOMMB.MB001 LIKE '1%' AND BOMMB.MB001='{0}' GROUP BY BOMMB.MB004,RTRIM(LTRIM(BOMMB.MB004))+' '+INVMB.MB002 ", MB001);
+            Sequel.AppendFormat(@"SELECT BOMMB.MB004,RTRIM(LTRIM(BOMMB.MB004))+' '+INVMB.MB002 AS MB002 FROM [TK].dbo.BOMMB,[TK] .dbo.INVMB WHERE BOMMB.MB004=INVMB.MB001  AND (BOMMB.MB001 LIKE '1%' OR BOMMB.MB001 LIKE '2%' ) AND BOMMB.MB001='{0}' GROUP BY BOMMB.MB004,RTRIM(LTRIM(BOMMB.MB004))+' '+INVMB.MB002 ", MB001);
             SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
             DataTable dt = new DataTable();
             sqlConn.Open();

@@ -126,11 +126,11 @@
             this.dataGridView10 = new System.Windows.Forms.DataGridView();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.splitContainer16 = new System.Windows.Forms.SplitContainer();
-            this.splitContainer17 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
             this.label16 = new System.Windows.Forms.Label();
             this.dateTimePicker13 = new System.Windows.Forms.DateTimePicker();
             this.button11 = new System.Windows.Forms.Button();
+            this.splitContainer17 = new System.Windows.Forms.SplitContainer();
             this.dataGridView11 = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel12 = new System.Windows.Forms.TableLayoutPanel();
             this.button12 = new System.Windows.Forms.Button();
@@ -224,11 +224,11 @@
             this.splitContainer16.Panel1.SuspendLayout();
             this.splitContainer16.Panel2.SuspendLayout();
             this.splitContainer16.SuspendLayout();
+            this.tableLayoutPanel11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer17)).BeginInit();
             this.splitContainer17.Panel1.SuspendLayout();
             this.splitContainer17.Panel2.SuspendLayout();
             this.splitContainer17.SuspendLayout();
-            this.tableLayoutPanel11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView11)).BeginInit();
             this.tableLayoutPanel12.SuspendLayout();
             this.SuspendLayout();
@@ -496,7 +496,7 @@
             // 
             this.comboBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(3, 182);
+            this.comboBox2.Location = new System.Drawing.Point(3, 184);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(209, 24);
             this.comboBox2.TabIndex = 26;
@@ -529,7 +529,7 @@
             // 
             this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(3, 50);
+            this.comboBox1.Location = new System.Drawing.Point(3, 48);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(209, 24);
             this.comboBox1.TabIndex = 25;
@@ -1078,7 +1078,7 @@
             // 
             this.comboBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(3, 50);
+            this.comboBox3.Location = new System.Drawing.Point(3, 48);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(209, 24);
             this.comboBox3.TabIndex = 32;
@@ -1648,24 +1648,6 @@
             this.splitContainer16.SplitterDistance = 159;
             this.splitContainer16.TabIndex = 0;
             // 
-            // splitContainer17
-            // 
-            this.splitContainer17.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.splitContainer17.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer17.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer17.Name = "splitContainer17";
-            // 
-            // splitContainer17.Panel1
-            // 
-            this.splitContainer17.Panel1.Controls.Add(this.dataGridView11);
-            // 
-            // splitContainer17.Panel2
-            // 
-            this.splitContainer17.Panel2.Controls.Add(this.tableLayoutPanel12);
-            this.splitContainer17.Size = new System.Drawing.Size(976, 509);
-            this.splitContainer17.SplitterDistance = 702;
-            this.splitContainer17.TabIndex = 0;
-            // 
             // tableLayoutPanel11
             // 
             this.tableLayoutPanel11.BackColor = System.Drawing.Color.LightGreen;
@@ -1731,6 +1713,24 @@
             this.button11.Text = "查詢";
             this.button11.UseVisualStyleBackColor = true;
             this.button11.Click += new System.EventHandler(this.button11_Click);
+            // 
+            // splitContainer17
+            // 
+            this.splitContainer17.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.splitContainer17.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer17.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer17.Name = "splitContainer17";
+            // 
+            // splitContainer17.Panel1
+            // 
+            this.splitContainer17.Panel1.Controls.Add(this.dataGridView11);
+            // 
+            // splitContainer17.Panel2
+            // 
+            this.splitContainer17.Panel2.Controls.Add(this.tableLayoutPanel12);
+            this.splitContainer17.Size = new System.Drawing.Size(976, 509);
+            this.splitContainer17.SplitterDistance = 702;
+            this.splitContainer17.TabIndex = 0;
             // 
             // dataGridView11
             // 
@@ -1891,12 +1891,12 @@
             this.splitContainer16.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer16)).EndInit();
             this.splitContainer16.ResumeLayout(false);
+            this.tableLayoutPanel11.ResumeLayout(false);
+            this.tableLayoutPanel11.PerformLayout();
             this.splitContainer17.Panel1.ResumeLayout(false);
             this.splitContainer17.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer17)).EndInit();
             this.splitContainer17.ResumeLayout(false);
-            this.tableLayoutPanel11.ResumeLayout(false);
-            this.tableLayoutPanel11.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView11)).EndInit();
             this.tableLayoutPanel12.ResumeLayout(false);
             this.ResumeLayout(false);
