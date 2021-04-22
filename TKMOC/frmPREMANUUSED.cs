@@ -2472,6 +2472,182 @@ namespace TKMOC
             }
 
         }
+
+        public void RESETTKMOCBOMMD()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+                
+                sbSql.AppendFormat(@" 
+                                    DELETE [TKMOC].dbo.TKMOCBOMMD
+
+                                    INSERT INTO [TKMOC].dbo.TKMOCBOMMD
+                                    ([MD001],[MD003],[WATERNUMS],[OILNUMS],[OILCAL],[WATERCAL])
+                                    SELECT RTRIM(LTRIM(MD001)) MD001,RTRIM(LTRIM(MD003)) MD003,WATERNUMS,OILNUMS,TEMP4.OILCAL,TEMP4.WATERCAL
+                                    FROM (
+                                    -- 4 TEMP4 前  找出油酥的顆數
+                                    SELECT TEMP3.MD001,TEMP3.MD003,TEMP3.SUMMD006,TEMP3.WATERNUMS,TEMP3.OILCAL,TEMP3.WATERCAL
+                                    ,((SUMMD006*OILCAL)/((SELECT TOP 1 [MOCSEPECIALCAL].[OILNUMS] FROM [TKMOC].[dbo].[MOCSEPECIALCAL] WHERE [MOCSEPECIALCAL].MD003 IN (SELECT MD003 FROM [TK].dbo.BOMMD MD WHERE MD.MD001=TEMP3.MD001)) )) AS 'OILNUMS'
+                                    FROM 
+                                    (
+                                    -- 3 TEMP3 前  找出油酥的總重跟比率
+                                    SELECT BOMMD.MD001,BOMMD.MD003,WATERCAL
+                                    ,(SELECT SUM(MD.MD006) FROM[TK].dbo.BOMMD  MD WHERE  MD.MD003 LIKE '1%' AND MD.MD003 NOT IN ('101001009') AND MD.MD001= BOMMD.MD001 ) AS 'SUMMD006'
+                                    ,(SELECT 66/MD.MD006 FROM [TK].dbo.BOMMD MD WHERE  MD.MD003 LIKE '1%' AND MD.MD003='101001002' AND MD.MD001=BOMMD.MD001 ) AS 'OILCAL'
+                                    ,TEMP2.WATERNUMS
+                                    FROM [TK].dbo.BOMMD ,(
+
+                                    --2 TEMP2 前 找出水麵顆數
+                                    SELECT MD003,WATERCAL
+                                    ,((TEMP.MD006*(WATERCAL))/((SELECT TOP 1 [MOCSEPECIALCAL].[WATERNUMS] FROM [TKMOC].[dbo].[MOCSEPECIALCAL] WHERE [MOCSEPECIALCAL].MD003=TEMP.MD003 ) )) AS 'WATERNUMS'
+                                    FROM (
+                                    --1 TEMP  前 先找出水麵的總重跟比率
+                                    SELECT BOMMD.MD001 AS MD003,SUM(BOMMD.MD006) AS MD006
+                                    ,(SELECT 66/MD.MD006 FROM [TKMOC].[dbo].[MOCSEPECIALCAL],[TK].dbo.BOMMD MD WHERE [MOCSEPECIALCAL].MD003=MD.MD001 AND MD.MD003 LIKE '1%' AND [MOCSEPECIALCAL].[MD003]=BOMMD.MD001 AND MD.MD003='101001001'  ) AS 'WATERCAL'
+                                    FROM [TK].dbo.BOMMD
+                                    WHERE  BOMMD.MD003 LIKE '1%'
+                                    AND BOMMD.MD003 NOT IN ('101001009')
+                                    AND BOMMD.MD001 IN (SELECT MD003 FROM  [TKMOC].[dbo].[MOCSEPECIALCAL])
+                                    GROUP BY BOMMD.MD001
+
+                                    ) AS TEMP
+
+                                    ) AS TEMP2
+                                    WHERE BOMMD.MD003=TEMP2.MD003
+
+                                    ) AS TEMP3
+
+                                    ) AS TEMP4
+                                    ORDER BY MD003,MD001
+                                    
+                                    ");
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+                    
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void SEARCHMOCMANULINESPECIAL()
+        {
+            DataSet ds1 = new DataSet();
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+                
+                sbSql.AppendFormat(@"  
+                                    SELECT MD003  AS '品號' ,INVMB.MB002 AS '品名',SUM(MDSUM) '需求量', MB004 AS '單位'
+                                    FROM (
+                                    SELECT MB001,MB002,MD1MD003,MD2MD003,BAR,MD1SUM,MD2SUM,MANUDATE
+                                    ,(CASE WHEN ISNULL(MD2MD003,'')='' THEN MD1MD003 ELSE MD2MD003 END) AS 'MD003'
+                                    ,(CASE WHEN ISNULL(MD2MD003,'')='' THEN MD1SUM ELSE MD2SUM END) AS 'MDSUM'
+                                    FROM(
+                                    SELECT 
+                                    MOCMANULINE.MB001,MOCMANULINE.MB002,MOCMANULINE.BAR,MOCMANULINE.MANUDATE,MOCMANULINE.OUTDATE
+                                    ,TKMOCBOMMD.WATERNUMS,TKMOCBOMMD.OILNUMS,TKMOCBOMMD.OILCAL,TKMOCBOMMD.WATERCAL
+                                    ,MC1.MC004 AS MC1MC004
+                                    ,MD1.MD001 AS MD1MD001,MD1.MD003 AS MD1MD003,MD1.MD006 AS MD1MD006,MD1.MD007 AS MD1MD007,MD1.MD008 AS MD1MD008
+                                    ,ISNULL(MC2.MC004,0) AS MC2MC004
+                                    ,MD2.MD001 AS MD2MD001,MD2.MD003 AS MD2MD003,ISNULL(MD2.MD006,0) AS MD2MD006,ISNULL(MD2.MD007,0) AS MD2MD007,ISNULL(MD2.MD008,0) AS MDMD008
+                                    ,(MOCMANULINE.BAR*MD1.MD006/MD1.MD007*(1+MD1.MD008)*TKMOCBOMMD.OILCAL) AS 'MD1SUM'
+                                    ,ISNULL((MOCMANULINE.BAR*MD2.MD006/MD2.MD007*(1+MD2.MD008)*TKMOCBOMMD.OILNUMS/TKMOCBOMMD.WATERNUMS)*TKMOCBOMMD.WATERCAL,0) AS 'MD2SUM'
+                                    FROM [TKMOC].dbo.MOCMANULINE,[TKMOC].dbo.TKMOCBOMMD
+                                    LEFT JOIN [TK].dbo.BOMMC MC1 ON MC1.MC001=TKMOCBOMMD.MD001
+                                    LEFT JOIN [TK].dbo.BOMMD MD1 ON MD1.MD001=MC1.MC001
+                                    LEFT JOIN [TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003
+                                    LEFT JOIN [TK].dbo.BOMMD MD2 ON MD2.MD001=MC2.MC001
+                                    WHERE MOCMANULINE.MANU IN ('新廠製一組' ,'新廠製二組')
+                                    AND MOCMANULINE.MB001 IN (SELECT [MD001] FROM [TKMOC].[dbo].[TKMOCBOMMD])
+                                    AND MOCMANULINE.MB001=TKMOCBOMMD.MD001
+                                    AND (MD1.MD003 LIKE '1%' OR MD1.MD003 LIKE '3%' )
+                                    AND (MD2.MD003 LIKE '1%' OR MD2.MD003 LIKE '3%' OR ISNULL(MD2.MD003,'')='')
+                                    AND MOCMANULINE.MANUDATE>='{0}' AND MOCMANULINE.MANUDATE<='{1}'
+                                    --AND MOCMANULINE.MB001='3010101601'
+                                    --AND MOCMANULINE.BAR='0.8083'
+                                    ) AS TEMP
+                                    ) AS TEMP2
+                                    LEFT JOIN [TK].dbo.INVMB ON TEMP2.MD003=INVMB.MB001
+                                    WHERE INVMB.MB002 NOT LIKE '%餅麩%' 
+                                    AND INVMB.MB002 NOT LIKE '%回收料%' 
+                                    GROUP BY MD003,INVMB.MB002,MB004
+                                    ORDER BY MD003,INVMB.MB002,MB004
+
+                                    ",dateTimePicker3.Value.ToString("yyyyMMdd"), dateTimePicker4.Value.ToString("yyyyMMdd"));
+
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "ds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["ds1"].Rows.Count == 0)
+                {
+                    dataGridView4.DataSource = null;
+                }
+                else
+                {
+                    if (ds1.Tables["ds1"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView4.DataSource = ds1.Tables["ds1"];
+                        dataGridView4.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+
         #endregion
 
         #region BUTTON
@@ -2520,10 +2696,25 @@ namespace TKMOC
         }
 
 
+        private void button6_Click(object sender, EventArgs e)
+        {
+            RESETTKMOCBOMMD();
+            SEARCHMOCMANULINESPECIAL();
 
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+
+        }
 
         #endregion
 
-  
+
     }
 }
