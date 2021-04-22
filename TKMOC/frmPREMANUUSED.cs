@@ -2574,6 +2574,9 @@ namespace TKMOC
                 
                 sbSql.AppendFormat(@"  
                                     SELECT MD003  AS '品號' ,INVMB.MB002 AS '品名',SUM(MDSUM) '需求量', MB004 AS '單位'
+                                    , (SELECT ISNULL(SUM(LA005 * LA011), 0) FROM[TK].dbo.INVLA WHERE  LA001 = MD003 AND LA009 IN('20004', '20005', '20006'))AS '庫存量'
+                                    ,((SELECT ISNULL(SUM(LA005 * LA011), 0) FROM[TK].dbo.INVLA WHERE LA001 = MD003 AND LA009 IN('20004', '20005', '20006'))-SUM(MDSUM)) AS '差異量'
+                                    ,(SELECT ISNULL(SUM(TD008 - TD015), 0) FROM[TK].dbo.PURTD WHERE TD004 =[MD003] AND TD018 = 'Y' AND TD016 = 'N' AND TD012>= '20210422' AND TD012<= '20210429') AS '採購未交數量'
                                     FROM (
                                     SELECT MB001,MB002,MD1MD003,MD2MD003,BAR,MD1SUM,MD2SUM,MANUDATE
                                     ,(CASE WHEN ISNULL(MD2MD003,'')='' THEN MD1MD003 ELSE MD2MD003 END) AS 'MD003'
@@ -2609,7 +2612,7 @@ namespace TKMOC
                                     GROUP BY MD003,INVMB.MB002,MB004
                                     ORDER BY MD003,INVMB.MB002,MB004
 
-                                    ",dateTimePicker3.Value.ToString("yyyyMMdd"), dateTimePicker4.Value.ToString("yyyyMMdd"));
+                                    ", dateTimePicker3.Value.ToString("yyyyMMdd"), dateTimePicker4.Value.ToString("yyyyMMdd"));
 
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -2634,6 +2637,16 @@ namespace TKMOC
                         dataGridView4.AutoResizeColumns();
                         //dataGridView1.CurrentCell = dataGridView1[0, rownum];
 
+                        //根据列表中数据不同，显示不同颜色背景
+                        foreach (DataGridViewRow dgRow in dataGridView4.Rows)
+                        {
+                            //判断
+                            if (Convert.ToDecimal(dgRow.Cells[5].Value) < 0)
+                            {
+                                //将这行的背景色设置成Pink
+                                dgRow.DefaultCellStyle.BackColor = Color.Pink;
+                            }
+                        }
                     }
                 }
 
