@@ -2648,6 +2648,110 @@ namespace TKMOC
             }
         }
 
+        public void SEARCHMOCMANULINESPECIAL2(string MD003)
+        {
+            DataSet ds1 = new DataSet();
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  
+                                    SELECT MB001 AS '品號',MB002 AS '品名',BAR  AS '桶數',CONVERT(NVARCHAR,MANUDATE,112)  AS '生產日'
+                                    ,(CASE WHEN ISNULL(MD2MD003,'')='' THEN MD1SUM ELSE MD2SUM END) AS 'MDSUM'                                    
+                                    ,(CASE WHEN ISNULL(MD2MD003,'')='' THEN MD1MD003 ELSE MD2MD003 END) AS 'MD003'                                    
+                                    ,MD1SUM,MD2SUM,MD1MD003,MD2MD003
+
+                                    FROM(
+                                    SELECT 
+                                    MOCMANULINE.MB001,MOCMANULINE.MB002,MOCMANULINE.BAR,MOCMANULINE.MANUDATE,MOCMANULINE.OUTDATE
+                                    ,TKMOCBOMMD.WATERNUMS,TKMOCBOMMD.OILNUMS,TKMOCBOMMD.OILCAL,TKMOCBOMMD.WATERCAL
+                                    ,MC1.MC004 AS MC1MC004
+                                    ,MD1.MD001 AS MD1MD001,MD1.MD003 AS MD1MD003,MD1.MD006 AS MD1MD006,MD1.MD007 AS MD1MD007,MD1.MD008 AS MD1MD008
+                                    ,ISNULL(MC2.MC004,0) AS MC2MC004
+                                    ,MD2.MD001 AS MD2MD001,MD2.MD003 AS MD2MD003,ISNULL(MD2.MD006,0) AS MD2MD006,ISNULL(MD2.MD007,0) AS MD2MD007,ISNULL(MD2.MD008,0) AS MDMD008
+                                    ,(MOCMANULINE.BAR*MD1.MD006/MD1.MD007*(1+MD1.MD008)*TKMOCBOMMD.OILCAL) AS 'MD1SUM'
+                                    ,ISNULL((MOCMANULINE.BAR*MD2.MD006/MD2.MD007*(1+MD2.MD008)*TKMOCBOMMD.OILNUMS/TKMOCBOMMD.WATERNUMS)*TKMOCBOMMD.WATERCAL,0) AS 'MD2SUM'
+                                    FROM [TKMOC].dbo.MOCMANULINE,[TKMOC].dbo.TKMOCBOMMD
+                                    LEFT JOIN [TK].dbo.BOMMC MC1 ON MC1.MC001=TKMOCBOMMD.MD001
+                                    LEFT JOIN [TK].dbo.BOMMD MD1 ON MD1.MD001=MC1.MC001
+                                    LEFT JOIN [TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003
+                                    LEFT JOIN [TK].dbo.BOMMD MD2 ON MD2.MD001=MC2.MC001
+                                    WHERE MOCMANULINE.MANU IN ('新廠製一組' ,'新廠製二組')
+                                    AND MOCMANULINE.MB001 IN (SELECT [MD001] FROM [TKMOC].[dbo].[TKMOCBOMMD])
+                                    AND MOCMANULINE.MB001=TKMOCBOMMD.MD001
+                                    AND (MD1.MD003 LIKE '1%' OR MD1.MD003 LIKE '3%' )
+                                    AND (MD2.MD003 LIKE '1%' OR MD2.MD003 LIKE '3%' OR ISNULL(MD2.MD003,'')='')
+                                    AND MOCMANULINE.MANUDATE>='{0}' AND MOCMANULINE.MANUDATE<='{1}'
+                                    --AND MOCMANULINE.MB001='3010101601'
+                                    --AND MOCMANULINE.BAR='0.8083'
+                                    ) AS TEMP
+                                    WHERE (TEMP.MD1MD003='{2}' OR TEMP.MD2MD003='{2}')  
+
+                                    ", dateTimePicker3.Value.ToString("yyyyMMdd"), dateTimePicker4.Value.ToString("yyyyMMdd"),MD003);
+
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "ds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["ds1"].Rows.Count == 0)
+                {
+                    dataGridView5.DataSource = null;
+                }
+                else
+                {
+                    if (ds1.Tables["ds1"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView5.DataSource = ds1.Tables["ds1"];
+                        dataGridView5.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+        private void dataGridView4_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView4.CurrentRow != null)
+            {
+                int rowindex = dataGridView4.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView4.Rows[rowindex];
+                    MD003 = row.Cells["品號"].Value.ToString().Trim();
+
+                    SEARCHMOCMANULINESPECIAL2(MD003);
+
+
+                }
+                else
+                {
+                    MD003 = null;
+                }
+            }
+        }
+
+
         #endregion
 
         #region BUTTON
@@ -2713,8 +2817,9 @@ namespace TKMOC
 
         }
 
+
         #endregion
 
-
+       
     }
 }
