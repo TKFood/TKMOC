@@ -60,6 +60,8 @@ namespace TKMOC
         string MD003;
         int rowIndexDG1 = -1;
         int rowIndexDG2 = -1;
+        int rowIndexDG4 = -1;
+        int rowIndexDG5 = -1;
 
         public frmPREMANUUSED()
         {
@@ -2763,7 +2765,52 @@ namespace TKMOC
                 }
             }
         }
+        public void SEARCHDG4(string SEARCHSTRING, int INDEX)
+        {
+            String searchValue = SEARCHSTRING;
+            rowIndexDG4 = INDEX;
+            int ROWS = 0;
 
+            for (int i = INDEX; i < dataGridView4.Rows.Count; i++)
+            {
+                ROWS = i;
+
+                if (dataGridView4.Rows[i].Cells[0].Value.ToString().Contains(searchValue))
+                {
+                    rowIndexDG4 = i;
+
+                    dataGridView4.CurrentRow.Selected = false;
+                    dataGridView4.Rows[i].Selected = true;
+                    int index = rowIndexDG4;
+                    dataGridView4.FirstDisplayedScrollingRowIndex = index;
+
+                    break;
+                }
+                if (dataGridView4.Rows[i].Cells[1].Value.ToString().Contains(searchValue))
+                {
+                    rowIndexDG4 = i;
+
+                    dataGridView4.CurrentRow.Selected = false;
+                    dataGridView4.Rows[i].Selected = true;
+                    int index = rowIndexDG4;
+                    dataGridView4.FirstDisplayedScrollingRowIndex = index;
+
+                    break;
+                }
+            }
+
+            if (ROWS == dataGridView4.Rows.Count - 1)
+            {
+                if (MessageBox.Show("已查到最後一筆，是否從頭開始?", "已查到最後一筆，是否從頭開始?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    SEARCHDG4(textBox6.Text.Trim(), 0);
+                }
+                else
+                {
+
+                }
+            }
+        }
 
         #endregion
 
@@ -2815,7 +2862,7 @@ namespace TKMOC
 
         private void button6_Click(object sender, EventArgs e)
         {
-            RESETTKMOCBOMMD();
+            
             SEARCHMOCMANULINESPECIAL();
 
         }
@@ -2823,11 +2870,19 @@ namespace TKMOC
         private void button7_Click(object sender, EventArgs e)
         {
 
+            if (rowIndexDG4 == -1)
+            {
+                SEARCHDG4(textBox6.Text.Trim(), 0);
+            }
+            else
+            {
+                SEARCHDG4(textBox6.Text.Trim(), rowIndexDG4 + 1);
+            }
         }
 
         private void button8_Click(object sender, EventArgs e)
         {
-
+            RESETTKMOCBOMMD();
         }
 
 
