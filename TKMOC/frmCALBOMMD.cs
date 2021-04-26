@@ -918,9 +918,12 @@ namespace TKMOC
 
         private void button2_Click(object sender, EventArgs e)
         {
-            SEARCH5(comboBox2.SelectedValue.ToString().Trim());
+            //SEARCH5(comboBox2.SelectedValue.ToString().Trim());
+            //CAL2 = Convert.ToDecimal(textBox6.Text);
 
+            textBox6.Text = "1";
             CAL2 = Convert.ToDecimal(textBox6.Text);
+
             SEARCH6(comboBox2.SelectedValue.ToString().Trim(), CAL2);
             SEARCH7(comboBox2.SelectedValue.ToString().Trim(), CAL2);
             SEARCH8(comboBox1.SelectedValue.ToString().Trim());

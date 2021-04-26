@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="04/26/2021 14:32:55" ReportInfo.Modified="04/26/2021 14:36:42" ReportInfo.CreatorVersion="2016.4.4.0">
+  <Dictionary/>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210">
+    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="56.7">
+      <TextObject Name="Text1" Top="18.9" Width="1039.5" Height="18.9" Text="原料添加表" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text2" Top="37.8" Width="160.65" Height="18.9" Text="生產線別:" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text3" Left="756" Top="37.8" Width="283.5" Height="18.9" Text="日 期：       年       月       日" HorzAlign="Right" VertAlign="Center"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="61.19" Width="1047.06" Height="28.35"/>
+    <DataBand Name="Data1" Top="94.04" Width="1047.06" Height="75.6"/>
+    <PageFooterBand Name="PageFooter1" Top="174.13" Width="1047.06" Height="18.9"/>
+  </ReportPage>
+</Report>

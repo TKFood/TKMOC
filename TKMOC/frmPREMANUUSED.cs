@@ -2503,7 +2503,10 @@ namespace TKMOC
                                     -- 3 TEMP3 前  找出油酥的總重跟比率
                                     SELECT BOMMD.MD001,BOMMD.MD003,WATERCAL
                                     ,(SELECT SUM(MD.MD006) FROM[TK].dbo.BOMMD  MD WHERE  MD.MD003 LIKE '1%' AND MD.MD003 NOT IN ('101001009') AND MD.MD001= BOMMD.MD001 ) AS 'SUMMD006'
-                                    ,(SELECT 66/MD.MD006 FROM [TK].dbo.BOMMD MD WHERE  MD.MD003 LIKE '1%' AND MD.MD003='101001002' AND MD.MD001=BOMMD.MD001 ) AS 'OILCAL'
+                                    
+                                    ,1 AS 'OILCAL'                                    
+                                    --,(SELECT 66/MD.MD006 FROM [TK].dbo.BOMMD MD WHERE  MD.MD003 LIKE '1%' AND MD.MD003='101001002' AND MD.MD001=BOMMD.MD001 ) AS 'OILCAL'
+
                                     ,TEMP2.WATERNUMS
                                     FROM [TK].dbo.BOMMD ,(
 
@@ -2578,7 +2581,7 @@ namespace TKMOC
                                     SELECT MD003  AS '品號' ,INVMB.MB002 AS '品名',SUM(MDSUM) '需求量', MB004 AS '單位'
                                     , (SELECT ISNULL(SUM(LA005 * LA011), 0) FROM[TK].dbo.INVLA WHERE  LA001 = MD003 AND LA009 IN('20004', '20005', '20006'))AS '庫存量'
                                     ,((SELECT ISNULL(SUM(LA005 * LA011), 0) FROM[TK].dbo.INVLA WHERE LA001 = MD003 AND LA009 IN('20004', '20005', '20006'))-SUM(MDSUM)) AS '差異量'
-                                    ,(SELECT ISNULL(SUM(TD008 - TD015), 0) FROM[TK].dbo.PURTD WHERE TD004 =[MD003] AND TD018 = 'Y' AND TD016 = 'N' AND TD012>= '20210422' AND TD012<= '20210429') AS '採購未交數量'
+                                    ,(SELECT ISNULL(SUM(TD008 - TD015), 0) FROM[TK].dbo.PURTD WHERE TD004 =[MD003] AND TD018 = 'Y' AND TD016 = 'N' AND TD012>= '{0}' AND TD012<= '{1}') AS '採購未交數量'
                                     FROM (
                                     SELECT MB001,MB002,MD1MD003,MD2MD003,BAR,MD1SUM,MD2SUM,MANUDATE
                                     ,(CASE WHEN ISNULL(MD2MD003,'')='' THEN MD1MD003 ELSE MD2MD003 END) AS 'MD003'
