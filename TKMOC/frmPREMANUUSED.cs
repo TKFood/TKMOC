@@ -2699,7 +2699,7 @@ namespace TKMOC
                                     LEFT JOIN [TK].dbo.BOMMD MD1 ON MD1.MD001=MC1.MC001
                                     LEFT JOIN [TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003
                                     LEFT JOIN [TK].dbo.BOMMD MD2 ON MD2.MD001=MC2.MC001
-                                    WHERE MOCMANULINE.MANU IN ('新廠製一組' ,'新廠製二組')
+                                    WHERE MOCMANULINE.MANU IN ('新廠製一組' ,'新廠製二組','新廠製三組(手工)')
                                     AND MOCMANULINE.MB001 IN (SELECT [MD001] FROM [TKMOC].[dbo].[TKMOCBOMMD])
                                     AND MOCMANULINE.MB001=TKMOCBOMMD.MD001
                                     AND (MD1.MD003 LIKE '1%' OR MD1.MD003 LIKE '3%' )
