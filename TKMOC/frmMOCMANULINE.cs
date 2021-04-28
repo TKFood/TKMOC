@@ -5321,6 +5321,7 @@ namespace TKMOC
                     if (ds1.Tables["ds1"].Rows.Count == 0)
                     {
                         SETNULL5();
+                        textBox90.Text = "1";
                     }
                     else
                     {
@@ -5394,6 +5395,8 @@ namespace TKMOC
                     if (ds1.Tables["ds1"].Rows.Count == 0)
                     {
                         SETNULL5();
+
+                        textBox91.Text = "1";
                     }
                     else
                     {
@@ -5448,6 +5451,8 @@ namespace TKMOC
                     if (ds1.Tables["ds1"].Rows.Count == 0)
                     {
                         SETNULL5();
+
+                        textBox92.Text = "1";
                     }
                     else
                     {
