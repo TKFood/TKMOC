@@ -1,14 +1,51 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="04/26/2021 14:32:55" ReportInfo.Modified="04/26/2021 14:36:42" ReportInfo.CreatorVersion="2016.4.4.0">
-  <Dictionary/>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="04/26/2021 14:32:55" ReportInfo.Modified="04/26/2021 15:21:30" ReportInfo.CreatorVersion="2016.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9L23OIlgKnoG0/9jqlXpwWm">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="--20210426 原料添加表&#13;&#10;SELECT [MOCMANULINE].MANUDATE,[MOCMANULINE].MANU,[MOCMANULINE].MB001,[MOCMANULINE].MB002,[MOCMANULINE].NUM,[MOCMANULINE].BAR&#13;&#10;,BOMMC.MC004&#13;&#10;,([MOCMANULINE].NUM/BOMMC.MC004) AS NEWBARS&#13;&#10;,MD001,MD003,MD035,MD006&#13;&#10;FROM [TKMOC].[dbo].[MOCMANULINE]&#13;&#10;LEFT JOIN [TK].dbo.BOMMC ON MC001=MB001&#13;&#10;LEFT JOIN [TK].dbo.BOMMD ON MC001=MD001&#13;&#10;WHERE MANUDATE='20210426'&#13;&#10;AND MANU IN ('新廠製二組','新廠製一組')&#13;&#10;AND MD001='3010104539'&#13;&#10;ORDER BY MANU,MB001,MD003">
+        <Column Name="MANUDATE" DataType="System.DateTime"/>
+        <Column Name="MANU" DataType="System.String"/>
+        <Column Name="MB001" DataType="System.String"/>
+        <Column Name="MB002" DataType="System.String"/>
+        <Column Name="NUM" DataType="System.Decimal"/>
+        <Column Name="BAR" DataType="System.Decimal"/>
+        <Column Name="MC004" DataType="System.Decimal"/>
+        <Column Name="NEWBARS" DataType="System.Decimal"/>
+        <Column Name="MD001" DataType="System.String"/>
+        <Column Name="MD003" DataType="System.String"/>
+        <Column Name="MD035" DataType="System.String"/>
+        <Column Name="MD006" DataType="System.Decimal"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+  </Dictionary>
   <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210">
     <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="56.7">
       <TextObject Name="Text1" Top="18.9" Width="1039.5" Height="18.9" Text="原料添加表" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text2" Top="37.8" Width="160.65" Height="18.9" Text="生產線別:" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text3" Left="756" Top="37.8" Width="283.5" Height="18.9" Text="日 期：       年       月       日" HorzAlign="Right" VertAlign="Center"/>
     </ReportTitleBand>
-    <PageHeaderBand Name="PageHeader1" Top="61.19" Width="1047.06" Height="28.35"/>
-    <DataBand Name="Data1" Top="94.04" Width="1047.06" Height="75.6"/>
-    <PageFooterBand Name="PageFooter1" Top="174.13" Width="1047.06" Height="18.9"/>
+    <PageHeaderBand Name="PageHeader1" Top="61.19" Width="1047.06" Height="37.8">
+      <TextObject Name="Text4" Width="113.4" Height="18.9" Border.Lines="All" Text="原料名稱" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text5" Left="113.4" Width="75.6" Height="18.9" Border.Lines="All" Text="A製造B有效" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text6" Left="189" Width="94.5" Height="18.9" Border.Lines="All" Text="第 桶" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text7" Left="283.5" Width="94.5" Height="18.9" Border.Lines="All" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text8" Left="378" Width="94.5" Height="18.9" Border.Lines="All" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text9" Left="472.5" Width="94.5" Height="18.9" Border.Lines="All" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text10" Left="567" Width="94.5" Height="18.9" Border.Lines="All" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text11" Left="661.5" Width="94.5" Height="18.9" Border.Lines="All" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text12" Left="756" Width="94.5" Height="18.9" Border.Lines="All" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text13" Left="850.5" Width="94.5" Height="18.9" Border.Lines="All" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text14" Left="945" Width="94.5" Height="18.9" Border.Lines="All" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text15" Top="18.9" Width="189" Height="18.9" Border.Lines="All" Text="總共[Table.NEWBARS]桶" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text18" Left="189" Top="18.9" Width="56.7" Height="18.9" Border.Lines="All" Text="重量(Kg)" HorzAlign="Center" VertAlign="Center" Font="宋体, 8pt"/>
+      <TextObject Name="Text19" Left="245.7" Top="18.9" Width="37.8" Height="18.9" Border.Lines="All" Text="複核" HorzAlign="Center" VertAlign="Center" Font="宋体, 8pt"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="103.49" Width="1047.06" Height="18.9" CanGrow="true" DataSource="Table">
+      <TextObject Name="Text16" Width="113.4" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.MD035]" VertAlign="Center"/>
+      <TextObject Name="Text20" Left="113.4" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text21" Left="189" Width="56.7" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.MD006]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="3" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="宋体, 8pt" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text22" Left="245.7" Width="37.8" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" HorzAlign="Center" VertAlign="Center" Font="宋体, 8pt"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="126.88" Width="1047.06" Height="18.9"/>
   </ReportPage>
 </Report>

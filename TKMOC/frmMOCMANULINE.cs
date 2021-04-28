@@ -1258,6 +1258,7 @@ namespace TKMOC
         {
             SEARCHMB001();
             SEARCHBOMMD();
+            SEARCHMOCHALFPRODUCTDBOXS();
 
             SEARCHMOCMANULINETEMPDATAS(textBox1.Text.Trim());
         }
@@ -4269,6 +4270,7 @@ namespace TKMOC
         {
             SEARCHMB001();
             SEARCHBOMMD();
+            SEARCHMOCHALFPRODUCTDBOXS();
 
             SEARCHMOCMANULINETEMPDATAS(textBox14.Text.Trim());
         }
@@ -4326,6 +4328,8 @@ namespace TKMOC
         {
             SEARCHMB001();
             SEARCHBOMMD();
+            SEARCHMOCHALFPRODUCTDBOXS();
+
 
             SEARCHMOCMANULINETEMPDATAS(textBox20.Text.Trim());
         }
@@ -5282,6 +5286,191 @@ namespace TKMOC
             }
         }
 
+        public void SEARCHMOCHALFPRODUCTDBOXS()
+        {
+            if (MANU.Equals("新廠製二組"))
+            {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+                    DataSet ds1 = new DataSet();
+                    SqlDataAdapter adapter1 = new SqlDataAdapter();
+                    SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+
+                    sbSql.Clear();
+                    sbSqlQuery.Clear();
+
+
+                    sbSql.AppendFormat(@" 
+                                        SELECT  [MB001],[NUMS],[BOXS]
+                                        FROM [TKMOC].[dbo].[MOCHALFPRODUCTDBOXS]
+                                        WHERE  [MB001]='{0}'
+                                        ",textBox1.Text.Trim());
+
+
+                    adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                    sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                    sqlConn.Open();
+                    ds1.Clear();
+                    adapter1.Fill(ds1, "ds1");
+                    sqlConn.Close();
+
+
+                    if (ds1.Tables["ds1"].Rows.Count == 0)
+                    {
+                        SETNULL5();
+                    }
+                    else
+                    {
+                        if (ds1.Tables["ds1"].Rows.Count >= 1)
+                        {
+                            textBox90.Text = ds1.Tables["ds1"].Rows[0]["NUMS"].ToString();
+                            
+                        }
+                    }
+
+                }
+                catch
+                {
+
+                }
+                finally
+                {
+
+                }
+
+            }
+            else if (MANU.Equals("新廠包裝線"))
+            {
+                try
+                {
+
+
+                }
+                catch
+                {
+
+                }
+                finally
+                {
+
+                }
+
+
+            }
+
+            else if (MANU.Equals("新廠製一組"))
+            {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+                    DataSet ds1 = new DataSet();
+                    SqlDataAdapter adapter1 = new SqlDataAdapter();
+                    SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+
+                    sbSql.Clear();
+                    sbSqlQuery.Clear();
+
+
+                    sbSql.AppendFormat(@" 
+                                        SELECT  [MB001],[NUMS],[BOXS]
+                                        FROM [TKMOC].[dbo].[MOCHALFPRODUCTDBOXS]
+                                        WHERE  [MB001]='{0}'
+                                        ", textBox14.Text.Trim());
+
+
+                    adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                    sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                    sqlConn.Open();
+                    ds1.Clear();
+                    adapter1.Fill(ds1, "ds1");
+                    sqlConn.Close();
+
+
+                    if (ds1.Tables["ds1"].Rows.Count == 0)
+                    {
+                        SETNULL5();
+                    }
+                    else
+                    {
+                        if (ds1.Tables["ds1"].Rows.Count >= 1)
+                        {
+                            textBox91.Text = ds1.Tables["ds1"].Rows[0]["NUMS"].ToString();
+
+                        }
+                    }
+
+                }
+                catch
+                {
+
+                }
+                finally
+                {
+
+                }
+
+            }
+            else if (MANU.Equals("新廠製三組(手工)"))
+            {
+                try
+                {
+                    connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                    sqlConn = new SqlConnection(connectionString);
+                    DataSet ds1 = new DataSet();
+                    SqlDataAdapter adapter1 = new SqlDataAdapter();
+                    SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+
+                    sbSql.Clear();
+                    sbSqlQuery.Clear();
+
+
+                    sbSql.AppendFormat(@" 
+                                        SELECT  [MB001],[NUMS],[BOXS]
+                                        FROM [TKMOC].[dbo].[MOCHALFPRODUCTDBOXS]
+                                        WHERE  [MB001]='{0}'
+                                        ", textBox20.Text.Trim());
+
+
+                    adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                    sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                    sqlConn.Open();
+                    ds1.Clear();
+                    adapter1.Fill(ds1, "ds1");
+                    sqlConn.Close();
+
+
+                    if (ds1.Tables["ds1"].Rows.Count == 0)
+                    {
+                        SETNULL5();
+                    }
+                    else
+                    {
+                        if (ds1.Tables["ds1"].Rows.Count >= 1)
+                        {
+                            textBox92.Text = ds1.Tables["ds1"].Rows[0]["NUMS"].ToString();
+
+                        }
+                    }
+
+                }
+                catch
+                {
+
+                }
+                finally
+                {
+
+                }
+
+            }
+        }
+
         public void SETNULL5()
         {
             //textBox1.Text = null;
@@ -5289,6 +5478,9 @@ namespace TKMOC
             textBox37.Text = null;
             textBox38.Text = null;
             textBox39.Text = null;
+            textBox90.Text = null;
+            textBox91.Text = null;
+            textBox92.Text = null;
         }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
