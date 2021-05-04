@@ -41,6 +41,8 @@ namespace TKMOC
         int rownum = 0;
         DataSet ds1 = new DataSet();
 
+        string STATUS = "";
+
         public Report report1 { get; private set; }
 
         public frmREPORTMOCTAB()
@@ -1065,6 +1067,317 @@ namespace TKMOC
             }
         }
 
+        public void SETNULL1()
+        {
+            textBox12.Text = "";
+            textBox13.Text = "";
+            textBox14.Text = "";
+
+            textBox12.ReadOnly = false;
+            //textBox13.ReadOnly = false;
+            textBox14.ReadOnly = false;
+        }
+
+        public void SETNULL2()
+        {
+            textBox12.ReadOnly = true;
+            //textBox13.ReadOnly = true;
+            textBox14.ReadOnly = true;
+        }
+        public void SETNULL3()
+        {
+            textBox12.ReadOnly = false;
+            //textBox13.ReadOnly = false;
+            textBox14.ReadOnly = false;
+        }
+
+        public void SEARCHMOCHALFPRODUCTDBOXS()
+        {
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            DataSet ds1 = new DataSet();
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+
+                if (string.IsNullOrEmpty(textBox11.Text))
+                {
+                    sbSql.AppendFormat(@"  
+                                SELECT [MOCHALFPRODUCTDBOXS].[MB001] AS '品號',[MB002] AS '品名',[NUMS] AS '箱重',[BOXS] AS '箱數'
+                                FROM [TKMOC].[dbo].[MOCHALFPRODUCTDBOXS],[TK].dbo.[INVMB]
+                                WHERE [MOCHALFPRODUCTDBOXS].[MB001]=[INVMB].[MB001]
+                                 ");
+                }
+                else if (!string.IsNullOrEmpty(textBox11.Text))
+                {
+                    sbSql.AppendFormat(@"  
+                                SELECT [MOCHALFPRODUCTDBOXS].[MB001] AS '品號',[MB002] AS '品名',[NUMS] AS '箱重',[BOXS] AS '箱數'
+                                FROM [TKMOC].[dbo].[MOCHALFPRODUCTDBOXS],[TK].dbo.[INVMB]
+                                WHERE [MOCHALFPRODUCTDBOXS].[MB001]=[INVMB].[MB001]
+                                AND ([MOCHALFPRODUCTDBOXS].[MB001] LIKE '%{0}%' OR [MB002] LIKE '%{0}%')
+                                 ", textBox11.Text);
+                }
+
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "ds1");
+                sqlConn.Close();
+
+                if (ds1.Tables["ds1"].Rows.Count >= 1)
+                {
+                    //dataGridView1.Rows.Clear();
+                    dataGridView5.DataSource = ds1.Tables["ds1"];
+                    dataGridView5.AutoResizeColumns();
+                    //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                }
+              
+                else
+                {
+                    dataGridView5.DataSource = null;
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+
+        }
+
+        private void dataGridView5_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView5.CurrentRow != null)
+            {
+                int rowindex = dataGridView5.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView5.Rows[rowindex];
+                    textBox12.Text = row.Cells["品號"].Value.ToString().Trim();
+                    textBox14.Text = row.Cells["箱重"].Value.ToString().Trim();
+
+
+                }
+                else
+                {
+
+
+                }
+            }
+        }
+
+
+        public void ADDMOCHALFPRODUCTDBOXS(string MB001, string NUMS, string BOXS)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat(@" 
+                                    INSERT INTO[TKMOC].[dbo].[MOCHALFPRODUCTDBOXS]
+                                    ([MB001],[NUMS],[BOXS])
+                                    VALUES('{0}',{1},{2})
+                                        ", MB001, NUMS, 1);
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+
+
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void UPDATEMOCHALFPRODUCTDBOXS(string MB001, string NUMS)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat(@" 
+                                   UPDATE [TKMOC].[dbo].[MOCHALFPRODUCTDBOXS]
+                                    SET [NUMS]={1}
+                                    WHERE [MB001]='{0}'
+                                        ", MB001, NUMS);
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+
+
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void DELETEMOCHALFPRODUCTDBOXS(string MB001)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat(@" 
+                                   DELETE [TKMOC].[dbo].[MOCHALFPRODUCTDBOXS]
+                                    WHERE [MB001]='{0}'
+                                        ", MB001);
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+
+
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        private void textBox12_TextChanged(object sender, EventArgs e)
+        {
+            textBox13.Text = SERCHINVMB(textBox12.Text.Trim());
+        }
+        public string SERCHINVMB(string MB001)
+        {
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            DataSet ds1 = new DataSet();
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat(@"  
+                                    SELECT MB002 FROM [TK].dbo.INVMB WHERE MB001='{0}'
+                                    ", MB001);
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "ds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["ds1"].Rows.Count >= 1)
+                {
+                    return ds1.Tables["ds1"].Rows[0]["MB002"].ToString().Trim();
+                }
+                else
+                {
+                    return "";
+                }
+
+            }
+            catch
+            {
+                return "";
+            }
+            finally
+            {
+
+            }
+        }
+
         #endregion
 
         #region BUTTON
@@ -1145,10 +1458,64 @@ namespace TKMOC
             SEARCHREPORTMOCMANULINE(dateTimePicker3.Value.ToString("yyyyMMdd"));
         }
 
+        private void button12_Click(object sender, EventArgs e)
+        {
+            SEARCHMOCHALFPRODUCTDBOXS();
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            SETNULL1();
+            STATUS = "ADD";
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            SETNULL3();
+            STATUS = "UPDATE";
+        }
+
+        private void button16_Click(object sender, EventArgs e)
+        {
+
+            SETNULL2();
+
+            if (STATUS.Equals("ADD"))
+            {
+                ADDMOCHALFPRODUCTDBOXS(textBox12.Text.Trim(), textBox14.Text.Trim(), "1");
+            }
+            else if (STATUS.Equals("UPDATE"))
+            {
+                UPDATEMOCHALFPRODUCTDBOXS(textBox12.Text.Trim(), textBox14.Text.Trim());
+            }
+
+            STATUS = "";
+            SEARCHMOCHALFPRODUCTDBOXS();
+        }
+
+        private void button15_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("要刪除嗎?", "要刪除嗎?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                DELETEMOCHALFPRODUCTDBOXS(textBox12.Text.Trim());
+
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                //do something else
+            }
+
+
+            STATUS = "";
+            SEARCHMOCHALFPRODUCTDBOXS();
+        }
+
+
 
 
         #endregion
 
-       
+      
     }
 }
