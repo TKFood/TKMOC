@@ -171,12 +171,67 @@ namespace TKMOC
             float BUCKETSFLOAT = float.Parse(BUCKETS);
             int COUNTS = Convert.ToInt32(Math.Ceiling(BUCKETSFLOAT));
 
-            MessageBox.Show(COUNTS.ToString());
+            //MessageBox.Show(COUNTS.ToString());
 
-            //for (int i=1;i<=COUNTS;i++)
-            //{
-                
-            //}
+           
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat(@" DELETE [TKMOC].[dbo].[REPORTMOCBOM]");
+                sbSql.AppendFormat(@" ");
+
+                for (int i = 1; i <= COUNTS; i++)
+                    {
+                        sbSql.AppendFormat(@"
+                                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOM]
+                                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
+                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,MD006
+                                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
+                                            WHERE TA006=MD001
+                                            AND MD003=MB001
+                                            AND TA001='{0}' AND TA002='{1}'
+                                            ORDER BY MD003
+
+                                           ",TA001,TA002,i);
+                    }
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+            
         }
 
         public void ADDTOREPORTMOCBOMODD(string TA001, string TA002, string BUCKETS)
@@ -185,7 +240,7 @@ namespace TKMOC
             int COUNTS = Convert.ToInt32(Math.Ceiling(BUCKETSFLOAT))-1;
             decimal BUCKETSSMAILL = Convert.ToDecimal(BUCKETSFLOAT- COUNTS);
 
-            MessageBox.Show(BUCKETSFLOAT.ToString()+" "+ COUNTS.ToString()+" "+ BUCKETSSMAILL.ToString());
+            //MessageBox.Show(BUCKETSFLOAT.ToString()+" "+ COUNTS.ToString()+" "+ BUCKETSSMAILL.ToString());
             
         }
 
