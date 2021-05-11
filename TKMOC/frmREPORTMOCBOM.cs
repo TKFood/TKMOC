@@ -144,7 +144,7 @@ namespace TKMOC
             }
         }
 
-        public void SETREPORT(string BUCKETS)
+        public void SETREPORT(string TA001,string TA002,string BUCKETS)
         {
             float BUCKETSORI = float.Parse(BUCKETS);
             bool CHECKFLOOR = IsIntegerFloor(BUCKETSORI);
@@ -153,16 +153,42 @@ namespace TKMOC
             {
                 if(CHECKFLOOR==true)
                 {
-                    MessageBox.Show(CHECKFLOOR  + BUCKETSORI.ToString());
+                    ADDTOREPORTMOCBOM(TA001, TA002, BUCKETS);
+                    //MessageBox.Show(CHECKFLOOR  + BUCKETSORI.ToString());
                 }
                 else
                 {
-                    MessageBox.Show(CHECKFLOOR  + BUCKETSORI.ToString());
+                    ADDTOREPORTMOCBOMODD(TA001, TA002, BUCKETS);
+                    //MessageBox.Show(CHECKFLOOR  + BUCKETSORI.ToString());
                 }
                 
                 
             }
         }
+
+        public void ADDTOREPORTMOCBOM(string TA001, string TA002, string BUCKETS)
+        {
+            float BUCKETSFLOAT = float.Parse(BUCKETS);
+            int COUNTS = Convert.ToInt32(Math.Ceiling(BUCKETSFLOAT));
+
+            MessageBox.Show(COUNTS.ToString());
+
+            //for (int i=1;i<=COUNTS;i++)
+            //{
+                
+            //}
+        }
+
+        public void ADDTOREPORTMOCBOMODD(string TA001, string TA002, string BUCKETS)
+        {
+            float BUCKETSFLOAT = float.Parse(BUCKETS);
+            int COUNTS = Convert.ToInt32(Math.Ceiling(BUCKETSFLOAT))-1;
+            decimal BUCKETSSMAILL = Convert.ToDecimal(BUCKETSFLOAT- COUNTS);
+
+            MessageBox.Show(BUCKETSFLOAT.ToString()+" "+ COUNTS.ToString()+" "+ BUCKETSSMAILL.ToString());
+            
+        }
+
 
 
         public static bool IsIntegerFloor(float f)
@@ -178,7 +204,7 @@ namespace TKMOC
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            SETREPORT(textBox3.Text.Trim());
+            SETREPORT(textBox1.Text.Trim(), textBox2.Text.Trim(),textBox3.Text.Trim());
         }
 
         #endregion
