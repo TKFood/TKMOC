@@ -129,13 +129,16 @@ namespace TKMOC
                     DataGridViewRow row = dataGridView1.Rows[rowindex];
                     textBox1.Text = row.Cells["製令"].Value.ToString().Trim();
                     textBox2.Text = row.Cells["單號"].Value.ToString().Trim();
+                    textBox3.Text = row.Cells["桶數"].Value.ToString().Trim();
 
-                 
+
 
                 }
                 else
                 {
-                    
+                    textBox1.Text = "";
+                    textBox2.Text = "";
+                    textBox3.Text = "";
 
                 }
             }
