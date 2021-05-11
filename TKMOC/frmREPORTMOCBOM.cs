@@ -119,7 +119,27 @@ namespace TKMOC
 
             }
         }
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView1.CurrentRow != null)
+            {
+                int rowindex = dataGridView1.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView1.Rows[rowindex];
+                    textBox1.Text = row.Cells["製令"].Value.ToString().Trim();
+                    textBox2.Text = row.Cells["單號"].Value.ToString().Trim();
 
+                 
+
+                }
+                else
+                {
+                    
+
+                }
+            }
+        }
 
         #endregion
 
@@ -129,5 +149,7 @@ namespace TKMOC
             Search();
         }
         #endregion
+
+        
     }
 }
