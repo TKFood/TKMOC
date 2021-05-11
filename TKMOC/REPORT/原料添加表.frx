@@ -1,7 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="04/26/2021 14:32:55" ReportInfo.Modified="04/28/2021 16:10:35" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="04/26/2021 14:32:55" ReportInfo.Modified="05/11/2021 09:41:58" ReportInfo.CreatorVersion="2016.4.4.0">
+  <ScriptText>using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
+using System.Drawing;
+using System.Data;
+using FastReport;
+using FastReport.Data;
+using FastReport.Dialog;
+using FastReport.Barcode;
+using FastReport.Table;
+using FastReport.Utils;
+
+namespace FastReport
+{
+  public class ReportScript
+  {
+
+    private void Cell27_BeforePrint(object sender, EventArgs e)
+    {
+        Cell27.Text=&quot;□OK&quot;; 
+    }
+  }
+}
+</ScriptText>
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9INpHnE9gIuikLSmqVCC+UB">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9KpymotlGrW8ggVkZsSx/L3">
       <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="--20210426 原料添加表&#13;&#10;SELECT [MOCMANULINE].MANUDATE,[MOCMANULINE].MANU,[MOCMANULINE].MB001,[MOCMANULINE].MB002,[MOCMANULINE].NUM,[MOCMANULINE].BAR&#13;&#10;,BOMMC.MC004&#13;&#10;,([MOCMANULINE].NUM/BOMMC.MC004) AS NEWBARS&#13;&#10;,MD001,MD003,MD035,MD006&#13;&#10;FROM [TKMOC].[dbo].[MOCMANULINE]&#13;&#10;LEFT JOIN [TK].dbo.BOMMC ON MC001=MB001&#13;&#10;LEFT JOIN [TK].dbo.BOMMD ON MC001=MD001&#13;&#10;WHERE MANUDATE='20210426'&#13;&#10;AND MANU IN ('新廠製二組','新廠製一組')&#13;&#10;AND MD001='3010104539'&#13;&#10;ORDER BY MANU,MB001,MD003">
         <Column Name="MANUDATE" DataType="System.DateTime"/>
         <Column Name="MANU" DataType="System.String"/>
@@ -17,7 +43,7 @@
         <Column Name="MD006" DataType="System.Decimal"/>
       </TableDataSource>
     </MsSqlDataConnection>
-    <MsSqlDataConnection Name="Connection1" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9JELoj5h352KbpobEeCNwRW">
+    <MsSqlDataConnection Name="Connection1" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9KNkBZsVJ+/ucsv5Qfo5+FO">
       <TableDataSource Name="Table1" DataType="System.Int32" Enabled="true" SelectCommand="/****** SSMS 中 SelectTopNRows 命令的指令碼  ******/&#13;&#10;SELECT [ID]&#13;&#10;,[TA001] AS '製令'&#13;&#10;,[TA002] AS '製令單號'&#13;&#10;,[BOXS] AS '桶數'&#13;&#10;,[MD003] AS '品號'&#13;&#10;,[MB002] AS '品名'&#13;&#10;,[MD006] AS '數量'&#13;&#10;,''AS 已投入量&#13;&#10;FROM [TKMOC].[dbo].[REPORTMOCBOM]&#13;&#10;ORDER BY [TA001],[TA002],[BOXS],[MD003]">
         <Column Name="ID" DataType="System.Int32"/>
         <Column Name="製令" DataType="System.String"/>
@@ -99,7 +125,7 @@
     </ReportTitleBand>
     <PageHeaderBand Name="PageHeader3" Top="42.29" Width="2192.4" Height="28.35"/>
     <DataBand Name="Data3" Top="75.14" Width="2192.4" Height="121.13">
-      <MatrixObject Name="Matrix1" Width="325.86" Height="71.07" Border.Lines="All" FixedRows="2" FixedColumns="4" CellsSideBySide="true" DataSource="Table1">
+      <MatrixObject Name="Matrix1" Width="325.86" Height="72.76" Border.Lines="All" FixedRows="2" FixedColumns="4" CellsSideBySide="true" DataSource="Table1">
         <MatrixColumns>
           <Header Expression="[Table1.桶數]" Totals="false"/>
         </MatrixColumns>
@@ -143,12 +169,12 @@
           <TableCell Name="Cell19" Border.Lines="All" Text="[數量]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center"/>
           <TableCell Name="Cell22" Border.Lines="All" Text="[已投入量]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center"/>
         </TableRow>
-        <TableRow Name="Row4" Height="16.5" AutoSize="true">
-          <TableCell Name="Cell23" Border.Lines="All" Text="Total" HorzAlign="Center" VertAlign="Center" ColSpan="4"/>
+        <TableRow Name="Row4" Height="18.19" AutoSize="true">
+          <TableCell Name="Cell23" Border.Lines="All" Text="外觀:攪拌均勻度、軟硬度" HorzAlign="Center" VertAlign="Center" ColSpan="4"/>
           <TableCell Name="Cell24"/>
           <TableCell Name="Cell25"/>
           <TableCell Name="Cell26"/>
-          <TableCell Name="Cell27" Border.Lines="All" HorzAlign="Right" VertAlign="Center"/>
+          <TableCell Name="Cell27" Border.Lines="All" BeforePrintEvent="Cell27_BeforePrint" HorzAlign="Right" VertAlign="Center"/>
           <TableCell Name="Cell28" Border.Lines="All" HorzAlign="Right" VertAlign="Center"/>
         </TableRow>
       </MatrixObject>
