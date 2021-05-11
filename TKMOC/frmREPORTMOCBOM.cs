@@ -144,6 +144,31 @@ namespace TKMOC
             }
         }
 
+        public void SETREPORT(string BUCKETS)
+        {
+            float BUCKETSORI = float.Parse(BUCKETS);
+            bool CHECKFLOOR = IsIntegerFloor(BUCKETSORI);
+
+            if (!string.IsNullOrEmpty(BUCKETS)&& BUCKETSORI > 0)
+            {
+                if(CHECKFLOOR==true)
+                {
+                    MessageBox.Show(CHECKFLOOR  + BUCKETSORI.ToString());
+                }
+                else
+                {
+                    MessageBox.Show(CHECKFLOOR  + BUCKETSORI.ToString());
+                }
+                
+                
+            }
+        }
+
+
+        public static bool IsIntegerFloor(float f)
+        {
+            return f == Math.Floor(f);
+        }
         #endregion
 
         #region BUTTON
@@ -151,8 +176,13 @@ namespace TKMOC
         {
             Search();
         }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            SETREPORT(textBox3.Text.Trim());
+        }
+
         #endregion
 
-        
+
     }
 }
