@@ -76,12 +76,12 @@ namespace TKMOC
                 sbSqlQuery.Clear();
                 
                 sbSql.AppendFormat(@"  
-                                    SELECT TA001 AS '製令',TA002 AS '單號',TA003 AS '生產日',TA006 AS '品號',TA034 AS '品名',TA015 AS '生產量',TA035 AS '規格',MC004 AS '標準批量',(TA015/MC004)  AS '桶數'
+                                    SELECT TA001 AS '製令',TA002 AS '單號',TA006 AS '品號',TA034 AS '品名',TA015 AS '生產量',TA003 AS '生產日',TA035 AS '規格',MC004 AS '標準批量',(TA015/MC004)  AS '桶數'
                                     FROM [TK].dbo.MOCTA,[TK].dbo.BOMMC
                                     WHERE TA006=MC001
                                     AND TA003='{0}'
                                     ORDER BY TA001,TA002
-                                    ",dateTimePicker1.Value.ToString("yyyyMMdd"));
+                                    ", dateTimePicker1.Value.ToString("yyyyMMdd"));
 
                 adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -95,8 +95,13 @@ namespace TKMOC
                 {
 
                     dataGridView1.DataSource = ds.Tables["TEMPds1"];
-                    dataGridView1.AutoResizeColumns();
-                  
+
+                    dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 9);
+                    dataGridView1.DefaultCellStyle.Font = new Font("Tahoma", 10);
+                    dataGridView1.Columns["製令"].Width = 60;
+                    dataGridView1.Columns["單號"].Width = 100;
+                    dataGridView1.Columns["品號"].Width = 100;
+                    dataGridView1.Columns["品名"].Width = 120;
                 }
                 else
                 {
