@@ -301,8 +301,24 @@ namespace TKMOC
         public void ADDTOREPORTMOCBOMODD(string TA001, string TA002, string BUCKETS)
         {
             float BUCKETSFLOAT = float.Parse(BUCKETS);
-            int COUNTS = Convert.ToInt32(Math.Ceiling(BUCKETSFLOAT))-1;
-            decimal BUCKETSSMAILL = Convert.ToDecimal(BUCKETSFLOAT- COUNTS);
+            int COUNTS = Convert.ToInt32(Math.Ceiling(BUCKETSFLOAT));
+            decimal BUCKETSSMAILL = Convert.ToDecimal(BUCKETSFLOAT- (COUNTS-1));
+
+            //處理負數
+            //BUCKETSFLOAT>0 && BUCKETSFLOAT<1，只有1未滿桶
+            //BUCKETSFLOAT>1正常
+
+            if (BUCKETSFLOAT>0 && BUCKETSFLOAT<1)
+            {
+                BUCKETSSMAILL =Convert.ToDecimal(BUCKETSFLOAT);
+                COUNTS = 0;
+            }
+            else if(BUCKETSFLOAT>1)
+            {
+                COUNTS = COUNTS;
+                BUCKETSSMAILL = BUCKETSSMAILL;
+            }
+           
 
             //MessageBox.Show(BUCKETSFLOAT.ToString()+" "+ COUNTS.ToString()+" "+ BUCKETSSMAILL.ToString());
 
