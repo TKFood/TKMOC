@@ -309,6 +309,8 @@ namespace TKMOC
 
         public StringBuilder SETSQL1()
         {
+            //,(TA017*ISNULL((SELECT TOP 1 (1/[NUMS]*[BOXS]) FROM [TKMOC].[dbo].[MOCHALFPRODUCTDBOXS] WHERE [MOCHALFPRODUCTDBOXS].MB001=INVMB.MB001),1)) AS '桶數'
+
             StringBuilder SB = new StringBuilder();
 
             SB.AppendFormat(@" SELECT 
@@ -333,7 +335,8 @@ namespace TKMOC
                                 , (SELECT ISNULL(SUM(TB005), 0) FROM[TK].dbo.MOCTB TB WHERE(TB.TB003 LIKE '1%' OR TB.TB003 LIKE '3%') AND TB.TB001 = MOCTA.TA001 AND TB.TB002 = MOCTA.TA002)  AS '原料用量'
                                 ,(SELECT ISNULL(SUM(TB005 * MB.UDF07), 0) FROM[TK].dbo.MOCTB TB,[TK].dbo.INVMB MB WHERE TB.TB003=MB.MB001 AND TB.TB003 LIKE '4%' AND TB.TB001= MOCTA.TA001 AND TB.TB002= MOCTA.TA002) AS '成品用量'
                                 ,CASE WHEN INVMB.UDF08>0 AND INVMB.UDF09>0  THEN 1/(INVMB.UDF08+INVMB.UDF09)*INVMB.UDF09 ELSE 0 END AS '袋重比'
-                                ,(TA017*ISNULL((SELECT TOP 1 (1/[NUMS]*[BOXS]) FROM [TKMOC].[dbo].[MOCHALFPRODUCTDBOXS] WHERE [MOCHALFPRODUCTDBOXS].MB001=INVMB.MB001),1)) AS '桶數'
+                                ,CONVERT(decimal(16,3),(TA017/ISNULL((SELECT TOP 1 MC004 FROM [TK].dbo.BOMMC WHERE MC001=MB001),1))) AS '桶數'
+                                
                                 FROM[TK].dbo.INVMB,[TK].dbo.MOCTA,[TK].dbo.CMSMD
                                 WHERE TA006=MB001 AND TA021=MD001
                                 AND ISNULL(INVMB.UDF03,'')<>''
