@@ -82,7 +82,7 @@ namespace TKMOC
                                     AND TA006 LIKE '3%'
                                     AND TA003='{0}'
                                     ORDER BY TA001,TA002 
-                                    
+                                     
                                     ", dateTimePicker1.Value.ToString("yyyyMMdd"));
 
                 adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
