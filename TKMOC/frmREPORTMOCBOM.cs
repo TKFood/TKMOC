@@ -80,6 +80,7 @@ namespace TKMOC
                                     FROM [TK].dbo.MOCTA,[TK].dbo.BOMMC
                                     WHERE TA006=MC001
                                     AND (TA006 LIKE '3%' OR TA006 LIKE '4%')
+                                    AND TA021 IN ('02','03','04')
                                     AND TA003='{0}'
                                     ORDER BY TA001,TA002 
                                      
@@ -256,10 +257,11 @@ namespace TKMOC
                                             FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
                                             WHERE TA006=MD001
                                             AND MD003=MB001
+                                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
                                             AND TA001='{0}' AND TA002='{1}'
                                             ORDER BY MD003
 
-                                           ",TA001,TA002,i);
+                                           ", TA001,TA002,i);
                     }
 
 
@@ -346,6 +348,7 @@ namespace TKMOC
                                             FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
                                             WHERE TA006=MD001
                                             AND MD003=MB001
+                                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
                                             AND TA001='{0}' AND TA002='{1}'
                                             ORDER BY MD003
 
@@ -360,6 +363,7 @@ namespace TKMOC
                                             FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
                                             WHERE TA006=MD001
                                             AND MD003=MB001
+                                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
                                             AND TA001='{0}' AND TA002='{1}'
                                             ORDER BY MD003
 
@@ -371,6 +375,7 @@ namespace TKMOC
                                             FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
                                             WHERE TA006=MD001
                                             AND MD003=MB001
+                                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
                                             AND TA001='{0}' AND TA002='{1}'
                                             ORDER BY MD003
 
@@ -385,6 +390,7 @@ namespace TKMOC
                                             FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
                                             WHERE TA006=MD001
                                             AND MD003=MB001
+                                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
                                             AND TA001='{0}' AND TA002='{1}'
                                             ORDER BY MD003
 
