@@ -258,6 +258,7 @@ namespace TKMOC
                                             WHERE TA006=MD001
                                             AND MD003=MB001
                                             AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
+                                            AND MD003 NOT LIKE '301400%'
                                             AND TA001='{0}' AND TA002='{1}'
                                             ORDER BY MD003
 
@@ -349,6 +350,7 @@ namespace TKMOC
                                             WHERE TA006=MD001
                                             AND MD003=MB001
                                             AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
+                                            AND MD003 NOT LIKE '301400%'
                                             AND TA001='{0}' AND TA002='{1}'
                                             ORDER BY MD003
 
@@ -364,6 +366,7 @@ namespace TKMOC
                                             WHERE TA006=MD001
                                             AND MD003=MB001
                                             AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
+                                            AND MD003 NOT LIKE '301400%'
                                             AND TA001='{0}' AND TA002='{1}'
                                             ORDER BY MD003
 
@@ -376,6 +379,7 @@ namespace TKMOC
                                             WHERE TA006=MD001
                                             AND MD003=MB001
                                             AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
+                                            AND MD003 NOT LIKE '301400%'
                                             AND TA001='{0}' AND TA002='{1}'
                                             ORDER BY MD003
 
@@ -391,6 +395,7 @@ namespace TKMOC
                                             WHERE TA006=MD001
                                             AND MD003=MB001
                                             AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
+                                            AND MD003 NOT LIKE '301400%'
                                             AND TA001='{0}' AND TA002='{1}'
                                             ORDER BY MD003
 
