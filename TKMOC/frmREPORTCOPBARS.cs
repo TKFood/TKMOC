@@ -85,6 +85,7 @@ namespace TKMOC
                                 AND MC1.MC001=MD1.MD001
                                 AND MC2.MC001=MD1.MD003
                                 AND TC027='Y'
+                                AND COPTD.UDF01='Y'
                                 AND MD1.MD003 LIKE '301%'
                                 AND MB068 IN ('09')
                                 AND TC003>='{0}' AND TC003<='{1}'
@@ -98,6 +99,7 @@ namespace TKMOC
                                 AND MC1.MC001=MD1.MD001
                                 AND MC2.MC001=MD1.MD003
                                 AND TC027='Y'
+                                AND COPTD.UDF01='Y'
                                 AND MD1.MD003 LIKE '301%'
                                 AND MB068 IN ('02','03')
                                 AND TC003>='{0}' AND TC003<='{1}'
