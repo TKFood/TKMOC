@@ -72,7 +72,7 @@ namespace TKMOC
 
            
             SB.AppendFormat(@" 
-                                SELECT TC001 AS '訂單',TC002 AS '單號',TC003 AS '訂單日期',TC004 AS '客戶代號'
+                                SELECT TC001 AS '訂單',TC002 AS '單號',TD003 AS '序號',TC003 AS '訂單日期',TC004 AS '客戶代號'
                                 ,MA002 AS '客戶',TD004 AS '品號',TD005 AS '品名',TD006 AS '規格',(TD008+TD024) AS '訂單數量'
                                 ,MB068 AS '生產別',MC1.MC004  AS 'MC1MC004',MD1.MD003 AS 'MD1MD003',MD1.MD006 AS 'MD1MD006'
                                 ,MD1.MD007 AS 'MD1MD007',MC2.MC001 AS 'MC2MC001',MC2.MC004  AS 'MC2MC004'
@@ -87,10 +87,11 @@ namespace TKMOC
                                 AND TC027='Y'
                                 AND COPTD.UDF01='Y'
                                 AND MD1.MD003 LIKE '301%'
+                                AND MD1.MD003 NOT LIKE '30100002%'
                                 AND MB068 IN ('09')
                                 AND TC003>='{0}' AND TC003<='{1}'
                                 UNION ALL
-                                SELECT TC001,TC002,TC003,TC004,MA002,TD004,TD005,TD006,(TD008+TD024),MB068,MC1.MC004 MC1MC004,MD1.MD003,MD1.MD006,MD1.MD007,MC2.MC001,MC2.MC004 MC2MC004,((TD008+TD024)/MC1.MC004) AS 'BAR'
+                                SELECT TC001,TC002,TD003,TC003,TC004,MA002,TD004,TD005,TD006,(TD008+TD024),MB068,MC1.MC004 MC1MC004,MD1.MD003,MD1.MD006,MD1.MD007,MC2.MC001,MC2.MC004 MC2MC004,((TD008+TD024)/MC1.MC004) AS 'BAR'
                                 FROM [TK].dbo.COPTC,[TK].dbo.COPTD,[TK].dbo.INVMB,[TK].dbo.COPMA,[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1,[TK].dbo.BOMMC MC2
                                 WHERE TC001=TD001 AND TC002=TD002
                                 AND TD004=MB001
@@ -101,6 +102,7 @@ namespace TKMOC
                                 AND TC027='Y'
                                 AND COPTD.UDF01='Y'
                                 AND MD1.MD003 LIKE '301%'
+                                AND MD1.MD003 NOT LIKE '30100002%'
                                 AND MB068 IN ('02','03')
                                 AND TC003>='{0}' AND TC003<='{1}'
 
