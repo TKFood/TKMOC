@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="04/26/2021 14:32:55" ReportInfo.Modified="05/24/2021 17:45:43" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="04/26/2021 14:32:55" ReportInfo.Modified="05/24/2021 17:47:20" ReportInfo.CreatorVersion="2016.4.4.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -119,7 +119,7 @@ namespace FastReport
 }
 </ScriptText>
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9J0Rq218mhmeQ1SSoObeGb4">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9KmzG4aqC+mu5AJc1eidQ4x">
       <TableDataSource Name="Table1" Alias="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT [ID]&#13;&#10;,[TA001]+[TA002] AS '製令'&#13;&#10;,'第'+CONVERT(nvarchar,[BOXS])+'桶' AS '桶數'&#13;&#10;,TA006 AS '成品'&#13;&#10;,TA034 AS '成品名'&#13;&#10;,[MD003] AS '品號'&#13;&#10;,[MB002] AS '品名'&#13;&#10;,[MD006] AS '重量'&#13;&#10;,'' AS '複核'&#13;&#10;,'' AS '油酥'&#13;&#10;,'' AS '檢查麵粉袋的麵粉線頭'&#13;&#10;,'' AS 'A製造  B有效'&#13;&#10;,'' AS '外觀:攪拌均勻度、軟硬度'&#13;&#10;,'' AS '攪拌時間  始'&#13;&#10;,'' AS '攪拌時間  終'&#13;&#10;,'' AS '投 料 人'&#13;&#10;,'' AS '對 點 人'&#13;&#10;,'' AS '單位幹部'&#13;&#10;,'' AS '品質判定'&#13;&#10;,'' AS '換線清潔檢查'&#13;&#10;FROM [TKMOC].[dbo].[REPORTMOCBOM]&#13;&#10;ORDER BY [TA001],[TA002],[BOXS],[MD003]&#13;&#10;&#13;&#10;">
         <Column Name="ID" DataType="System.Int32"/>
         <Column Name="製令" DataType="System.String"/>
@@ -420,7 +420,7 @@ namespace FastReport
     <PageFooterBand Name="PageFooter3" Top="447.96" Width="1047.06" Height="67.15">
       <TextObject Name="Text3" Top="48.25" Width="548.1" Height="18.9" Text="本文件不得擅自塗改或影印(文件生產部留存)"/>
       <TextObject Name="Text4" Left="831.6" Top="47.25" Width="236.25" Height="18.9" Text=" A13-02-00-02B" HorzAlign="Right"/>
-      <TextObject Name="Text1" Top="3" Width="548.1" Height="47.25" Text="1.單位幹部需執行每批產品第一桶的品質判定及換線清潔檢查，未合格不可進行生產。 &#13;&#10;2.換線(更換口味)清潔檢查項目:設備、工器具及籃框清潔檢查。&#13;&#10;3.投料人檢查麵粉袋的麵粉線頭,發現異常時選NG後立即清除並回報單位幹部及品檢課。 &#13;&#10;"/>
+      <TextObject Name="Text1" Top="3" Width="548.1" Height="47.25" Text="1.單位幹部需執行每批產品第一桶的品質判定及換線清潔檢查，未合格不可進行生產。 &#13;&#10;2.換線(更換口味)清潔檢查項目:設備、工器具及籃框清潔檢查。&#13;&#10;3.投料人檢查麵粉袋的麵粉線頭,發現異常時選NG後立即清除並回報單位幹部及品檢課。 &#13;&#10;" VertAlign="Center"/>
       <TextObject Name="Text2" Left="831.6" Width="236.25" Height="18.9" Text="生產部主管："/>
     </PageFooterBand>
   </ReportPage>
