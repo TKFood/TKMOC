@@ -66,11 +66,22 @@ namespace TKMOC
 
         public StringBuilder SETSQL()
         {
-
-
             StringBuilder SB = new StringBuilder();
+            StringBuilder QUERY = new StringBuilder();
 
-           
+            if(comboBox1.Text.Equals("是"))
+            {
+                QUERY.AppendFormat(@" 
+                                     AND COPTD.UDF01='Y'
+                                    ");
+            }
+            else
+            {
+                QUERY.AppendFormat(@" 
+                                   
+                                    ");
+            }
+
             SB.AppendFormat(@" 
                                 SELECT TC001 AS '訂單',TC002 AS '單號',TD003 AS '序號',TC003 AS '訂單日期',TC004 AS '客戶代號'
                                 ,MA002 AS '客戶',TD004 AS '品號',TD005 AS '品名',TD006 AS '規格',(TD008+TD024) AS '訂單數量'
@@ -85,7 +96,7 @@ namespace TKMOC
                                 AND MC1.MC001=MD1.MD001
                                 AND MC2.MC001=MD1.MD003
                                 AND TC027='Y'
-                                AND COPTD.UDF01='Y'
+                                {2}
                                 AND MD1.MD003 LIKE '301%'
                                 AND MD1.MD003 NOT LIKE '30100002%'
                                 AND MB068 IN ('09')
@@ -100,13 +111,13 @@ namespace TKMOC
                                 AND MC1.MC001=MD1.MD001
                                 AND MC2.MC001=MD1.MD003
                                 AND TC027='Y'
-                                AND COPTD.UDF01='Y'
+                                   {2}
                                 AND MD1.MD003 LIKE '301%'
                                 AND MD1.MD003 NOT LIKE '30100002%'
                                 AND MB068 IN ('02','03')
                                 AND TC003>='{0}' AND TC003<='{1}'
 
-                            ", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+                            ", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"), QUERY.ToString());
 
             return SB;
 
