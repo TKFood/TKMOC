@@ -213,7 +213,6 @@ namespace TKMOC
                                 FROM [TKMOC].[dbo].[REPORTMOCBOM]
                                 ORDER BY [TA001],[TA002],[BOXS],[MD003]
      
-   
 
                             ");
 
