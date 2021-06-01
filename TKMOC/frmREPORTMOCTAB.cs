@@ -623,7 +623,7 @@ namespace TKMOC
                                     INSERT INTO [TKMOC].[dbo].[REPORTMOCMANULINE]
                                     ([ID],[MANULINE],[LOTNO],[TA001],[TA002],[TA003],[TA006],[TA007],[TA015],[TA017],[MB002],[MB003],[PCTS],[SEQ],[ALLERGEN],[COOKIES],[BARS],[BOXS],[VDATES],[COMMENT])
 
-                                    SELECT NEWID(),TA021,'{0}',TA001,TA002,TA003,TA006,TA007,TA015,TA017,TA034,TA035,[ERPINVMB].[PCT],MOCTA.UDF01,[ERPINVMB].[ALLERGEN] ,[ERPINVMB].[SPEC] ,CONVERT(decimal(16,3),TA015/ISNULL(MC004,1)),CONVERT(decimal(16, 3), TA015 / ISNULL(MD007, 1) * ISNULL(MD010, 1)),
+                                    SELECT NEWID(),TA021,'{0}',TA001,TA002,TA003,TA006,TA007,TA015,TA017,TA034,TA035,[ERPINVMB].[PCT],MOCTA.UDF01,[ERPINVMB].[ALLERGEN] ,[ERPINVMB].[SPEC] ,CONVERT(decimal(16,3),TA015/ISNULL(MC004,1)),CASE WHEN ISNULL(1/[MOCHALFPRODUCTDBOXS].NUMS*[MOCHALFPRODUCTDBOXS].BOXS,0)>0  THEN CONVERT(decimal(16, 3), TA015 / ISNULL(MD007, 1) * ISNULL(MD010, 1))*(1/[MOCHALFPRODUCTDBOXS].NUMS*[MOCHALFPRODUCTDBOXS].BOXS) ELSE CONVERT(decimal(16, 3), TA015 / ISNULL(MD007, 1) * ISNULL(MD010, 1)) END,
                                     CASE WHEN MB198='2' THEN  CONVERT(NVARCHAR,DATEADD(DAY,-1,DATEADD(MONTH,MB023,TA003)),112) ELSE CONVERT(NVARCHAR,DATEADD(DAY,-1,DATEADD(DAY,MB023,TA003)),112) END
                                     ,TA029
                                     FROM [TK].dbo.MOCTA
@@ -631,6 +631,7 @@ namespace TKMOC
                                     LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=TA006
                                     LEFT JOIN [TK].dbo.BOMMC ON MC001=TA006
                                     LEFT JOIN [TK].dbo.BOMMD ON MD035 LIKE '%箱%' AND MD003 LIKE '2%' AND MD007>1 AND MD001=TA006
+                                    LEFT JOIN [TKMOC].[dbo].[MOCHALFPRODUCTDBOXS] ON [MOCHALFPRODUCTDBOXS].MB001=TA006
                                     WHERE [TA001]+[TA002] NOT IN (SELECT [TA001]+[TA002] FROM [TKMOC].[dbo].[REPORTMOCMANULINE] WHERE TA003='{1}')
                                     AND TA003='{1}' 
                                     ORDER BY TA003,TA021,TA001,TA002     
@@ -1193,7 +1194,7 @@ namespace TKMOC
                 sbSql.Clear();
 
                 sbSql.AppendFormat(@" 
-                                    INSERT INTO[TKMOC].[dbo].[MOCHALFPRODUCTDBOXS]
+                                    INSERT INTO [TKMOC].[dbo].[MOCHALFPRODUCTDBOXS]
                                     ([MB001],[NUMS],[BOXS])
                                     VALUES('{0}',{1},{2})
                                         ", MB001, NUMS, 1);
