@@ -59,12 +59,14 @@ namespace TKMOC
 
                 sbSql.Clear();
 
-                sbSql.AppendFormat(@"  SELECT MF001,MF002,'0',MF003,MF004,MF005,MF006,MF010");
-                sbSql.AppendFormat(@"  FROM [TK].dbo.INVME WITH (NOLOCK),[TK].dbo.INVMF WITH (NOLOCK)");
-                sbSql.AppendFormat(@"  WHERE MF001=ME001 AND MF002=ME002");
-                sbSql.AppendFormat(@"  AND MF009 IN ('2','5')");
-                sbSql.AppendFormat(@"  AND MF001='{0}' AND MF002='{1}'",MB001,LOTNO);
-                sbSql.AppendFormat(@"  ORDER BY MF002,MF003,MF004,MF005");
+                sbSql.AppendFormat(@"  
+                                    SELECT MF001,MF002,'0',MF003,MF004,MF005,MF006,MF010
+                                    FROM [TK].dbo.INVME WITH (NOLOCK),[TK].dbo.INVMF WITH (NOLOCK)
+                                    WHERE MF001=ME001 AND MF002=ME002
+                                    AND MF009 IN ('2','5')
+                                    AND MF001='{0}' AND MF002='{1}'
+                                    ORDER BY MF002,MF003,MF004,MF005
+                                    ", MB001, LOTNO);
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -160,17 +162,21 @@ namespace TKMOC
 
                 sbSql.Clear();
 
-                sbSql.AppendFormat(" DELETE [TKMOC].[dbo].[TRACEBACK]");            
-                sbSql.AppendFormat(" ");
-                sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[TRACEBACK]");
-                sbSql.AppendFormat(" ([MMB001],[MLOTNO],[KINDS],[LEVELS],[DATES],[MID],[DID],[SID],[MB001],[MB002],[LOTNO],[NUMS])");
-                sbSql.AppendFormat(" SELECT MF001,MF002,'1銷貨','0',MF003,MF004,MF005,MF006,MF001,'',MF002,MF010");
-                sbSql.AppendFormat(" FROM [TK].dbo.INVME WITH (NOLOCK),[TK].dbo.INVMF WITH (NOLOCK)");
-                sbSql.AppendFormat(" WHERE MF001=ME001 AND MF002=ME002");
-                sbSql.AppendFormat(" AND MF009 IN ('2','5')");
-                sbSql.AppendFormat(" AND MF001='{0}' AND MF002='{1}'", MB001, LOTNO);
-                sbSql.AppendFormat(" ORDER BY INVMF.MF002,MF003,MF004,MF005");
-                sbSql.AppendFormat(" ");
+         
+                sbSql.AppendFormat(@" 
+                                     DELETE [TKMOC].[dbo].[TRACEBACK]            
+ 
+                                     INSERT INTO [TKMOC].[dbo].[TRACEBACK]
+                                     ([MMB001],[MLOTNO],[KINDS],[LEVELS],[DATES],[MID],[DID],[SID],[MB001],[MB002],[LOTNO],[NUMS])
+                                     SELECT MF001,MF002,'1銷貨','0',MF003,MF004,MF005,MF006,MF001,'',MF002,MF010
+                                     FROM [TK].dbo.INVME WITH (NOLOCK),[TK].dbo.INVMF WITH (NOLOCK)
+                                     WHERE MF001=ME001 AND MF002=ME002
+                                     AND MF009 IN ('2','5')
+                                     AND MF001='{0}' AND MF002='{1}'
+                                     ORDER BY INVMF.MF002,MF003,MF004,MF005
+
+                                     ", MB001, LOTNO);
+
                 sbSql.AppendFormat(" ");
 
 
@@ -274,29 +280,52 @@ namespace TKMOC
                 tran = sqlConn.BeginTransaction();
 
                 sbSql.Clear();
-            
-                sbSql.AppendFormat(" WITH RTABLES");
-                sbSql.AppendFormat(" AS (");
-                sbSql.AppendFormat(" SELECT 0 AS LEVELS,[TG001],[TG002],[TG003],[TG004],[TG011],[TG017],[TG014],[TG015],[TE001],[TE002],[TE003],[TE004],[TE005],[TE010]");
-                sbSql.AppendFormat(" FROM [TK].[dbo].[VMOCTGMOCTE] WITH (NOLOCK)");
-                sbSql.AppendFormat(" WHERE [VMOCTGMOCTE].TG004 ='{0}' AND [VMOCTGMOCTE].TG017 ='{1}' ", MB001, LOTNO);
-                sbSql.AppendFormat(" UNION ALL");
-                sbSql.AppendFormat(" SELECT LEVELS+1,B.[TG001], B.[TG002], B.[TG003], B.[TG004], B.[TG011], B.[TG017], B.[TG014], B.[TG015], B.[TE001], B.[TE002],B.[TE003], B.[TE004], B.[TE005], B.[TE010]");
-                sbSql.AppendFormat(" FROM [TK].[dbo].[VMOCTGMOCTE] B WITH (NOLOCK)");
-                sbSql.AppendFormat(" INNER JOIN RTABLES ON RTABLES.[TE004]=B.[TG004] AND RTABLES.[TE010]=B.[TG017]");
-                sbSql.AppendFormat(" ) ");
-                sbSql.AppendFormat(" ");
-                sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[TRACEBACK]");
-                sbSql.AppendFormat(" ([MMB001],[MLOTNO],[KINDS],[LEVELS],[DATES],[MID],[DID],[SID],[MB001],[MB002],[LOTNO],[NUMS])");
-                sbSql.AppendFormat(" ");
-                sbSql.AppendFormat(" SELECT '{0}','{1}','2生產',LEVELS ",MB001,LOTNO);
-                sbSql.AppendFormat(" ,(SELECT TOP 1 TF003 FROM [TK].dbo.MOCTF WHERE TF001=TG001 AND TF002=TG002 ORDER BY TF003)");
-                sbSql.AppendFormat(" ,[TG001],[TG002],[TG003],[TG004], '',[TG017],[TG011]");
-                sbSql.AppendFormat("  FROM RTABLES");
-                sbSql.AppendFormat(" GROUP BY LEVELS,[TG001],[TG002],[TG003],[TG004],[TG017],[TG011]");
-                sbSql.AppendFormat(" ORDER BY LEVELS,[TG004]");
-                sbSql.AppendFormat(" ");
-                sbSql.AppendFormat(" ");
+
+                sbSql.AppendFormat(@" 
+                                     WITH RTABLES AS 
+                                     ( SELECT 0 AS LEVELS,[TG001],[TG002],[TG003],[TG004],[TG011],[TG017],[TG014],[TG015],[TE001],[TE002],[TE003],[TE004],[TE005],[TE010] 
+                                     FROM [TK].[dbo].[VMOCTGMOCTE] WITH (NOLOCK) 
+                                     WHERE [VMOCTGMOCTE].TG004 ='{0}' AND [VMOCTGMOCTE].TG017 ='{1}'  
+                                     UNION ALL 
+                                     SELECT LEVELS+1,B.[TG001], B.[TG002], B.[TG003], B.[TG004], B.[TG011], B.[TG017], B.[TG014], B.[TG015], B.[TE001], B.[TE002],B.[TE003], B.[TE004], B.[TE005], B.[TE010] 
+                                     FROM [TK].[dbo].[VMOCTGMOCTE] B WITH (NOLOCK) 
+                                     INNER JOIN RTABLES ON RTABLES.[TE004]=B.[TG004] AND RTABLES.[TE010]=B.[TG017] )   
+ 
+ 
+                                    INSERT INTO [TKMOC].[dbo].[TRACEBACK] 
+                                    ([MMB001],[MLOTNO],[KINDS],[LEVELS],[DATES],[MID],[DID],[SID],[MB001],[MB002],[LOTNO],[NUMS],[TG014],[TG015]) 
+ 
+                                     SELECT '{0}','{1}','2生產',LEVELS  
+                                     ,(SELECT TOP 1 TF003 FROM [TK].dbo.MOCTF WHERE TF001=TG001 AND TF002=TG002 ORDER BY TF003) 
+                                     ,[TG001],[TG002],[TG003],[TG004], '',[TG017],[TG011]  ,[TG014],[TG015]
+                                     FROM RTABLES 
+                                     GROUP BY LEVELS,[TG001],[TG002],[TG003],[TG004],[TG017],[TG011] ,[TG014],[TG015]
+                                     ORDER BY LEVELS,[TG004] 
+
+                                    ", MB001, LOTNO);
+
+                //sbSql.AppendFormat(" WITH RTABLES");
+                //sbSql.AppendFormat(" AS (");
+                //sbSql.AppendFormat(" SELECT 0 AS LEVELS,[TG001],[TG002],[TG003],[TG004],[TG011],[TG017],[TG014],[TG015],[TE001],[TE002],[TE003],[TE004],[TE005],[TE010]");
+                //sbSql.AppendFormat(" FROM [TK].[dbo].[VMOCTGMOCTE] WITH (NOLOCK)");
+                //sbSql.AppendFormat(" WHERE [VMOCTGMOCTE].TG004 ='{0}' AND [VMOCTGMOCTE].TG017 ='{1}' ", MB001, LOTNO);
+                //sbSql.AppendFormat(" UNION ALL");
+                //sbSql.AppendFormat(" SELECT LEVELS+1,B.[TG001], B.[TG002], B.[TG003], B.[TG004], B.[TG011], B.[TG017], B.[TG014], B.[TG015], B.[TE001], B.[TE002],B.[TE003], B.[TE004], B.[TE005], B.[TE010]");
+                //sbSql.AppendFormat(" FROM [TK].[dbo].[VMOCTGMOCTE] B WITH (NOLOCK)");
+                //sbSql.AppendFormat(" INNER JOIN RTABLES ON RTABLES.[TE004]=B.[TG004] AND RTABLES.[TE010]=B.[TG017]");
+                //sbSql.AppendFormat(" ) ");
+                //sbSql.AppendFormat(" ");
+                //sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[TRACEBACK]");
+                //sbSql.AppendFormat(" ([MMB001],[MLOTNO],[KINDS],[LEVELS],[DATES],[MID],[DID],[SID],[MB001],[MB002],[LOTNO],[NUMS])");
+                //sbSql.AppendFormat(" ");
+                //sbSql.AppendFormat(" SELECT '{0}','{1}','2生產',LEVELS ",MB001,LOTNO);
+                //sbSql.AppendFormat(" ,(SELECT TOP 1 TF003 FROM [TK].dbo.MOCTF WHERE TF001=TG001 AND TF002=TG002 ORDER BY TF003)");
+                //sbSql.AppendFormat(" ,[TG001],[TG002],[TG003],[TG004], '',[TG017],[TG011]");
+                //sbSql.AppendFormat("  FROM RTABLES");
+                //sbSql.AppendFormat(" GROUP BY LEVELS,[TG001],[TG002],[TG003],[TG004],[TG017],[TG011]");
+                //sbSql.AppendFormat(" ORDER BY LEVELS,[TG004]");
+                //sbSql.AppendFormat(" ");
+
 
                 cmd.Connection = sqlConn;
                 cmd.CommandTimeout = 60;
@@ -618,12 +647,13 @@ namespace TKMOC
 
                 sbSql.AppendFormat(@" 
                                     INSERT INTO [TKMOC].[dbo].[TRACEBACK]
-                                    ([MMB001],[MLOTNO],[KINDS],[LEVELS],[DATES],[MID],[DID],[SID],[MB001],[MB002],[LOTNO],[NUMS])
+                                    ([MMB001],[MLOTNO],[KINDS],[LEVELS],[DATES],[MID],[DID],[SID],[MB001],[MB002],[LOTNO],[NUMS],TG014,TG015)
 
-                                    SELECT MF001,MF002,'3生產入庫','0',MF003,MF004,MF005,MF006,MF001,'',MF002,MF010
-                                    FROM [TK].dbo.INVME WITH (NOLOCK),[TK].dbo.INVMF WITH (NOLOCK),[TK].dbo.CMSMQ WITH (NOLOCK)
+                                    SELECT MF001,MF002,'3生產入庫','0',MF003,MF004,MF005,MF006,MF001,'',MF002,MF010,TG014,TG015
+                                    FROM [TK].dbo.INVME WITH (NOLOCK),[TK].dbo.INVMF WITH (NOLOCK),[TK].dbo.CMSMQ WITH (NOLOCK),[TK].dbo.MOCTG WITH (NOLOCK)
                                     WHERE MF001=ME001 AND MF002=ME002
                                     AND MQ001=MF004
+                                    AND TG001=MF004 AND TG002=MF005
                                     AND MQ003='58'
                                     AND RTRIM(LTRIM(MF001))+RTRIM(LTRIM(MF002)) IN
                                     (
@@ -632,7 +662,7 @@ namespace TKMOC
                                     )
                                     ORDER BY INVMF.MF002,MF003,MF004,MF005
 
-                                    ",MB001,LOTNO);
+                                    ", MB001,LOTNO);
 
                 cmd.Connection = sqlConn;
                 cmd.CommandTimeout = 60;
@@ -679,7 +709,7 @@ namespace TKMOC
 
                 sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[TRACEBACK]");
                 sbSql.AppendFormat(" ([MMB001],[MLOTNO],[KINDS],[LEVELS],[DATES],[MID],[DID],[SID],[MB001],[MB002],[LOTNO],[NUMS])");
-                sbSql.AppendFormat(" SELECT '{0}','{1}','4入庫','0',MF002,MF004,MF005,MF006,MF001,'',MF002,MF010", MB001, LOTNO);
+                sbSql.AppendFormat(" SELECT '{0}','{1}','4入庫','0',MF003,MF004,MF005,MF006,MF001,'',MF002,MF010", MB001, LOTNO);
                 sbSql.AppendFormat(" FROM [TK].dbo.INVMF WITH (NOLOCK)");
                 sbSql.AppendFormat(" WHERE INVMF.MF009 IN ('1')");
                 sbSql.AppendFormat(" AND RTRIM(LTRIM(MF001))+RTRIM(LTRIM(MF002)) IN (SELECT RTRIM(LTRIM([MB001]))+RTRIM(LTRIM([LOTNO])) FROM [TKMOC].[dbo].[TRACEBACK] WHERE MMB001='{0}' AND MLOTNO='{1}')", MB001, LOTNO);
