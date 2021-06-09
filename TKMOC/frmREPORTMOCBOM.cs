@@ -175,7 +175,7 @@ namespace TKMOC
             SQL = SETSQL();
 
             report1 = new Report();
-            report1.Load(@"REPORT\原料添加表V2.frx");
+            report1.Load(@"REPORT\油酥原料添加表.frx");
 
             report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
             TableDataSource table = report1.GetDataSource("Table") as TableDataSource;
@@ -211,6 +211,7 @@ namespace TKMOC
                                 ,'' AS '品質判定'
                                 ,'' AS '換線清潔檢查'
                                 FROM [TKMOC].[dbo].[REPORTMOCBOM]
+                                WHERE [MD003] NOT  IN ('101001009','3010000111')   
                                 ORDER BY [TA001],[TA002],[BOXS],[MD003]
      
 
