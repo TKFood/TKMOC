@@ -9296,13 +9296,13 @@ namespace TKMOC
                     sbSql.AppendFormat(@"  
                                     SELECT 
                                     [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名' 
-                                    ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[CLINET] AS '客戶',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'
+                                    ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[BOX] AS '箱數',[PACKAGE]AS '包裝數',[CLINET] AS '客戶',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'
                                     ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號'
                                     ,[ID]
                                     FROM [TKMOC].[dbo].[MOCMANULINE]
                                     WHERE [COPTD001]='{0}' AND [COPTD002]='{1}'
                                      ORDER BY [MANU],[COPTD001],[COPTD002],[COPTD003]
-                                    ",COPTD001, COPTD002);
+                                    ", COPTD001, COPTD002);
 
                 }
                 else
@@ -9310,7 +9310,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"  
                                     SELECT 
                                     [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名' 
-                                    ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[CLINET] AS '客戶',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'
+                                    ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[BOX] AS '箱數',[PACKAGE]AS '包裝數',[CLINET] AS '客戶',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'
                                     ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號'
                                     ,[ID]
                                     FROM [TKMOC].[dbo].[MOCMANULINE]
