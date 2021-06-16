@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="05/21/2021 13:06:19" ReportInfo.Modified="05/24/2021 15:30:14" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="05/21/2021 13:06:19" ReportInfo.Modified="06/16/2021 15:24:56" ReportInfo.CreatorVersion="2016.4.4.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9KFbXXDCZGrHmKhoTZgRVYw">
-      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT TC001 AS '訂單',TC002 AS '單號',TD003 AS '序號',TC003 AS '訂單日期',TC004 AS '客戶代號'&#13;&#10;,MA002 AS '客戶',TD004 AS '品號',TD005 AS '品名',TD006 AS '規格',(TD008+TD024) AS '訂單數量'&#13;&#10;,MB068 AS '生產別',MC1.MC004  AS 'MC1MC004',MD1.MD003 AS 'MD1MD003',MD1.MD006 AS 'MD1MD006'&#13;&#10;,MD1.MD007 AS 'MD1MD007',MC2.MC001 AS 'MC2MC001',MC2.MC004  AS 'MC2MC004'&#13;&#10;,((TD008+TD024)/MC1.MC004*MD1.MD006*(1+MD1.MD007)/MC2.MC004)  AS 'BAR'&#13;&#10;FROM [TK].dbo.COPTC,[TK].dbo.COPTD,[TK].dbo.INVMB,[TK].dbo.COPMA,[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1,[TK].dbo.BOMMC MC2&#13;&#10;WHERE TC001=TD001 AND TC002=TD002&#13;&#10;AND TD004=MB001&#13;&#10;AND TC004=MA001&#13;&#10;AND TD004=MC1.MC001&#13;&#10;AND MC1.MC001=MD1.MD001&#13;&#10;AND MC2.MC001=MD1.MD003&#13;&#10;AND TC027='Y'&#13;&#10;AND COPTD.UDF01='Y'&#13;&#10;AND MD1.MD003 LIKE '301%'&#13;&#10;AND MD1.MD003 NOT LIKE '30100002%'&#13;&#10;AND MB068 IN ('09')&#13;&#10;AND TC003&gt;='20210505' AND TC003&lt;='20210505'&#13;&#10;UNION ALL&#13;&#10;SELECT TC001,TC002,TD003,TC003,TC004,MA002,TD004,TD005,TD006,(TD008+TD024),MB068,MC1.MC004 MC1MC004,MD1.MD003,MD1.MD006,MD1.MD007,MC2.MC001,MC2.MC004 MC2MC004,((TD008+TD024)/MC1.MC004) AS 'BAR'&#13;&#10;FROM [TK].dbo.COPTC,[TK].dbo.COPTD,[TK].dbo.INVMB,[TK].dbo.COPMA,[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1,[TK].dbo.BOMMC MC2&#13;&#10;WHERE TC001=TD001 AND TC002=TD002&#13;&#10;AND TD004=MB001&#13;&#10;AND TC004=MA001&#13;&#10;AND TD004=MC1.MC001&#13;&#10;AND MC1.MC001=MD1.MD001&#13;&#10;AND MC2.MC001=MD1.MD003&#13;&#10;AND TC027='Y'&#13;&#10;AND COPTD.UDF01='Y'&#13;&#10;AND MD1.MD003 LIKE '301%'&#13;&#10;AND MD1.MD003 NOT LIKE '30100002%'&#13;&#10;AND MB068 IN ('02','03')&#13;&#10;AND TC003&gt;='20210505' AND TC003&lt;='20210505'">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9LbmIuZNFPRcJbRXeI8wa4t">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT TC001 AS '訂單',TC002 AS '單號',TD003 AS '序號',TC003 AS '訂單日期',TC004 AS '客戶代號'&#13;&#10;,MA002 AS '客戶',TD004 AS '品號',TD005 AS '品名',TD006 AS '規格',(TD008+TD024) AS '訂單數量'&#13;&#10;,MB068 AS '生產別',MC1.MC004  AS 'MC1MC004',MD1.MD003 AS 'MD1MD003',MD1.MD006 AS 'MD1MD006'&#13;&#10;,MD1.MD007 AS 'MD1MD007',MC2.MC001 AS 'MC2MC001',MC2.MC004  AS 'MC2MC004'&#13;&#10;,((TD008+TD024)/MC1.MC004*MD1.MD006*(1+MD1.MD007)/MC2.MC004)  AS 'BAR'&#13;&#10;,TD013 AS '預交日'&#13;&#10;FROM [TK].dbo.COPTC,[TK].dbo.COPTD,[TK].dbo.INVMB,[TK].dbo.COPMA,[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1,[TK].dbo.BOMMC MC2&#13;&#10;WHERE TC001=TD001 AND TC002=TD002&#13;&#10;AND TD004=MB001&#13;&#10;AND TC004=MA001&#13;&#10;AND TD004=MC1.MC001&#13;&#10;AND MC1.MC001=MD1.MD001&#13;&#10;AND MC2.MC001=MD1.MD003&#13;&#10;AND TC027='Y'&#13;&#10;&#13;&#10;AND MD1.MD003 LIKE '301%'&#13;&#10;AND MD1.MD003 NOT LIKE '30100002%'&#13;&#10;AND MB068 IN ('09')&#13;&#10;AND TC003&gt;='20210610' AND TC003&lt;='20210616'&#13;&#10;UNION ALL&#13;&#10;SELECT TC001,TC002,TD003,TC003,TC004,MA002,TD004,TD005,TD006,(TD008+TD024),MB068,MC1.MC004 MC1MC004,MD1.MD003,MD1.MD006,MD1.MD007,MC2.MC001,MC2.MC004 MC2MC004,((TD008+TD024)/MC1.MC004) AS 'BAR',TD013 AS '預交日'&#13;&#10;FROM [TK].dbo.COPTC,[TK].dbo.COPTD,[TK].dbo.INVMB,[TK].dbo.COPMA,[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1,[TK].dbo.BOMMC MC2&#13;&#10;WHERE TC001=TD001 AND TC002=TD002&#13;&#10;AND TD004=MB001&#13;&#10;AND TC004=MA001&#13;&#10;AND TD004=MC1.MC001&#13;&#10;AND MC1.MC001=MD1.MD001&#13;&#10;AND MC2.MC001=MD1.MD003&#13;&#10;AND TC027='Y'&#13;&#10;AND MD1.MD003 LIKE '301%'&#13;&#10;AND MD1.MD003 NOT LIKE '30100002%'&#13;&#10;AND MB068 IN ('02','03')&#13;&#10;AND TC003&gt;='20210610' AND TC003&lt;='20210616'">
         <Column Name="訂單" DataType="System.String"/>
         <Column Name="單號" DataType="System.String"/>
         <Column Name="訂單日期" DataType="System.String"/>
@@ -21,37 +21,40 @@
         <Column Name="MC2MC004" DataType="System.Decimal"/>
         <Column Name="BAR" DataType="System.Decimal"/>
         <Column Name="序號" DataType="System.String"/>
+        <Column Name="預交日" DataType="System.String"/>
       </TableDataSource>
     </MsSqlDataConnection>
   </Dictionary>
-  <ReportPage Name="Page1" Landscape="true" PaperWidth="320" PaperHeight="210">
-    <ReportTitleBand Name="ReportTitle1" Width="1134" Height="18.9">
-      <TextObject Name="Text1" Width="1115.1" Height="18.9" Text="訂單預計生產的桶數報表" HorzAlign="Center" VertAlign="Center"/>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="360" PaperHeight="210">
+    <ReportTitleBand Name="ReportTitle1" Width="1285.2" Height="18.9">
+      <TextObject Name="Text1" Width="1275.75" Height="18.9" Text="訂單預計生產的桶數報表" HorzAlign="Center" VertAlign="Center"/>
     </ReportTitleBand>
-    <PageHeaderBand Name="PageHeader1" Top="23.39" Width="1134" Height="18.9">
+    <PageHeaderBand Name="PageHeader1" Top="23.39" Width="1285.2" Height="18.9">
       <TextObject Name="Text3" Width="56.7" Height="18.9" Border.Lines="All" Text="訂單" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text5" Left="56.7" Width="85.05" Height="18.9" Border.Lines="All" Text="單號" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text7" Left="217.35" Width="85.05" Height="18.9" Border.Lines="All" Text="訂單日期" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text11" Left="302.4" Width="151.2" Height="18.9" Border.Lines="All" Text="客戶" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text13" Left="453.6" Width="113.4" Height="18.9" Border.Lines="All" Text="品號" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text15" Left="567" Width="264.6" Height="18.9" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text17" Left="831.6" Width="94.5" Height="18.9" Border.Lines="All" Text="訂單數量" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text19" Left="926.1" Width="94.5" Height="18.9" Border.Lines="All" Text="生產別" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text21" Left="1020.6" Width="94.5" Height="18.9" Border.Lines="All" Text="預計生產桶數" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text11" Left="396.9" Width="217.35" Height="18.9" Border.Lines="All" Text="客戶" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text13" Left="614.25" Width="113.4" Height="18.9" Border.Lines="All" Text="品號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text15" Left="727.65" Width="264.6" Height="18.9" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text17" Left="992.25" Width="94.5" Height="18.9" Border.Lines="All" Text="訂單數量" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text19" Left="1086.75" Width="94.5" Height="18.9" Border.Lines="All" Text="生產別" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text21" Left="1181.25" Width="94.5" Height="18.9" Border.Lines="All" Text="預計生產桶數" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text22" Left="141.75" Width="75.6" Height="18.9" Border.Lines="All" Text="序號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text23" Left="302.4" Width="94.5" Height="18.9" Border.Lines="All" Text="預交日" HorzAlign="Center" VertAlign="Center"/>
     </PageHeaderBand>
-    <DataBand Name="Data1" Top="46.79" Width="1134" Height="18.9" CanGrow="true" DataSource="Table">
+    <DataBand Name="Data1" Top="46.79" Width="1285.2" Height="18.9" CanGrow="true" DataSource="Table">
       <TextObject Name="Text2" Width="56.7" Height="18.9" Border.Lines="All" Text="[Table.訂單]" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text4" Left="56.7" Width="85.05" Height="18.9" Border.Lines="All" Text="[Table.單號]" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text6" Left="217.35" Width="85.05" Height="18.9" Border.Lines="All" Text="[Table.訂單日期]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text10" Left="302.4" Width="151.2" Height="18.9" Border.Lines="All" Text="[Table.客戶]" VertAlign="Center"/>
-      <TextObject Name="Text12" Left="453.6" Width="113.4" Height="18.9" Border.Lines="All" Text="[Table.品號]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text14" Left="567" Width="264.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.品名]" VertAlign="Center"/>
-      <TextObject Name="Text16" Left="831.6" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.訂單數量]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text18" Left="926.1" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.生產別]" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text20" Left="1020.6" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.BAR]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text10" Left="396.9" Width="217.35" Height="18.9" Border.Lines="All" Text="[Table.客戶]" VertAlign="Center"/>
+      <TextObject Name="Text12" Left="614.25" Width="113.4" Height="18.9" Border.Lines="All" Text="[Table.品號]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text14" Left="727.65" Width="264.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.品名]" VertAlign="Center"/>
+      <TextObject Name="Text16" Left="992.25" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.訂單數量]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text18" Left="1086.75" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.生產別]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text20" Left="1181.25" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.BAR]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
       <TextObject Name="Text8" Left="141.75" Width="75.6" Height="18.9" Border.Lines="All" Text="[Table.序號]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text9" Left="302.4" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.預交日]" HorzAlign="Center" VertAlign="Center"/>
     </DataBand>
-    <PageFooterBand Name="PageFooter1" Top="70.18" Width="1134" Height="18.9"/>
+    <PageFooterBand Name="PageFooter1" Top="70.18" Width="1285.2" Height="18.9"/>
   </ReportPage>
 </Report>

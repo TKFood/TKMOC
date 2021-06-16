@@ -88,6 +88,7 @@ namespace TKMOC
                                 ,MB068 AS '生產別',MC1.MC004  AS 'MC1MC004',MD1.MD003 AS 'MD1MD003',MD1.MD006 AS 'MD1MD006'
                                 ,MD1.MD007 AS 'MD1MD007',MC2.MC001 AS 'MC2MC001',MC2.MC004  AS 'MC2MC004'
                                 ,((TD008+TD024)/MC1.MC004*MD1.MD006*(1+MD1.MD007)/MC2.MC004)  AS 'BAR'
+                                ,TD013 AS '預交日'
                                 FROM [TK].dbo.COPTC,[TK].dbo.COPTD,[TK].dbo.INVMB,[TK].dbo.COPMA,[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1,[TK].dbo.BOMMC MC2
                                 WHERE TC001=TD001 AND TC002=TD002
                                 AND TD004=MB001
@@ -102,7 +103,7 @@ namespace TKMOC
                                 AND MB068 IN ('09')
                                 AND TC003>='{0}' AND TC003<='{1}'
                                 UNION ALL
-                                SELECT TC001,TC002,TD003,TC003,TC004,MA002,TD004,TD005,TD006,(TD008+TD024),MB068,MC1.MC004 MC1MC004,MD1.MD003,MD1.MD006,MD1.MD007,MC2.MC001,MC2.MC004 MC2MC004,((TD008+TD024)/MC1.MC004) AS 'BAR'
+                                SELECT TC001,TC002,TD003,TC003,TC004,MA002,TD004,TD005,TD006,(TD008+TD024),MB068,MC1.MC004 MC1MC004,MD1.MD003,MD1.MD006,MD1.MD007,MC2.MC001,MC2.MC004 MC2MC004,((TD008+TD024)/MC1.MC004) AS 'BAR',TD013 AS '預交日'
                                 FROM [TK].dbo.COPTC,[TK].dbo.COPTD,[TK].dbo.INVMB,[TK].dbo.COPMA,[TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1,[TK].dbo.BOMMC MC2
                                 WHERE TC001=TD001 AND TC002=TD002
                                 AND TD004=MB001
@@ -115,7 +116,7 @@ namespace TKMOC
                                 AND MD1.MD003 LIKE '301%'
                                 AND MD1.MD003 NOT LIKE '30100002%'
                                 AND MB068 IN ('02','03')
-                                AND TC003>='{0}' AND TC003<='{1}'
+                                AND TC003>='{0}' AND TC003<='{1}' 
 
                             ", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"), QUERY.ToString());
 
