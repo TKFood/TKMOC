@@ -134,6 +134,7 @@ namespace TKMOC
                     ADDTRACEBACKOUT2(MB001, LOTNO);
                     ADDTRACEBACKMOC2(MB001, LOTNO);
                     ADDTRACEBACKMOCOUTIN2(MB001, LOTNO);
+                    ADDTRACEBACKINVMFSALE2(MB001, LOTNO);
                     ADDTRACEBACKINVMF2(MB001, LOTNO);
                 }
 
@@ -734,6 +735,66 @@ namespace TKMOC
                 sbSql.AppendFormat(" AND RTRIM(LTRIM(MF004)) +RTRIM(LTRIM(MF005)) +RTRIM(LTRIM(MF006))  NOT IN (SELECT RTRIM(LTRIM([MID])) +RTRIM(LTRIM([DID])) +RTRIM(LTRIM([SID]))  FROM [TKMOC].[dbo].[TRACEBACK] WHERE MMB001='{0}' AND MLOTNO='{1}')", MB001, LOTNO);
                 sbSql.AppendFormat(" ORDER BY INVMF.MF002,MF004,MF005,MF006,MF001");
                 sbSql.AppendFormat(" ");
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void ADDTRACEBACKINVMFSALE2(string MB001, string LOTNO)
+        {
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat(@" INSERT INTO [TKMOC].[dbo].[TRACEBACK]
+                                    ([MMB001],[MLOTNO],[KINDS],[LEVELS],[DATES],[MID],[DID],[SID],[MB001],[MB002],[LOTNO],[NUMS])
+
+                                    SELECT MF001,MF002,'5銷貨','0',MF003,MF004,MF005,MF006,MF001,'',MF002,MF010
+                                    FROM [TK].dbo.INVME WITH (NOLOCK),[TK].dbo.INVMF WITH (NOLOCK),[TK].dbo.CMSMQ WITH (NOLOCK)
+                                    WHERE MF001=ME001 AND MF002=ME002
+                                    AND MQ001=MF004
+                                    AND MF009 IN ('2','5')
+                                    AND RTRIM(LTRIM(MF001))+RTRIM(LTRIM(MF002)) IN
+                                    (
+                                    SELECT RTRIM(LTRIM([MB001]))+RTRIM(LTRIM([LOTNO]))
+                                    FROM [TKMOC].[dbo].[TRACEBACK]
+                                    )
+                                    ORDER BY INVMF.MF002,MF003,MF004,MF005
+
+                                ");
 
                 cmd.Connection = sqlConn;
                 cmd.CommandTimeout = 60;
