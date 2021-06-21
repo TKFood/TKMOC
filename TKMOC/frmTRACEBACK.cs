@@ -44,7 +44,107 @@ namespace TKMOC
         }
 
         #region FUNCTION
+        private void frmTRACEBACK_Load(object sender, EventArgs e)
+        {
+            dataGridView1.AlternatingRowsDefaultCellStyle.BackColor = Color.PaleTurquoise;      //奇數列顏色
+            dataGridView2.AlternatingRowsDefaultCellStyle.BackColor = Color.PaleTurquoise;
 
+
+            //先建立個 CheckBox 欄
+            DataGridViewCheckBoxColumn cbCol = new DataGridViewCheckBoxColumn();
+            cbCol.Width = 40;   //設定寬度
+            cbCol.HeaderText = "　選擇";
+            cbCol.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;   //置中
+            cbCol.TrueValue = true;
+            cbCol.FalseValue = false;
+            dataGridView1.Columns.Insert(0, cbCol);
+
+            #region 建立全选 CheckBox
+
+            //建立个矩形，等下计算 CheckBox 嵌入 GridView 的位置
+            Rectangle rect = dataGridView1.GetCellDisplayRectangle(0, -1, true);
+            rect.X = rect.Location.X + rect.Width / 4 - 18;
+            rect.Y = rect.Location.Y + (rect.Height / 2 - 9);
+
+            CheckBox cbHeader = new CheckBox();
+            cbHeader.Name = "checkboxHeader";
+            cbHeader.Size = new Size(18, 18);
+            cbHeader.Location = rect.Location;
+
+            //全选要设定的事件
+            cbHeader.CheckedChanged += new EventHandler(cbHeader_CheckedChanged);
+
+            //将 CheckBox 加入到 dataGridView1
+            dataGridView1.Controls.Add(cbHeader);
+            dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 9);
+
+            #endregion
+
+            //先建立個 CheckBox 欄
+            cbCol = new DataGridViewCheckBoxColumn();
+            cbCol.Width = 40;   //設定寬度
+            cbCol.HeaderText = "　選擇";
+            cbCol.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;   //置中
+            cbCol.TrueValue = true;
+            cbCol.FalseValue = false;
+            dataGridView2.Columns.Insert(0, cbCol);
+
+            #region 建立全选 CheckBox
+
+            //建立个矩形，等下计算 CheckBox 嵌入 GridView 的位置
+            rect = dataGridView2.GetCellDisplayRectangle(0, -1, true);
+            rect.X = rect.Location.X + rect.Width / 4 - 18;
+            rect.Y = rect.Location.Y + (rect.Height / 2 - 9);
+
+            cbHeader = new CheckBox();
+            cbHeader.Name = "checkboxHeader";
+            cbHeader.Size = new Size(18, 18);
+            cbHeader.Location = rect.Location;
+            //将 CheckBox 加入到 dataGridView2
+            dataGridView2.Controls.Add(cbHeader);
+            dataGridView2.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 9);
+
+
+            #endregion
+
+            //先建立個 CheckBox 欄
+            cbCol = new DataGridViewCheckBoxColumn();
+            cbCol.Width = 40;   //設定寬度
+            cbCol.HeaderText = "　選擇";
+            cbCol.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;   //置中
+            cbCol.TrueValue = true;
+            cbCol.FalseValue = false;
+            dataGridView3.Columns.Insert(0, cbCol);
+
+            #region 建立全选 CheckBox
+
+            //建立个矩形，等下计算 CheckBox 嵌入 GridView 的位置
+            rect = dataGridView3.GetCellDisplayRectangle(0, -1, true);
+            rect.X = rect.Location.X + rect.Width / 4 - 18;
+            rect.Y = rect.Location.Y + (rect.Height / 2 - 9);
+
+            cbHeader = new CheckBox();
+            cbHeader.Name = "checkboxHeader";
+            cbHeader.Size = new Size(18, 18);
+            cbHeader.Location = rect.Location;
+            //将 CheckBox 加入到 dataGridView2
+            dataGridView3.Controls.Add(cbHeader);
+            dataGridView3.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 9);
+
+
+            #endregion
+        }
+        private void cbHeader_CheckedChanged(object sender, EventArgs e)
+        {
+            dataGridView1.EndEdit();
+
+            foreach (DataGridViewRow dr in dataGridView1.Rows)
+            {
+                dr.Cells[0].Value = ((CheckBox)dataGridView1.Controls.Find("checkboxHeader", true)[0]).Checked;
+
+            }
+
+        }
         public void SEARCHOUT(string MB001,string LOTNO)
         {
             StringBuilder sbSql = new StringBuilder();
@@ -974,80 +1074,7 @@ namespace TKMOC
 
         }
 
-        private void frmTRACEBACK_Load(object sender, EventArgs e)
-        {
-            dataGridView1.AlternatingRowsDefaultCellStyle.BackColor = Color.PaleTurquoise;      //奇數列顏色
-            dataGridView2.AlternatingRowsDefaultCellStyle.BackColor = Color.PaleTurquoise;
-
-
-            //先建立個 CheckBox 欄
-            DataGridViewCheckBoxColumn cbCol = new DataGridViewCheckBoxColumn();
-            cbCol.Width = 40;   //設定寬度
-            cbCol.HeaderText = "　選擇";
-            cbCol.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;   //置中
-            cbCol.TrueValue = true;
-            cbCol.FalseValue = false;
-            dataGridView1.Columns.Insert(0, cbCol);
-
-            #region 建立全选 CheckBox
-
-            //建立个矩形，等下计算 CheckBox 嵌入 GridView 的位置
-            Rectangle rect = dataGridView1.GetCellDisplayRectangle(0, -1, true);
-            rect.X = rect.Location.X + rect.Width / 4 - 18;
-            rect.Y = rect.Location.Y + (rect.Height / 2 - 9);
-
-            CheckBox cbHeader = new CheckBox();
-            cbHeader.Name = "checkboxHeader";
-            cbHeader.Size = new Size(18, 18);
-            cbHeader.Location = rect.Location;
-
-            //全选要设定的事件
-            cbHeader.CheckedChanged += new EventHandler(cbHeader_CheckedChanged);
-
-            //将 CheckBox 加入到 dataGridView1
-            dataGridView1.Controls.Add(cbHeader);
-            dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 9);
-
-            #endregion
-
-            //先建立個 CheckBox 欄
-            cbCol = new DataGridViewCheckBoxColumn();
-            cbCol.Width = 40;   //設定寬度
-            cbCol.HeaderText = "　選擇";
-            cbCol.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;   //置中
-            cbCol.TrueValue = true;
-            cbCol.FalseValue = false;
-            dataGridView2.Columns.Insert(0, cbCol);
-
-            #region 建立全选 CheckBox
-
-            //建立个矩形，等下计算 CheckBox 嵌入 GridView 的位置
-            rect = dataGridView2.GetCellDisplayRectangle(0, -1, true);
-            rect.X = rect.Location.X + rect.Width / 4 - 18;
-            rect.Y = rect.Location.Y + (rect.Height / 2 - 9);
-
-            cbHeader = new CheckBox();
-            cbHeader.Name = "checkboxHeader";
-            cbHeader.Size = new Size(18, 18);
-            cbHeader.Location = rect.Location;
-            //将 CheckBox 加入到 dataGridView2
-            dataGridView2.Controls.Add(cbHeader);
-            dataGridView2.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 9);
-
-
-            #endregion
-        }
-        private void cbHeader_CheckedChanged(object sender, EventArgs e)
-        {
-            dataGridView1.EndEdit();
-
-            foreach (DataGridViewRow dr in dataGridView1.Rows)
-            {
-                dr.Cells[0].Value = ((CheckBox)dataGridView1.Controls.Find("checkboxHeader", true)[0]).Checked;
-
-            }
-
-        }
+       
 
         public void SEARCHTRACEBACK1(string STATUS)
         {
@@ -1309,6 +1336,135 @@ namespace TKMOC
 
         }
 
+        public void SEARCHTRACEBACK3(string STATUS)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                SqlCommandBuilder sqlCmdBuilder = new SqlCommandBuilder();
+                DataSet ds = new DataSet();
+
+                sbSql.Clear();
+
+
+                sbSql.AppendFormat(@"  
+                                    SELECT [TG014] AS '製令',[TG015] AS '製令單號',[MID] AS '單別',[DID] AS '單號',[SID] AS '序號',[MMB001] AS '主品號',[MMB002] AS '主品名',[MLOTNO] AS '主批號',[KINDS] AS '類別',[LEVELS] AS '層別',[DATES] AS '日期',[MB001] AS '品號',[MB002] AS '品名',[LOTNO] AS '批號',[NUMS] AS '數量'
+                                    FROM [TKMOC].[dbo].[TRACEBACK]
+                                    WHERE [KINDS] IN ('3領退料') AND [MID] LIKE 'A54%'
+                                    ORDER BY [KINDS],[MMB001],[MLOTNO],[MID],[DID],[SID],[TG014],[TG015]
+                                    ");
+
+                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder = new SqlCommandBuilder(adapter);
+                sqlConn.Open();
+                ds.Clear();
+                adapter.Fill(ds, "ds");
+                sqlConn.Close();
+
+
+                if (ds.Tables["ds"].Rows.Count == 0)
+                {
+                    dataGridView3.DataSource = null;
+                }
+                else
+                {
+                    if (ds.Tables["ds"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView3.DataSource = ds.Tables["ds"];
+                        dataGridView3.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                        dataGridView3.AutoResizeColumns();
+                        dataGridView3.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 9);
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void SETFASTREPORT3(string STATUS)
+        {
+            StringBuilder SQL = new StringBuilder();
+            string SELECT = SELECT3();
+            Report report1 = new Report();
+
+            if (!string.IsNullOrEmpty(SELECT))
+            {
+                SQL.AppendFormat(@"  
+                                    SELECT CONVERT(NVARCHAR,CONVERT(datetime,TC003),111) AS '領料日期'
+                                    ,TC001+'-'+TC002 AS '領料單號'
+                                    ,CONVERT(NVARCHAR,CONVERT(datetime,TC014),111) AS '單據日期'
+                                    ,TE004 AS '材料品號'
+                                    ,TE017 AS '品名'
+                                    ,TE018 AS '規格'
+                                    ,TE005 AS '領料數量'
+                                    ,TE006 AS '單位'
+                                    ,TE011+'-'+TE012 AS '製令單號'
+                                    ,MC002 AS '庫別名稱'
+                                    ,TE010 AS '批號'
+                                    ,TE013 AS '領料說明'
+                                    ,TE014 AS '備註'
+                                    FROM [TK].dbo.MOCTC,[TK].dbo.MOCTD,[TK].dbo.MOCTE,[TK].dbo.CMSMC,[TK].dbo.CMSMQ
+                                    WHERE TC001=TD001 AND TC002=TD002
+                                    AND TC001=TE001 AND TC002=TE002
+                                    AND TE008=MC001
+                                    AND TC001=MQ001 AND MQ003 IN ('54','55')
+                                    AND TE001+TE002+TE003 IN ({0})
+                                    ORDER BY TC001,TC002,TE003
+                                    ", SELECT.ToString());
+
+                report1.Load(@"REPORT\領料單明細表.frx");
+
+                report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                TableDataSource Table = report1.GetDataSource("Table") as TableDataSource;
+                Table.SelectCommand = SQL.ToString();
+
+                report1.Preview = previewControl5;
+                report1.Show();
+            }
+
+
+        }
+
+        public string SELECT3()
+        {
+            StringBuilder ADDSQL = new StringBuilder();
+
+            foreach (DataGridViewRow dgR in this.dataGridView3.Rows)
+            {
+                try
+                {
+                    DataGridViewCheckBoxCell cbx = (DataGridViewCheckBoxCell)dgR.Cells[0];
+                    if ((bool)cbx.FormattedValue)
+                    {
+                        ADDSQL.AppendFormat(@" '{0}', ", dgR.Cells["單別"].Value.ToString().Trim() + dgR.Cells["單號"].Value.ToString().Trim() + dgR.Cells["序號"].Value.ToString().Trim());
+                    }
+                }
+                catch (Exception ex)
+                {
+                    //MessageBox.Show(ex.Message);
+                }
+            }
+
+            ADDSQL.AppendFormat(@" '' ");
+
+            return ADDSQL.ToString();
+
+        }
+
 
         #endregion
 
@@ -1351,6 +1507,14 @@ namespace TKMOC
         private void button5_Click(object sender, EventArgs e)
         {
             SETFASTREPORT2("2生產");
+        }
+        private void button6_Click(object sender, EventArgs e)
+        {
+            SEARCHTRACEBACK3("3領退料");
+        }
+        private void button7_Click(object sender, EventArgs e)
+        {
+            SETFASTREPORT3("3領退料");
         }
         #endregion
 
