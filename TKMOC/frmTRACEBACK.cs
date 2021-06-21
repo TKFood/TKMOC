@@ -976,7 +976,7 @@ namespace TKMOC
         private void frmTRACEBACK_Load(object sender, EventArgs e)
         {
             dataGridView1.AlternatingRowsDefaultCellStyle.BackColor = Color.PaleTurquoise;      //奇數列顏色
-            //dataGridView2.AlternatingRowsDefaultCellStyle.BackColor = Color.PaleTurquoise;
+            dataGridView2.AlternatingRowsDefaultCellStyle.BackColor = Color.PaleTurquoise;
 
 
             //先建立個 CheckBox 欄
@@ -1003,8 +1003,35 @@ namespace TKMOC
             //全选要设定的事件
             cbHeader.CheckedChanged += new EventHandler(cbHeader_CheckedChanged);
 
-            //将 CheckBox 加入到 dataGridView
+            //将 CheckBox 加入到 dataGridView1
             dataGridView1.Controls.Add(cbHeader);
+            dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 9);
+
+            #endregion
+
+            //先建立個 CheckBox 欄
+            cbCol = new DataGridViewCheckBoxColumn();
+            cbCol.Width = 40;   //設定寬度
+            cbCol.HeaderText = "　全選";
+            cbCol.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;   //置中
+            cbCol.TrueValue = true;
+            cbCol.FalseValue = false;
+            dataGridView2.Columns.Insert(0, cbCol);
+
+            #region 建立全选 CheckBox
+
+            //建立个矩形，等下计算 CheckBox 嵌入 GridView 的位置
+            rect = dataGridView2.GetCellDisplayRectangle(0, -1, true);
+            rect.X = rect.Location.X + rect.Width / 4 - 18;
+            rect.Y = rect.Location.Y + (rect.Height / 2 - 9);
+
+            cbHeader = new CheckBox();
+            cbHeader.Name = "checkboxHeader";
+            cbHeader.Size = new Size(18, 18);
+            cbHeader.Location = rect.Location;
+            //将 CheckBox 加入到 dataGridView2
+            dataGridView2.Controls.Add(cbHeader);
+            dataGridView2.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 9);
 
 
             #endregion
@@ -1021,7 +1048,7 @@ namespace TKMOC
 
         }
 
-        public void SEARCHvTRACEBACK1(string STATUS)
+        public void SEARCHTRACEBACK1(string STATUS)
         {
             try
             {
@@ -1153,6 +1180,135 @@ namespace TKMOC
             return ADDSQL.ToString();
 
         }
+
+        public void SEARCHTRACEBACK2(string STATUS)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                SqlCommandBuilder sqlCmdBuilder = new SqlCommandBuilder();
+                DataSet ds = new DataSet();
+
+                sbSql.Clear();
+
+
+                sbSql.AppendFormat(@"  
+                                    SELECT [TG014] AS '製令',[TG015] AS '製令單號',[MID] AS '入庫單別',[DID] AS '入庫單號',[SID] AS '入庫序號',[MMB001] AS '主品號',[MMB002] AS '主品名',[MLOTNO] AS '主批號',[KINDS] AS '類別',[LEVELS] AS '層別',[DATES] AS '日期',[MB001] AS '品號',[MB002] AS '品名',[LOTNO] AS '批號',[NUMS] AS '數量'
+                                    FROM [TKMOC].[dbo].[TRACEBACK]
+                                    WHERE [KINDS] IN ('2生產')
+                                    ORDER BY [KINDS],[MMB001],[MLOTNO],[MID],[DID],[SID],[TG014],[TG015]
+                                    ");
+
+                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder = new SqlCommandBuilder(adapter);
+                sqlConn.Open();
+                ds.Clear();
+                adapter.Fill(ds, "ds");
+                sqlConn.Close();
+
+
+                if (ds.Tables["ds"].Rows.Count == 0)
+                {
+                    dataGridView2.DataSource = null;
+                }
+                else
+                {
+                    if (ds.Tables["ds"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView2.DataSource = ds.Tables["ds"];
+                        dataGridView2.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                        dataGridView2.AutoResizeColumns();
+                        dataGridView2.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 9);
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void SETFASTREPORT2(string STATUS)
+        {
+            StringBuilder SQL = new StringBuilder();
+            string SELECT = SELECT2();
+            Report report1 = new Report();
+
+            if (!string.IsNullOrEmpty(SELECT))
+            {
+                SQL.AppendFormat(@"  
+                                    SELECT 
+                                    CONVERT(NVARCHAR,CONVERT(datetime,TF003),111)  AS '入庫日期'
+                                    ,TF001+'-'+TF002 AS '單別-單號'
+                                    ,CONVERT(NVARCHAR,CONVERT(datetime,TF012),111)  AS '單據日期'
+                                    ,TG004 AS '品號'
+                                    ,TG005 AS '品名'
+                                    ,TG006 AS '規格'
+                                    ,TG011 AS '入庫數量'
+                                    ,TG007 AS '單位'
+                                    ,TG014+'-'+TG015 AS '製令編號'
+                                    ,TG017 AS '批號'
+                                    ,TA026+'-'+TA027 AS '訂單單號'
+                                    ,TG020 AS '備註'
+                                    FROM [TK].dbo.MOCTF, [TK].dbo.MOCTG
+                                    LEFT JOIN [TK].dbo.MOCTA ON TA001=TG014 AND TA002=TG015
+                                    WHERE TF001=TG001 AND TF002=TG002
+                                    AND TG001+TG002+TG003 IN ({0})
+                                    ORDER BY TF001,TF002,TG004
+                                    ", SELECT.ToString());
+
+                report1.Load(@"REPORT\生產入庫單明細表.frx");
+
+                report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                TableDataSource Table = report1.GetDataSource("Table") as TableDataSource;
+                Table.SelectCommand = SQL.ToString();
+
+                report1.Preview = previewControl4;
+                report1.Show();
+            }
+
+
+        }
+
+        public string SELECT2()
+        {
+            StringBuilder ADDSQL = new StringBuilder();
+
+            foreach (DataGridViewRow dgR in this.dataGridView2.Rows)
+            {
+                try
+                {
+                    DataGridViewCheckBoxCell cbx = (DataGridViewCheckBoxCell)dgR.Cells[0];
+                    if ((bool)cbx.FormattedValue)
+                    {
+                        ADDSQL.AppendFormat(@" '{0}', ", dgR.Cells["入庫單別"].Value.ToString().Trim() + dgR.Cells["入庫單號"].Value.ToString().Trim() + dgR.Cells["入庫序號"].Value.ToString().Trim());
+                    }
+                }
+                catch (Exception ex)
+                {
+                    //MessageBox.Show(ex.Message);
+                }
+            }
+
+            ADDSQL.AppendFormat(@" '' ");
+
+            return ADDSQL.ToString();
+
+        }
+
+
         #endregion
 
         #region BUTTON
@@ -1180,13 +1336,21 @@ namespace TKMOC
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            SEARCHvTRACEBACK1("1銷貨");
+            SEARCHTRACEBACK1("1銷貨");
         }
         private void button3_Click(object sender, EventArgs e)
         {
             SETFASTREPORT1("1銷貨");
         }
 
+        private void button4_Click(object sender, EventArgs e)
+        {
+            SEARCHTRACEBACK2("2生產");
+        }
+        private void button5_Click(object sender, EventArgs e)
+        {
+            SETFASTREPORT2("2生產");
+        }
         #endregion
 
 
