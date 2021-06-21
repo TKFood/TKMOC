@@ -776,7 +776,7 @@ namespace TKMOC
                                     FROM [TK].dbo.INVME WITH (NOLOCK),[TK].dbo.INVMF WITH (NOLOCK),[TK].dbo.CMSMQ WITH (NOLOCK),[TK].dbo.MOCTG WITH (NOLOCK)
                                     WHERE MF001=ME001 AND MF002=ME002
                                     AND MQ001=MF004
-                                    AND TG001=MF004 AND TG002=MF005
+                                    AND TG001=MF004 AND TG002=MF005 AND TG003=MF006
                                     AND MQ003='58'
                                     AND RTRIM(LTRIM(MF001))+RTRIM(LTRIM(MF002)) IN
                                     (
@@ -1113,7 +1113,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  
                                     SELECT [MID] AS '銷貨單別',[DID] AS '銷貨單號',[SID] AS '銷貨序號',[MMB001] AS '主品號',[MMB002] AS '主品名',[MLOTNO] AS '主批號',[KINDS] AS '類別',[LEVELS] AS '層別',[DATES] AS '日期',[TG014] AS '製令',[TG015] AS '製令號',[MB001] AS '品號',[MB002] AS '品名',[LOTNO] AS '批號',[NUMS] AS '數量'
                                     FROM [TKMOC].[dbo].[TRACEBACK]
-                                    WHERE [KINDS] IN ('1銷貨')
+                                    WHERE [KINDS] IN ('1銷貨','5銷貨')
                                     ORDER BY [KINDS],[MMB001],[MLOTNO],[MID],[DID],[SID],[TG014],[TG015]
                                     ");
 
@@ -1246,7 +1246,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  
                                     SELECT [TG014] AS '製令',[TG015] AS '製令單號',[MID] AS '入庫單別',[DID] AS '入庫單號',[SID] AS '入庫序號',[MMB001] AS '主品號',[MMB002] AS '主品名',[MLOTNO] AS '主批號',[KINDS] AS '類別',[LEVELS] AS '層別',[DATES] AS '日期',[MB001] AS '品號',[MB002] AS '品名',[LOTNO] AS '批號',[NUMS] AS '數量'
                                     FROM [TKMOC].[dbo].[TRACEBACK]
-                                    WHERE [KINDS] IN ('2生產')
+                                    WHERE [KINDS] IN ('2生產','3生產入庫')
                                     ORDER BY [KINDS],[MMB001],[MLOTNO],[MID],[DID],[SID],[TG014],[TG015]
                                     ");
 
@@ -1373,7 +1373,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  
                                     SELECT [TG014] AS '製令',[TG015] AS '製令單號',[MID] AS '單別',[DID] AS '單號',[SID] AS '序號',[MMB001] AS '主品號',[MMB002] AS '主品名',[MLOTNO] AS '主批號',[KINDS] AS '類別',[LEVELS] AS '層別',[DATES] AS '日期',[MB001] AS '品號',[MB002] AS '品名',[LOTNO] AS '批號',[NUMS] AS '數量'
                                     FROM [TKMOC].[dbo].[TRACEBACK]
-                                    WHERE [KINDS] IN ('3領退料') AND [MID] LIKE 'A54%'
+                                    WHERE [KINDS] IN ('3領退料','2領退料') AND [MID] LIKE 'A54%'
                                     ORDER BY [KINDS],[MMB001],[MLOTNO],[MID],[DID],[SID],[TG014],[TG015]
                                     ");
 
@@ -1502,7 +1502,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  
                                     SELECT [TG014] AS '製令',[TG015] AS '製令單號',[MID] AS '單別',[DID] AS '單號',[SID] AS '序號',[MMB001] AS '主品號',[MMB002] AS '主品名',[MLOTNO] AS '主批號',[KINDS] AS '類別',[LEVELS] AS '層別',[DATES] AS '日期',[MB001] AS '品號',[MB002] AS '品名',[LOTNO] AS '批號',[NUMS] AS '數量'
                                     FROM [TKMOC].[dbo].[TRACEBACK]
-                                    WHERE [KINDS] IN ('3領退料') AND [MID] LIKE 'A56%'
+                                    WHERE [KINDS] IN ('3領退料','2領退料') AND [MID] LIKE 'A56%'
                                     ORDER BY [KINDS],[MMB001],[MLOTNO],[MID],[DID],[SID],[TG014],[TG015]
                                     ");
 
