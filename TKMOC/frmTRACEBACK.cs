@@ -576,32 +576,33 @@ namespace TKMOC
 
                 sbSql.Clear();
 
-                sbSql.AppendFormat(" WITH RTABLES");
-                sbSql.AppendFormat(" AS (");
-                sbSql.AppendFormat(" SELECT 0 AS LEVELS,[TG001],[TG002],[TG003],[TG004],[TG011],[TG017],[TG014],[TG015],[TE001],[TE002],[TE003],[TE004],[TE005],[TE010]");
-                sbSql.AppendFormat(" FROM [TK].[dbo].[VMOCTGMOCTE] WITH (NOLOCK)");
-                sbSql.AppendFormat(" WHERE [VMOCTGMOCTE].TG004 ='{0}' AND [VMOCTGMOCTE].TG017 ='{1}' ",MB001,LOTNO);
-                sbSql.AppendFormat(" UNION ALL");
-                sbSql.AppendFormat(" SELECT LEVELS+1,B.[TG001], B.[TG002], B.[TG003], B.[TG004], B.[TG011], B.[TG017], B.[TG014], B.[TG015], B.[TE001], B.[TE002],B.[TE003], B.[TE004], B.[TE005], B.[TE010]");
-                sbSql.AppendFormat(" FROM [TK].[dbo].[VMOCTGMOCTE] B WITH (NOLOCK)");
-                sbSql.AppendFormat(" INNER JOIN RTABLES ON RTABLES.[TE004]=B.[TG004] AND RTABLES.[TE010]=B.[TG017]");
-                sbSql.AppendFormat(" ) ");
-                sbSql.AppendFormat(" ");
-                sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[TRACEBACK]");
-                sbSql.AppendFormat(" ([MMB001],[MLOTNO],[KINDS],[LEVELS],[DATES],[MID],[DID],[SID],[MB001],[MB002],[LOTNO],[NUMS])");
-                sbSql.AppendFormat(" ");
-                sbSql.AppendFormat(" SELECT '{0}','{1}','3領退料',LEVELS", MB001, LOTNO); ;
-                sbSql.AppendFormat(" ,(SELECT TOP 1 TC003 FROM [TK].dbo.MOCTC WHERE TC001=TE001  AND TC002=TE002)");
-                sbSql.AppendFormat(" ,[TE001],[TE002],[TE003],[TE004],'',[TE010],[TE005] ");
-                sbSql.AppendFormat("  FROM RTABLES");
-                sbSql.AppendFormat(" GROUP BY LEVELS,[TE001],[TE002],[TE003],[TE004],[TE010],[TE005]");
-                sbSql.AppendFormat(" ORDER BY LEVELS,[TE001],[TE002],[TE003],[TE004],[TE010],[TE005]");
-                sbSql.AppendFormat(" ");
-                sbSql.AppendFormat(" ");
-                sbSql.AppendFormat(" ");
-                sbSql.AppendFormat(" ");
-                sbSql.AppendFormat(" ");
-                sbSql.AppendFormat(" ");
+ 
+                sbSql.AppendFormat(@" 
+                                    WITH RTABLES
+                                    AS (
+                                    SELECT 0 AS LEVELS,[TG001],[TG002],[TG003],[TG004],[TG011],[TG017],[TG014],[TG015],[TE001],[TE002],[TE003],[TE004],[TE005],[TE010]
+                                    FROM [TK].[dbo].[VMOCTGMOCTE] WITH (NOLOCK)
+                                    WHERE [VMOCTGMOCTE].TG004 ='{0}' AND [VMOCTGMOCTE].TG017 ='{1}' 
+                                    UNION ALL
+                                    SELECT LEVELS+1,B.[TG001], B.[TG002], B.[TG003], B.[TG004], B.[TG011], B.[TG017], B.[TG014], B.[TG015], B.[TE001], B.[TE002],B.[TE003], B.[TE004], B.[TE005], B.[TE010]
+                                    FROM [TK].[dbo].[VMOCTGMOCTE] B WITH (NOLOCK)
+                                    INNER JOIN RTABLES ON RTABLES.[TE004]=B.[TG004] AND RTABLES.[TE010]=B.[TG017]
+                                    )
+
+                                    INSERT INTO [TKMOC].[dbo].[TRACEBACK]
+                                    ([MMB001],[MLOTNO],[KINDS],[LEVELS],[DATES],[MID],[DID],[SID],[MB001],[MB002],[LOTNO],[NUMS],[TG014] ,[TG015])
+
+                                    SELECT '{0}','{1}','3領退料'
+                                    ,LEVELS
+                                    ,(SELECT TOP 1 TC003 FROM [TK].dbo.MOCTC WHERE TC001=TE001  AND TC002=TE002)
+                                    ,[TE001],[TE002],[TE003],[TE004],'',[TE010],[TE005]
+                                    ,(SELECT TOP 1 TE011 FROM [TK].dbo.MOCTE WHERE MOCTE.TE001=RTABLES.TE001  AND MOCTE.TE002=RTABLES.TE002 AND MOCTE.TE003=RTABLES.TE003)
+                                    ,(SELECT TOP 1 TE012 FROM [TK].dbo.MOCTE WHERE MOCTE.TE001=RTABLES.TE001  AND MOCTE.TE002=RTABLES.TE002 AND MOCTE.TE003=RTABLES.TE003)
+                                    FROM RTABLES
+                                    GROUP BY LEVELS,[TE001],[TE002],[TE003],[TE004],[TE010],[TE005]
+                                    ORDER BY LEVELS,[TE001],[TE002],[TE003],[TE004],[TE010],[TE005]
+
+                                    ", MB001, LOTNO);
 
                 cmd.Connection = sqlConn;
                 cmd.CommandTimeout = 60;
@@ -982,7 +983,7 @@ namespace TKMOC
             //先建立個 CheckBox 欄
             DataGridViewCheckBoxColumn cbCol = new DataGridViewCheckBoxColumn();
             cbCol.Width = 40;   //設定寬度
-            cbCol.HeaderText = "　全選";
+            cbCol.HeaderText = "　選擇";
             cbCol.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;   //置中
             cbCol.TrueValue = true;
             cbCol.FalseValue = false;
@@ -1012,7 +1013,7 @@ namespace TKMOC
             //先建立個 CheckBox 欄
             cbCol = new DataGridViewCheckBoxColumn();
             cbCol.Width = 40;   //設定寬度
-            cbCol.HeaderText = "　全選";
+            cbCol.HeaderText = "　選擇";
             cbCol.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;   //置中
             cbCol.TrueValue = true;
             cbCol.FalseValue = false;
