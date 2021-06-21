@@ -953,7 +953,7 @@ namespace TKMOC
             TableDataSource table = report1.GetDataSource("Table") as TableDataSource;
             table.SelectCommand = SQL.ToString();
 
-            report1.Preview = previewControl1;
+            report1.Preview = previewControl2;
             report1.Show();
         }
 

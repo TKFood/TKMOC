@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="06/21/2021 08:33:21" ReportInfo.Modified="06/21/2021 11:17:22" ReportInfo.CreatorVersion="2016.4.4.0">
+  <ScriptText>using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
+using System.Drawing;
+using System.Data;
+using FastReport;
+using FastReport.Data;
+using FastReport.Dialog;
+using FastReport.Barcode;
+using FastReport.Table;
+using FastReport.Utils;
+
+namespace FastReport
+{
+  public class ReportScript
+  {
+    string date1=null;
+    string numberno=null;
+    string date2=null;
+
+    private void Text2_BeforePrint(object sender, EventArgs e)
+    {
+      
+    }
+
+    private void Text4_BeforePrint(object sender, EventArgs e)
+    {
+      if(!((String)Report.GetColumnValue(&quot;Table.領料單號&quot;)).Equals(numberno))
+      {
+        Text4.Text=(String)Report.GetColumnValue(&quot;Table.領料單號&quot;);
+        numberno=(String)Report.GetColumnValue(&quot;Table.領料單號&quot;);
+        
+        Text2.Text=(String)Report.GetColumnValue(&quot;Table.領料日期&quot;);
+        Text6.Text=(String)Report.GetColumnValue(&quot;Table.單據日期&quot;);
+      }
+      else
+      {
+          Text4.Text=null; 
+        
+          Text2.Text=null; 
+          Text6.Text=null; 
+      }
+    }
+  }
+}
+</ScriptText>
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9IjwpgMoj7fOrPIV2jeTj1d">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT CONVERT(NVARCHAR,CONVERT(datetime,TC003),111) AS '領料日期'&#13;&#10;,TC001+'-'+TC002 AS '領料單號'&#13;&#10;,CONVERT(NVARCHAR,CONVERT(datetime,TC014),111) AS '單據日期'&#13;&#10;,TE004 AS '材料品號'&#13;&#10;,TE017 AS '品名'&#13;&#10;,TE018 AS '規格'&#13;&#10;,TE005 AS '領料數量'&#13;&#10;,TE006 AS '單位'&#13;&#10;,TE011+'-'+TE012 AS '製令單號'&#13;&#10;,MC002 AS '庫別名稱'&#13;&#10;,TE010 AS '批號'&#13;&#10;,TE013 AS '領料說明'&#13;&#10;,TE014 AS '備註'&#13;&#10;FROM [TK].dbo.MOCTC,[TK].dbo.MOCTD,[TK].dbo.MOCTE,[TK].dbo.CMSMC,[TK].dbo.CMSMQ&#13;&#10;WHERE TC001=TD001 AND TC002=TD002&#13;&#10;AND TC001=TE001 AND TC002=TE002&#13;&#10;AND TE008=MC001&#13;&#10;AND TC001=MQ001 AND MQ003 IN ('54','55')&#13;&#10;AND TE012 LIKE '20210621%'&#13;&#10;ORDER BY TC001,TC002,TE003">
+        <Column Name="領料日期" DataType="System.String"/>
+        <Column Name="領料單號" DataType="System.String"/>
+        <Column Name="單據日期" DataType="System.String"/>
+        <Column Name="材料品號" DataType="System.String"/>
+        <Column Name="品名" DataType="System.String"/>
+        <Column Name="規格" DataType="System.String"/>
+        <Column Name="領料數量" DataType="System.Decimal"/>
+        <Column Name="單位" DataType="System.String"/>
+        <Column Name="製令單號" DataType="System.String"/>
+        <Column Name="庫別名稱" DataType="System.String"/>
+        <Column Name="批號" DataType="System.String"/>
+        <Column Name="領料說明" DataType="System.String"/>
+        <Column Name="備註" DataType="System.String"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210">
+    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="18.9">
+      <TextObject Name="Text1" Left="-9.45" Width="1048.95" Height="18.9" Text="領料單明細表" HorzAlign="Center" VertAlign="Center"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="23.39" Width="1047.06" Height="18.9">
+      <TextObject Name="Text3" Width="66.15" Height="18.9" Border.Lines="All" Text="領料日期" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text5" Left="66.15" Width="103.95" Height="18.9" Border.Lines="All" Text="領料單號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text7" Left="170.1" Width="66.15" Height="18.9" Border.Lines="All" Text="單據日期" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text9" Left="236.25" Width="66.15" Height="18.9" Border.Lines="All" Text="材料品號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text11" Left="302.4" Width="132.3" Height="18.9" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text13" Left="434.7" Width="66.15" Height="18.9" Border.Lines="All" Text="規格" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text15" Left="500.85" Width="66.15" Height="18.9" Border.Lines="All" Text="領料數量" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text17" Left="567" Width="47.25" Height="18.9" Border.Lines="All" Text="單位" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text19" Left="614.25" Width="103.95" Height="18.9" Border.Lines="All" Text="製令單號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text21" Left="718.2" Width="66.15" Height="18.9" Border.Lines="All" Text="庫別名稱" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text23" Left="784.35" Width="66.15" Height="18.9" Border.Lines="All" Text="批號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text25" Left="850.5" Width="94.5" Height="18.9" Border.Lines="All" Text="領料說明" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text27" Left="945" Width="94.5" Height="18.9" Border.Lines="All" Text="備註" HorzAlign="Center" VertAlign="Center"/>
+    </PageHeaderBand>
+    <GroupHeaderBand Name="GroupHeader1" Top="46.79" Width="1047.06" Condition="[Table.領料單號]" SortOrder="None">
+      <DataBand Name="Data1" Top="51.28" Width="1047.06" Height="18.9" CanGrow="true" DataSource="Table">
+        <TextObject Name="Text8" Left="236.25" Width="66.15" Height="18.9" Border.Lines="All" Text="[Table.材料品號]" HorzAlign="Center" VertAlign="Center" WordWrap="false"/>
+        <TextObject Name="Text10" Left="302.4" Width="132.3" Height="18.9" Border.Lines="All" Text="[Table.品名]" VertAlign="Center" WordWrap="false"/>
+        <TextObject Name="Text12" Left="434.7" Width="66.15" Height="18.9" Border.Lines="All" Text="[Table.規格]" VertAlign="Center" WordWrap="false"/>
+        <TextObject Name="Text14" Left="500.85" Width="66.15" Height="18.9" Border.Lines="All" Text="[Table.領料數量]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="3" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text16" Left="567" Width="47.25" Height="18.9" Border.Lines="All" Text="[Table.單位]" HorzAlign="Center" VertAlign="Center" WordWrap="false"/>
+        <TextObject Name="Text18" Left="614.25" Width="103.95" Height="18.9" Border.Lines="All" Text="[Table.製令單號]" HorzAlign="Center" VertAlign="Center" WordWrap="false"/>
+        <TextObject Name="Text20" Left="718.2" Width="66.15" Height="18.9" Border.Lines="All" Text="[Table.庫別名稱]" HorzAlign="Center" VertAlign="Center" WordWrap="false"/>
+        <TextObject Name="Text22" Left="784.35" Width="66.15" Height="18.9" Border.Lines="All" Text="[Table.批號]" HorzAlign="Center" VertAlign="Center" WordWrap="false"/>
+        <TextObject Name="Text24" Left="850.5" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.領料說明]" VertAlign="Center" WordWrap="false"/>
+        <TextObject Name="Text2" Width="66.15" Height="18.9" Border.Lines="All" BeforePrintEvent="Text2_BeforePrint" Text="[Table.領料日期]" HorzAlign="Center" VertAlign="Center" WordWrap="false"/>
+        <TextObject Name="Text6" Left="170.1" Width="66.15" Height="18.9" Border.Lines="All" Text="[Table.單據日期]" HorzAlign="Center" VertAlign="Center" WordWrap="false"/>
+        <TextObject Name="Text4" Left="66.15" Width="103.95" Height="18.9" Border.Lines="All" BeforePrintEvent="Text4_BeforePrint" Text="[Table.領料單號]" HorzAlign="Center" VertAlign="Center" WordWrap="false"/>
+        <TextObject Name="Text26" Left="945" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.備註]" HorzAlign="Center" VertAlign="Center" WordWrap="false"/>
+      </DataBand>
+      <GroupFooterBand Name="GroupFooter1" Top="74.68" Width="1047.06"/>
+    </GroupHeaderBand>
+    <PageFooterBand Name="PageFooter1" Top="79.17" Width="1047.06" Height="18.9"/>
+  </ReportPage>
+</Report>
