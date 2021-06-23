@@ -41,6 +41,8 @@ namespace TKMOC
         public frmTRACEBACK()
         {
             InitializeComponent();
+
+            textBox3.Text = DateTime.Now.Year.ToString();
         }
 
         #region FUNCTION
@@ -151,6 +153,31 @@ namespace TKMOC
             //将 CheckBox 加入到 dataGridView2
             dataGridView4.Controls.Add(cbHeader);
             dataGridView4.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 9);
+
+
+            //先建立個 CheckBox 欄
+            cbCol = new DataGridViewCheckBoxColumn();
+            cbCol.Width = 40;   //設定寬度
+            cbCol.HeaderText = "　選擇";
+            cbCol.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;   //置中
+            cbCol.TrueValue = true;
+            cbCol.FalseValue = false;
+            dataGridView5.Columns.Insert(0, cbCol);
+
+
+
+            //建立个矩形，等下计算 CheckBox 嵌入 GridView 的位置
+            rect = dataGridView5.GetCellDisplayRectangle(0, -1, true);
+            rect.X = rect.Location.X + rect.Width / 4 - 18;
+            rect.Y = rect.Location.Y + (rect.Height / 2 - 9);
+
+            cbHeader = new CheckBox();
+            cbHeader.Name = "checkboxHeader";
+            cbHeader.Size = new Size(18, 18);
+            cbHeader.Location = rect.Location;
+            //将 CheckBox 加入到 dataGridView2
+            dataGridView5.Controls.Add(cbHeader);
+            dataGridView5.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 9);
 
 
 
@@ -2552,6 +2579,143 @@ namespace TKMOC
             return ADDSQL.ToString();
 
         }
+
+        public void SERACHDYCOPTGCOPTH(string LOTNO)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                SqlCommandBuilder sqlCmdBuilder = new SqlCommandBuilder();
+                DataSet ds = new DataSet();
+
+                sbSql.Clear();
+
+
+                sbSql.AppendFormat(@"  
+                                    SELECT TH004 AS '品號',TH005 AS '品名',TH017 AS '批號'
+                                    FROM [DY].dbo.COPTG,[DY].dbo.COPTH
+                                    WHERE TG001=TH001 AND TG002=TH002
+                                    AND TH017 LIKE '{0}%'
+                                    GROUP BY TH004,TH005,TH017
+                                    ORDER BY TH004,TH005,TH017
+                                    ", LOTNO);
+
+                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder = new SqlCommandBuilder(adapter);
+                sqlConn.Open();
+                ds.Clear();
+                adapter.Fill(ds, "ds");
+                sqlConn.Close();
+
+
+                if (ds.Tables["ds"].Rows.Count == 0)
+                {
+                    dataGridView5.DataSource = null;
+                }
+                else
+                {
+                    if (ds.Tables["ds"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView5.DataSource = ds.Tables["ds"];
+                        dataGridView5.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                        dataGridView5.AutoResizeColumns();
+                        dataGridView5.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 9);
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void SETFASTREPORT5(string STATUS)
+        {
+            StringBuilder SQL = new StringBuilder();
+            string SELECT = SELECT5();
+            Report report1 = new Report();
+
+            if (!string.IsNullOrEmpty(SELECT))
+            {
+                SQL.AppendFormat(@"  
+                                    SELECT 
+                                    CONVERT(NVARCHAR,CONVERT(datetime,TG003),111)  AS '銷貨日期'
+                                    ,TG001+'-'+TG002 AS '銷貨單號'
+                                    ,CONVERT(NVARCHAR,CONVERT(datetime,TG042),111)   AS '單據日期'
+                                    ,TG004 AS '客戶代號'
+                                    ,TG007 AS '客戶簡稱'
+                                    ,TG033 AS '總數量'
+                                    ,TG020 AS '單頭備註'
+                                    ,TH003 AS '序號'
+                                    ,TH004 AS '品號'
+                                    ,TH005 AS '品名'
+                                    ,TH006 AS '規格'
+                                    ,TH007 AS '庫別代號'
+                                    ,MC002 AS '庫別名稱'
+                                    ,CONVERT(NVARCHAR,CONVERT(datetime,TH106),111)  AS '有效日期'
+                                    ,TH008 AS '銷貨數量'
+                                    ,TH009 AS '單位'
+                                    ,TH014+'-'+TH015+'-'+TH016 AS '訂單單號'
+                                    ,TH017 AS '批號'
+                                    ,TH018 AS '單身備註'
+                                    FROM [DY].dbo.COPTG,[DY].dbo.COPTH,[DY].dbo.CMSMC
+                                    WHERE TG001=TH001 AND TG002=TH002
+                                    AND MC001=TH007
+                                    AND TH004+TH017 IN ({0})
+                                    ", SELECT.ToString());
+
+                report1.Load(@"REPORT\銷貨單明細表.frx");
+
+                report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                TableDataSource Table = report1.GetDataSource("Table") as TableDataSource;
+                Table.SelectCommand = SQL.ToString();
+
+                report1.Preview = previewControl7;
+                report1.Show();
+            }
+
+
+        }
+
+        public string SELECT5()
+        {
+            StringBuilder ADDSQL = new StringBuilder();
+
+            foreach (DataGridViewRow dgR in this.dataGridView5.Rows)
+            {
+                try
+                {
+                    DataGridViewCheckBoxCell cbx = (DataGridViewCheckBoxCell)dgR.Cells[0];
+                    if ((bool)cbx.FormattedValue)
+                    {
+                        ADDSQL.AppendFormat(@" '{0}', ", dgR.Cells["品號"].Value.ToString().Trim() + dgR.Cells["批號"].Value.ToString().Trim() );
+                    }
+                }
+                catch (Exception ex)
+                {
+                    //MessageBox.Show(ex.Message);
+                }
+            }
+
+            ADDSQL.AppendFormat(@" '' ");
+
+            return ADDSQL.ToString();
+
+        }
+
+
         #endregion
 
         #region BUTTON
@@ -2610,6 +2774,15 @@ namespace TKMOC
         private void button9_Click(object sender, EventArgs e)
         {
             SETFASTREPORT4("3領退料");
+        }
+        private void button10_Click(object sender, EventArgs e)
+        {
+            SERACHDYCOPTGCOPTH(textBox3.Text.Trim());
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            SETFASTREPORT5("1銷貨");
         }
 
         #endregion
