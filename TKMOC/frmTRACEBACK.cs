@@ -480,7 +480,482 @@ namespace TKMOC
 
         public void ADDTRACEBACKMOC2(string MB001, string LOTNO)
         {
+            int LEVELNOW = 0;
+            int LEVELNEXT = 1;
+            int MAXCOUNT = 1;
+            int DSCEHCK = 1;
 
+            //新增LEVEL=0
+            ADDTRACEBACKLEVEL0(MB001.Trim(), LOTNO.Trim());
+
+            while(DSCEHCK>=1 && MAXCOUNT<=10)
+            {
+                ADDTRACEBACKLEVELNEXT(LEVELNOW.ToString(), LEVELNEXT.ToString());
+
+                LEVELNOW = LEVELNOW + 1;
+                LEVELNEXT = LEVELNEXT + 1;
+                MAXCOUNT = MAXCOUNT + 1;
+
+                DSCEHCK = CHECKLEVEL(LEVELNOW);
+
+
+            }
+
+            //try
+            //{
+            //    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+            //    sqlConn = new SqlConnection(connectionString);
+
+            //    sqlConn.Close();
+            //    sqlConn.Open();
+            //    tran = sqlConn.BeginTransaction();
+
+            //    sbSql.Clear();
+
+            //    sbSql.AppendFormat(@"                                     
+            //                    INSERT INTO [TKMOC].[dbo].[TRACEBACK]
+            //                    ([MMB001],[MLOTNO],[KINDS],[LEVELS],[DATES],[MID],[DID],[SID],[TG014],[TG015],[MB001],[MB002],[LOTNO],[NUMS])
+
+            //                    SELECT DISTINCT MF001
+            //                     ,MF002
+            //                     ,'2領退料'
+            //                     ,'0'
+            //                     ,MF003
+            //                     ,MF004
+            //                     ,MF005
+            //                     ,MF006
+            //                     ,TG014
+            //                     ,TG015
+            //                     ,TG004
+            //                     ,''
+            //                     ,TG017
+            //                     ,TG011
+            //                    FROM [TK].dbo.INVME WITH (NOLOCK)
+            //                     ,[TK].dbo.INVMF WITH (NOLOCK)
+            //                     ,[TK].dbo.CMSMQ WITH (NOLOCK)
+            //                     ,[TK].dbo.MOCTE WITH (NOLOCK)
+            //                     ,[TK].dbo.MOCTG WITH (NOLOCK)
+            //                    WHERE MF001 = ME001
+            //                     AND MF002 = ME002
+            //                     AND MQ001 = MF004
+            //                     AND TE001 = MF004
+            //                     AND TE002 = MF005
+            //                     AND TE004 = MF001
+            //                     AND TE010 = MF002
+            //                     AND TG014 = TE011
+            //                     AND TG015 = TE012
+            //                     AND MQ003 IN (
+            //                      '54'
+            //                      ,'56'
+            //                      )
+            //                     AND MF001 = '{0}'
+            //                     AND MF002 = '{1}'
+
+            //                    UNION ALL
+
+            //                    SELECT DISTINCT MF001
+            //                     ,MF002
+            //                     ,'2領退料'
+            //                     ,'1'
+            //                     ,MF003
+            //                     ,MF004
+            //                     ,MF005
+            //                     ,MF006
+            //                     ,TG014
+            //                     ,TG015
+            //                     ,TG004
+            //                     ,''
+            //                     ,TG017
+            //                     ,TG011
+            //                    FROM [TK].dbo.INVME WITH (NOLOCK)
+            //                     ,[TK].dbo.INVMF WITH (NOLOCK)
+            //                     ,[TK].dbo.CMSMQ WITH (NOLOCK)
+            //                     ,[TK].dbo.MOCTE WITH (NOLOCK)
+            //                     ,[TK].dbo.MOCTG WITH (NOLOCK)
+            //                    WHERE MF001 = ME001
+            //                     AND MF002 = ME002
+            //                     AND MQ001 = MF004
+            //                     AND TE001 = MF004
+            //                     AND TE002 = MF005
+            //                     AND TE004 = MF001
+            //                     AND TE010 = MF002
+            //                     AND TG014 = TE011
+            //                     AND TG015 = TE012
+            //                     AND MQ003 IN (
+            //                      '54'
+            //                      ,'56'
+            //                      )
+            //                     AND LTRIM(RTRIM(MF001)) + LTRIM(RTRIM(MF002)) IN (
+            //                      SELECT LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017))
+            //                      FROM [TK].dbo.INVME WITH (NOLOCK)
+            //                       ,[TK].dbo.INVMF WITH (NOLOCK)
+            //                       ,[TK].dbo.CMSMQ WITH (NOLOCK)
+            //                       ,[TK].dbo.MOCTE WITH (NOLOCK)
+            //                       ,[TK].dbo.MOCTG WITH (NOLOCK)
+            //                      WHERE MF001 = ME001
+            //                       AND MF002 = ME002
+            //                       AND MQ001 = MF004
+            //                       AND TE001 = MF004
+            //                       AND TE002 = MF005
+            //                       AND TE004 = MF001
+            //                       AND TE010 = MF002
+            //                       AND TG014 = TE011
+            //                       AND TG015 = TE012
+            //                       AND MQ003 IN (
+            //                        '54'
+            //                        ,'56'
+            //                        )
+            //                       AND MF001 = '{0}'
+            //                       AND MF002 = '{1}'
+            //                      GROUP BY LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017))
+            //                      )
+
+            //                    UNION ALL
+
+            //                    SELECT DISTINCT MF001
+            //                     ,MF002
+            //                     ,'2領退料'
+            //                     ,'2'
+            //                     ,MF003
+            //                     ,MF004
+            //                     ,MF005
+            //                     ,MF006
+            //                     ,TG014
+            //                     ,TG015
+            //                     ,TG004
+            //                     ,''
+            //                     ,TG017
+            //                     ,TG011
+            //                    FROM [TK].dbo.INVME WITH (NOLOCK)
+            //                     ,[TK].dbo.INVMF WITH (NOLOCK)
+            //                     ,[TK].dbo.CMSMQ WITH (NOLOCK)
+            //                     ,[TK].dbo.MOCTE WITH (NOLOCK)
+            //                     ,[TK].dbo.MOCTG WITH (NOLOCK)
+            //                    WHERE MF001 = ME001
+            //                     AND MF002 = ME002
+            //                     AND MQ001 = MF004
+            //                     AND TE001 = MF004
+            //                     AND TE002 = MF005
+            //                     AND TE004 = MF001
+            //                     AND TE010 = MF002
+            //                     AND TG014 = TE011
+            //                     AND TG015 = TE012
+            //                     AND MQ003 IN (
+            //                      '54'
+            //                      ,'56'
+            //                      )
+            //                     AND LTRIM(RTRIM(MF001)) + LTRIM(RTRIM(MF002)) IN (
+            //                      SELECT LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017))
+            //                      FROM [TK].dbo.INVME WITH (NOLOCK)
+            //                       ,[TK].dbo.INVMF WITH (NOLOCK)
+            //                       ,[TK].dbo.CMSMQ WITH (NOLOCK)
+            //                       ,[TK].dbo.MOCTE WITH (NOLOCK)
+            //                       ,[TK].dbo.MOCTG WITH (NOLOCK)
+            //                      WHERE MF001 = ME001
+            //                       AND MF002 = ME002
+            //                       AND MQ001 = MF004
+            //                       AND TE001 = MF004
+            //                       AND TE002 = MF005
+            //                       AND TE004 = MF001
+            //                       AND TE010 = MF002
+            //                       AND TG014 = TE011
+            //                       AND TG015 = TE012
+            //                       AND MQ003 IN (
+            //                        '54'
+            //                        ,'56'
+            //                        )
+            //                       AND LTRIM(RTRIM(MF001)) + LTRIM(RTRIM(MF002)) IN (
+            //                        SELECT LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017))
+            //                        FROM [TK].dbo.INVME WITH (NOLOCK)
+            //                         ,[TK].dbo.INVMF WITH (NOLOCK)
+            //                         ,[TK].dbo.CMSMQ WITH (NOLOCK)
+            //                         ,[TK].dbo.MOCTE WITH (NOLOCK)
+            //                         ,[TK].dbo.MOCTG WITH (NOLOCK)
+            //                        WHERE MF001 = ME001
+            //                         AND MF002 = ME002
+            //                         AND MQ001 = MF004
+            //                         AND TE001 = MF004
+            //                         AND TE002 = MF005
+            //                         AND TE004 = MF001
+            //                         AND TE010 = MF002
+            //                         AND TG014 = TE011
+            //                         AND TG015 = TE012
+            //                         AND MQ003 IN (
+            //                          '54'
+            //                          ,'56'
+            //                          )
+            //                         AND MF001 = '{0}'
+            //                         AND MF002 = '{1}'
+            //                        GROUP BY LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017))
+            //                        )
+            //                      GROUP BY LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017))
+            //                      )
+
+            //                    UNION ALL
+
+            //                    SELECT DISTINCT MF001
+            //                     ,MF002
+            //                     ,'2領退料'
+            //                     ,'3'
+            //                     ,MF003
+            //                     ,MF004
+            //                     ,MF005
+            //                     ,MF006
+            //                     ,TG014
+            //                     ,TG015
+            //                     ,TG004
+            //                     ,''
+            //                     ,TG017
+            //                     ,TG011
+            //                    FROM [TK].dbo.INVME WITH (NOLOCK)
+            //                     ,[TK].dbo.INVMF WITH (NOLOCK)
+            //                     ,[TK].dbo.CMSMQ WITH (NOLOCK)
+            //                     ,[TK].dbo.MOCTE WITH (NOLOCK)
+            //                     ,[TK].dbo.MOCTG WITH (NOLOCK)
+            //                    WHERE MF001 = ME001
+            //                     AND MF002 = ME002
+            //                     AND MQ001 = MF004
+            //                     AND TE001 = MF004
+            //                     AND TE002 = MF005
+            //                     AND TE004 = MF001
+            //                     AND TE010 = MF002
+            //                     AND TG014 = TE011
+            //                     AND TG015 = TE012
+            //                     AND MQ003 IN (
+            //                      '54'
+            //                      ,'56'
+            //                      )
+            //                     AND LTRIM(RTRIM(MF001)) + LTRIM(RTRIM(MF002)) IN (
+            //                      SELECT LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017))
+            //                      FROM [TK].dbo.INVME WITH (NOLOCK)
+            //                       ,[TK].dbo.INVMF WITH (NOLOCK)
+            //                       ,[TK].dbo.CMSMQ WITH (NOLOCK)
+            //                       ,[TK].dbo.MOCTE WITH (NOLOCK)
+            //                       ,[TK].dbo.MOCTG WITH (NOLOCK)
+            //                      WHERE MF001 = ME001
+            //                       AND MF002 = ME002
+            //                       AND MQ001 = MF004
+            //                       AND TE001 = MF004
+            //                       AND TE002 = MF005
+            //                       AND TE004 = MF001
+            //                       AND TE010 = MF002
+            //                       AND TG014 = TE011
+            //                       AND TG015 = TE012
+            //                       AND MQ003 IN (
+            //                        '54'
+            //                        ,'56'
+            //                        )
+            //                       AND LTRIM(RTRIM(MF001)) + LTRIM(RTRIM(MF002)) IN (
+            //                        SELECT LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017))
+            //                        FROM [TK].dbo.INVME WITH (NOLOCK)
+            //                         ,[TK].dbo.INVMF WITH (NOLOCK)
+            //                         ,[TK].dbo.CMSMQ WITH (NOLOCK)
+            //                         ,[TK].dbo.MOCTE WITH (NOLOCK)
+            //                         ,[TK].dbo.MOCTG WITH (NOLOCK)
+            //                        WHERE MF001 = ME001
+            //                         AND MF002 = ME002
+            //                         AND MQ001 = MF004
+            //                         AND TE001 = MF004
+            //                         AND TE002 = MF005
+            //                         AND TE004 = MF001
+            //                         AND TE010 = MF002
+            //                         AND TG014 = TE011
+            //                         AND TG015 = TE012
+            //                         AND MQ003 IN (
+            //                          '54'
+            //                          ,'56'
+            //                          )
+            //                         AND LTRIM(RTRIM(MF001)) + LTRIM(RTRIM(MF002)) IN (
+            //                          SELECT LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017))
+            //                          FROM [TK].dbo.INVME WITH (NOLOCK)
+            //                           ,[TK].dbo.INVMF WITH (NOLOCK)
+            //                           ,[TK].dbo.CMSMQ WITH (NOLOCK)
+            //                           ,[TK].dbo.MOCTE WITH (NOLOCK)
+            //                           ,[TK].dbo.MOCTG WITH (NOLOCK)
+            //                          WHERE MF001 = ME001
+            //                           AND MF002 = ME002
+            //                           AND MQ001 = MF004
+            //                           AND TE001 = MF004
+            //                           AND TE002 = MF005
+            //                           AND TE004 = MF001
+            //                           AND TE010 = MF002
+            //                           AND TG014 = TE011
+            //                           AND TG015 = TE012
+            //                           AND MQ003 IN (
+            //                            '54'
+            //                            ,'56'
+            //                            )
+            //                           AND MF001 = '{0}'
+            //                           AND MF002 = '{1}'
+            //                          GROUP BY LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017))
+            //                          )
+            //                        GROUP BY LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017))
+            //                        )
+            //                      GROUP BY LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017))
+            //                      )
+
+            //                    UNION ALL
+
+            //                    SELECT DISTINCT MF001
+            //                     ,MF002
+            //                     ,'2領退料'
+            //                     ,'4'
+            //                     ,MF003
+            //                     ,MF004
+            //                     ,MF005
+            //                     ,MF006
+            //                     ,TG014
+            //                     ,TG015
+            //                     ,TG004
+            //                     ,''
+            //                     ,TG017
+            //                     ,TG011
+            //                    FROM [TK].dbo.INVME WITH (NOLOCK)
+            //                     ,[TK].dbo.INVMF WITH (NOLOCK)
+            //                     ,[TK].dbo.CMSMQ WITH (NOLOCK)
+            //                     ,[TK].dbo.MOCTE WITH (NOLOCK)
+            //                     ,[TK].dbo.MOCTG WITH (NOLOCK)
+            //                    WHERE MF001 = ME001
+            //                     AND MF002 = ME002
+            //                     AND MQ001 = MF004
+            //                     AND TE001 = MF004
+            //                     AND TE002 = MF005
+            //                     AND TE004 = MF001
+            //                     AND TE010 = MF002
+            //                     AND TG014 = TE011
+            //                     AND TG015 = TE012
+            //                     AND MQ003 IN (
+            //                      '54'
+            //                      ,'56'
+            //                      )
+            //                     AND LTRIM(RTRIM(MF001)) + LTRIM(RTRIM(MF002)) IN (
+            //                      SELECT LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017))
+            //                      FROM [TK].dbo.INVME WITH (NOLOCK)
+            //                       ,[TK].dbo.INVMF WITH (NOLOCK)
+            //                       ,[TK].dbo.CMSMQ WITH (NOLOCK)
+            //                       ,[TK].dbo.MOCTE WITH (NOLOCK)
+            //                       ,[TK].dbo.MOCTG WITH (NOLOCK)
+            //                      WHERE MF001 = ME001
+            //                       AND MF002 = ME002
+            //                       AND MQ001 = MF004
+            //                       AND TE001 = MF004
+            //                       AND TE002 = MF005
+            //                       AND TE004 = MF001
+            //                       AND TE010 = MF002
+            //                       AND TG014 = TE011
+            //                       AND TG015 = TE012
+            //                       AND MQ003 IN (
+            //                        '54'
+            //                        ,'56'
+            //                        )
+            //                       AND LTRIM(RTRIM(MF001)) + LTRIM(RTRIM(MF002)) IN (
+            //                        SELECT LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017))
+            //                        FROM [TK].dbo.INVME WITH (NOLOCK)
+            //                         ,[TK].dbo.INVMF WITH (NOLOCK)
+            //                         ,[TK].dbo.CMSMQ WITH (NOLOCK)
+            //                         ,[TK].dbo.MOCTE WITH (NOLOCK)
+            //                         ,[TK].dbo.MOCTG WITH (NOLOCK)
+            //                        WHERE MF001 = ME001
+            //                         AND MF002 = ME002
+            //                         AND MQ001 = MF004
+            //                         AND TE001 = MF004
+            //                         AND TE002 = MF005
+            //                         AND TE004 = MF001
+            //                         AND TE010 = MF002
+            //                         AND TG014 = TE011
+            //                         AND TG015 = TE012
+            //                         AND MQ003 IN (
+            //                          '54'
+            //                          ,'56'
+            //                          )
+            //                         AND LTRIM(RTRIM(MF001)) + LTRIM(RTRIM(MF002)) IN (
+            //                          SELECT LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017))
+            //                          FROM [TK].dbo.INVME WITH (NOLOCK)
+            //                           ,[TK].dbo.INVMF WITH (NOLOCK)
+            //                           ,[TK].dbo.CMSMQ WITH (NOLOCK)
+            //                           ,[TK].dbo.MOCTE WITH (NOLOCK)
+            //                           ,[TK].dbo.MOCTG WITH (NOLOCK)
+            //                          WHERE MF001 = ME001
+            //                           AND MF002 = ME002
+            //                           AND MQ001 = MF004
+            //                           AND TE001 = MF004
+            //                           AND TE002 = MF005
+            //                           AND TE004 = MF001
+            //                           AND TE010 = MF002
+            //                           AND TG014 = TE011
+            //                           AND TG015 = TE012
+            //                           AND MQ003 IN (
+            //                            '54'
+            //                            ,'56'
+            //                            )
+            //                           AND LTRIM(RTRIM(MF001)) + LTRIM(RTRIM(MF002)) IN (
+            //                            SELECT LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017))
+            //                            FROM [TK].dbo.INVME WITH (NOLOCK)
+            //                             ,[TK].dbo.INVMF WITH (NOLOCK)
+            //                             ,[TK].dbo.CMSMQ WITH (NOLOCK)
+            //                             ,[TK].dbo.MOCTE WITH (NOLOCK)
+            //                             ,[TK].dbo.MOCTG WITH (NOLOCK)
+            //                            WHERE MF001 = ME001
+            //                             AND MF002 = ME002
+            //                             AND MQ001 = MF004
+            //                             AND TE001 = MF004
+            //                             AND TE002 = MF005
+            //                             AND TE004 = MF001
+            //                             AND TE010 = MF002
+            //                             AND TG014 = TE011
+            //                             AND TG015 = TE012
+            //                             AND MQ003 IN (
+            //                              '54'
+            //                              ,'56'
+            //                              )
+            //                             AND MF001 = '{0}'
+            //                             AND MF002 = '{1}'
+            //                            GROUP BY LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017))
+            //                            )
+            //                          GROUP BY LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017))
+            //                          )
+            //                        GROUP BY LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017))
+            //                        )
+            //                      GROUP BY LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017))
+            //                      )
+            //                    ORDER BY INVMF.MF001
+            //                     ,INVMF.MF002
+            //                     ,MF004
+            //                     ,MF005
+
+            //                        ", MB001,LOTNO);
+
+            //    cmd.Connection = sqlConn;
+            //    cmd.CommandTimeout = 60;
+            //    cmd.CommandText = sbSql.ToString();
+            //    cmd.Transaction = tran;
+            //    result = cmd.ExecuteNonQuery();
+
+            //    if (result == 0)
+            //    {
+            //        tran.Rollback();    //交易取消
+            //    }
+            //    else
+            //    {
+            //        tran.Commit();      //執行交易  
+
+
+            //    }
+
+            //}
+            //catch
+            //{
+
+            //}
+
+            //finally
+            //{
+            //    sqlConn.Close();
+            //}
+        }
+
+        public void ADDTRACEBACKLEVEL0(string MB001, string LOTNO)
+        {
             try
             {
                 connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
@@ -493,417 +968,203 @@ namespace TKMOC
                 sbSql.Clear();
 
                 sbSql.AppendFormat(@"                                     
-                                INSERT INTO [TKMOC].[dbo].[TRACEBACK]
-                                ([MMB001],[MLOTNO],[KINDS],[LEVELS],[DATES],[MID],[DID],[SID],[TG014],[TG015],[MB001],[MB002],[LOTNO],[NUMS])
+                                    INSERT INTO [TKMOC].[dbo].[TRACEBACK]
+                                    ([MMB001],[MLOTNO],[KINDS],[LEVELS],[DATES],[MID],[DID],[SID],[TG014],[TG015],[MB001],[MB002],[LOTNO],[NUMS])
 
-                                SELECT DISTINCT MF001
-	                                ,MF002
-	                                ,'2領退料'
-	                                ,'0'
-	                                ,MF003
-	                                ,MF004
-	                                ,MF005
-	                                ,MF006
-	                                ,TG014
-	                                ,TG015
-	                                ,TG004
-	                                ,''
-	                                ,TG017
-	                                ,TG011
-                                FROM [TK].dbo.INVME WITH (NOLOCK)
-	                                ,[TK].dbo.INVMF WITH (NOLOCK)
-	                                ,[TK].dbo.CMSMQ WITH (NOLOCK)
-	                                ,[TK].dbo.MOCTE WITH (NOLOCK)
-	                                ,[TK].dbo.MOCTG WITH (NOLOCK)
-                                WHERE MF001 = ME001
-	                                AND MF002 = ME002
-	                                AND MQ001 = MF004
-	                                AND TE001 = MF004
-	                                AND TE002 = MF005
-	                                AND TE004 = MF001
-	                                AND TE010 = MF002
-	                                AND TG014 = TE011
-	                                AND TG015 = TE012
-	                                AND MQ003 IN (
-		                                '54'
-		                                ,'56'
-		                                )
-	                                AND MF001 = '{0}'
-	                                AND MF002 = '{1}'
+                                    SELECT DISTINCT MF001
+                                     ,MF002
+                                     ,'2領退料'
+                                     ,'0'
+                                     ,MF003
+                                     ,MF004
+                                     ,MF005
+                                     ,MF006
+                                     ,TG014
+                                     ,TG015
+                                     ,TG004
+                                     ,''
+                                     ,TG017
+                                     ,TG011
+                                    FROM [TK].dbo.INVME WITH (NOLOCK)
+                                     ,[TK].dbo.INVMF WITH (NOLOCK)
+                                     ,[TK].dbo.CMSMQ WITH (NOLOCK)
+                                     ,[TK].dbo.MOCTE WITH (NOLOCK)
+                                     ,[TK].dbo.MOCTG WITH (NOLOCK)
+                                    WHERE MF001 = ME001
+                                     AND MF002 = ME002
+                                     AND MQ001 = MF004
+                                     AND TE001 = MF004
+                                     AND TE002 = MF005
+                                     AND TE004 = MF001
+                                     AND TE010 = MF002
+                                     AND TG014 = TE011
+                                     AND TG015 = TE012
+                                     AND MQ003 IN (
+                                      '54'
+                                      ,'56'
+                                      )
+                                     AND MF001 = '{0}'
+                                     AND MF002 = '{1}'
 
-                                UNION ALL
 
-                                SELECT DISTINCT MF001
-	                                ,MF002
-	                                ,'2領退料'
-	                                ,'1'
-	                                ,MF003
-	                                ,MF004
-	                                ,MF005
-	                                ,MF006
-	                                ,TG014
-	                                ,TG015
-	                                ,TG004
-	                                ,''
-	                                ,TG017
-	                                ,TG011
-                                FROM [TK].dbo.INVME WITH (NOLOCK)
-	                                ,[TK].dbo.INVMF WITH (NOLOCK)
-	                                ,[TK].dbo.CMSMQ WITH (NOLOCK)
-	                                ,[TK].dbo.MOCTE WITH (NOLOCK)
-	                                ,[TK].dbo.MOCTG WITH (NOLOCK)
-                                WHERE MF001 = ME001
-	                                AND MF002 = ME002
-	                                AND MQ001 = MF004
-	                                AND TE001 = MF004
-	                                AND TE002 = MF005
-	                                AND TE004 = MF001
-	                                AND TE010 = MF002
-	                                AND TG014 = TE011
-	                                AND TG015 = TE012
-	                                AND MQ003 IN (
-		                                '54'
-		                                ,'56'
-		                                )
-	                                AND LTRIM(RTRIM(MF001)) + LTRIM(RTRIM(MF002)) IN (
-		                                SELECT LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017))
-		                                FROM [TK].dbo.INVME WITH (NOLOCK)
-			                                ,[TK].dbo.INVMF WITH (NOLOCK)
-			                                ,[TK].dbo.CMSMQ WITH (NOLOCK)
-			                                ,[TK].dbo.MOCTE WITH (NOLOCK)
-			                                ,[TK].dbo.MOCTG WITH (NOLOCK)
-		                                WHERE MF001 = ME001
-			                                AND MF002 = ME002
-			                                AND MQ001 = MF004
-			                                AND TE001 = MF004
-			                                AND TE002 = MF005
-			                                AND TE004 = MF001
-			                                AND TE010 = MF002
-			                                AND TG014 = TE011
-			                                AND TG015 = TE012
-			                                AND MQ003 IN (
-				                                '54'
-				                                ,'56'
-				                                )
-			                                AND MF001 = '{0}'
-			                                AND MF002 = '{1}'
-		                                GROUP BY LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017))
-		                                )
+                                    ", MB001, LOTNO);
 
-                                UNION ALL
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
 
-                                SELECT DISTINCT MF001
-	                                ,MF002
-	                                ,'2領退料'
-	                                ,'2'
-	                                ,MF003
-	                                ,MF004
-	                                ,MF005
-	                                ,MF006
-	                                ,TG014
-	                                ,TG015
-	                                ,TG004
-	                                ,''
-	                                ,TG017
-	                                ,TG011
-                                FROM [TK].dbo.INVME WITH (NOLOCK)
-	                                ,[TK].dbo.INVMF WITH (NOLOCK)
-	                                ,[TK].dbo.CMSMQ WITH (NOLOCK)
-	                                ,[TK].dbo.MOCTE WITH (NOLOCK)
-	                                ,[TK].dbo.MOCTG WITH (NOLOCK)
-                                WHERE MF001 = ME001
-	                                AND MF002 = ME002
-	                                AND MQ001 = MF004
-	                                AND TE001 = MF004
-	                                AND TE002 = MF005
-	                                AND TE004 = MF001
-	                                AND TE010 = MF002
-	                                AND TG014 = TE011
-	                                AND TG015 = TE012
-	                                AND MQ003 IN (
-		                                '54'
-		                                ,'56'
-		                                )
-	                                AND LTRIM(RTRIM(MF001)) + LTRIM(RTRIM(MF002)) IN (
-		                                SELECT LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017))
-		                                FROM [TK].dbo.INVME WITH (NOLOCK)
-			                                ,[TK].dbo.INVMF WITH (NOLOCK)
-			                                ,[TK].dbo.CMSMQ WITH (NOLOCK)
-			                                ,[TK].dbo.MOCTE WITH (NOLOCK)
-			                                ,[TK].dbo.MOCTG WITH (NOLOCK)
-		                                WHERE MF001 = ME001
-			                                AND MF002 = ME002
-			                                AND MQ001 = MF004
-			                                AND TE001 = MF004
-			                                AND TE002 = MF005
-			                                AND TE004 = MF001
-			                                AND TE010 = MF002
-			                                AND TG014 = TE011
-			                                AND TG015 = TE012
-			                                AND MQ003 IN (
-				                                '54'
-				                                ,'56'
-				                                )
-			                                AND LTRIM(RTRIM(MF001)) + LTRIM(RTRIM(MF002)) IN (
-				                                SELECT LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017))
-				                                FROM [TK].dbo.INVME WITH (NOLOCK)
-					                                ,[TK].dbo.INVMF WITH (NOLOCK)
-					                                ,[TK].dbo.CMSMQ WITH (NOLOCK)
-					                                ,[TK].dbo.MOCTE WITH (NOLOCK)
-					                                ,[TK].dbo.MOCTG WITH (NOLOCK)
-				                                WHERE MF001 = ME001
-					                                AND MF002 = ME002
-					                                AND MQ001 = MF004
-					                                AND TE001 = MF004
-					                                AND TE002 = MF005
-					                                AND TE004 = MF001
-					                                AND TE010 = MF002
-					                                AND TG014 = TE011
-					                                AND TG015 = TE012
-					                                AND MQ003 IN (
-						                                '54'
-						                                ,'56'
-						                                )
-					                                AND MF001 = '{0}'
-					                                AND MF002 = '{1}'
-				                                GROUP BY LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017))
-				                                )
-		                                GROUP BY LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017))
-		                                )
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
 
-                                UNION ALL
 
-                                SELECT DISTINCT MF001
-	                                ,MF002
-	                                ,'2領退料'
-	                                ,'3'
-	                                ,MF003
-	                                ,MF004
-	                                ,MF005
-	                                ,MF006
-	                                ,TG014
-	                                ,TG015
-	                                ,TG004
-	                                ,''
-	                                ,TG017
-	                                ,TG011
-                                FROM [TK].dbo.INVME WITH (NOLOCK)
-	                                ,[TK].dbo.INVMF WITH (NOLOCK)
-	                                ,[TK].dbo.CMSMQ WITH (NOLOCK)
-	                                ,[TK].dbo.MOCTE WITH (NOLOCK)
-	                                ,[TK].dbo.MOCTG WITH (NOLOCK)
-                                WHERE MF001 = ME001
-	                                AND MF002 = ME002
-	                                AND MQ001 = MF004
-	                                AND TE001 = MF004
-	                                AND TE002 = MF005
-	                                AND TE004 = MF001
-	                                AND TE010 = MF002
-	                                AND TG014 = TE011
-	                                AND TG015 = TE012
-	                                AND MQ003 IN (
-		                                '54'
-		                                ,'56'
-		                                )
-	                                AND LTRIM(RTRIM(MF001)) + LTRIM(RTRIM(MF002)) IN (
-		                                SELECT LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017))
-		                                FROM [TK].dbo.INVME WITH (NOLOCK)
-			                                ,[TK].dbo.INVMF WITH (NOLOCK)
-			                                ,[TK].dbo.CMSMQ WITH (NOLOCK)
-			                                ,[TK].dbo.MOCTE WITH (NOLOCK)
-			                                ,[TK].dbo.MOCTG WITH (NOLOCK)
-		                                WHERE MF001 = ME001
-			                                AND MF002 = ME002
-			                                AND MQ001 = MF004
-			                                AND TE001 = MF004
-			                                AND TE002 = MF005
-			                                AND TE004 = MF001
-			                                AND TE010 = MF002
-			                                AND TG014 = TE011
-			                                AND TG015 = TE012
-			                                AND MQ003 IN (
-				                                '54'
-				                                ,'56'
-				                                )
-			                                AND LTRIM(RTRIM(MF001)) + LTRIM(RTRIM(MF002)) IN (
-				                                SELECT LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017))
-				                                FROM [TK].dbo.INVME WITH (NOLOCK)
-					                                ,[TK].dbo.INVMF WITH (NOLOCK)
-					                                ,[TK].dbo.CMSMQ WITH (NOLOCK)
-					                                ,[TK].dbo.MOCTE WITH (NOLOCK)
-					                                ,[TK].dbo.MOCTG WITH (NOLOCK)
-				                                WHERE MF001 = ME001
-					                                AND MF002 = ME002
-					                                AND MQ001 = MF004
-					                                AND TE001 = MF004
-					                                AND TE002 = MF005
-					                                AND TE004 = MF001
-					                                AND TE010 = MF002
-					                                AND TG014 = TE011
-					                                AND TG015 = TE012
-					                                AND MQ003 IN (
-						                                '54'
-						                                ,'56'
-						                                )
-					                                AND LTRIM(RTRIM(MF001)) + LTRIM(RTRIM(MF002)) IN (
-						                                SELECT LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017))
-						                                FROM [TK].dbo.INVME WITH (NOLOCK)
-							                                ,[TK].dbo.INVMF WITH (NOLOCK)
-							                                ,[TK].dbo.CMSMQ WITH (NOLOCK)
-							                                ,[TK].dbo.MOCTE WITH (NOLOCK)
-							                                ,[TK].dbo.MOCTG WITH (NOLOCK)
-						                                WHERE MF001 = ME001
-							                                AND MF002 = ME002
-							                                AND MQ001 = MF004
-							                                AND TE001 = MF004
-							                                AND TE002 = MF005
-							                                AND TE004 = MF001
-							                                AND TE010 = MF002
-							                                AND TG014 = TE011
-							                                AND TG015 = TE012
-							                                AND MQ003 IN (
-								                                '54'
-								                                ,'56'
-								                                )
-							                                AND MF001 = '{0}'
-							                                AND MF002 = '{1}'
-						                                GROUP BY LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017))
-						                                )
-				                                GROUP BY LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017))
-				                                )
-		                                GROUP BY LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017))
-		                                )
+                }
 
-                                UNION ALL
+            }
+            catch
+            {
 
-                                SELECT DISTINCT MF001
-	                                ,MF002
-	                                ,'2領退料'
-	                                ,'4'
-	                                ,MF003
-	                                ,MF004
-	                                ,MF005
-	                                ,MF006
-	                                ,TG014
-	                                ,TG015
-	                                ,TG004
-	                                ,''
-	                                ,TG017
-	                                ,TG011
-                                FROM [TK].dbo.INVME WITH (NOLOCK)
-	                                ,[TK].dbo.INVMF WITH (NOLOCK)
-	                                ,[TK].dbo.CMSMQ WITH (NOLOCK)
-	                                ,[TK].dbo.MOCTE WITH (NOLOCK)
-	                                ,[TK].dbo.MOCTG WITH (NOLOCK)
-                                WHERE MF001 = ME001
-	                                AND MF002 = ME002
-	                                AND MQ001 = MF004
-	                                AND TE001 = MF004
-	                                AND TE002 = MF005
-	                                AND TE004 = MF001
-	                                AND TE010 = MF002
-	                                AND TG014 = TE011
-	                                AND TG015 = TE012
-	                                AND MQ003 IN (
-		                                '54'
-		                                ,'56'
-		                                )
-	                                AND LTRIM(RTRIM(MF001)) + LTRIM(RTRIM(MF002)) IN (
-		                                SELECT LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017))
-		                                FROM [TK].dbo.INVME WITH (NOLOCK)
-			                                ,[TK].dbo.INVMF WITH (NOLOCK)
-			                                ,[TK].dbo.CMSMQ WITH (NOLOCK)
-			                                ,[TK].dbo.MOCTE WITH (NOLOCK)
-			                                ,[TK].dbo.MOCTG WITH (NOLOCK)
-		                                WHERE MF001 = ME001
-			                                AND MF002 = ME002
-			                                AND MQ001 = MF004
-			                                AND TE001 = MF004
-			                                AND TE002 = MF005
-			                                AND TE004 = MF001
-			                                AND TE010 = MF002
-			                                AND TG014 = TE011
-			                                AND TG015 = TE012
-			                                AND MQ003 IN (
-				                                '54'
-				                                ,'56'
-				                                )
-			                                AND LTRIM(RTRIM(MF001)) + LTRIM(RTRIM(MF002)) IN (
-				                                SELECT LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017))
-				                                FROM [TK].dbo.INVME WITH (NOLOCK)
-					                                ,[TK].dbo.INVMF WITH (NOLOCK)
-					                                ,[TK].dbo.CMSMQ WITH (NOLOCK)
-					                                ,[TK].dbo.MOCTE WITH (NOLOCK)
-					                                ,[TK].dbo.MOCTG WITH (NOLOCK)
-				                                WHERE MF001 = ME001
-					                                AND MF002 = ME002
-					                                AND MQ001 = MF004
-					                                AND TE001 = MF004
-					                                AND TE002 = MF005
-					                                AND TE004 = MF001
-					                                AND TE010 = MF002
-					                                AND TG014 = TE011
-					                                AND TG015 = TE012
-					                                AND MQ003 IN (
-						                                '54'
-						                                ,'56'
-						                                )
-					                                AND LTRIM(RTRIM(MF001)) + LTRIM(RTRIM(MF002)) IN (
-						                                SELECT LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017))
-						                                FROM [TK].dbo.INVME WITH (NOLOCK)
-							                                ,[TK].dbo.INVMF WITH (NOLOCK)
-							                                ,[TK].dbo.CMSMQ WITH (NOLOCK)
-							                                ,[TK].dbo.MOCTE WITH (NOLOCK)
-							                                ,[TK].dbo.MOCTG WITH (NOLOCK)
-						                                WHERE MF001 = ME001
-							                                AND MF002 = ME002
-							                                AND MQ001 = MF004
-							                                AND TE001 = MF004
-							                                AND TE002 = MF005
-							                                AND TE004 = MF001
-							                                AND TE010 = MF002
-							                                AND TG014 = TE011
-							                                AND TG015 = TE012
-							                                AND MQ003 IN (
-								                                '54'
-								                                ,'56'
-								                                )
-							                                AND LTRIM(RTRIM(MF001)) + LTRIM(RTRIM(MF002)) IN (
-								                                SELECT LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017))
-								                                FROM [TK].dbo.INVME WITH (NOLOCK)
-									                                ,[TK].dbo.INVMF WITH (NOLOCK)
-									                                ,[TK].dbo.CMSMQ WITH (NOLOCK)
-									                                ,[TK].dbo.MOCTE WITH (NOLOCK)
-									                                ,[TK].dbo.MOCTG WITH (NOLOCK)
-								                                WHERE MF001 = ME001
-									                                AND MF002 = ME002
-									                                AND MQ001 = MF004
-									                                AND TE001 = MF004
-									                                AND TE002 = MF005
-									                                AND TE004 = MF001
-									                                AND TE010 = MF002
-									                                AND TG014 = TE011
-									                                AND TG015 = TE012
-									                                AND MQ003 IN (
-										                                '54'
-										                                ,'56'
-										                                )
-									                                AND MF001 = '{0}'
-									                                AND MF002 = '{1}'
-								                                GROUP BY LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017))
-								                                )
-						                                GROUP BY LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017))
-						                                )
-				                                GROUP BY LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017))
-				                                )
-		                                GROUP BY LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017))
-		                                )
-                                ORDER BY INVMF.MF001
-	                                ,INVMF.MF002
-	                                ,MF004
-	                                ,MF005
+            }
 
-                                    ", MB001,LOTNO);
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public int CHECKLEVEL(int LEVELS)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                SqlCommandBuilder sqlCmdBuilder = new SqlCommandBuilder();
+                DataSet ds = new DataSet();
+
+                sbSql.Clear();
+
+
+                sbSql.AppendFormat(@"  
+                                    SELECT *
+                                    FROM [TK].dbo.INVME WITH (NOLOCK)
+                                    ,[TK].dbo.INVMF WITH (NOLOCK)
+                                    ,[TK].dbo.CMSMQ WITH (NOLOCK)
+                                    ,[TK].dbo.MOCTE WITH (NOLOCK)
+                                    ,[TK].dbo.MOCTG WITH (NOLOCK)
+                                    WHERE MF001 = ME001
+                                    AND MF002 = ME002
+                                    AND MQ001 = MF004
+                                    AND TE001 = MF004
+                                    AND TE002 = MF005
+                                    AND TE004 = MF001
+                                    AND TE010 = MF002
+                                    AND TG014 = TE011
+                                    AND TG015 = TE012
+                                    AND MQ003 IN (
+                                    '54'
+                                    ,'56'
+                                    )
+                                    AND LTRIM(RTRIM(MF001)) + LTRIM(RTRIM(MF002)) IN 
+                                    (SELECT  LTRIM(RTRIM(MB001)) + LTRIM(RTRIM([LOTNO]))
+                                    FROM [TKMOC].[dbo].[TRACEBACK]
+                                    WHERE [KINDS]='2領退料' AND LEVELS='{0}'
+                                    GROUP BY MB001,[LOTNO])
+                                    ",LEVELS);
+
+                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder = new SqlCommandBuilder(adapter);
+                sqlConn.Open();
+                ds.Clear();
+                adapter.Fill(ds, "ds");
+                sqlConn.Close();
+
+
+
+                if (ds.Tables["ds"].Rows.Count >= 1)
+                {
+
+                    return ds.Tables["ds"].Rows.Count;
+                }
+                else
+                {
+                    return 0;
+                }
+
+            }
+            catch
+            {
+                return 0;
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void ADDTRACEBACKLEVELNEXT(string LEVELNOW,string LEVELNEXT)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat(@"                                     
+                                    INSERT INTO [TKMOC].[dbo].[TRACEBACK]
+                                    ([MMB001],[MLOTNO],[KINDS],[LEVELS],[DATES],[MID],[DID],[SID],[TG014],[TG015],[MB001],[MB002],[LOTNO],[NUMS])
+
+                                    SELECT DISTINCT MF001
+                                    ,MF002
+                                    ,'2領退料'
+                                    ,'{0}'
+                                    ,MF003
+                                    ,MF004
+                                    ,MF005
+                                    ,MF006
+                                    ,TG014
+                                    ,TG015
+                                    ,TG004
+                                    ,''
+                                    ,TG017
+                                    ,TG011
+                                    FROM [TK].dbo.INVME WITH (NOLOCK)
+                                    ,[TK].dbo.INVMF WITH (NOLOCK)
+                                    ,[TK].dbo.CMSMQ WITH (NOLOCK)
+                                    ,[TK].dbo.MOCTE WITH (NOLOCK)
+                                    ,[TK].dbo.MOCTG WITH (NOLOCK)
+                                    WHERE MF001 = ME001
+                                    AND MF002 = ME002
+                                    AND MQ001 = MF004
+                                    AND TE001 = MF004
+                                    AND TE002 = MF005
+                                    AND TE004 = MF001
+                                    AND TE010 = MF002
+                                    AND TG014 = TE011
+                                    AND TG015 = TE012
+                                    AND MQ003 IN (
+                                    '54'
+                                    ,'56'
+                                    )
+                                    AND LTRIM(RTRIM(MF001)) + LTRIM(RTRIM(MF002)) IN 
+                                    (SELECT  LTRIM(RTRIM(MB001)) + LTRIM(RTRIM([LOTNO]))
+                                    FROM [TKMOC].[dbo].[TRACEBACKTEMP]
+                                    WHERE [KINDS]='2領退料' AND LEVELS='{1}'
+                                    GROUP BY MB001,[LOTNO])
+
+                                    ", LEVELNEXT, LEVELNOW);
 
                 cmd.Connection = sqlConn;
                 cmd.CommandTimeout = 60;
