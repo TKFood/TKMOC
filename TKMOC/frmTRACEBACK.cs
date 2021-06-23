@@ -236,7 +236,7 @@ namespace TKMOC
                                 FROM [TK].dbo.INVME WITH (NOLOCK),[TK].dbo.INVMF WITH (NOLOCK),[TK].dbo.CMSMQ WITH (NOLOCK)
                                 WHERE MF001=ME001 AND MF002=ME002
                                 AND MQ001=MF004
-                                AND MQ003='34'
+                                AND MQ003 IN ('34','58')
                                 AND MF001='{0}' AND MF002='{1}'
                                 ORDER BY INVMF.MF002,MF003,MF004,MF005
                                     ", MB001, LOTNO);
