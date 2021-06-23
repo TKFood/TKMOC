@@ -391,7 +391,95 @@ namespace TKMOC
 
         public void ADDTRACEBACKMOC(string MB001, string LOTNO)
         {
+            int LEVELNOW = 0;
+            int LEVELNEXT = 1;
+            int MAXCOUNT = 1;
+            int DSCEHCK = 1;
 
+
+            //新增成品的LEVEL=0
+            ADDTRACEBACKPRODUCTLEVEL0(MB001, LOTNO);
+
+            while (DSCEHCK >= 1 && MAXCOUNT <= 10)
+            {
+                ADDTRACEBACKLEVELPRODUCTNEXT(MB001, LOTNO,LEVELNOW.ToString(), LEVELNEXT.ToString());
+
+                LEVELNOW = LEVELNOW + 1;
+                LEVELNEXT = LEVELNEXT + 1;
+                MAXCOUNT = MAXCOUNT + 1;
+
+                DSCEHCK = CHECKPRODUCTLEVEL(MB001, LOTNO, LEVELNOW.ToString());
+
+
+            }
+
+            //try
+            //{
+            //    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+            //    sqlConn = new SqlConnection(connectionString);
+
+            //    sqlConn.Close();
+            //    sqlConn.Open();
+            //    tran = sqlConn.BeginTransaction();
+
+            //    sbSql.Clear();
+
+            //    sbSql.AppendFormat(@" 
+            //                         WITH RTABLES AS 
+            //                         ( SELECT 0 AS LEVELS,[TG001],[TG002],[TG003],[TG004],[TG011],[TG017],[TG014],[TG015],[TE001],[TE002],[TE003],[TE004],[TE005],[TE010] 
+            //                         FROM [TK].[dbo].[VMOCTGMOCTE] WITH (NOLOCK) 
+            //                         WHERE [VMOCTGMOCTE].TG004 ='{0}' AND [VMOCTGMOCTE].TG017 ='{1}'  
+            //                         UNION ALL 
+            //                         SELECT LEVELS+1,B.[TG001], B.[TG002], B.[TG003], B.[TG004], B.[TG011], B.[TG017], B.[TG014], B.[TG015], B.[TE001], B.[TE002],B.[TE003], B.[TE004], B.[TE005], B.[TE010] 
+            //                         FROM [TK].[dbo].[VMOCTGMOCTE] B WITH (NOLOCK) 
+            //                         INNER JOIN RTABLES ON RTABLES.[TE004]=B.[TG004] AND RTABLES.[TE010]=B.[TG017] )   
+
+
+            //                        INSERT INTO [TKMOC].[dbo].[TRACEBACK] 
+            //                        ([MMB001],[MLOTNO],[KINDS],[LEVELS],[DATES],[MID],[DID],[SID],[MB001],[MB002],[LOTNO],[NUMS],[TG014],[TG015]) 
+
+            //                         SELECT '{0}','{1}','2生產',LEVELS  
+            //                         ,(SELECT TOP 1 TF003 FROM [TK].dbo.MOCTF WHERE TF001=TG001 AND TF002=TG002 ORDER BY TF003) 
+            //                         ,[TG001],[TG002],[TG003],[TG004], '',[TG017],[TG011]  ,[TG014],[TG015]
+            //                         FROM RTABLES 
+            //                         GROUP BY LEVELS,[TG001],[TG002],[TG003],[TG004],[TG017],[TG011] ,[TG014],[TG015]
+            //                         ORDER BY LEVELS,[TG004] 
+
+            //                        ", MB001, LOTNO);
+
+
+
+            //    cmd.Connection = sqlConn;
+            //    cmd.CommandTimeout = 60;
+            //    cmd.CommandText = sbSql.ToString();
+            //    cmd.Transaction = tran;
+            //    result = cmd.ExecuteNonQuery();
+
+            //    if (result == 0)
+            //    {
+            //        tran.Rollback();    //交易取消
+            //    }
+            //    else
+            //    {
+            //        tran.Commit();      //執行交易  
+
+
+            //    }
+
+            //}
+            //catch
+            //{
+
+            //}
+
+            //finally
+            //{
+            //    sqlConn.Close();
+            //}
+        }
+
+        public void ADDTRACEBACKPRODUCTLEVEL0(string MB001, string LOTNO)
+        {
             try
             {
                 connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
@@ -403,51 +491,21 @@ namespace TKMOC
 
                 sbSql.Clear();
 
-                sbSql.AppendFormat(@" 
-                                     WITH RTABLES AS 
-                                     ( SELECT 0 AS LEVELS,[TG001],[TG002],[TG003],[TG004],[TG011],[TG017],[TG014],[TG015],[TE001],[TE002],[TE003],[TE004],[TE005],[TE010] 
-                                     FROM [TK].[dbo].[VMOCTGMOCTE] WITH (NOLOCK) 
-                                     WHERE [VMOCTGMOCTE].TG004 ='{0}' AND [VMOCTGMOCTE].TG017 ='{1}'  
-                                     UNION ALL 
-                                     SELECT LEVELS+1,B.[TG001], B.[TG002], B.[TG003], B.[TG004], B.[TG011], B.[TG017], B.[TG014], B.[TG015], B.[TE001], B.[TE002],B.[TE003], B.[TE004], B.[TE005], B.[TE010] 
-                                     FROM [TK].[dbo].[VMOCTGMOCTE] B WITH (NOLOCK) 
-                                     INNER JOIN RTABLES ON RTABLES.[TE004]=B.[TG004] AND RTABLES.[TE010]=B.[TG017] )   
- 
- 
-                                    INSERT INTO [TKMOC].[dbo].[TRACEBACK] 
+                sbSql.AppendFormat(@"                                     
+                                   INSERT INTO [TKMOC].[dbo].[TRACEBACK] 
                                     ([MMB001],[MLOTNO],[KINDS],[LEVELS],[DATES],[MID],[DID],[SID],[MB001],[MB002],[LOTNO],[NUMS],[TG014],[TG015]) 
- 
-                                     SELECT '{0}','{1}','2生產',LEVELS  
-                                     ,(SELECT TOP 1 TF003 FROM [TK].dbo.MOCTF WHERE TF001=TG001 AND TF002=TG002 ORDER BY TF003) 
-                                     ,[TG001],[TG002],[TG003],[TG004], '',[TG017],[TG011]  ,[TG014],[TG015]
-                                     FROM RTABLES 
-                                     GROUP BY LEVELS,[TG001],[TG002],[TG003],[TG004],[TG017],[TG011] ,[TG014],[TG015]
-                                     ORDER BY LEVELS,[TG004] 
+
+                                    SELECT '{0}','{1}','2生產','0'  
+                                    ,(SELECT TOP 1 TF003 FROM [TK].dbo.MOCTF WHERE TF001=TG001 AND TF002=TG002 ORDER BY TF003) 
+                                    ,[TG001],[TG002],[TG003],[TG004], '',[TG017],[TG011]  ,[TG014],[TG015]
+                                    FROM [TK].dbo.MOCTE,[TK].dbo.MOCTG
+                                    WHERE  TG014 = TE011 AND TG015 = TE012
+                                    AND TG004='{0}' AND TG017='{1}'
+                                    GROUP BY [TG001],[TG002],[TG003],[TG004],[TG017],[TG011] ,[TG014],[TG015]
+                                    ORDER BY [TG004] 
+
 
                                     ", MB001, LOTNO);
-
-                //sbSql.AppendFormat(" WITH RTABLES");
-                //sbSql.AppendFormat(" AS (");
-                //sbSql.AppendFormat(" SELECT 0 AS LEVELS,[TG001],[TG002],[TG003],[TG004],[TG011],[TG017],[TG014],[TG015],[TE001],[TE002],[TE003],[TE004],[TE005],[TE010]");
-                //sbSql.AppendFormat(" FROM [TK].[dbo].[VMOCTGMOCTE] WITH (NOLOCK)");
-                //sbSql.AppendFormat(" WHERE [VMOCTGMOCTE].TG004 ='{0}' AND [VMOCTGMOCTE].TG017 ='{1}' ", MB001, LOTNO);
-                //sbSql.AppendFormat(" UNION ALL");
-                //sbSql.AppendFormat(" SELECT LEVELS+1,B.[TG001], B.[TG002], B.[TG003], B.[TG004], B.[TG011], B.[TG017], B.[TG014], B.[TG015], B.[TE001], B.[TE002],B.[TE003], B.[TE004], B.[TE005], B.[TE010]");
-                //sbSql.AppendFormat(" FROM [TK].[dbo].[VMOCTGMOCTE] B WITH (NOLOCK)");
-                //sbSql.AppendFormat(" INNER JOIN RTABLES ON RTABLES.[TE004]=B.[TG004] AND RTABLES.[TE010]=B.[TG017]");
-                //sbSql.AppendFormat(" ) ");
-                //sbSql.AppendFormat(" ");
-                //sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[TRACEBACK]");
-                //sbSql.AppendFormat(" ([MMB001],[MLOTNO],[KINDS],[LEVELS],[DATES],[MID],[DID],[SID],[MB001],[MB002],[LOTNO],[NUMS])");
-                //sbSql.AppendFormat(" ");
-                //sbSql.AppendFormat(" SELECT '{0}','{1}','2生產',LEVELS ",MB001,LOTNO);
-                //sbSql.AppendFormat(" ,(SELECT TOP 1 TF003 FROM [TK].dbo.MOCTF WHERE TF001=TG001 AND TF002=TG002 ORDER BY TF003)");
-                //sbSql.AppendFormat(" ,[TG001],[TG002],[TG003],[TG004], '',[TG017],[TG011]");
-                //sbSql.AppendFormat("  FROM RTABLES");
-                //sbSql.AppendFormat(" GROUP BY LEVELS,[TG001],[TG002],[TG003],[TG004],[TG017],[TG011]");
-                //sbSql.AppendFormat(" ORDER BY LEVELS,[TG004]");
-                //sbSql.AppendFormat(" ");
-
 
                 cmd.Connection = sqlConn;
                 cmd.CommandTimeout = 60;
@@ -472,6 +530,150 @@ namespace TKMOC
 
             }
 
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+
+        public void ADDTRACEBACKLEVELPRODUCTNEXT(string MB001,string LOTNO, string LEVELNOW, string LEVELNEXT)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat(@"    
+                                    INSERT INTO [TKMOC].[dbo].[TRACEBACK] 
+                                    ([MMB001],[MLOTNO],[KINDS],[LEVELS],[DATES],[MID],[DID],[SID],[MB001],[MB002],[LOTNO],[NUMS],[TG014],[TG015]) 
+                                 
+                                    SELECT 
+                                    '{0}','{1}','2生產','{2}'
+                                    ,(SELECT TOP 1 TF003 FROM [TK].dbo.MOCTF WHERE TF001 = TG001 AND TF002 = TG002 ORDER BY TF003)
+                                    ,[TG001],[TG002],[TG003],[TG004],'',[TG017],[TG011],[TG014],[TG015]
+                                    FROM [TK].dbo.MOCTE
+	                                    ,[TK].dbo.MOCTG
+                                    WHERE TG014 = TE011
+	                                    AND TG015 = TE012
+	                                    AND LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017)) IN (
+		                                    SELECT LTRIM(RTRIM([TE004])) + LTRIM(RTRIM([TE010]))
+		                                    FROM [TK].dbo.MOCTE
+			                                    ,[TK].dbo.MOCTG
+		                                    WHERE TG014 = TE011
+			                                    AND TG015 = TE012
+			                                    AND LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017)) IN (
+				                                    SELECT LTRIM(RTRIM(MB001)) + LTRIM(RTRIM(LOTNO))
+				                                    FROM [TKMOC].[dbo].[TRACEBACKTEMP]
+				                                    WHERE LEVELS = '{3}'
+				                                    )
+		                                    GROUP BY LTRIM(RTRIM([TE004])) + LTRIM(RTRIM([TE010]))
+		                                    )
+                                    GROUP BY [TG001],[TG002],[TG003],[TG004],[TG017],[TG011],[TG014],[TG015]
+                                    ORDER BY [TG004]
+
+
+                                    ", MB001, LOTNO, LEVELNEXT, LEVELNOW);
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public int CHECKPRODUCTLEVEL(string MB001, string LOTNO, string LEVELS)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                SqlCommandBuilder sqlCmdBuilder = new SqlCommandBuilder();
+                DataSet ds = new DataSet();
+
+                sbSql.Clear();
+
+
+                sbSql.AppendFormat(@"  
+                                   SELECT 
+                                    '{0}','{1}','2生產','1'
+                                    ,(SELECT TOP 1 TF003 FROM [TK].dbo.MOCTF WHERE TF001 = TG001 AND TF002 = TG002 ORDER BY TF003)
+                                    ,[TG001],[TG002],[TG003],[TG004],'',[TG017],[TG011],[TG014],[TG015]
+                                    FROM [TK].dbo.MOCTE
+	                                    ,[TK].dbo.MOCTG
+                                    WHERE TG014 = TE011
+	                                    AND TG015 = TE012
+	                                    AND LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017)) IN (
+		                                    SELECT LTRIM(RTRIM([TE004])) + LTRIM(RTRIM([TE010]))
+		                                    FROM [TK].dbo.MOCTE
+			                                    ,[TK].dbo.MOCTG
+		                                    WHERE TG014 = TE011
+			                                    AND TG015 = TE012
+			                                    AND LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017)) IN (
+				                                    SELECT LTRIM(RTRIM(MB001)) + LTRIM(RTRIM(LOTNO))
+				                                    FROM [TKMOC].[dbo].[TRACEBACKTEMP]
+				                                    WHERE LEVELS = '{2}'
+				                                    )
+		                                    GROUP BY LTRIM(RTRIM([TE004])) + LTRIM(RTRIM([TE010]))
+		                                    )
+                                    GROUP BY [TG001],[TG002],[TG003],[TG004],[TG017],[TG011],[TG014],[TG015]
+                                    ORDER BY [TG004]
+                                    ", MB001, LOTNO, LEVELS);
+
+                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder = new SqlCommandBuilder(adapter);
+                sqlConn.Open();
+                ds.Clear();
+                adapter.Fill(ds, "ds");
+                sqlConn.Close();
+
+
+
+                if (ds.Tables["ds"].Rows.Count >= 1)
+                {
+
+                    return ds.Tables["ds"].Rows.Count;
+                }
+                else
+                {
+                    return 0;
+                }
+
+            }
+            catch
+            {
+                return 0;
+            }
             finally
             {
                 sqlConn.Close();
