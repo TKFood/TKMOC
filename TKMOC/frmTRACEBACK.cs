@@ -2784,6 +2784,52 @@ namespace TKMOC
 
             }
         }
+        public void DG2CHECKALL1()
+        {
+
+            dataGridView2.EndEdit();
+
+            foreach (DataGridViewRow dr in dataGridView2.Rows)
+            {
+                dr.Cells[0].Value = false;
+
+            }
+
+            foreach (DataGridViewRow dr in dataGridView2.Rows)
+            {
+
+                if (dr.Cells["品號"].Value.ToString().StartsWith("3"))
+                {
+                    dr.Cells[0].Value = true;
+                }
+
+                    
+
+            }
+        }
+        public void DG2CHECKALL2()
+        {
+
+            dataGridView2.EndEdit();
+
+
+            foreach (DataGridViewRow dr in dataGridView2.Rows)
+            {
+                dr.Cells[0].Value = false;
+
+            }
+
+            foreach (DataGridViewRow dr in dataGridView2.Rows)
+            {
+
+                if (dr.Cells["品號"].Value.ToString().StartsWith("4"))
+                {
+                    dr.Cells[0].Value = true;
+                }
+                  
+
+            }
+        }
         public void DG3CHECKALL()
         {
 
@@ -2795,6 +2841,49 @@ namespace TKMOC
 
             }
         }
+
+        public void DG3CHECKALL1()
+        {
+
+            dataGridView3.EndEdit();
+
+            foreach (DataGridViewRow dr in dataGridView3.Rows)
+            {
+                dr.Cells[0].Value = false;
+
+            }
+
+            foreach (DataGridViewRow dr in dataGridView3.Rows)
+            {
+                if(dr.Cells["品號"].Value.ToString().StartsWith("3"))
+                {
+                    dr.Cells[0].Value = true;
+                }
+                
+
+            }
+        }
+
+        public void DG3CHECKALL2()
+        {
+
+            dataGridView3.EndEdit();
+
+            foreach (DataGridViewRow dr in dataGridView3.Rows)
+            {
+                dr.Cells[0].Value = false;
+
+            }
+
+            foreach (DataGridViewRow dr in dataGridView3.Rows)
+            {
+                if (dr.Cells["品號"].Value.ToString().StartsWith("4"))
+                {
+                    dr.Cells[0].Value = true;
+                }                  
+
+            }
+        }
         public void DG4CHECKALL()
         {
 
@@ -2803,6 +2892,48 @@ namespace TKMOC
             foreach (DataGridViewRow dr in dataGridView4.Rows)
             {
                 dr.Cells[0].Value = true;
+
+            }
+        }
+        public void DG4CHECKALL1()
+        {
+
+            dataGridView4.EndEdit();
+
+
+            foreach (DataGridViewRow dr in dataGridView4.Rows)
+            {
+                dr.Cells[0].Value = false;
+
+            }
+
+            foreach (DataGridViewRow dr in dataGridView4.Rows)
+            {
+                if (dr.Cells["品號"].Value.ToString().StartsWith("3"))
+                {
+                    dr.Cells[0].Value = true;
+                }
+
+            }
+        }
+        public void DG4CHECKALL2()
+        {
+
+            dataGridView4.EndEdit();
+
+
+            foreach (DataGridViewRow dr in dataGridView4.Rows)
+            {
+                dr.Cells[0].Value = false;
+
+            }
+
+            foreach (DataGridViewRow dr in dataGridView4.Rows)
+            {
+                if (dr.Cells["品號"].Value.ToString().StartsWith("4"))
+                {
+                    dr.Cells[0].Value = true;
+                }
 
             }
         }
@@ -2909,6 +3040,33 @@ namespace TKMOC
             DG5CHECKALL();
         }
 
+        private void button17_Click(object sender, EventArgs e)
+        {
+            DG3CHECKALL1();
+        }
+        private void button18_Click(object sender, EventArgs e)
+        {
+            DG3CHECKALL2();
+        }
+        private void button19_Click(object sender, EventArgs e)
+        {
+            DG4CHECKALL1();
+        }
+
+        private void button21_Click(object sender, EventArgs e)
+        {
+            DG4CHECKALL2();
+        }
+
+        private void button20_Click(object sender, EventArgs e)
+        {
+            DG2CHECKALL1();
+        }
+
+        private void button22_Click(object sender, EventArgs e)
+        {
+            DG2CHECKALL2();
+        }
         #endregion
 
 
