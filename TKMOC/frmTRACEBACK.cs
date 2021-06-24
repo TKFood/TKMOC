@@ -2737,6 +2737,61 @@ namespace TKMOC
 
         }
 
+        public void DG1CHECKALL()
+        {
+
+            dataGridView1.EndEdit();
+
+            foreach (DataGridViewRow dr in dataGridView1.Rows)
+            {
+                dr.Cells[0].Value = true;
+
+            }
+        }
+        public void DG2CHECKALL()
+        {
+
+            dataGridView2.EndEdit();
+
+            foreach (DataGridViewRow dr in dataGridView2.Rows)
+            {
+                dr.Cells[0].Value = true;
+
+            }
+        }
+        public void DG3CHECKALL()
+        {
+
+            dataGridView3.EndEdit();
+
+            foreach (DataGridViewRow dr in dataGridView3.Rows)
+            {
+                dr.Cells[0].Value = true;
+
+            }
+        }
+        public void DG4CHECKALL()
+        {
+
+            dataGridView4.EndEdit();
+
+            foreach (DataGridViewRow dr in dataGridView4.Rows)
+            {
+                dr.Cells[0].Value = true;
+
+            }
+        }
+        public void DG5CHECKALL()
+        {
+
+            dataGridView5.EndEdit();
+
+            foreach (DataGridViewRow dr in dataGridView5.Rows)
+            {
+                dr.Cells[0].Value = true;
+
+            }
+        }
 
         #endregion
 
@@ -2805,6 +2860,28 @@ namespace TKMOC
         private void button11_Click(object sender, EventArgs e)
         {
             SETFASTREPORT5("1銷貨");
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            DG3CHECKALL();
+        }
+        private void button13_Click(object sender, EventArgs e)
+        {
+            DG4CHECKALL();
+        }
+        private void button14_Click(object sender, EventArgs e)
+        {
+            DG2CHECKALL();
+        }
+
+        private void button15_Click(object sender, EventArgs e)
+        {
+            DG1CHECKALL();
+        }
+        private void button16_Click(object sender, EventArgs e)
+        {
+            DG5CHECKALL();
         }
 
         #endregion

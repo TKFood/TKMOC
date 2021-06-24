@@ -97,6 +97,11 @@
             this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
             this.button11 = new System.Windows.Forms.Button();
             this.previewControl7 = new FastReport.Preview.PreviewControl();
+            this.button12 = new System.Windows.Forms.Button();
+            this.button13 = new System.Windows.Forms.Button();
+            this.button14 = new System.Windows.Forms.Button();
+            this.button15 = new System.Windows.Forms.Button();
+            this.button16 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -412,6 +417,7 @@
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel6.Controls.Add(this.label6, 0, 0);
             this.tableLayoutPanel6.Controls.Add(this.button6, 1, 0);
+            this.tableLayoutPanel6.Controls.Add(this.button12, 3, 0);
             this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel6.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel6.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
@@ -594,6 +600,7 @@
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel8.Controls.Add(this.label7, 0, 0);
             this.tableLayoutPanel8.Controls.Add(this.button8, 1, 0);
+            this.tableLayoutPanel8.Controls.Add(this.button13, 3, 0);
             this.tableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel8.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel8.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
@@ -776,6 +783,7 @@
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel4.Controls.Add(this.label4, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.button4, 1, 0);
+            this.tableLayoutPanel4.Controls.Add(this.button14, 3, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
@@ -959,6 +967,7 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel2.Controls.Add(this.label5, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.button2, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.button15, 3, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
@@ -1142,6 +1151,7 @@
             this.tableLayoutPanel10.Controls.Add(this.label8, 0, 0);
             this.tableLayoutPanel10.Controls.Add(this.button10, 2, 0);
             this.tableLayoutPanel10.Controls.Add(this.textBox3, 1, 0);
+            this.tableLayoutPanel10.Controls.Add(this.button16, 4, 0);
             this.tableLayoutPanel10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel10.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel10.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
@@ -1284,6 +1294,66 @@
             this.previewControl7.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.previewControl7.Size = new System.Drawing.Size(1126, 323);
             this.previewControl7.TabIndex = 4;
+            // 
+            // button12
+            // 
+            this.button12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button12.Location = new System.Drawing.Point(366, 5);
+            this.button12.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(138, 35);
+            this.button12.TabIndex = 24;
+            this.button12.Text = "全選";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
+            // 
+            // button13
+            // 
+            this.button13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button13.Location = new System.Drawing.Point(366, 5);
+            this.button13.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(138, 33);
+            this.button13.TabIndex = 25;
+            this.button13.Text = "全選";
+            this.button13.UseVisualStyleBackColor = true;
+            this.button13.Click += new System.EventHandler(this.button13_Click);
+            // 
+            // button14
+            // 
+            this.button14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button14.Location = new System.Drawing.Point(366, 9);
+            this.button14.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.button14.Name = "button14";
+            this.button14.Size = new System.Drawing.Size(138, 35);
+            this.button14.TabIndex = 25;
+            this.button14.Text = "全選";
+            this.button14.UseVisualStyleBackColor = true;
+            this.button14.Click += new System.EventHandler(this.button14_Click);
+            // 
+            // button15
+            // 
+            this.button15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button15.Location = new System.Drawing.Point(366, 6);
+            this.button15.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.button15.Name = "button15";
+            this.button15.Size = new System.Drawing.Size(138, 35);
+            this.button15.TabIndex = 25;
+            this.button15.Text = "全選";
+            this.button15.UseVisualStyleBackColor = true;
+            this.button15.Click += new System.EventHandler(this.button15_Click);
+            // 
+            // button16
+            // 
+            this.button16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button16.Location = new System.Drawing.Point(516, 6);
+            this.button16.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.button16.Name = "button16";
+            this.button16.Size = new System.Drawing.Size(99, 35);
+            this.button16.TabIndex = 25;
+            this.button16.Text = "全選";
+            this.button16.UseVisualStyleBackColor = true;
+            this.button16.Click += new System.EventHandler(this.button16_Click);
             // 
             // frmTRACEBACK
             // 
@@ -1464,5 +1534,10 @@
         private System.Windows.Forms.Button button11;
         private FastReport.Preview.PreviewControl previewControl7;
         private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Button button12;
+        private System.Windows.Forms.Button button13;
+        private System.Windows.Forms.Button button14;
+        private System.Windows.Forms.Button button15;
+        private System.Windows.Forms.Button button16;
     }
 }
