@@ -1379,7 +1379,7 @@ namespace TKMOC
                                     ,TG015
                                     ,TG004
                                     ,''
-                                    ,TG017
+                                    ,'****' TG017
                                     ,SUM(TG011)
                                     FROM [TK].dbo.INVME WITH (NOLOCK)
                                     ,[TK].dbo.INVMF WITH (NOLOCK)
@@ -1413,7 +1413,7 @@ namespace TKMOC
                                     ,TG014
                                     ,TG015
                                     ,TG004
-                                    ,TG017
+                                    
                                     ", LEVELNEXT, LEVELNOW);
 
                 cmd.Connection = sqlConn;
