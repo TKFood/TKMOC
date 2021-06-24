@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="06/21/2021 11:55:30" ReportInfo.Modified="06/21/2021 14:25:41" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="06/21/2021 11:55:30" ReportInfo.Modified="06/24/2021 16:48:12" ReportInfo.CreatorVersion="2016.4.4.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9KdCVM5I6ofX4Hhajz6fQ4j">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9I/kno9/Nbu7+AWk0HiwG6y">
       <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT &#13;&#10;CONVERT(NVARCHAR,CONVERT(datetime,TG003),111)  AS '銷貨日期'&#13;&#10;,TG001+'-'+TG002 AS '銷貨單號'&#13;&#10;,CONVERT(NVARCHAR,CONVERT(datetime,TG042),111)   AS '單據日期'&#13;&#10;,TG004 AS '客戶代號'&#13;&#10;,TG007 AS '客戶簡稱'&#13;&#10;,TG033 AS '總數量'&#13;&#10;,TG020 AS '單頭備註'&#13;&#10;,TH003 AS '序號'&#13;&#10;,TH004 AS '品號'&#13;&#10;,TH005 AS '品名'&#13;&#10;,TH006 AS '規格'&#13;&#10;,TH007 AS '庫別代號'&#13;&#10;,MC002 AS '庫別名稱'&#13;&#10;,CONVERT(NVARCHAR,CONVERT(datetime,TH106),111)  AS '有效日期'&#13;&#10;,TH008 AS '銷貨數量'&#13;&#10;,TH009 AS '單位'&#13;&#10;,TH014+'-'+TH015+'-'+TH016 AS '訂單單號'&#13;&#10;,TH017 AS '批號'&#13;&#10;,TH018 AS '單身備註'&#13;&#10;FROM [TK].dbo.COPTG,[TK].dbo.COPTH,[TK].dbo.CMSMC&#13;&#10;WHERE TG001=TH001 AND TG002=TH002&#13;&#10;AND MC001=TH007&#13;&#10;AND TG002 LIKE '2021062%'">
         <Column Name="銷貨日期" DataType="System.String"/>
         <Column Name="銷貨單號" DataType="System.String"/>
@@ -28,11 +28,11 @@
   </Dictionary>
   <ReportPage Name="Page1" Landscape="true" PaperWidth="500" PaperHeight="210">
     <ReportTitleBand Name="ReportTitle1" Width="1814.4" Height="18.9">
-      <TextObject Name="Text1" Width="1795.5" Height="18.9" Text="銷貨單明細表" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text1" Width="1795.5" Height="18.9" Text="銷貨單/銷退單明細表" HorzAlign="Center" VertAlign="Center"/>
     </ReportTitleBand>
     <PageHeaderBand Name="PageHeader1" Top="23.39" Width="1814.4" Height="18.9">
-      <TextObject Name="Text3" Width="75.6" Height="18.9" Border.Lines="All" Text="銷貨日期" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text5" Left="75.6" Width="113.4" Height="18.9" Border.Lines="All" Text="銷貨單號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text3" Width="75.6" Height="18.9" Border.Lines="All" Text="銷貨/銷退日期" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text5" Left="75.6" Width="113.4" Height="18.9" Border.Lines="All" Text="銷貨/銷退單號" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text7" Left="189" Width="75.6" Height="18.9" Border.Lines="All" Text="單據日期" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text9" Left="264.6" Width="85.05" Height="18.9" Border.Lines="All" Text="客戶代號" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text11" Left="349.65" Width="160.65" Height="18.9" Border.Lines="All" Text="客戶簡稱" HorzAlign="Center" VertAlign="Center"/>

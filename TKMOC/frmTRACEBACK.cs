@@ -1379,7 +1379,7 @@ namespace TKMOC
                                     ,TG015
                                     ,TG004
                                     ,''
-                                    ,'****' TG017
+                                    ,TG017
                                     ,SUM(TG011)
                                     FROM [TK].dbo.INVME WITH (NOLOCK)
                                     ,[TK].dbo.INVMF WITH (NOLOCK)
@@ -1413,7 +1413,7 @@ namespace TKMOC
                                     ,TG014
                                     ,TG015
                                     ,TG004
-                                    
+                                    ,TG017
                                     ", LEVELNEXT, LEVELNOW);
 
                 cmd.Connection = sqlConn;
@@ -2176,6 +2176,32 @@ namespace TKMOC
                                     WHERE TG001=TH001 AND TG002=TH002
                                     AND MC001=TH007
                                     AND TH001+TH002+TH003 IN ({0})
+
+                                    UNION ALL
+                                    SELECT 
+                                    CONVERT(NVARCHAR,CONVERT(datetime,TI003),111)  AS '銷貨日期'
+                                    ,TI001+'-'+TI002 AS '銷貨單號'
+                                    ,CONVERT(NVARCHAR,CONVERT(datetime,TI034),111)   AS '單據日期'
+                                    ,TI004 AS '客戶代號'
+                                    ,TI021 AS '客戶簡稱'
+                                    ,TI029*-1 AS '總數量'
+                                    ,TI020 AS '單頭備註'
+                                    ,TJ003 AS '序號'
+                                    ,TJ004 AS '品號'
+                                    ,TJ005 AS '品名'
+                                    ,TJ006 AS '規格'
+                                    ,TJ013 AS '庫別代號'
+                                    ,MC002 AS '庫別名稱'
+                                    ,CONVERT(NVARCHAR,CONVERT(datetime,TJ096),111)  AS '有效日期'
+                                    ,TJ007*-1 AS '銷貨數量'
+                                    ,TJ008 AS '單位'
+                                    ,TJ018+'-'+TJ019+'-'+TJ020 AS '訂單單號'
+                                    ,TJ014 AS '批號'
+                                    ,TJ023 AS '單身備註'
+                                    FROM [TK].dbo.COPTI,[TK].dbo.COPTJ,[TK].dbo.CMSMC
+                                    WHERE TI001=TJ001 AND TI002=TJ002
+                                    AND MC001=TJ013
+                                    AND TJ001+TJ002+TJ003 IN ({0})
                                     ", SELECT.ToString());
 
                 report1.Load(@"REPORT\銷貨單明細表.frx");
