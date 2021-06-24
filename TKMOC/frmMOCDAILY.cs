@@ -344,7 +344,9 @@ namespace TKMOC
                                 AND TA003>='{0}' AND TA003<='{1}'
                                 ) AS TEMP
                                 WHERE 線別 = '{2}'
-                                ORDER BY 線別,SUBSTRING(製令單號,1,8),品號", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"), comboBox1.Text);
+                                ORDER BY 線別,SUBSTRING(製令單號,1,8),品號
+
+                                ", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"), comboBox1.Text);
 
 
             return SB;
