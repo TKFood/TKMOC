@@ -1200,7 +1200,7 @@ namespace TKMOC
                                     INSERT INTO [TKMOC].[dbo].[TRACEBACK]
                                     ([MMB001],[MLOTNO],[KINDS],[LEVELS],[DATES],[MID],[DID],[SID],[TG014],[TG015],[MB001],[MB002],[LOTNO],[NUMS])
 
-                                    SELECT DISTINCT MF001
+                                    SELECT MF001
                                      ,MF002
                                      ,'2領退料'
                                      ,'0'
@@ -1213,7 +1213,7 @@ namespace TKMOC
                                      ,TG004
                                      ,''
                                      ,TG017
-                                     ,TG011
+                                     ,SUM(TG011)
                                     FROM [TK].dbo.INVME WITH (NOLOCK)
                                      ,[TK].dbo.INVMF WITH (NOLOCK)
                                      ,[TK].dbo.CMSMQ WITH (NOLOCK)
@@ -1234,7 +1234,16 @@ namespace TKMOC
                                       )
                                      AND MF001 = '{0}'
                                      AND MF002 = '{1}'
-
+                                        GROUP BY  MF001
+                                        ,MF002
+                                        ,MF003
+                                        ,MF004
+                                        ,MF005
+                                        ,MF006
+                                        ,TG014
+                                        ,TG015
+                                        ,TG004
+                                        ,TG017
 
                                     ", MB001, LOTNO);
 
@@ -1355,7 +1364,7 @@ namespace TKMOC
                                     INSERT INTO [TKMOC].[dbo].[TRACEBACK]
                                     ([MMB001],[MLOTNO],[KINDS],[LEVELS],[DATES],[MID],[DID],[SID],[TG014],[TG015],[MB001],[MB002],[LOTNO],[NUMS])
 
-                                    SELECT DISTINCT MF001
+                                    SELECT  MF001
                                     ,MF002
                                     ,'2領退料'
                                     ,'{0}'
@@ -1368,7 +1377,7 @@ namespace TKMOC
                                     ,TG004
                                     ,''
                                     ,TG017
-                                    ,TG011
+                                    ,SUM(TG011)
                                     FROM [TK].dbo.INVME WITH (NOLOCK)
                                     ,[TK].dbo.INVMF WITH (NOLOCK)
                                     ,[TK].dbo.CMSMQ WITH (NOLOCK)
@@ -1389,10 +1398,19 @@ namespace TKMOC
                                     )
                                     AND LTRIM(RTRIM(MF001)) + LTRIM(RTRIM(MF002)) IN 
                                     (SELECT  LTRIM(RTRIM(MB001)) + LTRIM(RTRIM([LOTNO]))
-                                    FROM [TKMOC].[dbo].[TRACEBACKTEMP]
+                                    FROM [TKMOC].[dbo].[TRACEBACK]
                                     WHERE [KINDS]='2領退料' AND LEVELS='{1}'
                                     GROUP BY MB001,[LOTNO])
-
+                                    GROUP BY  MF001
+                                    ,MF002
+                                    ,MF003
+                                    ,MF004
+                                    ,MF005
+                                    ,MF006
+                                    ,TG014
+                                    ,TG015
+                                    ,TG004
+                                    ,TG017
                                     ", LEVELNEXT, LEVELNOW);
 
                 cmd.Connection = sqlConn;
@@ -1737,7 +1755,7 @@ namespace TKMOC
                                     INSERT INTO [TKMOC].[dbo].[TRACEBACK]
                                     ([MMB001],[MLOTNO],[KINDS],[LEVELS],[DATES],[MID],[DID],[SID],[MB001],[MB002],[LOTNO],[NUMS],TG014,TG015)
 
-                                    SELECT MF001,MF002,'3生產入庫','0',MF003,MF004,MF005,MF006,MF001,'',MF002,MF010,TG014,TG015
+                                    SELECT MF001,MF002,'3生產入庫','0',MF003,MF004,MF005,'****' MF006,MF001,'',MF002,SUM(MF010) MF010,TG014,TG015
                                     FROM [TK].dbo.INVME WITH (NOLOCK),[TK].dbo.INVMF WITH (NOLOCK),[TK].dbo.CMSMQ WITH (NOLOCK),[TK].dbo.MOCTG WITH (NOLOCK)
                                     WHERE MF001=ME001 AND MF002=ME002
                                     AND MQ001=MF004
@@ -1748,6 +1766,7 @@ namespace TKMOC
                                     SELECT RTRIM(LTRIM([MB001]))+RTRIM(LTRIM([LOTNO]))
                                     FROM [TKMOC].[dbo].[TRACEBACK]
                                     )
+                                    GROUP BY MF001,MF002,MF003,MF004,MF005,MF001,MF002,TG014,TG015
                                     ORDER BY INVMF.MF002,MF003,MF004,MF005
 
                                     ", MB001,LOTNO);
