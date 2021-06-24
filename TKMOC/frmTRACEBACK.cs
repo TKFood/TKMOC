@@ -2301,7 +2301,7 @@ namespace TKMOC
                                     FROM [TK].dbo.MOCTF, [TK].dbo.MOCTG
                                     LEFT JOIN [TK].dbo.MOCTA ON TA001=TG014 AND TA002=TG015
                                     WHERE TF001=TG001 AND TF002=TG002
-                                    AND TG001+TG002+TG003 IN ({0})
+                                    AND TG014+TG015 IN ({0})
                                     ORDER BY TF001,TF002,TG004
                                     ", SELECT.ToString());
 
@@ -2329,7 +2329,7 @@ namespace TKMOC
                     DataGridViewCheckBoxCell cbx = (DataGridViewCheckBoxCell)dgR.Cells[0];
                     if ((bool)cbx.FormattedValue)
                     {
-                        ADDSQL.AppendFormat(@" '{0}', ", dgR.Cells["入庫單別"].Value.ToString().Trim() + dgR.Cells["入庫單號"].Value.ToString().Trim() + dgR.Cells["入庫序號"].Value.ToString().Trim());
+                        ADDSQL.AppendFormat(@" '{0}', ", dgR.Cells["製令"].Value.ToString().Trim() + dgR.Cells["製令單號"].Value.ToString().Trim());
                     }
                 }
                 catch (Exception ex)
@@ -2430,7 +2430,7 @@ namespace TKMOC
                                     AND TC001=TE001 AND TC002=TE002
                                     AND TE008=MC001
                                     AND TC001=MQ001 AND MQ003 IN ('54','55')
-                                    AND TE001+TE002+TE003 IN ({0})
+                                    AND TE011+TE012 IN ({0})
                                     ORDER BY TC001,TC002,TE003
                                     ", SELECT.ToString());
 
@@ -2458,7 +2458,7 @@ namespace TKMOC
                     DataGridViewCheckBoxCell cbx = (DataGridViewCheckBoxCell)dgR.Cells[0];
                     if ((bool)cbx.FormattedValue)
                     {
-                        ADDSQL.AppendFormat(@" '{0}', ", dgR.Cells["單別"].Value.ToString().Trim() + dgR.Cells["單號"].Value.ToString().Trim() + dgR.Cells["序號"].Value.ToString().Trim());
+                        ADDSQL.AppendFormat(@" '{0}', ", dgR.Cells["製令"].Value.ToString().Trim()+ dgR.Cells["製令單號"].Value.ToString().Trim());
                     }
                 }
                 catch (Exception ex)
@@ -2554,12 +2554,11 @@ namespace TKMOC
                                     ,TE010 AS '批號'
                                     ,TE013 AS '退料說明'
                                     ,TE014 AS '備註'
-                                    FROM [TK].dbo.MOCTC,[TK].dbo.MOCTD,[TK].dbo.MOCTE,[TK].dbo.CMSMC,[TK].dbo.CMSMQ
-                                    WHERE TC001=TD001 AND TC002=TD002
-                                    AND TC001=TE001 AND TC002=TE002
+                                    FROM [TK].dbo.MOCTC,[TK].dbo.MOCTE,[TK].dbo.CMSMC,[TK].dbo.CMSMQ
+                                    WHERE  TC001=TE001 AND TC002=TE002
                                     AND TE008=MC001
                                     AND TC001=MQ001 AND MQ003 IN ('56','57')
-                                    AND TE001+TE002+TE003 IN ({0})
+                                    AND TE011+TE012 IN ({0})
                                     ORDER BY TC001,TC002,TE003
                                     ", SELECT.ToString());
 
@@ -2587,7 +2586,7 @@ namespace TKMOC
                     DataGridViewCheckBoxCell cbx = (DataGridViewCheckBoxCell)dgR.Cells[0];
                     if ((bool)cbx.FormattedValue)
                     {
-                        ADDSQL.AppendFormat(@" '{0}', ", dgR.Cells["單別"].Value.ToString().Trim() + dgR.Cells["單號"].Value.ToString().Trim() + dgR.Cells["序號"].Value.ToString().Trim());
+                        ADDSQL.AppendFormat(@" '{0}', ", dgR.Cells["製令"].Value.ToString().Trim() + dgR.Cells["製令單號"].Value.ToString().Trim());
                     }
                 }
                 catch (Exception ex)
