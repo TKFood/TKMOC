@@ -527,11 +527,11 @@ namespace TKMOC
 
                                     SELECT '{0}','{1}','2生產','0'  
                                     ,(SELECT TOP 1 TF003 FROM [TK].dbo.MOCTF WHERE TF001=TG001 AND TF002=TG002 ORDER BY TF003) 
-                                    ,[TG001],[TG002],[TG003],[TG004], '',[TG017],[TG011]  ,[TG014],[TG015]
+                                    ,[TG001],[TG002],'****' [TG003],[TG004], '',[TG017],SUM([TG011]) [TG011]  ,[TG014],[TG015]
                                     FROM [TK].dbo.MOCTE,[TK].dbo.MOCTG
                                     WHERE  TG014 = TE011 AND TG015 = TE012
                                     AND TG004='{0}' AND TG017='{1}'
-                                    GROUP BY [TG001],[TG002],[TG003],[TG004],[TG017],[TG011] ,[TG014],[TG015]
+                                    GROUP BY [TG001],[TG002],[TG004],[TG017] ,[TG014],[TG015]
                                     ORDER BY [TG004] 
 
 
@@ -587,7 +587,7 @@ namespace TKMOC
                                     SELECT 
                                     '{0}','{1}','2生產','{2}'
                                     ,(SELECT TOP 1 TF003 FROM [TK].dbo.MOCTF WHERE TF001 = TG001 AND TF002 = TG002 ORDER BY TF003)
-                                    ,[TG001],[TG002],[TG003],[TG004],'',[TG017],[TG011],[TG014],[TG015]
+                                    ,[TG001],[TG002],'****' [TG003],[TG004], '',[TG017],SUM([TG011]) [TG011]  ,[TG014],[TG015]
                                     FROM [TK].dbo.MOCTE
 	                                    ,[TK].dbo.MOCTG
                                     WHERE TG014 = TE011
@@ -605,7 +605,7 @@ namespace TKMOC
 				                                    )
 		                                    GROUP BY LTRIM(RTRIM([TE004])) + LTRIM(RTRIM([TE010]))
 		                                    )
-                                    GROUP BY [TG001],[TG002],[TG003],[TG004],[TG017],[TG011],[TG014],[TG015]
+                                    GROUP BY [TG001],[TG002],[TG004],[TG017] ,[TG014],[TG015]
                                     ORDER BY [TG004]
 
 
