@@ -201,7 +201,7 @@ namespace TKMOC
                                 ,'' AS '複核'
                                 ,'' AS '油酥'
                                 ,'' AS '檢查麵粉袋的麵粉線頭'
-                                ,'' AS 'A製造  B有效'
+                                ,(SELECT TOP 1 TE010 FROM [TK].dbo.MOCTE WHERE TE011=[TA001] AND TE002=[TA002] AND TE004=[MD003]) AS 'A製造  B有效'
                                 ,'' AS '外觀:攪拌均勻度、軟硬度'
                                 ,'' AS '攪拌時間  始'
                                 ,'' AS '攪拌時間  終'
