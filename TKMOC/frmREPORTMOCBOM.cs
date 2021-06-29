@@ -43,7 +43,7 @@ namespace TKMOC
         SqlDataAdapter adapter3 = new SqlDataAdapter();
         SqlCommandBuilder sqlCmdBuilder3 = new SqlCommandBuilder();
         SqlCommand cmd = new SqlCommand();
-        DataSet ds = new DataSet();
+     
         DataSet ds2 = new DataSet();
         DataSet ds3 = new DataSet();
         DataTable dt = new DataTable();
@@ -66,7 +66,8 @@ namespace TKMOC
         #region FUNCTION
         public void Search()
         {
-           
+            DataSet ds = new DataSet();
+
             try
             {
                 connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
@@ -125,6 +126,7 @@ namespace TKMOC
 
         public void SearchOIL()
         {
+            DataSet ds = new DataSet();
 
             try
             {
@@ -524,6 +526,299 @@ namespace TKMOC
         }
 
 
+        public void SETREPORTOIL(string TA003, string TA006, string BUCKETS, string TA021)
+        {
+            float BUCKETSORI = float.Parse(BUCKETS);
+            bool CHECKFLOOR = IsIntegerFloor(BUCKETSORI);
+
+
+            if (!string.IsNullOrEmpty(BUCKETS) && BUCKETSORI > 0)
+            {
+                if (CHECKFLOOR == true)
+                {
+                    ADDTOREPORTMOCBOMOIL(TA003, TA006, BUCKETS, TA021);
+                    //MessageBox.Show(CHECKFLOOR  + BUCKETSORI.ToString());
+                }
+                else
+                {
+                    ADDTOREPORTMOCBOMODDOIL(TA003, TA006, BUCKETS, TA021);
+                    //MessageBox.Show(CHECKFLOOR  + BUCKETSORI.ToString());
+                }
+
+
+            }
+
+
+            StringBuilder SQL = new StringBuilder();
+
+            SQL = SETSQLOIL();
+
+            report1 = new Report();
+            report1.Load(@"REPORT\油酥原料添加表-合併.frx");
+
+            report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+            TableDataSource table = report1.GetDataSource("Table") as TableDataSource;
+            table.SelectCommand = SQL.ToString();
+
+            report1.Preview = previewControl2;
+            report1.Show();
+        }
+
+        public StringBuilder SETSQLOIL()
+        {
+            StringBuilder SB = new StringBuilder();
+
+            SB.AppendFormat(@"
+                             SELECT [ID]
+                            ,[TA003] AS '日期'
+                            ,[TA021] AS '線別'
+                            ,'第'+CONVERT(nvarchar,[BOXS])+'桶' AS '桶數'
+                            ,TA006 AS '成品'
+                            ,TA034 AS '成品名'
+                            ,[MD003] AS '品號'
+                            ,[MB002] AS '品名'
+                            ,[MD006] AS '重量'
+                            ,'' AS '複核'
+                            ,'' AS '油酥'
+                            ,'' AS '檢查麵粉袋的麵粉線頭'
+                            ,'' AS 'A製造  B有效'
+                            ,'' AS '外觀:攪拌均勻度、軟硬度'
+                            ,'' AS '攪拌時間  始'
+                            ,'' AS '攪拌時間  終'
+                            ,'' AS '投 料 人'
+                            ,'' AS '對 點 人'
+                            ,'' AS '單位幹部'
+                            ,'' AS '品質判定'
+                            ,'' AS '換線清潔檢查'
+
+                            FROM [TKMOC].[dbo].[REPORTMOCBOMOIL]
+
+                            WHERE [MD003] NOT  IN ('101001009','3010000111')   
+                            ORDER BY [TA021],[BOXS],[MD003]
+     
+
+                            ");
+
+
+
+            return SB;
+        }
+        /// <summary>
+        /// 剛好滿桶數，沒有未滿桶
+        /// </summary>
+        /// <param name="TA001"></param>
+        /// <param name="TA002"></param>
+        /// <param name="BUCKETS"></param>
+        public void ADDTOREPORTMOCBOMOIL(string TA003, string TA006, string BUCKETS, string TA021)
+        {
+            float BUCKETSFLOAT = float.Parse(BUCKETS);
+            int COUNTS = Convert.ToInt32(Math.Ceiling(BUCKETSFLOAT));
+
+            //MessageBox.Show(COUNTS.ToString());
+
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat(@" DELETE [TKMOC].[dbo].[REPORTMOCBOMOIL]");
+                sbSql.AppendFormat(@" ");
+
+                for (int i = 1; i <= COUNTS; i++)
+                {
+                    sbSql.AppendFormat(@"
+                                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMOIL]
+                                            ([TA003],[TA021],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
+                                            SELECT TA003,TA021,TA006,TA034,'{3}',MD003,MB002,MD006
+                                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
+                                            WHERE TA006=MD001
+                                            AND MD003=MB001
+                                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
+                                            AND MD003 NOT LIKE '301400%'
+                                            AND TA003='{0}' AND TA006='{1}' AND TA021='{2}' 
+                                            ORDER BY MD003
+
+                                           ", TA003, TA006,  TA021, i);
+                }
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+
+        }
+
+        /// <summary>
+        /// 未滿桶，第1桶是滿的、第2桶是未滿、其他滿桶
+        /// </summary>
+        /// <param name="TA001"></param>
+        /// <param name="TA002"></param>
+        /// <param name="BUCKETS"></param>
+        public void ADDTOREPORTMOCBOMODDOIL(string TA003, string TA006, string BUCKETS, string TA021)
+        {
+            float BUCKETSFLOAT = float.Parse(BUCKETS);
+            int COUNTS = Convert.ToInt32(Math.Ceiling(BUCKETSFLOAT));
+            decimal BUCKETSSMAILL = Convert.ToDecimal(BUCKETSFLOAT - (COUNTS - 1));
+
+            //處理負數
+            //BUCKETSFLOAT>0 && BUCKETSFLOAT<1，只有1未滿桶
+            //BUCKETSFLOAT>1正常
+
+            if (BUCKETSFLOAT > 0 && BUCKETSFLOAT < 1)
+            {
+                BUCKETSSMAILL = Convert.ToDecimal(BUCKETSFLOAT);
+                COUNTS = 0;
+            }
+            else if (BUCKETSFLOAT > 1)
+            {
+                COUNTS = COUNTS;
+                BUCKETSSMAILL = BUCKETSSMAILL;
+            }
+
+
+            //MessageBox.Show(BUCKETSFLOAT.ToString()+" "+ COUNTS.ToString()+" "+ BUCKETSSMAILL.ToString());
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat(@" DELETE [TKMOC].[dbo].[REPORTMOCBOMOIL]");
+                sbSql.AppendFormat(@" ");
+
+                if (COUNTS == 0)
+                {
+                    sbSql.AppendFormat(@"       
+                                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMOIL]
+                                            ([TA003],[TA021],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
+                                            SELECT TA003,TA021,TA006,TA034,'{3}',MD003,MB002,MD006*{4}
+                                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
+                                            WHERE TA006=MD001
+                                            AND MD003=MB001
+                                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
+                                            AND MD003 NOT LIKE '301400%'
+                                            AND TA003='{0}' AND TA006='{1}' AND TA021='{2}' 
+                                            ORDER BY MD003
+
+                                           ", TA003, TA006, TA021, 1, BUCKETSSMAILL);
+                }
+                else if (COUNTS >= 1)
+                {
+                    sbSql.AppendFormat(@"       
+                                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMOIL]
+                                            ([TA003],[TA021],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
+                                            SELECT TA003,TA021,TA006,TA034,'{3}',MD003,MB002,MD006
+                                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
+                                            WHERE TA006=MD001
+                                            AND MD003=MB001
+                                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
+                                            AND MD003 NOT LIKE '301400%'
+                                            AND TA003='{0}' AND TA006='{1}' AND TA021='{2}' 
+                                            ORDER BY MD003
+
+                                           ", TA003, TA006, TA021, 1);
+
+                    sbSql.AppendFormat(@"       
+                                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMOIL]
+                                            ([TA003],[TA021],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
+                                            SELECT TA003,TA021,TA006,TA034,'{3}',MD003,MB002,MD006*{4}
+                                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
+                                            WHERE TA006=MD001
+                                            AND MD003=MB001
+                                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
+                                            AND MD003 NOT LIKE '301400%'
+                                            AND TA003='{0}' AND TA006='{1}' AND TA021='{2}' 
+                                            ORDER BY MD003
+
+                                           ", TA003, TA006, TA021, 2, BUCKETSSMAILL);
+
+                    for (int i = 3; i <= COUNTS; i++)
+                    {
+                        sbSql.AppendFormat(@"
+                                             INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMOIL]
+                                            ([TA003],[TA021],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
+                                            SELECT TA003,TA021,TA006,TA034,'{3}',MD003,MB002,MD006
+                                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
+                                            WHERE TA006=MD001
+                                            AND MD003=MB001
+                                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
+                                            AND MD003 NOT LIKE '301400%'
+                                            AND TA003='{0}' AND TA006='{1}' AND TA021='{2}' 
+                                            ORDER BY MD003
+
+                                           ", TA003, TA006, TA021, i);
+                    }
+                }
+
+
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
 
         public static bool IsIntegerFloor(float f)
         {
@@ -548,7 +843,7 @@ namespace TKMOC
         private void button4_Click(object sender, EventArgs e)
         {
             //油酥原料添加表-合併
-
+            SETREPORTOIL(textBox4.Text.Trim(), textBox5.Text.Trim(), textBox6.Text.Trim(), textBox7.Text.Trim());
         }
 
 
