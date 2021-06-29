@@ -122,6 +122,67 @@ namespace TKMOC
 
             }
         }
+
+        public void SearchOIL()
+        {
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  
+                                    SELECT MD002 AS '線別',TA006 AS '品號',TA034 AS '品名',SUM(TA015) AS '總生產量',TA003 AS '生產日',TA035 AS '規格',MC004 AS '標準批量',(SUM(TA015)/MC004)  AS '桶數',TA021 '線別代號'
+                                    FROM [TK].dbo.MOCTA,[TK].dbo.BOMMC,[TK].dbo.CMSMD
+                                    WHERE TA006=MC001
+                                    AND TA021=MD001
+                                    AND (TA006 LIKE '3%' OR TA006 LIKE '4%')
+                                    AND TA021 IN ('02','03','04')
+                                    AND TA003='{0}'
+                                    GROUP BY MD002,TA006,TA034,TA015,TA003,TA035,MC004,TA021
+                                    ORDER BY MD002,TA006,TA034,TA015,TA003,TA035,MC004,TA021
+                                     
+                                    ", dateTimePicker2.Value.ToString("yyyyMMdd"));
+
+                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder = new SqlCommandBuilder(adapter);
+                sqlConn.Open();
+                ds.Clear();
+                adapter.Fill(ds, "TEMPds1");
+                sqlConn.Close();
+
+                if (ds.Tables["TEMPds1"].Rows.Count >= 1)
+                {
+
+                    dataGridView2.DataSource = ds.Tables["TEMPds1"];
+
+                    dataGridView2.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 9);
+                    dataGridView2.DefaultCellStyle.Font = new Font("Tahoma", 10);
+                    dataGridView2.Columns["線別"].Width = 100;
+                    dataGridView2.Columns["品號"].Width = 100;
+                    dataGridView1.Columns["品名"].Width = 120;
+                }
+                else
+                {
+                    dataGridView2.DataSource = null;
+                }
+
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
             if (dataGridView1.CurrentRow != null)
@@ -145,6 +206,32 @@ namespace TKMOC
 
                 }
             }
+        }
+
+        private void dataGridView2_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView2.CurrentRow != null)
+            {
+                int rowindex = dataGridView2.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView2.Rows[rowindex];
+                    textBox4.Text = row.Cells["生產日"].Value.ToString().Trim();
+                    textBox5.Text = row.Cells["品號"].Value.ToString().Trim();
+                    textBox6.Text = row.Cells["桶數"].Value.ToString().Trim();
+                    textBox7.Text = row.Cells["線別代號"].Value.ToString().Trim();
+                    
+                }
+                else
+                {
+                    textBox4.Text = "";
+                    textBox5.Text = "";
+                    textBox6.Text = "";
+                    textBox7.Text = "";
+
+                }
+            }
+
         }
 
         public void SETREPORT(string TA001,string TA002,string BUCKETS)
@@ -453,9 +540,20 @@ namespace TKMOC
         {
             SETREPORT(textBox1.Text.Trim(), textBox2.Text.Trim(),textBox3.Text.Trim());
         }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            SearchOIL();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            //油酥原料添加表-合併
+
+        }
+
 
         #endregion
 
-
+       
     }
 }
