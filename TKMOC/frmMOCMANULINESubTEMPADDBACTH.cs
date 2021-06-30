@@ -292,6 +292,13 @@ namespace TKMOC
                         BOX = dr.Cells["箱數"].Value.ToString().Trim();
                         PACKAGE = dr.Cells["包裝數"].Value.ToString().Trim();
                     }
+                    else if (comboBox1.Text.Equals("新廠製一組")|| comboBox1.Text.Equals("新廠製二組"))
+                    {
+                        BAR = "0";
+                        NUM = dr.Cells["包裝數"].Value.ToString().Trim();
+                        BOX = dr.Cells["箱數"].Value.ToString().Trim();
+                        PACKAGE = dr.Cells["包裝數"].Value.ToString().Trim();
+                    }
                     else
                     {
                         BAR = dr.Cells["桶數"].Value.ToString().Trim();

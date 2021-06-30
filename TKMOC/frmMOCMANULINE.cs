@@ -6738,7 +6738,7 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
                 //手工*INVMB.UDF08、其他*INVMB.UDF07
-                if (MANU.Equals("新廠製三組(手工)")|| MANU.Equals("少量訂單"))
+                if (MANU.Equals("新廠製三組(手工)"))
                 {
                    
                     sbSql.AppendFormat(@" 
@@ -6761,20 +6761,34 @@ namespace TKMOC
                                         ) AS TEMP
                                         ", TD001, TD002, TD003);
 
-                    //sbSql.AppendFormat(@"  SELECT TC053,TD004,TD005,TD006,(TD008+TD024) AS TD008,TD010,TC015");
-                    //sbSql.AppendFormat(@"  ,(CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TD008+TD024)*INVMD.MD004 ELSE (TD008+TD024)  END ) AS NUM");
-                    //sbSql.AppendFormat(@"  ,BOMMD.MD003,BOMMD.MD035,BOMMD.MD036,INVMB.UDF07");
-                    //sbSql.AppendFormat(@"  ,((CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TD008+TD024)*INVMD.MD004 ELSE (TD008+TD024)  END ))*INVMB.UDF08/1000 AS 'NUM2'");
-                    //sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB WITH(NOLOCK),[TK].dbo.COPTC WITH(NOLOCK),[TK].dbo.COPTD WITH(NOLOCK)");
-                    //sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.INVMD WITH(NOLOCK) ON INVMD.MD001=TD004 AND INVMD.MD002=TD010");
-                    //sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.BOMMD WITH(NOLOCK) ON BOMMD.MD001=TD004 ");
-                    //sbSql.AppendFormat(@"  WHERE TC001=TD001 AND TC002=TD002");
-                    //sbSql.AppendFormat(@"  AND MB001=TD004");
-                    //sbSql.AppendFormat(@"  AND BOMMD.MD003 LIKE '3%'");
-                    //sbSql.AppendFormat(@"  AND TD001='{0}' AND TD002='{1}' AND TD003='{2}'", TD001, TD002, TD003);
+            
+                }
+                else if ( MANU.Equals("少量訂單"))
+                {
+
+                    sbSql.AppendFormat(@" 
+                                        SELECT MD003 [MB001],MD035 [MB002],MD036 [MB003],(CASE WHEN MD003 LIKE '4%' THEN 0 ELSE CONVERT(DECIMAL(16,4),(BOMNUMS/MC004))  END ) [BAR],BOMNUMS [NUM],TC053 [CLINET],0 [MANUHOUR],(CASE WHEN MD003 LIKE '4%' THEN CONVERT(DECIMAL(16,4),(BOMNUMS/MD007B)) ELSE 0  END) [BOX],(CASE WHEN MD003 LIKE '4%' THEN BOMNUMS ELSE 0  END) [PACKAGE],TD013 [OUTDATE],TC015 [TA029],0 [HALFPRO],TD001 [COPTD001] ,TD002 [TCOPTD002], TD003 [TCOPTD003],TC053,TC015,NUM2
+                                        FROM 
+                                        (
+                                        SELECT  NEWID() AS ID,TD001,TD002,TD003,TC053,TD004,TD005,TD006,(TD008+TD024) AS TD008,TD010,TC015,TD013,(CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TD008+TD024)*INVMD.MD004 ELSE (TD008+TD024)  END ) AS NUM
+                                        ,BOMMD.MD003,BOMMD.MD035,BOMMD.MD036,BOMMD.MD006,BOMMD.MD007
+                                        ,((CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TD008+TD024)*INVMD.MD004 ELSE (TD008+TD024)  END )*BOMMD.MD006/BOMMD.MD007/BOMMC.MC004) AS BOMNUMS
+                                        ,ISNULL((SELECT TOP 1 MD007 FROM [TK].dbo.BOMMD MD WHERE (MD.MD003 LIKE '201%') AND MD.MD001=BOMMD.MD003),1) AS MD007B
+                                        ,ISNULL((SELECT TOP 1 MC004 FROM [TK].dbo.BOMMC MC WHERE MC.MC001=BOMMD.MD003),1) AS MC004
+                                        ,((CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TD008+TD024)*INVMD.MD004 ELSE (TD008+TD024)  END ))/BOMMC.MC004*BOMMD.MD006 AS 'NUM2'
+                                        FROM [TK].dbo.INVMB WITH(NOLOCK),[TK].dbo.COPTC WITH(NOLOCK),[TK].dbo.COPTD WITH(NOLOCK)
+                                        LEFT JOIN [TK].dbo.INVMD ON INVMD.MD001=TD004 AND TD010=MD002
+                                        LEFT JOIN [TK].dbo.BOMMC ON BOMMC.MC001=TD004
+                                        LEFT JOIN [TK].dbo.BOMMD ON BOMMD.MD001=TD004
+                                        WHERE TC001=TD001 AND TC002=TD002
+                                        AND MB001=TD004
+                                         AND TD001='{0}' AND TD002='{1}' AND TD003='{2}'   
+                                        AND (BOMMD.MD003 LIKE '3%' OR BOMMD.MD003 LIKE '4%')
+                                        ) AS TEMP
+                                        ", TD001, TD002, TD003);
 
                 }
-              
+
                 else
                 {
                     sbSql.AppendFormat(@"  SELECT TC053,TD004,TD005,TD006,(TD008+TD024) AS TD008,TD010,TC015");
