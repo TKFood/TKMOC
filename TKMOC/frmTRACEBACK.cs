@@ -1764,10 +1764,11 @@ namespace TKMOC
                                     AND MQ001=MF004
                                     AND TG001=MF004 AND TG002=MF005 AND TG003=MF006
                                     AND MQ003='58'
-                                    AND RTRIM(LTRIM(MF001))+RTRIM(LTRIM(MF002)) IN
+                                    AND RTRIM(LTRIM(MF001))+RTRIM(LTRIM(MF002))+RTRIM(LTRIM([TG014]))+RTRIM(LTRIM([TG015])) IN
                                     (
-                                    SELECT RTRIM(LTRIM([MB001]))+RTRIM(LTRIM([LOTNO]))
+                                    SELECT RTRIM(LTRIM([MB001]))+RTRIM(LTRIM([LOTNO]))+RTRIM(LTRIM([TG014]))+RTRIM(LTRIM([TG015]))
                                     FROM [TKMOC].[dbo].[TRACEBACK]
+                                    WHERE KINDS='2領退料'
                                     )
                                     GROUP BY MF001,MF002,MF003,MF004,MF005,MF001,MF002,TG014,TG015
                                     ORDER BY INVMF.MF002,MF003,MF004,MF005
