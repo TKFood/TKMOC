@@ -73,7 +73,7 @@ namespace TKMOC
                                    SELECT MD003 AS '品號',MD035 AS '品名'
                                     ,ISNULL(SUM(LA1.LA005*LA1.LA011),0) AS '20019外倉'
                                     ,LA1.LA016 AS '20019外倉批號'
-                                    ,(SELECT TOP 1 LA016 FROM [TK].dbo.INVLA WITH (NOLOCK) WHERE LA001=MD003 AND LA009='20006' AND ISNULL(LA016,'')<>'' AND LA016<>'********************' GROUP BY LA001,LA016 HAVING ISNULL(SUM(LA005*LA011),0)>0) AS '20006倉批號'
+                                   ,(SELECT CAST(LA016 AS NVARCHAR ) + ',' FROM [TK].dbo.INVLA WITH (NOLOCK) WHERE LA001=MD003 AND LA009='20006' AND ISNULL(LA016,'')<>'' AND LA016<>'********************' GROUP BY LA001,LA016 HAVING ISNULL(SUM(LA005*LA011),0)>0 FOR XML PATH('')) AS '20006倉批號'
                                     FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
                                     LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
                                     LEFT JOIN [TK].dbo.INVLA LA1 ON LA1.LA001=MD003 AND LA1.LA009='20019' AND LA1.LA016<>'********************'
