@@ -71,14 +71,16 @@ namespace TKMOC
 
                 sbSql.AppendFormat(@"  
                                     SELECT MD003 AS '品號',MD035 AS '品名'
-                                    ,(SELECT ISNULL(SUM(LA005*LA011),0) FROM [TK].dbo.INVLA WHERE LA001=MD003 AND LA009='20019') AS '20019外倉'
+                                    ,ISNULL(SUM(LA005*LA011),0) AS '20019外倉'
+                                    ,LA016 AS '批號'
                                     FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
                                     LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
+                                    LEFT JOIN [TK].dbo.INVLA ON LA001=MD003 AND LA009='20019' AND LA016<>'********************'
                                     WHERE [MOCMANULINE].MB001=MC001
                                     AND MC001=MD001
                                     AND CONVERT(NVARCHAR,[MANUDATE],112)>='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112)<='{1}' 
-                                    GROUP BY MD003,MD035
-                                    ORDER BY MD003,MD035
+                                    GROUP BY MD003,MD035,LA016
+                                    ORDER BY MD003,MD035,LA016
 
                                     ", SDay, EDay);
 
