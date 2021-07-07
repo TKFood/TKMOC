@@ -2452,9 +2452,8 @@ namespace TKMOC
                                     ,TE010 AS '批號'
                                     ,TE013 AS '領料說明'
                                     ,TE014 AS '備註'
-                                    FROM [TK].dbo.MOCTC,[TK].dbo.MOCTD,[TK].dbo.MOCTE,[TK].dbo.CMSMC,[TK].dbo.CMSMQ
-                                    WHERE TC001=TD001 AND TC002=TD002
-                                    AND TC001=TE001 AND TC002=TE002
+                                    FROM [TK].dbo.MOCTC,[TK].dbo.MOCTE,[TK].dbo.CMSMC,[TK].dbo.CMSMQ
+                                    WHERE TC001=TE001 AND TC002=TE002
                                     AND TE008=MC001
                                     AND TC001=MQ001 AND MQ003 IN ('54','55')
                                     AND TE011+TE012 IN ({0})
