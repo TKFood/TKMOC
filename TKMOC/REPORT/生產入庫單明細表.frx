@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="06/21/2021 11:27:02" ReportInfo.Modified="06/21/2021 11:49:20" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="06/21/2021 11:27:02" ReportInfo.Modified="07/08/2021 10:33:55" ReportInfo.CreatorVersion="2016.4.4.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9JvoSHAs7HxE7tCQ6CxTxUX">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9IVu0e5rKkpDI+v+OWfav0B">
       <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT &#13;&#10;CONVERT(NVARCHAR,CONVERT(datetime,TF003),111)  AS '入庫日期'&#13;&#10;,TF001+'-'+TF002 AS '單別-單號'&#13;&#10;,CONVERT(NVARCHAR,CONVERT(datetime,TF012),111)  AS '單據日期'&#13;&#10;,TG004 AS '品號'&#13;&#10;,TG005 AS '品名'&#13;&#10;,TG006 AS '規格'&#13;&#10;,TG011 AS '入庫數量'&#13;&#10;,TG007 AS '單位'&#13;&#10;,TG014+'-'+TG015 AS '製令編號'&#13;&#10;,TG017 AS '批號'&#13;&#10;,TA026+'-'+TA027 AS '訂單單號'&#13;&#10;,TG020 AS '備註'&#13;&#10;FROM [TK].dbo.MOCTF, [TK].dbo.MOCTG&#13;&#10;LEFT JOIN [TK].dbo.MOCTA ON TA001=TG014 AND TA002=TG015&#13;&#10;WHERE TF001=TG001 AND TF002=TG002&#13;&#10;AND TG015 LIKE '20210610%'&#13;&#10;ORDER BY TF001,TF002,TG004">
         <Column Name="入庫日期" DataType="System.String"/>
         <Column Name="單別-單號" DataType="System.String"/>
@@ -20,10 +20,11 @@
     <Total Name="Total1" Expression="[Table.入庫數量]" Evaluator="Data1" PrintOn="GroupFooter1"/>
   </Dictionary>
   <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210">
-    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="18.9">
-      <TextObject Name="Text1" Width="1048.95" Height="18.9" Text="生產入庫單明細表" HorzAlign="Center" VertAlign="Center"/>
+    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="37.8">
+      <TextObject Name="Text1" Top="18.9" Width="1048.95" Height="18.9" Text="生產入庫單明細表" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text39" Width="1048.95" Height="18.9" Text="老楊食品股份有限公司" HorzAlign="Center" VertAlign="Center"/>
     </ReportTitleBand>
-    <PageHeaderBand Name="PageHeader1" Top="23.39" Width="1047.06" Height="18.9">
+    <PageHeaderBand Name="PageHeader1" Top="42.29" Width="1047.06" Height="18.9">
       <TextObject Name="Text3" Width="66.15" Height="18.9" Border.Lines="All" Text="入庫日期" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text5" Left="66.15" Width="103.95" Height="18.9" Border.Lines="All" Text="單別-單號" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text7" Left="170.1" Width="66.15" Height="18.9" Border.Lines="All" Text="單據日期" HorzAlign="Center" VertAlign="Center"/>
@@ -37,8 +38,8 @@
       <TextObject Name="Text23" Left="822.15" Width="113.4" Height="18.9" Border.Lines="All" Text="訂單單號" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text25" Left="935.55" Width="113.4" Height="18.9" Border.Lines="All" Text="備註" HorzAlign="Center" VertAlign="Center"/>
     </PageHeaderBand>
-    <GroupHeaderBand Name="GroupHeader1" Top="46.79" Width="1047.06" Condition="[Table.單別-單號]">
-      <DataBand Name="Data1" Top="51.28" Width="1047.06" Height="18.9" DataSource="Table">
+    <GroupHeaderBand Name="GroupHeader1" Top="65.69" Width="1047.06" Condition="[Table.單別-單號]">
+      <DataBand Name="Data1" Top="70.18" Width="1047.06" Height="18.9" DataSource="Table">
         <TextObject Name="Text2" Width="66.15" Height="18.9" Border.Lines="All" Text="[Table.入庫日期]" HorzAlign="Center" VertAlign="Center" WordWrap="false"/>
         <TextObject Name="Text4" Left="66.15" Width="103.95" Height="18.9" Border.Lines="All" Text="[Table.單別-單號]" HorzAlign="Center" VertAlign="Center" WordWrap="false"/>
         <TextObject Name="Text6" Left="170.1" Width="66.15" Height="18.9" Border.Lines="All" Text="[Table.單據日期]" HorzAlign="Center" VertAlign="Center" WordWrap="false"/>
@@ -52,7 +53,7 @@
         <TextObject Name="Text22" Left="822.15" Width="113.4" Height="18.9" Border.Lines="All" Text="[Table.訂單單號]" HorzAlign="Center" VertAlign="Center" WordWrap="false"/>
         <TextObject Name="Text24" Left="935.55" Width="113.4" Height="18.9" Border.Lines="All" Text="[Table.備註]" VertAlign="Center" WordWrap="false"/>
       </DataBand>
-      <GroupFooterBand Name="GroupFooter1" Top="74.68" Width="1047.06" Height="18.9">
+      <GroupFooterBand Name="GroupFooter1" Top="93.58" Width="1047.06" Height="18.9">
         <TextObject Name="Text26" Left="519.75" Width="66.15" Height="18.9" Border.Lines="All" Text="[Total1]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="3" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" VertAlign="Center"/>
         <TextObject Name="Text27" Left="453.6" Width="66.15" Height="18.9" Border.Lines="All" Text="合計" VertAlign="Center"/>
         <TextObject Name="Text28" Width="66.15" Height="18.9" Border.Lines="All" HorzAlign="Center" VertAlign="Center" WordWrap="false"/>
@@ -67,6 +68,6 @@
         <TextObject Name="Text38" Left="585.9" Width="47.25" Height="18.9" Border.Lines="All" Text="[Table.單位]" HorzAlign="Center" VertAlign="Center" WordWrap="false"/>
       </GroupFooterBand>
     </GroupHeaderBand>
-    <PageFooterBand Name="PageFooter1" Top="98.07" Width="1047.06" Height="18.9"/>
+    <PageFooterBand Name="PageFooter1" Top="116.97" Width="1047.06" Height="18.9"/>
   </ReportPage>
 </Report>

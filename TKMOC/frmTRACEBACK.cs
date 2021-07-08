@@ -55,6 +55,7 @@ namespace TKMOC
             dataGridView5.AlternatingRowsDefaultCellStyle.BackColor = Color.PaleTurquoise;
 
 
+
             //先建立個 CheckBox 欄
             DataGridViewCheckBoxColumn cbCol = new DataGridViewCheckBoxColumn();
             cbCol.Width = 40;   //設定寬度
