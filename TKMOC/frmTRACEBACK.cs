@@ -53,8 +53,7 @@ namespace TKMOC
             dataGridView3.AlternatingRowsDefaultCellStyle.BackColor = Color.PaleTurquoise;
             dataGridView4.AlternatingRowsDefaultCellStyle.BackColor = Color.PaleTurquoise;
             dataGridView5.AlternatingRowsDefaultCellStyle.BackColor = Color.PaleTurquoise;
-
-
+            
 
             //先建立個 CheckBox 欄
             DataGridViewCheckBoxColumn cbCol = new DataGridViewCheckBoxColumn();
