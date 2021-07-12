@@ -2168,7 +2168,7 @@ namespace TKMOC
                                     ,TH007 AS '庫別代號'
                                     ,MC002 AS '庫別名稱'
                                     ,CONVERT(NVARCHAR,CONVERT(datetime,TH106),111)  AS '有效日期'
-                                    ,TH008 AS '銷貨數量'
+                                    ,(TH008+TH024) AS '銷貨數量'
                                     ,TH009 AS '單位'
                                     ,TH014+'-'+TH015+'-'+TH016 AS '訂單單號'
                                     ,TH017 AS '批號'
