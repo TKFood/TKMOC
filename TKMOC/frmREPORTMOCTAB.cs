@@ -64,7 +64,7 @@ namespace TKMOC
             //}
         }
         public void Search()
-        {         
+        {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
             SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
             DataSet ds1 = new DataSet();
@@ -265,7 +265,7 @@ namespace TKMOC
             Table.SelectCommand = SQL;
 
             report1.SetParameterValue("P1", CODE);
-           
+
 
             report1.Preview = previewControl1;
             report1.Show();
@@ -364,6 +364,7 @@ namespace TKMOC
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
             SETCODE();
+            SEARCHVDATES(dateTimePicker1.Value.ToString("yyyyMMdd"));
 
             //textBox3.Text = SEARCHMOCLOTNO(dateTimePicker1.Value.ToString("yyyyMMdd"));
 
@@ -423,7 +424,7 @@ namespace TKMOC
             }
         }
 
-        public void ADDDELETEMOCLOTNO(string MOCDATES,string LOTNO)
+        public void ADDDELETEMOCLOTNO(string MOCDATES, string LOTNO, string VDATES)
         {
             try
             {
@@ -438,9 +439,9 @@ namespace TKMOC
                 sbSql.AppendFormat(@" 
                                     DELETE [TKMOC].[dbo].[MOCLOTNO] WHERE [MOCDATES]='{0}'
 
-                                    INSERT INTO  [TKMOC].[dbo].[MOCLOTNO] ( [MOCDATES],[LOTNO])
-                                    VALUES ('{0}','{1}')
-                                    ", MOCDATES, LOTNO);
+                                    INSERT INTO  [TKMOC].[dbo].[MOCLOTNO] ( [MOCDATES],[LOTNO],[VDATES])
+                                    VALUES ('{0}','{1}','{2}')
+                                    ", MOCDATES, LOTNO, VDATES);
 
 
 
@@ -482,7 +483,7 @@ namespace TKMOC
 
             StringBuilder Query = new StringBuilder();
 
-      
+
             try
             {
                 connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
@@ -522,7 +523,7 @@ namespace TKMOC
                         dataGridView1.Columns["生產線別"].ReadOnly = true;
                         dataGridView1.Columns["製令單"].ReadOnly = true;
                         dataGridView1.Columns["製令單號"].ReadOnly = true;
-                       
+
 
                     }
                 }
@@ -548,9 +549,9 @@ namespace TKMOC
                 string TA002 = row.Cells[2].Value.ToString().Trim();
                 string UDF01 = row.Cells[3].Value.ToString().Trim();
 
-                if(!string.IsNullOrEmpty(UDF01))
+                if (!string.IsNullOrEmpty(UDF01))
                 {
-                    sbSql.AppendFormat(@" UPDATE  [TK].dbo.MOCTA SET UDF01='{2}' WHERE TA001='{0}' AND  TA002='{1}'", TA001, TA002,UDF01);
+                    sbSql.AppendFormat(@" UPDATE  [TK].dbo.MOCTA SET UDF01='{2}' WHERE TA001='{0}' AND  TA002='{1}'", TA001, TA002, UDF01);
                     sbSql.AppendFormat(@" ");
                 }
                 else
@@ -605,7 +606,7 @@ namespace TKMOC
 
 
 
-        public void ADDREPORTMOCMANULINE(string LOTNO ,string TA003)
+        public void ADDREPORTMOCMANULINE(string LOTNO, string TA003)
         {
             sbSql.Clear();
 
@@ -715,7 +716,7 @@ namespace TKMOC
 
                         dataGridView3.Columns["日期"].ReadOnly = true;
                         dataGridView3.Columns["代碼"].ReadOnly = true;
-                     
+
 
                     }
                 }
@@ -741,11 +742,11 @@ namespace TKMOC
                 {
                     DataGridViewRow row = dataGridView3.Rows[rowindex];
                     textBox9.Text = row.Cells["日期"].Value.ToString();
-                  
+
 
                 }
                 else
-                {                   
+                {
                     textBox9.Text = null;
 
                 }
@@ -1004,13 +1005,14 @@ namespace TKMOC
         {
             DataSet ds = new DataSet();
             string yyyyMMdd = dateTimePicker1.Value.ToString("yyyyMMdd");
-            string MM = Convert.ToUInt32(yyyyMMdd.Substring(4,2)).ToString();//除0開頭
-            string d1 = yyyyMMdd.Substring(6,1);
-            string d2 = yyyyMMdd.Substring(7,1);
+            string MM = Convert.ToUInt32(yyyyMMdd.Substring(4, 2)).ToString();//除0開頭
+            string d1 = yyyyMMdd.Substring(6, 1);
+            string d2 = yyyyMMdd.Substring(7, 1);
             string CODE = "";
-            string CODE1= "";
+            string CODE1 = "";
             string CODE2 = "";
             string CODE3 = "";
+            string VDATES = "";
 
             try
             {
@@ -1040,7 +1042,8 @@ namespace TKMOC
                 {
                     foreach (DataRow od in ds.Tables["ds"].Rows)
                     {
-                        if(MM.Equals(od["ID"].ToString()))
+
+                        if (MM.Equals(od["ID"].ToString()))
                         {
                             CODE1 = od["CODE"].ToString();
                         }
@@ -1055,9 +1058,13 @@ namespace TKMOC
                     }
 
                     textBox3.Text = CODE1 + CODE2 + CODE3;
-                }
 
+
+
+                }
             }
+
+
             catch
             {
 
@@ -1067,6 +1074,61 @@ namespace TKMOC
 
             }
         }
+
+        public void SEARCHVDATES(string MOCDATES)
+        {
+            DataSet ds = new DataSet();
+            string VDATES = null;
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+
+                sbSql.AppendFormat(@"  
+                                    SELECT [MOCDATES] ,[LOTNO],[VDATES] FROM [TKMOC].[dbo].[MOCLOTNO]
+                                    WHERE [MOCDATES]='{0}'
+                                    ", MOCDATES);
+
+                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder = new SqlCommandBuilder(adapter);
+
+
+                sqlConn.Open();
+                ds.Clear();
+                adapter.Fill(ds, "ds");
+                sqlConn.Close();
+
+
+                if (ds.Tables["ds"].Rows.Count >= 1)
+                {
+                    VDATES = ds.Tables["ds"].Rows[0]["VDATES"].ToString();
+
+                    if (!string.IsNullOrEmpty(VDATES))
+                    {
+                        dateTimePicker5.Value = Convert.ToDateTime(VDATES.Substring(0, 4) + '/' + VDATES.Substring(4, 2) + '/' + VDATES.Substring(6, 2));
+                    }
+                }
+            }
+
+
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+
+            
+        }
+
 
         public void SETNULL1()
         {
@@ -1425,7 +1487,7 @@ namespace TKMOC
         {
             if (!string.IsNullOrEmpty(textBox3.Text.Trim()))
             {
-                ADDDELETEMOCLOTNO(dateTimePicker1.Value.ToString("yyyyMMdd"), textBox3.Text.Trim());
+                ADDDELETEMOCLOTNO(dateTimePicker1.Value.ToString("yyyyMMdd"), textBox3.Text.Trim(), dateTimePicker5.Value.ToString("yyyyMMdd"));
                 textBox3.Text = SEARCHMOCLOTNO(dateTimePicker1.Value.ToString("yyyyMMdd"));
 
                 ADDREPORTMOCMANULINE(textBox3.Text.Trim(), dateTimePicker1.Value.ToString("yyyyMMdd"));
