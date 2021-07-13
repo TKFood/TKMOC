@@ -19,11 +19,20 @@ using System.Globalization;
 using Calendar.NET;
 using FastReport;
 using FastReport.Data;
+using System.Xml;
 
 namespace TKMOC
 {
     public partial class frmREPORTMOCTAB : Form
     {
+        //測試ID = "";
+        //正式ID =""
+        //測試DB DBNAME = "UOFTEST";
+        //正式DB DBNAME = "UOF";
+        string ID = "907f3af6-2cc7-4246-85ac-49980bb53762";
+        string DBNAME = "UOF";
+
+
         private ComponentResourceManager _ResourceManager = new ComponentResourceManager();
         SqlConnection sqlConn = new SqlConnection();
         SqlCommand sqlComm = new SqlCommand();
@@ -1443,9 +1452,173 @@ namespace TKMOC
 
         public void ADDTB_WKF_EXTERNAL_TASK()
         {
+            string ACCOUNT = "190006";
+            string CODE = textBox3.Text.Trim();
 
+            DataTable DTUPFDEP = SEARCHUOFDEP(ACCOUNT);
+
+            string account = DTUPFDEP.Rows[0]["ACCOUNT"].ToString();
+            string groupId = DTUPFDEP.Rows[0]["GROUP_ID"].ToString();
+            string jobTitleId = DTUPFDEP.Rows[0]["TITLE_ID"].ToString();
+            string fillerName = DTUPFDEP.Rows[0]["NAME"].ToString();
+            string fillerUserGuid = DTUPFDEP.Rows[0]["USER_GUID"].ToString();
+
+            string DEPNAME = DTUPFDEP.Rows[0]["DEPNAME"].ToString();
+            string DEPNO = DTUPFDEP.Rows[0]["DEPNO"].ToString();
+
+            string EXTERNAL_FORM_NBR = CODE;
+
+            int rowscounts = 0;
+
+            XmlDocument xmlDoc = new XmlDocument();
+            //建立根節點
+            XmlElement Form = xmlDoc.CreateElement("Form");
+
+            //正式的id
+            Form.SetAttribute("formVersionId", ID);
+
+            Form.SetAttribute("urgentLevel", "2");
+            //加入節點底下
+            xmlDoc.AppendChild(Form);
+
+            ////建立節點Applicant
+            XmlElement Applicant = xmlDoc.CreateElement("Applicant");
+            Applicant.SetAttribute("account", account);
+            Applicant.SetAttribute("groupId", groupId);
+            Applicant.SetAttribute("jobTitleId", jobTitleId);
+            //加入節點底下
+            Form.AppendChild(Applicant);
+
+            //建立節點 Comment
+            XmlElement Comment = xmlDoc.CreateElement("Comment");
+            Comment.InnerText = "申請者意見";
+            //加入至節點底下
+            Applicant.AppendChild(Comment);
+
+            //建立節點 FormFieldValue
+            XmlElement FormFieldValue = xmlDoc.CreateElement("FormFieldValue");
+            //加入至節點底下
+            Form.AppendChild(FormFieldValue);
+
+            //建立節點FieldItem
+            //ID 表單編號	
+            XmlElement FieldItem = xmlDoc.CreateElement("FieldItem");
+            FieldItem.SetAttribute("fieldId", "ID");
+            FieldItem.SetAttribute("fieldValue", "");
+            FieldItem.SetAttribute("realValue", "");
+            FieldItem.SetAttribute("enableSearch", "True");
+            FieldItem.SetAttribute("fillerName", fillerName);
+            FieldItem.SetAttribute("fillerUserGuid", fillerUserGuid);
+            FieldItem.SetAttribute("fillerAccount", account);
+            FieldItem.SetAttribute("fillSiteId", "");
+            //加入至members節點底下
+            FormFieldValue.AppendChild(FieldItem);
+
+            ////用ADDTACK，直接啟動起單
+            //ADDTACK(Form);
+
+            //ADD TO DB
+            string connectionString = ConfigurationManager.ConnectionStrings["dbUOF"].ToString();
+
+            StringBuilder queryString = new StringBuilder();
+
+
+
+
+            queryString.AppendFormat(@" INSERT INTO [{0}].dbo.TB_WKF_EXTERNAL_TASK
+                                         (EXTERNAL_TASK_ID,FORM_INFO,STATUS,EXTERNAL_FORM_NBR)
+                                        VALUES (NEWID(),@XML,2,'{1}')
+                                        ", DBNAME, EXTERNAL_FORM_NBR);
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+
+                    SqlCommand command = new SqlCommand(queryString.ToString(), connection);
+                    command.Parameters.Add("@XML", SqlDbType.NVarChar).Value = Form.OuterXml;
+
+                    command.Connection.Open();
+
+                    int count = command.ExecuteNonQuery();
+
+                    connection.Close();
+                    connection.Dispose();
+
+                }
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
         }
 
+        public DataTable SEARCHUOFDEP(string ACCOUNT)
+        {
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            DataSet ds1 = new DataSet();
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  
+                                    SELECT 
+                                    [GROUP_NAME] AS 'DEPNAME'
+                                    ,[TB_EB_EMPL_DEP].[GROUP_ID]+','+[GROUP_NAME]+',False' AS 'DEPNO'
+                                    ,[TB_EB_USER].[USER_GUID] AS 'USER_GUID'
+                                    ,[ACCOUNT] AS 'ACCOUNT'
+                                    ,[NAME] AS 'NAME'
+                                    ,[TB_EB_EMPL_DEP].[GROUP_ID] AS'GROUP_ID'
+                                    ,[TITLE_ID]   AS 'TITLE_ID'
+                                    ,[GROUP_NAME] AS 'GROUP_NAME'
+                                    ,[GROUP_CODE] AS'GROUP_CODE'
+                                    FROM [192.168.1.223].[{0}].[dbo].[TB_EB_USER],[192.168.1.223].[{0}].[dbo].[TB_EB_EMPL_DEP],[192.168.1.223].[{0}].[dbo].[TB_EB_GROUP]
+                                    WHERE [TB_EB_USER].[USER_GUID]=[TB_EB_EMPL_DEP].[USER_GUID]
+                                    AND [TB_EB_EMPL_DEP].[GROUP_ID]=[TB_EB_GROUP].[GROUP_ID]
+                                    AND ISNULL([TB_EB_GROUP].[GROUP_CODE],'')<>''
+                                    AND [ACCOUNT]='{1}'
+                              
+                                    ", DBNAME, ACCOUNT);
+
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "ds1");
+                sqlConn.Close();
+
+                if (ds1.Tables["ds1"].Rows.Count >= 1)
+                {
+                    return ds1.Tables["ds1"];
+
+                }
+                else
+                {
+                    return null;
+                }
+
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
         #endregion
 
         #region BUTTON
