@@ -1453,9 +1453,11 @@ namespace TKMOC
         public void ADDTB_WKF_EXTERNAL_TASK()
         {
             string ACCOUNT = "190006";
-            string CODE = textBox3.Text.Trim();
+            string CODE = textBox3.Text.Trim();     
+            string VDATES = dateTimePicker5.Value.ToString("yyyyMMdd");
 
             DataTable DTUPFDEP = SEARCHUOFDEP(ACCOUNT);
+            DataTable DT = SEARCHDB(dateTimePicker1.Value.ToString("yyyyMMdd"));
 
             string account = DTUPFDEP.Rows[0]["ACCOUNT"].ToString();
             string groupId = DTUPFDEP.Rows[0]["GROUP_ID"].ToString();
@@ -1513,6 +1515,51 @@ namespace TKMOC
             FieldItem.SetAttribute("fillSiteId", "");
             //加入至members節點底下
             FormFieldValue.AppendChild(FieldItem);
+
+            //建立節點FieldItem
+            //TA003	
+            FieldItem = xmlDoc.CreateElement("FieldItem");
+            FieldItem.SetAttribute("fieldId", "TA003");
+            FieldItem.SetAttribute("fieldValue", DT.Rows[0]["製令日期"].ToString());
+            FieldItem.SetAttribute("realValue", "");
+            FieldItem.SetAttribute("enableSearch", "True");
+            FieldItem.SetAttribute("fillerName", fillerName);
+            FieldItem.SetAttribute("fillerUserGuid", fillerUserGuid);
+            FieldItem.SetAttribute("fillerAccount", account);
+            FieldItem.SetAttribute("fillSiteId", "");
+            //加入至members節點底下
+            FormFieldValue.AppendChild(FieldItem);
+
+            //建立節點FieldItem
+            //PCODE	
+            FieldItem = xmlDoc.CreateElement("FieldItem");
+            FieldItem.SetAttribute("fieldId", "PCODE");
+            FieldItem.SetAttribute("fieldValue", CODE);
+            FieldItem.SetAttribute("realValue", "");
+            FieldItem.SetAttribute("enableSearch", "True");
+            FieldItem.SetAttribute("fillerName", fillerName);
+            FieldItem.SetAttribute("fillerUserGuid", fillerUserGuid);
+            FieldItem.SetAttribute("fillerAccount", account);
+            FieldItem.SetAttribute("fillSiteId", "");
+            //加入至members節點底下
+            FormFieldValue.AppendChild(FieldItem);
+
+            //建立節點FieldItem
+            //VDATES	
+            FieldItem = xmlDoc.CreateElement("FieldItem");
+            FieldItem.SetAttribute("fieldId", "VDATES");
+            FieldItem.SetAttribute("fieldValue", VDATES);
+            FieldItem.SetAttribute("realValue", "");
+            FieldItem.SetAttribute("enableSearch", "True");
+            FieldItem.SetAttribute("fillerName", fillerName);
+            FieldItem.SetAttribute("fillerUserGuid", fillerUserGuid);
+            FieldItem.SetAttribute("fillerAccount", account);
+            FieldItem.SetAttribute("fillSiteId", "");
+            //加入至members節點底下
+            FormFieldValue.AppendChild(FieldItem);
+
+            
+
 
             ////用ADDTACK，直接啟動起單
             //ADDTACK(Form);
@@ -1619,6 +1666,86 @@ namespace TKMOC
                 sqlConn.Close();
             }
         }
+
+        public DataTable SEARCHDB(string SDAY)
+        {
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            DataSet ds1 = new DataSet();
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+                
+
+                sbSql.AppendFormat(@"  
+                                  SELECT 
+                                 [ID]
+                                ,[REPORTMOCMANULINE].[MANULINE] AS '生產線別'
+                                ,[REPORTMOCMANULINE].[LOTNO] AS 'LOTNO'
+                                ,[REPORTMOCMANULINE].[TA001] AS '製令別'
+                                ,[REPORTMOCMANULINE].[TA002] AS '製令編號'
+                                ,CONVERT(NVARCHAR,[REPORTMOCMANULINE].[TA003],112) AS '製令日期'
+                                ,[REPORTMOCMANULINE].[TA006] AS '品號'
+                                ,[REPORTMOCMANULINE].[TA007] AS '單位'
+                                ,[REPORTMOCMANULINE].[TA015] AS '預計產量'
+                                ,[REPORTMOCMANULINE].[TA017] AS '實際產出'
+                                ,[REPORTMOCMANULINE].[MB002] AS '品名'
+                                ,[REPORTMOCMANULINE].[MB003] AS '規格'
+                                ,[REPORTMOCMANULINE].[PCTS] AS '比例'
+                                ,[REPORTMOCMANULINE].[SEQ] AS '順序'
+                                ,[REPORTMOCMANULINE].[ALLERGEN]  AS '過敏原'
+                                ,[REPORTMOCMANULINE].[COOKIES] AS '餅體'
+                                ,[REPORTMOCMANULINE].[BARS] AS '桶數'
+                                ,[REPORTMOCMANULINE].[BOXS] AS '箱數'
+                                ,CONVERT(NVARCHAR,[REPORTMOCMANULINE].[VDATES],112) AS '有效日期'
+                                ,[REPORTMOCMANULINE].[COMMENT] AS '備註'
+                                ,MOCTA.TA026 AS '訂單別'
+                                ,MOCTA.TA027 AS '訂單號'
+                                ,TC053  AS '客戶'
+                                FROM [TKMOC].[dbo].[REPORTMOCMANULINE]
+                                LEFT JOIN [TK].dbo.MOCTA ON [REPORTMOCMANULINE].TA001=MOCTA.[TA001] AND [REPORTMOCMANULINE].[TA002]=MOCTA.[TA002]
+                                LEFT JOIN [TK].dbo.COPTC ON TC001= TA026 AND TC002=TA027 
+                                WHERE CONVERT(NVARCHAR,[REPORTMOCMANULINE].TA003,112)='{0}'   
+                                AND [REPORTMOCMANULINE].[TA001] IN ('A510','A512')  
+                                ORDER BY [REPORTMOCMANULINE].TA003,[MANULINE],[REPORTMOCMANULINE].TA001,[REPORTMOCMANULINE].TA002   
+
+                                ", SDAY);
+
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "ds1");
+                sqlConn.Close();
+
+                if (ds1.Tables["ds1"].Rows.Count >= 1)
+                {
+                    return ds1.Tables["ds1"];
+
+                }
+                else
+                {
+                    return null;
+                }
+
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
         #endregion
 
         #region BUTTON
