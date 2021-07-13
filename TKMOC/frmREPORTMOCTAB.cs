@@ -1558,14 +1558,214 @@ namespace TKMOC
             //加入至members節點底下
             FormFieldValue.AppendChild(FieldItem);
 
-            
+            //建立節點FieldItem
+            //DETAILS	
+            FieldItem = xmlDoc.CreateElement("FieldItem");
+            FieldItem.SetAttribute("fieldId", "DETAILS");
+            FieldItem.SetAttribute("fieldValue", "");
+            FieldItem.SetAttribute("realValue", "");
+            FieldItem.SetAttribute("enableSearch", "True");
+            FieldItem.SetAttribute("fillerName", fillerName);
+            FieldItem.SetAttribute("fillerUserGuid", fillerUserGuid);
+            FieldItem.SetAttribute("fillerAccount", account);
+            FieldItem.SetAttribute("fillSiteId", "");
+            //加入至members節點底下
+            FormFieldValue.AppendChild(FieldItem);
+
+            //建立節點 DataGrid
+            XmlElement DataGrid = xmlDoc.CreateElement("DataGrid");
+            //DataGrid 加入至 DETAILS 節點底下
+            XmlNode DETAILS = xmlDoc.SelectSingleNode("./Form/FormFieldValue/FieldItem[@fieldId='DETAILS']");
+            DETAILS.AppendChild(DataGrid);
+
+            foreach (DataRow od in DT.Rows)
+            {
+                // 新增 Row
+                XmlElement Row = xmlDoc.CreateElement("Row");
+                Row.SetAttribute("order", (rowscounts).ToString());
+
+                //Row	MANULINE
+                XmlElement Cell = xmlDoc.CreateElement("Cell");
+                Cell.SetAttribute("fieldId", "MANULINE");
+                Cell.SetAttribute("fieldValue", od["生產線別"].ToString());
+                Cell.SetAttribute("realValue", "");
+                Cell.SetAttribute("customValue", "");
+                Cell.SetAttribute("enableSearch", "True");
+                //Row
+                Row.AppendChild(Cell);
+
+                //Row	TA001
+                Cell = xmlDoc.CreateElement("Cell");
+                Cell.SetAttribute("fieldId", "TA001");
+                Cell.SetAttribute("fieldValue", od["製令別"].ToString());
+                Cell.SetAttribute("realValue", "");
+                Cell.SetAttribute("customValue", "");
+                Cell.SetAttribute("enableSearch", "True");
+                //Row
+                Row.AppendChild(Cell);
+
+                //Row	TA002
+                Cell = xmlDoc.CreateElement("Cell");
+                Cell.SetAttribute("fieldId", "TA002");
+                Cell.SetAttribute("fieldValue", od["製令編號"].ToString());
+                Cell.SetAttribute("realValue", "");
+                Cell.SetAttribute("customValue", "");
+                Cell.SetAttribute("enableSearch", "True");
+                //Row
+                Row.AppendChild(Cell);
+
+                //Row	PCTS
+                Cell = xmlDoc.CreateElement("Cell");
+                Cell.SetAttribute("fieldId", "PCTS");
+                Cell.SetAttribute("fieldValue", od["比例"].ToString());
+                Cell.SetAttribute("realValue", "");
+                Cell.SetAttribute("customValue", "");
+                Cell.SetAttribute("enableSearch", "True");
+                //Row
+                Row.AppendChild(Cell);
+
+                //Row	SEQ
+                Cell = xmlDoc.CreateElement("Cell");
+                Cell.SetAttribute("fieldId", "SEQ");
+                Cell.SetAttribute("fieldValue", od["順序"].ToString());
+                Cell.SetAttribute("realValue", "");
+                Cell.SetAttribute("customValue", "");
+                Cell.SetAttribute("enableSearch", "True");
+                //Row
+                Row.AppendChild(Cell);
+
+                //Row	ALLERGEN
+                Cell = xmlDoc.CreateElement("Cell");
+                Cell.SetAttribute("fieldId", "ALLERGEN");
+                Cell.SetAttribute("fieldValue", od["過敏原"].ToString());
+                Cell.SetAttribute("realValue", "");
+                Cell.SetAttribute("customValue", "");
+                Cell.SetAttribute("enableSearch", "True");
+                //Row
+                Row.AppendChild(Cell);
+
+                //Row	ORI
+                Cell = xmlDoc.CreateElement("Cell");
+                Cell.SetAttribute("fieldId", "ORI");
+                Cell.SetAttribute("fieldValue", "");
+                Cell.SetAttribute("realValue", "");
+                Cell.SetAttribute("customValue", "");
+                Cell.SetAttribute("enableSearch", "True");
+                //Row
+                Row.AppendChild(Cell);
+
+                //Row	MB002
+                Cell = xmlDoc.CreateElement("Cell");
+                Cell.SetAttribute("fieldId", "MB002");
+                Cell.SetAttribute("fieldValue", od["品名"].ToString());
+                Cell.SetAttribute("realValue", "");
+                Cell.SetAttribute("customValue", "");
+                Cell.SetAttribute("enableSearch", "True");
+                //Row
+                Row.AppendChild(Cell);
+
+                //Row	MB003
+                Cell = xmlDoc.CreateElement("Cell");
+                Cell.SetAttribute("fieldId", "MB003");
+                Cell.SetAttribute("fieldValue", od["規格"].ToString());
+                Cell.SetAttribute("realValue", "");
+                Cell.SetAttribute("customValue", "");
+                Cell.SetAttribute("enableSearch", "True");
+                //Row
+                Row.AppendChild(Cell);
+
+                //Row	COOKIES
+                Cell = xmlDoc.CreateElement("Cell");
+                Cell.SetAttribute("fieldId", "COOKIES");
+                Cell.SetAttribute("fieldValue", od["餅體"].ToString());
+                Cell.SetAttribute("realValue", "");
+                Cell.SetAttribute("customValue", "");
+                Cell.SetAttribute("enableSearch", "True");
+                //Row
+                Row.AppendChild(Cell);
+
+                //Row	TA015
+                Cell = xmlDoc.CreateElement("Cell");
+                Cell.SetAttribute("fieldId", "TA015");
+                Cell.SetAttribute("fieldValue", od["預計產量"].ToString());
+                Cell.SetAttribute("realValue", "");
+                Cell.SetAttribute("customValue", "");
+                Cell.SetAttribute("enableSearch", "True");
+                //Row
+                Row.AppendChild(Cell);
+
+                //Row	TA007
+                Cell = xmlDoc.CreateElement("Cell");
+                Cell.SetAttribute("fieldId", "TA007");
+                Cell.SetAttribute("fieldValue", od["單位"].ToString());
+                Cell.SetAttribute("realValue", "");
+                Cell.SetAttribute("customValue", "");
+                Cell.SetAttribute("enableSearch", "True");
+                //Row
+                Row.AppendChild(Cell);
+
+                //Row	BARS
+                Cell = xmlDoc.CreateElement("Cell");
+                Cell.SetAttribute("fieldId", "BARS");
+                Cell.SetAttribute("fieldValue", od["桶數"].ToString());
+                Cell.SetAttribute("realValue", "");
+                Cell.SetAttribute("customValue", "");
+                Cell.SetAttribute("enableSearch", "True");
+                //Row
+                Row.AppendChild(Cell);
+
+                //Row	BOXS
+                Cell = xmlDoc.CreateElement("Cell");
+                Cell.SetAttribute("fieldId", "BOXS");
+                Cell.SetAttribute("fieldValue", od["箱數"].ToString());
+                Cell.SetAttribute("realValue", "");
+                Cell.SetAttribute("customValue", "");
+                Cell.SetAttribute("enableSearch", "True");
+                //Row
+                Row.AppendChild(Cell);
+
+                //Row	COMMENT
+                Cell = xmlDoc.CreateElement("Cell");
+                Cell.SetAttribute("fieldId", "COMMENT");
+                Cell.SetAttribute("fieldValue", od["備註"].ToString());
+                Cell.SetAttribute("realValue", "");
+                Cell.SetAttribute("customValue", "");
+                Cell.SetAttribute("enableSearch", "True");
+                //Row
+                Row.AppendChild(Cell);
+
+                //Row	TC053
+                Cell = xmlDoc.CreateElement("Cell");
+                Cell.SetAttribute("fieldId", "TC053");
+                Cell.SetAttribute("fieldValue", od["客戶"].ToString());
+                Cell.SetAttribute("realValue", "");
+                Cell.SetAttribute("customValue", "");
+                Cell.SetAttribute("enableSearch", "True");
+                //Row
+                Row.AppendChild(Cell);
+
+                //Row	SIGNS
+                Cell = xmlDoc.CreateElement("Cell");
+                Cell.SetAttribute("fieldId", "SIGNS");
+                Cell.SetAttribute("fieldValue", "");
+                Cell.SetAttribute("realValue", "");
+                Cell.SetAttribute("customValue", "");
+                Cell.SetAttribute("enableSearch", "True");
+                //Row
+                Row.AppendChild(Cell);
+
+                rowscounts = rowscounts + 1;
+
+                XmlNode DataGridS = xmlDoc.SelectSingleNode("./Form/FormFieldValue/FieldItem[@fieldId='DETAILS']/DataGrid");
+                DataGridS.AppendChild(Row);
+            }
 
 
-            ////用ADDTACK，直接啟動起單
-            //ADDTACK(Form);
+                ////用ADDTACK，直接啟動起單
+                //ADDTACK(Form);
 
-            //ADD TO DB
-            string connectionString = ConfigurationManager.ConnectionStrings["dbUOF"].ToString();
+                //ADD TO DB
+                string connectionString = ConfigurationManager.ConnectionStrings["dbUOF"].ToString();
 
             StringBuilder queryString = new StringBuilder();
 
