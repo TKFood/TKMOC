@@ -93,7 +93,7 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@" SELECT [MB001] AS '品號',[MB002]  AS '品名',[MB003]  AS '規格',[PCT]  AS '比例',[ALLERGEN]  AS '過敏原',[SPEC] AS '餅體'");
+                sbSql.AppendFormat(@" SELECT [MB001] AS '品號',[MB002]  AS '品名',[MB003]  AS '規格',[PCT]  AS '比例',[ALLERGEN]  AS '過敏原',[SPEC] AS '餅體',[ORI] AS '素別' ");
                 sbSql.AppendFormat(@" FROM [TKMOC].[dbo].[ERPINVMB] ");
                 sbSql.AppendFormat(@" WHERE 1=1 ");
                 sbSql.AppendFormat(@" {0}", Query.ToString());
@@ -228,9 +228,12 @@ namespace TKMOC
                 tran = sqlConn.BeginTransaction();
 
                 sbSql.Clear();
-                sbSql.AppendFormat(@" UPDATE [TKMOC].[dbo].[ERPINVMB] ");
-                sbSql.AppendFormat(@" SET [PCT]='{0}',[ALLERGEN]='{1}',[SPEC]='{3}' WHERE [MB001]='{2}' ", textBox1.Text.ToString().Trim(), textBox2.Text.ToString().Trim(), textBox6.Text.ToString().Trim(), textBox4.Text.ToString().Trim());
-                sbSql.AppendFormat(@"  ");
+                
+                sbSql.AppendFormat(@"  
+                                    UPDATE [TKMOC].[dbo].[ERPINVMB]
+                                    SET [PCT]='{1}',[ALLERGEN]='{2}',[SPEC]='{3}' ,[ORI]='{4}'
+                                    WHERE [MB001]='{0}'
+                                    ", textBox6.Text.ToString().Trim(), textBox1.Text.ToString().Trim(), textBox2.Text.ToString().Trim(), textBox4.Text.ToString().Trim(), textBox15.Text.ToString().Trim());
 
                 cmd.Connection = sqlConn;
                 cmd.CommandTimeout = 60;
@@ -305,7 +308,7 @@ namespace TKMOC
                                 LEFT JOIN [TK].dbo.BOMMC ON MC001=TA006
                                 LEFT JOIN [TK].dbo.BOMMD ON MD035 LIKE '%箱%' AND MD003 LIKE '2%' AND MD007>1 AND MD001=TA006
                                 WHERE TA003='{0}' 
-                                ORDER BY TA003,TA021,TA001,TA002    
+                                ORDER BY TA003,TA021,TA001,TA002     
                                 ", SDAY);
 
             return FASTSQL.ToString();
@@ -360,6 +363,7 @@ namespace TKMOC
                                 ,MOCTA.TA026 AS '訂單別'
                                 ,MOCTA.TA027 AS '訂單號'
                                 ,TC053  AS '客戶'
+                                ,[REPORTMOCMANULINE].[ORI] AS '素別'
                                 FROM [TKMOC].[dbo].[REPORTMOCMANULINE]
                                 LEFT JOIN [TK].dbo.MOCTA ON [REPORTMOCMANULINE].TA001=MOCTA.[TA001] AND [REPORTMOCMANULINE].[TA002]=MOCTA.[TA002]
                                 LEFT JOIN [TK].dbo.COPTC ON TC001= TA026 AND TC002=TA027 
@@ -631,11 +635,12 @@ namespace TKMOC
 
                 sbSql.AppendFormat(@" 
                                     INSERT INTO [TKMOC].[dbo].[REPORTMOCMANULINE]
-                                    ([ID],[MANULINE],[LOTNO],[TA001],[TA002],[TA003],[TA006],[TA007],[TA015],[TA017],[MB002],[MB003],[PCTS],[SEQ],[ALLERGEN],[COOKIES],[BARS],[BOXS],[VDATES],[COMMENT])
+                                    ([ID],[MANULINE],[LOTNO],[TA001],[TA002],[TA003],[TA006],[TA007],[TA015],[TA017],[MB002],[MB003],[PCTS],[SEQ],[ALLERGEN],[COOKIES],[BARS],[BOXS],[VDATES],[COMMENT],[ORI])
 
                                     SELECT NEWID(),TA021,'{0}',TA001,TA002,TA003,TA006,TA007,TA015,TA017,TA034,TA035,[ERPINVMB].[PCT],MOCTA.UDF01,[ERPINVMB].[ALLERGEN] ,[ERPINVMB].[SPEC] ,CONVERT(decimal(16,3),TA015/ISNULL(MC004,1)),CASE WHEN ISNULL(1/[MOCHALFPRODUCTDBOXS].NUMS*[MOCHALFPRODUCTDBOXS].BOXS,0)>0  THEN CONVERT(decimal(16, 3), TA015 / ISNULL(MD007, 1) * ISNULL(MD010, 1))*(1/[MOCHALFPRODUCTDBOXS].NUMS*[MOCHALFPRODUCTDBOXS].BOXS) ELSE CONVERT(decimal(16, 3), TA015 / ISNULL(MD007, 1) * ISNULL(MD010, 1)) END,
                                     CASE WHEN MB198='2' THEN  CONVERT(NVARCHAR,DATEADD(DAY,-1,DATEADD(MONTH,MB023,TA003)),112) ELSE CONVERT(NVARCHAR,DATEADD(DAY,-1,DATEADD(DAY,MB023,TA003)),112) END
                                     ,TA029
+                                    ,[ERPINVMB].[ORI]
                                     FROM [TK].dbo.MOCTA
                                     LEFT JOIN [TK].dbo.INVMB ON MB001=TA006
                                     LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=TA006
@@ -1450,14 +1455,14 @@ namespace TKMOC
             }
         }
 
-        public void ADDTB_WKF_EXTERNAL_TASK()
+        public void ADDTB_WKF_EXTERNAL_TASK(string sday)
         {
             string ACCOUNT = "190006";
             string CODE = textBox3.Text.Trim();     
             string VDATES = dateTimePicker5.Value.ToString("yyyyMMdd");
 
             DataTable DTUPFDEP = SEARCHUOFDEP(ACCOUNT);
-            DataTable DT = SEARCHDB(dateTimePicker1.Value.ToString("yyyyMMdd"));
+            DataTable DT = SEARCHDB(sday);
 
             string account = DTUPFDEP.Rows[0]["ACCOUNT"].ToString();
             string groupId = DTUPFDEP.Rows[0]["GROUP_ID"].ToString();
@@ -1647,7 +1652,7 @@ namespace TKMOC
                 //Row	ORI
                 Cell = xmlDoc.CreateElement("Cell");
                 Cell.SetAttribute("fieldId", "ORI");
-                Cell.SetAttribute("fieldValue", "");
+                Cell.SetAttribute("fieldValue", od["素別"].ToString());
                 Cell.SetAttribute("realValue", "");
                 Cell.SetAttribute("customValue", "");
                 Cell.SetAttribute("enableSearch", "True");
@@ -1907,6 +1912,7 @@ namespace TKMOC
                                 ,MOCTA.TA026 AS '訂單別'
                                 ,MOCTA.TA027 AS '訂單號'
                                 ,TC053  AS '客戶'
+                                ,[REPORTMOCMANULINE].[ORI] AS '素別'
                                 FROM [TKMOC].[dbo].[REPORTMOCMANULINE]
                                 LEFT JOIN [TK].dbo.MOCTA ON [REPORTMOCMANULINE].TA001=MOCTA.[TA001] AND [REPORTMOCMANULINE].[TA002]=MOCTA.[TA002]
                                 LEFT JOIN [TK].dbo.COPTC ON TC001= TA026 AND TC002=TA027 
@@ -2082,7 +2088,7 @@ namespace TKMOC
 
         private void button17_Click(object sender, EventArgs e)
         {
-            ADDTB_WKF_EXTERNAL_TASK();
+            ADDTB_WKF_EXTERNAL_TASK(dateTimePicker1.Value.ToString("yyyyMMdd"));
         }
 
 

@@ -113,6 +113,8 @@
             this.label18 = new System.Windows.Forms.Label();
             this.dateTimePicker5 = new System.Windows.Forms.DateTimePicker();
             this.button17 = new System.Windows.Forms.Button();
+            this.label19 = new System.Windows.Forms.Label();
+            this.textBox15 = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -479,9 +481,11 @@
             this.tableLayoutPanel4.Controls.Add(this.label8, 0, 3);
             this.tableLayoutPanel4.Controls.Add(this.textBox2, 1, 7);
             this.tableLayoutPanel4.Controls.Add(this.textBox1, 1, 6);
-            this.tableLayoutPanel4.Controls.Add(this.button6, 1, 9);
             this.tableLayoutPanel4.Controls.Add(this.textBox4, 1, 8);
             this.tableLayoutPanel4.Controls.Add(this.label4, 0, 8);
+            this.tableLayoutPanel4.Controls.Add(this.button6, 1, 10);
+            this.tableLayoutPanel4.Controls.Add(this.label19, 0, 9);
+            this.tableLayoutPanel4.Controls.Add(this.textBox15, 1, 9);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
@@ -601,7 +605,7 @@
             // button6
             // 
             this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button6.Location = new System.Drawing.Point(103, 363);
+            this.button6.Location = new System.Drawing.Point(103, 403);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(135, 34);
             this.button6.TabIndex = 2;
@@ -1362,6 +1366,24 @@
             this.button17.UseVisualStyleBackColor = true;
             this.button17.Click += new System.EventHandler(this.button17_Click);
             // 
+            // label19
+            // 
+            this.label19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(3, 372);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(94, 16);
+            this.label19.TabIndex = 14;
+            this.label19.Text = "素別";
+            // 
+            // textBox15
+            // 
+            this.textBox15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox15.Location = new System.Drawing.Point(103, 366);
+            this.textBox15.Name = "textBox15";
+            this.textBox15.Size = new System.Drawing.Size(135, 27);
+            this.textBox15.TabIndex = 15;
+            // 
             // frmREPORTMOCTAB
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -1532,5 +1554,7 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.DateTimePicker dateTimePicker5;
         private System.Windows.Forms.Button button17;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TextBox textBox15;
     }
 }
