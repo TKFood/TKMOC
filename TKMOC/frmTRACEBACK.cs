@@ -2258,8 +2258,9 @@ namespace TKMOC
 
 
                 sbSql.AppendFormat(@"  
-                                    SELECT [TG014] AS '製令',[TG015] AS '製令單號',[MID] AS '入庫單別',[DID] AS '入庫單號',[SID] AS '入庫序號',[MMB001] AS '主品號',[MMB002] AS '主品名',[MLOTNO] AS '主批號',[KINDS] AS '類別',[LEVELS] AS '層別',[DATES] AS '日期',[MB001] AS '品號',[MB002] AS '品名',[LOTNO] AS '批號',[NUMS] AS '數量'
+                                    SELECT [TG014] AS '製令',[TG015] AS '製令單號',[MID] AS '入庫單別',[DID] AS '入庫單號',[SID] AS '入庫序號',[MMB001] AS '主品號',[MMB002] AS '主品名',[MLOTNO] AS '主批號',[KINDS] AS '類別',[LEVELS] AS '層別',[DATES] AS '日期',[MB001] AS '品號',[MB002] AS '品名',[LOTNO] AS '批號',[NUMS] AS '數量',TA006 AS '生產品號'
                                     FROM [TKMOC].[dbo].[TRACEBACK]
+                                    LEFT JOIN [TK].dbo.MOCTA ON  TA001=TG014 AND TA002=TG015
                                     WHERE [KINDS] IN ('2生產','3生產入庫')
                                     ORDER BY [KINDS],[MMB001],[MLOTNO],[MID],[DID],[SID],[TG014],[TG015]
                                     ");
@@ -2385,8 +2386,9 @@ namespace TKMOC
 
 
                 sbSql.AppendFormat(@"  
-                                    SELECT [TG014] AS '製令',[TG015] AS '製令單號',[MID] AS '單別',[DID] AS '單號',[SID] AS '序號',[MMB001] AS '主品號',[MMB002] AS '主品名',[MLOTNO] AS '主批號',[KINDS] AS '類別',[LEVELS] AS '層別',[DATES] AS '日期',[MB001] AS '品號',[MB002] AS '品名',[LOTNO] AS '批號',[NUMS] AS '數量'
+                                    SELECT [TG014] AS '製令',[TG015] AS '製令單號',[MID] AS '單別',[DID] AS '單號',[SID] AS '序號',[MMB001] AS '主品號',[MMB002] AS '主品名',[MLOTNO] AS '主批號',[KINDS] AS '類別',[LEVELS] AS '層別',[DATES] AS '日期',[MB001] AS '品號',[MB002] AS '品名',[LOTNO] AS '批號',[NUMS] AS '數量',TA006 AS '生產品號'
                                     FROM [TKMOC].[dbo].[TRACEBACK]
+                                    LEFT JOIN [TK].dbo.MOCTA ON  TA001=TG014 AND TA002=TG015 
                                     WHERE [KINDS] IN ('3領退料','2領退料') AND [MID] LIKE 'A54%'
                                     ORDER BY [KINDS],[MMB001],[MLOTNO],[MID],[DID],[SID],[TG014],[TG015]
                                     ");
@@ -2513,8 +2515,9 @@ namespace TKMOC
 
 
                 sbSql.AppendFormat(@"  
-                                    SELECT [TG014] AS '製令',[TG015] AS '製令單號',[MID] AS '單別',[DID] AS '單號',[SID] AS '序號',[MMB001] AS '主品號',[MMB002] AS '主品名',[MLOTNO] AS '主批號',[KINDS] AS '類別',[LEVELS] AS '層別',[DATES] AS '日期',[MB001] AS '品號',[MB002] AS '品名',[LOTNO] AS '批號',[NUMS] AS '數量'
+                                    SELECT [TG014] AS '製令',[TG015] AS '製令單號',[MID] AS '單別',[DID] AS '單號',[SID] AS '序號',[MMB001] AS '主品號',[MMB002] AS '主品名',[MLOTNO] AS '主批號',[KINDS] AS '類別',[LEVELS] AS '層別',[DATES] AS '日期',[MB001] AS '品號',[MB002] AS '品名',[LOTNO] AS '批號',[NUMS] AS '數量',TA006 AS '生產品號'
                                     FROM [TKMOC].[dbo].[TRACEBACK]
+                                    LEFT JOIN [TK].dbo.MOCTA ON  TA001=TG014 AND TA002=TG015 
                                     WHERE [KINDS] IN ('3領退料','2領退料') AND [MID] LIKE 'A56%'
                                     ORDER BY [KINDS],[MMB001],[MLOTNO],[MID],[DID],[SID],[TG014],[TG015]
                                     ");
@@ -2798,7 +2801,7 @@ namespace TKMOC
             foreach (DataGridViewRow dr in dataGridView2.Rows)
             {
 
-                if (dr.Cells["品號"].Value.ToString().StartsWith("3"))
+                if (dr.Cells["生產品號"].Value.ToString().StartsWith("3"))
                 {
                     dr.Cells[0].Value = true;
                 }
@@ -2822,7 +2825,7 @@ namespace TKMOC
             foreach (DataGridViewRow dr in dataGridView2.Rows)
             {
 
-                if (dr.Cells["品號"].Value.ToString().StartsWith("4"))
+                if (dr.Cells["生產品號"].Value.ToString().StartsWith("4"))
                 {
                     dr.Cells[0].Value = true;
                 }
@@ -2855,7 +2858,7 @@ namespace TKMOC
 
             foreach (DataGridViewRow dr in dataGridView3.Rows)
             {
-                if(dr.Cells["品號"].Value.ToString().StartsWith("3"))
+                if(dr.Cells["生產品號"].Value.ToString().StartsWith("3"))
                 {
                     dr.Cells[0].Value = true;
                 }
@@ -2877,7 +2880,7 @@ namespace TKMOC
 
             foreach (DataGridViewRow dr in dataGridView3.Rows)
             {
-                if (dr.Cells["品號"].Value.ToString().StartsWith("4"))
+                if (dr.Cells["生產品號"].Value.ToString().StartsWith("4"))
                 {
                     dr.Cells[0].Value = true;
                 }                  
@@ -2909,7 +2912,7 @@ namespace TKMOC
 
             foreach (DataGridViewRow dr in dataGridView4.Rows)
             {
-                if (dr.Cells["品號"].Value.ToString().StartsWith("3"))
+                if (dr.Cells["生產品號"].Value.ToString().StartsWith("3"))
                 {
                     dr.Cells[0].Value = true;
                 }
@@ -2930,7 +2933,7 @@ namespace TKMOC
 
             foreach (DataGridViewRow dr in dataGridView4.Rows)
             {
-                if (dr.Cells["品號"].Value.ToString().StartsWith("4"))
+                if (dr.Cells["生產品號"].Value.ToString().StartsWith("4"))
                 {
                     dr.Cells[0].Value = true;
                 }
