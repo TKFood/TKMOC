@@ -1629,7 +1629,7 @@ namespace TKMOC
 			                                                                        AND TG015 = TE012
 			                                                                        AND LTRIM(RTRIM(TG004)) + LTRIM(RTRIM(TG017)) IN (
 				                                                                        SELECT LTRIM(RTRIM(MB001)) + LTRIM(RTRIM(LOTNO))
-				                                                                        FROM [TKMOC].[dbo].[TRACEBACKTEMP]
+				                                                                        FROM [TKMOC].[dbo].[TRACEBACK]
 				                                                                        WHERE LEVELS = '{3}'
 				                                                                        )
 		                                                                        GROUP BY LTRIM(RTRIM([TE004])) + LTRIM(RTRIM([TE010]))
