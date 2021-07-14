@@ -120,6 +120,7 @@
             this.label21 = new System.Windows.Forms.Label();
             this.textBox16 = new System.Windows.Forms.TextBox();
             this.textBox17 = new System.Windows.Forms.TextBox();
+            this.splitContainer11 = new System.Windows.Forms.SplitContainer();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -180,6 +181,9 @@
             this.splitContainer10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).BeginInit();
             this.tableLayoutPanel9.SuspendLayout();
+            this.tabPage6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer11)).BeginInit();
+            this.splitContainer11.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -224,7 +228,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.previewControl1);
             this.splitContainer1.Size = new System.Drawing.Size(970, 666);
-            this.splitContainer1.SplitterDistance = 166;
+            this.splitContainer1.SplitterDistance = 237;
             this.splitContainer1.TabIndex = 0;
             // 
             // tableLayoutPanel1
@@ -255,12 +259,14 @@
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 4;
+            this.tableLayoutPanel1.RowCount = 6;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(966, 162);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(966, 233);
             this.tableLayoutPanel1.TabIndex = 4;
             // 
             // label1
@@ -372,7 +378,7 @@
             this.previewControl1.Name = "previewControl1";
             this.previewControl1.PageOffset = new System.Drawing.Point(10, 10);
             this.previewControl1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.previewControl1.Size = new System.Drawing.Size(966, 492);
+            this.previewControl1.Size = new System.Drawing.Size(966, 421);
             this.previewControl1.TabIndex = 1;
             // 
             // tabPage2
@@ -1397,6 +1403,7 @@
             // 
             // tabPage6
             // 
+            this.tabPage6.Controls.Add(this.splitContainer11);
             this.tabPage6.Location = new System.Drawing.Point(4, 26);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Size = new System.Drawing.Size(976, 672);
@@ -1445,6 +1452,17 @@
             this.textBox17.ReadOnly = true;
             this.textBox17.Size = new System.Drawing.Size(138, 27);
             this.textBox17.TabIndex = 20;
+            // 
+            // splitContainer11
+            // 
+            this.splitContainer11.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.splitContainer11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer11.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer11.Name = "splitContainer11";
+            this.splitContainer11.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.splitContainer11.Size = new System.Drawing.Size(976, 672);
+            this.splitContainer11.SplitterDistance = 325;
+            this.splitContainer11.TabIndex = 0;
             // 
             // frmREPORTMOCTAB
             // 
@@ -1525,6 +1543,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).EndInit();
             this.tableLayoutPanel9.ResumeLayout(false);
             this.tableLayoutPanel9.PerformLayout();
+            this.tabPage6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer11)).EndInit();
+            this.splitContainer11.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1623,5 +1644,6 @@
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.TextBox textBox17;
         private System.Windows.Forms.TextBox textBox16;
+        private System.Windows.Forms.SplitContainer splitContainer11;
     }
 }
