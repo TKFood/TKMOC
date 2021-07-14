@@ -1457,6 +1457,8 @@ namespace TKMOC
 
         public void ADDTB_WKF_EXTERNAL_TASK(string sday)
         {
+
+            //人員指定 190006
             string ACCOUNT = "190006";
             string CODE = textBox3.Text.Trim();     
             string VDATES = dateTimePicker5.Value.ToString("yyyyMMdd");
