@@ -121,6 +121,9 @@
             this.textBox16 = new System.Windows.Forms.TextBox();
             this.textBox17 = new System.Windows.Forms.TextBox();
             this.splitContainer11 = new System.Windows.Forms.SplitContainer();
+            this.label22 = new System.Windows.Forms.Label();
+            this.button18 = new System.Windows.Forms.Button();
+            this.textBox18 = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -228,7 +231,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.previewControl1);
             this.splitContainer1.Size = new System.Drawing.Size(970, 666);
-            this.splitContainer1.SplitterDistance = 237;
+            this.splitContainer1.SplitterDistance = 244;
             this.splitContainer1.TabIndex = 0;
             // 
             // tableLayoutPanel1
@@ -241,8 +244,8 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 144F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 142F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 232F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 154F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 220F));
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.dateTimePicker1, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 1);
@@ -256,17 +259,21 @@
             this.tableLayoutPanel1.Controls.Add(this.label21, 5, 0);
             this.tableLayoutPanel1.Controls.Add(this.textBox17, 5, 1);
             this.tableLayoutPanel1.Controls.Add(this.textBox16, 4, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label22, 4, 2);
+            this.tableLayoutPanel1.Controls.Add(this.textBox18, 4, 3);
+            this.tableLayoutPanel1.Controls.Add(this.button18, 6, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 6;
+            this.tableLayoutPanel1.RowCount = 7;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(966, 233);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(966, 240);
             this.tableLayoutPanel1.TabIndex = 4;
             // 
             // label1
@@ -318,7 +325,7 @@
             this.button17.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.button17.Location = new System.Drawing.Point(747, 43);
             this.button17.Name = "button17";
-            this.button17.Size = new System.Drawing.Size(136, 34);
+            this.button17.Size = new System.Drawing.Size(146, 34);
             this.button17.TabIndex = 16;
             this.button17.Text = "新增UOF簽核單";
             this.button17.UseVisualStyleBackColor = true;
@@ -378,7 +385,7 @@
             this.previewControl1.Name = "previewControl1";
             this.previewControl1.PageOffset = new System.Drawing.Point(10, 10);
             this.previewControl1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.previewControl1.Size = new System.Drawing.Size(966, 421);
+            this.previewControl1.Size = new System.Drawing.Size(966, 414);
             this.previewControl1.TabIndex = 1;
             // 
             // tabPage2
@@ -1464,6 +1471,39 @@
             this.splitContainer11.SplitterDistance = 325;
             this.splitContainer11.TabIndex = 0;
             // 
+            // label22
+            // 
+            this.label22.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label22.Location = new System.Drawing.Point(483, 92);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(114, 16);
+            this.label22.TabIndex = 21;
+            this.label22.Text = "UOF說明";
+            this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // button18
+            // 
+            this.button18.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.button18.Location = new System.Drawing.Point(747, 123);
+            this.button18.Name = "button18";
+            this.button18.Size = new System.Drawing.Size(148, 34);
+            this.button18.TabIndex = 22;
+            this.button18.Text = "新增UOF說明簽核";
+            this.button18.UseVisualStyleBackColor = true;
+            // 
+            // textBox18
+            // 
+            this.textBox18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.SetColumnSpan(this.textBox18, 2);
+            this.textBox18.Location = new System.Drawing.Point(483, 123);
+            this.textBox18.Multiline = true;
+            this.textBox18.Name = "textBox18";
+            this.tableLayoutPanel1.SetRowSpan(this.textBox18, 2);
+            this.textBox18.Size = new System.Drawing.Size(258, 74);
+            this.textBox18.TabIndex = 23;
+            // 
             // frmREPORTMOCTAB
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -1645,5 +1685,8 @@
         private System.Windows.Forms.TextBox textBox17;
         private System.Windows.Forms.TextBox textBox16;
         private System.Windows.Forms.SplitContainer splitContainer11;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Button button18;
+        private System.Windows.Forms.TextBox textBox18;
     }
 }
