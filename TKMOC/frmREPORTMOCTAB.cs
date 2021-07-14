@@ -36,7 +36,7 @@ namespace TKMOC
         /// <summary>
         /// 生產排程說明單
         /// </summary>
-        string ID2 = "86505758-0bc8-405a-9cec-b87610eecf56";
+        string ID2 = "774f4e06-e368-44a1-a7fb-7245b7e63807";
         string DBNAME = "UOF";
 
 
@@ -75,6 +75,7 @@ namespace TKMOC
             if (!string.IsNullOrEmpty(textBox3.Text))
             {
                 SEARCHUOF(textBox3.Text);
+                SEARCHUOF2(textBox3.Text);
             }
 
             //textBox3.Text = SEARCHMOCLOTNO(dateTimePicker1.Value.ToString("yyyyMMdd"));
@@ -393,6 +394,7 @@ namespace TKMOC
             if(!string.IsNullOrEmpty(textBox3.Text))
             {
                 SEARCHUOF(textBox3.Text);
+                SEARCHUOF2(textBox3.Text);
             }
             
 
@@ -2404,6 +2406,61 @@ namespace TKMOC
             }
         }
 
+        public void SEARCHUOF2(string CODE)
+        {
+            textBox19.Text = null;
+            
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            DataSet ds1 = new DataSet();
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbUOF"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                CODE = "REASONS-" + CODE;
+                sbSql.AppendFormat(@"  
+                                    SELECT TOP 1  EXTERNAL_FORM_NBR,DOC_NBR,CONVERT(NVARCHAR,MODIFY_TIME,112) MODIFY_TIME
+                                    FROM [UOF].[dbo].[TB_WKF_EXTERNAL_TASK]
+                                    WHERE EXTERNAL_FORM_NBR='{0}'
+                                    ORDER BY MODIFY_TIME DESC
+
+                                    ", CODE);
+
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "ds1");
+                sqlConn.Close();
+
+                if (ds1.Tables["ds1"].Rows.Count >= 1)
+                {                                        
+                    textBox19.Text = ds1.Tables["ds1"].Rows[0]["DOC_NBR"].ToString();
+                }
+                else
+                {
+                    textBox19.Text = null;
+                   
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
         #endregion
 
         #region BUTTON
@@ -2545,7 +2602,11 @@ namespace TKMOC
 
         private void button18_Click(object sender, EventArgs e)
         {
-            ADDTB_WKF_EXTERNAL_TASK2(dateTimePicker1.Value.ToString("yyyyMMdd"));
+            if(!string.IsNullOrEmpty(textBox18.Text))
+            {
+                ADDTB_WKF_EXTERNAL_TASK2(dateTimePicker1.Value.ToString("yyyyMMdd"));
+            }
+           
         }
 
         #endregion
