@@ -378,6 +378,11 @@ namespace TKMOC
         {
             SETCODE();
             SEARCHVDATES(dateTimePicker1.Value.ToString("yyyyMMdd"));
+            if(!string.IsNullOrEmpty(textBox3.Text))
+            {
+                SEARCHUOF(textBox3.Text);
+            }
+            
 
             //textBox3.Text = SEARCHMOCLOTNO(dateTimePicker1.Value.ToString("yyyyMMdd"));
 
@@ -1947,6 +1952,64 @@ namespace TKMOC
             catch
             {
                 return null;
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void SEARCHUOF(string CODE)
+        {
+            textBox16.Text = null;
+            textBox17.Text = null;
+
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            DataSet ds1 = new DataSet();
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbUOF"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+
+                sbSql.AppendFormat(@"  
+                                    SELECT TOP 1  EXTERNAL_FORM_NBR,DOC_NBR,CONVERT(NVARCHAR,MODIFY_TIME,112) MODIFY_TIME
+                                    FROM [UOF].[dbo].[TB_WKF_EXTERNAL_TASK]
+                                    WHERE EXTERNAL_FORM_NBR='{0}'
+                                    ORDER BY MODIFY_TIME DESC
+
+                                    ", CODE);
+
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "ds1");
+                sqlConn.Close();
+
+                if (ds1.Tables["ds1"].Rows.Count >= 1)
+                {
+
+                    textBox16.Text = ds1.Tables["ds1"].Rows[0]["MODIFY_TIME"].ToString();
+                    textBox17.Text = ds1.Tables["ds1"].Rows[0]["DOC_NBR"].ToString();
+                }
+                else
+                {
+                    textBox16.Text = null;
+                    textBox17.Text = null;
+                }
+
+            }
+            catch
+            {
+                
             }
             finally
             {
