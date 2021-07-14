@@ -29,7 +29,7 @@ namespace TKMOC
         //正式ID =""
         //測試DB DBNAME = "UOFTEST";
         //正式DB DBNAME = "UOF";
-        string ID = "907f3af6-2cc7-4246-85ac-49980bb53762";
+        string ID = "72c2d357-b1bf-4ef4-bd48-10e79691a6e4";
         string DBNAME = "UOF";
 
 
@@ -64,6 +64,11 @@ namespace TKMOC
         {
 
             SETCODE();
+
+            if (!string.IsNullOrEmpty(textBox3.Text))
+            {
+                SEARCHUOF(textBox3.Text);
+            }
 
             //textBox3.Text = SEARCHMOCLOTNO(dateTimePicker1.Value.ToString("yyyyMMdd"));
 
@@ -1803,6 +1808,8 @@ namespace TKMOC
 
                     connection.Close();
                     connection.Dispose();
+
+                    MessageBox.Show("新增成功");
 
                 }
             }
