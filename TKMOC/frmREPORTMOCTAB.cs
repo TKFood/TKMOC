@@ -2367,7 +2367,7 @@ namespace TKMOC
 
 
                 sbSql.AppendFormat(@"  
-                                    SELECT TOP 1  EXTERNAL_FORM_NBR,DOC_NBR,CONVERT(NVARCHAR,MODIFY_TIME,112) MODIFY_TIME
+                                    SELECT TOP 1  EXTERNAL_FORM_NBR,DOC_NBR,CONVERT(NVARCHAR,MODIFY_TIME,112) MODIFY_TIMES,MODIFY_TIME
                                     FROM [UOF].[dbo].[TB_WKF_EXTERNAL_TASK]
                                     WHERE EXTERNAL_FORM_NBR='{0}'
                                     ORDER BY MODIFY_TIME DESC
@@ -2386,7 +2386,7 @@ namespace TKMOC
                 if (ds1.Tables["ds1"].Rows.Count >= 1)
                 {
 
-                    textBox16.Text = ds1.Tables["ds1"].Rows[0]["MODIFY_TIME"].ToString();
+                    textBox16.Text = ds1.Tables["ds1"].Rows[0]["MODIFY_TIMES"].ToString();
                     textBox17.Text = ds1.Tables["ds1"].Rows[0]["DOC_NBR"].ToString();
                 }
                 else
@@ -2424,7 +2424,7 @@ namespace TKMOC
 
                 CODE = "REASONS-" + CODE;
                 sbSql.AppendFormat(@"  
-                                    SELECT TOP 1  EXTERNAL_FORM_NBR,DOC_NBR,CONVERT(NVARCHAR,MODIFY_TIME,112) MODIFY_TIME
+                                    SELECT TOP 1  EXTERNAL_FORM_NBR,DOC_NBR,CONVERT(NVARCHAR,MODIFY_TIME,112) MODIFY_TIMES,MODIFY_TIME
                                     FROM [UOF].[dbo].[TB_WKF_EXTERNAL_TASK]
                                     WHERE EXTERNAL_FORM_NBR='{0}'
                                     ORDER BY MODIFY_TIME DESC
