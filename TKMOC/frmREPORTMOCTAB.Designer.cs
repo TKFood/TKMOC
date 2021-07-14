@@ -1492,6 +1492,7 @@
             this.button18.TabIndex = 22;
             this.button18.Text = "新增UOF說明簽核";
             this.button18.UseVisualStyleBackColor = true;
+            this.button18.Click += new System.EventHandler(this.button18_Click);
             // 
             // textBox18
             // 
