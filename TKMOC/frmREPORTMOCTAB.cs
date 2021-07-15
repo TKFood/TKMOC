@@ -382,6 +382,7 @@ namespace TKMOC
                                 LEFT JOIN [TK].dbo.COPTC ON TC001= TA026 AND TC002=TA027 
                                 WHERE CONVERT(NVARCHAR,[REPORTMOCMANULINE].TA003,112)='{0}'   
                                 ORDER BY [REPORTMOCMANULINE].TA003,[MANULINE],[REPORTMOCMANULINE].TA001,[REPORTMOCMANULINE].TA002   
+
                                 ", SDAY);
 
             return FASTSQL.ToString();
