@@ -30,13 +30,13 @@ namespace TKMOC
         //測試DB DBNAME = "UOFTEST";
         //正式DB DBNAME = "UOF";
         /// <summary>
-        /// 生產排程單
+        /// 生產排程確認表
         /// </summary>
-        string ID1 = "72c2d357-b1bf-4ef4-bd48-10e79691a6e4";
+        string ID1 = "b4761e8e-cdc9-4f60-86b0-fc5cdc68eebf";
         /// <summary>
-        /// 生產排程說明單
+        /// 生產排程確認表說明
         /// </summary>
-        string ID2 = "774f4e06-e368-44a1-a7fb-7245b7e63807";
+        string ID2 = "1e69f486-dccf-46eb-a61b-95f180bdf1c8";
         string DBNAME = "UOF";
 
 
