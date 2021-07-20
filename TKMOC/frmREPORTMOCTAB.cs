@@ -32,11 +32,11 @@ namespace TKMOC
         /// <summary>
         /// 生產排程確認表
         /// </summary>
-        string ID1 = "b4761e8e-cdc9-4f60-86b0-fc5cdc68eebf";
+        string ID1 = "67e5144b-30f2-491e-832d-03e6fd4907ae";
         /// <summary>
         /// 生產排程確認表說明
         /// </summary>
-        string ID2 = "1e69f486-dccf-46eb-a61b-95f180bdf1c8";
+        string ID2 = "54c6a9f7-6a4f-4954-b73f-86287f6dd113";
         string DBNAME = "UOF";
 
 
