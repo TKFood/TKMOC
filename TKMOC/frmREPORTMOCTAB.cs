@@ -32,11 +32,11 @@ namespace TKMOC
         /// <summary>
         /// 生產排程確認表
         /// </summary>
-        string ID1 = "0a6a0b58-ce2c-44e3-b28e-89e28b3ab701";
+        string ID1 = "6ecb6b2b-72db-4431-9782-93045391a562";
         /// <summary>
         /// 生產排程確認表說明
         /// </summary>
-        string ID2 = "687440c0-7d02-4eb5-9995-353a10337310";
+        string ID2 = "63bde26a-54ec-465d-b525-6f5fad42fae7";
         string DBNAME = "UOF";
 
 
@@ -1641,76 +1641,6 @@ namespace TKMOC
                 //Row
                 Row.AppendChild(Cell);
 
-                //Row	PCTS
-                Cell = xmlDoc.CreateElement("Cell");
-                Cell.SetAttribute("fieldId", "PCTS");
-                Cell.SetAttribute("fieldValue", od["比例"].ToString());
-                Cell.SetAttribute("realValue", "");
-                Cell.SetAttribute("customValue", "");
-                Cell.SetAttribute("enableSearch", "True");
-                //Row
-                Row.AppendChild(Cell);
-
-                //Row	SEQ
-                Cell = xmlDoc.CreateElement("Cell");
-                Cell.SetAttribute("fieldId", "SEQ");
-                Cell.SetAttribute("fieldValue", od["順序"].ToString());
-                Cell.SetAttribute("realValue", "");
-                Cell.SetAttribute("customValue", "");
-                Cell.SetAttribute("enableSearch", "True");
-                //Row
-                Row.AppendChild(Cell);
-
-                //Row	ALLERGEN
-                Cell = xmlDoc.CreateElement("Cell");
-                Cell.SetAttribute("fieldId", "ALLERGEN");
-                Cell.SetAttribute("fieldValue", od["過敏原"].ToString());
-                Cell.SetAttribute("realValue", "");
-                Cell.SetAttribute("customValue", "");
-                Cell.SetAttribute("enableSearch", "True");
-                //Row
-                Row.AppendChild(Cell);
-
-                //Row	ORI
-                Cell = xmlDoc.CreateElement("Cell");
-                Cell.SetAttribute("fieldId", "ORI");
-                Cell.SetAttribute("fieldValue", od["素別"].ToString());
-                Cell.SetAttribute("realValue", "");
-                Cell.SetAttribute("customValue", "");
-                Cell.SetAttribute("enableSearch", "True");
-                //Row
-                Row.AppendChild(Cell);
-
-                //Row	MB002
-                Cell = xmlDoc.CreateElement("Cell");
-                Cell.SetAttribute("fieldId", "MB002");
-                Cell.SetAttribute("fieldValue", od["品名"].ToString());
-                Cell.SetAttribute("realValue", "");
-                Cell.SetAttribute("customValue", "");
-                Cell.SetAttribute("enableSearch", "True");
-                //Row
-                Row.AppendChild(Cell);
-
-                //Row	MB003
-                Cell = xmlDoc.CreateElement("Cell");
-                Cell.SetAttribute("fieldId", "MB003");
-                Cell.SetAttribute("fieldValue", od["規格"].ToString());
-                Cell.SetAttribute("realValue", "");
-                Cell.SetAttribute("customValue", "");
-                Cell.SetAttribute("enableSearch", "True");
-                //Row
-                Row.AppendChild(Cell);
-
-                //Row	COOKIES
-                Cell = xmlDoc.CreateElement("Cell");
-                Cell.SetAttribute("fieldId", "COOKIES");
-                Cell.SetAttribute("fieldValue", od["餅體"].ToString());
-                Cell.SetAttribute("realValue", "");
-                Cell.SetAttribute("customValue", "");
-                Cell.SetAttribute("enableSearch", "True");
-                //Row
-                Row.AppendChild(Cell);
-
                 //Row	TA015
                 Cell = xmlDoc.CreateElement("Cell");
                 Cell.SetAttribute("fieldId", "TA015");
@@ -1750,6 +1680,77 @@ namespace TKMOC
                 Cell.SetAttribute("enableSearch", "True");
                 //Row
                 Row.AppendChild(Cell);
+
+                //Row	MB002
+                Cell = xmlDoc.CreateElement("Cell");
+                Cell.SetAttribute("fieldId", "MB002");
+                Cell.SetAttribute("fieldValue", od["品名"].ToString());
+                Cell.SetAttribute("realValue", "");
+                Cell.SetAttribute("customValue", "");
+                Cell.SetAttribute("enableSearch", "True");
+                //Row
+                Row.AppendChild(Cell);
+
+                //Row	MB003
+                Cell = xmlDoc.CreateElement("Cell");
+                Cell.SetAttribute("fieldId", "MB003");
+                Cell.SetAttribute("fieldValue", od["規格"].ToString());
+                Cell.SetAttribute("realValue", "");
+                Cell.SetAttribute("customValue", "");
+                Cell.SetAttribute("enableSearch", "True");
+                //Row
+                Row.AppendChild(Cell);
+
+                //Row	COOKIES
+                Cell = xmlDoc.CreateElement("Cell");
+                Cell.SetAttribute("fieldId", "COOKIES");
+                Cell.SetAttribute("fieldValue", od["餅體"].ToString());
+                Cell.SetAttribute("realValue", "");
+                Cell.SetAttribute("customValue", "");
+                Cell.SetAttribute("enableSearch", "True");
+                //Row
+                Row.AppendChild(Cell);
+
+                //Row	PCTS
+                Cell = xmlDoc.CreateElement("Cell");
+                Cell.SetAttribute("fieldId", "PCTS");
+                Cell.SetAttribute("fieldValue", od["比例"].ToString());
+                Cell.SetAttribute("realValue", "");
+                Cell.SetAttribute("customValue", "");
+                Cell.SetAttribute("enableSearch", "True");
+                //Row
+                Row.AppendChild(Cell);
+
+                //Row	SEQ
+                Cell = xmlDoc.CreateElement("Cell");
+                Cell.SetAttribute("fieldId", "SEQ");
+                Cell.SetAttribute("fieldValue", od["順序"].ToString());
+                Cell.SetAttribute("realValue", "");
+                Cell.SetAttribute("customValue", "");
+                Cell.SetAttribute("enableSearch", "True");
+                //Row
+                Row.AppendChild(Cell);
+
+                //Row	ALLERGEN
+                Cell = xmlDoc.CreateElement("Cell");
+                Cell.SetAttribute("fieldId", "ALLERGEN");
+                Cell.SetAttribute("fieldValue", od["過敏原"].ToString());
+                Cell.SetAttribute("realValue", "");
+                Cell.SetAttribute("customValue", "");
+                Cell.SetAttribute("enableSearch", "True");
+                //Row
+                Row.AppendChild(Cell);
+
+                //Row	ORI
+                Cell = xmlDoc.CreateElement("Cell");
+                Cell.SetAttribute("fieldId", "ORI");
+                Cell.SetAttribute("fieldValue", od["素別"].ToString());
+                Cell.SetAttribute("realValue", "");
+                Cell.SetAttribute("customValue", "");
+                Cell.SetAttribute("enableSearch", "True");
+                //Row
+                Row.AppendChild(Cell);
+              
 
                 //Row	COMMENT
                 Cell = xmlDoc.CreateElement("Cell");
@@ -2014,6 +2015,76 @@ namespace TKMOC
                 //Row
                 Row.AppendChild(Cell);
 
+                //Row	TA015
+                Cell = xmlDoc.CreateElement("Cell");
+                Cell.SetAttribute("fieldId", "TA015");
+                Cell.SetAttribute("fieldValue", od["預計產量"].ToString());
+                Cell.SetAttribute("realValue", "");
+                Cell.SetAttribute("customValue", "");
+                Cell.SetAttribute("enableSearch", "True");
+                //Row
+                Row.AppendChild(Cell);
+
+                //Row	TA007
+                Cell = xmlDoc.CreateElement("Cell");
+                Cell.SetAttribute("fieldId", "TA007");
+                Cell.SetAttribute("fieldValue", od["單位"].ToString());
+                Cell.SetAttribute("realValue", "");
+                Cell.SetAttribute("customValue", "");
+                Cell.SetAttribute("enableSearch", "True");
+                //Row
+                Row.AppendChild(Cell);
+
+                //Row	BARS
+                Cell = xmlDoc.CreateElement("Cell");
+                Cell.SetAttribute("fieldId", "BARS");
+                Cell.SetAttribute("fieldValue", od["桶數"].ToString());
+                Cell.SetAttribute("realValue", "");
+                Cell.SetAttribute("customValue", "");
+                Cell.SetAttribute("enableSearch", "True");
+                //Row
+                Row.AppendChild(Cell);
+
+                //Row	BOXS
+                Cell = xmlDoc.CreateElement("Cell");
+                Cell.SetAttribute("fieldId", "BOXS");
+                Cell.SetAttribute("fieldValue", od["箱數"].ToString());
+                Cell.SetAttribute("realValue", "");
+                Cell.SetAttribute("customValue", "");
+                Cell.SetAttribute("enableSearch", "True");
+                //Row
+                Row.AppendChild(Cell);
+
+                //Row	MB002
+                Cell = xmlDoc.CreateElement("Cell");
+                Cell.SetAttribute("fieldId", "MB002");
+                Cell.SetAttribute("fieldValue", od["品名"].ToString());
+                Cell.SetAttribute("realValue", "");
+                Cell.SetAttribute("customValue", "");
+                Cell.SetAttribute("enableSearch", "True");
+                //Row
+                Row.AppendChild(Cell);
+
+                //Row	MB003
+                Cell = xmlDoc.CreateElement("Cell");
+                Cell.SetAttribute("fieldId", "MB003");
+                Cell.SetAttribute("fieldValue", od["規格"].ToString());
+                Cell.SetAttribute("realValue", "");
+                Cell.SetAttribute("customValue", "");
+                Cell.SetAttribute("enableSearch", "True");
+                //Row
+                Row.AppendChild(Cell);
+
+                //Row	COOKIES
+                Cell = xmlDoc.CreateElement("Cell");
+                Cell.SetAttribute("fieldId", "COOKIES");
+                Cell.SetAttribute("fieldValue", od["餅體"].ToString());
+                Cell.SetAttribute("realValue", "");
+                Cell.SetAttribute("customValue", "");
+                Cell.SetAttribute("enableSearch", "True");
+                //Row
+                Row.AppendChild(Cell);
+
                 //Row	PCTS
                 Cell = xmlDoc.CreateElement("Cell");
                 Cell.SetAttribute("fieldId", "PCTS");
@@ -2054,75 +2125,6 @@ namespace TKMOC
                 //Row
                 Row.AppendChild(Cell);
 
-                //Row	MB002
-                Cell = xmlDoc.CreateElement("Cell");
-                Cell.SetAttribute("fieldId", "MB002");
-                Cell.SetAttribute("fieldValue", od["品名"].ToString());
-                Cell.SetAttribute("realValue", "");
-                Cell.SetAttribute("customValue", "");
-                Cell.SetAttribute("enableSearch", "True");
-                //Row
-                Row.AppendChild(Cell);
-
-                //Row	MB003
-                Cell = xmlDoc.CreateElement("Cell");
-                Cell.SetAttribute("fieldId", "MB003");
-                Cell.SetAttribute("fieldValue", od["規格"].ToString());
-                Cell.SetAttribute("realValue", "");
-                Cell.SetAttribute("customValue", "");
-                Cell.SetAttribute("enableSearch", "True");
-                //Row
-                Row.AppendChild(Cell);
-
-                //Row	COOKIES
-                Cell = xmlDoc.CreateElement("Cell");
-                Cell.SetAttribute("fieldId", "COOKIES");
-                Cell.SetAttribute("fieldValue", od["餅體"].ToString());
-                Cell.SetAttribute("realValue", "");
-                Cell.SetAttribute("customValue", "");
-                Cell.SetAttribute("enableSearch", "True");
-                //Row
-                Row.AppendChild(Cell);
-
-                //Row	TA015
-                Cell = xmlDoc.CreateElement("Cell");
-                Cell.SetAttribute("fieldId", "TA015");
-                Cell.SetAttribute("fieldValue", od["預計產量"].ToString());
-                Cell.SetAttribute("realValue", "");
-                Cell.SetAttribute("customValue", "");
-                Cell.SetAttribute("enableSearch", "True");
-                //Row
-                Row.AppendChild(Cell);
-
-                //Row	TA007
-                Cell = xmlDoc.CreateElement("Cell");
-                Cell.SetAttribute("fieldId", "TA007");
-                Cell.SetAttribute("fieldValue", od["單位"].ToString());
-                Cell.SetAttribute("realValue", "");
-                Cell.SetAttribute("customValue", "");
-                Cell.SetAttribute("enableSearch", "True");
-                //Row
-                Row.AppendChild(Cell);
-
-                //Row	BARS
-                Cell = xmlDoc.CreateElement("Cell");
-                Cell.SetAttribute("fieldId", "BARS");
-                Cell.SetAttribute("fieldValue", od["桶數"].ToString());
-                Cell.SetAttribute("realValue", "");
-                Cell.SetAttribute("customValue", "");
-                Cell.SetAttribute("enableSearch", "True");
-                //Row
-                Row.AppendChild(Cell);
-
-                //Row	BOXS
-                Cell = xmlDoc.CreateElement("Cell");
-                Cell.SetAttribute("fieldId", "BOXS");
-                Cell.SetAttribute("fieldValue", od["箱數"].ToString());
-                Cell.SetAttribute("realValue", "");
-                Cell.SetAttribute("customValue", "");
-                Cell.SetAttribute("enableSearch", "True");
-                //Row
-                Row.AppendChild(Cell);
 
                 //Row	COMMENT
                 Cell = xmlDoc.CreateElement("Cell");
@@ -2603,9 +2605,13 @@ namespace TKMOC
 
         private void button18_Click(object sender, EventArgs e)
         {
-            if(!string.IsNullOrEmpty(textBox18.Text))
+            if (!string.IsNullOrEmpty(textBox18.Text))
             {
                 ADDTB_WKF_EXTERNAL_TASK2(dateTimePicker1.Value.ToString("yyyyMMdd"));
+            }
+            else
+            {
+                MessageBox.Show("說明必填");
             }
            
         }
