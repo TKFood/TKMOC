@@ -2370,9 +2370,11 @@ namespace TKMOC
 
 
                 sbSql.AppendFormat(@"  
-                                    SELECT TOP 1  EXTERNAL_FORM_NBR,DOC_NBR,CONVERT(NVARCHAR,MODIFY_TIME,112) MODIFY_TIMES,MODIFY_TIME
-                                    FROM [UOF].[dbo].[TB_WKF_EXTERNAL_TASK]
-                                    WHERE EXTERNAL_FORM_NBR='{0}'
+                                    SELECT TOP 1 [TB_WKF_EXTERNAL_TASK].TASK_ID, EXTERNAL_FORM_NBR,[TB_WKF_EXTERNAL_TASK].DOC_NBR,CONVERT(NVARCHAR,MODIFY_TIME,112) MODIFY_TIMES,MODIFY_TIME
+                                    FROM [UOF].[dbo].[TB_WKF_EXTERNAL_TASK],[UOF].[dbo].[TB_WKF_TASK] 
+                                    WHERE [TB_WKF_EXTERNAL_TASK].TASK_ID=[TB_WKF_TASK].TASK_ID 
+                                    AND [TB_WKF_TASK].TASK_RESULT IN ('-1','0','3')
+                                    AND EXTERNAL_FORM_NBR='{0}'
                                     ORDER BY MODIFY_TIME DESC
 
                                     ", CODE);
@@ -2427,9 +2429,11 @@ namespace TKMOC
 
                 CODE = "REASONS-" + CODE;
                 sbSql.AppendFormat(@"  
-                                    SELECT TOP 1  EXTERNAL_FORM_NBR,DOC_NBR,CONVERT(NVARCHAR,MODIFY_TIME,112) MODIFY_TIMES,MODIFY_TIME
-                                    FROM [UOF].[dbo].[TB_WKF_EXTERNAL_TASK]
-                                    WHERE EXTERNAL_FORM_NBR='{0}'
+                                    SELECT TOP 1 [TB_WKF_EXTERNAL_TASK].TASK_ID, EXTERNAL_FORM_NBR,[TB_WKF_EXTERNAL_TASK].DOC_NBR,CONVERT(NVARCHAR,MODIFY_TIME,112) MODIFY_TIMES,MODIFY_TIME
+                                    FROM [UOF].[dbo].[TB_WKF_EXTERNAL_TASK],[UOF].[dbo].[TB_WKF_TASK] 
+                                    WHERE [TB_WKF_EXTERNAL_TASK].TASK_ID=[TB_WKF_TASK].TASK_ID 
+                                    AND [TB_WKF_TASK].TASK_RESULT IN ('-1','0','3')
+                                    AND EXTERNAL_FORM_NBR='{0}'
                                     ORDER BY MODIFY_TIME DESC
 
                                     ", CODE);
@@ -2483,6 +2487,12 @@ namespace TKMOC
         }
         private void button1_Click(object sender, EventArgs e)
         {
+            if (!string.IsNullOrEmpty(textBox3.Text))
+            {
+                SEARCHUOF(textBox3.Text);
+                SEARCHUOF2(textBox3.Text);
+            }
+
             SETFASTREPORT2(dateTimePicker1.Value.ToString("yyyyMMdd"));
 
             //if(!string.IsNullOrEmpty(textBox3.Text.Trim()))
@@ -2508,6 +2518,12 @@ namespace TKMOC
 
         private void button7_Click(object sender, EventArgs e)
         {
+            if (!string.IsNullOrEmpty(textBox3.Text))
+            {
+                SEARCHUOF(textBox3.Text);
+                SEARCHUOF2(textBox3.Text);
+            }
+
             if (!string.IsNullOrEmpty(textBox3.Text.Trim()))
             {
                 ADDDELETEMOCLOTNO(dateTimePicker1.Value.ToString("yyyyMMdd"), textBox3.Text.Trim(), dateTimePicker5.Value.ToString("yyyyMMdd"));
