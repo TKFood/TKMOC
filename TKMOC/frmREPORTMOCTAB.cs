@@ -2373,7 +2373,7 @@ namespace TKMOC
                                     SELECT TOP 1 [TB_WKF_EXTERNAL_TASK].TASK_ID, EXTERNAL_FORM_NBR,[TB_WKF_EXTERNAL_TASK].DOC_NBR,CONVERT(NVARCHAR,MODIFY_TIME,112) MODIFY_TIMES,MODIFY_TIME
                                     FROM [UOF].[dbo].[TB_WKF_EXTERNAL_TASK],[UOF].[dbo].[TB_WKF_TASK] 
                                     WHERE [TB_WKF_EXTERNAL_TASK].TASK_ID=[TB_WKF_TASK].TASK_ID 
-                                    AND [TB_WKF_TASK].TASK_RESULT IN ('-1','0','3')
+                                    AND ([TB_WKF_TASK].TASK_RESULT IN ('-1','0','3') OR ISNULL([TB_WKF_TASK].TASK_RESULT,'')='')
                                     AND EXTERNAL_FORM_NBR='{0}'
                                     ORDER BY MODIFY_TIME DESC
 
@@ -2432,7 +2432,7 @@ namespace TKMOC
                                     SELECT TOP 1 [TB_WKF_EXTERNAL_TASK].TASK_ID, EXTERNAL_FORM_NBR,[TB_WKF_EXTERNAL_TASK].DOC_NBR,CONVERT(NVARCHAR,MODIFY_TIME,112) MODIFY_TIMES,MODIFY_TIME
                                     FROM [UOF].[dbo].[TB_WKF_EXTERNAL_TASK],[UOF].[dbo].[TB_WKF_TASK] 
                                     WHERE [TB_WKF_EXTERNAL_TASK].TASK_ID=[TB_WKF_TASK].TASK_ID 
-                                    AND [TB_WKF_TASK].TASK_RESULT IN ('-1','0','3')
+                                    AND ([TB_WKF_TASK].TASK_RESULT IN ('-1','0','3') OR ISNULL([TB_WKF_TASK].TASK_RESULT,'')='')
                                     AND EXTERNAL_FORM_NBR='{0}'
                                     ORDER BY MODIFY_TIME DESC
 
