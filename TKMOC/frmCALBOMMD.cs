@@ -875,6 +875,60 @@ namespace TKMOC
             }
         }
 
+        public void SEARCHMOCSEPECIALCAL()
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                SqlDataAdapter adapter1 = new SqlDataAdapter();
+                SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+                DataSet ds1 = new DataSet();
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"
+                                    SELECT [MD003] AS '品號',[MB002] AS '品名',[WATERNUMS] AS '水麵重',[OILNUMS] AS '油酥重'
+                                    FROM [TKMOC].[dbo].[MOCSEPECIALCAL]
+                                    ORDER BY [MD003]
+                                    ");
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "TEMPds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["TEMPds1"].Rows.Count >= 1)
+                {
+
+                    dataGridView5.Rows.Clear();
+                    dataGridView5.DataSource = ds1.Tables["TEMPds1"];
+                    dataGridView5.AutoResizeColumns();
+                    //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                }
+                else
+                {
+
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
         public void SETNULL()
         {
             textBox2.Text = null;
@@ -965,6 +1019,10 @@ namespace TKMOC
                 SEARCH12(comboBox1.SelectedValue.ToString().Trim(), CAL1, CAL3);
             }
             
+        }
+        private void button5_Click(object sender, EventArgs e)
+        {
+            SEARCHMOCSEPECIALCAL();
         }
 
         #endregion
