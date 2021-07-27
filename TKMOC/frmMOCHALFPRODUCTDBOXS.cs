@@ -374,6 +374,17 @@ namespace TKMOC
             }
         }
 
+        public void SETNULL4()
+        {
+            textBox2.Text = "";
+            textBox3.Text = "";
+            textBox4.Text = "";
+
+            textBox2.ReadOnly = false;
+            //textBox3.ReadOnly = false;
+            textBox4.ReadOnly = false;
+        }
+
         #endregion
 
         #region BUTTON

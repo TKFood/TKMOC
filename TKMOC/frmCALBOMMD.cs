@@ -61,6 +61,8 @@ namespace TKMOC
         //油酥所需的水面顆數
         decimal CALNUM3;
 
+        string STATUS = "";
+
         public frmCALBOMMD()
         {
             InitializeComponent();
@@ -906,8 +908,7 @@ namespace TKMOC
 
                 if (ds1.Tables["TEMPds1"].Rows.Count >= 1)
                 {
-
-                    dataGridView5.Rows.Clear();
+                
                     dataGridView5.DataSource = ds1.Tables["TEMPds1"];
                     dataGridView5.AutoResizeColumns();
                     //dataGridView1.CurrentCell = dataGridView1[0, rownum];
@@ -982,6 +983,236 @@ namespace TKMOC
                 }
             }
         }
+
+
+        public void SETNULL1()
+        {
+            textBox15.Text = "";
+            textBox16.Text = "";
+            textBox17.Text = "";
+            textBox18.Text = "";
+
+            textBox15.ReadOnly = false;
+            //textBox3.ReadOnly = false;
+            textBox17.ReadOnly = false;
+            textBox18.ReadOnly = false;
+        }
+
+        public void SETNULL2()
+        {
+            textBox15.ReadOnly = true;
+            //textBox3.ReadOnly = true;
+            textBox17.ReadOnly = true;
+            textBox18.ReadOnly = true;
+        }
+
+        public void SETNULL3()
+        {
+            textBox15.ReadOnly = false;
+            //textBox3.ReadOnly = false;
+            textBox17.ReadOnly = false;
+            textBox18.ReadOnly = false;
+        }
+
+        private void textBox15_TextChanged(object sender, EventArgs e)
+        {
+            textBox16.Text = SERCHINVMB(textBox15.Text.Trim());
+        }
+        public string SERCHINVMB(string MB001)
+        {
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            DataSet ds1 = new DataSet();
+
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat(@"  
+                                    SELECT MB002 FROM [TK].dbo.INVMB WHERE MB001='{0}'
+                                    ", MB001);
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "ds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["ds1"].Rows.Count >= 1)
+                {
+                    return ds1.Tables["ds1"].Rows[0]["MB002"].ToString().Trim();
+                }
+                else
+                {
+                    return "";
+                }
+
+            }
+            catch
+            {
+                return "";
+            }
+            finally
+            {
+
+            }
+        }
+        public void ADDMOCSEPECIALCAL(string MD003, string MB002, string WATERNUMS, string OILNUMS)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat(@" 
+                                   INSERT INTO [TKMOC].[dbo].[MOCSEPECIALCAL]
+                                    ([MD003],[MB002],[WATERNUMS],[OILNUMS])
+                                    VALUES
+                                    ('{0}','{1}',{2},{3})
+                                        ", MD003, MB002, WATERNUMS, OILNUMS);
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+
+
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void UPDATEMOCSEPECIALCAL(string MD003, string MB002, string WATERNUMS, string OILNUMS)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat(@" 
+                                    UPDATE [TKMOC].[dbo].[MOCSEPECIALCAL]
+                                    SET [WATERNUMS]={1},[OILNUMS]={2}
+                                    WHERE [MD003]='{0}'
+                                        ", MD003,  WATERNUMS, OILNUMS);
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+
+
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void DELETEMOCSEPECIALCAL(string MD003)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat(@" 
+                                    DELETE [TKMOC].[dbo].[MOCSEPECIALCAL]
+                                    WHERE [MD003]='{0}'
+                                        ", MD003);
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+
+
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
         #endregion
 
         #region BUTTON
@@ -1056,9 +1287,56 @@ namespace TKMOC
             SEARCHMOCSEPECIALCAL();
         }
 
+        private void button6_Click(object sender, EventArgs e)
+        {
+            SETNULL1();
+            STATUS = "ADD";
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            SETNULL3();
+            STATUS = "UPDATE";
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("要刪除嗎?", "要刪除嗎?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                DELETEMOCSEPECIALCAL(textBox15.Text.Trim());
+
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                //do something else
+            }
+
+
+            STATUS = "";
+            SEARCHMOCSEPECIALCAL();
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            SETNULL2();
+
+            if (STATUS.Equals("ADD"))
+            {
+                ADDMOCSEPECIALCAL(textBox15.Text.Trim(), textBox16.Text.Trim(), textBox17.Text.Trim(), textBox18.Text.Trim());
+            }
+            else if (STATUS.Equals("UPDATE"))
+            {
+                UPDATEMOCSEPECIALCAL(textBox15.Text.Trim(), textBox16.Text.Trim(), textBox17.Text.Trim(), textBox18.Text.Trim());
+            }
+
+            STATUS = "";
+            SEARCHMOCSEPECIALCAL();
+        }
+
 
         #endregion
 
-     
+       
     }
 }
