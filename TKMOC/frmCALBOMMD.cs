@@ -951,6 +951,37 @@ namespace TKMOC
             dataGridView4.DataSource = null;
 
         }
+
+
+        private void dataGridView5_SelectionChanged(object sender, EventArgs e)
+        {
+            textBox15.Text = null;
+            textBox16.Text = null;
+            textBox17.Text = null;
+            textBox18.Text = null;
+
+            if (dataGridView5.CurrentRow != null)
+            {
+                int rowindex = dataGridView5.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView5.Rows[rowindex];
+                    textBox15.Text = row.Cells["品號"].Value.ToString().Trim();
+                    textBox16.Text = row.Cells["品名"].Value.ToString().Trim();
+                    textBox17.Text = row.Cells["水麵重"].Value.ToString().Trim();
+                    textBox18.Text = row.Cells["油酥重"].Value.ToString().Trim();
+
+
+
+
+                }
+                else
+                {
+
+
+                }
+            }
+        }
         #endregion
 
         #region BUTTON
@@ -1025,8 +1056,9 @@ namespace TKMOC
             SEARCHMOCSEPECIALCAL();
         }
 
+
         #endregion
 
-
+     
     }
 }

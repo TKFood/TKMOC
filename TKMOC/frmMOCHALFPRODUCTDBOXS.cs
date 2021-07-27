@@ -359,9 +359,11 @@ namespace TKMOC
                     DataGridViewRow row = dataGridView1.Rows[rowindex];                    
                     textBox2.Text = row.Cells["品號"].Value.ToString().Trim();
                     textBox4.Text = row.Cells["箱重"].Value.ToString().Trim();
+                    textBox2.Text = row.Cells["品號"].Value.ToString().Trim();
+                    textBox4.Text = row.Cells["箱重"].Value.ToString().Trim();
 
 
-                   
+
 
                 }
                 else
