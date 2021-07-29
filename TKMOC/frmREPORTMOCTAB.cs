@@ -36,7 +36,7 @@ namespace TKMOC
         /// <summary>
         /// 生產排程確認表說明
         /// </summary>
-        string ID2 = "9368df6e-3061-493b-a103-28013a3cd5e2";
+        string ID2 = "1979c9b6-5cb5-4320-ba77-0ad58e14d6b9";
         string DBNAME = "UOF";
 
 
@@ -2337,8 +2337,8 @@ namespace TKMOC
                                     ,'' AS '製令日期'
                                     ,'' AS '品號'
                                     ,'' AS '單位'
-                                    ,SUM([REPORTMOCMANULINE].[TA015]) AS '預計產量'
-                                    ,SUM([REPORTMOCMANULINE].[TA017]) AS '實際產出'
+                                    ,NULL AS '預計產量'
+                                    ,NULL AS '實際產出'
                                     ,'' AS '品名'
                                     ,'' AS '規格'
                                     ,'' AS '比例'
