@@ -32,7 +32,7 @@ namespace TKMOC
         /// <summary>
         /// 生產排程確認表
         /// </summary>
-        string ID1 = "57eda772-55ab-472f-9ec6-811147bb117e";
+        string ID1 = "74f8086f-ef33-4484-b652-b88b9253ae33";
         /// <summary>
         /// 生產排程確認表說明
         /// </summary>
@@ -2345,8 +2345,8 @@ namespace TKMOC
                                     ,'' AS '順序'
                                     ,''  AS '過敏原'
                                     ,'' AS '餅體'
-                                    ,SUM([REPORTMOCMANULINE].[BARS]) AS '桶數'
-                                    ,SUM([REPORTMOCMANULINE].[BOXS]) AS '箱數'
+                                    ,(CASE WHEN [REPORTMOCMANULINE].[MANULINE]  IN ('02','03','04') THEN SUM([REPORTMOCMANULINE].[BARS]) ELSE NULL END ) AS '桶數'
+                                    ,(CASE WHEN [REPORTMOCMANULINE].[MANULINE]  IN ('09') THEN SUM([REPORTMOCMANULINE].[BOXS])  ELSE NULL END ) AS '箱數'
                                     ,'' AS '有效日期'
                                     ,'' AS '備註'
                                     ,'' AS '訂單別'
