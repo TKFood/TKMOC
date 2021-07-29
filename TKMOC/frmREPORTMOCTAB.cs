@@ -2287,37 +2287,81 @@ namespace TKMOC
                 
 
                 sbSql.AppendFormat(@"  
-                                  SELECT 
-                                 [ID]
-                                ,[REPORTMOCMANULINE].[MANULINE] AS '生產線別'
-                                ,[REPORTMOCMANULINE].[LOTNO] AS 'LOTNO'
-                                ,[REPORTMOCMANULINE].[TA001] AS '製令別'
-                                ,[REPORTMOCMANULINE].[TA002] AS '製令編號'
-                                ,CONVERT(NVARCHAR,[REPORTMOCMANULINE].[TA003],112) AS '製令日期'
-                                ,[REPORTMOCMANULINE].[TA006] AS '品號'
-                                ,[REPORTMOCMANULINE].[TA007] AS '單位'
-                                ,[REPORTMOCMANULINE].[TA015] AS '預計產量'
-                                ,[REPORTMOCMANULINE].[TA017] AS '實際產出'
-                                ,[REPORTMOCMANULINE].[MB002] AS '品名'
-                                ,[REPORTMOCMANULINE].[MB003] AS '規格'
-                                ,[REPORTMOCMANULINE].[PCTS] AS '比例'
-                                ,[REPORTMOCMANULINE].[SEQ] AS '順序'
-                                ,[REPORTMOCMANULINE].[ALLERGEN]  AS '過敏原'
-                                ,[REPORTMOCMANULINE].[COOKIES] AS '餅體'
-                                ,[REPORTMOCMANULINE].[BARS] AS '桶數'
-                                ,[REPORTMOCMANULINE].[BOXS] AS '箱數'
-                                ,CONVERT(NVARCHAR,[REPORTMOCMANULINE].[VDATES],112) AS '有效日期'
-                                ,[REPORTMOCMANULINE].[COMMENT] AS '備註'
-                                ,MOCTA.TA026 AS '訂單別'
-                                ,MOCTA.TA027 AS '訂單號'
-                                ,TC053  AS '客戶'
-                                ,[REPORTMOCMANULINE].[ORI] AS '素別'
-                                FROM [TKMOC].[dbo].[REPORTMOCMANULINE]
-                                LEFT JOIN [TK].dbo.MOCTA ON [REPORTMOCMANULINE].TA001=MOCTA.[TA001] AND [REPORTMOCMANULINE].[TA002]=MOCTA.[TA002]
-                                LEFT JOIN [TK].dbo.COPTC ON TC001= TA026 AND TC002=TA027 
-                                WHERE CONVERT(NVARCHAR,[REPORTMOCMANULINE].TA003,112)='{0}'   
-                                AND [REPORTMOCMANULINE].[TA001] IN ('A510','A512')  
-                                ORDER BY [REPORTMOCMANULINE].TA003,[MANULINE],[REPORTMOCMANULINE].TA001,[REPORTMOCMANULINE].TA002   
+                                    SELECT 
+                                    [ID],生產線別,LOTNO,製令別,製令編號,製令日期,品號,單位,預計產量,實際產出
+                                    ,品名,規格,比例,順序,過敏原,餅體,桶數,箱數,有效日期,備註
+                                    ,訂單別,訂單號,客戶,素別
+                                    ,MANULINE
+                                    FROM(
+                                    SELECT 
+                                    [ID]
+                                    ,[REPORTMOCMANULINE].[MANULINE] AS 'MANULINE'
+                                    ,CMSMD.MD002 AS '生產線別'
+                                    ,[REPORTMOCMANULINE].[LOTNO] AS 'LOTNO'
+                                    ,[REPORTMOCMANULINE].[TA001] AS '製令別'
+                                    ,[REPORTMOCMANULINE].[TA002] AS '製令編號'
+                                    ,CONVERT(NVARCHAR,[REPORTMOCMANULINE].[TA003],112) AS '製令日期'
+                                    ,[REPORTMOCMANULINE].[TA006] AS '品號'
+                                    ,[REPORTMOCMANULINE].[TA007] AS '單位'
+                                    ,[REPORTMOCMANULINE].[TA015] AS '預計產量'
+                                    ,[REPORTMOCMANULINE].[TA017] AS '實際產出'
+                                    ,[REPORTMOCMANULINE].[MB002] AS '品名'
+                                    ,[REPORTMOCMANULINE].[MB003] AS '規格'
+                                    ,[REPORTMOCMANULINE].[PCTS] AS '比例'
+                                    ,[REPORTMOCMANULINE].[SEQ] AS '順序'
+                                    ,[REPORTMOCMANULINE].[ALLERGEN]  AS '過敏原'
+                                    ,[REPORTMOCMANULINE].[COOKIES] AS '餅體'
+                                    ,[REPORTMOCMANULINE].[BARS] AS '桶數'
+                                    ,[REPORTMOCMANULINE].[BOXS] AS '箱數'
+                                    ,CONVERT(NVARCHAR,[REPORTMOCMANULINE].[VDATES],112) AS '有效日期'
+                                    ,[REPORTMOCMANULINE].[COMMENT] AS '備註'
+                                    ,MOCTA.TA026 AS '訂單別'
+                                    ,MOCTA.TA027 AS '訂單號'
+                                    ,TC053  AS '客戶'
+                                    ,[REPORTMOCMANULINE].[ORI] AS '素別'
+                                    FROM [TKMOC].[dbo].[REPORTMOCMANULINE]
+                                    LEFT JOIN [TK].dbo.MOCTA ON [REPORTMOCMANULINE].TA001=MOCTA.[TA001] AND [REPORTMOCMANULINE].[TA002]=MOCTA.[TA002]
+                                    LEFT JOIN [TK].dbo.COPTC ON TC001= TA026 AND TC002=TA027 
+                                    LEFT JOIN [TK].dbo.CMSMD ON MD001=[REPORTMOCMANULINE].[MANULINE]
+                                    WHERE CONVERT(NVARCHAR,[REPORTMOCMANULINE].TA003,112)='{0}'   
+                                    AND [REPORTMOCMANULINE].[TA001] IN ('A510','A512')  
+
+                                    UNION ALL
+                                    SELECT 
+                                    NULL
+                                    ,[REPORTMOCMANULINE].[MANULINE]AS 'MANULINE'
+                                    ,CMSMD.MD002+'合計' AS '生產線別'
+                                    ,'' AS 'LOTNO'
+                                    ,'合計' AS '製令別'
+                                    ,'' AS '製令編號'
+                                    ,'' AS '製令日期'
+                                    ,'' AS '品號'
+                                    ,'' AS '單位'
+                                    ,SUM([REPORTMOCMANULINE].[TA015]) AS '預計產量'
+                                    ,SUM([REPORTMOCMANULINE].[TA017]) AS '實際產出'
+                                    ,'' AS '品名'
+                                    ,'' AS '規格'
+                                    ,'' AS '比例'
+                                    ,'' AS '順序'
+                                    ,''  AS '過敏原'
+                                    ,'' AS '餅體'
+                                    ,SUM([REPORTMOCMANULINE].[BARS]) AS '桶數'
+                                    ,SUM([REPORTMOCMANULINE].[BOXS]) AS '箱數'
+                                    ,'' AS '有效日期'
+                                    ,'' AS '備註'
+                                    ,'' AS '訂單別'
+                                    ,'' AS '訂單號'
+                                    ,''  AS '客戶'
+                                    ,'' AS '素別'
+                                    FROM [TKMOC].[dbo].[REPORTMOCMANULINE]
+                                    LEFT JOIN [TK].dbo.MOCTA ON [REPORTMOCMANULINE].TA001=MOCTA.[TA001] AND [REPORTMOCMANULINE].[TA002]=MOCTA.[TA002]
+                                    LEFT JOIN [TK].dbo.COPTC ON TC001= TA026 AND TC002=TA027 
+                                    LEFT JOIN [TK].dbo.CMSMD ON MD001=[REPORTMOCMANULINE].[MANULINE]
+                                    WHERE CONVERT(NVARCHAR,[REPORTMOCMANULINE].TA003,112)='{0}'   
+                                    AND [REPORTMOCMANULINE].[TA001] IN ('A510','A512')  
+                                    GROUP BY [REPORTMOCMANULINE].[MANULINE],CMSMD.MD002
+                                    ) AS TEMP
+                                    ORDER BY MANULINE,製令別 
 
                                 ", SDAY);
 
