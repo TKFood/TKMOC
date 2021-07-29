@@ -32,11 +32,11 @@ namespace TKMOC
         /// <summary>
         /// 生產排程確認表
         /// </summary>
-        string ID1 = "6ecb6b2b-72db-4431-9782-93045391a562";
+        string ID1 = "57eda772-55ab-472f-9ec6-811147bb117e";
         /// <summary>
         /// 生產排程確認表說明
         /// </summary>
-        string ID2 = "63bde26a-54ec-465d-b525-6f5fad42fae7";
+        string ID2 = "9368df6e-3061-493b-a103-28013a3cd5e2";
         string DBNAME = "UOF";
 
 
@@ -321,7 +321,7 @@ namespace TKMOC
                                 LEFT JOIN [TK].dbo.BOMMC ON MC001=TA006
                                 LEFT JOIN [TK].dbo.BOMMD ON MD035 LIKE '%箱%' AND MD003 LIKE '2%' AND MD007>1 AND MD001=TA006
                                 WHERE TA003='{0}' 
-                                ORDER BY TA003,TA021,TA001,TA002     
+                                ORDER BY TA003,TA021,TA001,TA002      
                                 ", SDAY);
 
             return FASTSQL.ToString();
