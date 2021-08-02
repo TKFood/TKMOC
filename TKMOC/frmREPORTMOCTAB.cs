@@ -2284,9 +2284,13 @@ namespace TKMOC
 
                 sbSql.Clear();
                 sbSqlQuery.Clear();
-                
 
-                sbSql.AppendFormat(@"  
+                //合計時不算
+                //小線水麵-3014
+                //大線水麵 - 301000
+                //其餘500片、6kg，品號在限制桶數計算
+
+                sbSql.AppendFormat(@"   
                                     SELECT 
                                     [ID],生產線別,LOTNO,製令別,製令編號,製令日期,品號,單位,預計產量,實際產出
                                     ,品名,規格,比例,順序,過敏原,餅體,桶數,箱數,有效日期,備註
@@ -2359,6 +2363,9 @@ namespace TKMOC
                                     LEFT JOIN [TK].dbo.CMSMD ON MD001=[REPORTMOCMANULINE].[MANULINE]
                                     WHERE CONVERT(NVARCHAR,[REPORTMOCMANULINE].TA003,112)='{0}'   
                                     AND [REPORTMOCMANULINE].[TA001] IN ('A510','A512')  
+                                    AND [REPORTMOCMANULINE].[TA006]  NOT LIKE '301000%'
+                                    AND [REPORTMOCMANULINE].[TA006]  NOT LIKE '3014%'
+                                    AND [REPORTMOCMANULINE].[TA006] NOT IN (SELECT MB001 FROM [TKMOC].[dbo].[MOCMANULINELIMITBARCOUNT])
                                     GROUP BY [REPORTMOCMANULINE].[MANULINE],CMSMD.MD002
                                     ) AS TEMP
                                     ORDER BY MANULINE,製令別 
