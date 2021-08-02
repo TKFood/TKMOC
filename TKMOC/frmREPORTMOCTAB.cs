@@ -32,11 +32,11 @@ namespace TKMOC
         /// <summary>
         /// 生產排程確認表
         /// </summary>
-        string ID1 = "74f8086f-ef33-4484-b652-b88b9253ae33";
+        string ID1 = "569e10c7-299f-487b-a7f9-3cc367968ff7";
         /// <summary>
         /// 生產排程確認表說明
         /// </summary>
-        string ID2 = "1979c9b6-5cb5-4320-ba77-0ad58e14d6b9";
+        string ID2 = "991e47cf-65f4-4239-97bf-2e29488d821c";
         string DBNAME = "UOF";
 
 
@@ -1543,47 +1543,47 @@ namespace TKMOC
             //加入至members節點底下
             FormFieldValue.AppendChild(FieldItem);
 
-            //建立節點FieldItem
-            //TA003	
-            FieldItem = xmlDoc.CreateElement("FieldItem");
-            FieldItem.SetAttribute("fieldId", "TA003");
-            FieldItem.SetAttribute("fieldValue", DT.Rows[0]["製令日期"].ToString());
-            FieldItem.SetAttribute("realValue", "");
-            FieldItem.SetAttribute("enableSearch", "True");
-            FieldItem.SetAttribute("fillerName", fillerName);
-            FieldItem.SetAttribute("fillerUserGuid", fillerUserGuid);
-            FieldItem.SetAttribute("fillerAccount", account);
-            FieldItem.SetAttribute("fillSiteId", "");
-            //加入至members節點底下
-            FormFieldValue.AppendChild(FieldItem);
+            ////建立節點FieldItem
+            ////TA003	
+            //FieldItem = xmlDoc.CreateElement("FieldItem");
+            //FieldItem.SetAttribute("fieldId", "TA003");
+            //FieldItem.SetAttribute("fieldValue", DT.Rows[0]["製令日期"].ToString());
+            //FieldItem.SetAttribute("realValue", "");
+            //FieldItem.SetAttribute("enableSearch", "True");
+            //FieldItem.SetAttribute("fillerName", fillerName);
+            //FieldItem.SetAttribute("fillerUserGuid", fillerUserGuid);
+            //FieldItem.SetAttribute("fillerAccount", account);
+            //FieldItem.SetAttribute("fillSiteId", "");
+            ////加入至members節點底下
+            //FormFieldValue.AppendChild(FieldItem);
 
-            //建立節點FieldItem
-            //PCODE	
-            FieldItem = xmlDoc.CreateElement("FieldItem");
-            FieldItem.SetAttribute("fieldId", "PCODE");
-            FieldItem.SetAttribute("fieldValue", CODE);
-            FieldItem.SetAttribute("realValue", "");
-            FieldItem.SetAttribute("enableSearch", "True");
-            FieldItem.SetAttribute("fillerName", fillerName);
-            FieldItem.SetAttribute("fillerUserGuid", fillerUserGuid);
-            FieldItem.SetAttribute("fillerAccount", account);
-            FieldItem.SetAttribute("fillSiteId", "");
-            //加入至members節點底下
-            FormFieldValue.AppendChild(FieldItem);
+            ////建立節點FieldItem
+            ////PCODE	
+            //FieldItem = xmlDoc.CreateElement("FieldItem");
+            //FieldItem.SetAttribute("fieldId", "PCODE");
+            //FieldItem.SetAttribute("fieldValue", CODE);
+            //FieldItem.SetAttribute("realValue", "");
+            //FieldItem.SetAttribute("enableSearch", "True");
+            //FieldItem.SetAttribute("fillerName", fillerName);
+            //FieldItem.SetAttribute("fillerUserGuid", fillerUserGuid);
+            //FieldItem.SetAttribute("fillerAccount", account);
+            //FieldItem.SetAttribute("fillSiteId", "");
+            ////加入至members節點底下
+            //FormFieldValue.AppendChild(FieldItem);
 
-            //建立節點FieldItem
-            //VDATES	
-            FieldItem = xmlDoc.CreateElement("FieldItem");
-            FieldItem.SetAttribute("fieldId", "VDATES");
-            FieldItem.SetAttribute("fieldValue", VDATES);
-            FieldItem.SetAttribute("realValue", "");
-            FieldItem.SetAttribute("enableSearch", "True");
-            FieldItem.SetAttribute("fillerName", fillerName);
-            FieldItem.SetAttribute("fillerUserGuid", fillerUserGuid);
-            FieldItem.SetAttribute("fillerAccount", account);
-            FieldItem.SetAttribute("fillSiteId", "");
-            //加入至members節點底下
-            FormFieldValue.AppendChild(FieldItem);
+            ////建立節點FieldItem
+            ////VDATES	
+            //FieldItem = xmlDoc.CreateElement("FieldItem");
+            //FieldItem.SetAttribute("fieldId", "VDATES");
+            //FieldItem.SetAttribute("fieldValue", VDATES);
+            //FieldItem.SetAttribute("realValue", "");
+            //FieldItem.SetAttribute("enableSearch", "True");
+            //FieldItem.SetAttribute("fillerName", fillerName);
+            //FieldItem.SetAttribute("fillerUserGuid", fillerUserGuid);
+            //FieldItem.SetAttribute("fillerAccount", account);
+            //FieldItem.SetAttribute("fillSiteId", "");
+            ////加入至members節點底下
+            //FormFieldValue.AppendChild(FieldItem);
 
             //建立節點FieldItem
             //DETAILS	
@@ -1675,6 +1675,16 @@ namespace TKMOC
                 Cell = xmlDoc.CreateElement("Cell");
                 Cell.SetAttribute("fieldId", "BOXS");
                 Cell.SetAttribute("fieldValue", od["箱數"].ToString());
+                Cell.SetAttribute("realValue", "");
+                Cell.SetAttribute("customValue", "");
+                Cell.SetAttribute("enableSearch", "True");
+                //Row
+                Row.AppendChild(Cell);
+
+                //Row	VDATES
+                Cell = xmlDoc.CreateElement("Cell");
+                Cell.SetAttribute("fieldId", "VDATES");
+                Cell.SetAttribute("fieldValue", od["有效日期"].ToString());
                 Cell.SetAttribute("realValue", "");
                 Cell.SetAttribute("customValue", "");
                 Cell.SetAttribute("enableSearch", "True");
