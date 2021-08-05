@@ -1956,7 +1956,7 @@ namespace TKMOC
                                     FROM [TK].dbo.INVME WITH (NOLOCK),[TK].dbo.INVMF WITH (NOLOCK),[TK].dbo.CMSMQ WITH (NOLOCK)
                                     WHERE MF001=ME001 AND MF002=ME002
                                     AND MQ001=MF004
-                                    AND MQ003 IN ('13','14','15','16','17')
+                                    AND MQ003 IN ('11','13','14','15','16','17')
                                     AND RTRIM(LTRIM(MF001))+RTRIM(LTRIM(MF002)) IN
                                     (
                                     SELECT RTRIM(LTRIM([MB001]))+RTRIM(LTRIM([LOTNO]))
