@@ -53,7 +53,8 @@ namespace TKMOC
             dataGridView3.AlternatingRowsDefaultCellStyle.BackColor = Color.PaleTurquoise;
             dataGridView4.AlternatingRowsDefaultCellStyle.BackColor = Color.PaleTurquoise;
             dataGridView5.AlternatingRowsDefaultCellStyle.BackColor = Color.PaleTurquoise;
-            
+            dataGridView6.AlternatingRowsDefaultCellStyle.BackColor = Color.PaleTurquoise;
+
 
             //先建立個 CheckBox 欄
             DataGridViewCheckBoxColumn cbCol = new DataGridViewCheckBoxColumn();
@@ -182,6 +183,31 @@ namespace TKMOC
             dataGridView5.Controls.Add(cbHeader);
             dataGridView5.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 9);
 
+
+
+            //先建立個 CheckBox 欄
+            cbCol = new DataGridViewCheckBoxColumn();
+            cbCol.Width = 40;   //設定寬度
+            cbCol.HeaderText = "　選擇";
+            cbCol.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;   //置中
+            cbCol.TrueValue = true;
+            cbCol.FalseValue = false;
+            dataGridView6.Columns.Insert(0, cbCol);
+
+
+
+            //建立个矩形，等下计算 CheckBox 嵌入 GridView 的位置
+            rect = dataGridView6.GetCellDisplayRectangle(0, -1, true);
+            rect.X = rect.Location.X + rect.Width / 4 - 18;
+            rect.Y = rect.Location.Y + (rect.Height / 2 - 9);
+
+            cbHeader = new CheckBox();
+            cbHeader.Name = "checkboxHeader";
+            cbHeader.Size = new Size(18, 18);
+            cbHeader.Location = rect.Location;
+            //将 CheckBox 加入到 dataGridView2
+            dataGridView6.Controls.Add(cbHeader);
+            dataGridView6.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 9);
 
 
         }
@@ -2655,6 +2681,49 @@ namespace TKMOC
 
         }
 
+        public void SETFASTREPORT5(string STATUS)
+        {
+            StringBuilder SQL = new StringBuilder();
+            string SELECT = SELECT4();
+            Report report1 = new Report();
+
+            if (!string.IsNullOrEmpty(SELECT))
+            {
+                SQL.AppendFormat(@"  
+                                    SELECT CONVERT(NVARCHAR,CONVERT(datetime,TC003),111) AS '退料日期'
+                                    ,TC001+'-'+TC002 AS '退料單號'
+                                    ,CONVERT(NVARCHAR,CONVERT(datetime,TC014),111) AS '單據日期'
+                                    ,TE004 AS '材料品號'
+                                    ,TE017 AS '品名'
+                                    ,TE018 AS '規格'
+                                    ,TE005 AS '退料數量'
+                                    ,TE006 AS '單位'
+                                    ,TE011+'-'+TE012 AS '製令單號'
+                                    ,MC002 AS '庫別名稱'
+                                    ,TE010 AS '批號'
+                                    ,TE013 AS '退料說明'
+                                    ,TE014 AS '備註'
+                                    FROM [TK].dbo.MOCTC,[TK].dbo.MOCTE,[TK].dbo.CMSMC,[TK].dbo.CMSMQ
+                                    WHERE  TC001=TE001 AND TC002=TE002
+                                    AND TE008=MC001
+                                    AND TC001=MQ001 AND MQ003 IN ('56','57')
+                                    AND TE011+TE012 IN ({0})
+                                    ORDER BY TC001,TC002,TE003
+                                    ", SELECT.ToString());
+
+                report1.Load(@"REPORT\退料單明細表.frx");
+
+                report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                TableDataSource Table = report1.GetDataSource("Table") as TableDataSource;
+                Table.SelectCommand = SQL.ToString();
+
+                report1.Preview = previewControl6;
+                report1.Show();
+            }
+
+
+        }
+
         public string SELECT4()
         {
             StringBuilder ADDSQL = new StringBuilder();
@@ -2742,53 +2811,7 @@ namespace TKMOC
             }
         }
 
-        public void SETFASTREPORT5(string STATUS)
-        {
-            StringBuilder SQL = new StringBuilder();
-            string SELECT = SELECT5();
-            Report report1 = new Report();
-
-            if (!string.IsNullOrEmpty(SELECT))
-            {
-                SQL.AppendFormat(@"  
-                                    SELECT 
-                                    CONVERT(NVARCHAR,CONVERT(datetime,TG003),111)  AS '銷貨日期'
-                                    ,TG001+'-'+TG002 AS '銷貨單號'
-                                    ,CONVERT(NVARCHAR,CONVERT(datetime,TG042),111)   AS '單據日期'
-                                    ,TG004 AS '客戶代號'
-                                    ,TG007 AS '客戶簡稱'
-                                    ,TG033 AS '總數量'
-                                    ,TG020 AS '單頭備註'
-                                    ,TH003 AS '序號'
-                                    ,TH004 AS '品號'
-                                    ,TH005 AS '品名'
-                                    ,TH006 AS '規格'
-                                    ,TH007 AS '庫別代號'
-                                    ,MC002 AS '庫別名稱'
-                                    ,CONVERT(NVARCHAR,CONVERT(datetime,TH106),111)  AS '有效日期'
-                                    ,TH008 AS '銷貨數量'
-                                    ,TH009 AS '單位'
-                                    ,TH014+'-'+TH015+'-'+TH016 AS '訂單單號'
-                                    ,TH017 AS '批號'
-                                    ,TH018 AS '單身備註'
-                                    FROM [DY].dbo.COPTG,[DY].dbo.COPTH,[DY].dbo.CMSMC
-                                    WHERE TG001=TH001 AND TG002=TH002
-                                    AND MC001=TH007
-                                    AND TH004+TH017 IN ({0})
-                                    ", SELECT.ToString());
-
-                report1.Load(@"REPORT\銷貨單明細表.frx");
-
-                report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
-                TableDataSource Table = report1.GetDataSource("Table") as TableDataSource;
-                Table.SelectCommand = SQL.ToString();
-
-                report1.Preview = previewControl7;
-                report1.Show();
-            }
-
-
-        }
+        
 
         public string SELECT5()
         {
@@ -2802,6 +2825,207 @@ namespace TKMOC
                     if ((bool)cbx.FormattedValue)
                     {
                         ADDSQL.AppendFormat(@" '{0}', ", dgR.Cells["品號"].Value.ToString().Trim() + dgR.Cells["批號"].Value.ToString().Trim() );
+                    }
+                }
+                catch (Exception ex)
+                {
+                    //MessageBox.Show(ex.Message);
+                }
+            }
+
+            ADDSQL.AppendFormat(@" '' ");
+
+            return ADDSQL.ToString();
+
+        }
+
+        public void SEARCHTRACEBACK6(string STATUS)
+        {
+            try
+            {
+                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                sqlConn = new SqlConnection(connectionString);
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                SqlCommandBuilder sqlCmdBuilder = new SqlCommandBuilder();
+                DataSet ds = new DataSet();
+
+                sbSql.Clear();
+
+
+                sbSql.AppendFormat(@"  
+                                    SELECT [MID] AS '單別',[DID] AS '單號',[SID] AS '序號',[MMB001] AS '主品號',[MMB002] AS '主品名',[MLOTNO] AS '主批號',[KINDS] AS '類別',[LEVELS] AS '層別',[DATES] AS '日期',[TG014] AS '製令',[TG015] AS '製令號',[MB001] AS '品號',[MB002] AS '品名',[LOTNO] AS '批號',[NUMS] AS '數量'
+                                    FROM [TKMOC].[dbo].[TRACEBACK]
+                                    WHERE [KINDS] IN ('6其他')
+                                    ORDER BY [KINDS],[MMB001],[MLOTNO],[MID],[DID],[SID],[TG014],[TG015]
+                                    ");
+
+                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder = new SqlCommandBuilder(adapter);
+                sqlConn.Open();
+                ds.Clear();
+                adapter.Fill(ds, "ds");
+                sqlConn.Close();
+
+
+                if (ds.Tables["ds"].Rows.Count == 0)
+                {
+                    dataGridView6.DataSource = null;
+                }
+                else
+                {
+                    if (ds.Tables["ds"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView6.DataSource = ds.Tables["ds"];
+                        dataGridView6.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                        dataGridView6.AutoResizeColumns();
+                        dataGridView6.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 9);
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void SETFASTREPORT6(string STATUS)
+        {
+            StringBuilder SQL = new StringBuilder();
+            string SELECT = SELECT6();
+            Report report1 = new Report();
+
+            if (!string.IsNullOrEmpty(SELECT))
+            {
+                SQL.AppendFormat(@"  
+                                   SELECT 
+                                    CONVERT(NVARCHAR,CONVERT(datetime,TA003),111)  AS '日期'
+                                    ,TA001+'-'+TA002 AS '單號'
+                                    ,CONVERT(NVARCHAR,CONVERT(datetime,TA014),111)   AS '單據日期'
+                                    ,TA014 AS '總數量'
+                                    ,TA005 AS '單頭備註'
+                                    ,TB003 AS '序號'
+                                    ,TB004 AS '品號'
+                                    ,TB005 AS '品名'
+                                    ,TB006 AS '規格'
+                                    ,TB012 AS '庫別代號'
+                                    ,MC002 AS '庫別名稱'
+                                    ,CONVERT(NVARCHAR,CONVERT(datetime,TB015),111)  AS '有效日期'
+                                    ,TB007 AS '數量'
+                                    ,TB008 AS '單位'
+                                    ,TB014 AS '批號'
+                                    ,TB017 AS '單身備註'
+                                    FROM [TK].dbo.INVTA,[TK].dbo.INVTB,[TK].dbo.CMSMC
+                                    WHERE TA001=TB001 AND TA002=TB002
+                                    AND MC001=TB012
+                                    AND TB001+TB002+TB003 IN ({0})
+
+                                    UNION ALL
+                                    SELECT 
+                                    CONVERT(NVARCHAR,CONVERT(datetime,TJ003),111)  AS '日期'
+                                    ,TJ001+'-'+TJ002 AS '單號'
+                                    ,CONVERT(NVARCHAR,CONVERT(datetime,TJ012),111)   AS '單據日期'
+                                    ,TJ007 AS '總數量'
+                                    ,TJ006 AS '單頭備註'
+                                    ,TK003 AS '序號'
+                                    ,TK004 AS '品號'
+                                    ,TK005 AS '品名'
+                                    ,TK006 AS '規格'
+                                    ,TK017 AS '庫別代號'
+                                    ,MC002 AS '庫別名稱'
+                                    ,CONVERT(NVARCHAR,CONVERT(datetime,TK019),111)  AS '有效日期'
+                                    ,TK007 AS '數量'
+                                    ,MB004 AS '單位'
+                                    ,TK018 AS '批號'
+                                    ,TK022 AS '單身備註'
+                                    FROM [TK].dbo.INVTJ,[TK].dbo.INVTK,[TK].dbo.CMSMC,[TK].dbo.INVMB
+                                    WHERE TJ001=TK001 AND TJ002=TK002
+                                    AND MC001=TK017
+                                    AND MB001=TK004
+                                    AND TJ001+TJ002+TJ003 IN ({0})   
+                               
+                                   UNION ALL
+                                    SELECT 
+                                    CONVERT(NVARCHAR,CONVERT(datetime,TF003),111)  AS '日期'
+                                    ,TF001+'-'+TF002 AS '單號'
+                                    ,CONVERT(NVARCHAR,CONVERT(datetime,TF024),111)   AS '單據日期'
+                                    ,TF022 AS '總數量'
+                                    ,TF014 AS '單頭備註'
+                                    ,TG003 AS '序號'
+                                    ,TG004 AS '品號'
+                                    ,TG005 AS '品名'
+                                    ,TG006 AS '規格'
+                                    ,TG007 AS '庫別代號'
+                                    ,MC002 AS '庫別名稱'
+                                    ,CONVERT(NVARCHAR,CONVERT(datetime,TG025),111)  AS '有效日期'
+                                    ,TG009 AS '數量'
+                                    ,TG010 AS '單位'
+                                    ,TG017 AS '批號'
+                                    ,TG019 AS '單身備註'
+                                    FROM [TK].dbo.INVTF,[TK].dbo.INVTG,[TK].dbo.CMSMC
+                                    WHERE TF001=TG001 AND TF002=TG002
+                                    AND MC001=TG007
+                                    AND TG001+TG002+TG003 IN ({0})   
+
+                                    UNION ALL
+                                    SELECT 
+                                    CONVERT(NVARCHAR,CONVERT(datetime,TH003),111)  AS '日期'
+                                    ,TH001+'-'+TH002 AS '單號'
+                                    ,CONVERT(NVARCHAR,CONVERT(datetime,TH023),111)   AS '單據日期'
+                                    ,TH021 AS '總數量'
+                                    ,TH014 AS '單頭備註'
+                                    ,TI003 AS '序號'
+                                    ,TI004 AS '品號'
+                                    ,TI005 AS '品名'
+                                    ,TI006 AS '規格'
+                                    ,TI007 AS '庫別代號'
+                                    ,MC002 AS '庫別名稱'
+                                    ,CONVERT(NVARCHAR,CONVERT(datetime,TI018),111)  AS '有效日期'
+                                    ,TI009 AS '數量'
+                                    ,TI010 AS '單位'
+                                    ,TI017 AS '批號'
+                                    ,TI021 AS '單身備註'
+                                    FROM [TK].dbo.INVTH,[TK].dbo.INVTI,[TK].dbo.CMSMC
+                                    WHERE TH001=TI001 AND TH002=TI002
+                                    AND MC001=TI007
+                                    AND TI001+TI002+TI003 IN ({0})   
+    
+                                    ", SELECT.ToString());
+
+                report1.Load(@"REPORT\其他單明細表.frx");
+
+                report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                TableDataSource Table = report1.GetDataSource("Table") as TableDataSource;
+                Table.SelectCommand = SQL.ToString();
+
+                report1.Preview = previewControl8;
+                report1.Show();
+            }
+
+
+        }
+
+        public string SELECT6()
+        {
+            StringBuilder ADDSQL = new StringBuilder();
+
+            foreach (DataGridViewRow dgR in this.dataGridView6.Rows)
+            {
+                try
+                {
+                    DataGridViewCheckBoxCell cbx = (DataGridViewCheckBoxCell)dgR.Cells[0];
+                    if ((bool)cbx.FormattedValue)
+                    {
+                        ADDSQL.AppendFormat(@" '{0}', ", dgR.Cells["單別"].Value.ToString().Trim() + dgR.Cells["單號"].Value.ToString().Trim() + dgR.Cells["序號"].Value.ToString().Trim());
                     }
                 }
                 catch (Exception ex)
@@ -3003,6 +3227,18 @@ namespace TKMOC
             }
         }
 
+        public void DG6CHECKALL()
+        {
+
+            dataGridView6.EndEdit();
+
+            foreach (DataGridViewRow dr in dataGridView6.Rows)
+            {
+                dr.Cells[0].Value = true;
+
+            }
+        }
+
         #endregion
 
         #region BUTTON
@@ -3074,6 +3310,10 @@ namespace TKMOC
             SETFASTREPORT5("1銷貨");
         }
 
+        private void button23_Click(object sender, EventArgs e)
+        {
+            SEARCHTRACEBACK6("6其他");
+        }
         private void button12_Click(object sender, EventArgs e)
         {
             DG3CHECKALL();
@@ -3123,6 +3363,15 @@ namespace TKMOC
         {
             DG2CHECKALL2();
         }
+        private void button25_Click(object sender, EventArgs e)
+        {
+            SETFASTREPORT6("6其他");
+        }
+        private void button24_Click(object sender, EventArgs e)
+        {
+            DG6CHECKALL();
+        }
+
         #endregion
 
 
