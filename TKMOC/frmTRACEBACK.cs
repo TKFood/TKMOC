@@ -2536,6 +2536,22 @@ namespace TKMOC
                                     AND TE008=MC001
                                     AND TC001=MQ001 AND MQ003 IN ('54','55')
                                     AND TE011+TE012 IN ({0})
+
+                                    AND TE004+TE010 NOT IN
+                                    (
+                                    --在製令中不要找出來
+                                    --在[TRACEBACK]有用到的MB001，但是沒有用到的LOTNO
+
+                                    SELECT TE004+TE010
+                                    FROM [TK].dbo.MOCTC,[TK].dbo.MOCTE,[TK].dbo.CMSMQ
+                                    WHERE TC001=TE001 AND TC002=TE002
+                                    AND TC001=MQ001 AND MQ003 IN ('54','55')
+                                    AND TE011+TE012 IN ({0})
+                                    AND TE004 IN (SELECT MB001 FROM  [TKMOC].[dbo].[TRACEBACK])
+                                    AND TE004+TE010 NOT IN (SELECT MB001+LOTNO FROM  [TKMOC].[dbo].[TRACEBACK])
+                                    
+                                    )
+
                                     ORDER BY TC001,TC002,TE003
                                     ", SELECT.ToString());
 
