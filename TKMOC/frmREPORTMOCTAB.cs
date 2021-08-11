@@ -36,7 +36,7 @@ namespace TKMOC
         /// <summary>
         /// 生產排程確認表說明
         /// </summary>
-        string ID2 = "991e47cf-65f4-4239-97bf-2e29488d821c";
+        string ID2 = "3a15547c-e0b9-4e2b-868f-6c4d2e952a5a";
         string DBNAME = "UOF";
 
 
