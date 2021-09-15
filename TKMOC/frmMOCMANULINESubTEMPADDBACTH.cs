@@ -94,7 +94,7 @@ namespace TKMOC
             connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
             sqlConn = new SqlConnection(connectionString);
             StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 LIKE '新廠%'   ");
+            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE  MD003 IN ('20')  ");
             SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
             DataTable dt = new DataTable();
             sqlConn.Open();
@@ -285,14 +285,14 @@ namespace TKMOC
                     string BOX = "0";
                     string PACKAGE = "0";
 
-                    if (comboBox1.Text.Equals("新廠包裝線"))
+                    if (comboBox1.Text.Equals("包裝線"))
                     {
                         BAR = "0";
                         NUM = dr.Cells["數量"].Value.ToString().Trim();
                         BOX = dr.Cells["箱數"].Value.ToString().Trim();
                         PACKAGE = dr.Cells["包裝數"].Value.ToString().Trim();
                     }
-                    else if (comboBox1.Text.Equals("新廠製一組")|| comboBox1.Text.Equals("新廠製二組"))
+                    else if (comboBox1.Text.Equals("製一線")|| comboBox1.Text.Equals("製二線"))
                     {
                         BAR = dr.Cells["桶數"].Value.ToString().Trim();
                         NUM = dr.Cells["包裝數"].Value.ToString().Trim();
