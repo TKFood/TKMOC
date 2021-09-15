@@ -1395,7 +1395,7 @@ namespace TKMOC
         }
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            //checkBox1-新廠製一組
+            //checkBox1-製一線
             if (checkBox1.Checked)
             {
                 dataGridView1checkBox1True();
@@ -1410,7 +1410,7 @@ namespace TKMOC
         {
             for (int i = 0; i < dataGridView1.Rows.Count; i++)
             {
-                if(dataGridView1.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠製一組"))
+                if(dataGridView1.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("製一線"))
                 {
                     dataGridView1.Rows[i].Cells[0].Value = 1;
                 }
@@ -1421,7 +1421,7 @@ namespace TKMOC
         {
             for (int i = 0; i < dataGridView1.Rows.Count; i++)
             {
-                if (dataGridView1.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠製一組"))
+                if (dataGridView1.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("製一線"))
                 {
                     dataGridView1.Rows[i].Cells[0].Value = 0;
                 }
@@ -1430,7 +1430,7 @@ namespace TKMOC
         }
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
-            //checkBox2-新廠製二組
+            //checkBox2-製二線
             if (checkBox2.Checked)
             {
                 dataGridView1checkBox2True();
@@ -1443,7 +1443,7 @@ namespace TKMOC
 
         private void checkBox3_CheckedChanged(object sender, EventArgs e)
         {
-            //checkBox3-新廠包裝線
+            //checkBox3-包裝線
             if (checkBox3.Checked)
             {
                 dataGridView1checkBox3True();
@@ -1457,7 +1457,7 @@ namespace TKMOC
         {
             for (int i = 0; i < dataGridView1.Rows.Count; i++)
             {
-                if (dataGridView1.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠製二組"))
+                if (dataGridView1.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("製二線"))
                 {
                     dataGridView1.Rows[i].Cells[0].Value = 1;
                 }
@@ -1468,7 +1468,7 @@ namespace TKMOC
         {
             for (int i = 0; i < dataGridView1.Rows.Count; i++)
             {
-                if (dataGridView1.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠製二組"))
+                if (dataGridView1.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("製二線"))
                 {
                     dataGridView1.Rows[i].Cells[0].Value = 0;
                 }
@@ -1479,7 +1479,7 @@ namespace TKMOC
         {
             for (int i = 0; i < dataGridView1.Rows.Count; i++)
             {
-                if (dataGridView1.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠包裝線"))
+                if (dataGridView1.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("包裝線"))
                 {
                     dataGridView1.Rows[i].Cells[0].Value = 1;
                 }
@@ -1490,7 +1490,7 @@ namespace TKMOC
         {
             for (int i = 0; i < dataGridView1.Rows.Count; i++)
             {
-                if (dataGridView1.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠包裝線"))
+                if (dataGridView1.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("包裝線"))
                 {
                     dataGridView1.Rows[i].Cells[0].Value = 0;
                 }
@@ -1499,7 +1499,7 @@ namespace TKMOC
         }
         private void checkBox4_CheckedChanged(object sender, EventArgs e)
         {
-            //checkBox4-新廠製一組
+            //checkBox4-製一線
             if (checkBox4.Checked)
             {
                 dataGridView3checkBox4True();
@@ -1512,7 +1512,7 @@ namespace TKMOC
 
         private void checkBox5_CheckedChanged(object sender, EventArgs e)
         {
-            //checkBox5-新廠製二組
+            //checkBox5-製二線
             if (checkBox5.Checked)
             {
                 dataGridView3checkBox5True();
@@ -1525,7 +1525,7 @@ namespace TKMOC
 
         private void checkBox6_CheckedChanged(object sender, EventArgs e)
         {
-            //checkBox6-新廠包裝線
+            //checkBox6-包裝線
             if (checkBox6.Checked)
             {
                 dataGridView3checkBox6True();
@@ -1540,7 +1540,7 @@ namespace TKMOC
         {
             for (int i = 0; i < dataGridView3.Rows.Count; i++)
             {
-                if (dataGridView3.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠製一組"))
+                if (dataGridView3.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("製一線"))
                 {
                     dataGridView3.Rows[i].Cells[0].Value = 1;
                 }
@@ -1551,7 +1551,7 @@ namespace TKMOC
         {
             for (int i = 0; i < dataGridView3.Rows.Count; i++)
             {
-                if (dataGridView3.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠製一組"))
+                if (dataGridView3.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("製一線"))
                 {
                     dataGridView3.Rows[i].Cells[0].Value = 0;
                 }
@@ -1562,7 +1562,7 @@ namespace TKMOC
         {
             for (int i = 0; i < dataGridView3.Rows.Count; i++)
             {
-                if (dataGridView3.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠製二組"))
+                if (dataGridView3.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("製二線"))
                 {
                     dataGridView3.Rows[i].Cells[0].Value = 1;
                 }
@@ -1573,7 +1573,7 @@ namespace TKMOC
         {
             for (int i = 0; i < dataGridView3.Rows.Count; i++)
             {
-                if (dataGridView3.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠製二組"))
+                if (dataGridView3.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("製二線"))
                 {
                     dataGridView3.Rows[i].Cells[0].Value = 0;
                 }
@@ -1584,7 +1584,7 @@ namespace TKMOC
         {
             for (int i = 0; i < dataGridView3.Rows.Count; i++)
             {
-                if (dataGridView3.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠包裝線"))
+                if (dataGridView3.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("包裝線"))
                 {
                     dataGridView3.Rows[i].Cells[0].Value = 1;
                 }
@@ -1595,7 +1595,7 @@ namespace TKMOC
         {
             for (int i = 0; i < dataGridView3.Rows.Count; i++)
             {
-                if (dataGridView3.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠包裝線"))
+                if (dataGridView3.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("包裝線"))
                 {
                     dataGridView3.Rows[i].Cells[0].Value = 0;
                 }
@@ -1605,7 +1605,7 @@ namespace TKMOC
 
         private void checkBox7_CheckedChanged(object sender, EventArgs e)
         {
-            //checkBox7-新廠製一組
+            //checkBox7-製一線
             if (checkBox7.Checked)
             {
                 dataGridView5checkBox7True();
@@ -1618,7 +1618,7 @@ namespace TKMOC
 
         private void checkBox8_CheckedChanged(object sender, EventArgs e)
         {
-            //checkBox8-新廠製二組
+            //checkBox8-製二線
             if (checkBox8.Checked)
             {
                 dataGridView5checkBox8True();
@@ -1632,7 +1632,7 @@ namespace TKMOC
         private void checkBox9_CheckedChanged(object sender, EventArgs e)
         {
 
-            //checkBox9-新廠包裝線
+            //checkBox9-包裝線
             if (checkBox9.Checked)
             {
                 dataGridView5checkBox9True();
@@ -1647,7 +1647,7 @@ namespace TKMOC
         {
             for (int i = 0; i < dataGridView5.Rows.Count; i++)
             {
-                if (dataGridView5.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠製一組"))
+                if (dataGridView5.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("製一線"))
                 {
                     dataGridView5.Rows[i].Cells[0].Value = 1;
                 }
@@ -1658,7 +1658,7 @@ namespace TKMOC
         {
             for (int i = 0; i < dataGridView5.Rows.Count; i++)
             {
-                if (dataGridView5.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠製一組"))
+                if (dataGridView5.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("製一線"))
                 {
                     dataGridView5.Rows[i].Cells[0].Value = 0;
                 }
@@ -1669,7 +1669,7 @@ namespace TKMOC
         {
             for (int i = 0; i < dataGridView5.Rows.Count; i++)
             {
-                if (dataGridView5.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠製二組"))
+                if (dataGridView5.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("製二線"))
                 {
                     dataGridView5.Rows[i].Cells[0].Value = 1;
                 }
@@ -1680,7 +1680,7 @@ namespace TKMOC
         {
             for (int i = 0; i < dataGridView5.Rows.Count; i++)
             {
-                if (dataGridView5.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠製二組"))
+                if (dataGridView5.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("製二線"))
                 {
                     dataGridView5.Rows[i].Cells[0].Value = 0;
                 }
@@ -1691,7 +1691,7 @@ namespace TKMOC
         {
             for (int i = 0; i < dataGridView5.Rows.Count; i++)
             {
-                if (dataGridView5.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠包裝線"))
+                if (dataGridView5.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("包裝線"))
                 {
                     dataGridView5.Rows[i].Cells[0].Value = 1;
                 }
@@ -1702,7 +1702,7 @@ namespace TKMOC
         {
             for (int i = 0; i < dataGridView5.Rows.Count; i++)
             {
-                if (dataGridView5.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠包裝線"))
+                if (dataGridView5.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("包裝線"))
                 {
                     dataGridView5.Rows[i].Cells[0].Value = 0;
                 }
@@ -1712,7 +1712,7 @@ namespace TKMOC
 
         private void checkBox10_CheckedChanged(object sender, EventArgs e)
         {
-            //checkBox10-新廠製一組
+            //checkBox10-製一線
             if (checkBox10.Checked)
             {
                 dataGridView7checkBox10True();
@@ -1725,7 +1725,7 @@ namespace TKMOC
 
         private void checkBox11_CheckedChanged(object sender, EventArgs e)
         {
-            //checkBox11-新廠製二組
+            //checkBox11-製二線
             if (checkBox11.Checked)
             {
                 dataGridView7checkBox11True();
@@ -1738,7 +1738,7 @@ namespace TKMOC
 
         private void checkBox12_CheckedChanged(object sender, EventArgs e)
         {
-            //checkBox12-新廠包裝線
+            //checkBox12-包裝線
             if (checkBox12.Checked)
             {
                 dataGridView7checkBox12True();
@@ -1753,7 +1753,7 @@ namespace TKMOC
         {
             for (int i = 0; i < dataGridView7.Rows.Count; i++)
             {
-                if (dataGridView7.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠製一組"))
+                if (dataGridView7.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("製一線"))
                 {
                     dataGridView7.Rows[i].Cells[0].Value = 1;
                 }
@@ -1764,7 +1764,7 @@ namespace TKMOC
         {
             for (int i = 0; i < dataGridView7.Rows.Count; i++)
             {
-                if (dataGridView7.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠製一組"))
+                if (dataGridView7.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("製一線"))
                 {
                     dataGridView7.Rows[i].Cells[0].Value = 0;
                 }
@@ -1775,7 +1775,7 @@ namespace TKMOC
         {
             for (int i = 0; i < dataGridView7.Rows.Count; i++)
             {
-                if (dataGridView7.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠製二組"))
+                if (dataGridView7.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("製二線"))
                 {
                     dataGridView7.Rows[i].Cells[0].Value = 1;
                 }
@@ -1786,7 +1786,7 @@ namespace TKMOC
         {
             for (int i = 0; i < dataGridView7.Rows.Count; i++)
             {
-                if (dataGridView7.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠製二組"))
+                if (dataGridView7.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("製二線"))
                 {
                     dataGridView7.Rows[i].Cells[0].Value = 0;
                 }
@@ -1797,7 +1797,7 @@ namespace TKMOC
         {
             for (int i = 0; i < dataGridView7.Rows.Count; i++)
             {
-                if (dataGridView7.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠包裝線"))
+                if (dataGridView7.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("包裝線"))
                 {
                     dataGridView7.Rows[i].Cells[0].Value = 1;
                 }
@@ -1808,7 +1808,7 @@ namespace TKMOC
         {
             for (int i = 0; i < dataGridView7.Rows.Count; i++)
             {
-                if (dataGridView7.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠包裝線"))
+                if (dataGridView7.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("包裝線"))
                 {
                     dataGridView7.Rows[i].Cells[0].Value = 0;
                 }
@@ -1836,7 +1836,7 @@ namespace TKMOC
 
         private void checkBox13_CheckedChanged(object sender, EventArgs e)
         {
-            //checkBox4-新廠製一組
+            //checkBox4-製一線
             if (checkBox13.Checked)
             {
                 dataGridView9checkBox13True();
@@ -1849,7 +1849,7 @@ namespace TKMOC
 
         private void checkBox14_CheckedChanged(object sender, EventArgs e)
         {
-            //checkBox5-新廠製二組
+            //checkBox5-製二線
             if (checkBox14.Checked)
             {
                 dataGridView9checkBox14True();
@@ -1862,7 +1862,7 @@ namespace TKMOC
 
         private void checkBox15_CheckedChanged(object sender, EventArgs e)
         {
-            //checkBox9-新廠包裝線
+            //checkBox9-包裝線
             if (checkBox15.Checked)
             {
                 dataGridView9checkBox15True();
@@ -1877,7 +1877,7 @@ namespace TKMOC
         {
             for (int i = 0; i < dataGridView9.Rows.Count; i++)
             {
-                if (dataGridView9.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠製一組"))
+                if (dataGridView9.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("製一線"))
                 {
                     dataGridView9.Rows[i].Cells[0].Value = 1;
                 }
@@ -1888,7 +1888,7 @@ namespace TKMOC
         {
             for (int i = 0; i < dataGridView9.Rows.Count; i++)
             {
-                if (dataGridView9.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠製一組"))
+                if (dataGridView9.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("製一線"))
                 {
                     dataGridView9.Rows[i].Cells[0].Value = 0;
                 }
@@ -1899,7 +1899,7 @@ namespace TKMOC
         {
             for (int i = 0; i < dataGridView9.Rows.Count; i++)
             {
-                if (dataGridView9.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠製二組"))
+                if (dataGridView9.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("製二線"))
                 {
                     dataGridView9.Rows[i].Cells[0].Value = 1;
                 }
@@ -1910,7 +1910,7 @@ namespace TKMOC
         {
             for (int i = 0; i < dataGridView9.Rows.Count; i++)
             {
-                if (dataGridView9.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠製二組"))
+                if (dataGridView9.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("製二線"))
                 {
                     dataGridView9.Rows[i].Cells[0].Value = 0;
                 }
@@ -1921,7 +1921,7 @@ namespace TKMOC
         {
             for (int i = 0; i < dataGridView9.Rows.Count; i++)
             {
-                if (dataGridView9.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠包裝線"))
+                if (dataGridView9.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("包裝線"))
                 {
                     dataGridView9.Rows[i].Cells[0].Value = 1;
                 }
@@ -1932,7 +1932,7 @@ namespace TKMOC
         {
             for (int i = 0; i < dataGridView9.Rows.Count; i++)
             {
-                if (dataGridView9.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("新廠包裝線"))
+                if (dataGridView9.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("包裝線"))
                 {
                     dataGridView9.Rows[i].Cells[0].Value = 0;
                 }
