@@ -164,7 +164,7 @@ namespace TKMOC
         DataTable dt = new DataTable();
         string tablename = null;
         int result;
-        string MANU= "新廠製二組";
+        string MANU= "製二線";
 
         string ID1;
         DateTime dt1;
@@ -455,7 +455,7 @@ namespace TKMOC
             connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
             sqlConn = new SqlConnection(connectionString);
             StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 LIKE '新廠製二組%'   ");
+            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 LIKE '製二線%'   ");
             SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
             DataTable dt = new DataTable();
             sqlConn.Open();
@@ -497,7 +497,7 @@ namespace TKMOC
             connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
             sqlConn = new SqlConnection(connectionString);
             StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 LIKE '新廠製一組%'   ");
+            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 LIKE '製一線%'   ");
             SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
             DataTable dt = new DataTable();
             sqlConn.Open();
@@ -517,7 +517,7 @@ namespace TKMOC
             connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
             sqlConn = new SqlConnection(connectionString);
             StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 LIKE '新廠製三組(手工)%'   ");
+            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 LIKE '手工線%'   ");
             SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
             DataTable dt = new DataTable();
             sqlConn.Open();
@@ -695,7 +695,7 @@ namespace TKMOC
             connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
             sqlConn = new SqlConnection(connectionString);
             StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 LIKE '新廠%'   ");
+            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD003 IN ('20') ORDER BY  MD001 ");
             SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
             DataTable dt = new DataTable();
             sqlConn.Open();
@@ -739,7 +739,7 @@ namespace TKMOC
             connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
             sqlConn = new SqlConnection(connectionString);
             StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 LIKE '新廠%'   ");
+            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD003 IN ('20') ORDER BY  MD001 ");
             SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
             DataTable dt = new DataTable();
             sqlConn.Open();
@@ -760,7 +760,7 @@ namespace TKMOC
             connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
             sqlConn = new SqlConnection(connectionString);
             StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 LIKE '新廠%'   ");
+            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD003 IN ('20') ORDER BY  MD001 ");
             SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
             DataTable dt = new DataTable();
             sqlConn.Open();
@@ -778,7 +778,7 @@ namespace TKMOC
 
         public void SEARCHMOCMANULINE()
         {
-            if(MANU.Equals("新廠製二組"))
+            if(MANU.Equals("製二線"))
             {
                 try
                 {
@@ -893,7 +893,7 @@ namespace TKMOC
                     sqlConn.Close();
                 }
             }
-            else if (MANU.Equals("新廠製一組"))
+            else if (MANU.Equals("製一線"))
             {
                 try
                 {
@@ -950,7 +950,7 @@ namespace TKMOC
                     sqlConn.Close();
                 }
             }
-            else if (MANU.Equals("新廠製三組(手工)"))
+            else if (MANU.Equals("手工線"))
             {
                 try
                 {
@@ -1266,7 +1266,7 @@ namespace TKMOC
         public void SEARCHMB001()
         {         
 
-            if (MANU.Equals("新廠製二組"))
+            if (MANU.Equals("製二線"))
             {
                 try
                 {
@@ -1375,7 +1375,7 @@ namespace TKMOC
 
             }
 
-            else if (MANU.Equals("新廠製一組"))
+            else if (MANU.Equals("製一線"))
             {
                 try
                 {
@@ -1427,7 +1427,7 @@ namespace TKMOC
                 }
 
             }
-            else if (MANU.Equals("新廠製三組(手工)"))
+            else if (MANU.Equals("手工線"))
             {
                 try
                 {
@@ -1616,7 +1616,7 @@ namespace TKMOC
             Guid NEWGUID = new Guid();
             NEWGUID = Guid.NewGuid();
 
-            if (MANU.Equals("新廠製二組"))
+            if (MANU.Equals("製二線"))
             {
                 try
                 {
@@ -1717,7 +1717,7 @@ namespace TKMOC
                     sqlConn.Close();
                 }
             }
-            else if (MANU.Equals("新廠製一組"))
+            else if (MANU.Equals("製一線"))
             {
                 try
                 {
@@ -1767,7 +1767,7 @@ namespace TKMOC
                     sqlConn.Close();
                 }
             }
-            else if (MANU.Equals("新廠製三組(手工)"))
+            else if (MANU.Equals("手工線"))
             {
                 try
                 {
@@ -2076,7 +2076,7 @@ namespace TKMOC
         
         public void DELMOCMANULINE()
         {
-            if (MANU.Equals("新廠製二組"))
+            if (MANU.Equals("製二線"))
             {
                 try
                 {
@@ -2165,7 +2165,7 @@ namespace TKMOC
                     sqlConn.Close();
                 }
             }
-            else if (MANU.Equals("新廠製一組"))
+            else if (MANU.Equals("製一線"))
             {
                 try
                 {
@@ -2209,7 +2209,7 @@ namespace TKMOC
                     sqlConn.Close();
                 }
             }
-            else if (MANU.Equals("新廠製三組(手工)"))
+            else if (MANU.Equals("手工線"))
             {
                 try
                 {
@@ -2346,7 +2346,7 @@ namespace TKMOC
 
         public void ADDMOCMANULINERESULT()
         {
-            if (MANU.Equals("新廠製二組"))
+            if (MANU.Equals("製二線"))
             {
                 try
                 {
@@ -2445,7 +2445,7 @@ namespace TKMOC
                 }
             }
                 
-            else if(MANU.Equals("新廠製一組"))
+            else if(MANU.Equals("製一線"))
             {
                 try
                 {
@@ -2494,7 +2494,7 @@ namespace TKMOC
                     sqlConn.Close();
                 }
             }
-            else if (MANU.Equals("新廠製三組(手工)"))
+            else if (MANU.Equals("手工線"))
             {
                 try
                 {
@@ -2606,7 +2606,7 @@ namespace TKMOC
 
             const int MaxLength = 100;
 
-            if (MANU.Equals("新廠製二組"))
+            if (MANU.Equals("製二線"))
             {
                 MOCMB001 = MB001;
                 MOCTA004 = BAR;
@@ -2626,7 +2626,7 @@ namespace TKMOC
                 //MOCTB009 = textBox78.Text;
 
             }
-            else if (MANU.Equals("新廠製一組"))
+            else if (MANU.Equals("製一線"))
             {
                 MOCMB001 = MB001C;
                 MOCTA004 = BAR2;
@@ -2635,7 +2635,7 @@ namespace TKMOC
                 MOCTA.TA028 = TA028B;
                 //MOCTB009 = textBox79.Text;
             }
-            else if (MANU.Equals("新廠製三組(手工)"))
+            else if (MANU.Equals("手工線"))
             {
                 MOCMB001 = MB001D;
                 MOCTA004 = BAR3;
@@ -2745,7 +2745,7 @@ namespace TKMOC
 
         public MOCTADATA SETMOCTA()
         {
-            if (MANU.Equals("新廠製二組"))
+            if (MANU.Equals("製二線"))
             {
                 SEARCHBOMMC();
 
@@ -2874,7 +2874,7 @@ namespace TKMOC
                 return MOCTA;
             }
 
-            else if (MANU.Equals("新廠製一組"))
+            else if (MANU.Equals("製一線"))
             {
                 SEARCHBOMMC();
 
@@ -2937,7 +2937,7 @@ namespace TKMOC
 
                 return MOCTA;
             }
-            else if (MANU.Equals("新廠製三組(手工)"))
+            else if (MANU.Equals("手工線"))
             {
                 SEARCHBOMMC();
 
@@ -3140,7 +3140,7 @@ namespace TKMOC
             UNIT = null;
             BOMBAR = 0;
 
-            if (MANU.Equals("新廠製二組"))
+            if (MANU.Equals("製二線"))
             {
                 try
                 {
@@ -3250,7 +3250,7 @@ namespace TKMOC
 
                 }
             }
-            else if (MANU.Equals("新廠製一組"))
+            else if (MANU.Equals("製一線"))
             {
                 try
                 {
@@ -3305,7 +3305,7 @@ namespace TKMOC
 
                 }
             }
-            else if (MANU.Equals("新廠製三組(手工)"))
+            else if (MANU.Equals("手工線"))
             {
                 try
                 {
@@ -3477,7 +3477,7 @@ namespace TKMOC
         }
         public void SEARCHMOCMANULINERESULT()
         {
-            if (MANU.Equals("新廠製二組"))
+            if (MANU.Equals("製二線"))
             {
                 try
                 {
@@ -3577,7 +3577,7 @@ namespace TKMOC
 
                 }
             }
-            else if (MANU.Equals("新廠製一組"))
+            else if (MANU.Equals("製一線"))
             {
                 try
                 {
@@ -3628,7 +3628,7 @@ namespace TKMOC
 
                 }
             }
-            else if (MANU.Equals("新廠製三組(手工)"))
+            else if (MANU.Equals("手工線"))
             {
                 try
                 {
@@ -3736,7 +3736,7 @@ namespace TKMOC
         {
             string TA002;
 
-            if (MANU.Equals("新廠製二組"))
+            if (MANU.Equals("製二線"))
             {
                 try
                 {
@@ -3842,7 +3842,7 @@ namespace TKMOC
                     sqlConn.Close();
                 }
             }
-            else if (MANU.Equals("新廠製一組"))
+            else if (MANU.Equals("製一線"))
             {
                 try
                 {
@@ -3895,7 +3895,7 @@ namespace TKMOC
                     sqlConn.Close();
                 }
             }
-            else if (MANU.Equals("新廠製三組(手工)"))
+            else if (MANU.Equals("手工線"))
             {
                 try
                 {
@@ -4062,7 +4062,7 @@ namespace TKMOC
         public string SETTA002(string TA002)
         {
 
-            if (MANU.Equals("新廠製二組"))
+            if (MANU.Equals("製二線"))
             {
                 if (TA002.Equals("00000000000"))
                 {
@@ -4096,7 +4096,7 @@ namespace TKMOC
                 }
             }
 
-            else if (MANU.Equals("新廠製一組"))
+            else if (MANU.Equals("製一線"))
             {
                 if (TA002.Equals("00000000000"))
                 {
@@ -4112,7 +4112,7 @@ namespace TKMOC
                     return dt3.ToString("yyyyMMdd") + temp.ToString();
                 }
             }
-            else if (MANU.Equals("新廠製三組(手工)"))
+            else if (MANU.Equals("手工線"))
             {
                 if (TA002.Equals("00000000000"))
                 {
@@ -4169,18 +4169,18 @@ namespace TKMOC
         {
             if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage1"])
             {
-                //MessageBox.Show("新廠製二組");
-                MANU = "新廠製二組";
+                //MessageBox.Show("製二線");
+                MANU = "製二線";
             }
             else if(tabControl1.SelectedTab == tabControl1.TabPages["tabPage2"])
             {
-                //MessageBox.Show("新廠製一組");
-                MANU = "新廠製一組";
+                //MessageBox.Show("製一線");
+                MANU = "製一線";
             }
             else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage3"])
             {
-                //MessageBox.Show("新廠製三組(手工)");
-                MANU = "新廠製三組(手工)";
+                //MessageBox.Show("手工線");
+                MANU = "手工線";
             }
             else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage4"])
             {
@@ -4477,7 +4477,7 @@ namespace TKMOC
 
         public void DELMOCMANULINERESULT()
         {
-            if (MANU.Equals("新廠製二組"))
+            if (MANU.Equals("製二線"))
             {
                 try
                 {
@@ -4564,7 +4564,7 @@ namespace TKMOC
                     sqlConn.Close();
                 }
             }
-            else if (MANU.Equals("新廠製一組"))
+            else if (MANU.Equals("製一線"))
             {
                 try
                 {
@@ -4607,7 +4607,7 @@ namespace TKMOC
                     sqlConn.Close();
                 }
             }
-            else if (MANU.Equals("新廠製三組(手工)"))
+            else if (MANU.Equals("手工線"))
             {
                 try
                 {
@@ -4851,7 +4851,7 @@ namespace TKMOC
         {
             try
             {
-                if (MANU.Equals("新廠製二組"))
+                if (MANU.Equals("製二線"))
                 {
                     textBox5.Text = (Convert.ToDecimal(textBox32.Text) * Convert.ToDecimal(textBox4.Text)).ToString();
                 }
@@ -4861,11 +4861,11 @@ namespace TKMOC
                     
                     textBox12.Text = (Convert.ToDecimal(textBox33.Text) * Convert.ToDecimal(textBox8.Text) ).ToString();
                 }
-                else if (MANU.Equals("新廠製一組"))
+                else if (MANU.Equals("製一線"))
                 {
                     textBox19.Text = (Convert.ToDecimal(textBox34.Text) * Convert.ToDecimal(textBox15.Text)).ToString();
                 }
-                else if (MANU.Equals("新廠製三組(手工)"))
+                else if (MANU.Equals("手工線"))
                 {
                     textBox23.Text = (Convert.ToDecimal(textBox35.Text) * Convert.ToDecimal(textBox21.Text)).ToString();
                 }
@@ -4885,7 +4885,7 @@ namespace TKMOC
         {
             try
             {
-                if (MANU.Equals("新廠製二組"))
+                if (MANU.Equals("製二線"))
                 {
                     textBox4.Text = Math.Round(Convert.ToDecimal(textBox5.Text)/ Convert.ToDecimal(textBox32.Text), 4).ToString();
                 }
@@ -4895,11 +4895,11 @@ namespace TKMOC
                     SEARCHMB001BOX();
                     textBox8.Text = Math.Round(Convert.ToDecimal(textBox12.Text) / Convert.ToDecimal(textBox33.Text)/BOXNUMERB, 4).ToString();
                 }
-                else if (MANU.Equals("新廠製一組"))
+                else if (MANU.Equals("製一線"))
                 {
                     textBox15.Text = Math.Round(Convert.ToDecimal(textBox19.Text) / Convert.ToDecimal(textBox34.Text), 4).ToString();
                 }
-                else if (MANU.Equals("新廠製三組(手工)"))
+                else if (MANU.Equals("手工線"))
                 {
                     textBox21.Text = Math.Round(Convert.ToDecimal(textBox23.Text) / Convert.ToDecimal(textBox35.Text), 4).ToString();
                 }
@@ -5115,7 +5115,7 @@ namespace TKMOC
 
         public void SEARCHBOMMD()
         {
-            if (MANU.Equals("新廠製二組"))
+            if (MANU.Equals("製二線"))
             {
                 try
                 {
@@ -5186,7 +5186,7 @@ namespace TKMOC
 
             }
 
-            else if (MANU.Equals("新廠製一組"))
+            else if (MANU.Equals("製一線"))
             {
                 try
                 {
@@ -5235,7 +5235,7 @@ namespace TKMOC
                 }
 
             }
-            else if (MANU.Equals("新廠製三組(手工)"))
+            else if (MANU.Equals("手工線"))
             {
                 try
                 {
@@ -5289,7 +5289,7 @@ namespace TKMOC
 
         public void SEARCHMOCHALFPRODUCTDBOXS()
         {
-            if (MANU.Equals("新廠製二組"))
+            if (MANU.Equals("製二線"))
             {
                 try
                 {
@@ -5363,7 +5363,7 @@ namespace TKMOC
 
             }
 
-            else if (MANU.Equals("新廠製一組"))
+            else if (MANU.Equals("製一線"))
             {
                 try
                 {
@@ -5419,7 +5419,7 @@ namespace TKMOC
                 }
 
             }
-            else if (MANU.Equals("新廠製三組(手工)"))
+            else if (MANU.Equals("手工線"))
             {
                 try
                 {
@@ -5511,7 +5511,7 @@ namespace TKMOC
 
         public void SEARCHMB017()
         {
-            if (MANU.Equals("新廠製二組"))
+            if (MANU.Equals("製二線"))
             {
                 try
                 {
@@ -5612,7 +5612,7 @@ namespace TKMOC
 
             }
 
-            else if (MANU.Equals("新廠製一組"))
+            else if (MANU.Equals("製一線"))
             {
                 try
                 {
@@ -5661,7 +5661,7 @@ namespace TKMOC
                 }
 
             }
-            else if (MANU.Equals("新廠製三組(手工)"))
+            else if (MANU.Equals("手工線"))
             {
                 try
                 {
@@ -6529,7 +6529,7 @@ namespace TKMOC
                 sqlConn.Close();
 
 
-                if (MANU.Equals("新廠製二組"))
+                if (MANU.Equals("製二線"))
                 {
                     if (ds27.Tables["ds27"].Rows.Count == 0)
                     {
@@ -6606,7 +6606,7 @@ namespace TKMOC
                         }
                     }
                 }
-                else if (MANU.Equals("新廠製一組"))
+                else if (MANU.Equals("製一線"))
                 {
                     if (ds27.Tables["ds27"].Rows.Count == 0)
                     {
@@ -6645,7 +6645,7 @@ namespace TKMOC
                         }
                     }
                 }
-                else if (MANU.Equals("新廠製三組(手工)"))
+                else if (MANU.Equals("手工線"))
                 {
                     if (ds27.Tables["ds27"].Rows.Count == 0)
                     {
@@ -6739,7 +6739,7 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
                 //手工*INVMB.UDF08、其他*INVMB.UDF07
-                if (MANU.Equals("新廠製三組(手工)"))
+                if (MANU.Equals("手工線"))
                 {
                    
                     sbSql.AppendFormat(@" 
@@ -6822,7 +6822,7 @@ namespace TKMOC
                 sqlConn.Close();
 
 
-                if (MANU.Equals("新廠製二組"))
+                if (MANU.Equals("製二線"))
                 {
                     if (ds28.Tables["ds28"].Rows.Count == 0)
                     {
@@ -6851,7 +6851,7 @@ namespace TKMOC
                     }
                 }
                
-                else if (MANU.Equals("新廠製一組"))
+                else if (MANU.Equals("製一線"))
                 {
                     if (ds28.Tables["ds28"].Rows.Count == 0)
                     {
@@ -6879,7 +6879,7 @@ namespace TKMOC
                         }
                     }
                 }
-                else if (MANU.Equals("新廠製三組(手工)"))
+                else if (MANU.Equals("手工線"))
                 {
                     if (ds28.Tables["ds28"].Rows.Count == 0)
                     {
@@ -6990,7 +6990,7 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
                 //手工*INVMB.UDF08、其他*INVMB.UDF07
-                if (MANU.Equals("新廠製三組(手工)") || MANU.Equals("少量訂單"))
+                if (MANU.Equals("手工線") || MANU.Equals("少量訂單"))
                 {
 
                     sbSql.AppendFormat(@" 
@@ -7057,7 +7057,7 @@ namespace TKMOC
                 sqlConn.Close();
 
 
-                if (MANU.Equals("新廠製二組"))
+                if (MANU.Equals("製二線"))
                 {
                     if (ds28.Tables["ds28"].Rows.Count == 0)
                     {
@@ -7087,7 +7087,7 @@ namespace TKMOC
                     }
                 }
 
-                else if (MANU.Equals("新廠製一組"))
+                else if (MANU.Equals("製一線"))
                 {
                     if (ds28.Tables["ds28"].Rows.Count == 0)
                     {
@@ -7116,7 +7116,7 @@ namespace TKMOC
                         }
                     }
                 }
-                else if (MANU.Equals("新廠製三組(手工)"))
+                else if (MANU.Equals("手工線"))
                 {
                     if (ds28.Tables["ds28"].Rows.Count == 0)
                     {
@@ -8461,7 +8461,7 @@ namespace TKMOC
             SUM31 = 0;
             SUM41 = 0;
 
-            if (MANU.Equals("新廠製二組"))
+            if (MANU.Equals("製二線"))
             {
                 try
                 {
@@ -8586,7 +8586,7 @@ namespace TKMOC
                     sqlConn.Close();
                 }
             }
-            else if (MANU.Equals("新廠製一組"))
+            else if (MANU.Equals("製一線"))
             {
                 try
                 {
@@ -8649,7 +8649,7 @@ namespace TKMOC
                     sqlConn.Close();
                 }
             }
-            else if (MANU.Equals("新廠製三組(手工)"))
+            else if (MANU.Equals("手工線"))
             {
                 try
                 {
@@ -9004,7 +9004,7 @@ namespace TKMOC
                 sqlConn.Close();
 
 
-                if (MANU.Equals("新廠製二組"))
+                if (MANU.Equals("製二線"))
                 {
                     if (ds1.Tables["ds1"].Rows.Count == 0)
                     {
@@ -9042,7 +9042,7 @@ namespace TKMOC
                         }
                     }
                 }
-                else if (MANU.Equals("新廠製一組"))
+                else if (MANU.Equals("製一線"))
                 {
                     if (ds1.Tables["ds1"].Rows.Count == 0)
                     {
@@ -9061,7 +9061,7 @@ namespace TKMOC
                         }
                     }
                 }
-                else if (MANU.Equals("新廠製三組(手工)"))
+                else if (MANU.Equals("手工線"))
                 {
                     if (ds1.Tables["ds1"].Rows.Count == 0)
                     {
@@ -9476,7 +9476,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  
                                     SELECT ISNULL(SUM([BAR]),0) AS BARS
                                     FROM [TKMOC].[dbo].[MOCMANULINE]
-                                    WHERE [MANU]='新廠製二組'
+                                    WHERE [MANU]='製二線'
                                     AND [MANUDATE]='{0}'
                                     AND [MB001] NOT IN  (SELECT MB001 FROM [TKMOC].[dbo].[MOCMANULINELIMITBARCOUNT])
                                     GROUP BY  [MANU],[MANUDATE] ", MANUDATE);
@@ -9526,7 +9526,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  
                                     SELECT ISNULL(SUM([BAR]),0) AS BARS
                                     FROM [TKMOC].[dbo].[MOCMANULINE]
-                                    WHERE [MANU]='新廠製一組'
+                                    WHERE [MANU]='製一線'
                                     AND [MANUDATE]='{0}'
                                     AND [MB001] NOT IN  (SELECT MB001 FROM [TKMOC].[dbo].[MOCMANULINELIMITBARCOUNT])
                                     GROUP BY  [MANU],[MANUDATE] ", MANUDATE);
