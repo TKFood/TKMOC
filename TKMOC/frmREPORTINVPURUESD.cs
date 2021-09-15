@@ -189,7 +189,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003");
                 sbSql.AppendFormat(@"  WHERE [MOCMANULINE].MB001=MC001");
                 sbSql.AppendFormat(@"  AND MC001=MD001");
-                sbSql.AppendFormat(@"  AND [MANU]='新廠包裝線'");
+                sbSql.AppendFormat(@"  AND [MANU]='包裝線'");
                 sbSql.AppendFormat(@"  AND CONVERT(NVARCHAR,[MANUDATE],112)>='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112)<='{1}'",SDay,EDay);
                 sbSql.AppendFormat(@"  AND [MD003]='{0}'",MD003);
                 sbSql.AppendFormat(@"  UNION ");
@@ -198,7 +198,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003");
                 sbSql.AppendFormat(@"  WHERE [MOCMANULINE].MB001=MC001");
                 sbSql.AppendFormat(@"  AND MC001=MD001");
-                sbSql.AppendFormat(@"  AND [MANU] NOT IN ('新廠包裝線')");
+                sbSql.AppendFormat(@"  AND [MANU] NOT IN ('包裝線')");
                 sbSql.AppendFormat(@"  AND CONVERT(NVARCHAR,[MANUDATE],112)>='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112)<='{1}'", SDay, EDay);
                 sbSql.AppendFormat(@"  AND [MD003]='{0}'", MD003);
                 sbSql.AppendFormat(@"  UNION");
@@ -232,7 +232,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003");
                 sbSql.AppendFormat(@"  WHERE [MOCMANULINE].MB001=MC001");
                 sbSql.AppendFormat(@"  AND MC001=MD001");
-                sbSql.AppendFormat(@"  AND [MANU]='新廠包裝線'");
+                sbSql.AppendFormat(@"  AND [MANU]='包裝線'");
                 sbSql.AppendFormat(@"  AND CONVERT(NVARCHAR,[MANUDATE],112)>='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112)<='{1}'", SDay, EDay);
                 sbSql.AppendFormat(@"  AND [MD003]='{0}'", MD003);
                 sbSql.AppendFormat(@"  UNION ");
@@ -241,7 +241,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003");
                 sbSql.AppendFormat(@"  WHERE [MOCMANULINE].MB001=MC001");
                 sbSql.AppendFormat(@"  AND MC001=MD001");
-                sbSql.AppendFormat(@"  AND [MANU] NOT IN ('新廠包裝線')");
+                sbSql.AppendFormat(@"  AND [MANU] NOT IN ('包裝線')");
                 sbSql.AppendFormat(@"  AND CONVERT(NVARCHAR,[MANUDATE],112)>='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112)<='{1}'", SDay, EDay);
                 sbSql.AppendFormat(@"  AND [MD003]='{0}'", MD003);
                 sbSql.AppendFormat(@"  UNION");
