@@ -137,7 +137,12 @@ namespace TKMOC
             SETCALENDAR();
 
             //comboBox1load();
-
+            comboBox1load();
+            comboBox2load();
+            comboBox3load();
+            comboBox4load();
+            comboBox5load();
+            comboBox6load();
             comboBox7load();
 
             SETDATE();
@@ -178,7 +183,7 @@ namespace TKMOC
             connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
             sqlConn = new SqlConnection(connectionString);
             StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE  MD003 IN ('20')   ");
+            Sequel.AppendFormat(@"SELECT '全部' MD001,'全部' MD002 UNION ALL SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE  MD003 IN ('20')    ");
             SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
             DataTable dt = new DataTable();
             sqlConn.Open();
@@ -193,6 +198,113 @@ namespace TKMOC
 
 
         }
+
+        public void comboBox2load()
+        {
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT '全部' MD001,'全部' MD002 UNION ALL SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE  MD003 IN ('20')    ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("MD001", typeof(string));
+            dt.Columns.Add("MD002", typeof(string));
+            da.Fill(dt);
+            comboBox2.DataSource = dt.DefaultView;
+            comboBox2.ValueMember = "MD002";
+            comboBox2.DisplayMember = "MD002";
+            sqlConn.Close();
+
+
+        }
+
+        public void comboBox3load()
+        {
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT '全部' MD001,'全部' MD002 UNION ALL SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE  MD003 IN ('20')    ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("MD001", typeof(string));
+            dt.Columns.Add("MD002", typeof(string));
+            da.Fill(dt);
+            comboBox3.DataSource = dt.DefaultView;
+            comboBox3.ValueMember = "MD002";
+            comboBox3.DisplayMember = "MD002";
+            sqlConn.Close();
+
+
+        }
+
+        public void comboBox4load()
+        {
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT '全部' MD001,'全部' MD002 UNION ALL SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE  MD003 IN ('20')    ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("MD001", typeof(string));
+            dt.Columns.Add("MD002", typeof(string));
+            da.Fill(dt);
+            comboBox4.DataSource = dt.DefaultView;
+            comboBox4.ValueMember = "MD002";
+            comboBox4.DisplayMember = "MD002";
+            sqlConn.Close();
+
+
+        }
+
+        public void comboBox5load()
+        {
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT '全部' MD001,'全部' MD002 UNION ALL SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE  MD003 IN ('20')    ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("MD001", typeof(string));
+            dt.Columns.Add("MD002", typeof(string));
+            da.Fill(dt);
+            comboBox5.DataSource = dt.DefaultView;
+            comboBox5.ValueMember = "MD002";
+            comboBox5.DisplayMember = "MD002";
+            sqlConn.Close();
+
+
+        }
+
+        public void comboBox6load()
+        {
+            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+            sqlConn = new SqlConnection(connectionString);
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE  MD003 IN ('20')    ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("MD001", typeof(string));
+            dt.Columns.Add("MD002", typeof(string));
+            da.Fill(dt);
+            comboBox6.DataSource = dt.DefaultView;
+            comboBox6.ValueMember = "MD002";
+            comboBox6.DisplayMember = "MD002";
+            sqlConn.Close();
+
+
+        }
+
+
 
         public void comboBox7load()
         {

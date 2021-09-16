@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage12 = new System.Windows.Forms.TabPage();
             this.splitContainer10 = new System.Windows.Forms.SplitContainer();
@@ -369,9 +369,6 @@
             this.comboBox7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox7.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.comboBox7.FormattingEnabled = true;
-            this.comboBox7.Items.AddRange(new object[] {
-            "製一組",
-            "製二組"});
             this.comboBox7.Location = new System.Drawing.Point(183, 67);
             this.comboBox7.Name = "comboBox7";
             this.comboBox7.Size = new System.Drawing.Size(174, 24);
@@ -510,21 +507,12 @@
             // 
             this.comboBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox6.FormattingEnabled = true;
-            this.comboBox6.Items.AddRange(new object[] {
-            "新廠製二組",
-            "新廠製一組",
-            "新廠製三組(手工)",
-            "新廠吧台烘豆線",
-            "新廠製四組(包裝)",
-            "新廠吧台烘焙線",
-            "新廠包裝線",
-            "新廠托外加工"});
-            this.comboBox6.Location = new System.Drawing.Point(184, 69);
+            this.comboBox6.Location = new System.Drawing.Point(184, 67);
             this.comboBox6.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox6.Name = "comboBox6";
             this.comboBox6.Size = new System.Drawing.Size(172, 24);
             this.comboBox6.TabIndex = 10;
-            this.comboBox6.Text = "新廠包裝線";
+            this.comboBox6.Text = "包裝線";
             // 
             // label17
             // 
@@ -954,17 +942,7 @@
             // 
             this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "全部",
-            "新廠製二組",
-            "新廠製一組",
-            "新廠製三組(手工)",
-            "新廠吧台烘豆線",
-            "新廠製四組(包裝)",
-            "新廠吧台烘焙線",
-            "新廠包裝線",
-            "新廠托外加工"});
-            this.comboBox1.Location = new System.Drawing.Point(184, 67);
+            this.comboBox1.Location = new System.Drawing.Point(184, 69);
             this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(172, 24);
@@ -1247,8 +1225,8 @@
             // 
             this.dataGridView15.AllowUserToAddRows = false;
             this.dataGridView15.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.dataGridView15.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.dataGridView15.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridView15.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView15.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView15.Location = new System.Drawing.Point(0, 0);
@@ -1364,17 +1342,7 @@
             // 
             this.comboBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
-            "全部",
-            "新廠製二組",
-            "新廠製一組",
-            "新廠製三組(手工)",
-            "新廠吧台烘豆線",
-            "新廠製四組(包裝)",
-            "新廠吧台烘焙線",
-            "新廠包裝線",
-            "新廠托外加工"});
-            this.comboBox2.Location = new System.Drawing.Point(184, 67);
+            this.comboBox2.Location = new System.Drawing.Point(184, 69);
             this.comboBox2.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(172, 24);
@@ -1544,17 +1512,7 @@
             // 
             this.comboBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Items.AddRange(new object[] {
-            "全部",
-            "新廠製二組",
-            "新廠製一組",
-            "新廠製三組(手工)",
-            "新廠吧台烘豆線",
-            "新廠製四組(包裝)",
-            "新廠吧台烘焙線",
-            "新廠包裝線",
-            "新廠托外加工"});
-            this.comboBox3.Location = new System.Drawing.Point(184, 67);
+            this.comboBox3.Location = new System.Drawing.Point(184, 69);
             this.comboBox3.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(172, 24);
@@ -1892,21 +1850,12 @@
             // 
             this.comboBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Items.AddRange(new object[] {
-            "新廠製二組",
-            "新廠製一組",
-            "新廠製三組(手工)",
-            "新廠吧台烘豆線",
-            "新廠製四組(包裝)",
-            "新廠吧台烘焙線",
-            "新廠包裝線",
-            "新廠托外加工"});
-            this.comboBox4.Location = new System.Drawing.Point(184, 67);
+            this.comboBox4.Location = new System.Drawing.Point(184, 69);
             this.comboBox4.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox4.Name = "comboBox4";
             this.comboBox4.Size = new System.Drawing.Size(172, 24);
             this.comboBox4.TabIndex = 10;
-            this.comboBox4.Text = "新廠包裝線";
+            this.comboBox4.Text = "包裝線";
             // 
             // label14
             // 
@@ -2013,21 +1962,12 @@
             // 
             this.comboBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox5.FormattingEnabled = true;
-            this.comboBox5.Items.AddRange(new object[] {
-            "新廠製二組",
-            "新廠製一組",
-            "新廠製三組(手工)",
-            "新廠吧台烘豆線",
-            "新廠製四組(包裝)",
-            "新廠吧台烘焙線",
-            "新廠包裝線",
-            "新廠托外加工"});
-            this.comboBox5.Location = new System.Drawing.Point(184, 69);
+            this.comboBox5.Location = new System.Drawing.Point(184, 67);
             this.comboBox5.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox5.Name = "comboBox5";
             this.comboBox5.Size = new System.Drawing.Size(172, 24);
             this.comboBox5.TabIndex = 10;
-            this.comboBox5.Text = "新廠包裝線";
+            this.comboBox5.Text = "包裝線";
             // 
             // label15
             // 
