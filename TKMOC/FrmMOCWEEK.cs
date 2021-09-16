@@ -143,7 +143,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  SELECT [MB002]  AS '品名',CONVERT(NVARCHAR,(CONVERT(int,[BOX])))  AS '數量','箱'  AS '箱', CLINET AS '客戶'");
                 sbSql.AppendFormat(@"  ,[ID],[SERNO],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET],[MANUHOUR],[BOX],[PACKAGE],[OUTDATE],[TA029]  ");
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE] ");
-                sbSql.AppendFormat(@"  WHERE [MANU]='新廠包裝線'  ");
+                sbSql.AppendFormat(@"  WHERE [MANU]='包裝線'  ");
                 sbSql.AppendFormat(@"  AND [MANUDATE]='{0}'",dateTimePicker2.Value.ToString("yyyy/MM/dd"));
                 sbSql.AppendFormat(@"  ORDER BY [MANUDATE]  ");
                 sbSql.AppendFormat(@"   ");
@@ -196,7 +196,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  SELECT [MB002]  AS '品名',CONVERT(NVARCHAR,(CONVERT(int,[BOX])))  AS '數量','箱'  AS '箱', CLINET AS '客戶'");
                 sbSql.AppendFormat(@"  ,[ID],[SERNO],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET],[MANUHOUR],[BOX],[PACKAGE],[OUTDATE],[TA029]  ");
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE] ");
-                sbSql.AppendFormat(@"  WHERE [MANU]='新廠包裝線'  ");
+                sbSql.AppendFormat(@"  WHERE [MANU]='包裝線'  ");
                 sbSql.AppendFormat(@"  AND [MANUDATE]='{0}'", dateTimePicker3.Value.ToString("yyyy/MM/dd"));
                 sbSql.AppendFormat(@"  ORDER BY [MANUDATE]  ");
                 sbSql.AppendFormat(@"   ");
@@ -249,7 +249,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  SELECT [MB002]  AS '品名',CONVERT(NVARCHAR,(CONVERT(int,[BOX])))  AS '數量','箱'  AS '箱', CLINET AS '客戶'");
                 sbSql.AppendFormat(@"  ,[ID],[SERNO],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET],[MANUHOUR],[BOX],[PACKAGE],[OUTDATE],[TA029]  ");
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE] ");
-                sbSql.AppendFormat(@"  WHERE [MANU]='新廠包裝線'  ");
+                sbSql.AppendFormat(@"  WHERE [MANU]='包裝線'  ");
                 sbSql.AppendFormat(@"  AND [MANUDATE]='{0}'", dateTimePicker4.Value.ToString("yyyy/MM/dd"));
                 sbSql.AppendFormat(@"  ORDER BY [MANUDATE]  ");
                 sbSql.AppendFormat(@"   ");
@@ -302,7 +302,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  SELECT [MB002]  AS '品名',CONVERT(NVARCHAR,(CONVERT(int,[BOX])))  AS '數量','箱'  AS '箱', CLINET AS '客戶'");
                 sbSql.AppendFormat(@"  ,[ID],[SERNO],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET],[MANUHOUR],[BOX],[PACKAGE],[OUTDATE],[TA029]  ");
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE] ");
-                sbSql.AppendFormat(@"  WHERE [MANU]='新廠包裝線'  ");
+                sbSql.AppendFormat(@"  WHERE [MANU]='包裝線'  ");
                 sbSql.AppendFormat(@"  AND [MANUDATE]='{0}'", dateTimePicker5.Value.ToString("yyyy/MM/dd"));
                 sbSql.AppendFormat(@"  ORDER BY [MANUDATE]  ");
                 sbSql.AppendFormat(@"   ");
@@ -355,7 +355,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  SELECT [MB002]  AS '品名',CONVERT(NVARCHAR,(CONVERT(int,[BOX])))  AS '數量','箱'  AS '箱', CLINET AS '客戶'");
                 sbSql.AppendFormat(@"  ,[ID],[SERNO],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET],[MANUHOUR],[BOX],[PACKAGE],[OUTDATE],[TA029]  ");
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE] ");
-                sbSql.AppendFormat(@"  WHERE [MANU]='新廠包裝線'  ");
+                sbSql.AppendFormat(@"  WHERE [MANU]='包裝線'  ");
                 sbSql.AppendFormat(@"  AND [MANUDATE]='{0}'", dateTimePicker6.Value.ToString("yyyy/MM/dd"));
                 sbSql.AppendFormat(@"  ORDER BY [MANUDATE]  ");
                 sbSql.AppendFormat(@"   ");
@@ -408,7 +408,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  SELECT [MB002]  AS '品名',CONVERT(NVARCHAR,(CONVERT(int,[BOX])))  AS '數量','箱'  AS '箱', CLINET AS '客戶'");
                 sbSql.AppendFormat(@"  ,[ID],[SERNO],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET],[MANUHOUR],[BOX],[PACKAGE],[OUTDATE],[TA029]  ");
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE] ");
-                sbSql.AppendFormat(@"  WHERE [MANU]='新廠包裝線'  ");
+                sbSql.AppendFormat(@"  WHERE [MANU]='包裝線'  ");
                 sbSql.AppendFormat(@"  AND [MANUDATE]='{0}'", dateTimePicker7.Value.ToString("yyyy/MM/dd"));
                 sbSql.AppendFormat(@"  ORDER BY [MANUDATE]  ");
                 sbSql.AppendFormat(@"   ");
@@ -461,7 +461,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  SELECT [MB002]  AS '品名',CONVERT(NVARCHAR,(CONVERT(int,[BOX])))  AS '數量','箱'  AS '箱', CLINET AS '客戶'");
                 sbSql.AppendFormat(@"  ,[ID],[SERNO],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET],[MANUHOUR],[BOX],[PACKAGE],[OUTDATE],[TA029]  ");
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE] ");
-                sbSql.AppendFormat(@"  WHERE [MANU]='新廠包裝線'  ");
+                sbSql.AppendFormat(@"  WHERE [MANU]='包裝線'  ");
                 sbSql.AppendFormat(@"  AND [MANUDATE]='{0}'", dateTimePicker8.Value.ToString("yyyy/MM/dd"));
                 sbSql.AppendFormat(@"  ORDER BY [MANUDATE]  ");
                 sbSql.AppendFormat(@"   ");

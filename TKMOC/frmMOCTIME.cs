@@ -230,7 +230,7 @@ namespace TKMOC
             SB.AppendFormat(@" [MANU] AS '線別',CONVERT(nvarchar,[MANUDATE],112) AS '生產日',SUM(ROUND([PACKAGE]/INVMB.UDF10,2)) AS '預計工時'");
             SB.AppendFormat(@" FROM [TKMOC].[dbo].[MOCMANULINE],[TK].dbo.INVMB");
             SB.AppendFormat(@" WHERE MOCMANULINE.MB001=INVMB.MB001");
-            SB.AppendFormat(@" AND [MANU]='新廠包裝線' AND CONVERT(nvarchar,[MANUDATE],112) LIKE '{0}%'", dateTimePicker2.Value.ToString("yyyyMM"));
+            SB.AppendFormat(@" AND [MANU]='包裝線' AND CONVERT(nvarchar,[MANUDATE],112) LIKE '{0}%'", dateTimePicker2.Value.ToString("yyyyMM"));
             SB.AppendFormat(@" AND INVMB.UDF10>0");
             SB.AppendFormat(@" GROUP BY [MANU],[MANUDATE]");
             SB.AppendFormat(@" ORDER BY [MANUDATE]");
@@ -251,7 +251,7 @@ namespace TKMOC
             SB.AppendFormat(@" ,[BAR],[NUM],[MANUHOUR],[HALFPRO],[CLINET]");
             SB.AppendFormat(@" FROM [TKMOC].[dbo].[MOCMANULINE],[TK].dbo.INVMB");
             SB.AppendFormat(@" WHERE MOCMANULINE.MB001=INVMB.MB001");
-            SB.AppendFormat(@" AND [MANU]='新廠包裝線'  AND CONVERT(nvarchar,[MANUDATE],112) LIKE '{0}%' ", dateTimePicker2.Value.ToString("yyyyMM"));
+            SB.AppendFormat(@" AND [MANU]='包裝線'  AND CONVERT(nvarchar,[MANUDATE],112) LIKE '{0}%' ", dateTimePicker2.Value.ToString("yyyyMM"));
             SB.AppendFormat(@" AND INVMB.UDF10>0");
             SB.AppendFormat(@" ORDER BY [MANUDATE]");
             SB.AppendFormat(@" ");
@@ -272,7 +272,7 @@ namespace TKMOC
             SB.AppendFormat(@" ,[BAR],[NUM],[MANUHOUR],[HALFPRO],[CLINET]");
             SB.AppendFormat(@" FROM [TKMOC].[dbo].[MOCMANULINE],[TK].dbo.INVMB");
             SB.AppendFormat(@" WHERE MOCMANULINE.MB001=INVMB.MB001");
-            SB.AppendFormat(@" AND [MANU]='新廠包裝線'  AND CONVERT(nvarchar,[MANUDATE],112) LIKE '{0}%' ", dateTimePicker2.Value.ToString("yyyyMM"));
+            SB.AppendFormat(@" AND [MANU]='包裝線'  AND CONVERT(nvarchar,[MANUDATE],112) LIKE '{0}%' ", dateTimePicker2.Value.ToString("yyyyMM"));
             SB.AppendFormat(@" AND INVMB.UDF10=0");
             SB.AppendFormat(@" ORDER BY [MANUDATE]");
             SB.AppendFormat(@" ");

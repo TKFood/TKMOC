@@ -92,7 +92,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  ,CONVERT(decimal(16,2),SUM([MOCMANULINE].[PACKAGE]/[MOCSTDTIME].PROCESSNUM*[MOCSTDTIME].PROCESSTIME/60))  AS TIMES");
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
                 sbSql.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[MOCSTDTIME] ON [MOCMANULINE].[MB001]=[MOCSTDTIME].[MB001]");
-                sbSql.AppendFormat(@"  WHERE [MANU]='新廠包裝線' AND ([MANUDATE]>=CONVERT(NVARCHAR,datepart(yyyy, getdate()))+'/1/1')");
+                sbSql.AppendFormat(@"  WHERE [MANU]='包裝線' AND ([MANUDATE]>=CONVERT(NVARCHAR,datepart(yyyy, getdate()))+'/1/1')");
                 sbSql.AppendFormat(@"  GROUP BY [MANUDATE]");
                 sbSql.AppendFormat(@"  ORDER BY [MANUDATE]");
                 sbSql.AppendFormat(@"  ");
@@ -181,7 +181,7 @@ namespace TKMOC
             SB.AppendFormat(@" ,[MOCSTDTIME].PROCESSNUM,[MOCSTDTIME].PROCESSTIME");
             SB.AppendFormat(@" FROM [TKMOC].[dbo].[MOCMANULINE]");
             SB.AppendFormat(@" LEFT JOIN [TKMOC].[dbo].[MOCSTDTIME] ON [MOCMANULINE].[MB001]=[MOCSTDTIME].[MB001]");
-            SB.AppendFormat(@" WHERE [MANU]='新廠包裝線' ");
+            SB.AppendFormat(@" WHERE [MANU]='包裝線' ");
             SB.AppendFormat(@" AND [MANUDATE]>='{0}'  AND  [MANUDATE]<='{1}' ",dateTimePicker1.Value.ToString("yyyy/MM/dd"), dateTimePicker2.Value.ToString("yyyy/MM/dd"));
             SB.AppendFormat(@" ORDER BY [MANUDATE],[MOCMANULINE].[MB001]");
             SB.AppendFormat(@" ");
