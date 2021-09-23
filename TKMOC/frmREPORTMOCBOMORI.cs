@@ -170,6 +170,8 @@ namespace TKMOC
             }
 
 
+
+
             StringBuilder SQL = new StringBuilder();
 
             SQL = SETSQL();
@@ -367,34 +369,7 @@ namespace TKMOC
                 }
                 else if (COUNTS >= 1)
                 {
-                    sbSql.AppendFormat(@"       
-                                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMORI]
-                                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
-                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,MD006
-                                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
-                                            WHERE TA006=MD001
-                                            AND MD003=MB001
-                                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
-                                            AND MD003 NOT LIKE '301400%'
-                                            AND TA001='{0}' AND TA002='{1}'
-                                            ORDER BY MD003
-
-                                           ", TA001, TA002, 1);
-                    sbSql.AppendFormat(@"       
-                                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMORI]
-                                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])                                            
-                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,CONVERT(DECIMAL(16,3),MD006*{3})
-                                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
-                                            WHERE TA006=MD001
-                                            AND MD003=MB001
-                                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
-                                            AND MD003 NOT LIKE '301400%'
-                                            AND TA001='{0}' AND TA002='{1}'
-                                            ORDER BY MD003
-
-                                           ", TA001, TA002, 2, BUCKETSSMAILL);
-
-                    for (int i = 3; i <= COUNTS; i++)
+                    for (int i = 1; i <= COUNTS-1; i++)
                     {
                         sbSql.AppendFormat(@"
                                             INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMORI]
@@ -410,7 +385,86 @@ namespace TKMOC
 
                                            ", TA001, TA002, i);
                     }
+
+                    sbSql.AppendFormat(@"       
+                                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMORI]
+                                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])                                            
+                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,CONVERT(DECIMAL(16,3),MD006*{3})
+                                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
+                                            WHERE TA006=MD001
+                                            AND MD003=MB001
+                                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
+                                            AND MD003 NOT LIKE '301400%'
+                                            AND TA001='{0}' AND TA002='{1}'
+                                            ORDER BY MD003
+
+                                           ", TA001, TA002, COUNTS, BUCKETSSMAILL);
+
+                    
                 }
+
+                //if (COUNTS == 0)
+                //{
+                //    sbSql.AppendFormat(@"       
+                //                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMORI]
+                //                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])                                            
+                //                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,CONVERT(DECIMAL(16,3),MD006*{3})
+                //                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
+                //                            WHERE TA006=MD001
+                //                            AND MD003=MB001
+                //                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
+                //                            AND MD003 NOT LIKE '301400%'
+                //                            AND TA001='{0}' AND TA002='{1}'
+                //                            ORDER BY MD003
+
+                //                           ", TA001, TA002, 1, BUCKETSSMAILL);
+                //}
+                //else if (COUNTS >= 1)
+                //{
+                //    sbSql.AppendFormat(@"       
+                //                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMORI]
+                //                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
+                //                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,MD006
+                //                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
+                //                            WHERE TA006=MD001
+                //                            AND MD003=MB001
+                //                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
+                //                            AND MD003 NOT LIKE '301400%'
+                //                            AND TA001='{0}' AND TA002='{1}'
+                //                            ORDER BY MD003
+
+                //                           ", TA001, TA002, 1);
+                //    sbSql.AppendFormat(@"       
+                //                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMORI]
+                //                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])                                            
+                //                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,CONVERT(DECIMAL(16,3),MD006*{3})
+                //                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
+                //                            WHERE TA006=MD001
+                //                            AND MD003=MB001
+                //                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
+                //                            AND MD003 NOT LIKE '301400%'
+                //                            AND TA001='{0}' AND TA002='{1}'
+                //                            ORDER BY MD003
+
+                //                           ", TA001, TA002, 2, BUCKETSSMAILL);
+
+                //    for (int i = 3; i <= COUNTS; i++)
+                //    {
+                //        sbSql.AppendFormat(@"
+                //                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMORI]
+                //                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
+                //                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,MD006
+                //                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
+                //                            WHERE TA006=MD001
+                //                            AND MD003=MB001
+                //                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
+                //                            AND MD003 NOT LIKE '301400%'
+                //                            AND TA001='{0}' AND TA002='{1}'
+                //                            ORDER BY MD003
+
+                //                           ", TA001, TA002, i);
+                //    }
+                //}
 
 
 
