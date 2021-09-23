@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="04/26/2021 14:32:55" ReportInfo.Modified="09/23/2021 15:44:53" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="04/26/2021 14:32:55" ReportInfo.Modified="09/23/2021 17:34:35" ReportInfo.CreatorVersion="2016.4.4.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -135,8 +135,8 @@ namespace FastReport
 }
 </ScriptText>
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9L6bB4XKsvtQWJzVN6+UolG">
-      <TableDataSource Name="Table1" Alias="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT [ID]&#13;&#10;,[TA001]+[TA002] AS '製令'&#13;&#10;,'第'+CONVERT(nvarchar,[BOXS])+'桶' AS '桶數'&#13;&#10;,TA006 AS '成品'&#13;&#10;,TA034 AS '成品名'&#13;&#10;,[MD003] AS '品號'&#13;&#10;,[MB002] AS '品名'&#13;&#10;,[MD006] AS '重量'&#13;&#10;,'' AS '複核'&#13;&#10;,'' AS '油酥'&#13;&#10;,'' AS '檢查麵粉袋的麵粉線頭'&#13;&#10;,(SELECT TOP 1 TE010 FROM [TK].dbo.MOCTE WHERE TE011=[TA001] AND TE012=[TA002] AND TE004=[MD003]) AS 'A製造  B有效'&#13;&#10;,'' AS '外觀:攪拌均勻度、軟硬度'&#13;&#10;,'' AS '攪拌時間  始'&#13;&#10;,'' AS '攪拌時間  終'&#13;&#10;,'' AS '投 料 人'&#13;&#10;,'' AS '對 點 人'&#13;&#10;,'' AS '單位幹部'&#13;&#10;,'' AS '品質判定'&#13;&#10;,'' AS '換線清潔檢查'&#13;&#10;,BOMMC.UDF01 AS 'BOM備註'&#13;&#10;,BOMMC.UDF06 AS '單顆重'&#13;&#10;,(SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOM] RE WHERE RE.[BOXS]=[REPORTMOCBOM].[BOXS]) AS '每桶重'&#13;&#10;,(SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOM] ) AS '總重'&#13;&#10;,'顆數:'+CONVERT(nvarchar,((SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOM] RE WHERE RE.[BOXS]=[REPORTMOCBOM].[BOXS])/ISNULL(BOMMC.UDF06,0))) AS '每桶顆數'&#13;&#10;,((SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOM] )/ISNULL(BOMMC.UDF06,0)) AS '總顆數'&#13;&#10;FROM [TKMOC].[dbo].[REPORTMOCBOM]&#13;&#10;LEFT JOIN [TK].dbo.BOMMC ON MC001=TA006&#13;&#10;WHERE [MD003] NOT  IN ('101001009','3010000111')   &#13;&#10;ORDER BY [TA001],[TA002],[BOXS],[MD003]">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9KpypgjKaIoFetwegJTYrUW">
+      <TableDataSource Name="Table1" Alias="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT [ID]&#13;&#10;,[TA001]+[TA002] AS '製令'&#13;&#10;,'第'+CONVERT(nvarchar,[BOXS])+'桶' AS '桶數'&#13;&#10;,TA006 AS '成品'&#13;&#10;,TA034 AS '成品名'&#13;&#10;,[MD003] AS '品號'&#13;&#10;,[MB002] AS '品名'&#13;&#10;,[MD006] AS '重量'&#13;&#10;,'' AS '複核'&#13;&#10;,'' AS '油酥'&#13;&#10;,'' AS '檢查麵粉袋的麵粉線頭'&#13;&#10;,(SELECT TOP 1 TE010 FROM [TK].dbo.MOCTE WHERE TE011=[TA001] AND TE012=[TA002] AND TE004=[MD003]) AS 'A製造  B有效'&#13;&#10;,'' AS '外觀:攪拌均勻度、軟硬度'&#13;&#10;,'' AS '攪拌時間  始'&#13;&#10;,'' AS '攪拌時間  終'&#13;&#10;,'' AS '投 料 人'&#13;&#10;,'' AS '對 點 人'&#13;&#10;,'' AS '單位幹部'&#13;&#10;,'' AS '品質判定'&#13;&#10;,'' AS '換線清潔檢查'&#13;&#10;,BOMMC.UDF01 AS 'BOM備註(邊料'&#13;&#10;,BOMMC.UDF02 AS 'BOM備註(餅麩'&#13;&#10;,BOMMC.UDF06 AS '單顆重'&#13;&#10;,(SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOM] RE WHERE RE.[BOXS]=[REPORTMOCBOM].[BOXS]) AS '每桶重'&#13;&#10;,(SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOM] ) AS '總重'&#13;&#10;,'顆數:'+CONVERT(nvarchar,((SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOM] RE WHERE RE.[BOXS]=[REPORTMOCBOM].[BOXS])/(CASE WHEN BOMMC.UDF06=0 THEN 1 ELSE BOMMC.UDF06 END))) AS '每桶顆數'&#13;&#10;,((SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOM] )/(CASE WHEN BOMMC.UDF06=0 THEN 1 ELSE BOMMC.UDF06 END)) AS '總顆數'&#13;&#10;FROM [TKMOC].[dbo].[REPORTMOCBOM]&#13;&#10;LEFT JOIN [TK].dbo.BOMMC ON MC001=TA006&#13;&#10;WHERE [MD003] NOT  IN ('101001009','3010000111')   &#13;&#10;ORDER BY [TA001],[TA002],[BOXS],[MD003]">
         <Column Name="ID" DataType="System.Int32"/>
         <Column Name="製令" DataType="System.String"/>
         <Column Name="桶數" DataType="System.Int32"/>
@@ -157,12 +157,13 @@ namespace FastReport
         <Column Name="檢查麵粉袋的麵粉線頭" DataType="System.String"/>
         <Column Name="成品" DataType="System.String"/>
         <Column Name="成品名" DataType="System.String"/>
-        <Column Name="BOM備註" DataType="System.String"/>
         <Column Name="單顆重" DataType="System.Decimal"/>
         <Column Name="每桶重" DataType="System.Decimal"/>
         <Column Name="總重" DataType="System.Decimal"/>
         <Column Name="每桶顆數" DataType="System.Decimal"/>
         <Column Name="總顆數" DataType="System.Decimal"/>
+        <Column Name="BOM備註(邊料" DataType="System.String"/>
+        <Column Name="BOM備註(餅麩" DataType="System.String"/>
       </TableDataSource>
     </MsSqlDataConnection>
   </Dictionary>
@@ -457,11 +458,12 @@ namespace FastReport
       </MatrixObject>
       <DataFooterBand Name="DataFooter1" Top="485.62" Width="1047.06"/>
     </DataBand>
-    <PageFooterBand Name="PageFooter3" Top="490.11" Width="1047.06" Height="86.05">
+    <PageFooterBand Name="PageFooter3" Top="490.11" Width="1047.06" Height="106.95">
       <TextObject Name="Text4" Left="831.6" Top="47.25" Width="236.25" Height="18.9" Text=" A13-02-00-02B" HorzAlign="Right"/>
-      <TextObject Name="Text1" Top="21.9" Width="548.1" Height="56.7" Text="1.單位幹部需執行每批產品第一桶的品質判定及換線清潔檢查，未合格不可進行生產。 &#13;&#10;2.換線(更換口味)清潔檢查項目:設備、工器具及籃框清潔檢查。&#13;&#10;3.投料人檢查麵粉袋的麵粉線頭,發現異常時選NG後立即清除並回報單位幹部及品檢課。 &#13;&#10;本文件不得擅自塗改或影印(文件生產部留存)" VertAlign="Center"/>
+      <TextObject Name="Text1" Top="50.25" Width="548.1" Height="56.7" Text="1.單位幹部需執行每批產品第一桶的品質判定及換線清潔檢查，未合格不可進行生產。 &#13;&#10;2.換線(更換口味)清潔檢查項目:設備、工器具及籃框清潔檢查。&#13;&#10;3.投料人檢查麵粉袋的麵粉線頭,發現異常時選NG後立即清除並回報單位幹部及品檢課。 &#13;&#10;本文件不得擅自塗改或影印(文件生產部留存)" VertAlign="Center"/>
       <TextObject Name="Text2" Left="831.6" Width="236.25" Height="18.9" Text="生產主管："/>
-      <TextObject Name="Text5" Width="548.1" Height="18.9" Text="邊料、餅麩添加最高限值:[Table.BOM備註]" VertAlign="Center"/>
+      <TextObject Name="Text43" Width="548.1" Height="18.9" Text="邊料添加最高限值:[Table.BOM備註(邊料]" VertAlign="Center"/>
+      <TextObject Name="Text44" Top="18.9" Width="548.1" Height="18.9" Text="餅麩添加最高限值:[Table.BOM備註(餅麩]" VertAlign="Center"/>
     </PageFooterBand>
   </ReportPage>
 </Report>
