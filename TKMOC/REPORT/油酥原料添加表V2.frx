@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="04/26/2021 14:32:55" ReportInfo.Modified="09/23/2021 14:25:11" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="04/26/2021 14:32:55" ReportInfo.Modified="09/23/2021 15:44:53" ReportInfo.CreatorVersion="2016.4.4.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -31,7 +31,7 @@ namespace FastReport
 
     private void Cell172_BeforePrint(object sender, EventArgs e)
     {
-              Cell172.Text=&quot;&quot;;
+              Cell172.Text=&quot;□NG&quot;;
     }
 
     private void Cell146_BeforePrint(object sender, EventArgs e)
@@ -56,7 +56,7 @@ namespace FastReport
 
     private void Cell148_BeforePrint(object sender, EventArgs e)
     {
-             Cell148.Text=&quot;:&quot;;
+             Cell148.Text=&quot;□OK&quot;;
     }
 
    
@@ -73,7 +73,7 @@ namespace FastReport
 
     private void Cell150_BeforePrint(object sender, EventArgs e)
     {
-             Cell150.Text=&quot;&quot;;
+             Cell150.Text=&quot;:&quot;;
     }
 
     private void Cell174_BeforePrint(object sender, EventArgs e)
@@ -105,24 +105,38 @@ namespace FastReport
 
     private void Cell189_BeforePrint(object sender, EventArgs e)
     {
-                Cell189.Text=&quot;□OK&quot;;
+                Cell189.Text=&quot;&quot;;
     }
 
     private void Cell190_BeforePrint(object sender, EventArgs e)
     {
-                 Cell190.Text=&quot;□NG&quot;;
+                 Cell190.Text=&quot;&quot;;
     }
 
     private void Cell173_BeforePrint(object sender, EventArgs e)
     {
                  Cell173.Text=&quot;&quot;;
     }
+
+   
+
+    private void Cell271_BeforePrint(object sender, EventArgs e)
+    {
+               Cell271.Text=&quot;□OK&quot;;
+    }
+
+    private void Cell272_BeforePrint(object sender, EventArgs e)
+    {
+                  Cell272.Text=&quot;□NG&quot;;
+    }
+
+  
   }
 }
 </ScriptText>
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9KNHfl07sCmtaqVfe6djgwK">
-      <TableDataSource Name="Table1" Alias="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT [ID]&#13;&#10;,[TA001]+[TA002] AS '製令'&#13;&#10;,'第'+CONVERT(nvarchar,[BOXS])+'桶' AS '桶數'&#13;&#10;,TA006 AS '成品'&#13;&#10;,TA034 AS '成品名'&#13;&#10;,[MD003] AS '品號'&#13;&#10;,[MB002] AS '品名'&#13;&#10;,[MD006] AS '重量'&#13;&#10;,'' AS '複核'&#13;&#10;,'' AS '油酥'&#13;&#10;,'' AS '檢查麵粉袋的麵粉線頭'&#13;&#10;,(SELECT TOP 1 TE010 FROM [TK].dbo.MOCTE WHERE TE011=[TA001] AND TE012=[TA002] AND TE004=[MD003]) AS 'A製造  B有效'&#13;&#10;,'' AS '外觀:攪拌均勻度、軟硬度'&#13;&#10;,'' AS '攪拌時間  始'&#13;&#10;,'' AS '攪拌時間  終'&#13;&#10;,'' AS '投 料 人'&#13;&#10;,'' AS '對 點 人'&#13;&#10;,'' AS '單位幹部'&#13;&#10;,'' AS '品質判定'&#13;&#10;,'' AS '換線清潔檢查'&#13;&#10;,BOMMC.UDF01 AS 'BOM備註'&#13;&#10;,BOMMC.UDF06 AS '單顆重'&#13;&#10;,(SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOM] RE WHERE RE.[BOXS]=[REPORTMOCBOM].[BOXS]) AS '每桶重'&#13;&#10;,(SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOM] ) AS '總重'&#13;&#10;,((SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOM] RE WHERE RE.[BOXS]=[REPORTMOCBOM].[BOXS])/ISNULL(BOMMC.UDF06,0)) AS '每桶顆數'&#13;&#10;,((SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOM] )/ISNULL(BOMMC.UDF06,0)) AS '總顆數'&#13;&#10;FROM [TKMOC].[dbo].[REPORTMOCBOM]&#13;&#10;LEFT JOIN [TK].dbo.BOMMC ON MC001=TA006&#13;&#10;WHERE [MD003] NOT  IN ('101001009','3010000111')   &#13;&#10;ORDER BY [TA001],[TA002],[BOXS],[MD003]">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9L6bB4XKsvtQWJzVN6+UolG">
+      <TableDataSource Name="Table1" Alias="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT [ID]&#13;&#10;,[TA001]+[TA002] AS '製令'&#13;&#10;,'第'+CONVERT(nvarchar,[BOXS])+'桶' AS '桶數'&#13;&#10;,TA006 AS '成品'&#13;&#10;,TA034 AS '成品名'&#13;&#10;,[MD003] AS '品號'&#13;&#10;,[MB002] AS '品名'&#13;&#10;,[MD006] AS '重量'&#13;&#10;,'' AS '複核'&#13;&#10;,'' AS '油酥'&#13;&#10;,'' AS '檢查麵粉袋的麵粉線頭'&#13;&#10;,(SELECT TOP 1 TE010 FROM [TK].dbo.MOCTE WHERE TE011=[TA001] AND TE012=[TA002] AND TE004=[MD003]) AS 'A製造  B有效'&#13;&#10;,'' AS '外觀:攪拌均勻度、軟硬度'&#13;&#10;,'' AS '攪拌時間  始'&#13;&#10;,'' AS '攪拌時間  終'&#13;&#10;,'' AS '投 料 人'&#13;&#10;,'' AS '對 點 人'&#13;&#10;,'' AS '單位幹部'&#13;&#10;,'' AS '品質判定'&#13;&#10;,'' AS '換線清潔檢查'&#13;&#10;,BOMMC.UDF01 AS 'BOM備註'&#13;&#10;,BOMMC.UDF06 AS '單顆重'&#13;&#10;,(SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOM] RE WHERE RE.[BOXS]=[REPORTMOCBOM].[BOXS]) AS '每桶重'&#13;&#10;,(SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOM] ) AS '總重'&#13;&#10;,'顆數:'+CONVERT(nvarchar,((SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOM] RE WHERE RE.[BOXS]=[REPORTMOCBOM].[BOXS])/ISNULL(BOMMC.UDF06,0))) AS '每桶顆數'&#13;&#10;,((SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOM] )/ISNULL(BOMMC.UDF06,0)) AS '總顆數'&#13;&#10;FROM [TKMOC].[dbo].[REPORTMOCBOM]&#13;&#10;LEFT JOIN [TK].dbo.BOMMC ON MC001=TA006&#13;&#10;WHERE [MD003] NOT  IN ('101001009','3010000111')   &#13;&#10;ORDER BY [TA001],[TA002],[BOXS],[MD003]">
         <Column Name="ID" DataType="System.Int32"/>
         <Column Name="製令" DataType="System.String"/>
         <Column Name="桶數" DataType="System.Int32"/>
@@ -160,12 +174,13 @@ namespace FastReport
       <TextObject Name="Text40" Left="274.05" Width="708.75" Height="18.9" Text="油酥原料添加表" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text3" Top="56.7" Width="160.65" Height="18.9" Text="總顆數:[Table.總顆數]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
     </PageHeaderBand>
-    <DataBand Name="Data3" Top="80.09" Width="1047.06" Height="382.84">
-      <MatrixObject Name="Matrix1" Width="510.55" Height="382.84" Border.Lines="All" FixedRows="4" FixedColumns="12" CellsSideBySide="true" DataSource="Table1">
+    <DataBand Name="Data3" Top="80.09" Width="1047.06" Height="401.03">
+      <MatrixObject Name="Matrix1" Width="485.83" Height="401.03" Border.Lines="All" FixedRows="5" FixedColumns="12" CellsSideBySide="true" DataSource="Table1">
         <MatrixColumns>
           <Header Expression="[Table.製令]" Totals="false" PageBreak="true"/>
           <Header Expression="[Table.成品名]" Totals="false"/>
           <Header Expression="[Table.桶數]" Sort="None" Totals="false"/>
+          <Header Expression="[Table.每桶顆數]" Totals="false"/>
         </MatrixColumns>
         <MatrixRows>
           <Header/>
@@ -198,20 +213,20 @@ namespace FastReport
         <TableColumn Name="Column11" Width="59.77" AutoSize="true"/>
         <TableColumn Name="Column12" Width="95.52" AutoSize="true"/>
         <TableColumn Name="Column13" Width="46.07" AutoSize="true"/>
-        <TableColumn Name="Column14" Width="70.79" AutoSize="true"/>
+        <TableColumn Name="Column14" Width="46.07" AutoSize="true"/>
         <TableRow Name="Row1" Height="18.19" AutoSize="true">
-          <TableCell Name="Cell1" Border.Lines="All" HorzAlign="Center" VertAlign="Center" RowSpan="4"/>
-          <TableCell Name="Cell2" Border.Lines="All" HorzAlign="Center" VertAlign="Center" RowSpan="4"/>
-          <TableCell Name="Cell5" Border.Lines="All" HorzAlign="Center" VertAlign="Center" RowSpan="4"/>
-          <TableCell Name="Cell10" Border.Lines="All" HorzAlign="Center" VertAlign="Center" RowSpan="4"/>
-          <TableCell Name="Cell25" Border.Lines="All" HorzAlign="Center" VertAlign="Center" RowSpan="4"/>
-          <TableCell Name="Cell29" Border.Lines="All" HorzAlign="Center" VertAlign="Center" RowSpan="4"/>
-          <TableCell Name="Cell39" Border.Lines="All" HorzAlign="Center" VertAlign="Center" RowSpan="4"/>
-          <TableCell Name="Cell51" Border.Lines="All" HorzAlign="Center" VertAlign="Center" RowSpan="4"/>
-          <TableCell Name="Cell65" Border.Lines="All" HorzAlign="Center" VertAlign="Center" RowSpan="4"/>
-          <TableCell Name="Cell81" Border.Lines="All" Text="品號" HorzAlign="Center" VertAlign="Center" RowSpan="4"/>
-          <TableCell Name="Cell99" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center" RowSpan="4"/>
-          <TableCell Name="Cell119" Border.Lines="All" Text="A製造  B有效" HorzAlign="Center" VertAlign="Center" RowSpan="4"/>
+          <TableCell Name="Cell1" Border.Lines="All" HorzAlign="Center" VertAlign="Center" RowSpan="5"/>
+          <TableCell Name="Cell2" Border.Lines="All" HorzAlign="Center" VertAlign="Center" RowSpan="5"/>
+          <TableCell Name="Cell5" Border.Lines="All" HorzAlign="Center" VertAlign="Center" RowSpan="5"/>
+          <TableCell Name="Cell10" Border.Lines="All" HorzAlign="Center" VertAlign="Center" RowSpan="5"/>
+          <TableCell Name="Cell25" Border.Lines="All" HorzAlign="Center" VertAlign="Center" RowSpan="5"/>
+          <TableCell Name="Cell29" Border.Lines="All" HorzAlign="Center" VertAlign="Center" RowSpan="5"/>
+          <TableCell Name="Cell39" Border.Lines="All" HorzAlign="Center" VertAlign="Center" RowSpan="5"/>
+          <TableCell Name="Cell51" Border.Lines="All" HorzAlign="Center" VertAlign="Center" RowSpan="5"/>
+          <TableCell Name="Cell65" Border.Lines="All" HorzAlign="Center" VertAlign="Center" RowSpan="5"/>
+          <TableCell Name="Cell81" Border.Lines="All" Text="品號" HorzAlign="Center" VertAlign="Center" RowSpan="5"/>
+          <TableCell Name="Cell99" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center" RowSpan="5"/>
+          <TableCell Name="Cell119" Border.Lines="All" Text="A製造  B有效" HorzAlign="Center" VertAlign="Center" RowSpan="5"/>
           <TableCell Name="Cell141" Border.Lines="All" Text="[製令]" HorzAlign="Center" VertAlign="Center" ColSpan="2"/>
           <TableCell Name="Cell165"/>
         </TableRow>
@@ -260,40 +275,40 @@ namespace FastReport
           <TableCell Name="Cell84"/>
           <TableCell Name="Cell102"/>
           <TableCell Name="Cell122"/>
-          <TableCell Name="Cell144" Border.Lines="All" Text="重量  &#13;&#10;" HorzAlign="Center" VertAlign="Center"/>
-          <TableCell Name="Cell168" Border.Lines="All" Text="    對點人" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell144" Border.Lines="All" Text="[每桶顆數]" HorzAlign="Center" VertAlign="Center" ColSpan="2"/>
+          <TableCell Name="Cell168" Border.Lines="All"/>
         </TableRow>
-        <TableRow Name="Row5" Height="23.25" AutoSize="true">
-          <TableCell Name="Cell33" Border.Lines="All" Text="[]" HorzAlign="Center" VertAlign="Center" RowSpan="9"/>
-          <TableCell Name="Cell34" Border.Lines="All" Text="[]" HorzAlign="Center" VertAlign="Center" RowSpan="8"/>
-          <TableCell Name="Cell35" Border.Lines="All" Text="[]" HorzAlign="Center" VertAlign="Center" RowSpan="7"/>
-          <TableCell Name="Cell36" Border.Lines="All" Text="[]" HorzAlign="Center" VertAlign="Center" RowSpan="6"/>
-          <TableCell Name="Cell37" Border.Lines="All" Text="[]" HorzAlign="Center" VertAlign="Center" RowSpan="5"/>
-          <TableCell Name="Cell38" Border.Lines="All" Text="[]" HorzAlign="Center" VertAlign="Center" RowSpan="4"/>
-          <TableCell Name="Cell43" Border.Lines="All" Text="[]" HorzAlign="Center" VertAlign="Center" RowSpan="3"/>
-          <TableCell Name="Cell55" Border.Lines="All" Text="[]" HorzAlign="Center" VertAlign="Center" RowSpan="2"/>
-          <TableCell Name="Cell69" Border.Lines="All" Text="[]" HorzAlign="Center" VertAlign="Center"/>
-          <TableCell Name="Cell85" Border.Lines="All" Text="[品號]" HorzAlign="Center" VertAlign="Center"/>
-          <TableCell Name="Cell103" Border.Lines="All" Text="[品名]" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
-          <TableCell Name="Cell123" Border.Lines="All" Text="[A製造  B有效]" HorzAlign="Center" VertAlign="Center"/>
-          <TableCell Name="Cell145" Border.Lines="All" Text="[重量]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="3" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center"/>
-          <TableCell Name="Cell169" Border.Lines="All" Text="[複核]" HorzAlign="Right" VertAlign="Center"/>
+        <TableRow Name="Row5" Height="18.19" AutoSize="true">
+          <TableCell Name="Cell33"/>
+          <TableCell Name="Cell34"/>
+          <TableCell Name="Cell35"/>
+          <TableCell Name="Cell36"/>
+          <TableCell Name="Cell37"/>
+          <TableCell Name="Cell38"/>
+          <TableCell Name="Cell43"/>
+          <TableCell Name="Cell55"/>
+          <TableCell Name="Cell69"/>
+          <TableCell Name="Cell85"/>
+          <TableCell Name="Cell103"/>
+          <TableCell Name="Cell123"/>
+          <TableCell Name="Cell145" Border.Lines="All" Text="重量" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell169" Border.Lines="All" Text="複核" HorzAlign="Center" VertAlign="Center"/>
         </TableRow>
-        <TableRow Name="Row6" Height="31.87" AutoSize="true">
-          <TableCell Name="Cell44"/>
-          <TableCell Name="Cell45"/>
-          <TableCell Name="Cell46"/>
-          <TableCell Name="Cell47"/>
-          <TableCell Name="Cell48"/>
-          <TableCell Name="Cell49"/>
-          <TableCell Name="Cell50"/>
-          <TableCell Name="Cell56"/>
-          <TableCell Name="Cell70" Border.Lines="All" Text="檢查麵粉袋的麵粉線頭&#13;&#10;&#13;&#10;" HorzAlign="Right" VertAlign="Center" ColSpan="4"/>
-          <TableCell Name="Cell86"/>
-          <TableCell Name="Cell104"/>
-          <TableCell Name="Cell124"/>
-          <TableCell Name="Cell146" Border.Lines="Left, Top, Bottom" BeforePrintEvent="Cell146_BeforePrint" HorzAlign="Right" VertAlign="Center"/>
-          <TableCell Name="Cell170" Border.Lines="Right, Top, Bottom" BeforePrintEvent="Cell170_BeforePrint" HorzAlign="Right" VertAlign="Center"/>
+        <TableRow Name="Row6" Height="23.25" AutoSize="true">
+          <TableCell Name="Cell44" Border.Lines="All" Text="[]" HorzAlign="Center" VertAlign="Center" RowSpan="9"/>
+          <TableCell Name="Cell45" Border.Lines="All" Text="[]" HorzAlign="Center" VertAlign="Center" RowSpan="8"/>
+          <TableCell Name="Cell46" Border.Lines="All" Text="[]" HorzAlign="Center" VertAlign="Center" RowSpan="7"/>
+          <TableCell Name="Cell47" Border.Lines="All" Text="[]" HorzAlign="Center" VertAlign="Center" RowSpan="6"/>
+          <TableCell Name="Cell48" Border.Lines="All" Text="[]" HorzAlign="Center" VertAlign="Center" RowSpan="5"/>
+          <TableCell Name="Cell49" Border.Lines="All" Text="[]" HorzAlign="Center" VertAlign="Center" RowSpan="4"/>
+          <TableCell Name="Cell50" Border.Lines="All" Text="[]" HorzAlign="Center" VertAlign="Center" RowSpan="3"/>
+          <TableCell Name="Cell56" Border.Lines="All" Text="[]" HorzAlign="Center" VertAlign="Center" RowSpan="2"/>
+          <TableCell Name="Cell70" Border.Lines="All" Text="[]" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell86" Border.Lines="All" Text="[品號]" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell104" Border.Lines="All" Text="[品名]" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
+          <TableCell Name="Cell124" Border.Lines="All" Text="[A製造  B有效]" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell146" Border.Lines="All" Text="[重量]" HorzAlign="Right" VertAlign="Center"/>
+          <TableCell Name="Cell170" Border.Lines="All" Text="[複核]" HorzAlign="Right" VertAlign="Center"/>
         </TableRow>
         <TableRow Name="Row7" Height="31.87" AutoSize="true">
           <TableCell Name="Cell57"/>
@@ -303,13 +318,13 @@ namespace FastReport
           <TableCell Name="Cell61"/>
           <TableCell Name="Cell62"/>
           <TableCell Name="Cell63"/>
-          <TableCell Name="Cell64" Border.Lines="All" Text="外觀:攪拌均勻度、軟硬度&#13;&#10;&#13;&#10;" HorzAlign="Right" VertAlign="Center" ColSpan="5"/>
-          <TableCell Name="Cell71"/>
+          <TableCell Name="Cell64"/>
+          <TableCell Name="Cell71" Border.Lines="All" Text="檢查麵粉袋的麵粉線頭&#13;&#10;&#13;&#10;" HorzAlign="Right" VertAlign="Center" ColSpan="4"/>
           <TableCell Name="Cell87"/>
           <TableCell Name="Cell105"/>
           <TableCell Name="Cell125"/>
-          <TableCell Name="Cell147" Border.Lines="Left, Top, Bottom" BeforePrintEvent="Cell147_BeforePrint" HorzAlign="Right" VertAlign="Center"/>
-          <TableCell Name="Cell171" Border.Lines="Right, Top, Bottom" BeforePrintEvent="Cell171_BeforePrint" HorzAlign="Right" VertAlign="Center"/>
+          <TableCell Name="Cell147" Border.Lines="Bottom" BeforePrintEvent="Cell147_BeforePrint" HorzAlign="Right" VertAlign="Center"/>
+          <TableCell Name="Cell171" Border.Lines="Right, Bottom" BeforePrintEvent="Cell171_BeforePrint" HorzAlign="Right" VertAlign="Center"/>
         </TableRow>
         <TableRow Name="Row8" Height="31.87" AutoSize="true">
           <TableCell Name="Cell72"/>
@@ -318,14 +333,14 @@ namespace FastReport
           <TableCell Name="Cell75"/>
           <TableCell Name="Cell76"/>
           <TableCell Name="Cell77"/>
-          <TableCell Name="Cell78" Border.Lines="All" Text="攪拌時間  始&#13;&#10;&#13;&#10;" HorzAlign="Right" VertAlign="Center" ColSpan="6"/>
-          <TableCell Name="Cell79"/>
+          <TableCell Name="Cell78"/>
+          <TableCell Name="Cell79" Border.Lines="All" Text="外觀:攪拌均勻度、軟硬度&#13;&#10;&#13;&#10;" HorzAlign="Right" VertAlign="Center" ColSpan="5"/>
           <TableCell Name="Cell80"/>
           <TableCell Name="Cell88"/>
           <TableCell Name="Cell106"/>
           <TableCell Name="Cell126"/>
-          <TableCell Name="Cell148" Border.Lines="Left, Top, Bottom" BeforePrintEvent="Cell148_BeforePrint" HorzAlign="Right" VertAlign="Center"/>
-          <TableCell Name="Cell172" Border.Lines="Right, Top, Bottom" BeforePrintEvent="Cell172_BeforePrint" HorzAlign="Right" VertAlign="Center"/>
+          <TableCell Name="Cell148" Border.Lines="Bottom" BeforePrintEvent="Cell148_BeforePrint" HorzAlign="Right" VertAlign="Center"/>
+          <TableCell Name="Cell172" Border.Lines="Right, Bottom" BeforePrintEvent="Cell172_BeforePrint" HorzAlign="Right" VertAlign="Center"/>
         </TableRow>
         <TableRow Name="Row9" Height="31.87" AutoSize="true">
           <TableCell Name="Cell89"/>
@@ -333,38 +348,38 @@ namespace FastReport
           <TableCell Name="Cell91"/>
           <TableCell Name="Cell92"/>
           <TableCell Name="Cell93"/>
-          <TableCell Name="Cell94" Border.Lines="All" Text="攪拌時間  終&#13;&#10;&#13;&#10;" HorzAlign="Right" VertAlign="Center" ColSpan="7"/>
-          <TableCell Name="Cell95"/>
+          <TableCell Name="Cell94"/>
+          <TableCell Name="Cell95" Border.Lines="All" Text="攪拌時間  始&#13;&#10;&#13;&#10;" HorzAlign="Right" VertAlign="Center" ColSpan="6"/>
           <TableCell Name="Cell96"/>
           <TableCell Name="Cell97"/>
           <TableCell Name="Cell98"/>
           <TableCell Name="Cell107"/>
           <TableCell Name="Cell127"/>
-          <TableCell Name="Cell149" Border.Lines="Left, Top, Bottom" BeforePrintEvent="Cell149_BeforePrint" HorzAlign="Right" VertAlign="Center"/>
-          <TableCell Name="Cell173" Border.Lines="Right, Top, Bottom" BeforePrintEvent="Cell173_BeforePrint" HorzAlign="Right" VertAlign="Center"/>
+          <TableCell Name="Cell149" Border.Lines="Bottom" BeforePrintEvent="Cell149_BeforePrint" HorzAlign="Right" VertAlign="Center"/>
+          <TableCell Name="Cell173" Border.Lines="Right, Bottom" BeforePrintEvent="Cell173_BeforePrint" HorzAlign="Right" VertAlign="Center"/>
         </TableRow>
         <TableRow Name="Row10" Height="31.87" AutoSize="true">
           <TableCell Name="Cell108"/>
           <TableCell Name="Cell109"/>
           <TableCell Name="Cell110"/>
           <TableCell Name="Cell111"/>
-          <TableCell Name="Cell112" Border.Lines="All" Text="投 料 人&#13;&#10;&#13;&#10;" HorzAlign="Right" VertAlign="Center" ColSpan="8"/>
-          <TableCell Name="Cell113"/>
+          <TableCell Name="Cell112"/>
+          <TableCell Name="Cell113" Border.Lines="All" Text="攪拌時間  終&#13;&#10;&#13;&#10;" HorzAlign="Right" VertAlign="Center" ColSpan="7"/>
           <TableCell Name="Cell114"/>
           <TableCell Name="Cell115"/>
           <TableCell Name="Cell116"/>
           <TableCell Name="Cell117"/>
           <TableCell Name="Cell118"/>
           <TableCell Name="Cell128"/>
-          <TableCell Name="Cell150" Border.Lines="Left, Top, Bottom" BeforePrintEvent="Cell150_BeforePrint" HorzAlign="Right" VertAlign="Center"/>
-          <TableCell Name="Cell174" Border.Lines="Right, Top, Bottom" BeforePrintEvent="Cell174_BeforePrint" HorzAlign="Right" VertAlign="Center"/>
+          <TableCell Name="Cell150" Border.Lines="Bottom" BeforePrintEvent="Cell150_BeforePrint" HorzAlign="Right" VertAlign="Center"/>
+          <TableCell Name="Cell174" Border.Lines="Right, Bottom" BeforePrintEvent="Cell174_BeforePrint" HorzAlign="Right" VertAlign="Center"/>
         </TableRow>
         <TableRow Name="Row11" Height="31.87" AutoSize="true">
           <TableCell Name="Cell129"/>
           <TableCell Name="Cell130"/>
           <TableCell Name="Cell131"/>
-          <TableCell Name="Cell132" Border.Lines="All" Text="對 點 人&#13;&#10;&#13;&#10;" HorzAlign="Right" VertAlign="Center" ColSpan="9"/>
-          <TableCell Name="Cell133"/>
+          <TableCell Name="Cell132"/>
+          <TableCell Name="Cell133" Border.Lines="All" Text="投 料 人&#13;&#10;&#13;&#10;" HorzAlign="Right" VertAlign="Center" ColSpan="8"/>
           <TableCell Name="Cell134"/>
           <TableCell Name="Cell135"/>
           <TableCell Name="Cell136"/>
@@ -372,14 +387,14 @@ namespace FastReport
           <TableCell Name="Cell138"/>
           <TableCell Name="Cell139"/>
           <TableCell Name="Cell140"/>
-          <TableCell Name="Cell151" Border.Lines="Left, Top, Bottom" BeforePrintEvent="Cell151_BeforePrint" HorzAlign="Right" VertAlign="Center"/>
-          <TableCell Name="Cell175" Border.Lines="Right, Top, Bottom" BeforePrintEvent="Cell175_BeforePrint" HorzAlign="Right" VertAlign="Center"/>
+          <TableCell Name="Cell151" Border.Lines="Bottom" BeforePrintEvent="Cell151_BeforePrint" HorzAlign="Right" VertAlign="Center"/>
+          <TableCell Name="Cell175" Border.Lines="Right, Bottom" BeforePrintEvent="Cell175_BeforePrint" HorzAlign="Right" VertAlign="Center"/>
         </TableRow>
         <TableRow Name="Row12" Height="31.87" AutoSize="true">
           <TableCell Name="Cell152"/>
           <TableCell Name="Cell153"/>
-          <TableCell Name="Cell154" Border.Lines="All" Text="單位幹部&#13;&#10;&#13;&#10;" HorzAlign="Right" VertAlign="Center" ColSpan="10"/>
-          <TableCell Name="Cell155"/>
+          <TableCell Name="Cell154"/>
+          <TableCell Name="Cell155" Border.Lines="All" Text="對 點 人&#13;&#10;&#13;&#10;" HorzAlign="Right" VertAlign="Center" ColSpan="9"/>
           <TableCell Name="Cell156"/>
           <TableCell Name="Cell157"/>
           <TableCell Name="Cell158"/>
@@ -388,13 +403,13 @@ namespace FastReport
           <TableCell Name="Cell161"/>
           <TableCell Name="Cell162"/>
           <TableCell Name="Cell163"/>
-          <TableCell Name="Cell164" Border.Lines="Left, Top, Bottom" BeforePrintEvent="Cell164_BeforePrint" HorzAlign="Right" VertAlign="Center"/>
-          <TableCell Name="Cell176" Border.Lines="Right, Top, Bottom" BeforePrintEvent="Cell176_BeforePrint" HorzAlign="Right" VertAlign="Center"/>
+          <TableCell Name="Cell164" Border.Lines="Bottom" BeforePrintEvent="Cell164_BeforePrint" HorzAlign="Right" VertAlign="Center"/>
+          <TableCell Name="Cell176" Border.Lines="Right, Bottom" BeforePrintEvent="Cell176_BeforePrint" HorzAlign="Right" VertAlign="Center"/>
         </TableRow>
         <TableRow Name="Row13" Height="31.87" AutoSize="true">
           <TableCell Name="Cell177"/>
-          <TableCell Name="Cell178" Border.Lines="All" Text="品質判定&#13;&#10;&#13;&#10;" HorzAlign="Right" VertAlign="Center" ColSpan="11"/>
-          <TableCell Name="Cell179"/>
+          <TableCell Name="Cell178"/>
+          <TableCell Name="Cell179" Border.Lines="All" Text="單位幹部&#13;&#10;&#13;&#10;" HorzAlign="Right" VertAlign="Center" ColSpan="10"/>
           <TableCell Name="Cell180"/>
           <TableCell Name="Cell181"/>
           <TableCell Name="Cell182"/>
@@ -404,12 +419,12 @@ namespace FastReport
           <TableCell Name="Cell186"/>
           <TableCell Name="Cell187"/>
           <TableCell Name="Cell188"/>
-          <TableCell Name="Cell189" Border.Lines="Left, Top, Bottom" BeforePrintEvent="Cell189_BeforePrint" HorzAlign="Right" VertAlign="Center"/>
-          <TableCell Name="Cell190" Border.Lines="Right, Top, Bottom" BeforePrintEvent="Cell190_BeforePrint" HorzAlign="Right" VertAlign="Center"/>
+          <TableCell Name="Cell189" Border.Lines="Bottom" BeforePrintEvent="Cell189_BeforePrint" HorzAlign="Right" VertAlign="Center"/>
+          <TableCell Name="Cell190" Border.Lines="Right, Bottom" BeforePrintEvent="Cell190_BeforePrint" HorzAlign="Right" VertAlign="Center"/>
         </TableRow>
         <TableRow Name="Row14" Height="31.87" AutoSize="true">
-          <TableCell Name="Cell217" Border.Lines="All" Text="換線清潔檢查&#13;&#10;&#13;&#10;" HorzAlign="Right" VertAlign="Center" ColSpan="12"/>
-          <TableCell Name="Cell218"/>
+          <TableCell Name="Cell217"/>
+          <TableCell Name="Cell218" Border.Lines="All" Text="品質判定&#13;&#10;&#13;&#10;" HorzAlign="Right" VertAlign="Center" ColSpan="11"/>
           <TableCell Name="Cell219"/>
           <TableCell Name="Cell220"/>
           <TableCell Name="Cell221"/>
@@ -420,17 +435,33 @@ namespace FastReport
           <TableCell Name="Cell226"/>
           <TableCell Name="Cell227"/>
           <TableCell Name="Cell228"/>
-          <TableCell Name="Cell229" Border.Lines="Left, Top, Bottom" BeforePrintEvent="Cell229_BeforePrint" HorzAlign="Right" VertAlign="Center"/>
-          <TableCell Name="Cell230" Border.Lines="Right, Top, Bottom" BeforePrintEvent="Cell230_BeforePrint" HorzAlign="Right" VertAlign="Center"/>
+          <TableCell Name="Cell229" Border.Lines="Bottom" BeforePrintEvent="Cell229_BeforePrint" HorzAlign="Right" VertAlign="Center"/>
+          <TableCell Name="Cell230" Border.Lines="Right, Bottom" BeforePrintEvent="Cell230_BeforePrint" HorzAlign="Right" VertAlign="Center"/>
+        </TableRow>
+        <TableRow Name="Row15" Height="31.87" AutoSize="true">
+          <TableCell Name="Cell259" Border.Lines="All" Text="換線清潔檢查&#13;&#10;&#13;&#10;" HorzAlign="Right" VertAlign="Center" ColSpan="12"/>
+          <TableCell Name="Cell260"/>
+          <TableCell Name="Cell261"/>
+          <TableCell Name="Cell262"/>
+          <TableCell Name="Cell263"/>
+          <TableCell Name="Cell264"/>
+          <TableCell Name="Cell265"/>
+          <TableCell Name="Cell266"/>
+          <TableCell Name="Cell267"/>
+          <TableCell Name="Cell268"/>
+          <TableCell Name="Cell269"/>
+          <TableCell Name="Cell270"/>
+          <TableCell Name="Cell271" BeforePrintEvent="Cell271_BeforePrint" HorzAlign="Right" VertAlign="Center"/>
+          <TableCell Name="Cell272" Border.Lines="Right" BeforePrintEvent="Cell272_BeforePrint" HorzAlign="Right" VertAlign="Center"/>
         </TableRow>
       </MatrixObject>
-      <DataFooterBand Name="DataFooter1" Top="467.43" Width="1047.06"/>
+      <DataFooterBand Name="DataFooter1" Top="485.62" Width="1047.06"/>
     </DataBand>
-    <PageFooterBand Name="PageFooter3" Top="471.92" Width="1047.06" Height="86.05">
+    <PageFooterBand Name="PageFooter3" Top="490.11" Width="1047.06" Height="86.05">
       <TextObject Name="Text4" Left="831.6" Top="47.25" Width="236.25" Height="18.9" Text=" A13-02-00-02B" HorzAlign="Right"/>
       <TextObject Name="Text1" Top="21.9" Width="548.1" Height="56.7" Text="1.單位幹部需執行每批產品第一桶的品質判定及換線清潔檢查，未合格不可進行生產。 &#13;&#10;2.換線(更換口味)清潔檢查項目:設備、工器具及籃框清潔檢查。&#13;&#10;3.投料人檢查麵粉袋的麵粉線頭,發現異常時選NG後立即清除並回報單位幹部及品檢課。 &#13;&#10;本文件不得擅自塗改或影印(文件生產部留存)" VertAlign="Center"/>
       <TextObject Name="Text2" Left="831.6" Width="236.25" Height="18.9" Text="生產主管："/>
-      <TextObject Name="Text5" Width="548.1" Height="18.9" Text="[Table.BOM備註]" VertAlign="Center"/>
+      <TextObject Name="Text5" Width="548.1" Height="18.9" Text="邊料、餅麩添加最高限值:[Table.BOM備註]" VertAlign="Center"/>
     </PageFooterBand>
   </ReportPage>
 </Report>

@@ -175,7 +175,7 @@ namespace TKMOC
             SQL = SETSQL();
 
             report1 = new Report();
-            report1.Load(@"REPORT\水麵原料添加表.frx");
+            report1.Load(@"REPORT\水麵原料添加表V2.frx");
 
             report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
             TableDataSource table = report1.GetDataSource("Table") as TableDataSource;
@@ -190,7 +190,7 @@ namespace TKMOC
             StringBuilder SB = new StringBuilder();
 
             SB.AppendFormat(@"
-                                SELECT [ID]
+                               SELECT [ID]
                                 ,[TA001]+[TA002] AS '製令'
                                 ,'第'+CONVERT(nvarchar,[BOXS])+'桶' AS '桶數'
                                 ,TA006 AS '成品'
@@ -210,7 +210,15 @@ namespace TKMOC
                                 ,'' AS '單位幹部'
                                 ,'' AS '品質判定'
                                 ,'' AS '換線清潔檢查'
+                                ,BOMMC.UDF01 AS 'BOM備註'
+                                ,BOMMC.UDF06 AS '單顆重'
+                                ,(SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOMORI] RE WHERE RE.[BOXS]=[REPORTMOCBOMORI].[BOXS]) AS '每桶重'
+                                ,(SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOMORI] ) AS '總重'
+                                ,CASE WHEN BOMMC.UDF06=0 THEN 1 ELSE BOMMC.UDF06 END 
+                                ,'顆數:'+CONVERT(nvarchar,((SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOMORI] RE WHERE RE.[BOXS]=[REPORTMOCBOMORI].[BOXS])/(CASE WHEN BOMMC.UDF06=0 THEN 1 ELSE BOMMC.UDF06 END))) AS '每桶顆數'
+                                ,((SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOMORI] )/(CASE WHEN BOMMC.UDF06=0 THEN 1 ELSE BOMMC.UDF06 END)) AS '總顆數'
                                 FROM [TKMOC].[dbo].[REPORTMOCBOMORI]
+                                LEFT JOIN [TK].dbo.BOMMC ON MC001=TA006
                                 WHERE [MD003] NOT  IN ('101001009','3010000111')   
                                 ORDER BY [TA001],[TA002],[BOXS],[MD003]
      
