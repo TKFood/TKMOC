@@ -215,11 +215,11 @@ namespace TKMOC
                                 ,BOMMC.UDF01 AS 'BOM備註(邊料'
                                 ,BOMMC.UDF02 AS 'BOM備註(餅麩'
                                 ,BOMMC.UDF06 AS '單顆重'
-                                ,(SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOMORI] RE WHERE RE.[BOXS]=[REPORTMOCBOMORI].[BOXS]) AS '每桶重'
-                                ,(SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOMORI] ) AS '總重'
+                                ,(SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOMORI] RE WHERE [MD003] NOT  IN ('101001009','3010000111') AND RE.[BOXS]=[REPORTMOCBOMORI].[BOXS]) AS '每桶重'
+                                ,(SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOMORI] WHERE [MD003] NOT  IN ('101001009','3010000111') ) AS '總重'
                                 ,CASE WHEN BOMMC.UDF06=0 THEN 1 ELSE BOMMC.UDF06 END 
-                                ,'顆數:'+CONVERT(nvarchar,((SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOMORI] RE WHERE RE.[BOXS]=[REPORTMOCBOMORI].[BOXS])/(CASE WHEN BOMMC.UDF06=0 THEN 1 ELSE BOMMC.UDF06 END))) AS '每桶顆數'
-                                ,((SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOMORI] )/(CASE WHEN BOMMC.UDF06=0 THEN 1 ELSE BOMMC.UDF06 END)) AS '總顆數'
+                                ,'顆數:'+CONVERT(nvarchar,((SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOMORI] RE WHERE [MD003] NOT  IN ('101001009','3010000111') AND RE.[BOXS]=[REPORTMOCBOMORI].[BOXS])/(CASE WHEN BOMMC.UDF06=0 THEN 1 ELSE BOMMC.UDF06 END))) AS '每桶顆數'
+                                ,((SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOMORI] WHERE [MD003] NOT  IN ('101001009','3010000111')  )/(CASE WHEN BOMMC.UDF06=0 THEN 1 ELSE BOMMC.UDF06 END)) AS '總顆數'
                                 FROM [TKMOC].[dbo].[REPORTMOCBOMORI]
                                 LEFT JOIN [TK].dbo.BOMMC ON MC001=TA006
                                 WHERE [MD003] NOT  IN ('101001009','3010000111')   
