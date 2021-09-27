@@ -224,8 +224,8 @@ namespace TKMOC
                                 LEFT JOIN [TK].dbo.BOMMC ON MC001=TA006
                                 WHERE [MD003] NOT  IN ('101001009','3010000111')   
                                 ORDER BY [TA001],[TA002],[BOXS],[MD003]
-     
-
+        
+ 
                             ");
 
 
@@ -304,47 +304,47 @@ namespace TKMOC
                                             ORDER BY MD003
 
                                            ", TA001, TA002, COUNTS + 2);
-                sbSql.AppendFormat(@"
-                                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMORI]
-                                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
-                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,0
-                                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
-                                            WHERE TA006=MD001
-                                            AND MD003=MB001
-                                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
-                                            AND MD003 NOT LIKE '301400%'
-                                            AND TA001='{0}' AND TA002='{1}'
-                                            ORDER BY MD003
+                //sbSql.AppendFormat(@"
+                //                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMORI]
+                //                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
+                //                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,0
+                //                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
+                //                            WHERE TA006=MD001
+                //                            AND MD003=MB001
+                //                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
+                //                            AND MD003 NOT LIKE '301400%'
+                //                            AND TA001='{0}' AND TA002='{1}'
+                //                            ORDER BY MD003
 
-                                           ", TA001, TA002, COUNTS + 3);
+                //                           ", TA001, TA002, COUNTS + 3);
 
-                sbSql.AppendFormat(@"
-                                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMORI]
-                                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
-                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,0
-                                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
-                                            WHERE TA006=MD001
-                                            AND MD003=MB001
-                                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
-                                            AND MD003 NOT LIKE '301400%'
-                                            AND TA001='{0}' AND TA002='{1}'
-                                            ORDER BY MD003
+                //sbSql.AppendFormat(@"
+                //                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMORI]
+                //                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
+                //                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,0
+                //                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
+                //                            WHERE TA006=MD001
+                //                            AND MD003=MB001
+                //                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
+                //                            AND MD003 NOT LIKE '301400%'
+                //                            AND TA001='{0}' AND TA002='{1}'
+                //                            ORDER BY MD003
 
-                                           ", TA001, TA002, COUNTS + 4);
+                //                           ", TA001, TA002, COUNTS + 4);
 
-                sbSql.AppendFormat(@"
-                                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMORI]
-                                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
-                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,0
-                                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
-                                            WHERE TA006=MD001
-                                            AND MD003=MB001
-                                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
-                                            AND MD003 NOT LIKE '301400%'
-                                            AND TA001='{0}' AND TA002='{1}'
-                                            ORDER BY MD003
+                //sbSql.AppendFormat(@"
+                //                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMORI]
+                //                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
+                //                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,0
+                //                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
+                //                            WHERE TA006=MD001
+                //                            AND MD003=MB001
+                //                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
+                //                            AND MD003 NOT LIKE '301400%'
+                //                            AND TA001='{0}' AND TA002='{1}'
+                //                            ORDER BY MD003
 
-                                           ", TA001, TA002, COUNTS + 5);
+                //                           ", TA001, TA002, COUNTS + 5);
 
                 cmd.Connection = sqlConn;
                 cmd.CommandTimeout = 60;
@@ -499,47 +499,47 @@ namespace TKMOC
                                             ORDER BY MD003
 
                                            ", TA001, TA002, COUNTS + 2);
-                sbSql.AppendFormat(@"
-                                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMORI]
-                                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
-                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,0
-                                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
-                                            WHERE TA006=MD001
-                                            AND MD003=MB001
-                                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
-                                            AND MD003 NOT LIKE '301400%'
-                                            AND TA001='{0}' AND TA002='{1}'
-                                            ORDER BY MD003
+                //sbSql.AppendFormat(@"
+                //                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMORI]
+                //                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
+                //                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,0
+                //                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
+                //                            WHERE TA006=MD001
+                //                            AND MD003=MB001
+                //                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
+                //                            AND MD003 NOT LIKE '301400%'
+                //                            AND TA001='{0}' AND TA002='{1}'
+                //                            ORDER BY MD003
 
-                                           ", TA001, TA002, COUNTS + 3);
+                //                           ", TA001, TA002, COUNTS + 3);
 
-                sbSql.AppendFormat(@"
-                                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMORI]
-                                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
-                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,0
-                                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
-                                            WHERE TA006=MD001
-                                            AND MD003=MB001
-                                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
-                                            AND MD003 NOT LIKE '301400%'
-                                            AND TA001='{0}' AND TA002='{1}'
-                                            ORDER BY MD003
+                //sbSql.AppendFormat(@"
+                //                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMORI]
+                //                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
+                //                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,0
+                //                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
+                //                            WHERE TA006=MD001
+                //                            AND MD003=MB001
+                //                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
+                //                            AND MD003 NOT LIKE '301400%'
+                //                            AND TA001='{0}' AND TA002='{1}'
+                //                            ORDER BY MD003
 
-                                           ", TA001, TA002, COUNTS + 4);
+                //                           ", TA001, TA002, COUNTS + 4);
 
-                sbSql.AppendFormat(@"
-                                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMORI]
-                                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
-                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,0
-                                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
-                                            WHERE TA006=MD001
-                                            AND MD003=MB001
-                                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
-                                            AND MD003 NOT LIKE '301400%'
-                                            AND TA001='{0}' AND TA002='{1}'
-                                            ORDER BY MD003
+                //sbSql.AppendFormat(@"
+                //                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMORI]
+                //                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
+                //                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,0
+                //                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
+                //                            WHERE TA006=MD001
+                //                            AND MD003=MB001
+                //                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
+                //                            AND MD003 NOT LIKE '301400%'
+                //                            AND TA001='{0}' AND TA002='{1}'
+                //                            ORDER BY MD003
 
-                                           ", TA001, TA002, COUNTS + 5);
+                //                           ", TA001, TA002, COUNTS + 5);
 
                 //if (COUNTS == 0)
                 //{
