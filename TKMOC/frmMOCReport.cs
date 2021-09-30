@@ -21,6 +21,7 @@ using NPOI.SS.UserModel;
 using System.Configuration;
 using NPOI.XSSF.UserModel;
 using FastReport;
+using TKITDLL;
 
 namespace TKMOC
 {
@@ -60,8 +61,17 @@ namespace TKMOC
 
                 if (!string.IsNullOrEmpty(sbSql.ToString()))
                 {
-                    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
-                    sqlConn = new SqlConnection(connectionString);
+                    //20210902密
+                    Class1 TKID = new Class1();//用new 建立類別實體
+                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                    //資料庫使用者密碼解密
+                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                    String connectionString;
+                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
 
                     adapter = new SqlDataAdapter(sbSql.ToString(), sqlConn);
                     sqlCmdBuilder = new SqlCommandBuilder(adapter);
@@ -868,8 +878,20 @@ namespace TKMOC
                 report1 = new Report();
                 report1.Load(@"REPORT\包裝組-生產日報表.frx");
 
-                report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
-                
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+                report1.Dictionary.Connections[0].ConnectionString = sqlsb.ConnectionString;
+
+
                 report1.SetParameterValue("P1", dateTimePicker3.Value.ToString("yyyyMMdd"));
                 report1.SetParameterValue("P2", dateTimePicker4.Value.ToString("yyyyMMdd"));
                 //report1.Load(@"REPORT\TEST1.frx");
@@ -879,7 +901,21 @@ namespace TKMOC
             {
                 report1 = new Report();
                 report1.Load(@"REPORT\烘培檢驗日報表.frx");
-                report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+                report1.Dictionary.Connections[0].ConnectionString = sqlsb.ConnectionString;
+
+
                 report1.SetParameterValue("P1", dateTimePicker3.Value.ToString("yyyyMMdd"));
                 report1.SetParameterValue("P2", dateTimePicker4.Value.ToString("yyyyMMdd"));
                 //report1.Load(@"REPORT\TEST1.frx");
@@ -889,7 +925,20 @@ namespace TKMOC
             {
                 report1 = new Report();
                 report1.Load(@"REPORT\包裝班檢驗表.frx");
-                report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+                report1.Dictionary.Connections[0].ConnectionString = sqlsb.ConnectionString;
+
+
                 report1.SetParameterValue("P1", dateTimePicker3.Value.ToString("yyyyMMdd"));
                 report1.SetParameterValue("P2", dateTimePicker4.Value.ToString("yyyyMMdd"));
                 //report1.Load(@"REPORT\TEST1.frx");
@@ -899,7 +948,20 @@ namespace TKMOC
             {
                 report1 = new Report();
                 report1.Load(@"REPORT\手工生產日報表.frx");
-                report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+                report1.Dictionary.Connections[0].ConnectionString = sqlsb.ConnectionString;
+
+
                 report1.SetParameterValue("P1", dateTimePicker3.Value.ToString("yyyyMMdd"));
                 report1.SetParameterValue("P2", dateTimePicker4.Value.ToString("yyyyMMdd"));
                 //report1.Load(@"REPORT\TEST1.frx");
@@ -909,7 +971,19 @@ namespace TKMOC
             {
                 report1 = new Report();
                 report1.Load(@"REPORT\首件檢查記錄表-冷卻.frx");
-                report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+                report1.Dictionary.Connections[0].ConnectionString = sqlsb.ConnectionString;
+
                 report1.SetParameterValue("P1", dateTimePicker3.Value.ToString("yyyyMMdd"));
                 report1.SetParameterValue("P2", dateTimePicker4.Value.ToString("yyyyMMdd"));
                 //report1.Load(@"REPORT\TEST1.frx");
@@ -919,7 +993,19 @@ namespace TKMOC
             {
                 report1 = new Report();
                 report1.Load(@"REPORT\首件檢查記錄表-成品.frx");
-                report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+                report1.Dictionary.Connections[0].ConnectionString = sqlsb.ConnectionString;
+
                 report1.SetParameterValue("P1", dateTimePicker3.Value.ToString("yyyyMMdd"));
                 report1.SetParameterValue("P2", dateTimePicker4.Value.ToString("yyyyMMdd"));
                 //report1.Load(@"REPORT\TEST1.frx");
@@ -929,7 +1015,19 @@ namespace TKMOC
             {
                 report1 = new Report();
                 report1.Load(@"REPORT\首件檢查記錄表-成型.frx");
-                report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+                report1.Dictionary.Connections[0].ConnectionString = sqlsb.ConnectionString;
+
                 report1.SetParameterValue("P1", dateTimePicker3.Value.ToString("yyyyMMdd"));
                 report1.SetParameterValue("P2", dateTimePicker4.Value.ToString("yyyyMMdd"));
                 //report1.Load(@"REPORT\TEST1.frx");
@@ -939,7 +1037,19 @@ namespace TKMOC
             {
                 report1 = new Report();
                 report1.Load(@"REPORT\報廢記錄.frx");
-                report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+                report1.Dictionary.Connections[0].ConnectionString = sqlsb.ConnectionString;
+
                 report1.SetParameterValue("P1", dateTimePicker3.Value.ToString("yyyyMMdd"));
                 report1.SetParameterValue("P2", dateTimePicker4.Value.ToString("yyyyMMdd"));
                 //report1.Load(@"REPORT\TEST1.frx");
@@ -949,7 +1059,19 @@ namespace TKMOC
             {
                 report1 = new Report();
                 report1.Load(@"REPORT\烘烤製程記錄.frx");
-                report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+                report1.Dictionary.Connections[0].ConnectionString = sqlsb.ConnectionString;
+
                 report1.SetParameterValue("P1", dateTimePicker3.Value.ToString("yyyyMMdd"));
                 report1.SetParameterValue("P2", dateTimePicker4.Value.ToString("yyyyMMdd"));
                 //report1.Load(@"REPORT\TEST1.frx");
@@ -960,8 +1082,20 @@ namespace TKMOC
                 report1 = new Report();
                 report1.Load(@"REPORT\生產日報的分析表.frx");
 
-              
-                report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+                report1.Dictionary.Connections[0].ConnectionString = sqlsb.ConnectionString;
+
                 report1.SetParameterValue("P1", dateTimePicker3.Value.ToString("yyyyMMdd"));
                 report1.SetParameterValue("P2", dateTimePicker4.Value.ToString("yyyyMMdd"));
                 //report1.Load(@"REPORT\TEST1.frx");
@@ -971,7 +1105,19 @@ namespace TKMOC
             {
                 report1 = new Report();
                 report1.Load(@"REPORT\生產日報的月份分析表.frx");
-                report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+                report1.Dictionary.Connections[0].ConnectionString = sqlsb.ConnectionString;
+
                 report1.SetParameterValue("P1", dateTimePicker3.Value.ToString("yyyy"));
                
                 //report1.Load(@"REPORT\TEST1.frx");
@@ -981,7 +1127,19 @@ namespace TKMOC
             {
                 report1 = new Report();
                 report1.Load(@"REPORT\生產日報表明細表.frx");
-                report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+                report1.Dictionary.Connections[0].ConnectionString = sqlsb.ConnectionString;
+
                 report1.SetParameterValue("P1", dateTimePicker3.Value.ToString("yyyyMMdd"));
                 report1.SetParameterValue("P2", dateTimePicker4.Value.ToString("yyyyMMdd"));
 
@@ -992,7 +1150,19 @@ namespace TKMOC
             {
                 report1 = new Report();
                 report1.Load(@"REPORT\烤爐溫度明細表.frx");
-                report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+                report1.Dictionary.Connections[0].ConnectionString = sqlsb.ConnectionString;
+
                 report1.SetParameterValue("P1", dateTimePicker3.Value.ToString("yyyyMMdd"));
                 report1.SetParameterValue("P2", dateTimePicker4.Value.ToString("yyyyMMdd"));
 
@@ -1003,7 +1173,19 @@ namespace TKMOC
             {
                 report1 = new Report();
                 report1.Load(@"REPORT\成型檢驗表.frx");
-                report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+                report1.Dictionary.Connections[0].ConnectionString = sqlsb.ConnectionString;
+
                 report1.SetParameterValue("P1", dateTimePicker3.Value.ToString("yyyyMMdd"));
                 report1.SetParameterValue("P2", dateTimePicker4.Value.ToString("yyyyMMdd"));
 
@@ -1014,7 +1196,19 @@ namespace TKMOC
             {
                 report1 = new Report();
                 report1.Load(@"REPORT\水麵添加表.frx");
-                report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+                report1.Dictionary.Connections[0].ConnectionString = sqlsb.ConnectionString;
+
                 report1.SetParameterValue("P1", dateTimePicker3.Value.ToString("yyyyMMdd"));
                 report1.SetParameterValue("P2", dateTimePicker4.Value.ToString("yyyyMMdd"));
 
@@ -1025,7 +1219,19 @@ namespace TKMOC
             {
                 report1 = new Report();
                 report1.Load(@"REPORT\油酥添加表.frx");
-                report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+                report1.Dictionary.Connections[0].ConnectionString = sqlsb.ConnectionString;
+
                 report1.SetParameterValue("P1", dateTimePicker3.Value.ToString("yyyyMMdd"));
                 report1.SetParameterValue("P2", dateTimePicker4.Value.ToString("yyyyMMdd"));
 
@@ -1036,7 +1242,19 @@ namespace TKMOC
             {
                 report1 = new Report();
                 report1.Load(@"REPORT\不良餅麩明細表.frx");
-                report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+                report1.Dictionary.Connections[0].ConnectionString = sqlsb.ConnectionString;
+
                 report1.SetParameterValue("P1", dateTimePicker3.Value.ToString("yyyyMMdd"));
                 report1.SetParameterValue("P2", dateTimePicker4.Value.ToString("yyyyMMdd"));
 
@@ -1047,7 +1265,19 @@ namespace TKMOC
             {
                 report1 = new Report();
                 report1.Load(@"REPORT\不良邊料明細表.frx");
-                report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+                report1.Dictionary.Connections[0].ConnectionString = sqlsb.ConnectionString;
+
                 report1.SetParameterValue("P1", dateTimePicker3.Value.ToString("yyyyMMdd"));
                 report1.SetParameterValue("P2", dateTimePicker4.Value.ToString("yyyyMMdd"));
 
@@ -1058,7 +1288,19 @@ namespace TKMOC
             {
                 report1 = new Report();
                 report1.Load(@"REPORT\不良未熟明細表.frx");
-                report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+                report1.Dictionary.Connections[0].ConnectionString = sqlsb.ConnectionString;
+
                 report1.SetParameterValue("P1", dateTimePicker3.Value.ToString("yyyyMMdd"));
                 report1.SetParameterValue("P2", dateTimePicker4.Value.ToString("yyyyMMdd"));
 
@@ -1069,7 +1311,19 @@ namespace TKMOC
             {
                 report1 = new Report();
                 report1.Load(@"REPORT\不良品餅乾報廢明細表.frx");
-                report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+                report1.Dictionary.Connections[0].ConnectionString = sqlsb.ConnectionString;
+
                 report1.SetParameterValue("P1", dateTimePicker3.Value.ToString("yyyyMMdd"));
                 report1.SetParameterValue("P2", dateTimePicker4.Value.ToString("yyyyMMdd"));
 
@@ -1080,7 +1334,19 @@ namespace TKMOC
             {
                 report1 = new Report();
                 report1.Load(@"REPORT\出爐餅溫量測記錄表.frx");
-                report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+                report1.Dictionary.Connections[0].ConnectionString = sqlsb.ConnectionString;
+
                 report1.SetParameterValue("P1", dateTimePicker3.Value.ToString("yyyyMMdd"));
                 report1.SetParameterValue("P2", dateTimePicker4.Value.ToString("yyyyMMdd"));
 
