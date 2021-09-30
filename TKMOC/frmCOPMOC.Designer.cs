@@ -44,12 +44,12 @@
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.checkBox6 = new System.Windows.Forms.CheckBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -83,8 +83,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(984, 733);
-            this.splitContainer1.SplitterDistance = 88;
+            this.splitContainer1.Size = new System.Drawing.Size(984, 702);
+            this.splitContainer1.SplitterDistance = 84;
             this.splitContainer1.TabIndex = 0;
             // 
             // tableLayoutPanel1
@@ -145,7 +145,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(980, 84);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(980, 80);
             this.tableLayoutPanel1.TabIndex = 7;
             // 
             // label1
@@ -206,7 +206,7 @@
             // 
             this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(323, 54);
+            this.checkBox1.Location = new System.Drawing.Point(323, 52);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(74, 16);
             this.checkBox1.TabIndex = 32;
@@ -217,7 +217,7 @@
             // 
             this.checkBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(403, 54);
+            this.checkBox2.Location = new System.Drawing.Point(403, 52);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(74, 16);
             this.checkBox2.TabIndex = 33;
@@ -271,7 +271,7 @@
             // 
             this.checkBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(483, 54);
+            this.checkBox4.Location = new System.Drawing.Point(483, 52);
             this.checkBox4.Name = "checkBox4";
             this.checkBox4.Size = new System.Drawing.Size(74, 16);
             this.checkBox4.TabIndex = 35;
@@ -282,7 +282,7 @@
             // 
             this.checkBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox5.AutoSize = true;
-            this.checkBox5.Location = new System.Drawing.Point(563, 54);
+            this.checkBox5.Location = new System.Drawing.Point(563, 52);
             this.checkBox5.Name = "checkBox5";
             this.checkBox5.Size = new System.Drawing.Size(74, 16);
             this.checkBox5.TabIndex = 36;
@@ -293,12 +293,26 @@
             // 
             this.checkBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox6.AutoSize = true;
-            this.checkBox6.Location = new System.Drawing.Point(643, 54);
+            this.checkBox6.Location = new System.Drawing.Point(643, 52);
             this.checkBox6.Name = "checkBox6";
             this.checkBox6.Size = new System.Drawing.Size(74, 16);
             this.checkBox6.TabIndex = 37;
             this.checkBox6.Text = "樣品訂單";
             this.checkBox6.UseVisualStyleBackColor = true;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "已確認",
+            "未確認(扣已確認)",
+            "全部"});
+            this.comboBox1.Location = new System.Drawing.Point(563, 10);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(74, 20);
+            this.comboBox1.TabIndex = 41;
+            this.comboBox1.Text = "已確認";
             // 
             // splitContainer2
             // 
@@ -315,8 +329,8 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.splitContainer3);
-            this.splitContainer2.Size = new System.Drawing.Size(984, 641);
-            this.splitContainer2.SplitterDistance = 170;
+            this.splitContainer2.Size = new System.Drawing.Size(984, 614);
+            this.splitContainer2.SplitterDistance = 162;
             this.splitContainer2.TabIndex = 0;
             // 
             // dataGridView1
@@ -328,7 +342,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(980, 166);
+            this.dataGridView1.Size = new System.Drawing.Size(980, 158);
             this.dataGridView1.TabIndex = 0;
             // 
             // splitContainer3
@@ -345,7 +359,7 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.dataGridView3);
-            this.splitContainer3.Size = new System.Drawing.Size(984, 467);
+            this.splitContainer3.Size = new System.Drawing.Size(984, 448);
             this.splitContainer3.SplitterDistance = 495;
             this.splitContainer3.TabIndex = 0;
             // 
@@ -358,7 +372,7 @@
             this.dataGridView2.Location = new System.Drawing.Point(0, 0);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowTemplate.Height = 24;
-            this.dataGridView2.Size = new System.Drawing.Size(491, 463);
+            this.dataGridView2.Size = new System.Drawing.Size(491, 444);
             this.dataGridView2.TabIndex = 1;
             // 
             // dataGridView3
@@ -368,28 +382,14 @@
             this.dataGridView3.Location = new System.Drawing.Point(0, 0);
             this.dataGridView3.Name = "dataGridView3";
             this.dataGridView3.RowTemplate.Height = 24;
-            this.dataGridView3.Size = new System.Drawing.Size(481, 463);
+            this.dataGridView3.Size = new System.Drawing.Size(481, 444);
             this.dataGridView3.TabIndex = 1;
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "已確認",
-            "未確認(扣已確認)",
-            "全部"});
-            this.comboBox1.Location = new System.Drawing.Point(563, 10);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(74, 20);
-            this.comboBox1.TabIndex = 41;
-            this.comboBox1.Text = "已確認";
             // 
             // frmCOPMOC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(984, 733);
+            this.ClientSize = new System.Drawing.Size(984, 702);
             this.Controls.Add(this.splitContainer1);
             this.Name = "frmCOPMOC";
             this.Text = "frmCOPMOC";
