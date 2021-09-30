@@ -25,6 +25,7 @@ using Excel = Microsoft.Office.Interop.Excel;
 using FastReport;
 using FastReport.Data;
 using System.Threading;
+using TKITDLL;
 
 namespace TKMOC
 {
@@ -180,8 +181,17 @@ namespace TKMOC
         }
         public void comboBox1load()
         {
-            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
-            sqlConn = new SqlConnection(connectionString);
+            //20210902密
+            Class1 TKID = new Class1();//用new 建立類別實體
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+            //資料庫使用者密碼解密
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+            String connectionString;
+            sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
             StringBuilder Sequel = new StringBuilder();
             Sequel.AppendFormat(@"SELECT '全部' MD001,'全部' MD002 UNION ALL SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE  MD003 IN ('20')    ");
             SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
@@ -201,8 +211,17 @@ namespace TKMOC
 
         public void comboBox2load()
         {
-            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
-            sqlConn = new SqlConnection(connectionString);
+            //20210902密
+            Class1 TKID = new Class1();//用new 建立類別實體
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+            //資料庫使用者密碼解密
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+            String connectionString;
+            sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
             StringBuilder Sequel = new StringBuilder();
             Sequel.AppendFormat(@"SELECT '全部' MD001,'全部' MD002 UNION ALL SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE  MD003 IN ('20')    ");
             SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
@@ -222,8 +241,17 @@ namespace TKMOC
 
         public void comboBox3load()
         {
-            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
-            sqlConn = new SqlConnection(connectionString);
+            //20210902密
+            Class1 TKID = new Class1();//用new 建立類別實體
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+            //資料庫使用者密碼解密
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+            String connectionString;
+            sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
             StringBuilder Sequel = new StringBuilder();
             Sequel.AppendFormat(@"SELECT '全部' MD001,'全部' MD002 UNION ALL SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE  MD003 IN ('20')    ");
             SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
@@ -243,8 +271,17 @@ namespace TKMOC
 
         public void comboBox4load()
         {
-            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
-            sqlConn = new SqlConnection(connectionString);
+            //20210902密
+            Class1 TKID = new Class1();//用new 建立類別實體
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+            //資料庫使用者密碼解密
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+            String connectionString;
+            sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
             StringBuilder Sequel = new StringBuilder();
             Sequel.AppendFormat(@"SELECT '全部' MD001,'全部' MD002 UNION ALL SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE  MD003 IN ('20')    ");
             SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
@@ -264,8 +301,17 @@ namespace TKMOC
 
         public void comboBox5load()
         {
-            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
-            sqlConn = new SqlConnection(connectionString);
+            //20210902密
+            Class1 TKID = new Class1();//用new 建立類別實體
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+            //資料庫使用者密碼解密
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+            String connectionString;
+            sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
             StringBuilder Sequel = new StringBuilder();
             Sequel.AppendFormat(@"SELECT '全部' MD001,'全部' MD002 UNION ALL SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE  MD003 IN ('20')    ");
             SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
@@ -285,8 +331,17 @@ namespace TKMOC
 
         public void comboBox6load()
         {
-            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
-            sqlConn = new SqlConnection(connectionString);
+            //20210902密
+            Class1 TKID = new Class1();//用new 建立類別實體
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+            //資料庫使用者密碼解密
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+            String connectionString;
+            sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
             StringBuilder Sequel = new StringBuilder();
             Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE  MD003 IN ('20')    ");
             SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
@@ -309,8 +364,17 @@ namespace TKMOC
         public void comboBox7load()
         {
 
-            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
-            sqlConn = new SqlConnection(connectionString);
+            //20210902密
+            Class1 TKID = new Class1();//用new 建立類別實體
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+            //資料庫使用者密碼解密
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+            String connectionString;
+            sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
             StringBuilder Sequel = new StringBuilder();
             Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE  MD003 IN ('20')  UNION ALL SELECT '全部','全部'   ");
             SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
@@ -337,8 +401,17 @@ namespace TKMOC
 
                 if (!string.IsNullOrEmpty(sbSql.ToString()))
                 {
-                    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
-                    sqlConn = new SqlConnection(connectionString);
+                    //20210902密
+                    Class1 TKID = new Class1();//用new 建立類別實體
+                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                    //資料庫使用者密碼解密
+                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                    String connectionString;
+                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
 
                     adapter = new SqlDataAdapter(sbSql.ToString(), sqlConn);
                     sqlCmdBuilder = new SqlCommandBuilder(adapter);
@@ -444,8 +517,17 @@ namespace TKMOC
 
                 if (!string.IsNullOrEmpty(sbSql.ToString()))
                 {
-                    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
-                    sqlConn = new SqlConnection(connectionString);
+                    //20210902密
+                    Class1 TKID = new Class1();//用new 建立類別實體
+                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                    //資料庫使用者密碼解密
+                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                    String connectionString;
+                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
 
                     adapter = new SqlDataAdapter(sbSql.ToString(), sqlConn);
                     sqlCmdBuilder = new SqlCommandBuilder(adapter);
@@ -689,8 +771,17 @@ namespace TKMOC
 
                 if (!string.IsNullOrEmpty(sbSql.ToString()))
                 {
-                    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
-                    sqlConn = new SqlConnection(connectionString);
+                    //20210902密
+                    Class1 TKID = new Class1();//用new 建立類別實體
+                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                    //資料庫使用者密碼解密
+                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                    String connectionString;
+                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
 
                     adapter = new SqlDataAdapter(sbSql.ToString(), sqlConn);
                     sqlCmdBuilder = new SqlCommandBuilder(adapter);
@@ -914,8 +1005,17 @@ namespace TKMOC
            
             try
             {
-                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
-                sqlConn = new SqlConnection(connectionString);
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
 
                 sbSql.Clear();
                 sbSqlQuery.Clear();
@@ -974,8 +1074,17 @@ namespace TKMOC
 
                 if (!string.IsNullOrEmpty(sbSql.ToString()))
                 {
-                    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
-                    sqlConn = new SqlConnection(connectionString);
+                    //20210902密
+                    Class1 TKID = new Class1();//用new 建立類別實體
+                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                    //資料庫使用者密碼解密
+                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                    String connectionString;
+                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
 
                     adapter = new SqlDataAdapter(sbSql.ToString(), sqlConn);
                     sqlCmdBuilder = new SqlCommandBuilder(adapter);
@@ -1073,8 +1182,17 @@ namespace TKMOC
 
             try
             {
-                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
-                sqlConn = new SqlConnection(connectionString);
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
 
                 sbSql.Clear();
                 sbSqlQuery.Clear();
@@ -1146,8 +1264,17 @@ namespace TKMOC
         {
             try
             {
-                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
-                sqlConn = new SqlConnection(connectionString);
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
 
                 sbSql.Clear();
                 sbSqlQuery.Clear();
@@ -1318,8 +1445,17 @@ namespace TKMOC
            
             try
             {
-                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
-                sqlConn = new SqlConnection(connectionString);
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
 
                 sbSql.Clear();
                 sbSqlQuery.Clear();
@@ -1847,8 +1983,17 @@ namespace TKMOC
 
             try
             {
-                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
-                sqlConn = new SqlConnection(connectionString);
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
 
                 sbSql.Clear();
                 sbSqlQuery.Clear();
@@ -1907,8 +2052,17 @@ namespace TKMOC
 
             try
             {
-                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
-                sqlConn = new SqlConnection(connectionString);
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
 
                 sbSql.Clear();
                 sbSqlQuery.Clear();
@@ -2019,8 +2173,17 @@ namespace TKMOC
 
             try
             {
-                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
-                sqlConn = new SqlConnection(connectionString);
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
 
                 sbSql.Clear();
                 sbSqlQuery.Clear();
@@ -2733,7 +2896,18 @@ namespace TKMOC
             Report report1 = new Report();
             report1.Load(@"REPORT\預排訂單行事曆.frx");
 
-            report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+            //20210902密
+            Class1 TKID = new Class1();//用new 建立類別實體
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+            //資料庫使用者密碼解密
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+            String connectionString;
+            sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+            report1.Dictionary.Connections[0].ConnectionString = sqlsb.ConnectionString;
             TableDataSource table = report1.GetDataSource("Table") as TableDataSource;
             table.SelectCommand = SQL1.ToString();
 
@@ -2819,7 +2993,19 @@ namespace TKMOC
             Report report1 = new Report();
             report1.Load(@"REPORT\生產-檢查訂單是否有預排.frx");
 
-            report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+            //20210902密
+            Class1 TKID = new Class1();//用new 建立類別實體
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+            //資料庫使用者密碼解密
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+            String connectionString;
+            sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+            report1.Dictionary.Connections[0].ConnectionString = sqlsb.ConnectionString;
+
             TableDataSource table = report1.GetDataSource("Table") as TableDataSource;
             table.SelectCommand = SQL1.ToString();
 
@@ -2867,7 +3053,19 @@ namespace TKMOC
             Report report1 = new Report();
             report1.Load(@"REPORT\生產-檢查訂單是否有製令.frx");
 
-            report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+            //20210902密
+            Class1 TKID = new Class1();//用new 建立類別實體
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+            //資料庫使用者密碼解密
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+            String connectionString;
+            sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+            report1.Dictionary.Connections[0].ConnectionString = sqlsb.ConnectionString;
+
             TableDataSource table = report1.GetDataSource("Table") as TableDataSource;
             table.SelectCommand = SQL1.ToString();
 
@@ -2942,9 +3140,21 @@ namespace TKMOC
             {
                 report1.Load(@"REPORT\預排製令矩陣.frx");
             }
-           
 
-            report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+
+            //20210902密
+            Class1 TKID = new Class1();//用new 建立類別實體
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+            //資料庫使用者密碼解密
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+            String connectionString;
+            sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+            report1.Dictionary.Connections[0].ConnectionString = sqlsb.ConnectionString;
+
             TableDataSource table = report1.GetDataSource("Table") as TableDataSource;
             table.SelectCommand = SQL1.ToString();
 
@@ -3026,8 +3236,18 @@ namespace TKMOC
 
             try
             {
-                connectionString = ConfigurationManager.ConnectionStrings["dbUOF"].ConnectionString;
-                sqlConn = new SqlConnection(connectionString);
+                
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbUOF"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
 
                 sqlConn.Close();
                 sqlConn.Open();
@@ -3093,8 +3313,18 @@ namespace TKMOC
         {
             try
             {
-                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
-                sqlConn = new SqlConnection(connectionString);
+
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
 
                 sbSql.Clear();
                 sbSqlQuery.Clear();
@@ -3213,8 +3443,21 @@ namespace TKMOC
 
             try
             {
-                connectionString = ConfigurationManager.ConnectionStrings["dbUOF"].ConnectionString;
-                sqlConn = new SqlConnection(connectionString);
+                //connectionString = ConfigurationManager.ConnectionStrings["dbUOF"].ConnectionString;
+                //sqlConn = new SqlConnection(connectionString);
+
+
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbUOF"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
 
                 sqlConn.Close();
                 sqlConn.Open();
@@ -3322,8 +3565,18 @@ namespace TKMOC
         {
             try
             {
-                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
-                sqlConn = new SqlConnection(connectionString);
+
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
 
                 sbSql.Clear();
                 sbSqlQuery.Clear();
@@ -3392,8 +3645,18 @@ namespace TKMOC
         {
             try
             {
-                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
-                sqlConn = new SqlConnection(connectionString);
+
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
 
                 sbSql.Clear();
                 sbSqlQuery.Clear();
@@ -3474,8 +3737,18 @@ namespace TKMOC
         {
             try
             {
-                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
-                sqlConn = new SqlConnection(connectionString);
+
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
 
                 sbSql.Clear();
                 sbSqlQuery.Clear();
@@ -3558,8 +3831,18 @@ namespace TKMOC
         {
             try
             {
-                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
-                sqlConn = new SqlConnection(connectionString);
+
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
 
                 sbSql.Clear();
                 sbSqlQuery.Clear();
@@ -3642,8 +3925,18 @@ namespace TKMOC
         {
             try
             {
-                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
-                sqlConn = new SqlConnection(connectionString);
+
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
 
                 sbSql.Clear();
                 sbSqlQuery.Clear();
