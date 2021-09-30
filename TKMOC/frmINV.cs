@@ -20,6 +20,7 @@ using System.Data.SqlClient;
 using NPOI.SS.UserModel;
 using System.Configuration;
 using NPOI.XSSF.UserModel;
+using TKITDLL;
 
 namespace TKMOC
 {
@@ -60,8 +61,18 @@ namespace TKMOC
         #region FUNCTION
         public void comboBox1load()
         {
-            connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
-            sqlConn = new SqlConnection(connectionString);
+            //20210902密
+            Class1 TKID = new Class1();//用new 建立類別實體
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+            //資料庫使用者密碼解密
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+            String connectionString;
+            sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
             StringBuilder Sequel = new StringBuilder();
             Sequel.AppendFormat(@"SELECT MC001,MC002 FROM [TK].dbo.CMSMC WHERE MC001 LIKE '2%' ORDER BY MC001  ");
             SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
@@ -87,8 +98,18 @@ namespace TKMOC
 
                 if (!string.IsNullOrEmpty(sbSql.ToString()))
                 {
-                    connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
-                    sqlConn = new SqlConnection(connectionString);
+                    //20210902密
+                    Class1 TKID = new Class1();//用new 建立類別實體
+                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                    //資料庫使用者密碼解密
+                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                    String connectionString;
+                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
 
                     adapter = new SqlDataAdapter(sbSql.ToString(), sqlConn);
                     sqlCmdBuilder = new SqlCommandBuilder(adapter);
@@ -176,9 +197,19 @@ namespace TKMOC
             {
                 StringBuilder SQLSTING = new StringBuilder();
 
-              
-                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
-                sqlConn = new SqlConnection(connectionString);
+
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
                 SQLSTING.AppendFormat(" Select SUM(TB009) AS '預計請購',TB001  AS '單別',TB002  AS '單號' from [TK].dbo.PURTA AS PURTA, [TK].dbo.PURTB AS PURTB");
                 SQLSTING.AppendFormat(" LEFT JOIN [TK].dbo.CMSMC AS CMSMC ON MC001=TB008");
                 SQLSTING.AppendFormat(" Where TA001=TB001 and TA002=TB002  ");
@@ -230,10 +261,20 @@ namespace TKMOC
             {
                 StringBuilder SQLSTING = new StringBuilder();
 
-              
-                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
-                sqlConn = new SqlConnection(connectionString);
-           
+
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+
                 SQLSTING.AppendFormat(" select SUM(TD008) AS '預計進貨',TD001  AS '單別',TD002  AS '單號'");
                 SQLSTING.AppendFormat(" from[TK].dbo.PURTD PURTD");
                 SQLSTING.AppendFormat(" INNER JOIN [TK].dbo.PURTC PURTC ON TC001=TD001 AND TC002=TD002 and TD018='Y' and TD016='N' AND TD008>TD015");
@@ -285,8 +326,18 @@ namespace TKMOC
                 StringBuilder SQLSTING = new StringBuilder();
 
 
-                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
-                sqlConn = new SqlConnection(connectionString);
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
                 SQLSTING.AppendFormat(" SELECT (ISNULL(SUM(TA015),0)-ISNULL(SUM(TA017),0)-ISNULL(SUM(TA018),0)) AS '預計生產量' ,TA001 AS '單別',TA002 AS '單號'");
                 SQLSTING.AppendFormat(" FROM [TK].dbo.MOCTA AS MOCTA");
                 SQLSTING.AppendFormat(" LEFT JOIN [TK].dbo.CMSMC AS CMSMC ON TA020=MC001 ");
@@ -343,9 +394,19 @@ namespace TKMOC
                 StringBuilder SQLSTING = new StringBuilder();
 
 
-                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
-                sqlConn = new SqlConnection(connectionString);
-         
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+
                 SQLSTING.AppendFormat(" SELECT (ISNULL(SUM(TB004),0)-ISNULL(SUM(TB005),0)) AS '預計顉料量', TB001 AS '單別',TB002 AS '單號'");
                 SQLSTING.AppendFormat(" FROM [TK].dbo.MOCTB AS MOCTB");
                 SQLSTING.AppendFormat(" LEFT JOIN [TK].dbo.CMSMC AS CMSMC ON TB009=MC001,TK..MOCTA AS MOCTA");
@@ -402,10 +463,19 @@ namespace TKMOC
                 StringBuilder SQLSTING = new StringBuilder();
 
 
-                connectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
-                sqlConn = new SqlConnection(connectionString);
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
 
-           
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+
                 SQLSTING.AppendFormat(" select sum(TD008) AS '預計銷貨量',TD001 AS '單別',TD002 AS '單號'");
                 SQLSTING.AppendFormat(" from [TK].dbo.COPTD COPTD");
                 SQLSTING.AppendFormat(" left join [TK].dbo.CMSMC CMSMC on TD007=MC001");
