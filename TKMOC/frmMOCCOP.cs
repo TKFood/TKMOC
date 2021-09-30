@@ -23,6 +23,7 @@ using NPOI.XSSF.UserModel;
 using System.Text.RegularExpressions;
 using FastReport;
 using FastReport.Data;
+using TKITDLL;
 
 namespace TKMOC
 {
@@ -56,16 +57,43 @@ namespace TKMOC
 
         public void SETREPORT()
         {
+            string SQL;
             report1 = new Report();
             report1.Load(@"REPORT\生產達成表.frx");
 
-            report1.Dictionary.Connections[0].ConnectionString = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+            //20210902密
+            Class1 TKID = new Class1();//用new 建立類別實體
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
 
-            report1.SetParameterValue("P1",dateTimePicker1.Value.ToString("yyyyMMdd") );
-            report1.SetParameterValue("P2", dateTimePicker2.Value.ToString("yyyyMMdd"));
+            //資料庫使用者密碼解密
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
 
+            String connectionString;
+            sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+            report1.Dictionary.Connections[0].ConnectionString = sqlsb.ConnectionString;
+
+            TableDataSource Table = report1.GetDataSource("Table") as TableDataSource;
+            SQL = SETFASETSQL();
+            Table.SelectCommand = SQL;
             report1.Preview = previewControl1;
             report1.Show();
+        }
+
+        public string SETFASETSQL()
+        {
+            StringBuilder FASTSQL = new StringBuilder();
+            StringBuilder STRQUERY = new StringBuilder();
+
+            FASTSQL.Clear();
+            sbSqlQuery.Clear();
+
+         
+
+            FASTSQL.AppendFormat(@" ");
+
+            return FASTSQL.ToString();
         }
         #endregion
 
