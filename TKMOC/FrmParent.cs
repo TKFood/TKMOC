@@ -107,7 +107,7 @@ namespace TKMOC
             datransaction.Fill(dtransaction);
 
             //ADD USED LOG
-            TKSYSPRUSED("TKMOC", dtransaction.Rows[0]["FRM_CODE"].ToString(), sender.ToString(), UserName);
+            TKSYSPRUSED(MethodBase.GetCurrentMethod().DeclaringType.Namespace, dtransaction.Rows[0]["FRM_CODE"].ToString(), sender.ToString(), UserName);
 
             Assembly frmAssembly = Assembly.LoadFile(Application.ExecutablePath);
             foreach (Type type in frmAssembly.GetTypes())
