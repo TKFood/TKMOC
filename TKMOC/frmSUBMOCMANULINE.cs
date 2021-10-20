@@ -16,6 +16,7 @@ using NPOI.SS.Util;
 using System.Reflection;
 using System.Threading;
 using System.Globalization;
+using TKITDLL;
 
 namespace TKMOC
 {
@@ -51,17 +52,26 @@ namespace TKMOC
         {
             try
             {
-                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
-                sqlConn = new SqlConnection(connectionString);
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
 
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  SELECT MB001,MB002,MB003");
-                sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB");
-                sbSql.AppendFormat(@"  WHERE MB001 LIKE '{0}%'", textBox1.Text);
-                sbSql.AppendFormat(@"  ORDER BY MB001");
-                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  
+                                    SELECT MB001,MB002,MB003
+                                    FROM [TK].dbo.INVMB
+                                    WHERE MB001 LIKE '{0}%'
+                                    ORDER BY MB001
+                                    ", textBox1.Text);
 
 
 
@@ -149,17 +159,27 @@ namespace TKMOC
         {
             try
             {
-                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
-                sqlConn = new SqlConnection(connectionString);
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
 
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  SELECT MB001,MB002,MB003");
-                sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB");
-                sbSql.AppendFormat(@"  WHERE MB001 LIKE '4%' AND MB002 LIKE '%{0}%'", textBox2.Text);
-                sbSql.AppendFormat(@"  ORDER BY MB001");
-                sbSql.AppendFormat(@"  ");
+
+                sbSql.AppendFormat(@"  
+                                    SELECT MB001,MB002,MB003
+                                    FROM [TK].dbo.INVMB
+                                    WHERE MB001 LIKE '4%' AND MB002 LIKE '%{0}%'
+                                    ORDER BY MB001
+
+                                    ", textBox2.Text);
 
 
 
