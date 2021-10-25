@@ -763,7 +763,7 @@ namespace TKMOC
                                     LEFT JOIN [TK].dbo.INVMB ON MB001=TA006
                                     LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=TA006
                                     LEFT JOIN [TK].dbo.BOMMC ON MC001=TA006
-                                    LEFT JOIN [TK].dbo.BOMMD ON MD035 LIKE '%箱%' AND MD003 LIKE '2%' AND MD007>1 AND MD001=TA006 AND MD003 NOT  IN ('201001237','201002448')
+                                    LEFT JOIN [TK].dbo.BOMMD ON MD035 LIKE '%箱%' AND MD003 LIKE '2%' AND MD007>1 AND MD001=TA006 AND MD003 NOT  IN ( SELECT  [MD003]  FROM [TKMOC].[dbo].[MOCHALFPRODUCTDBOXSLIMITS] )
                                     LEFT JOIN [TKMOC].[dbo].[MOCHALFPRODUCTDBOXS] ON [MOCHALFPRODUCTDBOXS].MB001=TA006
                                     WHERE [TA001]+[TA002] NOT IN (SELECT [TA001]+[TA002] FROM [TKMOC].[dbo].[REPORTMOCMANULINE] WHERE TA003='{1}')
                                     AND TA003='{1}' 
