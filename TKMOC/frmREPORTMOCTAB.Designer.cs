@@ -48,6 +48,7 @@
             this.label22 = new System.Windows.Forms.Label();
             this.textBox18 = new System.Windows.Forms.TextBox();
             this.button18 = new System.Windows.Forms.Button();
+            this.textBox19 = new System.Windows.Forms.TextBox();
             this.previewControl1 = new FastReport.Preview.PreviewControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
@@ -124,7 +125,7 @@
             this.label17 = new System.Windows.Forms.Label();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.splitContainer11 = new System.Windows.Forms.SplitContainer();
-            this.textBox19 = new System.Windows.Forms.TextBox();
+            this.button19 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -264,6 +265,7 @@
             this.tableLayoutPanel1.Controls.Add(this.textBox18, 4, 3);
             this.tableLayoutPanel1.Controls.Add(this.button18, 6, 3);
             this.tableLayoutPanel1.Controls.Add(this.textBox19, 6, 4);
+            this.tableLayoutPanel1.Controls.Add(this.button19, 2, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -453,6 +455,15 @@
             this.button18.Text = "新增UOF說明簽核";
             this.button18.UseVisualStyleBackColor = true;
             this.button18.Click += new System.EventHandler(this.button18_Click);
+            // 
+            // textBox19
+            // 
+            this.textBox19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox19.Location = new System.Drawing.Point(747, 166);
+            this.textBox19.Name = "textBox19";
+            this.textBox19.ReadOnly = true;
+            this.textBox19.Size = new System.Drawing.Size(148, 27);
+            this.textBox19.TabIndex = 24;
             // 
             // previewControl1
             // 
@@ -1507,14 +1518,16 @@
             this.splitContainer11.SplitterDistance = 325;
             this.splitContainer11.TabIndex = 0;
             // 
-            // textBox19
+            // button19
             // 
-            this.textBox19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox19.Location = new System.Drawing.Point(747, 166);
-            this.textBox19.Name = "textBox19";
-            this.textBox19.ReadOnly = true;
-            this.textBox19.Size = new System.Drawing.Size(148, 27);
-            this.textBox19.TabIndex = 24;
+            this.button19.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.button19.Location = new System.Drawing.Point(243, 123);
+            this.button19.Name = "button19";
+            this.button19.Size = new System.Drawing.Size(114, 34);
+            this.button19.TabIndex = 25;
+            this.button19.Text = "依日期刪報表";
+            this.button19.UseVisualStyleBackColor = true;
+            this.button19.Click += new System.EventHandler(this.button19_Click);
             // 
             // frmREPORTMOCTAB
             // 
@@ -1701,5 +1714,6 @@
         private System.Windows.Forms.Button button18;
         private System.Windows.Forms.TextBox textBox18;
         private System.Windows.Forms.TextBox textBox19;
+        private System.Windows.Forms.Button button19;
     }
 }

@@ -2796,6 +2796,62 @@ namespace TKMOC
             }
         }
 
+        public void DELREPORTMOCMANULINEV2(string TA003)
+        {
+            sbSql.Clear();
+
+            try
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+
+                sbSql.AppendFormat(@" 
+                                   DELETE  [TKMOC].[dbo].[REPORTMOCMANULINE] WHERE TA003='{0}'
+                                    ",  TA003);
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
         #endregion
 
         #region BUTTON
@@ -2958,6 +3014,10 @@ namespace TKMOC
                 MessageBox.Show("說明必填");
             }
            
+        }
+        private void button19_Click(object sender, EventArgs e)
+        {
+            DELREPORTMOCMANULINEV2(dateTimePicker1.Value.ToString("yyyyMMdd"));
         }
 
         #endregion
