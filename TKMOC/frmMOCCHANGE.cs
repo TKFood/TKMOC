@@ -2247,7 +2247,7 @@ namespace TKMOC
             if (dialogResult == DialogResult.Yes)
             {
                 CHANGEMULTI5();
-                SEARCH5(dateTimePicker3.Value.ToString("yyyyMMdd"), dateTimePicker4.Value.ToString("yyyyMMdd"));
+                SEARCH5(dateTimePicker10.Value.ToString("yyyyMMdd"), dateTimePicker11.Value.ToString("yyyyMMdd"));
                 SETCHECK();
 
             }
