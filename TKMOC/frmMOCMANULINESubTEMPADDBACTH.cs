@@ -157,6 +157,7 @@ namespace TKMOC
                                     LEFT JOIN [TK].dbo.BOMMC ON MC001=TD004
                                     WHERE TC001=TD001 AND TC002=TD002 
                                     AND TD001='{0}' AND TD002='{1} '
+                                    AND BOMMD.MD003 NOT IN (SELECT  [MD003]  FROM [TKMOC].[dbo].[MOCHALFPRODUCTDBOXSLIMITS])
                                     AND TD001+TD002+TD003 NOT IN (SELECT COPTD001+COPTD002+COPTD003 FROM [TKMOC].dbo.MOCMANULINETEMP)"
                                  , TD001, TD002);
                
