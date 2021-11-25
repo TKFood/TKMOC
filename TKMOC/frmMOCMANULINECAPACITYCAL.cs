@@ -179,6 +179,130 @@ namespace TKMOC
             }
         }
 
+        public void UPDATEMOCMANULINECAPACITYCALLINEBIGCAP()
+        {
+            try
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                if(Convert.ToDecimal(textBox1.Text.ToString())>0)
+                {
+                    sbSql.AppendFormat(@" 
+                                    UPDATE  [TKMOC].[dbo].[MOCMANULINECAPACITYCAL]
+                                    SET [LINEBIGCAP]={0},[LINEBIGCAL]=[LINEBIG]/{0}*100
+                                    WHERE CONVERT(NVARCHAR,[MOCDATES],112)>='{1}' AND  CONVERT(NVARCHAR,[MOCDATES],112)<='{2}'
+
+                                    ", textBox1.Text.ToString(), dateTimePicker3.Value.ToString("yyyyMMdd"), dateTimePicker4.Value.ToString("yyyyMMdd"));
+
+                }
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易                     
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void UPDATEMOCMANULINECAPACITYCALLINESMALLCAP()
+        {
+            try
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                if (Convert.ToDecimal(textBox2.Text.ToString()) > 0)
+                {
+                    sbSql.AppendFormat(@" 
+                                    UPDATE  [TKMOC].[dbo].[MOCMANULINECAPACITYCAL]
+                                    SET [LINESMALLCAP]={0},[LINESMALLCAL]=[LINESMALL]/{0}*100
+                                    WHERE CONVERT(NVARCHAR,[MOCDATES],112)>='{1}' AND  CONVERT(NVARCHAR,[MOCDATES],112)<='{2}'
+
+                                    ", textBox2.Text.ToString(), dateTimePicker5.Value.ToString("yyyyMMdd"), dateTimePicker6.Value.ToString("yyyyMMdd"));
+
+                }
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易                     
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
         #endregion
 
         #region BUTTON
@@ -188,7 +312,25 @@ namespace TKMOC
             SEARCHMOCMANULINECAPACITYCAL();
 
         }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            UPDATEMOCMANULINECAPACITYCALLINEBIGCAP();
+            SEARCHMOCMANULINECAPACITYCAL();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            UPDATEMOCMANULINECAPACITYCALLINESMALLCAP();
+            SEARCHMOCMANULINECAPACITYCAL();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+        }
+
         #endregion
+
 
     }
 }
