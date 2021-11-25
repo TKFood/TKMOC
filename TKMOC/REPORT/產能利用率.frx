@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="11/25/2021 08:29:12" ReportInfo.Modified="11/25/2021 11:18:50" ReportInfo.CreatorVersion="2016.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpN+i5gA3VDGcwlcfm6L9ZMsLrZ3U+wEDtHCQtd9vw2XUHCJ7LVE1q0kd5c3sWvrYX3">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT &#13;&#10; CONVERT(NVARCHAR,[MOCDATES],112) AS '預排日'&#13;&#10;,[LINEBIG] AS '大線桶數'&#13;&#10;,[LINESMALL] AS '小線桶數'&#13;&#10;,[LINEBIGCAP] AS '大線產能'&#13;&#10;,[LINESMALLCAP] AS '小線產能'&#13;&#10;,[LINEBIGCAL] AS '大線稼動率'&#13;&#10;,[LINESMALLCAL] AS '小線稼動率'&#13;&#10;FROM [TKMOC].[dbo].[MOCMANULINECAPACITYCAL]&#13;&#10;WHERE CONVERT(NVARCHAR,[MOCDATES],112)&gt;='20211125' AND  CONVERT(NVARCHAR,[MOCDATES],112)&lt;='20211130'&#13;&#10;">
+        <Column Name="預排日" DataType="System.String"/>
+        <Column Name="大線桶數" DataType="System.Decimal"/>
+        <Column Name="小線桶數" DataType="System.Decimal"/>
+        <Column Name="大線產能" DataType="System.Decimal"/>
+        <Column Name="小線產能" DataType="System.Decimal"/>
+        <Column Name="大線稼動率" DataType="System.Decimal"/>
+        <Column Name="小線稼動率" DataType="System.Decimal"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+  </Dictionary>
+  <ReportPage Name="Page1">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="18.9">
+      <TextObject Name="Text1" Width="718.2" Height="18.9" Text="各線的產能利用率" HorzAlign="Center" VertAlign="Center"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="23.39" Width="718.2" Height="18.9">
+      <TextObject Name="Text3" Width="151.2" Height="18.9" Border.Lines="All" Text="預排日" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text5" Left="151.2" Width="94.5" Height="18.9" Border.Lines="All" Text="大線桶數" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text7" Left="245.7" Width="94.5" Height="18.9" Border.Lines="All" Text="大線產能" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text9" Left="340.2" Width="94.5" Height="18.9" Border.Lines="All" Text="大線稼動率" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text11" Left="434.7" Width="94.5" Height="18.9" Border.Lines="All" Text="小線桶數" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text13" Left="529.2" Width="94.5" Height="18.9" Border.Lines="All" Text="小線產能" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text15" Left="623.7" Width="94.5" Height="18.9" Border.Lines="All" Text="小線稼動率" HorzAlign="Center" VertAlign="Center"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="46.79" Width="718.2" Height="18.9" DataSource="Table">
+      <TextObject Name="Text2" Width="151.2" Height="18.9" Border.Lines="All" Text="[Table.預排日]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text4" Left="151.2" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.大線桶數]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text6" Left="245.7" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.大線產能]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text8" Left="340.2" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.大線稼動率]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text10" Left="434.7" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線桶數]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text12" Left="529.2" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線產能]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text14" Left="623.7" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.小線稼動率]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="70.18" Width="718.2" Height="18.9"/>
+  </ReportPage>
+</Report>

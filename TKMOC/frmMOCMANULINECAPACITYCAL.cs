@@ -18,6 +18,8 @@ using System.Threading;
 using System.Globalization;
 using Calendar.NET;
 using TKITDLL;
+using FastReport.Data;
+using FastReport;
 
 namespace TKMOC
 {
@@ -42,6 +44,21 @@ namespace TKMOC
         }
 
         #region FUNCTION
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            dateTimePicker3.Value = dateTimePicker1.Value;
+            dateTimePicker5.Value = dateTimePicker1.Value;
+            dateTimePicker7.Value = dateTimePicker1.Value;
+        }
+
+        private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
+        {
+            dateTimePicker4.Value = dateTimePicker2.Value;
+            dateTimePicker6.Value = dateTimePicker2.Value;
+            dateTimePicker7.Value = dateTimePicker2.Value;
+
+        }
         public void ADDMOCMANULINECAPACITYCAL()
         {
             try
@@ -266,9 +283,9 @@ namespace TKMOC
                 if (Convert.ToDecimal(textBox2.Text.ToString()) > 0)
                 {
                     sbSql.AppendFormat(@" 
-                                    UPDATE  [TKMOC].[dbo].[MOCMANULINECAPACITYCAL]
-                                    SET [LINESMALLCAP]={0},[LINESMALLCAL]=[LINESMALL]/{0}*100
-                                    WHERE CONVERT(NVARCHAR,[MOCDATES],112)>='{1}' AND  CONVERT(NVARCHAR,[MOCDATES],112)<='{2}'
+                                        UPDATE  [TKMOC].[dbo].[MOCMANULINECAPACITYCAL]
+                                        SET [LINESMALLCAP]={0},[LINESMALLCAL]=[LINESMALL]/{0}*100
+                                        WHERE CONVERT(NVARCHAR,[MOCDATES],112)>='{1}' AND  CONVERT(NVARCHAR,[MOCDATES],112)<='{2}'
 
                                     ", textBox2.Text.ToString(), dateTimePicker5.Value.ToString("yyyyMMdd"), dateTimePicker6.Value.ToString("yyyyMMdd"));
 
@@ -302,6 +319,60 @@ namespace TKMOC
                 sqlConn.Close();
             }
         }
+        public void SETFASTREPORT()
+        {
+            StringBuilder SQL1 = new StringBuilder();
+            StringBuilder SQL2 = new StringBuilder();
+
+            SQL1 = SETSQL1();
+
+            Report report1 = new Report();
+            report1.Load(@"REPORT\產能利用率.frx");
+
+            //20210902密
+            Class1 TKID = new Class1();//用new 建立類別實體
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+            //資料庫使用者密碼解密
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+            String connectionString;
+            sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+            report1.Dictionary.Connections[0].ConnectionString = sqlsb.ConnectionString;
+
+
+
+            TableDataSource table = report1.GetDataSource("Table") as TableDataSource;
+            table.SelectCommand = SQL1.ToString();
+
+            report1.Preview = previewControl1;
+            report1.Show();
+        }
+
+        public StringBuilder SETSQL1()
+        {
+            StringBuilder SB = new StringBuilder();
+
+            SB.AppendFormat(@" 
+                            SELECT 
+                             CONVERT(NVARCHAR,[MOCDATES],112) AS '預排日'
+                            ,[LINEBIG] AS '大線桶數'
+                            ,[LINESMALL] AS '小線桶數'
+                            ,[LINEBIGCAP] AS '大線產能'
+                            ,[LINESMALLCAP] AS '小線產能'
+                            ,[LINEBIGCAL] AS '大線稼動率'
+                            ,[LINESMALLCAL] AS '小線稼動率'
+                            FROM [TKMOC].[dbo].[MOCMANULINECAPACITYCAL]
+                            WHERE CONVERT(NVARCHAR,[MOCDATES],112)>='{0}' AND  CONVERT(NVARCHAR,[MOCDATES],112)<='{1}'
+
+                                ", dateTimePicker7.Value.ToString("yyyyMMdd"), dateTimePicker8.Value.ToString("yyyyMMdd"), textBox1.Text.Trim());
+
+
+            return SB;
+
+        }
 
         #endregion
 
@@ -326,11 +397,12 @@ namespace TKMOC
 
         private void button3_Click(object sender, EventArgs e)
         {
-
+            SETFASTREPORT();
         }
+
 
         #endregion
 
-
+    
     }
 }
