@@ -3136,6 +3136,10 @@ namespace TKMOC
             {
                 report1.Load(@"REPORT\預排製令矩陣-6.桶數.frx");
             }
+            else if (comboBox8.Text.Trim().Equals("A.商務組"))
+            {
+                report1.Load(@"REPORT\預排製令矩陣-A.商務組.frx");
+            }
             else
             {
                 report1.Load(@"REPORT\預排製令矩陣.frx");
