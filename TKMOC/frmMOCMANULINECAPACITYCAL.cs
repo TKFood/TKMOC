@@ -88,8 +88,8 @@ namespace TKMOC
                                     INSERT INTO [TKMOC].[dbo].[MOCMANULINECAPACITYCAL]
                                     ([MOCDATES],[YEARS],[WEEKS],[LINEBIG],[LINESMALL],[LINEMANU])
                                     SELECT CONVERT(NVARCHAR,[MANUDATE],111) [MANUDATE],DATEPART (YEAR,[MANUDATE] ),DATEPART ( WEEK ,[MANUDATE] )
-                                    ,(SELECT  ISNULL(SUM([BAR]),0) FROM [TKMOC].[dbo].[MOCMANULINE] MOC WHERE MOC.[MANUDATE]=[MOCMANULINE].[MANUDATE] AND [MANU]='製一線') 'LINEBIG'
-                                    ,(SELECT  ISNULL(SUM([BAR]),0) FROM [TKMOC].[dbo].[MOCMANULINE] MOC WHERE MOC.[MANUDATE]=[MOCMANULINE].[MANUDATE] AND [MANU]='製二線') 'LINESMALL'
+                                    ,(SELECT  ISNULL(SUM([BAR]),0) FROM [TKMOC].[dbo].[MOCMANULINE] MOC WHERE MOC.[MANUDATE]=[MOCMANULINE].[MANUDATE] AND [MANU]='製二線') 'LINEBIG'
+                                    ,(SELECT  ISNULL(SUM([BAR]),0) FROM [TKMOC].[dbo].[MOCMANULINE] MOC WHERE MOC.[MANUDATE]=[MOCMANULINE].[MANUDATE] AND [MANU]='製一線') 'LINESMALL'
                                     ,(SELECT  ISNULL(SUM([BAR]),0) FROM [TKMOC].[dbo].[MOCMANULINE] MOC WHERE MOC.[MANUDATE]=[MOCMANULINE].[MANUDATE] AND [MANU]='手工線') 'LINEMANU'
                                     FROM [TKMOC].[dbo].[MOCMANULINE]
                                     WHERE  CONVERT(NVARCHAR,[MANUDATE],112)>='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112)<='{1}'
