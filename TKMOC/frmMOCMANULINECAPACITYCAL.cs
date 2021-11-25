@@ -56,7 +56,7 @@ namespace TKMOC
         {
             dateTimePicker4.Value = dateTimePicker2.Value;
             dateTimePicker6.Value = dateTimePicker2.Value;
-            dateTimePicker7.Value = dateTimePicker2.Value;
+            dateTimePicker8.Value = dateTimePicker2.Value;
 
         }
         public void ADDMOCMANULINECAPACITYCAL()
