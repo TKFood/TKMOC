@@ -397,6 +397,7 @@ namespace TKMOC
 
 
             comboBox19load();
+            comboBox22load();
 
             SETIN();
 
@@ -912,6 +913,35 @@ namespace TKMOC
 
         }
 
+        public void comboBox22load()
+        {
+            //20210902密
+            Class1 TKID = new Class1();//用new 建立類別實體
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+            //資料庫使用者密碼解密
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+            String connectionString;
+            sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE (MD002 LIKE '製一線%' OR MD002 LIKE '製二線%' OR MD002 LIKE '手工線%' OR MD002 LIKE '包裝線%' ) UNION ALL  SELECT '99','少量訂單' ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("MD001", typeof(string));
+            dt.Columns.Add("MD002", typeof(string));
+            da.Fill(dt);
+            comboBox22.DataSource = dt.DefaultView;
+            comboBox22.ValueMember = "MD002";
+            comboBox22.DisplayMember = "MD002";
+            sqlConn.Close();
+
+
+        }
         public void SEARCHMOCMANULINE()
         {
             if(MANU.Equals("製二線"))
@@ -10979,6 +11009,192 @@ namespace TKMOC
             //   System.Windows.Forms.SortOrder.Ascending : System.Windows.Forms.SortOrder.Descending;
         }
 
+        public void SEARCHCOPTCCOPTD()
+        {
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            DataSet ds1 = new DataSet();
+
+            try
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+                sbSqlQuery2.Clear();
+
+
+
+
+                sbSql.AppendFormat(@"  
+                                     SELECT TD001 AS '訂單單別',TD002 AS '訂單單號',TD003 AS '序號',TC053 AS '客戶',TD004 AS '品號',TD005 AS '品名',TD006 AS '規格',(TD008+TD024)  AS '訂單數量',TD010 AS '單位',TC015 AS '單頭備註',TD013 AS '預交日'
+                                    ,BOMMD.MD003 AS 'BOM第1層品號',BOMMD.MD035 AS 'BOM第1層品名',BOMMD.MD036 AS 'BOM第1層規格'
+                                    ,((CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TD008+TD024)*INVMD.MD004 ELSE (TD008+TD024)  END )*BOMMD.MD006/BOMMD.MD007/BOMMC.MC004)  AS 'BOM第1層數量'
+                                    ,BOMMD2.MD003   AS 'BOM第2層品號',BOMMD2.MD035  AS 'BOM第2層品名',BOMMD2.MD036  AS 'BOM第2層規格'
+                                    ,(((CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TD008+TD024)*INVMD.MD004 ELSE (TD008+TD024)  END )*BOMMD.MD006/BOMMD.MD007/BOMMC.MC004)*BOMMD2.MD006/BOMMD2.MD007/BOMMC2.MC004) AS 'BOM第2層數量'
+                                    FROM [TK].dbo.INVMB WITH(NOLOCK),[TK].dbo.COPTC WITH(NOLOCK),[TK].dbo.COPTD WITH(NOLOCK)
+                                    LEFT JOIN [TK].dbo.INVMD ON INVMD.MD001=TD004 AND TD010=MD002
+                                    LEFT JOIN [TK].dbo.BOMMC ON BOMMC.MC001=TD004
+                                    LEFT JOIN [TK].dbo.BOMMD ON BOMMD.MD001=TD004
+                                    LEFT JOIN [TK].dbo.BOMMC BOMMC2 ON BOMMC2.MC001=BOMMD.MD003
+                                    LEFT JOIN [TK].dbo.BOMMD BOMMD2 ON BOMMD2.MD001=BOMMD.MD003
+                                    WHERE TC001=TD001 AND TC002=TD002
+                                    AND MB001=TD004
+                                    AND TC027='N'
+                                    AND TC002 LIKE '{0}%'
+                                    AND (BOMMD.MD003 LIKE '3%' OR BOMMD.MD003 LIKE '4%')
+                                    AND (BOMMD2.MD003 LIKE '3%' OR BOMMD2.MD003 LIKE '4%')
+                                    ORDER BY TD001,TD002,TD003
+                                  ", dateTimePicker26.Value.ToString("yyyyMM"));
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "TEMPds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["TEMPds1"].Rows.Count == 0)
+                {
+                    dataGridView26.DataSource = null;
+                }
+                else
+                {
+                    if (ds1.Tables["TEMPds1"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView27.DataSource = ds1.Tables["TEMPds1"];
+                        dataGridView27.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                        dataGridView27.AutoResizeColumns();
+                        dataGridView27.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 9);
+                        dataGridView27.DefaultCellStyle.Font = new Font("Tahoma", 10);
+                        dataGridView27.Columns["訂單單別"].Width = 100;
+                        dataGridView27.Columns["訂單單號"].Width = 100;
+                        dataGridView27.Columns["序號"].Width = 100;
+                        dataGridView27.Columns["客戶"].Width = 100;
+                        dataGridView27.Columns["品號"].Width = 100;
+                        dataGridView27.Columns["品名"].Width = 100;
+                        dataGridView27.Columns["規格"].Width = 100;
+                        dataGridView27.Columns["訂單數量"].Width = 100;
+                        dataGridView27.Columns["單位"].Width = 100;
+                        dataGridView27.Columns["單頭備註"].Width = 100;
+                        dataGridView27.Columns["預交日"].Width = 100;
+                        dataGridView27.Columns["BOM第1層品號"].Width = 100;
+                        dataGridView27.Columns["BOM第1層品名"].Width = 100;
+                        dataGridView27.Columns["BOM第1層規格"].Width = 100;
+                        dataGridView27.Columns["BOM第1層數量"].Width = 100;
+                        dataGridView27.Columns["BOM第2層品號"].Width = 100;
+                        dataGridView27.Columns["BOM第2層品名"].Width = 100;
+                        dataGridView27.Columns["BOM第2層規格"].Width = 100;
+                        dataGridView27.Columns["BOM第2層數量"].Width = 100;
+                        dataGridView27.Columns["BOM第2層數量"].Width = 100;
+                        
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        private void dataGridView27_SelectionChanged(object sender, EventArgs e)
+        {
+            textBox93.Text = null;
+            textBox94.Text = null;
+            textBox95.Text = null;
+
+            if (dataGridView27.CurrentRow != null)
+            {
+                int rowindex = dataGridView27.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView27.Rows[rowindex];
+
+                    textBox93.Text = row.Cells["訂單單別"].Value.ToString();
+                    textBox94.Text = row.Cells["訂單單號"].Value.ToString();
+                    textBox95.Text = row.Cells["序號"].Value.ToString();
+
+                }
+                else
+                {
+                    textBox93.Text = null;
+                    textBox94.Text = null;
+                    textBox95.Text = null;
+                }
+            }
+        }
+
+        public void SETCOPTD001TD001TD003()
+        {
+            if(comboBox22.Text.Equals("製二線"))
+            {
+                if(!string.IsNullOrEmpty(textBox93.Text)&& !string.IsNullOrEmpty(textBox94.Text) && !string.IsNullOrEmpty(textBox95.Text) )
+                {
+                    textBox40.Text = textBox93.Text;
+                    textBox41.Text = textBox94.Text;
+                    textBox73.Text = textBox95.Text;
+                }
+            }
+            else if (comboBox22.Text.Equals("製一線"))
+            {
+                if (!string.IsNullOrEmpty(textBox93.Text) && !string.IsNullOrEmpty(textBox94.Text) && !string.IsNullOrEmpty(textBox95.Text))
+                {
+                    textBox44.Text = textBox93.Text;
+                    textBox45.Text = textBox94.Text;
+                    textBox74.Text = textBox95.Text;
+                }
+            }
+            else if (comboBox22.Text.Equals("手工線"))
+            {
+                if (!string.IsNullOrEmpty(textBox93.Text) && !string.IsNullOrEmpty(textBox94.Text) && !string.IsNullOrEmpty(textBox95.Text))
+                {
+                    textBox46.Text = textBox93.Text;
+                    textBox47.Text = textBox94.Text;
+                    textBox75.Text = textBox95.Text;
+                }
+            }
+            else if (comboBox22.Text.Equals("包裝線"))
+            {
+                if (!string.IsNullOrEmpty(textBox93.Text) && !string.IsNullOrEmpty(textBox94.Text) && !string.IsNullOrEmpty(textBox95.Text))
+                {
+                    textBox42.Text = textBox93.Text;
+                    textBox43.Text = textBox94.Text;
+                    textBox72.Text = textBox95.Text;
+                }
+            }
+            else if (comboBox22.Text.Equals("少量訂單"))
+            {
+                if (!string.IsNullOrEmpty(textBox93.Text) && !string.IsNullOrEmpty(textBox94.Text) && !string.IsNullOrEmpty(textBox95.Text))
+                {
+                    textBox781.Text = textBox93.Text;
+                    textBox782.Text = textBox94.Text;
+                    textBox783.Text = textBox95.Text;
+                }
+            }
+
+            MessageBox.Show("完成");
+        }
+
         #endregion
 
         #region BUTTON
@@ -11757,9 +11973,19 @@ namespace TKMOC
 
 
 
+        private void button84_Click(object sender, EventArgs e)
+        {
+            SEARCHCOPTCCOPTD();
+        }
+
+        private void button85_Click(object sender, EventArgs e)
+        {
+            SETCOPTD001TD001TD003();
+        }
+
 
         #endregion
 
-      
+       
     }
 }
