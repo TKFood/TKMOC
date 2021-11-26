@@ -11050,10 +11050,17 @@ namespace TKMOC
                                     LEFT JOIN [TK].dbo.BOMMD BOMMD2 ON BOMMD2.MD001=BOMMD.MD003
                                     WHERE TC001=TD001 AND TC002=TD002
                                     AND MB001=TD004
+                                    AND COPTD.UDF01='Y'
                                     AND TC027='N'
                                     AND TC002 LIKE '{0}%'
                                     AND (BOMMD.MD003 LIKE '3%' OR BOMMD.MD003 LIKE '4%')
                                     AND (BOMMD2.MD003 LIKE '3%' OR BOMMD2.MD003 LIKE '4%')
+                                    AND TD001+TD002+TD003+TD004 NOT IN (SELECT ISNULL([COPTD001]+[COPTD002]+[COPTD003]+[MB001],'')  FROM [TKMOC].[dbo].[MOCMANULINE])
+                                    AND TD001+TD002+TD003+BOMMD.MD003  NOT IN (SELECT ISNULL([COPTD001]+[COPTD002]+[COPTD003]+[MB001],'')  FROM [TKMOC].[dbo].[MOCMANULINE])
+                                    AND TD001+TD002+TD003+BOMMD2.MD003 NOT IN (SELECT ISNULL([COPTD001]+[COPTD002]+[COPTD003]+[MB001],'')  FROM [TKMOC].[dbo].[MOCMANULINE])
+                                    AND TD001+TD002+TD003+TD004 NOT IN (SELECT ISNULL([COPTD001]+[COPTD002]+[COPTD003]+[MB001],'')  FROM [TKMOC].[dbo].[MOCMANULINETEMP])
+                                    AND TD001+TD002+TD003+BOMMD.MD003  NOT IN (SELECT ISNULL([COPTD001]+[COPTD002]+[COPTD003]+[MB001],'')  FROM [TKMOC].[dbo].[MOCMANULINETEMP])
+                                    AND TD001+TD002+TD003+BOMMD2.MD003 NOT IN (SELECT ISNULL([COPTD001]+[COPTD002]+[COPTD003]+[MB001],'')  FROM [TKMOC].[dbo].[MOCMANULINETEMP])
                                     ORDER BY TD001,TD002,TD003
                                   ", dateTimePicker26.Value.ToString("yyyyMM"));
 
