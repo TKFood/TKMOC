@@ -3140,6 +3140,10 @@ namespace TKMOC
             {
                 report1.Load(@"REPORT\預排製令矩陣-A.商務組.frx");
             }
+            else if (comboBox8.Text.Trim().Equals("B.商務組-包裝量+入庫量"))
+            {
+                report1.Load(@"REPORT\預排製令矩陣-B.商務組-包裝量+入庫量.frx");
+            }
             else
             {
                 report1.Load(@"REPORT\預排製令矩陣.frx");
