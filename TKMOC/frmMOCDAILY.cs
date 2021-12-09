@@ -451,8 +451,8 @@ namespace TKMOC
                                 ORDER BY 線別,SUBSTRING(製令單號,1,8),品號
 
                                 ", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"), comboBox1.Text);
-
-
+              
+                
             return SB;
 
         }
