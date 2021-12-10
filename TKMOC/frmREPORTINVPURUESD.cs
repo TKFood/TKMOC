@@ -198,7 +198,7 @@ namespace TKMOC
                 //另外查詢領料數量
                 //sbSql.AppendFormat(@"  ,ISNULL((SELECT SUM(TE005) FROM [TK].dbo.MOCTE WHERE TE011+TE012 IN ( SELECT TA001+TA002 FROM [TK].dbo.MOCTA WHERE TE004=TEMP2.MD003 AND TA026=TEMP2.COPTD001 AND TA027=TEMP2.COPTD002 AND TA028=TEMP2.COPTD003 )),0)*-1 AS '領料數量' ");
 
-                sbSql.AppendFormat(@"  SELECT SUM(TEMP4.TNUM) AS '預計庫存量',TEMP2.ID AS '列數',TEMP2.MANU AS '線別',TEMP2.MANUDATE AS '日期',TEMP2.MD003 AS '品號',TEMP2.MD035 AS '品名',SUM(TEMP2.TNUM) AS '用量'");
+                sbSql.AppendFormat(@"  SELECT SUM(TEMP4.TNUM) AS '預計庫存量',TEMP2.ID AS '列數',TEMP2.MANU AS '線別',TEMP2.MANUDATE AS '日期',TEMP2.MD003 AS '品號',TEMP2.MD035 AS '品名',TEMP2.TNUM AS '用量'");
                
                 sbSql.AppendFormat(@"  ,TEMP2.MB004 AS '單位',TEMP2.MB001 AS '成品',TEMP2.MB002 AS '成品名',TEMP2.PACKAGE AS '成品數',TEMP2.COPTD001 AS '訂單單別',TEMP2.COPTD002 AS '訂單單號',TEMP2.COPTD003 AS '訂單序號' ");
                 sbSql.AppendFormat(@"  FROM (");
