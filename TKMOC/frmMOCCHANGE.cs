@@ -2179,7 +2179,151 @@ namespace TKMOC
 
             }
         }
+        private void checkBox17_CheckedChanged(object sender, EventArgs e)
+        {
+            //手工線
+            if (checkBox17.Checked)
+            {
+                dataGridView3checkBox17True();
+            }
+            else
+            {
+                dataGridView3checkBox17False();
+            }
 
+           
+        }
+        public void dataGridView3checkBox17True()
+        {
+            for (int i = 0; i < dataGridView3.Rows.Count; i++)
+            {
+                if (dataGridView3.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("手工線"))
+                {
+                    dataGridView3.Rows[i].Cells[0].Value = 1;
+                }
+
+            }
+        }
+        public void dataGridView3checkBox17False()
+        {
+            for (int i = 0; i < dataGridView3.Rows.Count; i++)
+            {
+                if (dataGridView3.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("手工線"))
+                {
+                    dataGridView3.Rows[i].Cells[0].Value = 0;
+                }
+
+            }
+        }
+        private void checkBox18_CheckedChanged(object sender, EventArgs e)
+        {
+            //手工線
+            if (checkBox18.Checked)
+            {
+                dataGridView5checkBox18True();
+            }
+            else
+            {
+                dataGridView5checkBox18False();
+            }
+            
+        }
+
+
+        public void dataGridView5checkBox18True()
+        {
+            for (int i = 0; i < dataGridView5.Rows.Count; i++)
+            {
+                if (dataGridView5.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("手工線"))
+                {
+                    dataGridView5.Rows[i].Cells[0].Value = 1;
+                }
+
+            }
+        }
+        public void dataGridView5checkBox18False()
+        {
+            for (int i = 0; i < dataGridView5.Rows.Count; i++)
+            {
+                if (dataGridView5.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("手工線"))
+                {
+                    dataGridView5.Rows[i].Cells[0].Value = 0;
+                }
+
+            }
+        }
+
+        private void checkBox19_CheckedChanged(object sender, EventArgs e)
+        {
+            //手工線
+            if (checkBox19.Checked)
+            {
+                dataGridView7checkBox19True();
+            }
+            else
+            {
+                dataGridView7checkBox19False();
+            }
+            
+        }
+        public void dataGridView7checkBox19True()
+        {
+            for (int i = 0; i < dataGridView7.Rows.Count; i++)
+            {
+                if (dataGridView7.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("手工線"))
+                {
+                    dataGridView7.Rows[i].Cells[0].Value = 1;
+                }
+
+            }
+        }
+        public void dataGridView7checkBox19False()
+        {
+            for (int i = 0; i < dataGridView7.Rows.Count; i++)
+            {
+                if (dataGridView7.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("手工線"))
+                {
+                    dataGridView7.Rows[i].Cells[0].Value = 0;
+                }
+
+            }
+        }
+        private void checkBox20_CheckedChanged(object sender, EventArgs e)
+        {
+
+            //手工線
+            if (checkBox20.Checked)
+            {
+                dataGridView9checkBox20True();
+            }
+            else
+            {
+                dataGridView9checkBox20False();
+            }
+         
+        }
+        public void dataGridView9checkBox20True()
+        {
+            for (int i = 0; i < dataGridView9.Rows.Count; i++)
+            {
+                if (dataGridView9.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("手工線"))
+                {
+                    dataGridView9.Rows[i].Cells[0].Value = 1;
+                }
+
+            }
+        }
+        public void dataGridView9checkBox20False()
+        {
+            for (int i = 0; i < dataGridView9.Rows.Count; i++)
+            {
+                if (dataGridView9.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("手工線"))
+                {
+                    dataGridView9.Rows[i].Cells[0].Value = 0;
+                }
+
+            }
+        }
 
         #endregion
 
@@ -2318,9 +2462,13 @@ namespace TKMOC
 
 
 
+
+
+
+
         #endregion
 
-     
+      
     }
     
 }

@@ -135,6 +135,10 @@
             this.tableLayoutPanel12 = new System.Windows.Forms.TableLayoutPanel();
             this.button12 = new System.Windows.Forms.Button();
             this.checkBox16 = new System.Windows.Forms.CheckBox();
+            this.checkBox17 = new System.Windows.Forms.CheckBox();
+            this.checkBox18 = new System.Windows.Forms.CheckBox();
+            this.checkBox19 = new System.Windows.Forms.CheckBox();
+            this.checkBox20 = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -602,6 +606,7 @@
             this.tableLayoutPanel2.Controls.Add(this.checkBox4, 1, 2);
             this.tableLayoutPanel2.Controls.Add(this.checkBox5, 2, 2);
             this.tableLayoutPanel2.Controls.Add(this.checkBox6, 3, 2);
+            this.tableLayoutPanel2.Controls.Add(this.checkBox17, 4, 2);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(4);
@@ -877,6 +882,7 @@
             this.tableLayoutPanel5.Controls.Add(this.checkBox7, 1, 2);
             this.tableLayoutPanel5.Controls.Add(this.checkBox8, 2, 2);
             this.tableLayoutPanel5.Controls.Add(this.checkBox9, 3, 2);
+            this.tableLayoutPanel5.Controls.Add(this.checkBox18, 4, 2);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(4);
@@ -1146,10 +1152,11 @@
             this.tableLayoutPanel7.Controls.Add(this.dateTimePicker9, 3, 0);
             this.tableLayoutPanel7.Controls.Add(this.label12, 2, 0);
             this.tableLayoutPanel7.Controls.Add(this.button7, 4, 0);
-            this.tableLayoutPanel7.Controls.Add(this.button8, 4, 2);
             this.tableLayoutPanel7.Controls.Add(this.checkBox10, 1, 2);
             this.tableLayoutPanel7.Controls.Add(this.checkBox11, 2, 2);
             this.tableLayoutPanel7.Controls.Add(this.checkBox12, 3, 2);
+            this.tableLayoutPanel7.Controls.Add(this.button8, 5, 2);
+            this.tableLayoutPanel7.Controls.Add(this.checkBox19, 4, 2);
             this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel7.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel7.Margin = new System.Windows.Forms.Padding(4);
@@ -1223,7 +1230,7 @@
             // button8
             // 
             this.button8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button8.Location = new System.Drawing.Point(604, 84);
+            this.button8.Location = new System.Drawing.Point(754, 84);
             this.button8.Margin = new System.Windows.Forms.Padding(4);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(142, 32);
@@ -1399,6 +1406,7 @@
             this.tableLayoutPanel9.Controls.Add(this.checkBox13, 1, 2);
             this.tableLayoutPanel9.Controls.Add(this.checkBox14, 2, 2);
             this.tableLayoutPanel9.Controls.Add(this.checkBox15, 3, 2);
+            this.tableLayoutPanel9.Controls.Add(this.checkBox20, 4, 2);
             this.tableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel9.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel9.Margin = new System.Windows.Forms.Padding(4);
@@ -1795,6 +1803,54 @@
             this.checkBox16.UseVisualStyleBackColor = true;
             this.checkBox16.CheckedChanged += new System.EventHandler(this.checkBox16_CheckedChanged);
             // 
+            // checkBox17
+            // 
+            this.checkBox17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBox17.AutoSize = true;
+            this.checkBox17.Location = new System.Drawing.Point(603, 90);
+            this.checkBox17.Name = "checkBox17";
+            this.checkBox17.Size = new System.Drawing.Size(144, 20);
+            this.checkBox17.TabIndex = 38;
+            this.checkBox17.Text = "手工線";
+            this.checkBox17.UseVisualStyleBackColor = true;
+            this.checkBox17.CheckedChanged += new System.EventHandler(this.checkBox17_CheckedChanged);
+            // 
+            // checkBox18
+            // 
+            this.checkBox18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBox18.AutoSize = true;
+            this.checkBox18.Location = new System.Drawing.Point(603, 90);
+            this.checkBox18.Name = "checkBox18";
+            this.checkBox18.Size = new System.Drawing.Size(144, 20);
+            this.checkBox18.TabIndex = 41;
+            this.checkBox18.Text = "手工線";
+            this.checkBox18.UseVisualStyleBackColor = true;
+            this.checkBox18.CheckedChanged += new System.EventHandler(this.checkBox18_CheckedChanged);
+            // 
+            // checkBox19
+            // 
+            this.checkBox19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBox19.AutoSize = true;
+            this.checkBox19.Location = new System.Drawing.Point(603, 90);
+            this.checkBox19.Name = "checkBox19";
+            this.checkBox19.Size = new System.Drawing.Size(144, 20);
+            this.checkBox19.TabIndex = 44;
+            this.checkBox19.Text = "手工線";
+            this.checkBox19.UseVisualStyleBackColor = true;
+            this.checkBox19.CheckedChanged += new System.EventHandler(this.checkBox19_CheckedChanged);
+            // 
+            // checkBox20
+            // 
+            this.checkBox20.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBox20.AutoSize = true;
+            this.checkBox20.Location = new System.Drawing.Point(603, 90);
+            this.checkBox20.Name = "checkBox20";
+            this.checkBox20.Size = new System.Drawing.Size(144, 20);
+            this.checkBox20.TabIndex = 45;
+            this.checkBox20.Text = "手工線";
+            this.checkBox20.UseVisualStyleBackColor = true;
+            this.checkBox20.CheckedChanged += new System.EventHandler(this.checkBox20_CheckedChanged);
+            // 
             // frmMOCCHANGE
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -2026,5 +2082,9 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel12;
         private System.Windows.Forms.Button button12;
         private System.Windows.Forms.CheckBox checkBox16;
+        private System.Windows.Forms.CheckBox checkBox17;
+        private System.Windows.Forms.CheckBox checkBox18;
+        private System.Windows.Forms.CheckBox checkBox19;
+        private System.Windows.Forms.CheckBox checkBox20;
     }
 }
