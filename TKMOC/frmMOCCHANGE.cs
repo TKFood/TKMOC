@@ -2143,6 +2143,44 @@ namespace TKMOC
             }
         }
 
+        private void checkBox16_CheckedChanged(object sender, EventArgs e)
+        {
+            //手工線
+            if (checkBox16.Checked)
+            {
+                dataGridView1checkBox16True();
+            }
+            else
+            {
+                dataGridView1checkBox16False();
+            }
+        }
+
+        public void dataGridView1checkBox16True()
+        {
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
+                if (dataGridView1.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("手工線"))
+                {
+                    dataGridView1.Rows[i].Cells[0].Value = 1;
+                }
+
+            }
+        }
+
+        public void dataGridView1checkBox16False()
+        {
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
+                if (dataGridView1.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("手工線"))
+                {
+                    dataGridView1.Rows[i].Cells[0].Value =0;
+                }
+
+            }
+        }
+
+
         #endregion
 
         #region BUTTON
@@ -2282,6 +2320,7 @@ namespace TKMOC
 
         #endregion
 
+     
     }
     
 }
