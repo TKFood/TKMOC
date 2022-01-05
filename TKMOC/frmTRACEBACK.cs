@@ -2800,8 +2800,9 @@ namespace TKMOC
                                     AND TC001=MQ001 AND MQ003 IN ('54','55')
                                     AND TE011+TE012 IN ({0})
                                     AND TE004 IN (SELECT MB001 FROM  [TKMOC].[dbo].[TRACEBACK])
-                                    AND TE004+TE010 NOT IN (SELECT MB001+LOTNO FROM  [TKMOC].[dbo].[TRACEBACK])
+                                    AND TE004+TE010 NOT IN (SELECT LTRIM(RTRIM(MB001))+LTRIM(RTRIM(LOTNO)) FROM  [TKMOC].[dbo].[TRACEBACK])
                                     
+
                                     )
 
                                     ORDER BY TC001,TC002,TE003
