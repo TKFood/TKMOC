@@ -283,7 +283,7 @@ namespace TKMOC
             SQL = SETSQL();
 
             report1 = new Report();
-            report1.Load(@"REPORT\油酥原料添加表V2.frx");
+            report1.Load(@"REPORT\油酥原料添加表V3.frx");
 
             //20210902密
             Class1 TKID = new Class1();//用new 建立類別實體
@@ -567,7 +567,7 @@ namespace TKMOC
                 sbSql.Clear();
 
                 sbSql.AppendFormat(@" DELETE [TKMOC].[dbo].[REPORTMOCBOM]");
-                sbSql.AppendFormat(@" ");
+                sbSql.AppendFormat(@"  ");
 
                 if (COUNTS==0)
                 {
@@ -714,7 +714,7 @@ namespace TKMOC
                 cmd.CommandText = sbSql.ToString();
                 cmd.Transaction = tran;
                 result = cmd.ExecuteNonQuery();
-
+                 
                 if (result == 0)
                 {
                     tran.Rollback();    //交易取消
