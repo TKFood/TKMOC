@@ -188,7 +188,7 @@ namespace TKMOC
             SQL = SETSQL();
 
             report1 = new Report();
-            report1.Load(@"REPORT\水麵原料添加表V3.frx");
+            report1.Load(@"REPORT\水麵原料添加表V4.frx");
 
             //20210902密
             Class1 TKID = new Class1();//用new 建立類別實體
