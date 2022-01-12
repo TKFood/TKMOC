@@ -33,7 +33,7 @@ namespace TKMOC
         /// <summary>
         /// 生產排程確認表
         /// </summary>
-        string ID1 = "569e10c7-299f-487b-a7f9-3cc367968ff7";
+        string ID1 = "bee4fd5b-ce3b-48c0-93ad-2a15d2aa7575";
         /// <summary>
         /// 生產排程確認表說明
         /// </summary>
@@ -1687,6 +1687,7 @@ namespace TKMOC
             string VDATES = dateTimePicker5.Value.ToString("yyyyMMdd");
 
             DataTable DTUPFDEP = SEARCHUOFDEP(ACCOUNT);
+
             DataTable DT = SEARCHDB(sday);
 
             string account = DTUPFDEP.Rows[0]["ACCOUNT"].ToString();
@@ -1746,19 +1747,19 @@ namespace TKMOC
             //加入至members節點底下
             FormFieldValue.AppendChild(FieldItem);
 
-            ////建立節點FieldItem
-            ////TA003	
-            //FieldItem = xmlDoc.CreateElement("FieldItem");
-            //FieldItem.SetAttribute("fieldId", "TA003");
-            //FieldItem.SetAttribute("fieldValue", DT.Rows[0]["製令日期"].ToString());
-            //FieldItem.SetAttribute("realValue", "");
-            //FieldItem.SetAttribute("enableSearch", "True");
-            //FieldItem.SetAttribute("fillerName", fillerName);
-            //FieldItem.SetAttribute("fillerUserGuid", fillerUserGuid);
-            //FieldItem.SetAttribute("fillerAccount", account);
-            //FieldItem.SetAttribute("fillSiteId", "");
-            ////加入至members節點底下
-            //FormFieldValue.AppendChild(FieldItem);
+            //建立節點FieldItem
+            //TA003	
+            FieldItem = xmlDoc.CreateElement("FieldItem");
+            FieldItem.SetAttribute("fieldId", "TA003");
+            FieldItem.SetAttribute("fieldValue", DT.Rows[0]["製令日期"].ToString());
+            FieldItem.SetAttribute("realValue", "");
+            FieldItem.SetAttribute("enableSearch", "True");
+            FieldItem.SetAttribute("fillerName", fillerName);
+            FieldItem.SetAttribute("fillerUserGuid", fillerUserGuid);
+            FieldItem.SetAttribute("fillerAccount", account);
+            FieldItem.SetAttribute("fillSiteId", "");
+            //加入至members節點底下
+            FormFieldValue.AppendChild(FieldItem);
 
             ////建立節點FieldItem
             ////PCODE	

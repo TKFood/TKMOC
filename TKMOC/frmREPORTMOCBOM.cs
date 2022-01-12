@@ -527,7 +527,7 @@ namespace TKMOC
             float BUCKETSFLOAT = float.Parse(BUCKETS);
             int COUNTS = Convert.ToInt32(Math.Ceiling(BUCKETSFLOAT));
             decimal BUCKETSSMAILL = Convert.ToDecimal(BUCKETSFLOAT- (COUNTS-1));
-
+              
             //處理負數
             //BUCKETSFLOAT>0 && BUCKETSFLOAT<1，只有1未滿桶
             //BUCKETSFLOAT>1正常
