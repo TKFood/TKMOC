@@ -309,13 +309,13 @@ namespace TKMOC
                 sbSql.Clear();
 
                 sbSql.AppendFormat(@" 
-                                SELECT MF001,MF002,'1入庫','0',MF003,MF004,MF005,MF006,MF001,'',MF002,MF010
-                                FROM [TK].dbo.INVME WITH (NOLOCK),[TK].dbo.INVMF WITH (NOLOCK),[TK].dbo.CMSMQ WITH (NOLOCK)
-                                WHERE MF001=ME001 AND MF002=ME002
-                                AND MQ001=MF004
-                                AND MQ003 IN ('34','58')
-                                AND MF001='{0}' AND MF002='{1}'
-                                ORDER BY INVMF.MF002,MF003,MF004,MF005
+                                    SELECT MF001,MF002,'1入庫','0',MF003,MF004,MF005,MF006,MF001,'',MF002,MF010
+                                    FROM [TK].dbo.INVME WITH (NOLOCK),[TK].dbo.INVMF WITH (NOLOCK),[TK].dbo.CMSMQ WITH (NOLOCK)
+                                    WHERE MF001=ME001 AND MF002=ME002
+                                    AND MQ001=MF004
+                                    AND (MQ003 IN ('34','58') OR MF004 IN ('A11A'))
+                                    AND MF001='{0}' AND MF002='{1}'
+                                    ORDER BY INVMF.MF002,MF003,MF004,MF005
                                     ", MB001, LOTNO);
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -3595,7 +3595,14 @@ namespace TKMOC
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if(!string.IsNullOrEmpty(textBox1.Text)&& !string.IsNullOrEmpty(textBox2.Text))
+
+            MESSAGESHOW MSGSHOW = new MESSAGESHOW();
+            //鎖定控制項
+            this.Enabled = false;
+            //顯示跳出視窗
+            MSGSHOW.Show();
+
+            if (!string.IsNullOrEmpty(textBox1.Text)&& !string.IsNullOrEmpty(textBox2.Text))
             {
                 if(comboBox1.Text.Trim().Equals("成品逆溯"))
                 {
@@ -3614,6 +3621,13 @@ namespace TKMOC
             }
 
             SETFASTREPORT();
+
+
+            //關閉跳出視窗
+            MSGSHOW.Close();
+            //解除鎖定
+            this.Enabled = true;
+
         }
         private void button2_Click(object sender, EventArgs e)
         {

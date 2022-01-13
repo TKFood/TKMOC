@@ -615,6 +615,12 @@
     <Compile Include="frmUPDATEMOCTA.Designer.cs">
       <DependentUpon>frmUPDATEMOCTA.cs</DependentUpon>
     </Compile>
+    <Compile Include="MESSAGESHOW.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MESSAGESHOW.Designer.cs">
+      <DependentUpon>MESSAGESHOW.cs</DependentUpon>
+    </Compile>
     <Compile Include="MOCDAILYWORKHRS.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -883,6 +889,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmUPDATEMOCTA.resx">
       <DependentUpon>frmUPDATEMOCTA.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MESSAGESHOW.resx">
+      <DependentUpon>MESSAGESHOW.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MOCDAILYWORKHRS.resx">
       <DependentUpon>MOCDAILYWORKHRS.cs</DependentUpon>
