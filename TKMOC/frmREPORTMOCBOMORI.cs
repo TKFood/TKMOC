@@ -246,9 +246,8 @@ namespace TKMOC
                                 FROM [TKMOC].[dbo].[REPORTMOCBOMORI]
                                 LEFT JOIN [TK].dbo.BOMMC ON MC001=TA006
                                 WHERE [MD003] NOT  IN ('101001009','3010000111')   
-                                ORDER BY [TA001],[TA002],[BOXS],[MD003]
-        
- 
+                                ORDER BY [TA001],[TA002],[BOXS],[MD003]    
+  
                             ");
 
 
