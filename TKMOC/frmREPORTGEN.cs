@@ -785,7 +785,7 @@ namespace TKMOC
                     decimal CALNUM = Convert.ToDecimal(textBox4.Text)/ BOXNUM;
                     NUM = Convert.ToInt32(Math.Round(CALNUM, 0, MidpointRounding.AwayFromZero));
 
-                    SETFASTREPORT(textBox1.Text, textBox2.Text, textBox3.Text, NUM.ToString());
+                    SETFASTREPORT(textBox1.Text, textBox2.Text, textBox3.Text, NUM.ToString()+" A");
                 }
                 else
                 {
