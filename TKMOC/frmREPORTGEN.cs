@@ -770,6 +770,7 @@ namespace TKMOC
         private void button2_Click(object sender, EventArgs e)
         {
             int NUM = 0;
+            int N;
             ADDREPORTGEN(textBox1.Text, textBox2.Text,textBox4.Text);
             ADDREPORTGENDETAIL(textBox1.Text, textBox2.Text, textBox4.Text);
 
@@ -779,17 +780,19 @@ namespace TKMOC
             }
             else
             {
-                if(BOXNUM>0)
+                if(BOXNUM>0 && (int.TryParse(textBox4.Text,out N)))
                 {
                     decimal CALNUM = Convert.ToDecimal(textBox4.Text)/ BOXNUM;
                     NUM = Convert.ToInt32(Math.Round(CALNUM, 0, MidpointRounding.AwayFromZero));
+
+                    SETFASTREPORT(textBox1.Text, textBox2.Text, textBox3.Text, NUM.ToString());
                 }
                 else
                 {
-                    NUM = Convert.ToInt32(textBox4.Text);
+                    SETFASTREPORT(textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text);
                 }
                 
-                SETFASTREPORT(textBox1.Text, textBox2.Text, textBox3.Text, NUM.ToString());
+                
             }
 
             SEARCHREPORTGENDETAIL(textBox1.Text, textBox2.Text);
