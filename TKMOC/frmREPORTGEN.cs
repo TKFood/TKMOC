@@ -52,6 +52,7 @@ namespace TKMOC
         int TA017=0;
         decimal CHECKROWS = 0;
         string MB001 = null;
+        decimal BOXNUM = 0;
 
         public Report report1 { get; private set; }
 
@@ -207,6 +208,8 @@ namespace TKMOC
 
         public int SERACHERPINVMB(string TA001, string TA002,string TA017)
         {
+            BOXNUM = 0;
+
             try
             {
                 //20210902密
@@ -250,6 +253,7 @@ namespace TKMOC
                     if (ds2.Tables["ds2"].Rows.Count >= 1)
                     {
                         CHECKROWS = Convert.ToDecimal(ds2.Tables["ds2"].Rows[0]["ROWS"].ToString());
+                        BOXNUM= Convert.ToDecimal(ds2.Tables["ds2"].Rows[0]["BOXNUM"].ToString());
                         return Convert.ToInt32(CHECKROWS);
                     }
 
@@ -765,6 +769,7 @@ namespace TKMOC
 
         private void button2_Click(object sender, EventArgs e)
         {
+            int NUM = 0;
             ADDREPORTGEN(textBox1.Text, textBox2.Text,textBox4.Text);
             ADDREPORTGENDETAIL(textBox1.Text, textBox2.Text, textBox4.Text);
 
@@ -774,7 +779,17 @@ namespace TKMOC
             }
             else
             {
-                SETFASTREPORT(textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text);
+                if(BOXNUM>0)
+                {
+                    decimal CALNUM = Convert.ToDecimal(textBox4.Text)/ BOXNUM;
+                    NUM = Convert.ToInt32(Math.Round(CALNUM, 0, MidpointRounding.AwayFromZero));
+                }
+                else
+                {
+                    NUM = Convert.ToInt32(textBox4.Text);
+                }
+                
+                SETFASTREPORT(textBox1.Text, textBox2.Text, textBox3.Text, NUM.ToString());
             }
 
             SEARCHREPORTGENDETAIL(textBox1.Text, textBox2.Text);
