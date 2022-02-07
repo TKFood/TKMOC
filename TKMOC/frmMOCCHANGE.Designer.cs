@@ -1883,6 +1883,7 @@
             this.checkBox22.TabIndex = 39;
             this.checkBox22.Text = "託外製令A512";
             this.checkBox22.UseVisualStyleBackColor = true;
+            this.checkBox22.CheckedChanged += new System.EventHandler(this.checkBox22_CheckedChanged);
             // 
             // checkBox23
             // 
@@ -1894,6 +1895,7 @@
             this.checkBox23.TabIndex = 42;
             this.checkBox23.Text = "託外製令A512";
             this.checkBox23.UseVisualStyleBackColor = true;
+            this.checkBox23.CheckedChanged += new System.EventHandler(this.checkBox23_CheckedChanged);
             // 
             // checkBox24
             // 
@@ -1905,6 +1907,7 @@
             this.checkBox24.TabIndex = 45;
             this.checkBox24.Text = "託外製令A512";
             this.checkBox24.UseVisualStyleBackColor = true;
+            this.checkBox24.CheckedChanged += new System.EventHandler(this.checkBox24_CheckedChanged);
             // 
             // checkBox25
             // 
@@ -1916,6 +1919,7 @@
             this.checkBox25.TabIndex = 46;
             this.checkBox25.Text = "託外製令A512";
             this.checkBox25.UseVisualStyleBackColor = true;
+            this.checkBox25.CheckedChanged += new System.EventHandler(this.checkBox25_CheckedChanged);
             // 
             // frmMOCCHANGE
             // 

@@ -2404,6 +2404,144 @@ namespace TKMOC
 
             }
         }
+        private void checkBox22_CheckedChanged(object sender, EventArgs e)
+        {
+            //
+            if (checkBox22.Checked)
+            {
+                dataGridView3checkBox22True();
+            }
+            else
+            {
+                dataGridView3checkBox22False();
+            }
+        }
+        public void dataGridView3checkBox22True()
+        {
+            for (int i = 0; i < dataGridView3.Rows.Count; i++)
+            {
+                if (dataGridView3.Rows[i].Cells["製令"].Value.ToString().Trim().Equals("A512"))
+                {
+                    dataGridView3.Rows[i].Cells[0].Value = 1;
+                }
+
+            }
+        }
+        public void dataGridView3checkBox22False()
+        {
+            for (int i = 0; i < dataGridView3.Rows.Count; i++)
+            {
+                if (dataGridView3.Rows[i].Cells["製令"].Value.ToString().Trim().Equals("A512"))
+                {
+                    dataGridView3.Rows[i].Cells[0].Value = 0;
+                }
+
+            }
+        }
+
+        private void checkBox23_CheckedChanged(object sender, EventArgs e)
+        {
+            //
+            if (checkBox23.Checked)
+            {
+                dataGridView5checkBox23True();
+            }
+            else
+            {
+                dataGridView5checkBox23False();
+            }
+        }
+
+        public void dataGridView5checkBox23True()
+        {
+            for (int i = 0; i < dataGridView5.Rows.Count; i++)
+            {
+                if (dataGridView5.Rows[i].Cells["製令"].Value.ToString().Trim().Equals("A512"))
+                {
+                    dataGridView5.Rows[i].Cells[0].Value = 1;
+                }
+
+            }
+        }
+        public void dataGridView5checkBox23False()
+        {
+            for (int i = 0; i < dataGridView5.Rows.Count; i++)
+            {
+                if (dataGridView5.Rows[i].Cells["製令"].Value.ToString().Trim().Equals("A512"))
+                {
+                    dataGridView5.Rows[i].Cells[0].Value = 0;
+                }
+
+            }
+        }
+        private void checkBox24_CheckedChanged(object sender, EventArgs e)
+        {
+            //
+            if (checkBox24.Checked)
+            {
+                dataGridView7checkBox24True();
+            }
+            else
+            {
+                dataGridView7checkBox24False();
+            }
+        }
+        public void dataGridView7checkBox24True()
+        {
+            for (int i = 0; i < dataGridView7.Rows.Count; i++)
+            {
+                if (dataGridView7.Rows[i].Cells["製令"].Value.ToString().Trim().Equals("A512"))
+                {
+                    dataGridView7.Rows[i].Cells[0].Value = 1;
+                }
+
+            }
+        }
+        public void dataGridView7checkBox24False()
+        {
+            for (int i = 0; i < dataGridView7.Rows.Count; i++)
+            {
+                if (dataGridView7.Rows[i].Cells["製令"].Value.ToString().Trim().Equals("A512"))
+                {
+                    dataGridView7.Rows[i].Cells[0].Value = 0;
+                }
+
+            }
+        }
+        private void checkBox25_CheckedChanged(object sender, EventArgs e)
+        {
+            //
+            if (checkBox25.Checked)
+            {
+                dataGridView9checkBox25True();
+            }
+            else
+            {
+                dataGridView9checkBox25False();
+            }
+        }
+        public void dataGridView9checkBox25True()
+        {
+            for (int i = 0; i < dataGridView9.Rows.Count; i++)
+            {
+                if (dataGridView9.Rows[i].Cells["製令"].Value.ToString().Trim().Equals("A512"))
+                {
+                    dataGridView9.Rows[i].Cells[0].Value = 1;
+                }
+
+            }
+        }
+        public void dataGridView9checkBox25False()
+        {
+            for (int i = 0; i < dataGridView9.Rows.Count; i++)
+            {
+                if (dataGridView9.Rows[i].Cells["製令"].Value.ToString().Trim().Equals("A512"))
+                {
+                    dataGridView9.Rows[i].Cells[0].Value = 0;
+                }
+
+            }
+        }
 
         #endregion
 
@@ -2547,9 +2685,10 @@ namespace TKMOC
 
 
 
+
         #endregion
 
-      
+       
     }
     
 }
