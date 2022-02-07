@@ -247,11 +247,20 @@ namespace TKMOC
 
 
                 sbSql.AppendFormat(@"  
-                                  SELECT TA001 AS '製令',TA002 AS '單號',TA003 AS '生產日',TA006 AS '品號',TA034 AS '品名',TA015 AS '生產量',TA007 AS '單位',MD002 AS '線別',TA026 AS '訂單',TA027 AS '單號',TA028 AS '序號'
+                                    SELECT *
+                                    FROM (
+                                    SELECT TA001 AS '製令',TA002 AS '單號',TA003 AS '生產日',TA006 AS '品號',TA034 AS '品名',TA015 AS '生產量',TA007 AS '單位',MD002 AS '線別',TA026 AS '訂單',TA027 AS '訂單單號',TA028 AS '序號'
                                     FROM [TK].dbo.MOCTA,[TK].dbo.CMSMD
                                     WHERE TA021=MD001
                                     AND TA003>='{0}' AND TA003<='{1}' 
-                                    ORDER BY TA001,TA002,TA003
+
+                                    UNION ALL 
+                                    SELECT TA001 AS '製令',TA002 AS '單號',TA003 AS '生產日',TA006 AS '品號',TA034 AS '品名',TA015 AS '生產量',TA007 AS '單位','' AS '線別',TA026 AS '訂單',TA027 AS '訂單單號',TA028 AS '序號'
+                                    FROM [TK].dbo.MOCTA
+                                    WHERE TA001='A512'
+                                    AND TA003>='{0}' AND TA003<='{1}' 
+                                    ) AS TEMP 
+                                    ORDER BY 製令,單號,生產日
                                     ", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
 
                 adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -504,11 +513,20 @@ namespace TKMOC
 
 
                 sbSql.AppendFormat(@"  
-                                    SELECT TA001 AS '製令',TA002 AS '單號',TA003 AS '生產日',TA006 AS '品號',TA034 AS '品名',TA015 AS '生產量',TA007 AS '單位',MD002 AS '線別',TA026 AS '訂單',TA027 AS '單號',TA028 AS '序號'
+                                    SELECT *
+                                    FROM (
+                                    SELECT TA001 AS '製令',TA002 AS '單號',TA003 AS '生產日',TA006 AS '品號',TA034 AS '品名',TA015 AS '生產量',TA007 AS '單位',MD002 AS '線別',TA026 AS '訂單',TA027 AS '訂單單號',TA028 AS '序號'
                                     FROM [TK].dbo.MOCTA,[TK].dbo.CMSMD
                                     WHERE TA021=MD001
                                     AND TA003>='{0}' AND TA003<='{1}' 
-                                    ORDER BY TA001,TA002,TA003
+
+                                    UNION ALL 
+                                    SELECT TA001 AS '製令',TA002 AS '單號',TA003 AS '生產日',TA006 AS '品號',TA034 AS '品名',TA015 AS '生產量',TA007 AS '單位','' AS '線別',TA026 AS '訂單',TA027 AS '訂單單號',TA028 AS '序號'
+                                    FROM [TK].dbo.MOCTA
+                                    WHERE TA001='A512'
+                                    AND TA003>='{0}' AND TA003<='{1}' 
+                                    ) AS TEMP 
+                                    ORDER BY 製令,單號,生產日
                                     ", SDAY, EDAY);
 
                 adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -576,13 +594,22 @@ namespace TKMOC
                 sbSqlQuery.Clear();
 
                 sbSql.AppendFormat(@"
+                                    SELECT *
+                                    FROM (
                                     SELECT TA001 AS '製令',TA002 AS '單號',TB003 AS '品號',TB012 AS '品名',TB004 AS '需領用量',TB009 AS '庫別' ,MD002 AS '線別'
                                     FROM [TK].dbo.MOCTA,[TK].dbo.MOCTB,[TK].dbo.CMSMD
                                     WHERE TA021=MD001
                                     AND TA001=TB001 AND TA002=TB002
                                     AND TB003='106061011'
                                     AND TA003>='{0}' AND TA003<='{1}'
-                                    ORDER BY TA001,TA002,TB003
+                                    UNION ALL 
+                                    SELECT TA001 AS '製令',TA002 AS '單號',TB003 AS '品號',TB012 AS '品名',TB004 AS '需領用量',TB009 AS '庫別' ,'' AS '線別'
+                                    FROM [TK].dbo.MOCTA,[TK].dbo.MOCTB
+                                    WHERE TA001='A512'
+                                    AND TA001=TB001 AND TA002=TB002
+                                    AND TB003='106061011'
+                                    AND TA003>='{0}' AND TA003<='{1}'
+                                    ) AS TEMP
                     
                                     ", SDAY, EDAY);
 
@@ -1143,11 +1170,20 @@ namespace TKMOC
 
 
                 sbSql.AppendFormat(@"  
-                                    SELECT TA001 AS '製令',TA002 AS '單號',TA003 AS '生產日',TA006 AS '品號',TA034 AS '品名',TA015 AS '生產量',TA007 AS '單位',MD002 AS '線別',TA026 AS '訂單',TA027 AS '單號',TA028 AS '序號'
+                                   SELECT *
+                                    FROM (
+                                    SELECT TA001 AS '製令',TA002 AS '單號',TA003 AS '生產日',TA006 AS '品號',TA034 AS '品名',TA015 AS '生產量',TA007 AS '單位',MD002 AS '線別',TA026 AS '訂單',TA027 AS '訂單單號',TA028 AS '序號'
                                     FROM [TK].dbo.MOCTA,[TK].dbo.CMSMD
-                                    WHERE  TA021=MD001
+                                    WHERE TA021=MD001
                                     AND TA003>='{0}' AND TA003<='{1}' 
-                                    ORDER BY TA001,TA002,TA003
+
+                                    UNION ALL 
+                                    SELECT TA001 AS '製令',TA002 AS '單號',TA003 AS '生產日',TA006 AS '品號',TA034 AS '品名',TA015 AS '生產量',TA007 AS '單位','' AS '線別',TA026 AS '訂單',TA027 AS '訂單單號',TA028 AS '序號'
+                                    FROM [TK].dbo.MOCTA
+                                    WHERE TA001='A512'
+                                    AND TA003>='{0}' AND TA003<='{1}' 
+                                    ) AS TEMP 
+                                    ORDER BY 製令,單號,生產日
                                     ", SDATES, EDATES);
 
                 adapter5 = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -1216,11 +1252,20 @@ namespace TKMOC
 
 
                 sbSql.AppendFormat(@"  
-                                    SELECT TA001 AS '製令',TA002 AS '單號',TA003 AS '生產日',TA006 AS '品號',TA034 AS '品名',TA015 AS '生產量',TA007 AS '單位',MD002 AS '線別',TA026 AS '訂單',TA027 AS '單號',TA028 AS '序號'
+                                    SELECT *
+                                    FROM (
+                                    SELECT TA001 AS '製令',TA002 AS '單號',TA003 AS '生產日',TA006 AS '品號',TA034 AS '品名',TA015 AS '生產量',TA007 AS '單位',MD002 AS '線別',TA026 AS '訂單',TA027 AS '訂單單號',TA028 AS '序號'
                                     FROM [TK].dbo.MOCTA,[TK].dbo.CMSMD
                                     WHERE TA021=MD001
                                     AND TA003>='{0}' AND TA003<='{1}' 
-                                    ORDER BY TA001,TA002,TA003
+
+                                    UNION ALL 
+                                    SELECT TA001 AS '製令',TA002 AS '單號',TA003 AS '生產日',TA006 AS '品號',TA034 AS '品名',TA015 AS '生產量',TA007 AS '單位','' AS '線別',TA026 AS '訂單',TA027 AS '訂單單號',TA028 AS '序號'
+                                    FROM [TK].dbo.MOCTA
+                                    WHERE TA001='A512'
+                                    AND TA003>='{0}' AND TA003<='{1}' 
+                                    ) AS TEMP 
+                                    ORDER BY 製令,單號,生產日
                                     ", SDAY, EDAY);
 
                 adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -2324,6 +2369,41 @@ namespace TKMOC
 
             }
         }
+        private void checkBox21_CheckedChanged(object sender, EventArgs e)
+        {
+            //
+            if (checkBox21.Checked)
+            {
+                dataGridView1checkBox21True();
+            }
+            else
+            {
+                dataGridView1checkBox21False();
+            }
+        }
+
+        public void dataGridView1checkBox21True()
+        {
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
+                if (dataGridView1.Rows[i].Cells["製令"].Value.ToString().Trim().Equals("A512"))
+                {
+                    dataGridView1.Rows[i].Cells[0].Value = 1;
+                }
+
+            }
+        }
+        public void dataGridView1checkBox21False()
+        {
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
+                if (dataGridView1.Rows[i].Cells["製令"].Value.ToString().Trim().Equals("A512"))
+                {
+                    dataGridView1.Rows[i].Cells[0].Value = 0;
+                }
+
+            }
+        }
 
         #endregion
 
@@ -2459,6 +2539,7 @@ namespace TKMOC
                 //do something else
             }
         }
+
 
 
 
