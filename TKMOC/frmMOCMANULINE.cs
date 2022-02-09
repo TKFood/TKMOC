@@ -420,6 +420,8 @@ namespace TKMOC
 
         private void frmMOCMANULINE_Load(object sender, EventArgs e)
         {
+            dateTimePicker27.Value = DateTime.Now;
+
             dataGridView20.AlternatingRowsDefaultCellStyle.BackColor = Color.PaleTurquoise;      //奇數列顏色
 
             //先建立個 CheckBox 欄
@@ -11202,6 +11204,86 @@ namespace TKMOC
             MessageBox.Show("完成");
         }
 
+        public void SEARCHMOCMANULINEQUERY86A(string MANUDATE, string MB001)
+        {
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            DataSet ds1 = new DataSet();
+
+            try
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+                sbSqlQuery2.Clear();
+
+
+                if (!String.IsNullOrEmpty(MANUDATE)&& !String.IsNullOrEmpty(MB001))
+                {
+                    sbSql.AppendFormat(@"  
+                                    SELECT 
+                                    [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名' 
+                                    ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[BOX] AS '箱數',[PACKAGE]AS '包裝數',[CLINET] AS '客戶',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'
+                                    ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號'
+                                    ,[ID]
+                                    FROM [TKMOC].[dbo].[MOCMANULINE]
+                                    WHERE CONVERT(varchar(100),[MANUDATE],112)>='{0}'
+                                    AND [MB001] LIKE '{1}%'
+                                    ORDER BY [MANU],[COPTD001],[COPTD002],[COPTD003]
+                                    ", MANUDATE, MB001);
+
+                }
+               
+
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "TEMPds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["TEMPds1"].Rows.Count == 0)
+                {
+                    dataGridView24.DataSource = null;
+                }
+                else
+                {
+                    if (ds1.Tables["TEMPds1"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView24.DataSource = ds1.Tables["TEMPds1"];
+                        dataGridView24.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+
+        }
+
         #endregion
 
         #region BUTTON
@@ -11991,7 +12073,7 @@ namespace TKMOC
         }
         private void button86_Click(object sender, EventArgs e)
         {
-
+            SEARCHMOCMANULINEQUERY86A(dateTimePicker27.Value.ToString("yyyyMMdd"),textBox96.Text.Trim());
         }
 
         private void button87_Click(object sender, EventArgs e)
