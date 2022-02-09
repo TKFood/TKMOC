@@ -11366,6 +11366,193 @@ namespace TKMOC
 
         }
 
+        public void SEARCHMOCMANULINEQUERY87A(string MANUDATE, string MB001)
+        {
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            DataSet ds1 = new DataSet();
+
+            try
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+                sbSqlQuery2.Clear();
+
+
+                if (!String.IsNullOrEmpty(MANUDATE) && !String.IsNullOrEmpty(MB001))
+                {
+                    sbSql.AppendFormat(@"  
+                                        SELECT 
+                                        [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名' 
+                                        ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[BOX] AS '箱數',[PACKAGE]AS '包裝數',[CLINET] AS '客戶',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'
+                                        ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號'
+                                        ,[ID]
+                                        FROM [TKMOC].[dbo].[MOCMANULINE]
+                                        WHERE CONVERT(varchar(100),[MANUDATE],112)>='{0}'
+                                        AND 
+                                        ([MB001] LIKE '{1}' 
+                                        OR 
+                                        [MB001] IN (SELECT FIANLMD003
+                                        FROM (
+                                        SELECT MD1.MD001 AS 'MD1MD001',MD1.MD003  AS 'MD1MD003',MD2.MD003  AS 'MD2MD003',(CASE WHEN ISNULL(MD2.MD003,'')<>'' THEN MD2.MD003 ELSE MD1.MD003 END) AS FIANLMD003
+                                        FROM [TK].dbo.BOMMD MD1
+                                        LEFT JOIN [TK].dbo.BOMMD MD2 ON MD1.MD003=MD2.MD001
+                                        WHERE MD1.MD001='{1}'
+                                        ) AS TEMP 
+                                        WHERE (FIANLMD003 LIKE '3%' OR FIANLMD003 LIKE '4%')
+
+                                        ))
+
+                                        ORDER BY [MANU],[COPTD001],[COPTD002],[COPTD003]
+                                    ", MANUDATE, MB001);
+
+                }
+
+
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "TEMPds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["TEMPds1"].Rows.Count == 0)
+                {
+                    dataGridView24.DataSource = null;
+                }
+                else
+                {
+                    if (ds1.Tables["TEMPds1"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView24.DataSource = ds1.Tables["TEMPds1"];
+                        dataGridView24.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+
+        }
+
+        public void SEARCHMOCMANULINEQUERY87B(string MANUDATE, string MB001)
+        {
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            DataSet ds1 = new DataSet();
+
+            try
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+                sbSqlQuery2.Clear();
+
+
+                if (!String.IsNullOrEmpty(MANUDATE) && !String.IsNullOrEmpty(MB001))
+                {
+                    sbSql.AppendFormat(@"  
+                                        SELECT 
+                                        '少量'+[MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名' 
+                                        ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[CLINET] AS '客戶',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'
+                                        ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號'
+                                        ,[ID]
+                                        FROM [TKMOC].[dbo].[MOCMANULINETEMP]
+                                        WHERE CONVERT(varchar(100),[MANUDATE],112)>='{0}'
+                                        AND 
+                                        ([MB001] LIKE '{1}' 
+                                        OR 
+                                        [MB001] IN (SELECT FIANLMD003
+                                        FROM (
+                                        SELECT MD1.MD001 AS 'MD1MD001',MD1.MD003  AS 'MD1MD003',MD2.MD003  AS 'MD2MD003',(CASE WHEN ISNULL(MD2.MD003,'')<>'' THEN MD2.MD003 ELSE MD1.MD003 END) AS FIANLMD003
+                                        FROM [TK].dbo.BOMMD MD1
+                                        LEFT JOIN [TK].dbo.BOMMD MD2 ON MD1.MD003=MD2.MD001
+                                        WHERE MD1.MD001='{1}'
+                                        ) AS TEMP 
+                                        WHERE (FIANLMD003 LIKE '3%' OR FIANLMD003 LIKE '4%')
+                                        )
+)
+                                        AND [MOCMANULINETEMP].[ID] NOT IN(SELECT[ID] FROM[TKMOC].[dbo].[MOCMANULINE]) 
+                                        AND RTRIM(LTRIM([MOCMANULINETEMP].[MANU]))+RTRIM(LTRIM([MOCMANULINETEMP].[MB001]))+RTRIM(LTRIM([MOCMANULINETEMP].[COPTD001]))+RTRIM(LTRIM([MOCMANULINETEMP].[COPTD002]))+RTRIM(LTRIM([MOCMANULINETEMP].[COPTD003])) NOT IN (SELECT (RTRIM(LTRIM([MOCMANULINE].[MANU])))+RTRIM(LTRIM([MOCMANULINE].[MB001]))+(RTRIM(LTRIM([MOCMANULINE].[COPTD001])))+(RTRIM(LTRIM([MOCMANULINE].[COPTD002])))+(RTRIM(LTRIM([MOCMANULINE].[COPTD003]))) FROM [TKMOC].[dbo].[MOCMANULINE] WHERE ISNULL([MOCMANULINE].[COPTD002],'')<>''  )   
+                                        ORDER    BY [MANU],[COPTD001],[COPTD002],[COPTD003]
+                                    ", MANUDATE, MB001);
+                }
+
+
+
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "TEMPds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["TEMPds1"].Rows.Count == 0)
+                {
+                    dataGridView25.DataSource = null;
+                }
+                else
+                {
+                    if (ds1.Tables["TEMPds1"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView25.DataSource = ds1.Tables["TEMPds1"];
+                        dataGridView25.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+
+        }
+
         #endregion
 
         #region BUTTON
@@ -12161,7 +12348,8 @@ namespace TKMOC
 
         private void button87_Click(object sender, EventArgs e)
         {
-
+            SEARCHMOCMANULINEQUERY87A(dateTimePicker27.Value.ToString("yyyyMMdd"), textBox96.Text.Trim());
+            SEARCHMOCMANULINEQUERY87B(dateTimePicker27.Value.ToString("yyyyMMdd"), textBox96.Text.Trim());
         }
 
         private void button88_Click(object sender, EventArgs e)
