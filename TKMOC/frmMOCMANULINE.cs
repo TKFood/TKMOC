@@ -11989,10 +11989,29 @@ namespace TKMOC
         {
             SETCOPTD001TD001TD003();
         }
+        private void button86_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button87_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button88_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button89_Click(object sender, EventArgs e)
+        {
+
+        }
 
 
         #endregion
 
-       
+
     }
 }
