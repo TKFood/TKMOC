@@ -2623,7 +2623,7 @@ namespace TKMOC
                                     AND [REPORTMOCMANULINE].[TA006] NOT IN (SELECT MB001 FROM [TKMOC].[dbo].[MOCMANULINELIMITBARCOUNT])
                                     GROUP BY [REPORTMOCMANULINE].[MANULINE],CMSMD.MD002
                                     ) AS TEMP
-                                    ORDER BY MANULINE,製令別 
+                                    ORDER BY MANULINE,製令別,製令編號
 
                                 ", SDAY);
 
