@@ -2583,7 +2583,7 @@ namespace TKMOC
                                     LEFT JOIN [TK].dbo.COPTC ON TC001= TA026 AND TC002=TA027 
                                     LEFT JOIN [TK].dbo.CMSMD ON MD001=[REPORTMOCMANULINE].[MANULINE]
                                     WHERE CONVERT(NVARCHAR,[REPORTMOCMANULINE].TA003,112)='{0}'   
-                                    AND [REPORTMOCMANULINE].[TA001] IN ('A510','A512')  
+                                    AND [REPORTMOCMANULINE].[TA001] IN ('A510','A512','A521','A522')  
 
                                     UNION ALL
                                     SELECT 
@@ -2617,7 +2617,7 @@ namespace TKMOC
                                     LEFT JOIN [TK].dbo.COPTC ON TC001= TA026 AND TC002=TA027 
                                     LEFT JOIN [TK].dbo.CMSMD ON MD001=[REPORTMOCMANULINE].[MANULINE]
                                     WHERE CONVERT(NVARCHAR,[REPORTMOCMANULINE].TA003,112)='{0}'   
-                                    AND [REPORTMOCMANULINE].[TA001] IN ('A510','A512')  
+                                    AND [REPORTMOCMANULINE].[TA001] IN ('A510','A512','A521','A522')   
                                     AND [REPORTMOCMANULINE].[TA006]  NOT LIKE '301000%'
                                     AND [REPORTMOCMANULINE].[TA006]  NOT LIKE '3014%'
                                     AND [REPORTMOCMANULINE].[TA006] NOT IN (SELECT MB001 FROM [TKMOC].[dbo].[MOCMANULINELIMITBARCOUNT])
