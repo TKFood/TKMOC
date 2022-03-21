@@ -12142,13 +12142,15 @@ namespace TKMOC
                                     ,(SELECT TOP 1 ISNULL([MOCCHECKDATES],'') FROM [TKBUSINESS].[dbo].[TBCOPTDCHECK] WHERE [TBCOPTDCHECK].TD001=COPTD.TD001 AND [TBCOPTDCHECK].TD002=COPTD.TD002 AND [TBCOPTDCHECK].TD003=COPTD.TD003  ORDER BY ID DESC) AS '生管更新日期'
                                     ,(SELECT TOP 1 [MOCCHECKS] FROM [TKBUSINESS].[dbo].[TBCOPTDCHECK] WHERE [TBCOPTDCHECK].TD001=COPTD.TD001 AND [TBCOPTDCHECK].TD002=COPTD.TD002 AND [TBCOPTDCHECK].TD003=COPTD.TD003  ORDER BY ID DESC) AS '生管核準'
                                     ,(SELECT TOP 1 [MOCCHECKSCOMMENTS] FROM [TKBUSINESS].[dbo].[TBCOPTDCHECK] WHERE [TBCOPTDCHECK].TD001=COPTD.TD001 AND [TBCOPTDCHECK].TD002=COPTD.TD002 AND [TBCOPTDCHECK].TD003=COPTD.TD003  ORDER BY ID DESC) AS '生管備註'
+                                    ,'' AS '生管備註填寫'
+
                                     ,(SELECT TOP 1 [PURCHECKDATES] FROM [TKBUSINESS].[dbo].[TBCOPTDCHECK] WHERE [TBCOPTDCHECK].TD001=COPTD.TD001 AND [TBCOPTDCHECK].TD002=COPTD.TD002 AND [TBCOPTDCHECK].TD003=COPTD.TD003  ORDER BY ID DESC) AS '採購更新日期'
                                     ,(SELECT TOP 1 [PURCHECKS] FROM [TKBUSINESS].[dbo].[TBCOPTDCHECK] WHERE [TBCOPTDCHECK].TD001=COPTD.TD001 AND [TBCOPTDCHECK].TD002=COPTD.TD002 AND [TBCOPTDCHECK].TD003=COPTD.TD003  ORDER BY ID DESC) AS '採購核準'
                                     ,(SELECT TOP 1 [PURCHECKSCOMMENTS] FROM [TKBUSINESS].[dbo].[TBCOPTDCHECK] WHERE [TBCOPTDCHECK].TD001=COPTD.TD001 AND [TBCOPTDCHECK].TD002=COPTD.TD002 AND [TBCOPTDCHECK].TD003=COPTD.TD003  ORDER BY ID DESC) AS '採購備註'
                                     ,(SELECT TOP 1 [SALESCHECKDATES] FROM [TKBUSINESS].[dbo].[TBCOPTDCHECK] WHERE [TBCOPTDCHECK].TD001=COPTD.TD001 AND [TBCOPTDCHECK].TD002=COPTD.TD002 AND [TBCOPTDCHECK].TD003=COPTD.TD003  ORDER BY ID DESC) AS '業務更新日期'
                                     ,(SELECT TOP 1 [SALESCHECKSCOMMENTS] FROM [TKBUSINESS].[dbo].[TBCOPTDCHECK] WHERE [TBCOPTDCHECK].TD001=COPTD.TD001 AND [TBCOPTDCHECK].TD002=COPTD.TD002 AND [TBCOPTDCHECK].TD003=COPTD.TD003  ORDER BY ID DESC) AS '業務備註'
 
-                                    ,'' AS '生管備註填寫'
+                                    
                                     FROM [TK].dbo.COPTC,[TK].dbo.COPTD
                                     WHERE TC001=TD001 AND TC002=TD002
                                     AND 1=1
@@ -12219,41 +12221,42 @@ namespace TKMOC
             {
                 DataGridViewComboBoxColumn dgvCmb = new DataGridViewComboBoxColumn();
                 dgvCmb.HeaderText = "生管核準填寫";
+                dgvCmb.Name = "生管核準填寫";
 
-                ////20210902密
-                //Class1 TKID = new Class1();//用new 建立類別實體
-                //SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
 
-                ////資料庫使用者密碼解密
-                //sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                //sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
 
-                //String connectionString;
-                //sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
 
-                //StringBuilder Sequel = new StringBuilder();
-                //Sequel.AppendFormat(@"SELECT 'N' AS 'STATUS' UNION ALL SELECT 'Y' AS 'STATUS'  ");
-                //SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
-                //DataTable dt = new DataTable();
-                //sqlConn.Open();
+                StringBuilder Sequel = new StringBuilder();
+                Sequel.AppendFormat(@"SELECT 'N' AS 'STATUS' UNION ALL SELECT 'Y' AS 'STATUS'  ");
+                SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+                DataTable dt = new DataTable();
+                sqlConn.Open();
 
-                //dt.Columns.Add("STATUS", typeof(string));
+                dt.Columns.Add("STATUS", typeof(string));
 
-                //da.Fill(dt);
+                da.Fill(dt);
 
-                //sqlConn.Close();
-
-                //新增combox的item
-                //dgvCmb.DataSource = dt;
-                //dgvCmb.DisplayMember = "STATUS";
-                //dgvCmb.ValueMember = "STATUS";
+                sqlConn.Close();
 
                 //新增combox的item
-                dgvCmb.Items.Add("N");
-                dgvCmb.Items.Add("Y");
+                dgvCmb.DataSource = dt;
+                dgvCmb.DisplayMember = "STATUS";
+                dgvCmb.ValueMember = "STATUS";
+
+                ////新增combox的item
+                //dgvCmb.Items.Add("N");
+                //dgvCmb.Items.Add("Y");
                 //新增預設值
-                dgvCmb.DefaultCellStyle.NullValue = "N";
-
+                dgvCmb.DefaultCellStyle.NullValue = "N";               
+               
 
                 //欄位的表頭名稱
                 dgvCmb.Name = "生管核準填寫";
@@ -12265,6 +12268,30 @@ namespace TKMOC
             
         }
 
+        public void CHECKdataGridView28()
+        {
+            string TD001 = null;
+            string TD002 = null;
+            string TD003 = null;
+            string MOCCHECKSCOMMENTS = null;
+            string MOCCHECKS = null;
+
+            dataGridView28.EndEdit();
+
+            foreach (DataGridViewRow row in dataGridView28.Rows)
+            {
+                TD001 = row.Cells[1].Value.ToString();
+                TD002 = row.Cells[2].Value.ToString();
+                TD003 = row.Cells[3].Value.ToString();
+                MOCCHECKSCOMMENTS = row.Cells[22].Value.ToString();
+                MOCCHECKS = row.Cells[23].Value.ToString();
+
+                if(!string.IsNullOrEmpty(MOCCHECKSCOMMENTS))
+                {
+                    MessageBox.Show(TD001+ TD002+ TD003+ MOCCHECKSCOMMENTS+ MOCCHECKS);
+                }
+            }
+        }
 
         #endregion
 
@@ -13080,6 +13107,10 @@ namespace TKMOC
         private void button91_Click(object sender, EventArgs e)
         {
             SEARCHTBCOPTDCHECK(dateTimePicker28.Value.ToString("yyyyMM"),comboBox23.SelectedValue.ToString(),comboBox24.SelectedValue.ToString(),textBox97.Text.Trim());
+        }
+        private void button90_Click(object sender, EventArgs e)
+        {
+            CHECKdataGridView28();
         }
 
         #endregion
