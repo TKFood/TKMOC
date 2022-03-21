@@ -12192,6 +12192,7 @@ namespace TKMOC
                         dataGridView28.Columns["生管備註填寫"].Width = 200;
                         dataGridView28.Columns["生管備註填寫"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
                         dataGridView28.Columns["生管備註填寫"].DefaultCellStyle.BackColor =Color.LightPink;
+                        
 
                     }
                 }
@@ -12210,50 +12211,58 @@ namespace TKMOC
         //新增datagrid的ComboBoxColumn
         public void NEWdataGridView28ComboBoxColumn()
         {
-            DataGridViewComboBoxColumn dgvCmb = new DataGridViewComboBoxColumn();
-            dgvCmb.HeaderText = "生管核準填寫";
+            //欄位是否存在
+            bool yesOrNo = dataGridView28.Columns.Contains("生管核準填寫");
 
-            ////20210902密
-            //Class1 TKID = new Class1();//用new 建立類別實體
-            //SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+            //不存在欄位=生管核準填寫
+            if (yesOrNo==false)
+            {
+                DataGridViewComboBoxColumn dgvCmb = new DataGridViewComboBoxColumn();
+                dgvCmb.HeaderText = "生管核準填寫";
 
-            ////資料庫使用者密碼解密
-            //sqlsb.Password = TKID.Decryption(sqlsb.Password);
-            //sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+                ////20210902密
+                //Class1 TKID = new Class1();//用new 建立類別實體
+                //SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
 
-            //String connectionString;
-            //sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                ////資料庫使用者密碼解密
+                //sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                //sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
 
-            //StringBuilder Sequel = new StringBuilder();
-            //Sequel.AppendFormat(@"SELECT 'N' AS 'STATUS' UNION ALL SELECT 'Y' AS 'STATUS'  ");
-            //SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
-            //DataTable dt = new DataTable();
-            //sqlConn.Open();
+                //String connectionString;
+                //sqlConn = new SqlConnection(sqlsb.ConnectionString);
 
-            //dt.Columns.Add("STATUS", typeof(string));
+                //StringBuilder Sequel = new StringBuilder();
+                //Sequel.AppendFormat(@"SELECT 'N' AS 'STATUS' UNION ALL SELECT 'Y' AS 'STATUS'  ");
+                //SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+                //DataTable dt = new DataTable();
+                //sqlConn.Open();
 
-            //da.Fill(dt);
+                //dt.Columns.Add("STATUS", typeof(string));
 
-            //sqlConn.Close();
+                //da.Fill(dt);
 
-            //新增combox的item
-            //dgvCmb.DataSource = dt;
-            //dgvCmb.DisplayMember = "STATUS";
-            //dgvCmb.ValueMember = "STATUS";
+                //sqlConn.Close();
 
-            //新增combox的item
-            dgvCmb.Items.Add("N");
-            dgvCmb.Items.Add("Y");
-            //新增預設值
-            dgvCmb.DefaultCellStyle.NullValue = "N";
-            dgvCmb.DefaultCellStyle.BackColor = Color.LightPink;
+                //新增combox的item
+                //dgvCmb.DataSource = dt;
+                //dgvCmb.DisplayMember = "STATUS";
+                //dgvCmb.ValueMember = "STATUS";
 
-            //欄位的表頭名稱
-            dgvCmb.Name = "生管核準填寫";
-           
+                //新增combox的item
+                dgvCmb.Items.Add("N");
+                dgvCmb.Items.Add("Y");
+                //新增預設值
+                dgvCmb.DefaultCellStyle.NullValue = "N";
 
-            //加入到datagrid
-            dataGridView28.Columns.Add(dgvCmb);
+
+                //欄位的表頭名稱
+                dgvCmb.Name = "生管核準填寫";
+
+
+                //加入到datagrid
+                dataGridView28.Columns.Add(dgvCmb);
+            }
+            
         }
 
 
