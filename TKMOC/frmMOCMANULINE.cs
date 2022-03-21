@@ -12181,6 +12181,8 @@ namespace TKMOC
                         //dataGridView1.Rows.Clear();
                         dataGridView28.DataSource = ds1.Tables["TEMPds1"];
                         dataGridView28.AutoResizeColumns();
+
+                        NEWdataGridView28ComboBoxColumn();
                         //dataGridView1.CurrentCell = dataGridView1[0, rownum];
 
                         dataGridView28.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
@@ -12204,6 +12206,56 @@ namespace TKMOC
                 sqlConn.Close();
             }
         }
+
+        //新增datagrid的ComboBoxColumn
+        public void NEWdataGridView28ComboBoxColumn()
+        {
+            DataGridViewComboBoxColumn dgvCmb = new DataGridViewComboBoxColumn();
+            dgvCmb.HeaderText = "生管核準填寫";
+
+            ////20210902密
+            //Class1 TKID = new Class1();//用new 建立類別實體
+            //SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+            ////資料庫使用者密碼解密
+            //sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            //sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+            //String connectionString;
+            //sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+            //StringBuilder Sequel = new StringBuilder();
+            //Sequel.AppendFormat(@"SELECT 'N' AS 'STATUS' UNION ALL SELECT 'Y' AS 'STATUS'  ");
+            //SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            //DataTable dt = new DataTable();
+            //sqlConn.Open();
+
+            //dt.Columns.Add("STATUS", typeof(string));
+
+            //da.Fill(dt);
+
+            //sqlConn.Close();
+
+            //新增combox的item
+            //dgvCmb.DataSource = dt;
+            //dgvCmb.DisplayMember = "STATUS";
+            //dgvCmb.ValueMember = "STATUS";
+
+            //新增combox的item
+            dgvCmb.Items.Add("N");
+            dgvCmb.Items.Add("Y");
+            //新增預設值
+            dgvCmb.DefaultCellStyle.NullValue = "N";
+            dgvCmb.DefaultCellStyle.BackColor = Color.LightPink;
+
+            //欄位的表頭名稱
+            dgvCmb.Name = "生管核準填寫";
+           
+
+            //加入到datagrid
+            dataGridView28.Columns.Add(dgvCmb);
+        }
+
 
         #endregion
 
