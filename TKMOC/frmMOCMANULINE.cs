@@ -12183,8 +12183,14 @@ namespace TKMOC
                         dataGridView28.AutoResizeColumns();
                         //dataGridView1.CurrentCell = dataGridView1[0, rownum];
 
+                        dataGridView28.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+
+                        dataGridView28.AutoResizeColumns();
+                        dataGridView28.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
                         dataGridView28.Columns["生管備註填寫"].Width = 200;
-                        //dataGridView1.Columns["生管填寫"].h = 200;
+                        dataGridView28.Columns["生管備註填寫"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+                        dataGridView28.Columns["生管備註填寫"].DefaultCellStyle.BackColor =Color.LightPink;
+
                     }
                 }
 
