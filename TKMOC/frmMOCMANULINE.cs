@@ -12194,7 +12194,11 @@ namespace TKMOC
                         dataGridView28.Columns["生管備註填寫"].Width = 200;
                         dataGridView28.Columns["生管備註填寫"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
                         dataGridView28.Columns["生管備註填寫"].DefaultCellStyle.BackColor =Color.LightPink;
-                        
+
+                        //設定欄位順序
+                        dataGridView28.Columns["生管備註填寫"].DisplayIndex = 17;
+                        dataGridView28.Columns["生管核準填寫"].DisplayIndex = 18;
+
 
                     }
                 }
@@ -12274,20 +12278,26 @@ namespace TKMOC
             string TD002 = null;
             string TD003 = null;
             string MOCCHECKSCOMMENTS = null;
-            string MOCCHECKS = null;
+            string MOCCHECKS = "N";
 
             dataGridView28.EndEdit();
 
             foreach (DataGridViewRow row in dataGridView28.Rows)
             {
-                TD001 = row.Cells[1].Value.ToString();
-                TD002 = row.Cells[2].Value.ToString();
-                TD003 = row.Cells[3].Value.ToString();
-                MOCCHECKSCOMMENTS = row.Cells[22].Value.ToString();
-                MOCCHECKS = row.Cells[23].Value.ToString();
+                TD001 = row.Cells["單別"].Value.ToString();
+                TD002 = row.Cells["單號"].Value.ToString();
+                TD003 = row.Cells["序號"].Value.ToString();
+                MOCCHECKSCOMMENTS = row.Cells["生管備註填寫"].Value.ToString();
 
-                if(!string.IsNullOrEmpty(MOCCHECKSCOMMENTS))
+                var cell = row.Cells["生管核準填寫"].Value;
+                if (cell != null)
                 {
+                    MOCCHECKS = cell.ToString();
+                }
+                
+                if (!string.IsNullOrEmpty(MOCCHECKSCOMMENTS))
+                {
+                    
                     MessageBox.Show(TD001+ TD002+ TD003+ MOCCHECKSCOMMENTS+ MOCCHECKS);
                 }
             }
