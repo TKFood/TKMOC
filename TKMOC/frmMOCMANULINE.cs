@@ -12297,12 +12297,134 @@ namespace TKMOC
                 
                 if (!string.IsNullOrEmpty(MOCCHECKSCOMMENTS))
                 {
-                    
-                    MessageBox.Show(TD001+ TD002+ TD003+ MOCCHECKSCOMMENTS+ MOCCHECKS);
+                    ADDTBCOPTDCHECKMOC(TD001, TD002, TD003, null, MOCCHECKS, MOCCHECKSCOMMENTS);
+                    //MessageBox.Show(TD001+ TD002+ TD003+ MOCCHECKSCOMMENTS+ MOCCHECKS);
                 }
             }
         }
 
+        public void ADDTBCOPTDCHECKMOC(string TD001,
+                              string TD002,
+                              string TD003,
+                              string MOCCHECKDATES,
+                              string MOCCHECKS,
+                              string MOCCHECKSCOMMENTS
+                             )
+        {
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            DataSet ds1 = new DataSet();
+
+            MOCCHECKDATES = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
+
+            try
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+
+                sbSql.AppendFormat(@" 
+                                    INSERT INTO [TKBUSINESS].[dbo].[TBCOPTDCHECK]
+                                    ([TD001]
+                                    ,[TD002]
+                                    ,[TD003]
+                                    ,[TD004]
+                                    ,[TD005]
+                                    ,[TD008]
+                                    ,[TD009]
+                                    ,[TD010]
+                                    ,[TD011]
+                                    ,[TD012]
+                                    ,[TD013]
+                                    ,[TD024]
+                                    ,[TD025]
+                                    ,[TC015]
+                                    ,[TD020]
+                                    ,[MOCCHECKDATES]
+                                    ,[MOCCHECKS]
+                                    ,[MOCCHECKSCOMMENTS]
+                                    ,[PURCHECKDATES]
+                                    ,[PURCHECKS]
+                                    ,[PURCHECKSCOMMENTS]
+                                    ,[SALESCHECKDATES]
+                                    ,[SALESCHECKSCOMMENTS]
+             
+                                    )
+                                    SELECT 
+                                    [TD001]
+                                    ,[TD002]
+                                    ,[TD003]
+                                    ,[TD004]
+                                    ,[TD005]
+                                    ,[TD008]
+                                    ,[TD009]
+                                    ,[TD010]
+                                    ,[TD011]
+                                    ,[TD012]
+                                    ,[TD013]
+                                    ,[TD024]
+                                    ,[TD025]
+                                    ,[TC015]
+                                    ,[TD020]
+                                    ,'{3}' AS [MOCCHECKDATES]
+                                    ,'{4}' AS [MOCCHECKS]
+                                    ,'{5}' AS [MOCCHECKSCOMMENTS]
+                                    ,(SELECT TOP 1 [PURCHECKDATES] FROM [TKBUSINESS].[dbo].[TBCOPTDCHECK] WHERE [TBCOPTDCHECK].TD001=COPTD.TD001 AND [TBCOPTDCHECK].TD002=COPTD.TD002 AND [TBCOPTDCHECK].TD003=COPTD.TD003 ORDER BY ID DESC) AS [PURCHECKDATES]
+                                    ,(SELECT TOP 1 [PURCHECKS] FROM [TKBUSINESS].[dbo].[TBCOPTDCHECK] WHERE [TBCOPTDCHECK].TD001=COPTD.TD001 AND [TBCOPTDCHECK].TD002=COPTD.TD002 AND [TBCOPTDCHECK].TD003=COPTD.TD003 ORDER BY ID DESC) AS [PURCHECKS]
+                                    ,(SELECT TOP 1 [PURCHECKSCOMMENTS] FROM [TKBUSINESS].[dbo].[TBCOPTDCHECK] WHERE [TBCOPTDCHECK].TD001=COPTD.TD001 AND [TBCOPTDCHECK].TD002=COPTD.TD002 AND [TBCOPTDCHECK].TD003=COPTD.TD003 ORDER BY ID DESC) AS [PURCHECKSCOMMENTS]
+                                    ,(SELECT TOP 1 [SALESCHECKDATES] FROM [TKBUSINESS].[dbo].[TBCOPTDCHECK] WHERE [TBCOPTDCHECK].TD001=COPTD.TD001 AND [TBCOPTDCHECK].TD002=COPTD.TD002 AND [TBCOPTDCHECK].TD003=COPTD.TD003 ORDER BY ID DESC) AS [SALESCHECKDATES]
+                                    ,(SELECT TOP 1 [SALESCHECKSCOMMENTS] FROM [TKBUSINESS].[dbo].[TBCOPTDCHECK] WHERE [TBCOPTDCHECK].TD001=COPTD.TD001 AND [TBCOPTDCHECK].TD002=COPTD.TD002 AND [TBCOPTDCHECK].TD003=COPTD.TD003 ORDER BY ID DESC) AS [SALESCHECKSCOMMENTS]
+                                    FROM [TK].dbo.COPTD,[TK].dbo.COPTC
+                                    WHERE TC001=TD001 AND TC002=TD002
+                                    AND TD001='{0}' AND TD002='{1}' AND TD003='{2}'
+
+                                    ", TD001, TD002, TD003, MOCCHECKDATES, MOCCHECKS, MOCCHECKSCOMMENTS);
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+                    //MessageBox.Show("完成");
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+
+        }
         #endregion
 
         #region BUTTON
@@ -13121,6 +13243,11 @@ namespace TKMOC
         private void button90_Click(object sender, EventArgs e)
         {
             CHECKdataGridView28();
+
+            SEARCHTBCOPTDCHECK(dateTimePicker28.Value.ToString("yyyyMM"), comboBox23.SelectedValue.ToString(), comboBox24.SelectedValue.ToString(), textBox97.Text.Trim());
+            MessageBox.Show("完成");
+
+
         }
 
         #endregion
