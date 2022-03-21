@@ -399,6 +399,10 @@ namespace TKMOC
             comboBox19load();
             comboBox22load();
 
+            comboBox23load();
+            comboBox24load();
+           
+
             SETIN();
 
             //SET CALENDAR
@@ -944,6 +948,69 @@ namespace TKMOC
 
 
         }
+
+        public void comboBox23load()
+        {
+            //20210902密
+            Class1 TKID = new Class1();//用new 建立類別實體
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+            //資料庫使用者密碼解密
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+            String connectionString;
+            sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT '未核單' AS 'STATUS' UNION ALL SELECT '已核單' AS 'STATUS' ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("STATUS", typeof(string));
+
+            da.Fill(dt);
+            comboBox23.DataSource = dt.DefaultView;
+            comboBox23.ValueMember = "STATUS";
+            comboBox23.DisplayMember = "STATUS";
+            sqlConn.Close();
+
+
+        }
+
+        public void comboBox24load()
+        {
+            //20210902密
+            Class1 TKID = new Class1();//用new 建立類別實體
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+            //資料庫使用者密碼解密
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+            String connectionString;
+            sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT 'Y' AS 'STATUS' UNION ALL SELECT 'N' AS 'STATUS'  ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("STATUS", typeof(string));
+   
+            da.Fill(dt);
+            comboBox24.DataSource = dt.DefaultView;
+            comboBox24.ValueMember = "STATUS";
+            comboBox24.DisplayMember = "STATUS";
+            sqlConn.Close();
+
+
+        }
+
+       
+        
         public void SEARCHMOCMANULINE()
         {
             if(MANU.Equals("製二線"))
@@ -12813,6 +12880,10 @@ namespace TKMOC
             SEARCHMOCMANULINEQUERY89B(dateTimePicker27.Value.ToString("yyyyMMdd"), textBox96.Text.Trim());
         }
 
+        private void button91_Click(object sender, EventArgs e)
+        {
+
+        }
 
         #endregion
 
