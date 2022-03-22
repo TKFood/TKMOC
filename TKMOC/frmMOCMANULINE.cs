@@ -401,7 +401,9 @@ namespace TKMOC
 
             comboBox23load();
             comboBox24load();
-           
+
+            comboBox25load();
+
 
             SETIN();
 
@@ -424,6 +426,8 @@ namespace TKMOC
 
         private void frmMOCMANULINE_Load(object sender, EventArgs e)
         {
+
+            //dateTimePicker27 建立個 CheckBox 欄
             dateTimePicker27.Value = DateTime.Now;
 
             dataGridView20.AlternatingRowsDefaultCellStyle.BackColor = Color.PaleTurquoise;      //奇數列顏色
@@ -455,6 +459,36 @@ namespace TKMOC
             ////将 CheckBox 加入到 dataGridView
             //dataGridView3.Controls.Add(cbHeader);
 
+
+            //dataGridView28 建立個 CheckBox 欄
+            dataGridView28.AlternatingRowsDefaultCellStyle.BackColor = Color.PaleTurquoise;      //奇數列顏色
+
+            //先建立個 CheckBox 欄
+            DataGridViewCheckBoxColumn cbCol28 = new DataGridViewCheckBoxColumn();
+            cbCol28.Width = 120;   //設定寬度
+            cbCol28.HeaderText = "　選擇";
+            cbCol28.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;   //置中
+            cbCol28.TrueValue = true;
+            cbCol28.FalseValue = false;
+            dataGridView28.Columns.Insert(0, cbCol28);
+
+            //region 建立全选 CheckBox
+
+            //建立个矩形，等下计算 CheckBox 嵌入 GridView 的位置
+            Rectangle rect = dataGridView28.GetCellDisplayRectangle(0, -1, true);
+            rect.X = rect.Location.X + rect.Width / 4 - 18;
+            rect.Y = rect.Location.Y + (rect.Height / 2 - 9);
+
+            CheckBox cbHeader = new CheckBox();
+            cbHeader.Name = "checkboxHeader";
+            cbHeader.Size = new Size(18, 18);
+            cbHeader.Location = rect.Location;
+
+            ////全选要设定的事件
+            //cbHeader.CheckedChanged += new EventHandler(cbHeader_CheckedChanged);
+
+            //将 CheckBox 加入到 dataGridView
+            dataGridView28.Controls.Add(cbHeader);
 
             #endregion
         }
@@ -1009,8 +1043,36 @@ namespace TKMOC
 
         }
 
-       
-        
+        public void comboBox25load()
+        {
+            //20210902密
+            Class1 TKID = new Class1();//用new 建立類別實體
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+            //資料庫使用者密碼解密
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+            String connectionString;
+            sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE (MD002 LIKE '製一線%' OR MD002 LIKE '製二線%' OR MD002 LIKE '手工線%' OR MD002 LIKE '包裝線%' ) UNION ALL  SELECT '99','少量訂單' ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("MD001", typeof(string));
+            dt.Columns.Add("MD002", typeof(string));
+            da.Fill(dt);
+            comboBox25.DataSource = dt.DefaultView;
+            comboBox25.ValueMember = "MD002";
+            comboBox25.DisplayMember = "MD002";
+            sqlConn.Close();
+
+
+        }
+
         public void SEARCHMOCMANULINE()
         {
             if(MANU.Equals("製二線"))
@@ -13247,6 +13309,11 @@ namespace TKMOC
             SEARCHTBCOPTDCHECK(dateTimePicker28.Value.ToString("yyyyMM"), comboBox23.SelectedValue.ToString(), comboBox24.SelectedValue.ToString(), textBox97.Text.Trim());
             MessageBox.Show("完成");
 
+
+        }
+
+        private void button92_Click(object sender, EventArgs e)
+        {
 
         }
 
