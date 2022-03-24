@@ -12487,6 +12487,159 @@ namespace TKMOC
             }
 
         }
+
+        public void ADDTOTKMOCMOCMANULINE()
+        {
+            DataTable COPTCTD = new DataTable();
+
+            string ID = null;
+            string MANU = null;
+            string MANUDATE = null;
+            string MB001 = null;
+            string MB002 = null;
+            string MB003 = null;
+            string BAR = null;
+            string NUM = null;
+            string CLINET = null;
+            string TA029 = null;
+            string OUTDATE = null;
+            string HALFPRO = null;
+            string COPTD001 = null;
+            string COPTD002 = null;
+            string COPTD003 = null;
+            string BOX = null;
+
+            
+
+            if (dataGridView28.Rows.Count > 0)
+            {
+                foreach (DataGridViewRow dr in this.dataGridView28.Rows)
+                {
+                    if (dr.Cells[0].Value != null && (bool)dr.Cells[0].Value)
+                    {
+
+                        COPTCTD = SEARCHCOPTCTDDATA(dr.Cells["單別"].Value.ToString().Trim(), dr.Cells["單號"].Value.ToString().Trim(), dr.Cells["序號"].Value.ToString().Trim());
+
+                        if (comboBox25.SelectedValue.Equals("製二線"))
+                        {
+
+
+                        }
+                        else if (comboBox25.SelectedValue.Equals("製一線"))
+                        {
+
+
+                        }
+                        else if (comboBox25.SelectedValue.Equals("手工線"))
+                        {
+
+
+                        }
+                        else if (comboBox25.SelectedValue.Equals("包裝線"))
+                        {
+
+
+                        }
+                        else if (comboBox25.SelectedValue.Equals("少量訂單"))
+                        {
+
+
+                        }
+                        else
+                        {
+
+                        }
+
+                        //MessageBox.Show(comboBox25.SelectedValue.ToString());
+
+                    }
+
+                    
+                }
+            }
+
+                    
+
+            // MessageBox.Show(comboBox25.SelectedValue.ToString());
+        }
+
+        public DataTable SEARCHCOPTCTDDATA(string TD001,string TD002,string TD003)
+        {
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            DataSet ds1 = new DataSet();
+            StringBuilder QUERYS = new StringBuilder();
+
+            try
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                sbSql.Clear();
+                QUERYS.Clear();
+                sbSqlQuery2.Clear();
+
+               
+                sbSql.AppendFormat(@"  
+                                    SELECT TD001,TD002,TD003,TC053,TD004,TD005,TD006,(TD008+TD024) AS TD008,TD010,(TC015+'-'+TD020) TC015 ,TD013
+                                    ,(CASE WHEN ISNULL(MD002,'')<>'' THEN (TD008+TD024)*MD004 ELSE (TD008+TD024)  END ) AS NUM
+                                    ,MC004,MB017
+
+                                    ,CASE WHEN ISNULL(MC004,0)>0 THEN CONVERT(decimal(16,4),((TD008+TD024)/MC004)) END AS BARS
+                                    ,(CASE WHEN ISNULL([NUMS],0)<>0 THEN [NUMS] ELSE 1  END ) AS NUMS
+                                    ,(CASE WHEN ISNULL([BOXS],0)<>0 THEN [BOXS] ELSE 1  END ) AS BOXS
+
+                                    FROM [TK].dbo.INVMB WITH(NOLOCK),[TK].dbo.COPTC WITH(NOLOCK),[TK].dbo.COPTD WITH(NOLOCK)
+                                    LEFT JOIN [TK].dbo.INVMD ON MD001=TD004 AND TD010=MD002
+                                    LEFT JOIN [TK].dbo.BOMMC ON TD004=MC001
+                                    LEFT JOIN [TKMOC].[dbo].[MOCHALFPRODUCTDBOXS] ON TD004=[MOCHALFPRODUCTDBOXS].[MB001]
+                                    WHERE TC001=TD001 AND TC002=TD002
+                                    AND INVMB.MB001=TD004
+                                    AND TD001='{0}' AND TD002='{1}' AND TD003='{2}'
+
+                                    ", TD001,TD002,TD003);
+
+
+
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "TEMPds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["TEMPds1"].Rows.Count > 0)
+                {
+                    return ds1.Tables["TEMPds1"];
+                }
+                else
+                {
+                    return null;
+                }
+       
+
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
         #endregion
 
         #region BUTTON
@@ -13314,7 +13467,7 @@ namespace TKMOC
 
         private void button92_Click(object sender, EventArgs e)
         {
-
+            ADDTOTKMOCMOCMANULINE();
         }
 
         #endregion
