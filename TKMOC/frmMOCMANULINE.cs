@@ -12508,8 +12508,10 @@ namespace TKMOC
             string COPTD002 = null;
             string COPTD003 = null;
             string BOX = null;
+            string PACKAGE = null;
 
-            
+
+
 
             if (dataGridView28.Rows.Count > 0)
             {
@@ -12537,32 +12539,33 @@ namespace TKMOC
                             COPTD002 = COPTCTD.Rows[0]["TD002"].ToString();
                             COPTD003 = COPTCTD.Rows[0]["TD003"].ToString();
                             BOX = COPTCTD.Rows[0]["BOXS"].ToString();
+                            PACKAGE = COPTCTD.Rows[0]["TD008"].ToString();
                         }
                         
 
                         if (comboBox25.SelectedValue.Equals("製二線"))
                         {
-                            ADDNEWTOTKMOCMOCMANULINE(ID, MANU, MANUDATE, MB001, MB002, MB003, BAR, NUM, CLINET, TA029, OUTDATE, HALFPRO, COPTD001, COPTD002, COPTD003, BOX);                                        
+                            ADDNEWTOTKMOCMOCMANULINE(ID, MANU, MANUDATE, MB001, MB002, MB003, BAR, NUM, CLINET, TA029, OUTDATE, HALFPRO, COPTD001, COPTD002, COPTD003, BOX, PACKAGE);                                        
 
                         }
                         else if (comboBox25.SelectedValue.Equals("製一線"))
                         {
-                            ADDNEWTOTKMOCMOCMANULINE(ID, MANU, MANUDATE, MB001, MB002, MB003, BAR, NUM, CLINET, TA029, OUTDATE, HALFPRO, COPTD001, COPTD002, COPTD003, BOX);
+                            ADDNEWTOTKMOCMOCMANULINE(ID, MANU, MANUDATE, MB001, MB002, MB003, BAR, NUM, CLINET, TA029, OUTDATE, HALFPRO, COPTD001, COPTD002, COPTD003, BOX, PACKAGE);
 
                         }
                         else if (comboBox25.SelectedValue.Equals("手工線"))
                         {
-                            ADDNEWTOTKMOCMOCMANULINE(ID, MANU, MANUDATE, MB001, MB002, MB003, BAR, NUM, CLINET, TA029, OUTDATE, HALFPRO, COPTD001, COPTD002, COPTD003, BOX);
+                            ADDNEWTOTKMOCMOCMANULINE(ID, MANU, MANUDATE, MB001, MB002, MB003, BAR, NUM, CLINET, TA029, OUTDATE, HALFPRO, COPTD001, COPTD002, COPTD003, BOX, PACKAGE);
 
                         }
                         else if (comboBox25.SelectedValue.Equals("包裝線"))
                         {
-                            ADDNEWTOTKMOCMOCMANULINE(ID, MANU, MANUDATE, MB001, MB002, MB003, BAR, NUM, CLINET, TA029, OUTDATE, HALFPRO, COPTD001, COPTD002, COPTD003, BOX);
+                            ADDNEWTOTKMOCMOCMANULINE(ID, MANU, MANUDATE, MB001, MB002, MB003, BAR, NUM, CLINET, TA029, OUTDATE, HALFPRO, COPTD001, COPTD002, COPTD003, BOX, PACKAGE);
                         }
                         else if (comboBox25.SelectedValue.Equals("少量訂單"))
                         {
 
-
+                            ADDNEWTOTKMOCMOCMANULINE(ID, MANU, MANUDATE, MB001, MB002, MB003, BAR, NUM, CLINET, TA029, OUTDATE, HALFPRO, COPTD001, COPTD002, COPTD003, BOX, PACKAGE);
                         }
                         else
                         {
@@ -12598,7 +12601,8 @@ namespace TKMOC
                                             string COPTD001,
                                             string COPTD002,
                                             string COPTD003,
-                                            string BOX
+                                            string BOX,
+                                            string PACKAGE
                                             )
         {
             Guid NEWGUID = new Guid();           
@@ -12847,6 +12851,8 @@ namespace TKMOC
 
             else if (MANU.Equals("少量訂單"))
             {
+                string MANUHOUR = "0";
+
                 try
                 {
                     //20210902密
@@ -12871,8 +12877,8 @@ namespace TKMOC
                     sbSql.AppendFormat(@" 
                                         INSERT INTO [TKMOC].[dbo].[MOCMANULINETEMP]
                                         ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[CLINET],[MANUHOUR],[BAR],[NUM],[BOX],[PACKAGE],[OUTDATE],[TA029],[HALFPRO],[COPTD001],[COPTD002],[COPTD003])
-                                        VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}',N'{11}','{12}','{13}','{14}','{15}','{16}','{17}')"
-                                        , "NEWID()", comboBox19.Text, dateTimePicker23.Value.ToString("yyyy/MM/dd"), textBox731.Text, textBox721.Text, textBox732.Text, textBox761.Text, textBox762.Text, textBox741.Text, textBox742.Text, textBox753.Text, textBox751.Text, dateTimePicker24.Value.ToString("yyyy/MM/dd"), textBox771.Text.Replace("'", ""), textBox772.Text, textBox781.Text, textBox782.Text, textBox783.Text);
+                                        VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}',N'{11}','{12}','{13}','{14}','{15}','{16}','{17}')"
+                                        ,ID,MANU,MANUDATE,MB001,MB002,MB003,CLINET, MANUHOUR,BAR,NUM,BOX, PACKAGE,OUTDATE,TA029,HALFPRO,COPTD001,COPTD002,COPTD003);
 
 
 
