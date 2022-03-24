@@ -129,6 +129,8 @@
             this.label139 = new System.Windows.Forms.Label();
             this.comboBox25 = new System.Windows.Forms.ComboBox();
             this.button92 = new System.Windows.Forms.Button();
+            this.label140 = new System.Windows.Forms.Label();
+            this.dateTimePicker29 = new System.Windows.Forms.DateTimePicker();
             this.dataGridView28 = new System.Windows.Forms.DataGridView();
             this.tabPage15 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
@@ -628,8 +630,7 @@
             this.textBox95 = new System.Windows.Forms.TextBox();
             this.comboBox22 = new System.Windows.Forms.ComboBox();
             this.dataGridView27 = new System.Windows.Forms.DataGridView();
-            this.label140 = new System.Windows.Forms.Label();
-            this.dateTimePicker29 = new System.Windows.Forms.DateTimePicker();
+            this.button93 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage14.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer44)).BeginInit();
@@ -960,11 +961,12 @@
             this.tableLayoutPanel29.Controls.Add(this.textBox97, 1, 3);
             this.tableLayoutPanel29.Controls.Add(this.button91, 3, 2);
             this.tableLayoutPanel29.Controls.Add(this.button90, 4, 3);
-            this.tableLayoutPanel29.Controls.Add(this.label139, 5, 1);
-            this.tableLayoutPanel29.Controls.Add(this.comboBox25, 6, 1);
-            this.tableLayoutPanel29.Controls.Add(this.button92, 6, 2);
-            this.tableLayoutPanel29.Controls.Add(this.label140, 5, 0);
-            this.tableLayoutPanel29.Controls.Add(this.dateTimePicker29, 6, 0);
+            this.tableLayoutPanel29.Controls.Add(this.label140, 4, 0);
+            this.tableLayoutPanel29.Controls.Add(this.dateTimePicker29, 5, 0);
+            this.tableLayoutPanel29.Controls.Add(this.label139, 4, 1);
+            this.tableLayoutPanel29.Controls.Add(this.comboBox25, 5, 1);
+            this.tableLayoutPanel29.Controls.Add(this.button92, 5, 2);
+            this.tableLayoutPanel29.Controls.Add(this.button93, 6, 2);
             this.tableLayoutPanel29.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel29.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel29.Name = "tableLayoutPanel29";
@@ -1100,7 +1102,7 @@
             this.label139.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label139.AutoSize = true;
             this.label139.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label139.Location = new System.Drawing.Point(603, 52);
+            this.label139.Location = new System.Drawing.Point(483, 52);
             this.label139.Name = "label139";
             this.label139.Size = new System.Drawing.Size(114, 16);
             this.label139.TabIndex = 24;
@@ -1115,7 +1117,7 @@
             this.comboBox25.Items.AddRange(new object[] {
             "製一組",
             "製二組"});
-            this.comboBox25.Location = new System.Drawing.Point(723, 48);
+            this.comboBox25.Location = new System.Drawing.Point(603, 48);
             this.comboBox25.Name = "comboBox25";
             this.comboBox25.Size = new System.Drawing.Size(114, 24);
             this.comboBox25.TabIndex = 25;
@@ -1123,13 +1125,36 @@
             // button92
             // 
             this.button92.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.button92.Location = new System.Drawing.Point(723, 83);
+            this.button92.Location = new System.Drawing.Point(603, 83);
             this.button92.Name = "button92";
             this.button92.Size = new System.Drawing.Size(114, 30);
             this.button92.TabIndex = 26;
             this.button92.Text = "帶入訂單";
             this.button92.UseVisualStyleBackColor = true;
             this.button92.Click += new System.EventHandler(this.button92_Click);
+            // 
+            // label140
+            // 
+            this.label140.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label140.AutoSize = true;
+            this.label140.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label140.Location = new System.Drawing.Point(483, 12);
+            this.label140.Name = "label140";
+            this.label140.Size = new System.Drawing.Size(114, 16);
+            this.label140.TabIndex = 27;
+            this.label140.Text = "日期";
+            this.label140.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // dateTimePicker29
+            // 
+            this.dateTimePicker29.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.dateTimePicker29.CustomFormat = "yyyy/MM/dd";
+            this.dateTimePicker29.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.dateTimePicker29.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker29.Location = new System.Drawing.Point(603, 6);
+            this.dateTimePicker29.Name = "dateTimePicker29";
+            this.dateTimePicker29.Size = new System.Drawing.Size(114, 27);
+            this.dateTimePicker29.TabIndex = 102;
             // 
             // dataGridView28
             // 
@@ -8278,28 +8303,16 @@
             this.dataGridView27.TabIndex = 3;
             this.dataGridView27.SelectionChanged += new System.EventHandler(this.dataGridView27_SelectionChanged);
             // 
-            // label140
+            // button93
             // 
-            this.label140.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label140.AutoSize = true;
-            this.label140.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label140.Location = new System.Drawing.Point(603, 12);
-            this.label140.Name = "label140";
-            this.label140.Size = new System.Drawing.Size(114, 16);
-            this.label140.TabIndex = 27;
-            this.label140.Text = "日期";
-            this.label140.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // dateTimePicker29
-            // 
-            this.dateTimePicker29.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.dateTimePicker29.CustomFormat = "yyyy/MM/dd";
-            this.dateTimePicker29.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.dateTimePicker29.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker29.Location = new System.Drawing.Point(723, 6);
-            this.dateTimePicker29.Name = "dateTimePicker29";
-            this.dateTimePicker29.Size = new System.Drawing.Size(114, 27);
-            this.dateTimePicker29.TabIndex = 102;
+            this.button93.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.button93.Location = new System.Drawing.Point(723, 83);
+            this.button93.Name = "button93";
+            this.button93.Size = new System.Drawing.Size(114, 30);
+            this.button93.TabIndex = 103;
+            this.button93.Text = "帶入少量訂單";
+            this.button93.UseVisualStyleBackColor = true;
+            this.button93.Click += new System.EventHandler(this.button93_Click);
             // 
             // frmMOCMANULINE
             // 
@@ -9111,5 +9124,6 @@
         private System.Windows.Forms.Button button92;
         private System.Windows.Forms.Label label140;
         private System.Windows.Forms.DateTimePicker dateTimePicker29;
+        private System.Windows.Forms.Button button93;
     }
 }
