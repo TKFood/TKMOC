@@ -488,12 +488,24 @@ namespace TKMOC
             cbHeader.Location = rect.Location;
 
             ////全选要设定的事件
-            //cbHeader.CheckedChanged += new EventHandler(cbHeader_CheckedChanged);
+            cbHeader.CheckedChanged += new EventHandler(cbHeader_CheckedChanged28);
 
             //将 CheckBox 加入到 dataGridView
             dataGridView28.Controls.Add(cbHeader);
 
             #endregion
+        }
+
+        private void cbHeader_CheckedChanged28(object sender, EventArgs e)
+        {
+            dataGridView28.EndEdit();
+
+            foreach (DataGridViewRow dr in dataGridView28.Rows)
+            {
+                dr.Cells[0].Value = ((CheckBox)dataGridView28.Controls.Find("checkboxHeader", true)[0]).Checked;
+
+            }
+
         }
         public void comboBox1load()
         {
