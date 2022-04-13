@@ -13104,7 +13104,7 @@ namespace TKMOC
                             MB002 = COPTCTD.Rows[0]["TD005"].ToString();
                             MB003 = COPTCTD.Rows[0]["TD006"].ToString();
                             BAR = COPTCTD.Rows[0]["BARS"].ToString();
-                            NUM = COPTCTD.Rows[0]["TD008"].ToString();
+                            NUM = COPTCTD.Rows[0]["NUM"].ToString();
                             CLINET = COPTCTD.Rows[0]["TC053"].ToString();
                             TA029 = COPTCTD.Rows[0]["TC015"].ToString();
                             OUTDATE = COPTCTD.Rows[0]["TD013"].ToString().Substring(0, 4) + "/" + COPTCTD.Rows[0]["TD013"].ToString().Substring(4, 2) + "/" + COPTCTD.Rows[0]["TD013"].ToString().Substring(6, 2);
