@@ -8617,17 +8617,31 @@ namespace TKMOC
                     Query.AppendFormat(@" ");
                 }
 
-                sbSql.AppendFormat(@"  SELECT ");
-                sbSql.AppendFormat(@"  [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名'");
-                sbSql.AppendFormat(@"  ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[BOX] AS '箱數',[PACKAGE] AS '包裝數',[CLINET] AS '客戶',[MANUHOUR] AS '生產時間',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'");
-                sbSql.AppendFormat(@"  ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號'");
-                sbSql.AppendFormat(@"  ,[ID]");
-                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
-                sbSql.AppendFormat(@"  WHERE [MANU]='{0}' ", MANU);
-                sbSql.AppendFormat(@"  AND CONVERT(varchar(100),[MANUDATE],112)>='{0}' AND CONVERT(varchar(100),[MANUDATE],112)<='{1}'", SDAY, EDAY);
-                sbSql.AppendFormat(@"  {0}",Query.ToString());
-                sbSql.AppendFormat(@"  ORDER BY [MB001],[MANUDATE],[SERNO]");
-                sbSql.AppendFormat(@"  ");
+                //sbSql.AppendFormat(@"  SELECT ");
+                //sbSql.AppendFormat(@"  [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名'");
+                //sbSql.AppendFormat(@"  ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[BOX] AS '箱數',[PACKAGE] AS '包裝數',[CLINET] AS '客戶',[MANUHOUR] AS '生產時間',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'");
+                //sbSql.AppendFormat(@"  ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號'");
+                //sbSql.AppendFormat(@"  ,[ID]");
+                //sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
+                //sbSql.AppendFormat(@"  WHERE [MANU]='{0}' ", MANU);
+                //sbSql.AppendFormat(@"  AND CONVERT(varchar(100),[MANUDATE],112)>='{0}' AND CONVERT(varchar(100),[MANUDATE],112)<='{1}'", SDAY, EDAY);
+                //sbSql.AppendFormat(@"  {0}",Query.ToString());
+                //sbSql.AppendFormat(@"  ORDER BY [MB001],[MANUDATE],[SERNO]");
+
+                sbSql.AppendFormat(@" 
+                                    SELECT
+                                    [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名'
+                                    ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[BOX] AS '箱數',[PACKAGE] AS '包裝數',[CLINET] AS '客戶',[MANUHOUR] AS '生產時間',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'
+                                    ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號'
+                                    ,[ID]
+                                    FROM [TKMOC].[dbo].[MOCMANULINE]
+                                    WHERE 1=1
+                                    AND CONVERT(varchar(100),[MANUDATE],112)>='{0}' AND CONVERT(varchar(100),[MANUDATE],112)<='{1}'
+                                    AND [MANU]='{2}' 
+                                    {3}
+                                    ORDER BY [MB001],[MANUDATE],[SERNO]
+
+                                    ", SDAY, EDAY, MANU, Query.ToString());
 
                 adapter31 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
