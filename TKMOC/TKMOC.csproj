@@ -543,6 +543,12 @@
     <Compile Include="frmREPORTMOCCOP.Designer.cs">
       <DependentUpon>frmREPORTMOCCOP.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmREPORTMOCCUT.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmREPORTMOCCUT.Designer.cs">
+      <DependentUpon>frmREPORTMOCCUT.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmREPORTMOCINVMB.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -853,6 +859,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmREPORTMOCCOP.resx">
       <DependentUpon>frmREPORTMOCCOP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmREPORTMOCCUT.resx">
+      <DependentUpon>frmREPORTMOCCUT.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmREPORTMOCINVMB.resx">
       <DependentUpon>frmREPORTMOCINVMB.cs</DependentUpon>
