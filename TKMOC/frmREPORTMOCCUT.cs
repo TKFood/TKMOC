@@ -61,9 +61,41 @@ namespace TKMOC
         public frmREPORTMOCCUT()
         {
             InitializeComponent();
+
+            comboBox1load();
         }
 
         #region FUNCTION
+
+        public void comboBox1load()
+        {
+            //20210902密
+            Class1 TKID = new Class1();//用new 建立類別實體
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+            //資料庫使用者密碼解密
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+            String connectionString;
+            sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE (MD002 LIKE '製一線%' OR MD002 LIKE '製二線%' OR MD002 LIKE '手工線%'  )  ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("MD001", typeof(string));
+            dt.Columns.Add("MD002", typeof(string));
+            da.Fill(dt);
+            comboBox1.DataSource = dt.DefaultView;
+            comboBox1.ValueMember = "MD002";
+            comboBox1.DisplayMember = "MD002";
+            sqlConn.Close();
+
+
+        }
         public void Search()
         {
             DataSet ds = new DataSet();
@@ -85,14 +117,7 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  
-                                    SELECT TA001 AS '製令',TA002 AS '單號',TA006 AS '品號',TA034 AS '品名',TA015 AS '生產量',TA003 AS '生產日',TA035 AS '規格',MC004 AS '標準批量',(TA015/MC004)  AS '桶數'
-                                    FROM [TK].dbo.MOCTA,[TK].dbo.BOMMC
-                                    WHERE TA006=MC001
-                                    AND (TA006 LIKE '3%' OR TA006 LIKE '4%')
-                                    AND TA021 IN ('02','03','04')
-                                    AND TA003='{0}'
-                                    ORDER BY TA001,TA002 
+                sbSql.AppendFormat(@"
                                      
                                     ", dateTimePicker1.Value.ToString("yyyyMMdd"));
 
@@ -107,18 +132,11 @@ namespace TKMOC
                 if (ds.Tables["TEMPds1"].Rows.Count >= 1)
                 {
 
-                    dataGridView1.DataSource = ds.Tables["TEMPds1"];
-
-                    dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 9);
-                    dataGridView1.DefaultCellStyle.Font = new Font("Tahoma", 10);
-                    dataGridView1.Columns["製令"].Width = 60;
-                    dataGridView1.Columns["單號"].Width = 100;
-                    dataGridView1.Columns["品號"].Width = 100;
-                    dataGridView1.Columns["品名"].Width = 120;
+                  
                 }
                 else
                 {
-                    dataGridView1.DataSource = null;
+                    
                 }
 
 
@@ -132,30 +150,69 @@ namespace TKMOC
 
             }
         }
-        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        public void SETREPORT(string TA003,string MD002)
         {
+            StringBuilder SQL = new StringBuilder();
 
-            textBox1.Text = null;
-            textBox2.Text = null;
+            SQL = SETSQL(TA003, MD002);
 
-            if (dataGridView1.CurrentRow != null)
-            {
-                int rowindex = dataGridView1.CurrentRow.Index;
-                if (rowindex >= 0)
-                {
-                    DataGridViewRow row = dataGridView1.Rows[rowindex];
-                    textBox1.Text = row.Cells["製令"].Value.ToString().Trim();
-                    textBox2.Text = row.Cells["單號"].Value.ToString().Trim();
-                  
+            report1 = new Report();
+            report1.Load(@"REPORT\成型檢驗.frx");
+
+            //20210902密
+            Class1 TKID = new Class1();//用new 建立類別實體
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+            //資料庫使用者密碼解密
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+            String connectionString;
+            sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+            report1.Dictionary.Connections[0].ConnectionString = sqlsb.ConnectionString;
+
+
+            TableDataSource table = report1.GetDataSource("Table") as TableDataSource;
+            table.SelectCommand = SQL.ToString();
+
+            report1.Preview = previewControl1;
+            report1.Show();
+        }
+
+        public StringBuilder SETSQL(string TA003, string MD002)
+        {
+            StringBuilder SB = new StringBuilder();
+
+            SB.AppendFormat(@" 
+                                
+                            SELECT TA001+TA002 AS '製令編號',TA021 AS '線',MD002 AS '線別',TA006 AS '品號',TA034 AS '品名',TA035 AS '規格'
+                            ,[CUTS] AS '模具規格(刀數)'
+                            ,'' AS '時間(時：分)'
+                            ,'' AS '延壓輪第3輪'
+                            ,'' AS '生餅重量(g)'
+                            ,'' AS '生餅長度(cm)'
+                            ,'' AS '紀錄人'
+                            ,'' AS '複檢人'
+                            ,'□OK □NG ' AS '品質判定'
+                            ,'□OK □NG' AS '換線清潔檢查'
+                            ,'時間：' AS '異常處理'
+                            ,'方式：' AS '(單位幹部)'
+                            ,'簽名：' AS '簽名'
+                            FROM  [TK].dbo.MOCTA
+                            LEFT JOIN [TK].dbo.CMSMD ON TA021=MD001
+                            LEFT JOIN [TKMOC].[dbo].[REPORTCUTS] ON [REPORTCUTS].MB001=TA006  AND [REPORTCUTS].MANULINES=MD002
+                            WHERE 1=1
+                            AND MD002='{0}'
+                            AND TA003='{1}'
+
+     
+
+                            ", MD002, TA003);
 
 
 
-                }
-                else
-                {          
-
-                }
-            }
+            return SB;
         }
 
         #endregion
@@ -163,11 +220,12 @@ namespace TKMOC
         #region BUTTON
         private void button1_Click(object sender, EventArgs e)
         {
-            Search();
+            SETREPORT(dateTimePicker1.Value.ToString("yyyyMMdd"), comboBox1.Text.Trim());
+
+            //Search();
         }
 
-        #endregion
 
-      
+        #endregion
     }
 }
