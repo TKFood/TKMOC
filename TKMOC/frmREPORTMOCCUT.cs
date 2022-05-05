@@ -203,6 +203,7 @@ namespace TKMOC
                             LEFT JOIN [TK].dbo.CMSMD ON TA021=MD001
                             LEFT JOIN [TKMOC].[dbo].[REPORTCUTS] ON [REPORTCUTS].MB001=TA006  AND [REPORTCUTS].MANULINES=MD002
                             WHERE 1=1
+                            AND TA034 NOT LIKE '%水麵%'
                             AND MD002='{0}'
                             AND TA003='{1}'
 
