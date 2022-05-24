@@ -407,6 +407,8 @@ namespace TKMOC
             comboBox26load();
             comboBox27load();
 
+            comboBox28load();
+
 
             SETIN();
 
@@ -1148,6 +1150,35 @@ namespace TKMOC
 
         }
 
+        public void comboBox28load()
+        {
+            //20210902密
+            Class1 TKID = new Class1();//用new 建立類別實體
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+            //資料庫使用者密碼解密
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+            String connectionString;
+            sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE (MD002 LIKE '製一線%' OR MD002 LIKE '製二線%' OR MD002 LIKE '手工線%' OR MD002 LIKE '包裝線%' )  ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("MD001", typeof(string));
+            dt.Columns.Add("MD002", typeof(string));
+            da.Fill(dt);
+            comboBox28.DataSource = dt.DefaultView;
+            comboBox28.ValueMember = "MD002";
+            comboBox28.DisplayMember = "MD002";
+            sqlConn.Close();
+
+
+        }
         public void SEARCHMOCMANULINE()
         {
             if(MANU.Equals("製二線"))
@@ -13510,6 +13541,8 @@ namespace TKMOC
                                     ,(SELECT TOP 1 ISNULL(PURCHECKSCOMMENTS,'') FROM [TKBUSINESS].[dbo].[TBCOPTFCHECK] WHERE TBCOPTFCHECK.TF001=COPTF.TF001 AND TBCOPTFCHECK.TF002=COPTF.TF002 AND TBCOPTFCHECK.TF003=COPTF.TF003 AND  TBCOPTFCHECK.TF004=COPTF.TF004 ORDER BY ID DESC) AS '採購備註'
                                     ,(SELECT TOP 1 ISNULL(SALESCHECKDATES,'') FROM [TKBUSINESS].[dbo].[TBCOPTFCHECK] WHERE TBCOPTFCHECK.TF001=COPTF.TF001 AND TBCOPTFCHECK.TF002=COPTF.TF002 AND TBCOPTFCHECK.TF003=COPTF.TF003 AND  TBCOPTFCHECK.TF004=COPTF.TF004 ORDER BY ID DESC) AS '業務更新日期'
                                     ,(SELECT TOP 1 ISNULL(SALESCHECKSCOMMENTS,'') FROM [TKBUSINESS].[dbo].[TBCOPTFCHECK] WHERE TBCOPTFCHECK.TF001=COPTF.TF001 AND TBCOPTFCHECK.TF002=COPTF.TF002 AND TBCOPTFCHECK.TF003=COPTF.TF003 AND  TBCOPTFCHECK.TF004=COPTF.TF004 ORDER BY ID DESC) AS '業務備註'
+                                    ,TE001,TE002,TE003,TF001
+
                                     FROM [TK].dbo.COPTE,[TK].dbo.COPTF
                                     LEFT JOIN [TK].dbo.COPTC ON TC001=TF001 AND TC002=TF002
                                     LEFT JOIN [TK].dbo.COPTD ON TD001=TF001 AND TD002=TF002 AND TD003=TF104
@@ -13535,6 +13568,7 @@ namespace TKMOC
                                     ,(SELECT TOP 1 ISNULL(PURCHECKSCOMMENTS,'') FROM [TKBUSINESS].[dbo].[TBCOPTFCHECK] WHERE TBCOPTFCHECK.TF001=COPTF.TF001 AND TBCOPTFCHECK.TF002=COPTF.TF002 AND TBCOPTFCHECK.TF003=COPTF.TF003 AND  TBCOPTFCHECK.TF004=COPTF.TF004 ORDER BY ID DESC) AS '採購備註'
                                     ,(SELECT TOP 1 ISNULL(SALESCHECKDATES,'') FROM [TKBUSINESS].[dbo].[TBCOPTFCHECK] WHERE TBCOPTFCHECK.TF001=COPTF.TF001 AND TBCOPTFCHECK.TF002=COPTF.TF002 AND TBCOPTFCHECK.TF003=COPTF.TF003 AND  TBCOPTFCHECK.TF004=COPTF.TF004 ORDER BY ID DESC) AS '業務更新日期'
                                     ,(SELECT TOP 1 ISNULL(SALESCHECKSCOMMENTS,'') FROM [TKBUSINESS].[dbo].[TBCOPTFCHECK] WHERE TBCOPTFCHECK.TF001=COPTF.TF001 AND TBCOPTFCHECK.TF002=COPTF.TF002 AND TBCOPTFCHECK.TF003=COPTF.TF003 AND  TBCOPTFCHECK.TF004=COPTF.TF004 ORDER BY ID DESC) AS '業務備註'
+                                    ,TE001,TE002,TE003,TF001
 
                                     FROM [TK].dbo.COPTE,[TK].dbo.COPTF
                                     LEFT JOIN [TK].dbo.COPTC ON TC001=TF001 AND TC002=TF002
@@ -13543,9 +13577,12 @@ namespace TKMOC
                                     AND 1=1
                                     AND ISNULL(TD003,'')=''
                                     AND COPTF.UDF01 IN ('Y','y')
-
+                    
+                                    ORDER BY TE001,TE002,TE003,TF001
+                                   
 
                                     ", QUERYS.ToString());
+
 
 
 
