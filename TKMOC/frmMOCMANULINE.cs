@@ -13916,6 +13916,8 @@ namespace TKMOC
 
             if(!string.IsNullOrEmpty(TF001))
             {
+
+                //找出訂單變更的明細、桶數、箱數
                 COPTETF = SEARCHCOPTETFDATA(TF001, TF002, TF003, TF104);
 
 
@@ -14106,6 +14108,83 @@ namespace TKMOC
                 sqlConn.Close();
             }
         }
+
+
+        public void ADDTOTKMOCMOCMANULINETEMPCOPTETF()
+        {
+            DataTable COPTETF = new DataTable();
+
+            Guid ID = new Guid();
+            string MANU = null;
+            string MANUDATE = null;
+            string MB001 = null;
+            string MB002 = null;
+            string MB003 = null;
+            string BAR = null;
+            string NUM = null;
+            string CLINET = null;
+            string TA029 = null;
+            string OUTDATE = null;
+            string HALFPRO = null;
+            string COPTD001 = null;
+            string COPTD002 = null;
+            string COPTD003 = null;
+            string BOX = null;
+            string PACKAGE = null;
+
+
+            if (!string.IsNullOrEmpty(TF001))
+            {
+
+                //找出訂單變更的明細、桶數、箱數
+                COPTETF = SEARCHCOPTETFDATA(TF001, TF002, TF003, TF104);
+
+
+                if (COPTETF.Rows.Count > 0)
+                {
+                    MANU = comboBox28.SelectedValue.ToString().Trim();
+                    MANUDATE = dateTimePicker31.Value.ToString("yyyy/MM/dd");
+                    MB001 = COPTETF.Rows[0]["TF005"].ToString();
+                    MB002 = COPTETF.Rows[0]["TF006"].ToString();
+                    MB003 = COPTETF.Rows[0]["TF007"].ToString();
+                    BAR = COPTETF.Rows[0]["BARS"].ToString();
+                    NUM = COPTETF.Rows[0]["NUM"].ToString();
+                    CLINET = COPTETF.Rows[0]["TE055"].ToString();
+                    TA029 = COPTETF.Rows[0]["TE006"].ToString();
+                    OUTDATE = COPTETF.Rows[0]["TF015"].ToString().Substring(0, 4) + "/" + COPTETF.Rows[0]["TF015"].ToString().Substring(4, 2) + "/" + COPTETF.Rows[0]["TF015"].ToString().Substring(6, 2);
+                    HALFPRO = "0";
+                    COPTD001 = COPTETF.Rows[0]["TF001"].ToString();
+                    COPTD002 = COPTETF.Rows[0]["TF002"].ToString();
+                    COPTD003 = COPTETF.Rows[0]["TF104"].ToString();
+                    BOX = COPTETF.Rows[0]["BOXS"].ToString();
+                    PACKAGE = COPTETF.Rows[0]["NUM"].ToString();
+
+                    if (comboBox28.SelectedValue.Equals("製二線"))
+                    {
+                        ADDNEWTOTKMOCMOCMANULINETEMP(ID, MANU, MANUDATE, MB001, MB002, MB003, BAR, NUM, CLINET, TA029, OUTDATE, HALFPRO, COPTD001, COPTD002, COPTD003, BOX, PACKAGE);
+
+                    }
+                    else if (comboBox28.SelectedValue.Equals("製一線"))
+                    {
+                        ADDNEWTOTKMOCMOCMANULINETEMP(ID, MANU, MANUDATE, MB001, MB002, MB003, BAR, NUM, CLINET, TA029, OUTDATE, HALFPRO, COPTD001, COPTD002, COPTD003, BOX, PACKAGE);
+
+                    }
+                    else if (comboBox28.SelectedValue.Equals("手工線"))
+                    {
+                        ADDNEWTOTKMOCMOCMANULINETEMP(ID, MANU, MANUDATE, MB001, MB002, MB003, BAR, NUM, CLINET, TA029, OUTDATE, HALFPRO, COPTD001, COPTD002, COPTD003, BOX, PACKAGE);
+
+                    }
+                    else if (comboBox28.SelectedValue.Equals("包裝線"))
+                    {
+                        ADDNEWTOTKMOCMOCMANULINETEMP(ID, MANU, MANUDATE, MB001, MB002, MB003, BAR, NUM, CLINET, TA029, OUTDATE, HALFPRO, COPTD001, COPTD002, COPTD003, BOX, PACKAGE);
+                    }
+                }
+
+
+            }
+
+        }
+
 
         #endregion
 
@@ -14962,9 +15041,14 @@ namespace TKMOC
             MessageBox.Show("完成");
         }
 
+        private void button97_Click(object sender, EventArgs e)
+        {
+            ADDTOTKMOCMOCMANULINETEMPCOPTETF();
+            MessageBox.Show("完成");
+        }
 
         #endregion
 
-       
+
     }
 }
