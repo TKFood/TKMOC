@@ -294,6 +294,11 @@ namespace TKMOC
         string dataGridView20SORTNAME=null;
         string dataGridView20SORTMODE=null;
 
+        string TF001;
+        string TF002;
+        string TF003;
+        string TF104;
+
         public class MOCTADATA
         {
             public string COMPANY;
@@ -1122,30 +1127,30 @@ namespace TKMOC
 
         public void comboBox27load()
         {
-            //20210902密
-            Class1 TKID = new Class1();//用new 建立類別實體
-            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+            ////20210902密
+            //Class1 TKID = new Class1();//用new 建立類別實體
+            //SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
 
-            //資料庫使用者密碼解密
-            sqlsb.Password = TKID.Decryption(sqlsb.Password);
-            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+            ////資料庫使用者密碼解密
+            //sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            //sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
 
-            String connectionString;
-            sqlConn = new SqlConnection(sqlsb.ConnectionString);
+            //String connectionString;
+            //sqlConn = new SqlConnection(sqlsb.ConnectionString);
 
-            StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT 'Y' AS 'STATUS' UNION ALL SELECT 'N' AS 'STATUS'  ");
-            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
-            DataTable dt = new DataTable();
-            sqlConn.Open();
+            //StringBuilder Sequel = new StringBuilder();
+            //Sequel.AppendFormat(@"SELECT 'Y' AS 'STATUS' UNION ALL SELECT 'N' AS 'STATUS'  ");
+            //SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            //DataTable dt = new DataTable();
+            //sqlConn.Open();
 
-            dt.Columns.Add("STATUS", typeof(string));
+            //dt.Columns.Add("STATUS", typeof(string));
 
-            da.Fill(dt);
-            comboBox27.DataSource = dt.DefaultView;
-            comboBox27.ValueMember = "STATUS";
-            comboBox27.DisplayMember = "STATUS";
-            sqlConn.Close();
+            //da.Fill(dt);
+            //comboBox27.DataSource = dt.DefaultView;
+            //comboBox27.ValueMember = "STATUS";
+            //comboBox27.DisplayMember = "STATUS";
+            //sqlConn.Close();
 
 
         }
@@ -13458,7 +13463,7 @@ namespace TKMOC
 
         }
 
-        public void SEARCHTBCOPTFCHECK(string YYYY, string TF019, string UDF01, string TF002)
+        public void SEARCHTBCOPTFCHECK(string YYYY, string TF019, string TF002)
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
             SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
@@ -13504,18 +13509,18 @@ namespace TKMOC
                 }
 
 
-                //是否生產
-                if (!string.IsNullOrEmpty(UDF01))
-                {
-                    if (UDF01.Equals("Y"))
-                    {
-                        QUERYS.AppendFormat(@" AND COPTD.UDF01 IN ('Y','y') ");
-                    }
-                    else if (UDF01.Equals("N"))
-                    {
-                        QUERYS.AppendFormat(@" AND COPTD.UDF01 NOT IN ('Y','y')  ");
-                    }
-                }
+                ////是否生產
+                //if (!string.IsNullOrEmpty(UDF01))
+                //{
+                //    if (UDF01.Equals("Y"))
+                //    {
+                //        QUERYS.AppendFormat(@" AND COPTD.UDF01 IN ('Y','y') ");
+                //    }
+                //    else if (UDF01.Equals("N"))
+                //    {
+                //        QUERYS.AppendFormat(@" AND COPTD.UDF01 NOT IN ('Y','y')  ");
+                //    }
+                //}
 
                 //訂單單號
                 if (!string.IsNullOrEmpty(TF002))
@@ -13857,6 +13862,249 @@ namespace TKMOC
                 sqlConn.Close();
             }
 
+        }
+
+        private void dataGridView29_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView29.CurrentRow != null)
+            {
+                int rowindex = dataGridView29.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView29.Rows[rowindex];
+                    TF001 = row.Cells["單別"].Value.ToString();
+                    TF002 = row.Cells["單號"].Value.ToString();
+                    TF003 = row.Cells["變更版次"].Value.ToString();
+                    TF104 = row.Cells["原序號"].Value.ToString();
+
+
+                }
+                else
+                {
+                    TF001 = null;
+                    TF002 = null;
+                    TF003 = null;
+                    TF104 = null;
+
+
+                }
+            }
+        }
+
+        public void ADDTOTKMOCMOCMANULINECOPTECOPTF(string TF001, string TF002, string TF003, string TF104)
+        {
+            DataTable COPTETF = new DataTable();
+
+            Guid ID = new Guid();
+            string MANU = null;
+            string MANUDATE = null;
+            string MB001 = null;
+            string MB002 = null;
+            string MB003 = null;
+            string BAR = null;
+            string NUM = null;
+            string CLINET = null;
+            string TA029 = null;
+            string OUTDATE = null;
+            string HALFPRO = null;
+            string COPTD001 = null;
+            string COPTD002 = null;
+            string COPTD003 = null;
+            string BOX = null;
+            string PACKAGE = null;
+
+
+            if(!string.IsNullOrEmpty(TF001))
+            {
+                COPTETF = SEARCHCOPTETFDATA(TF001, TF002, TF003, TF104);
+
+
+                if (COPTETF.Rows.Count > 0)
+                {
+                    MANU = comboBox28.SelectedValue.ToString().Trim();
+                    MANUDATE = dateTimePicker31.Value.ToString("yyyy/MM/dd");
+                    MB001 = COPTETF.Rows[0]["TF005"].ToString();
+                    MB002 = COPTETF.Rows[0]["TF006"].ToString();
+                    MB003 = COPTETF.Rows[0]["TF007"].ToString();
+                    BAR = COPTETF.Rows[0]["BARS"].ToString();
+                    NUM = COPTETF.Rows[0]["NUM"].ToString();
+                    CLINET = COPTETF.Rows[0]["TE055"].ToString();
+                    TA029 = COPTETF.Rows[0]["TE006"].ToString();
+                    OUTDATE = COPTETF.Rows[0]["TF015"].ToString().Substring(0, 4) + "/" + COPTETF.Rows[0]["TF015"].ToString().Substring(4, 2) + "/" + COPTETF.Rows[0]["TF015"].ToString().Substring(6, 2);
+                    HALFPRO = "0";
+                    COPTD001 = COPTETF.Rows[0]["TF001"].ToString();
+                    COPTD002 = COPTETF.Rows[0]["TF002"].ToString();
+                    COPTD003 = COPTETF.Rows[0]["TF104"].ToString();
+                    BOX = COPTETF.Rows[0]["BOXS"].ToString();
+                    PACKAGE = COPTETF.Rows[0]["NUM"].ToString();
+                }
+
+
+                if (comboBox28.SelectedValue.Equals("製二線"))
+                {
+                    ADDNEWTOTKMOCMOCMANULINE(ID, MANU, MANUDATE, MB001, MB002, MB003, BAR, NUM, CLINET, TA029, OUTDATE, HALFPRO, COPTD001, COPTD002, COPTD003, BOX, PACKAGE);
+
+                }
+                else if (comboBox28.SelectedValue.Equals("製一線"))
+                {
+                    ADDNEWTOTKMOCMOCMANULINE(ID, MANU, MANUDATE, MB001, MB002, MB003, BAR, NUM, CLINET, TA029, OUTDATE, HALFPRO, COPTD001, COPTD002, COPTD003, BOX, PACKAGE);
+
+                }
+                else if (comboBox28.SelectedValue.Equals("手工線"))
+                {
+                    ADDNEWTOTKMOCMOCMANULINE(ID, MANU, MANUDATE, MB001, MB002, MB003, BAR, NUM, CLINET, TA029, OUTDATE, HALFPRO, COPTD001, COPTD002, COPTD003, BOX, PACKAGE);
+
+                }
+                else if (comboBox28.SelectedValue.Equals("包裝線"))
+                {
+                    ADDNEWTOTKMOCMOCMANULINE(ID, MANU, MANUDATE, MB001, MB002, MB003, BAR, NUM, CLINET, TA029, OUTDATE, HALFPRO, COPTD001, COPTD002, COPTD003, BOX, PACKAGE);
+                }
+                else
+                {
+
+                }
+            }
+
+            //if (dataGridView29.Rows.Count > 0)
+            //{
+            //    foreach (DataGridViewRow dr in this.dataGridView29.Rows)
+            //    {
+            //        if (dr.Cells[0].Value != null && (bool)dr.Cells[0].Value)
+            //        {
+            //            //找出訂單變更的明細、桶數、箱數
+            //            COPTETF = SEARCHCOPTETFDATA(dr.Cells["單別"].Value.ToString().Trim(), dr.Cells["單號"].Value.ToString().Trim(), dr.Cells["變更版次"].Value.ToString().Trim(), dr.Cells["新序號"].Value.ToString().Trim());
+
+            //            if (COPTETF.Rows.Count > 0)
+            //            {
+            //                MANU = comboBox28.SelectedValue.ToString().Trim();
+            //                MANUDATE = dateTimePicker31.Value.ToString("yyyy/MM/dd");
+            //                MB001 = COPTETF.Rows[0]["TF005"].ToString();
+            //                MB002 = COPTETF.Rows[0]["TF006"].ToString();
+            //                MB003 = COPTETF.Rows[0]["TF007"].ToString();
+            //                BAR = COPTETF.Rows[0]["BARS"].ToString();
+            //                NUM = COPTETF.Rows[0]["NUM"].ToString();
+            //                CLINET = COPTETF.Rows[0]["TE055"].ToString();
+            //                TA029 = COPTETF.Rows[0]["A222"].ToString();
+            //                OUTDATE = COPTETF.Rows[0]["TF015"].ToString().Substring(0, 4) + "/" + COPTETF.Rows[0]["TF015"].ToString().Substring(4, 2) + "/" + COPTETF.Rows[0]["TF015"].ToString().Substring(6, 2);
+            //                HALFPRO = "0";
+            //                COPTD001 = COPTETF.Rows[0]["TF001"].ToString();
+            //                COPTD002 = COPTETF.Rows[0]["TF002"].ToString();
+            //                COPTD003 = COPTETF.Rows[0]["TF004"].ToString();
+            //                BOX = COPTETF.Rows[0]["BOXS"].ToString();
+            //                PACKAGE = COPTETF.Rows[0]["NUM"].ToString();
+            //            }
+
+
+            //            if (comboBox28.SelectedValue.Equals("製二線"))
+            //            {
+            //                ADDNEWTOTKMOCMOCMANULINE(ID, MANU, MANUDATE, MB001, MB002, MB003, BAR, NUM, CLINET, TA029, OUTDATE, HALFPRO, COPTD001, COPTD002, COPTD003, BOX, PACKAGE);
+
+            //            }
+            //            else if (comboBox28.SelectedValue.Equals("製一線"))
+            //            {
+            //                ADDNEWTOTKMOCMOCMANULINE(ID, MANU, MANUDATE, MB001, MB002, MB003, BAR, NUM, CLINET, TA029, OUTDATE, HALFPRO, COPTD001, COPTD002, COPTD003, BOX, PACKAGE);
+
+            //            }
+            //            else if (comboBox28.SelectedValue.Equals("手工線"))
+            //            {
+            //                ADDNEWTOTKMOCMOCMANULINE(ID, MANU, MANUDATE, MB001, MB002, MB003, BAR, NUM, CLINET, TA029, OUTDATE, HALFPRO, COPTD001, COPTD002, COPTD003, BOX, PACKAGE);
+
+            //            }
+            //            else if (comboBox28.SelectedValue.Equals("包裝線"))
+            //            {
+            //                ADDNEWTOTKMOCMOCMANULINE(ID, MANU, MANUDATE, MB001, MB002, MB003, BAR, NUM, CLINET, TA029, OUTDATE, HALFPRO, COPTD001, COPTD002, COPTD003, BOX, PACKAGE);
+            //            }
+            //            else
+            //            {
+
+            //            }
+
+            //            //MessageBox.Show(comboBox25.SelectedValue.ToString());
+
+            //        }
+
+
+            //    }
+            //}
+
+        }
+
+        public DataTable SEARCHCOPTETFDATA(string TF001, string TF002, string TF003, string TF104)
+        {
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            DataSet ds1 = new DataSet();
+            StringBuilder QUERYS = new StringBuilder();
+
+            try
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                sbSql.Clear();
+                QUERYS.Clear();
+                sbSqlQuery2.Clear();
+
+
+                sbSql.AppendFormat(@"  
+                                   SELECT TF001,TF002,TF003,TF004,TE055,TF005,TF006,TF007,(TF009+TF020) AS TF009,TF010,(TE006+'-'+TE050+'-'+TF018+'-'+TF032) TE006 ,TF015,TF104
+                                    ,(CASE WHEN ISNULL(MD002,'')<>'' THEN (TF009+TF020)*MD004 ELSE (TF009+TF020)  END ) AS NUM
+                                    ,MC004,MB017
+
+                                    ,CASE WHEN ISNULL(MC004,0)>0 THEN CONVERT(decimal(16,4),((TF009+TF020)/MC004)) END AS BARS
+                                    ,(CASE WHEN ISNULL([NUMS],0)<>0 THEN [NUMS] ELSE 1  END ) AS NUMS
+                                    ,(CASE WHEN ISNULL([BOXS],0)<>0 THEN [BOXS] ELSE 1  END ) AS BOXS
+
+                                    FROM [TK].dbo.INVMB WITH(NOLOCK),[TK].dbo.COPTE WITH(NOLOCK),[TK].dbo.COPTF WITH(NOLOCK)
+                                    LEFT JOIN [TK].dbo.INVMD ON MD001=TF005 AND TF010=MD002
+                                    LEFT JOIN [TK].dbo.BOMMC ON TF005=MC001
+                                    LEFT JOIN [TKMOC].[dbo].[MOCHALFPRODUCTDBOXS] ON TF005=[MOCHALFPRODUCTDBOXS].[MB001]
+                                    WHERE TE001=TF001 AND TE002=TF002 AND TE003=TF003
+                                    AND INVMB.MB001=TF005
+                                    AND TF001='{0}' AND TF002='{1}' AND TF003='{2}' AND TF104='{3}'
+
+                                    ", TF001, TF002, TF003, TF104);
+
+
+
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "TEMPds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["TEMPds1"].Rows.Count > 0)
+                {
+                    return ds1.Tables["TEMPds1"];
+                }
+                else
+                {
+                    return null;
+                }
+
+
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
         }
 
         #endregion
@@ -14697,18 +14945,26 @@ namespace TKMOC
         }
         private void button94_Click(object sender, EventArgs e)
         {
-            SEARCHTBCOPTFCHECK(dateTimePicker30.Value.ToString("yyyy"), comboBox26.SelectedValue.ToString(), comboBox27.SelectedValue.ToString(), textBox98.Text.Trim());
+            SEARCHTBCOPTFCHECK(dateTimePicker30.Value.ToString("yyyy"), comboBox26.SelectedValue.ToString(), textBox98.Text.Trim());
         }
 
         private void button95_Click(object sender, EventArgs e)
         {
             CHECKdataGridView29();
 
-            SEARCHTBCOPTFCHECK(dateTimePicker30.Value.ToString("yyyy"), comboBox26.SelectedValue.ToString(), comboBox27.SelectedValue.ToString(), textBox98.Text.Trim());
+            SEARCHTBCOPTFCHECK(dateTimePicker30.Value.ToString("yyyy"), comboBox26.SelectedValue.ToString(), textBox98.Text.Trim());
             MessageBox.Show("完成");
         }
+
+        private void button96_Click(object sender, EventArgs e)
+        {
+            ADDTOTKMOCMOCMANULINECOPTECOPTF(TF001,TF002,TF003, TF104);
+            MessageBox.Show("完成");
+        }
+
+
         #endregion
 
-
+       
     }
 }
