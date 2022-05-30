@@ -215,7 +215,7 @@ namespace TKMOC
             StringBuilder SB = new StringBuilder();
 
             SB.AppendFormat(@"    
-                                
+                               
                             SELECT [ID]
                             ,[TA001]+[TA002] AS '製令'
                             ,'第'+CONVERT(nvarchar,[BOXS])+'桶' AS '桶數'
@@ -242,13 +242,18 @@ namespace TKMOC
                             ,(SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOMMANU] RE WHERE [MD003] NOT  IN ('101001009','3010000111') AND RE.[BOXS]=[REPORTMOCBOMMANU].[BOXS]) AS '每桶重'
                             ,(SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOMMANU] WHERE [MD003] NOT  IN ('101001009','3010000111')  ) AS '總重'
                             ,CASE WHEN BOMMC.UDF06=0 THEN 1 ELSE BOMMC.UDF06 END 
-                            ,'顆數:'+CONVERT(nvarchar,((SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOMMANU] RE WHERE [MD003] NOT  IN ('101001009','3010000111') AND RE.[BOXS]=[REPORTMOCBOMMANU].[BOXS])/(CASE WHEN BOMMC.UDF06=0 THEN 1 ELSE BOMMC.UDF06 END))) AS '每桶顆數'
-                            ,((SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOMMANU] WHERE [MD003] NOT  IN ('101001009','3010000111') )/(CASE WHEN BOMMC.UDF06=0 THEN 1 ELSE BOMMC.UDF06 END)) AS '總顆數'
+                            ,'顆數:' AS '每桶顆數'
+                            ,'' AS '總顆數'
+
+                            --,'顆數:'+CONVERT(nvarchar,((SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOMMANU] RE WHERE [MD003] NOT  IN ('101001009','3010000111') AND RE.[BOXS]=[REPORTMOCBOMMANU].[BOXS])/(CASE WHEN BOMMC.UDF06=0 THEN 1 ELSE BOMMC.UDF06 END))) AS '每桶顆數'
+                            --,((SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOMMANU] WHERE [MD003] NOT  IN ('101001009','3010000111') )/(CASE WHEN BOMMC.UDF06=0 THEN 1 ELSE BOMMC.UDF06 END)) AS '總顆數'
+
+
                             FROM [TKMOC].[dbo].[REPORTMOCBOMMANU]
                             LEFT JOIN [TK].dbo.BOMMC ON MC001=TA006
                             WHERE [MD003] NOT  IN ('101001009','3010000111')   
                             ORDER BY [TA001],[TA002],[BOXS],[MD003]
-     
+      
 
                             ");
 
