@@ -218,7 +218,7 @@ namespace TKMOC
         {
             StringBuilder SB = new StringBuilder();
 
-            SB.AppendFormat(@"      
+            SB.AppendFormat(@"
                             SELECT [ID]
                             ,[TA001]+[TA002] AS '製令'
                             ,'第'+CONVERT(nvarchar,[BOXS])+'桶' AS '桶數'
