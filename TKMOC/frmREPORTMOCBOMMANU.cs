@@ -161,25 +161,29 @@ namespace TKMOC
 
         public void SETREPORT(string TA001, string TA002, string BUCKETS)
         {
-            float BUCKETSORI = float.Parse(BUCKETS);
-            bool CHECKFLOOR = IsIntegerFloor(BUCKETSORI);
+            //強制指定成7桶 
+            ADDTOREPORTMOCBOMMANU(TA001, TA002, "7");
+
+            //float BUCKETSORI = float.Parse(BUCKETS);
+
+            //bool CHECKFLOOR = IsIntegerFloor(BUCKETSORI);
 
 
-            if (!string.IsNullOrEmpty(BUCKETS) && BUCKETSORI > 0)
-            {
-                if (CHECKFLOOR == true)
-                {
-                    ADDTOREPORTMOCBOMMANU(TA001, TA002, BUCKETS);
-                    //MessageBox.Show(CHECKFLOOR  + BUCKETSORI.ToString());
-                }
-                else
-                {
-                    ADDTOREPORTMOCBOMMANUODD(TA001, TA002, BUCKETS);
-                    //MessageBox.Show(CHECKFLOOR  + BUCKETSORI.ToString());
-                }
+            //if (!string.IsNullOrEmpty(BUCKETS) && BUCKETSORI > 0)
+            //{
+            //    if (CHECKFLOOR == true)
+            //    {
+            //        ADDTOREPORTMOCBOMMANU(TA001, TA002, BUCKETS);
+            //        //MessageBox.Show(CHECKFLOOR  + BUCKETSORI.ToString());
+            //    }
+            //    else
+            //    {
+            //        ADDTOREPORTMOCBOMMANUODD(TA001, TA002, BUCKETS);
+            //        //MessageBox.Show(CHECKFLOOR  + BUCKETSORI.ToString());
+            //    }
 
 
-            }
+            //}
 
 
             StringBuilder SQL = new StringBuilder();
@@ -214,7 +218,7 @@ namespace TKMOC
         {
             StringBuilder SB = new StringBuilder();
 
-            SB.AppendFormat(@"     
+            SB.AppendFormat(@"      
                             SELECT [ID]
                             ,[TA001]+[TA002] AS '製令'
                             ,'第'+CONVERT(nvarchar,[BOXS])+'桶' AS '桶數'
