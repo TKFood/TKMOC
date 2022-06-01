@@ -2792,6 +2792,78 @@ namespace TKMOC
                                     (
                                     --在製令中不要找出來
                                     --在[TRACEBACK]有用到的MB001，但是沒有用到的LOTNO
+                                    SELECT LTRIM(RTRIM(TE004))+LTRIM(RTRIM(TE010))
+                                    FROM [TK].dbo.MOCTC,[TK].dbo.MOCTE,[TK].dbo.CMSMQ
+                                    WHERE TC001=TE001 AND TC002=TE002
+                                    AND TC001=MQ001 AND MQ003 IN ('54','55')
+
+                                    AND TE011+TE012 IN ({0})
+                                    AND LTRIM(RTRIM(TE004)) IN (SELECT LTRIM(RTRIM(MB001)) FROM  [TKMOC].[dbo].[TRACEBACK])
+                                    AND LTRIM(RTRIM(TE004))+LTRIM(RTRIM(TE010)) NOT IN (SELECT LTRIM(RTRIM(MB001))+LTRIM(RTRIM(LOTNO)) FROM  [TKMOC].[dbo].[TRACEBACK])
+        
+
+                                    )
+
+                                    ORDER BY TC001,TC002,TE003
+                                    ", SELECT.ToString());
+
+                report1.Load(@"REPORT\領料單明細表.frx");
+
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+                report1.Dictionary.Connections[0].ConnectionString = sqlsb.ConnectionString;
+
+                TableDataSource Table = report1.GetDataSource("Table") as TableDataSource;
+                Table.SelectCommand = SQL.ToString();
+
+                report1.Preview = previewControl5;
+                report1.Show();
+            }
+
+
+        }
+
+        public void SETFASTREPORT3B(string STATUS)
+        {
+            StringBuilder SQL = new StringBuilder();
+            string SELECT = SELECT3();
+            Report report1 = new Report();
+
+            if (!string.IsNullOrEmpty(SELECT))
+            {
+                SQL.AppendFormat(@"  
+                                    SELECT CONVERT(NVARCHAR,CONVERT(datetime,TC003),111) AS '領料日期'
+                                    ,TC001+'-'+TC002 AS '領料單號'
+                                    ,CONVERT(NVARCHAR,CONVERT(datetime,TC014),111) AS '單據日期'
+                                    ,TE004 AS '材料品號'
+                                    ,TE017 AS '品名'
+                                    ,TE018 AS '規格'
+                                    ,TE005 AS '領料數量'
+                                    ,TE006 AS '單位'
+                                    ,TE011+'-'+TE012 AS '製令單號'
+                                    ,MC002 AS '庫別名稱'
+                                    ,TE010 AS '批號'
+                                    ,TE013 AS '領料說明'
+                                    ,TE014 AS '備註'
+                                    FROM [TK].dbo.MOCTC,[TK].dbo.MOCTE,[TK].dbo.CMSMC,[TK].dbo.CMSMQ
+                                    WHERE TC001=TE001 AND TC002=TE002
+                                    AND TE008=MC001
+                                    AND TC001=MQ001 AND MQ003 IN ('54','55')
+                                    AND TE011+TE012 IN ({0})
+
+                                    AND TE004+TE010 NOT IN
+                                    (
+                                    --在製令中不要找出來
+                                    --在[TRACEBACK]有用到的MB001，但是沒有用到的LOTNO
 
                                     SELECT TE004+TE010
                                     FROM [TK].dbo.MOCTC,[TK].dbo.MOCTE,[TK].dbo.CMSMQ
@@ -2807,7 +2879,7 @@ namespace TKMOC
                                     ORDER BY TC001,TC002,TE003
                                     ", SELECT.ToString());
 
-                report1.Load(@"REPORT\領料單明細表.frx");
+                report1.Load(@"REPORT\領料單明細表V2.frx");
 
                 //20210902密
                 Class1 TKID = new Class1();//用new 建立類別實體
@@ -2959,6 +3031,62 @@ namespace TKMOC
                                     ", SELECT.ToString());
 
                 report1.Load(@"REPORT\退料單明細表.frx");
+
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+                report1.Dictionary.Connections[0].ConnectionString = sqlsb.ConnectionString;
+
+
+                TableDataSource Table = report1.GetDataSource("Table") as TableDataSource;
+                Table.SelectCommand = SQL.ToString();
+
+                report1.Preview = previewControl6;
+                report1.Show();
+            }
+
+
+        }
+
+        public void SETFASTREPORT4B(string STATUS)
+        {
+            StringBuilder SQL = new StringBuilder();
+            string SELECT = SELECT4();
+            Report report1 = new Report();
+
+            if (!string.IsNullOrEmpty(SELECT))
+            {
+                SQL.AppendFormat(@"  
+                                    SELECT CONVERT(NVARCHAR,CONVERT(datetime,TC003),111) AS '退料日期'
+                                    ,TC001+'-'+TC002 AS '退料單號'
+                                    ,CONVERT(NVARCHAR,CONVERT(datetime,TC014),111) AS '單據日期'
+                                    ,TE004 AS '材料品號'
+                                    ,TE017 AS '品名'
+                                    ,TE018 AS '規格'
+                                    ,TE005 AS '退料數量'
+                                    ,TE006 AS '單位'
+                                    ,TE011+'-'+TE012 AS '製令單號'
+                                    ,MC002 AS '庫別名稱'
+                                    ,TE010 AS '批號'
+                                    ,TE013 AS '退料說明'
+                                    ,TE014 AS '備註'
+                                    FROM [TK].dbo.MOCTC,[TK].dbo.MOCTE,[TK].dbo.CMSMC,[TK].dbo.CMSMQ
+                                    WHERE  TC001=TE001 AND TC002=TE002
+                                    AND TE008=MC001
+                                    AND TC001=MQ001 AND MQ003 IN ('56','57')
+                                    AND TE011+TE012 IN ({0})
+                                    ORDER BY TC001,TC002,TE003
+                                    ", SELECT.ToString());
+
+                report1.Load(@"REPORT\退料單明細表V2.frx");
 
                 //20210902密
                 Class1 TKID = new Class1();//用new 建立類別實體
@@ -3763,6 +3891,15 @@ namespace TKMOC
         private void button24_Click(object sender, EventArgs e)
         {
             DG6CHECKALL();
+        }
+
+        private void button26_Click(object sender, EventArgs e)
+        {
+            SETFASTREPORT3B("3領退料");
+        }
+        private void button27_Click(object sender, EventArgs e)
+        {
+            SETFASTREPORT4B("3領退料");
         }
 
         #endregion

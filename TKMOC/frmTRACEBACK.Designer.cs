@@ -120,6 +120,8 @@
             this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
             this.button11 = new System.Windows.Forms.Button();
             this.previewControl7 = new FastReport.Preview.PreviewControl();
+            this.button26 = new System.Windows.Forms.Button();
+            this.button27 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -360,7 +362,7 @@
             this.comboBox1.Items.AddRange(new object[] {
             "成品逆溯",
             "原料順溯"});
-            this.comboBox1.Location = new System.Drawing.Point(123, 10);
+            this.comboBox1.Location = new System.Drawing.Point(123, 8);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(161, 24);
             this.comboBox1.TabIndex = 26;
@@ -592,6 +594,7 @@
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel7.Controls.Add(this.button7, 1, 0);
+            this.tableLayoutPanel7.Controls.Add(this.button26, 3, 0);
             this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel7.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel7.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
@@ -813,6 +816,7 @@
             this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel9.Controls.Add(this.button9, 1, 0);
+            this.tableLayoutPanel9.Controls.Add(this.button27, 3, 0);
             this.tableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel9.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel9.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
@@ -1663,6 +1667,30 @@
             this.previewControl7.Size = new System.Drawing.Size(1126, 323);
             this.previewControl7.TabIndex = 4;
             // 
+            // button26
+            // 
+            this.button26.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button26.Location = new System.Drawing.Point(366, 5);
+            this.button26.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.button26.Name = "button26";
+            this.button26.Size = new System.Drawing.Size(138, 36);
+            this.button26.TabIndex = 17;
+            this.button26.Text = "產生報表-明細";
+            this.button26.UseVisualStyleBackColor = true;
+            this.button26.Click += new System.EventHandler(this.button26_Click);
+            // 
+            // button27
+            // 
+            this.button27.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button27.Location = new System.Drawing.Point(366, 7);
+            this.button27.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.button27.Name = "button27";
+            this.button27.Size = new System.Drawing.Size(138, 36);
+            this.button27.TabIndex = 18;
+            this.button27.Text = "產生報表-明細";
+            this.button27.UseVisualStyleBackColor = true;
+            this.button27.Click += new System.EventHandler(this.button27_Click);
+            // 
             // frmTRACEBACK
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
@@ -1882,5 +1910,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel13;
         private System.Windows.Forms.Button button25;
         private FastReport.Preview.PreviewControl previewControl8;
+        private System.Windows.Forms.Button button26;
+        private System.Windows.Forms.Button button27;
     }
 }
