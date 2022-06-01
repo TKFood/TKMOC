@@ -2862,17 +2862,17 @@ namespace TKMOC
 
                                     AND TE004+TE010 NOT IN
                                     (
+                            
                                     --在製令中不要找出來
                                     --在[TRACEBACK]有用到的MB001，但是沒有用到的LOTNO
-
-                                    SELECT TE004+TE010
+                                    SELECT LTRIM(RTRIM(TE004))+LTRIM(RTRIM(TE010))
                                     FROM [TK].dbo.MOCTC,[TK].dbo.MOCTE,[TK].dbo.CMSMQ
                                     WHERE TC001=TE001 AND TC002=TE002
                                     AND TC001=MQ001 AND MQ003 IN ('54','55')
+
                                     AND TE011+TE012 IN ({0})
-                                    AND TE004 IN (SELECT MB001 FROM  [TKMOC].[dbo].[TRACEBACK])
-                                    AND TE004+TE010 NOT IN (SELECT LTRIM(RTRIM(MB001))+LTRIM(RTRIM(LOTNO)) FROM  [TKMOC].[dbo].[TRACEBACK])
-                                    
+                                    AND LTRIM(RTRIM(TE004)) IN (SELECT LTRIM(RTRIM(MB001)) FROM  [TKMOC].[dbo].[TRACEBACK])
+                                    AND LTRIM(RTRIM(TE004))+LTRIM(RTRIM(TE010)) NOT IN (SELECT LTRIM(RTRIM(MB001))+LTRIM(RTRIM(LOTNO)) FROM  [TKMOC].[dbo].[TRACEBACK])
 
                                     )
 
