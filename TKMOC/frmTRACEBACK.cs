@@ -2987,34 +2987,65 @@ namespace TKMOC
         public void SETFASTREPORT5(string STATUS)
         {
             StringBuilder SQL = new StringBuilder();
-            string SELECT = SELECT4();
+            string SELECT = SELECT5();
             Report report1 = new Report();
 
             if (!string.IsNullOrEmpty(SELECT))
             {
                 SQL.AppendFormat(@"  
-                                    SELECT CONVERT(NVARCHAR,CONVERT(datetime,TC003),111) AS '退料日期'
-                                    ,TC001+'-'+TC002 AS '退料單號'
-                                    ,CONVERT(NVARCHAR,CONVERT(datetime,TC014),111) AS '單據日期'
-                                    ,TE004 AS '材料品號'
-                                    ,TE017 AS '品名'
-                                    ,TE018 AS '規格'
-                                    ,TE005 AS '退料數量'
-                                    ,TE006 AS '單位'
-                                    ,TE011+'-'+TE012 AS '製令單號'
+                                   SELECT 
+                                    CONVERT(NVARCHAR,CONVERT(datetime,TG003),111)  AS '銷貨日期'
+                                    ,TG001+'-'+TG002 AS '銷貨單號'
+                                    ,CONVERT(NVARCHAR,CONVERT(datetime,TG042),111)   AS '單據日期'
+                                    ,TG004 AS '客戶代號'
+                                    ,TG007 AS '客戶簡稱'
+                                    ,TG033 AS '總數量'
+                                    ,TG020 AS '單頭備註'
+                                    ,TH003 AS '序號'
+                                    ,TH004 AS '品號'
+                                    ,TH005 AS '品名'
+                                    ,TH006 AS '規格'
+                                    ,TH007 AS '庫別代號'
                                     ,MC002 AS '庫別名稱'
-                                    ,TE010 AS '批號'
-                                    ,TE013 AS '退料說明'
-                                    ,TE014 AS '備註'
-                                    FROM [TK].dbo.MOCTC,[TK].dbo.MOCTE,[TK].dbo.CMSMC,[TK].dbo.CMSMQ
-                                    WHERE  TC001=TE001 AND TC002=TE002
-                                    AND TE008=MC001
-                                    AND TC001=MQ001 AND MQ003 IN ('56','57')
-                                    AND TE011+TE012 IN ({0})
-                                    ORDER BY TC001,TC002,TE003
+                                    ,CONVERT(NVARCHAR,CONVERT(datetime,TH106),111)  AS '有效日期'
+                                    ,(TH008+TH024) AS '銷貨數量'
+                                    ,TH009 AS '單位'
+                                    ,TH014+'-'+TH015+'-'+TH016 AS '訂單單號'
+                                    ,TH017 AS '批號'
+                                    ,TH018 AS '單身備註'
+                                    FROM [DY].dbo.COPTG,[DY].dbo.COPTH,[DY].dbo.CMSMC
+                                    WHERE TG001=TH001 AND TG002=TH002
+                                    AND MC001=TH007
+                                    AND TH004+TH017 IN ({0})
+
+                                    UNION ALL
+                                    SELECT 
+                                    CONVERT(NVARCHAR,CONVERT(datetime,TI003),111)  AS '銷貨日期'
+                                    ,TI001+'-'+TI002 AS '銷貨單號'
+                                    ,CONVERT(NVARCHAR,CONVERT(datetime,TI034),111)   AS '單據日期'
+                                    ,TI004 AS '客戶代號'
+                                    ,TI021 AS '客戶簡稱'
+                                    ,TI029*-1 AS '總數量'
+                                    ,TI020 AS '單頭備註'
+                                    ,TJ003 AS '序號'
+                                    ,TJ004 AS '品號'
+                                    ,TJ005 AS '品名'
+                                    ,TJ006 AS '規格'
+                                    ,TJ013 AS '庫別代號'
+                                    ,MC002 AS '庫別名稱'
+                                    ,CONVERT(NVARCHAR,CONVERT(datetime,TJ096),111)  AS '有效日期'
+                                    ,TJ007*-1 AS '銷貨數量'
+                                    ,TJ008 AS '單位'
+                                    ,TJ018+'-'+TJ019+'-'+TJ020 AS '訂單單號'
+                                    ,TJ014 AS '批號'
+                                    ,TJ023 AS '單身備註'
+                                    FROM [TK].dbo.COPTI,[TK].dbo.COPTJ,[TK].dbo.CMSMC
+                                    WHERE TI001=TJ001 AND TI002=TJ002
+                                    AND MC001=TJ013
+                                    AND TJ004+TJ014 IN ({0})
                                     ", SELECT.ToString());
 
-                report1.Load(@"REPORT\退料單明細表.frx");
+                report1.Load(@"REPORT\銷貨單明細表.frx");
 
                 //20210902密
                 Class1 TKID = new Class1();//用new 建立類別實體
@@ -3033,7 +3064,7 @@ namespace TKMOC
                 TableDataSource Table = report1.GetDataSource("Table") as TableDataSource;
                 Table.SelectCommand = SQL.ToString();
 
-                report1.Preview = previewControl6;
+                report1.Preview = previewControl7;
                 report1.Show();
             }
 
