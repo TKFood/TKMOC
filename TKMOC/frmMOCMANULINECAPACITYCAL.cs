@@ -87,20 +87,23 @@ namespace TKMOC
 
                                     INSERT INTO [TKMOC].[dbo].[MOCMANULINECAPACITYCAL]
                                     ([MOCDATES],[YEARS],[WEEKS],[LINEBIG],[LINESMALL],[LINEMANU])
-                                    SELECT CONVERT(NVARCHAR,[MANUDATE],111) [MANUDATE],DATEPART (YEAR,[MANUDATE] ),DATEPART ( WEEK ,[MANUDATE] )
-                                    ,(SELECT  ISNULL(SUM([BAR]),0) FROM [TKMOC].[dbo].[MOCMANULINE] MOC WHERE MOC.[MANUDATE]=[MOCMANULINE].[MANUDATE] AND [MANU]='製二線') 'LINEBIG'
-                                    ,(SELECT  ISNULL(SUM([BAR]),0) FROM [TKMOC].[dbo].[MOCMANULINE] MOC WHERE MOC.[MANUDATE]=[MOCMANULINE].[MANUDATE] AND [MANU]='製一線') 'LINESMALL'
-                                    ,(SELECT  ISNULL(SUM([BAR]),0) FROM [TKMOC].[dbo].[MOCMANULINE] MOC WHERE MOC.[MANUDATE]=[MOCMANULINE].[MANUDATE] AND [MANU]='手工線') 'LINEMANU'
+                                    
+                                    SELECT MANUDATE,YEARS,WEEKS,SUM(LINEBIG) LINEBIG,SUM(LINESMALL) LINESMALL,SUM(LINEMANU) LINEMANU
+                                    FROM 
+                                    (
+                                    SELECT CONVERT(NVARCHAR,[MANUDATE],111) [MANUDATE],DATEPART (YEAR,[MANUDATE] ) AS 'YEARS',DATEPART ( WEEK ,[MANUDATE] )  AS 'WEEKS'
+                                    ,(SELECT  ISNULL(SUM([BAR]),0) FROM [TKMOC].[dbo].[MOCMANULINE] MOC WHERE MOC.[MANUDATE]=[MOCMANULINE].[MANUDATE] AND MOC.MB001=[MOCMANULINE].MB001 AND [MANU]='製二線' ) 'LINEBIG'
+                                    ,(SELECT  ISNULL(SUM([BAR]),0) FROM [TKMOC].[dbo].[MOCMANULINE] MOC WHERE MOC.[MANUDATE]=[MOCMANULINE].[MANUDATE] AND MOC.MB001=[MOCMANULINE].MB001 AND [MANU]='製一線' ) 'LINESMALL'
+                                    ,(SELECT  ISNULL(SUM([BAR]),0) FROM [TKMOC].[dbo].[MOCMANULINE] MOC WHERE MOC.[MANUDATE]=[MOCMANULINE].[MANUDATE] AND MOC.MB001=[MOCMANULINE].MB001 AND [MANU]='手工線' ) 'LINEMANU'
                                     FROM [TKMOC].[dbo].[MOCMANULINE]
 
                                     WHERE 1=1
-                                    AND [MOCMANULINE].MB001 NOT IN 
-                                    (SELECT  [MB001] 
-                                    FROM [TKMOC].[dbo].[MOCMANULINELIMITBARCOUNT]
-                                    )  
+                                    AND [MOCMANULINE].MB001 NOT IN  (SELECT  [MB001] FROM [TKMOC].[dbo].[MOCMANULINELIMITBARCOUNT] )  
                                     AND CONVERT(NVARCHAR,[MANUDATE],112)>='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112)<='{1}'
 
-                                    GROUP BY [MANUDATE]
+                                    GROUP BY [MOCMANULINE].[MANUDATE],[MOCMANULINE].MB001
+                                    ) AS TEMP
+                                    GROUP  BY MANUDATE,YEARS,WEEKS
                                     ", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
 
 
