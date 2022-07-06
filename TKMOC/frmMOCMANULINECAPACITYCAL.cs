@@ -92,7 +92,14 @@ namespace TKMOC
                                     ,(SELECT  ISNULL(SUM([BAR]),0) FROM [TKMOC].[dbo].[MOCMANULINE] MOC WHERE MOC.[MANUDATE]=[MOCMANULINE].[MANUDATE] AND [MANU]='製一線') 'LINESMALL'
                                     ,(SELECT  ISNULL(SUM([BAR]),0) FROM [TKMOC].[dbo].[MOCMANULINE] MOC WHERE MOC.[MANUDATE]=[MOCMANULINE].[MANUDATE] AND [MANU]='手工線') 'LINEMANU'
                                     FROM [TKMOC].[dbo].[MOCMANULINE]
-                                    WHERE  CONVERT(NVARCHAR,[MANUDATE],112)>='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112)<='{1}'
+
+                                    WHERE 1=1
+                                    AND [MOCMANULINE].MB001 NOT IN 
+                                    (SELECT  [MB001] 
+                                    FROM [TKMOC].[dbo].[MOCMANULINELIMITBARCOUNT]
+                                    )  
+                                    AND CONVERT(NVARCHAR,[MANUDATE],112)>='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112)<='{1}'
+
                                     GROUP BY [MANUDATE]
                                     ", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
 
