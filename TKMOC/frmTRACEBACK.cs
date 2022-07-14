@@ -265,6 +265,23 @@ namespace TKMOC
                 sqlConn.Close();
 
 
+                //1銷貨
+                //ADDTRACEBACKOUT
+
+                //2生產
+                //限10層關係
+                //ADDTRACEBACKMOC
+
+                //3領退料
+                //用2生產的資料，找相關的領退料
+                //ADDTRACEBACKMOCOUTIN
+
+
+                //4入庫 5調整 6其他
+                //其他庫存異動單
+                //ADDTRACEBACKINVMF
+                //
+
                 if (ds1.Tables["ds1"].Rows.Count >= 1)
                 {
                     ADDTRACEBACKOUT(MB001, LOTNO);
@@ -326,6 +343,25 @@ namespace TKMOC
                 adapter1.Fill(ds1, "ds1");
                 sqlConn.Close();
 
+
+                //1入庫
+                //ADDTRACEBACKOUT2
+
+                //2領退料
+                //限10層關係
+                //ADDTRACEBACKMOC2
+
+                //3生產入庫
+                //用2領退料的資料，找生產入庫
+                //ADDTRACEBACKMOCOUTIN2
+
+                //5銷貨
+                //ADDTRACEBACKINVMFSALE2
+
+                //6其他
+                //其他庫存異動單
+                //ADDTRACEBACKINVMF2
+                //
 
                 if (ds1.Tables["ds1"].Rows.Count >= 1)
                 {

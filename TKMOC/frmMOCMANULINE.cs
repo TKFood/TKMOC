@@ -12324,7 +12324,8 @@ namespace TKMOC
 
                 sbSql.AppendFormat(@"  
                                     SELECT  
-                                    TC053 AS '客戶',TD001 AS '單別',TD002 AS '單號',TD003 AS '序號',TD004 AS '品號',TD005 AS '品名',TD008 AS '訂單數量',TD024 AS '贈品量',TD009	AS '已交數量',TD025	AS '贈品已交',TD010	 AS '單位',TD013 AS '預交日',TC015 AS '單頭備註',TD020 AS '單身備註'
+                                    COPTD.UDF01 AS '是否生產'
+                                    ,TC053 AS '客戶',TD001 AS '單別',TD002 AS '單號',TD003 AS '序號',TD004 AS '品號',TD005 AS '品名',TD008 AS '訂單數量',TD024 AS '贈品量',TD009	AS '已交數量',TD025	AS '贈品已交',TD010	 AS '單位',TD013 AS '預交日',TC015 AS '單頭備註',TD020 AS '單身備註'
 
                                     ,(SELECT TOP 1 ISNULL([MOCCHECKDATES],'') FROM [TKBUSINESS].[dbo].[TBCOPTDCHECK] WHERE [TBCOPTDCHECK].TD001=COPTD.TD001 AND [TBCOPTDCHECK].TD002=COPTD.TD002 AND [TBCOPTDCHECK].TD003=COPTD.TD003  ORDER BY ID DESC) AS '生管更新日期'
                                     ,(SELECT TOP 1 [MOCCHECKS] FROM [TKBUSINESS].[dbo].[TBCOPTDCHECK] WHERE [TBCOPTDCHECK].TD001=COPTD.TD001 AND [TBCOPTDCHECK].TD002=COPTD.TD002 AND [TBCOPTDCHECK].TD003=COPTD.TD003  ORDER BY ID DESC) AS '生管核準'
@@ -13531,7 +13532,8 @@ namespace TKMOC
 
                 sbSql.AppendFormat(@"  
                                     SELECT 
-                                    TC053 AS '客戶',TF001 AS '單別',TF002 AS '單號',TF104 AS '原序號',TF004 AS '新序號'
+                                    COPTF.UDF01 AS '是否生產'
+                                    ,TC053 AS '客戶',TF001 AS '單別',TF002 AS '單號',TF104 AS '原序號',TF004 AS '新序號'
                                     ,TF003 AS '變更版次',TF005 AS '品號',TF006 AS '品名',TF009 AS '新訂單數量'
                                     ,TF020 AS '新贈品量',TF010 AS '單位',TF015 AS '預交日',TE050 AS '單頭備註',TE006 AS '單頭變更原因'
                                     ,TF032 AS '單身備註',TF018 AS '單身變更原因'
@@ -13555,36 +13557,6 @@ namespace TKMOC
                                     AND 1=1
                                     {0}
 
-                                   
-                                    UNION ALL
-                                    SELECT 
-                                    TC053 AS '客戶',TF001 AS '單別',TF002 AS '單號',TF104 AS '原序號',TF004 AS '新序號'
-                                    ,TF003 AS '變更版次',TF005 AS '品號',TF006 AS '品名',TF009 AS '新訂單數量'
-                                    ,TF020 AS '新贈品量',TF010 AS '單位',TF015 AS '預交日',TE050 AS '單頭備註',TE006 AS '單頭變更原因'
-                                    ,TF032 AS '單身備註',TF018 AS '單身變更原因'
-                                  
-                                    ,(SELECT TOP 1 ISNULL(MOCCHECKDATES,'') FROM [TKBUSINESS].[dbo].[TBCOPTFCHECK] WHERE TBCOPTFCHECK.TF001=COPTF.TF001 AND TBCOPTFCHECK.TF002=COPTF.TF002 AND TBCOPTFCHECK.TF003=COPTF.TF003 AND  TBCOPTFCHECK.TF004=COPTF.TF004 ORDER BY ID DESC) AS '生管更新日期'
-                                    ,(SELECT TOP 1 ISNULL(MOCCHECKS,'') FROM [TKBUSINESS].[dbo].[TBCOPTFCHECK] WHERE TBCOPTFCHECK.TF001=COPTF.TF001 AND TBCOPTFCHECK.TF002=COPTF.TF002 AND TBCOPTFCHECK.TF003=COPTF.TF003 AND  TBCOPTFCHECK.TF004=COPTF.TF004 ORDER BY ID DESC) AS '生管核準'
-                                    ,(SELECT TOP 1 ISNULL(MOCCHECKSCOMMENTS,'') FROM [TKBUSINESS].[dbo].[TBCOPTFCHECK] WHERE TBCOPTFCHECK.TF001=COPTF.TF001 AND TBCOPTFCHECK.TF002=COPTF.TF002 AND TBCOPTFCHECK.TF003=COPTF.TF003 AND  TBCOPTFCHECK.TF004=COPTF.TF004 ORDER BY ID DESC) AS '生管備註'
-                                    ,'' AS '生管備註填寫'
-
-                                    ,(SELECT TOP 1 ISNULL(PURCHECKDATES,'') FROM [TKBUSINESS].[dbo].[TBCOPTFCHECK] WHERE TBCOPTFCHECK.TF001=COPTF.TF001 AND TBCOPTFCHECK.TF002=COPTF.TF002 AND TBCOPTFCHECK.TF003=COPTF.TF003 AND  TBCOPTFCHECK.TF004=COPTF.TF004 ORDER BY ID DESC) AS '採購更新日期'
-                                    ,(SELECT TOP 1 ISNULL(PURCHECKS,'') FROM [TKBUSINESS].[dbo].[TBCOPTFCHECK] WHERE TBCOPTFCHECK.TF001=COPTF.TF001 AND TBCOPTFCHECK.TF002=COPTF.TF002 AND TBCOPTFCHECK.TF003=COPTF.TF003 AND  TBCOPTFCHECK.TF004=COPTF.TF004 ORDER BY ID DESC) AS '採購核準'
-                                    ,(SELECT TOP 1 ISNULL(PURCHECKSCOMMENTS,'') FROM [TKBUSINESS].[dbo].[TBCOPTFCHECK] WHERE TBCOPTFCHECK.TF001=COPTF.TF001 AND TBCOPTFCHECK.TF002=COPTF.TF002 AND TBCOPTFCHECK.TF003=COPTF.TF003 AND  TBCOPTFCHECK.TF004=COPTF.TF004 ORDER BY ID DESC) AS '採購備註'
-                                    ,(SELECT TOP 1 ISNULL(SALESCHECKDATES,'') FROM [TKBUSINESS].[dbo].[TBCOPTFCHECK] WHERE TBCOPTFCHECK.TF001=COPTF.TF001 AND TBCOPTFCHECK.TF002=COPTF.TF002 AND TBCOPTFCHECK.TF003=COPTF.TF003 AND  TBCOPTFCHECK.TF004=COPTF.TF004 ORDER BY ID DESC) AS '業務更新日期'
-                                    ,(SELECT TOP 1 ISNULL(SALESCHECKSCOMMENTS,'') FROM [TKBUSINESS].[dbo].[TBCOPTFCHECK] WHERE TBCOPTFCHECK.TF001=COPTF.TF001 AND TBCOPTFCHECK.TF002=COPTF.TF002 AND TBCOPTFCHECK.TF003=COPTF.TF003 AND  TBCOPTFCHECK.TF004=COPTF.TF004 ORDER BY ID DESC) AS '業務備註'
-                                    ,TE001,TE002,TE003,TF001
-
-                                    FROM [TK].dbo.COPTE,[TK].dbo.COPTF
-                                    LEFT JOIN [TK].dbo.COPTC ON TC001=TF001 AND TC002=TF002
-                                    LEFT JOIN [TK].dbo.COPTD ON TD001=TF001 AND TD002=TF002 AND TD003=TF104
-                                    WHERE TE001=TF001 AND TE002=TF002 AND TE003=TF003
-                                    AND 1=1
-                                    AND ISNULL(TD003,'')=''
-                                    AND COPTF.UDF01 IN ('Y','y')
-                    
-                                    ORDER BY TE001,TE002,TE003,TF001
-                                   
 
                                     ", QUERYS.ToString());
 
