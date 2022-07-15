@@ -2661,6 +2661,7 @@ namespace TKMOC
         {
             textBox16.Text = null;
             textBox17.Text = null;
+            string  THISYEAES = DateTime.Now.Year.ToString();
 
             SqlDataAdapter adapter1 = new SqlDataAdapter();
             SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
@@ -2692,9 +2693,10 @@ namespace TKMOC
                                     WHERE [TB_WKF_EXTERNAL_TASK].TASK_ID=[TB_WKF_TASK].TASK_ID 
                                     AND ([TB_WKF_TASK].TASK_RESULT IN ('-1','0','3') OR ISNULL([TB_WKF_TASK].TASK_RESULT,'')='')
                                     AND EXTERNAL_FORM_NBR='{0}'
+                                    AND CONVERT(NVARCHAR,MODIFY_TIME,112) LIKE '{1}%'
                                     ORDER BY MODIFY_TIME DESC
 
-                                    ", CODE);
+                                    ", CODE, THISYEAES);
 
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -2731,7 +2733,8 @@ namespace TKMOC
         public void SEARCHUOF2(string CODE)
         {
             textBox19.Text = null;
-            
+            string THISYEAES = DateTime.Now.Year.ToString();
+
             SqlDataAdapter adapter1 = new SqlDataAdapter();
             SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
             DataSet ds1 = new DataSet();
@@ -2763,9 +2766,10 @@ namespace TKMOC
                                     WHERE [TB_WKF_EXTERNAL_TASK].TASK_ID=[TB_WKF_TASK].TASK_ID 
                                     AND ([TB_WKF_TASK].TASK_RESULT IN ('-1','0','3') OR ISNULL([TB_WKF_TASK].TASK_RESULT,'')='')
                                     AND EXTERNAL_FORM_NBR='{0}'
+                                    AND CONVERT(NVARCHAR,MODIFY_TIME,112) LIKE '{1}%'
                                     ORDER BY MODIFY_TIME DESC
 
-                                    ", CODE);
+                                    ", CODE, THISYEAES);
 
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
