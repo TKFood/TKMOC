@@ -13066,8 +13066,8 @@ namespace TKMOC
                                     ,MC004,MB017
 
                                     ,CASE WHEN ISNULL(MC004,0)>0 THEN CONVERT(decimal(16,4),((TD008+TD024)/MC004)) END AS BARS
-                                    ,(CASE WHEN ISNULL([NUMS],0)<>0 THEN [NUMS] ELSE 1  END ) AS NUMS
-                                    ,(CASE WHEN ISNULL([BOXS],0)<>0 THEN [BOXS] ELSE 1  END ) AS BOXS
+                                    ,(CASE WHEN ISNULL(MD002,'')<>'' THEN (TD008+TD024)*MD004 ELSE (TD008+TD024)  END ) AS NUMS
+                                    ,(CASE WHEN ISNULL(MC004,0)>0 THEN CONVERT(decimal(16,4),((TD008+TD024)/MC004)) END) AS BOXS
 
                                     FROM [TK].dbo.INVMB WITH(NOLOCK),[TK].dbo.COPTC WITH(NOLOCK),[TK].dbo.COPTD WITH(NOLOCK)
                                     LEFT JOIN [TK].dbo.INVMD ON MD001=TD004 AND TD010=MD002
@@ -13164,7 +13164,9 @@ namespace TKMOC
                             COPTD002 = COPTCTD.Rows[0]["TD002"].ToString();
                             COPTD003 = COPTCTD.Rows[0]["TD003"].ToString();
                             BOX = COPTCTD.Rows[0]["BOXS"].ToString();
-                            PACKAGE = COPTCTD.Rows[0]["TD008"].ToString();
+
+                            PACKAGE = COPTCTD.Rows[0]["NUM"].ToString();
+                            //PACKAGE = COPTCTD.Rows[0]["TD008"].ToString();
                         }
 
 
