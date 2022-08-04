@@ -2166,7 +2166,7 @@ namespace TKMOC
 
                     sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINE]");
                     sbSql.AppendFormat(" ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET],[TA029],[OUTDATE],[HALFPRO],[COPTD001],[COPTD002],[COPTD003],[BOX])");
-                    sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}',N'{9}','{10}','{11}','{12}','{13}','{14}','{15}')", NEWGUID.ToString(), comboBox1.Text, dateTimePicker2.Value.ToString("yyyy/MM/dd"), textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, textBox5.Text, textBox6.Text, textBox52.Text, dateTimePicker14.Value.ToString("yyyy/MM/dd"),textBox67.Text, textBox40.Text, textBox41.Text, textBox73.Text,(Convert.ToDecimal(textBox5.Text)/ Convert.ToDecimal(textBox90.Text)));
+                    sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}','{3}',N'{4}','{5}','{6}','{7}',N'{8}',N'{9}','{10}','{11}','{12}','{13}','{14}','{15}')", NEWGUID.ToString(), comboBox1.Text, dateTimePicker2.Value.ToString("yyyy/MM/dd"), textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, textBox5.Text, textBox6.Text, textBox52.Text, dateTimePicker14.Value.ToString("yyyy/MM/dd"),textBox67.Text, textBox40.Text, textBox41.Text, textBox73.Text,(Convert.ToDecimal(textBox5.Text)/ Convert.ToDecimal(textBox90.Text)));
                     sbSql.AppendFormat(" ");
                     sbSql.AppendFormat(" ");
 
@@ -2226,7 +2226,7 @@ namespace TKMOC
 
                     sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINE]");
                     sbSql.AppendFormat(" ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[CLINET],[MANUHOUR],[BOX],[PACKAGE],[OUTDATE],[TA029],[HALFPRO],[COPTD001],[COPTD002],[COPTD003])");
-                    sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}',N'{11}','{12}','{13}','{14}','{15}')", NEWGUID.ToString(), comboBox2.Text, dateTimePicker4.Value.ToString("yyyy/MM/dd"), textBox7.Text, textBox10.Text, textBox11.Text, textBox9.Text, textBox13.Text, textBox8.Text, textBox12.Text, dateTimePicker5.Value.ToString("yyyy/MM/dd"), textBox53.Text,textBox68.Text,textBox42.Text, textBox43.Text, textBox72.Text);
+                    sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}','{3}',N'{4}','{5}',N'{6}',N'{7}','{8}','{9}','{10}',N'{11}','{12}','{13}','{14}','{15}')", NEWGUID.ToString(), comboBox2.Text, dateTimePicker4.Value.ToString("yyyy/MM/dd"), textBox7.Text, textBox10.Text, textBox11.Text, textBox9.Text, textBox13.Text, textBox8.Text, textBox12.Text, dateTimePicker5.Value.ToString("yyyy/MM/dd"), textBox53.Text,textBox68.Text,textBox42.Text, textBox43.Text, textBox72.Text);
                     sbSql.AppendFormat(" ");
                     sbSql.AppendFormat(" ");
 
@@ -2285,7 +2285,7 @@ namespace TKMOC
 
                     sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINE]");
                     sbSql.AppendFormat(" ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET],[TA029],[OUTDATE],[HALFPRO],[COPTD001],[COPTD002],[COPTD003],[BOX])");
-                    sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}',N'{9}','{10}','{11}','{12}','{13}','{14}','{15}')", NEWGUID.ToString(), comboBox3.Text, dateTimePicker7.Value.ToString("yyyy/MM/dd"), textBox14.Text, textBox17.Text, textBox18.Text, textBox15.Text, textBox19.Text, textBox16.Text, textBox54.Text, dateTimePicker15.Value.ToString("yyyy/MM/dd"),textBox69.Text, textBox44.Text, textBox45.Text, textBox74.Text, (Convert.ToDecimal(textBox19.Text) / Convert.ToDecimal(textBox91.Text)));
+                    sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}','{3}',N'{4}','{5}','{6}','{7}',N'{8}',N'{9}','{10}','{11}','{12}','{13}','{14}','{15}')", NEWGUID.ToString(), comboBox3.Text, dateTimePicker7.Value.ToString("yyyy/MM/dd"), textBox14.Text, textBox17.Text, textBox18.Text, textBox15.Text, textBox19.Text, textBox16.Text, textBox54.Text, dateTimePicker15.Value.ToString("yyyy/MM/dd"),textBox69.Text, textBox44.Text, textBox45.Text, textBox74.Text, (Convert.ToDecimal(textBox19.Text) / Convert.ToDecimal(textBox91.Text)));
                     sbSql.AppendFormat(" ");
                     sbSql.AppendFormat(" ");
 
@@ -2344,7 +2344,7 @@ namespace TKMOC
 
                     sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINE]");
                     sbSql.AppendFormat(" ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET],[TA029],[OUTDATE],[HALFPRO],[COPTD001],[COPTD002],[COPTD003],[BOX])");
-                    sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}',N'{9}','{10}','{11}','{12}','{13}','{14}','{15}')", NEWGUID.ToString(), comboBox4.Text, dateTimePicker9.Value.ToString("yyyy/MM/dd"), textBox20.Text, textBox24.Text, textBox25.Text, textBox21.Text, textBox23.Text, textBox22.Text, textBox55.Text, dateTimePicker16.Value.ToString("yyyy/MM/dd"),textBox70.Text, textBox46.Text, textBox47.Text, textBox75.Text, (Convert.ToDecimal(textBox23.Text) / Convert.ToDecimal(textBox92.Text)));
+                    sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}','{3}',N'{4}','{5}','{6}','{7}',N'{8}',N'{9}','{10}','{11}','{12}','{13}','{14}','{15}')", NEWGUID.ToString(), comboBox4.Text, dateTimePicker9.Value.ToString("yyyy/MM/dd"), textBox20.Text, textBox24.Text, textBox25.Text, textBox21.Text, textBox23.Text, textBox22.Text, textBox55.Text, dateTimePicker16.Value.ToString("yyyy/MM/dd"),textBox70.Text, textBox46.Text, textBox47.Text, textBox75.Text, (Convert.ToDecimal(textBox23.Text) / Convert.ToDecimal(textBox92.Text)));
                     sbSql.AppendFormat(" ");
                     sbSql.AppendFormat(" ");
 
@@ -2463,8 +2463,8 @@ namespace TKMOC
                     sbSql.AppendFormat(@" 
                                         INSERT INTO [TKMOC].[dbo].[MOCMANULINETEMP]
                                         ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[CLINET],[MANUHOUR],[BAR],[NUM],[BOX],[PACKAGE],[OUTDATE],[TA029],[HALFPRO],[COPTD001],[COPTD002],[COPTD003])
-                                        VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}',N'{11}','{12}','{13}','{14}','{15}','{16}','{17}')"
-                                        ,"NEWID()", comboBox19.Text, dateTimePicker23.Value.ToString("yyyy/MM/dd"), textBox731.Text, textBox721.Text, textBox732.Text, textBox761.Text, textBox762.Text, textBox741.Text, textBox742.Text, textBox753.Text, textBox751.Text, dateTimePicker24.Value.ToString("yyyy/MM/dd"), textBox771.Text.Replace("'",""), textBox772.Text, textBox781.Text, textBox782.Text, textBox783.Text);
+                                        VALUES ({0},'{1}','{2}','{3}',N'{4}','{5}',N'{6}','{7}','{8}','{9}','{10}',N'{11}','{12}','{13}','{14}','{15}','{16}','{17}')"
+                                        , "NEWID()", comboBox19.Text, dateTimePicker23.Value.ToString("yyyy/MM/dd"), textBox731.Text, textBox721.Text, textBox732.Text, textBox761.Text, textBox762.Text, textBox741.Text, textBox742.Text, textBox753.Text, textBox751.Text, dateTimePicker24.Value.ToString("yyyy/MM/dd"), textBox771.Text.Replace("'",""), textBox772.Text, textBox781.Text, textBox782.Text, textBox783.Text);
 
 
 
