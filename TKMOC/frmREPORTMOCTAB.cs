@@ -2636,7 +2636,7 @@ namespace TKMOC
                                     ,'' AS '訂單號'
                                     ,''  AS '客戶'
                                     ,'' AS '素別'
-                                    ,0 AS 'SUMINS'
+                                    ,(SELECT ISNULL(SUM(TB004),0) FROM [TK].dbo.MOCTB  TB WHERE TB.TB003 LIKE '1%' AND TB.TB001+TB.TB002 IN (SELECT [TA001]+[TA002] FROM [TKMOC].[dbo].[REPORTMOCMANULINE] RE1 WHERE RE1.MANULINE=[REPORTMOCMANULINE].[MANULINE] AND  CONVERT(NVARCHAR,RE1.TA003,112)='20220825')) AS 'SUMINS'
 
                                     FROM [TKMOC].[dbo].[REPORTMOCMANULINE]
                                     LEFT JOIN [TK].dbo.MOCTA ON [REPORTMOCMANULINE].TA001=MOCTA.[TA001] AND [REPORTMOCMANULINE].[TA002]=MOCTA.[TA002]
