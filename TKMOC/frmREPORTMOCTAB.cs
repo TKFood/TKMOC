@@ -33,11 +33,11 @@ namespace TKMOC
         /// <summary>
         /// 生產排程確認表
         /// </summary>
-        string ID1 = "bee4fd5b-ce3b-48c0-93ad-2a15d2aa7575";
-        /// <summary>
-        /// 生產排程確認表說明
-        /// </summary>
-        string ID2 = "4c37721f-dc7b-4305-b915-4bd00d12b26c";
+        //string ID1 = "bee4fd5b-ce3b-48c0-93ad-2a15d2aa7575";
+        ///// <summary>
+        ///// 生產排程確認表說明
+        ///// </summary>
+        //string ID2 = "4c37721f-dc7b-4305-b915-4bd00d12b26c";
         string DBNAME = "UOF";
 
 
@@ -1708,7 +1708,12 @@ namespace TKMOC
             XmlElement Form = xmlDoc.CreateElement("Form");
 
             //正式的id
-            Form.SetAttribute("formVersionId", ID1);
+            string PURTLID = SEARCHFORM_VERSION_ID("MOC10.生產排程確認表");
+
+            if (!string.IsNullOrEmpty(PURTLID))
+            {
+                Form.SetAttribute("formVersionId", PURTLID);
+            }
 
             Form.SetAttribute("urgentLevel", "2");
             //加入節點底下
@@ -1839,6 +1844,16 @@ namespace TKMOC
                 Cell = xmlDoc.CreateElement("Cell");
                 Cell.SetAttribute("fieldId", "TA002");
                 Cell.SetAttribute("fieldValue", od["製令編號"].ToString());
+                Cell.SetAttribute("realValue", "");
+                Cell.SetAttribute("customValue", "");
+                Cell.SetAttribute("enableSearch", "True");
+                //Row
+                Row.AppendChild(Cell);
+
+                //Row	SUMINS
+                Cell = xmlDoc.CreateElement("Cell");
+                Cell.SetAttribute("fieldId", "SUMINS");
+                Cell.SetAttribute("fieldValue", od["SUMINS"].ToString());
                 Cell.SetAttribute("realValue", "");
                 Cell.SetAttribute("customValue", "");
                 Cell.SetAttribute("enableSearch", "True");
@@ -2089,7 +2104,12 @@ namespace TKMOC
             XmlElement Form = xmlDoc.CreateElement("Form");
 
             //正式的id
-            Form.SetAttribute("formVersionId", ID2);
+            string PURTLID = SEARCHFORM_VERSION_ID("MOC20.生產排程確認表說明");
+
+            if (!string.IsNullOrEmpty(PURTLID))
+            {
+                Form.SetAttribute("formVersionId", PURTLID);
+            }
 
             Form.SetAttribute("urgentLevel", "2");
             //加入節點底下
@@ -2551,6 +2571,8 @@ namespace TKMOC
                                     ,品名,規格,比例,順序,過敏原,餅體,桶數,箱數,有效日期,備註
                                     ,訂單別,訂單號,客戶,素別
                                     ,MANULINE
+                                    ,SUMINS
+
                                     FROM(
                                     SELECT 
                                     [ID]
@@ -2578,6 +2600,8 @@ namespace TKMOC
                                     ,MOCTA.TA027 AS '訂單號'
                                     ,TC053  AS '客戶'
                                     ,[REPORTMOCMANULINE].[ORI] AS '素別'
+                                    ,(SELECT ISNULL(SUM(TB004),0) FROM [TK].dbo.MOCTB  TB WHERE TB.TB003 LIKE '1%' AND TB.TB001=[REPORTMOCMANULINE].[TA001] AND TB.TB002=[REPORTMOCMANULINE].[TA002]) AS 'SUMINS'
+                                    
                                     FROM [TKMOC].[dbo].[REPORTMOCMANULINE]
                                     LEFT JOIN [TK].dbo.MOCTA ON [REPORTMOCMANULINE].TA001=MOCTA.[TA001] AND [REPORTMOCMANULINE].[TA002]=MOCTA.[TA002]
                                     LEFT JOIN [TK].dbo.COPTC ON TC001= TA026 AND TC002=TA027 
@@ -2612,6 +2636,8 @@ namespace TKMOC
                                     ,'' AS '訂單號'
                                     ,''  AS '客戶'
                                     ,'' AS '素別'
+                                    ,0 AS 'SUMINS'
+
                                     FROM [TKMOC].[dbo].[REPORTMOCMANULINE]
                                     LEFT JOIN [TK].dbo.MOCTA ON [REPORTMOCMANULINE].TA001=MOCTA.[TA001] AND [REPORTMOCMANULINE].[TA002]=MOCTA.[TA002]
                                     LEFT JOIN [TK].dbo.COPTC ON TC001= TA026 AND TC002=TA027 
@@ -2857,6 +2883,66 @@ namespace TKMOC
                 sqlConn.Close();
             }
         }
+
+        public string SEARCHFORM_VERSION_ID(string FORM_NAME)
+        {
+            try
+            {
+                //connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
+                //sqlConn = new SqlConnection(connectionString);
+
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dberp"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+
+                sbSql.AppendFormat(@" 
+                                    SELECT 
+                                    RTRIM(LTRIM([FORM_VERSION_ID])) AS FORM_VERSION_ID
+                                    ,[FORM_NAME]
+                                    FROM [TKIT].[dbo].[UOF_FORM_VERSION_ID]
+                                    WHERE [FORM_NAME]='{0}'
+                                    ", FORM_NAME);
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "ds1");
+
+
+                if (ds1.Tables["ds1"].Rows.Count >= 1)
+                {
+                    return ds1.Tables["ds1"].Rows[0]["FORM_VERSION_ID"].ToString();
+                }
+                else
+                {
+                    return "";
+                }
+
+            }
+            catch
+            {
+                return "";
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+
         #endregion
 
         #region BUTTON
