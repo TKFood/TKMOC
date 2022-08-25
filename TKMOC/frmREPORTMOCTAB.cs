@@ -2260,25 +2260,34 @@ namespace TKMOC
                 //Row
                 Row.AppendChild(Cell);
 
-                //Row	TA015
+                //Row	SUMINS
                 Cell = xmlDoc.CreateElement("Cell");
-                Cell.SetAttribute("fieldId", "TA015");
-                Cell.SetAttribute("fieldValue", od["預計產量"].ToString());
+                Cell.SetAttribute("fieldId", "SUMINS");
+                Cell.SetAttribute("fieldValue", od["SUMINS"].ToString());
                 Cell.SetAttribute("realValue", "");
                 Cell.SetAttribute("customValue", "");
                 Cell.SetAttribute("enableSearch", "True");
-                //Row
                 Row.AppendChild(Cell);
 
-                //Row	TA007
-                Cell = xmlDoc.CreateElement("Cell");
-                Cell.SetAttribute("fieldId", "TA007");
-                Cell.SetAttribute("fieldValue", od["單位"].ToString());
-                Cell.SetAttribute("realValue", "");
-                Cell.SetAttribute("customValue", "");
-                Cell.SetAttribute("enableSearch", "True");
-                //Row
-                Row.AppendChild(Cell);
+                ////Row	TA015
+                //Cell = xmlDoc.CreateElement("Cell");
+                //Cell.SetAttribute("fieldId", "TA015");
+                //Cell.SetAttribute("fieldValue", od["預計產量"].ToString());
+                //Cell.SetAttribute("realValue", "");
+                //Cell.SetAttribute("customValue", "");
+                //Cell.SetAttribute("enableSearch", "True");
+                ////Row
+                //Row.AppendChild(Cell);
+
+                ////Row	TA007
+                //Cell = xmlDoc.CreateElement("Cell");
+                //Cell.SetAttribute("fieldId", "TA007");
+                //Cell.SetAttribute("fieldValue", od["單位"].ToString());
+                //Cell.SetAttribute("realValue", "");
+                //Cell.SetAttribute("customValue", "");
+                //Cell.SetAttribute("enableSearch", "True");
+                ////Row
+                //Row.AppendChild(Cell);
 
                 //Row	BARS
                 Cell = xmlDoc.CreateElement("Cell");
@@ -2290,15 +2299,15 @@ namespace TKMOC
                 //Row
                 Row.AppendChild(Cell);
 
-                //Row	BOXS
-                Cell = xmlDoc.CreateElement("Cell");
-                Cell.SetAttribute("fieldId", "BOXS");
-                Cell.SetAttribute("fieldValue", od["箱數"].ToString());
-                Cell.SetAttribute("realValue", "");
-                Cell.SetAttribute("customValue", "");
-                Cell.SetAttribute("enableSearch", "True");
-                //Row
-                Row.AppendChild(Cell);
+                ////Row	BOXS
+                //Cell = xmlDoc.CreateElement("Cell");
+                //Cell.SetAttribute("fieldId", "BOXS");
+                //Cell.SetAttribute("fieldValue", od["箱數"].ToString());
+                //Cell.SetAttribute("realValue", "");
+                //Cell.SetAttribute("customValue", "");
+                //Cell.SetAttribute("enableSearch", "True");
+                ////Row
+                //Row.AppendChild(Cell);
 
                 //Row	MB002
                 Cell = xmlDoc.CreateElement("Cell");
