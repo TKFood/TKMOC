@@ -459,6 +459,12 @@
     <Compile Include="frmRECOPSTILL.Designer.cs">
       <DependentUpon>frmRECOPSTILL.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmREPORTCHECKPURTDPURTH.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmREPORTCHECKPURTDPURTH.Designer.cs">
+      <DependentUpon>frmREPORTCHECKPURTDPURTH.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmREPORTCOP.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -823,6 +829,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmRECOPSTILL.resx">
       <DependentUpon>frmRECOPSTILL.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmREPORTCHECKPURTDPURTH.resx">
+      <DependentUpon>frmREPORTCHECKPURTDPURTH.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmREPORTCOP.resx">
       <DependentUpon>frmREPORTCOP.cs</DependentUpon>

@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="08/26/2022 09:12:53" ReportInfo.Modified="08/26/2022 09:26:32" ReportInfo.CreatorVersion="2016.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpN+i5gA3VDGcwlcfm6L9ZMsLrZ3U+wEDtHCQtd9vw2XUEZF8bpNLLWjKCIVHWvxsxp">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT TD012 AS '預計進貨日'&#13;&#10;,TC004 AS '廠商'&#13;&#10;,MA002 AS '廠商名'&#13;&#10;,TC001 AS '採購單別'&#13;&#10;,TC002 AS '採購單號'&#13;&#10;,TD003 AS '採購序號'&#13;&#10;,TD004 AS '品號'&#13;&#10;,TD005 AS '品名'&#13;&#10;,TD008 AS '採購數量'&#13;&#10;,TD009 AS '單位'&#13;&#10;,ISNULL(SUMTH007,0) AS '已進貨數量'&#13;&#10;FROM [TK].dbo.PURMA,[TK].dbo.PURTC,[TK].dbo.PURTD&#13;&#10;LEFT JOIN (SELECT SUM(TH007) SUMTH007,TH011,TH012,TH013 FROM [TK].dbo.PURTH GROUP BY TH011,TH012,TH013) AS TEMP  ON TH011=TD001 AND TH012=TD002 AND TH013=TD003&#13;&#10;WHERE TC001=TD001 AND TC002=TD002&#13;&#10;AND TD018='Y'&#13;&#10;AND MA001=TC004&#13;&#10;AND (TD008&gt;ISNULL(SUMTH007,0))&#13;&#10;AND TD012&gt;='20220826' AND TD012&lt;='20220826'">
+        <Column Name="預計進貨日" DataType="System.String"/>
+        <Column Name="廠商" DataType="System.String"/>
+        <Column Name="廠商名" DataType="System.String"/>
+        <Column Name="採購單別" DataType="System.String"/>
+        <Column Name="採購序號" DataType="System.String"/>
+        <Column Name="品號" DataType="System.String"/>
+        <Column Name="品名" DataType="System.String"/>
+        <Column Name="採購數量" DataType="System.Decimal"/>
+        <Column Name="單位" DataType="System.String"/>
+        <Column Name="已進貨數量" DataType="System.Decimal"/>
+        <Column Name="採購單號" DataType="System.String"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210">
+    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="18.9">
+      <TextObject Name="Text1" Width="1048.95" Height="18.9" Text="採購是否到貨表" HorzAlign="Center" VertAlign="Center"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="23.39" Width="1047.06" Height="18.9">
+      <TextObject Name="Text3" Width="75.6" Height="18.9" Border.Lines="All" Text="預計進貨日" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text5" Left="75.6" Width="75.6" Height="18.9" Border.Lines="All" Text="廠商" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text7" Left="151.2" Width="132.3" Height="18.9" Border.Lines="All" Text="廠商名" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text9" Left="283.5" Width="66.15" Height="18.9" Border.Lines="All" Text="採購單別" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text11" Left="349.65" Width="94.5" Height="18.9" Border.Lines="All" Text="採購單號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text13" Left="444.15" Width="66.15" Height="18.9" Border.Lines="All" Text="採購序號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text15" Left="510.3" Width="94.5" Height="18.9" Border.Lines="All" Text="品號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text17" Left="604.8" Width="189" Height="18.9" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text19" Left="793.8" Width="94.5" Height="18.9" Border.Lines="All" Text="採購數量" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text21" Left="888.3" Width="56.7" Height="18.9" Border.Lines="All" Text="單位" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text23" Left="945" Width="94.5" Height="18.9" Border.Lines="All" Text="已進貨數量" HorzAlign="Center" VertAlign="Center"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="46.79" Width="1047.06" Height="18.9" CanGrow="true" DataSource="Table">
+      <TextObject Name="Text2" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.預計進貨日]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text4" Left="75.6" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.廠商]" VertAlign="Center"/>
+      <TextObject Name="Text6" Left="151.2" Width="132.3" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.廠商名]" VertAlign="Center"/>
+      <TextObject Name="Text8" Left="283.5" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.採購單別]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text10" Left="349.65" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.採購單號]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text12" Left="444.15" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.採購序號]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text14" Left="510.3" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.品號]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text16" Left="604.8" Width="189" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.品名]" VertAlign="Center"/>
+      <TextObject Name="Text18" Left="793.8" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.採購數量]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="3" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text20" Left="888.3" Width="56.7" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.單位]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text22" Left="945" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.已進貨數量]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="3" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="70.18" Width="1047.06" Height="18.9"/>
+  </ReportPage>
+</Report>
