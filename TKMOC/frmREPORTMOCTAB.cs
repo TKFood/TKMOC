@@ -353,7 +353,7 @@ namespace TKMOC
                                 ,[ERPINVMB].[ALLERGEN]  AS '過敏原'
                                 ,[ERPINVMB].[SPEC] AS '餅體'
                                 ,CONVERT(decimal(16,3),TA015/ISNULL(MC004,1)) AS '桶數'
-                                ,CONVERT(decimal(16, 3), TA015 / ISNULL(MD007, 1) * ISNULL(MD010, 1)) AS '箱數'
+                                ,CONVERT(decimal(16, 3), TA015 / ISNULL(MD007, 1)) AS '箱數'
                                 ,MOCTA.UDF01 AS '順序'
                                 ,ISNULL(MC004,1) MC004
                                 ,ISNULL(MD007,1) AS MD007,ISNULL(MD010,1) AS MD010
@@ -375,7 +375,7 @@ namespace TKMOC
             report1 = new Report();
             report1.Load(@"REPORT\製令明細表2020V2.frx");
 
-
+             
             //20210902密
             Class1 TKID = new Class1();//用new 建立類別實體
             SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
@@ -755,7 +755,7 @@ namespace TKMOC
                                     INSERT INTO [TKMOC].[dbo].[REPORTMOCMANULINE]
                                     ([ID],[MANULINE],[LOTNO],[TA001],[TA002],[TA003],[TA006],[TA007],[TA015],[TA017],[MB002],[MB003],[PCTS],[SEQ],[ALLERGEN],[COOKIES],[BARS],[BOXS],[VDATES],[COMMENT],[ORI])
 
-                                    SELECT NEWID(),TA021,'{0}',TA001,TA002,TA003,TA006,TA007,TA015,TA017,TA034,TA035,[ERPINVMB].[PCT],MOCTA.UDF01,[ERPINVMB].[ALLERGEN] ,[ERPINVMB].[SPEC] ,CONVERT(decimal(16,3),TA015/ISNULL(MC004,1)),CASE WHEN ISNULL(1/[MOCHALFPRODUCTDBOXS].NUMS*[MOCHALFPRODUCTDBOXS].BOXS,0)>0  THEN CONVERT(decimal(16, 3), TA015 / ISNULL(MD007, 1) * ISNULL(MD010, 1))*(1/[MOCHALFPRODUCTDBOXS].NUMS*[MOCHALFPRODUCTDBOXS].BOXS) ELSE CONVERT(decimal(16, 3), TA015 / ISNULL(MD007, 1) * ISNULL(MD010, 1)) END,
+                                    SELECT NEWID(),TA021,'{0}',TA001,TA002,TA003,TA006,TA007,TA015,TA017,TA034,TA035,[ERPINVMB].[PCT],MOCTA.UDF01,[ERPINVMB].[ALLERGEN] ,[ERPINVMB].[SPEC] ,CONVERT(decimal(16,3),TA015/ISNULL(MC004,1)),CASE WHEN ISNULL(1/[MOCHALFPRODUCTDBOXS].NUMS*[MOCHALFPRODUCTDBOXS].BOXS,0)>0  THEN CONVERT(decimal(16, 3), TA015 / ISNULL(MD007, 1) * ISNULL(1, 1))*(1/[MOCHALFPRODUCTDBOXS].NUMS*[MOCHALFPRODUCTDBOXS].BOXS) ELSE CONVERT(decimal(16, 3), TA015 / ISNULL(MD007, 1) * ISNULL(1, 1)) END,
                                     CASE WHEN MB198='2' THEN  CONVERT(NVARCHAR,DATEADD(DAY,-1,DATEADD(MONTH,MB023,TA003)),112) ELSE CONVERT(NVARCHAR,DATEADD(DAY,-1,DATEADD(DAY,MB023,TA003)),112) END
                                     ,TA029
                                     ,[ERPINVMB].[ORI]
