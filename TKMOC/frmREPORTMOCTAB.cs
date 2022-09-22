@@ -180,6 +180,7 @@ namespace TKMOC
                     textBox1.Text = row.Cells["比例"].Value.ToString();
                     textBox2.Text = row.Cells["過敏原"].Value.ToString();
                     textBox4.Text = row.Cells["餅體"].Value.ToString();
+                    textBox15.Text = row.Cells["素別"].Value.ToString();
 
                 }
                 else
@@ -190,6 +191,7 @@ namespace TKMOC
                     textBox1.Text = null;
                     textBox2.Text = null;
                     textBox4.Text = null;
+                    textBox15.Text = null;
 
                 }
             }
