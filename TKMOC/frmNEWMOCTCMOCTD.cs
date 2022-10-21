@@ -383,10 +383,15 @@ namespace TKMOC
             if (dialogResult == DialogResult.Yes)
             {
                 string TC001 = textBox1.Text;
-                string TC002 = GETMAXTC002(TC001, dateTimePicker3.Value.ToString("yyyyMMdd"));
+                string TC002 = textBox2.Text;
 
-                textBox3.Text = TC001;
-                textBox4.Text = TC002;
+
+                string NEWTC001 = textBox1.Text;
+                string NEWTC002 = GETMAXTC002(TC001, dateTimePicker3.Value.ToString("yyyyMMdd"));
+
+                textBox3.Text = NEWTC001;
+                textBox4.Text = NEWTC002;
+                
                 //ADDMOCTCMOCTDMOCTE();
             }
             else if (dialogResult == DialogResult.No)
