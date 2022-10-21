@@ -222,7 +222,7 @@ namespace TKMOC
             }
         }
 
-        public void ADDMOCTCMOCTDMOCTE(string TC001,string TC002)
+        public void ADDMOCTCMOCTDMOCTE(string TC001,string TC002, string  NEWTC001, string NEWTC002)
         {
 
             try
@@ -245,9 +245,436 @@ namespace TKMOC
 
                 sbSql.Clear();
 
-                sbSql.AppendFormat(@" 
+                sbSql.AppendFormat(@"                                     
+                                    INSERT INTO [TK].[dbo].[MOCTC]
+                                    (
+                                    [COMPANY]
+                                    ,[CREATOR]
+                                    ,[USR_GROUP]
+                                    ,[CREATE_DATE]
+                                    ,[MODIFIER]
+                                    ,[MODI_DATE]
+                                    ,[FLAG]
+                                    ,[CREATE_TIME]
+                                    ,[MODI_TIME]
+                                    ,[TRANS_TYPE]
+                                    ,[TRANS_NAME]
+                                    ,[sync_date]
+                                    ,[sync_time]
+                                    ,[sync_mark]
+                                    ,[sync_count]
+                                    ,[DataUser]
+                                    ,[DataGroup]
+                                    ,[TC001]
+                                    ,[TC002]
+                                    ,[TC003]
+                                    ,[TC004]
+                                    ,[TC005]
+                                    ,[TC006]
+                                    ,[TC007]
+                                    ,[TC008]
+                                    ,[TC009]
+                                    ,[TC010]
+                                    ,[TC011]
+                                    ,[TC012]
+                                    ,[TC013]
+                                    ,[TC014]
+                                    ,[TC015]
+                                    ,[TC016]
+                                    ,[TC017]
+                                    ,[TC018]
+                                    ,[TC019]
+                                    ,[TC020]
+                                    ,[TC021]
+                                    ,[TC022]
+                                    ,[TC023]
+                                    ,[TC024]
+                                    ,[TC025]
+                                    ,[TC026]
+                                    ,[TC027]
+                                    ,[TC028]
+                                    ,[TC029]
+                                    ,[TC030]
+                                    ,[TC031]
+                                    ,[TC032]
+                                    ,[UDF01]
+                                    ,[UDF02]
+                                    ,[UDF03]
+                                    ,[UDF04]
+                                    ,[UDF05]
+                                    ,[UDF06]
+                                    ,[UDF07]
+                                    ,[UDF08]
+                                    ,[UDF09]
+                                    ,[UDF10]
+                                    ,[TC200]
+                                    ,[TC201]
+                                    ,[TC202]
+                                    )
 
-                                    ");
+                                    SELECT 
+                                    [COMPANY]
+                                    ,[CREATOR]
+                                    ,[USR_GROUP]
+                                    ,[CREATE_DATE]
+                                    ,[MODIFIER]
+                                    ,[MODI_DATE]
+                                    ,[FLAG]
+                                    ,[CREATE_TIME]
+                                    ,[MODI_TIME]
+                                    ,[TRANS_TYPE]
+                                    ,[TRANS_NAME]
+                                    ,[sync_date]
+                                    ,[sync_time]
+                                    ,[sync_mark]
+                                    ,[sync_count]
+                                    ,[DataUser]
+                                    ,[DataGroup]
+                                    ,'{2}' [TC001]
+                                    ,'{3}'[TC002]
+                                    ,[TC003]
+                                    ,[TC004]
+                                    ,[TC005]
+                                    ,[TC006]
+                                    ,[TC007]
+                                    ,[TC008]
+                                    ,'N' [TC009]
+                                    ,[TC010]
+                                    ,[TC011]
+                                    ,[TC012]
+                                    ,[TC013]
+                                    ,[TC014]
+                                    ,[TC015]
+                                    ,[TC016]
+                                    ,[TC017]
+                                    ,[TC018]
+                                    ,[TC019]
+                                    ,[TC020]
+                                    ,[TC021]
+                                    ,[TC022]
+                                    ,[TC023]
+                                    ,[TC024]
+                                    ,[TC025]
+                                    ,[TC026]
+                                    ,[TC027]
+                                    ,[TC028]
+                                    ,[TC029]
+                                    ,[TC030]
+                                    ,[TC031]
+                                    ,[TC032]
+                                    ,[UDF01]
+                                    ,[UDF02]
+                                    ,[UDF03]
+                                    ,[UDF04]
+                                    ,[UDF05]
+                                    ,[UDF06]
+                                    ,[UDF07]
+                                    ,[UDF08]
+                                    ,[UDF09]
+                                    ,[UDF10]
+                                    ,[TC200]
+                                    ,[TC201]
+                                    ,[TC202]
+                                    FROM [TK].[dbo].[MOCTC]
+                                    WHERE TC001='{0}' AND TC002='{1}'
+
+                                    INSERT INTO [TK].[dbo].[MOCTD]
+                                    (
+                                    [COMPANY]
+                                    ,[CREATOR]
+                                    ,[USR_GROUP]
+                                    ,[CREATE_DATE]
+                                    ,[MODIFIER]
+                                    ,[MODI_DATE]
+                                    ,[FLAG]
+                                    ,[CREATE_TIME]
+                                    ,[MODI_TIME]
+                                    ,[TRANS_TYPE]
+                                    ,[TRANS_NAME]
+                                    ,[sync_date]
+                                    ,[sync_time]
+                                    ,[sync_mark]
+                                    ,[sync_count]
+                                    ,[DataUser]
+                                    ,[DataGroup]
+                                    ,[TD001]
+                                    ,[TD002]
+                                    ,[TD003]
+                                    ,[TD004]
+                                    ,[TD005]
+                                    ,[TD006]
+                                    ,[TD007]
+                                    ,[TD008]
+                                    ,[TD009]
+                                    ,[TD010]
+                                    ,[TD011]
+                                    ,[TD012]
+                                    ,[TD013]
+                                    ,[TD014]
+                                    ,[TD015]
+                                    ,[TD016]
+                                    ,[TD017]
+                                    ,[TD018]
+                                    ,[TD019]
+                                    ,[TD020]
+                                    ,[TD021]
+                                    ,[TD022]
+                                    ,[TD023]
+                                    ,[TD024]
+                                    ,[TD025]
+                                    ,[TD026]
+                                    ,[TD027]
+                                    ,[TD028]
+                                    ,[TD500]
+                                    ,[TD501]
+                                    ,[TD502]
+                                    ,[TD503]
+                                    ,[TD504]
+                                    ,[TD505]
+                                    ,[TD506]
+                                    ,[UDF01]
+                                    ,[UDF02]
+                                    ,[UDF03]
+                                    ,[UDF04]
+                                    ,[UDF05]
+                                    ,[UDF06]
+                                    ,[UDF07]
+                                    ,[UDF08]
+                                    ,[UDF09]
+                                    ,[UDF10]
+                                    )
+
+                                    SELECT 
+                                    [COMPANY]
+                                    ,[CREATOR]
+                                    ,[USR_GROUP]
+                                    ,[CREATE_DATE]
+                                    ,[MODIFIER]
+                                    ,[MODI_DATE]
+                                    ,[FLAG]
+                                    ,[CREATE_TIME]
+                                    ,[MODI_TIME]
+                                    ,[TRANS_TYPE]
+                                    ,[TRANS_NAME]
+                                    ,[sync_date]
+                                    ,[sync_time]
+                                    ,[sync_mark]
+                                    ,[sync_count]
+                                    ,[DataUser]
+                                    ,[DataGroup]
+                                    ,'{2}' [TD001]
+                                    ,'{3}' [TD002]
+                                    ,[TD003]
+                                    ,[TD004]
+                                    ,[TD005]
+                                    ,[TD006]
+                                    ,[TD007]
+                                    ,[TD008]
+                                    ,[TD009]
+                                    ,[TD010]
+                                    ,[TD011]
+                                    ,[TD012]
+                                    ,[TD013]
+                                    ,[TD014]
+                                    ,[TD015]
+                                    ,[TD016]
+                                    ,[TD017]
+                                    ,[TD018]
+                                    ,[TD019]
+                                    ,[TD020]
+                                    ,[TD021]
+                                    ,[TD022]
+                                    ,[TD023]
+                                    ,[TD024]
+                                    ,[TD025]
+                                    ,[TD026]
+                                    ,[TD027]
+                                    ,[TD028]
+                                    ,[TD500]
+                                    ,[TD501]
+                                    ,[TD502]
+                                    ,[TD503]
+                                    ,[TD504]
+                                    ,[TD505]
+                                    ,[TD506]
+                                    ,[UDF01]
+                                    ,[UDF02]
+                                    ,[UDF03]
+                                    ,[UDF04]
+                                    ,[UDF05]
+                                    ,[UDF06]
+                                    ,[UDF07]
+                                    ,[UDF08]
+                                    ,[UDF09]
+                                    ,[UDF10]
+                                    FROM [TK].[dbo].[MOCTD]
+                                    WHERE TD001='{0}' AND TD002='{1}'
+
+                                  
+                                    INSERT INTO [TK].[dbo].[MOCTE]
+                                    (
+                                    [COMPANY]
+                                    ,[CREATOR]
+                                    ,[USR_GROUP]
+                                    ,[CREATE_DATE]
+                                    ,[MODIFIER]
+                                    ,[MODI_DATE]
+                                    ,[FLAG]
+                                    ,[CREATE_TIME]
+                                    ,[MODI_TIME]
+                                    ,[TRANS_TYPE]
+                                    ,[TRANS_NAME]
+                                    ,[sync_date]
+                                    ,[sync_time]
+                                    ,[sync_mark]
+                                    ,[sync_count]
+                                    ,[DataUser]
+                                    ,[DataGroup]
+                                    ,[TE001]
+                                    ,[TE002]
+                                    ,[TE003]
+                                    ,[TE004]
+                                    ,[TE005]
+                                    ,[TE006]
+                                    ,[TE007]
+                                    ,[TE008]
+                                    ,[TE009]
+                                    ,[TE010]
+                                    ,[TE011]
+                                    ,[TE012]
+                                    ,[TE013]
+                                    ,[TE014]
+                                    ,[TE015]
+                                    ,[TE016]
+                                    ,[TE017]
+                                    ,[TE018]
+                                    ,[TE019]
+                                    ,[TE020]
+                                    ,[TE021]
+                                    ,[TE022]
+                                    ,[TE023]
+                                    ,[TE024]
+                                    ,[TE025]
+                                    ,[TE026]
+                                    ,[TE027]
+                                    ,[TE028]
+                                    ,[TE029]
+                                    ,[TE030]
+                                    ,[TE031]
+                                    ,[TE032]
+                                    ,[TE033]
+                                    ,[TE034]
+                                    ,[TE035]
+                                    ,[TE036]
+                                    ,[TE037]
+                                    ,[TE038]
+                                    ,[TE039]
+                                    ,[TE040]
+                                    ,[TE500]
+                                    ,[TE501]
+                                    ,[TE502]
+                                    ,[TE503]
+                                    ,[TE504]
+                                    ,[TE505]
+                                    ,[TE506]
+                                    ,[TE507]
+                                    ,[TE508]
+                                    ,[UDF01]
+                                    ,[UDF02]
+                                    ,[UDF03]
+                                    ,[UDF04]
+                                    ,[UDF05]
+                                    ,[UDF06]
+                                    ,[UDF07]
+                                    ,[UDF08]
+                                    ,[UDF09]
+                                    ,[UDF10]
+                                    ,[TE200]
+                                    ,[TE201]
+                                    )
+                                    SELECT
+                                    [COMPANY]
+                                    ,[CREATOR]
+                                    ,[USR_GROUP]
+                                    ,[CREATE_DATE]
+                                    ,[MODIFIER]
+                                    ,[MODI_DATE]
+                                    ,[FLAG]
+                                    ,[CREATE_TIME]
+                                    ,[MODI_TIME]
+                                    ,[TRANS_TYPE]
+                                    ,[TRANS_NAME]
+                                    ,[sync_date]
+                                    ,[sync_time]
+                                    ,[sync_mark]
+                                    ,[sync_count]
+                                    ,[DataUser]
+                                    ,[DataGroup]
+                                    ,'{2}' [TE001]
+                                    ,'{3}' [TE002]
+                                    ,[TE003]
+                                    ,[TE004]
+                                    ,[TE005]
+                                    ,[TE006]
+                                    ,[TE007]
+                                    ,[TE008]
+                                    ,[TE009]
+                                    ,[TE010]
+                                    ,[TE011]
+                                    ,[TE012]
+                                    ,[TE013]
+                                    ,'' [TE014]
+                                    ,[TE015]
+                                    ,[TE016]
+                                    ,[TE017]
+                                    ,[TE018]
+                                    ,'N' [TE019]
+                                    ,[TE020]
+                                    ,[TE021]
+                                    ,[TE022]
+                                    ,[TE023]
+                                    ,[TE024]
+                                    ,[TE025]
+                                    ,[TE026]
+                                    ,[TE027]
+                                    ,[TE028]
+                                    ,[TE029]
+                                    ,[TE030]
+                                    ,[TE031]
+                                    ,[TE032]
+                                    ,[TE033]
+                                    ,[TE034]
+                                    ,[TE035]
+                                    ,[TE036]
+                                    ,[TE037]
+                                    ,[TE038]
+                                    ,[TE039]
+                                    ,[TE040]
+                                    ,[TE500]
+                                    ,[TE501]
+                                    ,[TE502]
+                                    ,[TE503]
+                                    ,[TE504]
+                                    ,[TE505]
+                                    ,[TE506]
+                                    ,[TE507]
+                                    ,[TE508]
+                                    ,[UDF01]
+                                    ,[UDF02]
+                                    ,[UDF03]
+                                    ,[UDF04]
+                                    ,[UDF05]
+                                    ,[UDF06]
+                                    ,[UDF07]
+                                    ,[UDF08]
+                                    ,[UDF09]
+                                    ,[UDF10]
+                                    ,[TE200]
+                                    ,[TE201]
+                                    FROM [TK].[dbo].[MOCTE]
+                                    WHERE TE001='{0}' AND TE002='{1}'
+
+                                    ", TC001,TC002,NEWTC001,NEWTC002);
 
 
 
@@ -367,7 +794,78 @@ namespace TKMOC
             }
         }
 
+        public void SEARCHNEWMOCTC(string TC001, string TC002)
+        {
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder = new SqlCommandBuilder();
+            DataSet ds = new DataSet();
 
+            try
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+
+                sbSql.AppendFormat(@"  
+                                   
+                                    SELECT 
+                                    MQ002 AS '單據'
+                                    ,TC001 AS '單別'
+                                    ,TC002 AS '單號'
+                                    ,TC003 AS '日期'
+                                    FROM [TK].dbo.MOCTC,[TK].dbo.CMSMQ
+                                    WHERE TC001=MQ001
+                                    AND TC001='{0}' AND TC002='{1}'
+                                    ORDER BY TC001,TC002
+                                    ", TC001, TC002);
+
+                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder = new SqlCommandBuilder(adapter);
+                sqlConn.Open();
+                ds.Clear();
+                adapter.Fill(ds, "TEMPds");
+                sqlConn.Close();
+
+
+                if (ds.Tables["TEMPds"].Rows.Count == 0)
+                {
+                    dataGridView3.DataSource = null;
+                }
+                else
+                {
+                    if (ds.Tables["TEMPds"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView3.DataSource = ds.Tables["TEMPds"];
+                        dataGridView3.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
         #endregion
 
         #region BUTTON
@@ -392,7 +890,9 @@ namespace TKMOC
                 textBox3.Text = NEWTC001;
                 textBox4.Text = NEWTC002;
                 
-                //ADDMOCTCMOCTDMOCTE();
+                ADDMOCTCMOCTDMOCTE(TC001, TC002, NEWTC001, NEWTC002);
+
+                SEARCHNEWMOCTC(NEWTC001, NEWTC002);
             }
             else if (dialogResult == DialogResult.No)
             {
