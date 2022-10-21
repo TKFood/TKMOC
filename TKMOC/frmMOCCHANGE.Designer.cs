@@ -37,11 +37,12 @@
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.label5 = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.button4 = new System.Windows.Forms.Button();
             this.checkBox16 = new System.Windows.Forms.CheckBox();
+            this.checkBox21 = new System.Windows.Forms.CheckBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
@@ -63,6 +64,7 @@
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.checkBox6 = new System.Windows.Forms.CheckBox();
             this.checkBox17 = new System.Windows.Forms.CheckBox();
+            this.checkBox22 = new System.Windows.Forms.CheckBox();
             this.splitContainer5 = new System.Windows.Forms.SplitContainer();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.splitContainer6 = new System.Windows.Forms.SplitContainer();
@@ -83,6 +85,7 @@
             this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.checkBox9 = new System.Windows.Forms.CheckBox();
             this.checkBox18 = new System.Windows.Forms.CheckBox();
+            this.checkBox23 = new System.Windows.Forms.CheckBox();
             this.splitContainer8 = new System.Windows.Forms.SplitContainer();
             this.dataGridView5 = new System.Windows.Forms.DataGridView();
             this.splitContainer9 = new System.Windows.Forms.SplitContainer();
@@ -99,11 +102,12 @@
             this.dateTimePicker9 = new System.Windows.Forms.DateTimePicker();
             this.label12 = new System.Windows.Forms.Label();
             this.button7 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
             this.checkBox10 = new System.Windows.Forms.CheckBox();
             this.checkBox11 = new System.Windows.Forms.CheckBox();
-            this.checkBox12 = new System.Windows.Forms.CheckBox();
-            this.button8 = new System.Windows.Forms.Button();
             this.checkBox19 = new System.Windows.Forms.CheckBox();
+            this.checkBox12 = new System.Windows.Forms.CheckBox();
+            this.checkBox24 = new System.Windows.Forms.CheckBox();
             this.splitContainer11 = new System.Windows.Forms.SplitContainer();
             this.dataGridView7 = new System.Windows.Forms.DataGridView();
             this.splitContainer12 = new System.Windows.Forms.SplitContainer();
@@ -121,6 +125,7 @@
             this.checkBox14 = new System.Windows.Forms.CheckBox();
             this.checkBox15 = new System.Windows.Forms.CheckBox();
             this.checkBox20 = new System.Windows.Forms.CheckBox();
+            this.checkBox25 = new System.Windows.Forms.CheckBox();
             this.splitContainer14 = new System.Windows.Forms.SplitContainer();
             this.dataGridView9 = new System.Windows.Forms.DataGridView();
             this.splitContainer15 = new System.Windows.Forms.SplitContainer();
@@ -139,11 +144,6 @@
             this.dataGridView11 = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel12 = new System.Windows.Forms.TableLayoutPanel();
             this.button12 = new System.Windows.Forms.Button();
-            this.checkBox21 = new System.Windows.Forms.CheckBox();
-            this.checkBox22 = new System.Windows.Forms.CheckBox();
-            this.checkBox23 = new System.Windows.Forms.CheckBox();
-            this.checkBox24 = new System.Windows.Forms.CheckBox();
-            this.checkBox25 = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -385,6 +385,18 @@
             this.label5.Text = "~";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // button4
+            // 
+            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button4.Location = new System.Drawing.Point(754, 84);
+            this.button4.Margin = new System.Windows.Forms.Padding(4);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(142, 32);
+            this.button4.TabIndex = 31;
+            this.button4.Text = "批次變更";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
             // checkBox1
             // 
             this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -421,18 +433,6 @@
             this.checkBox3.UseVisualStyleBackColor = true;
             this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
             // 
-            // button4
-            // 
-            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.Location = new System.Drawing.Point(754, 84);
-            this.button4.Margin = new System.Windows.Forms.Padding(4);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(142, 32);
-            this.button4.TabIndex = 31;
-            this.button4.Text = "批次變更";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
             // checkBox16
             // 
             this.checkBox16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -444,6 +444,18 @@
             this.checkBox16.Text = "手工線";
             this.checkBox16.UseVisualStyleBackColor = true;
             this.checkBox16.CheckedChanged += new System.EventHandler(this.checkBox16_CheckedChanged);
+            // 
+            // checkBox21
+            // 
+            this.checkBox21.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBox21.AutoSize = true;
+            this.checkBox21.Location = new System.Drawing.Point(603, 90);
+            this.checkBox21.Name = "checkBox21";
+            this.checkBox21.Size = new System.Drawing.Size(144, 20);
+            this.checkBox21.TabIndex = 36;
+            this.checkBox21.Text = "託外製令A512";
+            this.checkBox21.UseVisualStyleBackColor = true;
+            this.checkBox21.CheckedChanged += new System.EventHandler(this.checkBox21_CheckedChanged);
             // 
             // splitContainer2
             // 
@@ -744,6 +756,18 @@
             this.checkBox17.UseVisualStyleBackColor = true;
             this.checkBox17.CheckedChanged += new System.EventHandler(this.checkBox17_CheckedChanged);
             // 
+            // checkBox22
+            // 
+            this.checkBox22.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBox22.AutoSize = true;
+            this.checkBox22.Location = new System.Drawing.Point(603, 90);
+            this.checkBox22.Name = "checkBox22";
+            this.checkBox22.Size = new System.Drawing.Size(144, 20);
+            this.checkBox22.TabIndex = 39;
+            this.checkBox22.Text = "託外製令A512";
+            this.checkBox22.UseVisualStyleBackColor = true;
+            this.checkBox22.CheckedChanged += new System.EventHandler(this.checkBox22_CheckedChanged);
+            // 
             // splitContainer5
             // 
             this.splitContainer5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -1033,6 +1057,18 @@
             this.checkBox18.UseVisualStyleBackColor = true;
             this.checkBox18.CheckedChanged += new System.EventHandler(this.checkBox18_CheckedChanged);
             // 
+            // checkBox23
+            // 
+            this.checkBox23.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBox23.AutoSize = true;
+            this.checkBox23.Location = new System.Drawing.Point(603, 90);
+            this.checkBox23.Name = "checkBox23";
+            this.checkBox23.Size = new System.Drawing.Size(144, 20);
+            this.checkBox23.TabIndex = 42;
+            this.checkBox23.Text = "託外製令A512";
+            this.checkBox23.UseVisualStyleBackColor = true;
+            this.checkBox23.CheckedChanged += new System.EventHandler(this.checkBox23_CheckedChanged);
+            // 
             // splitContainer8
             // 
             this.splitContainer8.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -1272,6 +1308,18 @@
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
+            // button8
+            // 
+            this.button8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button8.Location = new System.Drawing.Point(754, 84);
+            this.button8.Margin = new System.Windows.Forms.Padding(4);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(142, 32);
+            this.button8.TabIndex = 31;
+            this.button8.Text = "批次變更";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
             // checkBox10
             // 
             this.checkBox10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -1296,6 +1344,18 @@
             this.checkBox11.UseVisualStyleBackColor = true;
             this.checkBox11.CheckedChanged += new System.EventHandler(this.checkBox11_CheckedChanged);
             // 
+            // checkBox19
+            // 
+            this.checkBox19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBox19.AutoSize = true;
+            this.checkBox19.Location = new System.Drawing.Point(303, 90);
+            this.checkBox19.Name = "checkBox19";
+            this.checkBox19.Size = new System.Drawing.Size(144, 20);
+            this.checkBox19.TabIndex = 44;
+            this.checkBox19.Text = "手工線";
+            this.checkBox19.UseVisualStyleBackColor = true;
+            this.checkBox19.CheckedChanged += new System.EventHandler(this.checkBox19_CheckedChanged);
+            // 
             // checkBox12
             // 
             this.checkBox12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -1308,29 +1368,17 @@
             this.checkBox12.UseVisualStyleBackColor = true;
             this.checkBox12.CheckedChanged += new System.EventHandler(this.checkBox12_CheckedChanged);
             // 
-            // button8
+            // checkBox24
             // 
-            this.button8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button8.Location = new System.Drawing.Point(754, 84);
-            this.button8.Margin = new System.Windows.Forms.Padding(4);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(142, 32);
-            this.button8.TabIndex = 31;
-            this.button8.Text = "批次變更";
-            this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
-            // 
-            // checkBox19
-            // 
-            this.checkBox19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox19.AutoSize = true;
-            this.checkBox19.Location = new System.Drawing.Point(303, 90);
-            this.checkBox19.Name = "checkBox19";
-            this.checkBox19.Size = new System.Drawing.Size(144, 20);
-            this.checkBox19.TabIndex = 44;
-            this.checkBox19.Text = "手工線";
-            this.checkBox19.UseVisualStyleBackColor = true;
-            this.checkBox19.CheckedChanged += new System.EventHandler(this.checkBox19_CheckedChanged);
+            this.checkBox24.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBox24.AutoSize = true;
+            this.checkBox24.Location = new System.Drawing.Point(603, 90);
+            this.checkBox24.Name = "checkBox24";
+            this.checkBox24.Size = new System.Drawing.Size(144, 20);
+            this.checkBox24.TabIndex = 45;
+            this.checkBox24.Text = "託外製令A512";
+            this.checkBox24.UseVisualStyleBackColor = true;
+            this.checkBox24.CheckedChanged += new System.EventHandler(this.checkBox24_CheckedChanged);
             // 
             // splitContainer11
             // 
@@ -1582,6 +1630,18 @@
             this.checkBox20.Text = "手工線";
             this.checkBox20.UseVisualStyleBackColor = true;
             this.checkBox20.CheckedChanged += new System.EventHandler(this.checkBox20_CheckedChanged);
+            // 
+            // checkBox25
+            // 
+            this.checkBox25.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBox25.AutoSize = true;
+            this.checkBox25.Location = new System.Drawing.Point(603, 90);
+            this.checkBox25.Name = "checkBox25";
+            this.checkBox25.Size = new System.Drawing.Size(144, 20);
+            this.checkBox25.TabIndex = 46;
+            this.checkBox25.Text = "託外製令A512";
+            this.checkBox25.UseVisualStyleBackColor = true;
+            this.checkBox25.CheckedChanged += new System.EventHandler(this.checkBox25_CheckedChanged);
             // 
             // splitContainer14
             // 
@@ -1860,66 +1920,6 @@
             this.button12.Text = "批次變更";
             this.button12.UseVisualStyleBackColor = true;
             this.button12.Click += new System.EventHandler(this.button12_Click);
-            // 
-            // checkBox21
-            // 
-            this.checkBox21.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox21.AutoSize = true;
-            this.checkBox21.Location = new System.Drawing.Point(603, 90);
-            this.checkBox21.Name = "checkBox21";
-            this.checkBox21.Size = new System.Drawing.Size(144, 20);
-            this.checkBox21.TabIndex = 36;
-            this.checkBox21.Text = "託外製令A512";
-            this.checkBox21.UseVisualStyleBackColor = true;
-            this.checkBox21.CheckedChanged += new System.EventHandler(this.checkBox21_CheckedChanged);
-            // 
-            // checkBox22
-            // 
-            this.checkBox22.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox22.AutoSize = true;
-            this.checkBox22.Location = new System.Drawing.Point(603, 90);
-            this.checkBox22.Name = "checkBox22";
-            this.checkBox22.Size = new System.Drawing.Size(144, 20);
-            this.checkBox22.TabIndex = 39;
-            this.checkBox22.Text = "託外製令A512";
-            this.checkBox22.UseVisualStyleBackColor = true;
-            this.checkBox22.CheckedChanged += new System.EventHandler(this.checkBox22_CheckedChanged);
-            // 
-            // checkBox23
-            // 
-            this.checkBox23.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox23.AutoSize = true;
-            this.checkBox23.Location = new System.Drawing.Point(603, 90);
-            this.checkBox23.Name = "checkBox23";
-            this.checkBox23.Size = new System.Drawing.Size(144, 20);
-            this.checkBox23.TabIndex = 42;
-            this.checkBox23.Text = "託外製令A512";
-            this.checkBox23.UseVisualStyleBackColor = true;
-            this.checkBox23.CheckedChanged += new System.EventHandler(this.checkBox23_CheckedChanged);
-            // 
-            // checkBox24
-            // 
-            this.checkBox24.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox24.AutoSize = true;
-            this.checkBox24.Location = new System.Drawing.Point(603, 90);
-            this.checkBox24.Name = "checkBox24";
-            this.checkBox24.Size = new System.Drawing.Size(144, 20);
-            this.checkBox24.TabIndex = 45;
-            this.checkBox24.Text = "託外製令A512";
-            this.checkBox24.UseVisualStyleBackColor = true;
-            this.checkBox24.CheckedChanged += new System.EventHandler(this.checkBox24_CheckedChanged);
-            // 
-            // checkBox25
-            // 
-            this.checkBox25.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox25.AutoSize = true;
-            this.checkBox25.Location = new System.Drawing.Point(603, 90);
-            this.checkBox25.Name = "checkBox25";
-            this.checkBox25.Size = new System.Drawing.Size(144, 20);
-            this.checkBox25.TabIndex = 46;
-            this.checkBox25.Text = "託外製令A512";
-            this.checkBox25.UseVisualStyleBackColor = true;
-            this.checkBox25.CheckedChanged += new System.EventHandler(this.checkBox25_CheckedChanged);
             // 
             // frmMOCCHANGE
             // 
