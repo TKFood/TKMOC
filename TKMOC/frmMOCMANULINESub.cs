@@ -39,7 +39,7 @@ namespace TKMOC
 
         string EDITID;
         int result;
-        int BOXNUMERB;
+        decimal BOXNUMERB;
 
         public frmMOCMANULINESub()
         {
@@ -238,12 +238,28 @@ namespace TKMOC
             {
                 if (Decimal.TryParse(textBox7.Text, out num1) && Decimal.TryParse(textBox32.Text, out num2))
                 {
-                    textBox6.Text = Math.Round(Convert.ToDecimal(textBox7.Text) / Convert.ToDecimal(textBox32.Text), 4).ToString();
+                    if(Convert.ToDecimal(textBox7.Text)>0 & Convert.ToDecimal(textBox32.Text)>0)
+                    {
+                        textBox6.Text = Math.Round(Convert.ToDecimal(textBox7.Text) / Convert.ToDecimal(textBox32.Text), 4).ToString();
+                    }
+                    else
+                    {
+                        textBox6.Text = "0";
+                    }
+                    
                 }
                 
                 if (Decimal.TryParse(textBox9.Text, out num1) && Decimal.TryParse(textBox32.Text, out num2))
                 {
-                    textBox8.Text = Math.Round(Convert.ToDecimal(textBox9.Text) / Convert.ToDecimal(textBox32.Text) / BOXNUMERB, 4).ToString();
+                    if (Convert.ToDecimal(textBox9.Text) > 0 & Convert.ToDecimal(textBox32.Text) > 0 & BOXNUMERB>0)
+                    {
+                        textBox8.Text = Math.Round(Convert.ToDecimal(textBox9.Text) / Convert.ToDecimal(textBox32.Text) / BOXNUMERB, 4).ToString();
+                    }
+                    else
+                    {
+                        textBox8.Text = "0";
+                    }
+                    
                 }
 
             }
@@ -290,7 +306,7 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  SELECT TOP 1 MD001,MD003,MB001,MB002,ISNULL(MD007,1) AS MD007,ISNULL(MD010,1) AS MD010");
+                sbSql.AppendFormat(@"  SELECT TOP 1 MD001,MD003,MB001,MB002,ISNULL(MD007,1) AS MD007,ISNULL(MD010,1) AS MD010,ISNULL(MD006,1) AS MD006");
                 sbSql.AppendFormat(@"  FROM [TK].dbo.BOMMD,[TK].dbo.INVMB");
                 sbSql.AppendFormat(@"  WHERE MD003=MB001");
                 sbSql.AppendFormat(@"  AND MB002 LIKE '%箱%'");
@@ -315,7 +331,15 @@ namespace TKMOC
                 {
                     if (ds20.Tables["TEMPds20"].Rows.Count >= 1)
                     {
-                        BOXNUMERB = (Convert.ToInt32(ds20.Tables["TEMPds20"].Rows[0]["MD007"].ToString()) / Convert.ToInt32(ds20.Tables["TEMPds20"].Rows[0]["MD010"].ToString()));
+                        if(Convert.ToDecimal(ds20.Tables["TEMPds20"].Rows[0]["MD007"].ToString())>0 & Convert.ToDecimal(ds20.Tables["TEMPds20"].Rows[0]["MD006"].ToString())>0)
+                        {
+                            BOXNUMERB = (Convert.ToDecimal(ds20.Tables["TEMPds20"].Rows[0]["MD007"].ToString()) / Convert.ToDecimal(ds20.Tables["TEMPds20"].Rows[0]["MD006"].ToString()));
+                        }
+                        else
+                        {
+                            BOXNUMERB = 1;
+                        }
+                        
                     }
                 }
 
