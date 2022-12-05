@@ -306,13 +306,15 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  SELECT TOP 1 MD001,MD003,MB001,MB002,ISNULL(MD007,1) AS MD007,ISNULL(MD010,1) AS MD010,ISNULL(MD006,1) AS MD006");
-                sbSql.AppendFormat(@"  FROM [TK].dbo.BOMMD,[TK].dbo.INVMB");
-                sbSql.AppendFormat(@"  WHERE MD003=MB001");
-                sbSql.AppendFormat(@"  AND MB002 LIKE '%箱%'");
-                sbSql.AppendFormat(@"  AND MD003 LIKE '2%'");
-                sbSql.AppendFormat(@"  AND MD001='{0}'", textBox3.Text);
-                sbSql.AppendFormat(@"  ");
+             
+                sbSql.AppendFormat(@" 
+                                        SELECT  MD001,MD003,MB001,MB002,ISNULL(MD007,1) AS MD007,ISNULL(MD010,1) AS MD010,ISNULL(MD006,1) AS MD006
+                                        FROM [TK].dbo.BOMMD,[TK].dbo.INVMB
+                                        WHERE MD003=MB001
+                                        AND MB002 LIKE '%箱%'
+                                        AND MD003 LIKE '2%'
+                                        AND MD001 LIKE '{0}%'
+                                    ", textBox3.Text);
 
                 adapter20 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
