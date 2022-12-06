@@ -532,7 +532,7 @@
             // 
             this.comboBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(3, 182);
+            this.comboBox2.Location = new System.Drawing.Point(3, 184);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(209, 24);
             this.comboBox2.TabIndex = 26;
@@ -565,7 +565,7 @@
             // 
             this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(3, 50);
+            this.comboBox1.Location = new System.Drawing.Point(3, 48);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(209, 24);
             this.comboBox1.TabIndex = 25;
@@ -1166,7 +1166,7 @@
             // 
             this.comboBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(3, 50);
+            this.comboBox3.Location = new System.Drawing.Point(3, 48);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(209, 24);
             this.comboBox3.TabIndex = 32;
@@ -1722,7 +1722,7 @@
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(207, 16);
             this.label15.TabIndex = 24;
-            this.label15.Text = "預計完工日";
+            this.label15.Text = "預計完工日/實際開工日";
             this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // dateTimePicker12

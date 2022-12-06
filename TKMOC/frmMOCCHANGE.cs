@@ -957,11 +957,12 @@ namespace TKMOC
 
 
 
-                sbSql.AppendFormat(" UPDATE [TK].dbo.MOCTA");
-                sbSql.AppendFormat(" SET TA010='{0}'", TA009);
-                sbSql.AppendFormat(" WHERE TA001='{0}' AND TA002='{1}'", TA001, TA002);
-                sbSql.AppendFormat(" ");
-                sbSql.AppendFormat(" ");
+              
+                sbSql.AppendFormat(@" 
+                                    UPDATE [TK].dbo.MOCTA
+                                    SET TA010='{2}',TA012='{2}'
+                                     WHERE TA001 = '{0}' AND TA002 = '{1}'
+                                    ", TA001, TA002, TA009);
 
 
 
