@@ -960,7 +960,7 @@ namespace TKMOC
               
                 sbSql.AppendFormat(@" 
                                     UPDATE [TK].dbo.MOCTA
-                                    SET TA010='{2}',TA012='{2}'
+                                    SET TA010='{2}',TA014='{2}'
                                      WHERE TA001 = '{0}' AND TA002 = '{1}'
                                     ", TA001, TA002, TA009);
 
