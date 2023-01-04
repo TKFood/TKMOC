@@ -2226,7 +2226,7 @@ namespace TKMOC
 
                     sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINE]");
                     sbSql.AppendFormat(" ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[CLINET],[MANUHOUR],[BOX],[PACKAGE],[OUTDATE],[TA029],[HALFPRO],[COPTD001],[COPTD002],[COPTD003])");
-                    sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}','{3}',N'{4}','{5}',N'{6}',N'{7}','{8}','{9}','{10}',N'{11}','{12}','{13}','{14}','{15}')", NEWGUID.ToString(), comboBox2.Text, dateTimePicker4.Value.ToString("yyyy/MM/dd"), textBox7.Text, textBox10.Text, textBox11.Text, textBox9.Text, textBox13.Text, textBox8.Text, textBox12.Text, dateTimePicker5.Value.ToString("yyyy/MM/dd"), textBox53.Text,textBox68.Text,textBox42.Text, textBox43.Text, textBox72.Text);
+                    sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}','{3}',N'{4}','{5}',N'{6}',N'{7}','{8}','{9}','{10}',N'{11}','{12}','{13}','{14}','{15}')", NEWGUID.ToString(), comboBox2.Text, dateTimePicker4.Value.ToString("yyyy/MM/dd"), textBox7.Text, textBox10.Text, textBox11.Text, textBox9.Text, textBox13.Text, textBox8.Text, textBox12.Text, dateTimePicker5.Value.ToString("yyyy/MM/dd"), textBox53.Text.Replace("'",""),textBox68.Text,textBox42.Text, textBox43.Text, textBox72.Text);
                     sbSql.AppendFormat(" ");
                     sbSql.AppendFormat(" ");
 
