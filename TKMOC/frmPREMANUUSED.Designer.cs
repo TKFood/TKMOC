@@ -280,7 +280,7 @@
             this.comboBox3.Items.AddRange(new object[] {
             "不含少量",
             "含少量"});
-            this.comboBox3.Location = new System.Drawing.Point(363, 88);
+            this.comboBox3.Location = new System.Drawing.Point(363, 90);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(145, 24);
             this.comboBox3.TabIndex = 17;
@@ -293,7 +293,7 @@
             this.comboBox1.Items.AddRange(new object[] {
             "不含水麵",
             "含水麵"});
-            this.comboBox1.Location = new System.Drawing.Point(514, 88);
+            this.comboBox1.Location = new System.Drawing.Point(514, 90);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(203, 24);
             this.comboBox1.TabIndex = 15;
@@ -306,7 +306,7 @@
             this.comboBox2.Items.AddRange(new object[] {
             "過濾指定品號的原料",
             "不過濾指定品號的原料"});
-            this.comboBox2.Location = new System.Drawing.Point(723, 88);
+            this.comboBox2.Location = new System.Drawing.Point(723, 90);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(174, 24);
             this.comboBox2.TabIndex = 16;

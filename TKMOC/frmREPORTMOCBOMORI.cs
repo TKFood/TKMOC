@@ -694,7 +694,8 @@ namespace TKMOC
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            SETREPORT(textBox1.Text.Trim(), textBox2.Text.Trim(), textBox3.Text.Trim());
+            SETREPORT(textBox1.Text.Trim(), textBox2.Text.Trim(), textBox3.Text.Trim()); 
+
         }
 
 
