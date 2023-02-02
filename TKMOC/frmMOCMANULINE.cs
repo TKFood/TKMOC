@@ -3662,7 +3662,7 @@ namespace TKMOC
                 MOCTA.TA014 = "";
                 //MOCTA.TA015 = (BAR3 * BOMBAR).ToString();
                 //MOCTA.TA015 = SUM4.ToString();
-                MOCTA.TA015 = (SUM4 + Convert.ToDecimal(textBox99.Text)).ToString();
+                MOCTA.TA015 = SUM4.ToString();
                 MOCTA.TA016 = "0";
                 MOCTA.TA017 = "0";
                 MOCTA.TA018 = "0";
@@ -3673,15 +3673,8 @@ namespace TKMOC
                 MOCTA.TA024 = "A510";
                 MOCTA.TA025 = TA002;
 
-                if (Convert.ToDecimal(textBox99.Text) > 0)
-                {
-                    MOCTA.TA029 = "需多投數量做底 " + textBox99.Text + ", " + TA029;
-                }
-                else
-                {
-                    MOCTA.TA029 = TA029;
-                }
-                    
+                MOCTA.TA029 = TA029;
+
                 MOCTA.TA030 = "1";
                 MOCTA.TA031 = "0";
                 MOCTA.TA034 = MB002D;
@@ -5215,7 +5208,8 @@ namespace TKMOC
                     MB002D = row.Cells["品名"].Value.ToString();
                     MB003D = row.Cells["規格"].Value.ToString();
                     BAR3 = Convert.ToDecimal(row.Cells["桶數"].Value.ToString());
-                    SUM4 = Convert.ToDecimal(row.Cells["數量"].Value.ToString());
+                    //SUM4 = Convert.ToDecimal(row.Cells["數量"].Value.ToString())+ Convert.ToDecimal(row.Cells["需多投數量做底"].Value.ToString());
+                    SUM4 = Convert.ToDecimal(row.Cells["數量"].Value.ToString()) + Convert.ToDecimal(row.Cells["需多投數量做底"].Value.ToString());
                     TA029 = row.Cells["備註"].Value.ToString();
 
                     TA026C = row.Cells["訂單單別"].Value.ToString();
