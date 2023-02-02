@@ -88,17 +88,20 @@ namespace TKMOC
 
 
 
-                sbSql.AppendFormat(@"  SELECT ");
-                sbSql.AppendFormat(@"  [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名'");
-                sbSql.AppendFormat(@"  ,[MB003] AS '規格',ISNULL([BAR],0) AS '桶數',ISNULL([NUM],0) AS '數量',ISNULL([BOX],0)   AS '箱數'   ,ISNULL([PACKAGE],0)  AS '片數',[CLINET] AS '客戶'");
-                sbSql.AppendFormat(@"  ,[MC004],CONVERT(varchar(100),[OUTDATE],112)  AS '交期',[TA029] AS '備註' ,[HALFPRO] AS '半成品數量'");
-                sbSql.AppendFormat(@"  ,[MANUHOUR] AS 生產時間 ");
-                sbSql.AppendFormat(@"  ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號'");
-                sbSql.AppendFormat(@"  ,[ID]");
-                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE],[TK].[dbo].[BOMMC]");
-                sbSql.AppendFormat(@"  WHERE [MB001]=[MC001]");
-                sbSql.AppendFormat(@"  AND  [ID]='{0}'", EDITID);
-                sbSql.AppendFormat(@"  ");
+            
+                sbSql.AppendFormat(@"  
+                                     SELECT 
+                                     [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名'
+                                     ,[MB003] AS '規格',ISNULL([BAR],0) AS '桶數',ISNULL([NUM],0) AS '數量',ISNULL([BOX],0)   AS '箱數'   ,ISNULL([PACKAGE],0)  AS '片數',[CLINET] AS '客戶'
+                                     ,[MC004],CONVERT(varchar(100),[OUTDATE],112)  AS '交期',[TA029] AS '備註' ,[HALFPRO] AS '半成品數量'
+                                     ,[MANUHOUR] AS 生產時間 
+                                     ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號'
+                                    ,[MANUPRENUMS] AS '需多投數量做底'
+                                     ,[ID]
+                                     FROM [TKMOC].[dbo].[MOCMANULINE],[TK].[dbo].[BOMMC]
+                                     WHERE [MB001]=[MC001]
+                                     AND  [ID]='{0}'
+                                    ", EDITID);
 
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -136,6 +139,7 @@ namespace TKMOC
                         textBox40.Text = ds1.Tables["TEMPds1"].Rows[0]["訂單單別"].ToString();
                         textBox41.Text = ds1.Tables["TEMPds1"].Rows[0]["訂單號"].ToString();
                         textBox42.Text = ds1.Tables["TEMPds1"].Rows[0]["訂單序號"].ToString();
+                        textBox99.Text = ds1.Tables["TEMPds1"].Rows[0]["需多投數量做底"].ToString();
 
                         string yy = ds1.Tables["TEMPds1"].Rows[0]["生產日"].ToString().Substring(0, 4);
                         string MM = ds1.Tables["TEMPds1"].Rows[0]["生產日"].ToString().Substring(4, 2);
@@ -197,7 +201,7 @@ namespace TKMOC
 
                 sbSql.Clear();
 
-                sbSql.AppendFormat(" UPDATE [TKMOC].[dbo].[MOCMANULINE] SET [BAR]={0},[NUM]={1},[BOX]={2},[PACKAGE]={3},[CLINET]='{4}',MANUDATE='{5}',[OUTDATE]='{6}',[TA029]=N'{7}',[MANUHOUR]={8},HALFPRO={9},COPTD001='{10}',COPTD002='{11}',COPTD003='{12}'", textBox6.Text, textBox7.Text, textBox8.Text, textBox9.Text, textBox10.Text, dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"), textBox2.Text, textBox13.Text, textBox12.Text, textBox40.Text, textBox41.Text, textBox42.Text);
+                sbSql.AppendFormat(" UPDATE [TKMOC].[dbo].[MOCMANULINE] SET [BAR]={0},[NUM]={1},[BOX]={2},[PACKAGE]={3},[CLINET]='{4}',MANUDATE='{5}',[OUTDATE]='{6}',[TA029]=N'{7}',[MANUHOUR]={8},HALFPRO={9},COPTD001='{10}',COPTD002='{11}',COPTD003='{12}',MANUPRENUMS='{13}'", textBox6.Text, textBox7.Text, textBox8.Text, textBox9.Text, textBox10.Text, dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"), textBox2.Text, textBox13.Text, textBox12.Text, textBox40.Text, textBox41.Text, textBox42.Text, textBox99.Text);
                 sbSql.AppendFormat(" WHERE  [ID]='{0}'", textBoxID.Text);
                 sbSql.AppendFormat(" ");
 
@@ -236,11 +240,11 @@ namespace TKMOC
             Decimal num2;
             try
             {
-                if (Decimal.TryParse(textBox7.Text, out num1) && Decimal.TryParse(textBox32.Text, out num2))
+                if (Decimal.TryParse(textBox7.Text, out num1) && Decimal.TryParse(textBox99.Text, out num1) && Decimal.TryParse(textBox32.Text, out num2))
                 {
-                    if(Convert.ToDecimal(textBox7.Text)>0 & Convert.ToDecimal(textBox32.Text)>0)
+                    if(Convert.ToDecimal(textBox7.Text)>0 & Convert.ToDecimal(textBox99.Text) > 0 & Convert.ToDecimal(textBox32.Text)>0)
                     {
-                        textBox6.Text = Math.Round(Convert.ToDecimal(textBox7.Text) / Convert.ToDecimal(textBox32.Text), 4).ToString();
+                        textBox6.Text = Math.Round((Convert.ToDecimal(textBox7.Text)+ Convert.ToDecimal(textBox99.Text)) / Convert.ToDecimal(textBox32.Text), 4).ToString();
                     }
                     else
                     {
@@ -274,6 +278,11 @@ namespace TKMOC
 
         }
         private void textBox7_TextChanged(object sender, EventArgs e)
+        {
+            CALPRODUCTDETAIL();
+        }
+
+        private void textBox99_TextChanged(object sender, EventArgs e)
         {
             CALPRODUCTDETAIL();
         }

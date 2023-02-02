@@ -1405,16 +1405,19 @@ namespace TKMOC
                     sbSqlQuery.Clear();
 
 
-                    sbSql.AppendFormat(@"  SELECT ");
-                    sbSql.AppendFormat(@"  [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名'");
-                    sbSql.AppendFormat(@"  ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[CLINET] AS '客戶',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'");
-                    sbSql.AppendFormat(@"  ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號',[BOX] AS '箱數'");
-                    sbSql.AppendFormat(@"  ,[ID]");
-                    sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
-                    sbSql.AppendFormat(@"  WHERE [MANU]='{0}' ", MANU);
-                    sbSql.AppendFormat(@"  AND CONVERT(varchar(100),[MANUDATE],112) LIKE '{0}%'", dateTimePicker8.Value.ToString("yyyyMMdd"));
-                    sbSql.AppendFormat(@"  ORDER BY [MANUDATE],[SERNO]");
-                    sbSql.AppendFormat(@"  ");
+        
+                    sbSql.AppendFormat(@"  
+                                     SELECT 
+                                     [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名'
+                                     ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[CLINET] AS '客戶',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'
+                                     ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號',[BOX] AS '箱數'
+                                    ,[MANUPRENUMS] AS '需多投數量做底'
+                                     ,[ID]
+                                     FROM [TKMOC].[dbo].[MOCMANULINE]
+                                     WHERE [MANU]='{0}' 
+                                     AND CONVERT(varchar(100),[MANUDATE],112) LIKE '{1}%'
+                                     ORDER BY [MANUDATE],[SERNO]
+                                    ", MANU, dateTimePicker8.Value.ToString("yyyyMMdd"));
 
                     adapter10 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -2343,8 +2346,8 @@ namespace TKMOC
 
 
                     sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINE]");
-                    sbSql.AppendFormat(" ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET],[TA029],[OUTDATE],[HALFPRO],[COPTD001],[COPTD002],[COPTD003],[BOX])");
-                    sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}','{3}',N'{4}','{5}','{6}','{7}',N'{8}',N'{9}','{10}','{11}','{12}','{13}','{14}','{15}')", NEWGUID.ToString(), comboBox4.Text, dateTimePicker9.Value.ToString("yyyy/MM/dd"), textBox20.Text, textBox24.Text, textBox25.Text, textBox21.Text, textBox23.Text, textBox22.Text, textBox55.Text, dateTimePicker16.Value.ToString("yyyy/MM/dd"),textBox70.Text, textBox46.Text, textBox47.Text, textBox75.Text, (Convert.ToDecimal(textBox23.Text) / Convert.ToDecimal(textBox92.Text)));
+                    sbSql.AppendFormat(" ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET],[TA029],[OUTDATE],[HALFPRO],[COPTD001],[COPTD002],[COPTD003],[BOX],[MANUPRENUMS])");
+                    sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}','{3}',N'{4}','{5}','{6}','{7}',N'{8}',N'{9}','{10}','{11}','{12}','{13}','{14}','{15}','{16}')", NEWGUID.ToString(), comboBox4.Text, dateTimePicker9.Value.ToString("yyyy/MM/dd"), textBox20.Text, textBox24.Text, textBox25.Text, textBox21.Text, textBox23.Text, textBox22.Text, textBox55.Text, dateTimePicker16.Value.ToString("yyyy/MM/dd"),textBox70.Text, textBox46.Text, textBox47.Text, textBox75.Text, (Convert.ToDecimal(textBox23.Text) / Convert.ToDecimal(textBox92.Text)), Convert.ToDecimal(textBox99.Text));
                     sbSql.AppendFormat(" ");
                     sbSql.AppendFormat(" ");
 
@@ -3658,7 +3661,8 @@ namespace TKMOC
                 //MOCTA.TA014 = dt4.ToString("yyyyMMdd");
                 MOCTA.TA014 = "";
                 //MOCTA.TA015 = (BAR3 * BOMBAR).ToString();
-                MOCTA.TA015 = SUM4.ToString();
+                //MOCTA.TA015 = SUM4.ToString();
+                MOCTA.TA015 = (SUM4 + Convert.ToDecimal(textBox99.Text)).ToString();
                 MOCTA.TA016 = "0";
                 MOCTA.TA017 = "0";
                 MOCTA.TA018 = "0";
@@ -3668,7 +3672,16 @@ namespace TKMOC
                 MOCTA.TA022 = "0";
                 MOCTA.TA024 = "A510";
                 MOCTA.TA025 = TA002;
-                MOCTA.TA029 = TA029;
+
+                if (Convert.ToDecimal(textBox99.Text) > 0)
+                {
+                    MOCTA.TA029 = "需多投數量做底 " + textBox99.Text + ", " + TA029;
+                }
+                else
+                {
+                    MOCTA.TA029 = TA029;
+                }
+                    
                 MOCTA.TA030 = "1";
                 MOCTA.TA031 = "0";
                 MOCTA.TA034 = MB002D;
@@ -5171,6 +5184,16 @@ namespace TKMOC
             SEARCHBOMMD();
             SEARCHMOCHALFPRODUCTDBOXS();
 
+            if(!string.IsNullOrEmpty(textBox20.Text))
+            {
+                DataTable DT = SEARCHMOCMANUPRENUMS(textBox20.Text);
+
+                if(DT!=null)
+                {
+                    textBox99.Text = DT.Rows[0]["MANUPRENUMS"].ToString();
+                }
+            }
+            
 
             SEARCHMOCMANULINETEMPDATAS(textBox20.Text.Trim());
         }
@@ -5804,7 +5827,7 @@ namespace TKMOC
                 }
                 else if (MANU.Equals("手工線"))
                 {
-                    textBox21.Text = Math.Round(Convert.ToDecimal(textBox23.Text) / Convert.ToDecimal(textBox35.Text), 4).ToString();
+                    textBox21.Text = Math.Round((Convert.ToDecimal(textBox23.Text)+ Convert.ToDecimal(textBox99.Text)) / Convert.ToDecimal(textBox35.Text), 4).ToString();
                 }
                 else if (MANU.Equals("統百包裝線"))
                 {
@@ -6032,6 +6055,12 @@ namespace TKMOC
         private void textBox23_TextChanged(object sender, EventArgs e)
         {
             CALPRODUCTDETAIL();
+        }
+
+        private void textBox99_TextChanged(object sender, EventArgs e)
+        {
+            CALPRODUCTDETAIL();
+
         }
 
         public void SEARCHBOMMD()
@@ -7777,8 +7806,22 @@ namespace TKMOC
                             textBox24.Text = ds27.Tables["ds27"].Rows[0]["TD005"].ToString();
                             textBox25.Text = ds27.Tables["ds27"].Rows[0]["TD006"].ToString();
                             //textBox23.Text = ds27.Tables["ds27"].Rows[0]["NUM"].ToString();
-                            textBox22.Text = ds27.Tables["ds27"].Rows[0]["TC053"].ToString();
-                            textBox55.Text = ds27.Tables["ds27"].Rows[0]["TC015"].ToString();
+                            textBox22.Text = ds27.Tables["ds27"].Rows[0]["TC053"].ToString();                          
+
+                            if (!string.IsNullOrEmpty(textBox99.Text))
+                            {
+                                if (Convert.ToDecimal(textBox99.Text) > 0)
+                                {
+                                    textBox55.Text = "需多投數量做底 " + textBox99.Text + ds27.Tables["ds27"].Rows[0]["TC015"].ToString();
+                                }
+                                else
+                                {
+
+                                    textBox55.Text = ds27.Tables["ds27"].Rows[0]["TC015"].ToString();
+                                }
+                            }
+
+                            
                             dateTimePicker16.Value = Convert.ToDateTime(ds27.Tables["ds27"].Rows[0]["TD013"].ToString().Substring(0, 4) + "/" + ds27.Tables["ds27"].Rows[0]["TD013"].ToString().Substring(4, 2) + "/" + ds27.Tables["ds27"].Rows[0]["TD013"].ToString().Substring(6, 2));
 
                             if (SUM41 > 0)
@@ -14159,7 +14202,76 @@ namespace TKMOC
 
         }
 
+        public DataTable SEARCHMOCMANUPRENUMS(string MB001)
+        {
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            DataSet ds1 = new DataSet();
+            StringBuilder QUERYS = new StringBuilder();
 
+            try
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                sbSql.Clear();
+                QUERYS.Clear();
+                sbSqlQuery2.Clear();
+
+
+                sbSql.AppendFormat(@"  
+                                    SELECT 
+                                     [MB001]
+                                    ,[MB002]
+                                    ,[MANUPRENUMS]
+                                    FROM [TKMOC].[dbo].[MOCMANUPRENUMS]
+                                    WHERE [MB001]='{0}'
+
+                                    ", MB001);
+
+
+
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "TEMPds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["TEMPds1"].Rows.Count > 0)
+                {
+                    return ds1.Tables["TEMPds1"];
+                }
+                else
+                {
+                    return null;
+                }
+
+
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+    
         #endregion
 
         #region BUTTON
@@ -15021,8 +15133,9 @@ namespace TKMOC
             MessageBox.Show("完成");
         }
 
+
         #endregion
 
-
+      
     }
 }
