@@ -242,7 +242,7 @@ namespace TKMOC
             {
                 if (Decimal.TryParse(textBox7.Text, out num1) && Decimal.TryParse(textBox99.Text, out num1) && Decimal.TryParse(textBox32.Text, out num2))
                 {
-                    if(Convert.ToDecimal(textBox7.Text)>0 & Convert.ToDecimal(textBox99.Text) > 0 & Convert.ToDecimal(textBox32.Text)>0)
+                    if(Convert.ToDecimal(textBox7.Text)>=0 & Convert.ToDecimal(textBox99.Text) >= 0 & Convert.ToDecimal(textBox32.Text)>0)
                     {
                         textBox6.Text = Math.Round((Convert.ToDecimal(textBox7.Text)+ Convert.ToDecimal(textBox99.Text)) / Convert.ToDecimal(textBox32.Text), 4).ToString();
                     }
