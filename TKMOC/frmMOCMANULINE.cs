@@ -15296,6 +15296,35 @@ namespace TKMOC
 
         }
 
+        private void button99_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(ID1))
+            {
+                UPDATE_MOCMANULINE_MANU(ID1, comboBox29.Text.ToString());
+                SEARCHMOCMANULINE();
+
+            }
+        }
+
+        private void button100_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(ID3))
+            {
+                UPDATE_MOCMANULINE_MANU(ID3, comboBox30.Text.ToString());
+                SEARCHMOCMANULINE();
+
+            }
+        }
+
+        private void button101_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(ID4))
+            {
+                UPDATE_MOCMANULINE_MANU(ID4, comboBox31.Text.ToString());
+                SEARCHMOCMANULINE();
+
+            }
+        }
         #endregion
 
 
