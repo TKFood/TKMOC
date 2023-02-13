@@ -1127,30 +1127,31 @@ namespace TKMOC
 
         public void comboBox27load()
         {
-            ////20210902密
-            //Class1 TKID = new Class1();//用new 建立類別實體
-            //SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+            //20210902密
+            Class1 TKID = new Class1();//用new 建立類別實體
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
 
-            ////資料庫使用者密碼解密
-            //sqlsb.Password = TKID.Decryption(sqlsb.Password);
-            //sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+            //資料庫使用者密碼解密
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
 
-            //String connectionString;
-            //sqlConn = new SqlConnection(sqlsb.ConnectionString);
+            String connectionString;
+            sqlConn = new SqlConnection(sqlsb.ConnectionString);
 
-            //StringBuilder Sequel = new StringBuilder();
-            //Sequel.AppendFormat(@"SELECT 'Y' AS 'STATUS' UNION ALL SELECT 'N' AS 'STATUS'  ");
-            //SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
-            //DataTable dt = new DataTable();
-            //sqlConn.Open();
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 IN ('手工線')  ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
 
-            //dt.Columns.Add("STATUS", typeof(string));
+            dt.Columns.Add("MD001", typeof(string));
+            dt.Columns.Add("MD002", typeof(string));
+            da.Fill(dt);
+            comboBox27.DataSource = dt.DefaultView;
+            comboBox27.ValueMember = "MD002";
+            comboBox27.DisplayMember = "MD002";
+            sqlConn.Close();
 
-            //da.Fill(dt);
-            //comboBox27.DataSource = dt.DefaultView;
-            //comboBox27.ValueMember = "STATUS";
-            //comboBox27.DisplayMember = "STATUS";
-            //sqlConn.Close();
 
 
         }
@@ -14266,6 +14267,66 @@ namespace TKMOC
         }
 
     
+        public void UPDATE_MOCMANULINE_MANU(string ID,string MANU)
+        {
+            try
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat(@" 
+                                      
+                                    UPDATE  [TKMOC].[dbo].[MOCMANULINE]
+                                    SET [MANU]='{1}'
+                                    WHERE  [ID]='{0}'  
+                                        ", ID, MANU);
+
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+                                        //UPDATEMOCMANULINETEMP(NEWGUID, TEMPds);
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
         #endregion
 
         #region BUTTON
@@ -15127,9 +15188,20 @@ namespace TKMOC
             MessageBox.Show("完成");
         }
 
+        private void button98_Click(object sender, EventArgs e)
+        {
+            if(!string.IsNullOrEmpty(ID2))
+            {
+                UPDATE_MOCMANULINE_MANU(ID2, comboBox27.Text.ToString());
+                SEARCHMOCMANULINE();
+
+            }
+            
+
+        }
 
         #endregion
 
-      
+
     }
 }
