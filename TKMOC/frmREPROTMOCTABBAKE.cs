@@ -176,7 +176,7 @@ namespace TKMOC
                     QUERY_TA001TA002.AppendFormat(@" '{0}'," , dr.Cells[1].Value.ToString()+ dr.Cells[2].Value.ToString());
 
                     //MessageBox.Show(dr.Cells[1].Value.ToString() + dr.Cells[2].Value.ToString());
-                }
+                } 
             }
              
             QUERY_TA001TA002.AppendFormat(@" ''");

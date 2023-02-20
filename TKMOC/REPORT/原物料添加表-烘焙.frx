@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="02/16/2023 10:47:36" ReportInfo.Modified="02/20/2023 10:12:31" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="02/16/2023 10:47:36" ReportInfo.Modified="02/20/2023 10:23:14" ReportInfo.CreatorVersion="2016.4.4.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpN+i5gA3VDGcwlcfm6L9ZMsLrZ3U+wEDtHCQtd9vw2XUENWDGm2BIVk3bnZ39gqdbh">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpN+i5gA3VDGcwlcfm6L9ZMsLrZ3U+wEDtHCQtd9vw2XUFj1nOgJ5gi30aG5R02FgS6">
       <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT &#13;&#10;TA001 AS '製令',TA002 AS '製令單',TA003 AS '生產日',TA006 AS '生產品號',MB1.MB002 AS '生產品名',TA015 AS '生產量',TA007 AS '生產單位'&#13;&#10;,TB003 AS '原/物料品號',MB2.MB002 AS '原/物料品名',TB004 AS '需領料數量',TB007 AS '領料單位'&#13;&#10;,(YEAR(TA003)-1911) AS 'YEARS',MONTH(TA003) AS 'MONTHS',DAY(TA003) AS 'DAYS'&#13;&#10;FROM [TK].dbo.MOCTA&#13;&#10;LEFT JOIN [TK].dbo.INVMB MB1 ON MB1.MB001=TA006&#13;&#10;,[TK].dbo.MOCTB&#13;&#10;LEFT JOIN [TK].dbo.INVMB MB2 ON MB2.MB001=TB003&#13;&#10;WHERE TA001=TB001 AND TA002=TB002&#13;&#10;AND TA001='A513'&#13;&#10;AND TA003='20230216'&#13;&#10;ORDER BY TA001,TA002,TA006,TB003">
         <Column Name="製令" DataType="System.String"/>
         <Column Name="製令單" DataType="System.String"/>
@@ -31,7 +31,7 @@
       <TextObject Name="Text2" Width="207.9" Height="18.9" Text="生產日:[Table.YEARS]年 [Table.MONTHS]月 [Table.DAYS]日" VertAlign="Center"/>
       <TextObject Name="Text8" Top="18.9" Width="519.75" Height="18.9" Text="生產: [Table.生產量] [Table.生產單位] [Table.生產品號] [Table.生產品名]" VertAlign="Center">
         <Formats>
-          <NumberFormat UseLocale="false" NegativePattern="1"/>
+          <NumberFormat UseLocale="false" DecimalDigits="3" NegativePattern="1"/>
           <GeneralFormat/>
           <GeneralFormat/>
           <GeneralFormat/>
