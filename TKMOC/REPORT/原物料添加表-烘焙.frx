@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="02/16/2023 10:47:36" ReportInfo.Modified="02/16/2023 15:32:47" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="02/16/2023 10:47:36" ReportInfo.Modified="02/20/2023 10:12:31" ReportInfo.CreatorVersion="2016.4.4.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpN+i5gA3VDGcwlcfm6L9ZMsLrZ3U+wEDtHCQtd9vw2XUFt12tG8qpvyLo/uqbHshK8">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpN+i5gA3VDGcwlcfm6L9ZMsLrZ3U+wEDtHCQtd9vw2XUENWDGm2BIVk3bnZ39gqdbh">
       <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT &#13;&#10;TA001 AS '製令',TA002 AS '製令單',TA003 AS '生產日',TA006 AS '生產品號',MB1.MB002 AS '生產品名',TA015 AS '生產量',TA007 AS '生產單位'&#13;&#10;,TB003 AS '原/物料品號',MB2.MB002 AS '原/物料品名',TB004 AS '需領料數量',TB007 AS '領料單位'&#13;&#10;,(YEAR(TA003)-1911) AS 'YEARS',MONTH(TA003) AS 'MONTHS',DAY(TA003) AS 'DAYS'&#13;&#10;FROM [TK].dbo.MOCTA&#13;&#10;LEFT JOIN [TK].dbo.INVMB MB1 ON MB1.MB001=TA006&#13;&#10;,[TK].dbo.MOCTB&#13;&#10;LEFT JOIN [TK].dbo.INVMB MB2 ON MB2.MB001=TB003&#13;&#10;WHERE TA001=TB001 AND TA002=TB002&#13;&#10;AND TA001='A513'&#13;&#10;AND TA003='20230216'&#13;&#10;ORDER BY TA001,TA002,TA006,TB003">
         <Column Name="製令" DataType="System.String"/>
         <Column Name="製令單" DataType="System.String"/>
@@ -31,7 +31,7 @@
       <TextObject Name="Text2" Width="207.9" Height="18.9" Text="生產日:[Table.YEARS]年 [Table.MONTHS]月 [Table.DAYS]日" VertAlign="Center"/>
       <TextObject Name="Text8" Top="18.9" Width="519.75" Height="18.9" Text="生產: [Table.生產量] [Table.生產單位] [Table.生產品號] [Table.生產品名]" VertAlign="Center">
         <Formats>
-          <NumberFormat UseLocale="false" DecimalDigits="0" NegativePattern="1"/>
+          <NumberFormat UseLocale="false" NegativePattern="1"/>
           <GeneralFormat/>
           <GeneralFormat/>
           <GeneralFormat/>
@@ -41,45 +41,45 @@
       <TextObject Name="Text45" Top="47.25" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="品號" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text46" Left="75.6" Top="47.25" Width="274.05" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="原/物料品名" HorzAlign="Center" VertAlign="Center"/>
       <TextObject Name="Text47" Left="349.65" Top="47.25" Width="37.8" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="單位" HorzAlign="Center" VertAlign="Center"/>
-      <TextObject Name="Text48" Left="387.45" Top="47.25" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="數量" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text49" Left="453.6" Top="47.25" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="投入量" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text48" Left="387.45" Top="47.25" Width="56.7" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="數量" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text49" Left="444.15" Top="47.25" Width="56.7" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="投入量" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
       <DataBand Name="Data1" Top="164.68" Width="523.53" Height="18.9" CanGrow="true" CanBreak="true" DataSource="Table">
         <TextObject Name="Text12" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.原/物料品號]" VertAlign="Center"/>
         <TextObject Name="Text13" Left="75.6" Width="274.05" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.原/物料品名]" VertAlign="Center"/>
         <TextObject Name="Text14" Left="349.65" Width="37.8" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.領料單位]" VertAlign="Center"/>
-        <TextObject Name="Text15" Left="387.45" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.需領料數量]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-        <TextObject Name="Text16" Left="453.6" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text15" Left="387.45" Width="56.7" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.需領料數量]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text16" Left="444.15" Width="56.7" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
         <ChildBand Name="Child1" Top="188.08" Width="523.53" Height="18.9" CompleteToNRows="18">
           <TextObject Name="Text17" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" VertAlign="Center"/>
           <TextObject Name="Text18" Left="75.6" Width="274.05" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" VertAlign="Center"/>
           <TextObject Name="Text19" Left="349.65" Width="37.8" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" VertAlign="Center"/>
-          <TextObject Name="Text20" Left="387.45" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-          <TextObject Name="Text21" Left="453.6" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+          <TextObject Name="Text20" Left="387.45" Width="56.7" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+          <TextObject Name="Text21" Left="444.15" Width="56.7" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
         </ChildBand>
       </DataBand>
       <GroupFooterBand Name="GroupFooter1" Top="211.47" Width="523.53" Height="170.1" CanGrow="true" CanBreak="true">
         <TextObject Name="Text23" Width="349.65" Height="18.9" Border.Lines="All" CanBreak="false" Text="製造工時:" VertAlign="Center"/>
-        <TextObject Name="Text24" Left="349.65" Width="170.1" Height="18.9" Border.Lines="All" CanBreak="false" Text="本日異動:" VertAlign="Center"/>
+        <TextObject Name="Text24" Left="349.65" Width="151.2" Height="18.9" Border.Lines="All" CanBreak="false" Text="本日異動:" VertAlign="Center"/>
         <TextObject Name="Text25" Top="18.9" Width="75.6" Height="18.9" Border.Lines="All" CanBreak="false" Text="攪拌" VertAlign="Center"/>
         <TextObject Name="Text26" Left="75.6" Top="18.9" Width="274.05" Height="18.9" Border.Lines="All" CanBreak="false" Text="      人      分" VertAlign="Center"/>
-        <TextObject Name="Text27" Left="349.65" Top="18.9" Width="170.1" Height="18.9" Border.Lines="All" CanBreak="false" Text="領用半成品:" VertAlign="Center"/>
+        <TextObject Name="Text27" Left="349.65" Top="18.9" Width="151.2" Height="18.9" Border.Lines="All" CanBreak="false" Text="領用半成品:" VertAlign="Center"/>
         <TextObject Name="Text28" Top="37.8" Width="75.6" Height="18.9" Border.Lines="All" CanBreak="false" Text="整形" VertAlign="Center"/>
         <TextObject Name="Text29" Left="75.6" Top="37.8" Width="274.05" Height="18.9" Border.Lines="All" CanBreak="false" Text="      人      分" VertAlign="Center"/>
-        <TextObject Name="Text30" Left="349.65" Top="37.8" Width="170.1" Height="18.9" Border.Lines="All" CanBreak="false" Text="今日入庫:" VertAlign="Center"/>
+        <TextObject Name="Text30" Left="349.65" Top="37.8" Width="151.2" Height="18.9" Border.Lines="All" CanBreak="false" Text="今日入庫:" VertAlign="Center"/>
         <TextObject Name="Text31" Top="56.7" Width="75.6" Height="18.9" Border.Lines="All" CanBreak="false" Text="發酵" VertAlign="Center"/>
         <TextObject Name="Text32" Left="75.6" Top="56.7" Width="274.05" Height="18.9" Border.Lines="All" CanBreak="false" Text="      人      分" VertAlign="Center"/>
-        <TextObject Name="Text33" Left="349.65" Top="56.7" Width="170.1" Height="18.9" Border.Lines="All" CanBreak="false" Text="剩餘庫存:" VertAlign="Center"/>
+        <TextObject Name="Text33" Left="349.65" Top="56.7" Width="151.2" Height="18.9" Border.Lines="All" CanBreak="false" Text="剩餘庫存:" VertAlign="Center"/>
         <TextObject Name="Text34" Top="75.6" Width="75.6" Height="18.9" Border.Lines="All" CanBreak="false" Text="中間發酵" VertAlign="Center"/>
         <TextObject Name="Text35" Left="75.6" Top="75.6" Width="274.05" Height="18.9" Border.Lines="All" CanBreak="false" Text="      人      分" VertAlign="Center"/>
-        <TextObject Name="Text36" Left="349.65" Top="75.6" Width="170.1" Height="18.9" Border.Lines="All" CanBreak="false" VertAlign="Center"/>
+        <TextObject Name="Text36" Left="349.65" Top="75.6" Width="151.2" Height="18.9" Border.Lines="All" CanBreak="false" VertAlign="Center"/>
         <TextObject Name="Text37" Top="94.5" Width="75.6" Height="18.9" Border.Lines="All" CanBreak="false" Text="烘焙" VertAlign="Center"/>
         <TextObject Name="Text38" Left="75.6" Top="94.5" Width="274.05" Height="18.9" Border.Lines="All" CanBreak="false" Text="      人      分" VertAlign="Center"/>
-        <TextObject Name="Text39" Left="349.65" Top="94.5" Width="170.1" Height="18.9" Border.Lines="All" CanBreak="false" VertAlign="Center"/>
+        <TextObject Name="Text39" Left="349.65" Top="94.5" Width="151.2" Height="18.9" Border.Lines="All" CanBreak="false" VertAlign="Center"/>
         <TextObject Name="Text40" Top="113.4" Width="75.6" Height="18.9" Border.Lines="All" CanBreak="false" Text="包裝" VertAlign="Center"/>
         <TextObject Name="Text41" Left="75.6" Top="113.4" Width="274.05" Height="18.9" Border.Lines="All" CanBreak="false" Text="      人      分" VertAlign="Center"/>
-        <TextObject Name="Text42" Left="349.65" Top="113.4" Width="170.1" Height="18.9" Border.Lines="All" CanBreak="false" VertAlign="Center"/>
-        <TextObject Name="Text43" Top="132.3" Width="519.75" Height="18.9" Border.Lines="All" CanBreak="false" Text="不良數量" VertAlign="Center"/>
-        <TextObject Name="Text44" Top="151.2" Width="519.75" Height="18.9" CanBreak="false" Text="單位主管:              填表人:      &#13;&#10;" HorzAlign="Center" VertAlign="Center"/>
+        <TextObject Name="Text42" Left="349.65" Top="113.4" Width="151.2" Height="18.9" Border.Lines="All" CanBreak="false" VertAlign="Center"/>
+        <TextObject Name="Text43" Top="132.3" Width="500.85" Height="18.9" Border.Lines="All" CanBreak="false" Text="不良數量" VertAlign="Center"/>
+        <TextObject Name="Text44" Top="151.2" Width="500.85" Height="18.9" CanBreak="false" Text="單位主管:              填表人:      &#13;&#10;" HorzAlign="Center" VertAlign="Center"/>
       </GroupFooterBand>
     </GroupHeaderBand>
     <PageFooterBand Name="PageFooter1" Top="386.07" Width="1047.06" Height="18.9"/>
