@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="02/16/2023 10:47:36" ReportInfo.Modified="02/20/2023 10:23:14" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="02/16/2023 10:47:36" ReportInfo.Modified="02/20/2023 10:24:52" ReportInfo.CreatorVersion="2016.4.4.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpN+i5gA3VDGcwlcfm6L9ZMsLrZ3U+wEDtHCQtd9vw2XUFj1nOgJ5gi30aG5R02FgS6">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpN+i5gA3VDGcwlcfm6L9ZMsLrZ3U+wEDtHCQtd9vw2XUHQw+X4MtcQJDPohVPLq2YA">
       <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT &#13;&#10;TA001 AS '製令',TA002 AS '製令單',TA003 AS '生產日',TA006 AS '生產品號',MB1.MB002 AS '生產品名',TA015 AS '生產量',TA007 AS '生產單位'&#13;&#10;,TB003 AS '原/物料品號',MB2.MB002 AS '原/物料品名',TB004 AS '需領料數量',TB007 AS '領料單位'&#13;&#10;,(YEAR(TA003)-1911) AS 'YEARS',MONTH(TA003) AS 'MONTHS',DAY(TA003) AS 'DAYS'&#13;&#10;FROM [TK].dbo.MOCTA&#13;&#10;LEFT JOIN [TK].dbo.INVMB MB1 ON MB1.MB001=TA006&#13;&#10;,[TK].dbo.MOCTB&#13;&#10;LEFT JOIN [TK].dbo.INVMB MB2 ON MB2.MB001=TB003&#13;&#10;WHERE TA001=TB001 AND TA002=TB002&#13;&#10;AND TA001='A513'&#13;&#10;AND TA003='20230216'&#13;&#10;ORDER BY TA001,TA002,TA006,TB003">
         <Column Name="製令" DataType="System.String"/>
         <Column Name="製令單" DataType="System.String"/>
@@ -47,7 +47,7 @@
         <TextObject Name="Text12" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.原/物料品號]" VertAlign="Center"/>
         <TextObject Name="Text13" Left="75.6" Width="274.05" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.原/物料品名]" VertAlign="Center"/>
         <TextObject Name="Text14" Left="349.65" Width="37.8" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.領料單位]" VertAlign="Center"/>
-        <TextObject Name="Text15" Left="387.45" Width="56.7" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.需領料數量]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text15" Left="387.45" Width="56.7" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.需領料數量]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="3" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
         <TextObject Name="Text16" Left="444.15" Width="56.7" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
         <ChildBand Name="Child1" Top="188.08" Width="523.53" Height="18.9" CompleteToNRows="18">
           <TextObject Name="Text17" Width="75.6" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" VertAlign="Center"/>
