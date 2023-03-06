@@ -69,7 +69,7 @@ namespace TKMOC
                                     ,[MANU1PUR]  AS '製一組產能桶數'
                                     ,[MANU1ACT] AS '製一組預排桶數'
                                     ,[MANU2PUR] AS '製二組產能桶數'
-                                    ,[MANU2ACT] AS '製二組產能桶數'
+                                    ,[MANU2ACT] AS '製二組預排桶數'
                                     ,[MANU3PUR] AS '手工產能'
                                     ,[MANU3ACT] AS '手工預排'
                                     ,[MANU4PUR] AS '外包產能'
@@ -118,7 +118,34 @@ namespace TKMOC
                 sqlConn.Close();
             }
         }
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView1.CurrentRow != null)
+            {
+                int rowindex = dataGridView1.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView1.Rows[rowindex];
 
+                    textBox1.Text = row.Cells["生產日"].Value.ToString();
+                    textBox2.Text = row.Cells["製一組產能桶數"].Value.ToString();
+                    textBox3.Text = row.Cells["製一組預排桶數"].Value.ToString();
+                    textBox4.Text = row.Cells["製二組產能桶數"].Value.ToString();
+                    textBox5.Text = row.Cells["製二組預排桶數"].Value.ToString();
+                    textBox6.Text = row.Cells["手工產能"].Value.ToString();
+                    textBox7.Text = row.Cells["手工預排"].Value.ToString();
+                    textBox8.Text = row.Cells["外包產能"].Value.ToString();
+                    textBox9.Text = row.Cells["外包預排"].Value.ToString();
+
+
+
+                }
+                else
+                {
+                   
+                }
+            }
+        }
         #endregion
 
         #region BUTTON
@@ -127,5 +154,7 @@ namespace TKMOC
             SEARCH(dateTimePicker1.Value.ToString("yyyy/MM/dd"));
         }
         #endregion
+
+      
     }
 }
