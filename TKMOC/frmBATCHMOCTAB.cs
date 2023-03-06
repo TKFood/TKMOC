@@ -1538,11 +1538,13 @@ namespace TKMOC
                 sbSqlQuery.Clear();
                 ds4.Clear();
 
-                sbSql.AppendFormat(@"  SELECT [MD003] AS '品號',[MD035] AS '品名',[MD001] AS '主件',[FORM] AS '單別' ");
-                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[BATCHMOCLIMIT]");
-                sbSql.AppendFormat(@"  WHERE [MD001]='{0}'", MD001);
-                sbSql.AppendFormat(@"  ORDER BY [MD003] DESC");
-                sbSql.AppendFormat(@"  ");
+            
+                sbSql.AppendFormat(@"  
+                                    SELECT [MD003] AS '品號',[MD035] AS '品名',[MD001] AS '主件',[FORM] AS '單別' 
+                                    FROM [TKMOC].[dbo].[BATCHMOCLIMIT]
+                                    WHERE [MD001]='{0}'
+                                    ORDER BY [MD003] DESC
+                                    ", MD001);
 
                 adapter11 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
