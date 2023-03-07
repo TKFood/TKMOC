@@ -18,11 +18,15 @@ using System.Threading;
 using System.Globalization;
 using Calendar.NET;
 using TKITDLL;
+using FastReport;
+using FastReport.Data;
 
 namespace TKMOC
 {
     public partial class frmREPORTMANUDAYILYPRODUCT : Form
     {
+        public Report report1 { get; private set; }
+
         public frmREPORTMANUDAYILYPRODUCT()
         {
             InitializeComponent();
@@ -356,6 +360,69 @@ namespace TKMOC
             }
         }
 
+        public void SETFASTREPORT(string MANUDATE)
+        {
+            SqlConnection sqlConn = new SqlConnection();
+            StringBuilder sbSql = new StringBuilder();
+
+            string SQL;
+            report1 = new Report();
+            report1.Load(@"REPORT\稼動率.frx");
+
+            //20210902密
+            Class1 TKID = new Class1();//用new 建立類別實體
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+            //資料庫使用者密碼解密
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+            String connectionString;
+            sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+            report1.Dictionary.Connections[0].ConnectionString = sqlsb.ConnectionString;
+
+            TableDataSource Table = report1.GetDataSource("Table") as TableDataSource;
+            SQL = SETFASETSQL(MANUDATE);
+            Table.SelectCommand = SQL;
+
+            //report1.SetParameterValue("P1", COMMENT);
+            //report1.SetParameterValue("P2", NUM);
+
+            report1.Preview = previewControl1;
+            report1.Show();
+        }
+
+
+        public string SETFASETSQL(string MANUDATE)
+        {
+            StringBuilder FASTSQL = new StringBuilder();
+            StringBuilder STRQUERY = new StringBuilder();
+                       
+            FASTSQL.AppendFormat(@"    
+                                SELECT 
+                                CONVERT(NVARCHAR,[MANUDATE],112) AS '預排日'
+                                ,[MANU1PUR]  AS '小線產能'
+                                ,[MANU1ACT] AS '小線桶數'
+                                ,[MANU2PUR] AS '大線產能'
+                                ,[MANU2ACT] AS '大線桶數'
+                                ,[MANU3PUR] AS '手工產能'
+                                ,[MANU3ACT] AS '手工預排'
+                                ,[MANU4PUR] AS '外包產能'
+                                ,[MANU4ACT] AS '外包預排'
+                                ,(CASE WHEN [MANU1PUR]>0 AND [MANU1ACT]>0 THEN CONVERT(DECIMAL(16,2),([MANU1ACT]/[MANU1PUR])*100) ELSE 0 END ) AS '小線訂單稼動率'
+                                ,(CASE WHEN [MANU2PUR]>0 AND [MANU2ACT]>0 THEN CONVERT(DECIMAL(16,2),([MANU2ACT]/[MANU2PUR])*100) ELSE 0 END ) AS '大線訂單稼動率'
+                                ,(CASE WHEN [MANU3PUR]>0 AND [MANU3ACT]>0 THEN CONVERT(DECIMAL(16,2),([MANU3ACT]/[MANU3PUR])*100) ELSE 0 END ) AS '手工訂單稼動率'
+                                ,(CASE WHEN [MANU4PUR]>0 AND [MANU4ACT]>0 THEN CONVERT(DECIMAL(16,2),([MANU4ACT]/[MANU4PUR])*100) ELSE 0 END ) AS '外包訂單稼動率'
+                                FROM [TKMOC].[dbo].[MANUDAYILYPRODUCT]
+                                WHERE CONVERT(NVARCHAR,[MANUDATE],112) LIKE '{0}%'
+                                ORDER BY CONVERT(NVARCHAR,[MANUDATE],112)
+
+                                    ", MANUDATE);
+
+            return FASTSQL.ToString();
+        }
+
         #endregion
 
         #region BUTTON
@@ -380,9 +447,13 @@ namespace TKMOC
         {
             UPDATE_ACT(dateTimePicker4.Value.ToString("yyyyMMdd"), dateTimePicker5.Value.ToString("yyyyMMdd"));
         }
+        private void button5_Click(object sender, EventArgs e)
+        {
+            SETFASTREPORT(dateTimePicker6.Value.ToString("yyyyMM"));
+        }
 
         #endregion
 
-       
+
     }
 }
