@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="03/07/2023 08:30:16" ReportInfo.Modified="03/07/2023 10:33:46" ReportInfo.CreatorVersion="2016.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpN+i5gA3VDGcwlcfm6L9ZMsLrZ3U+wEDtHCQtd9vw2XUEc5EdYkSUzPVDi6eXNpYp8">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT &#13;&#10;CONVERT(NVARCHAR,[MANUDATE],112) AS '預排日'&#13;&#10;,[MANU1PUR]  AS '小線桶數'&#13;&#10;,[MANU1ACT] AS '小線產能'&#13;&#10;,[MANU2PUR] AS '大線桶數'&#13;&#10;,[MANU2ACT] AS '大線產能'&#13;&#10;,[MANU3PUR] AS '手工產能'&#13;&#10;,[MANU3ACT] AS '手工預排'&#13;&#10;,[MANU4PUR] AS '外包產能'&#13;&#10;,[MANU4ACT] AS '外包預排'&#13;&#10;,(CASE WHEN [MANU1PUR]&gt;0 AND [MANU1ACT]&gt;0 THEN ([MANU1ACT]/[MANU1PUR]) ELSE 0 END ) AS '小線訂單稼動率'&#13;&#10;,(CASE WHEN [MANU2PUR]&gt;0 AND [MANU2ACT]&gt;0 THEN ([MANU2ACT]/[MANU2PUR]) ELSE 0 END ) AS '大線訂單稼動率'&#13;&#10;,(CASE WHEN [MANU3PUR]&gt;0 AND [MANU3ACT]&gt;0 THEN ([MANU3ACT]/[MANU3PUR]) ELSE 0 END ) AS '手工訂單稼動率'&#13;&#10;,(CASE WHEN [MANU4PUR]&gt;0 AND [MANU4ACT]&gt;0 THEN ([MANU4ACT]/[MANU4PUR]) ELSE 0 END ) AS '外包訂單稼動率'&#13;&#10;FROM [TKMOC].[dbo].[MANUDAYILYPRODUCT]&#13;&#10;WHERE CONVERT(NVARCHAR,[MANUDATE],112) LIKE '202303%'&#13;&#10;ORDER BY CONVERT(NVARCHAR,[MANUDATE],112)">
+        <Column Name="手工產能" DataType="System.Decimal"/>
+        <Column Name="手工預排" DataType="System.Decimal"/>
+        <Column Name="外包產能" DataType="System.Decimal"/>
+        <Column Name="外包預排" DataType="System.Decimal"/>
+        <Column Name="預排日" DataType="System.String"/>
+        <Column Name="小線桶數" DataType="System.Decimal"/>
+        <Column Name="小線產能" DataType="System.Decimal"/>
+        <Column Name="大線桶數" DataType="System.Decimal"/>
+        <Column Name="大線產能" DataType="System.Decimal"/>
+        <Column Name="小線訂單稼動率" DataType="System.Decimal"/>
+        <Column Name="大線訂單稼動率" DataType="System.Decimal"/>
+        <Column Name="手工訂單稼動率" DataType="System.Decimal"/>
+        <Column Name="外包訂單稼動率" DataType="System.Decimal"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="290" PaperHeight="210">
+    <ReportTitleBand Name="ReportTitle1" Width="1020.6" Height="18.9">
+      <TextObject Name="Text1" Width="859.95" Height="18.9" Border.Lines="All" Text="稼動率" HorzAlign="Center" VertAlign="Center"/>
+    </ReportTitleBand>
+    <ColumnHeaderBand Name="ColumnHeader1" Top="23.5" Width="1020.6" Height="28.35"/>
+    <DataBand Name="Data1" Top="56.45" Width="1020.6" Height="75.6" DataSource="Table"/>
+  </ReportPage>
+</Report>

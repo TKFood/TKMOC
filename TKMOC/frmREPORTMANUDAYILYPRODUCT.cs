@@ -65,15 +65,20 @@ namespace TKMOC
 
                 sbSql.AppendFormat(@"  
                                     SELECT 
-                                    CONVERT(NVARCHAR,[MANUDATE],112) AS '生產日'
-                                    ,[MANU1PUR]  AS '製一組產能桶數'
-                                    ,[MANU1ACT] AS '製一組預排桶數'
-                                    ,[MANU2PUR] AS '製二組產能桶數'
-                                    ,[MANU2ACT] AS '製二組預排桶數'
+                                    CONVERT(NVARCHAR,[MANUDATE],112) AS '預排日'
+                                    ,[MANU1PUR]  AS '小線產能'
+                                    ,[MANU1ACT] AS '小線桶數'
+                                    ,[MANU2PUR] AS '大線產能'
+                                    ,[MANU2ACT] AS '大線桶數'
                                     ,[MANU3PUR] AS '手工產能'
                                     ,[MANU3ACT] AS '手工預排'
                                     ,[MANU4PUR] AS '外包產能'
                                     ,[MANU4ACT] AS '外包預排'
+                                    ,(CASE WHEN [MANU1PUR]>0 AND [MANU1ACT]>0 THEN CONVERT(DECIMAL(16,2),([MANU1ACT]/[MANU1PUR])*100) ELSE 0 END ) AS '小線訂單稼動率'
+                                    ,(CASE WHEN [MANU2PUR]>0 AND [MANU2ACT]>0 THEN CONVERT(DECIMAL(16,2),([MANU2ACT]/[MANU2PUR])*100) ELSE 0 END ) AS '大線訂單稼動率'
+                                    ,(CASE WHEN [MANU3PUR]>0 AND [MANU3ACT]>0 THEN CONVERT(DECIMAL(16,2),([MANU3ACT]/[MANU3PUR])*100) ELSE 0 END ) AS '手工訂單稼動率'
+                                    ,(CASE WHEN [MANU4PUR]>0 AND [MANU4ACT]>0 THEN CONVERT(DECIMAL(16,2),([MANU4ACT]/[MANU4PUR])*100) ELSE 0 END ) AS '外包訂單稼動率'
+                                    
                                     FROM [TKMOC].[dbo].[MANUDAYILYPRODUCT]
                                     WHERE CONVERT(NVARCHAR,[MANUDATE],112) LIKE '{0}%'
                                     ORDER BY CONVERT(NVARCHAR,[MANUDATE],112)
@@ -127,11 +132,11 @@ namespace TKMOC
                 {
                     DataGridViewRow row = dataGridView1.Rows[rowindex];
 
-                    textBox1.Text = row.Cells["生產日"].Value.ToString();
-                    textBox2.Text = row.Cells["製一組產能桶數"].Value.ToString();
-                    textBox3.Text = row.Cells["製一組預排桶數"].Value.ToString();
-                    textBox4.Text = row.Cells["製二組產能桶數"].Value.ToString();
-                    textBox5.Text = row.Cells["製二組預排桶數"].Value.ToString();
+                    textBox1.Text = row.Cells["預排日"].Value.ToString();
+                    textBox2.Text = row.Cells["小線產能"].Value.ToString();
+                    textBox3.Text = row.Cells["小線桶數"].Value.ToString();
+                    textBox4.Text = row.Cells["大線產能"].Value.ToString();
+                    textBox5.Text = row.Cells["大線桶數"].Value.ToString();
                     textBox6.Text = row.Cells["手工產能"].Value.ToString();
                     textBox7.Text = row.Cells["手工預排"].Value.ToString();
                     textBox8.Text = row.Cells["外包產能"].Value.ToString();
