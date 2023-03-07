@@ -336,10 +336,12 @@ namespace TKMOC
                                     FROM [TKMOC].[dbo].[MOCMANULINE]
                                     WHERE [MANU]  IN ('製二線')
                                     AND [MB001] NOT IN (SELECT  [MB001]   FROM [TKMOC].[dbo].[MOCMANULINELIMITBARCOUNT])
+
                                     AND CONVERT(NVARCHAR,[MANUDATE],112)>='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112)<='{1}'
                                     GROUP BY [MANUDATE],[MANU]     
                                     ) AS TEMP
                                     WHERE TEMP.MANUDATE=[MANUDAYILYPRODUCT].[MANUDATE]
+
                                     ", SDATES, EDATES);
 
 
