@@ -420,7 +420,7 @@ namespace TKMOC
 
                                     ", MANUDATE);
 
-            return FASTSQL.ToString();
+            return FASTSQL.ToString(); 
         }
 
         #endregion
