@@ -66,7 +66,7 @@ namespace TKMOC
                 sbSqlQuery.Clear();
 
 
-
+                 
                 sbSql.AppendFormat(@"  
                                     SELECT 
                                     CONVERT(NVARCHAR,[MANUDATE],112) AS '預排日'
