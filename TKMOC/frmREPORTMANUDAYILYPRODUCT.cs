@@ -309,6 +309,9 @@ namespace TKMOC
 
 
                 sbSql.AppendFormat(@" 
+                                    UPDATE [TKMOC].[dbo].[MANUDAYILYPRODUCT]
+                                    SET [MANU1ACT]=0,[MANU2ACT]=0
+                                    WHERE  CONVERT(NVARCHAR,[MANUDATE],112)>='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112)<='{1}'
 
                                     UPDATE [TKMOC].[dbo].[MANUDAYILYPRODUCT]
                                     SET [MANU1ACT]=TEMP.SUMBAR
@@ -450,6 +453,7 @@ namespace TKMOC
         private void button4_Click(object sender, EventArgs e)
         {
             UPDATE_ACT(dateTimePicker4.Value.ToString("yyyyMMdd"), dateTimePicker5.Value.ToString("yyyyMMdd"));
+            SEARCH(dateTimePicker1.Value.ToString("yyyy/MM/dd"));
         }
         private void button5_Click(object sender, EventArgs e)
         {
