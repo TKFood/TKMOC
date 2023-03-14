@@ -143,6 +143,7 @@ namespace TKMOC
                             ,TB012 AS '領料品名'
                             FROM [TK].dbo.MOCTA,[TK].dbo.MOCTB
                             WHERE TA001=TB001 AND TA002=TB002
+                            AND (TB003 LIKE '3%' OR TB003 LIKE '4%')
                             AND TA021='{0}'
                             AND TA003='{1}'
        
