@@ -63,7 +63,19 @@ namespace TKMOC
             InitializeComponent();
         }
 
+        private void frmREPORTMOCBOM_Load(object sender, EventArgs e)
+        {
+            // 新增 DataGridViewCheckBoxColumn 到 DataGridView 控制項中
+            DataGridViewCheckBoxColumn checkBoxColumn = new DataGridViewCheckBoxColumn();
+            checkBoxColumn.HeaderText = "選取";
+            checkBoxColumn.Name = "CheckBoxColumn";
 
+            dataGridView1.Columns.Add(checkBoxColumn);
+            
+            // 假設 dataGridView1 已經有加入 CheckBoxColumn，並命名為 checkBoxColumn
+            dataGridView1.Columns["checkBoxColumn"].Width = 50; // 設定 CheckBoxColumn 的寬度為 50 像素
+
+        }
         #region FUNCTION
         public void Search()
         {
@@ -1093,8 +1105,9 @@ namespace TKMOC
         }
 
 
+
         #endregion
 
-       
+      
     }
 }
