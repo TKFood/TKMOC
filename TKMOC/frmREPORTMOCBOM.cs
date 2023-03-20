@@ -65,15 +65,48 @@ namespace TKMOC
 
         private void frmREPORTMOCBOM_Load(object sender, EventArgs e)
         {
-            // 新增 DataGridViewCheckBoxColumn 到 DataGridView 控制項中
-            DataGridViewCheckBoxColumn checkBoxColumn = new DataGridViewCheckBoxColumn();
-            checkBoxColumn.HeaderText = "選取";
-            checkBoxColumn.Name = "CheckBoxColumn";
+            //先建立個 CheckBox 欄
+            DataGridViewCheckBoxColumn cbCol = new DataGridViewCheckBoxColumn();
+            cbCol.Width = 50;   //設定寬度
+            cbCol.HeaderText = "　選擇";
+            cbCol.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;   //置中
+            cbCol.TrueValue = true;
+            cbCol.FalseValue = false;
+            dataGridView1.Columns.Insert(0, cbCol);
 
-            dataGridView1.Columns.Add(checkBoxColumn);
-            
-            // 假設 dataGridView1 已經有加入 CheckBoxColumn，並命名為 checkBoxColumn
-            dataGridView1.Columns["checkBoxColumn"].Width = 50; // 設定 CheckBoxColumn 的寬度為 50 像素
+            #region 建立全选 CheckBox
+
+            //建立个矩形，等下计算 CheckBox 嵌入 GridView 的位置
+            Rectangle rect = dataGridView1.GetCellDisplayRectangle(0, -1, true);
+            rect.X = rect.Location.X + rect.Width / 4 - 18;
+            rect.Y = rect.Location.Y + (rect.Height / 2 - 9);
+
+            CheckBox cbHeader = new CheckBox();
+            cbHeader.Name = "checkboxHeader";
+            cbHeader.Size = new Size(18, 18);
+            cbHeader.Location = rect.Location;
+
+            //全选要设定的事件
+            cbHeader.CheckedChanged += new EventHandler(cbHeader_CheckedChanged);
+
+            //将 CheckBox 加入到 dataGridView
+            dataGridView1.Controls.Add(cbHeader);
+
+
+            #endregion
+
+
+        }
+
+        private void cbHeader_CheckedChanged(object sender, EventArgs e)
+        {
+            dataGridView1.EndEdit();
+
+            foreach (DataGridViewRow dr in dataGridView1.Rows)
+            {
+                dr.Cells[0].Value = ((CheckBox)dataGridView1.Controls.Find("checkboxHeader", true)[0]).Checked;
+
+            }
 
         }
         #region FUNCTION
@@ -364,6 +397,58 @@ namespace TKMOC
 
             return SB;
         }
+
+        public void SETREPORT2(string TA001,string TA002,float BUCKETSORI)
+        {
+            bool CHECKFLOOR = IsIntegerFloor(BUCKETSORI);
+
+
+            if (BUCKETSORI > 0)
+            {
+                if (CHECKFLOOR == true)
+                {
+                    ADDTOREPORTMOCBOM(TA001, TA002, BUCKETSORI.ToString());
+                    //MessageBox.Show(CHECKFLOOR  + BUCKETSORI.ToString());
+                }
+                else
+                {
+                    ADDTOREPORTMOCBOMODD(TA001, TA002, BUCKETSORI.ToString());
+                    //MessageBox.Show(CHECKFLOOR  + BUCKETSORI.ToString());
+                }
+
+
+            }
+
+
+            StringBuilder SQL = new StringBuilder();
+
+            SQL = SETSQL();
+
+            report1 = new Report();
+            report1.Load(@"REPORT\油酥原料添加表V4.frx");
+
+            //20210902密
+            Class1 TKID = new Class1();//用new 建立類別實體
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+            //資料庫使用者密碼解密
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+            String connectionString;
+            sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+            report1.Dictionary.Connections[0].ConnectionString = sqlsb.ConnectionString;
+
+
+            TableDataSource table = report1.GetDataSource("Table") as TableDataSource;
+            table.SelectCommand = SQL.ToString();
+
+            report1.Preview = previewControl1;
+            report1.Show();
+        }
+
+
         /// <summary>
         /// 剛好滿桶數，沒有未滿桶
         /// </summary>
@@ -1091,7 +1176,41 @@ namespace TKMOC
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            SETREPORT(textBox1.Text.Trim(), textBox2.Text.Trim(),textBox3.Text.Trim());
+            //SETREPORT(textBox1.Text.Trim(), textBox2.Text.Trim(),textBox3.Text.Trim());
+
+            string CHECKED = "N";
+            string TA001 = "";
+            string TA002 = "";
+            string TEMP = "";
+            float BUCKETS = 0;
+
+            foreach (DataGridViewRow dr in this.dataGridView1.Rows)
+            {
+                try
+                {                   
+                    if (dr.Cells[0].Value != null && (bool)dr.Cells[0].Value)
+                    {
+                        CHECKED = "Y";
+
+                        TA001 = dr.Cells["製令"].Value.ToString();
+                        TA002 = dr.Cells["單號"].Value.ToString();
+                        BUCKETS = BUCKETS+float.Parse(dr.Cells["桶數"].Value.ToString());
+                    }
+                }
+                catch (Exception ex)
+                {
+                    //MessageBox.Show(ex.Message);
+                }
+            }
+
+            if (CHECKED.Equals("Y"))
+            {
+                SETREPORT2(TA001, TA002, BUCKETS);
+            }
+            else if(CHECKED.Equals("N"))
+            {
+                SETREPORT(textBox1.Text.Trim(), textBox2.Text.Trim(), textBox3.Text.Trim());
+            }
         }
         private void button3_Click(object sender, EventArgs e)
         {
