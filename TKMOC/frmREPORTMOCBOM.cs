@@ -398,7 +398,7 @@ namespace TKMOC
             return SB;
         }
 
-        public void SETREPORT2(string TA001,string TA002,float BUCKETSORI)
+        public void SETREPORT2(string TA001,string TA002,float BUCKETSORI,string LINK_TA001TA002,string LINK_TA006, string LINK_TA034)
         {
             bool CHECKFLOOR = IsIntegerFloor(BUCKETSORI);
 
@@ -422,7 +422,7 @@ namespace TKMOC
 
             StringBuilder SQL = new StringBuilder();
 
-            SQL = SETSQL();
+            SQL = SETSQL2(LINK_TA001TA002, LINK_TA006, LINK_TA034);
 
             report1 = new Report();
             report1.Load(@"REPORT\油酥原料添加表V4.frx");
@@ -448,7 +448,52 @@ namespace TKMOC
             report1.Show();
         }
 
+        public StringBuilder SETSQL2(string LINK_TA001TA002, string TA006, string TA034)
+        {
+            StringBuilder SB = new StringBuilder();
 
+            SB.AppendFormat(@" 
+                                
+                            SELECT [ID]
+                            ,'{0}' AS '製令'
+                            ,'第'+CONVERT(nvarchar,[BOXS])+'桶' AS '桶數'
+                            ,'{1}' AS '成品'
+                            ,'{2}' AS '成品名'
+                            ,[MD003] AS '品號'
+                            ,[MB002] AS '品名'
+                            ,[MD006] AS '重量'
+                            ,'' AS '複核'
+                            ,'' AS '油酥'
+                            ,'' AS '檢查麵粉袋的麵粉線頭'
+                            ,(SELECT TOP 1 TE010 FROM [TK].dbo.MOCTE WHERE TE011=[TA001] AND TE012=[TA002] AND TE004=[MD003]) AS 'A製造  B有效'
+                            ,'' AS '外觀:攪拌均勻度、軟硬度'
+                            ,'' AS '攪拌時間  始'
+                            ,'' AS '攪拌時間  終'
+                            ,'' AS '投 料 人'
+                            ,'' AS '對 點 人'
+                            ,'' AS '單位幹部'
+                            ,'' AS '品質判定'
+                            ,'' AS '換線清潔檢查'
+                            ,BOMMC.UDF01 AS 'BOM備註(邊料'
+                            ,BOMMC.UDF02 AS 'BOM備註(餅麩'
+                            ,BOMMC.UDF06 AS '單顆重'
+                            ,(SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOM] RE WHERE [MD003] NOT  IN ('101001009','3010000111') AND RE.[BOXS]=[REPORTMOCBOM].[BOXS]) AS '每桶重'
+                            ,(SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOM] WHERE [MD003] NOT  IN ('101001009','3010000111')  ) AS '總重'
+                            ,CASE WHEN BOMMC.UDF06=0 THEN 1 ELSE BOMMC.UDF06 END 
+                            ,'顆數:'+CONVERT(nvarchar,((SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOM] RE WHERE [MD003] NOT  IN ('101001009','3010000111') AND RE.[BOXS]=[REPORTMOCBOM].[BOXS])/(CASE WHEN BOMMC.UDF06=0 THEN 1 ELSE BOMMC.UDF06 END))) AS '每桶顆數'
+                            ,((SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOM] WHERE [MD003] NOT  IN ('101001009','3010000111') )/(CASE WHEN BOMMC.UDF06=0 THEN 1 ELSE BOMMC.UDF06 END)) AS '總顆數'
+                            FROM [TKMOC].[dbo].[REPORTMOCBOM]
+                            LEFT JOIN [TK].dbo.BOMMC ON MC001=TA006
+                            WHERE [MD003] NOT  IN ('101001009','3010000111')   
+                            ORDER BY [TA001],[TA002],[BOXS],[MD003]
+     
+
+                            ", LINK_TA001TA002,TA006, TA034);
+
+
+
+            return SB;
+        }
         /// <summary>
         /// 剛好滿桶數，沒有未滿桶
         /// </summary>
@@ -1181,6 +1226,9 @@ namespace TKMOC
             string CHECKED = "N";
             string TA001 = "";
             string TA002 = "";
+            string LINK_TA001TA002 = "";
+            string LINK_TA006 = "";
+            string LINK_TA034 = "";
             string TEMP = "";
             float BUCKETS = 0;
 
@@ -1194,6 +1242,9 @@ namespace TKMOC
 
                         TA001 = dr.Cells["製令"].Value.ToString();
                         TA002 = dr.Cells["單號"].Value.ToString();
+                        LINK_TA001TA002 = LINK_TA001TA002 + TA001 + TA002+"*";
+                        LINK_TA006 = LINK_TA034 + dr.Cells["品號"].Value.ToString() + "*";
+                        LINK_TA034 = LINK_TA034+ dr.Cells["品名"].Value.ToString() + "*";
                         BUCKETS = BUCKETS+float.Parse(dr.Cells["桶數"].Value.ToString());
                     }
                 }
@@ -1205,7 +1256,7 @@ namespace TKMOC
 
             if (CHECKED.Equals("Y"))
             {
-                SETREPORT2(TA001, TA002, BUCKETS);
+                SETREPORT2(TA001, TA002, BUCKETS, LINK_TA001TA002, LINK_TA006, LINK_TA034);
             }
             else if(CHECKED.Equals("N"))
             {
