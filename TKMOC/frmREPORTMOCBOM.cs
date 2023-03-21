@@ -78,12 +78,12 @@ namespace TKMOC
 
             //建立个矩形，等下计算 CheckBox 嵌入 GridView 的位置
             Rectangle rect = dataGridView1.GetCellDisplayRectangle(0, -1, true);
-            rect.X = rect.Location.X + rect.Width / 4 - 18;
-            rect.Y = rect.Location.Y + (rect.Height / 2 - 9);
+            rect.X = rect.Location.X + rect.Width / 8- 1;
+            rect.Y = rect.Location.Y + (rect.Height / 4 - 1);
 
             CheckBox cbHeader = new CheckBox();
             cbHeader.Name = "checkboxHeader";
-            cbHeader.Size = new Size(18, 18);
+            cbHeader.Size = new Size(12, 12);
             cbHeader.Location = rect.Location;
 
             //全选要设定的事件
