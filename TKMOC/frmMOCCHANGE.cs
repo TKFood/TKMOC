@@ -593,6 +593,7 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
+                //106061011
                 sbSql.AppendFormat(@"
                                     SELECT *
                                     FROM (
@@ -1123,7 +1124,7 @@ namespace TKMOC
 
                 sbSql.AppendFormat(" UPDATE [TK].dbo.MOCTB");
                 sbSql.AppendFormat(" SET TB009='{0}'", TB009);
-                sbSql.AppendFormat(" WHERE TB003='106061011' AND TB001='{0}' AND TB002='{1}'", TB001, TB002);
+                sbSql.AppendFormat(" WHERE  TB001='{0}' AND TB002='{1}'", TB001, TB002);
                 sbSql.AppendFormat(" ");
                 sbSql.AppendFormat(" ");
 
