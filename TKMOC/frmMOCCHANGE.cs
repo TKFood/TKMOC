@@ -205,7 +205,7 @@ namespace TKMOC
             sqlConn = new SqlConnection(sqlsb.ConnectionString);
 
             StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT MC001,MC002 FROM [TK].dbo.CMSMC    WHERE MC001 IN ('20006','20004','20005') ");
+            Sequel.AppendFormat(@"SELECT MC001,MC002 FROM [TK].dbo.CMSMC    WHERE MC001 IN ('20006','20004','20005','21003') ");
             SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
             DataTable dt = new DataTable();
             sqlConn.Open();
@@ -602,6 +602,7 @@ namespace TKMOC
                                     AND TA001=TB001 AND TA002=TB002
                                     AND TB003='106061011'
                                     AND TA003>='{0}' AND TA003<='{1}'
+
                                     UNION ALL 
                                     SELECT TA001 AS '製令',TA002 AS '單號',TB003 AS '品號',TB012 AS '品名',TB004 AS '需領用量',TB009 AS '庫別' ,'' AS '線別'
                                     FROM [TK].dbo.MOCTA,[TK].dbo.MOCTB
@@ -609,6 +610,15 @@ namespace TKMOC
                                     AND TA001=TB001 AND TA002=TB002
                                     AND TB003='106061011'
                                     AND TA003>='{0}' AND TA003<='{1}'
+
+                                    UNION ALL 
+                                    SELECT TA001 AS '製令',TA002 AS '單號',TB003 AS '品號',TB012 AS '品名',TB004 AS '需領用量',TB009 AS '庫別' ,MD002 AS '線別'
+                                    FROM [TK].dbo.MOCTA,[TK].dbo.MOCTB,[TK].dbo.CMSMD
+                                    WHERE TA021=MD001
+									AND TA001='A513'
+                                    AND TA001=TB001 AND TA002=TB002                                 
+                                    AND TA003>='{0}' AND TA003<='{1}'
+
                                     ) AS TEMP
                     
                                     ", SDAY, EDAY);
@@ -2544,6 +2554,42 @@ namespace TKMOC
             }
         }
 
+        private void checkBox26_CheckedChanged(object sender, EventArgs e)
+        {
+            //
+            if (checkBox26.Checked)
+            {
+                dataGridView5checkBox26True();
+            }
+            else
+            {
+                dataGridView5checkBox26False();
+            }
+        }
+
+        public void dataGridView5checkBox26True()
+        {
+            for (int i = 0; i < dataGridView5.Rows.Count; i++)
+            {
+                if (dataGridView5.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("吧台烘焙線"))
+                {
+                    dataGridView5.Rows[i].Cells[0].Value = 1;
+                }
+
+            }
+        }
+        public void dataGridView5checkBox26False()
+        {
+            for (int i = 0; i < dataGridView5.Rows.Count; i++)
+            {
+                if (dataGridView5.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("吧台烘焙線"))
+                {
+                    dataGridView5.Rows[i].Cells[0].Value = 0;
+                }
+
+            }
+        }
+
         #endregion
 
         #region BUTTON
@@ -2687,9 +2733,10 @@ namespace TKMOC
 
 
 
+
         #endregion
 
-       
+      
     }
     
 }
