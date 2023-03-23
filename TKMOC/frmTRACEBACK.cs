@@ -1851,6 +1851,7 @@ namespace TKMOC
                 sbSql.Clear();
 
                 //AND ISNULL([TE010],'')<>''
+                //2023023 原本只查有批號的，改成不限批號，可以找到水
                 sbSql.AppendFormat(@"    
                                     INSERT INTO [TKMOC].[dbo].[TRACEBACK]
                                     ([MMB001],[MLOTNO],[KINDS],[LEVELS],[DATES],[MID],[DID],[SID],[MB001],[MB002],[LOTNO],[NUMS],[TG014] ,[TG015])
