@@ -1876,7 +1876,7 @@ namespace TKMOC
 				                                                                        )
 		                                                                        GROUP BY LTRIM(RTRIM([TE004])) + LTRIM(RTRIM([TE010]))
 		                                                                        )
-                                    --AND ISNULL([TE010],'')<>''
+                                    AND ISNULL([TE010],'')<>''
                                     GROUP BY [TE001],[TE002],[TE003],[TE004],[TE010],[TE005]
                                     ORDER BY [TE001],[TE002],[TE003],[TE004],[TE010],[TE005]
 
