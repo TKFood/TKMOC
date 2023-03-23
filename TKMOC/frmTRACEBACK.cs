@@ -1850,6 +1850,7 @@ namespace TKMOC
 
                 sbSql.Clear();
 
+                //AND ISNULL([TE010],'')<>''
                 sbSql.AppendFormat(@"    
                                     INSERT INTO [TKMOC].[dbo].[TRACEBACK]
                                     ([MMB001],[MLOTNO],[KINDS],[LEVELS],[DATES],[MID],[DID],[SID],[MB001],[MB002],[LOTNO],[NUMS],[TG014] ,[TG015])
@@ -1874,7 +1875,7 @@ namespace TKMOC
 				                                                                        )
 		                                                                        GROUP BY LTRIM(RTRIM([TE004])) + LTRIM(RTRIM([TE010]))
 		                                                                        )
-                                    AND ISNULL([TE010],'')<>''
+                                    --AND ISNULL([TE010],'')<>''
                                     GROUP BY [TE001],[TE002],[TE003],[TE004],[TE010],[TE005]
                                     ORDER BY [TE001],[TE002],[TE003],[TE004],[TE010],[TE005]
 
