@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="03/07/2023 08:30:16" ReportInfo.Modified="03/24/2023 10:57:21" ReportInfo.CreatorVersion="2016.4.4.0">
+  <ScriptText>using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
+using System.Drawing;
+using System.Data;
+using FastReport;
+using FastReport.Data;
+using FastReport.Dialog;
+using FastReport.Barcode;
+using FastReport.Table;
+using FastReport.Utils;
+
+namespace FastReport
+{
+  public class ReportScript
+  {
+
+    private void Text6_BeforePrint(object sender, EventArgs e)
+    {
+      
+        
+    }
+
+    private void Text8_BeforePrint(object sender, EventArgs e)
+    {
+      
+    }
+
+    private void Data1_BeforePrint(object sender, EventArgs e)
+    {
+      
+    }
+
+    private void Text8_AfterData(object sender, EventArgs e)
+    {
+      Decimal CHECK=Convert.ToDecimal(Text8.Text.ToString());
+      
+      if(CHECK&lt;50)
+      {
+        Text8.TextColor=Color.Red;
+      }
+        Text8.Text= Text8.Text+&quot;%&quot;;
+    }
+
+    private void Text8_AfterPrint(object sender, EventArgs e)
+    {
+     
+    }
+
+    private void Text14_BeforePrint(object sender, EventArgs e)
+    {
+      
+    }
+
+    private void Text14_AfterData(object sender, EventArgs e)
+    {
+      Decimal CHECK=Convert.ToDecimal(Text14.Text.ToString());
+      
+      if(CHECK&lt;50)
+      {
+        Text14.TextColor=Color.Red;
+      }
+      
+       Text14.Text= Text14.Text+&quot;%&quot;;
+    }
+
+    private void Text20_AfterData(object sender, EventArgs e)
+    {
+      Decimal CHECK=Convert.ToDecimal(Text20.Text.ToString());
+      
+      if(CHECK&lt;50)
+      {
+        Text20.TextColor=Color.Red;
+      }
+      
+       Text20.Text= Text20.Text+&quot;%&quot;;
+    }
+
+    private void Text26_AfterData(object sender, EventArgs e)
+    {
+      Decimal CHECK=Convert.ToDecimal(Text26.Text.ToString());
+      
+      if(CHECK&lt;50)
+      {
+        Text26.TextColor=Color.Red;
+      }
+      
+       Text26.Text= Text26.Text+&quot;%&quot;;
+    }
+  }
+}
+</ScriptText>
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpN+i5gA3VDGcwlcfm6L9ZMsLrZ3U+wEDtHCQtd9vw2XUEEamTMT0YISvEwQ/ljO/em">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT &#13;&#10;CONVERT(NVARCHAR,[MANUDATE],112) AS '預排日'&#13;&#10;,[MANU1PURTIMES] AS '小線產能時數'&#13;&#10;,[MANU1ACTTIMES] AS '小線桶數時數'&#13;&#10;,[MANU2PURTIMES] AS '大線產能時數'&#13;&#10;,[MANU2ACTTIMES] AS '大線桶數時數'&#13;&#10;,[MANU3PURTIMES] AS '手工產能時數'&#13;&#10;,[MANU3ACTTIMES] AS '手工預排時數'&#13;&#10;,[MANU4PURTIMES] AS '外包產能時數'&#13;&#10;,[MANU4ACTTIMES] AS '外包預排時數'&#13;&#10;,(CASE WHEN [MANU1PURTIMES]&gt;0 AND [MANU1ACTTIMES]&gt;0 THEN CONVERT(DECIMAL(16,2),([MANU1ACTTIMES]/[MANU1PURTIMES])*100) ELSE 0 END ) AS '小線訂單稼動率'&#13;&#10;,(CASE WHEN [MANU2PURTIMES]&gt;0 AND [MANU2ACTTIMES]&gt;0 THEN CONVERT(DECIMAL(16,2),([MANU2ACTTIMES]/[MANU2PURTIMES])*100) ELSE 0 END ) AS '大線訂單稼動率'&#13;&#10;,(CASE WHEN [MANU3PURTIMES]&gt;0 AND [MANU3ACTTIMES]&gt;0 THEN CONVERT(DECIMAL(16,2),([MANU3ACTTIMES]/[MANU3PURTIMES])*100) ELSE 0 END ) AS '手工訂單稼動率'&#13;&#10;,(CASE WHEN [MANU4PURTIMES]&gt;0 AND [MANU4ACTTIMES]&gt;0 THEN CONVERT(DECIMAL(16,2),([MANU4ACTTIMES]/[MANU4PURTIMES])*100) ELSE 0 END ) AS '外包訂單稼動率'&#13;&#10;FROM [TKMOC].[dbo].[MANUDAYILYPRODUCT]&#13;&#10;WHERE CONVERT(NVARCHAR,[MANUDATE],112) LIKE '202303%'&#13;&#10;ORDER BY CONVERT(NVARCHAR,[MANUDATE],112)">
+        <Column Name="預排日" DataType="System.String"/>
+        <Column Name="小線訂單稼動率" DataType="System.Decimal"/>
+        <Column Name="大線訂單稼動率" DataType="System.Decimal"/>
+        <Column Name="手工訂單稼動率" DataType="System.Decimal"/>
+        <Column Name="外包訂單稼動率" DataType="System.Decimal"/>
+        <Column Name="小線產能時數" DataType="System.Decimal"/>
+        <Column Name="小線桶數時數" DataType="System.Decimal"/>
+        <Column Name="大線產能時數" DataType="System.Decimal"/>
+        <Column Name="大線桶數時數" DataType="System.Decimal"/>
+        <Column Name="手工產能時數" DataType="System.Decimal"/>
+        <Column Name="手工預排時數" DataType="System.Decimal"/>
+        <Column Name="外包產能時數" DataType="System.Decimal"/>
+        <Column Name="外包預排時數" DataType="System.Decimal"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="400" PaperHeight="210">
+    <ReportTitleBand Name="ReportTitle1" Width="1436.4" Height="18.9">
+      <TextObject Name="Text1" Width="1228.5" Height="18.9" Border.Lines="All" Text="稼動率" HorzAlign="Center" VertAlign="Center"/>
+    </ReportTitleBand>
+    <ColumnHeaderBand Name="ColumnHeader1" Top="23.5" Width="1436.4" Height="18.9">
+      <TextObject Name="Text3" Width="94.5" Height="18.9" Border.Lines="All" Text="預排日" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text5" Left="94.5" Width="94.5" Height="18.9" Border.Lines="All" Text="大線桶數時數" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text7" Left="189" Width="94.5" Height="18.9" Border.Lines="All" Text="大線產能時數" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text9" Left="283.5" Width="94.5" Height="18.9" Border.Lines="All" Text="大線訂單稼動率" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text11" Left="378" Width="94.5" Height="18.9" Border.Lines="All" Text="小線桶數時數" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text13" Left="472.5" Width="94.5" Height="18.9" Border.Lines="All" Text="小線產能時數" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text15" Left="567" Width="94.5" Height="18.9" Border.Lines="All" Text="小線訂單稼動率" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text17" Left="661.5" Width="94.5" Height="18.9" Border.Lines="All" Text="手工預排時數" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text19" Left="756" Width="94.5" Height="18.9" Border.Lines="All" Text="手工產能時數" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text21" Left="850.5" Width="94.5" Height="18.9" Border.Lines="All" Text="手工訂單稼動率" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text23" Left="945" Width="94.5" Height="18.9" Border.Lines="All" Text="外包預排時數" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text25" Left="1039.5" Width="94.5" Height="18.9" Border.Lines="All" Text="外包產能時數" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text27" Left="1134" Width="94.5" Height="18.9" Border.Lines="All" Text="外包訂單稼動率" HorzAlign="Center" VertAlign="Center"/>
+    </ColumnHeaderBand>
+    <DataBand Name="Data1" Top="47" Width="1436.4" Height="18.9" CanGrow="true" BeforePrintEvent="Data1_BeforePrint" DataSource="Table">
+      <TextObject Name="Text2" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.預排日]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text4" Left="94.5" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.大線桶數時數]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text6" Left="189" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.大線產能時數]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text8" Left="283.5" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" BeforePrintEvent="Text8_BeforePrint" AfterPrintEvent="Text8_AfterPrint" AfterDataEvent="Text8_AfterData" Text="[Table.大線訂單稼動率]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="細明體_HKSCS, 9pt" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text10" Left="378" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.小線桶數時數]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text12" Left="472.5" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.小線產能時數]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text14" Left="567" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" BeforePrintEvent="Text14_BeforePrint" AfterDataEvent="Text14_AfterData" Text="[Table.小線訂單稼動率]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text16" Left="661.5" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.手工預排時數]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text18" Left="756" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.手工產能時數]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text22" Left="945" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.外包預排時數]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text24" Left="1039.5" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.外包產能時數]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text26" Left="1134" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" AfterDataEvent="Text26_AfterData" Text="[Table.外包訂單稼動率]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text20" Left="850.5" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" AfterDataEvent="Text20_AfterData" Text="[Table.手工訂單稼動率]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+    </DataBand>
+  </ReportPage>
+</Report>
