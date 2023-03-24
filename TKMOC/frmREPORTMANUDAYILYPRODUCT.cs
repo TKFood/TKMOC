@@ -30,6 +30,8 @@ namespace TKMOC
         public frmREPORTMANUDAYILYPRODUCT()
         {
             InitializeComponent();
+
+            tabControl1.SelectedIndex = 1;
         }
 
         #region FUNCTION
