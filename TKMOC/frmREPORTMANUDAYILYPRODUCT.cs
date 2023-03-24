@@ -470,6 +470,67 @@ namespace TKMOC
 
         }
 
+        public void UPDATE_PUR2(string SDATES, string EDATES, string MANU1PURTIMES, string MANU2PURTIMES, string MANU3PURTIMES, string MANU4PURTIMES)
+        {
+
+            SqlConnection sqlConn = new SqlConnection();
+            StringBuilder sbSql = new StringBuilder();
+            SqlTransaction tran;
+            SqlCommand cmd = new SqlCommand();
+            int result;
+
+            if (!string.IsNullOrEmpty(SDATES))
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+
+                sbSql.AppendFormat(@" 
+                                    UPDATE [TKMOC].[dbo].[MANUDAYILYPRODUCT]
+                                    SET [MANU1PURTIMES]='{2}'
+                                    ,[MANU2PURTIMES]='{3}'
+                                    ,[MANU3PURTIMES]='{4}'
+                                    ,[MANU4PURTIMES]='{5}'
+                                    WHERE  CONVERT(NVARCHAR,[MANUDATE],112)>='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112)<='{1}'
+                                  
+                                   
+                                    ", SDATES, EDATES, MANU1PURTIMES, MANU2PURTIMES, MANU3PURTIMES, MANU4PURTIMES);
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+            }
+
+        }
+
         public void UPDATE_ACT(string SDATES, string EDATES)
         {
             SqlConnection sqlConn = new SqlConnection();
@@ -529,6 +590,95 @@ namespace TKMOC
                                     FROM [TKMOC].[dbo].[MOCMANULINE]
                                     WHERE [MANU]  IN ('製二線')
                                     AND [MB001] NOT IN (SELECT  [MB001]   FROM [TKMOC].[dbo].[MOCMANULINELIMITBARCOUNT])
+
+                                    AND CONVERT(NVARCHAR,[MANUDATE],112)>='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112)<='{1}'
+                                    GROUP BY [MANUDATE],[MANU]     
+                                    ) AS TEMP
+                                    WHERE TEMP.MANUDATE=[MANUDAYILYPRODUCT].[MANUDATE]
+
+                                    ", SDATES, EDATES);
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+            }
+        }
+
+        public void UPDATE_ACT2(string SDATES, string EDATES)
+        {
+            SqlConnection sqlConn = new SqlConnection();
+            StringBuilder sbSql = new StringBuilder();
+            SqlTransaction tran;
+            SqlCommand cmd = new SqlCommand();
+            int result;
+
+            if (!string.IsNullOrEmpty(SDATES) && !string.IsNullOrEmpty(EDATES))
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+
+                sbSql.AppendFormat(@" 
+                                    UPDATE [TKMOC].[dbo].[MANUDAYILYPRODUCT]
+                                    SET [MANU1ACTTIMES]=0,[MANU2ACTTIMES]=0
+                                    WHERE  CONVERT(NVARCHAR,[MANUDATE],112)>='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112)<='{1}'
+
+                                    UPDATE [TKMOC].[dbo].[MANUDAYILYPRODUCT]
+                                    SET [MANU1ACTTIMES]=TEMP.SUMBAR
+                                    FROM (
+                                        SELECT 
+                                        [MANUDATE]      
+                                        ,[MANU]     
+                                        ,ISNULL(SUM([BAR]*[ERPINVMB].[BUCKETTIMES]),0) AS 'SUMBAR'
+                                        FROM [TKMOC].[dbo].[MOCMANULINE]
+                                        LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [MOCMANULINE].[MB001]=[ERPINVMB].[MB001]
+                                        WHERE [MANU]  IN ('製一線')
+                                        AND [MOCMANULINE].[MB001] NOT IN (SELECT  [MB001]   FROM [TKMOC].[dbo].[MOCMANULINELIMITBARCOUNT])
+                                        AND CONVERT(NVARCHAR,[MANUDATE],112)>='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112)<='{1}'
+                                        GROUP BY [MANUDATE],[MANU]   
+                                    ) AS TEMP
+                                    WHERE TEMP.MANUDATE=[MANUDAYILYPRODUCT].[MANUDATE]
+                                 
+
+                                    UPDATE [TKMOC].[dbo].[MANUDAYILYPRODUCT]
+                                    SET [MANU2ACTTIMES]=TEMP.SUMBAR
+                                    FROM (
+                                    SELECT 
+                                    [MANUDATE]      
+                                    ,[MANU]     
+                                    ,ISNULL(SUM([BAR]*[ERPINVMB].[BUCKETTIMES]),0) AS 'SUMBAR'
+                                    FROM [TKMOC].[dbo].[MOCMANULINE]
+                                    LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [MOCMANULINE].[MB001]=[ERPINVMB].[MB001]
+                                    WHERE [MANU]  IN ('製二線')
+                                    AND [MOCMANULINE].[MB001] NOT IN (SELECT  [MB001]   FROM [TKMOC].[dbo].[MOCMANULINELIMITBARCOUNT])
 
                                     AND CONVERT(NVARCHAR,[MANUDATE],112)>='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112)<='{1}'
                                     GROUP BY [MANUDATE],[MANU]     
@@ -657,6 +807,17 @@ namespace TKMOC
         private void button7_Click(object sender, EventArgs e)
         {
             UPDATE_DATEILS2(textBox14.Text, textBox15.Text, textBox16.Text, textBox17.Text, textBox18.Text, textBox19.Text, textBox20.Text, textBox21.Text, textBox22.Text);
+            SEARCH2(dateTimePicker7.Value.ToString("yyyy/MM/dd"));
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            UPDATE_PUR2(dateTimePicker8.Value.ToString("yyyyMMdd"), dateTimePicker9.Value.ToString("yyyyMMdd"), textBox23.Text, textBox24.Text, textBox25.Text, textBox26.Text);
+            SEARCH2(dateTimePicker7.Value.ToString("yyyy/MM/dd"));
+        }
+        private void button9_Click(object sender, EventArgs e)
+        {
+            UPDATE_ACT2(dateTimePicker10.Value.ToString("yyyyMMdd"), dateTimePicker11.Value.ToString("yyyyMMdd"));
             SEARCH2(dateTimePicker7.Value.ToString("yyyy/MM/dd"));
         }
 
