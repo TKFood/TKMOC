@@ -69,12 +69,16 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@" SELECT [MB001] AS '品號',[MB002] AS '品名',[MB003] AS '規格' ,[PROCESSNUM] AS '標準批量',[PROCESSTIME] AS '標準時間'");
-                sbSql.AppendFormat(@" FROM [TKMOC].[dbo].[ERPINVMB] ");
-                sbSql.AppendFormat(@" WHERE 1=1 ");
-                sbSql.AppendFormat(@" {0}",Query.ToString());
-                sbSql.AppendFormat(@"  ORDER BY [MB001]");
-                sbSql.AppendFormat(@" ");
+           
+                sbSql.AppendFormat(@" 
+                                    SELECT [MB001] AS '品號',[MB002] AS '品名',[MB003] AS '規格' ,[PROCESSNUM] AS '標準批量',[PROCESSTIME] AS '標準時間'
+                                    ,[BUCKETTIMES] AS '1桶的生產時間'
+                                    FROM [TKMOC].[dbo].[ERPINVMB] 
+                                    WHERE 1=1 
+                                    {0}
+                                    ORDER BY [MB001]
+ 
+                                    ", Query.ToString());
 
                 adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -97,7 +101,13 @@ namespace TKMOC
                         labelSearch.Text = "有 " + ds.Tables["TEMPds1"].Rows.Count.ToString() + " 筆";
                         //dataGridView1.Rows.Clear();
                         dataGridView1.DataSource = ds.Tables["TEMPds1"];
-                        dataGridView1.AutoResizeColumns();
+                        dataGridView1.Columns["品號"].Width = 200; // 設定指定欄位的寬度為 100 像素
+                        dataGridView1.Columns["品名"].Width = 100; // 設定指定欄位的寬度為 100 像素
+                        dataGridView1.Columns["規格"].Width = 100; // 設定指定欄位的寬度為 100 像素
+                        dataGridView1.Columns["標準批量"].Width = 100; // 設定指定欄位的寬度為 100 像素
+                        dataGridView1.Columns["標準時間"].Width = 100; // 設定指定欄位的寬度為 100 像素
+                        dataGridView1.Columns["1桶的生產時間"].Width = 100; // 設定指定欄位的寬度為 100 像素
+
                         dataGridView1.CurrentCell = dataGridView1[0, rownum];
                     }
                 }
@@ -133,9 +143,12 @@ namespace TKMOC
                 tran = sqlConn.BeginTransaction();
 
                 sbSql.Clear();
-                sbSql.Append(" UPDATE [TKMOC].[dbo].[ERPINVMB] ");
-                sbSql.AppendFormat(" SET [MB002]='{1}',[MB003]='{2}',[PROCESSNUM]='{3}',[PROCESSTIME]='{4}' WHERE [MB001]='{0}' ", textBox1.Text.ToString(),textBox2.Text.ToString(), textBox3.Text.ToString(),numericUpDown1.Value.ToString(),numericUpDown2.Value.ToString());
-                sbSql.Append("  ");
+                
+                sbSql.AppendFormat(@"  
+                                    UPDATE [TKMOC].[dbo].[ERPINVMB] 
+                                    SET [MB002]='{1}',[MB003]='{2}',[PROCESSNUM]='{3}',[PROCESSTIME]='{4}' ,[BUCKETTIMES]='{5}'
+                                    WHERE [MB001]='{0}' 
+                                    ", textBox1.Text.ToString(), textBox2.Text.ToString(), textBox3.Text.ToString(), numericUpDown1.Value.ToString(), numericUpDown2.Value.ToString(), textBox5.Text.ToString());
 
                 cmd.Connection = sqlConn;
                 cmd.CommandTimeout = 60;
@@ -238,7 +251,7 @@ namespace TKMOC
                 textBox2.Text = drMOCPRODUCTDAILYREPORT.Cells["品名"].Value.ToString();
                 numericUpDown1.Value = Convert.ToDecimal(drMOCPRODUCTDAILYREPORT.Cells["標準批量"].Value.ToString());
                 numericUpDown2.Value = Convert.ToDecimal(drMOCPRODUCTDAILYREPORT.Cells["標準時間"].Value.ToString());
-
+                textBox5.Text = drMOCPRODUCTDAILYREPORT.Cells["1桶的生產時間"].Value.ToString();
 
 
             }
