@@ -192,7 +192,7 @@ namespace TKMOC
         #region BUTTON
         private void button3_Click(object sender, EventArgs e)
         {
-            SETFASTREPORT(comboBox1.Text,dateTimePicker1.Value.ToString("yyyyMMdd"));
+            SETFASTREPORT(comboBox1.Text,dateTimePicker1.Value.ToString("yyyyMMdd")); 
         }
 
         #endregion

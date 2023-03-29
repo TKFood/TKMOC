@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="03/13/2023 11:46:51" ReportInfo.Modified="03/29/2023 16:15:27" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="03/13/2023 11:46:51" ReportInfo.Modified="03/29/2023 16:27:12" ReportInfo.CreatorVersion="2016.4.4.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpN+i5gA3VDGcwlcfm6L9ZMsLrZ3U+wEDtHCQtd9vw2XUERdWLOJ8tixvsw1KqWHdMP">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpN+i5gA3VDGcwlcfm6L9ZMsLrZ3U+wEDtHCQtd9vw2XUGcWi0uPT2Ach0AvSZL3Pe/">
       <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT &#13;&#10;YEAR(CONVERT(DATETIME,TA003) ) AS 'YEARS'&#13;&#10;,MONTH(CONVERT(DATETIME,TA003) ) AS 'MONTHS'&#13;&#10;,DAY(CONVERT(DATETIME,TA003) ) AS 'DAYS'&#13;&#10;,TA001+TA002 AS '單號'&#13;&#10;,TA006 AS '生產品號'&#13;&#10;,TA034 AS '生產品名'&#13;&#10;,TB003 AS '領料品號'&#13;&#10;,TB012 AS '領料品名'&#13;&#10;FROM [TK].dbo.MOCTA,[TK].dbo.MOCTB&#13;&#10;WHERE TA001=TB001 AND TA002=TB002&#13;&#10;AND TA021='09'&#13;&#10;AND TA003='20230313'&#13;&#10;&#13;&#10;ORDER BY TA001,TA002,TB003&#13;&#10;">
         <Column Name="YEARS" DataType="System.Int32"/>
         <Column Name="MONTHS" DataType="System.Int32"/>
@@ -39,7 +39,7 @@
       <TextObject Name="Text21" Left="396.9" Top="349.65" Width="160.65" Height="28.35" Border.Lines="All" Text="入庫" VertAlign="Center" Font="宋体, 12pt"/>
       <TextObject Name="Text22" Left="236.25" Top="349.65" Width="160.65" Height="28.35" Border.Lines="All" Text="出庫" VertAlign="Center" Font="宋体, 12pt"/>
       <DataBand Name="Data1" Top="382.6" Width="718.2" Height="28.35" CanGrow="true" DataSource="Table">
-        <TextObject Name="Text18" Width="236.25" Height="28.35" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.領料品名]" VertAlign="Center" Font="宋体, 12pt"/>
+        <TextObject Name="Text18" Width="236.25" Height="28.35" Border.Lines="All" CanGrow="true" GrowToBottom="true" VertAlign="Center" Font="宋体, 12pt"/>
         <TextObject Name="Text23" Left="557.55" Width="160.65" Height="28.35" Border.Lines="All" CanGrow="true" GrowToBottom="true" VertAlign="Center" Font="宋体, 12pt"/>
         <TextObject Name="Text24" Left="396.9" Width="160.65" Height="28.35" Border.Lines="All" CanGrow="true" GrowToBottom="true" VertAlign="Center" Font="宋体, 12pt"/>
         <TextObject Name="Text25" Left="236.25" Width="160.65" Height="28.35" Border.Lines="All" CanGrow="true" GrowToBottom="true" VertAlign="Center" Font="宋体, 12pt"/>
@@ -53,9 +53,7 @@
       <GroupFooterBand Name="GroupFooter1" Top="448.49" Width="718.2" Height="28.35">
         <TextObject Name="Text26" Top="9.45" Width="226.8" Height="18.9" Text="填表人:&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
         <TextObject Name="Text27" Left="226.8" Top="9.45" Width="226.8" Height="18.9" Text="主管:&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="宋体, 12pt"/>
-        <ChildBand Name="Child2" Top="481.44" Width="718.2" Height="283.5">
-          <TextObject Name="Text34" Left="-18.9" Top="132.3" Width="226.8" Height="28.35" Text="半成品領用明細:" VertAlign="Center" Font="宋体, 12pt"/>
-        </ChildBand>
+        <ChildBand Name="Child2" Top="481.44" Width="718.2" Height="283.5"/>
       </GroupFooterBand>
     </GroupHeaderBand>
     <PageFooterBand Name="PageFooter1" Top="769.54" Width="718.2" Height="47.25">
