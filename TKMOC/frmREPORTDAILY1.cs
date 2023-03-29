@@ -88,7 +88,7 @@ namespace TKMOC
         public void SETFASTREPORT(string TA021,string TA003)
         {
             StringBuilder SQL1 = new StringBuilder();
-            Report report1 = new Report();
+            Report report1 = new Report(); 
 
             if (TA021.Equals("09"))
             {
