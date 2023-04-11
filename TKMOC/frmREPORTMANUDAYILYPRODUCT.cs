@@ -188,8 +188,8 @@ namespace TKMOC
                                     ,(CASE WHEN [MANU4PURTIMES]>0 AND [MANU4ACTTIMES]>0 THEN CONVERT(DECIMAL(16,2),([MANU4ACTTIMES]/[MANU4PURTIMES])*100) ELSE 0 END ) AS '外包訂單稼動率'
                                     ,[MANU1CHANGES]  AS '小線換口味次數'
                                     ,[MANU2CHANGES]  AS '大線換口味次數'
-                                    ,[MANU1CHANGESTIMES] AS '小線換口味間隔時間'
-                                    ,[MANU2CHANGESTIMES] AS '大線換口味間隔時間'
+                                    ,[MANU1CHANGESTIMES] AS '小線換口味時數'
+                                    ,[MANU2CHANGESTIMES] AS '大線換口味時數'
                                     
                                     FROM [TKMOC].[dbo].[MANUDAYILYPRODUCT]
                                     WHERE CONVERT(NVARCHAR,[MANUDATE],112) LIKE '{0}%'
@@ -283,7 +283,11 @@ namespace TKMOC
                     textBox20.Text = row.Cells["手工預排時數"].Value.ToString();
                     textBox21.Text = row.Cells["外包產能時數"].Value.ToString();
                     textBox22.Text = row.Cells["外包預排時數"].Value.ToString();
-                 
+                    textBox27.Text = row.Cells["小線換口味次數"].Value.ToString();
+                    textBox28.Text = row.Cells["小線換口味時數"].Value.ToString();
+                    textBox29.Text = row.Cells["大線換口味次數"].Value.ToString();
+                    textBox30.Text = row.Cells["大線換口味時數"].Value.ToString();
+
 
 
 
