@@ -32,9 +32,18 @@ namespace TKMOC
             InitializeComponent();
 
             tabControl1.SelectedIndex = 1;
+            SETTEXT();
         }
 
         #region FUNCTION
+
+        public void SETTEXT()
+        {
+            textBox27.Text = "15";
+            textBox28.Text = "15";
+            textBox29.Text = "15";
+            textBox30.Text = "15";
+        }
         public void SEARCH(string MANUDATE)
         {
             SqlConnection sqlConn = new SqlConnection();
