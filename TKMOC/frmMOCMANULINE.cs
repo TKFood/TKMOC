@@ -14557,6 +14557,140 @@ namespace TKMOC
             }
         }
 
+        public void SEARCH_MANUDAYILYPRODUCT2(string MANUDATE)
+        {
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            DataSet ds1 = new DataSet();
+            StringBuilder QUERYS = new StringBuilder();
+
+            try
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                sbSql.Clear();
+                QUERYS.Clear();
+                sbSqlQuery2.Clear();
+
+
+                sbSql.AppendFormat(@"  
+                                   SELECT TOP 1  [MANUDATE]
+                                    ,[MANU1CHANGES]
+                                    ,[MANU2CHANGES]
+                                    ,[MANU1CHANGESTIMES]
+                                    ,[MANU2CHANGESTIMES]
+                                    FROM [TKMOC].[dbo].[MANUDAYILYPRODUCT]
+                                    WHERE CONVERT(NVARCHAR,[MANUDATE],112)='{0}'
+
+                                    ", MANUDATE);
+
+
+
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "TEMPds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["TEMPds1"].Rows.Count > 0)
+                {
+                    textBox102.Text = ds1.Tables["TEMPds1"].Rows[0]["MANU2CHANGES"].ToString();
+                    textBox103.Text = ds1.Tables["TEMPds1"].Rows[0]["MANU2CHANGESTIMES"].ToString();
+                }
+                else
+                {
+                    textBox102.Text = "";
+                    textBox103.Text = "";
+                }
+
+
+            }
+            catch
+            {
+                textBox100.Text = "";
+                textBox101.Text = "";
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+        public void UPDATE_MANUDAYILYPRODUCT_MANU2(string MANUDATE, string MANU2CHANGES, string MANU2CHANGESTIMES)
+        {
+            try
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat(@" 
+                                    UPDATE [TKMOC].[dbo].[MANUDAYILYPRODUCT]
+                                    SET [MANU2CHANGES]='{1}',[MANU2CHANGESTIMES]='{2}'
+                                    WHERE CONVERT(NVARCHAR,[MANUDATE],112)='{0}'
+                                  
+                                    ", MANUDATE, MANU2CHANGES, MANU2CHANGESTIMES);
+
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+                    SEARCH_MANUDAYILYPRODUCT2(MANUDATE);
+                    MessageBox.Show("完成");
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+
         #endregion
 
         #region BUTTON
@@ -14564,6 +14698,7 @@ namespace TKMOC
         {
             SEARCHMOCMANULINE();
 
+            SEARCH_MANUDAYILYPRODUCT2(dateTimePicker1.Value.ToString("yyyyMMdd"));
             textBox86.Text=SEARCHMOCMANULINELIMITBARCOUNT1(dateTimePicker1.Value.ToString("yyyyMMdd"));
         }
 
@@ -15464,6 +15599,11 @@ namespace TKMOC
         private void button102_Click(object sender, EventArgs e)
         {
             UPDATE_MANUDAYILYPRODUCT_MANU1(dateTimePicker6.Value.ToString("yyyyMMdd"),textBox100.Text,textBox101.Text);
+        }
+
+        private void button103_Click(object sender, EventArgs e)
+        {
+            UPDATE_MANUDAYILYPRODUCT_MANU2(dateTimePicker1.Value.ToString("yyyyMMdd"), textBox102.Text, textBox103.Text);
         }
         #endregion
 
