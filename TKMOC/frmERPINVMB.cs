@@ -73,6 +73,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@" 
                                     SELECT [MB001] AS '品號',[MB002] AS '品名',[MB003] AS '規格' ,[PROCESSNUM] AS '標準批量',[PROCESSTIME] AS '標準時間'
                                     ,[BUCKETTIMES] AS '1桶的生產時間'
+                                    ,[PACKAGETIMES] AS '１天可生產/包裝使用時間'
                                     FROM [TKMOC].[dbo].[ERPINVMB] 
                                     WHERE 1=1 
                                     {0}
@@ -146,9 +147,9 @@ namespace TKMOC
                 
                 sbSql.AppendFormat(@"  
                                     UPDATE [TKMOC].[dbo].[ERPINVMB] 
-                                    SET [MB002]='{1}',[MB003]='{2}',[PROCESSNUM]='{3}',[PROCESSTIME]='{4}' ,[BUCKETTIMES]='{5}'
+                                    SET [MB002]='{1}',[MB003]='{2}',[PROCESSNUM]='{3}',[PROCESSTIME]='{4}' ,[BUCKETTIMES]='{5}',[PACKAGETIMES] ='{6}'
                                     WHERE [MB001]='{0}' 
-                                    ", textBox1.Text.ToString(), textBox2.Text.ToString(), textBox3.Text.ToString(), numericUpDown1.Value.ToString(), numericUpDown2.Value.ToString(), textBox5.Text.ToString());
+                                    ", textBox1.Text.ToString(), textBox2.Text.ToString(), textBox3.Text.ToString(), numericUpDown1.Value.ToString(), numericUpDown2.Value.ToString(), textBox5.Text.ToString(), textBox6.Text.ToString());
 
                 cmd.Connection = sqlConn;
                 cmd.CommandTimeout = 60;
@@ -252,6 +253,7 @@ namespace TKMOC
                 numericUpDown1.Value = Convert.ToDecimal(drMOCPRODUCTDAILYREPORT.Cells["標準批量"].Value.ToString());
                 numericUpDown2.Value = Convert.ToDecimal(drMOCPRODUCTDAILYREPORT.Cells["標準時間"].Value.ToString());
                 textBox5.Text = drMOCPRODUCTDAILYREPORT.Cells["1桶的生產時間"].Value.ToString();
+                textBox6.Text = drMOCPRODUCTDAILYREPORT.Cells["１天可生產/包裝使用時間"].Value.ToString();
 
 
             }
