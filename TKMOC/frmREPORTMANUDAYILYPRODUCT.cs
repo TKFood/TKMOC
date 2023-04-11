@@ -39,8 +39,8 @@ namespace TKMOC
 
         public void SETTEXT()
         {
-            textBox27.Text = "15";
             textBox28.Text = "15";
+            textBox30.Text = "15";
            
         }
         public void SEARCH(string MANUDATE)
@@ -187,7 +187,10 @@ namespace TKMOC
                                     ,(CASE WHEN [MANU2PURTIMES]>0 AND [MANU2ACTTIMES]>0 THEN CONVERT(DECIMAL(16,2),([MANU2ACTTIMES]/[MANU2PURTIMES])*100) ELSE 0 END ) AS '大線訂單稼動率'
                                     ,(CASE WHEN [MANU3PURTIMES]>0 AND [MANU3ACTTIMES]>0 THEN CONVERT(DECIMAL(16,2),([MANU3ACTTIMES]/[MANU3PURTIMES])*100) ELSE 0 END ) AS '手工訂單稼動率'
                                     ,(CASE WHEN [MANU4PURTIMES]>0 AND [MANU4ACTTIMES]>0 THEN CONVERT(DECIMAL(16,2),([MANU4ACTTIMES]/[MANU4PURTIMES])*100) ELSE 0 END ) AS '外包訂單稼動率'
-
+                                    ,[MANU1CHANGES]  AS '小線換口味次數'
+                                    ,[MANU2CHANGES]  AS '大線換口味次數'
+                                    ,[MANU1CHANGESTIMES] AS '小線換口味間隔時間'
+                                    ,[MANU2CHANGESTIMES] AS '大線換口味間隔時間'
                                     
                                     FROM [TKMOC].[dbo].[MANUDAYILYPRODUCT]
                                     WHERE CONVERT(NVARCHAR,[MANUDATE],112) LIKE '{0}%'
@@ -281,6 +284,8 @@ namespace TKMOC
                     textBox20.Text = row.Cells["手工預排時數"].Value.ToString();
                     textBox21.Text = row.Cells["外包產能時數"].Value.ToString();
                     textBox22.Text = row.Cells["外包預排時數"].Value.ToString();
+                    textBox27.Text = row.Cells["小線換口味次數"].Value.ToString();
+                    textBox29.Text = row.Cells["大線換口味次數"].Value.ToString();
 
 
 
@@ -354,7 +359,7 @@ namespace TKMOC
             }
         }
 
-        public void UPDATE_DATEILS2(string MANUDATE, string MANU1PURTIMES, string MANU1ACTTIMES, string MANU2PURTIMES, string MANU2ACTTIMES, string MANU3PURTIMES, string MANU3ACTTIMES, string MANU4PURTIMES, string MANU4ACTTIMES)
+        public void UPDATE_DATEILS2(string MANUDATE, string MANU1PURTIMES, string MANU1ACTTIMES, string MANU2PURTIMES, string MANU2ACTTIMES, string MANU3PURTIMES, string MANU3ACTTIMES, string MANU4PURTIMES, string MANU4ACTTIMES,string MANU1CHANGES,string MANU1CHANGESUNITS,string MANU2CHANGES,string MANU2CHANGESUNITS)
         {
             SqlConnection sqlConn = new SqlConnection();
             StringBuilder sbSql = new StringBuilder();
@@ -393,9 +398,14 @@ namespace TKMOC
                                     ,[MANU3ACTTIMES]='{6}'
                                     ,[MANU4PURTIMES]='{7}'
                                     ,[MANU4ACTTIMES]='{8}'
+                                    ,[MANU1CHANGES]='{9}'
+                                    ,[MANU2CHANGES]='{10}'
+                                    ,[MANU1CHANGESTIMES]='{11}'
+                                    ,[MANU2CHANGESTIMES]='{12}'
+
                                     WHERE  CONVERT(NVARCHAR,[MANUDATE],112)='{0}'
                                    
-                                    ", MANUDATE, MANU1PURTIMES, MANU1ACTTIMES, MANU2PURTIMES, MANU2ACTTIMES, MANU3PURTIMES, MANU3ACTTIMES, MANU4PURTIMES, MANU4ACTTIMES);
+                                    ", MANUDATE, MANU1PURTIMES, MANU1ACTTIMES, MANU2PURTIMES, MANU2ACTTIMES, MANU3PURTIMES, MANU3ACTTIMES, MANU4PURTIMES, MANU4ACTTIMES, MANU1CHANGES, MANU2CHANGES, Convert.ToDecimal(MANU1CHANGES)* Convert.ToDecimal(MANU1CHANGESUNITS), Convert.ToDecimal(MANU2CHANGES) * Convert.ToDecimal(MANU2CHANGESUNITS));
 
 
                 cmd.Connection = sqlConn;
@@ -892,7 +902,7 @@ namespace TKMOC
         }
         private void button7_Click(object sender, EventArgs e)
         {
-            UPDATE_DATEILS2(textBox14.Text, textBox15.Text, textBox16.Text, textBox17.Text, textBox18.Text, textBox19.Text, textBox20.Text, textBox21.Text, textBox22.Text);
+            UPDATE_DATEILS2(textBox14.Text, textBox15.Text, textBox16.Text, textBox17.Text, textBox18.Text, textBox19.Text, textBox20.Text, textBox21.Text, textBox22.Text, textBox27.Text, textBox28.Text, textBox29.Text, textBox30.Text);
             SEARCH2(dateTimePicker7.Value.ToString("yyyy/MM/dd"));
         }
 
