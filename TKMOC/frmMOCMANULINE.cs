@@ -14496,6 +14496,66 @@ namespace TKMOC
             }
         }
 
+        public void UPDATE_MANUDAYILYPRODUCT_MANU1(string MANUDATE,string MANU1CHANGES,string MANU1CHANGESTIMES)
+        {
+            try
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat(@" 
+                                    UPDATE [TKMOC].[dbo].[MANUDAYILYPRODUCT]
+                                    SET [MANU1CHANGES]='{1}',[MANU1CHANGESTIMES]='{2}'
+                                    WHERE CONVERT(NVARCHAR,[MANUDATE],112)='{0}'
+                                  
+                                    ", MANUDATE, MANU1CHANGES, MANU1CHANGESTIMES);
+
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+                    SEARCH_MANUDAYILYPRODUCT1(MANUDATE);
+                    MessageBox.Show("完成");
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
 
         #endregion
 
@@ -15399,6 +15459,11 @@ namespace TKMOC
                 SEARCHMOCMANULINE();
 
             }
+        }
+
+        private void button102_Click(object sender, EventArgs e)
+        {
+            UPDATE_MANUDAYILYPRODUCT_MANU1(dateTimePicker6.Value.ToString("yyyyMMdd"),textBox100.Text,textBox101.Text);
         }
         #endregion
 
