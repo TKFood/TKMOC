@@ -561,7 +561,7 @@ namespace TKMOC
 
                 sbSql.AppendFormat(@" 
                                     UPDATE [TKMOC].[dbo].[MANUDAYILYPRODUCT]
-                                    SET [MANU1ACT]=0,[MANU2ACT]=0
+                                    SET [MANU1ACT]=0,[MANU2ACT]=0,[MANU3ACT]=0
                                     WHERE  CONVERT(NVARCHAR,[MANUDATE],112)>='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112)<='{1}'
 
                                     UPDATE [TKMOC].[dbo].[MANUDAYILYPRODUCT]
@@ -590,7 +590,22 @@ namespace TKMOC
                                     FROM [TKMOC].[dbo].[MOCMANULINE]
                                     WHERE [MANU]  IN ('製二線')
                                     AND [MB001] NOT IN (SELECT  [MB001]   FROM [TKMOC].[dbo].[MOCMANULINELIMITBARCOUNT])
+                                    AND CONVERT(NVARCHAR,[MANUDATE],112)>='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112)<='{1}'
+                                    GROUP BY [MANUDATE],[MANU]     
+                                    ) AS TEMP
+                                    WHERE TEMP.MANUDATE=[MANUDAYILYPRODUCT].[MANUDATE]
 
+
+                                    UPDATE [TKMOC].[dbo].[MANUDAYILYPRODUCT]
+                                    SET [MANU3ACT]=TEMP.SUMPACKAGE
+                                    FROM (
+                                    SELECT 
+                                    [MANUDATE]      
+                                    ,[MANU]     
+                                    ,ISNULL(SUM([PACKAGE]),0) AS 'SUMPACKAGE'
+                                    FROM [TKMOC].[dbo].[MOCMANULINE]
+                                    WHERE [MANU]  IN ('包裝線')
+                                    AND [MB001] NOT IN (SELECT  [MB001]   FROM [TKMOC].[dbo].[MOCMANULINELIMITBARCOUNT])
                                     AND CONVERT(NVARCHAR,[MANUDATE],112)>='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112)<='{1}'
                                     GROUP BY [MANUDATE],[MANU]     
                                     ) AS TEMP
@@ -620,6 +635,7 @@ namespace TKMOC
 
         public void UPDATE_ACT2(string SDATES, string EDATES)
         {
+            int PACKAGEDAYSHR = 8;
             SqlConnection sqlConn = new SqlConnection();
             StringBuilder sbSql = new StringBuilder();
             SqlTransaction tran;
@@ -648,7 +664,7 @@ namespace TKMOC
 
                 sbSql.AppendFormat(@" 
                                     UPDATE [TKMOC].[dbo].[MANUDAYILYPRODUCT]
-                                    SET [MANU1ACTTIMES]=0,[MANU2ACTTIMES]=0
+                                    SET [MANU1ACTTIMES]=0,[MANU2ACTTIMES]=0,[MANU3ACTTIMES]=0
                                     WHERE  CONVERT(NVARCHAR,[MANUDATE],112)>='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112)<='{1}'
 
                                     UPDATE [TKMOC].[dbo].[MANUDAYILYPRODUCT]
@@ -669,23 +685,22 @@ namespace TKMOC
                                  
 
                                     UPDATE [TKMOC].[dbo].[MANUDAYILYPRODUCT]
-                                    SET [MANU2ACTTIMES]=TEMP.SUMBAR
+                                    SET [MANU3ACTTIMES]=TEMP.SUMPACKAGE
                                     FROM (
-                                    SELECT 
-                                    [MANUDATE]      
-                                    ,[MANU]     
-                                    ,ISNULL(SUM([BAR]*[ERPINVMB].[BUCKETTIMES]),0) AS 'SUMBAR'
-                                    FROM [TKMOC].[dbo].[MOCMANULINE]
-                                    LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [MOCMANULINE].[MB001]=[ERPINVMB].[MB001]
-                                    WHERE [MANU]  IN ('製二線')
-                                    AND [MOCMANULINE].[MB001] NOT IN (SELECT  [MB001]   FROM [TKMOC].[dbo].[MOCMANULINELIMITBARCOUNT])
-
-                                    AND CONVERT(NVARCHAR,[MANUDATE],112)>='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112)<='{1}'
-                                    GROUP BY [MANUDATE],[MANU]     
+                                        SELECT 
+                                        [MANUDATE]      
+                                        ,[MANU]     
+                                        ,ISNULL(SUM([PACKAGE]/[ERPINVMB].[PACKAGETIMES]*{2}),0) AS 'SUMPACKAGE'
+                                        FROM [TKMOC].[dbo].[MOCMANULINE]
+                                        LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [MOCMANULINE].[MB001]=[ERPINVMB].[MB001]
+                                        WHERE [MANU]  IN ('包裝線')
+                                        AND [MOCMANULINE].[MB001] NOT IN (SELECT  [MB001]   FROM [TKMOC].[dbo].[MOCMANULINELIMITBARCOUNT])
+                                         AND CONVERT(NVARCHAR,[MANUDATE],112)>='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112)<='{1}'
+                                        GROUP BY [MANUDATE],[MANU]     
                                     ) AS TEMP
                                     WHERE TEMP.MANUDATE=[MANUDAYILYPRODUCT].[MANUDATE]
 
-                                    ", SDATES, EDATES);
+                                    ", SDATES, EDATES, PACKAGEDAYSHR);
 
 
                 cmd.Connection = sqlConn;
