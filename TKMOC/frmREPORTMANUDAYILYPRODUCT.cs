@@ -41,8 +41,7 @@ namespace TKMOC
         {
             textBox27.Text = "15";
             textBox28.Text = "15";
-            textBox29.Text = "15";
-            textBox30.Text = "15";
+           
         }
         public void SEARCH(string MANUDATE)
         {
