@@ -799,7 +799,7 @@ namespace TKMOC
                                 ORDER BY CONVERT(NVARCHAR,[MANUDATE],112)
 
                                     ", MANUDATE);
-
+              
             return FASTSQL.ToString(); 
         }
 
