@@ -191,7 +191,8 @@ namespace TKMOC
         public frmBATCHMOCTAB()
         {
             InitializeComponent();
-           
+
+            comboBox2load();
         }
 
 
@@ -199,6 +200,41 @@ namespace TKMOC
 
 
         #region FUNCTION
+        public void comboBox2load()
+        {
+            //20210902密
+            Class1 TKID = new Class1();//用new 建立類別實體
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+            //資料庫使用者密碼解密
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+            String connectionString;
+            sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"
+                                   SELECT LTRIM(RTRIM(ME001)) ME001,ME002
+                                    FROM [TK].dbo.CMSME
+                                    WHERE ME001 IN ('122100','103000')
+                                ");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("ME001", typeof(string));
+            dt.Columns.Add("ME002", typeof(string));
+            da.Fill(dt);
+            comboBox2.DataSource = dt.DefaultView;
+            comboBox2.ValueMember = "ME001";
+            comboBox2.DisplayMember = "ME001";
+            sqlConn.Close();
+
+
+        }
+
         public void SEARCHCOP(DateTime dt1, DateTime dt2)
         {
             try
@@ -949,7 +985,7 @@ namespace TKMOC
             MOCTADATA MOCTA = new MOCTADATA();
             MOCTA.COMPANY = "TK";
             MOCTA.CREATOR = "140020";
-            MOCTA.USR_GROUP = "103000";
+            MOCTA.USR_GROUP = comboBox2.Text.ToString();
             //MOCTA.CREATE_DATE = dt1.ToString("yyyyMMdd");
             MOCTA.CREATE_DATE = DateTime.Now.ToString("yyyyMMdd");
             MOCTA.MODIFIER = "140020";
@@ -1014,7 +1050,8 @@ namespace TKMOC
             MOCTADATA MOCTA = new MOCTADATA();
             MOCTA.COMPANY = "TK";
             MOCTA.CREATOR = "140020";
-            MOCTA.USR_GROUP = "103000";
+            MOCTA.USR_GROUP = comboBox2.Text.ToString();
+            //MOCTA.USR_GROUP = "103000";
             //MOCTA.CREATE_DATE = dt1.ToString("yyyyMMdd");
             MOCTA.CREATE_DATE = DateTime.Now.ToString("yyyyMMdd");
             MOCTA.MODIFIER = "140020";
@@ -1490,6 +1527,14 @@ namespace TKMOC
                     textBox14.Text = row.Cells["數量"].Value.ToString();
                     textBox17.Text = row.Cells["線別"].Value.ToString();
 
+                    if(row.Cells["線別"].Value.ToString().Equals("08"))
+                    {
+                        comboBox2.Text = "122100";
+                    }
+                    else
+                    {
+                        comboBox2.Text = "103000";
+                    }
 
                     BATCHMOCTABMB001 = row.Cells["品號"].Value.ToString();
                     BATCHMOCTABMB002 =row.Cells["品名"].Value.ToString();
