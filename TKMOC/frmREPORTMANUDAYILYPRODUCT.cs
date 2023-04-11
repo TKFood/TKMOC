@@ -39,8 +39,7 @@ namespace TKMOC
 
         public void SETTEXT()
         {
-            textBox28.Text = "15";
-            textBox30.Text = "15";
+           
            
         }
         public void SEARCH(string MANUDATE)
@@ -284,8 +283,7 @@ namespace TKMOC
                     textBox20.Text = row.Cells["手工預排時數"].Value.ToString();
                     textBox21.Text = row.Cells["外包產能時數"].Value.ToString();
                     textBox22.Text = row.Cells["外包預排時數"].Value.ToString();
-                    textBox27.Text = row.Cells["小線換口味次數"].Value.ToString();
-                    textBox29.Text = row.Cells["大線換口味次數"].Value.ToString();
+                 
 
 
 
@@ -359,7 +357,7 @@ namespace TKMOC
             }
         }
 
-        public void UPDATE_DATEILS2(string MANUDATE, string MANU1PURTIMES, string MANU1ACTTIMES, string MANU2PURTIMES, string MANU2ACTTIMES, string MANU3PURTIMES, string MANU3ACTTIMES, string MANU4PURTIMES, string MANU4ACTTIMES,string MANU1CHANGES,string MANU1CHANGESUNITS,string MANU2CHANGES,string MANU2CHANGESUNITS)
+        public void UPDATE_DATEILS2(string MANUDATE, string MANU1PURTIMES, string MANU1ACTTIMES, string MANU2PURTIMES, string MANU2ACTTIMES, string MANU3PURTIMES, string MANU3ACTTIMES, string MANU4PURTIMES, string MANU4ACTTIMES)
         {
             SqlConnection sqlConn = new SqlConnection();
             StringBuilder sbSql = new StringBuilder();
@@ -398,14 +396,10 @@ namespace TKMOC
                                     ,[MANU3ACTTIMES]='{6}'
                                     ,[MANU4PURTIMES]='{7}'
                                     ,[MANU4ACTTIMES]='{8}'
-                                    ,[MANU1CHANGES]='{9}'
-                                    ,[MANU2CHANGES]='{10}'
-                                    ,[MANU1CHANGESTIMES]='{11}'
-                                    ,[MANU2CHANGESTIMES]='{12}'
 
                                     WHERE  CONVERT(NVARCHAR,[MANUDATE],112)='{0}'
                                    
-                                    ", MANUDATE, MANU1PURTIMES, MANU1ACTTIMES, MANU2PURTIMES, MANU2ACTTIMES, MANU3PURTIMES, MANU3ACTTIMES, MANU4PURTIMES, MANU4ACTTIMES, MANU1CHANGES, MANU2CHANGES, (Convert.ToDecimal(MANU1CHANGES)* Convert.ToDecimal(MANU1CHANGESUNITS)/60), (Convert.ToDecimal(MANU2CHANGES) * Convert.ToDecimal(MANU2CHANGESUNITS)/60));
+                                    ", MANUDATE, MANU1PURTIMES, MANU1ACTTIMES, MANU2PURTIMES, MANU2ACTTIMES, MANU3PURTIMES, MANU3ACTTIMES, MANU4PURTIMES, MANU4ACTTIMES);
 
 
                 cmd.Connection = sqlConn;
@@ -905,7 +899,7 @@ namespace TKMOC
         }
         private void button7_Click(object sender, EventArgs e)
         {
-            UPDATE_DATEILS2(textBox14.Text, textBox15.Text, textBox16.Text, textBox17.Text, textBox18.Text, textBox19.Text, textBox20.Text, textBox21.Text, textBox22.Text, textBox27.Text, textBox28.Text, textBox29.Text, textBox30.Text);
+            UPDATE_DATEILS2(textBox14.Text, textBox15.Text, textBox16.Text, textBox17.Text, textBox18.Text, textBox19.Text, textBox20.Text, textBox21.Text, textBox22.Text);
             SEARCH2(dateTimePicker7.Value.ToString("yyyy/MM/dd"));
         }
 
