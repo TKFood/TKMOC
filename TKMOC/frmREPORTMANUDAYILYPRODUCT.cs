@@ -841,22 +841,24 @@ namespace TKMOC
             StringBuilder STRQUERY = new StringBuilder();
 
             FASTSQL.AppendFormat(@"    
-                                SELECT 
+                               SELECT 
                                 CONVERT(NVARCHAR,[MANUDATE],112) AS '預排日'
                                 ,[MANU1PURTIMES] AS '小線產能時數'
-                                ,[MANU1ACTTIMES]+[MANU1CHANGESTIMES] AS '小線桶數時數'
+                                ,[MANU1ACTTIMES]+([MANU1CHANGESTIMES]/60) AS '小線桶數時數'
                                 ,[MANU2PURTIMES] AS '大線產能時數'
-                                ,[MANU2ACTTIMES]+[MANU2CHANGESTIMES] AS '大線桶數時數'
+                                ,[MANU2ACTTIMES]+([MANU2CHANGESTIMES]/60)  AS '大線桶數時數'
                                 ,[MANU3PURTIMES] AS '手工產能時數'
                                 ,[MANU3ACTTIMES] AS '手工預排時數'
                                 ,[MANU4PURTIMES] AS '外包產能時數'
                                 ,[MANU4ACTTIMES] AS '外包預排時數'
-                                ,(CASE WHEN [MANU1PURTIMES]>0 AND [MANU1ACTTIMES]>0 THEN CONVERT(DECIMAL(16,2),(([MANU1ACTTIMES]+[MANU1CHANGESTIMES])/[MANU1PURTIMES])*100) ELSE 0 END ) AS '小線訂單稼動率'
-                                ,(CASE WHEN [MANU2PURTIMES]>0 AND [MANU2ACTTIMES]>0 THEN CONVERT(DECIMAL(16,2),(([MANU2ACTTIMES]+[MANU2CHANGESTIMES])/[MANU2PURTIMES])*100) ELSE 0 END ) AS '大線訂單稼動率'
+                                ,(CASE WHEN [MANU1PURTIMES]>0 AND [MANU1ACTTIMES]>0 THEN CONVERT(DECIMAL(16,2),(([MANU1ACTTIMES]+([MANU1CHANGESTIMES]/60))/[MANU1PURTIMES])*100) ELSE 0 END ) AS '小線訂單稼動率'
+                                ,(CASE WHEN [MANU2PURTIMES]>0 AND [MANU2ACTTIMES]>0 THEN CONVERT(DECIMAL(16,2),(([MANU2ACTTIMES]+([MANU2CHANGESTIMES]/60))/[MANU2PURTIMES])*100) ELSE 0 END ) AS '大線訂單稼動率'
                                 ,(CASE WHEN [MANU3PURTIMES]>0 AND [MANU3ACTTIMES]>0 THEN CONVERT(DECIMAL(16,2),([MANU3ACTTIMES]/[MANU3PURTIMES])*100) ELSE 0 END ) AS '手工訂單稼動率'
                                 ,(CASE WHEN [MANU4PURTIMES]>0 AND [MANU4ACTTIMES]>0 THEN CONVERT(DECIMAL(16,2),([MANU4ACTTIMES]/[MANU4PURTIMES])*100) ELSE 0 END ) AS '外包訂單稼動率'
                                 ,[MANU1CHANGESTIMES]
                                 ,[MANU2CHANGESTIMES]
+                                ,([MANU1ACTTIMES]+([MANU1CHANGESTIMES]/60))*60 AS '大線生產分鐘數'
+                                ,([MANU2ACTTIMES]+([MANU2CHANGESTIMES]/60))*60 AS '小線生產分鐘數'     
                                 
                                 FROM [TKMOC].[dbo].[MANUDAYILYPRODUCT]
                                 WHERE CONVERT(NVARCHAR,[MANUDATE],112) LIKE '{0}%'

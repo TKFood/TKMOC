@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="03/07/2023 08:30:16" ReportInfo.Modified="04/11/2023 14:12:07" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="03/07/2023 08:30:16" ReportInfo.Modified="04/12/2023 09:51:53" ReportInfo.CreatorVersion="2016.4.4.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -95,8 +95,8 @@ namespace FastReport
 }
 </ScriptText>
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpN+i5gA3VDGcwlcfm6L9ZMsLrZ3U+wEDtHCQtd9vw2XUFWThXbtHEdkKNlYFLXReCC">
-      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT &#13;&#10;CONVERT(NVARCHAR,[MANUDATE],112) AS '預排日'&#13;&#10;,[MANU1PURTIMES] AS '小線產能時數'&#13;&#10;,[MANU1ACTTIMES]+[MANU1CHANGESTIMES] AS '小線桶數時數'&#13;&#10;,[MANU2PURTIMES] AS '大線產能時數'&#13;&#10;,[MANU2ACTTIMES]+[MANU2CHANGESTIMES] AS '大線桶數時數'&#13;&#10;,[MANU3PURTIMES] AS '手工產能時數'&#13;&#10;,[MANU3ACTTIMES] AS '手工預排時數'&#13;&#10;,[MANU4PURTIMES] AS '外包產能時數'&#13;&#10;,[MANU4ACTTIMES] AS '外包預排時數'&#13;&#10;,(CASE WHEN [MANU1PURTIMES]&gt;0 AND [MANU1ACTTIMES]&gt;0 THEN CONVERT(DECIMAL(16,2),(([MANU1ACTTIMES]+[MANU1CHANGESTIMES])/[MANU1PURTIMES])*100) ELSE 0 END ) AS '小線訂單稼動率'&#13;&#10;,(CASE WHEN [MANU2PURTIMES]&gt;0 AND [MANU2ACTTIMES]&gt;0 THEN CONVERT(DECIMAL(16,2),(([MANU2ACTTIMES]+[MANU2CHANGESTIMES])/[MANU2PURTIMES])*100) ELSE 0 END ) AS '大線訂單稼動率'&#13;&#10;,(CASE WHEN [MANU3PURTIMES]&gt;0 AND [MANU3ACTTIMES]&gt;0 THEN CONVERT(DECIMAL(16,2),([MANU3ACTTIMES]/[MANU3PURTIMES])*100) ELSE 0 END ) AS '手工訂單稼動率'&#13;&#10;,(CASE WHEN [MANU4PURTIMES]&gt;0 AND [MANU4ACTTIMES]&gt;0 THEN CONVERT(DECIMAL(16,2),([MANU4ACTTIMES]/[MANU4PURTIMES])*100) ELSE 0 END ) AS '外包訂單稼動率'&#13;&#10;,[MANU1CHANGESTIMES]&#13;&#10;,[MANU2CHANGESTIMES]&#13;&#10;FROM [TKMOC].[dbo].[MANUDAYILYPRODUCT]&#13;&#10;WHERE CONVERT(NVARCHAR,[MANUDATE],112) LIKE '20230411%'&#13;&#10;ORDER BY CONVERT(NVARCHAR,[MANUDATE],112)">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpN+i5gA3VDGcwlcfm6L9ZMsLrZ3U+wEDtHCQtd9vw2XUG1N11KvF6Rz09oluMy6V8i">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT &#13;&#10;CONVERT(NVARCHAR,[MANUDATE],112) AS '預排日'&#13;&#10;,[MANU1PURTIMES] AS '小線產能時數'&#13;&#10;,[MANU1ACTTIMES]+([MANU1CHANGESTIMES]/60) AS '小線桶數時數'&#13;&#10;,[MANU2PURTIMES] AS '大線產能時數'&#13;&#10;,[MANU2ACTTIMES]+([MANU2CHANGESTIMES]/60)  AS '大線桶數時數'&#13;&#10;,[MANU3PURTIMES] AS '手工產能時數'&#13;&#10;,[MANU3ACTTIMES] AS '手工預排時數'&#13;&#10;,[MANU4PURTIMES] AS '外包產能時數'&#13;&#10;,[MANU4ACTTIMES] AS '外包預排時數'&#13;&#10;,(CASE WHEN [MANU1PURTIMES]&gt;0 AND [MANU1ACTTIMES]&gt;0 THEN CONVERT(DECIMAL(16,2),(([MANU1ACTTIMES]+([MANU1CHANGESTIMES]/60))/[MANU1PURTIMES])*100) ELSE 0 END ) AS '小線訂單稼動率'&#13;&#10;,(CASE WHEN [MANU2PURTIMES]&gt;0 AND [MANU2ACTTIMES]&gt;0 THEN CONVERT(DECIMAL(16,2),(([MANU2ACTTIMES]+([MANU2CHANGESTIMES]/60))/[MANU2PURTIMES])*100) ELSE 0 END ) AS '大線訂單稼動率'&#13;&#10;,(CASE WHEN [MANU3PURTIMES]&gt;0 AND [MANU3ACTTIMES]&gt;0 THEN CONVERT(DECIMAL(16,2),([MANU3ACTTIMES]/[MANU3PURTIMES])*100) ELSE 0 END ) AS '手工訂單稼動率'&#13;&#10;,(CASE WHEN [MANU4PURTIMES]&gt;0 AND [MANU4ACTTIMES]&gt;0 THEN CONVERT(DECIMAL(16,2),([MANU4ACTTIMES]/[MANU4PURTIMES])*100) ELSE 0 END ) AS '外包訂單稼動率'&#13;&#10;,[MANU1CHANGESTIMES]&#13;&#10;,[MANU2CHANGESTIMES]&#13;&#10;,([MANU1ACTTIMES]+([MANU1CHANGESTIMES]/60))*60 AS '大線生產分鐘數'&#13;&#10;,([MANU2ACTTIMES]+([MANU2CHANGESTIMES]/60))*60 AS '小線生產分鐘數'                                &#13;&#10;FROM [TKMOC].[dbo].[MANUDAYILYPRODUCT]&#13;&#10;WHERE CONVERT(NVARCHAR,[MANUDATE],112) LIKE '20230412%'&#13;&#10;ORDER BY CONVERT(NVARCHAR,[MANUDATE],112)">
         <Column Name="預排日" DataType="System.String"/>
         <Column Name="小線訂單稼動率" DataType="System.Decimal"/>
         <Column Name="大線訂單稼動率" DataType="System.Decimal"/>
@@ -112,6 +112,8 @@ namespace FastReport
         <Column Name="外包預排時數" DataType="System.Decimal"/>
         <Column Name="MANU1CHANGESTIMES" DataType="System.Decimal"/>
         <Column Name="MANU2CHANGESTIMES" DataType="System.Decimal"/>
+        <Column Name="大線生產分鐘數" DataType="System.Decimal"/>
+        <Column Name="小線生產分鐘數" DataType="System.Decimal"/>
       </TableDataSource>
     </MsSqlDataConnection>
   </Dictionary>
@@ -154,8 +156,8 @@ namespace FastReport
       <TextObject Name="Text20" Left="1134" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" AfterDataEvent="Text20_AfterData" Text="[Table.手工訂單稼動率]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
       <TextObject Name="Text29" Left="1323" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[[Table.外包預排時數]*60]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
       <TextObject Name="Text31" Left="945" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[[Table.手工預排時數]*60]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text33" Left="567" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[[Table.小線桶數時數]*60]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
-      <TextObject Name="Text35" Left="189" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[[Table.大線桶數時數]*60]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text33" Left="567" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.小線生產分鐘數]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text35" Left="189" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.大線生產分鐘數]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
     </DataBand>
   </ReportPage>
 </Report>
