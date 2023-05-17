@@ -206,7 +206,7 @@ namespace TKMOC
                                     WHERE [MOCSEPECIALCAL].MD003=BOMMD.MD001
                                     AND BOMMD.MD003 LIKE '1%'
                                     AND [MOCSEPECIALCAL].[MD003]='{0}'
-                                    AND BOMMD.MD003='101001001'
+                                    AND BOMMD.MD003 LIKE '101001%'
                                     ORDER BY [MOCSEPECIALCAL].[MD003]
                                     ", MD003);
 
