@@ -1018,7 +1018,7 @@ namespace TKMOC
             MOCTA.TA020 = IN;
             MOCTA.TA021 = TA021;
             MOCTA.TA022 = "0";
-            MOCTA.TA024 = "A510";
+            MOCTA.TA024 = TA001; 
             MOCTA.TA025 = TA002;
             MOCTA.TA026 = TC001;
             MOCTA.TA027 = TC002;
@@ -1084,7 +1084,7 @@ namespace TKMOC
             MOCTA.TA020 = IN;
             MOCTA.TA021 = TA021;
             MOCTA.TA022 = "0";
-            MOCTA.TA024 = "A510";
+            MOCTA.TA024 = TA001; 
             MOCTA.TA025 = TA002;
             MOCTA.TA026 = "";
             MOCTA.TA027 = "";
