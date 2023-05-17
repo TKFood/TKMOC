@@ -2597,7 +2597,7 @@ namespace TKMOC
                                     FROM (
                                     --1 TEMP  前 先找出水麵的總重跟比率
                                     SELECT BOMMD.MD001 AS MD003,SUM(BOMMD.MD006) AS MD006
-                                    ,(SELECT 66/MD.MD006 FROM [TKMOC].[dbo].[MOCSEPECIALCAL],[TK].dbo.BOMMD MD WHERE [MOCSEPECIALCAL].MD003=MD.MD001 AND MD.MD003 LIKE '1%' AND [MOCSEPECIALCAL].[MD003]=BOMMD.MD001 AND MD.MD003='101001001'  ) AS 'WATERCAL'
+                                    ,(SELECT 66/MD.MD006 FROM [TKMOC].[dbo].[MOCSEPECIALCAL],[TK].dbo.BOMMD MD WHERE [MOCSEPECIALCAL].MD003=MD.MD001 AND MD.MD003 LIKE '1%' AND [MOCSEPECIALCAL].[MD003]=BOMMD.MD001 AND MD.MD003='101001027'  ) AS 'WATERCAL'
                                     FROM [TK].dbo.BOMMD
                                     WHERE  BOMMD.MD003 LIKE '1%'
                                     AND BOMMD.MD003 NOT IN ('101001009')
