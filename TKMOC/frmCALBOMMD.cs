@@ -65,6 +65,13 @@ namespace TKMOC
 
         string STATUS = "";
 
+        //中筋麵粉(活力Q粉心7號-A)
+        string All_Purpose_Flour_101001027 = "101001027";
+        //中粉-粉心粉(手粉)
+        string All_Purpose_Flour_101001009 = "101001009";
+        //低筋
+        string Low_Gluten_101001002="101001002";
+
         public frmCALBOMMD()
         {
             InitializeComponent();
@@ -206,9 +213,9 @@ namespace TKMOC
                                     WHERE [MOCSEPECIALCAL].MD003=BOMMD.MD001
                                     AND BOMMD.MD003 LIKE '1%'
                                     AND [MOCSEPECIALCAL].[MD003]='{0}'
-                                    AND BOMMD.MD003 LIKE '101001%'
+                                    AND BOMMD.MD003 LIKE '{1}%'
                                     ORDER BY [MOCSEPECIALCAL].[MD003]
-                                    ", MD003);
+                                    ", MD003, All_Purpose_Flour_101001027);
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -273,10 +280,10 @@ namespace TKMOC
                                     FROM[TK].dbo.BOMMD
                                     LEFT JOIN [TK].dbo.INVMB ON MB001=BOMMD.MD003
                                     WHERE  BOMMD.MD003 LIKE '1%'
-                                    AND BOMMD.MD003 NOT IN ('101001009')
+                                    AND BOMMD.MD003 NOT IN ('{1}')
                                     AND BOMMD.MD001='{0}'
                                     ORDER BY BOMMD.MD003
-                                    ", MD003, CAL);
+                                    ", MD003, All_Purpose_Flour_101001009);
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -341,10 +348,10 @@ namespace TKMOC
                                     ,(SUM(BOMMD.MD006*({1}))/((SELECT TOP 1 [MOCSEPECIALCAL].[WATERNUMS] FROM [TKMOC].[dbo].[MOCSEPECIALCAL] WHERE [MOCSEPECIALCAL].MD003=BOMMD.MD001 ) )) AS 'WATERNUMS'
                                     FROM[TK].dbo.BOMMD
                                     WHERE  BOMMD.MD003 LIKE '1%'
-                                    AND BOMMD.MD003 NOT IN ('101001009')
+                                    AND BOMMD.MD003 NOT IN ('{2}')
                                     AND BOMMD.MD001='{0}'
                                     GROUP BY BOMMD.MD001
-                                    ", MD003, CAL);
+                                    ", MD003, CAL, All_Purpose_Flour_101001009);
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -473,11 +480,11 @@ namespace TKMOC
                                     SELECT BOMMD.[MD001],66/BOMMD.MD006 AS 'CAL'
                                     FROM [TK].dbo.BOMMD
                                     WHERE  BOMMD.MD003 LIKE '1%'
-                                    AND BOMMD.MD003='101001002'
+                                    AND BOMMD.MD003='{1}'
                                     AND BOMMD.MD001='{0}'
 
                                     ORDER BY BOMMD.[MD001]
-                                    ", MD003);
+                                    ", MD003, Low_Gluten_101001002);
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -543,10 +550,10 @@ namespace TKMOC
                                     FROM[TK].dbo.BOMMD
                                     LEFT JOIN [TK].dbo.INVMB ON MB001=BOMMD.MD003
                                     WHERE  BOMMD.MD003 LIKE '1%'
-                                    AND BOMMD.MD003 NOT IN ('101001009')
+                                    AND BOMMD.MD003 NOT IN ('{2}')
                                     AND BOMMD.MD001='{0}'
                                     ORDER BY BOMMD.MD003
-                                    ", MD003, CAL);
+                                    ", MD003, CAL, All_Purpose_Flour_101001009);
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -611,10 +618,10 @@ namespace TKMOC
                                     ,(SUM(BOMMD.MD006*{1})/((SELECT TOP 1 [MOCSEPECIALCAL].[OILNUMS] FROM [TKMOC].[dbo].[MOCSEPECIALCAL] WHERE [MOCSEPECIALCAL].MD003 IN (SELECT MD003 FROM [TK].dbo.BOMMD MD WHERE MD.MD001=BOMMD.MD001)) )) AS 'OILNUMS'
                                     FROM[TK].dbo.BOMMD
                                     WHERE  BOMMD.MD003 LIKE '1%'
-                                    AND BOMMD.MD003 NOT IN ('101001009')
+                                    AND BOMMD.MD003 NOT IN ('{2}')
                                     AND BOMMD.MD001='{0}'
                                     GROUP BY BOMMD.MD001
-                                    ", MD003, CAL);
+                                    ", MD003, CAL, All_Purpose_Flour_101001009);
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -744,10 +751,10 @@ namespace TKMOC
                                     FROM[TK].dbo.BOMMD
                                     LEFT JOIN [TK].dbo.INVMB ON MB001=BOMMD.MD003
                                     WHERE  BOMMD.MD003 LIKE '1%'
-                                    AND BOMMD.MD003 NOT IN ('101001009')
+                                    AND BOMMD.MD003 NOT IN ('{3}')
                                     AND BOMMD.MD001='{0}'
                                     ORDER BY BOMMD.MD003
-                                    ", MD003, CAL1, CAL2);
+                                    ", MD003, CAL1, CAL2, All_Purpose_Flour_101001009);
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -813,10 +820,10 @@ namespace TKMOC
 
                                     FROM[TK].dbo.BOMMD
                                     WHERE  BOMMD.MD003 LIKE '1%'
-                                    AND BOMMD.MD003 NOT IN ('101001009')
+                                    AND BOMMD.MD003 NOT IN ('{3}')
                                     AND BOMMD.MD001='{0}'
                                     GROUP BY BOMMD.MD001
-                                    ", MD003, CAL1, CAL2);
+                                    ", MD003, CAL1, CAL2, All_Purpose_Flour_101001009);
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -884,7 +891,7 @@ namespace TKMOC
                                     FROM[TK].dbo.BOMMD
                                     LEFT JOIN [TK].dbo.INVMB ON MB001=BOMMD.MD003
                                     WHERE  BOMMD.MD003 LIKE '1%'
-                                    AND BOMMD.MD003 NOT IN ('101001009')
+                                    AND BOMMD.MD003 NOT IN ('{6}')
                                     AND BOMMD.MD001='{0}'
                                     UNION ALL
                                     
@@ -892,12 +899,12 @@ namespace TKMOC
                                     FROM[TK].dbo.BOMMD
                                     LEFT JOIN [TK].dbo.INVMB ON MB001=BOMMD.MD003
                                     WHERE  BOMMD.MD003 LIKE '1%'
-                                    AND BOMMD.MD003 NOT IN ('101001009')
+                                    AND BOMMD.MD003 NOT IN ('{6}')
                                     AND BOMMD.MD001='{3}'
                                    
                                     ) AS TEMP
                                     ORDER BY 類型,元件品號
-                                    ", MD003, CAL1, CAL3, MD001, CAL2, WORKNUMS);
+                                    ", MD003, CAL1, CAL3, MD001, CAL2, WORKNUMS, All_Purpose_Flour_101001009);
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
