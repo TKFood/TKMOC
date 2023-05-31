@@ -12780,7 +12780,7 @@ namespace TKMOC
                     if (dr.Cells[0].Value != null && (bool)dr.Cells[0].Value)
                     {
                         //找出訂單明細、桶數、箱數
-                        COPTCTD = SEARCHCOPTCTDDATA(dr.Cells["單別"].Value.ToString().Trim(), dr.Cells["單號"].Value.ToString().Trim(), dr.Cells["序號"].Value.ToString().Trim());
+                        COPTCTD = SEARCHCOPTCTDDATA(dr.Cells["單別"].Value.ToString().Trim(), dr.Cells["單號"].Value.ToString().Trim(), dr.Cells["序號"].Value.ToString().Trim(), dr.Cells["品號"].Value.ToString().Trim());
 
                         if(COPTCTD.Rows.Count>0)
                         {
@@ -13168,7 +13168,7 @@ namespace TKMOC
 
         }
 
-        public DataTable SEARCHCOPTCTDDATA(string TD001,string TD002,string TD003)
+        public DataTable SEARCHCOPTCTDDATA(string TD001,string TD002,string TD003,string TD004)
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
             SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
@@ -13193,7 +13193,7 @@ namespace TKMOC
                 QUERYS.Clear();
                 sbSqlQuery2.Clear();
 
-               
+                // ,(CASE WHEN ISNULL(MC004,0)>0 THEN CONVERT(decimal(16,4),((TD008+TD024)/MC004)) END) AS BOXS
                 sbSql.AppendFormat(@"  
                                     SELECT TD001,TD002,TD003,TC053,TD004,TD005,TD006,(TD008+TD024) AS TD008,TD010,(TC015+'-'+TD020) TC015 ,TD013
                                     ,(CASE WHEN ISNULL(MD002,'')<>'' THEN (TD008+TD024)*MD004 ELSE (TD008+TD024)  END ) AS NUM
@@ -13201,17 +13201,28 @@ namespace TKMOC
 
                                     ,CASE WHEN ISNULL(MC004,0)>0 THEN CONVERT(decimal(16,4),((TD008+TD024)/MC004)) END AS BARS
                                     ,(CASE WHEN ISNULL(MD002,'')<>'' THEN (TD008+TD024)*MD004 ELSE (TD008+TD024)  END ) AS NUMS
-                                    ,(CASE WHEN ISNULL(MC004,0)>0 THEN CONVERT(decimal(16,4),((TD008+TD024)/MC004)) END) AS BOXS
+                                    ,(CASE WHEN ISNULL(TEMP.MD007,0)>0 THEN CONVERT(decimal(16,4),((TD008+TD024)/TEMP.MD007)) END) AS BOXS
+                                    ,TEMP.MD007
 
                                     FROM [TK].dbo.INVMB WITH(NOLOCK),[TK].dbo.COPTC WITH(NOLOCK),[TK].dbo.COPTD WITH(NOLOCK)
                                     LEFT JOIN [TK].dbo.INVMD ON MD001=TD004 AND TD010=MD002
                                     LEFT JOIN [TK].dbo.BOMMC ON TD004=MC001
                                     LEFT JOIN [TKMOC].[dbo].[MOCHALFPRODUCTDBOXS] ON TD004=[MOCHALFPRODUCTDBOXS].[MB001]
+                                    LEFT JOIN
+                                    (
+                                    SELECT TOP 1 MD001,MD003,MB001,MB002,ISNULL(MD007,1) AS MD007,ISNULL(MD010,1) AS MD010
+                                    FROM [TK].dbo.BOMMD,[TK].dbo.INVMB
+                                    WHERE MD003=MB001
+                                    AND MB002 LIKE '%箱%'
+                                    AND MD003 LIKE '2%'
+                                    AND MD001='{3}'
+                                    ) AS TEMP ON TEMP.MD001=COPTD.TD004
+
                                     WHERE TC001=TD001 AND TC002=TD002
                                     AND INVMB.MB001=TD004
                                     AND TD001='{0}' AND TD002='{1}' AND TD003='{2}'
 
-                                    ", TD001,TD002,TD003);
+                                    ", TD001,TD002,TD003,TD004);
 
 
 
@@ -13279,7 +13290,7 @@ namespace TKMOC
                     if (dr.Cells[0].Value != null && (bool)dr.Cells[0].Value)
                     {
                         //找出訂單明細、桶數、箱數
-                        COPTCTD = SEARCHCOPTCTDDATA(dr.Cells["單別"].Value.ToString().Trim(), dr.Cells["單號"].Value.ToString().Trim(), dr.Cells["序號"].Value.ToString().Trim());
+                        COPTCTD = SEARCHCOPTCTDDATA(dr.Cells["單別"].Value.ToString().Trim(), dr.Cells["單號"].Value.ToString().Trim(), dr.Cells["序號"].Value.ToString().Trim(), dr.Cells["品號"].Value.ToString().Trim());
 
                         if (COPTCTD.Rows.Count > 0)
                         {
