@@ -913,7 +913,7 @@ namespace TKMOC
             SQL = SETSQLOIL();
 
             report1 = new Report();
-            report1.Load(@"REPORT\油酥原料添加表-合併.frx");
+            report1.Load(@"REPORT\油酥原料添加表-合併V2.frx");
 
             //20210902密
             Class1 TKID = new Class1();//用new 建立類別實體
