@@ -385,7 +385,7 @@ namespace TKMOC
                             ,CASE WHEN BOMMC.UDF06=0 THEN 1 ELSE BOMMC.UDF06 END 
                             ,'顆數:'+CONVERT(nvarchar,((SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOM] RE WHERE [MD003] NOT  IN ('101001009','3010000111') AND RE.[BOXS]=[REPORTMOCBOM].[BOXS])/(CASE WHEN BOMMC.UDF06=0 THEN 1 ELSE BOMMC.UDF06 END))) AS '每桶顆數'
                             ,((SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOM] WHERE [MD003] NOT  IN ('101001009','3010000111') )/(CASE WHEN BOMMC.UDF06=0 THEN 1 ELSE BOMMC.UDF06 END)) AS '總顆數'
-                            ,'配方 '+ BOMMC.UDF03 AS '配方比'                            
+                            ,'配比 '+ BOMMC.UDF03 AS '配方比'                            
 
                             FROM [TKMOC].[dbo].[REPORTMOCBOM]
                             LEFT JOIN [TK].dbo.BOMMC ON MC001=TA006
@@ -484,7 +484,7 @@ namespace TKMOC
                             ,CASE WHEN BOMMC.UDF06=0 THEN 1 ELSE BOMMC.UDF06 END 
                             ,'顆數:'+CONVERT(nvarchar,((SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOM] RE WHERE [MD003] NOT  IN ('101001009','3010000111') AND RE.[BOXS]=[REPORTMOCBOM].[BOXS])/(CASE WHEN BOMMC.UDF06=0 THEN 1 ELSE BOMMC.UDF06 END))) AS '每桶顆數'
                             ,((SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOM] WHERE [MD003] NOT  IN ('101001009','3010000111') )/(CASE WHEN BOMMC.UDF06=0 THEN 1 ELSE BOMMC.UDF06 END)) AS '總顆數'
-                            ,'配方 '+ BOMMC.UDF03 AS '配方比'
+                            ,'配比 '+ BOMMC.UDF03 AS '配方比'
 
                             FROM [TKMOC].[dbo].[REPORTMOCBOM]
                             LEFT JOIN [TK].dbo.BOMMC ON MC001=TA006
@@ -962,7 +962,7 @@ namespace TKMOC
                             ,'' AS '單位幹部'
                             ,'' AS '品質判定'
                             ,'' AS '換線清潔檢查'
-                            ,'配方 '+ BOMMC.UDF03 AS '配方比'
+                            ,'配比 '+ BOMMC.UDF03 AS '配方比'
                             FROM [TKMOC].[dbo].[REPORTMOCBOMOIL]
                             LEFT JOIN [TK].dbo.BOMMC ON MC001=TA006
 
