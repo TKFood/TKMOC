@@ -380,20 +380,17 @@ namespace TKMOC
         public frmMOCMANULINE()
         {
             InitializeComponent();
+
             comboBox1load();
             comboBox2load();
             comboBox3load();
             comboBox4load();
             comboBox5load();
             comboBox6load();
-            comboBox7load();
-            comboBox7load();
-            comboBox7load();
-            comboBox7load();
-            comboBox7load();
+            comboBox7load();            
             comboBox8load();
-            comboBox12load();
 
+            comboBox12load();
             comboBox13load();
             comboBox14load();
             comboBox15load();
@@ -403,16 +400,12 @@ namespace TKMOC
 
             comboBox19load();
             comboBox22load();
-
             comboBox23load();
             comboBox24load();
-
             comboBox25load();
-
             comboBox26load();
-            comboBox28load();
-
             comboBox27load();
+            comboBox28load();            
             comboBox29load();
             comboBox30load();
             comboBox31load();
