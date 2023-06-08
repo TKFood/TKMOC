@@ -669,7 +669,7 @@ namespace TKMOC
 
                 SEARCH_MANULINE(sbSql.ToString(), dataGridView3);
 
-            
+
             }
             else if (MANU.Equals("製一線"))
             {
@@ -692,30 +692,14 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  ");
 
                 SEARCH_MANULINE(sbSql.ToString(), dataGridView5);
-                
+
             }
             else if (MANU.Equals("手工線"))
             {
-                try
-                {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+                sbSql.Clear();
+                sbSqlQuery.Clear();
 
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                    sbSql.Clear();
-                    sbSqlQuery.Clear();
-
-
-        
-                    sbSql.AppendFormat(@"  
+                sbSql.AppendFormat(@"  
                                      SELECT 
                                      [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名'
                                      ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[CLINET] AS '客戶',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'
@@ -728,109 +712,32 @@ namespace TKMOC
                                      ORDER BY [MANUDATE],[SERNO]
                                     ", MANU, dateTimePicker8.Value.ToString("yyyyMMdd"));
 
-                    adapter10 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+                sbSql.AppendFormat(@"  ");
 
-                    sqlCmdBuilder10 = new SqlCommandBuilder(adapter10);
-                    sqlConn.Open();
-                    ds8.Clear();
-                    adapter10.Fill(ds8, "TEMPds8");
-                    sqlConn.Close();
+                SEARCH_MANULINE(sbSql.ToString(), dataGridView7);
 
-
-                    if (ds8.Tables["TEMPds8"].Rows.Count == 0)
-                    {
-
-                    }
-                    else
-                    {
-                        if (ds8.Tables["TEMPds8"].Rows.Count >= 1)
-                        {
-                            //dataGridView1.Rows.Clear();
-                            dataGridView7.DataSource = ds8.Tables["TEMPds8"];
-                            dataGridView7.AutoResizeColumns();
-                            //dataGridView1.CurrentCell = dataGridView1[0, rownum];
-
-                        }
-                    }
-
-                }
-                catch
-                {
-
-                }
-                finally
-                {
-                    sqlConn.Close();
-                }
             }
 
             else if (MANU.Equals("統百包裝線"))
             {
-                try
-                {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+                sbSql.Clear();
+                sbSqlQuery.Clear();
 
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+                sbSql.AppendFormat(@"  
+                                    SELECT 
+                                    [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名'
+                                    ,[MB003] AS '規格',[BOX] AS '箱數',[PACKAGE] AS '包裝數',[CLINET] AS '客戶',[MANUHOUR] AS '生產時間',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'
+                                    ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號'
+                                    ,[ID]
+                                    FROM [TKMOC].[dbo].[MOCMANULINE]
+                                    WHERE [MANU]='{0}' 
+                                    AND CONVERT(varchar(100),[MANUDATE],112) LIKE '{1}%'
+                                    ORDER BY [MANUDATE],[SERNO]", MANU, dateTimePicker17.Value.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(@"  ");
 
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                    sbSql.Clear();
-                    sbSqlQuery.Clear();
-
-
-                    sbSql.AppendFormat(@"  SELECT ");
-                    sbSql.AppendFormat(@"  [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名'");
-                    sbSql.AppendFormat(@"  ,[MB003] AS '規格',[BOX] AS '箱數',[PACKAGE] AS '包裝數',[CLINET] AS '客戶',[MANUHOUR] AS '生產時間',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'");
-                    sbSql.AppendFormat(@"  ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號'");
-                    sbSql.AppendFormat(@"  ,[ID]");
-                    sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
-                    sbSql.AppendFormat(@"  WHERE [MANU]='{0}' ", MANU);
-                    sbSql.AppendFormat(@"  AND CONVERT(varchar(100),[MANUDATE],112) LIKE '{0}%'", dateTimePicker17.Value.ToString("yyyyMMdd"));
-                    sbSql.AppendFormat(@"  ORDER BY [MANUDATE],[SERNO]");
-                    sbSql.AppendFormat(@"  ");
-
-                    adapter23 = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                    sqlCmdBuilder23 = new SqlCommandBuilder(adapter23);
-                    sqlConn.Open();
-                    ds23.Clear();
-                    adapter23.Fill(ds23, "TEMPds23");
-                    sqlConn.Close();
-
-
-                    if (ds23.Tables["TEMPds23"].Rows.Count == 0)
-                    {
-
-                    }
-                    else
-                    {
-                        if (ds23.Tables["TEMPds23"].Rows.Count >= 1)
-                        {
-                            //dataGridView1.Rows.Clear();
-                            dataGridView16.DataSource = ds23.Tables["TEMPds23"];
-                            dataGridView16.AutoResizeColumns();
-                            //dataGridView1.CurrentCell = dataGridView1[0, rownum];
-
-                        }
-                    }
-
-                }
-                catch
-                {
-
-                }
-                finally
-                {
-                    sqlConn.Close();
-                }
+                SEARCH_MANULINE(sbSql.ToString(), dataGridView16);
             }
-
+                
         }
 
         public void SEARCH_MANULINE(string QUERY, DataGridView DataGridViewNew)
