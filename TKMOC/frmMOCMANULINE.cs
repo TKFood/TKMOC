@@ -429,10 +429,13 @@ namespace TKMOC
 
         private void frmMOCMANULINE_Load(object sender, EventArgs e)
         {
-
-            //dateTimePicker27 建立個 CheckBox 欄
             dateTimePicker27.Value = DateTime.Now;
+            DV_CheckBox();
+        }
 
+        public void DV_CheckBox()
+        {
+            //dataGridView20 建立個 CheckBox 欄
             dataGridView20.AlternatingRowsDefaultCellStyle.BackColor = Color.PaleTurquoise;      //奇數列顏色
 
             //先建立個 CheckBox 欄
@@ -442,26 +445,7 @@ namespace TKMOC
             cbCol.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;   //置中
             cbCol.TrueValue = true;
             cbCol.FalseValue = false;
-            dataGridView20.Columns.Insert(0, cbCol);
-
-            #region 建立全选 CheckBox
-
-            ////建立个矩形，等下计算 CheckBox 嵌入 GridView 的位置
-            //Rectangle rect = dataGridView3.GetCellDisplayRectangle(0, -1, true);
-            //rect.X = rect.Location.X + rect.Width / 4 - 18;
-            //rect.Y = rect.Location.Y + (rect.Height / 2 - 9);
-
-            //CheckBox cbHeader = new CheckBox();
-            //cbHeader.Name = "checkboxHeader";
-            //cbHeader.Size = new Size(18, 18);
-            //cbHeader.Location = rect.Location;
-
-            ////全选要设定的事件
-            //cbHeader.CheckedChanged += new EventHandler(cbHeader_CheckedChanged);
-
-            ////将 CheckBox 加入到 dataGridView
-            //dataGridView3.Controls.Add(cbHeader);
-
+            dataGridView20.Columns.Insert(0, cbCol);  
 
             //dataGridView28 建立個 CheckBox 欄
             dataGridView28.AlternatingRowsDefaultCellStyle.BackColor = Color.PaleTurquoise;      //奇數列顏色
@@ -492,8 +476,7 @@ namespace TKMOC
 
             //将 CheckBox 加入到 dataGridView
             dataGridView28.Controls.Add(cbHeader);
-
-            #endregion
+        
         }
 
         private void cbHeader_CheckedChanged28(object sender, EventArgs e)
