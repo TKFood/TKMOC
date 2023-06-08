@@ -626,69 +626,87 @@ namespace TKMOC
         {
             if(MANU.Equals("製二線"))
             {
-                try
-                {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sbSql.Clear();
+                sbSqlQuery.Clear();
 
 
-                    sbSql.Clear();
-                    sbSqlQuery.Clear();
+                sbSql.AppendFormat(@"  SELECT 
+                                    [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名' 
+                                    ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[CLINET] AS '客戶',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'
+                                    ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號',[BOX] AS '箱數'
+                                    ,[ID]
+                                    FROM [TKMOC].[dbo].[MOCMANULINE]
+                                    WHERE [MANU]='{0}' 
+                                    AND CONVERT(varchar(100),[MANUDATE],112) LIKE '{1}%'
+                                    ORDER BY [MANUDATE],[SERNO]"
+                                   , MANU, dateTimePicker1.Value.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(@"  ");
+
+                SEARCH_MANULINE(sbSql.ToString(), dataGridView1);
+
+                //try
+                //{
+                //    //20210902密
+                //    Class1 TKID = new Class1();//用new 建立類別實體
+                //    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //    //資料庫使用者密碼解密
+                //    sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                //    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                //    String connectionString;
+                //    sqlConn = new SqlConnection(sqlsb.ConnectionString);
 
 
-                    sbSql.AppendFormat(@"  SELECT ");
-                    sbSql.AppendFormat(@"  [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名' ");
-                    sbSql.AppendFormat(@"  ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[CLINET] AS '客戶',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'");
-                    sbSql.AppendFormat(@"  ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號',[BOX] AS '箱數'");
-                    sbSql.AppendFormat(@"  ,[ID]");
-                    sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
-                    sbSql.AppendFormat(@"  WHERE [MANU]='{0}' ", MANU);
-                    sbSql.AppendFormat(@"  AND CONVERT(varchar(100),[MANUDATE],112) LIKE '{0}%'", dateTimePicker1.Value.ToString("yyyyMMdd"));
-                    sbSql.AppendFormat(@"  ORDER BY [MANUDATE],[SERNO]");
-                    sbSql.AppendFormat(@"  ");
-
-                    adapter1= new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                    sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
-                    sqlConn.Open();
-                    ds1.Clear();
-                    adapter1.Fill(ds1, "TEMPds1");
-                    sqlConn.Close();
+                //    sbSql.Clear();
+                //    sbSqlQuery.Clear();
 
 
-                    if (ds1.Tables["TEMPds1"].Rows.Count == 0)
-                    {
+                //    sbSql.AppendFormat(@"  SELECT ");
+                //    sbSql.AppendFormat(@"  [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名' ");
+                //    sbSql.AppendFormat(@"  ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[CLINET] AS '客戶',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'");
+                //    sbSql.AppendFormat(@"  ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號',[BOX] AS '箱數'");
+                //    sbSql.AppendFormat(@"  ,[ID]");
+                //    sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
+                //    sbSql.AppendFormat(@"  WHERE [MANU]='{0}' ", MANU);
+                //    sbSql.AppendFormat(@"  AND CONVERT(varchar(100),[MANUDATE],112) LIKE '{0}%'", dateTimePicker1.Value.ToString("yyyyMMdd"));
+                //    sbSql.AppendFormat(@"  ORDER BY [MANUDATE],[SERNO]");
+                //    sbSql.AppendFormat(@"  ");
 
-                    }
-                    else
-                    {
-                        if (ds1.Tables["TEMPds1"].Rows.Count >= 1)
-                        {
-                            //dataGridView1.Rows.Clear();
-                            dataGridView1.DataSource = ds1.Tables["TEMPds1"];
-                            dataGridView1.AutoResizeColumns();
-                            //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+                //    adapter1= new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                        }
-                    }
+                //    sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                //    sqlConn.Open();
+                //    ds1.Clear();
+                //    adapter1.Fill(ds1, "TEMPds1");
+                //    sqlConn.Close();
 
-                }
-                catch
-                {
 
-                }
-                finally
-                {
-                    sqlConn.Close();
-                }
+                //    if (ds1.Tables["TEMPds1"].Rows.Count == 0)
+                //    {
+
+                //    }
+                //    else
+                //    {
+                //        if (ds1.Tables["TEMPds1"].Rows.Count >= 1)
+                //        {
+                //            //dataGridView1.Rows.Clear();
+                //            dataGridView1.DataSource = ds1.Tables["TEMPds1"];
+                //            dataGridView1.AutoResizeColumns();
+                //            //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                //        }
+                //    }
+
+                //}
+                //catch
+                //{
+
+                //}
+                //finally
+                //{
+                //    sqlConn.Close();
+                //}
             }
 
             else if (MANU.Equals("包裝線"))
@@ -961,6 +979,56 @@ namespace TKMOC
             }
 
         }
+
+        public void SEARCH_MANULINE(string QUERY, DataGridView DataGridViewNew)
+        {
+            SqlDataAdapter SqlDataAdapterNEW = new SqlDataAdapter();
+            SqlCommandBuilder SqlCommandBuilderNEW = new SqlCommandBuilder();
+            DataSet DataSetNEW = new DataSet();
+
+            try
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+                SqlDataAdapterNEW = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                SqlCommandBuilderNEW = new SqlCommandBuilder(SqlDataAdapterNEW);
+                sqlConn.Open();
+                DataSetNEW.Clear();
+                SqlDataAdapterNEW.Fill(DataSetNEW, "DataSetNEW");
+                sqlConn.Close();
+            
+
+                DataGridViewNew.DataSource = null;
+
+                if (DataSetNEW.Tables["DataSetNEW"].Rows.Count >= 1)
+                {
+                    //DataGridViewNew.Rows.Clear();
+                    DataGridViewNew.DataSource = DataSetNEW.Tables["DataSetNEW"];
+                    DataGridViewNew.AutoResizeColumns();
+                    //DataGridViewNew.CurrentCell = dataGridView1[0, rownum];
+
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+       }
 
         public void SEARCHMOCMANULINETEMP(string STATUS,string TD002)
         {
