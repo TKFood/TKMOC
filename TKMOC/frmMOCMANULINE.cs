@@ -13465,7 +13465,9 @@ namespace TKMOC
 
                     if (result == 0)
                     {
-                        tran.Rollback();    //交易取消                       
+                        tran.Rollback();    //交易取消           
+
+                        MessageBox.Show("有錯誤，先檢查BOM表");         
                     }
                     else
                     {
