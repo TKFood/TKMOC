@@ -791,11 +791,7 @@ namespace TKMOC
        }
 
         public void SEARCHMOCMANULINETEMP(string STATUS,string TD002)
-        {
-
-            sbSql.Clear();
-            sbSqlQuery.Clear();
-
+        {         
             sbSql.Clear();
             sbSqlQuery.Clear();
             sbSqlQuery2.Clear();
