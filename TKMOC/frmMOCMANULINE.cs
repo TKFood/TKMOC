@@ -517,7 +517,8 @@ namespace TKMOC
             }
 
         }
-        public void comboBox1load()
+
+        public void LoadComboBoxData(ComboBox comboBox, string query, string valueMember, string displayMember)
         {
             //20210902密
             Class1 TKID = new Class1();//用new 建立類別實體
@@ -525,762 +526,129 @@ namespace TKMOC
 
             //資料庫使用者密碼解密
             sqlsb.Password = TKID.Decryption(sqlsb.Password);
-            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);            
 
-            String connectionString;
-            sqlConn = new SqlConnection(sqlsb.ConnectionString);
+            using (SqlConnection connection = new SqlConnection(sqlsb.ConnectionString))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                connection.Open();
 
-            StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 LIKE '製二線%'   ");
-            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
-            DataTable dt = new DataTable();
-            sqlConn.Open();
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
+                DataTable dataTable = new DataTable();
+                adapter.Fill(dataTable);
 
-            dt.Columns.Add("MD001", typeof(string));
-            dt.Columns.Add("MD002", typeof(string));
-            da.Fill(dt);
-            comboBox1.DataSource = dt.DefaultView;
-            comboBox1.ValueMember = "MD002";
-            comboBox1.DisplayMember = "MD002";
-            sqlConn.Close();
+                comboBox.DataSource = dataTable;
+                comboBox.ValueMember = valueMember;
+                comboBox.DisplayMember = displayMember;
+            }
+        }
 
-
+        public void comboBox1load()
+        {
+            LoadComboBoxData(comboBox1, "SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 LIKE '製二線%'  ", "MD002", "MD002");
         }
 
         public void comboBox2load()
         {
-            //20210902密
-            Class1 TKID = new Class1();//用new 建立類別實體
-            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-            //資料庫使用者密碼解密
-            sqlsb.Password = TKID.Decryption(sqlsb.Password);
-            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-            String connectionString;
-            sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-            StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 LIKE '包裝線%'   ");
-            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
-            DataTable dt = new DataTable();
-            sqlConn.Open();
-
-            dt.Columns.Add("MD001", typeof(string));
-            dt.Columns.Add("MD002", typeof(string));
-            da.Fill(dt);
-            comboBox2.DataSource = dt.DefaultView;
-            comboBox2.ValueMember = "MD002";
-            comboBox2.DisplayMember = "MD002";
-            sqlConn.Close();
-
-
+            LoadComboBoxData(comboBox2, "SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 LIKE '包裝線%'   ", "MD002", "MD002");
         }
-
         public void comboBox3load()
         {
-            //20210902密
-            Class1 TKID = new Class1();//用new 建立類別實體
-            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-            //資料庫使用者密碼解密
-            sqlsb.Password = TKID.Decryption(sqlsb.Password);
-            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-            String connectionString;
-            sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-            StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 LIKE '製一線%'   ");
-            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
-            DataTable dt = new DataTable();
-            sqlConn.Open();
-
-            dt.Columns.Add("MD001", typeof(string));
-            dt.Columns.Add("MD002", typeof(string));
-            da.Fill(dt);
-            comboBox3.DataSource = dt.DefaultView;
-            comboBox3.ValueMember = "MD002";
-            comboBox3.DisplayMember = "MD002";
-            sqlConn.Close();
-
-
+            LoadComboBoxData(comboBox3, "SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 LIKE '製一線%' ", "MD002", "MD002");
         }
         public void comboBox4load()
         {
-            //20210902密
-            Class1 TKID = new Class1();//用new 建立類別實體
-            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-            //資料庫使用者密碼解密
-            sqlsb.Password = TKID.Decryption(sqlsb.Password);
-            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-            String connectionString;
-            sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-            StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 LIKE '手工線%'   ");
-            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
-            DataTable dt = new DataTable();
-            sqlConn.Open();
-
-            dt.Columns.Add("MD001", typeof(string));
-            dt.Columns.Add("MD002", typeof(string));
-            da.Fill(dt);
-            comboBox4.DataSource = dt.DefaultView;
-            comboBox4.ValueMember = "MD002";
-            comboBox4.DisplayMember = "MD002";
-            sqlConn.Close();
-
-
+            LoadComboBoxData(comboBox4, "SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 LIKE '手工線%'  ", "MD002", "MD002");
         }
-
         public void comboBox5load()
         {
-            //20210902密
-            Class1 TKID = new Class1();//用new 建立類別實體
-            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-            //資料庫使用者密碼解密
-            sqlsb.Password = TKID.Decryption(sqlsb.Password);
-            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-            String connectionString;
-            sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-            StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT MC001 ,MC001+MC002 AS 'MC002' FROM [TK].dbo.CMSMC WHERE MC001 LIKE '2000%'  ORDER BY MC001 ");
-            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
-            DataTable dt = new DataTable();
-            sqlConn.Open();
-
-            dt.Columns.Add("MC001", typeof(string));
-            dt.Columns.Add("MC002", typeof(string));
-
-            da.Fill(dt);
-            comboBox5.DataSource = dt.DefaultView;
-            comboBox5.ValueMember = "MC001";
-            comboBox5.DisplayMember = "MC002";
-            sqlConn.Close();
-
-           
-
+            LoadComboBoxData(comboBox5, "SELECT MC001 ,MC001+MC002 AS 'MC002' FROM [TK].dbo.CMSMC WHERE MC001 LIKE '2000%'  ORDER BY MC001 ", "MC001", "MC002");
         }
         public void comboBox6load()
         {
-            //20210902密
-            Class1 TKID = new Class1();//用new 建立類別實體
-            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-            //資料庫使用者密碼解密
-            sqlsb.Password = TKID.Decryption(sqlsb.Password);
-            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-            String connectionString;
-            sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-            StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT MC001 ,MC001+MC002 AS 'MC002' FROM [TK].dbo.CMSMC WHERE MC001 LIKE '2000%'  ORDER BY MC001 ");
-            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
-            DataTable dt = new DataTable();
-            sqlConn.Open();
-
-            dt.Columns.Add("MC001", typeof(string));
-            dt.Columns.Add("MC002", typeof(string));
-
-            da.Fill(dt);
-            comboBox6.DataSource = dt.DefaultView;
-            comboBox6.ValueMember = "MC001";
-            comboBox6.DisplayMember = "MC002";
-            sqlConn.Close();
-
-           
+            LoadComboBoxData(comboBox6, "SELECT MC001 ,MC001+MC002 AS 'MC002' FROM [TK].dbo.CMSMC WHERE MC001 LIKE '2000%'  ORDER BY MC001 ", "MC001", "MC002");
         }
         public void comboBox7load()
         {
-            //20210902密
-            Class1 TKID = new Class1();//用new 建立類別實體
-            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-            //資料庫使用者密碼解密
-            sqlsb.Password = TKID.Decryption(sqlsb.Password);
-            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-            String connectionString;
-            sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-            StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT MC001 ,MC001+MC002 AS 'MC002' FROM [TK].dbo.CMSMC WHERE MC001 LIKE '2000%'  ORDER BY MC001 ");
-            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
-            DataTable dt = new DataTable();
-            sqlConn.Open();
-
-            dt.Columns.Add("MC001", typeof(string));
-            dt.Columns.Add("MC002", typeof(string));
-
-            da.Fill(dt);
-            comboBox7.DataSource = dt.DefaultView;
-            comboBox7.ValueMember = "MC001";
-            comboBox7.DisplayMember = "MC002";
-            sqlConn.Close();
-
-           
-
-
+            LoadComboBoxData(comboBox7, "SELECT MC001 ,MC001+MC002 AS 'MC002' FROM [TK].dbo.CMSMC WHERE MC001 LIKE '2000%'  ORDER BY MC001 ", "MC001", "MC002");
         }
         public void comboBox8load()
         {
-            //20210902密
-            Class1 TKID = new Class1();//用new 建立類別實體
-            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-            //資料庫使用者密碼解密
-            sqlsb.Password = TKID.Decryption(sqlsb.Password);
-            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-            String connectionString;
-            sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-            StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT MC001 ,MC001+MC002 AS 'MC002' FROM [TK].dbo.CMSMC WHERE MC001 LIKE '2000%'  ORDER BY MC001 ");
-            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
-            DataTable dt = new DataTable();
-            sqlConn.Open();
-
-            dt.Columns.Add("MC001", typeof(string));
-            dt.Columns.Add("MC002", typeof(string));
-
-            da.Fill(dt);
-            comboBox8.DataSource = dt.DefaultView;
-            comboBox8.ValueMember = "MC001";
-            comboBox8.DisplayMember = "MC002";
-            sqlConn.Close();
-
-           
-
-
+            LoadComboBoxData(comboBox8, "SELECT MC001 ,MC001+MC002 AS 'MC002' FROM [TK].dbo.CMSMC WHERE MC001 LIKE '2000%'  ORDER BY MC001  ", "MC001", "MC002");
         }
 
         public void comboBox12load()
         {
-            //20210902密
-            Class1 TKID = new Class1();//用new 建立類別實體
-            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-            //資料庫使用者密碼解密
-            sqlsb.Password = TKID.Decryption(sqlsb.Password);
-            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-            String connectionString;
-            sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-            StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT MQ001,MQ002 FROM [TK].dbo.CMSMQ WHERE MQ003='22' ORDER BY MQ001 ");
-            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
-            DataTable dt = new DataTable();
-            sqlConn.Open();
-
-            dt.Columns.Add("MQ001", typeof(string));
-            dt.Columns.Add("MQ002", typeof(string));
-
-            da.Fill(dt);
-            comboBox12.DataSource = dt.DefaultView;
-            comboBox12.ValueMember = "MQ001";
-            comboBox12.DisplayMember = "MQ002";
-            sqlConn.Close();
-
-
-
-
+            LoadComboBoxData(comboBox12, "SELECT MQ001,MQ002 FROM [TK].dbo.CMSMQ WHERE MQ003='22' ORDER BY MQ001 ", "MQ001", "MQ002");
         }
-
         public void comboBox13load()
         {
-            //20210902密
-            Class1 TKID = new Class1();//用new 建立類別實體
-            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-            //資料庫使用者密碼解密
-            sqlsb.Password = TKID.Decryption(sqlsb.Password);
-            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-            String connectionString;
-            sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-            StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 LIKE '統百包裝線%'   ");
-            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
-            DataTable dt = new DataTable();
-            sqlConn.Open();
-
-            dt.Columns.Add("MD001", typeof(string));
-            dt.Columns.Add("MD002", typeof(string));
-            da.Fill(dt);
-            comboBox13.DataSource = dt.DefaultView;
-            comboBox13.ValueMember = "MD002";
-            comboBox13.DisplayMember = "MD002";
-            sqlConn.Close();
-
-
+            LoadComboBoxData(comboBox13, "SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 LIKE '統百包裝線%' ", "MD002", "MD002");
         }
-
         public void comboBox14load()
         {
-            //20210902密
-            Class1 TKID = new Class1();//用new 建立類別實體
-            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-            //資料庫使用者密碼解密
-            sqlsb.Password = TKID.Decryption(sqlsb.Password);
-            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-            String connectionString;
-            sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-            StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT MC001 ,MC001+MC002 AS 'MC002' FROM [TK].dbo.CMSMC WHERE MC001 LIKE '20021%'  ORDER BY MC001 ");
-            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
-            DataTable dt = new DataTable();
-            sqlConn.Open();
-
-            dt.Columns.Add("MC001", typeof(string));
-            dt.Columns.Add("MC002", typeof(string));
-
-            da.Fill(dt);
-            comboBox14.DataSource = dt.DefaultView;
-            comboBox14.ValueMember = "MC001";
-            comboBox14.DisplayMember = "MC002";
-            sqlConn.Close();
-
-
+            LoadComboBoxData(comboBox14, "SELECT MC001 ,MC001+MC002 AS 'MC002' FROM [TK].dbo.CMSMC WHERE MC001 LIKE '20021%'  ORDER BY MC001 ", "MC001", "MC002");
         }
-
         public void comboBox15load()
         {
-            //20210902密
-            Class1 TKID = new Class1();//用new 建立類別實體
-            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-            //資料庫使用者密碼解密
-            sqlsb.Password = TKID.Decryption(sqlsb.Password);
-            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-            String connectionString;
-            sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-            StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD003 IN ('20') ORDER BY  MD001 ");
-            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
-            DataTable dt = new DataTable();
-            sqlConn.Open();
-
-            dt.Columns.Add("MD001", typeof(string));
-            dt.Columns.Add("MD002", typeof(string));
-            da.Fill(dt);
-            comboBox15.DataSource = dt.DefaultView;
-            comboBox15.ValueMember = "MD002";
-            comboBox15.DisplayMember = "MD002";
-            sqlConn.Close();
-
-
+            LoadComboBoxData(comboBox15, "SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD003 IN ('20') ORDER BY  MD001 ", "MD002", "MD002");
         }
-
         public void comboBox16load()
         {
-            //20210902密
-            Class1 TKID = new Class1();//用new 建立類別實體
-            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-            //資料庫使用者密碼解密
-            sqlsb.Password = TKID.Decryption(sqlsb.Password);
-            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-            String connectionString;
-            sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-            StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT MC001 ,MC001+MC002 AS 'MC002' FROM [TK].dbo.CMSMC WHERE MC001 LIKE '2000%'  ORDER BY MC001 ");
-            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
-            DataTable dt = new DataTable();
-            sqlConn.Open();
-
-            dt.Columns.Add("MC001", typeof(string));
-            dt.Columns.Add("MC002", typeof(string));
-
-            da.Fill(dt);
-            comboBox16.DataSource = dt.DefaultView;
-            comboBox16.ValueMember = "MC001";
-            comboBox16.DisplayMember = "MC002";
-            sqlConn.Close();
-
-
-
+            LoadComboBoxData(comboBox16, "SELECT MC001 ,MC001+MC002 AS 'MC002' FROM [TK].dbo.CMSMC WHERE MC001 LIKE '2000%'  ORDER BY MC001 ", "MC001", "MC002");
         }
-
         public void comboBox17load()
         {
-            //20210902密
-            Class1 TKID = new Class1();//用new 建立類別實體
-            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-            //資料庫使用者密碼解密
-            sqlsb.Password = TKID.Decryption(sqlsb.Password);
-            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-            String connectionString;
-            sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-            StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD003 IN ('20') ORDER BY  MD001 ");
-            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
-            DataTable dt = new DataTable();
-            sqlConn.Open();
-
-            dt.Columns.Add("MD001", typeof(string));
-            dt.Columns.Add("MD002", typeof(string));
-            da.Fill(dt);
-            comboBox17.DataSource = dt.DefaultView;
-            comboBox17.ValueMember = "MD001";
-            comboBox17.DisplayMember = "MD002";
-            sqlConn.Close();
-
-
+            LoadComboBoxData(comboBox17, "SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD003 IN ('20') ORDER BY  MD001 ", "MD001", "MD002");
         }
-
+       
         public void comboBox19load()
         {
-            //20210902密
-            Class1 TKID = new Class1();//用new 建立類別實體
-            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-            //資料庫使用者密碼解密
-            sqlsb.Password = TKID.Decryption(sqlsb.Password);
-            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-            String connectionString;
-            sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-            StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD003 IN ('20') ORDER BY  MD001 ");
-            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
-            DataTable dt = new DataTable();
-            sqlConn.Open();
-
-            dt.Columns.Add("MD001", typeof(string));
-            dt.Columns.Add("MD002", typeof(string));
-            da.Fill(dt);
-            comboBox19.DataSource = dt.DefaultView;
-            comboBox19.ValueMember = "MD002";
-            comboBox19.DisplayMember = "MD002";
-            sqlConn.Close();
-
-
+            LoadComboBoxData(comboBox19, "SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD003 IN ('20') ORDER BY  MD001 ", "MD002", "MD002");
         }
 
+        
         public void comboBox22load()
         {
-            //20210902密
-            Class1 TKID = new Class1();//用new 建立類別實體
-            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-            //資料庫使用者密碼解密
-            sqlsb.Password = TKID.Decryption(sqlsb.Password);
-            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-            String connectionString;
-            sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-            StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE (MD002 LIKE '製一線%' OR MD002 LIKE '製二線%' OR MD002 LIKE '手工線%' OR MD002 LIKE '包裝線%' ) UNION ALL  SELECT '99','少量訂單' ");
-            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
-            DataTable dt = new DataTable();
-            sqlConn.Open();
-
-            dt.Columns.Add("MD001", typeof(string));
-            dt.Columns.Add("MD002", typeof(string));
-            da.Fill(dt);
-            comboBox22.DataSource = dt.DefaultView;
-            comboBox22.ValueMember = "MD002";
-            comboBox22.DisplayMember = "MD002";
-            sqlConn.Close();
-
-
+            LoadComboBoxData(comboBox22, "SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE (MD002 LIKE '製一線%' OR MD002 LIKE '製二線%' OR MD002 LIKE '手工線%' OR MD002 LIKE '包裝線%' ) UNION ALL  SELECT '99','少量訂單' ", "MD002", "MD002");
         }
-
         public void comboBox23load()
         {
-            //20210902密
-            Class1 TKID = new Class1();//用new 建立類別實體
-            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-            //資料庫使用者密碼解密
-            sqlsb.Password = TKID.Decryption(sqlsb.Password);
-            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-            String connectionString;
-            sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-            StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT '未核單' AS 'STATUS' UNION ALL SELECT '已核單' AS 'STATUS' ");
-            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
-            DataTable dt = new DataTable();
-            sqlConn.Open();
-
-            dt.Columns.Add("STATUS", typeof(string));
-
-            da.Fill(dt);
-            comboBox23.DataSource = dt.DefaultView;
-            comboBox23.ValueMember = "STATUS";
-            comboBox23.DisplayMember = "STATUS";
-            sqlConn.Close();
-
-
+            LoadComboBoxData(comboBox23, "SELECT '未核單' AS 'STATUS' UNION ALL SELECT '已核單' AS 'STATUS' ", "STATUS", "STATUS");
         }
-
         public void comboBox24load()
         {
-            //20210902密
-            Class1 TKID = new Class1();//用new 建立類別實體
-            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-            //資料庫使用者密碼解密
-            sqlsb.Password = TKID.Decryption(sqlsb.Password);
-            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-            String connectionString;
-            sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-            StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT 'Y' AS 'STATUS' UNION ALL SELECT 'N' AS 'STATUS'  ");
-            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
-            DataTable dt = new DataTable();
-            sqlConn.Open();
-
-            dt.Columns.Add("STATUS", typeof(string));
-   
-            da.Fill(dt);
-            comboBox24.DataSource = dt.DefaultView;
-            comboBox24.ValueMember = "STATUS";
-            comboBox24.DisplayMember = "STATUS";
-            sqlConn.Close();
-
-
+            LoadComboBoxData(comboBox24, "SELECT 'Y' AS 'STATUS' UNION ALL SELECT 'N' AS 'STATUS' ", "STATUS", "STATUS");
         }
-
         public void comboBox25load()
         {
-            //20210902密
-            Class1 TKID = new Class1();//用new 建立類別實體
-            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-            //資料庫使用者密碼解密
-            sqlsb.Password = TKID.Decryption(sqlsb.Password);
-            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-            String connectionString;
-            sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-            StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE (MD002 LIKE '製一線%' OR MD002 LIKE '製二線%' OR MD002 LIKE '手工線%' OR MD002 LIKE '包裝線%' )  ");
-            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
-            DataTable dt = new DataTable();
-            sqlConn.Open();
-
-            dt.Columns.Add("MD001", typeof(string));
-            dt.Columns.Add("MD002", typeof(string));
-            da.Fill(dt);
-            comboBox25.DataSource = dt.DefaultView;
-            comboBox25.ValueMember = "MD002";
-            comboBox25.DisplayMember = "MD002";
-            sqlConn.Close();
-
-
+            LoadComboBoxData(comboBox25, "SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE (MD002 LIKE '製一線%' OR MD002 LIKE '製二線%' OR MD002 LIKE '手工線%' OR MD002 LIKE '包裝線%' ) ", "MD002", "MD002");
         }
-
         public void comboBox26load()
         {
-            //20210902密
-            Class1 TKID = new Class1();//用new 建立類別實體
-            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-            //資料庫使用者密碼解密
-            sqlsb.Password = TKID.Decryption(sqlsb.Password);
-            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-            String connectionString;
-            sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-            StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT '未核單' AS 'STATUS' UNION ALL SELECT '已核單' AS 'STATUS' ");
-            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
-            DataTable dt = new DataTable();
-            sqlConn.Open();
-
-            dt.Columns.Add("STATUS", typeof(string));
-
-            da.Fill(dt);
-            comboBox26.DataSource = dt.DefaultView;
-            comboBox26.ValueMember = "STATUS";
-            comboBox26.DisplayMember = "STATUS";
-            sqlConn.Close();
-
-
+            LoadComboBoxData(comboBox26, "SELECT '未核單' AS 'STATUS' UNION ALL SELECT '已核單' AS 'STATUS' ", "STATUS", "STATUS");
         }
-
         public void comboBox27load()
         {
-            //20210902密
-            Class1 TKID = new Class1();//用new 建立類別實體
-            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-            //資料庫使用者密碼解密
-            sqlsb.Password = TKID.Decryption(sqlsb.Password);
-            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-            String connectionString;
-            sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-            StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 IN ('手工線')  ");
-            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
-            DataTable dt = new DataTable();
-            sqlConn.Open();
-
-            dt.Columns.Add("MD001", typeof(string));
-            dt.Columns.Add("MD002", typeof(string));
-            da.Fill(dt);
-            comboBox27.DataSource = dt.DefaultView;
-            comboBox27.ValueMember = "MD002";
-            comboBox27.DisplayMember = "MD002";
-            sqlConn.Close();
-
-
-
+            LoadComboBoxData(comboBox27, "SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 IN ('手工線')   ", "MD002", "MD002");
         }
-
         public void comboBox28load()
         {
-            //20210902密
-            Class1 TKID = new Class1();//用new 建立類別實體
-            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-            //資料庫使用者密碼解密
-            sqlsb.Password = TKID.Decryption(sqlsb.Password);
-            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-            String connectionString;
-            sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-            StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE (MD002 LIKE '製一線%' OR MD002 LIKE '製二線%' OR MD002 LIKE '手工線%' OR MD002 LIKE '包裝線%' )  ");
-            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
-            DataTable dt = new DataTable();
-            sqlConn.Open();
-
-            dt.Columns.Add("MD001", typeof(string));
-            dt.Columns.Add("MD002", typeof(string));
-            da.Fill(dt);
-            comboBox28.DataSource = dt.DefaultView;
-            comboBox28.ValueMember = "MD002";
-            comboBox28.DisplayMember = "MD002";
-            sqlConn.Close();
-
-
+            LoadComboBoxData(comboBox28, "SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE (MD002 LIKE '製一線%' OR MD002 LIKE '製二線%' OR MD002 LIKE '手工線%' OR MD002 LIKE '包裝線%' )  ", "MD002", "MD002");
         }
-
         public void comboBox29load()
         {
-            //20210902密
-            Class1 TKID = new Class1();//用new 建立類別實體
-            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-            //資料庫使用者密碼解密
-            sqlsb.Password = TKID.Decryption(sqlsb.Password);
-            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-            String connectionString;
-            sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-            StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 IN ('製一線')  ");
-            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
-            DataTable dt = new DataTable();
-            sqlConn.Open();
-
-            dt.Columns.Add("MD001", typeof(string));
-            dt.Columns.Add("MD002", typeof(string));
-            da.Fill(dt);
-            comboBox29.DataSource = dt.DefaultView;
-            comboBox29.ValueMember = "MD002";
-            comboBox29.DisplayMember = "MD002";
-            sqlConn.Close();
-
-
-
+            LoadComboBoxData(comboBox29, "SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 IN ('製一線')  ", "MD002", "MD002");
         }
-
         public void comboBox30load()
         {
-            //20210902密
-            Class1 TKID = new Class1();//用new 建立類別實體
-            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-            //資料庫使用者密碼解密
-            sqlsb.Password = TKID.Decryption(sqlsb.Password);
-            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-            String connectionString;
-            sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-            StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 IN ('製二線')  ");
-            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
-            DataTable dt = new DataTable();
-            sqlConn.Open();
-
-            dt.Columns.Add("MD001", typeof(string));
-            dt.Columns.Add("MD002", typeof(string));
-            da.Fill(dt);
-            comboBox30.DataSource = dt.DefaultView;
-            comboBox30.ValueMember = "MD002";
-            comboBox30.DisplayMember = "MD002";
-            sqlConn.Close();
-
-
-
+            LoadComboBoxData(comboBox30, "SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 IN ('製二線')  ", "MD002", "MD002");
         }
-
         public void comboBox31load()
         {
-            //20210902密
-            Class1 TKID = new Class1();//用new 建立類別實體
-            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-            //資料庫使用者密碼解密
-            sqlsb.Password = TKID.Decryption(sqlsb.Password);
-            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-            String connectionString;
-            sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-            StringBuilder Sequel = new StringBuilder();
-            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 IN ('包裝線')  ");
-            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
-            DataTable dt = new DataTable();
-            sqlConn.Open();
-
-            dt.Columns.Add("MD001", typeof(string));
-            dt.Columns.Add("MD002", typeof(string));
-            da.Fill(dt);
-            comboBox31.DataSource = dt.DefaultView;
-            comboBox31.ValueMember = "MD002";
-            comboBox31.DisplayMember = "MD002";
-            sqlConn.Close();
-
-
-
+            LoadComboBoxData(comboBox31, "SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 IN ('包裝線')  ", "MD002", "MD002");
         }
+        
         public void SEARCHMOCMANULINE()
         {
             if(MANU.Equals("製二線"))
