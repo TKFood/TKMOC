@@ -624,13 +624,14 @@ namespace TKMOC
         
         public void SEARCHMOCMANULINE()
         {
-            if(MANU.Equals("製二線"))
+            if (MANU.Equals("製二線"))
             {
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
 
-                sbSql.AppendFormat(@"  SELECT 
+                sbSql.AppendFormat(@"  
+                                    SELECT 
                                     [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名' 
                                     ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[CLINET] AS '客戶',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'
                                     ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號',[BOX] AS '箱數'
@@ -644,202 +645,54 @@ namespace TKMOC
 
                 SEARCH_MANULINE(sbSql.ToString(), dataGridView1);
 
-                //try
-                //{
-                //    //20210902密
-                //    Class1 TKID = new Class1();//用new 建立類別實體
-                //    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
 
-                //    //資料庫使用者密碼解密
-                //    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                //    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                //    String connectionString;
-                //    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                //    sbSql.Clear();
-                //    sbSqlQuery.Clear();
-
-
-                //    sbSql.AppendFormat(@"  SELECT ");
-                //    sbSql.AppendFormat(@"  [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名' ");
-                //    sbSql.AppendFormat(@"  ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[CLINET] AS '客戶',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'");
-                //    sbSql.AppendFormat(@"  ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號',[BOX] AS '箱數'");
-                //    sbSql.AppendFormat(@"  ,[ID]");
-                //    sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
-                //    sbSql.AppendFormat(@"  WHERE [MANU]='{0}' ", MANU);
-                //    sbSql.AppendFormat(@"  AND CONVERT(varchar(100),[MANUDATE],112) LIKE '{0}%'", dateTimePicker1.Value.ToString("yyyyMMdd"));
-                //    sbSql.AppendFormat(@"  ORDER BY [MANUDATE],[SERNO]");
-                //    sbSql.AppendFormat(@"  ");
-
-                //    adapter1= new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                //    sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
-                //    sqlConn.Open();
-                //    ds1.Clear();
-                //    adapter1.Fill(ds1, "TEMPds1");
-                //    sqlConn.Close();
-
-
-                //    if (ds1.Tables["TEMPds1"].Rows.Count == 0)
-                //    {
-
-                //    }
-                //    else
-                //    {
-                //        if (ds1.Tables["TEMPds1"].Rows.Count >= 1)
-                //        {
-                //            //dataGridView1.Rows.Clear();
-                //            dataGridView1.DataSource = ds1.Tables["TEMPds1"];
-                //            dataGridView1.AutoResizeColumns();
-                //            //dataGridView1.CurrentCell = dataGridView1[0, rownum];
-
-                //        }
-                //    }
-
-                //}
-                //catch
-                //{
-
-                //}
-                //finally
-                //{
-                //    sqlConn.Close();
-                //}
             }
 
             else if (MANU.Equals("包裝線"))
             {
-                try
-                {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
 
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+                sbSql.Clear();
+                sbSqlQuery.Clear();
 
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sbSql.AppendFormat(@"  
+                                    SELECT
+                                    [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名'
+                                    ,[MB003] AS '規格',[BOX] AS '箱數',[PACKAGE] AS '包裝數',[CLINET] AS '客戶',[MANUHOUR] AS '生產時間',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'
+                                    ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號'
+                                    ,[ID]
+                                    FROM [TKMOC].[dbo].[MOCMANULINE]
+                                    WHERE [MANU]='{0}' 
+                                    AND CONVERT(varchar(100),[MANUDATE],112) LIKE '{1}%'
+                                    ORDER BY [MANUDATE],[SERNO]
+                                    ", MANU, dateTimePicker3.Value.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(@"  ");
 
+                SEARCH_MANULINE(sbSql.ToString(), dataGridView3);
 
-                    sbSql.Clear();
-                    sbSqlQuery.Clear();
-
-
-                    sbSql.AppendFormat(@"  SELECT ");
-                    sbSql.AppendFormat(@"  [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名'");
-                    sbSql.AppendFormat(@"  ,[MB003] AS '規格',[BOX] AS '箱數',[PACKAGE] AS '包裝數',[CLINET] AS '客戶',[MANUHOUR] AS '生產時間',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'");
-                    sbSql.AppendFormat(@"  ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號'");
-                    sbSql.AppendFormat(@"  ,[ID]");
-                    sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
-                    sbSql.AppendFormat(@"  WHERE [MANU]='{0}' ", MANU);
-                    sbSql.AppendFormat(@"  AND CONVERT(varchar(100),[MANUDATE],112) LIKE '{0}%'", dateTimePicker3.Value.ToString("yyyyMMdd"));
-                    sbSql.AppendFormat(@"  ORDER BY [MANUDATE],[SERNO]");
-                    sbSql.AppendFormat(@"  ");
-
-                    adapter7 = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                    sqlCmdBuilder7 = new SqlCommandBuilder(adapter7);
-                    sqlConn.Open();
-                    ds5.Clear();
-                    adapter7.Fill(ds5, "TEMPds5");
-                    sqlConn.Close();
-
-
-                    if (ds5.Tables["TEMPds5"].Rows.Count == 0)
-                    {
-
-                    }
-                    else
-                    {
-                        if (ds5.Tables["TEMPds5"].Rows.Count >= 1)
-                        {
-                            //dataGridView1.Rows.Clear();
-                            dataGridView3.DataSource = ds5.Tables["TEMPds5"];
-                            dataGridView3.AutoResizeColumns();
-                            //dataGridView1.CurrentCell = dataGridView1[0, rownum];
-
-                        }
-                    }
-
-                }
-                catch
-                {
-
-                }
-                finally
-                {
-                    sqlConn.Close();
-                }
+            
             }
             else if (MANU.Equals("製一線"))
             {
-                try
-                {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sbSql.Clear();
+                sbSqlQuery.Clear();
 
 
-                    sbSql.Clear();
-                    sbSqlQuery.Clear();
+                sbSql.AppendFormat(@"  
+                                    SELECT 
+                                    [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名'
+                                    ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[CLINET] AS '客戶',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'
+                                     ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號',[BOX] AS '箱數'
+                                    ,[ID]
+                                     FROM [TKMOC].[dbo].[MOCMANULINE]
+                                    WHERE [MANU]='{0}' 
+                                    AND CONVERT(varchar(100),[MANUDATE],112) LIKE '{1}%'
+                                    ORDER BY [MANUDATE],[SERNO]
+                                    ", MANU, dateTimePicker6.Value.ToString("yyyyMMdd"));
 
+                sbSql.AppendFormat(@"  ");
 
-                    sbSql.AppendFormat(@"  SELECT ");
-                    sbSql.AppendFormat(@"  [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名'");
-                    sbSql.AppendFormat(@"  ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[CLINET] AS '客戶',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'");
-                    sbSql.AppendFormat(@"  ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號',[BOX] AS '箱數'");
-                    sbSql.AppendFormat(@"  ,[ID]");
-                    sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINE]");
-                    sbSql.AppendFormat(@"  WHERE [MANU]='{0}' ", MANU);
-                    sbSql.AppendFormat(@"  AND CONVERT(varchar(100),[MANUDATE],112) LIKE '{0}%'", dateTimePicker6.Value.ToString("yyyyMMdd"));
-                    sbSql.AppendFormat(@"  ORDER BY [MANUDATE],[SERNO]");
-                    sbSql.AppendFormat(@"  ");
-
-                    adapter9 = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                    sqlCmdBuilder9 = new SqlCommandBuilder(adapter9);
-                    sqlConn.Open();
-                    ds7.Clear();
-                    adapter9.Fill(ds7, "TEMPds7");
-                    sqlConn.Close();
-
-
-                    if (ds7.Tables["TEMPds7"].Rows.Count == 0)
-                    {
-
-                    }
-                    else
-                    {
-                        if (ds7.Tables["TEMPds7"].Rows.Count >= 1)
-                        {
-                            //dataGridView1.Rows.Clear();
-                            dataGridView5.DataSource = ds7.Tables["TEMPds7"];
-                            dataGridView5.AutoResizeColumns();
-                            //dataGridView1.CurrentCell = dataGridView1[0, rownum];
-
-                        }
-                    }
-
-                }
-                catch
-                {
-
-                }
-                finally
-                {
-                    sqlConn.Close();
-                }
+                SEARCH_MANULINE(sbSql.ToString(), dataGridView5);
+                
             }
             else if (MANU.Equals("手工線"))
             {
