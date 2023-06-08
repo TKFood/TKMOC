@@ -792,117 +792,66 @@ namespace TKMOC
 
         public void SEARCHMOCMANULINETEMP(string STATUS,string TD002)
         {
-            SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
-            DataSet ds1 = new DataSet();
 
-            try
+            sbSql.Clear();
+            sbSqlQuery.Clear();
+
+            sbSql.Clear();
+            sbSqlQuery.Clear();
+            sbSqlQuery2.Clear();
+
+            if (STATUS.Equals("否"))
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+                sbSqlQuery.AppendFormat(@" WHERE  [TID] IS NULL ");
+            }
+            else if (STATUS.Equals("是"))
+            {
+                sbSqlQuery.AppendFormat(@"WHERE [TID] IS NOT NULL ");
+            }
+            else
+            {
+                sbSqlQuery.AppendFormat(@" WHERE 1=1 ");
+            }
 
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+            if (!string.IsNullOrEmpty(TD002))
+            {
+                sbSqlQuery2.AppendFormat(@" AND   [MOCMANULINETEMP].[COPTD002] LIKE '%{0}%'", TD002);
+            }
+            else
+            {
+                sbSqlQuery2.AppendFormat(@" ");
+            }
 
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+            sbSql.AppendFormat(@"  
+                                SELECT 
+                                [MOCMANULINETEMP].[MANU] AS '線別',CONVERT(varchar(100),[MOCMANULINETEMP].[MANUDATE],112) AS '生產日',[MOCMANULINETEMP].[MB001] AS '品號',[MOCMANULINETEMP].[MB002] AS '品名' 
+                                ,[MOCMANULINETEMP].[MB003] AS '規格',[MOCMANULINETEMP].[NUM] AS '數量',[MOCMANULINETEMP].[BAR] AS '桶數',[MOCMANULINETEMP].[PACKAGE] AS'包裝數',[MOCMANULINETEMP].[BOX] AS'箱數',[MOCMANULINETEMP].[CLINET] AS '客戶',[MOCMANULINETEMP].[OUTDATE] AS '交期',[MOCMANULINETEMP].[TA029] AS '備註',[MOCMANULINETEMP].[HALFPRO] AS '半成品數量'
+                                ,[MOCMANULINETEMP].[COPTD001] AS '訂單單別',[MOCMANULINETEMP].[COPTD002] AS '訂單號',[MOCMANULINETEMP].[COPTD003] AS '訂單序號'
+                                ,[MOCTA001] AS '製令',[MOCTA002] AS '製令號'
+                                ,CASE WHEN (SELECT TD016 FROM [TK].dbo.COPTD WHERE COPTD.TD001=[MOCMANULINETEMP].COPTD001 AND COPTD.TD002=[MOCMANULINETEMP].COPTD002 AND COPTD.TD003=[MOCMANULINETEMP].COPTD003) IN ('Y','y') THEN '訂單結案' ELSE '未結案' END AS '訂單狀態'
+                                ,[MOCMANULINETEMP].[ID],[MOCMANULINETEMP].[TID]
+                                FROM [TKMOC].[dbo].[MOCMANULINETEMP]
+                                LEFT JOIN [TKMOC].[dbo].[MOCMANULINERESULT] ON [MOCMANULINERESULT].[SID]=[MOCMANULINETEMP].[TID]
+                                {0}
+                                {1}
+                                AND [MOCMANULINETEMP].[ID] NOT IN (SELECT [ID] FROM [TKMOC].[dbo].[MOCMANULINE]) 
+                                AND RTRIM(LTRIM([MOCMANULINETEMP].[MANU]))+RTRIM(LTRIM([MOCMANULINETEMP].[MB001]))+RTRIM(LTRIM([MOCMANULINETEMP].[COPTD001]))+RTRIM(LTRIM([MOCMANULINETEMP].[COPTD002]))+RTRIM(LTRIM([MOCMANULINETEMP].[COPTD003])) NOT IN (SELECT (RTRIM(LTRIM([MOCMANULINE].[MANU])))+RTRIM(LTRIM([MOCMANULINE].[MB001]))+(RTRIM(LTRIM([MOCMANULINE].[COPTD001])))+(RTRIM(LTRIM([MOCMANULINE].[COPTD002])))+(RTRIM(LTRIM([MOCMANULINE].[COPTD003]))) FROM [TKMOC].[dbo].[MOCMANULINE] WHERE ISNULL([MOCMANULINE].[COPTD002],'')<>''  )   
+                                ORDER BY [MOCMANULINETEMP].[MANUDATE],[MOCMANULINETEMP].[SERNO]
+                                ", sbSqlQuery.ToString(), sbSqlQuery2.ToString());
+      
+            SEARCH_MANULINE(sbSql.ToString(), dataGridView20);
 
-
-                sbSql.Clear();
-                sbSqlQuery.Clear();
-                sbSqlQuery2.Clear();
-
-                if (STATUS.Equals("否"))
+            if (!string.IsNullOrEmpty(dataGridView20SORTNAME))
+            {
+                if (dataGridView20SORTMODE.Equals("Ascending"))
                 {
-                    sbSqlQuery.AppendFormat(@" WHERE  [TID] IS NULL ");
-                }
-                else if (STATUS.Equals("是"))
-                {
-                    sbSqlQuery.AppendFormat(@"WHERE [TID] IS NOT NULL ");
+                    dataGridView20.Sort(dataGridView20.Columns["" + dataGridView20SORTNAME + ""], ListSortDirection.Ascending);
                 }
                 else
                 {
-                    sbSqlQuery.AppendFormat(@" WHERE 1=1 ");
+                    dataGridView20.Sort(dataGridView20.Columns["" + dataGridView20SORTNAME + ""], ListSortDirection.Descending);
                 }
-
-                if(!string.IsNullOrEmpty(TD002))
-                {
-                    sbSqlQuery2.AppendFormat(@" AND   [MOCMANULINETEMP].[COPTD002] LIKE '%{0}%'", TD002);
-                }
-                else
-                {
-                    sbSqlQuery2.AppendFormat(@" ");
-                }
-
-                sbSql.AppendFormat(@"  SELECT ");
-                sbSql.AppendFormat(@"  [MOCMANULINETEMP].[MANU] AS '線別',CONVERT(varchar(100),[MOCMANULINETEMP].[MANUDATE],112) AS '生產日',[MOCMANULINETEMP].[MB001] AS '品號',[MOCMANULINETEMP].[MB002] AS '品名' ");
-                sbSql.AppendFormat(@"  ,[MOCMANULINETEMP].[MB003] AS '規格',[MOCMANULINETEMP].[NUM] AS '數量',[MOCMANULINETEMP].[BAR] AS '桶數',[MOCMANULINETEMP].[PACKAGE] AS'包裝數',[MOCMANULINETEMP].[BOX] AS'箱數',[MOCMANULINETEMP].[CLINET] AS '客戶',[MOCMANULINETEMP].[OUTDATE] AS '交期',[MOCMANULINETEMP].[TA029] AS '備註',[MOCMANULINETEMP].[HALFPRO] AS '半成品數量'");
-                sbSql.AppendFormat(@"  ,[MOCMANULINETEMP].[COPTD001] AS '訂單單別',[MOCMANULINETEMP].[COPTD002] AS '訂單號',[MOCMANULINETEMP].[COPTD003] AS '訂單序號'");
-                sbSql.AppendFormat(@"  ,[MOCTA001] AS '製令',[MOCTA002] AS '製令號'");
-                sbSql.AppendFormat(@"  ,CASE WHEN (SELECT TD016 FROM [TK].dbo.COPTD WHERE COPTD.TD001=[MOCMANULINETEMP].COPTD001 AND COPTD.TD002=[MOCMANULINETEMP].COPTD002 AND COPTD.TD003=[MOCMANULINETEMP].COPTD003) IN ('Y','y') THEN '訂單結案' ELSE '未結案' END AS '訂單狀態'");
-                sbSql.AppendFormat(@"  ,[MOCMANULINETEMP].[ID],[MOCMANULINETEMP].[TID]");
-                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINETEMP]");
-                sbSql.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[MOCMANULINE] ON [MOCMANULINE].ID=[MOCMANULINETEMP].[TID]");
-                sbSql.AppendFormat(@"  LEFT JOIN [TKMOC].[dbo].[MOCMANULINERESULT] ON [MOCMANULINERESULT].[SID]=[MOCMANULINETEMP].[TID]");
-                sbSql.AppendFormat(@"  {0}", sbSqlQuery.ToString());
-                sbSql.AppendFormat(@"  {0}", sbSqlQuery2.ToString());
-                sbSql.AppendFormat(@"  AND [MOCMANULINETEMP].[ID] NOT IN (SELECT [ID] FROM [TKMOC].[dbo].[MOCMANULINE]) ");
-                sbSql.AppendFormat(@"  AND RTRIM(LTRIM([MOCMANULINETEMP].[MANU]))+RTRIM(LTRIM([MOCMANULINETEMP].[MB001]))+RTRIM(LTRIM([MOCMANULINETEMP].[COPTD001]))+RTRIM(LTRIM([MOCMANULINETEMP].[COPTD002]))+RTRIM(LTRIM([MOCMANULINETEMP].[COPTD003])) NOT IN (SELECT (RTRIM(LTRIM([MOCMANULINE].[MANU])))+RTRIM(LTRIM([MOCMANULINE].[MB001]))+(RTRIM(LTRIM([MOCMANULINE].[COPTD001])))+(RTRIM(LTRIM([MOCMANULINE].[COPTD002])))+(RTRIM(LTRIM([MOCMANULINE].[COPTD003]))) FROM [TKMOC].[dbo].[MOCMANULINE] WHERE ISNULL([MOCMANULINE].[COPTD002],'')<>''  )   ");
-                sbSql.AppendFormat(@"  ORDER BY [MOCMANULINETEMP].[MANUDATE],[MOCMANULINETEMP].[SERNO]");
-                sbSql.AppendFormat(@"  ");
-
-                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
-                sqlConn.Open();
-                ds1.Clear();
-                adapter1.Fill(ds1, "TEMPds1");
-                sqlConn.Close();
-
-
-                if (ds1.Tables["TEMPds1"].Rows.Count == 0)
-                {
-                    dataGridView20.DataSource = null;
-                }
-                else
-                {
-                    if (ds1.Tables["TEMPds1"].Rows.Count >= 1)
-                    {
-                        //dataGridView1.Rows.Clear();
-                        dataGridView20.DataSource = ds1.Tables["TEMPds1"];
-                        dataGridView20.AutoResizeColumns();
-
-                        if (!string.IsNullOrEmpty(dataGridView20SORTNAME))
-                        {
-                            if(dataGridView20SORTMODE.Equals("Ascending"))
-                            {
-                                dataGridView20.Sort(dataGridView20.Columns["" + dataGridView20SORTNAME + ""], ListSortDirection.Ascending);
-                            }
-                            else
-                            {
-                                dataGridView20.Sort(dataGridView20.Columns["" + dataGridView20SORTNAME + ""], ListSortDirection.Descending);
-                            }
-                            
-                            
-                        }
-                       
-
-                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
-
-                    }
-                }
-
-            }
-            catch
-            {
-
-            }
-            finally
-            {
-                sqlConn.Close();
-            }
+            }            
 
         }
 
