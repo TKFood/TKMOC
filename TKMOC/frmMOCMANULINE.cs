@@ -1342,7 +1342,8 @@ namespace TKMOC
 
                     cmd.Connection = sqlConn;
                     cmd.CommandTimeout = 60;
-                    cmd.CommandText = sbSql.ToString();
+                    cmd.CommandText = sbSql.ToString();                   
+
                     cmd.Transaction = tran;
                     result = cmd.ExecuteNonQuery();
 
@@ -6945,8 +6946,8 @@ namespace TKMOC
                         textBox5.Text = null;
                         textBox6.Text = null;
                         textBox52.Text = null;
-                        textBox40.Text = null;
-                        textBox41.Text = null;
+                        //textBox40.Text = null;
+                        //textBox41.Text = null;
                         textBox73.Text = null;
                     }
                     else
@@ -6958,7 +6959,7 @@ namespace TKMOC
                             textBox3.Text = ds28.Tables["ds28"].Rows[0]["MD036"].ToString();
                             textBox5.Text = ds28.Tables["ds28"].Rows[0]["NUM2"].ToString();
                             textBox6.Text = ds28.Tables["ds28"].Rows[0]["TC053"].ToString();
-                            textBox52.Text = ds28.Tables["ds28"].Rows[0]["TC015"].ToString();
+                            textBox52.Text = ds28.Tables["ds28"].Rows[0]["TC015"].ToString().Replace("'", "");
 
                         }
                     }

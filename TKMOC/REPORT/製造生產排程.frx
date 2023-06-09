@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="06/09/2023 13:02:43" ReportInfo.Modified="06/09/2023 13:11:14" ReportInfo.CreatorVersion="2016.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpN+i5gA3VDGcwlcfm6L9ZMsLrZ3U+wEDtHCQtd9vw2XUEM094ULgJfvBeS2rkqrKMU">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT SUBSTRING(TA003,5,2) AS '月' ,SUBSTRING(TA003,7,2) AS '日' ,TA003 AS '製令日期' ,TA001 AS '製令別',TA002 AS '製令編號',TA021 AS '生產線別',TA006 AS '品號',TA034 AS '品名',TA035 AS '規格',TA015 AS '預計產量',TA017 AS '實際產出',TA007 AS '單位',TA029 AS '備註',MB023,MB198&#13;&#10;,CASE WHEN MB198='2' THEN  CONVERT(NVARCHAR,DATEADD(DAY,-1,DATEADD(MONTH,MB023,TA003)),112) ELSE CONVERT(NVARCHAR,DATEADD(DAY,-1,DATEADD(DAY,MB023,TA003)),112) END AS '有效日期'&#13;&#10;,[ERPINVMB].[PCT] AS '比例'&#13;&#10;,[ERPINVMB].[ALLERGEN]  AS '過敏原'&#13;&#10;,[ERPINVMB].[SPEC] AS '餅體'&#13;&#10;,CONVERT(decimal(16,3),TA015/ISNULL(MC004,1)) AS '桶數'&#13;&#10;,CONVERT(decimal(16, 3), TA015 / ISNULL(MD007, 1)) AS '箱數'&#13;&#10;,MOCTA.UDF01 AS '順序'&#13;&#10;,ISNULL(MC004,1) MC004&#13;&#10;,ISNULL(MD007,1) AS MD007,ISNULL(MD010,1) AS MD010&#13;&#10;,(CASE WHEN TA021='02' THEN '大線' WHEN TA021='03' THEN '小線' END ) AS '線別'&#13;&#10;,TA021&#13;&#10;FROM [TK].dbo.MOCTA&#13;&#10;LEFT JOIN [TK].dbo.INVMB ON MB001=TA006&#13;&#10;LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=TA006&#13;&#10;LEFT JOIN [TK].dbo.BOMMC ON MC001=TA006&#13;&#10;LEFT JOIN [TK].dbo.BOMMD ON MD035 LIKE '%箱%' AND MD003 LIKE '2%' AND MD007&gt;1 AND MD001=TA006&#13;&#10;WHERE TA003='20230609' &#13;&#10;ORDER BY TA003,TA021,TA001,TA002  ">
+        <Column Name="製令日期" DataType="System.String"/>
+        <Column Name="製令別" DataType="System.String"/>
+        <Column Name="製令編號" DataType="System.String"/>
+        <Column Name="生產線別" DataType="System.String"/>
+        <Column Name="品號" DataType="System.String"/>
+        <Column Name="品名" DataType="System.String"/>
+        <Column Name="規格" DataType="System.String"/>
+        <Column Name="預計產量" DataType="System.Decimal"/>
+        <Column Name="實際產出" DataType="System.Decimal"/>
+        <Column Name="單位" DataType="System.String"/>
+        <Column Name="備註" DataType="System.String"/>
+        <Column Name="MB023" DataType="System.Decimal"/>
+        <Column Name="MB198" DataType="System.String"/>
+        <Column Name="有效日期" DataType="System.String"/>
+        <Column Name="比例" DataType="System.String"/>
+        <Column Name="過敏原" DataType="System.String"/>
+        <Column Name="餅體" DataType="System.String"/>
+        <Column Name="桶數" DataType="System.Decimal"/>
+        <Column Name="箱數" DataType="System.Decimal"/>
+        <Column Name="順序" DataType="System.String"/>
+        <Column Name="MC004" DataType="System.Decimal"/>
+        <Column Name="MD007" DataType="System.Decimal"/>
+        <Column Name="MD010" DataType="System.String"/>
+        <Column Name="月" DataType="System.String"/>
+        <Column Name="日" DataType="System.String"/>
+        <Column Name="線別" DataType="System.String"/>
+        <Column Name="TA021" DataType="System.String"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+  </Dictionary>
+  <ReportPage Name="Page1">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="47.25">
+      <TextObject Name="Text1" Left="-9.45" Width="727.65" Height="47.25" Text="[Table.月]月/[Table.日]日 生產排程" HorzAlign="Center" VertAlign="Center" Font="宋体, 24pt"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="51.85" Width="718.2" Height="37.8">
+      <TextObject Name="Text3" Width="103.95" Height="37.8" Text="比例" HorzAlign="Center" VertAlign="Center" Font="宋体, 24pt"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="94.25" Width="718.2" Height="37.8" DataSource="Table">
+      <TextObject Name="Text2" Width="103.95" Height="37.8" Text="[Table.比例]" HorzAlign="Center" VertAlign="Center" Font="宋体, 24pt"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="136.64" Width="718.2" Height="18.9"/>
+  </ReportPage>
+</Report>
