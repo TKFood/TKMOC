@@ -132,8 +132,8 @@ namespace TKMOC
                             ,ISNULL(MC004,1) MC004
                             ,(CASE WHEN TA021='02' THEN '大線' WHEN TA021='03' THEN '小線' END ) AS '線別'
                             ,TA021,TA015,MOCTA.UDF01
-                            ,(SELECT TOP 1 MD007 FROM [TK].dbo.BOMMD WHERE MD035 LIKE '%箱%' AND MD003 LIKE '2%' AND MD007>1 AND MD001=TA006) AS 'MD007'
-                            ,(SELECT TOP 1 MD010 FROM [TK].dbo.BOMMD WHERE MD035 LIKE '%箱%' AND MD003 LIKE '2%' AND MD007>1 AND MD001=TA006) AS 'MD010'
+                            ,(SELECT TOP 1 MD007 FROM [TK].dbo.BOMMD WHERE MD035 LIKE '%箱%' AND MD003 LIKE '2%' AND MD007>1 AND MD001=TA006 ORDER BY MD003) AS 'MD007'
+                            ,(SELECT TOP 1 MD010 FROM [TK].dbo.BOMMD WHERE MD035 LIKE '%箱%' AND MD003 LIKE '2%' AND MD007>1 AND MD001=TA006 ORDER BY MD003) AS 'MD010'
                             FROM [TK].dbo.MOCTA
                             LEFT JOIN [TK].dbo.INVMB ON MB001=TA006
                             LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=TA006
