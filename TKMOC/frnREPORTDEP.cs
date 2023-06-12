@@ -116,29 +116,36 @@ namespace TKMOC
         {
             StringBuilder SB = new StringBuilder();           
             SB.AppendFormat(@" 
-                            SELECT SUBSTRING(TA003,5,2) AS '月' ,SUBSTRING(TA003,7,2) AS '日' ,TA003 AS '製令日期' ,TA001 AS '製令別',TA002 AS '製令編號',TA021 AS '生產線別',TA006 AS '品號',TA034 AS '品名',TA035 AS '規格',TA015 AS '預計產量',TA017 AS '實際產出',TA007 AS '單位',TA029 AS '備註',MB023,MB198
+                           SELECT * 
+                            ,CONVERT(decimal(16, 3), TA015 / ISNULL(MD007, 1)) AS '箱數'
+                            ,ISNULL(MD007,1) AS MD007,ISNULL(MD010,1) AS MD010
+                            FROM 
+                            (
+                            SELECT 
+                            SUBSTRING(TA003,5,2) AS '月' ,SUBSTRING(TA003,7,2) AS '日' ,TA003 AS '製令日期' ,TA001 AS '製令別',TA002 AS '製令編號',TA021 AS '生產線別',TA006 AS '品號',TA034 AS '品名',TA035 AS '規格',TA015 AS '預計產量',TA017 AS '實際產出',TA007 AS '單位',TA029 AS '備註',MB023,MB198
                             ,CASE WHEN MB198='2' THEN  CONVERT(NVARCHAR,DATEADD(DAY,-1,DATEADD(MONTH,MB023,TA003)),112) ELSE CONVERT(NVARCHAR,DATEADD(DAY,-1,DATEADD(DAY,MB023,TA003)),112) END AS '有效日期'
                             ,[ERPINVMB].[PCT] AS '比例'
                             ,[ERPINVMB].[ALLERGEN]  AS '過敏原'
                             ,[ERPINVMB].[SPEC] AS '餅體'
                             ,CONVERT(decimal(16,3),TA015/ISNULL(MC004,1)) AS '桶數'
-                            ,CONVERT(decimal(16, 3), TA015 / ISNULL(MD007, 1)) AS '箱數'
                             ,MOCTA.UDF01 AS '順序'
                             ,ISNULL(MC004,1) MC004
-                            ,ISNULL(MD007,1) AS MD007,ISNULL(MD010,1) AS MD010
                             ,(CASE WHEN TA021='02' THEN '大線' WHEN TA021='03' THEN '小線' END ) AS '線別'
-                            ,TA021
+                            ,TA021,TA015,MOCTA.UDF01
+                            ,(SELECT TOP 1 MD007 FROM [TK].dbo.BOMMD WHERE MD035 LIKE '%箱%' AND MD003 LIKE '2%' AND MD007>1 AND MD001=TA006) AS 'MD007'
+                            ,(SELECT TOP 1 MD010 FROM [TK].dbo.BOMMD WHERE MD035 LIKE '%箱%' AND MD003 LIKE '2%' AND MD007>1 AND MD001=TA006) AS 'MD010'
                             FROM [TK].dbo.MOCTA
                             LEFT JOIN [TK].dbo.INVMB ON MB001=TA006
                             LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=TA006
                             LEFT JOIN [TK].dbo.BOMMC ON MC001=TA006
-                            LEFT JOIN [TK].dbo.BOMMD ON MD035 LIKE '%箱%' AND MD003 LIKE '2%' AND MD007>1 AND MD001=TA006
                             WHERE 1=1
                             AND TA034 NOT LIKE '%水麵%'
                             AND TA003>='{1}' AND TA003<='{2}' 
                             AND TA021='{0}'
 
-                            ORDER BY TA003,REPLACE(MOCTA.UDF01,'△','')
+                            )  AS TEMP 
+                            ORDER BY REPLACE(UDF01,'△','')
+
                             ", TA021, SDAY, EDAY);
 
             return SB;
