@@ -10201,43 +10201,17 @@ namespace TKMOC
         private void dataGridView3_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             DataGridViewColumn newColumn = dataGridView3.Columns[e.ColumnIndex];
-            DataGridViewColumn oldColumn = dataGridView3.SortedColumn;
-            ListSortDirection direction;
-
-            // If oldColumn is null, then the DataGridView is not sorted.
-            if (oldColumn != null)
-            {
-                // Sort the same column again, reversing the SortOrder.
-                if (oldColumn == newColumn && dataGridView3.SortOrder == System.Windows.Forms.SortOrder.Ascending)
-                {
-                    direction = ListSortDirection.Descending;
-                }
-                else
-                {
-                    // Sort a new column and remove the old SortGlyph.
-                    direction = ListSortDirection.Ascending;
-                    oldColumn.HeaderCell.SortGlyphDirection = System.Windows.Forms.SortOrder.None;
-                }
-            }
-            else
-            {
-                direction = ListSortDirection.Ascending;
-            }
-
-            // Sort the selected column.
-            dataGridView3.Sort(newColumn, direction);
-            newColumn.HeaderCell.SortGlyphDirection =
-                direction == ListSortDirection.Ascending ?
-               System.Windows.Forms.SortOrder.Ascending : System.Windows.Forms.SortOrder.Descending;
+            SortedColumn = newColumn.Name;
+            SortedModel = dataGridView3.SortOrder.ToString();
         }
 
         private void dataGridView20_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             DataGridViewColumn newColumn = dataGridView20.Columns[e.ColumnIndex];
-            dataGridView20SORTNAME = newColumn.Name;
-            dataGridView20SORTMODE = dataGridView20.SortOrder.ToString();
-           
-          
+            SortedColumn = newColumn.Name;
+            SortedModel = dataGridView20.SortOrder.ToString();
+
+
         }
 
         public void SEARCHCOPTCCOPTD()
@@ -11362,6 +11336,17 @@ namespace TKMOC
                         dataGridView28.Columns["生管備註填寫"].DisplayIndex = 17;
                         dataGridView28.Columns["生管核準填寫"].DisplayIndex = 18;
 
+                        if (!string.IsNullOrEmpty(SortedColumn))
+                        {
+                            if (SortedModel.Equals("Ascending"))
+                            {
+                                dataGridView28.Sort(dataGridView28.Columns["" + SortedColumn + ""], ListSortDirection.Ascending);
+                            }
+                            else
+                            {
+                                dataGridView28.Sort(dataGridView28.Columns["" + SortedColumn + ""], ListSortDirection.Descending);
+                            }
+                        }
 
                     }
                 }
@@ -12607,7 +12592,17 @@ namespace TKMOC
                         dataGridView29.Columns["生管備註填寫"].DisplayIndex = 19;
                         dataGridView29.Columns["生管核準填寫"].DisplayIndex = 20;
 
-
+                        if (!string.IsNullOrEmpty(SortedColumn))
+                        {
+                            if (SortedModel.Equals("Ascending"))
+                            {
+                                dataGridView29.Sort(dataGridView29.Columns["" + SortedColumn + ""], ListSortDirection.Ascending);
+                            }
+                            else
+                            {
+                                dataGridView29.Sort(dataGridView29.Columns["" + SortedColumn + ""], ListSortDirection.Descending);
+                            }
+                        }
                     }
                 }
 
@@ -13568,6 +13563,34 @@ namespace TKMOC
             SortedModel = dataGridView7.SortOrder.ToString();
         }
 
+        private void dataGridView28_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            DataGridViewColumn newColumn = dataGridView28.Columns[e.ColumnIndex];
+            SortedColumn = newColumn.Name;
+            SortedModel = dataGridView28.SortOrder.ToString();
+        }
+
+        private void dataGridView29_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            DataGridViewColumn newColumn = dataGridView29.Columns[e.ColumnIndex];
+            SortedColumn = newColumn.Name;
+            SortedModel = dataGridView29.SortOrder.ToString();
+        }
+
+        private void dataGridView1_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            DataGridViewColumn newColumn = dataGridView1.Columns[e.ColumnIndex];
+            SortedColumn = newColumn.Name;
+            SortedModel = dataGridView1.SortOrder.ToString();
+        }
+
+        private void dataGridView5_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            DataGridViewColumn newColumn = dataGridView5.Columns[e.ColumnIndex];
+            SortedColumn = newColumn.Name;
+            SortedModel = dataGridView5.SortOrder.ToString();
+        }
+
         #endregion
 
         #region BUTTON
@@ -14466,6 +14489,7 @@ namespace TKMOC
         {
             UPDATE_MANUDAYILYPRODUCT_MANU2(dateTimePicker1.Value.ToString("yyyyMMdd"), textBox102.Text, textBox103.Text);
         }
+
 
         #endregion
 

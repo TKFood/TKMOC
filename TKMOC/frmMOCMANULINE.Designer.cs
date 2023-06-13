@@ -1231,6 +1231,7 @@
             this.dataGridView28.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView28.Size = new System.Drawing.Size(972, 386);
             this.dataGridView28.TabIndex = 4;
+            this.dataGridView28.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView28_ColumnHeaderMouseClick);
             // 
             // tabPage15
             // 
@@ -1496,6 +1497,7 @@
             this.dataGridView29.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.dataGridView29.Size = new System.Drawing.Size(972, 359);
             this.dataGridView29.TabIndex = 5;
+            this.dataGridView29.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView29_ColumnHeaderMouseClick);
             this.dataGridView29.SelectionChanged += new System.EventHandler(this.dataGridView29_SelectionChanged);
             // 
             // tabPage4
@@ -3198,6 +3200,7 @@
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(729, 239);
             this.dataGridView1.TabIndex = 3;
+            this.dataGridView1.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_ColumnHeaderMouseClick);
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             // 
             // splitContainer4
@@ -4155,6 +4158,7 @@
             this.dataGridView5.RowTemplate.Height = 24;
             this.dataGridView5.Size = new System.Drawing.Size(719, 266);
             this.dataGridView5.TabIndex = 3;
+            this.dataGridView5.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView5_ColumnHeaderMouseClick);
             this.dataGridView5.SelectionChanged += new System.EventHandler(this.dataGridView5_SelectionChanged);
             // 
             // splitContainer12
