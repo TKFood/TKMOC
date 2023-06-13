@@ -23,6 +23,11 @@ namespace TKMOC
 {
     public partial class frmMOCMANULINE : Form
     {
+        // 宣告一個變數來儲存使用者手動選擇排序的欄位
+        string SortedColumn = string.Empty;
+        string SortedModel = string.Empty;
+        string SortedColumn_DG7 = string.Empty;
+
         private ComponentResourceManager _ResourceManager = new ComponentResourceManager();
         SqlConnection sqlConn = new SqlConnection();
         SqlCommand sqlComm = new SqlCommand();
@@ -643,7 +648,7 @@ namespace TKMOC
                                    , MANU, dateTimePicker1.Value.ToString("yyyyMMdd"));
                 sbSql.AppendFormat(@"  ");
 
-                SEARCH_MANULINE(sbSql.ToString(), dataGridView1);
+                SEARCH_MANULINE(sbSql.ToString(), dataGridView1, SortedColumn, SortedModel);
 
 
             }
@@ -667,7 +672,7 @@ namespace TKMOC
                                     ", MANU, dateTimePicker3.Value.ToString("yyyyMMdd"));
                 sbSql.AppendFormat(@"  ");
 
-                SEARCH_MANULINE(sbSql.ToString(), dataGridView3);
+                SEARCH_MANULINE(sbSql.ToString(), dataGridView3, SortedColumn, SortedModel);
 
 
             }
@@ -691,7 +696,7 @@ namespace TKMOC
 
                 sbSql.AppendFormat(@"  ");
 
-                SEARCH_MANULINE(sbSql.ToString(), dataGridView5);
+                SEARCH_MANULINE(sbSql.ToString(), dataGridView5, SortedColumn, SortedModel);
 
             }
             else if (MANU.Equals("手工線"))
@@ -714,7 +719,7 @@ namespace TKMOC
 
                 sbSql.AppendFormat(@"  ");
 
-                SEARCH_MANULINE(sbSql.ToString(), dataGridView7);
+                SEARCH_MANULINE(sbSql.ToString(), dataGridView7, SortedColumn, SortedModel);
 
             }
 
@@ -735,12 +740,12 @@ namespace TKMOC
                                     ORDER BY [MANUDATE],[SERNO]", MANU, dateTimePicker17.Value.ToString("yyyyMMdd"));
                 sbSql.AppendFormat(@"  ");
 
-                SEARCH_MANULINE(sbSql.ToString(), dataGridView16);
+                SEARCH_MANULINE(sbSql.ToString(), dataGridView16, SortedColumn, SortedModel);
             }
                 
         }
 
-        public void SEARCH_MANULINE(string QUERY, DataGridView DataGridViewNew)
+        public void SEARCH_MANULINE(string QUERY, DataGridView DataGridViewNew,string SortedColumn,string SortedModel)
         {
             SqlDataAdapter SqlDataAdapterNEW = new SqlDataAdapter();
             SqlCommandBuilder SqlCommandBuilderNEW = new SqlCommandBuilder();
@@ -776,7 +781,19 @@ namespace TKMOC
                     DataGridViewNew.DataSource = DataSetNEW.Tables["DataSetNEW"];
                     DataGridViewNew.AutoResizeColumns();
                     //DataGridViewNew.CurrentCell = dataGridView1[0, rownum];
-
+                    //dataGridView20SORTNAME
+                    //dataGridView20SORTMODE
+                    if (!string.IsNullOrEmpty(SortedColumn))
+                    {
+                        if (SortedModel.Equals("Ascending"))
+                        {
+                            DataGridViewNew.Sort(DataGridViewNew.Columns["" + SortedColumn + ""], ListSortDirection.Ascending);
+                        }
+                        else
+                        {
+                            DataGridViewNew.Sort(DataGridViewNew.Columns["" + SortedColumn + ""], ListSortDirection.Descending);
+                        }
+                    }
                 }
 
             }
@@ -835,19 +852,9 @@ namespace TKMOC
                                 ORDER BY [MOCMANULINETEMP].[MANUDATE],[MOCMANULINETEMP].[SERNO]
                                 ", sbSqlQuery.ToString(), sbSqlQuery2.ToString());
       
-            SEARCH_MANULINE(sbSql.ToString(), dataGridView20);
+            SEARCH_MANULINE(sbSql.ToString(), dataGridView20, SortedColumn, SortedModel);
 
-            if (!string.IsNullOrEmpty(dataGridView20SORTNAME))
-            {
-                if (dataGridView20SORTMODE.Equals("Ascending"))
-                {
-                    dataGridView20.Sort(dataGridView20.Columns["" + dataGridView20SORTNAME + ""], ListSortDirection.Ascending);
-                }
-                else
-                {
-                    dataGridView20.Sort(dataGridView20.Columns["" + dataGridView20SORTNAME + ""], ListSortDirection.Descending);
-                }
-            }            
+                     
 
         }
 
@@ -890,7 +897,7 @@ namespace TKMOC
                                 ORDER BY [MOCMANULINETEMP].[MANUDATE],[MOCMANULINETEMP].[SERNO]", sbSqlQuery.ToString());
             sbSql.AppendFormat(@"  ");
 
-            SEARCH_MANULINE(sbSql.ToString(), dataGridView20);
+            SEARCH_MANULINE(sbSql.ToString(), dataGridView20, SortedColumn, SortedModel);
             
 
         }
@@ -10230,34 +10237,7 @@ namespace TKMOC
             dataGridView20SORTNAME = newColumn.Name;
             dataGridView20SORTMODE = dataGridView20.SortOrder.ToString();
            
-            //DataGridViewColumn oldColumn = dataGridView20.SortedColumn;
-            //ListSortDirection direction;
-
-            //// If oldColumn is null, then the DataGridView is not sorted.
-            //if (oldColumn != null)
-            //{
-            //    // Sort the same column again, reversing the SortOrder.
-            //    if (oldColumn == newColumn && dataGridView20.SortOrder == System.Windows.Forms.SortOrder.Ascending)
-            //    {
-            //        direction = ListSortDirection.Descending;
-            //    }
-            //    else
-            //    {
-            //        // Sort a new column and remove the old SortGlyph.
-            //        direction = ListSortDirection.Ascending;
-            //        oldColumn.HeaderCell.SortGlyphDirection = System.Windows.Forms.SortOrder.None;
-            //    }
-            //}
-            //else
-            //{
-            //    direction = ListSortDirection.Ascending;
-            //}
-
-            //// Sort the selected column.
-            //dataGridView20.Sort(newColumn, direction);
-            //newColumn.HeaderCell.SortGlyphDirection =
-            //    direction == ListSortDirection.Ascending ?
-            //   System.Windows.Forms.SortOrder.Ascending : System.Windows.Forms.SortOrder.Descending;
+          
         }
 
         public void SEARCHCOPTCCOPTD()
@@ -13581,6 +13561,12 @@ namespace TKMOC
             }
         }
 
+        private void dataGridView7_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            DataGridViewColumn newColumn = dataGridView7.Columns[e.ColumnIndex];         
+            SortedColumn = newColumn.Name;
+            SortedModel = dataGridView7.SortOrder.ToString();
+        }
 
         #endregion
 
@@ -14480,8 +14466,9 @@ namespace TKMOC
         {
             UPDATE_MANUDAYILYPRODUCT_MANU2(dateTimePicker1.Value.ToString("yyyyMMdd"), textBox102.Text, textBox103.Text);
         }
+
         #endregion
 
-
+       
     }
 }
