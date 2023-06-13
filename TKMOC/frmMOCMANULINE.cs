@@ -11659,7 +11659,16 @@ namespace TKMOC
                             COPTD001 = COPTCTD.Rows[0]["TD001"].ToString();
                             COPTD002 = COPTCTD.Rows[0]["TD002"].ToString();
                             COPTD003 = COPTCTD.Rows[0]["TD003"].ToString();
-                            BOX = COPTCTD.Rows[0]["BOXS"].ToString();
+                            if (string.IsNullOrEmpty(COPTCTD.Rows[0]["BOXS"].ToString()))
+                            {
+                                BOX = "0";
+                            }
+                            else
+                            {
+                                BOX = COPTCTD.Rows[0]["BOXS"].ToString();
+                            }
+
+                            
                             PACKAGE = COPTCTD.Rows[0]["TD008"].ToString();
                         }
                         
