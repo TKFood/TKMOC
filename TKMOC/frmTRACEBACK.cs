@@ -2173,9 +2173,8 @@ namespace TKMOC
                                     ([MMB001],[MLOTNO],[KINDS],[LEVELS],[DATES],[MID],[DID],[SID],[MB001],[MB002],[LOTNO],[NUMS])
 
                                     SELECT MF001,MF002,'5銷貨','0',MF003,MF004,MF005,MF006,MF001,'',MF002,MF010
-                                    FROM [TK].dbo.INVME WITH (NOLOCK),[TK].dbo.INVMF WITH (NOLOCK),[TK].dbo.CMSMQ WITH (NOLOCK)
+                                    FROM [TK].dbo.INVME WITH (NOLOCK),[TK].dbo.INVMF WITH (NOLOCK)
                                     WHERE MF001=ME001 AND MF002=ME002
-                                    AND MQ001=MF004
                                     AND MF009 IN ('2','5')
                                     AND RTRIM(LTRIM(MF001))+RTRIM(LTRIM(MF002)) IN
                                     (
