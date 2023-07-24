@@ -128,7 +128,35 @@ namespace TKMOC
 
             }
         }
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            textBox1.Text = "";
+            textBox2.Text = "";
+            textBox3.Text = "";
+            textBox5.Text = "";
+            textBox6.Text = "";
 
+            if (dataGridView1.CurrentRow != null)
+            {
+                int rowindex = dataGridView1.CurrentRow.Index;
+
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView1.Rows[rowindex];
+
+                    textBox1.Text = row.Cells["品號"].Value.ToString();
+                    textBox2.Text = row.Cells["品名"].Value.ToString();
+                    textBox3.Text = row.Cells["規格"].Value.ToString();
+                    textBox5.Text = row.Cells["線別"].Value.ToString();
+                    textBox6.Text = row.Cells["刀模"].Value.ToString();
+
+                }
+                else
+                {
+                   
+                }
+            }
+        }
         public void ADDNEW()
         {
             try
@@ -188,6 +216,82 @@ namespace TKMOC
                 sqlConn.Close();
             }
         }
+
+        public void UPDATE(string MB001, string MB002,string MB003,string MANULINES,string CUTS)
+        {
+            try
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+                sbSql.AppendFormat(@"  
+                                    UPDATE [TKMOC].[dbo].[REPORTCUTS]
+                                    SET [MB002]='{1}',[MB003]='{2}',[MANULINES]='{3}',[CUTS]='{4}'
+                                    WHERE [MB001]='{0}'
+
+                                    ", MB001, MB002, MB003, MANULINES, CUTS);
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易   
+                    rownum = dataGridView1.CurrentCell.RowIndex;
+
+                }
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void SetUPDATE()
+        {
+            //textBox1.ReadOnly = false;
+            textBox2.ReadOnly = false;
+            textBox3.ReadOnly = false;
+            textBox5.ReadOnly = false;
+            textBox6.ReadOnly = false;
+        }
+
+        public void SetFINISH()
+        {
+            //textBox1.ReadOnly = true;
+            textBox2.ReadOnly = true;
+            textBox3.ReadOnly = true;
+            textBox5.ReadOnly = true;
+            textBox6.ReadOnly = true;
+        }
+
         #endregion
 
         #region BUTTON
@@ -196,12 +300,24 @@ namespace TKMOC
         {
             Search(textBox4 .Text);
         }
-
-        #endregion
-
         private void button2_Click(object sender, EventArgs e)
         {
             ADDNEW();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            SetUPDATE();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            UPDATE(textBox1.Text, textBox2.Text, textBox3.Text, textBox5.Text, textBox6.Text);
+            SetFINISH();
+            Search(textBox4.Text);
+        }
     }
+    #endregion
+
+
 }

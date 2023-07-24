@@ -51,6 +51,8 @@
             this.button3 = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.textBox5 = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textBox6 = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -236,6 +238,7 @@
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(549, 589);
             this.dataGridView1.TabIndex = 1;
+            this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             // 
             // tableLayoutPanel2
             // 
@@ -256,6 +259,8 @@
             this.tableLayoutPanel2.Controls.Add(this.button3, 2, 0);
             this.tableLayoutPanel2.Controls.Add(this.textBox5, 1, 5);
             this.tableLayoutPanel2.Controls.Add(this.label7, 0, 5);
+            this.tableLayoutPanel2.Controls.Add(this.textBox6, 1, 6);
+            this.tableLayoutPanel2.Controls.Add(this.label4, 0, 6);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(4);
@@ -341,6 +346,7 @@
             this.textBox3.Location = new System.Drawing.Point(98, 225);
             this.textBox3.Margin = new System.Windows.Forms.Padding(4);
             this.textBox3.Name = "textBox3";
+            this.textBox3.ReadOnly = true;
             this.textBox3.Size = new System.Drawing.Size(258, 27);
             this.textBox3.TabIndex = 7;
             // 
@@ -354,6 +360,7 @@
             this.button4.TabIndex = 3;
             this.button4.Text = "存檔";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button3
             // 
@@ -365,6 +372,7 @@
             this.button3.TabIndex = 2;
             this.button3.Text = "修改";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // label7
             // 
@@ -375,7 +383,7 @@
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(86, 16);
             this.label7.TabIndex = 12;
-            this.label7.Text = "刀模";
+            this.label7.Text = "線別";
             // 
             // textBox5
             // 
@@ -384,8 +392,31 @@
             this.textBox5.Location = new System.Drawing.Point(98, 278);
             this.textBox5.Margin = new System.Windows.Forms.Padding(4);
             this.textBox5.Name = "textBox5";
+            this.textBox5.ReadOnly = true;
             this.textBox5.Size = new System.Drawing.Size(258, 27);
             this.textBox5.TabIndex = 13;
+            // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(4, 336);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(86, 16);
+            this.label4.TabIndex = 14;
+            this.label4.Text = "刀模";
+            // 
+            // textBox6
+            // 
+            this.textBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel2.SetColumnSpan(this.textBox6, 2);
+            this.textBox6.Location = new System.Drawing.Point(98, 331);
+            this.textBox6.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.ReadOnly = true;
+            this.textBox6.Size = new System.Drawing.Size(258, 27);
+            this.textBox6.TabIndex = 15;
             // 
             // frmMOCCUTS
             // 
@@ -441,5 +472,7 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.Label label4;
     }
 }
