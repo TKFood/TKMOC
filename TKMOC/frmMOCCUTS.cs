@@ -128,6 +128,66 @@ namespace TKMOC
 
             }
         }
+
+        public void ADDNEW()
+        {
+            try
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+            
+                sbSql.AppendFormat(@" 
+                                    INSERT INTO [TKMOC].[dbo].[REPORTCUTS]
+                                    ( MB001,MB002,MB003,[MANULINES])
+                                    SELECT MB001,MB002,MB003,MD002
+                                    FROM [TK].dbo.INVMB,[TK].dbo.CMSMD
+                                    WHERE MB068=MD001
+                                    AND (MB001 LIKE '3%' OR  MB001 LIKE '4%')
+                                    AND REPLACE(MB001+MD002,' ','') NOT IN (SELECT   REPLACE(MB001+MANULINES,' ','') FROM  [TKMOC].[dbo].[REPORTCUTS])
+                                    ");
+            
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+                    MessageBox.Show("完成"); 
+                }
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
         #endregion
 
         #region BUTTON
@@ -138,5 +198,10 @@ namespace TKMOC
         }
 
         #endregion
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            ADDNEW();
+        }
     }
 }
