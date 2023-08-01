@@ -1251,7 +1251,7 @@ namespace TKMOC
                         LINK_TA006 = LINK_TA034 + dr.Cells["品號"].Value.ToString() + "*";
                         LINK_TA034 = LINK_TA034+ dr.Cells["品名"].Value.ToString() + "*";
                         BUCKETS = BUCKETS+float.Parse(dr.Cells["桶數"].Value.ToString());
-                        BUCKETS = (float)Math.Round(BUCKETS, 2);
+                        BUCKETS = (float)Math.Round(BUCKETS, 3);
                     }
                 }
                 catch (Exception ex)
