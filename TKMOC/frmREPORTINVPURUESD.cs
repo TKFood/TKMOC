@@ -225,7 +225,7 @@ namespace TKMOC
                                     AND CONVERT(NVARCHAR,[MANUDATE],112)>='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112)<='{1}'
                                     AND [MD003]='{2}'
                                     UNION
-                                    SELECT '1進貨',TD012,TD004,MB002,CONVERT(DECIMAL(14,2),(CASE WHEN ISNULL(MD002,'')<>'' THEN (ISNULL(TD008-TD015,0)*MD004/MD003) ELSE (TD008-TD015) END )) ,MB004,NULL,NULL,NULL,TD001,TD002,TD003
+                                    SELECT '1進貨',TD012,TD004,MB002,CONVERT(DECIMAL(14,3),(CASE WHEN ISNULL(MD002,'')<>'' THEN (ISNULL(TD008-TD015,0)*MD004/MD003) ELSE (TD008-TD015) END )) ,MB004,NULL,NULL,NULL,TD001,TD002,TD003
                                     FROM [TK].dbo.INVMB,[TK].dbo.PURTC,[TK].dbo.PURTD 
                                     LEFT JOIN [TK].dbo.INVMD ON MD001=TD004 AND MD002=TD009  
                                     WHERE TC001=TD001 AND TC002=TD002 AND TD004=MB001 AND TD018='Y' AND TD016='N'  AND TC014='Y'
