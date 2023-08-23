@@ -142,7 +142,60 @@ namespace TKMOC
             List<string> wrappedIDs = selectedIDs.Select(id => "'" + id + "'").ToList();
             // Combine wrapped IDs into a single string
             string SLEECTED = string.Join(", ", wrappedIDs);
-           // MessageBox.Show(SLEECTED);
+            // MessageBox.Show(SLEECTED);
+
+            COPTC_UPDATE_TC027(comboBox1.Text.ToString(), SLEECTED);
+        }
+
+        public void COPTC_UPDATE_TC027(string TC027, string TC002)
+        {
+            //20210902密
+            Class1 TKID = new Class1();//用new 建立類別實體
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+            //資料庫使用者密碼解密
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+   
+            string connectionString = sqlsb.ConnectionString;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                // Start a new transaction
+                SqlTransaction transaction = connection.BeginTransaction();
+                try
+                {
+                    // Execute SQL statements within the transaction
+                    using (SqlCommand command = connection.CreateCommand())
+                    {
+                        command.Transaction = transaction;
+
+                        StringBuilder SQLEXECTE = new StringBuilder();
+                        SQLEXECTE.AppendFormat(@"
+                                                UPDATE [TK].dbo.COPTC
+                                                SET TC027='{0}'
+                                                WHERE TC001+TC002 IN ({1})
+                                                ", TC027,TC002);
+
+                        command.CommandText = SQLEXECTE.ToString();
+                        command.ExecuteNonQuery();
+                    }
+
+                    // Commit the transaction if everything succeeded
+                    transaction.Commit();                   
+                }
+                catch (Exception ex)
+                {
+                    try
+                    {
+                        transaction.Rollback();                       
+                    }
+                    catch (Exception rollbackEx)
+                    {                        
+                    }
+                }
+            }
         }
 
         #endregion
@@ -154,8 +207,17 @@ namespace TKMOC
             SEARCH_COPTC(textBox1.Text.Trim());
         }
         private void button2_Click(object sender, EventArgs e)
-        {
-            GW1_CHECKBOX();
+        {            
+            DialogResult dialogResult = MessageBox.Show("確認?", "確認?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                GW1_CHECKBOX();
+                SEARCH_COPTC(textBox1.Text.Trim());
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                //do something else
+            }
         }
 
 
