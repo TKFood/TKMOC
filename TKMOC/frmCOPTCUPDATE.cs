@@ -136,7 +136,13 @@ namespace TKMOC
             }
 
             // Display selected IDs
-            MessageBox.Show("Selected IDs: " + string.Join(", ", selectedIDs));
+            //MessageBox.Show("Selected IDs: " + string.Join(", ", selectedIDs));
+
+            // Wrap each selected ID with single quotes
+            List<string> wrappedIDs = selectedIDs.Select(id => "'" + id + "'").ToList();
+            // Combine wrapped IDs into a single string
+            string SLEECTED = string.Join(", ", wrappedIDs);
+           // MessageBox.Show(SLEECTED);
         }
 
         #endregion
