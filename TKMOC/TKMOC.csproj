@@ -153,6 +153,12 @@
     <Compile Include="frmCOPPRE.Designer.cs">
       <DependentUpon>frmCOPPRE.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmCOPTCUPDATE.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCOPTCUPDATE.Designer.cs">
+      <DependentUpon>frmCOPTCUPDATE.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmDEVINVMB.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -712,6 +718,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmCOPPRE.resx">
       <DependentUpon>frmCOPPRE.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCOPTCUPDATE.resx">
+      <DependentUpon>frmCOPTCUPDATE.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmDEVINVMB.resx">
       <DependentUpon>frmDEVINVMB.cs</DependentUpon>
