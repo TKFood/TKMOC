@@ -26,7 +26,9 @@ namespace TKMOC
         public frmCOPTCUPDATE()
         {
             InitializeComponent();
+
             SET_DEFAULT();
+            InitializeDataGridView();
 
         }
 
@@ -35,6 +37,19 @@ namespace TKMOC
         {
             textBox1.Text = DateTime.Now.ToString("yyyyMMdd");
         }
+
+        public void InitializeDataGridView()
+        {
+            // Create the DataGridViewCheckBoxColumn
+            DataGridViewCheckBoxColumn checkBoxColumn = new DataGridViewCheckBoxColumn();
+            checkBoxColumn.HeaderText = "勾選";
+            checkBoxColumn.Name = "CheckBoxColumn";
+            // Add the CheckBoxColumn to the DataGridView
+            dataGridView1.Columns.Insert(0, checkBoxColumn);
+
+            
+        }
+               
 
         public void SEARCH_COPTC(string TC002)
         {
@@ -101,6 +116,29 @@ namespace TKMOC
             }
         }
 
+        public void GW1_CHECKBOX()
+        {
+            List<string> selectedIDs = new List<string>();
+
+            // Loop through the DataGridView and check if CheckBox is selected
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                // Skip new rows and header row
+                if (!row.IsNewRow)
+                {
+                    DataGridViewCheckBoxCell checkBoxCell = row.Cells["CheckBoxColumn"] as DataGridViewCheckBoxCell;
+                    if (checkBoxCell != null && checkBoxCell.Value != null && (bool)checkBoxCell.Value)
+                    {
+                        string id = row.Cells["訂單單別"].Value.ToString().Trim()+ row.Cells["訂單單號"].Value.ToString().Trim();
+                        selectedIDs.Add(id);
+                    }
+                }
+            }
+
+            // Display selected IDs
+            MessageBox.Show("Selected IDs: " + string.Join(", ", selectedIDs));
+        }
+
         #endregion
 
         #region BUTTON
@@ -109,6 +147,14 @@ namespace TKMOC
         {
             SEARCH_COPTC(textBox1.Text.Trim());
         }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            GW1_CHECKBOX();
+        }
+
+
         #endregion
+
+
     }
 }
