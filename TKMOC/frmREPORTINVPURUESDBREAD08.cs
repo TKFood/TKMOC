@@ -190,82 +190,78 @@ namespace TKMOC
                 //另外查詢領料數量
                 //sbSql.AppendFormat(@"  ,ISNULL((SELECT SUM(TE005) FROM [TK].dbo.MOCTE WHERE TE011+TE012 IN ( SELECT TA001+TA002 FROM [TK].dbo.MOCTA WHERE TE004=TEMP2.MD003 AND TA026=TEMP2.COPTD001 AND TA027=TEMP2.COPTD002 AND TA028=TEMP2.COPTD003 )),0)*-1 AS '領料數量' ");
 
-                sbSql.AppendFormat(@"  SELECT SUM(TEMP4.TNUM) AS '預計庫存量',TEMP2.ID AS '列數',TEMP2.MANU AS '線別',TEMP2.MANUDATE AS '日期',TEMP2.MD003 AS '品號',TEMP2.MD035 AS '品名',TEMP2.TNUM AS '用量'");
+                
+                sbSql.AppendFormat(@" 
+                                    SELECT 
+                                    SUM(TEMP4.TNUM) AS '預計庫存量',TEMP2.ID AS '列數',TEMP2.MANU AS '線別',TEMP2.MANUDATE AS '日期',TEMP2.MD003 AS '品號',TEMP2.MD035 AS '品名',TEMP2.TNUM AS '用量'
+                                    ,TEMP2.MB004 AS '單位',TEMP2.MB001 AS '成品',TEMP2.MB002 AS '成品名',TEMP2.PACKAGE AS '成品數',TEMP2.COPTD001 AS '訂單單別',TEMP2.COPTD002 AS '訂單單號',TEMP2.COPTD003 AS '訂單序號' 
+                                    FROM (
+                                    SELECT ROW_NUMBER() OVER (ORDER BY TEMP.MANUDATE) AS ID,MANU,MANUDATE,MD003,MD035,TNUM,MB004,MB001,MB002,PACKAGE,COPTD001,COPTD002,COPTD003
+                                    FROM (
+                                    SELECT MD002 AS MANU ,TA003 AS MANUDATE ,TB003 AS MD003,TB012 AS MD035,TB004*-1 AS TNUM,TB007 AS MB004,TA006 AS MB001,TA034 AS MB002,TA015 AS PACKAGE,TA026 AS COPTD001,TA027 AS COPTD002,TA028 COPTD003
+                                    FROM [TK].dbo.MOCTA,[TK].dbo.MOCTB,[TK].dbo.CMSMD
+                                    WHERE TA001=TB001 AND TA002=TB002
+                                    AND MD001=TA021
+                                    AND TA021='08'
+                                    AND TA003>='{1}' AND TA003<='{2}'
+                                    AND TB003='{0}'
+                                    UNION
+                                    SELECT '1進貨',TD012,TD004,MB002,CONVERT(DECIMAL(14,2),(CASE WHEN ISNULL(MD002,'')<>'' THEN (ISNULL(TD008-TD015,0)*MD004/MD003) ELSE (TD008-TD015) END )) ,MB004,NULL,NULL,NULL,TD001,TD002,TD003
+                                    FROM [TK].dbo.INVMB,[TK].dbo.PURTC,[TK].dbo.PURTD 
+                                    LEFT JOIN [TK].dbo.INVMD ON MD001=TD004 AND MD002=TD009  
+                                    WHERE TC001=TD001 AND TC002=TD002 AND TD004=MB001 AND TD018='Y' AND TD016='N'
+                                    AND  TD007 IN ('21003') 
+                                    AND TD012>='{1}' AND TD012<='{2}' 
+                                    AND TD004='{0}'
+                                    UNION 
+                                    SELECT '0庫存' AS MANU,CONVERT(NVARCHAR,GETDATE(),112) AS MANUDATE,LA001 AS MD003,MB002,SUM(LA005*LA011) TNUM, MB004,NULL AS MB001,NULL AS MB002,NULL AS PACKAGE,NULL AS COPTD001,NULL AS COPTD002,NULL AS COPTD002
+                                    FROM [TK].dbo.INVLA,[TK].dbo.INVMB
+                                    WHERE (LA001=MB001 AND  LA009 IN ('21003' )  AND LA001='{0}' ) 
+                                    GROUP BY LA001,MB002,MB004
+                                    UNION
+                                    SELECT '1手動進出貨',CONVERT(NVARCHAR,INVPURUESDBREAD.DATES,112),INVPURUESDBREAD.MB001,MB002,NUM ,MB004,NULL,NULL,NULL,NULL,NULL,NULL
+                                    FROM [TK].dbo.INVMB,[TKMOC].dbo.INVPURUESDBREAD 
+                                    WHERE INVMB.MB001=INVPURUESDBREAD.MB001
+                                    AND INVPURUESDBREAD.DATES>='{1}' AND INVPURUESDBREAD.DATES<='{2}'
+                                    AND INVPURUESDBREAD.MB001='{0}'
+                                    ) AS TEMP 
+                                    ) AS TEMP2 JOIN 
+                                    (SELECT ROW_NUMBER() OVER (ORDER BY TEMP3.MANUDATE) AS ID,MANU,MANUDATE,MD003,MD035,TNUM,MB004,MB001,MB002,PACKAGE,COPTD001,COPTD002,COPTD003
+                                    FROM (
+                                    SELECT MD002 AS MANU ,TA003 AS MANUDATE ,TB003 AS MD003,TB012 AS MD035,TB004*-1 AS TNUM,TB007 AS MB004,TA006 AS MB001,TA034 AS MB002,TA015 AS PACKAGE,TA026 AS COPTD001,TA027 AS COPTD002,TA028 COPTD003
+                                    FROM [TK].dbo.MOCTA,[TK].dbo.MOCTB,[TK].dbo.CMSMD
+                                    WHERE TA001=TB001 AND TA002=TB002
+                                    AND MD001=TA021
+                                    AND TA021='08'
+                                    AND TA003>='{1}' AND TA003<='{2}'
+                                    AND TB003='{0}'
+                                    UNION
+                                    SELECT '1進貨',TD012,TD004,MB002,CONVERT(DECIMAL(14,2),(CASE WHEN ISNULL(MD002,'')<>'' THEN (ISNULL(TD008-TD015,0)*MD004/MD003) ELSE (TD008-TD015) END )) ,MB004,NULL,NULL,NULL,TD001,TD002,TD003
+                                    FROM [TK].dbo.INVMB,[TK].dbo.PURTC,[TK].dbo.PURTD 
+                                    LEFT JOIN [TK].dbo.INVMD ON MD001=TD004 AND MD002=TD009 
+                                    WHERE TC001=TD001 AND TC002=TD002 AND TD004=MB001 AND TD018='Y' AND TD016='N'
+                                    AND  TD007 IN ('21003') 
+                                    AND TD012>='{1}' AND TD012<='{2}' 
+                                    AND TD004='{0}'
+                                    UNION 
+                                    SELECT '0庫存' AS MANU,CONVERT(NVARCHAR,GETDATE(),112) AS MANUDATE,LA001 AS MD003,MB002,SUM(LA005*LA011) TNUM, MB004,NULL AS MB001,NULL AS MB002,NULL AS PACKAGE,NULL AS COPTD001,NULL AS COPTD002,NULL AS COPTD002
+                                    FROM [TK].dbo.INVLA,[TK].dbo.INVMB
+                                    WHERE (LA001=MB001 AND  LA009 IN ('21003' )  AND LA001='{0}' ) 
+                                    GROUP BY LA001,MB002,MB004
+                                    UNION
+                                    SELECT '1手動進出貨',CONVERT(NVARCHAR,INVPURUESDBREAD.DATES,112),INVPURUESDBREAD.MB001,MB002,NUM ,MB004,NULL,NULL,NULL,NULL,NULL,NULL
+                                    FROM [TK].dbo.INVMB,[TKMOC].dbo.INVPURUESDBREAD 
+                                    WHERE INVMB.MB001=INVPURUESDBREAD.MB001
+                                    AND INVPURUESDBREAD.DATES>='{1}' AND INVPURUESDBREAD.DATES<='{2}'
+                                    AND INVPURUESDBREAD.MB001='{0}'
+                                    ) AS TEMP3
+                                    ) AS TEMP4 ON TEMP2.ID>=TEMP4.ID
+                                    GROUP BY TEMP2.ID,TEMP2.MANU,TEMP2.MANUDATE,TEMP2.MD003,TEMP2.MD035,TEMP2.TNUM,TEMP2.MB004,TEMP2.MB001,TEMP2.MB002,TEMP2.PACKAGE,TEMP2.COPTD001,TEMP2.COPTD002,TEMP2.COPTD003
+                                    ORDER BY TEMP2.MANUDATE, TEMP2.MANU
 
-                sbSql.AppendFormat(@"  ,TEMP2.MB004 AS '單位',TEMP2.MB001 AS '成品',TEMP2.MB002 AS '成品名',TEMP2.PACKAGE AS '成品數',TEMP2.COPTD001 AS '訂單單別',TEMP2.COPTD002 AS '訂單單號',TEMP2.COPTD003 AS '訂單序號' ");
-                sbSql.AppendFormat(@"  FROM (");
-                sbSql.AppendFormat(@"  ");
-                sbSql.AppendFormat(@"  SELECT ROW_NUMBER() OVER (ORDER BY TEMP.MANUDATE) AS ID,MANU,MANUDATE,MD003,MD035,TNUM,MB004,MB001,MB002,PACKAGE,COPTD001,COPTD002,COPTD003");
-                sbSql.AppendFormat(@"  FROM (");
-                sbSql.AppendFormat(@"  SELECT MD002 AS MANU ,TA003 AS MANUDATE ,TB003 AS MD003,TB012 AS MD035,TB004*-1 AS TNUM,TB007 AS MB004,TA006 AS MB001,TA034 AS MB002,TA015 AS PACKAGE,TA026 AS COPTD001,TA027 AS COPTD002,TA028 COPTD003");
-                sbSql.AppendFormat(@"  FROM [TK].dbo.MOCTA,[TK].dbo.MOCTB,[TK].dbo.CMSMD");
-                sbSql.AppendFormat(@"  WHERE TA001=TB001 AND TA002=TB002");
-                sbSql.AppendFormat(@"  AND MD001=TA021");
-                sbSql.AppendFormat(@"  AND TA021='04'");
-                sbSql.AppendFormat(@"  AND (TA006 LIKE '409%' OR TA006 LIKE '309%')");
-                sbSql.AppendFormat(@"  AND TA003>='{0}' AND TA003<='{1}'", SDay, EDay);
-                sbSql.AppendFormat(@"  AND TB003='{0}'", MD003);
-                sbSql.AppendFormat(@"  UNION");
-                sbSql.AppendFormat(@"  SELECT '1進貨',TD012,TD004,MB002,CONVERT(DECIMAL(14,2),(CASE WHEN ISNULL(MD002,'')<>'' THEN (ISNULL(TD008-TD015,0)*MD004/MD003) ELSE (TD008-TD015) END )) ,MB004,NULL,NULL,NULL,TD001,TD002,TD003");
-                sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB,[TK].dbo.PURTC,[TK].dbo.PURTD ");
-                sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.INVMD ON MD001=TD004 AND MD002=TD009  ");
-                sbSql.AppendFormat(@"  WHERE TC001=TD001 AND TC002=TD002 AND TD004=MB001 AND TD018='Y' AND TD016='N'");
-                sbSql.AppendFormat(@"  AND  TD007 IN ('20006') ");
-                sbSql.AppendFormat(@"  AND TD012>='{0}' AND TD012<='{1}' ", SDay, EDay);
-                sbSql.AppendFormat(@"  AND TD004='{0}'", MD003);
-                sbSql.AppendFormat(@"  UNION ");
-                sbSql.AppendFormat(@"  SELECT '0庫存' AS MANU,CONVERT(NVARCHAR,GETDATE(),112) AS MANUDATE,LA001 AS MD003,MB002,SUM(LA005*LA011) TNUM, MB004,NULL AS MB001,NULL AS MB002,NULL AS PACKAGE,NULL AS COPTD001,NULL AS COPTD002,NULL AS COPTD002");
-                sbSql.AppendFormat(@"  FROM [TK].dbo.INVLA,[TK].dbo.INVMB");
-                sbSql.AppendFormat(@"  WHERE ((LA001=MB001 AND  LA009 IN ('20004','20006' )  AND LA001='{0}' ) OR (LA001=MB001 AND LA001 IN ('3090200101','3090300902') AND LA009 IN ('20004','20005','20006')  AND LA001='{0}' )) ", MD003);
-                sbSql.AppendFormat(@"  GROUP BY LA001,MB002,MB004");
-                sbSql.AppendFormat(@"  UNION");
-                sbSql.AppendFormat(@"  SELECT '1手動進出貨',CONVERT(NVARCHAR,INVPURUESDBREAD.DATES,112),INVPURUESDBREAD.MB001,MB002,NUM ,MB004,NULL,NULL,NULL,NULL,NULL,NULL");
-                sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB,[TKMOC].dbo.INVPURUESDBREAD ");
-                sbSql.AppendFormat(@"  WHERE INVMB.MB001=INVPURUESDBREAD.MB001");
-                sbSql.AppendFormat(@"  AND INVPURUESDBREAD.DATES>='{0}' AND INVPURUESDBREAD.DATES<='{1}'", SDay, EDay);
-                sbSql.AppendFormat(@"  AND INVPURUESDBREAD.MB001='{0}'", MD003);
-                sbSql.AppendFormat(@"  ");
-                sbSql.AppendFormat(@"  ) AS TEMP ");
-                sbSql.AppendFormat(@"  ");
-                sbSql.AppendFormat(@"  ) AS TEMP2 JOIN ");
-                sbSql.AppendFormat(@"  (SELECT ROW_NUMBER() OVER (ORDER BY TEMP3.MANUDATE) AS ID,MANU,MANUDATE,MD003,MD035,TNUM,MB004,MB001,MB002,PACKAGE,COPTD001,COPTD002,COPTD003");
-                sbSql.AppendFormat(@"  FROM (");
-                sbSql.AppendFormat(@"  SELECT MD002 AS MANU ,TA003 AS MANUDATE ,TB003 AS MD003,TB012 AS MD035,TB004*-1 AS TNUM,TB007 AS MB004,TA006 AS MB001,TA034 AS MB002,TA015 AS PACKAGE,TA026 AS COPTD001,TA027 AS COPTD002,TA028 COPTD003");
-                sbSql.AppendFormat(@"  FROM [TK].dbo.MOCTA,[TK].dbo.MOCTB,[TK].dbo.CMSMD");
-                sbSql.AppendFormat(@"  WHERE TA001=TB001 AND TA002=TB002");
-                sbSql.AppendFormat(@"  AND MD001=TA021");
-                sbSql.AppendFormat(@"  AND TA021='04'");
-                sbSql.AppendFormat(@"  AND (TA006 LIKE '409%' OR TA006 LIKE '309%')");
-                sbSql.AppendFormat(@"  AND TA003>='{0}' AND TA003<='{1}'", SDay, EDay);
-                sbSql.AppendFormat(@"  AND TB003='{0}'", MD003);
-                sbSql.AppendFormat(@"  UNION");
-                sbSql.AppendFormat(@"  SELECT '1進貨',TD012,TD004,MB002,CONVERT(DECIMAL(14,2),(CASE WHEN ISNULL(MD002,'')<>'' THEN (ISNULL(TD008-TD015,0)*MD004/MD003) ELSE (TD008-TD015) END )) ,MB004,NULL,NULL,NULL,TD001,TD002,TD003");
-                sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB,[TK].dbo.PURTC,[TK].dbo.PURTD ");
-                sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.INVMD ON MD001=TD004 AND MD002=TD009 ");
-                sbSql.AppendFormat(@"  WHERE TC001=TD001 AND TC002=TD002 AND TD004=MB001 AND TD018='Y' AND TD016='N'");
-                sbSql.AppendFormat(@"  AND  TD007 IN ('20006') ");
-                sbSql.AppendFormat(@"  AND TD012>='{0}' AND TD012<='{1}' ", SDay, EDay);
-                sbSql.AppendFormat(@"  AND TD004='{0}'", MD003);
-                sbSql.AppendFormat(@"  UNION ");
-                sbSql.AppendFormat(@"  SELECT '0庫存' AS MANU,CONVERT(NVARCHAR,GETDATE(),112) AS MANUDATE,LA001 AS MD003,MB002,SUM(LA005*LA011) TNUM, MB004,NULL AS MB001,NULL AS MB002,NULL AS PACKAGE,NULL AS COPTD001,NULL AS COPTD002,NULL AS COPTD002");
-                sbSql.AppendFormat(@"  FROM [TK].dbo.INVLA,[TK].dbo.INVMB");
-                sbSql.AppendFormat(@"  WHERE ((LA001=MB001 AND  LA009 IN ('20004','20006' )  AND LA001='{0}' ) OR (LA001=MB001 AND LA001 IN ('3090200101','3090300902') AND LA009 IN ('20004','20005','20006')  AND LA001='{0}' )) ", MD003);
-                sbSql.AppendFormat(@"  GROUP BY LA001,MB002,MB004");
-                sbSql.AppendFormat(@"  UNION");
-                sbSql.AppendFormat(@"  SELECT '1手動進出貨',CONVERT(NVARCHAR,INVPURUESDBREAD.DATES,112),INVPURUESDBREAD.MB001,MB002,NUM ,MB004,NULL,NULL,NULL,NULL,NULL,NULL");
-                sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB,[TKMOC].dbo.INVPURUESDBREAD ");
-                sbSql.AppendFormat(@"  WHERE INVMB.MB001=INVPURUESDBREAD.MB001");
-                sbSql.AppendFormat(@"  AND INVPURUESDBREAD.DATES>='{0}' AND INVPURUESDBREAD.DATES<='{1}'", SDay, EDay);
-                sbSql.AppendFormat(@"  AND INVPURUESDBREAD.MB001='{0}'", MD003);
-                sbSql.AppendFormat(@"  ");
-                sbSql.AppendFormat(@"  ) AS TEMP3");
-                sbSql.AppendFormat(@"  ) AS TEMP4 ON TEMP2.ID>=TEMP4.ID");
-                sbSql.AppendFormat(@"  GROUP BY TEMP2.ID,TEMP2.MANU,TEMP2.MANUDATE,TEMP2.MD003,TEMP2.MD035,TEMP2.TNUM,TEMP2.MB004,TEMP2.MB001,TEMP2.MB002,TEMP2.PACKAGE,TEMP2.COPTD001,TEMP2.COPTD002,TEMP2.COPTD003");
-                sbSql.AppendFormat(@"  ORDER BY TEMP2.MANUDATE, TEMP2.MANU");
-                sbSql.AppendFormat(@"  ");
-                sbSql.AppendFormat(@"  ");
-                sbSql.AppendFormat(@"  ");
-                sbSql.AppendFormat(@"  ");
+
+
+                                    ", MD003,SDay,EDay);
 
                 adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -332,15 +328,16 @@ namespace TKMOC
 
 
                 sbSql.Clear();
-
-
-                sbSql.AppendFormat(@"  SELECT LA016 AS '批號',SUM(LA005*LA011) AS '庫存量', MB004 AS '單位',LA001 AS '品號',MB002 AS '品名'");
-                sbSql.AppendFormat(@"  FROM [TK].dbo.INVLA,[TK].dbo.INVMB");
-                sbSql.AppendFormat(@"  WHERE ((LA001=MB001 AND  LA009 IN ('20004','20006' )  AND LA001='{0}') OR (LA001=MB001 AND LA001 IN ('3090200101','3090300902') AND  LA009 IN ('20005' )  AND LA001='{0}') )", MD003);
-                sbSql.AppendFormat(@"  GROUP BY LA016,LA001,MB002,MB004");
-                sbSql.AppendFormat(@" HAVING SUM(LA005*LA011)>0 ");
-                sbSql.AppendFormat(@"  ");
-                sbSql.AppendFormat(@"  ");
+             
+                sbSql.AppendFormat(@" 
+                                    SELECT 
+                                    LA016 AS '批號',SUM(LA005*LA011) AS '庫存量', MB004 AS '單位',LA001 AS '品號',MB002 AS '品名'
+                                    FROM [TK].dbo.INVLA,[TK].dbo.INVMB
+                                    WHERE (LA001=MB001 AND  LA009 IN ('21003' )  AND LA001='{0}') 
+                                    GROUP BY LA016,LA001,MB002,MB004
+                                    HAVING SUM(LA005*LA011)>0 
+  
+                                    ", MD003);
 
                 adapter3 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
