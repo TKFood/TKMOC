@@ -549,6 +549,12 @@
     <Compile Include="frmREPORTINVPURUESDBREAD.Designer.cs">
       <DependentUpon>frmREPORTINVPURUESDBREAD.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmREPORTINVPURUESDBREAD08.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmREPORTINVPURUESDBREAD08.Designer.cs">
+      <DependentUpon>frmREPORTINVPURUESDBREAD08.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmREPORTMANUDAYILYPRODUCT.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -916,6 +922,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmREPORTINVPURUESDBREAD.resx">
       <DependentUpon>frmREPORTINVPURUESDBREAD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmREPORTINVPURUESDBREAD08.resx">
+      <DependentUpon>frmREPORTINVPURUESDBREAD08.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmREPORTMANUDAYILYPRODUCT.resx">
       <DependentUpon>frmREPORTMANUDAYILYPRODUCT.cs</DependentUpon>
