@@ -546,6 +546,26 @@ namespace TKMOC
             }
         }
 
+        private void dataGridView1_SelectionChanged_1(object sender, EventArgs e)
+        {
+            if (dataGridView1.CurrentRow != null)
+            {
+                int rowindex = dataGridView1.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView1.Rows[rowindex];
+                    MD003 = row.Cells["品號"].Value.ToString().Trim();
+
+                    SEARCHINVPURMOC(MD003, dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+                    SEARCHINVINVLA(MD003, dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+
+                }
+                else
+                {
+                    MD003 = null;
+                }
+            }
+        }
         #endregion
 
         #region BUTTON
@@ -554,6 +574,46 @@ namespace TKMOC
         {
             SEARCHMOCMANULINE(dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
         }
+   
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (rowIndexDG1 == -1)
+            {
+                SEARCHDG1(textBox1.Text.Trim(), 0);
+            }
+            else
+            {
+                SEARCHDG1(textBox1.Text.Trim(), rowIndexDG1 + 1);
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBox2.Text) && !string.IsNullOrEmpty(MD003))
+            {
+                ADDINVPURUESDBREAD("1手動進出貨", dateTimePicker3.Value.ToString("yyyy/MM/dd"), MD003, textBox2.Text);
+            }
+
+            SEARCHINVPURMOC(MD003, dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+        }
+        private void button4_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show(MD003 + " 要刪除了?", MD003 + " 要刪除了?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                DELINVPURUESDBREAD(MD003);
+                SEARCHINVPURMOC(MD003, dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                //do something else
+            }
+        }
+
+
         #endregion
+
+        
     }
 }
