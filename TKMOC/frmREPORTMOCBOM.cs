@@ -1217,6 +1217,14 @@ namespace TKMOC
         {
             return f == Math.Floor(f);
         }
+
+        public DataTable CHECK_BOMMD(int COUNTS)
+        {
+            MessageBox.Show(COUNTS.ToString());
+
+            return null;
+        }
+
         #endregion
 
         #region BUTTON
@@ -1227,7 +1235,7 @@ namespace TKMOC
         private void button2_Click(object sender, EventArgs e)
         {
             //SETREPORT(textBox1.Text.Trim(), textBox2.Text.Trim(),textBox3.Text.Trim());
-
+            int COUNTS = 0;
             string CHECKED = "N";
             string TA001 = "";
             string TA002 = "";
@@ -1237,21 +1245,15 @@ namespace TKMOC
             string TEMP = "";
             float BUCKETS = 0;
 
+            //
             foreach (DataGridViewRow dr in this.dataGridView1.Rows)
             {
                 try
-                {                   
+                {
                     if (dr.Cells[0].Value != null && (bool)dr.Cells[0].Value)
                     {
-                        CHECKED = "Y";
-
-                        TA001 = dr.Cells["製令"].Value.ToString();
-                        TA002 = dr.Cells["單號"].Value.ToString();
-                        LINK_TA001TA002 = LINK_TA001TA002 + TA001 + TA002+"*";
-                        LINK_TA006 = LINK_TA034 + dr.Cells["品號"].Value.ToString() + "*";
-                        LINK_TA034 = LINK_TA034+ dr.Cells["品名"].Value.ToString() + "*";
-                        BUCKETS = BUCKETS+float.Parse(dr.Cells["桶數"].Value.ToString());
-                        BUCKETS = (float)Math.Round(BUCKETS, 3);
+                        COUNTS = COUNTS + 1;
+                       
                     }
                 }
                 catch (Exception ex)
@@ -1260,14 +1262,39 @@ namespace TKMOC
                 }
             }
 
-            if (CHECKED.Equals("Y"))
-            {
-                SETREPORT2(TA001, TA002, BUCKETS, LINK_TA001TA002, LINK_TA006, LINK_TA034);
-            }
-            else if(CHECKED.Equals("N"))
-            {
-                SETREPORT(textBox1.Text.Trim(), textBox2.Text.Trim(), textBox3.Text.Trim());
-            }
+            CHECK_BOMMD(COUNTS);
+            //foreach (DataGridViewRow dr in this.dataGridView1.Rows)
+            //{
+            //    try
+            //    {                   
+            //        if (dr.Cells[0].Value != null && (bool)dr.Cells[0].Value)
+            //        {
+            //            CHECKED = "Y";
+
+            //            TA001 = dr.Cells["製令"].Value.ToString();
+            //            TA002 = dr.Cells["單號"].Value.ToString();
+            //            LINK_TA001TA002 = LINK_TA001TA002 + TA001 + TA002+"*";
+            //            LINK_TA006 = LINK_TA034 + dr.Cells["品號"].Value.ToString() + "*";
+            //            LINK_TA034 = LINK_TA034+ dr.Cells["品名"].Value.ToString() + "*";
+            //            BUCKETS = BUCKETS+float.Parse(dr.Cells["桶數"].Value.ToString());
+            //            BUCKETS = (float)Math.Round(BUCKETS, 3);
+            //        }
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        //MessageBox.Show(ex.Message);
+            //    }
+            //}
+
+            //if (CHECKED.Equals("Y"))
+            //{
+            //    SETREPORT2(TA001, TA002, BUCKETS, LINK_TA001TA002, LINK_TA006, LINK_TA034);
+            //}
+            //else if(CHECKED.Equals("N"))
+            //{
+            //    SETREPORT(textBox1.Text.Trim(), textBox2.Text.Trim(), textBox3.Text.Trim());
+            //}
+
         }
         private void button3_Click(object sender, EventArgs e)
         {
