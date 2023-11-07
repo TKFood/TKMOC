@@ -1218,11 +1218,99 @@ namespace TKMOC
             return f == Math.Floor(f);
         }
 
-        public DataTable CHECK_BOMMD(int COUNTS)
+        public DataTable CHECK_BOMMD(int COUNTS, List<string> MD001)
         {
-            MessageBox.Show(COUNTS.ToString());
+            //MessageBox.Show(COUNTS.ToString());
+            int SETCOUNT = 1;
+            DataSet ds = new DataSet();
+            StringBuilder SQL = new StringBuilder();
 
-            return null;
+            if(COUNTS>=1)
+            {
+                foreach (string MD001STR in MD001)
+                {
+                    if (SETCOUNT == 1)
+                    {
+                        SQL.AppendFormat(@"
+                                        SELECT MD003, MD006, MD007,COUNT(MD003) COUNTS
+                                        FROM (
+                                            SELECT MD001, MD003, MD006, MD007
+                                            FROM [TK].dbo.BOMMD
+                                            WHERE MD003 LIKE '1%' AND MD001 IN ('{0}')
+                                    ", MD001STR);
+                    }
+                    else
+                    {
+                        SQL.AppendFormat(@"
+                                            UNION ALL
+                                            SELECT MD001, MD003, MD006, MD007
+                                            FROM [TK].dbo.BOMMD
+                                            WHERE MD003 LIKE '1%' AND MD001 IN ('{0}')
+                                    ", MD001STR);
+                    }
+
+                    SETCOUNT = SETCOUNT + 1;
+                }
+
+                SQL.AppendFormat(@"                                           
+                                    ) AS CombinedData
+                                    GROUP BY MD003, MD006, MD007
+                                    HAVING COUNT(MD003)<{0}
+                                    ", COUNTS);
+            }
+
+            try
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql = SQL;
+
+                sbSql.AppendFormat(@"                                   
+                                     
+                                    ");
+
+
+                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder = new SqlCommandBuilder(adapter);
+                sqlConn.Open();
+                ds.Clear();
+                adapter.Fill(ds, "TEMPds1");
+                sqlConn.Close();
+
+                if (ds.Tables["TEMPds1"].Rows.Count >= 1)
+                {
+                    return ds.Tables["TEMPds1"];
+                }
+                else
+                {
+                    return null;
+                }
+
+
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+            
         }
 
         #endregion
@@ -1236,6 +1324,9 @@ namespace TKMOC
         {
             //SETREPORT(textBox1.Text.Trim(), textBox2.Text.Trim(),textBox3.Text.Trim());
             int COUNTS = 0;
+            List<string> MD001 = new List<string>();
+            DataTable DT = null;
+
             string CHECKED = "N";
             string TA001 = "";
             string TA002 = "";
@@ -1253,7 +1344,7 @@ namespace TKMOC
                     if (dr.Cells[0].Value != null && (bool)dr.Cells[0].Value)
                     {
                         COUNTS = COUNTS + 1;
-                       
+                        MD001.Add(dr.Cells[3].Value.ToString());
                     }
                 }
                 catch (Exception ex)
@@ -1262,38 +1353,48 @@ namespace TKMOC
                 }
             }
 
-            CHECK_BOMMD(COUNTS);
-            //foreach (DataGridViewRow dr in this.dataGridView1.Rows)
-            //{
-            //    try
-            //    {                   
-            //        if (dr.Cells[0].Value != null && (bool)dr.Cells[0].Value)
-            //        {
-            //            CHECKED = "Y";
+            //CHECK  原料需單身品號元件一致、組成用量一致
+            DT = CHECK_BOMMD(COUNTS, MD001);
 
-            //            TA001 = dr.Cells["製令"].Value.ToString();
-            //            TA002 = dr.Cells["單號"].Value.ToString();
-            //            LINK_TA001TA002 = LINK_TA001TA002 + TA001 + TA002+"*";
-            //            LINK_TA006 = LINK_TA034 + dr.Cells["品號"].Value.ToString() + "*";
-            //            LINK_TA034 = LINK_TA034+ dr.Cells["品名"].Value.ToString() + "*";
-            //            BUCKETS = BUCKETS+float.Parse(dr.Cells["桶數"].Value.ToString());
-            //            BUCKETS = (float)Math.Round(BUCKETS, 3);
-            //        }
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        //MessageBox.Show(ex.Message);
-            //    }
-            //}
+            foreach (DataGridViewRow dr in this.dataGridView1.Rows)
+            {
+                try
+                {
+                    if (dr.Cells[0].Value != null && (bool)dr.Cells[0].Value)
+                    {
+                        CHECKED = "Y";
 
-            //if (CHECKED.Equals("Y"))
-            //{
-            //    SETREPORT2(TA001, TA002, BUCKETS, LINK_TA001TA002, LINK_TA006, LINK_TA034);
-            //}
-            //else if(CHECKED.Equals("N"))
-            //{
-            //    SETREPORT(textBox1.Text.Trim(), textBox2.Text.Trim(), textBox3.Text.Trim());
-            //}
+                        TA001 = dr.Cells["製令"].Value.ToString();
+                        TA002 = dr.Cells["單號"].Value.ToString();
+                        LINK_TA001TA002 = LINK_TA001TA002 + TA001 + TA002 + "*";
+                        LINK_TA006 = LINK_TA034 + dr.Cells["品號"].Value.ToString() + "*";
+                        LINK_TA034 = LINK_TA034 + dr.Cells["品名"].Value.ToString() + "*";
+                        BUCKETS = BUCKETS + float.Parse(dr.Cells["桶數"].Value.ToString());
+                        BUCKETS = (float)Math.Round(BUCKETS, 3);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    //MessageBox.Show(ex.Message);
+                }
+            }
+
+            if (CHECKED.Equals("Y"))
+            {
+                if(DT==null)
+                {
+                    SETREPORT2(TA001, TA002, BUCKETS, LINK_TA001TA002, LINK_TA006, LINK_TA034);
+                }
+                else
+                {
+                    MessageBox.Show("原料需單身品號元件不一致 或 組成用量不一致，不能合併");
+                }
+               
+            }
+            else if (CHECKED.Equals("N"))
+            {
+                SETREPORT(textBox1.Text.Trim(), textBox2.Text.Trim(), textBox3.Text.Trim());
+            }
 
         }
         private void button3_Click(object sender, EventArgs e)
