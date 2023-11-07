@@ -1254,7 +1254,9 @@ namespace TKMOC
 
                 SQL.AppendFormat(@"                                           
                                     ) AS CombinedData
+                                    WHERE MD003 NOT IN (SELECT [MD003]  FROM [TKMOC].[dbo].[REPORTMOCBOMNOSET])
                                     GROUP BY MD003, MD006, MD007
+                
                                     HAVING COUNT(MD003)<{0}
                                     ", COUNTS);
             }
@@ -1326,6 +1328,7 @@ namespace TKMOC
             int COUNTS = 0;
             List<string> MD001 = new List<string>();
             DataTable DT = null;
+            string MESS = "";
 
             string CHECKED = "N";
             string TA001 = "";
@@ -1387,7 +1390,17 @@ namespace TKMOC
                 }
                 else
                 {
-                    MessageBox.Show("原料需單身品號元件不一致 或 組成用量不一致，不能合併");
+                    MESS = "原料需單身品號元件不一致 或 組成用量不一致，不能合併\n";
+                    foreach (DataRow ROW in DT.Rows)
+                    {
+                        // 每一行都是一個 DataRow                       
+                        MESS = MESS+"品號:"+ROW["MD003"].ToString();
+                        MESS=  MESS+"用量:"+ROW["MD006"].ToString();
+                        MESS = MESS+"底數:"+ROW["MD007"].ToString();
+
+                        MESS = MESS + "\n";
+                    }
+                    MessageBox.Show(MESS.ToString());
                 }
                
             }
