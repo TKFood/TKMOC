@@ -184,8 +184,7 @@ namespace TKMOC
         {
             StringBuilder SB = new StringBuilder();
 
-            SB.AppendFormat(@" 
-                                
+            SB.AppendFormat(@"                                 
                             SELECT TA001+TA002 AS '製令編號',TA021 AS '線',MD002 AS '線別',TA006 AS '品號',TA034 AS '品名',TA035 AS '規格'
                             ,[CUTS] AS '模具規格(刀數)'
                             ,'' AS '時間(時：分)'
