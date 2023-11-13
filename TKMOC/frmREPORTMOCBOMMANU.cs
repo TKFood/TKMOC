@@ -191,7 +191,7 @@ namespace TKMOC
             SQL = SETSQL();
 
             report1 = new Report();
-            report1.Load(@"REPORT\手工原料添加表V1.frx");
+            report1.Load(@"REPORT\手工原料添加表V2.frx");
 
             //20210902密
             Class1 TKID = new Class1();//用new 建立類別實體
@@ -221,7 +221,7 @@ namespace TKMOC
             //--,'顆數:'+CONVERT(nvarchar,((SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOMMANU] RE WHERE [MD003] NOT  IN ('101001009','3010000111') AND RE.[BOXS]=[REPORTMOCBOMMANU].[BOXS])/(CASE WHEN BOMMC.UDF06=0 THEN 1 ELSE BOMMC.UDF06 END))) AS '每桶顆數'
             //--,((SELECT SUM([MD006]) FROM[TKMOC].[dbo].[REPORTMOCBOMMANU] WHERE[MD003] NOT IN ('101001009', '3010000111') )/ (CASE WHEN BOMMC.UDF06 = 0 THEN 1 ELSE BOMMC.UDF06 END)) AS '總顆數'
 
-            
+             
             SB.AppendFormat(@"
                             SELECT [ID]
                             ,[TA001]+[TA002] AS '製令'

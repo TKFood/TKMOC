@@ -328,7 +328,7 @@ namespace TKMOC
             SQL = SETSQL();
 
             report1 = new Report();
-            report1.Load(@"REPORT\油酥原料添加表V5.frx");
+            report1.Load(@"REPORT\油酥原料添加表V6.frx");
 
             //20210902密
             Class1 TKID = new Class1();//用new 建立類別實體
@@ -427,7 +427,7 @@ namespace TKMOC
             SQL = SETSQL2(LINK_TA001TA002, LINK_TA006, LINK_TA034);
 
             report1 = new Report();
-            report1.Load(@"REPORT\油酥原料添加表V5.frx");
+            report1.Load(@"REPORT\油酥原料添加表V6.frx");
 
             //20210902密
             Class1 TKID = new Class1();//用new 建立類別實體
@@ -913,7 +913,7 @@ namespace TKMOC
             SQL = SETSQLOIL();
 
             report1 = new Report();
-            report1.Load(@"REPORT\油酥原料添加表-合併V2.frx");
+            report1.Load(@"REPORT\油酥原料添加表-合併V3.frx");
 
             //20210902密
             Class1 TKID = new Class1();//用new 建立類別實體
