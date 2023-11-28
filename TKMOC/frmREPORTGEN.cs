@@ -163,7 +163,7 @@ namespace TKMOC
         {
             string SQL;
             report1 = new Report();
-            report1.Load(@"REPORT\生產入庫單.frx");
+            report1.Load(@"REPORT\生產入庫單V2.frx");
 
             //20210902密
             Class1 TKID = new Class1();//用new 建立類別實體
@@ -181,7 +181,7 @@ namespace TKMOC
             TableDataSource Table = report1.GetDataSource("Table") as TableDataSource;
             SQL = SETFASETSQL(TA001, TA002);
             Table.SelectCommand = SQL;
-
+            
             report1.SetParameterValue("P1", COMMENT);
             report1.SetParameterValue("P2", NUM);
 
