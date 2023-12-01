@@ -396,8 +396,8 @@ namespace TKMOC
         {
             string SQL;
             report1 = new Report();
-            report1.Load(@"REPORT\生產入庫單(自動).frx");
-
+            report1.Load(@"REPORT\生產入庫單(自動)V2.frx");
+             
             //20210902密
             Class1 TKID = new Class1();//用new 建立類別實體
             SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
