@@ -773,7 +773,7 @@ namespace TKMOC
             int N;
             ADDREPORTGEN(textBox1.Text, textBox2.Text,textBox4.Text);
             ADDREPORTGENDETAIL(textBox1.Text, textBox2.Text, textBox4.Text);
-
+             
             if (ROWS>0)
             {
                 SETFASTREPORT2(textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text);
