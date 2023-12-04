@@ -768,7 +768,7 @@ namespace TKMOC
         }
 
         private void button2_Click(object sender, EventArgs e)
-        {
+        { 
             int NUM = 0;
             int N;
             ADDREPORTGEN(textBox1.Text, textBox2.Text,textBox4.Text);
