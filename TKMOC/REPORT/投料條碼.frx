@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="12/15/2023 08:18:37" ReportInfo.Modified="12/15/2023 10:57:20" ReportInfo.CreatorVersion="2016.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpN+i5gA3VDGcwlcfm6L9ZMsLrZ3U+wEDtHCQtd9vw2XUGmsDF/HTCtlcSGKm2g7N7y">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT *&#13;&#10;FROM  [TKMOC].[dbo].[REPORTMOCBOM]">
+        <Column Name="ID" DataType="System.Decimal"/>
+        <Column Name="TA002" DataType="System.String"/>
+        <Column Name="TA006" DataType="System.String"/>
+        <Column Name="TA034" DataType="System.String"/>
+        <Column Name="BOXS" DataType="System.Int32"/>
+        <Column Name="MD003" DataType="System.String"/>
+        <Column Name="MB002" DataType="System.String"/>
+        <Column Name="MD006" DataType="System.Decimal"/>
+        <Column Name="TA001" DataType="System.String"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+  </Dictionary>
+  <ReportPage Name="Page1">
+    <ColumnHeaderBand Name="ColumnHeader1" Width="718.2" Height="18.9">
+      <TextObject Name="Text3" Width="94.5" Height="18.9" Border.Lines="All" Text="TA001" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text5" Left="94.5" Width="189" Height="18.9" Border.Lines="All" Text="TA006" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text7" Left="283.5" Width="151.2" Height="18.9" Border.Lines="All" Text="TA034" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text9" Left="434.7" Width="94.5" Height="18.9" Border.Lines="All" Text="BOXS" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text11" Left="529.2" Width="94.5" Height="18.9" Border.Lines="All" Text="MD003" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text13" Left="623.7" Width="94.5" Height="18.9" Border.Lines="All" Text="MD006" HorzAlign="Center" VertAlign="Center"/>
+    </ColumnHeaderBand>
+    <DataBand Name="Data1" Top="23.5" Width="718.2" Height="132.3" DataSource="Table">
+      <TextObject Name="Text1" Left="-9450" Top="-9450" Width="94.5" Height="18.9"/>
+      <TextObject Name="Text2" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.TA001]"/>
+      <TextObject Name="Text4" Left="94.5" Width="189" Height="18.9" Border.Lines="All" Text="[Table.TA006]"/>
+      <TextObject Name="Text6" Left="283.5" Width="151.2" Height="18.9" Border.Lines="All" Text="[Table.TA034]"/>
+      <TextObject Name="Text8" Left="434.7" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.BOXS]"/>
+      <TextObject Name="Text10" Left="529.2" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.MD003]"/>
+      <TextObject Name="Text12" Left="623.7" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.MD006]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="3" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <BarcodeObject Name="Barcode1" Top="18.9" Width="222.5" Height="47.25" Text="[Table.TA001]" AllowExpressions="true" Barcode="Code128" Barcode.AutoEncode="true"/>
+      <BarcodeObject Name="Barcode2" Left="236.25" Top="18.9" Width="222.5" Height="47.25" Text="[Table.TA002]" AllowExpressions="true" Barcode="Code128" Barcode.AutoEncode="true"/>
+      <BarcodeObject Name="Barcode3" Top="85.05" Width="222.5" Height="47.25" Text="[Table.MD003]" AllowExpressions="true" Barcode="Code128" Barcode.AutoEncode="true"/>
+      <BarcodeObject Name="Barcode4" Left="236.25" Top="85.05" Width="208.75" Height="47.25" Text="[Table.BOXS]" AllowExpressions="true" Barcode="Code128" Barcode.AutoEncode="true"/>
+      <BarcodeObject Name="Barcode5" Left="453.6" Top="85.05" Width="222.5" Height="47.25" Text="[Table.MD006]" AllowExpressions="true" Barcode="Code128" Barcode.AutoEncode="true"/>
+    </DataBand>
+  </ReportPage>
+</Report>

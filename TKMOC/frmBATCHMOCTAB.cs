@@ -996,7 +996,14 @@ namespace TKMOC
             MOCTA.TRANS_TYPE = "P001";
             MOCTA.TRANS_NAME = "MOCMI02";
             MOCTA.sync_count = "0";
-            MOCTA.DataGroup = "103000";
+            if (TA001.Equals("A513"))
+            {
+                MOCTA.DataGroup = "122000";
+            }
+            else
+            {
+                MOCTA.DataGroup = "103000";
+            }
             MOCTA.TA001 = TA001;
             MOCTA.TA002 = TA002;
             MOCTA.TA003 = DTMOCTAB.ToString("yyyyMMdd");
@@ -1062,7 +1069,15 @@ namespace TKMOC
             MOCTA.TRANS_TYPE = "P001";
             MOCTA.TRANS_NAME = "MOCMI02";
             MOCTA.sync_count = "0";
-            MOCTA.DataGroup = "103000";
+            if(TA001.Equals("A513"))
+            {
+                MOCTA.DataGroup = "122000";
+            }
+            else
+            {
+                MOCTA.DataGroup = "103000";
+            }
+           
             MOCTA.TA001 = TA001;
             MOCTA.TA002 = TA002;
             MOCTA.TA003 = DTMOCTAB.ToString("yyyyMMdd");
