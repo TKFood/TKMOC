@@ -2707,7 +2707,10 @@ namespace TKMOC
         {
             textBox16.Text = null;
             textBox17.Text = null;
-            string  THISYEAES = DateTime.Now.Year.ToString();
+            //string  THISYEAES = DateTime.Now.Year.ToString();
+            string YEARS = dateTimePicker1.Value.ToString("yyyy");
+            
+            
 
             SqlDataAdapter adapter1 = new SqlDataAdapter();
             SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
@@ -2739,10 +2742,10 @@ namespace TKMOC
                                     WHERE [TB_WKF_EXTERNAL_TASK].TASK_ID=[TB_WKF_TASK].TASK_ID 
                                     AND ([TB_WKF_TASK].TASK_RESULT IN ('-1','0','3') OR ISNULL([TB_WKF_TASK].TASK_RESULT,'')='')
                                     AND EXTERNAL_FORM_NBR='{0}'
-                                    AND CONVERT(NVARCHAR,MODIFY_TIME,112) LIKE '{1}%'
+                                    AND FORM_INFO.value('(//FieldItem[@fieldId=""TA003""]/@fieldValue)[1]', 'nvarchar(50)') LIKE '{1}%'
                                     ORDER BY MODIFY_TIME DESC
 
-                                    ", CODE, THISYEAES);
+                                    ", CODE, YEARS);
 
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
