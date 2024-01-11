@@ -3728,7 +3728,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@" 
                                         SELECT ISNULL(MAX(TA002),'00000000000') AS TA002
                                         FROM [TK].[dbo].[MOCTA]
-                                        WHERE  TA001='{0}' AND TA003='{1}'
+                                        WHERE  TA001='{0}' AND TA002 LIKE '%{1}%' 
                                         ", TA001, dt1.ToString("yyyyMMdd"));
 
                     adapter4 = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -3787,12 +3787,11 @@ namespace TKMOC
                     sbSqlQuery.Clear();
                     ds4.Clear();
 
-                    sbSql.AppendFormat(@"  SELECT ISNULL(MAX(TA002),'00000000000') AS TA002");
-                    sbSql.AppendFormat(@"  FROM [TK].[dbo].[MOCTA] ");
-                    //sbSql.AppendFormat(@"  WHERE  TC001='{0}' AND TC003='{1}'", "A542","20170119");
-                    sbSql.AppendFormat(@"  WHERE  TA001='{0}' AND TA003='{1}'", TA001, dt2.ToString("yyyyMMdd"));
-                    sbSql.AppendFormat(@"  ");
-                    sbSql.AppendFormat(@"  ");
+                    sbSql.AppendFormat(@" 
+                                        SELECT ISNULL(MAX(TA002),'00000000000') AS TA002
+                                        FROM [TK].[dbo].[MOCTA]
+                                        WHERE  TA001='{0}' AND TA002 LIKE '%{1}%' 
+                                        ", TA001, dt2.ToString("yyyyMMdd"));
 
                     adapter4 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -3850,12 +3849,11 @@ namespace TKMOC
                     sbSqlQuery.Clear();
                     ds4.Clear();
 
-                    sbSql.AppendFormat(@"  SELECT ISNULL(MAX(TA002),'00000000000') AS TA002");
-                    sbSql.AppendFormat(@"  FROM [TK].[dbo].[MOCTA] ");
-                    //sbSql.AppendFormat(@"  WHERE  TC001='{0}' AND TC003='{1}'", "A542","20170119");
-                    sbSql.AppendFormat(@"  WHERE  TA001='{0}' AND TA003='{1}'", TA001, dt3.ToString("yyyyMMdd"));
-                    sbSql.AppendFormat(@"  ");
-                    sbSql.AppendFormat(@"  ");
+                    sbSql.AppendFormat(@" 
+                                        SELECT ISNULL(MAX(TA002),'00000000000') AS TA002
+                                        FROM [TK].[dbo].[MOCTA]
+                                        WHERE  TA001='{0}' AND TA002 LIKE '%{1}%' 
+                                        ", TA001, dt3.ToString("yyyyMMdd"));
 
                     adapter4 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -3913,12 +3911,11 @@ namespace TKMOC
                     sbSqlQuery.Clear();
                     ds4.Clear();
 
-                    sbSql.AppendFormat(@"  SELECT ISNULL(MAX(TA002),'00000000000') AS TA002");
-                    sbSql.AppendFormat(@"  FROM [TK].[dbo].[MOCTA] ");
-                    //sbSql.AppendFormat(@"  WHERE  TC001='{0}' AND TC003='{1}'", "A542","20170119");
-                    sbSql.AppendFormat(@"  WHERE  TA001='{0}' AND TA003='{1}'", TA001, dt4.ToString("yyyyMMdd"));
-                    sbSql.AppendFormat(@"  ");
-                    sbSql.AppendFormat(@"  ");
+                    sbSql.AppendFormat(@" 
+                                        SELECT ISNULL(MAX(TA002),'00000000000') AS TA002
+                                        FROM [TK].[dbo].[MOCTA]
+                                        WHERE  TA001='{0}' AND TA002 LIKE '%{1}%' 
+                                        ", TA001, dt4.ToString("yyyyMMdd"));
 
                     adapter4 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -3976,12 +3973,11 @@ namespace TKMOC
                     sbSqlQuery.Clear();
                     ds4.Clear();
 
-                    sbSql.AppendFormat(@"  SELECT ISNULL(MAX(TA002),'00000000000') AS TA002");
-                    sbSql.AppendFormat(@"  FROM [TK].[dbo].[MOCTA] ");
-                    //sbSql.AppendFormat(@"  WHERE  TC001='{0}' AND TC003='{1}'", "A542","20170119");
-                    sbSql.AppendFormat(@"  WHERE  TA001='{0}' AND TA003='{1}'", TA001, dt5.ToString("yyyyMMdd"));
-                    sbSql.AppendFormat(@"  ");
-                    sbSql.AppendFormat(@"  ");
+                    sbSql.AppendFormat(@" 
+                                        SELECT ISNULL(MAX(TA002),'00000000000') AS TA002
+                                        FROM [TK].[dbo].[MOCTA]
+                                        WHERE  TA001='{0}' AND TA002 LIKE '%{1}%' 
+                                        ", TA001, dt5.ToString("yyyyMMdd"));
 
                     adapter4 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -4039,12 +4035,11 @@ namespace TKMOC
                     sbSqlQuery.Clear();
                     ds4.Clear();
 
-                    sbSql.AppendFormat(@"  SELECT ISNULL(MAX(TA002),'00000000000') AS TA002");
-                    sbSql.AppendFormat(@"  FROM [TK].[dbo].[MOCTA] ");
-                    //sbSql.AppendFormat(@"  WHERE  TC001='{0}' AND TC003='{1}'", "A542","20170119");
-                    sbSql.AppendFormat(@"  WHERE  TA001='{0}' AND TA003='{1}'", TA001, dt6.ToString("yyyyMMdd"));
-                    sbSql.AppendFormat(@"  ");
-                    sbSql.AppendFormat(@"  ");
+                    sbSql.AppendFormat(@" 
+                                        SELECT ISNULL(MAX(TA002),'00000000000') AS TA002
+                                        FROM [TK].[dbo].[MOCTA]
+                                        WHERE  TA001='{0}' AND TA002 LIKE '%{1}%' 
+                                        ", TA001, dt6.ToString("yyyyMMdd"));
 
                     adapter4 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -4803,7 +4798,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  WHERE TA001=TB001 AND TA002=TB002");
                 sbSql.AppendFormat(@"  AND [TA021]=MD001");
                 sbSql.AppendFormat(@"  AND TB012 LIKE '%水麵%'");
-                sbSql.AppendFormat(@"  AND TA003='{0}'",dateTimePicker10.Value.ToString("yyyyMMdd"));
+                sbSql.AppendFormat(@"  AND  TA002 LIKE '%{1}%'", dateTimePicker10.Value.ToString("yyyyMMdd"));
                 sbSql.AppendFormat(@"  GROUP BY TB003,TB012,TB009,TA003,[TA021],[MD002] ");
                 sbSql.AppendFormat(@"  ORDER BY TA003,[TA021],TB003");
                 sbSql.AppendFormat(@"  ");
@@ -8323,12 +8318,11 @@ namespace TKMOC
                 sbSqlQuery.Clear();
                 ds4.Clear();
 
-                sbSql.AppendFormat(@"  SELECT ISNULL(MAX(TA002),'00000000000') AS TA002");
-                sbSql.AppendFormat(@"  FROM [TK].[dbo].[MOCTA] ");
-                //sbSql.AppendFormat(@"  WHERE  TC001='{0}' AND TC003='{1}'", "A542","20170119");
-                sbSql.AppendFormat(@"  WHERE  TA001='{0}' AND TA003='{1}'", TA001, dt.ToString("yyyyMMdd"));
-                sbSql.AppendFormat(@"  ");
-                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@" 
+                                        SELECT ISNULL(MAX(TA002),'00000000000') AS TA002
+                                        FROM [TK].[dbo].[MOCTA]
+                                        WHERE  TA001='{0}' AND TA002 LIKE '%{1}%' 
+                                        ", TA001, dt.ToString("yyyyMMdd"));
 
                 adapter35 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
