@@ -3704,6 +3704,7 @@ namespace TKMOC
 
             if (MANU.Equals("製二線"))
             {
+                dt1 = dateTimePicker2.Value;
                 try
                 {
                     //20210902密
@@ -3723,12 +3724,12 @@ namespace TKMOC
                     sbSqlQuery.Clear();
                     ds4.Clear();
 
-                    sbSql.AppendFormat(@"  SELECT ISNULL(MAX(TA002),'00000000000') AS TA002");
-                    sbSql.AppendFormat(@"  FROM [TK].[dbo].[MOCTA] ");
-                    //sbSql.AppendFormat(@"  WHERE  TC001='{0}' AND TC003='{1}'", "A542","20170119");
-                    sbSql.AppendFormat(@"  WHERE  TA001='{0}' AND TA003='{1}'", TA001, dt1.ToString("yyyyMMdd"));
-                    sbSql.AppendFormat(@"  ");
-                    sbSql.AppendFormat(@"  ");
+                 
+                    sbSql.AppendFormat(@" 
+                                        SELECT ISNULL(MAX(TA002),'00000000000') AS TA002
+                                        FROM [TK].[dbo].[MOCTA]
+                                        WHERE  TA001='{0}' AND TA003='{1}'
+                                        ", TA001, dt1.ToString("yyyyMMdd"));
 
                     adapter4 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -3766,6 +3767,7 @@ namespace TKMOC
             }
             else if (MANU.Equals("包裝線"))
             {
+               
                 try
                 {
                     //20210902密
@@ -3828,6 +3830,7 @@ namespace TKMOC
             }
             else if (MANU.Equals("製一線"))
             {
+                
                 try
                 {
                     //20210902密
@@ -3890,6 +3893,7 @@ namespace TKMOC
             }
             else if (MANU.Equals("手工線"))
             {
+               
                 try
                 {
                     //20210902密
@@ -3952,6 +3956,7 @@ namespace TKMOC
             }
             else if (MANU.Equals("水麵"))
             {
+              
                 try
                 {
                     //20210902密
