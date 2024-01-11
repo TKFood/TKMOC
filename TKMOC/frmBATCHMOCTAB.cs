@@ -709,12 +709,11 @@ namespace TKMOC
                 sbSqlQuery.Clear();
                 ds4.Clear();
 
-                sbSql.AppendFormat(@"  SELECT ISNULL(MAX(TA002),'00000000000') AS TA002");
-                sbSql.AppendFormat(@"  FROM [TK].[dbo].[MOCTA] ");
-                //sbSql.AppendFormat(@"  WHERE  TC001='{0}' AND TC003='{1}'", "A542","20170119");
-                sbSql.AppendFormat(@"  WHERE  TA001='{0}' AND TA003='{1}'", TA001, DTMOCTAB.ToString("yyyyMMdd"));
-                sbSql.AppendFormat(@"  ");
-                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  
+                                    SELECT ISNULL(MAX(TA002),'00000000000') AS TA002
+                                    FROM [TK].[dbo].[MOCTA]
+                                    WHERE  TA001='{0}' AND TA002 LIKE '%{1}%'   
+                                    ", TA001, DTMOCTAB.ToString("yyyyMMdd"));
 
                 adapter4 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
