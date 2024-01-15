@@ -4792,16 +4792,18 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  SELECT TA003  AS '日期',[TA021] AS '線別號',[MD002] AS '線別',TB003 AS '品號',TB012 AS '品名',SUM(TB004)  AS '總數量',TB009  AS '入庫別'");
-                sbSql.AppendFormat(@"  ,(SELECT  TOP 1 [MOCTA001]+' '+[MOCTA002] FROM [TKMOC].[dbo].[MOCMANULINETOATL] WHERE [TA003]=MOCTA.TA003 AND [TA021]=MOCTA.[TA021] AND [TB003]=MOCTB.TB003  AND [TB004]=SUM(MOCTB.TB004) ORDER BY [MOCTA001]+[MOCTA002] DESC) AS '製令' ");
-                sbSql.AppendFormat(@"  FROM [TK].dbo.MOCTB, [TK].dbo.MOCTA,[TK].dbo.CMSMD");
-                sbSql.AppendFormat(@"  WHERE TA001=TB001 AND TA002=TB002");
-                sbSql.AppendFormat(@"  AND [TA021]=MD001");
-                sbSql.AppendFormat(@"  AND TB012 LIKE '%水麵%'");
-                sbSql.AppendFormat(@"  AND  TA002 LIKE '%{1}%'", dateTimePicker10.Value.ToString("yyyyMMdd"));
-                sbSql.AppendFormat(@"  GROUP BY TB003,TB012,TB009,TA003,[TA021],[MD002] ");
-                sbSql.AppendFormat(@"  ORDER BY TA003,[TA021],TB003");
-                sbSql.AppendFormat(@"  ");
+
+                sbSql.AppendFormat(@"  
+                                    SELECT TA003  AS '日期',[TA021] AS '線別號',[MD002] AS '線別',TB003 AS '品號',TB012 AS '品名',SUM(TB004)  AS '總數量',TB009  AS '入庫別'
+                                    ,(SELECT  TOP 1 [MOCTA001]+' '+[MOCTA002] FROM [TKMOC].[dbo].[MOCMANULINETOATL] WHERE [TA003]=MOCTA.TA003 AND [TA021]=MOCTA.[TA021] AND [TB003]=MOCTB.TB003  AND [TB004]=SUM(MOCTB.TB004) ORDER BY [MOCTA001]+[MOCTA002] DESC) AS '製令' 
+                                    FROM [TK].dbo.MOCTB, [TK].dbo.MOCTA,[TK].dbo.CMSMD
+                                    WHERE TA001=TB001 AND TA002=TB002
+                                    AND [TA021]=MD001
+                                    AND TB012 LIKE '%水麵%'
+                                    AND  TA002 LIKE '%{0}%'
+                                    GROUP BY TB003,TB012,TB009,TA003,[TA021],[MD002] 
+                                    ORDER BY TA003,[TA021],TB003
+                                    ", dateTimePicker10.Value.ToString("yyyyMMdd"));
 
                 adapter13 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
