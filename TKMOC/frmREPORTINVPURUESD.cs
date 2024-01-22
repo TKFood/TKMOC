@@ -212,7 +212,7 @@ namespace TKMOC
                                     FROM (
   
                                     SELECT [MANU],CONVERT(NVARCHAR,[MANUDATE],112) AS MANUDATE,[MD003],[MD035]
-                                    ,(CASE WHEN ISNULL(TB003,'')<>'' AND (TB004-TB005)=0 THEN 0 ELSE (CONVERT(decimal(16,3),([PACKAGE]/[MC004]*[MD006]/[MD007]*(1+[MD008])))*-1 ) END) AS TNUM
+                                    ,(CASE WHEN ISNULL(TB003,'')<>'' AND ISNULL((TB004 - TB005), 0)<=0 THEN 0  ELSE (CONVERT(decimal(16,3),([PACKAGE]/[MC004]*[MD006]/[MD007]*(1+[MD008])))*-1 ) END) AS TNUM
                                     ,[MB004],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[PACKAGE],[COPTD001],[COPTD002],[COPTD003]
                                     FROM 
                                         [TKMOC].dbo.[MOCMANULINE]
@@ -233,7 +233,7 @@ namespace TKMOC
                                     AND [MD003]='{2}'
                                     UNION 
                                     SELECT [MANU],CONVERT(NVARCHAR,[MANUDATE],112) AS MANUDATE,[MD003],[MD035]
-                                    ,(CASE WHEN ISNULL(TB003,'')<>'' AND (TB004-TB005)=0 THEN 0 ELSE (CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008])))*-1) END) AS TNUM
+                                    ,(CASE WHEN ISNULL(TB003,'')<>'' AND ISNULL((TB004 - TB005), 0)<=0 THEN 0  ELSE (CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008])))*-1) END) AS TNUM
                                     ,[MB004],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[NUM],[COPTD001],[COPTD002],[COPTD003]
                                     FROM 
                                         [TKMOC].dbo.[MOCMANULINE]
@@ -279,7 +279,7 @@ namespace TKMOC
                                     (SELECT ROW_NUMBER() OVER (ORDER BY TEMP3.MANUDATE) AS ID,MANU,MANUDATE,MD003,MD035,TNUM,MB004,MB001,MB002,PACKAGE,COPTD001,COPTD002,COPTD003
                                     FROM (
                                     SELECT [MANU],CONVERT(NVARCHAR,[MANUDATE],112) AS MANUDATE,[MD003],[MD035]
-                                    ,(CASE WHEN ISNULL(TB003,'')<>'' AND (TB004-TB005)=0 THEN 0 ELSE  (CONVERT(decimal(16,3),([PACKAGE]/[MC004]*[MD006]/[MD007]*(1+[MD008])))*-1) END) AS TNUM
+                                    ,(CASE WHEN ISNULL(TB003,'')<>'' AND ISNULL((TB004 - TB005), 0)<=0 THEN 0 ELSE  (CONVERT(decimal(16,3),([PACKAGE]/[MC004]*[MD006]/[MD007]*(1+[MD008])))*-1) END) AS TNUM
                                     ,[MB004],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[PACKAGE],[COPTD001],[COPTD002],[COPTD003]
                                     FROM 
                                         [TKMOC].dbo.[MOCMANULINE]
@@ -300,7 +300,7 @@ namespace TKMOC
                                     AND [MD003]='{2}'
                                     UNION 
                                     SELECT [MANU],CONVERT(NVARCHAR,[MANUDATE],112) AS MANUDATE,[MD003],[MD035]
-                                    ,(CASE WHEN ISNULL(TB003,'')<>'' AND (TB004-TB005)=0 THEN 0 ELSE  (CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008])))*-1) END) AS TNUM
+                                    ,(CASE WHEN ISNULL(TB003,'')<>'' AND ISNULL((TB004 - TB005), 0)<=0 THEN 0 ELSE  (CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008])))*-1) END) AS TNUM
                                     ,[MB004],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[NUM],[COPTD001],[COPTD002],[COPTD003]
                                     FROM 
                                         [TKMOC].dbo.[MOCMANULINE]
