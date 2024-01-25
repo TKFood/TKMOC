@@ -234,9 +234,11 @@ namespace TKMOC
 
                                     WHERE [MOCMANULINE].MB001=MC001
                                     AND MC001=MD001
+                                    AND ((ISNULL([MOCMANULINEMERGE].NO,'')<>'' AND ISNULL(MOCTA.TA001 ,'')<>'') OR (ISNULL([MOCMANULINEMERGE].NO,'')=''))
                                     AND [MANU]='包裝線'
                                     AND CONVERT(NVARCHAR,[MANUDATE],112)>='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112)<='{1}'
                                     AND [MD003]='{2}'
+
                                     UNION 
                                     SELECT [MANU],CONVERT(NVARCHAR,[MANUDATE],112) AS MANUDATE,[MD003],[MD035]
                                     ,(CASE WHEN ISNULL(MOCTB1.TB003,'')<>'' AND ISNULL((MOCTB1.TB004 - MOCTB1.TB005), 0)<=0 THEN 0 WHEN ISNULL(MOCTB2.TB003,'')<>'' AND ISNULL(MOCTB2.TB004-MOCTB2.TB005, 0)<=0 THEN 0 WHEN ISNULL(MOCTB1.TB003,'')<>'' AND ISNULL(MOCTB1.TB004-MOCTB1.TB005, 0)>0 THEN CONVERT(decimal(16,3),ISNULL(((MOCTB1.TB004-MOCTB1.TB005)*-1),0)) WHEN ISNULL(MOCTB2.TB003,'')<>'' AND ISNULL(MOCTB2.TB004-MOCTB2.TB005, 0)>0 THEN CONVERT(decimal(16,3),(ISNULL(MOCTB2.TB004-MOCTB2.TB005, 0)/ISNULL((SELECT COUNT(NO) FROM [TKMOC].[dbo].[MOCMANULINEMERGE]  WHERE [MOCMANULINEMERGE].NO=MOCTA.TA033),1))*-1) ELSE (CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008])))*-1 ) END) AS TNUM
@@ -262,6 +264,7 @@ namespace TKMOC
 
                                     WHERE [MOCMANULINE].MB001=MC001
                                     AND MC001=MD001
+                                    AND ((ISNULL([MOCMANULINEMERGE].NO,'')<>'' AND ISNULL(MOCTA.TA001 ,'')<>'') OR (ISNULL([MOCMANULINEMERGE].NO,'')=''))
                                     AND [MANU] NOT IN ('包裝線')
                                     AND CONVERT(NVARCHAR,[MANUDATE],112)>='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112)<='{1}'
                                     AND [MD003]='{2}'
@@ -271,7 +274,8 @@ namespace TKMOC
                                     LEFT JOIN [TK].dbo.INVMD ON MD001=TD004 AND MD002=TD009  
                                     WHERE TC001=TD001 AND TC002=TD002 AND TD004=MB001 AND TD018='Y' AND TD016='N'  AND TC014='Y'
                                     AND TD012>='{0}' AND TD012<='{1}' 
-                                    AND TD004='{2}'           
+                                    AND TD004='{2}'    
+       
                                     UNION 
                                     SELECT '0庫存' AS MANU,CONVERT(NVARCHAR,GETDATE(),112) AS MANUDATE,LA001 AS MD003,MB002,SUM(LA005*LA011) TNUM, MB004,NULL AS MB001,NULL AS MB002,NULL AS PACKAGE,NULL AS COPTD001,NULL AS COPTD002,NULL AS COPTD002
                                     FROM [TK].dbo.INVLA,[TK].dbo.INVMB
@@ -315,9 +319,11 @@ namespace TKMOC
 
                                     WHERE [MOCMANULINE].MB001=MC001
                                     AND MC001=MD001
+                                    AND ((ISNULL([MOCMANULINEMERGE].NO,'')<>'' AND ISNULL(MOCTA.TA001 ,'')<>'') OR (ISNULL([MOCMANULINEMERGE].NO,'')=''))
                                     AND [MANU]='包裝線'
                                     AND CONVERT(NVARCHAR,[MANUDATE],112)>='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112)<='{1}'
                                     AND [MD003]='{2}'
+
                                     UNION 
                                     SELECT [MANU],CONVERT(NVARCHAR,[MANUDATE],112) AS MANUDATE,[MD003],[MD035]
                                     ,(CASE WHEN ISNULL(MOCTB1.TB003,'')<>'' AND ISNULL((MOCTB1.TB004 - MOCTB1.TB005), 0)<=0 THEN 0 WHEN ISNULL(MOCTB2.TB003,'')<>'' AND ISNULL(MOCTB2.TB004-MOCTB2.TB005, 0)<=0 THEN 0 WHEN ISNULL(MOCTB1.TB003,'')<>'' AND ISNULL(MOCTB1.TB004-MOCTB1.TB005, 0)>0 THEN CONVERT(decimal(16,3),ISNULL(((MOCTB1.TB004-MOCTB1.TB005)*-1),0)) WHEN ISNULL(MOCTB2.TB003,'')<>'' AND ISNULL(MOCTB2.TB004-MOCTB2.TB005, 0)>0 THEN CONVERT(decimal(16,3),(ISNULL(MOCTB2.TB004-MOCTB2.TB005, 0)/ISNULL((SELECT COUNT(NO) FROM [TKMOC].[dbo].[MOCMANULINEMERGE]  WHERE [MOCMANULINEMERGE].NO=MOCTA.TA033),1))*-1) ELSE (CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008])))*-1 ) END) AS TNUM
@@ -343,9 +349,11 @@ namespace TKMOC
 
                                     WHERE [MOCMANULINE].MB001=MC001
                                     AND MC001=MD001
+                                    AND ((ISNULL([MOCMANULINEMERGE].NO,'')<>'' AND ISNULL(MOCTA.TA001 ,'')<>'') OR (ISNULL([MOCMANULINEMERGE].NO,'')=''))
                                     AND [MANU] NOT IN ('包裝線')
                                     AND CONVERT(NVARCHAR,[MANUDATE],112)>='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112)<='{1}'
                                     AND [MD003]='{2}'
+
                                     UNION
                                     SELECT '1進貨',TD012,TD004,MB002,CONVERT(DECIMAL(14,2),(CASE WHEN ISNULL(MD002,'')<>'' THEN (ISNULL(TD008-TD015,0)*MD004/MD003) ELSE (TD008-TD015) END )) ,MB004,NULL,NULL,NULL,TD001,TD002,TD003
                                     FROM [TK].dbo.INVMB,[TK].dbo.PURTC,[TK].dbo.PURTD 
