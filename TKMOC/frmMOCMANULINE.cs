@@ -394,6 +394,7 @@ namespace TKMOC
             comboBox6load();
             comboBox7load();            
             comboBox8load();
+            comboBox9load();
 
             comboBox12load();
             comboBox13load();
@@ -553,6 +554,10 @@ namespace TKMOC
         public void comboBox8load()
         {
             LoadComboBoxData(comboBox8, "SELECT MC001 ,MC001+MC002 AS 'MC002' FROM [TK].dbo.CMSMC WHERE MC001 LIKE '2000%'  ORDER BY MC001  ", "MC001", "MC002");
+        }
+        public void comboBox9load()
+        {
+            LoadComboBoxData(comboBox9, "SELECT  [KIND],[PARAID],[PARANAME] FROM [TKMOC].[dbo].[TBPARA] WHERE [KIND]='frmMOCMANULINE' ORDER BY [PARANAME]  ", "PARAID", "PARAID");
         }
 
         public void comboBox12load()
@@ -13596,21 +13601,69 @@ namespace TKMOC
         }
 
 
-        public void SEARCHMOCMANULINE_CHECK(string SDAY,string EDAY)
+        public void SEARCHMOCMANULINE_CHECK(string SDAY,string EDAY,string KINDS)
         {
             sbSql.Clear();
             sbSqlQuery.Clear();
 
-            sbSql.AppendFormat(@"  
-                               SELECT MANU AS '線別',CONVERT(NVARCHAR,[MOCMANULINE].MANUDATE,112) AS '預排日',MB001 AS '品號',MB002 AS '品名',NUM AS '生產數量',BOX AS '箱數',PACKAGE AS '包裝數',TA029 AS '備註'
-                                ,(SELECT TOP 1 MOCTA001+'-'+MOCTA002 FROM  [TKMOC].dbo.[MOCMANULINERESULT] WHERE  [MOCMANULINERESULT].SID = [MOCMANULINE].ID ORDER BY MOCTA002)  AS '製令'
-                                ,(SELECT TOP 1 TA001+'-'+TA002 FROM [TK].dbo.MOCTA,[TKMOC].[dbo].[MOCMANULINEMERGE]  WHERE TA033=[MOCMANULINEMERGE].NO AND [MOCMANULINEMERGE].SID=[MOCMANULINE].ID ORDER BY TA002)  AS '合併製令'
-                                FROM  [TKMOC].dbo.[MOCMANULINE]
-                                WHERE 1=1
-                                AND CONVERT(NVARCHAR,[MOCMANULINE].MANUDATE,112)>='{0}'
-                                AND CONVERT(NVARCHAR,[MOCMANULINE].MANUDATE,112)<='{1}'
-                                ORDER BY MANU,MANUDATE,MB001"
-                               , SDAY,EDAY);
+            if(KINDS.Equals("未有製令"))
+            {
+                sbSql.AppendFormat(@"  
+                                    SELECT *
+                                    FROM (
+                                    SELECT MANU AS '線別',CONVERT(NVARCHAR,[MOCMANULINE].MANUDATE,112) AS '預排日',MB001 AS '品號',MB002 AS '品名',NUM AS '生產數量',BOX AS '箱數',PACKAGE AS '包裝數',TA029 AS '備註'
+                                    ,(SELECT TOP 1 MOCTA001+'-'+MOCTA002 FROM  [TKMOC].dbo.[MOCMANULINERESULT] WHERE  [MOCMANULINERESULT].SID = [MOCMANULINE].ID ORDER BY MOCTA002)  AS '製令'
+                                    ,(SELECT TOP 1 TA001+'-'+TA002 FROM [TK].dbo.MOCTA,[TKMOC].[dbo].[MOCMANULINEMERGE]  WHERE TA033=[MOCMANULINEMERGE].NO AND [MOCMANULINEMERGE].SID=[MOCMANULINE].ID ORDER BY TA002)  AS '合併製令'
+                                    FROM  [TKMOC].dbo.[MOCMANULINE]
+                                    WHERE 1=1
+                                    AND CONVERT(NVARCHAR,[MOCMANULINE].MANUDATE,112)>='{0}'
+                                    AND CONVERT(NVARCHAR,[MOCMANULINE].MANUDATE,112)<='{0}'
+                                    ) AS TEMP
+                                    WHERE 1=1
+                                    AND (ISNULL(製令,'')='' AND ISNULL(合併製令,'')='' )
+                                    ORDER BY 線別,預排日,品號
+                                "
+                              , SDAY, EDAY);
+            }
+            else if (KINDS.Equals("已有製令"))
+            {
+                sbSql.AppendFormat(@"  
+                                    SELECT *
+                                    FROM (
+                                    SELECT MANU AS '線別',CONVERT(NVARCHAR,[MOCMANULINE].MANUDATE,112) AS '預排日',MB001 AS '品號',MB002 AS '品名',NUM AS '生產數量',BOX AS '箱數',PACKAGE AS '包裝數',TA029 AS '備註'
+                                    ,(SELECT TOP 1 MOCTA001+'-'+MOCTA002 FROM  [TKMOC].dbo.[MOCMANULINERESULT] WHERE  [MOCMANULINERESULT].SID = [MOCMANULINE].ID ORDER BY MOCTA002)  AS '製令'
+                                    ,(SELECT TOP 1 TA001+'-'+TA002 FROM [TK].dbo.MOCTA,[TKMOC].[dbo].[MOCMANULINEMERGE]  WHERE TA033=[MOCMANULINEMERGE].NO AND [MOCMANULINEMERGE].SID=[MOCMANULINE].ID ORDER BY TA002)  AS '合併製令'
+                                    FROM  [TKMOC].dbo.[MOCMANULINE]
+                                    WHERE 1=1
+                                    AND CONVERT(NVARCHAR,[MOCMANULINE].MANUDATE,112)>='{0}'
+                                    AND CONVERT(NVARCHAR,[MOCMANULINE].MANUDATE,112)<='{0}'
+                                    ) AS TEMP
+                                    WHERE 1=1
+                                    AND (ISNULL(製令,'')<>'' OR ISNULL(合併製令,'')<>'' )
+                                    ORDER BY 線別,預排日,品號
+                                   "
+                                   , SDAY, EDAY);
+            }
+            else
+            {
+                sbSql.AppendFormat(@"
+                                    SELECT *
+                                    FROM (
+                                    SELECT MANU AS '線別',CONVERT(NVARCHAR,[MOCMANULINE].MANUDATE,112) AS '預排日',MB001 AS '品號',MB002 AS '品名',NUM AS '生產數量',BOX AS '箱數',PACKAGE AS '包裝數',TA029 AS '備註'
+                                    ,(SELECT TOP 1 MOCTA001+'-'+MOCTA002 FROM  [TKMOC].dbo.[MOCMANULINERESULT] WHERE  [MOCMANULINERESULT].SID = [MOCMANULINE].ID ORDER BY MOCTA002)  AS '製令'
+                                    ,(SELECT TOP 1 TA001+'-'+TA002 FROM [TK].dbo.MOCTA,[TKMOC].[dbo].[MOCMANULINEMERGE]  WHERE TA033=[MOCMANULINEMERGE].NO AND [MOCMANULINEMERGE].SID=[MOCMANULINE].ID ORDER BY TA002)  AS '合併製令'
+                                    FROM  [TKMOC].dbo.[MOCMANULINE]
+                                    WHERE 1=1
+                                    AND CONVERT(NVARCHAR,[MOCMANULINE].MANUDATE,112)>='{0}'
+                                    AND CONVERT(NVARCHAR,[MOCMANULINE].MANUDATE,112)<='{0}'
+                                    ) AS TEMP
+                                    WHERE 1=1                                
+                                    ORDER BY 線別,預排日,品號                               
+                                    "
+                                , SDAY, EDAY);
+            }
+
+               
 
             sbSql.AppendFormat(@"  ");
 
@@ -14518,7 +14571,7 @@ namespace TKMOC
         }
         private void button40_Click(object sender, EventArgs e)
         {
-            SEARCHMOCMANULINE_CHECK(dateTimePicker11.Value.ToString("yyyyMMdd"), dateTimePicker32.Value.ToString("yyyyMMdd"));
+            SEARCHMOCMANULINE_CHECK(dateTimePicker11.Value.ToString("yyyyMMdd"), dateTimePicker32.Value.ToString("yyyyMMdd"),comboBox9.Text.ToString());
         
         }
 

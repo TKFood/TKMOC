@@ -675,6 +675,8 @@
             this.button40 = new System.Windows.Forms.Button();
             this.dateTimePicker32 = new System.Windows.Forms.DateTimePicker();
             this.dataGridView30 = new System.Windows.Forms.DataGridView();
+            this.label155 = new System.Windows.Forms.Label();
+            this.comboBox9 = new System.Windows.Forms.ComboBox();
             this.tabControl1.SuspendLayout();
             this.tabPage14.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer44)).BeginInit();
@@ -8818,10 +8820,12 @@
             this.tableLayoutPanel19.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel19.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel19.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
-            this.tableLayoutPanel19.Controls.Add(this.button40, 3, 1);
             this.tableLayoutPanel19.Controls.Add(this.dateTimePicker32, 2, 1);
             this.tableLayoutPanel19.Controls.Add(this.dateTimePicker11, 1, 1);
             this.tableLayoutPanel19.Controls.Add(this.label58, 0, 1);
+            this.tableLayoutPanel19.Controls.Add(this.label155, 0, 2);
+            this.tableLayoutPanel19.Controls.Add(this.comboBox9, 1, 2);
+            this.tableLayoutPanel19.Controls.Add(this.button40, 3, 2);
             this.tableLayoutPanel19.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel19.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel19.Name = "tableLayoutPanel19";
@@ -8860,7 +8864,7 @@
             // button40
             // 
             this.button40.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.button40.Location = new System.Drawing.Point(363, 43);
+            this.button40.Location = new System.Drawing.Point(363, 83);
             this.button40.Name = "button40";
             this.button40.Size = new System.Drawing.Size(114, 34);
             this.button40.TabIndex = 5;
@@ -8910,6 +8914,31 @@
             this.dataGridView30.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView30.Size = new System.Drawing.Size(972, 403);
             this.dataGridView30.TabIndex = 5;
+            // 
+            // label155
+            // 
+            this.label155.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label155.AutoSize = true;
+            this.label155.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label155.Location = new System.Drawing.Point(3, 92);
+            this.label155.Name = "label155";
+            this.label155.Size = new System.Drawing.Size(114, 16);
+            this.label155.TabIndex = 7;
+            this.label155.Text = "分類";
+            this.label155.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // comboBox9
+            // 
+            this.comboBox9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox9.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.comboBox9.FormattingEnabled = true;
+            this.comboBox9.Items.AddRange(new object[] {
+            "製一組",
+            "製二組"});
+            this.comboBox9.Location = new System.Drawing.Point(123, 88);
+            this.comboBox9.Name = "comboBox9";
+            this.comboBox9.Size = new System.Drawing.Size(114, 24);
+            this.comboBox9.TabIndex = 19;
             // 
             // frmMOCMANULINE
             // 
@@ -9769,5 +9798,7 @@
         private System.Windows.Forms.Button button40;
         private System.Windows.Forms.DateTimePicker dateTimePicker32;
         private System.Windows.Forms.DataGridView dataGridView30;
+        private System.Windows.Forms.Label label155;
+        private System.Windows.Forms.ComboBox comboBox9;
     }
 }
