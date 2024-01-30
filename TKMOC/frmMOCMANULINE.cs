@@ -751,6 +751,8 @@ namespace TKMOC
             SqlCommandBuilder SqlCommandBuilderNEW = new SqlCommandBuilder();
             DataSet DataSetNEW = new DataSet();
 
+            DataGridViewNew.AlternatingRowsDefaultCellStyle.BackColor = Color.PaleTurquoise;
+
             try
             {
                 //20210902密
@@ -780,6 +782,7 @@ namespace TKMOC
                     //DataGridViewNew.Rows.Clear();
                     DataGridViewNew.DataSource = DataSetNEW.Tables["DataSetNEW"];
                     DataGridViewNew.AutoResizeColumns();
+                    DataGridViewNew.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
                     //DataGridViewNew.CurrentCell = dataGridView1[0, rownum];
                     //dataGridView20SORTNAME
                     //dataGridView20SORTMODE
@@ -13592,6 +13595,29 @@ namespace TKMOC
             SortedModel = dataGridView5.SortOrder.ToString();
         }
 
+
+        public void SEARCHMOCMANULINE_CHECK(string SDAY,string EDAY)
+        {
+            sbSql.Clear();
+            sbSqlQuery.Clear();
+
+            sbSql.AppendFormat(@"  
+                               SELECT MANU AS '線別',CONVERT(NVARCHAR,[MOCMANULINE].MANUDATE,112) AS '預排日',MB001 AS '品號',MB002 AS '品名',NUM AS '生產數量',BOX AS '箱數',PACKAGE AS '包裝數',TA029 AS '備註'
+                                ,(SELECT TOP 1 MOCTA001+'-'+MOCTA002 FROM  [TKMOC].dbo.[MOCMANULINERESULT] WHERE  [MOCMANULINERESULT].SID = [MOCMANULINE].ID ORDER BY MOCTA002)  AS '製令'
+                                ,(SELECT TOP 1 TA001+'-'+TA002 FROM [TK].dbo.MOCTA,[TKMOC].[dbo].[MOCMANULINEMERGE]  WHERE TA033=[MOCMANULINEMERGE].NO AND [MOCMANULINEMERGE].SID=[MOCMANULINE].ID ORDER BY TA002)  AS '合併製令'
+                                FROM  [TKMOC].dbo.[MOCMANULINE]
+                                WHERE 1=1
+                                AND CONVERT(NVARCHAR,[MOCMANULINE].MANUDATE,112)>='{0}'
+                                AND CONVERT(NVARCHAR,[MOCMANULINE].MANUDATE,112)<='{1}'
+                                ORDER BY MANU,MANUDATE,MB001"
+                               , SDAY,EDAY);
+
+            sbSql.AppendFormat(@"  ");
+
+            SEARCH_MANULINE(sbSql.ToString(), dataGridView30, SortedColumn, SortedModel);
+
+        }
+
         #endregion
 
         #region BUTTON
@@ -14490,10 +14516,15 @@ namespace TKMOC
         {
             UPDATE_MANUDAYILYPRODUCT_MANU2(dateTimePicker1.Value.ToString("yyyyMMdd"), textBox102.Text, textBox103.Text);
         }
+        private void button40_Click(object sender, EventArgs e)
+        {
+            SEARCHMOCMANULINE_CHECK(dateTimePicker11.Value.ToString("yyyyMMdd"), dateTimePicker32.Value.ToString("yyyyMMdd"));
+        
+        }
 
 
         #endregion
 
-       
+
     }
 }
