@@ -59,6 +59,10 @@ namespace TKMOC
         {
             InitializeComponent();
         }
+        private void frmREPORTINVPURUESD_Load(object sender, EventArgs e)
+        {
+            SHOW_TBALERTMESSAGES();
+        }
 
         #region FUNCTION
         public void SEARCHMOCMANULINE(string SDay,string EDay)
@@ -821,6 +825,89 @@ namespace TKMOC
         {
             SEARCHDG1(textBox1.Text.Trim(), 0);
         }
+
+        public void SHOW_TBALERTMESSAGES()
+        {
+            DataTable DT = FIND_TBALERTMESSAGES();
+            string message = "";
+
+            if (DT!=null && DT.Rows.Count>=1)
+            {
+                foreach(DataRow DR in DT.Rows)
+                {
+                     message = message+ DR["MESSAGES"].ToString() + Environment.NewLine;
+                }
+            }
+
+            MessageBox.Show(message);
+        }
+
+        public DataTable FIND_TBALERTMESSAGES()
+        {
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            DataSet ds1 = new DataSet();
+
+            try
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                //找下層bom
+                sbSql.AppendFormat(@"
+                                   SELECT 
+                                    [ID]
+                                    ,[MESSAGES]
+                                    ,[ISCLOSES]
+                                    FROM [TKMOC].[dbo].[TBALERTMESSAGES]
+                                    WHERE [ISCLOSES] IN ('Y')
+                                    ORDER BY [ID]
+                                    ");
+
+               
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "ds1");
+                sqlConn.Close();
+
+
+                if(ds1.Tables["ds1"].Rows.Count >= 1)
+                {
+                    return ds1.Tables["ds1"];
+                }
+                else
+                {
+                    return null;
+                }
+
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+
+            }
+        }
+
+
         #endregion
 
         #region BUTTON
@@ -877,8 +964,9 @@ namespace TKMOC
 
 
 
+
         #endregion
 
-      
+       
     }
 }
