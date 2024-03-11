@@ -2519,6 +2519,29 @@ namespace TKMOC
             {
                 MOCMB001 = MB001E;
                 MOCTA004 = Convert.ToDecimal(textBox31.Text)/ BOMBAR;
+
+                //不是 水麵 以外的要合併生產量
+                if(!comboBox10.Text.Equals("水麵"))
+                {
+                    DataTable DT = SEARCH_MOCMANULINEMERGENAMES();
+                    DataTable DT2 = CAL_MOCMANULINEMERGENAMES_SUM(dateTimePicker10.Value.ToString("yyyyMMdd"), comboBox10.Text);
+
+                    if (DT != null && DT2 != null)
+                    {
+                        foreach (DataRow DR in DT.Rows)
+                        {
+                            if (comboBox10.Text.Equals(DR["MB002"].ToString()))
+                            {
+                                decimal SUM = Convert.ToDecimal(DT2.Rows[0]["總數量"].ToString());
+                                MOCTA.TA021 = "02";
+                                MOCTA.TA015 = SUM.ToString();
+                                MOCTA004 = SUM / BOMBAR;
+                            }
+                        }
+                    }
+                }
+                
+               
                 //MOCTB009 = textBox81.Text;
             }
 
@@ -13676,6 +13699,141 @@ namespace TKMOC
 
             SEARCH_MANULINE(sbSql.ToString(), dataGridView30, SortedColumn, SortedModel);
 
+        }
+
+        public DataTable SEARCH_MOCMANULINEMERGENAMES()
+        {
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            DataSet ds1 = new DataSet();
+            StringBuilder QUERYS = new StringBuilder();
+
+            try
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                sbSql.Clear();
+                QUERYS.Clear();
+                sbSqlQuery2.Clear();
+
+
+                sbSql.AppendFormat(@"  
+                                   SELECT  [MB002]  FROM [TKMOC].[dbo].[MOCMANULINEMERGENAMES]
+                                    WHERE [MB002] NOT IN ('水麵')
+                                    ");
+
+
+
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "TEMPds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["TEMPds1"].Rows.Count > 0)
+                {
+                    return ds1.Tables["TEMPds1"];
+                }
+                else
+                {
+                    return null;
+                }
+
+
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public DataTable CAL_MOCMANULINEMERGENAMES_SUM(string DATES,string KINDS)
+        {
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            DataSet ds1 = new DataSet();
+            StringBuilder QUERYS = new StringBuilder();
+
+            try
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                sbSql.Clear();
+                QUERYS.Clear();
+                sbSqlQuery2.Clear();
+
+
+                sbSql.AppendFormat(@"  
+                                   SELECT TA003  AS '日期',TB003 AS '品號',TB012 AS '品名',SUM(TB004)  AS '總數量'
+                                    FROM [TK].dbo.MOCTB, [TK].dbo.MOCTA,[TK].dbo.CMSMD
+                                    WHERE TA001=TB001 AND TA002=TB002
+                                    AND [TA021]=MD001
+                                    AND TB012 LIKE '%{1}%'
+                                    AND  TA002 LIKE '%{0}%'
+                                    GROUP BY TA003,TB003,TB012
+
+
+                                    ", DATES, KINDS);
+
+
+
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "TEMPds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["TEMPds1"].Rows.Count > 0)
+                {
+                    return ds1.Tables["TEMPds1"];
+                }
+                else
+                {
+                    return null;
+                }
+
+
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
         }
 
         #endregion
