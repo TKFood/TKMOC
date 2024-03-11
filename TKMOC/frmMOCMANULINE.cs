@@ -416,6 +416,8 @@ namespace TKMOC
             comboBox30load();
             comboBox31load();
 
+            comboBox10load();
+
 
             SETIN();
 
@@ -631,7 +633,12 @@ namespace TKMOC
         {
             LoadComboBoxData(comboBox31, "SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD002 IN ('包裝線')  ", "MD002", "MD002");
         }
-        
+
+        public void comboBox10load()
+        {
+            LoadComboBoxData(comboBox10, "SELECT MB002 FROM [TKMOC].[dbo].[MOCMANULINEMERGENAMES]", "MB002", "MB002");
+        }
+
         public void SEARCHMOCMANULINE()
         {
             if (MANU.Equals("製二線"))
@@ -4781,7 +4788,7 @@ namespace TKMOC
 
         }
 
-        public void SEARCHMOCTB()
+        public void SEARCHMOCTB(string KINDS)
         {
             try
             {
@@ -4807,11 +4814,11 @@ namespace TKMOC
                                     FROM [TK].dbo.MOCTB, [TK].dbo.MOCTA,[TK].dbo.CMSMD
                                     WHERE TA001=TB001 AND TA002=TB002
                                     AND [TA021]=MD001
-                                    AND TB012 LIKE '%水麵%'
+                                    AND TB012 LIKE '%{1}%'
                                     AND  TA002 LIKE '%{0}%'
                                     GROUP BY TB003,TB012,TB009,TA003,[TA021],[MD002] 
                                     ORDER BY TA003,[TA021],TB003
-                                    ", dateTimePicker10.Value.ToString("yyyyMMdd"));
+                                    ", dateTimePicker10.Value.ToString("yyyyMMdd"), KINDS);
 
                 adapter13 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -13962,7 +13969,7 @@ namespace TKMOC
 
         private void button25_Click(object sender, EventArgs e)
         {
-            SEARCHMOCTB();
+            SEARCHMOCTB(comboBox10.Text);
         }
 
 
