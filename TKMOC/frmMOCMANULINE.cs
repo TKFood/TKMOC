@@ -4896,6 +4896,11 @@ namespace TKMOC
                     textBox36.Text = row.Cells["入庫別"].Value.ToString();
                     dt5 = Convert.ToDateTime(row.Cells["日期"].Value.ToString().Substring(0,4)+"/"+row.Cells["日期"].Value.ToString().Substring(4, 2)+"/"+ row.Cells["日期"].Value.ToString().Substring(6, 2));
 
+                    if (!comboBox10.Text.Equals("水麵"))
+                    {
+                        dt5 = dateTimePicker33.Value;
+                    }
+
                     MB001E = row.Cells["品號"].Value.ToString();
                     MB002E = row.Cells["品名"].Value.ToString();                   
 
@@ -13836,6 +13841,14 @@ namespace TKMOC
             }
         }
 
+        private void dateTimePicker10_ValueChanged(object sender, EventArgs e)
+        {
+            dateTimePicker33.Value = dateTimePicker10.Value;
+        }
+        private void comboBox10_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SEARCHMOCTB(comboBox10.Text);
+        }
         #endregion
 
         #region BUTTON
@@ -14741,8 +14754,10 @@ namespace TKMOC
         }
 
 
+
+
         #endregion
 
-
+        
     }
 }
