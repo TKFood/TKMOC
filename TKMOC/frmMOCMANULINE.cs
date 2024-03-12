@@ -14147,6 +14147,10 @@ namespace TKMOC
 
         private void button26_Click(object sender, EventArgs e)
         {
+            if (!comboBox10.Text.Equals("水麵"))
+            {
+                dt5 = dateTimePicker33.Value;
+            }
             TA002 = GETMAXTA002(TA001);
             ADDMOCMANULINETOATL();
             ADDMOCTATB();
