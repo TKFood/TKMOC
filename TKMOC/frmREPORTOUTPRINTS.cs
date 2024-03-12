@@ -39,8 +39,8 @@ namespace TKMOC
             StringBuilder SQL1 = new StringBuilder();
             string CHECK_TA021 = "";
 
-            Report report1 = new Report();
-
+            Report report1 = new Report();   
+             
             report1.Load(@"REPORT\營貼\燒番麥方塊酥10g(品皇).frx");
 
             //SQL1 = SETSQL1(CHECK_TA021, SDAY, EDAY);
