@@ -41,7 +41,7 @@ namespace TKMOC
                
             Report report1 = new Report();   
              
-            report1.Load(@"REPORT\營貼\燒番麥方塊酥10g(品皇).frx");
+            report1.Load(@"REPORT\營貼\6kg燒番麥方塊酥.frx");
 
             //SQL1 = SETSQL1(CHECK_TA021, SDAY, EDAY);
 
