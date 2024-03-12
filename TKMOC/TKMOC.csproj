@@ -621,6 +621,12 @@
     <Compile Include="frmREPORTMOCTAB.Designer.cs">
       <DependentUpon>frmREPORTMOCTAB.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmREPORTOUTPRINTS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmREPORTOUTPRINTS.Designer.cs">
+      <DependentUpon>frmREPORTOUTPRINTS.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmREPORTYIELDRATE.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -959,6 +965,9 @@
     <EmbeddedResource Include="frmREPORTMOCTAB.resx">
       <DependentUpon>frmREPORTMOCTAB.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmREPORTOUTPRINTS.resx">
+      <DependentUpon>frmREPORTOUTPRINTS.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmREPORTYIELDRATE.resx">
       <DependentUpon>frmREPORTYIELDRATE.cs</DependentUpon>
     </EmbeddedResource>
@@ -1100,11 +1109,9 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>rd "$(TargetDir)REPORT" /s /q
-
+    <PostBuildEvent>rd /s /q "$(TargetDir)REPORT"
 mkdir "$(TargetDir)REPORT"
-
-copy "$(ProjectDir)REPORT\*.*"  "$(TargetDir)REPORT\*.*"  /y</PostBuildEvent>
+xcopy "$(ProjectDir)REPORT\*.*"  "$(TargetDir)REPORT\" /s /e /y</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
