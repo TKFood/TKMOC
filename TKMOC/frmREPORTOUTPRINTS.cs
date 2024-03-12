@@ -34,7 +34,7 @@ namespace TKMOC
         }
 
         #region FUNCTION
-        public void SETFASTREPORT()
+        public void SETFASTREPORT(string SDAYS,string EDAYS)
         {
             StringBuilder SQL1 = new StringBuilder();
             string CHECK_TA021 = "";
@@ -61,6 +61,8 @@ namespace TKMOC
             //TableDataSource table = report1.GetDataSource("Table") as TableDataSource;
             //table.SelectCommand = SQL1.ToString();
 
+            report1.SetParameterValue("P1", SDAYS);
+            report1.SetParameterValue("P2", EDAYS);
 
             report1.Preview = previewControl1;
             report1.Show();
@@ -71,7 +73,7 @@ namespace TKMOC
         #region BUTTON
         private void button1_Click(object sender, EventArgs e)
         {
-            SETFASTREPORT();
+            SETFASTREPORT(dateTimePicker1.Value.ToString("yyyy.MM.dd"), dateTimePicker2.Value.ToString("yyyy.MM.dd"));
         }
         #endregion
     }
