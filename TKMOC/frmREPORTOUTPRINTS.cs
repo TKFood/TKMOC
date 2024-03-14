@@ -133,7 +133,7 @@ namespace TKMOC
         }
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            try
+            try 
             {
                 LIMITSMONTHS = Convert.ToInt32(comboBox2.SelectedValue.ToString());
 
@@ -153,14 +153,16 @@ namespace TKMOC
             }
             
         }
-        public void SETFASTREPORT(string SDAYS,string EDAYS)
+        public void SETFASTREPORT(string REPORTS,string SDAYS,string EDAYS)
         {
             StringBuilder SQL1 = new StringBuilder();
             string CHECK_TA021 = "";
                
-            Report report1 = new Report();   
-              
-            report1.Load(@"REPORT\營貼\6kg奶油方塊酥10g.frx");
+            Report report1 = new Report();
+
+            string REPORTS_DIR = @"REPORT\營貼\"+ REPORTS + ".frx";
+
+            report1.Load(REPORTS_DIR);
 
             //SQL1 = SETSQL1(CHECK_TA021, SDAY, EDAY);
 
@@ -192,7 +194,7 @@ namespace TKMOC
         #region BUTTON
         private void button1_Click(object sender, EventArgs e)
         {           
-            SETFASTREPORT(dateTimePicker1.Value.ToString("yyyy.MM.dd"), dateTimePicker2.Value.ToString("yyyy.MM.dd"));
+            SETFASTREPORT(comboBox1.Text.ToString(),dateTimePicker1.Value.ToString("yyyy.MM.dd"), dateTimePicker2.Value.ToString("yyyy.MM.dd"));
         }
         #endregion
 
