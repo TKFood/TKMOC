@@ -40,8 +40,8 @@ namespace TKMOC
             string CHECK_TA021 = "";
                
             Report report1 = new Report();   
-             
-            report1.Load(@"REPORT\營貼\6kg燒番麥方塊酥.frx");
+              
+            report1.Load(@"REPORT\營貼\6kg奶油方塊酥10g.frx");
 
             //SQL1 = SETSQL1(CHECK_TA021, SDAY, EDAY);
 
