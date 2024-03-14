@@ -133,8 +133,25 @@ namespace TKMOC
         }
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            LIMITSMONTHS= Convert.ToInt32(comboBox2.SelectedValue.ToString());
-            //MessageBox.Show(LIMITSMONTHS.ToString());
+            try
+            {
+                LIMITSMONTHS = Convert.ToInt32(comboBox2.SelectedValue.ToString());
+
+                if (LIMITSMONTHS > 0)
+                {
+                    DateTime CAL_DAYS = dateTimePicker1.Value;
+                    CAL_DAYS = CAL_DAYS.AddDays(-1);
+                    CAL_DAYS = CAL_DAYS.AddMonths(LIMITSMONTHS);
+
+                    dateTimePicker2.Value = CAL_DAYS;
+                }
+                //MessageBox.Show(LIMITSMONTHS.ToString());
+            }
+            catch
+            {
+
+            }
+            
         }
         public void SETFASTREPORT(string SDAYS,string EDAYS)
         {
@@ -174,7 +191,7 @@ namespace TKMOC
 
         #region BUTTON
         private void button1_Click(object sender, EventArgs e)
-        {
+        {           
             SETFASTREPORT(dateTimePicker1.Value.ToString("yyyy.MM.dd"), dateTimePicker2.Value.ToString("yyyy.MM.dd"));
         }
         #endregion
