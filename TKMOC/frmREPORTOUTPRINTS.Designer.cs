@@ -144,6 +144,7 @@
             // comboBox1
             // 
             this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.SetColumnSpan(this.comboBox1, 2);
             this.comboBox1.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
@@ -151,7 +152,7 @@
             "製二組"});
             this.comboBox1.Location = new System.Drawing.Point(153, 8);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(188, 24);
+            this.comboBox1.Size = new System.Drawing.Size(294, 24);
             this.comboBox1.TabIndex = 28;
             // 
             // label3
@@ -199,6 +200,7 @@
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(186, 27);
             this.dateTimePicker1.TabIndex = 24;
+            this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
             // label1
             // 

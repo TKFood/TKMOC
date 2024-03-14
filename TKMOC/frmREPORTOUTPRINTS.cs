@@ -51,6 +51,8 @@ namespace TKMOC
 
             comboBox1load();
             comboBox1load2();
+
+
         }
 
         #region FUNCTION
@@ -153,10 +155,32 @@ namespace TKMOC
             }
             
         }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                LIMITSMONTHS = Convert.ToInt32(comboBox2.SelectedValue.ToString());
+
+                if (LIMITSMONTHS > 0)
+                {
+                    DateTime CAL_DAYS = dateTimePicker1.Value;
+                    CAL_DAYS = CAL_DAYS.AddDays(-1);
+                    CAL_DAYS = CAL_DAYS.AddMonths(LIMITSMONTHS);
+
+                    dateTimePicker2.Value = CAL_DAYS;
+                }
+                //MessageBox.Show(LIMITSMONTHS.ToString());
+            }
+            catch
+            {
+
+            }
+        }
         public void SETFASTREPORT(string REPORTS,string SDAYS,string EDAYS)
         {
             StringBuilder SQL1 = new StringBuilder();
-            string CHECK_TA021 = "";
+            string CHECK_TA021 = ""; 
                
             Report report1 = new Report(); 
 
@@ -196,8 +220,9 @@ namespace TKMOC
         {           
             SETFASTREPORT(comboBox1.Text.ToString(),dateTimePicker1.Value.ToString("yyyy.MM.dd"), dateTimePicker2.Value.ToString("yyyy.MM.dd"));
         }
+
         #endregion
 
-     
+        
     }
 }
