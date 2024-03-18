@@ -2519,26 +2519,31 @@ namespace TKMOC
             {
                 MOCMB001 = MB001E;
                 MOCTA004 = Convert.ToDecimal(textBox31.Text)/ BOMBAR;
-
+                string MOCTA_TA021 = textBox27.Text;
                 //不是 水麵 以外的要合併生產量
-                if(!comboBox10.Text.Equals("水麵"))
+                //生產線別=01、02
+                if (!comboBox10.Text.Equals("水麵"))
                 {
-                    DataTable DT = SEARCH_MOCMANULINEMERGENAMES();
-                    DataTable DT2 = CAL_MOCMANULINEMERGENAMES_SUM(dateTimePicker10.Value.ToString("yyyyMMdd"), comboBox10.Text);
-
-                    if (DT != null && DT2 != null)
+                    if(MOCTA_TA021.Equals("01")|| MOCTA_TA021.Equals("02"))
                     {
-                        foreach (DataRow DR in DT.Rows)
+                        DataTable DT = SEARCH_MOCMANULINEMERGENAMES();
+                        DataTable DT2 = CAL_MOCMANULINEMERGENAMES_SUM(dateTimePicker10.Value.ToString("yyyyMMdd"), comboBox10.Text);
+
+                        if (DT != null && DT2 != null)
                         {
-                            if (comboBox10.Text.Equals(DR["MB002"].ToString()))
+                            foreach (DataRow DR in DT.Rows)
                             {
-                                decimal SUM = Convert.ToDecimal(DT2.Rows[0]["總數量"].ToString());
-                                MOCTA.TA021 = "02";
-                                MOCTA.TA015 = SUM.ToString();
-                                MOCTA004 = SUM / BOMBAR;
+                                if (comboBox10.Text.Equals(DR["MB002"].ToString()))
+                                {
+                                    decimal SUM = Convert.ToDecimal(DT2.Rows[0]["總數量"].ToString());
+                                    MOCTA.TA021 = "02";
+                                    MOCTA.TA015 = SUM.ToString();
+                                    MOCTA004 = SUM / BOMBAR;
+                                }
                             }
                         }
                     }
+                    
                 }
                 
                
@@ -13801,6 +13806,7 @@ namespace TKMOC
                                     FROM [TK].dbo.MOCTB, [TK].dbo.MOCTA,[TK].dbo.CMSMD
                                     WHERE TA001=TB001 AND TA002=TB002
                                     AND [TA021]=MD001
+                                    AND TA021 IN ('01','02')
                                     AND TB012 LIKE '%{1}%'
                                     AND  TA002 LIKE '%{0}%'
                                     GROUP BY TA003,TB003,TB012
