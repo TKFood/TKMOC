@@ -2524,7 +2524,7 @@ namespace TKMOC
                 //生產線別=01、02
                 if (!comboBox10.Text.Equals("水麵"))
                 {
-                    if(MOCTA_TA021.Equals("01")|| MOCTA_TA021.Equals("02"))
+                    if(MOCTA_TA021.Equals("02")|| MOCTA_TA021.Equals("03"))
                     {
                         DataTable DT = SEARCH_MOCMANULINEMERGENAMES();
                         DataTable DT2 = CAL_MOCMANULINEMERGENAMES_SUM(dateTimePicker10.Value.ToString("yyyyMMdd"), comboBox10.Text);
@@ -13806,7 +13806,7 @@ namespace TKMOC
                                     FROM [TK].dbo.MOCTB, [TK].dbo.MOCTA,[TK].dbo.CMSMD
                                     WHERE TA001=TB001 AND TA002=TB002
                                     AND [TA021]=MD001
-                                    AND TA021 IN ('01','02')
+                                    AND TA021 IN ('02','03')
                                     AND TB012 LIKE '%{1}%'
                                     AND  TA002 LIKE '%{0}%'
                                     GROUP BY TA003,TB003,TB012
