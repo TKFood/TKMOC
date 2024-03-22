@@ -78,7 +78,7 @@ namespace TKMOC
                                 ,[PARANAME]
                                 FROM [TKMOC].[dbo].[TBPARA]
                                 WHERE [KIND]='外標列印'
-                                ORDER BY CONVERT(INT,[PARANAME])
+                                ORDER BY CONVERT(INT,[PARANAME])  
                                     ");
             SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
             DataTable dt = new DataTable();
