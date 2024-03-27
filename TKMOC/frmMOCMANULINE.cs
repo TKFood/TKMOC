@@ -636,7 +636,7 @@ namespace TKMOC
 
         public void comboBox10load()
         {
-            LoadComboBoxData(comboBox10, "SELECT MB002 FROM [TKMOC].[dbo].[MOCMANULINEMERGENAMES]", "MB002", "MB002");
+            LoadComboBoxData(comboBox10, "SELECT MB001,MB002 FROM [TKMOC].[dbo].[MOCMANULINEMERGENAMES]", "MB001", "MB002");
         }
 
         public void SEARCHMOCMANULINE()
@@ -2527,7 +2527,7 @@ namespace TKMOC
                     if(MOCTA_TA021.Equals("02")|| MOCTA_TA021.Equals("03"))
                     {
                         DataTable DT = SEARCH_MOCMANULINEMERGENAMES();
-                        DataTable DT2 = CAL_MOCMANULINEMERGENAMES_SUM(dateTimePicker10.Value.ToString("yyyyMMdd"), comboBox10.Text);
+                        DataTable DT2 = CAL_MOCMANULINEMERGENAMES_SUM(dateTimePicker10.Value.ToString("yyyyMMdd"), comboBox10.SelectedValue.ToString());
 
                         if (DT != null && DT2 != null)
                         {
@@ -4842,7 +4842,7 @@ namespace TKMOC
                                     FROM [TK].dbo.MOCTB, [TK].dbo.MOCTA,[TK].dbo.CMSMD
                                     WHERE TA001=TB001 AND TA002=TB002
                                     AND [TA021]=MD001
-                                    AND TB012 LIKE '%{1}%'
+                                    AND TB003 LIKE '%{1}%'
                                     AND  TA002 LIKE '%{0}%'
                                     GROUP BY TB003,TB012,TB009,TA003,[TA021],[MD002] 
                                     ORDER BY TA003,[TA021],TB003
@@ -13807,7 +13807,7 @@ namespace TKMOC
                                     WHERE TA001=TB001 AND TA002=TB002
                                     AND [TA021]=MD001
                                     AND TA021 IN ('02','03')
-                                    AND TB012 LIKE '%{1}%'
+                                    AND TB003 LIKE '%{1}%'
                                     AND  TA002 LIKE '%{0}%'
                                     GROUP BY TA003,TB003,TB012
 
@@ -13853,7 +13853,7 @@ namespace TKMOC
         }
         private void comboBox10_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SEARCHMOCTB(comboBox10.Text);
+            SEARCHMOCTB(comboBox10.SelectedValue.ToString());
         }
         #endregion
 
@@ -14146,7 +14146,7 @@ namespace TKMOC
 
         private void button25_Click(object sender, EventArgs e)
         {
-            SEARCHMOCTB(comboBox10.Text);
+            SEARCHMOCTB(comboBox10.SelectedValue.ToString());
         }
 
 
