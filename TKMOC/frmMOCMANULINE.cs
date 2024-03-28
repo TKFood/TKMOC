@@ -4842,7 +4842,7 @@ namespace TKMOC
                                     FROM [TK].dbo.MOCTB, [TK].dbo.MOCTA,[TK].dbo.CMSMD
                                     WHERE TA001=TB001 AND TA002=TB002
                                     AND [TA021]=MD001
-                                    AND TB003 LIKE '%{1}%'
+                                    AND ( TB003 LIKE '%{1}%' OR  TB012 LIKE '%{1}%' )
                                     AND  TA002 LIKE '%{0}%'
                                     GROUP BY TB003,TB012,TB009,TA003,[TA021],[MD002] 
                                     ORDER BY TA003,[TA021],TB003
@@ -13807,7 +13807,7 @@ namespace TKMOC
                                     WHERE TA001=TB001 AND TA002=TB002
                                     AND [TA021]=MD001
                                     AND TA021 IN ('02','03')
-                                    AND TB003 LIKE '%{1}%'
+                                    AND ( TB003 LIKE '%{1}%' OR  TB012 LIKE '%{1}%' )
                                     AND  TA002 LIKE '%{0}%'
                                     GROUP BY TA003,TB003,TB012
 
