@@ -4832,7 +4832,7 @@ namespace TKMOC
                 sqlConn = new SqlConnection(sqlsb.ConnectionString);
 
 
-                sbSql.Clear();
+                sbSql.Clear(); 
                 sbSqlQuery.Clear();
 
 
