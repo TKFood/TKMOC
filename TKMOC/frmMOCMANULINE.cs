@@ -12747,9 +12747,13 @@ namespace TKMOC
                 MOCCHECKSCOMMENTS = row.Cells["生管備註填寫"].Value.ToString();
 
                 var cell = row.Cells["生管核準填寫"].Value;
-                if (cell != null)
+                if (cell != null && cell.ToString().Equals("Y"))
                 {
                     MOCCHECKS = cell.ToString();
+                }
+                else
+                {
+                    MOCCHECKS = "N";
                 }
 
                 if (!string.IsNullOrEmpty(MOCCHECKSCOMMENTS))
