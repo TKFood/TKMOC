@@ -183,7 +183,7 @@ namespace TKMOC
             string CHECK_TA021 = ""; 
                
             Report report1 = new Report(); 
-
+             
             string REPORTS_DIR = @"REPORT\營貼\"+ REPORTS + ".frx";
 
             report1.Load(REPORTS_DIR);
