@@ -68,7 +68,7 @@ namespace TKMOC
 
             String connectionString;
             sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
+             
             StringBuilder Sequel = new StringBuilder();
             Sequel.AppendFormat(@"
                                 SELECT 
