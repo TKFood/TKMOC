@@ -91,7 +91,7 @@ namespace TKMOC
             comboBox1.ValueMember = "PARAID";
             comboBox1.DisplayMember = "PARAID";
             sqlConn.Close();
-
+             
 
         }
 
