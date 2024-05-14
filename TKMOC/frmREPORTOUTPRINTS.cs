@@ -73,7 +73,7 @@ namespace TKMOC
             Sequel.AppendFormat(@"
                                 SELECT 
                                 [ID]
-                                ,[KIND]
+                                ,[KIND] 
                                 ,[PARAID]
                                 ,[PARANAME]
                                 FROM [TKMOC].[dbo].[TBPARA]
