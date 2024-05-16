@@ -214,8 +214,16 @@ namespace TKMOC
                                     SELECT ROW_NUMBER() OVER (ORDER BY TEMP.MANUDATE) AS ID,MANU,MANUDATE,MD003,MD035,TNUM,MB004,MB001,MB002,PACKAGE,COPTD001,COPTD002,COPTD003
                                     FROM (
   
-                                    SELECT [MANU],CONVERT(NVARCHAR,[MANUDATE],112) AS MANUDATE,[MD003],[MD035]
-                                    ,(CASE WHEN ISNULL(MOCTB1.TB003,'')<>'' AND ISNULL((MOCTB1.TB004 - MOCTB1.TB005), 0)<=0 THEN 0 WHEN ISNULL(MOCTB2.TB003,'')<>'' AND ISNULL(MOCTB2.TB004-MOCTB2.TB005, 0)<=0 THEN 0 WHEN ISNULL(MOCTB1.TB003,'')<>'' AND ISNULL(MOCTB1.TB004-MOCTB1.TB005, 0)>0 THEN CONVERT(decimal(16,3),ISNULL(((MOCTB1.TB004-MOCTB1.TB005)*-1),0)) WHEN ISNULL(MOCTB2.TB003,'')<>'' AND ISNULL(MOCTB2.TB004-MOCTB2.TB005, 0)>0 THEN CONVERT(decimal(16,3),(ISNULL(MOCTB2.TB004-MOCTB2.TB005, 0)/ISNULL((SELECT COUNT(NO) FROM [TKMOC].[dbo].[MOCMANULINEMERGE]  WHERE [MOCMANULINEMERGE].NO=MOCTA.TA033),1))*-1) ELSE (CONVERT(decimal(16,3),([PACKAGE]/[MC004]*[MD006]/[MD007]*(1+[MD008])))*-1 ) END) AS TNUM
+                                    SELECT 
+                                    [MANU]
+                                    ,CONVERT(NVARCHAR,[MANUDATE],112) AS MANUDATE
+                                    ,[MD003]
+                                    ,[MD035]                                    
+                                    ,(CASE WHEN ISNULL(MOCTB1.TB003,'')<>'' AND ISNULL((MOCTB1.TB004 - MOCTB1.TB005), 0)<=0 THEN 0 
+                                        WHEN ISNULL(MOCTB2.TB003,'')<>'' AND ISNULL(MOCTB2.TB004-MOCTB2.TB005, 0)<=0 THEN 0 
+                                        WHEN ISNULL(MOCTB1.TB003,'')<>'' AND ISNULL(MOCTB1.TB004-MOCTB1.TB005, 0)>0 THEN CONVERT(decimal(16,3),ISNULL(((MOCTB1.TB004-MOCTB1.TB005)*-1),0)) 
+                                        WHEN ISNULL(MOCTB2.TB003,'')<>'' AND ISNULL(MOCTB2.TB004-MOCTB2.TB005, 0)>0 THEN CONVERT(decimal(16,3),(ISNULL(MOCTB2.TB004-MOCTB2.TB005, 0)/ISNULL((SELECT COUNT(NO) FROM [TKMOC].[dbo].[MOCMANULINEMERGE]  WHERE [MOCMANULINEMERGE].NO=MOCTA.TA033),1))*-1) 
+                                        ELSE (CONVERT(decimal(16,3),([PACKAGE]/[MC004]*[MD006]/[MD007]*(1+[MD008])))*-1 ) END) AS TNUM
                                     ,[MB004],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[PACKAGE],[COPTD001],[COPTD002],[COPTD003]
                                     FROM 
                                     [TKMOC].dbo.[MOCMANULINE]
@@ -244,8 +252,16 @@ namespace TKMOC
                                     AND [MD003]='{2}'
 
                                     UNION 
-                                    SELECT [MANU],CONVERT(NVARCHAR,[MANUDATE],112) AS MANUDATE,[MD003],[MD035]
-                                    ,(CASE WHEN ISNULL(MOCTB1.TB003,'')<>'' AND ISNULL((MOCTB1.TB004 - MOCTB1.TB005), 0)<=0 THEN 0 WHEN ISNULL(MOCTB2.TB003,'')<>'' AND ISNULL(MOCTB2.TB004-MOCTB2.TB005, 0)<=0 THEN 0 WHEN ISNULL(MOCTB1.TB003,'')<>'' AND ISNULL(MOCTB1.TB004-MOCTB1.TB005, 0)>0 THEN CONVERT(decimal(16,3),ISNULL(((MOCTB1.TB004-MOCTB1.TB005)*-1),0)) WHEN ISNULL(MOCTB2.TB003,'')<>'' AND ISNULL(MOCTB2.TB004-MOCTB2.TB005, 0)>0 THEN CONVERT(decimal(16,3),(ISNULL(MOCTB2.TB004-MOCTB2.TB005, 0)/ISNULL((SELECT COUNT(NO) FROM [TKMOC].[dbo].[MOCMANULINEMERGE]  WHERE [MOCMANULINEMERGE].NO=MOCTA.TA033),1))*-1) ELSE (CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008])))*-1 ) END) AS TNUM
+                                    SELECT 
+                                    [MANU]
+                                    ,CONVERT(NVARCHAR,[MANUDATE],112) AS MANUDATE
+                                    ,[MD003]
+                                    ,[MD035]
+                                    ,(CASE WHEN ISNULL(MOCTB1.TB003,'')<>'' AND ISNULL((MOCTB1.TB004 - MOCTB1.TB005), 0)<=0 THEN 0 
+                                        WHEN ISNULL(MOCTB2.TB003,'')<>'' AND ISNULL(MOCTB2.TB004-MOCTB2.TB005, 0)<=0 THEN 0 
+                                        WHEN ISNULL(MOCTB1.TB003,'')<>'' AND ISNULL(MOCTB1.TB004-MOCTB1.TB005, 0)>0 THEN CONVERT(decimal(16,3),ISNULL(((MOCTB1.TB004-MOCTB1.TB005)*-1),0)) 
+                                        WHEN ISNULL(MOCTB2.TB003,'')<>'' AND ISNULL(MOCTB2.TB004-MOCTB2.TB005, 0)>0 THEN CONVERT(decimal(16,3),(ISNULL(MOCTB2.TB004-MOCTB2.TB005, 0)/ISNULL((SELECT COUNT(NO) FROM [TKMOC].[dbo].[MOCMANULINEMERGE]  WHERE [MOCMANULINEMERGE].NO=MOCTA.TA033),1))*-1) 
+                                        ELSE (CONVERT(decimal(16,3),([NUM]/[MC004]*[MD006]/[MD007]*(1+[MD008])))*-1 ) END) AS TNUM
                                     ,[MB004],[MOCMANULINE].[MB001],[MOCMANULINE].[MB002],[NUM],[COPTD001],[COPTD002],[COPTD003]
                                     FROM 
                                     [TKMOC].dbo.[MOCMANULINE]
