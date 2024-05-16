@@ -1419,6 +1419,7 @@ namespace TKMOC
 
         public void UPDATEMOCTB2(string TB001, string TB002)
         {
+            //設定要取整理的品號LIKE
             string SQLLIKE = SEARCHMOCCHANGE();
 
             try
@@ -1481,7 +1482,10 @@ namespace TKMOC
                 sqlConn.Close();
             }
         }
-
+        /// <summary>
+        /// //設定要取整理的品號LIKE
+        /// </summary>
+        /// <returns></returns>
         public string SEARCHMOCCHANGE()
         {
             StringBuilder MB001 = new StringBuilder();
