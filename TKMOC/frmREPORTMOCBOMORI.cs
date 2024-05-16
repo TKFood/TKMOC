@@ -57,6 +57,8 @@ namespace TKMOC
         int result;
 
         Report report1 = new Report();
+        //找出生產說明用的品號
+        string MAINMB001 = "";
 
         public frmREPORTMOCBOMORI()
         {
@@ -145,7 +147,7 @@ namespace TKMOC
                     textBox2.Text = row.Cells["單號"].Value.ToString().Trim();
                     textBox3.Text = row.Cells["桶數"].Value.ToString().Trim();
 
-
+                    MAINMB001 = row.Cells["品號"].Value.ToString().Trim();
 
                 }
                 else
@@ -158,7 +160,7 @@ namespace TKMOC
             }
         }
 
-        public void SETREPORT(string TA001, string TA002, string BUCKETS)
+        public void SETREPORT(string TA001, string TA002, string BUCKETS,string MAINMB001)
         {
             float BUCKETSORI = float.Parse(BUCKETS);
             bool CHECKFLOOR = IsIntegerFloor(BUCKETSORI);
@@ -183,11 +185,14 @@ namespace TKMOC
 
 
             StringBuilder SQL = new StringBuilder();
+            StringBuilder SQL1B = new StringBuilder();
+
 
             SQL = SETSQL();
+            SQL1B = SETSQL1B(MAINMB001);
 
             report1 = new Report();
-            report1.Load(@"REPORT\水麵原料添加表V6.frx");
+            report1.Load(@"REPORT\水麵原料添加表V7.frx");
 
             //20210902密
             Class1 TKID = new Class1();//用new 建立類別實體
@@ -204,6 +209,8 @@ namespace TKMOC
 
             TableDataSource table = report1.GetDataSource("Table") as TableDataSource;
             table.SelectCommand = SQL.ToString();
+            TableDataSource table1 = report1.GetDataSource("Table1") as TableDataSource;
+            table1.SelectCommand = SQL1B.ToString();
 
             report1.Preview = previewControl1;
             report1.Show();
@@ -251,6 +258,25 @@ namespace TKMOC
                                 ORDER BY [TA001],[TA002],[BOXS],[MD003]    
   
                             ");
+
+
+
+            return SB;
+        }
+
+        public StringBuilder SETSQL1B(string MAINMB001)
+        {
+            StringBuilder SB = new StringBuilder();
+
+            SB.AppendFormat(@"
+                              SELECT TOP 1
+                            [MB001]
+                            ,[MB002]
+                            ,[PROCESSING]
+                            FROM [TKMOC].[dbo].[REPORTMOCBOMORIPROCESS]
+                            WHERE [MB001] LIKE '%{0}%'
+  
+                            ", MAINMB001);
 
 
 
@@ -696,7 +722,7 @@ namespace TKMOC
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            SETREPORT(textBox1.Text.Trim(), textBox2.Text.Trim(), textBox3.Text.Trim()); 
+            SETREPORT(textBox1.Text.Trim(), textBox2.Text.Trim(), textBox3.Text.Trim(),MAINMB001); 
 
         }
 
