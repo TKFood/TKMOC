@@ -261,7 +261,7 @@ namespace TKMOC
 
 
 
-            return SB;
+            return SB; 
         }
 
         public StringBuilder SETSQL1B(string MAINMB001)
