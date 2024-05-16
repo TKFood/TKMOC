@@ -58,6 +58,9 @@ namespace TKMOC
 
         Report report1 = new Report();
 
+        //找出生產說明用的品號
+        string MAINMB001 = "";
+
         public frmREPORTMOCBOM()
         {
             InitializeComponent();
@@ -261,7 +264,7 @@ namespace TKMOC
                     textBox2.Text = row.Cells["單號"].Value.ToString().Trim();
                     textBox3.Text = row.Cells["桶數"].Value.ToString().Trim();
 
-
+                    MAINMB001 = row.Cells["品號"].Value.ToString().Trim();
 
                 }
                 else
@@ -300,7 +303,7 @@ namespace TKMOC
 
         }
 
-        public void SETREPORT(string TA001,string TA002,string BUCKETS)
+        public void SETREPORT(string TA001,string TA002,string BUCKETS,string MAINMB001)
         {
             float BUCKETSORI = float.Parse(BUCKETS);
             bool CHECKFLOOR = IsIntegerFloor(BUCKETSORI);
@@ -324,11 +327,13 @@ namespace TKMOC
 
 
             StringBuilder SQL = new StringBuilder();
+            StringBuilder SQL1B = new StringBuilder();
 
             SQL = SETSQL();
+            SQL1B = SETSQL1B(MAINMB001);
 
             report1 = new Report();
-            report1.Load(@"REPORT\油酥原料添加表V6.frx");
+            report1.Load(@"REPORT\油酥原料添加表V7.frx");
 
             //20210902密
             Class1 TKID = new Class1();//用new 建立類別實體
@@ -346,6 +351,8 @@ namespace TKMOC
 
             TableDataSource table = report1.GetDataSource("Table") as TableDataSource;
             table.SelectCommand = SQL.ToString();
+            TableDataSource table1 = report1.GetDataSource("Table1") as TableDataSource;
+            table1.SelectCommand = SQL1B.ToString();
 
             report1.Preview = previewControl1;
             report1.Show();
@@ -399,8 +406,25 @@ namespace TKMOC
 
             return SB;
         }
+        public StringBuilder SETSQL1B(string MAINMB001)
+        {
+            StringBuilder SB = new StringBuilder();
 
-        public void SETREPORT2(string TA001,string TA002,float BUCKETSORI,string LINK_TA001TA002,string LINK_TA006, string LINK_TA034)
+            SB.AppendFormat(@" 
+                                
+                            SELECT TOP 1
+                            [PROCESSING]
+                            FROM [TKMOC].[dbo].[REPORTMOCBOMPROCESS]
+                            WHERE MB001 LIKE '%{0}%'
+
+                            ", MAINMB001);
+
+
+
+            return SB;
+        }
+
+        public void SETREPORT2(string TA001,string TA002,float BUCKETSORI,string LINK_TA001TA002,string LINK_TA006, string LINK_TA034, string MAINMB001)
         {
             bool CHECKFLOOR = IsIntegerFloor(BUCKETSORI);
 
@@ -423,11 +447,13 @@ namespace TKMOC
 
 
             StringBuilder SQL = new StringBuilder();
+            StringBuilder SQL2B = new StringBuilder();
 
             SQL = SETSQL2(LINK_TA001TA002, LINK_TA006, LINK_TA034);
+            SQL2B = SETSQL2B(MAINMB001);
 
             report1 = new Report();
-            report1.Load(@"REPORT\油酥原料添加表V6.frx");
+            report1.Load(@"REPORT\油酥原料添加表V7.frx");
 
             //20210902密
             Class1 TKID = new Class1();//用new 建立類別實體
@@ -445,6 +471,8 @@ namespace TKMOC
 
             TableDataSource table = report1.GetDataSource("Table") as TableDataSource;
             table.SelectCommand = SQL.ToString();
+            TableDataSource table1 = report1.GetDataSource("Table1") as TableDataSource;
+            table1.SelectCommand = SQL2B.ToString();
 
             report1.Preview = previewControl1;
             report1.Show();
@@ -493,6 +521,25 @@ namespace TKMOC
      
 
                             ", LINK_TA001TA002,TA006, TA034);
+
+
+
+            return SB;
+        }
+
+        public StringBuilder SETSQL2B(string MAINMB001)
+        {
+            StringBuilder SB = new StringBuilder();
+
+            SB.AppendFormat(@" 
+                                
+                           SELECT TOP 1
+                            [PROCESSING]
+                            FROM [TKMOC].[dbo].[REPORTMOCBOMPROCESS]
+                            WHERE MB001 LIKE '%{0}%'
+     
+
+                            ", MAINMB001);
 
 
 
@@ -1339,6 +1386,8 @@ namespace TKMOC
             string TEMP = "";
             float BUCKETS = 0;
 
+       
+
             //
             foreach (DataGridViewRow dr in this.dataGridView1.Rows)
             {
@@ -1374,6 +1423,8 @@ namespace TKMOC
                         LINK_TA034 = LINK_TA034 + dr.Cells["品名"].Value.ToString() + "*";
                         BUCKETS = BUCKETS + float.Parse(dr.Cells["桶數"].Value.ToString());
                         BUCKETS = (float)Math.Round(BUCKETS, 3);
+
+                        MAINMB001 = dr.Cells["品號"].Value.ToString();
                     }
                 }
                 catch (Exception ex)
@@ -1386,7 +1437,7 @@ namespace TKMOC
             {
                 if(DT==null)
                 {
-                    SETREPORT2(TA001, TA002, BUCKETS, LINK_TA001TA002, LINK_TA006, LINK_TA034);
+                    SETREPORT2(TA001, TA002, BUCKETS, LINK_TA001TA002, LINK_TA006, LINK_TA034, MAINMB001);
                 }
                 else
                 {
@@ -1406,7 +1457,7 @@ namespace TKMOC
             }
             else if (CHECKED.Equals("N"))
             {
-                SETREPORT(textBox1.Text.Trim(), textBox2.Text.Trim(), textBox3.Text.Trim());
+                SETREPORT(textBox1.Text.Trim(), textBox2.Text.Trim(), textBox3.Text.Trim(), MAINMB001);
             }
 
         }
