@@ -182,7 +182,7 @@ namespace TKMOC
             StringBuilder SQL1 = new StringBuilder();
             string CHECK_TA021 = ""; 
                
-            Report report1 = new Report(); 
+            Report report1 = new Report();  
               
             string REPORTS_DIR = @"REPORT\營貼\"+ REPORTS + ".frx";
 
