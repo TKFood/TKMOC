@@ -258,14 +258,14 @@ namespace TKMOC
             {
                 int rowindex = dataGridView1.CurrentRow.Index;
                 if (rowindex >= 0)
-                {
+                { 
                     DataGridViewRow row = dataGridView1.Rows[rowindex];
                     textBox1.Text = row.Cells["製令"].Value.ToString().Trim();
                     textBox2.Text = row.Cells["單號"].Value.ToString().Trim();
                     textBox3.Text = row.Cells["桶數"].Value.ToString().Trim();
 
                     MAINMB001 = row.Cells["品號"].Value.ToString().Trim();
-
+                     
                 }
                 else
                 {

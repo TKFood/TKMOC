@@ -277,9 +277,8 @@ namespace TKMOC
                             WHERE [MB001] LIKE '%{0}%'
   
                             ", MAINMB001);
-
-
-
+             
+             
             return SB;
         }
         /// <summary>
