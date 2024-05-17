@@ -183,7 +183,7 @@ namespace TKMOC
             string CHECK_TA021 = ""; 
                
             Report report1 = new Report(); 
-             
+              
             string REPORTS_DIR = @"REPORT\營貼\"+ REPORTS + ".frx";
 
             report1.Load(REPORTS_DIR);
@@ -210,7 +210,7 @@ namespace TKMOC
             report1.SetParameterValue("P2", EDAYS);
 
             report1.Preview = previewControl1;
-            report1.Show();
+            report1.Show(); 
         }
 
         #endregion
