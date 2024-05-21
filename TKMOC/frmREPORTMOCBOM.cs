@@ -396,7 +396,7 @@ namespace TKMOC
 
                             FROM [TKMOC].[dbo].[REPORTMOCBOM]
                             LEFT JOIN [TK].dbo.BOMMC ON MC001=TA006
-                            WHERE [MD003] NOT  IN ('101001009','3010000111')   
+                            WHERE [MD003] NOT  IN (SELECT [MB001]  FROM [TKMOC].[dbo].[LIMITSREPORTMOCBOM]  )   
                             ORDER BY [TA001],[TA002],[BOXS],[MD003]
      
 
@@ -516,7 +516,7 @@ namespace TKMOC
 
                             FROM [TKMOC].[dbo].[REPORTMOCBOM]
                             LEFT JOIN [TK].dbo.BOMMC ON MC001=TA006
-                            WHERE [MD003] NOT  IN ('101001009','3010000111')   
+                            WHERE [MD003] NOT  IN  (SELECT [MB001]  FROM [TKMOC].[dbo].[LIMITSREPORTMOCBOM]  )   
                             ORDER BY [TA001],[TA002],[BOXS],[MD003]
      
 
