@@ -180,14 +180,14 @@ namespace TKMOC
                 }
 
             }
-
+              
 
 
 
             StringBuilder SQL = new StringBuilder();
             StringBuilder SQL1B = new StringBuilder();
 
-
+                 
             SQL = SETSQL();
             SQL1B = SETSQL1B(MAINMB001);
 
