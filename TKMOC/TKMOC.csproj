@@ -117,6 +117,12 @@
     <Compile Include="frmCALBOMMD.Designer.cs">
       <DependentUpon>frmCALBOMMD.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmCHECKPUR.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCHECKPUR.Designer.cs">
+      <DependentUpon>frmCHECKPUR.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmCOP.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -712,6 +718,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmCALBOMMD.resx">
       <DependentUpon>frmCALBOMMD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCHECKPUR.resx">
+      <DependentUpon>frmCHECKPUR.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmCOP.resx">
       <DependentUpon>frmCOP.cs</DependentUpon>
