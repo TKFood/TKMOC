@@ -475,7 +475,7 @@ namespace TKMOC
         }
 
         public string SETFASETSQL3(string SDAY)
-        {
+        { 
             StringBuilder FASTSQL = new StringBuilder();
 
             //,CASE WHEN TA006 NOT LIKE '4%' THEN CONVERT(decimal(16,3),TA015/ISNULL(MC004,1)) ELSE 0 END AS '桶數'
