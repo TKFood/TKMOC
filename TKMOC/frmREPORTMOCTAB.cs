@@ -467,12 +467,60 @@ namespace TKMOC
 
 
             TableDataSource Table = report1.GetDataSource("Table") as TableDataSource;
-            SQL = SETFASETSQL2(SDAY);
+            SQL = SETFASETSQL3(SDAY);
             Table.SelectCommand = SQL;
 
             report1.Preview = previewControl2;
             report1.Show();
         }
+
+        public string SETFASETSQL3(string SDAY)
+        {
+            StringBuilder FASTSQL = new StringBuilder();
+
+            //,CASE WHEN TA006 NOT LIKE '4%' THEN CONVERT(decimal(16,3),TA015/ISNULL(MC004,1)) ELSE 0 END AS '桶數'
+            //,CASE WHEN TA006 LIKE '4%' THEN CONVERT(decimal(16, 3), TA015 / ISNULL(MD007, 1) * ISNULL(MD010, 1)) ELSE 0 END AS '箱數'
+
+            FASTSQL.AppendFormat(@"    
+                                SELECT 
+                                 [ID]
+                                ,[REPORTMOCMANULINE].[MANULINE] AS '生產線別'
+                                ,[REPORTMOCMANULINE].[LOTNO] AS 'LOTNO'
+                                ,[REPORTMOCMANULINE].[TA001] AS '製令別'
+                                ,[REPORTMOCMANULINE].[TA002] AS '製令編號'
+                                ,CONVERT(NVARCHAR,[REPORTMOCMANULINE].[TA003],112) AS '製令日期'
+                                ,[REPORTMOCMANULINE].[TA006] AS '品號'
+                                ,[REPORTMOCMANULINE].[TA007] AS '單位'
+                                ,[REPORTMOCMANULINE].[TA015] AS '預計產量'
+                                ,[REPORTMOCMANULINE].[TA017] AS '實際產出'
+                                ,[REPORTMOCMANULINE].[MB002] AS '品名'
+                                ,[REPORTMOCMANULINE].[MB003] AS '規格'
+                                ,[REPORTMOCMANULINE].[PCTS] AS '比例'
+                                ,[REPORTMOCMANULINE].[SEQ] AS '順序'
+                                ,[REPORTMOCMANULINE].[ALLERGEN]  AS '過敏原'
+                                ,[REPORTMOCMANULINE].[COOKIES] AS '餅體'
+                                ,[REPORTMOCMANULINE].[BARS] AS '桶數'
+                                ,[REPORTMOCMANULINE].[BOXS] AS '箱數'
+                                ,CONVERT(NVARCHAR,[REPORTMOCMANULINE].[VDATES],112) AS '有效日期'
+                                ,[REPORTMOCMANULINE].[COMMENT] AS '備註'
+                                ,MOCTA.TA026 AS '訂單別'
+                                ,MOCTA.TA027 AS '訂單號'
+                                ,TC053  AS '客戶'
+                                ,[REPORTMOCMANULINE].[ORI] AS '素別'
+                                FROM [TKMOC].[dbo].[REPORTMOCMANULINE]
+                                LEFT JOIN [TK].dbo.MOCTA ON [REPORTMOCMANULINE].TA001=MOCTA.[TA001] AND [REPORTMOCMANULINE].[TA002]=MOCTA.[TA002]
+                                LEFT JOIN [TK].dbo.COPTC ON TC001= TA026 AND TC002=TA027 
+                                WHERE CONVERT(NVARCHAR,[REPORTMOCMANULINE].TA003,112)='{0}'  
+                                AND [REPORTMOCMANULINE].[TA001] NOT IN ('A513')
+ 
+                                ORDER BY [REPORTMOCMANULINE].TA003,[MANULINE],[REPORTMOCMANULINE].TA001,[REPORTMOCMANULINE].TA002   
+
+                                ", SDAY);
+
+            return FASTSQL.ToString();
+        }
+
+
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
             SETCODE();
