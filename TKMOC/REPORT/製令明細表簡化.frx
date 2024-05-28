@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="09/23/2020 16:02:45" ReportInfo.Modified="05/28/2024 13:03:56" ReportInfo.CreatorVersion="2016.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9LcEKnY0ex25mVWRw9CRa6j">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT &#13;&#10; [ID]&#13;&#10;,[REPORTMOCMANULINE].[MANULINE] AS '生產線別'&#13;&#10;,[REPORTMOCMANULINE].[LOTNO] AS 'LOTNO'&#13;&#10;,[REPORTMOCMANULINE].[TA001] AS '製令別'&#13;&#10;,[REPORTMOCMANULINE].[TA002] AS '製令編號'&#13;&#10;,CONVERT(NVARCHAR,[REPORTMOCMANULINE].[TA003],112) AS '製令日期'&#13;&#10;,[REPORTMOCMANULINE].[TA006] AS '品號'&#13;&#10;,[REPORTMOCMANULINE].[TA007] AS '單位'&#13;&#10;,[REPORTMOCMANULINE].[TA015] AS '預計產量'&#13;&#10;,[REPORTMOCMANULINE].[TA017] AS '實際產出'&#13;&#10;,[REPORTMOCMANULINE].[MB002] AS '品名'&#13;&#10;,[REPORTMOCMANULINE].[MB003] AS '規格'&#13;&#10;,[REPORTMOCMANULINE].[PCTS] AS '比例'&#13;&#10;,[REPORTMOCMANULINE].[SEQ] AS '順序'&#13;&#10;,[REPORTMOCMANULINE].[ALLERGEN]  AS '過敏原'&#13;&#10;,[REPORTMOCMANULINE].[COOKIES] AS '餅體'&#13;&#10;,[REPORTMOCMANULINE].[BARS] AS '桶數'&#13;&#10;,[REPORTMOCMANULINE].[BOXS] AS '箱數'&#13;&#10;,CONVERT(NVARCHAR,[REPORTMOCMANULINE].[VDATES],112) AS '有效日期'&#13;&#10;,[REPORTMOCMANULINE].[COMMENT] AS '備註'&#13;&#10;,MOCTA.TA026 AS '訂單別'&#13;&#10;,MOCTA.TA027 AS '訂單號'&#13;&#10;,TC053  AS '客戶'&#13;&#10;,[REPORTMOCMANULINE].[ORI] AS '素別'&#13;&#10;FROM [TKMOC].[dbo].[REPORTMOCMANULINE]&#13;&#10;LEFT JOIN [TK].dbo.MOCTA ON [REPORTMOCMANULINE].TA001=MOCTA.[TA001] AND [REPORTMOCMANULINE].[TA002]=MOCTA.[TA002]&#13;&#10;LEFT JOIN [TK].dbo.COPTC ON TC001= TA026 AND TC002=TA027 &#13;&#10;WHERE CONVERT(NVARCHAR,[REPORTMOCMANULINE].TA003,112)='20201215' &#13;&#10;ORDER BY [REPORTMOCMANULINE].TA003,[MANULINE],[REPORTMOCMANULINE].TA001,[REPORTMOCMANULINE].TA002   ">
+        <Column Name="製令別" DataType="System.String"/>
+        <Column Name="製令編號" DataType="System.String"/>
+        <Column Name="生產線別" DataType="System.String"/>
+        <Column Name="品號" DataType="System.String"/>
+        <Column Name="品名" DataType="System.String"/>
+        <Column Name="規格" DataType="System.String"/>
+        <Column Name="預計產量" DataType="System.Decimal"/>
+        <Column Name="實際產出" DataType="System.Decimal"/>
+        <Column Name="單位" DataType="System.String"/>
+        <Column Name="備註" DataType="System.String"/>
+        <Column Name="有效日期" DataType="System.String"/>
+        <Column Name="桶數" DataType="System.Decimal"/>
+        <Column Name="箱數" DataType="System.Decimal"/>
+        <Column Name="比例" DataType="System.String"/>
+        <Column Name="過敏原" DataType="System.String"/>
+        <Column Name="製令日期" DataType="System.String"/>
+        <Column Name="順序" DataType="System.String"/>
+        <Column Name="餅體" DataType="System.String"/>
+        <Column Name="ID" DataType="System.Guid"/>
+        <Column Name="LOTNO" DataType="System.String"/>
+        <Column Name="訂單別" DataType="System.String"/>
+        <Column Name="訂單號" DataType="System.String"/>
+        <Column Name="客戶" DataType="System.String"/>
+        <Column Name="素別" DataType="System.String"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="P1" DataType="System.String"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="400" PaperHeight="210">
+    <ReportTitleBand Name="ReportTitle1" Width="1436.4" Height="56.7">
+      <TextObject Name="Text31" Width="1417.5" Height="18.9" Text="老楊食品股份有限公司" HorzAlign="Center" VertAlign="Center" Font="宋体, 10pt"/>
+      <TextObject Name="Text32" Left="-1.03" Top="37.8" Width="387.45" Height="18.9" Text="製表日期:[Year([Date])]/[Month([Date])]/[Day([Date])]" VertAlign="Center" Font="宋体, 10pt"/>
+      <TextObject Name="Text33" Left="1057.37" Top="37.8" Width="245.7" Height="18.9" Text="生產日期:[Substring([Table.製令日期],0,4)]/ [Substring([Table.製令日期],4,2)]/ [Substring([Table.製令日期],6,2)]" VertAlign="Center" Font="宋体, 10pt"/>
+      <TextObject Name="Text34" Left="774.9" Top="37.8" Width="245.7" Height="18.9" Text="包裝代碼[Table.LOTNO]" VertAlign="Center" Font="宋体, 10pt"/>
+      <TextObject Name="Text36" Top="18.9" Width="1417.5" Height="18.9" Text="[Substring([Table.製令日期],0,4)]年/[Substring([Table.製令日期],4,2)]月/[Substring([Table.製令日期],6,2)]日  生產排程確認表" HorzAlign="Center" VertAlign="Center" Font="宋体, 10pt"/>
+      <TextObject Name="Text35" Left="1332.45" Top="37.8" Width="85.05" Height="18.9" Text="有效日期：" Font="宋体, 10pt"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="61.3" Width="1436.4" Height="19.35" Guides="0">
+      <TextObject Name="Text2" Width="66.15" Height="18.9" Border.Lines="All" Text="生產線別" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text4" Left="66.15" Width="47.25" Height="18.9" Border.Lines="All" Text="製令別" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text6" Left="113.4" Width="85.05" Height="18.9" Border.Lines="All" Text="製令編號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text8" Left="292.95" Width="226.8" Height="18.9" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text11" Left="245.7" Width="47.25" Height="18.9" Border.Lines="All" Text="順序" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text10" Left="198.45" Width="47.25" Height="18.9" Border.Lines="All" Text="比例" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text14" Left="519.75" Width="56.7" Height="18.9" Border.Lines="All" Text="過敏原" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text16" Left="642.6" Width="132.3" Height="18.9" Border.Lines="All" Text="規格" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text18" Left="859.95" Width="66.15" Height="18.9" Border.Lines="All" Text="預計產量" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text22" Left="926.1" Width="66.15" Height="18.9" Border.Lines="All" Text="單位" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text24" Left="992.25" Width="66.15" Height="18.9" Border.Lines="All" Text="桶數" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text26" Left="1058.4" Width="66.15" Height="18.9" Border.Lines="All" Text="箱數" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text28" Left="1124.55" Width="292.95" Height="18.9" Border.Lines="All" Text="備註" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text38" Left="774.9" Width="85.05" Height="18.9" Border.Lines="All" Text="餅體" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text48" Left="576.45" Width="66.15" Height="18.9" Border.Lines="All" Text="素別" HorzAlign="Center" VertAlign="Center"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="85.25" Width="1436.4" Height="18.9" CanGrow="true" DataSource="Table">
+      <TextObject Name="Text1" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.生產線別]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text3" Left="66.15" Width="47.25" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.製令別]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text5" Left="113.4" Width="85.05" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.製令編號]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text7" Left="292.95" Width="226.8" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.品名]" VertAlign="Center"/>
+      <TextObject Name="Text12" Left="245.7" Width="47.25" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.順序]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text9" Left="198.45" Width="47.25" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.比例]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text13" Left="519.75" Width="56.7" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.過敏原]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text15" Left="642.6" Width="132.3" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.規格]" VertAlign="Center"/>
+      <TextObject Name="Text17" Left="859.95" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.預計產量]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="3" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text21" Left="926.1" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.單位]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text23" Left="992.25" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.桶數]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="3" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text25" Left="1058.4" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.箱數]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="3" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text27" Left="1124.55" Width="292.95" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.備註]" VertAlign="Center"/>
+      <TextObject Name="Text37" Left="774.9" Width="85.05" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.餅體]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text47" Left="576.45" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.素別]" HorzAlign="Center" VertAlign="Center"/>
+    </DataBand>
+    <ReportSummaryBand Name="ReportSummary1" Top="108.74" Width="1436.4" Height="18.9"/>
+    <PageFooterBand Name="PageFooter1" Top="132.24" Width="1436.4" Height="18.9"/>
+  </ReportPage>
+</Report>

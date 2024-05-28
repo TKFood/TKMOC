@@ -129,6 +129,7 @@
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.tabPage8 = new System.Windows.Forms.TabPage();
             this.previewControl1 = new FastReport.Preview.PreviewControl();
+            this.previewControl2 = new FastReport.Preview.PreviewControl();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -194,6 +195,7 @@
             this.splitContainer11.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tabPage7.SuspendLayout();
+            this.tabPage8.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -1546,6 +1548,7 @@
             // 
             // tabPage8
             // 
+            this.tabPage8.Controls.Add(this.previewControl2);
             this.tabPage8.Location = new System.Drawing.Point(4, 26);
             this.tabPage8.Name = "tabPage8";
             this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
@@ -1565,6 +1568,18 @@
             this.previewControl1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.previewControl1.Size = new System.Drawing.Size(952, 388);
             this.previewControl1.TabIndex = 2;
+            // 
+            // previewControl2
+            // 
+            this.previewControl2.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.previewControl2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.previewControl2.Font = new System.Drawing.Font("宋体", 9F);
+            this.previewControl2.Location = new System.Drawing.Point(3, 3);
+            this.previewControl2.Name = "previewControl2";
+            this.previewControl2.PageOffset = new System.Drawing.Point(10, 10);
+            this.previewControl2.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.previewControl2.Size = new System.Drawing.Size(952, 388);
+            this.previewControl2.TabIndex = 3;
             // 
             // frmREPORTMOCTAB
             // 
@@ -1650,6 +1665,7 @@
             this.splitContainer11.ResumeLayout(false);
             this.tabControl2.ResumeLayout(false);
             this.tabPage7.ResumeLayout(false);
+            this.tabPage8.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1757,5 +1773,6 @@
         private System.Windows.Forms.TabPage tabPage7;
         private FastReport.Preview.PreviewControl previewControl1;
         private System.Windows.Forms.TabPage tabPage8;
+        private FastReport.Preview.PreviewControl previewControl2;
     }
 }
