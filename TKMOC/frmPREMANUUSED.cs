@@ -2230,10 +2230,12 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  SELECT [MB001] AS '品號' ,[MB002] AS '品名'");
-                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[PREMANUUSEDINVMB]");
-                sbSql.AppendFormat(@"  ORDER BY [MB001]");
-                sbSql.AppendFormat(@"  ");
+      
+                sbSql.AppendFormat(@"  
+                                SELECT [MB001] AS '品號' ,[MB002] AS '品名'
+                                FROM [TKMOC].[dbo].[PREMANUUSEDINVMB]
+                                ORDER BY [MB001]
+                                ");
 
 
                 adapter3 = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -2721,6 +2723,8 @@ namespace TKMOC
                 sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
                 sqlConn.Open();
                 ds1.Clear();
+
+                adapter1.SelectCommand.CommandTimeout = 180;
                 adapter1.Fill(ds1, "ds1");
                 sqlConn.Close();
 
@@ -2964,7 +2968,27 @@ namespace TKMOC
 
         private void button5_Click(object sender, EventArgs e)
         {
-            SEARCHPREMANUUSEDINVMB();
+            MESSAGESHOW MSGSHOW = new MESSAGESHOW();
+            // 鎖定控制項
+            this.Enabled = false;
+            // 顯示跳出視窗
+            MSGSHOW.Show();
+
+            // 使用非同步操作執行長時間運行的操作
+            Task.Run(() =>
+            {
+                // 更新 UI，確保在主 UI 線程上執行
+                Invoke(new Action(() =>
+                {
+                    SEARCHPREMANUUSEDINVMB();
+
+                    MSGSHOW.Close();
+                    // 解除鎖定
+                    this.Enabled = true;
+
+                }));
+            });
+            
         }
         private void button3_Click(object sender, EventArgs e)
         {
@@ -2990,8 +3014,27 @@ namespace TKMOC
 
         private void button6_Click(object sender, EventArgs e)
         {
-            
-            SEARCHMOCMANULINESPECIAL();
+            MESSAGESHOW MSGSHOW = new MESSAGESHOW();
+            // 鎖定控制項
+            this.Enabled = false;
+            // 顯示跳出視窗
+            MSGSHOW.Show();
+
+            // 使用非同步操作執行長時間運行的操作
+            Task.Run(() =>
+            {
+                // 更新 UI，確保在主 UI 線程上執行
+                Invoke(new Action(() =>
+                {
+                    SEARCHMOCMANULINESPECIAL();
+
+                    MSGSHOW.Close();
+                    // 解除鎖定
+                    this.Enabled = true;
+
+                }));
+            });
+          
 
         }
 
