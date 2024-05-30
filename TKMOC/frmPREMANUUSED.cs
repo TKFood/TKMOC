@@ -138,6 +138,8 @@ namespace TKMOC
                 sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
                 sqlConn.Open();
                 ds1.Clear();
+
+                adapter1.SelectCommand.CommandTimeout = 180;
                 adapter1.Fill(ds1, "ds1");
                 sqlConn.Close();
 
@@ -2924,8 +2926,27 @@ namespace TKMOC
         #region BUTTON
 
         private void button1_Click(object sender, EventArgs e)
-        {
-            SEARCHMOCMANULINE();
+        {      
+            MESSAGESHOW MSGSHOW = new MESSAGESHOW();
+            // 鎖定控制項
+            this.Enabled = false;
+            // 顯示跳出視窗
+            MSGSHOW.Show();
+
+            // 使用非同步操作執行長時間運行的操作
+            Task.Run(() =>
+            {                
+                // 更新 UI，確保在主 UI 線程上執行
+                Invoke(new Action(() =>
+                {
+                    SEARCHMOCMANULINE();
+
+                    MSGSHOW.Close();
+                    // 解除鎖定
+                    this.Enabled = true;
+
+                }));
+            });
         }
 
         private void button2_Click(object sender, EventArgs e)
