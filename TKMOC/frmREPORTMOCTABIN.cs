@@ -409,7 +409,7 @@ namespace TKMOC
                                 LEFT JOIN [TK].dbo.MOCTA ON [REPORTMOCMANULINE].TA001=MOCTA.[TA001] AND [REPORTMOCMANULINE].[TA002]=MOCTA.[TA002]
                                 LEFT JOIN [TK].dbo.COPTC ON TC001= TA026 AND TC002=TA027 
                                 WHERE CONVERT(NVARCHAR,[REPORTMOCMANULINE].TA003,112)='{0}'   
-	                            AND [REPORTMOCMANULINE].[MANULINE] IN ('03')
+	                            AND [REPORTMOCMANULINE].[MANULINE] IN ('02','03')
                                 ORDER BY [REPORTMOCMANULINE].TA003,[MANULINE],[REPORTMOCMANULINE].TA001,[REPORTMOCMANULINE].TA002   
 
                                 ", SDAY);
