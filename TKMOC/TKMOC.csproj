@@ -627,6 +627,12 @@
     <Compile Include="frmREPORTMOCTAB.Designer.cs">
       <DependentUpon>frmREPORTMOCTAB.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmREPORTMOCTABIN.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmREPORTMOCTABIN.Designer.cs">
+      <DependentUpon>frmREPORTMOCTABIN.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmREPORTOUTPRINTS.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -973,6 +979,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmREPORTMOCTAB.resx">
       <DependentUpon>frmREPORTMOCTAB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmREPORTMOCTABIN.resx">
+      <DependentUpon>frmREPORTMOCTABIN.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmREPORTOUTPRINTS.resx">
       <DependentUpon>frmREPORTOUTPRINTS.cs</DependentUpon>
