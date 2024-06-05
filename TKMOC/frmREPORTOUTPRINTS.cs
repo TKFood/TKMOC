@@ -71,25 +71,23 @@ namespace TKMOC
              
             StringBuilder Sequel = new StringBuilder();
             Sequel.AppendFormat(@"
-                                SELECT 
-                                [ID]
-                                ,[KIND] 
-                                ,[PARAID]
-                                ,[PARANAME]
-                                FROM [TKMOC].[dbo].[TBPARA]
-                                WHERE [KIND]='外標列印'
-                                ORDER BY CONVERT(INT,[PARANAME])  
+                                SELECT
+                                 [ID]
+                                ,[BOXNAMES]
+                                ,[ORDRES]
+                                FROM [TKMOC].[dbo].[TBBOXNAMES]
+                                ORDER BY [ORDRES]
                                     ");
             SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
             DataTable dt = new DataTable();
             sqlConn.Open();
 
-            dt.Columns.Add("PARAID", typeof(string));
-            dt.Columns.Add("PARANAME", typeof(string));
+            dt.Columns.Add("ID", typeof(string));
+            dt.Columns.Add("BOXNAMES", typeof(string));
             da.Fill(dt);
             comboBox1.DataSource = dt.DefaultView;
-            comboBox1.ValueMember = "PARAID";
-            comboBox1.DisplayMember = "PARAID";
+            comboBox1.ValueMember = "BOXNAMES";
+            comboBox1.DisplayMember = "BOXNAMES";
             sqlConn.Close();
              
 
