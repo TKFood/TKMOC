@@ -71,11 +71,11 @@ namespace TKMOC
              
             StringBuilder Sequel = new StringBuilder();
             Sequel.AppendFormat(@"
-                                SELECT
+                                SELECT 
                                  [ID]
                                 ,[BOXNAMES]
                                 ,[ORDRES]
-                                FROM [TKMOC].[dbo].[TBBOXNAMES]
+                                FROM [TKMOC].[dbo].[TBOUTBOXNAMES]
                                 ORDER BY [ORDRES]
                                     ");
             SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
