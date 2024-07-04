@@ -543,6 +543,12 @@
     <Compile Include="frmREPORTGEN.Designer.cs">
       <DependentUpon>frmREPORTGEN.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmREPORTGENBAKING.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmREPORTGENBAKING.Designer.cs">
+      <DependentUpon>frmREPORTGENBAKING.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmREPORTINVPURUESD.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -937,6 +943,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmREPORTGEN.resx">
       <DependentUpon>frmREPORTGEN.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmREPORTGENBAKING.resx">
+      <DependentUpon>frmREPORTGENBAKING.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmREPORTINVPURUESD.resx">
       <DependentUpon>frmREPORTINVPURUESD.cs</DependentUpon>

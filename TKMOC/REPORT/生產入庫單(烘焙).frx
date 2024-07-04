@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="11/14/2019 15:07:31" ReportInfo.Modified="07/04/2024 08:52:31" ReportInfo.CreatorVersion="2016.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9J8cLNmwvaE/oBcUHPMdvIZ">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT TA001 AS '製令',TA002 AS '製令號',SUBSTRING(TA003,1,4) AS '年',SUBSTRING(TA003,5,2) AS '月',SUBSTRING(TA003,7,2) AS '日',TA034 AS '品名',MB003 AS '規格'&#13;&#10;FROM [TK].dbo.MOCTA&#13;&#10;LEFT JOIN [TK].dbo.INVMB ON MB001=TA006&#13;&#10;WHERE TA009&gt;='20191113' AND TA009&lt;='20191113'&#13;&#10;ORDER BY TA001,TA002,TA034">
+        <Column Name="製令" DataType="System.String"/>
+        <Column Name="製令號" DataType="System.String"/>
+        <Column Name="品名" DataType="System.String"/>
+        <Column Name="規格" DataType="System.String"/>
+        <Column Name="年" DataType="System.String"/>
+        <Column Name="月" DataType="System.String"/>
+        <Column Name="日" DataType="System.String"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="P1" DataType="System.String"/>
+    <Parameter Name="P2" DataType="System.String"/>
+  </Dictionary>
+  <ReportPage Name="Page1" PaperWidth="110" PaperHeight="140">
+    <DataBand Name="Data1" Width="340.2" Height="434.7">
+      <TextObject Name="Text1" Left="9.45" Top="28.35" Width="94.5" Height="28.35" Border.Lines="All" Text="入庫單" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text2" Left="103.95" Top="28.35" Width="217.35" Height="28.35" Border.Lines="All" Text="[Table.年]年 [Table.月] 月 [Table.日] 日" HorzAlign="Right" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text3" Left="9.45" Width="207.9" Height="28.35" Text="老楊食品股份有限公司" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text4" Left="9.45" Top="56.7" Width="94.5" Height="56.7" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text5" Left="9.45" Top="113.4" Width="94.5" Height="28.35" Border.Lines="All" Text="規格" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text6" Left="9.45" Top="141.75" Width="94.5" Height="56.7" Border.Lines="All" Text="入庫數量" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text7" Left="9.45" Top="226.8" Width="94.5" Height="28.35" Border.Lines="All" Text="入庫員" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text8" Left="170.1" Top="226.8" Width="56.7" Height="28.35" Border.Lines="All" Text="倉管" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text9" Left="9.45" Top="255.15" Width="94.5" Height="122.85" Border.Lines="All" Text="有效日期" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text10" Left="9.45" Top="378" Width="94.5" Height="28.35" Border.Lines="All" Text="備註" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text11" Left="103.95" Top="56.7" Width="217.35" Height="56.7" Border.Lines="All" Text="[Table.品名]" VertAlign="Center" Font="標楷體, 12pt"/>
+      <TextObject Name="Text12" Left="103.95" Top="113.4" Width="217.35" Height="28.35" Border.Lines="All" Text="[Table.規格]" VertAlign="Center" Font="標楷體, 12pt"/>
+      <TextObject Name="Text13" Left="103.95" Top="141.75" Width="217.35" Height="56.7" Border.Lines="All" Text="[P2]" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text14" Left="103.95" Top="226.8" Width="66.15" Height="28.35" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text15" Left="226.8" Top="226.8" Width="94.5" Height="28.35" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text16" Left="103.95" Top="255.15" Width="217.35" Height="122.85" Border.Lines="All" Text="[P1]" VertAlign="Center" Font="標楷體, 12pt"/>
+      <TextObject Name="Text17" Left="103.95" Top="378" Width="217.35" Height="28.35" Border.Lines="All" Text="[Table.製令]-[Table.製令號]" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text18" Left="9.45" Top="406.35" Width="311.85" Height="28.35" Text="判定：入庫前，由入庫員進行重量、封口、標示、清潔度等外觀確認。本文件不得擅自塗改及影印   " VertAlign="Center" Font="標楷體, 8pt"/>
+      <TextObject Name="Text19" Left="236.25" Top="415.8" Width="85.05" Height="18.9" Text="A13-02-07-01A" HorzAlign="Right" VertAlign="Center" Font="標楷體, 8pt"/>
+      <TextObject Name="Text39" Left="217.35" Width="103.95" Height="28.35" Text="流水號:     " VertAlign="Bottom" Font="標楷體, 10pt"/>
+      <TextObject Name="Text40" Left="9.45" Top="198.45" Width="94.5" Height="28.35" Border.Lines="All" Text="抽驗數量" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text41" Left="103.95" Top="198.45" Width="66.15" Height="28.35" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
+      <TextObject Name="Text42" Left="170.1" Top="198.45" Width="151.2" Height="28.35" Border.Lines="All" Text="判定 □合格 □不合格" VertAlign="Center" Font="標楷體, 10pt"/>
+    </DataBand>
+  </ReportPage>
+</Report>
