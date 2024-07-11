@@ -405,6 +405,7 @@ namespace TKMOC
 
 
             comboBox19load();
+            comboBox21load();
             comboBox22load();
             comboBox23load();
             comboBox24load();
@@ -592,7 +593,12 @@ namespace TKMOC
             LoadComboBoxData(comboBox19, "SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD003 IN ('20') ORDER BY  MD001 ", "MD002", "MD002");
         }
 
-        
+        public void comboBox21load()
+        {
+            LoadComboBoxData(comboBox21, "SELECT [ID],[LAYERS] FROM [TKMOC].[dbo].[MOCMANULINELAYERS] ORDER BY [ID] ", "ID", "LAYERS");
+        }
+
+
         public void comboBox22load()
         {
             LoadComboBoxData(comboBox22, "SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE (MD002 LIKE '製一線%' OR MD002 LIKE '製二線%' OR MD002 LIKE '手工線%' OR MD002 LIKE '包裝線%' ) UNION ALL  SELECT '99','少量訂單' ", "MD002", "MD002");
