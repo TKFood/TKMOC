@@ -14009,6 +14009,9 @@ namespace TKMOC
 		                                WHEN BOMNUMS2 > 0 THEN CONVERT(DECIMAL(16,2),BOMNUMS2/INVMCMC004 )
                                         ELSE 桶數
                                      END) AS '預計變更的-桶數'
+                                ,( SELECT TOP 1 TD013 FROM [TK].dbo.COPTD WHERE TD001=訂單單別 AND TD002=訂單號 AND TD003=訂單序號) AS '原出貨日'
+                                ,( SELECT TOP 1 TF015 FROM [TK].dbo.COPTF,[TK].dbo.COPTE WHERE TE001=TF001 AND TE002=TF002 AND TE003=TF003 AND TE029='N' AND TF001=訂單單別 AND TF002=訂單號 AND TF104=訂單序號 ) AS '新出貨日'
+
                                 ,*
 
                                 FROM 
@@ -14110,6 +14113,8 @@ namespace TKMOC
                         dataGridView24.AutoResizeColumns();
                         //dataGridView1.CurrentCell = dataGridView1[0, rownum];
 
+                        // 添加 CellFormatting 事件处理
+                        dataGridView24.CellFormatting += new DataGridViewCellFormattingEventHandler(dataGridView24_CellFormatting);
                     }
                 }
 
@@ -14122,6 +14127,44 @@ namespace TKMOC
             {
                 sqlConn.Close();
             }
+        }
+
+        private void dataGridView24_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        { 
+            // 获取当前行的数据
+            DataGridViewRow row = dataGridView24.Rows[e.RowIndex];
+
+            // 比较列的值，例如与一个特定值 "SomeValue" 进行比较
+            if (row.Cells["原出貨日"].Value.ToString()!=row.Cells["新出貨日"].Value.ToString() )
+            {
+                // 如果值不同，设置整行的背景颜色
+                row.DefaultCellStyle.BackColor = Color.LightGoldenrodYellow; // 将颜色设置为
+            }
+            if (Convert.ToDecimal(row.Cells["預計變更的-數量"].Value.ToString() ) != Convert.ToDecimal(row.Cells["數量"].Value.ToString()) )
+            {
+                // 如果值不同，设置整行的背景颜色
+                row.DefaultCellStyle.BackColor = Color.LightGoldenrodYellow; // 将颜色设置为
+            }
+            if (Convert.ToDecimal(row.Cells["預計變更的-包裝數"].Value.ToString()) != Convert.ToDecimal(row.Cells["包裝數"].Value.ToString()) )
+            {
+                // 如果值不同，设置整行的背景颜色
+                row.DefaultCellStyle.BackColor = Color.LightGoldenrodYellow; // 将颜色设置为
+            }
+            if (Convert.ToDecimal(row.Cells["預計變更的-箱數"].Value.ToString()) != Convert.ToDecimal(row.Cells["箱數"].Value.ToString()) )
+            {
+                // 如果值不同，设置整行的背景颜色
+                row.DefaultCellStyle.BackColor = Color.LightGoldenrodYellow; // 将颜色设置为
+            }
+            if (Convert.ToDecimal(row.Cells["預計變更的-桶數"].Value.ToString()) != Convert.ToDecimal(row.Cells["桶數"].Value.ToString()) )
+            {
+                // 如果值不同，设置整行的背景颜色
+                row.DefaultCellStyle.BackColor = Color.LightGoldenrodYellow; // 将颜色设置为
+            }
+            //else
+            //{
+            //    // 如果值相同，可以设置为默认颜色或其他颜色
+            //    row.DefaultCellStyle.BackColor = Color.White; // 这里设置为白色
+            //}
         }
 
         public void UPDATE_BATCH_MOCLINE(string COPTD001, string COPTD002)
