@@ -9845,7 +9845,7 @@ namespace TKMOC
                 sbSqlQuery2.Clear();
 
              
-                if(!String.IsNullOrEmpty(COPTD001))
+                if(!string.IsNullOrEmpty(COPTD001))
                 {
                     sbSql.AppendFormat(@"  
                                     SELECT 
@@ -13957,6 +13957,332 @@ namespace TKMOC
         {
             SEARCHMOCTB(comboBox10.SelectedValue.ToString());
         }
+
+        public void SEACRH_MOCLINE_NEW_CHAGNES(string COPTD001, string COPTD002)
+        {
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            DataSet ds1 = new DataSet();
+
+            try
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+                sbSqlQuery2.Clear();
+
+
+                if (!string.IsNullOrEmpty(COPTD001) && !string.IsNullOrEmpty(COPTD002))
+                {
+                    sbSql.AppendFormat(@"  
+                                 SELECT 
+                                   (CASE 
+                                        WHEN COPTFNUMS > 0 THEN COPTFNUMS 
+                                        WHEN BOMNUMS > 0 THEN BOMNUMS 
+		                                WHEN BOMNUMS2 > 0 THEN BOMNUMS2 
+                                        ELSE 數量
+                                     END) AS '預計變更的-數量'
+                                ,    (CASE 
+                                        WHEN COPTFNUMS > 0 THEN COPTFNUMS 
+                                        WHEN BOMNUMS > 0 THEN BOMNUMS 
+		                                WHEN BOMNUMS2 > 0 THEN BOMNUMS2 
+                                        ELSE 包裝數
+                                     END) AS '預計變更的-包裝數'
+                                ,    (CASE 
+                                        WHEN COPTFNUMS > 0 AND INVMDMD004>0 THEN CONVERT(DECIMAL(16,2),COPTFNUMS/INVMDMD004 )
+                                        WHEN BOMNUMS > 0 AND INVMDMD004>0 THEN CONVERT(DECIMAL(16,2),BOMNUMS/INVMDMD004 )
+		                                WHEN BOMNUMS2 > 0 AND INVMDMD004>0 THEN CONVERT(DECIMAL(16,2),BOMNUMS2/INVMDMD004) 
+                                        ELSE 箱數
+                                     END) AS '預計變更的-箱數'
+                                ,    (CASE        
+		                                WHEN BOMNUMS2 > 0 THEN CONVERT(DECIMAL(16,2),BOMNUMS2/INVMCMC004 )
+                                        ELSE 桶數
+                                     END) AS '預計變更的-桶數'
+                                ,*
+
+                                FROM 
+                                (
+                                SELECT 
+                                [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名' 
+                                ,[MB003] AS '規格',[BAR] AS '桶數',[MOCMANULINE].[NUM] AS '數量',[BOX] AS '箱數',[PACKAGE]AS '包裝數',[CLINET] AS '客戶',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'
+                                ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號'
+                                ,[ID]
+                                ,TMEPL.TF005
+                                ,(CASE WHEN TMEPL.TD008 >0 THEN TMEPL.TD008  ELSE 0 END) AS 'COPTFNUMS'
+                                ,TMEPL1.MD003
+                                ,(CASE WHEN TMEPL1.BOMNUMS >0 THEN TMEPL1.BOMNUMS  ELSE 0 END) AS 'BOMNUMS'
+                                ,TEMPL2.MD003B
+                                ,(CASE WHEN TEMPL2.BOMNUMS2 >0 THEN TEMPL2.BOMNUMS2  ELSE 0 END)  AS 'BOMNUMS2'
+                                ,( SELECT TOP 1 MD004 FROM [TK].dbo.INVMD WHERE MD001=[MB001]) AS 'INVMDMD004'
+                                ,( SELECT TOP 1 MD003 FROM [TK].dbo.INVMD WHERE MD001=[MB001]) AS 'INVMDMD003'
+                                ,( SELECT TOP 1 MC004 FROM [TK].dbo.BOMMC  WHERE MC001=[MB001] ) AS 'INVMCMC004'
+
+                                FROM [TKMOC].[dbo].[MOCMANULINE]
+                                LEFT JOIN 
+                                (SELECT TE029,TF001,TF002,TF104,TE055,TF005,TF006,TF007,(TF009+TF020) AS TD008,TF010,TE050,TF015,(CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TF009+TF020)*INVMD.MD004 ELSE (TF009+TF021)  END ) AS NUM
+                                FROM [TK].dbo.INVMB WITH(NOLOCK),[TK].dbo.COPTE WITH(NOLOCK),[TK].dbo.COPTF WITH(NOLOCK)
+                                LEFT JOIN [TK].dbo.INVMD ON INVMD.MD001=TF005 AND TF010=MD002
+                                WHERE  TE001=TF001 AND TE002=TF002 AND TE003=TF003
+                                AND MB001=TF005
+                                ) AS TMEPL 
+                                ON  TMEPL.TF005=[MOCMANULINE].MB001 AND TMEPL.TF001=COPTD001 AND TMEPL.TF002=COPTD002 AND TMEPL.TF104=COPTD003 AND TMEPL.TE029='N'
+
+                                LEFT JOIN (
+                                SELECT TE029,TF001,TF002,TF104,TE055,TF005,TF006,TF007,(TF009+TF020) AS TD008,TF010,TE050,TF015,(CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TF009+TF020)*INVMD.MD004 ELSE (TF009+TF020)  END ) AS NUM
+                                ,BOMMD.MD003,BOMMD.MD035,BOMMD.MD036,BOMMD.MD006,BOMMD.MD007
+                                ,((CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TF009+TF020)*INVMD.MD004 ELSE (TF009+TF020)  END )*BOMMD.MD006/BOMMD.MD007/BOMMC.MC004) AS BOMNUMS
+                                FROM [TK].dbo.INVMB WITH(NOLOCK),[TK].dbo.COPTE WITH(NOLOCK),[TK].dbo.COPTF WITH(NOLOCK)
+                                LEFT JOIN [TK].dbo.INVMD ON INVMD.MD001=TF005 AND TF010=MD002
+                                LEFT JOIN [TK].dbo.BOMMC ON BOMMC.MC001=TF005
+                                LEFT JOIN [TK].dbo.BOMMD ON BOMMD.MD001=TF005
+                                WHERE TE001=TF001 AND TE002=TF002 AND TE003=TF003
+                                AND TE029='N'
+                                AND MB001=TF005
+                                AND (BOMMD.MD003 LIKE '3%' OR BOMMD.MD003 LIKE '4%')) AS TMEPL1 
+                                ON TMEPL1.MD003=[MOCMANULINE].MB001 AND  TMEPL1.TF001=COPTD001 AND TMEPL1.TF002=COPTD002 AND TMEPL1.TF104=COPTD003
+
+
+                                LEFT JOIN (
+                                SELECT TE029,TF001,TF002,TF104,TE055,TF005,TF006,TF007,(TF009+TF020) AS TD008,TF010,TE050,TF015,(CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TF009+TF020)*INVMD.MD004 ELSE (TF009+TF020)  END ) AS NUM
+                                ,BOMMD.MD003,BOMMD.MD035,BOMMD.MD036,BOMMD.MD006,BOMMD.MD007
+                                ,((CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TF009+TF020)*INVMD.MD004 ELSE (TF009+TF020)  END )*BOMMD.MD006/BOMMD.MD007/BOMMC.MC004) AS BOMNUMS
+                                ,BOMMD2.MD003 MD003B,BOMMD2.MD035 MD035B,BOMMD2.MD036 MD036B,BOMMD2.MD006 MD006B,BOMMD2.MD007 MD007B
+                                ,(((CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TF009+TF020)*INVMD.MD004 ELSE (TF009+TF020)  END )*BOMMD.MD006/BOMMD.MD007/BOMMC.MC004)*BOMMD2.MD006/BOMMD2.MD007/BOMMC2.MC004)AS BOMNUMS2
+                                ,ISNULL((SELECT TOP 1 MD007 FROM [TK].dbo.BOMMD MD WHERE (MD.MD003 LIKE '201%') AND MD.MD001=BOMMD2.MD003),1) AS MD007C
+                                ,ISNULL((SELECT TOP 1 MC004 FROM [TK].dbo.BOMMC MC WHERE MC.MC001=BOMMD2.MD003),1) AS MC004C
+                                FROM [TK].dbo.INVMB WITH(NOLOCK),[TK].dbo.COPTE WITH(NOLOCK),[TK].dbo.COPTF WITH(NOLOCK)
+                                LEFT JOIN [TK].dbo.INVMD ON INVMD.MD001=TF005 AND TF010=MD002
+                                LEFT JOIN [TK].dbo.BOMMC ON BOMMC.MC001=TF005
+                                LEFT JOIN [TK].dbo.BOMMD ON BOMMD.MD001=TF005
+                                LEFT JOIN [TK].dbo.BOMMC BOMMC2 ON BOMMC2.MC001=BOMMD.MD003
+                                LEFT JOIN [TK].dbo.BOMMD BOMMD2 ON BOMMD2.MD001=BOMMD.MD003
+                                WHERE  TE001=TF001 AND TE002=TF002 AND TE003=TF003
+                                AND TE029='N'
+                                AND MB001=TF005
+                                AND (BOMMD.MD003 LIKE '3%' OR BOMMD.MD003 LIKE '4%')
+                                AND (BOMMD2.MD003 LIKE '3%' OR BOMMD2.MD003 LIKE '4%')
+                                ) AS TEMPL2 
+                                ON TEMPL2.MD003B=[MOCMANULINE].MB001 AND   TEMPL2.TF001=COPTD001 AND TEMPL2.TF002=COPTD002 AND TEMPL2.TF104=COPTD003
+
+                                WHERE   [COPTD001] LIKE '{0}%' AND [COPTD002] LIKE '{1}%'
+                                AND [COPTD003] IN (SELECT TF104 FROM [TK].dbo.COPTE,[TK].dbo.COPTF WHERE TE001=TF001 AND TE002=TF002 AND TE003=TF003 AND TE029='N' AND TE001=COPTD001 AND TE002=COPTD002 )
+
+                                ) AS ALLTEMP
+                                ORDER BY 線別,品號
+                                    ", COPTD001, COPTD002);
+
+                }
+                
+
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "TEMPds1");
+                sqlConn.Close();
+
+                // 1. 解除数据绑定
+                dataGridView24.DataSource = null;
+
+                if (ds1.Tables["TEMPds1"].Rows.Count == 0)
+                {
+                    dataGridView24.DataSource = null;
+                }
+                else
+                {
+                    if (ds1.Tables["TEMPds1"].Rows.Count >= 1)
+                    {
+                        //dataGridView1.Rows.Clear();
+                        dataGridView24.DataSource = ds1.Tables["TEMPds1"];
+                        dataGridView24.AutoResizeColumns();
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void UPDATE_BATCH_MOCLINE(string COPTD001, string COPTD002)
+        {
+            if (!string.IsNullOrEmpty(COPTD001) && !string.IsNullOrEmpty(COPTD002))
+            {
+                try
+                {
+                    //20210902密
+                    Class1 TKID = new Class1();//用new 建立類別實體
+                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                    //資料庫使用者密碼解密
+                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                    String connectionString;
+                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                    sqlConn.Close();
+                    sqlConn.Open();
+                    tran = sqlConn.BeginTransaction();
+
+                    sbSql.Clear();
+
+                  
+                    sbSql.AppendFormat(@"                                         
+                                        UPDATE [TKMOC].[dbo].[MOCMANULINE]
+                                        SET [MOCMANULINE].[NUM] = 
+                                            (CASE 
+                                                WHEN COPTFNUMS > 0 THEN COPTFNUMS 
+                                                WHEN BOMNUMS > 0 THEN BOMNUMS 
+		                                        WHEN BOMNUMS2 > 0 THEN BOMNUMS2 
+                                                ELSE [MOCMANULINE].[NUM] 
+                                             END)
+                                        ,[MOCMANULINE].[PACKAGE] = 
+                                            (CASE 
+                                                WHEN COPTFNUMS > 0 THEN COPTFNUMS 
+                                                WHEN BOMNUMS > 0 THEN BOMNUMS 
+		                                        WHEN BOMNUMS2 > 0 THEN BOMNUMS2 
+                                                ELSE [MOCMANULINE].[PACKAGE] 
+                                             END)
+                                        ,[MOCMANULINE].[BOX] = 
+                                            (CASE 
+                                                WHEN COPTFNUMS > 0 AND INVMDMD004>0 THEN CONVERT(DECIMAL(16,2),COPTFNUMS/INVMDMD004 )
+                                                WHEN BOMNUMS > 0 AND INVMDMD004>0 THEN CONVERT(DECIMAL(16,2),BOMNUMS/INVMDMD004 )
+		                                        WHEN BOMNUMS2 > 0 AND INVMDMD004>0 THEN CONVERT(DECIMAL(16,2),BOMNUMS2/INVMDMD004) 
+                                                ELSE [MOCMANULINE].[BOX] 
+                                             END)
+                                        ,[MOCMANULINE].[BAR] = 
+                                            (CASE 
+                                                WHEN COPTFNUMS > 0 AND INVMCMC004>0 THEN CONVERT(DECIMAL(16,2),COPTFNUMS/INVMCMC004 )
+                                                WHEN BOMNUMS > 0 THEN CONVERT(DECIMAL(16,2),BOMNUMS/INVMCMC004 )
+		                                        WHEN BOMNUMS2 > 0 THEN CONVERT(DECIMAL(16,2),BOMNUMS2/INVMCMC004 )
+                                                ELSE [MOCMANULINE].[BAR] 
+                                             END)
+                                        FROM 
+                                        (
+                                        SELECT 
+                                        [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名' 
+                                        ,[MB003] AS '規格',[BAR] AS '桶數',[MOCMANULINE].[NUM] AS '數量',[BOX] AS '箱數',[PACKAGE]AS '包裝數',[CLINET] AS '客戶',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'
+                                        ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號'
+                                        ,[ID]
+                                        ,TMEPL.TF005
+                                        ,(CASE WHEN TMEPL.TD008 >0 THEN TMEPL.TD008  ELSE 0 END) AS 'COPTFNUMS'
+                                        ,TMEPL1.MD003
+                                        ,(CASE WHEN TMEPL1.BOMNUMS >0 THEN TMEPL1.BOMNUMS  ELSE 0 END) AS 'BOMNUMS'
+                                        ,TEMPL2.MD003B
+                                        ,(CASE WHEN TEMPL2.BOMNUMS2 >0 THEN TEMPL2.BOMNUMS2  ELSE 0 END)  AS 'BOMNUMS2'
+                                        ,( SELECT TOP 1 MD004 FROM [TK].dbo.INVMD WHERE MD001=[MB001]) AS 'INVMDMD004'
+                                        ,( SELECT TOP 1 MD003 FROM [TK].dbo.INVMD WHERE MD001=[MB001]) AS 'INVMDMD003'
+                                        ,( SELECT TOP 1 MC004 FROM [TK].dbo.BOMMC  WHERE MC001=[MB001] ) AS 'INVMCMC004'
+
+
+                                        FROM [TKMOC].[dbo].[MOCMANULINE]
+                                        LEFT JOIN 
+                                        (SELECT TE029,TF001,TF002,TF104,TE055,TF005,TF006,TF007,(TF009+TF020) AS TD008,TF010,TE050,TF015,(CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TF009+TF020)*INVMD.MD004 ELSE (TF009+TF021)  END ) AS NUM
+                                        FROM [TK].dbo.INVMB WITH(NOLOCK),[TK].dbo.COPTE WITH(NOLOCK),[TK].dbo.COPTF WITH(NOLOCK)
+                                        LEFT JOIN [TK].dbo.INVMD ON INVMD.MD001=TF005 AND TF010=MD002
+                                        WHERE  TE001=TF001 AND TE002=TF002 AND TE003=TF003
+                                        AND MB001=TF005
+                                        ) AS TMEPL 
+                                        ON  TMEPL.TF005=[MOCMANULINE].MB001 AND TMEPL.TF001=COPTD001 AND TMEPL.TF002=COPTD002 AND TMEPL.TF104=COPTD003 AND TMEPL.TE029='N'
+
+                                        LEFT JOIN (
+                                        SELECT TE029,TF001,TF002,TF104,TE055,TF005,TF006,TF007,(TF009+TF020) AS TD008,TF010,TE050,TF015,(CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TF009+TF020)*INVMD.MD004 ELSE (TF009+TF020)  END ) AS NUM
+                                        ,BOMMD.MD003,BOMMD.MD035,BOMMD.MD036,BOMMD.MD006,BOMMD.MD007
+                                        ,((CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TF009+TF020)*INVMD.MD004 ELSE (TF009+TF020)  END )*BOMMD.MD006/BOMMD.MD007/BOMMC.MC004) AS BOMNUMS
+                                        FROM [TK].dbo.INVMB WITH(NOLOCK),[TK].dbo.COPTE WITH(NOLOCK),[TK].dbo.COPTF WITH(NOLOCK)
+                                        LEFT JOIN [TK].dbo.INVMD ON INVMD.MD001=TF005 AND TF010=MD002
+                                        LEFT JOIN [TK].dbo.BOMMC ON BOMMC.MC001=TF005
+                                        LEFT JOIN [TK].dbo.BOMMD ON BOMMD.MD001=TF005
+                                        WHERE TE001=TF001 AND TE002=TF002 AND TE003=TF003
+                                        AND TE029='N'
+                                        AND MB001=TF005
+                                        AND (BOMMD.MD003 LIKE '3%' OR BOMMD.MD003 LIKE '4%')) AS TMEPL1 
+                                        ON TMEPL1.MD003=[MOCMANULINE].MB001 AND  TMEPL1.TF001=COPTD001 AND TMEPL1.TF002=COPTD002 AND TMEPL1.TF104=COPTD003
+
+
+                                        LEFT JOIN (
+                                        SELECT TE029,TF001,TF002,TF104,TE055,TF005,TF006,TF007,(TF009+TF020) AS TD008,TF010,TE050,TF015,(CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TF009+TF020)*INVMD.MD004 ELSE (TF009+TF020)  END ) AS NUM
+                                        ,BOMMD.MD003,BOMMD.MD035,BOMMD.MD036,BOMMD.MD006,BOMMD.MD007
+                                        ,((CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TF009+TF020)*INVMD.MD004 ELSE (TF009+TF020)  END )*BOMMD.MD006/BOMMD.MD007/BOMMC.MC004) AS BOMNUMS
+                                        ,BOMMD2.MD003 MD003B,BOMMD2.MD035 MD035B,BOMMD2.MD036 MD036B,BOMMD2.MD006 MD006B,BOMMD2.MD007 MD007B
+                                        ,(((CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TF009+TF020)*INVMD.MD004 ELSE (TF009+TF020)  END )*BOMMD.MD006/BOMMD.MD007/BOMMC.MC004)*BOMMD2.MD006/BOMMD2.MD007/BOMMC2.MC004)AS BOMNUMS2
+                                        ,ISNULL((SELECT TOP 1 MD007 FROM [TK].dbo.BOMMD MD WHERE (MD.MD003 LIKE '201%') AND MD.MD001=BOMMD2.MD003),1) AS MD007C
+                                        ,ISNULL((SELECT TOP 1 MC004 FROM [TK].dbo.BOMMC MC WHERE MC.MC001=BOMMD2.MD003),1) AS MC004C
+                                        FROM [TK].dbo.INVMB WITH(NOLOCK),[TK].dbo.COPTE WITH(NOLOCK),[TK].dbo.COPTF WITH(NOLOCK)
+                                        LEFT JOIN [TK].dbo.INVMD ON INVMD.MD001=TF005 AND TF010=MD002
+                                        LEFT JOIN [TK].dbo.BOMMC ON BOMMC.MC001=TF005
+                                        LEFT JOIN [TK].dbo.BOMMD ON BOMMD.MD001=TF005
+                                        LEFT JOIN [TK].dbo.BOMMC BOMMC2 ON BOMMC2.MC001=BOMMD.MD003
+                                        LEFT JOIN [TK].dbo.BOMMD BOMMD2 ON BOMMD2.MD001=BOMMD.MD003
+                                        WHERE  TE001=TF001 AND TE002=TF002 AND TE003=TF003
+                                        AND TE029='N'
+                                        AND MB001=TF005
+                                        AND (BOMMD.MD003 LIKE '3%' OR BOMMD.MD003 LIKE '4%')
+                                        AND (BOMMD2.MD003 LIKE '3%' OR BOMMD2.MD003 LIKE '4%')
+                                        ) AS TEMPL2 
+                                        ON TEMPL2.MD003B=[MOCMANULINE].MB001 AND   TEMPL2.TF001=COPTD001 AND TEMPL2.TF002=COPTD002 AND TEMPL2.TF104=COPTD003
+
+                                        WHERE   [COPTD001] LIKE '{0}%' AND [COPTD002] LIKE '{1}%'
+                                        AND [COPTD003] IN (SELECT TF104 FROM [TK].dbo.COPTE,[TK].dbo.COPTF WHERE TE001=TF001 AND TE002=TF002 AND TE003=TF003 AND TE029='N' AND TE001=COPTD001 AND TE002=COPTD002 )
+                                       
+                                        ) AS ALLTEMP
+                                        WHERE ALLTEMP.[ID]=[MOCMANULINE].[ID]
+                                        AND ALLTEMP.訂單單別='{0}' AND ALLTEMP.訂單號='{1}'
+
+                                        ", COPTD001, COPTD002);
+
+
+                    cmd.Connection = sqlConn;
+                    cmd.CommandTimeout = 60;
+                    cmd.CommandText = sbSql.ToString();
+                    cmd.Transaction = tran;
+                    result = cmd.ExecuteNonQuery();
+
+                    if (result == 0)
+                    {
+                        tran.Rollback();    //交易取消
+                    }
+                    else
+                    {
+                        tran.Commit();      //執行交易  
+
+
+                    }
+
+                }
+                catch
+                {
+
+                }
+
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }
+        }
         #endregion
 
         #region BUTTON
@@ -14702,8 +15028,16 @@ namespace TKMOC
         }
         private void button80_Click(object sender, EventArgs e)
         {
-            SEARCHMOCMANULINEQUERY1(textBox89.Text.Trim(),textBox85.Text.Trim());
-            SEARCHMOCMANULINEQUERY2(textBox89.Text.Trim(),textBox85.Text.Trim());
+            if(!string.IsNullOrEmpty(textBox89.Text.Trim())&&!string.IsNullOrEmpty(textBox85.Text.Trim()))
+            {
+                SEARCHMOCMANULINEQUERY1(textBox89.Text.Trim(), textBox85.Text.Trim());
+                SEARCHMOCMANULINEQUERY2(textBox89.Text.Trim(), textBox85.Text.Trim());
+            }
+            else
+            {
+                MessageBox.Show("訂單、訂單號碼不可以空白");
+            }
+            
         }
 
         private void button81_Click(object sender, EventArgs e)
@@ -14866,10 +15200,35 @@ namespace TKMOC
         }
 
 
+        private void button41_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBox89.Text.Trim()) && !string.IsNullOrEmpty(textBox85.Text.Trim()))
+            {
+                SEACRH_MOCLINE_NEW_CHAGNES(textBox89.Text.Trim(), textBox85.Text.Trim());
+                
+            }
+            else
+            {
+                MessageBox.Show("訂單、訂單號碼不可以空白");
+            }
+        }
+        private void button104_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBox89.Text.Trim()) && !string.IsNullOrEmpty(textBox85.Text.Trim()))
+            {
+                UPDATE_BATCH_MOCLINE(textBox89.Text.Trim(), textBox85.Text.Trim());
+                SEACRH_MOCLINE_NEW_CHAGNES(textBox89.Text.Trim(), textBox85.Text.Trim());
+
+            }
+            else
+            {
+                MessageBox.Show("訂單、訂單號碼不可以空白");
+            }
+        }
 
 
         #endregion
 
-        
+
     }
 }
