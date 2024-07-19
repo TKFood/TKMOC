@@ -11079,7 +11079,7 @@ namespace TKMOC
                                         )
 
                                         )
-)
+
                                         AND [MOCMANULINETEMP].[ID] NOT IN(SELECT[ID] FROM[TKMOC].[dbo].[MOCMANULINE]) 
                                         AND RTRIM(LTRIM([MOCMANULINETEMP].[MANU]))+RTRIM(LTRIM([MOCMANULINETEMP].[MB001]))+RTRIM(LTRIM([MOCMANULINETEMP].[COPTD001]))+RTRIM(LTRIM([MOCMANULINETEMP].[COPTD002]))+RTRIM(LTRIM([MOCMANULINETEMP].[COPTD003])) NOT IN (SELECT (RTRIM(LTRIM([MOCMANULINE].[MANU])))+RTRIM(LTRIM([MOCMANULINE].[MB001]))+(RTRIM(LTRIM([MOCMANULINE].[COPTD001])))+(RTRIM(LTRIM([MOCMANULINE].[COPTD002])))+(RTRIM(LTRIM([MOCMANULINE].[COPTD003]))) FROM [TKMOC].[dbo].[MOCMANULINE] WHERE ISNULL([MOCMANULINE].[COPTD002],'')<>''  )   
                                         ORDER    BY [MANU],[COPTD001],[COPTD002],[COPTD003]
@@ -14033,7 +14033,7 @@ namespace TKMOC
 
                                 FROM [TKMOC].[dbo].[MOCMANULINE]
                                 LEFT JOIN 
-                                (SELECT TE029,TF001,TF002,TF104,TE055,TF005,TF006,TF007,(TF009+TF020) AS TD008,TF010,TE050,TF015,(CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TF009+TF020)*INVMD.MD004 ELSE (TF009+TF021)  END ) AS NUM
+                                (SELECT TE029,TF001,TF002,TF104,TE055,TF005,TF006,TF007,(TF009+TF020) AS TD008,TF010,TE050,TF015,(CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TF009+TF020)*INVMD.MD004 ELSE (TF009+TF020)  END ) AS NUM
                                 FROM [TK].dbo.INVMB WITH(NOLOCK),[TK].dbo.COPTE WITH(NOLOCK),[TK].dbo.COPTF WITH(NOLOCK)
                                 LEFT JOIN [TK].dbo.INVMD ON INVMD.MD001=TF005 AND TF010=MD002
                                 WHERE  TE001=TF001 AND TE002=TF002 AND TE003=TF003
@@ -14130,41 +14130,49 @@ namespace TKMOC
         }
 
         private void dataGridView24_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        { 
-            // 获取当前行的数据
-            DataGridViewRow row = dataGridView24.Rows[e.RowIndex];
+        {
+            // 假设 dataGridView 是你的 DataGridView 控件的实例
+            string columnName1 = "原出貨日";
+            string columnName2 = "新出貨日";
 
-            // 比较列的值，例如与一个特定值 "SomeValue" 进行比较
-            if (row.Cells["原出貨日"].Value.ToString()!=row.Cells["新出貨日"].Value.ToString() )
+            if (dataGridView24.Columns.Contains(columnName1)&& dataGridView24.Columns.Contains(columnName2))
             {
-                // 如果值不同，设置整行的背景颜色
-                row.DefaultCellStyle.BackColor = Color.LightGoldenrodYellow; // 将颜色设置为
+                // 获取当前行的数据
+                DataGridViewRow row = dataGridView24.Rows[e.RowIndex];
+
+                // 比较列的值，例如与一个特定值 "SomeValue" 进行比较
+                if (row.Cells["原出貨日"].Value.ToString() != row.Cells["新出貨日"].Value.ToString())
+                {
+                    // 如果值不同，设置整行的背景颜色
+                    row.DefaultCellStyle.BackColor = Color.LightGoldenrodYellow; // 将颜色设置为
+                }
+                if (Convert.ToDecimal(row.Cells["預計變更的-數量"].Value.ToString()) != Convert.ToDecimal(row.Cells["數量"].Value.ToString()))
+                {
+                    // 如果值不同，设置整行的背景颜色
+                    row.DefaultCellStyle.BackColor = Color.LightGoldenrodYellow; // 将颜色设置为
+                }
+                if (Convert.ToDecimal(row.Cells["預計變更的-包裝數"].Value.ToString()) != Convert.ToDecimal(row.Cells["包裝數"].Value.ToString()))
+                {
+                    // 如果值不同，设置整行的背景颜色
+                    row.DefaultCellStyle.BackColor = Color.LightGoldenrodYellow; // 将颜色设置为
+                }
+                if (Convert.ToDecimal(row.Cells["預計變更的-箱數"].Value.ToString()) != Convert.ToDecimal(row.Cells["箱數"].Value.ToString()))
+                {
+                    // 如果值不同，设置整行的背景颜色
+                    row.DefaultCellStyle.BackColor = Color.LightGoldenrodYellow; // 将颜色设置为
+                }
+                if (Convert.ToDecimal(row.Cells["預計變更的-桶數"].Value.ToString()) != Convert.ToDecimal(row.Cells["桶數"].Value.ToString()))
+                {
+                    // 如果值不同，设置整行的背景颜色
+                    row.DefaultCellStyle.BackColor = Color.LightGoldenrodYellow; // 将颜色设置为
+                }
+                //else
+                //{
+                //    // 如果值相同，可以设置为默认颜色或其他颜色
+                //    row.DefaultCellStyle.BackColor = Color.White; // 这里设置为白色
+                //}
             }
-            if (Convert.ToDecimal(row.Cells["預計變更的-數量"].Value.ToString() ) != Convert.ToDecimal(row.Cells["數量"].Value.ToString()) )
-            {
-                // 如果值不同，设置整行的背景颜色
-                row.DefaultCellStyle.BackColor = Color.LightGoldenrodYellow; // 将颜色设置为
-            }
-            if (Convert.ToDecimal(row.Cells["預計變更的-包裝數"].Value.ToString()) != Convert.ToDecimal(row.Cells["包裝數"].Value.ToString()) )
-            {
-                // 如果值不同，设置整行的背景颜色
-                row.DefaultCellStyle.BackColor = Color.LightGoldenrodYellow; // 将颜色设置为
-            }
-            if (Convert.ToDecimal(row.Cells["預計變更的-箱數"].Value.ToString()) != Convert.ToDecimal(row.Cells["箱數"].Value.ToString()) )
-            {
-                // 如果值不同，设置整行的背景颜色
-                row.DefaultCellStyle.BackColor = Color.LightGoldenrodYellow; // 将颜色设置为
-            }
-            if (Convert.ToDecimal(row.Cells["預計變更的-桶數"].Value.ToString()) != Convert.ToDecimal(row.Cells["桶數"].Value.ToString()) )
-            {
-                // 如果值不同，设置整行的背景颜色
-                row.DefaultCellStyle.BackColor = Color.LightGoldenrodYellow; // 将颜色设置为
-            }
-            //else
-            //{
-            //    // 如果值相同，可以设置为默认颜色或其他颜色
-            //    row.DefaultCellStyle.BackColor = Color.White; // 这里设置为白色
-            //}
+
         }
 
         public void UPDATE_BATCH_MOCLINE(string COPTD001, string COPTD002)
@@ -14242,7 +14250,7 @@ namespace TKMOC
 
                                         FROM [TKMOC].[dbo].[MOCMANULINE]
                                         LEFT JOIN 
-                                        (SELECT TE029,TF001,TF002,TF104,TE055,TF005,TF006,TF007,(TF009+TF020) AS TD008,TF010,TE050,TF015,(CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TF009+TF020)*INVMD.MD004 ELSE (TF009+TF021)  END ) AS NUM
+                                        (SELECT TE029,TF001,TF002,TF104,TE055,TF005,TF006,TF007,(TF009+TF020) AS TD008,TF010,TE050,TF015,(CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TF009+TF020)*INVMD.MD004 ELSE (TF009+TF020)  END ) AS NUM
                                         FROM [TK].dbo.INVMB WITH(NOLOCK),[TK].dbo.COPTE WITH(NOLOCK),[TK].dbo.COPTF WITH(NOLOCK)
                                         LEFT JOIN [TK].dbo.INVMD ON INVMD.MD001=TF005 AND TF010=MD002
                                         WHERE  TE001=TF001 AND TE002=TF002 AND TE003=TF003
