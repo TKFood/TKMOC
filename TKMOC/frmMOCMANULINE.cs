@@ -13988,25 +13988,25 @@ namespace TKMOC
                     sbSql.AppendFormat(@"  
                                  SELECT 
                                    (CASE 
-                                        WHEN COPTFNUMS > 0 THEN COPTFNUMS 
-                                        WHEN BOMNUMS > 0 THEN BOMNUMS 
-		                                WHEN BOMNUMS2 > 0 THEN BOMNUMS2 
+                                        WHEN COPTFNUMS >= 0 THEN COPTFNUMS 
+                                        WHEN BOMNUMS >= 0 THEN BOMNUMS 
+		                                WHEN BOMNUMS2 >= 0 THEN BOMNUMS2 
                                         ELSE 數量
                                      END) AS '預計變更的-數量'
                                 ,    (CASE 
-                                        WHEN COPTFNUMS > 0 THEN COPTFNUMS 
-                                        WHEN BOMNUMS > 0 THEN BOMNUMS 
-		                                WHEN BOMNUMS2 > 0 THEN BOMNUMS2 
+                                        WHEN COPTFNUMS >= 0 THEN COPTFNUMS 
+                                        WHEN BOMNUMS >= 0 THEN BOMNUMS 
+		                                WHEN BOMNUMS2 >= 0 THEN BOMNUMS2 
                                         ELSE 包裝數
                                      END) AS '預計變更的-包裝數'
                                 ,    (CASE 
-                                        WHEN COPTFNUMS > 0 AND INVMDMD004>0 THEN CONVERT(DECIMAL(16,2),COPTFNUMS/INVMDMD004 )
-                                        WHEN BOMNUMS > 0 AND INVMDMD004>0 THEN CONVERT(DECIMAL(16,2),BOMNUMS/INVMDMD004 )
-		                                WHEN BOMNUMS2 > 0 AND INVMDMD004>0 THEN CONVERT(DECIMAL(16,2),BOMNUMS2/INVMDMD004) 
+                                        WHEN COPTFNUMS >= 0 AND INVMDMD004>0 THEN CONVERT(DECIMAL(16,2),COPTFNUMS/INVMDMD004 )
+                                        WHEN BOMNUMS >= 0 AND INVMDMD004>0 THEN CONVERT(DECIMAL(16,2),BOMNUMS/INVMDMD004 )
+		                                WHEN BOMNUMS2 >= 0 AND INVMDMD004>0 THEN CONVERT(DECIMAL(16,2),BOMNUMS2/INVMDMD004) 
                                         ELSE 箱數
                                      END) AS '預計變更的-箱數'
                                 ,    (CASE        
-		                                WHEN BOMNUMS2 > 0 THEN CONVERT(DECIMAL(16,2),BOMNUMS2/INVMCMC004 )
+		                                WHEN BOMNUMS2 >= 0 THEN CONVERT(DECIMAL(16,2),BOMNUMS2/INVMCMC004 )
                                         ELSE 桶數
                                      END) AS '預計變更的-桶數'
                                 ,( SELECT TOP 1 TD013 FROM [TK].dbo.COPTD WHERE TD001=訂單單別 AND TD002=訂單號 AND TD003=訂單序號) AS '原出貨日'
