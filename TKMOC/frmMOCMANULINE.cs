@@ -14204,16 +14204,16 @@ namespace TKMOC
                                         UPDATE [TKMOC].[dbo].[MOCMANULINE]
                                         SET [MOCMANULINE].[NUM] = 
                                             (CASE 
-                                                WHEN COPTFNUMS > 0 THEN COPTFNUMS 
-                                                WHEN BOMNUMS > 0 THEN BOMNUMS 
-		                                        WHEN BOMNUMS2 > 0 THEN BOMNUMS2 
+                                                WHEN COPTFNUMS >= 0 THEN COPTFNUMS 
+                                                WHEN BOMNUMS >= 0 THEN BOMNUMS 
+		                                        WHEN BOMNUMS2 >= 0 THEN BOMNUMS2 
                                                 ELSE [MOCMANULINE].[NUM] 
                                              END)
                                         ,[MOCMANULINE].[PACKAGE] = 
                                             (CASE 
-                                                WHEN COPTFNUMS > 0 THEN COPTFNUMS 
-                                                WHEN BOMNUMS > 0 THEN BOMNUMS 
-		                                        WHEN BOMNUMS2 > 0 THEN BOMNUMS2 
+                                                WHEN COPTFNUMS >= 0 THEN COPTFNUMS 
+                                                WHEN BOMNUMS >= 0 THEN BOMNUMS 
+		                                        WHEN BOMNUMS2 >= 0 THEN BOMNUMS2 
                                                 ELSE [MOCMANULINE].[PACKAGE] 
                                              END)
                                         ,[MOCMANULINE].[BOX] = 
@@ -14221,6 +14221,9 @@ namespace TKMOC
                                                 WHEN COPTFNUMS > 0 AND INVMDMD004>0 THEN CONVERT(DECIMAL(16,2),COPTFNUMS/INVMDMD004 )
                                                 WHEN BOMNUMS > 0 AND INVMDMD004>0 THEN CONVERT(DECIMAL(16,2),BOMNUMS/INVMDMD004 )
 		                                        WHEN BOMNUMS2 > 0 AND INVMDMD004>0 THEN CONVERT(DECIMAL(16,2),BOMNUMS2/INVMDMD004) 
+                                                WHEN COPTFNUMS=0 THEN 0
+                                                WHEN BOMNUMS=0 THEN 0
+                                                WHEN BOMNUMS2=0 THEN 0
                                                 ELSE [MOCMANULINE].[BOX] 
                                              END)
                                         ,[MOCMANULINE].[BAR] = 
@@ -14228,6 +14231,9 @@ namespace TKMOC
                                                 WHEN COPTFNUMS > 0 AND INVMCMC004>0 THEN CONVERT(DECIMAL(16,2),COPTFNUMS/INVMCMC004 )
                                                 WHEN BOMNUMS > 0 THEN CONVERT(DECIMAL(16,2),BOMNUMS/INVMCMC004 )
 		                                        WHEN BOMNUMS2 > 0 THEN CONVERT(DECIMAL(16,2),BOMNUMS2/INVMCMC004 )
+                                                WHEN COPTFNUMS=0 THEN 0
+                                                WHEN BOMNUMS=0 THEN 0
+                                                WHEN BOMNUMS2=0 THEN 0
                                                 ELSE [MOCMANULINE].[BAR] 
                                              END)
                                         FROM 
