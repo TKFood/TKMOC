@@ -3939,6 +3939,15 @@ namespace TKMOC
         {
             SETFASTREPORT4B("3領退料");
         }
+        private void button28_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button29_Click(object sender, EventArgs e)
+        {
+
+        }
 
         #endregion
 
