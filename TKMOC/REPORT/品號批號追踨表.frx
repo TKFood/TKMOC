@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="08/13/2024 14:00:52" ReportInfo.Modified="08/13/2024 14:22:53" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="08/13/2024 14:00:52" ReportInfo.Modified="08/13/2024 16:22:06" ReportInfo.CreatorVersion="2016.4.4.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpN+i5gA3VDGcwlcfm6L9ZMsLrZ3U+wEDtHCQtd9vw2XUELDmvTvBtusk9Ta2c21DP3">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpN+i5gA3VDGcwlcfm6L9ZMsLrZ3U+wEDtHCQtd9vw2XUFlkw47Qnw4SlrlypWfub6b">
       <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT&#13;&#10;[LEVELS] AS '層別'&#13;&#10;,[MMB001] AS '品號'&#13;&#10;,[MB002]  AS '品名'&#13;&#10;,[MB003]  AS '規格'&#13;&#10;,[MLOTNO] AS '批號'&#13;&#10;,[MOVEDATES] AS '異動日期'&#13;&#10;,[FORMSID] AS '異動單別'&#13;&#10;,[FORMSNO] AS '異動單號'&#13;&#10;,[FORMSSERNO] AS '異動序號'&#13;&#10;,[NUMS] AS '數量'&#13;&#10;,[STOCKS] AS '庫別'&#13;&#10;,[MF008] AS '出入'&#13;&#10;,[MF009] AS '出入庫'&#13;&#10;,[REMARKS] AS '備註'&#13;&#10;,[FORSNAME] AS '來源'&#13;&#10;,[ID]&#13;&#10;&#13;&#10;FROM [TKMOC].[dbo].[TRACEBACKNEW],[TK].dbo.INVMB&#13;&#10;WHERE [MMB001]=MB001&#13;&#10;ORDER BY [ID]">
         <Column Name="層別" DataType="System.Int32"/>
         <Column Name="品號" DataType="System.String"/>
@@ -22,7 +22,7 @@
       </TableDataSource>
     </MsSqlDataConnection>
   </Dictionary>
-  <ReportPage Name="Page1" Landscape="true" PaperWidth="500" PaperHeight="210">
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="500" PaperHeight="1000">
     <ReportTitleBand Name="ReportTitle1" Width="1814.4" Height="18.9">
       <TextObject Name="Text1" Width="198.45" Height="18.9" Text="品號-批號追踨表"/>
     </ReportTitleBand>

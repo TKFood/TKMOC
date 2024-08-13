@@ -4176,7 +4176,7 @@ namespace TKMOC
                                     [主批號]
                                      ", MB001,LOTNO);
 
-                sbSql.AppendFormat(" ");
+                sbSql.AppendFormat("  ");
 
 
                 cmd.Connection = sqlConn;
