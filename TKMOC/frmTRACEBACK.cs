@@ -3838,6 +3838,376 @@ namespace TKMOC
 
         }
 
+
+        public void ADD_PRODUCT_TRACE(string MB001,string LOTNO)
+        {
+            try
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+
+                sbSql.AppendFormat(@" 
+                                    -- Drop the temporary table if it exists
+                                    IF OBJECT_ID('tempdb..#TemporaryTable') IS NOT NULL
+                                    DROP TABLE #TemporaryTable;
+                                    --由入庫單找製令單，由製令單找領退料單，再檢查領退料單是否在品號、批號的異動單中
+                                    WITH RecursiveCTE AS (
+                                    -- 基礎查詢，取得初始的資料列
+                                    SELECT 
+                                    [主品號],
+                                    [主批號],
+                                    [異動日期],
+                                    [異動單別],
+                                    [異動單號],
+                                    [異動序號],
+                                    [庫別],
+                                    [主入出別],
+                                    [異動別],
+                                    [製令單別],
+                                    [製令單號],
+                                    [領退料單別],
+                                    [領退料單號],
+                                    [領退料序號],
+                                    [品號],
+                                    [批號],
+	                                    1 AS 層級
+                                    FROM [TK].[dbo].[View_INVMF_MOCOUT]
+                                    WHERE [主品號] = '{0}' AND [主批號] = '{1}'
+
+                                    UNION ALL
+
+                                    -- 遞迴部分，根據主品號和批號查詢相關的品號和批號
+                                    SELECT 
+                                    v.[主品號],
+                                    v.[主批號],
+                                    v.[異動日期],
+                                    v.[異動單別],
+                                    v.[異動單號],
+                                    v.[異動序號],
+                                    v.[庫別],
+                                    v.[主入出別],
+                                    v.[異動別],
+                                    v.[製令單別],
+                                    v.[製令單號],
+                                    v.[領退料單別],
+                                    v.[領退料單號],
+                                    v.[領退料序號],
+                                    v.[品號],
+                                    v.[批號],
+                                    r.層級 + 1 AS 層級
+                                    FROM [TK].[dbo].[View_INVMF_MOCOUT] v
+                                    INNER JOIN RecursiveCTE r ON ((v.[主品號] = r.[品號] AND v.[主批號] = r.[批號] AND v.[異動單別]=r.[領退料單別] AND  v.[異動單號]=r.[領退料單號] AND  v.[異動序號]=r.[領退料序號]) 
+							                                    OR v.[主品號] = r.[品號] AND v.[主批號] = r.[批號] AND v.[異動單別] NOT LIKE 'A54%' AND v.[異動單別] NOT LIKE 'A56%')
+	
+                                    )
+
+                                    ----3 最終查詢，從CTE取得所有結果
+                                    SELECT 
+                                    [層級],
+                                    [主品號],
+                                    [主批號],
+                                    [異動日期],
+                                    [異動單別],
+                                    [異動單號],
+                                    [異動序號],
+                                    [庫別]
+
+                                    INTO #TemporaryTable
+                                    FROM RecursiveCTE
+                                    WHERE 1=1
+                                    --AND (([主品號]='201001236' AND [主批號]='20240521') OR ([品號]='201001236' AND [批號]='20240521') )
+                                    GROUP BY 
+                                    [層級],
+                                    [主品號],
+                                    [主批號],
+                                    [異動日期],
+                                    [異動單別],
+                                    [異動單號],
+                                    [異動序號],
+                                    [庫別]
+                                    --新增結果到[TRACEBACKNEW]
+
+                                    DELETE [TKMOC].[dbo].[TRACEBACKNEW]
+                                    INSERT INTO [TKMOC].[dbo].[TRACEBACKNEW]
+                                    (
+                                    [LEVELS]
+                                    ,[MMB001]
+                                    ,[MLOTNO]
+                                    ,[MOVEDATES]
+                                    ,[FORMSID]
+                                    ,[FORMSNO]
+                                    ,[FORMSSERNO]
+                                    ,[NUMS]
+                                    ,[STOCKS]
+                                    ,[MF008]
+                                    ,[MF009]
+                                    ,[REMARKS]
+                                    ,[FORSNAME]
+                                    )
+
+                                    SELECT 
+                                    [層級],
+                                    [主品號],
+                                    [主批號],
+                                    [異動日期],
+                                    [異動單別],
+                                    [異動單號],
+                                    [異動序號]
+                                    ,MF010 AS '數量'
+                                    ,MF007 AS '庫別'
+                                    ,CASE WHEN MF008='1' THEN '入' WHEN  MF008='-1' THEN '出' END AS '主入出別'
+                                    ,CASE WHEN MF009='1' THEN '入庫' WHEN MF009='2' THEN '銷貨' WHEN MF009='3' THEN '領用' WHEN MF009='4' THEN '轉撥' WHEN MF009='5' THEN '調整' END  AS '異動別'
+                                    ,MF013 AS '備註'
+                                    ,MQ002 AS '單別名稱' 
+
+                                    FROM #TemporaryTable
+                                    LEFT JOIN [TK].dbo.INVMF ON MF001=[主品號] AND MF002=[主批號] AND MF004=[異動單別] AND MF005=[異動單號] AND MF006=[異動序號] AND MF007=[庫別]
+                                    LEFT JOIN [TK].dbo.CMSMQ ON MQ001=[異動單別]
+                                    WHERE 1=1
+                                    ORDER BY
+                                    [層級],
+                                    [主品號],
+                                    [主批號]
+                                    
+                                     ",MB001,LOTNO);
+
+                sbSql.AppendFormat(" ");
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public void ADD_SOURCE_TRACE(string MB001, string LOTNO)
+        {
+            try
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+
+                sbSql.AppendFormat(@"     
+                                    -- Drop the temporary table if it exists
+                                    IF OBJECT_ID('tempdb..#TemporaryTable') IS NOT NULL
+                                    DROP TABLE #TemporaryTable;
+
+                                    WITH RecursiveCTE AS (
+                                        -- 基礎查詢，取得初始的資料列
+                                        SELECT 
+                                            [主品號],
+                                            [主批號],
+                                            [異動日期],
+                                            [異動單別],
+                                            [異動單號],
+                                            [異動序號],
+                                            [庫別],
+                                            [主入出別],
+                                            [異動別],
+                                            [數量],
+                                            [製令單別],
+                                            [製令單號],
+                                            [入庫單別],
+                                            [入庫單號],
+                                            [入庫序號],
+                                            [產品品號],
+                                            [品名],
+                                            [批號],
+		                                    1 AS 層級
+                                        FROM [TK].[dbo].[View_INVMF_MOCIN]
+                                        WHERE [主品號] = '{0}' AND [主批號] = '{1}'
+
+                                        UNION ALL
+
+                                        -- 遞迴部分，根據主品號和批號查詢相關的產品品號和批號
+                                        SELECT 
+                                            v.[主品號],
+                                            v.[主批號],
+                                            v.[異動日期],
+                                            v.[異動單別],
+                                            v.[異動單號],
+                                            v.[異動序號],
+                                            v.[庫別],
+                                            v.[主入出別],
+                                            v.[異動別],
+                                            v.[數量],
+                                            v.[製令單別],
+                                            v.[製令單號],
+                                            v.[入庫單別],
+                                            v.[入庫單號],
+                                            v.[入庫序號],
+                                            v.[產品品號],
+                                            v.[品名],
+                                            v.[批號],
+		                                    r.層級 + 1 AS 層級
+                                        FROM [TK].[dbo].[View_INVMF_MOCIN] v
+                                        INNER JOIN RecursiveCTE r ON v.[主品號] = r.[產品品號] AND v.[主批號] = r.[批號]
+                                    )
+
+                                    --3 最終查詢，從CTE取得所有結果
+                                    SELECT 
+                                    [層級],[主品號],[主批號]
+                                    ,MF001 AS '品號'
+                                    ,MF002 AS '批號'
+                                    ,MF003 AS '異動日期'
+                                    ,MF004 AS '異動單別'
+                                    ,MF005 AS '異動單號'
+                                    ,MF006 AS '異動序號'
+                                    ,MQ002 AS '單據名稱'
+                                    ,MF007 AS '庫別'
+                                    ,CASE WHEN MF008='1' THEN '入' WHEN  MF008='-1' THEN '出' END AS '主入出別'
+                                    ,CASE WHEN MF009='1' THEN '入庫' WHEN MF009='2' THEN '銷貨' WHEN MF009='3' THEN '領用' WHEN MF009='4' THEN '轉撥' WHEN MF009='5' THEN '調整' END  AS '異動別'
+                                    ,MF010 AS '數量'
+
+                                    INTO #TemporaryTable
+                                    FROM 
+                                    (
+                                    SELECT 
+                                    [層級],[主品號],[主批號]
+                                    FROM RecursiveCTE
+                                    GROUP BY [層級],[主品號],[主批號]
+                                    ) AS TEMP1
+                                    LEFT JOIN [TK].dbo.INVMF ON MF001=[主品號] AND MF002=[主批號]
+                                    LEFT JOIN [TK].dbo.CMSMQ ON MQ001=MF004
+                                    ORDER BY [層級],[主品號],[主批號],MF003,MF004,MF005,MF006
+
+
+
+                                    --新增結果到[TRACEBACKNEW]
+
+                                    DELETE [TKMOC].[dbo].[TRACEBACKNEW]
+                                    INSERT INTO [TKMOC].[dbo].[TRACEBACKNEW]
+                                    (
+                                    [LEVELS]
+                                    ,[MMB001]
+                                    ,[MLOTNO]
+                                    ,[MOVEDATES]
+                                    ,[FORMSID]
+                                    ,[FORMSNO]
+                                    ,[FORMSSERNO]
+                                    ,[NUMS]
+                                    ,[STOCKS]
+                                    ,[MF008]
+                                    ,[MF009]
+                                    ,[REMARKS]
+                                    ,[FORSNAME]
+                                    )
+
+
+                                    SELECT 
+                                    [層級],
+                                    [主品號],
+                                    [主批號],
+                                    [異動日期],
+                                    [異動單別],
+                                    [異動單號],
+                                    [異動序號]
+                                    ,MF010 AS '數量'
+                                    ,MF007 AS '庫別'
+                                    ,CASE WHEN MF008='1' THEN '入' WHEN  MF008='-1' THEN '出' END AS '主入出別'
+                                    ,CASE WHEN MF009='1' THEN '入庫' WHEN MF009='2' THEN '銷貨' WHEN MF009='3' THEN '領用' WHEN MF009='4' THEN '轉撥' WHEN MF009='5' THEN '調整' END  AS '異動別'
+                                    ,MF013 AS '備註'
+                                    ,MQ002 AS '單別名稱' 
+
+                                    FROM #TemporaryTable
+                                    LEFT JOIN [TK].dbo.INVMF ON MF001=[主品號] AND MF002=[主批號] AND MF004=[異動單別] AND MF005=[異動單號] AND MF006=[異動序號] AND MF007=[庫別]
+                                    LEFT JOIN [TK].dbo.CMSMQ ON MQ001=[異動單別]
+                                    WHERE 1=1
+                                    ORDER BY
+                                    [層級],
+                                    [主品號],
+                                    [主批號]
+                                     ", MB001,LOTNO);
+
+                sbSql.AppendFormat(" ");
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
         #endregion
 
         #region BUTTON
@@ -4001,8 +4371,10 @@ namespace TKMOC
             //顯示跳出視窗
             MSGSHOW.Show();
 
-
-
+            if(!string.IsNullOrEmpty(textBox4.Text.Trim())&& !string.IsNullOrEmpty(textBox5.Text.Trim()))
+            {
+                ADD_PRODUCT_TRACE(textBox4.Text.Trim(), textBox5.Text.Trim());
+            }
             SETFASTREPORT_TRACEBACKNEW();
 
 
@@ -4014,7 +4386,23 @@ namespace TKMOC
 
         private void button29_Click(object sender, EventArgs e)
         {
+            MESSAGESHOW MSGSHOW = new MESSAGESHOW();
+            //鎖定控制項
+            this.Enabled = false;
+            //顯示跳出視窗
+            MSGSHOW.Show();
 
+            if (!string.IsNullOrEmpty(textBox6.Text.Trim()) && !string.IsNullOrEmpty(textBox7.Text.Trim()))
+            {
+                ADD_SOURCE_TRACE(textBox6.Text.Trim(), textBox7.Text.Trim());
+            }
+            SETFASTREPORT_TRACEBACKNEW();
+
+
+            //關閉跳出視窗
+            MSGSHOW.Close();
+            //解除鎖定
+            this.Enabled = true;
         }
 
         #endregion
