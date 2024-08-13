@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="08/13/2024 14:00:52" ReportInfo.Modified="08/13/2024 14:22:53" ReportInfo.CreatorVersion="2016.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpN+i5gA3VDGcwlcfm6L9ZMsLrZ3U+wEDtHCQtd9vw2XUELDmvTvBtusk9Ta2c21DP3">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT&#13;&#10;[LEVELS] AS '層別'&#13;&#10;,[MMB001] AS '品號'&#13;&#10;,[MB002]  AS '品名'&#13;&#10;,[MB003]  AS '規格'&#13;&#10;,[MLOTNO] AS '批號'&#13;&#10;,[MOVEDATES] AS '異動日期'&#13;&#10;,[FORMSID] AS '異動單別'&#13;&#10;,[FORMSNO] AS '異動單號'&#13;&#10;,[FORMSSERNO] AS '異動序號'&#13;&#10;,[NUMS] AS '數量'&#13;&#10;,[STOCKS] AS '庫別'&#13;&#10;,[MF008] AS '出入'&#13;&#10;,[MF009] AS '出入庫'&#13;&#10;,[REMARKS] AS '備註'&#13;&#10;,[FORSNAME] AS '來源'&#13;&#10;,[ID]&#13;&#10;&#13;&#10;FROM [TKMOC].[dbo].[TRACEBACKNEW],[TK].dbo.INVMB&#13;&#10;WHERE [MMB001]=MB001&#13;&#10;ORDER BY [ID]">
+        <Column Name="層別" DataType="System.Int32"/>
+        <Column Name="品號" DataType="System.String"/>
+        <Column Name="品名" DataType="System.String"/>
+        <Column Name="規格" DataType="System.String"/>
+        <Column Name="批號" DataType="System.String"/>
+        <Column Name="異動日期" DataType="System.String"/>
+        <Column Name="異動單別" DataType="System.String"/>
+        <Column Name="異動單號" DataType="System.String"/>
+        <Column Name="異動序號" DataType="System.String"/>
+        <Column Name="數量" DataType="System.Decimal"/>
+        <Column Name="庫別" DataType="System.String"/>
+        <Column Name="出入" DataType="System.String"/>
+        <Column Name="出入庫" DataType="System.String"/>
+        <Column Name="備註" DataType="System.String"/>
+        <Column Name="來源" DataType="System.String"/>
+        <Column Name="ID" DataType="System.Decimal"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="500" PaperHeight="210">
+    <ReportTitleBand Name="ReportTitle1" Width="1814.4" Height="18.9">
+      <TextObject Name="Text1" Width="198.45" Height="18.9" Text="品號-批號追踨表"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="23.5" Width="1814.4" Height="18.9">
+      <TextObject Name="Text3" Left="179.55" Width="66.15" Height="18.9" Border.Lines="All" Text="層別" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text5" Left="245.7" Width="170.1" Height="18.9" Border.Lines="All" Text="品號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text7" Left="415.8" Width="207.9" Height="18.9" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text9" Left="623.7" Width="245.7" Height="18.9" Border.Lines="All" Text="規格" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text11" Left="869.4" Width="94.5" Height="18.9" Border.Lines="All" Text="批號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text13" Left="963.9" Width="94.5" Height="18.9" Border.Lines="All" Text="異動日期" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text15" Left="1058.4" Width="94.5" Height="18.9" Border.Lines="All" Text="異動單別" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text17" Left="1152.9" Width="94.5" Height="18.9" Border.Lines="All" Text="異動單號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text19" Left="1247.4" Width="94.5" Height="18.9" Border.Lines="All" Text="異動序號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text21" Left="1341.9" Width="94.5" Height="18.9" Border.Lines="All" Text="數量" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text23" Left="1436.4" Width="94.5" Height="18.9" Border.Lines="All" Text="庫別" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text25" Left="1530.9" Width="94.5" Height="18.9" Border.Lines="All" Text="出入庫" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text27" Left="1625.4" Width="189" Height="18.9" Border.Lines="All" Text="備註" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text29" Width="179.55" Height="18.9" Border.Lines="All" Text="來源" HorzAlign="Center" VertAlign="Center"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="47" Width="1814.4" Height="18.9" DataSource="Table">
+      <TextObject Name="Text2" Left="179.55" Width="66.15" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.層別]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text4" Left="245.7" Width="170.1" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.品號]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text6" Left="415.8" Width="207.9" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.品名]" VertAlign="Center"/>
+      <TextObject Name="Text8" Left="623.7" Width="245.7" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.規格]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text10" Left="869.4" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.批號]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text12" Left="963.9" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.異動日期]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text14" Left="1058.4" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.異動單別]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text16" Left="1152.9" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.異動單號]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text18" Left="1247.4" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.異動序號]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text20" Left="1341.9" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.數量]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="3" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text22" Left="1436.4" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.庫別]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text24" Left="1530.9" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.出入庫]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text26" Left="1625.4" Width="189" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.備註]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text28" Width="179.55" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.來源]" HorzAlign="Center" VertAlign="Center"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="70.49" Width="1814.4" Height="18.9"/>
+  </ReportPage>
+</Report>

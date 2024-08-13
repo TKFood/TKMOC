@@ -3784,6 +3784,60 @@ namespace TKMOC
             }
         }
 
+        public void SETFASTREPORT_TRACEBACKNEW()
+        {
+            StringBuilder SQL = new StringBuilder();
+            string SELECT = SELECT4();
+            Report report1 = new Report();
+
+            SQL.AppendFormat(@"  
+                                   SELECT
+                                    [LEVELS] AS '層別'
+                                    ,[MMB001] AS '品號'
+                                    ,[MB002]  AS '品名'
+                                    ,[MB003]  AS '規格'
+                                    ,[MLOTNO] AS '批號'
+                                    ,[MOVEDATES] AS '異動日期'
+                                    ,[FORMSID] AS '異動單別'
+                                    ,[FORMSNO] AS '異動單號'
+                                    ,[FORMSSERNO] AS '異動序號'
+                                    ,[NUMS] AS '數量'
+                                    ,[STOCKS] AS '庫別'
+                                    ,[MF008] AS '出入'
+                                    ,[MF009] AS '出入庫'
+                                    ,[REMARKS] AS '備註'
+                                    ,[FORSNAME] AS '來源'
+                                    ,[ID]
+
+                                    FROM [TKMOC].[dbo].[TRACEBACKNEW],[TK].dbo.INVMB
+                                    WHERE [MMB001]=MB001
+                                    ORDER BY [ID]
+                                    ");
+
+            report1.Load(@"REPORT\品號批號追踨表.frx");
+
+            //20210902密
+            Class1 TKID = new Class1();//用new 建立類別實體
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+            //資料庫使用者密碼解密
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+            String connectionString;
+            sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+            report1.Dictionary.Connections[0].ConnectionString = sqlsb.ConnectionString;
+
+
+            TableDataSource Table = report1.GetDataSource("Table") as TableDataSource;
+            Table.SelectCommand = SQL.ToString();
+
+            report1.Preview = previewControl9;
+            report1.Show();
+
+        }
+
         #endregion
 
         #region BUTTON
@@ -3941,7 +3995,21 @@ namespace TKMOC
         }
         private void button28_Click(object sender, EventArgs e)
         {
+            MESSAGESHOW MSGSHOW = new MESSAGESHOW();
+            //鎖定控制項
+            this.Enabled = false;
+            //顯示跳出視窗
+            MSGSHOW.Show();
 
+
+
+            SETFASTREPORT_TRACEBACKNEW();
+
+
+            //關閉跳出視窗
+            MSGSHOW.Close();
+            //解除鎖定
+            this.Enabled = true;
         }
 
         private void button29_Click(object sender, EventArgs e)
