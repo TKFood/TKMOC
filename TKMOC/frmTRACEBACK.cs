@@ -3789,7 +3789,7 @@ namespace TKMOC
             StringBuilder SQL = new StringBuilder();
             string SELECT = SELECT4();
             Report report1 = new Report();
-
+              
             SQL.AppendFormat(@"  
                                    SELECT
                                     [LEVELS] AS '層別'
