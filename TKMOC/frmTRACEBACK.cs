@@ -3944,7 +3944,7 @@ namespace TKMOC
                                     [庫別]
                                     --新增結果到[TRACEBACKNEW]
 
-                                    DELETE [TKMOC].[dbo].[TRACEBACKNEW]
+                                    TRUNCATE TABLE  [TKMOC].[dbo].[TRACEBACKNEW]
                                     INSERT INTO [TKMOC].[dbo].[TRACEBACKNEW]
                                     (
                                     [LEVELS]
@@ -3986,7 +3986,7 @@ namespace TKMOC
                                     [主品號],
                                     [主批號]
                                     
-                                     ",MB001,LOTNO);
+                                     ", MB001,LOTNO);
 
                 sbSql.AppendFormat(" ");
 
@@ -4132,7 +4132,7 @@ namespace TKMOC
 
                                     --新增結果到[TRACEBACKNEW]
 
-                                    DELETE [TKMOC].[dbo].[TRACEBACKNEW]
+                                    TRUNCATE TABLE  [TKMOC].[dbo].[TRACEBACKNEW]
                                     INSERT INTO [TKMOC].[dbo].[TRACEBACKNEW]
                                     (
                                     [LEVELS]
