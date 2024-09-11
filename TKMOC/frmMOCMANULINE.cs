@@ -653,13 +653,29 @@ namespace TKMOC
                 sbSqlQuery.Clear();
 
 
-                sbSql.AppendFormat(@"  
+                sbSql.AppendFormat(@"                                      
                                     SELECT 
-                                    [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名' 
-                                    ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[CLINET] AS '客戶',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'
-                                    ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號',[BOX] AS '箱數'
+                                    [MANU] AS '線別'
+                                    ,CONVERT(varchar(100),[MANUDATE],112) AS '生產日'
+                                    ,[MOCMANULINE].[MB001] AS '品號'
+                                    ,[MOCMANULINE].[MB002] AS '品名' 
+                                    ,[MOCMANULINE].[MB003] AS '規格'
+                                    ,[BAR] AS '桶數'
+                                    ,[NUM] AS '數量'
+                                    ,[CLINET] AS '客戶'
+                                    ,[OUTDATE] AS '交期'
+                                    ,[TA029] AS '備註'
+                                    ,[HALFPRO] AS '半成品數量'
+                                    ,[COPTD001] AS '訂單單別'
+                                    ,[COPTD002] AS '訂單號'
+                                    ,[COPTD003] AS '訂單序號'
+                                    ,[BOX] AS '箱數'
+                                    ,ALLERGEN AS '過敏原'
+                                    ,ORI AS '素別'
                                     ,[ID]
                                     FROM [TKMOC].[dbo].[MOCMANULINE]
+                                    LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=[MOCMANULINE].MB001
+
                                     WHERE [MANU]='{0}' 
                                     AND CONVERT(varchar(100),[MANUDATE],112) LIKE '{1}%'
                                     ORDER BY [MANUDATE],[SERNO]"
@@ -677,13 +693,29 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  
+                sbSql.AppendFormat(@"                                     
                                     SELECT
-                                    [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名'
-                                    ,[MB003] AS '規格',[BOX] AS '箱數',[PACKAGE] AS '包裝數',[CLINET] AS '客戶',[MANUHOUR] AS '生產時間',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'
-                                    ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號'
+                                    [MANU] AS '線別'
+                                    ,CONVERT(varchar(100)
+                                    ,[MANUDATE],112) AS '生產日'
+                                    ,[MOCMANULINE].[MB001] AS '品號'
+                                    ,[MOCMANULINE].[MB002] AS '品名' 
+                                    ,[MOCMANULINE].[MB003] AS '規格'
+                                    ,[BOX] AS '箱數'
+                                    ,[PACKAGE] AS '包裝數'
+                                    ,[CLINET] AS '客戶'
+                                    ,[MANUHOUR] AS '生產時間'
+                                    ,[OUTDATE] AS '交期'
+                                    ,[TA029] AS '備註'
+                                    ,[HALFPRO] AS '半成品數量'
+                                    ,[COPTD001] AS '訂單單別'
+                                    ,[COPTD002] AS '訂單號'
+                                    ,[COPTD003] AS '訂單序號'
+                                    ,ALLERGEN AS '過敏原'
+                                    ,ORI AS '素別'
                                     ,[ID]
                                     FROM [TKMOC].[dbo].[MOCMANULINE]
+                                    LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=[MOCMANULINE].MB001
                                     WHERE [MANU]='{0}' 
                                     AND CONVERT(varchar(100),[MANUDATE],112) LIKE '{1}%'
                                     ORDER BY [MANUDATE],[SERNO]
@@ -700,13 +732,29 @@ namespace TKMOC
                 sbSqlQuery.Clear();
 
 
-                sbSql.AppendFormat(@"  
+                sbSql.AppendFormat(@"                                      
                                     SELECT 
-                                    [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名'
-                                    ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[CLINET] AS '客戶',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'
-                                     ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號',[BOX] AS '箱數'
+                                    [MANU] AS '線別'
+                                    ,CONVERT(varchar(100),[MANUDATE],112) AS '生產日'
+                                    ,[MOCMANULINE].[MB001] AS '品號'
+                                    ,[MOCMANULINE].[MB002] AS '品名' 
+                                    ,[MOCMANULINE].[MB003] AS '規格'
+                                    ,[BAR] AS '桶數'
+                                    ,[NUM] AS '數量'
+                                    ,[CLINET] AS '客戶'
+                                    ,[OUTDATE] AS '交期'
+                                    ,[TA029] AS '備註'
+                                    ,[HALFPRO] AS '半成品數量'
+                                    ,[COPTD001] AS '訂單單別'
+                                    ,[COPTD002] AS '訂單號'
+                                    ,[COPTD003] AS '訂單序號
+                                    ',[BOX] AS '箱數'
+                                    ,ALLERGEN AS '過敏原'
+                                    ,ORI AS '素別'
                                     ,[ID]
-                                     FROM [TKMOC].[dbo].[MOCMANULINE]
+                                    FROM [TKMOC].[dbo].[MOCMANULINE]
+                                    LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=[MOCMANULINE].MB001
+
                                     WHERE [MANU]='{0}' 
                                     AND CONVERT(varchar(100),[MANUDATE],112) LIKE '{1}%'
                                     ORDER BY [MANUDATE],[SERNO]
@@ -722,14 +770,30 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  
-                                     SELECT 
-                                     [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名'
-                                     ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[CLINET] AS '客戶',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'
-                                     ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號',[BOX] AS '箱數'
+                sbSql.AppendFormat(@"                                    
+                                    SELECT 
+                                    [MANU] AS '線別'
+                                    ,CONVERT(varchar(100),[MANUDATE],112) AS '生產日'
+                                    ,[MOCMANULINE].[MB001] AS '品號'
+                                    ,[MOCMANULINE].[MB002] AS '品名' 
+                                    ,[MOCMANULINE].[MB003] AS '規格'
+                                    ,[BAR] AS '桶數'
+                                    ,[NUM] AS '數量'
+                                    ,[CLINET] AS '客戶'
+                                    ,[OUTDATE] AS '交期'
+                                    ,[TA029] AS '備註'
+                                    ,[HALFPRO] AS '半成品數量'
+                                    ,[COPTD001] AS '訂單單別'
+                                    ,[COPTD002] AS '訂單號'
+                                    ,[COPTD003] AS '訂單序號'
+                                    ,[BOX] AS '箱數'
                                     ,[MANUPRENUMS] AS '需多投數量做底'
-                                     ,[ID]
-                                     FROM [TKMOC].[dbo].[MOCMANULINE]
+                                    ,ALLERGEN AS '過敏原'
+                                    ,ORI AS '素別'
+                                    ,[ID]
+                                    FROM [TKMOC].[dbo].[MOCMANULINE]
+                                    LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=[MOCMANULINE].MB001
+                                   
                                      WHERE [MANU]='{0}' 
                                      AND CONVERT(varchar(100),[MANUDATE],112) LIKE '{1}%'
                                      ORDER BY [MANUDATE],[SERNO]
@@ -746,13 +810,28 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  
+                sbSql.AppendFormat(@"                                      
                                     SELECT 
-                                    [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名'
-                                    ,[MB003] AS '規格',[BOX] AS '箱數',[PACKAGE] AS '包裝數',[CLINET] AS '客戶',[MANUHOUR] AS '生產時間',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'
-                                    ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號'
+                                    [MANU] AS '線別'
+                                    ,CONVERT(varchar(100),[MANUDATE],112) AS '生產日'
+                                    ,[MOCMANULINE].[MB001] AS '品號'
+                                    ,[MOCMANULINE].[MB002] AS '品名' 
+                                    ,[MOCMANULINE].[MB003] AS '規格'
+                                    ,[BOX] AS '箱數'
+                                    ,[PACKAGE] AS '包裝數'
+                                    ,[CLINET] AS '客戶'
+                                    ,[MANUHOUR] AS '生產時間'
+                                    ,[OUTDATE] AS '交期'
+                                    ,[TA029] AS '備註'
+                                    ,[HALFPRO] AS '半成品數量'
+                                    ,[COPTD001] AS '訂單單別'
+                                    ,[COPTD002] AS '訂單號'
+                                    ,[COPTD003] AS '訂單序號'
+                                    ,ALLERGEN AS '過敏原'
+                                    ,ORI AS '素別'
                                     ,[ID]
                                     FROM [TKMOC].[dbo].[MOCMANULINE]
+                                    LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=[MOCMANULINE].MB001
                                     WHERE [MANU]='{0}' 
                                     AND CONVERT(varchar(100),[MANUDATE],112) LIKE '{1}%'
                                     ORDER BY [MANUDATE],[SERNO]", MANU, dateTimePicker17.Value.ToString("yyyyMMdd"));
