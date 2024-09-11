@@ -935,16 +935,33 @@ namespace TKMOC
                 sbSqlQuery2.AppendFormat(@" ");
             }
 
-            sbSql.AppendFormat(@"  
+            sbSql.AppendFormat(@"                                 
                                 SELECT 
-                                [MOCMANULINETEMP].[MANU] AS '線別',CONVERT(varchar(100),[MOCMANULINETEMP].[MANUDATE],112) AS '生產日',[MOCMANULINETEMP].[MB001] AS '品號',[MOCMANULINETEMP].[MB002] AS '品名' 
-                                ,[MOCMANULINETEMP].[MB003] AS '規格',[MOCMANULINETEMP].[NUM] AS '數量',[MOCMANULINETEMP].[BAR] AS '桶數',[MOCMANULINETEMP].[PACKAGE] AS'包裝數',[MOCMANULINETEMP].[BOX] AS'箱數',[MOCMANULINETEMP].[CLINET] AS '客戶',[MOCMANULINETEMP].[OUTDATE] AS '交期',[MOCMANULINETEMP].[TA029] AS '備註',[MOCMANULINETEMP].[HALFPRO] AS '半成品數量'
-                                ,[MOCMANULINETEMP].[COPTD001] AS '訂單單別',[MOCMANULINETEMP].[COPTD002] AS '訂單號',[MOCMANULINETEMP].[COPTD003] AS '訂單序號'
-                                ,[MOCTA001] AS '製令',[MOCTA002] AS '製令號'
+                                [MOCMANULINETEMP].[MANU] AS '線別'
+                                ,CONVERT(varchar(100),[MOCMANULINETEMP].[MANUDATE],112) AS '生產日'
+                                ,[MOCMANULINETEMP].[MB001] AS '品號'
+                                ,[MOCMANULINETEMP].[MB002] AS '品名' 
+                                ,[MOCMANULINETEMP].[MB003] AS '規格'
+                                ,[MOCMANULINETEMP].[NUM] AS '數量'
+                                ,[MOCMANULINETEMP].[BAR] AS '桶數'
+                                ,[MOCMANULINETEMP].[PACKAGE] AS'包裝數'
+                                ,[MOCMANULINETEMP].[BOX] AS'箱數'
+                                ,[MOCMANULINETEMP].[CLINET] AS '客戶'
+                                ,[MOCMANULINETEMP].[OUTDATE] AS '交期'
+                                ,[MOCMANULINETEMP].[TA029] AS '備註'
+                                ,[MOCMANULINETEMP].[HALFPRO] AS '半成品數量'
+                                ,[MOCMANULINETEMP].[COPTD001] AS '訂單單別'
+                                ,[MOCMANULINETEMP].[COPTD002] AS '訂單號'
+                                ,[MOCMANULINETEMP].[COPTD003] AS '訂單序號'
+                                ,[MOCTA001] AS '製令'
+                                ,[MOCTA002] AS '製令號'
                                 ,CASE WHEN (SELECT TD016 FROM [TK].dbo.COPTD WHERE COPTD.TD001=[MOCMANULINETEMP].COPTD001 AND COPTD.TD002=[MOCMANULINETEMP].COPTD002 AND COPTD.TD003=[MOCMANULINETEMP].COPTD003) IN ('Y','y') THEN '訂單結案' ELSE '未結案' END AS '訂單狀態'
+                                ,ALLERGEN AS '過敏原'
+                                ,ORI AS '素別'
                                 ,[MOCMANULINETEMP].[ID],[MOCMANULINETEMP].[TID]
                                 FROM [TKMOC].[dbo].[MOCMANULINETEMP]
                                 LEFT JOIN [TKMOC].[dbo].[MOCMANULINERESULT] ON [MOCMANULINERESULT].[SID]=[MOCMANULINETEMP].[TID]
+                                LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=[MOCMANULINETEMP].MB001
                                 {0}
                                 {1}
                                 AND [MOCMANULINETEMP].[ID] NOT IN (SELECT [ID] FROM [TKMOC].[dbo].[MOCMANULINE]) 
@@ -7801,13 +7818,30 @@ namespace TKMOC
                 //sbSql.AppendFormat(@"  {0}",Query.ToString());
                 //sbSql.AppendFormat(@"  ORDER BY [MB001],[MANUDATE],[SERNO]");
 
-                sbSql.AppendFormat(@" 
+                sbSql.AppendFormat(@"                                     
                                     SELECT
-                                    [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名'
-                                    ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[BOX] AS '箱數',[PACKAGE] AS '包裝數',[CLINET] AS '客戶',[MANUHOUR] AS '生產時間',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'
-                                    ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號'
+                                    [MANU] AS '線別'
+                                    ,CONVERT(varchar(100),[MANUDATE],112) AS '生產日'
+                                    ,[MOCMANULINE].[MB001] AS '品號'
+                                    ,[MOCMANULINE].[MB002] AS '品名' 
+                                    ,[MOCMANULINE].[MB003] AS '規格'
+                                    ,[BAR] AS '桶數'
+                                    ,[NUM] AS '數量'
+                                    ,[BOX] AS '箱數'
+                                    ,[PACKAGE] AS '包裝數'
+                                    ,[CLINET] AS '客戶'
+                                    ,[MANUHOUR] AS '生產時間'
+                                    ,[OUTDATE] AS '交期'
+                                    ,[TA029] AS '備註'
+                                    ,[HALFPRO] AS '半成品數量'
+                                    ,[COPTD001] AS '訂單單別'
+                                    ,[COPTD002] AS '訂單號'
+                                    ,[COPTD003] AS '訂單序號'
+                                    ,ALLERGEN AS '過敏原'
+                                    ,ORI AS '素別'
                                     ,[ID]
                                     FROM [TKMOC].[dbo].[MOCMANULINE]
+                                    LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=[MOCMANULINE].MB001
                                     WHERE 1=1
                                     AND CONVERT(varchar(100),[MANUDATE],112)>='{0}' AND CONVERT(varchar(100),[MANUDATE],112)<='{1}'
                                     AND [MANU]='{2}' 
@@ -9926,30 +9960,62 @@ namespace TKMOC
              
                 if(!string.IsNullOrEmpty(COPTD001))
                 {
-                    sbSql.AppendFormat(@"  
-                                    SELECT 
-                                    [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名' 
-                                    ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[BOX] AS '箱數',[PACKAGE]AS '包裝數',[CLINET] AS '客戶',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'
-                                    ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號'
-                                    ,[ID]
-                                    FROM [TKMOC].[dbo].[MOCMANULINE]
-                                    WHERE [COPTD001]='{0}' AND [COPTD002]='{1}'
-                                     ORDER BY [MANU],[COPTD001],[COPTD002],[COPTD003]
-                                    ", COPTD001, COPTD002);
+                    sbSql.AppendFormat(@"                                     
+                                        SELECT 
+                                        [MANU] AS '線別'
+                                        ,CONVERT(varchar(100),[MANUDATE],112) AS '生產日'
+                                        ,[MOCMANULINE].[MB001] AS '品號'
+                                        ,[MOCMANULINE].[MB002] AS '品名' 
+                                        ,[MOCMANULINE].[MB003] AS '規格'
+                                        ,[BAR] AS '桶數'
+                                        ,[NUM] AS '數量'
+                                        ,[BOX] AS '箱數'
+                                        ,[PACKAGE]AS '包裝數'
+                                        ,[CLINET] AS '客戶'
+                                        ,[OUTDATE] AS '交期'
+                                        ,[TA029] AS '備註'
+                                        ,[HALFPRO] AS '半成品數量'
+                                        ,[COPTD001] AS '訂單單別'
+                                        ,[COPTD002] AS '訂單號'
+                                        ,[COPTD003] AS '訂單序號'
+                                        ,ALLERGEN AS '過敏原'
+                                        ,ORI AS '素別'
+                                        ,[ID]
+                                        FROM [TKMOC].[dbo].[MOCMANULINE]
+                                        LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=[MOCMANULINE].MB001
+                                        WHERE [COPTD001]='{0}' AND [COPTD002]='{1}'
+                                        ORDER BY [MANU],[COPTD001],[COPTD002],[COPTD003]
+                                        ", COPTD001, COPTD002);
 
                 }
                 else
                 {
                     sbSql.AppendFormat(@"  
-                                    SELECT 
-                                    [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名' 
-                                    ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[BOX] AS '箱數',[PACKAGE]AS '包裝數',[CLINET] AS '客戶',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'
-                                    ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號'
-                                    ,[ID]
-                                    FROM [TKMOC].[dbo].[MOCMANULINE]
-                                    WHERE [COPTD002]='{0}'
-                                     ORDER BY [MANU],[COPTD001],[COPTD002],[COPTD003]
-                                    ", COPTD002);
+                                         SELECT 
+                                        [MANU] AS '線別'
+                                        ,CONVERT(varchar(100),[MANUDATE],112) AS '生產日'
+                                        ,[MOCMANULINE].[MB001] AS '品號'
+                                        ,[MOCMANULINE].[MB002] AS '品名' 
+                                        ,[MOCMANULINE].[MB003] AS '規格'
+                                        ,[BAR] AS '桶數'
+                                        ,[NUM] AS '數量'
+                                        ,[BOX] AS '箱數'
+                                        ,[PACKAGE]AS '包裝數'
+                                        ,[CLINET] AS '客戶'
+                                        ,[OUTDATE] AS '交期'
+                                        ,[TA029] AS '備註'
+                                        ,[HALFPRO] AS '半成品數量'
+                                        ,[COPTD001] AS '訂單單別'
+                                        ,[COPTD002] AS '訂單號'
+                                        ,[COPTD003] AS '訂單序號'
+                                        ,ALLERGEN AS '過敏原'
+                                        ,ORI AS '素別'
+                                        ,[ID]
+                                        FROM [TKMOC].[dbo].[MOCMANULINE]
+                                        LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=[MOCMANULINE].MB001
+                                        WHERE [COPTD002]='{0}'
+                                        ORDER BY [MANU],[COPTD001],[COPTD002],[COPTD003]
+                                        ", COPTD002);
                 }
 
 
@@ -10018,27 +10084,59 @@ namespace TKMOC
                 if(!String.IsNullOrEmpty(COPTD001))
                 {
                     sbSql.AppendFormat(@"  
-                                    SELECT 
-                                    '少量'+[MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名' 
-                                    ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[CLINET] AS '客戶',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'
-                                    ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號'
-                                    ,[ID]
-                                    FROM [TKMOC].[dbo].[MOCMANULINETEMP]
-                                    WHERE [COPTD001]='{0}' AND  [COPTD002]='{1}'
-                                    AND [MOCMANULINETEMP].[ID] NOT IN(SELECT[ID] FROM[TKMOC].[dbo].[MOCMANULINE]) 
-                                    AND RTRIM(LTRIM([MOCMANULINETEMP].[MANU]))+RTRIM(LTRIM([MOCMANULINETEMP].[MB001]))+RTRIM(LTRIM([MOCMANULINETEMP].[COPTD001]))+RTRIM(LTRIM([MOCMANULINETEMP].[COPTD002]))+RTRIM(LTRIM([MOCMANULINETEMP].[COPTD003])) NOT IN (SELECT (RTRIM(LTRIM([MOCMANULINE].[MANU])))+RTRIM(LTRIM([MOCMANULINE].[MB001]))+(RTRIM(LTRIM([MOCMANULINE].[COPTD001])))+(RTRIM(LTRIM([MOCMANULINE].[COPTD002])))+(RTRIM(LTRIM([MOCMANULINE].[COPTD003]))) FROM [TKMOC].[dbo].[MOCMANULINE] WHERE ISNULL([MOCMANULINE].[COPTD002],'')<>''  )   
-                                     ORDER    BY [MANU],[COPTD001],[COPTD002],[COPTD003]
-                                    ", COPTD001, COPTD002);
+                                   
+                                         SELECT 
+                                        '少量'+[MANU] AS '線別'
+                                        ,CONVERT(varchar(100),[MANUDATE],112) AS '生產日'
+                                        ,[MOCMANULINETEMP].[MB001] AS '品號'
+                                        ,[MOCMANULINETEMP].[MB002] AS '品名' 
+                                        ,[MOCMANULINETEMP].[MB003] AS '規格'
+                                        ,[BAR] AS '桶數'
+                                        ,[NUM] AS '數量'
+                                        ,[CLINET] AS '客戶'
+                                        ,[OUTDATE] AS '交期'
+                                        ,[TA029] AS '備註'
+                                        ,[HALFPRO] AS '半成品數量'
+                                        ,[COPTD001] AS '訂單單別'
+                                        ,[COPTD002] AS '訂單號'
+                                        ,[COPTD003] AS '訂單序號'
+                                        ,ALLERGEN AS '過敏原'
+                                        ,ORI AS '素別'
+                                        ,[ID]
+                                        FROM [TKMOC].[dbo].[MOCMANULINETEMP]
+                                        LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=[MOCMANULINETEMP].MB001
+
+                                        WHERE [COPTD001]='{0}' AND  [COPTD002]='{1}'
+                                        AND [MOCMANULINETEMP].[ID] NOT IN(SELECT[ID] FROM[TKMOC].[dbo].[MOCMANULINE]) 
+                                        AND RTRIM(LTRIM([MOCMANULINETEMP].[MANU]))+RTRIM(LTRIM([MOCMANULINETEMP].[MB001]))+RTRIM(LTRIM([MOCMANULINETEMP].[COPTD001]))+RTRIM(LTRIM([MOCMANULINETEMP].[COPTD002]))+RTRIM(LTRIM([MOCMANULINETEMP].[COPTD003])) NOT IN (SELECT (RTRIM(LTRIM([MOCMANULINE].[MANU])))+RTRIM(LTRIM([MOCMANULINE].[MB001]))+(RTRIM(LTRIM([MOCMANULINE].[COPTD001])))+(RTRIM(LTRIM([MOCMANULINE].[COPTD002])))+(RTRIM(LTRIM([MOCMANULINE].[COPTD003]))) FROM [TKMOC].[dbo].[MOCMANULINE] WHERE ISNULL([MOCMANULINE].[COPTD002],'')<>''  )   
+                                         ORDER    BY [MANU],[COPTD001],[COPTD002],[COPTD003]
+                                        ", COPTD001, COPTD002);
                 }
                 else
                 {
                     sbSql.AppendFormat(@"  
-                                    SELECT 
-                                    '少量'+[MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名' 
-                                    ,[MB003] AS '規格',[BAR] AS '桶數',[NUM] AS '數量',[CLINET] AS '客戶',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'
-                                    ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號'
-                                    ,[ID]
-                                    FROM [TKMOC].[dbo].[MOCMANULINETEMP]
+                                    
+                                         SELECT 
+                                        '少量'+[MANU] AS '線別'
+                                        ,CONVERT(varchar(100),[MANUDATE],112) AS '生產日'
+                                        ,[MOCMANULINETEMP].[MB001] AS '品號'
+                                        ,[MOCMANULINETEMP].[MB002] AS '品名' 
+                                        ,[MOCMANULINETEMP].[MB003] AS '規格'
+                                        ,[BAR] AS '桶數'
+                                        ,[NUM] AS '數量'
+                                        ,[CLINET] AS '客戶'
+                                        ,[OUTDATE] AS '交期'
+                                        ,[TA029] AS '備註'
+                                        ,[HALFPRO] AS '半成品數量'
+                                        ,[COPTD001] AS '訂單單別'
+                                        ,[COPTD002] AS '訂單號'
+                                        ,[COPTD003] AS '訂單序號'
+                                        ,ALLERGEN AS '過敏原'
+                                        ,ORI AS '素別'
+                                        ,[ID]
+                                        FROM [TKMOC].[dbo].[MOCMANULINETEMP]
+                                        LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=[MOCMANULINETEMP].MB001
+
                                     WHERE [COPTD002]='{0}'
                                     AND [MOCMANULINETEMP].[ID] NOT IN(SELECT[ID] FROM[TKMOC].[dbo].[MOCMANULINE]) 
                                     AND RTRIM(LTRIM([MOCMANULINETEMP].[MANU]))+RTRIM(LTRIM([MOCMANULINETEMP].[MB001]))+RTRIM(LTRIM([MOCMANULINETEMP].[COPTD001]))+RTRIM(LTRIM([MOCMANULINETEMP].[COPTD002]))+RTRIM(LTRIM([MOCMANULINETEMP].[COPTD003])) NOT IN (SELECT (RTRIM(LTRIM([MOCMANULINE].[MANU])))+RTRIM(LTRIM([MOCMANULINE].[MB001]))+(RTRIM(LTRIM([MOCMANULINE].[COPTD001])))+(RTRIM(LTRIM([MOCMANULINE].[COPTD002])))+(RTRIM(LTRIM([MOCMANULINE].[COPTD003]))) FROM [TKMOC].[dbo].[MOCMANULINE] WHERE ISNULL([MOCMANULINE].[COPTD002],'')<>''  )   
@@ -13831,14 +13929,27 @@ namespace TKMOC
             {
                 sbSql.AppendFormat(@"  
                                     SELECT *
-                                    FROM (
-                                    SELECT MANU AS '線別',CONVERT(NVARCHAR,[MOCMANULINE].MANUDATE,112) AS '預排日',MB001 AS '品號',MB002 AS '品名',NUM AS '生產數量',BOX AS '箱數',PACKAGE AS '包裝數',TA029 AS '備註'
-                                    ,(SELECT TOP 1 MOCTA001+'-'+MOCTA002 FROM  [TKMOC].dbo.[MOCMANULINERESULT] WHERE  [MOCMANULINERESULT].SID = [MOCMANULINE].ID ORDER BY MOCTA002)  AS '製令'
-                                    ,(SELECT TOP 1 TA001+'-'+TA002 FROM [TK].dbo.MOCTA,[TKMOC].[dbo].[MOCMANULINEMERGE]  WHERE TA033=[MOCMANULINEMERGE].NO AND [MOCMANULINEMERGE].SID=[MOCMANULINE].ID ORDER BY TA002)  AS '合併製令'
-                                    FROM  [TKMOC].dbo.[MOCMANULINE]
-                                    WHERE 1=1
-                                    AND CONVERT(NVARCHAR,[MOCMANULINE].MANUDATE,112)>='{0}'
-                                    AND CONVERT(NVARCHAR,[MOCMANULINE].MANUDATE,112)<='{0}'
+                                    FROM (                                   
+                                        SELECT 
+                                        MANU AS '線別'
+                                        ,CONVERT(NVARCHAR,[MOCMANULINE].MANUDATE,112) AS '預排日'
+                                        ,[MOCMANULINE].[MB001] AS '品號'
+                                        ,[MOCMANULINE].[MB002] AS '品名' 
+                                        ,[MOCMANULINE].[MB003] AS '規格'
+                                        ,NUM AS '生產數量'
+                                        ,BOX AS '箱數'
+                                        ,PACKAGE AS '包裝數'
+                                        ,TA029 AS '備註'
+                                        ,(SELECT TOP 1 MOCTA001+'-'+MOCTA002 FROM  [TKMOC].dbo.[MOCMANULINERESULT] WHERE  [MOCMANULINERESULT].SID = [MOCMANULINE].ID ORDER BY MOCTA002)  AS '製令'
+                                        ,(SELECT TOP 1 TA001+'-'+TA002 FROM [TK].dbo.MOCTA,[TKMOC].[dbo].[MOCMANULINEMERGE]  WHERE TA033=[MOCMANULINEMERGE].NO AND [MOCMANULINEMERGE].SID=[MOCMANULINE].ID ORDER BY TA002)  AS '合併製令'
+                                        ,ALLERGEN AS '過敏原'
+                                        ,ORI AS '素別'
+                                        ,[ID]
+                                        FROM [TKMOC].[dbo].[MOCMANULINE]
+                                        LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=[MOCMANULINE].MB001
+                                        WHERE 1=1
+                                        AND CONVERT(NVARCHAR,[MOCMANULINE].MANUDATE,112)>='{0}'
+                                        AND CONVERT(NVARCHAR,[MOCMANULINE].MANUDATE,112)<='{0}'
                                     ) AS TEMP
                                     WHERE 1=1
                                     AND (ISNULL(製令,'')='' AND ISNULL(合併製令,'')='' )
@@ -13851,13 +13962,26 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  
                                     SELECT *
                                     FROM (
-                                    SELECT MANU AS '線別',CONVERT(NVARCHAR,[MOCMANULINE].MANUDATE,112) AS '預排日',MB001 AS '品號',MB002 AS '品名',NUM AS '生產數量',BOX AS '箱數',PACKAGE AS '包裝數',TA029 AS '備註'
-                                    ,(SELECT TOP 1 MOCTA001+'-'+MOCTA002 FROM  [TKMOC].dbo.[MOCMANULINERESULT] WHERE  [MOCMANULINERESULT].SID = [MOCMANULINE].ID ORDER BY MOCTA002)  AS '製令'
-                                    ,(SELECT TOP 1 TA001+'-'+TA002 FROM [TK].dbo.MOCTA,[TKMOC].[dbo].[MOCMANULINEMERGE]  WHERE TA033=[MOCMANULINEMERGE].NO AND [MOCMANULINEMERGE].SID=[MOCMANULINE].ID ORDER BY TA002)  AS '合併製令'
-                                    FROM  [TKMOC].dbo.[MOCMANULINE]
-                                    WHERE 1=1
-                                    AND CONVERT(NVARCHAR,[MOCMANULINE].MANUDATE,112)>='{0}'
-                                    AND CONVERT(NVARCHAR,[MOCMANULINE].MANUDATE,112)<='{0}'
+                                    SELECT 
+                                        MANU AS '線別'
+                                        ,CONVERT(NVARCHAR,[MOCMANULINE].MANUDATE,112) AS '預排日'
+                                        ,[MOCMANULINE].[MB001] AS '品號'
+                                        ,[MOCMANULINE].[MB002] AS '品名' 
+                                        ,[MOCMANULINE].[MB003] AS '規格'
+                                        ,NUM AS '生產數量'
+                                        ,BOX AS '箱數'
+                                        ,PACKAGE AS '包裝數'
+                                        ,TA029 AS '備註'
+                                        ,(SELECT TOP 1 MOCTA001+'-'+MOCTA002 FROM  [TKMOC].dbo.[MOCMANULINERESULT] WHERE  [MOCMANULINERESULT].SID = [MOCMANULINE].ID ORDER BY MOCTA002)  AS '製令'
+                                        ,(SELECT TOP 1 TA001+'-'+TA002 FROM [TK].dbo.MOCTA,[TKMOC].[dbo].[MOCMANULINEMERGE]  WHERE TA033=[MOCMANULINEMERGE].NO AND [MOCMANULINEMERGE].SID=[MOCMANULINE].ID ORDER BY TA002)  AS '合併製令'
+                                        ,ALLERGEN AS '過敏原'
+                                        ,ORI AS '素別'
+                                        ,[ID]
+                                        FROM [TKMOC].[dbo].[MOCMANULINE]
+                                        LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=[MOCMANULINE].MB001
+                                        WHERE 1=1
+                                        AND CONVERT(NVARCHAR,[MOCMANULINE].MANUDATE,112)>='{0}'
+                                        AND CONVERT(NVARCHAR,[MOCMANULINE].MANUDATE,112)<='{0}'
                                     ) AS TEMP
                                     WHERE 1=1
                                     AND (ISNULL(製令,'')<>'' OR ISNULL(合併製令,'')<>'' )
@@ -13870,13 +13994,26 @@ namespace TKMOC
                 sbSql.AppendFormat(@"
                                     SELECT *
                                     FROM (
-                                    SELECT MANU AS '線別',CONVERT(NVARCHAR,[MOCMANULINE].MANUDATE,112) AS '預排日',MB001 AS '品號',MB002 AS '品名',NUM AS '生產數量',BOX AS '箱數',PACKAGE AS '包裝數',TA029 AS '備註'
-                                    ,(SELECT TOP 1 MOCTA001+'-'+MOCTA002 FROM  [TKMOC].dbo.[MOCMANULINERESULT] WHERE  [MOCMANULINERESULT].SID = [MOCMANULINE].ID ORDER BY MOCTA002)  AS '製令'
-                                    ,(SELECT TOP 1 TA001+'-'+TA002 FROM [TK].dbo.MOCTA,[TKMOC].[dbo].[MOCMANULINEMERGE]  WHERE TA033=[MOCMANULINEMERGE].NO AND [MOCMANULINEMERGE].SID=[MOCMANULINE].ID ORDER BY TA002)  AS '合併製令'
-                                    FROM  [TKMOC].dbo.[MOCMANULINE]
-                                    WHERE 1=1
-                                    AND CONVERT(NVARCHAR,[MOCMANULINE].MANUDATE,112)>='{0}'
-                                    AND CONVERT(NVARCHAR,[MOCMANULINE].MANUDATE,112)<='{0}'
+                                     SELECT 
+                                        MANU AS '線別'
+                                        ,CONVERT(NVARCHAR,[MOCMANULINE].MANUDATE,112) AS '預排日'
+                                        ,[MOCMANULINE].[MB001] AS '品號'
+                                        ,[MOCMANULINE].[MB002] AS '品名' 
+                                        ,[MOCMANULINE].[MB003] AS '規格'
+                                        ,NUM AS '生產數量'
+                                        ,BOX AS '箱數'
+                                        ,PACKAGE AS '包裝數'
+                                        ,TA029 AS '備註'
+                                        ,(SELECT TOP 1 MOCTA001+'-'+MOCTA002 FROM  [TKMOC].dbo.[MOCMANULINERESULT] WHERE  [MOCMANULINERESULT].SID = [MOCMANULINE].ID ORDER BY MOCTA002)  AS '製令'
+                                        ,(SELECT TOP 1 TA001+'-'+TA002 FROM [TK].dbo.MOCTA,[TKMOC].[dbo].[MOCMANULINEMERGE]  WHERE TA033=[MOCMANULINEMERGE].NO AND [MOCMANULINEMERGE].SID=[MOCMANULINE].ID ORDER BY TA002)  AS '合併製令'
+                                        ,ALLERGEN AS '過敏原'
+                                        ,ORI AS '素別'
+                                        ,[ID]
+                                        FROM [TKMOC].[dbo].[MOCMANULINE]
+                                        LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=[MOCMANULINE].MB001
+                                        WHERE 1=1
+                                        AND CONVERT(NVARCHAR,[MOCMANULINE].MANUDATE,112)>='{0}'
+                                        AND CONVERT(NVARCHAR,[MOCMANULINE].MANUDATE,112)<='{0}'
                                     ) AS TEMP
                                     WHERE 1=1                                
                                     ORDER BY 線別,預排日,品號                               
