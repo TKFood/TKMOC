@@ -983,7 +983,8 @@ namespace TKMOC
                                 ,[MOCTA001] AS '製令'
                                 ,[MOCTA002] AS '製令號'
                                 ,CASE WHEN (SELECT TD016 FROM [TK].dbo.COPTD WHERE COPTD.TD001=[MOCMANULINETEMP].COPTD001 AND COPTD.TD002=[MOCMANULINETEMP].COPTD002 AND COPTD.TD003=[MOCMANULINETEMP].COPTD003) IN ('Y','y') THEN '訂單結案' ELSE '未結案' END AS '訂單狀態'
-                                ,[MOCMANULINETEMP].[ID],[MOCMANULINETEMP].[TID]
+                                ,[MOCMANULINETEMP].[ID]
+                                ,[MOCMANULINETEMP].[TID]
                                 FROM [TKMOC].[dbo].[MOCMANULINETEMP]
                                 LEFT JOIN [TKMOC].[dbo].[MOCMANULINERESULT] ON [MOCMANULINERESULT].[SID]=[MOCMANULINETEMP].[TID]
                                 LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=[MOCMANULINETEMP].MB001
@@ -15311,7 +15312,8 @@ namespace TKMOC
         {
             foreach (DataGridViewRow dr in this.dataGridView20.Rows)
             {
-                ID10 = ((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[21].ToString();
+                //ID10 = ((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[21].ToString();
+                string ID10 = ((System.Data.DataRowView)(dr.DataBoundItem)).Row["ID"].ToString();
                 if (dr.Cells[0].Value != null && (bool)dr.Cells[0].Value)
                 {
                     INSERTTOMOCMANULINE(ID10, dateTimePicker25.Value);
