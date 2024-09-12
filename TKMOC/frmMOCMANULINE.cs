@@ -660,6 +660,8 @@ namespace TKMOC
                                     ,[MOCMANULINE].[MB001] AS '品號'
                                     ,[MOCMANULINE].[MB002] AS '品名' 
                                     ,[MOCMANULINE].[MB003] AS '規格'
+                                    ,ALLERGEN AS '過敏原'
+                                    ,ORI AS '素別'
                                     ,[BAR] AS '桶數'
                                     ,[NUM] AS '數量'
                                     ,[CLINET] AS '客戶'
@@ -670,8 +672,6 @@ namespace TKMOC
                                     ,[COPTD002] AS '訂單號'
                                     ,[COPTD003] AS '訂單序號'
                                     ,[BOX] AS '箱數'
-                                    ,ALLERGEN AS '過敏原'
-                                    ,ORI AS '素別'
                                     ,[ID]
                                     FROM [TKMOC].[dbo].[MOCMANULINE]
                                     LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=[MOCMANULINE].MB001
@@ -701,6 +701,8 @@ namespace TKMOC
                                     ,[MOCMANULINE].[MB001] AS '品號'
                                     ,[MOCMANULINE].[MB002] AS '品名' 
                                     ,[MOCMANULINE].[MB003] AS '規格'
+                                    ,ALLERGEN AS '過敏原'
+                                    ,ORI AS '素別'
                                     ,[BOX] AS '箱數'
                                     ,[PACKAGE] AS '包裝數'
                                     ,[CLINET] AS '客戶'
@@ -711,8 +713,6 @@ namespace TKMOC
                                     ,[COPTD001] AS '訂單單別'
                                     ,[COPTD002] AS '訂單號'
                                     ,[COPTD003] AS '訂單序號'
-                                    ,ALLERGEN AS '過敏原'
-                                    ,ORI AS '素別'
                                     ,[ID]
                                     FROM [TKMOC].[dbo].[MOCMANULINE]
                                     LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=[MOCMANULINE].MB001
@@ -739,6 +739,8 @@ namespace TKMOC
                                     ,[MOCMANULINE].[MB001] AS '品號'
                                     ,[MOCMANULINE].[MB002] AS '品名' 
                                     ,[MOCMANULINE].[MB003] AS '規格'
+                                    ,ALLERGEN AS '過敏原'
+                                    ,ORI AS '素別'
                                     ,[BAR] AS '桶數'
                                     ,[NUM] AS '數量'
                                     ,[CLINET] AS '客戶'
@@ -749,8 +751,6 @@ namespace TKMOC
                                     ,[COPTD002] AS '訂單號'
                                     ,[COPTD003] AS '訂單序號'
                                     ,[BOX] AS '箱數'
-                                    ,ALLERGEN AS '過敏原'
-                                    ,ORI AS '素別'
                                     ,[ID]
                                     FROM [TKMOC].[dbo].[MOCMANULINE]
                                     LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=[MOCMANULINE].MB001
@@ -777,6 +777,8 @@ namespace TKMOC
                                     ,[MOCMANULINE].[MB001] AS '品號'
                                     ,[MOCMANULINE].[MB002] AS '品名' 
                                     ,[MOCMANULINE].[MB003] AS '規格'
+                                    ,ALLERGEN AS '過敏原'
+                                    ,ORI AS '素別'
                                     ,[BAR] AS '桶數'
                                     ,[NUM] AS '數量'
                                     ,[CLINET] AS '客戶'
@@ -788,8 +790,6 @@ namespace TKMOC
                                     ,[COPTD003] AS '訂單序號'
                                     ,[BOX] AS '箱數'
                                     ,[MANUPRENUMS] AS '需多投數量做底'
-                                    ,ALLERGEN AS '過敏原'
-                                    ,ORI AS '素別'
                                     ,[ID]
                                     FROM [TKMOC].[dbo].[MOCMANULINE]
                                     LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=[MOCMANULINE].MB001
@@ -950,6 +950,8 @@ namespace TKMOC
                                 ,[MOCMANULINETEMP].[MB001] AS '品號'
                                 ,[MOCMANULINETEMP].[MB002] AS '品名' 
                                 ,[MOCMANULINETEMP].[MB003] AS '規格'
+                                ,ALLERGEN AS '過敏原'
+                                ,ORI AS '素別'
                                 ,[MOCMANULINETEMP].[NUM] AS '數量'
                                 ,[MOCMANULINETEMP].[BAR] AS '桶數'
                                 ,[MOCMANULINETEMP].[PACKAGE] AS'包裝數'
@@ -964,8 +966,6 @@ namespace TKMOC
                                 ,[MOCTA001] AS '製令'
                                 ,[MOCTA002] AS '製令號'
                                 ,CASE WHEN (SELECT TD016 FROM [TK].dbo.COPTD WHERE COPTD.TD001=[MOCMANULINETEMP].COPTD001 AND COPTD.TD002=[MOCMANULINETEMP].COPTD002 AND COPTD.TD003=[MOCMANULINETEMP].COPTD003) IN ('Y','y') THEN '訂單結案' ELSE '未結案' END AS '訂單狀態'
-                                ,ALLERGEN AS '過敏原'
-                                ,ORI AS '素別'
                                 ,[MOCMANULINETEMP].[ID],[MOCMANULINETEMP].[TID]
                                 FROM [TKMOC].[dbo].[MOCMANULINETEMP]
                                 LEFT JOIN [TKMOC].[dbo].[MOCMANULINERESULT] ON [MOCMANULINERESULT].[SID]=[MOCMANULINETEMP].[TID]
@@ -4953,11 +4953,12 @@ namespace TKMOC
                                     ,[MD002] AS '線別'
                                     ,TB003 AS '品號'
                                     ,TB012 AS '品名'
+                                    ,ALLERGEN AS '過敏原'
+                                    ,ORI AS '素別'
                                     ,SUM(TB004)  AS '總數量'
                                     ,TB009  AS '入庫別'
                                     ,(SELECT  TOP 1 [MOCTA001]+' '+[MOCTA002] FROM [TKMOC].[dbo].[MOCMANULINETOATL] WHERE [TA003]=MOCTA.TA003 AND [TA021]=MOCTA.[TA021] AND [TB003]=MOCTB.TB003  AND [TB004]=SUM(MOCTB.TB004) ORDER BY [MOCTA001]+[MOCTA002] DESC) AS '製令' 
-                                    ,ALLERGEN AS '過敏原'
-                                    ,ORI AS '素別'
+
                                     FROM [TK].dbo.MOCTB, [TK].dbo.MOCTA
                                     LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=MOCTA.TA006
                                     ,[TK].dbo.CMSMD
@@ -7845,6 +7846,8 @@ namespace TKMOC
                                     ,[MOCMANULINE].[MB001] AS '品號'
                                     ,[MOCMANULINE].[MB002] AS '品名' 
                                     ,[MOCMANULINE].[MB003] AS '規格'
+                                    ,ALLERGEN AS '過敏原'
+                                    ,ORI AS '素別'
                                     ,[BAR] AS '桶數'
                                     ,[NUM] AS '數量'
                                     ,[BOX] AS '箱數'
@@ -7857,8 +7860,6 @@ namespace TKMOC
                                     ,[COPTD001] AS '訂單單別'
                                     ,[COPTD002] AS '訂單號'
                                     ,[COPTD003] AS '訂單序號'
-                                    ,ALLERGEN AS '過敏原'
-                                    ,ORI AS '素別'
                                     ,[ID]
                                     FROM [TKMOC].[dbo].[MOCMANULINE]
                                     LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=[MOCMANULINE].MB001
@@ -9987,6 +9988,8 @@ namespace TKMOC
                                         ,[MOCMANULINE].[MB001] AS '品號'
                                         ,[MOCMANULINE].[MB002] AS '品名' 
                                         ,[MOCMANULINE].[MB003] AS '規格'
+                                        ,ALLERGEN AS '過敏原'
+                                        ,ORI AS '素別'
                                         ,[BAR] AS '桶數'
                                         ,[NUM] AS '數量'
                                         ,[BOX] AS '箱數'
@@ -9998,8 +10001,6 @@ namespace TKMOC
                                         ,[COPTD001] AS '訂單單別'
                                         ,[COPTD002] AS '訂單號'
                                         ,[COPTD003] AS '訂單序號'
-                                        ,ALLERGEN AS '過敏原'
-                                        ,ORI AS '素別'
                                         ,[ID]
                                         FROM [TKMOC].[dbo].[MOCMANULINE]
                                         LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=[MOCMANULINE].MB001
@@ -10017,6 +10018,8 @@ namespace TKMOC
                                         ,[MOCMANULINE].[MB001] AS '品號'
                                         ,[MOCMANULINE].[MB002] AS '品名' 
                                         ,[MOCMANULINE].[MB003] AS '規格'
+                                        ,ALLERGEN AS '過敏原'
+                                        ,ORI AS '素別'
                                         ,[BAR] AS '桶數'
                                         ,[NUM] AS '數量'
                                         ,[BOX] AS '箱數'
@@ -10028,8 +10031,6 @@ namespace TKMOC
                                         ,[COPTD001] AS '訂單單別'
                                         ,[COPTD002] AS '訂單號'
                                         ,[COPTD003] AS '訂單序號'
-                                        ,ALLERGEN AS '過敏原'
-                                        ,ORI AS '素別'
                                         ,[ID]
                                         FROM [TKMOC].[dbo].[MOCMANULINE]
                                         LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=[MOCMANULINE].MB001
@@ -10111,6 +10112,8 @@ namespace TKMOC
                                         ,[MOCMANULINETEMP].[MB001] AS '品號'
                                         ,[MOCMANULINETEMP].[MB002] AS '品名' 
                                         ,[MOCMANULINETEMP].[MB003] AS '規格'
+                                        ,ALLERGEN AS '過敏原'
+                                        ,ORI AS '素別'
                                         ,[BAR] AS '桶數'
                                         ,[NUM] AS '數量'
                                         ,[CLINET] AS '客戶'
@@ -10120,8 +10123,6 @@ namespace TKMOC
                                         ,[COPTD001] AS '訂單單別'
                                         ,[COPTD002] AS '訂單號'
                                         ,[COPTD003] AS '訂單序號'
-                                        ,ALLERGEN AS '過敏原'
-                                        ,ORI AS '素別'
                                         ,[ID]
                                         FROM [TKMOC].[dbo].[MOCMANULINETEMP]
                                         LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=[MOCMANULINETEMP].MB001
@@ -10142,6 +10143,8 @@ namespace TKMOC
                                         ,[MOCMANULINETEMP].[MB001] AS '品號'
                                         ,[MOCMANULINETEMP].[MB002] AS '品名' 
                                         ,[MOCMANULINETEMP].[MB003] AS '規格'
+                                        ,ALLERGEN AS '過敏原'
+                                        ,ORI AS '素別'
                                         ,[BAR] AS '桶數'
                                         ,[NUM] AS '數量'
                                         ,[CLINET] AS '客戶'
@@ -10151,8 +10154,6 @@ namespace TKMOC
                                         ,[COPTD001] AS '訂單單別'
                                         ,[COPTD002] AS '訂單號'
                                         ,[COPTD003] AS '訂單序號'
-                                        ,ALLERGEN AS '過敏原'
-                                        ,ORI AS '素別'
                                         ,[ID]
                                         FROM [TKMOC].[dbo].[MOCMANULINETEMP]
                                         LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=[MOCMANULINETEMP].MB001
@@ -13956,14 +13957,14 @@ namespace TKMOC
                                         ,[MOCMANULINE].[MB001] AS '品號'
                                         ,[MOCMANULINE].[MB002] AS '品名' 
                                         ,[MOCMANULINE].[MB003] AS '規格'
+                                        ,ALLERGEN AS '過敏原'
+                                        ,ORI AS '素別'
                                         ,NUM AS '生產數量'
                                         ,BOX AS '箱數'
                                         ,PACKAGE AS '包裝數'
                                         ,TA029 AS '備註'
                                         ,(SELECT TOP 1 MOCTA001+'-'+MOCTA002 FROM  [TKMOC].dbo.[MOCMANULINERESULT] WHERE  [MOCMANULINERESULT].SID = [MOCMANULINE].ID ORDER BY MOCTA002)  AS '製令'
                                         ,(SELECT TOP 1 TA001+'-'+TA002 FROM [TK].dbo.MOCTA,[TKMOC].[dbo].[MOCMANULINEMERGE]  WHERE TA033=[MOCMANULINEMERGE].NO AND [MOCMANULINEMERGE].SID=[MOCMANULINE].ID ORDER BY TA002)  AS '合併製令'
-                                        ,ALLERGEN AS '過敏原'
-                                        ,ORI AS '素別'
                                         ,[ID]
                                         FROM [TKMOC].[dbo].[MOCMANULINE]
                                         LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=[MOCMANULINE].MB001
@@ -13988,14 +13989,14 @@ namespace TKMOC
                                         ,[MOCMANULINE].[MB001] AS '品號'
                                         ,[MOCMANULINE].[MB002] AS '品名' 
                                         ,[MOCMANULINE].[MB003] AS '規格'
+                                        ,ALLERGEN AS '過敏原'
+                                        ,ORI AS '素別'
                                         ,NUM AS '生產數量'
                                         ,BOX AS '箱數'
                                         ,PACKAGE AS '包裝數'
                                         ,TA029 AS '備註'
                                         ,(SELECT TOP 1 MOCTA001+'-'+MOCTA002 FROM  [TKMOC].dbo.[MOCMANULINERESULT] WHERE  [MOCMANULINERESULT].SID = [MOCMANULINE].ID ORDER BY MOCTA002)  AS '製令'
                                         ,(SELECT TOP 1 TA001+'-'+TA002 FROM [TK].dbo.MOCTA,[TKMOC].[dbo].[MOCMANULINEMERGE]  WHERE TA033=[MOCMANULINEMERGE].NO AND [MOCMANULINEMERGE].SID=[MOCMANULINE].ID ORDER BY TA002)  AS '合併製令'
-                                        ,ALLERGEN AS '過敏原'
-                                        ,ORI AS '素別'
                                         ,[ID]
                                         FROM [TKMOC].[dbo].[MOCMANULINE]
                                         LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=[MOCMANULINE].MB001
@@ -14020,14 +14021,14 @@ namespace TKMOC
                                         ,[MOCMANULINE].[MB001] AS '品號'
                                         ,[MOCMANULINE].[MB002] AS '品名' 
                                         ,[MOCMANULINE].[MB003] AS '規格'
+                                        ,ALLERGEN AS '過敏原'
+                                        ,ORI AS '素別'
                                         ,NUM AS '生產數量'
                                         ,BOX AS '箱數'
                                         ,PACKAGE AS '包裝數'
                                         ,TA029 AS '備註'
                                         ,(SELECT TOP 1 MOCTA001+'-'+MOCTA002 FROM  [TKMOC].dbo.[MOCMANULINERESULT] WHERE  [MOCMANULINERESULT].SID = [MOCMANULINE].ID ORDER BY MOCTA002)  AS '製令'
                                         ,(SELECT TOP 1 TA001+'-'+TA002 FROM [TK].dbo.MOCTA,[TKMOC].[dbo].[MOCMANULINEMERGE]  WHERE TA033=[MOCMANULINEMERGE].NO AND [MOCMANULINEMERGE].SID=[MOCMANULINE].ID ORDER BY TA002)  AS '合併製令'
-                                        ,ALLERGEN AS '過敏原'
-                                        ,ORI AS '素別'
                                         ,[ID]
                                         FROM [TKMOC].[dbo].[MOCMANULINE]
                                         LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=[MOCMANULINE].MB001
