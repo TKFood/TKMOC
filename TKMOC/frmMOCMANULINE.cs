@@ -747,8 +747,8 @@ namespace TKMOC
                                     ,[HALFPRO] AS '半成品數量'
                                     ,[COPTD001] AS '訂單單別'
                                     ,[COPTD002] AS '訂單號'
-                                    ,[COPTD003] AS '訂單序號
-                                    ',[BOX] AS '箱數'
+                                    ,[COPTD003] AS '訂單序號'
+                                    ,[BOX] AS '箱數'
                                     ,ALLERGEN AS '過敏原'
                                     ,ORI AS '素別'
                                     ,[ID]
@@ -757,7 +757,7 @@ namespace TKMOC
 
                                     WHERE [MANU]='{0}' 
                                     AND CONVERT(varchar(100),[MANUDATE],112) LIKE '{1}%'
-                                    ORDER BY [MANUDATE],[SERNO]
+                                    ORDER BY [MANUDATE],[MOCMANULINE].[MB001],[SERNO]
                                     ", MANU, dateTimePicker6.Value.ToString("yyyyMMdd"));
 
                 sbSql.AppendFormat(@"  ");
