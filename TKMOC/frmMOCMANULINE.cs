@@ -894,6 +894,14 @@ namespace TKMOC
                             DataGridViewNew.Sort(DataGridViewNew.Columns["" + SortedColumn + ""], ListSortDirection.Descending);
                         }
                     }
+
+                    //SET欄位寬度
+                    if (DataGridViewNew.Columns.Contains("序號"))
+                    {
+                        // 欄位存在
+                        DataGridViewNew.Columns["序號"].Width = 30;
+                    }
+                   
                 }
 
             }
