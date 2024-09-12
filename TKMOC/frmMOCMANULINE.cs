@@ -684,6 +684,12 @@ namespace TKMOC
 
                 SEARCH_MANULINE(sbSql.ToString(), dataGridView1, SortedColumn, SortedModel);
 
+                ////SET欄位寬度
+                //if (dataGridView1.Columns.Contains("規格"))
+                //{
+                //    // 欄位存在
+                //    dataGridView1.Columns["規格"].Width = 30;
+                //}
 
             }
 
@@ -879,10 +885,11 @@ namespace TKMOC
                     //DataGridViewNew.Rows.Clear();
                     DataGridViewNew.DataSource = DataSetNEW.Tables["DataSetNEW"];
                     DataGridViewNew.AutoResizeColumns();
-                    DataGridViewNew.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+                    //DataGridViewNew.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
                     //DataGridViewNew.CurrentCell = dataGridView1[0, rownum];
                     //dataGridView20SORTNAME
                     //dataGridView20SORTMODE
+
                     if (!string.IsNullOrEmpty(SortedColumn))
                     {
                         if (SortedModel.Equals("Ascending"))
@@ -896,12 +903,22 @@ namespace TKMOC
                     }
 
                     //SET欄位寬度
-                    if (DataGridViewNew.Columns.Contains("序號"))
+                    if (DataGridViewNew.Columns.Contains("規格"))
                     {
                         // 欄位存在
-                        DataGridViewNew.Columns["序號"].Width = 30;
+                        DataGridViewNew.Columns["規格"].Width = 100;
                     }
-                   
+                    if (DataGridViewNew.Columns.Contains("過敏原"))
+                    {
+                        // 欄位存在
+                        DataGridViewNew.Columns["過敏原"].Width = 30;
+                    }
+                    if (DataGridViewNew.Columns.Contains("素別"))
+                    {
+                        // 欄位存在
+                        DataGridViewNew.Columns["素別"].Width = 50;
+                    }
+
                 }
 
             }
