@@ -15311,7 +15311,7 @@ namespace TKMOC
         {
             foreach (DataGridViewRow dr in this.dataGridView20.Rows)
             {
-                ID10 = ((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[19].ToString();
+                ID10 = ((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[21].ToString();
                 if (dr.Cells[0].Value != null && (bool)dr.Cells[0].Value)
                 {
                     INSERTTOMOCMANULINE(ID10, dateTimePicker25.Value);
