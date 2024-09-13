@@ -4971,8 +4971,7 @@ namespace TKMOC
                                     ,[MD002] AS '線別'
                                     ,TB003 AS '品號'
                                     ,TB012 AS '品名'
-                                    ,ALLERGEN AS '過敏原'
-                                    ,ORI AS '素別'
+                                   
                                     ,SUM(TB004)  AS '總數量'
                                     ,TB009  AS '入庫別'
                                     ,(SELECT  TOP 1 [MOCTA001]+' '+[MOCTA002] FROM [TKMOC].[dbo].[MOCMANULINETOATL] WHERE [TA003]=MOCTA.TA003 AND [TA021]=MOCTA.[TA021] AND [TB003]=MOCTB.TB003  AND [TB004]=SUM(MOCTB.TB004) ORDER BY [MOCTA001]+[MOCTA002] DESC) AS '製令' 
