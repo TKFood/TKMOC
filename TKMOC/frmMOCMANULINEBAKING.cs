@@ -222,8 +222,13 @@ namespace TKMOC
         {
             SEARCHMOCMANULINE_BAKING(dateTimePicker1.Value.ToString("yyyyMMdd"),comboBox1.Text.Trim());
         }
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
+
         #endregion
 
-       
+
     }
 }
