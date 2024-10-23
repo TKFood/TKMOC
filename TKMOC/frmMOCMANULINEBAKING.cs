@@ -45,9 +45,18 @@ namespace TKMOC
         #region FUNCTION
         private void frmMOCMANULINEBAKING_Load(object sender, EventArgs e)
         {
+            MANU = "吧台烘焙線";
+
             comboBox1load();
         }
-
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage1"])
+            {
+                //MessageBox.Show("製二線");
+                MANU = "吧台烘焙線";
+            }
+        }
         public void comboBox1load()
         {
             LoadComboBoxData(comboBox1, "SELECT MD001,MD002 FROM [TK].dbo.CMSMD WHERE MD001 IN ('08')  ", "MD002", "MD002");
@@ -213,7 +222,184 @@ namespace TKMOC
                 sqlConn.Close();
             }
         }
+        private void textBox7_TextChanged(object sender, EventArgs e)
+        {
+            SEARCHMB001(textBox7.Text.Trim());
 
+            SEARCHMOCMANULINETEMPDATAS(textBox7.Text.Trim());
+        }
+
+        public void SEARCHMB001(string MB001)
+        {
+
+            StringBuilder sbSql = new StringBuilder();
+            StringBuilder sbSqlQuery = new StringBuilder();
+            SqlConnection sqlConn = new SqlConnection();
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            SqlTransaction tran;
+            SqlCommand cmd = new SqlCommand();
+            DataSet ds1 = new DataSet();
+
+            if (MANU.Equals("吧台烘焙線"))
+            {
+                
+                try
+                {
+                    //20210902密
+                    Class1 TKID = new Class1();//用new 建立類別實體
+                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                    //資料庫使用者密碼解密
+                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                    String connectionString;
+                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                    sbSql.Clear();
+                    sbSqlQuery.Clear();
+
+                    
+                    sbSql.AppendFormat(@"  
+                                        SELECT MB001,MB002,MB003,MC004 ,MB017 
+                                        FROM [TK].dbo.INVMB,[TK].dbo.BOMMC
+                                        WHERE MB001=MC001
+                                        AND MB001='{0}'
+                                        ", MB001);
+
+                    adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                    sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                    sqlConn.Open();
+                    ds1.Clear();
+                    adapter1.Fill(ds1, "ds1");
+                    sqlConn.Close();
+
+
+                    if (ds1.Tables["ds1"].Rows.Count == 0)
+                    {
+
+                    }
+                    else
+                    {
+                        if (ds1.Tables["ds1"].Rows.Count >= 1)
+                        {
+                            textBox10.Text = ds1.Tables["ds1"].Rows[0]["MB002"].ToString();
+                            textBox11.Text = ds1.Tables["ds1"].Rows[0]["MB003"].ToString();
+                            textBox33.Text = ds1.Tables["ds1"].Rows[0]["MC004"].ToString();
+                            //comboBox6.SelectedValue = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
+                            //label52.Text = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
+
+                        }
+                    }
+
+                }
+                catch
+                {
+
+                }
+                finally
+                {
+
+                }
+            }
+        }
+        public void SEARCHMOCMANULINETEMPDATAS(string MB001)
+        {
+            StringBuilder sbSql = new StringBuilder();
+            StringBuilder sbSqlQuery = new StringBuilder();
+            SqlConnection sqlConn = new SqlConnection();
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            SqlTransaction tran;
+            SqlCommand cmd = new SqlCommand();
+            DataSet ds1 = new DataSet();
+            DataSet TEMPds = new DataSet();
+
+            decimal SUM21 = 0;
+     
+
+            if (MANU.Equals("吧台烘焙線"))
+            {
+                try
+                {
+                    //20210902密
+                    Class1 TKID = new Class1();//用new 建立類別實體
+                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                    //資料庫使用者密碼解密
+                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                    String connectionString;
+                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                    sbSql.Clear();
+                    sbSqlQuery.Clear();
+
+                    sbSql.AppendFormat(@" SELECT [ID]  FROM [TKMOC].[dbo].[MOCMANULINETEMP] WHERE [MB001]='{0}' AND [ID] NOT IN (SELECT [ID] FROM [TKMOC].[dbo].[MOCMANULINE] )", MB001);
+                    sbSql.AppendFormat(@"  ");
+
+                    adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                    sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                    sqlConn.Open();
+                    ds1.Clear();
+                    adapter1.Fill(ds1, "ds1");
+                    sqlConn.Close();
+
+
+                    if (ds1.Tables["ds1"] !=null && ds1.Tables["ds1"].Rows.Count >= 1)
+                    {
+
+                        TEMPds.Clear();
+                        frmMOCMANULINESubTEMPADD MOCMANULINESubTEMPADD = new frmMOCMANULINESubTEMPADD(MB001, TEMPds);
+                        MOCMANULINESubTEMPADD.ShowDialog();
+
+                        TEMPds = MOCMANULINESubTEMPADD.SETDATASET;
+
+                        if (TEMPds.Tables[0].Rows.Count >= 1)
+                        {
+                            foreach (DataRow dr in TEMPds.Tables[0].Rows)
+                            {
+                                SUM21 = SUM21 + Convert.ToDecimal(dr["包裝數"].ToString());
+                                //SUM2 = SUM2 + Convert.ToDecimal(dr["箱數"].ToString());
+                            }
+                        }
+                    }
+
+                }
+                catch
+                {
+
+                }
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }        
+
+        }
+
+        public void SETNULL()
+        {
+            textBox7.Text = null;
+            textBox8.Text = null;
+            textBox9.Text = null;
+            textBox10.Text = null;
+            textBox11.Text = null;
+            textBox12.Text = null;
+            textBox13.Text = "0";
+            textBox33.Text = "0";
+            textBox53.Text = null;
+            textBox68.Text = "0";
+            textBox42.Text = null;
+            textBox43.Text = null;
+            textBox72.Text = null;
+        }
         #endregion
 
         #region BUTTON
@@ -226,9 +412,23 @@ namespace TKMOC
         {
 
         }
+        private void button5_Click(object sender, EventArgs e)
+        {
+            SETNULL();
+
+            frmSUBMOCMANULINE SUBfrmSUBMOCMANULINE = new frmSUBMOCMANULINE();
+            SUBfrmSUBMOCMANULINE.ShowDialog();
+            textBox7.Text = SUBfrmSUBMOCMANULINE.TextBoxMsg;
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+
+        }
+
 
         #endregion
 
-
+       
     }
 }
