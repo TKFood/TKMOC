@@ -99,9 +99,9 @@ namespace TKMOC
                                     SELECT 
                                     [MANU] AS '線別'
                                     ,CONVERT(varchar(100),[MANUDATE],112) AS '生產日'
-                                    ,[MOCMANULINE].[MB001] AS '品號'
-                                    ,[MOCMANULINE].[MB002] AS '品名' 
-                                    ,[MOCMANULINE].[MB003] AS '規格'
+                                    ,[MOCMANULINEBAKING].[MB001] AS '品號'
+                                    ,[MOCMANULINEBAKING].[MB002] AS '品名' 
+                                    ,[MOCMANULINEBAKING].[MB003] AS '規格'
                                     ,ALLERGEN AS '過敏原'
                                     ,ORI AS '素別'
                                     ,[BAR] AS '桶數'
@@ -114,9 +114,9 @@ namespace TKMOC
                                     ,[COPTD002] AS '訂單號'
                                     ,[COPTD003] AS '訂單序號'
                                     ,[BOX] AS '箱數'
-                                    ,[ID]
-                                    FROM [TKMOC].[dbo].[MOCMANULINE]
-                                    LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=[MOCMANULINE].MB001
+                                    ,[SERNO]
+                                    FROM [TKMOC].[dbo].[MOCMANULINEBAKING]
+                                    LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=[MOCMANULINEBAKING].MB001
 
                                     WHERE [MANU]='{0}' 
                                     AND CONVERT(varchar(100),[MANUDATE],112) LIKE '{1}%'
@@ -340,7 +340,7 @@ namespace TKMOC
                     sbSql.Clear();
                     sbSqlQuery.Clear();
 
-                    sbSql.AppendFormat(@" SELECT [ID]  FROM [TKMOC].[dbo].[MOCMANULINETEMP] WHERE [MB001]='{0}' AND [ID] NOT IN (SELECT [ID] FROM [TKMOC].[dbo].[MOCMANULINE] )", MB001);
+                    sbSql.AppendFormat(@" SELECT [ID]  FROM [TKMOC].[dbo].[MOCMANULINETEMP] WHERE [MB001]='{0}' AND [ID] NOT IN (SELECT [ID] FROM [TKMOC].[dbo].[MOCMANULINEBAKING] )", MB001);
                     sbSql.AppendFormat(@"  ");
 
                     adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
