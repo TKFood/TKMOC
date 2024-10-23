@@ -333,6 +333,12 @@
     <Compile Include="frmMOCMANULINE.Designer.cs">
       <DependentUpon>frmMOCMANULINE.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmMOCMANULINEBAKING.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMOCMANULINEBAKING.Designer.cs">
+      <DependentUpon>frmMOCMANULINEBAKING.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMOCMANULINECAPACITYCAL.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -838,6 +844,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMOCMANULINE.resx">
       <DependentUpon>frmMOCMANULINE.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMOCMANULINEBAKING.resx">
+      <DependentUpon>frmMOCMANULINEBAKING.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMOCMANULINECAPACITYCAL.resx">
       <DependentUpon>frmMOCMANULINECAPACITYCAL.cs</DependentUpon>
