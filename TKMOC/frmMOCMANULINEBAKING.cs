@@ -31,6 +31,7 @@ namespace TKMOC
         SqlTransaction tran;
         SqlCommand cmd = new SqlCommand();
         DataSet ds1 = new DataSet();
+        int result;
 
         string MANU = "";
         // 宣告一個變數來儲存使用者手動選擇排序的欄位
@@ -48,6 +49,7 @@ namespace TKMOC
             MANU = "吧台烘焙線";
 
             comboBox1load();
+            comboBox2load();
         }
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -60,6 +62,10 @@ namespace TKMOC
         public void comboBox1load()
         {
             LoadComboBoxData(comboBox1, "SELECT MD001,MD002 FROM [TK].dbo.CMSMD WHERE MD001 IN ('08')  ", "MD002", "MD002");
+        }
+        public void comboBox2load()
+        {
+            LoadComboBoxData(comboBox2, "SELECT MD001,MD002 FROM [TK].dbo.CMSMD WHERE MD001 IN ('08')  ", "MD002", "MD002");
         }
 
         public void LoadComboBoxData(ComboBox comboBox, string query, string valueMember, string displayMember)
@@ -384,10 +390,120 @@ namespace TKMOC
 
         }
 
+        public void ADDMOCMANULINE(
+            string MANU,
+            string MANUDATE,
+            string MB001,
+            string MB002,
+            string MB003,
+            string CLINET,
+            string MANUHOUR,
+            string BOX,
+            string NUM,
+            string PACKAGE,
+            string OUTDATE,
+            string TA029,
+            string HALFPRO,
+            string COPTD001,
+            string COPTD002,
+            string COPTD003
+            )
+        {
+            StringBuilder sbSql = new StringBuilder();
+            StringBuilder sbSqlQuery = new StringBuilder();
+            SqlConnection sqlConn = new SqlConnection();
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            SqlTransaction tran;
+            SqlCommand cmd = new SqlCommand();
+            DataSet ds1 = new DataSet();
+            DataSet TEMPds = new DataSet();
+
+            if (MANU.Equals("吧台烘焙線"))
+            {
+                Guid NEWGUID = new Guid();
+                NEWGUID = Guid.NewGuid();
+
+                try
+                {
+                    //20210902密
+                    Class1 TKID = new Class1();//用new 建立類別實體
+                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                    //資料庫使用者密碼解密
+                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                    String connectionString;
+                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                    sqlConn.Close();
+                    sqlConn.Open();
+                    tran = sqlConn.BeginTransaction();
+
+                    sbSql.Clear();
+
+
+                    sbSql.AppendFormat(@" INSERT INTO [TKMOC].[dbo].[MOCMANULINEBAKING]
+                                        ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[CLINET],[MANUHOUR],[BOX],[NUM],[PACKAGE],[OUTDATE],[TA029],[HALFPRO],[COPTD001],[COPTD002],[COPTD003])
+                                        VALUES ('{0}','{1}','{2}','{3}',N'{4}','{5}',N'{6}',N'{7}','{8}','{9}','{10}','{11}',N'{12}','{13}','{14}','{15}','{16}')"
+                                        , NEWGUID.ToString()
+                                        , MANU
+                                        , MANUDATE
+                                        , MB001
+                                        , MB002
+                                        , MB003
+                                        , CLINET
+                                        , MANUHOUR
+                                        , BOX
+                                        , NUM
+                                        , PACKAGE
+                                        , OUTDATE
+                                        , TA029
+                                        , HALFPRO
+                                        , COPTD001
+                                        , COPTD002
+                                        , COPTD003
+                                        );
+                    sbSql.AppendFormat(" ");
+              
+
+
+                    cmd.Connection = sqlConn;
+                    cmd.CommandTimeout = 60;
+                    cmd.CommandText = sbSql.ToString();
+                    cmd.Transaction = tran;
+                    result = cmd.ExecuteNonQuery();
+
+                    if (result == 0)
+                    {
+                        tran.Rollback();    //交易取消                       
+                    }
+                    else
+                    {
+                        tran.Commit();      //執行交易  
+                    }
+
+                }
+                catch
+                {
+
+                }
+
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }
+
+
+            SEARCHMOCMANULINE_BAKING(dateTimePicker1.Value.ToString("yyyyMMdd"), comboBox1.Text.Trim());
+        }
         public void SETNULL()
         {
             textBox7.Text = null;
-            textBox8.Text = null;
+            textBox8.Text = "0";
             textBox9.Text = null;
             textBox10.Text = null;
             textBox11.Text = null;
@@ -410,7 +526,50 @@ namespace TKMOC
         }
         private void button2_Click(object sender, EventArgs e)
         {
+            if (!string.IsNullOrEmpty(textBox7.Text))
+            {
+                string MANU = comboBox2.Text.ToString().Trim();
+                string MANUDATE = dateTimePicker4.Value.ToString("yyyy/MM/dd");
+                string MB001 = textBox7.Text.ToString().Trim();
+                string MB002 = textBox10.Text.ToString().Trim();
+                string MB003 = textBox11.Text.ToString().Trim();
+                string CLINET = textBox9.Text.ToString().Trim();
+                string MANUHOUR = textBox13.Text.ToString().Trim();
+                string BOX = textBox8.Text.ToString().Trim();
+                string NUM = textBox12.Text.ToString().Trim();
+                string PACKAGE = textBox12.Text.ToString().Trim();
+                string OUTDATE = dateTimePicker5.Value.ToString("yyyy/MM/dd");
+                string TA029 = textBox53.Text.Replace("'", "");
+                string HALFPRO = textBox68.Text.ToString().Trim();
+                string COPTD001 = textBox42.Text.ToString().Trim();
+                string COPTD002 = textBox43.Text.ToString().Trim();
+                string COPTD003 = textBox72.Text.ToString().Trim();
 
+                ADDMOCMANULINE(
+                    MANU,
+                    MANUDATE,
+                    MB001,
+                    MB002,
+                    MB003,
+                    CLINET,
+                    MANUHOUR,
+                    BOX,
+                    NUM,
+                    PACKAGE,
+                    OUTDATE,
+                    TA029,
+                    HALFPRO,
+                    COPTD001,
+                    COPTD002,
+                    COPTD003
+                    );
+
+                SETNULL();
+            }
+            else
+            {
+                MessageBox.Show("品名錯誤");
+            }
         }
         private void button5_Click(object sender, EventArgs e)
         {
