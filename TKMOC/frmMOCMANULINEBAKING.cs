@@ -121,6 +121,8 @@ namespace TKMOC
                                     ,[COPTD003] AS '訂單序號'
                                     ,[BOX] AS '箱數'
                                     ,[SERNO]
+                                    ,[ID]
+
                                     FROM [TKMOC].[dbo].[MOCMANULINEBAKING]
                                     LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=[MOCMANULINEBAKING].MB001
 
@@ -500,6 +502,127 @@ namespace TKMOC
 
             SEARCHMOCMANULINE_BAKING(dateTimePicker1.Value.ToString("yyyyMMdd"), comboBox1.Text.Trim());
         }
+
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView1.CurrentRow != null)
+            {
+                int rowindex = dataGridView1.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView1.Rows[rowindex];
+                    textBoxID.Text = row.Cells["ID"].Value.ToString();
+
+                    //ID2 = row.Cells["ID"].Value.ToString();
+                    //dt2 = Convert.ToDateTime(row.Cells["生產日"].Value.ToString().Substring(0, 4) + "/" + row.Cells["生產日"].Value.ToString().Substring(4, 2) + "/" + row.Cells["生產日"].Value.ToString().Substring(6, 2));
+                    //MB001B = row.Cells["品號"].Value.ToString();
+                    //MB002B = row.Cells["品名"].Value.ToString();
+                    //MB003B = row.Cells["規格"].Value.ToString();
+                    //BOX = Convert.ToDecimal(row.Cells["包裝數"].Value.ToString());
+                    //SUM2 = Convert.ToDecimal(row.Cells["包裝數"].Value.ToString());
+                    //TA029 = row.Cells["備註"].Value.ToString();
+                    //TA026 = row.Cells["訂單單別"].Value.ToString();
+                    //TA027 = row.Cells["訂單號"].Value.ToString();
+                    //TA028 = row.Cells["訂單序號"].Value.ToString();
+
+                    //SUBID2 = row.Cells["ID"].Value.ToString();
+                    //SUBBAR2 = "";
+                    //SUBNUM2 = "";
+                    //SUBBOX2 = row.Cells["箱數"].Value.ToString();
+                    //SUBPACKAGE2 = row.Cells["包裝數"].Value.ToString();
+
+                    //SEARCHMOCMANULINERESULT();
+                    //SEARCHMOCMANULINEMERGERESLUTMOCTA(ID2.ToString());
+                    ////SEARCHMOCMANULINECOP();
+
+                }
+                else
+                {
+                    //ID2 = null;
+                    //SUBID2 = null;
+                    //SUBBAR2 = null;
+                    //SUBNUM2 = null;
+                    //SUBBOX2 = null;
+                    //SUBPACKAGE2 = null;
+                    //TA026 = null;
+                    //TA027 = null;
+                    //TA028 = null;
+
+                }
+            }
+        }
+
+        public void DELMOCMANULINE(string ID)
+        {
+            StringBuilder sbSql = new StringBuilder();
+            StringBuilder sbSqlQuery = new StringBuilder();
+            SqlConnection sqlConn = new SqlConnection();
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            SqlTransaction tran;
+            SqlCommand cmd = new SqlCommand();
+            DataSet ds1 = new DataSet();
+            DataSet TEMPds = new DataSet();
+
+            if (MANU.Equals("吧台烘焙線"))
+            {
+                try
+                {
+                    //20210902密
+                    Class1 TKID = new Class1();//用new 建立類別實體
+                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                    //資料庫使用者密碼解密
+                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                    String connectionString;
+                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                    sqlConn.Close();
+                    sqlConn.Open();
+                    tran = sqlConn.BeginTransaction();
+
+                    sbSql.Clear();
+                    sbSql.AppendFormat(@"  
+                                        DELETE [TKMOC].[dbo].[MOCMANULINEBAKING]
+                                        WHERE ID='{0}'"
+                                        , ID);
+                    sbSql.AppendFormat(" ");
+
+                    cmd.Connection = sqlConn;
+                    cmd.CommandTimeout = 60;
+                    cmd.CommandText = sbSql.ToString();
+                    cmd.Transaction = tran;
+                    result = cmd.ExecuteNonQuery();
+
+                    if (result == 0)
+                    {
+                        tran.Rollback();    //交易取消
+                    }
+                    else
+                    {
+                        tran.Commit();      //執行交易  
+                      
+                    }
+
+                }
+                catch
+                {
+
+                }
+
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }
+
+
+            SEARCHMOCMANULINE_BAKING(dateTimePicker1.Value.ToString("yyyyMMdd"), comboBox1.Text.Trim());
+        }
+
         public void SETNULL()
         {
             textBox7.Text = null;
@@ -586,10 +709,23 @@ namespace TKMOC
             SUBfrmSUBMOCCOPMA.ShowDialog();
             textBox9.Text = SUBfrmSUBMOCCOPMA.TextBoxMsg;
         }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("要刪除了?", "要刪除了?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                DELMOCMANULINE(textBoxID.Text.ToString().Trim());
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                //do something else
+            }
+        }
+
 
 
         #endregion
 
-       
+
     }
 }
