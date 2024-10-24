@@ -623,6 +623,90 @@ namespace TKMOC
             SEARCHMOCMANULINE_BAKING(dateTimePicker1.Value.ToString("yyyyMMdd"), comboBox1.Text.Trim());
         }
 
+        public void CHECKMOCTAB()
+        {
+            StringBuilder sbSql = new StringBuilder();
+            StringBuilder sbSqlQuery = new StringBuilder();
+            SqlConnection sqlConn = new SqlConnection();
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            SqlTransaction tran;
+            SqlCommand cmd = new SqlCommand();
+            DataSet ds1 = new DataSet();
+            DataSet TEMPds = new DataSet();
+            string CHECKID = null;
+
+            if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage1"])
+            {
+                CHECKID = textBoxID.Text.ToString().Trim();
+            }
+          
+            try
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  
+                                    SELECT	MOCTA001,MOCTA002
+                                    FROM  [TKMOC].[dbo].[MOCMANULINERESULTBAKING]
+                                    WHERE [SID]='{0}'
+                                    UNION ALL
+                                    SELECT	TA001,TA002
+                                    FROM [TK].[dbo].[MOCTA]
+                                    WHERE EXISTS (SELECT [MOCTA001],[MOCTA002] FROM [TKMOC].[dbo].[MOCMANULINERESULTBAKING] WHERE [SID]='{0}' AND TA001=MOCTA001 AND TA002=MOCTA002)"
+                                    , CHECKID);
+                sbSql.AppendFormat(@"  ");
+
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "ds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["ds1"].Rows.Count == 0)
+                {
+                    UPDATEMOCMANULINE(CHECKID);
+                }
+                else
+                {
+                    MessageBox.Show("ERP跟外中 有製令未刪除，請檢查一下");
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+        public void UPDATEMOCMANULINE(string CHECKID)
+        {
+            if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage1"])
+            {
+                frmMOCMANULINES_BAKING_SUB MOCMANULINE_BAKUING_Sub = new frmMOCMANULINES_BAKING_SUB(CHECKID);
+                MOCMANULINE_BAKUING_Sub.ShowDialog();
+            }
+
+        }
         public void SETNULL()
         {
             textBox7.Text = null;
@@ -722,6 +806,11 @@ namespace TKMOC
             }
         }
 
+        private void button4_Click(object sender, EventArgs e)
+        {
+            CHECKMOCTAB();
+            SEARCHMOCMANULINE_BAKING(dateTimePicker1.Value.ToString("yyyyMMdd"), comboBox1.Text.Trim());
+        }
 
 
         #endregion

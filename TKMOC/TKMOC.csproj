@@ -731,6 +731,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="frmMOCMANULINES_BAKING_SUB.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMOCMANULINES_BAKING_SUB.Designer.cs">
+      <DependentUpon>frmMOCMANULINES_BAKING_SUB.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="frmBATCHMOCTAB.resx">
       <DependentUpon>frmBATCHMOCTAB.cs</DependentUpon>
     </EmbeddedResource>
@@ -1047,6 +1053,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMOCMANULINES_BAKING_SUB.resx">
+      <DependentUpon>frmMOCMANULINES_BAKING_SUB.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
