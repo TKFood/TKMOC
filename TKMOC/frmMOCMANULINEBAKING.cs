@@ -423,7 +423,9 @@ namespace TKMOC
 
         private void button6_Click(object sender, EventArgs e)
         {
-
+            frmSUBMOCCOPMA SUBfrmSUBMOCCOPMA = new frmSUBMOCCOPMA();
+            SUBfrmSUBMOCCOPMA.ShowDialog();
+            textBox9.Text = SUBfrmSUBMOCCOPMA.TextBoxMsg;
         }
 
 

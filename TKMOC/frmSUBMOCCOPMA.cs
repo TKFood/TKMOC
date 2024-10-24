@@ -16,6 +16,7 @@ using NPOI.SS.Util;
 using System.Reflection;
 using System.Threading;
 using System.Globalization;
+using TKITDLL;
 
 namespace TKMOC
 {
@@ -53,23 +54,49 @@ namespace TKMOC
         }
 
         #region FUNCTION
-        public void SEARCHMOCCOPMA()
+        public void SEARCHMOCCOPMA(string MA002)
         {
             try
             {
-                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
-                sqlConn = new SqlConnection(connectionString);
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
 
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
                 if (string.IsNullOrEmpty(textBox1.Text))
                 {
-                    sbSql.AppendFormat(@"SELECT [ID] AS '代號',[NAME] AS '名稱' FROM [TKMOC].[dbo].[MOCCOPMA] WHERE [KIND]='國內' ");
+                    sbSql.AppendFormat(@"
+                                        SELECT
+                                        MA001 AS '代號'
+                                        ,MA002   AS '名稱'
+                                        FROM [TK].dbo.COPMA
+                                        WHERE 1=1
+                                        AND MA002 NOT LIKE '%停用%'
+                                        AND (MA001 LIKE '2%')
+                                        ORDER BY MA002 
+                                        ");
                 }
                 else
                 {
-                    sbSql.AppendFormat(@"SELECT [ID] AS '代號',[NAME] AS '名稱' FROM [TKMOC].[dbo].[MOCCOPMA] WHERE  [KIND]='國內' AND   [NAME]  LIKE '{0}%'", textBox1.Text);
+                    sbSql.AppendFormat(@"
+                                        SELECT
+                                        MA001 AS '代號'
+                                        ,MA002   AS '名稱'
+                                        FROM [TK].dbo.COPMA
+                                        WHERE 1=1
+                                        AND MA002 NOT LIKE '%停用%'
+                                        AND (MA001 LIKE '2%')
+                                        AND MA002 LIKE '{0}%'
+                                        ORDER BY MA002 
+                                       ", MA002);
                 }
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -110,7 +137,7 @@ namespace TKMOC
         {
             if (Keys.Enter == e.KeyCode)
             {
-                SEARCHMOCCOPMA();
+                SEARCHMOCCOPMA(textBox1.Text.ToString().Trim());
             }
         }
 
@@ -159,23 +186,49 @@ namespace TKMOC
 
         }
 
-        public void SEARCHMOCCOPMA2()
+        public void SEARCHMOCCOPMA2(string MA002)
         {
             try
             {
-                connectionString = ConfigurationManager.ConnectionStrings["dberp"].ConnectionString;
-                sqlConn = new SqlConnection(connectionString);
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
 
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
                 if (string.IsNullOrEmpty(textBox1.Text))
                 {
-                    sbSql.AppendFormat(@"SELECT [ID] AS '代號',[NAME] AS '名稱' FROM [TKMOC].[dbo].[MOCCOPMA] WHERE [KIND]='國外' ");
+                    sbSql.AppendFormat(@"  
+                                        SELECT
+                                        MA001 AS '代號'
+                                        ,MA002   AS '名稱'
+                                        FROM [TK].dbo.COPMA
+                                        WHERE 1=1
+                                        AND MA002 NOT LIKE '%停用%'
+                                        AND (MA001 LIKE '3%')                                        
+                                        ORDER BY MA002 
+                                        ");
                 }
                 else
                 {
-                    sbSql.AppendFormat(@"SELECT [ID] AS '代號',[NAME] AS '名稱' FROM [TKMOC].[dbo].[MOCCOPMA] WHERE  [KIND]='國外' AND   [NAME]  LIKE '{0}%'", textBox1.Text);
+                    sbSql.AppendFormat(@"  
+                                        SELECT
+                                        MA001 AS '代號'
+                                        ,MA002   AS '名稱'
+                                        FROM [TK].dbo.COPMA
+                                        WHERE 1=1
+                                        AND MA002 NOT LIKE '%停用%'
+                                        AND (MA001 LIKE '3%')
+                                        AND MA002 LIKE '{0}%'
+                                        ORDER BY MA002 "
+                                        , MA002);
                 }
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -216,7 +269,7 @@ namespace TKMOC
         #region BUTTON
         private void button1_Click(object sender, EventArgs e)
         {
-            SEARCHMOCCOPMA();
+            SEARCHMOCCOPMA(textBox1.Text.ToString().Trim());
         }
         private void button2_Click(object sender, EventArgs e)
         {
@@ -225,7 +278,7 @@ namespace TKMOC
 
         private void button3_Click(object sender, EventArgs e)
         {
-            SEARCHMOCCOPMA2();
+            SEARCHMOCCOPMA2(textBox1.Text.ToString().Trim());
         }
 
 
