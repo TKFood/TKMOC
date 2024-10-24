@@ -92,7 +92,7 @@ namespace TKMOC
                 sbSql.AppendFormat(@"  
                                      SELECT 
                                      [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名'
-                                     ,[MB003] AS '規格',ISNULL([BAR],0) AS '桶數',ISNULL([NUM],0) AS '數量',ISNULL([BOX],0)   AS '箱數'   ,ISNULL([PACKAGE],0)  AS '片數',[CLINET] AS '客戶'
+                                     ,[MB003] AS '規格',ISNULL([BAR],0) AS '桶數',ISNULL([NUM],0) AS '數量',ISNULL([BOX],0)   AS '箱數'   ,ISNULL([PACKAGE],0)  AS '包裝數',[CLINET] AS '客戶'
                                      ,[MC004],CONVERT(varchar(100),[OUTDATE],112)  AS '交期',[TA029] AS '備註' ,[HALFPRO] AS '半成品數量'
                                      ,[MANUHOUR] AS 生產時間 
                                      ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號'
@@ -130,7 +130,7 @@ namespace TKMOC
                         textBox6.Text = ds1.Tables["TEMPds1"].Rows[0]["桶數"].ToString();
                         textBox7.Text = ds1.Tables["TEMPds1"].Rows[0]["數量"].ToString();
                         textBox8.Text = ds1.Tables["TEMPds1"].Rows[0]["箱數"].ToString();
-                        textBox9.Text = ds1.Tables["TEMPds1"].Rows[0]["片數"].ToString();
+                        textBox9.Text = ds1.Tables["TEMPds1"].Rows[0]["包裝數"].ToString();
                         textBox10.Text = ds1.Tables["TEMPds1"].Rows[0]["客戶"].ToString();
                         textBox32.Text = ds1.Tables["TEMPds1"].Rows[0]["MC004"].ToString();
                         textBox2.Text = ds1.Tables["TEMPds1"].Rows[0]["備註"].ToString();

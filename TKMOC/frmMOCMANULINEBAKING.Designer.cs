@@ -39,6 +39,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.label147 = new System.Windows.Forms.Label();
+            this.textBoxID = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.label65 = new System.Windows.Forms.Label();
             this.button6 = new System.Windows.Forms.Button();
@@ -83,7 +84,6 @@
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
             this.splitContainer5 = new System.Windows.Forms.SplitContainer();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.textBoxID = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -254,6 +254,16 @@
             this.label147.TabIndex = 6;
             this.label147.Text = "線別";
             this.label147.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // textBoxID
+            // 
+            this.textBoxID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxID.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.textBoxID.Location = new System.Drawing.Point(3, 286);
+            this.textBoxID.Name = "textBoxID";
+            this.textBoxID.ReadOnly = true;
+            this.textBoxID.Size = new System.Drawing.Size(94, 27);
+            this.textBoxID.TabIndex = 124;
             // 
             // tableLayoutPanel5
             // 
@@ -718,6 +728,7 @@
             this.button8.TabIndex = 121;
             this.button8.Text = "帶入半成品";
             this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // button9
             // 
@@ -728,6 +739,7 @@
             this.button9.TabIndex = 122;
             this.button9.Text = "帶入半成品(沒備註)";
             this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
             // button7
             // 
@@ -738,6 +750,7 @@
             this.button7.TabIndex = 120;
             this.button7.Text = "帶入訂單";
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // splitContainer3
             // 
@@ -807,16 +820,6 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // textBoxID
-            // 
-            this.textBoxID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxID.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.textBoxID.Location = new System.Drawing.Point(3, 286);
-            this.textBoxID.Name = "textBoxID";
-            this.textBoxID.ReadOnly = true;
-            this.textBoxID.Size = new System.Drawing.Size(94, 27);
-            this.textBoxID.TabIndex = 124;
             // 
             // frmMOCMANULINEBAKING
             // 

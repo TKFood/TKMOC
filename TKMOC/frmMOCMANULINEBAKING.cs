@@ -707,6 +707,300 @@ namespace TKMOC
             }
 
         }
+
+        public void SEARCHCOPDEFAULT(string TD001, string TD002, string TD003)
+        {
+            StringBuilder sbSql = new StringBuilder();
+            StringBuilder sbSqlQuery = new StringBuilder();
+            SqlConnection sqlConn = new SqlConnection();
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            SqlTransaction tran;
+            SqlCommand cmd = new SqlCommand();
+            DataSet ds1 = new DataSet();
+
+            try
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  
+                                    SELECT TC053,TD004,TD005,TD006,(TD008+TD024) AS TD008,TD010,(TC015+'-'+TD020) TC015 ,TD013
+                                    ,(CASE WHEN ISNULL(MD002,'')<>'' THEN (TD008+TD024)*MD004 ELSE (TD008+TD024)  END ) AS NUM
+                                    FROM [TK].dbo.INVMB WITH(NOLOCK),[TK].dbo.COPTC WITH(NOLOCK),[TK].dbo.COPTD WITH(NOLOCK)
+                                    LEFT JOIN [TK].dbo.INVMD ON MD001=TD004 AND TD010=MD002
+                                    WHERE TC001=TD001 AND TC002=TD002
+                                    AND MB001=TD004
+                                    AND TD001='{0}' AND TD002='{1}' AND TD003='{2}'"
+                                    , TD001, TD002, TD003);
+                sbSql.AppendFormat(@"  ");
+
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "ds1");
+                sqlConn.Close();
+
+
+                if (MANU.Equals("吧台烘焙線"))
+                {
+                    if (ds1.Tables["ds1"].Rows.Count == 0)
+                    {
+                        textBox7.Text = null;
+                        textBox10.Text = null;
+                        textBox11.Text = null;
+                        textBox12.Text = null;
+                        textBox53.Text = null;
+                        textBox9.Text = null;
+                        textBox42.Text = null;
+                        textBox43.Text = null;
+                        textBox72.Text = null;
+                    }
+                    else
+                    {
+                        if (ds1.Tables["ds1"].Rows.Count >= 1)
+                        {
+                            textBox7.Text = ds1.Tables["ds1"].Rows[0]["TD004"].ToString();
+                            textBox10.Text = ds1.Tables["ds1"].Rows[0]["TD005"].ToString();
+                            textBox11.Text = ds1.Tables["ds1"].Rows[0]["TD006"].ToString();
+                            textBox9.Text = ds1.Tables["ds1"].Rows[0]["TC053"].ToString();
+                            textBox53.Text = ds1.Tables["ds1"].Rows[0]["TC015"].ToString();
+                            dateTimePicker5.Value = Convert.ToDateTime(ds1.Tables["ds1"].Rows[0]["TD013"].ToString().Substring(0, 4) + "/" + ds1.Tables["ds1"].Rows[0]["TD013"].ToString().Substring(4, 2) + "/" + ds1.Tables["ds1"].Rows[0]["TD013"].ToString().Substring(6, 2));
+
+                            textBox12.Text = ds1.Tables["ds1"].Rows[0]["NUM"].ToString();
+
+                            //if (SUM21 > 0)
+                            //{
+                            //    textBox12.Text = (SUM21 + Convert.ToDecimal(ds27.Tables["ds27"].Rows[0]["NUM"].ToString())).ToString();
+
+                                //    SUM21 = 0;
+                                //}
+                                //else
+                                //{
+                                //    textBox12.Text = ds1.Tables["ds1"].Rows[0]["NUM"].ToString();
+                                //}
+                        }
+                    }
+                }
+            }
+            catch
+            { }
+            finally
+            { }
+               
+        }
+
+        public void SEARCHCOPDEFAULT2(string TD001, string TD002, string TD003)
+        {
+            StringBuilder sbSql = new StringBuilder();
+            StringBuilder sbSqlQuery = new StringBuilder();
+            SqlConnection sqlConn = new SqlConnection();
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            SqlTransaction tran;
+            SqlCommand cmd = new SqlCommand();
+            DataSet ds1 = new DataSet();
+
+            try
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+                //手工*INVMB.UDF08、其他*INVMB.UDF07
+
+
+
+                sbSql.AppendFormat(@"  
+                                    SELECT TC053,TD004,TD005,TD006,(TD008+TD024) AS TD008,TD010,TC015
+                                    ,(CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TD008+TD024)*INVMD.MD004 ELSE (TD008+TD024)  END ) AS NUM
+                                    ,BOMMD.MD003,BOMMD.MD035,BOMMD.MD036,INVMB.UDF07
+                                     ,((CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TD008+TD024)*INVMD.MD004 ELSE (TD008+TD024)  END ))/BOMMC.MC004*BOMMD.MD006 AS 'NUM2'
+                                    
+                                    FROM [TK].dbo.INVMB WITH(NOLOCK),[TK].dbo.COPTC WITH(NOLOCK),[TK].dbo.COPTD WITH(NOLOCK)
+                                    LEFT JOIN [TK].dbo.INVMD WITH(NOLOCK) ON INVMD.MD001=TD004 AND INVMD.MD002=TD010
+                                    LEFT JOIN [TK].dbo.BOMMC WITH(NOLOCK) ON BOMMC.MC001=TD004 
+                                    LEFT JOIN [TK].dbo.BOMMD WITH(NOLOCK) ON BOMMD.MD001=TD004 
+                                    WHERE TC001=TD001 AND TC002=TD002
+                                    AND MB001 = TD004
+                                    AND(BOMMD.MD003 LIKE '3%' OR BOMMD.MD003 LIKE '4%')
+                                    AND TD001 = '{0}' AND TD002 = '{1}' AND TD003 = '{2}'
+
+                                    ", TD001, TD002, TD003);
+                sbSql.AppendFormat(@"  ");
+
+                //半成品的舊算法
+                //sbSql.AppendFormat(@"  ,((CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TD008+TD024)*INVMD.MD004 ELSE (TD008+TD024)  END ))/BOMMC.MC004*INVMB.UDF07/1000 AS 'NUM2'");
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "ds1");
+                sqlConn.Close();
+
+
+
+                if (MANU.Equals("吧台烘焙線"))
+                {
+                    if (ds1.Tables["ds1"].Rows.Count == 0)
+                    {
+                        textBox7.Text = null;
+                        textBox10.Text = null;
+                        textBox11.Text = null;
+                        textBox12.Text = null;
+                        textBox9.Text = null;
+                        textBox53.Text = null;
+                        textBox42.Text = null;
+                        textBox43.Text = null;
+                        textBox72.Text = null;
+                    }
+                    else
+                    {
+                        if (ds1.Tables["ds1"].Rows.Count >= 1)
+                        {
+                            textBox7.Text = ds1.Tables["ds1"].Rows[0]["MD003"].ToString();
+                            textBox10.Text = ds1.Tables["ds1"].Rows[0]["MD035"].ToString();
+                            textBox11.Text = ds1.Tables["ds1"].Rows[0]["MD036"].ToString();
+                            textBox12.Text = ds1.Tables["ds1"].Rows[0]["NUM2"].ToString();
+                            textBox9.Text = ds1.Tables["ds1"].Rows[0]["TC053"].ToString();
+                            textBox53.Text = ds1.Tables["ds1"].Rows[0]["TC015"].ToString();
+
+                        }
+                    }
+                }
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+
+        public void SEARCHCOPDEFAULT3(string TD001, string TD002, string TD003)
+        {
+            StringBuilder sbSql = new StringBuilder();
+            StringBuilder sbSqlQuery = new StringBuilder();
+            SqlConnection sqlConn = new SqlConnection();
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            SqlTransaction tran;
+            SqlCommand cmd = new SqlCommand();
+            DataSet ds1 = new DataSet();
+
+            try
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+                //手工*INVMB.UDF08、其他*INVMB.UDF07
+                sbSql.AppendFormat(@"  
+                                    SELECT TC053,TD004,TD005,TD006,(TD008+TD024) AS TD008,TD010,TC015
+                                    ,(CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TD008+TD024)*INVMD.MD004 ELSE (TD008+TD024)  END ) AS NUM
+                                    ,BOMMD.MD003,BOMMD.MD035,BOMMD.MD036,INVMB.UDF07
+                                    ,((CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TD008+TD024)*INVMD.MD004 ELSE (TD008+TD024)  END ))/BOMMC.MC004*BOMMD.MD006 AS 'NUM2'
+
+                                    FROM [TK].dbo.INVMB WITH(NOLOCK),[TK].dbo.COPTC WITH(NOLOCK),[TK].dbo.COPTD WITH(NOLOCK)
+                                    LEFT JOIN [TK].dbo.INVMD WITH(NOLOCK) ON INVMD.MD001=TD004 AND INVMD.MD002=TD010
+                                    LEFT JOIN [TK].dbo.BOMMC WITH(NOLOCK) ON BOMMC.MC001=TD004 
+                                    LEFT JOIN [TK].dbo.BOMMD WITH(NOLOCK) ON BOMMD.MD001=TD004 
+                                    WHERE TC001=TD001 AND TC002=TD002
+                                    AND MB001=TD004
+                                    AND (BOMMD.MD003 LIKE '3%' OR BOMMD.MD003 LIKE '4%') 
+                                    AND TD001='{0}' AND TD002='{1}' AND TD003='{2}'
+                                    ", TD001, TD002, TD003);
+                sbSql.AppendFormat(@"  ");
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "ds1");
+                sqlConn.Close();
+                
+
+                if (MANU.Equals("吧台烘焙線"))
+                {
+                    if (ds1.Tables["ds1"].Rows.Count == 0)
+                    {
+                        textBox7.Text = null;
+                        textBox10.Text = null;
+                        textBox11.Text = null;
+                        textBox12.Text = null;
+                        textBox9.Text = null;
+                        textBox53.Text = null;
+                        textBox42.Text = null;
+                        textBox43.Text = null;
+                        textBox72.Text = null;
+                    }
+                    else
+                    {
+                        if (ds1.Tables["ds1"].Rows.Count >= 1)
+                        {
+                            textBox7.Text = ds1.Tables["ds1"].Rows[0]["MD003"].ToString();
+                            textBox10.Text = ds1.Tables["ds1"].Rows[0]["MD035"].ToString();
+                            textBox11.Text = ds1.Tables["ds1"].Rows[0]["MD036"].ToString();
+                            textBox12.Text = ds1.Tables["ds1"].Rows[0]["NUM2"].ToString();
+                            textBox9.Text = ds1.Tables["ds1"].Rows[0]["TC053"].ToString();
+                            textBox53.Text = null;
+                            //textBox53.Text = ds28.Tables["ds28"].Rows[0]["TC015"].ToString();
+
+                        }
+                    }
+                }              
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+
         public void SETNULL()
         {
             textBox7.Text = null;
@@ -723,6 +1017,8 @@ namespace TKMOC
             textBox43.Text = null;
             textBox72.Text = null;
         }
+
+
         #endregion
 
         #region BUTTON
@@ -812,6 +1108,27 @@ namespace TKMOC
             SEARCHMOCMANULINE_BAKING(dateTimePicker1.Value.ToString("yyyyMMdd"), comboBox1.Text.Trim());
         }
 
+        private void button7_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBox42.Text) & !string.IsNullOrEmpty(textBox43.Text) & !string.IsNullOrEmpty(textBox72.Text))
+            {
+                SEARCHCOPDEFAULT(textBox42.Text, textBox43.Text, textBox72.Text);
+            }
+        }
+        private void button8_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBox42.Text) & !string.IsNullOrEmpty(textBox43.Text) & !string.IsNullOrEmpty(textBox72.Text))
+            {
+                SEARCHCOPDEFAULT2(textBox42.Text, textBox43.Text, textBox72.Text);
+            }
+        }
+        private void button9_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBox42.Text) & !string.IsNullOrEmpty(textBox43.Text) & !string.IsNullOrEmpty(textBox72.Text))
+            {
+                SEARCHCOPDEFAULT3(textBox42.Text, textBox43.Text, textBox72.Text);
+            }
+        }
 
         #endregion
 

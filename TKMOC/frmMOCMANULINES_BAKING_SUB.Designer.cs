@@ -284,7 +284,7 @@
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(74, 16);
             this.label9.TabIndex = 8;
-            this.label9.Text = "片數";
+            this.label9.Text = "包裝數";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // textBox1
@@ -662,13 +662,13 @@
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // TKMOCsub1
+            // frmMOCMANULINES_BAKING_SUB
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(730, 435);
             this.Controls.Add(this.tabControl1);
-            this.Name = "TKMOCsub1";
+            this.Name = "frmMOCMANULINES_BAKING_SUB";
             this.Text = "TKMOCsub1";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
