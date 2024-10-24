@@ -50,6 +50,7 @@ namespace TKMOC
 
             comboBox1load();
             comboBox2load();
+            comboBox3load();
         }
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -68,6 +69,10 @@ namespace TKMOC
             LoadComboBoxData(comboBox2, "SELECT MD001,MD002 FROM [TK].dbo.CMSMD WHERE MD001 IN ('08')  ", "MD002", "MD002");
         }
 
+        public void comboBox3load()
+        {
+            LoadComboBoxData(comboBox3, "SELECT MC001 ,MC001+MC002 AS 'MC002' FROM [TK].dbo.CMSMC WHERE MC001 LIKE '2000%'  ORDER BY MC001 ", "MC001", "MC002");
+        }
         public void LoadComboBoxData(ComboBox comboBox, string query, string valueMember, string displayMember)
         {
             //20210902密
