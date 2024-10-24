@@ -47,10 +47,11 @@ namespace TKMOC
         decimal SUM2;
         string TA001 = "A513";
         string TA002;
-        string TA029;
+        string TA020;
         string TA026 ;
         string TA027 ;
         string TA028;
+        string TA029;
         string SUBID;
         string SUBBAR2;
         string SUBNUM2;
@@ -148,7 +149,7 @@ namespace TKMOC
 
         public void comboBox3load()
         {
-            LoadComboBoxData(comboBox3, "SELECT MC001 ,MC001+MC002 AS 'MC002' FROM [TK].dbo.CMSMC WHERE MC001 LIKE '2000%'  ORDER BY MC001 ", "MC001", "MC002");
+            LoadComboBoxData(comboBox3, "SELECT MC001 ,MC001+MC002 AS 'MC002' FROM [TK].dbo.CMSMC WHERE MC001 LIKE '21%'  ORDER BY MC001 ", "MC001", "MC002");
         }
         public void LoadComboBoxData(ComboBox comboBox, string query, string valueMember, string displayMember)
         {
@@ -1261,7 +1262,7 @@ namespace TKMOC
             
         }
 
-        public void ADDMOCTATB(DateTime DT)
+        public void ADDMOCTATB(string TA001,string TA002,string TA020, DateTime DT)
         {
             StringBuilder sbSql = new StringBuilder();
             StringBuilder sbSqlQuery = new StringBuilder();
@@ -1273,7 +1274,7 @@ namespace TKMOC
             DataSet ds1 = new DataSet();
 
             MOCTADATA MOCTA = new MOCTADATA();
-            MOCTA = SETMOCTA(DT);
+            MOCTA = SETMOCTA(TA001, TA002, DT);
             string MOCMB001 = null;
             decimal MOCTA004 = 0; ;
             string MOCTB009 = null;
@@ -1285,6 +1286,9 @@ namespace TKMOC
             {
                 MOCMB001 = MB001B;
                 MOCTA004 = BOX;
+                MOCTA.TA001 = TA001;
+                MOCTA.TA002 = TA002;
+                MOCTA.TA020 = TA020;
                 MOCTA.TA026 = TA026;
                 MOCTA.TA027 = TA027;
                 MOCTA.TA028 = TA028;
@@ -1330,35 +1334,47 @@ namespace TKMOC
                                         ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}',
                                         '{10}','{11}','{12}','{13}','{14}','{15}','{16}','{17}','{18}','{19}',
                                         '{20}','{21}','{22}','{23}','{24}','{25}','{26}','{27}','{28}','{29}',
-                                        '{30}','{31}','{32}','{33}','{34}','{35}',N'{36}','{37}','{38}','{39}',
-                                        '{40}','{41}','{42}','{43}','{44}','{45}','{46}','{47}','{48}','{49}',
-                                        '{50}','{51}','{52}')
-    
-                                        INSERT INTO [TK].dbo.[MOCTB]
-                                        ([COMPANY],[CREATOR],[USR_GROUP],[CREATE_DATE],[MODIFIER],[MODI_DATE],[FLAG],[CREATE_TIME],[MODI_TIME],[TRANS_TYPE]
-                                        ,[TRANS_NAME],[sync_count],[DataGroup],[TB001],[TB002],[TB003],[TB004],[TB005],[TB006],[TB007]
-                                        ,[TB009],[TB011],[TB012],[TB013],[TB014],[TB018],[TB019],[TB020],[TB022],[TB024]
-                                        ,[TB025],[TB026],[TB027],[TB029],[TB030],[TB031],[TB501],[TB554],[TB556],[TB560])
-                                        SELECT 
-                                        '{0}' [COMPANY],'{1}' [CREATOR],'{2}' [USR_GROUP],'{3}' [CREATE_DATE],'{4}' [MODIFIER],'{5}' [MODI_DATE],'{6}' [FLAG],'{7}' [CREATE_TIME],'{8}' [MODI_TIME],'{9}' [TRANS_TYPE],
-                                        '{10}' [TRANS_NAME],{11} [sync_count],'{12}' [DataGroup],'{13}' [TB001],'{14}' [TB002],[BOMMD].MD003 [TB003],
-                                        CASE WHEN MB041=1 AND [BOMMD].MD003 NOT LIKE '201%' THEN CONVERT(decimal(16,4),CEILING({15}*[BOMMD].MD006/[BOMMD].MD007*(1+[BOMMD].MD008))) 
-                                             WHEN MB041=1 AND [BOMMD].MD003 LIKE '201%' THEN ROUND({15}*[BOMMD].MD006/[BOMMD].MD007*(1+[BOMMD].MD008),0) 
-                                             ELSE ROUND({15}*[BOMMD].MD006/[BOMMD].MD007*(1+[BOMMD].MD008),3) END [TB004],0 [TB005],'****' [TB006],[INVMB].MB004 [TB007],
-                                        [INVMB].MB017 [TB009],'1' [TB011],[INVMB].MB002 [TB012],[INVMB].MB003 [TB013],[BOMMD].MD001 [TB014],'N' [TB018],'0' [TB019],'0' [TB020],'2' [TB022],'0' [TB024],
-                                        '****' [TB025],'0' [TB026],'1' [TB027],'0' [TB029],'0' [TB030],'0' [TB031],'0' [TB501],'N' [TB554],'0' [TB556],'0' [TB560]
-                                        FROM [TK].dbo.[BOMMD],[TK].dbo.[INVMB]
-                                        WHERE [BOMMD].MD003=[INVMB].MB001
-                                        AND MD001='{16}' AND ISNULL(MD012,'')=''
+                                        '{30}','{31}','{32}','{33}','{34}','{35}',N'{36}','{37}','{38}','{39}','{40}'
+                                        ,'{41}','{42}','{43}','{44}','{45}','{46}','{47}','{48}','{49}','{50}'
+                                        ,'{51}','{52}','{53}')   
+                                       
                                     ",
                                         MOCTA.COMPANY, MOCTA.CREATOR, MOCTA.USR_GROUP, MOCTA.CREATE_DATE, MOCTA.MODIFIER, MOCTA.MODI_DATE, MOCTA.FLAG, MOCTA.CREATE_TIME, MOCTA.MODI_TIME, MOCTA.TRANS_TYPE,
                                         MOCTA.TRANS_NAME, MOCTA.sync_count, MOCTA.DataGroup, MOCTA.TA001, MOCTA.TA002, MOCTA.TA003, MOCTA.TA004, MOCTA.TA005, MOCTA.TA006, MOCTA.TA007,
                                         MOCTA.TA009, MOCTA.TA010, MOCTA.TA011, MOCTA.TA012, MOCTA.TA013, MOCTA.TA014, MOCTA.TA015, MOCTA.TA016, MOCTA.TA017, MOCTA.TA018,
                                         MOCTA.TA019, MOCTA.TA020, MOCTA.TA021, MOCTA.TA022, MOCTA.TA024, MOCTA.TA025, MOCTA.TA029, MOCTA.TA030, MOCTA.TA031, MOCTA.TA034, MOCTA.TA035,
                                         MOCTA.TA040, MOCTA.TA041, MOCTA.TA043, MOCTA.TA044, MOCTA.TA045, MOCTA.TA046, MOCTA.TA047, MOCTA.TA049, MOCTA.TA050, MOCTA.TA200,
-                                        MOCTA.TA026, MOCTA.TA027, MOCTA.TA028, MOCTA.TA004, MOCMB001);
+                                        MOCTA.TA026, MOCTA.TA027, MOCTA.TA028);
 
-                    sbSql.AppendFormat(" ");
+                    sbSql.AppendFormat(@"
+                                        INSERT INTO [TK].dbo.[MOCTB]
+                                        ([COMPANY],[CREATOR],[USR_GROUP],[CREATE_DATE],[MODIFIER],[MODI_DATE],[FLAG],[CREATE_TIME],[MODI_TIME],[TRANS_TYPE],
+                                         [TRANS_NAME],[sync_count],[DataGroup],[TB001],[TB002],[TB003],[TB004],[TB005],[TB006],[TB007],
+                                         [TB009],[TB011],[TB012],[TB013],[TB014],[TB018],[TB019],[TB020],[TB022],[TB024],
+                                         [TB025],[TB026],[TB027],[TB029],[TB030],[TB031],[TB501],[TB554],[TB556],[TB560])
+                                        (SELECT 
+                                         '{0}' [COMPANY],'{1}' [CREATOR],'{2}' [USR_GROUP],'{3}' [CREATE_DATE],'{4}' [MODIFIER],'{5}' [MODI_DATE],'{6}' [FLAG],'{7}' [CREATE_TIME],'{8}' [MODI_TIME],'{9}' [TRANS_TYPE],
+                                         '{10}' [TRANS_NAME],{11} [sync_count],'{12}' [DataGroup],'{13}' [TB001],'{14}' [TB002],[BOMMD].MD003 [TB003],
+                                         CASE 
+                                            WHEN MB041=1 AND [BOMMD].MD003 NOT LIKE '201%' 
+                                                THEN CONVERT(decimal(16,4),CEILING({15}*[BOMMD].MD006/[BOMMD].MD007*(1+[BOMMD].MD008))) 
+                                            WHEN MB041=1 AND [BOMMD].MD003 LIKE '201%' 
+                                                THEN ROUND({15}*[BOMMD].MD006/[BOMMD].MD007*(1+[BOMMD].MD008),0) 
+                                            ELSE ROUND({15}*[BOMMD].MD006/[BOMMD].MD007*(1+[BOMMD].MD008),3) 
+                                         END [TB004], 
+                                         0 [TB005],'****' [TB006],[INVMB].MB004 [TB007],
+                                         [INVMB].MB017 [TB009],'1' [TB011],[INVMB].MB002 [TB012],[INVMB].MB003 [TB013],[BOMMD].MD001 [TB014],'N' [TB018],'0' [TB019],'0' [TB020],'2' [TB022],'0' [TB024],
+                                         '****' [TB025],'0' [TB026],'1' [TB027],'0' [TB029],'0' [TB030],'0' [TB031],'0' [TB501],'N' [TB554],'0' [TB556],'0' [TB560]
+                                        FROM [TK].dbo.[BOMMD], [TK].dbo.[INVMB]
+                                        WHERE [BOMMD].MD003 = [INVMB].MB001
+                                        AND MD001 = '{16}' AND ISNULL(MD012, '') = ''
+                                        )",
+                                        MOCTA.COMPANY, MOCTA.CREATOR, MOCTA.USR_GROUP, MOCTA.CREATE_DATE, MOCTA.MODIFIER, MOCTA.MODI_DATE, MOCTA.FLAG, MOCTA.CREATE_TIME, MOCTA.MODI_TIME, MOCTA.TRANS_TYPE,
+                                        MOCTA.TRANS_NAME, MOCTA.sync_count, MOCTA.DataGroup, MOCTA.TA001, MOCTA.TA002, MOCTA004
+                                        , MOCMB001);
+
+
+                    sbSql.AppendFormat(@" ");
 
 
                     cmd.Connection = sqlConn;
@@ -1392,7 +1408,7 @@ namespace TKMOC
             }
         }
 
-        public MOCTADATA SETMOCTA(DateTime DT)
+        public MOCTADATA SETMOCTA(string TA001,string TA002, DateTime DT)
         {
             string BOMVARSION="";
             string UNIT = "";
@@ -1406,9 +1422,9 @@ namespace TKMOC
                 
                 if (DATATABLE != null && DATATABLE.Rows.Count>=1)
                 {
-                    BOMVARSION = ds1.Tables["ds1"].Rows[0]["MC009"].ToString();               
-                    UNIT = ds1.Tables["ds1"].Rows[0]["MB004"].ToString();
-                    BOMBAR = Convert.ToDecimal(ds1.Tables["ds1"].Rows[0]["MC004"].ToString());
+                    BOMVARSION = DATATABLE.Rows[0]["MC009"].ToString();               
+                    UNIT = DATATABLE.Rows[0]["MB004"].ToString();
+                    BOMBAR = Convert.ToDecimal(DATATABLE.Rows[0]["MC004"].ToString());
                 }
 
                 MOCTADATA MOCTA = new MOCTADATA();
@@ -1426,7 +1442,7 @@ namespace TKMOC
                 MOCTA.TRANS_NAME = "MOCMI02";
                 MOCTA.sync_count = "0";
                 MOCTA.DataGroup = "103000";
-                MOCTA.TA001 = "A510";
+                MOCTA.TA001 = TA001;
                 MOCTA.TA002 = TA002;
                 MOCTA.TA003 = DT.ToString("yyyyMMdd");
                 MOCTA.TA004 = DT.ToString("yyyyMMdd");
@@ -1449,7 +1465,7 @@ namespace TKMOC
                 MOCTA.TA020 = IN;
                 MOCTA.TA021 = "09";
                 MOCTA.TA022 = "0";
-                MOCTA.TA024 = "A510";
+                MOCTA.TA024 = TA001;
                 MOCTA.TA025 = TA002;
                 MOCTA.TA029 = TA029;
                 MOCTA.TA030 = "1";
@@ -1688,14 +1704,19 @@ namespace TKMOC
         private void button10_Click(object sender, EventArgs e)
         {
             DateTime DT = new DateTime();
+            if (MANU.Equals("吧台烘焙線"))
+            {
+                TA001 = "A513";
+                TA020 = comboBox3.SelectedValue.ToString();
+            }
 
             if (!string.IsNullOrEmpty(TA028))
             {
                 //指定日期=生產日
                 DT = dt1;
                 TA002 = GETMAXTA002(TA001, DT);
-                ADDMOCMANULINERESULT(textBoxID.Text.ToString().Trim(), TA001, TA002);
-                ADDMOCTATB(DT);
+                //ADDMOCMANULINERESULT(textBoxID.Text.ToString().Trim(), TA001, TA002);
+                ADDMOCTATB(TA001, TA002, TA020, DT);
 
                 SEARCHMOCMANULINE_BAKING(dateTimePicker1.Value.ToString("yyyyMMdd"), comboBox1.Text.Trim());
 
