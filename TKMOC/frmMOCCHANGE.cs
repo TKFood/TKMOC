@@ -2641,7 +2641,7 @@ namespace TKMOC
             }
             else
             {
-                dataGridView3_checkBox2_False();
+                dataGridView3_checkBox28_False();
             }
         }
 
@@ -2658,7 +2658,7 @@ namespace TKMOC
             }
         }
 
-        public void dataGridView3_checkBox2_False()
+        public void dataGridView3_checkBox28_False()
         {
             for (int i = 0; i < dataGridView3.Rows.Count; i++)
             {
@@ -2672,8 +2672,40 @@ namespace TKMOC
 
 
         private void checkBox29_CheckedChanged(object sender, EventArgs e)
+        {//吧台烘焙線
+            if (checkBox29.Checked)
+            {
+                dataGridView9_checkBox29_True();
+            }
+            else
+            {
+                dataGridView9_checkBox29_False();
+            }
+        }
+
+
+        public void dataGridView9_checkBox29_True()
         {
-            
+            for (int i = 0; i < dataGridView9.Rows.Count; i++)
+            {
+                if (dataGridView9.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("吧台烘焙線"))
+                {
+                    dataGridView9.Rows[i].Cells[0].Value = 1;
+                }
+
+            }
+        }
+
+        public void dataGridView9_checkBox29_False()
+        {
+            for (int i = 0; i < dataGridView9.Rows.Count; i++)
+            {
+                if (dataGridView9.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("吧台烘焙線"))
+                {
+                    dataGridView9.Rows[i].Cells[0].Value = 0;
+                }
+
+            }
         }
 
         #endregion
