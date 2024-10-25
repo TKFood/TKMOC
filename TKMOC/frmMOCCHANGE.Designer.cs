@@ -1955,6 +1955,7 @@
             this.checkBox28.TabIndex = 40;
             this.checkBox28.Text = "烘焙線";
             this.checkBox28.UseVisualStyleBackColor = true;
+            this.checkBox28.CheckedChanged += new System.EventHandler(this.checkBox28_CheckedChanged);
             // 
             // button8
             // 
