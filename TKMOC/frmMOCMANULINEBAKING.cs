@@ -57,6 +57,9 @@ namespace TKMOC
         string SUBNUM2;
         string SUBBOX;
         string SUBPACKAGE2;
+        string DELID;
+        string DELMOCTA001B;
+        string DELMOCTA002B;
         public class MOCTADATA
         {
             public string COMPANY;
@@ -615,22 +618,21 @@ namespace TKMOC
                     SUBBOX = row.Cells["箱數"].Value.ToString();
                     SUBPACKAGE2= row.Cells["包裝數"].Value.ToString();
 
-                    //SEARCHMOCMANULINERESULT();
+                    SEARCH_MOCMANULINERESULTBAKING(ID);
                     //SEARCHMOCMANULINEMERGERESLUTMOCTA(ID2.ToString());
                     ////SEARCHMOCMANULINECOP();
 
                 }
                 else
                 {
-                    //ID2 = null;
-                    //SUBID2 = null;
-                    //SUBBAR2 = null;
-                    //SUBNUM2 = null;
-                    //SUBBOX2 = null;
-                    //SUBPACKAGE2 = null;
-                    //TA026 = null;
-                    //TA027 = null;
-                    //TA028 = null;
+                    ID = null;                   
+                    SUBBAR2 = null;
+                    SUBNUM2 = null;
+                    SUBBOX = null;
+                    SUBPACKAGE2 = null;
+                    TA026 = null;
+                    TA027 = null;
+                    TA028 = null;
 
                 }
             }
@@ -1573,6 +1575,173 @@ namespace TKMOC
             }
 
         }
+
+        public void SEARCH_MOCMANULINERESULTBAKING(string ID)
+        {
+            StringBuilder sbSql = new StringBuilder();
+            StringBuilder sbSqlQuery = new StringBuilder();
+            SqlConnection sqlConn = new SqlConnection();
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            SqlTransaction tran;
+            SqlCommand cmd = new SqlCommand();
+            DataSet ds1 = new DataSet();
+
+            if (MANU.Equals("吧台烘焙線"))
+            {
+                try
+                {
+                    //20210902密
+                    Class1 TKID = new Class1();//用new 建立類別實體
+                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                    //資料庫使用者密碼解密
+                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                    String connectionString;
+                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                    sbSql.Clear();
+                    sbSqlQuery.Clear();
+
+
+                    sbSql.AppendFormat(@"  
+                                        SELECT  [MOCTA001] AS '製令',[MOCTA002]  AS '單號',[SID]
+                                        FROM [TKMOC].[dbo].[MOCMANULINERESULTBAKING]
+                                        WHERE [SID]='{0}'"
+                                        , ID);
+                    sbSql.AppendFormat(@"  ");
+                    sbSql.AppendFormat(@"  ");
+
+                    adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                    sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                    sqlConn.Open();
+                    ds1.Clear();
+                    adapter1.Fill(ds1, "ds1");
+                    sqlConn.Close();
+
+
+                    if (ds1.Tables["ds1"].Rows.Count == 0)
+                    {
+                        dataGridView3.DataSource = null;
+                    }
+                    else
+                    {
+                        if (ds1.Tables["ds1"].Rows.Count >= 1)
+                        {
+
+                            dataGridView3.DataSource = ds1.Tables["ds1"];
+                            dataGridView3.AutoResizeColumns();
+                        }
+                    }
+
+                }
+                catch
+                {
+
+                }
+                finally
+                {
+
+                }
+            }
+        }
+      
+
+        private void dataGridView3_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView3.CurrentRow != null)
+            {
+                int rowindex = dataGridView3.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView3.Rows[rowindex];
+                    DELID = row.Cells["SID"].Value.ToString();
+                    DELMOCTA001B = row.Cells["製令"].Value.ToString();
+                    DELMOCTA002B = row.Cells["單號"].Value.ToString();
+
+
+
+                }
+                else
+                {
+                    DELID = null;
+
+                }
+            }
+        }
+
+        public void DELTE_MOCMANULINERESULTBAKING(string DELID)
+        {
+            StringBuilder sbSql = new StringBuilder();
+            StringBuilder sbSqlQuery = new StringBuilder();
+            SqlConnection sqlConn = new SqlConnection();
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            SqlTransaction tran;
+            SqlCommand cmd = new SqlCommand();
+            DataSet ds1 = new DataSet();
+
+
+            if (MANU.Equals("吧台烘焙線"))
+            {
+                try
+                {
+                    //20210902密
+                    Class1 TKID = new Class1();//用new 建立類別實體
+                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                    //資料庫使用者密碼解密
+                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                    String connectionString;
+                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                    sqlConn.Close();
+                    sqlConn.Open();
+                    tran = sqlConn.BeginTransaction();
+
+                    sbSql.Clear();
+                    sbSql.AppendFormat(@"  
+                                        DELETE FROM [TKMOC].[dbo].[MOCMANULINERESULTBAKING]
+                                        WHERE SID='{0}'
+                                        AND [MOCTA001] ='{1}' AND [MOCTA002]='{2}'"
+                                        , DELID, DELMOCTA001B, DELMOCTA002B);
+                    sbSql.AppendFormat(" ");
+
+                    cmd.Connection = sqlConn;
+                    cmd.CommandTimeout = 60;
+                    cmd.CommandText = sbSql.ToString();
+                    cmd.Transaction = tran;
+                    result = cmd.ExecuteNonQuery();
+
+                    if (result == 0)
+                    {
+                        tran.Rollback();    //交易取消
+                    }
+                    else
+                    {
+                        tran.Commit();      //執行交易  
+                    }
+
+                }
+                catch
+                {
+
+                }
+
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }
+        }
+
         public void SETNULL()
         {
             textBox7.Text = null;
@@ -1589,8 +1758,6 @@ namespace TKMOC
             textBox43.Text = null;
             textBox72.Text = null;
         }
-
-
         #endregion
 
         #region BUTTON
@@ -1715,7 +1882,7 @@ namespace TKMOC
                 //指定日期=生產日
                 DT = dt1;
                 TA002 = GETMAXTA002(TA001, DT);
-                //ADDMOCMANULINERESULT(textBoxID.Text.ToString().Trim(), TA001, TA002);
+                ADDMOCMANULINERESULT(textBoxID.Text.ToString().Trim(), TA001, TA002);
                 ADDMOCTATB(TA001, TA002, TA020, DT);
 
                 SEARCHMOCMANULINE_BAKING(dateTimePicker1.Value.ToString("yyyyMMdd"), comboBox1.Text.Trim());
@@ -1727,6 +1894,26 @@ namespace TKMOC
                 MessageBox.Show("訂單沒有指定");
             }
         }
+        private void button22_Click(object sender, EventArgs e)
+        {
+            if(!string.IsNullOrEmpty(DELID))
+            {
+                DialogResult dialogResult = MessageBox.Show("要刪除了?", "要刪除了?", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    DELTE_MOCMANULINERESULTBAKING(DELID);
+                    SEARCHMOCMANULINE_BAKING(dateTimePicker1.Value.ToString("yyyyMMdd"), comboBox1.Text.Trim());
+                    
+
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                    //do something else
+                }
+            }
+            
+        }
+
 
         #endregion
 
