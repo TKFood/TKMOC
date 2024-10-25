@@ -32,25 +32,26 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.button3 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.label5 = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox16 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox21 = new System.Windows.Forms.CheckBox();
+            this.checkBox27 = new System.Windows.Forms.CheckBox();
+            this.button3 = new System.Windows.Forms.Button();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
@@ -103,7 +104,6 @@
             this.dateTimePicker9 = new System.Windows.Forms.DateTimePicker();
             this.label12 = new System.Windows.Forms.Label();
             this.button7 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
             this.checkBox10 = new System.Windows.Forms.CheckBox();
             this.checkBox11 = new System.Windows.Forms.CheckBox();
             this.checkBox19 = new System.Windows.Forms.CheckBox();
@@ -145,6 +145,9 @@
             this.dataGridView11 = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel12 = new System.Windows.Forms.TableLayoutPanel();
             this.button12 = new System.Windows.Forms.Button();
+            this.checkBox28 = new System.Windows.Forms.CheckBox();
+            this.button8 = new System.Windows.Forms.Button();
+            this.checkBox29 = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -212,6 +215,7 @@
             this.splitContainer12.Panel1.SuspendLayout();
             this.splitContainer12.Panel2.SuspendLayout();
             this.splitContainer12.SuspendLayout();
+            this.tableLayoutPanel8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView8)).BeginInit();
             this.tabPage5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer13)).BeginInit();
@@ -286,7 +290,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
             this.splitContainer1.Size = new System.Drawing.Size(970, 666);
-            this.splitContainer1.SplitterDistance = 149;
+            this.splitContainer1.SplitterDistance = 178;
             this.splitContainer1.TabIndex = 0;
             // 
             // tableLayoutPanel3
@@ -305,40 +309,30 @@
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 102F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
-            this.tableLayoutPanel3.Controls.Add(this.button3, 4, 0);
             this.tableLayoutPanel3.Controls.Add(this.label4, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.dateTimePicker1, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.dateTimePicker2, 3, 0);
             this.tableLayoutPanel3.Controls.Add(this.label5, 2, 0);
-            this.tableLayoutPanel3.Controls.Add(this.button4, 5, 2);
-            this.tableLayoutPanel3.Controls.Add(this.checkBox1, 0, 2);
-            this.tableLayoutPanel3.Controls.Add(this.checkBox2, 1, 2);
-            this.tableLayoutPanel3.Controls.Add(this.checkBox3, 2, 2);
-            this.tableLayoutPanel3.Controls.Add(this.checkBox16, 3, 2);
-            this.tableLayoutPanel3.Controls.Add(this.checkBox21, 4, 2);
+            this.tableLayoutPanel3.Controls.Add(this.checkBox1, 0, 1);
+            this.tableLayoutPanel3.Controls.Add(this.checkBox2, 1, 1);
+            this.tableLayoutPanel3.Controls.Add(this.button3, 4, 0);
+            this.tableLayoutPanel3.Controls.Add(this.checkBox21, 4, 1);
+            this.tableLayoutPanel3.Controls.Add(this.checkBox27, 0, 2);
+            this.tableLayoutPanel3.Controls.Add(this.checkBox3, 2, 1);
+            this.tableLayoutPanel3.Controls.Add(this.checkBox16, 3, 1);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 4;
+            this.tableLayoutPanel3.RowCount = 5;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(966, 145);
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(966, 174);
             this.tableLayoutPanel3.TabIndex = 13;
-            // 
-            // button3
-            // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Location = new System.Drawing.Point(604, 4);
-            this.button3.Margin = new System.Windows.Forms.Padding(4);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(142, 32);
-            this.button3.TabIndex = 16;
-            this.button3.Text = "查詢";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // label4
             // 
@@ -386,27 +380,15 @@
             this.label5.Text = "~";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // button4
-            // 
-            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.Location = new System.Drawing.Point(754, 84);
-            this.button4.Margin = new System.Windows.Forms.Padding(4);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(142, 32);
-            this.button4.TabIndex = 31;
-            this.button4.Text = "批次變更";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
             // checkBox1
             // 
             this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(3, 90);
+            this.checkBox1.Location = new System.Drawing.Point(3, 50);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(144, 20);
             this.checkBox1.TabIndex = 32;
-            this.checkBox1.Text = "製一線";
+            this.checkBox1.Text = "新廠製一組";
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
@@ -414,31 +396,19 @@
             // 
             this.checkBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(153, 90);
+            this.checkBox2.Location = new System.Drawing.Point(153, 50);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(144, 20);
             this.checkBox2.TabIndex = 33;
-            this.checkBox2.Text = "製二線";
+            this.checkBox2.Text = "新廠製二組";
             this.checkBox2.UseVisualStyleBackColor = true;
             this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
-            // 
-            // checkBox3
-            // 
-            this.checkBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(303, 90);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(144, 20);
-            this.checkBox3.TabIndex = 34;
-            this.checkBox3.Text = "包裝線";
-            this.checkBox3.UseVisualStyleBackColor = true;
-            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
             // 
             // checkBox16
             // 
             this.checkBox16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox16.AutoSize = true;
-            this.checkBox16.Location = new System.Drawing.Point(453, 90);
+            this.checkBox16.Location = new System.Drawing.Point(453, 50);
             this.checkBox16.Name = "checkBox16";
             this.checkBox16.Size = new System.Drawing.Size(144, 20);
             this.checkBox16.TabIndex = 35;
@@ -446,17 +416,52 @@
             this.checkBox16.UseVisualStyleBackColor = true;
             this.checkBox16.CheckedChanged += new System.EventHandler(this.checkBox16_CheckedChanged);
             // 
+            // checkBox3
+            // 
+            this.checkBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Location = new System.Drawing.Point(303, 50);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(144, 20);
+            this.checkBox3.TabIndex = 34;
+            this.checkBox3.Text = "新廠包裝線";
+            this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
+            // 
             // checkBox21
             // 
             this.checkBox21.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox21.AutoSize = true;
-            this.checkBox21.Location = new System.Drawing.Point(603, 90);
+            this.checkBox21.Location = new System.Drawing.Point(603, 50);
             this.checkBox21.Name = "checkBox21";
             this.checkBox21.Size = new System.Drawing.Size(144, 20);
             this.checkBox21.TabIndex = 36;
             this.checkBox21.Text = "託外製令A512";
             this.checkBox21.UseVisualStyleBackColor = true;
             this.checkBox21.CheckedChanged += new System.EventHandler(this.checkBox21_CheckedChanged);
+            // 
+            // checkBox27
+            // 
+            this.checkBox27.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBox27.AutoSize = true;
+            this.checkBox27.Location = new System.Drawing.Point(3, 90);
+            this.checkBox27.Name = "checkBox27";
+            this.checkBox27.Size = new System.Drawing.Size(144, 20);
+            this.checkBox27.TabIndex = 37;
+            this.checkBox27.Text = "烘焙線";
+            this.checkBox27.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button3.Location = new System.Drawing.Point(604, 4);
+            this.button3.Margin = new System.Windows.Forms.Padding(4);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(142, 32);
+            this.button3.TabIndex = 16;
+            this.button3.Text = "查詢";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // splitContainer2
             // 
@@ -472,7 +477,7 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.splitContainer3);
-            this.splitContainer2.Size = new System.Drawing.Size(970, 513);
+            this.splitContainer2.Size = new System.Drawing.Size(970, 484);
             this.splitContainer2.SplitterDistance = 653;
             this.splitContainer2.TabIndex = 0;
             // 
@@ -484,7 +489,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(649, 509);
+            this.dataGridView1.Size = new System.Drawing.Size(649, 480);
             this.dataGridView1.TabIndex = 3;
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             // 
@@ -503,8 +508,8 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.dataGridView2);
-            this.splitContainer3.Size = new System.Drawing.Size(313, 513);
-            this.splitContainer3.SplitterDistance = 232;
+            this.splitContainer3.Size = new System.Drawing.Size(313, 484);
+            this.splitContainer3.SplitterDistance = 218;
             this.splitContainer3.TabIndex = 0;
             // 
             // tableLayoutPanel1
@@ -513,10 +518,11 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 215F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 94F));
-            this.tableLayoutPanel1.Controls.Add(this.comboBox2, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.button4, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.comboBox1, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.comboBox2, 0, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -526,29 +532,20 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(309, 228);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(309, 214);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
-            // comboBox2
+            // button4
             // 
-            this.comboBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(3, 182);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(209, 24);
-            this.comboBox2.TabIndex = 26;
-            // 
-            // label2
-            // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(4, 132);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(207, 16);
-            this.label2.TabIndex = 25;
-            this.label2.Text = "新品號，要取代";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button4.Location = new System.Drawing.Point(4, 171);
+            this.button4.Margin = new System.Windows.Forms.Padding(4);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(207, 32);
+            this.button4.TabIndex = 32;
+            this.button4.Text = "批次變更";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // label1
             // 
@@ -572,6 +569,27 @@
             this.comboBox1.TabIndex = 25;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(4, 92);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(207, 16);
+            this.label2.TabIndex = 25;
+            this.label2.Text = "新品號，要取代";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(3, 128);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(209, 24);
+            this.comboBox2.TabIndex = 26;
+            // 
             // dataGridView2
             // 
             this.dataGridView2.AllowUserToAddRows = false;
@@ -580,7 +598,7 @@
             this.dataGridView2.Location = new System.Drawing.Point(0, 0);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowTemplate.Height = 24;
-            this.dataGridView2.Size = new System.Drawing.Size(309, 273);
+            this.dataGridView2.Size = new System.Drawing.Size(309, 258);
             this.dataGridView2.TabIndex = 4;
             // 
             // tabPage2
@@ -634,11 +652,12 @@
             this.tableLayoutPanel2.Controls.Add(this.dateTimePicker4, 3, 0);
             this.tableLayoutPanel2.Controls.Add(this.label6, 2, 0);
             this.tableLayoutPanel2.Controls.Add(this.button1, 4, 0);
-            this.tableLayoutPanel2.Controls.Add(this.checkBox4, 0, 2);
-            this.tableLayoutPanel2.Controls.Add(this.checkBox5, 1, 2);
-            this.tableLayoutPanel2.Controls.Add(this.checkBox6, 2, 2);
-            this.tableLayoutPanel2.Controls.Add(this.checkBox17, 3, 2);
-            this.tableLayoutPanel2.Controls.Add(this.checkBox22, 4, 2);
+            this.tableLayoutPanel2.Controls.Add(this.checkBox4, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.checkBox5, 1, 1);
+            this.tableLayoutPanel2.Controls.Add(this.checkBox6, 2, 1);
+            this.tableLayoutPanel2.Controls.Add(this.checkBox17, 3, 1);
+            this.tableLayoutPanel2.Controls.Add(this.checkBox22, 4, 1);
+            this.tableLayoutPanel2.Controls.Add(this.checkBox28, 0, 2);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(4);
@@ -713,7 +732,7 @@
             // 
             this.checkBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(3, 90);
+            this.checkBox4.Location = new System.Drawing.Point(3, 50);
             this.checkBox4.Name = "checkBox4";
             this.checkBox4.Size = new System.Drawing.Size(144, 20);
             this.checkBox4.TabIndex = 35;
@@ -725,7 +744,7 @@
             // 
             this.checkBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox5.AutoSize = true;
-            this.checkBox5.Location = new System.Drawing.Point(153, 90);
+            this.checkBox5.Location = new System.Drawing.Point(153, 50);
             this.checkBox5.Name = "checkBox5";
             this.checkBox5.Size = new System.Drawing.Size(144, 20);
             this.checkBox5.TabIndex = 36;
@@ -737,7 +756,7 @@
             // 
             this.checkBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox6.AutoSize = true;
-            this.checkBox6.Location = new System.Drawing.Point(303, 90);
+            this.checkBox6.Location = new System.Drawing.Point(303, 50);
             this.checkBox6.Name = "checkBox6";
             this.checkBox6.Size = new System.Drawing.Size(144, 20);
             this.checkBox6.TabIndex = 37;
@@ -749,7 +768,7 @@
             // 
             this.checkBox17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox17.AutoSize = true;
-            this.checkBox17.Location = new System.Drawing.Point(453, 90);
+            this.checkBox17.Location = new System.Drawing.Point(453, 50);
             this.checkBox17.Name = "checkBox17";
             this.checkBox17.Size = new System.Drawing.Size(144, 20);
             this.checkBox17.TabIndex = 38;
@@ -761,7 +780,7 @@
             // 
             this.checkBox22.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox22.AutoSize = true;
-            this.checkBox22.Location = new System.Drawing.Point(603, 90);
+            this.checkBox22.Location = new System.Drawing.Point(603, 50);
             this.checkBox22.Name = "checkBox22";
             this.checkBox22.Size = new System.Drawing.Size(144, 20);
             this.checkBox22.TabIndex = 39;
@@ -935,17 +954,18 @@
             this.tableLayoutPanel5.Controls.Add(this.dateTimePicker7, 3, 0);
             this.tableLayoutPanel5.Controls.Add(this.label9, 2, 0);
             this.tableLayoutPanel5.Controls.Add(this.button5, 4, 0);
-            this.tableLayoutPanel5.Controls.Add(this.checkBox7, 0, 2);
-            this.tableLayoutPanel5.Controls.Add(this.checkBox8, 1, 2);
-            this.tableLayoutPanel5.Controls.Add(this.checkBox9, 2, 2);
-            this.tableLayoutPanel5.Controls.Add(this.checkBox18, 3, 2);
-            this.tableLayoutPanel5.Controls.Add(this.checkBox23, 4, 2);
-            this.tableLayoutPanel5.Controls.Add(this.checkBox26, 5, 2);
+            this.tableLayoutPanel5.Controls.Add(this.checkBox7, 0, 1);
+            this.tableLayoutPanel5.Controls.Add(this.checkBox8, 1, 1);
+            this.tableLayoutPanel5.Controls.Add(this.checkBox9, 2, 1);
+            this.tableLayoutPanel5.Controls.Add(this.checkBox18, 3, 1);
+            this.tableLayoutPanel5.Controls.Add(this.checkBox23, 4, 1);
+            this.tableLayoutPanel5.Controls.Add(this.checkBox26, 0, 2);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            this.tableLayoutPanel5.RowCount = 4;
+            this.tableLayoutPanel5.RowCount = 5;
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
@@ -1015,7 +1035,7 @@
             // 
             this.checkBox7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox7.AutoSize = true;
-            this.checkBox7.Location = new System.Drawing.Point(3, 90);
+            this.checkBox7.Location = new System.Drawing.Point(3, 50);
             this.checkBox7.Name = "checkBox7";
             this.checkBox7.Size = new System.Drawing.Size(144, 20);
             this.checkBox7.TabIndex = 38;
@@ -1027,7 +1047,7 @@
             // 
             this.checkBox8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox8.AutoSize = true;
-            this.checkBox8.Location = new System.Drawing.Point(153, 90);
+            this.checkBox8.Location = new System.Drawing.Point(153, 50);
             this.checkBox8.Name = "checkBox8";
             this.checkBox8.Size = new System.Drawing.Size(144, 20);
             this.checkBox8.TabIndex = 39;
@@ -1039,7 +1059,7 @@
             // 
             this.checkBox9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox9.AutoSize = true;
-            this.checkBox9.Location = new System.Drawing.Point(303, 90);
+            this.checkBox9.Location = new System.Drawing.Point(303, 50);
             this.checkBox9.Name = "checkBox9";
             this.checkBox9.Size = new System.Drawing.Size(144, 20);
             this.checkBox9.TabIndex = 40;
@@ -1051,7 +1071,7 @@
             // 
             this.checkBox18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox18.AutoSize = true;
-            this.checkBox18.Location = new System.Drawing.Point(453, 90);
+            this.checkBox18.Location = new System.Drawing.Point(453, 50);
             this.checkBox18.Name = "checkBox18";
             this.checkBox18.Size = new System.Drawing.Size(144, 20);
             this.checkBox18.TabIndex = 41;
@@ -1063,7 +1083,7 @@
             // 
             this.checkBox23.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox23.AutoSize = true;
-            this.checkBox23.Location = new System.Drawing.Point(603, 90);
+            this.checkBox23.Location = new System.Drawing.Point(603, 50);
             this.checkBox23.Name = "checkBox23";
             this.checkBox23.Size = new System.Drawing.Size(144, 20);
             this.checkBox23.TabIndex = 42;
@@ -1075,11 +1095,11 @@
             // 
             this.checkBox26.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox26.AutoSize = true;
-            this.checkBox26.Location = new System.Drawing.Point(753, 90);
+            this.checkBox26.Location = new System.Drawing.Point(3, 90);
             this.checkBox26.Name = "checkBox26";
             this.checkBox26.Size = new System.Drawing.Size(144, 20);
             this.checkBox26.TabIndex = 43;
-            this.checkBox26.Text = "吧台烘焙線";
+            this.checkBox26.Text = "烘焙線";
             this.checkBox26.UseVisualStyleBackColor = true;
             this.checkBox26.CheckedChanged += new System.EventHandler(this.checkBox26_CheckedChanged);
             // 
@@ -1246,12 +1266,11 @@
             this.tableLayoutPanel7.Controls.Add(this.dateTimePicker9, 3, 0);
             this.tableLayoutPanel7.Controls.Add(this.label12, 2, 0);
             this.tableLayoutPanel7.Controls.Add(this.button7, 4, 0);
-            this.tableLayoutPanel7.Controls.Add(this.button8, 5, 2);
-            this.tableLayoutPanel7.Controls.Add(this.checkBox10, 0, 2);
-            this.tableLayoutPanel7.Controls.Add(this.checkBox11, 1, 2);
-            this.tableLayoutPanel7.Controls.Add(this.checkBox19, 2, 2);
-            this.tableLayoutPanel7.Controls.Add(this.checkBox12, 3, 2);
-            this.tableLayoutPanel7.Controls.Add(this.checkBox24, 4, 2);
+            this.tableLayoutPanel7.Controls.Add(this.checkBox10, 0, 1);
+            this.tableLayoutPanel7.Controls.Add(this.checkBox11, 1, 1);
+            this.tableLayoutPanel7.Controls.Add(this.checkBox19, 2, 1);
+            this.tableLayoutPanel7.Controls.Add(this.checkBox12, 3, 1);
+            this.tableLayoutPanel7.Controls.Add(this.checkBox24, 4, 1);
             this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel7.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel7.Margin = new System.Windows.Forms.Padding(4);
@@ -1322,23 +1341,11 @@
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
-            // button8
-            // 
-            this.button8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button8.Location = new System.Drawing.Point(754, 84);
-            this.button8.Margin = new System.Windows.Forms.Padding(4);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(142, 32);
-            this.button8.TabIndex = 31;
-            this.button8.Text = "批次變更";
-            this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
-            // 
             // checkBox10
             // 
             this.checkBox10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox10.AutoSize = true;
-            this.checkBox10.Location = new System.Drawing.Point(3, 90);
+            this.checkBox10.Location = new System.Drawing.Point(3, 50);
             this.checkBox10.Name = "checkBox10";
             this.checkBox10.Size = new System.Drawing.Size(144, 20);
             this.checkBox10.TabIndex = 41;
@@ -1350,7 +1357,7 @@
             // 
             this.checkBox11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox11.AutoSize = true;
-            this.checkBox11.Location = new System.Drawing.Point(153, 90);
+            this.checkBox11.Location = new System.Drawing.Point(153, 50);
             this.checkBox11.Name = "checkBox11";
             this.checkBox11.Size = new System.Drawing.Size(144, 20);
             this.checkBox11.TabIndex = 42;
@@ -1362,7 +1369,7 @@
             // 
             this.checkBox19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox19.AutoSize = true;
-            this.checkBox19.Location = new System.Drawing.Point(303, 90);
+            this.checkBox19.Location = new System.Drawing.Point(303, 50);
             this.checkBox19.Name = "checkBox19";
             this.checkBox19.Size = new System.Drawing.Size(144, 20);
             this.checkBox19.TabIndex = 44;
@@ -1374,7 +1381,7 @@
             // 
             this.checkBox12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox12.AutoSize = true;
-            this.checkBox12.Location = new System.Drawing.Point(453, 90);
+            this.checkBox12.Location = new System.Drawing.Point(453, 50);
             this.checkBox12.Name = "checkBox12";
             this.checkBox12.Size = new System.Drawing.Size(144, 20);
             this.checkBox12.TabIndex = 43;
@@ -1386,7 +1393,7 @@
             // 
             this.checkBox24.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox24.AutoSize = true;
-            this.checkBox24.Location = new System.Drawing.Point(603, 90);
+            this.checkBox24.Location = new System.Drawing.Point(603, 50);
             this.checkBox24.Name = "checkBox24";
             this.checkBox24.Size = new System.Drawing.Size(144, 20);
             this.checkBox24.TabIndex = 45;
@@ -1449,6 +1456,7 @@
             this.tableLayoutPanel8.ColumnCount = 2;
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 215F));
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 188F));
+            this.tableLayoutPanel8.Controls.Add(this.button8, 0, 1);
             this.tableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel8.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel8.Name = "tableLayoutPanel8";
@@ -1498,7 +1506,7 @@
             // 
             this.splitContainer13.Panel2.Controls.Add(this.splitContainer14);
             this.splitContainer13.Size = new System.Drawing.Size(976, 672);
-            this.splitContainer13.SplitterDistance = 200;
+            this.splitContainer13.SplitterDistance = 142;
             this.splitContainer13.TabIndex = 0;
             // 
             // tableLayoutPanel9
@@ -1522,11 +1530,12 @@
             this.tableLayoutPanel9.Controls.Add(this.dateTimePicker11, 3, 0);
             this.tableLayoutPanel9.Controls.Add(this.label14, 2, 0);
             this.tableLayoutPanel9.Controls.Add(this.button9, 4, 0);
-            this.tableLayoutPanel9.Controls.Add(this.checkBox13, 0, 2);
-            this.tableLayoutPanel9.Controls.Add(this.checkBox14, 1, 2);
-            this.tableLayoutPanel9.Controls.Add(this.checkBox15, 2, 2);
-            this.tableLayoutPanel9.Controls.Add(this.checkBox20, 3, 2);
-            this.tableLayoutPanel9.Controls.Add(this.checkBox25, 4, 2);
+            this.tableLayoutPanel9.Controls.Add(this.checkBox13, 0, 1);
+            this.tableLayoutPanel9.Controls.Add(this.checkBox14, 1, 1);
+            this.tableLayoutPanel9.Controls.Add(this.checkBox15, 2, 1);
+            this.tableLayoutPanel9.Controls.Add(this.checkBox20, 3, 1);
+            this.tableLayoutPanel9.Controls.Add(this.checkBox25, 4, 1);
+            this.tableLayoutPanel9.Controls.Add(this.checkBox29, 0, 2);
             this.tableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel9.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel9.Margin = new System.Windows.Forms.Padding(4);
@@ -1536,7 +1545,7 @@
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel9.Size = new System.Drawing.Size(972, 196);
+            this.tableLayoutPanel9.Size = new System.Drawing.Size(972, 138);
             this.tableLayoutPanel9.TabIndex = 15;
             // 
             // label13
@@ -1601,7 +1610,7 @@
             // 
             this.checkBox13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox13.AutoSize = true;
-            this.checkBox13.Location = new System.Drawing.Point(3, 90);
+            this.checkBox13.Location = new System.Drawing.Point(3, 50);
             this.checkBox13.Name = "checkBox13";
             this.checkBox13.Size = new System.Drawing.Size(144, 20);
             this.checkBox13.TabIndex = 35;
@@ -1613,7 +1622,7 @@
             // 
             this.checkBox14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox14.AutoSize = true;
-            this.checkBox14.Location = new System.Drawing.Point(153, 90);
+            this.checkBox14.Location = new System.Drawing.Point(153, 50);
             this.checkBox14.Name = "checkBox14";
             this.checkBox14.Size = new System.Drawing.Size(144, 20);
             this.checkBox14.TabIndex = 36;
@@ -1625,7 +1634,7 @@
             // 
             this.checkBox15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox15.AutoSize = true;
-            this.checkBox15.Location = new System.Drawing.Point(303, 90);
+            this.checkBox15.Location = new System.Drawing.Point(303, 50);
             this.checkBox15.Name = "checkBox15";
             this.checkBox15.Size = new System.Drawing.Size(144, 20);
             this.checkBox15.TabIndex = 37;
@@ -1637,7 +1646,7 @@
             // 
             this.checkBox20.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox20.AutoSize = true;
-            this.checkBox20.Location = new System.Drawing.Point(453, 90);
+            this.checkBox20.Location = new System.Drawing.Point(453, 50);
             this.checkBox20.Name = "checkBox20";
             this.checkBox20.Size = new System.Drawing.Size(144, 20);
             this.checkBox20.TabIndex = 45;
@@ -1649,7 +1658,7 @@
             // 
             this.checkBox25.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox25.AutoSize = true;
-            this.checkBox25.Location = new System.Drawing.Point(603, 90);
+            this.checkBox25.Location = new System.Drawing.Point(603, 50);
             this.checkBox25.Name = "checkBox25";
             this.checkBox25.Size = new System.Drawing.Size(144, 20);
             this.checkBox25.TabIndex = 46;
@@ -1671,7 +1680,7 @@
             // splitContainer14.Panel2
             // 
             this.splitContainer14.Panel2.Controls.Add(this.splitContainer15);
-            this.splitContainer14.Size = new System.Drawing.Size(976, 468);
+            this.splitContainer14.Size = new System.Drawing.Size(976, 526);
             this.splitContainer14.SplitterDistance = 667;
             this.splitContainer14.TabIndex = 0;
             // 
@@ -1683,7 +1692,7 @@
             this.dataGridView9.Location = new System.Drawing.Point(0, 0);
             this.dataGridView9.Name = "dataGridView9";
             this.dataGridView9.RowTemplate.Height = 24;
-            this.dataGridView9.Size = new System.Drawing.Size(663, 464);
+            this.dataGridView9.Size = new System.Drawing.Size(663, 522);
             this.dataGridView9.TabIndex = 5;
             this.dataGridView9.SelectionChanged += new System.EventHandler(this.dataGridView9_SelectionChanged);
             // 
@@ -1702,8 +1711,8 @@
             // splitContainer15.Panel2
             // 
             this.splitContainer15.Panel2.Controls.Add(this.dataGridView10);
-            this.splitContainer15.Size = new System.Drawing.Size(305, 468);
-            this.splitContainer15.SplitterDistance = 164;
+            this.splitContainer15.Size = new System.Drawing.Size(305, 526);
+            this.splitContainer15.SplitterDistance = 184;
             this.splitContainer15.TabIndex = 0;
             // 
             // tableLayoutPanel10
@@ -1724,7 +1733,7 @@
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel10.Size = new System.Drawing.Size(301, 160);
+            this.tableLayoutPanel10.Size = new System.Drawing.Size(301, 180);
             this.tableLayoutPanel10.TabIndex = 2;
             // 
             // label15
@@ -1770,7 +1779,7 @@
             this.dataGridView10.Location = new System.Drawing.Point(0, 0);
             this.dataGridView10.Name = "dataGridView10";
             this.dataGridView10.RowTemplate.Height = 24;
-            this.dataGridView10.Size = new System.Drawing.Size(301, 296);
+            this.dataGridView10.Size = new System.Drawing.Size(301, 334);
             this.dataGridView10.TabIndex = 5;
             // 
             // tabPage6
@@ -1820,7 +1829,7 @@
             this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel11.Controls.Add(this.label16, 0, 0);
             this.tableLayoutPanel11.Controls.Add(this.dateTimePicker13, 1, 0);
-            this.tableLayoutPanel11.Controls.Add(this.button11, 2, 1);
+            this.tableLayoutPanel11.Controls.Add(this.button11, 2, 0);
             this.tableLayoutPanel11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel11.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel11.Margin = new System.Windows.Forms.Padding(4);
@@ -1859,7 +1868,7 @@
             // button11
             // 
             this.button11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button11.Location = new System.Drawing.Point(304, 44);
+            this.button11.Location = new System.Drawing.Point(304, 4);
             this.button11.Margin = new System.Windows.Forms.Padding(4);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(142, 32);
@@ -1901,8 +1910,8 @@
             // 
             this.tableLayoutPanel12.BackColor = System.Drawing.Color.LightGreen;
             this.tableLayoutPanel12.ColumnCount = 3;
-            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 153F));
+            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 47F));
             this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel12.Controls.Add(this.button12, 0, 1);
             this.tableLayoutPanel12.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1929,11 +1938,45 @@
             this.button12.Location = new System.Drawing.Point(4, 44);
             this.button12.Margin = new System.Windows.Forms.Padding(4);
             this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(92, 32);
+            this.button12.Size = new System.Drawing.Size(145, 32);
             this.button12.TabIndex = 16;
             this.button12.Text = "批次變更";
             this.button12.UseVisualStyleBackColor = true;
             this.button12.Click += new System.EventHandler(this.button12_Click);
+            // 
+            // checkBox28
+            // 
+            this.checkBox28.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBox28.AutoSize = true;
+            this.checkBox28.Location = new System.Drawing.Point(3, 90);
+            this.checkBox28.Name = "checkBox28";
+            this.checkBox28.Size = new System.Drawing.Size(144, 20);
+            this.checkBox28.TabIndex = 40;
+            this.checkBox28.Text = "烘焙線";
+            this.checkBox28.UseVisualStyleBackColor = true;
+            // 
+            // button8
+            // 
+            this.button8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button8.Location = new System.Drawing.Point(4, 44);
+            this.button8.Margin = new System.Windows.Forms.Padding(4);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(207, 32);
+            this.button8.TabIndex = 32;
+            this.button8.Text = "批次變更";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
+            // checkBox29
+            // 
+            this.checkBox29.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBox29.AutoSize = true;
+            this.checkBox29.Location = new System.Drawing.Point(3, 90);
+            this.checkBox29.Name = "checkBox29";
+            this.checkBox29.Size = new System.Drawing.Size(144, 20);
+            this.checkBox29.TabIndex = 47;
+            this.checkBox29.Text = "烘焙線";
+            this.checkBox29.UseVisualStyleBackColor = true;
             // 
             // frmMOCCHANGE
             // 
@@ -2020,6 +2063,7 @@
             this.splitContainer12.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer12)).EndInit();
             this.splitContainer12.ResumeLayout(false);
+            this.tableLayoutPanel8.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView8)).EndInit();
             this.tabPage5.ResumeLayout(false);
             this.splitContainer13.Panel1.ResumeLayout(false);
@@ -2111,7 +2155,6 @@
         private System.Windows.Forms.DateTimePicker dateTimePicker9;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button8;
         private System.Windows.Forms.SplitContainer splitContainer11;
         private System.Windows.Forms.DataGridView dataGridView7;
         private System.Windows.Forms.SplitContainer splitContainer12;
@@ -2123,7 +2166,6 @@
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox3;
@@ -2176,5 +2218,10 @@
         private System.Windows.Forms.CheckBox checkBox24;
         private System.Windows.Forms.CheckBox checkBox25;
         private System.Windows.Forms.CheckBox checkBox26;
+        private System.Windows.Forms.CheckBox checkBox27;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.CheckBox checkBox28;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.CheckBox checkBox29;
     }
 }
