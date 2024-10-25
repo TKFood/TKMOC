@@ -2595,6 +2595,50 @@ namespace TKMOC
             }
         }
 
+        private void checkBox27_CheckedChanged(object sender, EventArgs e)
+        {
+            //吧台烘焙線
+            if (checkBox27.Checked)
+            {
+                dataGridView1checkBox27True();
+            }
+            else
+            {
+                dataGridView1checkBox27False();
+            }
+        }
+
+
+        public void dataGridView1checkBox27True()
+        {
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
+                if (dataGridView1.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("吧台烘焙線"))
+                {
+                    dataGridView1.Rows[i].Cells[0].Value = 1;
+                }
+
+            }
+        }
+
+        public void dataGridView1checkBox27False()
+        {
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
+                if (dataGridView1.Rows[i].Cells["線別"].Value.ToString().Trim().Equals("吧台烘焙線"))
+                {
+                    dataGridView1.Rows[i].Cells[0].Value = 0;
+                }
+
+            }
+        }
+
+
+        private void checkBox29_CheckedChanged(object sender, EventArgs e)
+        {
+            
+        }
+
         #endregion
 
         #region BUTTON
@@ -2729,6 +2773,8 @@ namespace TKMOC
                 //do something else
             }
         }
+
+
 
 
 

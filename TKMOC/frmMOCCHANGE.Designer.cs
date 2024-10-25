@@ -450,6 +450,7 @@
             this.checkBox27.TabIndex = 37;
             this.checkBox27.Text = "烘焙線";
             this.checkBox27.UseVisualStyleBackColor = true;
+            this.checkBox27.CheckedChanged += new System.EventHandler(this.checkBox27_CheckedChanged);
             // 
             // button3
             // 
@@ -1977,6 +1978,7 @@
             this.checkBox29.TabIndex = 47;
             this.checkBox29.Text = "烘焙線";
             this.checkBox29.UseVisualStyleBackColor = true;
+            this.checkBox29.CheckedChanged += new System.EventHandler(this.checkBox29_CheckedChanged);
             // 
             // frmMOCCHANGE
             // 
