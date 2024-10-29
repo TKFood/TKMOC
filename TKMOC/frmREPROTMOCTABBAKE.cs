@@ -191,7 +191,7 @@ namespace TKMOC
             StringBuilder SQL2 = new StringBuilder();
 
             SQL1 = SETSQL1(QUERY_TA001TA002);
-
+             
             Report report1 = new Report();
             report1.Load(@"REPORT\原物料添加表-烘焙V2.frx");
 
