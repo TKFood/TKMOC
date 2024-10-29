@@ -193,7 +193,7 @@ namespace TKMOC
             SQL1 = SETSQL1(QUERY_TA001TA002);
 
             Report report1 = new Report();
-            report1.Load(@"REPORT\原物料添加表-烘焙.frx");
+            report1.Load(@"REPORT\原物料添加表-烘焙V2.frx");
 
             //20210902密
             Class1 TKID = new Class1();//用new 建立類別實體
@@ -226,6 +226,9 @@ namespace TKMOC
                             TA001 AS '製令',TA002 AS '製令單',TA003 AS '生產日',TA006 AS '生產品號',MB1.MB002 AS '生產品名',TA015 AS '生產量',TA007 AS '生產單位'
                             ,TB003 AS '原/物料品號',MB2.MB002 AS '原/物料品名',TB004 AS '需領料數量',TB007 AS '領料單位'
                             ,(YEAR(TA003)-1911) AS 'YEARS',MONTH(TA003) AS 'MONTHS',DAY(TA003) AS 'DAYS'
+                            ,(CASE WHEN TB007 IN ('KG','kg','kG','Kg') THEN TB004*1000 ELSE TB004 END ) AS 'NEW需領料數量'
+                            ,(CASE WHEN TB007 IN ('KG','kg','kG','Kg') THEN 'g' ELSE TB007 END ) AS 'NEW領料單位'
+
                             FROM [TK].dbo.MOCTA
                             LEFT JOIN [TK].dbo.INVMB MB1 ON MB1.MB001=TA006
                             ,[TK].dbo.MOCTB
