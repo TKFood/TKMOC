@@ -480,6 +480,7 @@
             this.textBox3.ReadOnly = true;
             this.textBox3.Size = new System.Drawing.Size(114, 27);
             this.textBox3.TabIndex = 16;
+            this.textBox3.Text = "1";
             // 
             // previewControl2
             // 

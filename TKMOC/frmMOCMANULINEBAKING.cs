@@ -495,7 +495,8 @@ namespace TKMOC
             string HALFPRO,
             string COPTD001,
             string COPTD002,
-            string COPTD003
+            string COPTD003,
+            string BAR
             )
         {
             StringBuilder sbSql = new StringBuilder();
@@ -535,8 +536,8 @@ namespace TKMOC
 
 
                     sbSql.AppendFormat(@" INSERT INTO [TKMOC].[dbo].[MOCMANULINEBAKING]
-                                        ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[CLINET],[MANUHOUR],[BOX],[NUM],[PACKAGE],[OUTDATE],[TA029],[HALFPRO],[COPTD001],[COPTD002],[COPTD003])
-                                        VALUES ('{0}','{1}','{2}','{3}',N'{4}','{5}',N'{6}',N'{7}','{8}','{9}','{10}','{11}',N'{12}','{13}','{14}','{15}','{16}')"
+                                        ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[CLINET],[MANUHOUR],[BOX],[NUM],[PACKAGE],[OUTDATE],[TA029],[HALFPRO],[COPTD001],[COPTD002],[COPTD003],[BAR])
+                                        VALUES ('{0}','{1}','{2}','{3}',N'{4}','{5}',N'{6}',N'{7}','{8}','{9}','{10}','{11}',N'{12}','{13}','{14}','{15}','{16}','{17}')"
                                         , NEWGUID.ToString()
                                         , MANU
                                         , MANUDATE
@@ -554,6 +555,7 @@ namespace TKMOC
                                         , COPTD001
                                         , COPTD002
                                         , COPTD003
+                                        , BAR
                                         );
                     sbSql.AppendFormat(" ");
               
@@ -1778,6 +1780,7 @@ namespace TKMOC
                 string CLINET = textBox9.Text.ToString().Trim();
                 string MANUHOUR = textBox13.Text.ToString().Trim();
                 string BOX = textBox8.Text.ToString().Trim();
+                string BAR = textBox1.Text.ToString().Trim();
                 string NUM = textBox12.Text.ToString().Trim();
                 string PACKAGE = textBox12.Text.ToString().Trim();
                 string OUTDATE = dateTimePicker5.Value.ToString("yyyy/MM/dd");
@@ -1803,7 +1806,8 @@ namespace TKMOC
                     HALFPRO,
                     COPTD001,
                     COPTD002,
-                    COPTD003
+                    COPTD003,
+                    BAR
                     );
 
                 SETNULL();
