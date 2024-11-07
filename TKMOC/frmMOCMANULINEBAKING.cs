@@ -1744,10 +1744,39 @@ namespace TKMOC
             }
         }
 
+        private void textBox12_TextChanged(object sender, EventArgs e)
+        {
+            if(!string.IsNullOrEmpty(textBox12.Text.ToString()) && !string.IsNullOrEmpty(textBox33.Text.ToString()))
+            {
+                CAL_BAR(textBox12.Text.ToString(), textBox33.Text.ToString());
+            }
+           
+        }
+
+        private void textBox33_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBox12.Text.ToString()) && !string.IsNullOrEmpty(textBox33.Text.ToString()))
+            {
+                CAL_BAR(textBox12.Text.ToString(), textBox33.Text.ToString());
+            }
+        }
+        public void CAL_BAR(string NUMS,string BOMS)
+        {
+            decimal COUNT_NUMS = Convert.ToDecimal(NUMS);
+            decimal COUNT_BOMS = Convert.ToDecimal(BOMS);
+            if(COUNT_NUMS>0 & COUNT_BOMS>0)
+            {
+                textBox1.Text = Math.Round(COUNT_NUMS / COUNT_BOMS).ToString();
+            }
+
+            
+        }
+
         public void SETNULL()
         {
             textBox7.Text = null;
             textBox8.Text = "0";
+            textBox1.Text = "0";
             textBox9.Text = null;
             textBox10.Text = null;
             textBox11.Text = null;
@@ -1760,6 +1789,7 @@ namespace TKMOC
             textBox43.Text = null;
             textBox72.Text = null;
         }
+
         #endregion
 
         #region BUTTON
@@ -1919,8 +1949,9 @@ namespace TKMOC
         }
 
 
+
         #endregion
 
-
+       
     }
 }
