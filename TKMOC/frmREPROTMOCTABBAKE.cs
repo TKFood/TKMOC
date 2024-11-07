@@ -43,6 +43,9 @@ namespace TKMOC
         int rownum = 0;
         Report report1 = new Report();
 
+        //找出生產說明用的品號
+        string MAINMB001 = "";
+
         public frmREPROTMOCTABBAKE()
         {
             InitializeComponent();
@@ -51,6 +54,47 @@ namespace TKMOC
             ADD_DATAGRID_CHECKED();
         }
 
+        private void frmREPROTMOCTABBAKE_Load(object sender, EventArgs e)
+        {
+            //先建立個 CheckBox 欄
+            DataGridViewCheckBoxColumn cbCol = new DataGridViewCheckBoxColumn();
+            cbCol.Width = 50;   //設定寬度
+            cbCol.HeaderText = "　選擇";
+            cbCol.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;   //置中
+            cbCol.TrueValue = true;
+            cbCol.FalseValue = false;
+            dataGridView2.Columns.Insert(0, cbCol);
+                      
+
+            //建立个矩形，等下计算 CheckBox 嵌入 GridView 的位置
+            Rectangle rect = dataGridView2.GetCellDisplayRectangle(0, -1, true);
+            rect.X = rect.Location.X + rect.Width / 8 - 1;
+            rect.Y = rect.Location.Y + (rect.Height / 4 - 1);
+
+            CheckBox cbHeader = new CheckBox();
+            cbHeader.Name = "checkboxHeader";
+            cbHeader.Size = new Size(12, 12);
+            cbHeader.Location = rect.Location;
+
+            //全选要设定的事件
+            cbHeader.CheckedChanged += new EventHandler(cbHeader_CheckedChanged);
+
+            //将 CheckBox 加入到 dataGridView
+            dataGridView2.Controls.Add(cbHeader);
+
+        }
+
+        private void cbHeader_CheckedChanged(object sender, EventArgs e)
+        {
+            dataGridView1.EndEdit();
+
+            foreach (DataGridViewRow dr in dataGridView1.Rows)
+            {
+                dr.Cells[0].Value = ((CheckBox)dataGridView1.Controls.Find("checkboxHeader", true)[0]).Checked;
+
+            }
+
+        }
         #region FUNCTION
         public void ADD_DATAGRID_CHECKED()
         {
@@ -243,6 +287,99 @@ namespace TKMOC
 
         }
 
+        public void Search()
+        {
+            DataSet ds = new DataSet();
+
+            try
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql.AppendFormat(@"  
+                                    SELECT TA001 AS '製令',TA002 AS '單號',TA006 AS '品號',TA034 AS '品名',TA015 AS '生產量',TA003 AS '生產日',TA035 AS '規格',MC004 AS '標準批量',(TA015/MC004)  AS '桶數'
+                                    FROM [TK].dbo.MOCTA,[TK].dbo.BOMMC
+                                    WHERE TA006=MC001
+                                    AND (TA006 LIKE '3%' OR TA006 LIKE '4%')
+                                    AND TA021 IN ('08')
+                                    AND TA003='{0}'
+                                    ORDER BY TA001,TA002 
+                                     
+                                    ", dateTimePicker1.Value.ToString("yyyyMMdd"));
+
+                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder = new SqlCommandBuilder(adapter);
+                sqlConn.Open();
+                ds.Clear();
+                adapter.Fill(ds, "TEMPds1");
+                sqlConn.Close();
+
+                if (ds.Tables["TEMPds1"].Rows.Count >= 1)
+                {
+
+                    dataGridView2.DataSource = ds.Tables["TEMPds1"];
+
+                    dataGridView2.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 9);
+                    dataGridView2.DefaultCellStyle.Font = new Font("Tahoma", 10);
+                    dataGridView2.Columns["製令"].Width = 60;
+                    dataGridView2.Columns["單號"].Width = 100;
+                    dataGridView2.Columns["品號"].Width = 100;
+                    dataGridView2.Columns["品名"].Width = 120;
+                }
+                else
+                {
+                    dataGridView2.DataSource = null;
+                }
+
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+        private void dataGridView2_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView2.CurrentRow != null)
+            {
+                int rowindex = dataGridView2.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView2.Rows[rowindex];
+                    textBox1.Text = row.Cells["製令"].Value.ToString().Trim();
+                    textBox2.Text = row.Cells["單號"].Value.ToString().Trim();
+                    textBox3.Text = row.Cells["桶數"].Value.ToString().Trim();
+
+                    MAINMB001 = row.Cells["品號"].Value.ToString().Trim();
+
+                }
+                else
+                {
+                    textBox1.Text = "";
+                    textBox2.Text = "";
+                    textBox3.Text = "";
+
+                }
+            }
+        }
+
         #endregion
 
         #region BUTTON
@@ -266,10 +403,16 @@ namespace TKMOC
 
         private void button3_Click(object sender, EventArgs e)
         {
+            Search();
+        }
+        private void button4_Click(object sender, EventArgs e)
+        {
 
         }
+
+
         #endregion
 
-
+       
     }
 }
