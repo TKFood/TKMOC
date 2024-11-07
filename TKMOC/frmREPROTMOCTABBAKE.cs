@@ -253,18 +253,23 @@ namespace TKMOC
 
             //SETFASTREPORT(comboBox1.Text.ToString(),dateTimePicker1.Value.ToString("yyyyMMdd"));
         }
-
-        #endregion
-
         private void button2_Click(object sender, EventArgs e)
         {
             string QUERY_TA001TA002 = ADD_QUERY_TA001TA002();
 
-            if(!string.IsNullOrEmpty(QUERY_TA001TA002))
+            if (!string.IsNullOrEmpty(QUERY_TA001TA002))
             {
                 SETFASTREPORT(QUERY_TA001TA002);
             }
 
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+        }
+        #endregion
+
+
     }
 }
