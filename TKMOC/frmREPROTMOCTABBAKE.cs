@@ -67,7 +67,7 @@ namespace TKMOC
                       
 
             //建立个矩形，等下计算 CheckBox 嵌入 GridView 的位置
-            Rectangle rect = dataGridView2.GetCellDisplayRectangle(0, -1, true);
+            Rectangle rect = dataGridView2.GetCellDisplayRectangle(0,  -1, true);
             rect.X = rect.Location.X + rect.Width / 8 - 1;
             rect.Y = rect.Location.Y + (rect.Height / 4 - 1);
 
