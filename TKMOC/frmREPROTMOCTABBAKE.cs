@@ -998,7 +998,7 @@ namespace TKMOC
 
 
             //
-            foreach (DataGridViewRow dr in this.dataGridView1.Rows)
+            foreach (DataGridViewRow dr in this.dataGridView2.Rows)
             {
                 try
                 {
@@ -1017,7 +1017,7 @@ namespace TKMOC
             //CHECK  原料需單身品號元件一致、組成用量一致
             DT = CHECK_BOMMD(COUNTS, MD001);
 
-            foreach (DataGridViewRow dr in this.dataGridView1.Rows)
+            foreach (DataGridViewRow dr in this.dataGridView2.Rows)
             {
                 try
                 {
