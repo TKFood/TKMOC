@@ -529,7 +529,7 @@ namespace TKMOC
             TableDataSource table1 = report1.GetDataSource("Table1") as TableDataSource;
             table1.SelectCommand = SQL2B.ToString();
 
-            report1.Preview = previewControl1;
+            report1.Preview = previewControl2;
             report1.Show();
         }
 
@@ -585,9 +585,7 @@ namespace TKMOC
                                             FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
                                             WHERE TA006=MD001
                                             AND MD003=MB001
-                                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
-                                            AND MD003 NOT LIKE '301400%'
-                                            AND MB002 NOT LIKE '%水麵%'
+                                           
                                             AND TA001='{0}' AND TA002='{1}'
                                             ORDER BY MD003
 
@@ -689,8 +687,7 @@ namespace TKMOC
                                             FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
                                             WHERE TA006=MD001
                                             AND MD003=MB001
-                                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
-                                            AND MB002 NOT LIKE '%水麵%'
+                                            
                                             AND TA001='{0}' AND TA002='{1}'
                                             ORDER BY MD003
 
@@ -705,8 +702,7 @@ namespace TKMOC
                                             FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
                                             WHERE TA006=MD001
                                             AND MD003=MB001
-                                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
-                                            AND MB002 NOT LIKE '%水麵%'
+                                          
                                             AND TA001='{0}' AND TA002='{1}'
                                             ORDER BY MD003
 
@@ -718,8 +714,7 @@ namespace TKMOC
                                             FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
                                             WHERE TA006=MD001
                                             AND MD003=MB001
-                                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
-                                            AND MB002 NOT LIKE '%水麵%'
+                                            
                                             AND TA001='{0}' AND TA002='{1}'
                                             ORDER BY MD003
 
@@ -734,8 +729,7 @@ namespace TKMOC
                                             FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
                                             WHERE TA006=MD001
                                             AND MD003=MB001
-                                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
-                                            AND MB002 NOT LIKE '%水麵%'
+                                           
                                             AND TA001='{0}' AND TA002='{1}'
                                             ORDER BY MD003
 
@@ -777,8 +771,8 @@ namespace TKMOC
 
             SB.AppendFormat(@" 
                                 
-                            SELECT [ID]
-                            ,'{0}' AS '製令'
+                            SELECT 
+                            '{0}' AS '製令'
                             ,'第'+CONVERT(nvarchar,[BOXS])+'桶' AS '桶數'
                             ,'{1}' AS '成品'
                             ,'{2}' AS '成品名'
@@ -809,7 +803,7 @@ namespace TKMOC
 
                             FROM [TKMOC].[dbo].[REPORTMOCBOMBAKING]
                             LEFT JOIN [TK].dbo.BOMMC ON MC001=TA006
-                            WHERE [MD003] NOT  IN  (SELECT [MB001]  FROM [TKMOC].[dbo].[LIMITSREPORTMOCBOM]  )   
+                            WHERE 1=1 
                             ORDER BY [TA001],[TA002],[BOXS],[MD003]
      
 
@@ -890,7 +884,7 @@ namespace TKMOC
             TableDataSource table1 = report1.GetDataSource("Table1") as TableDataSource;
             table1.SelectCommand = SQL1B.ToString();
 
-            report1.Preview = previewControl1;
+            report1.Preview = previewControl2;
             report1.Show();
         }
 
@@ -900,8 +894,8 @@ namespace TKMOC
 
             SB.AppendFormat(@" 
                                 
-                            SELECT [ID]
-                            ,[TA001]+[TA002] AS '製令'
+                            SELECT 
+                            [TA001]+[TA002] AS '製令'
                             ,'第'+CONVERT(nvarchar,[BOXS])+'桶' AS '桶數'
                             ,TA006 AS '成品'
                             ,TA034 AS '成品名'
@@ -932,7 +926,7 @@ namespace TKMOC
 
                             FROM [TKMOC].[dbo].[REPORTMOCBOMBAKING]
                             LEFT JOIN [TK].dbo.BOMMC ON MC001=TA006
-                            WHERE [MD003] NOT  IN (SELECT [MB001]  FROM [TKMOC].[dbo].[LIMITSREPORTMOCBOM]  )   
+                            WHERE 1=1
                             ORDER BY [TA001],[TA002],[BOXS],[MD003]
      
 
