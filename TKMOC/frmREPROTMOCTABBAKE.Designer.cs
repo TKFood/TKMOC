@@ -57,6 +57,8 @@
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.previewControl1 = new FastReport.Preview.PreviewControl();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textBox5 = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
@@ -246,10 +248,12 @@
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel3.Controls.Add(this.textBox2, 2, 0);
             this.tableLayoutPanel3.Controls.Add(this.label2, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.button4, 2, 1);
             this.tableLayoutPanel3.Controls.Add(this.textBox1, 1, 0);
-            this.tableLayoutPanel3.Controls.Add(this.label3, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.textBox3, 1, 1);
+            this.tableLayoutPanel3.Controls.Add(this.button4, 2, 2);
+            this.tableLayoutPanel3.Controls.Add(this.textBox3, 1, 2);
+            this.tableLayoutPanel3.Controls.Add(this.label3, 0, 2);
+            this.tableLayoutPanel3.Controls.Add(this.textBox4, 1, 1);
+            this.tableLayoutPanel3.Controls.Add(this.textBox5, 2, 1);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(4);
@@ -285,7 +289,7 @@
             // button4
             // 
             this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.Location = new System.Drawing.Point(243, 43);
+            this.button4.Location = new System.Drawing.Point(243, 98);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(114, 33);
             this.button4.TabIndex = 13;
@@ -306,7 +310,7 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(4, 52);
+            this.label3.Location = new System.Drawing.Point(4, 106);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(112, 16);
@@ -317,7 +321,7 @@
             // textBox3
             // 
             this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox3.Location = new System.Drawing.Point(123, 46);
+            this.textBox3.Location = new System.Drawing.Point(123, 101);
             this.textBox3.Name = "textBox3";
             this.textBox3.ReadOnly = true;
             this.textBox3.Size = new System.Drawing.Size(114, 27);
@@ -435,7 +439,7 @@
             // 
             this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(3, 69);
+            this.comboBox1.Location = new System.Drawing.Point(3, 67);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(174, 24);
             this.comboBox1.TabIndex = 3;
@@ -495,6 +499,24 @@
             this.previewControl1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.previewControl1.Size = new System.Drawing.Size(966, 289);
             this.previewControl1.TabIndex = 2;
+            // 
+            // textBox4
+            // 
+            this.textBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox4.Location = new System.Drawing.Point(123, 46);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.ReadOnly = true;
+            this.textBox4.Size = new System.Drawing.Size(114, 27);
+            this.textBox4.TabIndex = 18;
+            // 
+            // textBox5
+            // 
+            this.textBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox5.Location = new System.Drawing.Point(243, 46);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.ReadOnly = true;
+            this.textBox5.Size = new System.Drawing.Size(114, 27);
+            this.textBox5.TabIndex = 19;
             // 
             // frmREPROTMOCTABBAKE
             // 
@@ -573,5 +595,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBox3;
         private FastReport.Preview.PreviewControl previewControl2;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox textBox5;
     }
 }
