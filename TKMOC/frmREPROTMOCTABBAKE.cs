@@ -374,6 +374,7 @@ namespace TKMOC
                     textBox3.Text = row.Cells["新桶數"].Value.ToString().Trim();
                     textBox4.Text = row.Cells["品號"].Value.ToString().Trim();
                     textBox5.Text = row.Cells["每桶量"].Value.ToString().Trim();
+                    textBox6.Text = row.Cells["標準批量"].Value.ToString().Trim();
 
                     MAINMB001 = row.Cells["品號"].Value.ToString().Trim();
 
@@ -385,6 +386,7 @@ namespace TKMOC
                     textBox3.Text = "";
                     textBox4.Text = "";
                     textBox5.Text = "";
+                    textBox6.Text = "";
 
                 }
             }
@@ -487,7 +489,7 @@ namespace TKMOC
 
         }
 
-        public void SETREPORT_BAKING_MERGE(string TA001, string TA002, float BUCKETSORI, string LINK_TA001TA002, string LINK_TA006, string LINK_TA034, string MAINMB001,decimal BUCKETSNUMS)
+        public void SETREPORT_BAKING_MERGE(string TA001, string TA002, float BUCKETSORI, string LINK_TA001TA002, string LINK_TA006, string LINK_TA034, string MAINMB001,decimal BUCKETSNUMSMC004)
         {
             bool CHECKFLOOR = IsIntegerFloor(BUCKETSORI);
 
@@ -496,12 +498,12 @@ namespace TKMOC
             {
                 if (CHECKFLOOR == true)
                 {
-                    ADD_REPORTMOCBOMBAKING(TA001, TA002, BUCKETSORI.ToString(), BUCKETSNUMS);
+                    ADD_REPORTMOCBOMBAKING(TA001, TA002, BUCKETSORI.ToString(), BUCKETSNUMSMC004);
                     //MessageBox.Show(CHECKFLOOR  + BUCKETSORI.ToString());
                 }
                 else
                 {
-                    ADD_REPORTMOCBOMBAKING_ODD(TA001, TA002, BUCKETSORI.ToString(), BUCKETSNUMS);
+                    ADD_REPORTMOCBOMBAKING_ODD(TA001, TA002, BUCKETSORI.ToString(), BUCKETSNUMSMC004);
                     //MessageBox.Show(CHECKFLOOR  + BUCKETSORI.ToString());
                 }
 
@@ -552,7 +554,7 @@ namespace TKMOC
         /// <param name="TA001"></param>
         /// <param name="TA002"></param>
         /// <param name="BUCKETS"></param>
-        public void ADD_REPORTMOCBOMBAKING(string TA001, string TA002, string BUCKETS,decimal BUCKETSNUMS)
+        public void ADD_REPORTMOCBOMBAKING(string TA001, string TA002, string BUCKETS,decimal BUCKETSNUMSMC004)
         {
             float BUCKETSFLOAT = float.Parse(BUCKETS);
             int COUNTS = Convert.ToInt32(Math.Ceiling(BUCKETSFLOAT));
@@ -597,7 +599,7 @@ namespace TKMOC
                                             AND TA001='{0}' AND TA002='{1}'
                                             ORDER BY MD003
 
-                                           ", TA001, TA002, i, BUCKETSNUMS);
+                                           ", TA001, TA002, i, BUCKETSNUMSMC004);
                 }
 
            
@@ -639,7 +641,7 @@ namespace TKMOC
         /// <param name="TA001"></param>
         /// <param name="TA002"></param>
         /// <param name="BUCKETS"></param>
-        public void ADD_REPORTMOCBOMBAKING_ODD(string TA001, string TA002, string BUCKETS,decimal BUCKETSNUMS)
+        public void ADD_REPORTMOCBOMBAKING_ODD(string TA001, string TA002, string BUCKETS,decimal BUCKETSNUMSMC004)
         {
             float BUCKETSFLOAT = float.Parse(BUCKETS);
             int COUNTS = Convert.ToInt32(Math.Ceiling(BUCKETSFLOAT));
@@ -699,7 +701,7 @@ namespace TKMOC
                                             AND TA001='{0}' AND TA002='{1}'
                                             ORDER BY MD003
 
-                                           ", TA001, TA002, 1, BUCKETSSMAILL, BUCKETSNUMS);
+                                           ", TA001, TA002, 1, BUCKETSSMAILL, BUCKETSNUMSMC004);
                 }
                 else if (COUNTS >= 1)
                 {
@@ -714,7 +716,7 @@ namespace TKMOC
                                             AND TA001='{0}' AND TA002='{1}'
                                             ORDER BY MD003
 
-                                           ", TA001, TA002, 1, BUCKETSNUMS);
+                                           ", TA001, TA002, 1, BUCKETSNUMSMC004);
                     sbSql.AppendFormat(@"       
                                             INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMBAKING]
                                             ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])                                            
@@ -726,7 +728,7 @@ namespace TKMOC
                                             AND TA001='{0}' AND TA002='{1}'
                                             ORDER BY MD003
 
-                                           ", TA001, TA002, 2, BUCKETSSMAILL, BUCKETSNUMS);
+                                           ", TA001, TA002, 2, BUCKETSSMAILL, BUCKETSNUMSMC004);
 
                     for (int i = 3; i <= COUNTS; i++)
                     {
@@ -741,7 +743,7 @@ namespace TKMOC
                                             AND TA001='{0}' AND TA002='{1}'
                                             ORDER BY MD003
 
-                                           ", TA001, TA002, i, BUCKETSNUMS);
+                                           ", TA001, TA002, i, BUCKETSNUMSMC004);
                     }
                 }
                 
@@ -841,7 +843,7 @@ namespace TKMOC
             return SB;
         }
 
-        public void SETREPORT_BAKING(string TA001, string TA002, string BUCKETS, string MAINMB001,decimal BUCKETSNUMS)
+        public void SETREPORT_BAKING(string TA001, string TA002, string BUCKETS, string MAINMB001,decimal BUCKETSNUMSMC004)
         {
             float BUCKETSORI = float.Parse(BUCKETS);
             bool CHECKFLOOR = IsIntegerFloor(BUCKETSORI);
@@ -851,12 +853,12 @@ namespace TKMOC
             {
                 if (CHECKFLOOR == true)
                 {
-                    ADD_REPORTMOCBOMBAKING(TA001, TA002, BUCKETS, BUCKETSNUMS);
+                    ADD_REPORTMOCBOMBAKING(TA001, TA002, BUCKETS, BUCKETSNUMSMC004);
                     //MessageBox.Show(CHECKFLOOR  + BUCKETSORI.ToString());
                 }
                 else
                 {
-                    ADD_REPORTMOCBOMBAKING_ODD(TA001, TA002, BUCKETS, BUCKETSNUMS);
+                    ADD_REPORTMOCBOMBAKING_ODD(TA001, TA002, BUCKETS, BUCKETSNUMSMC004);
                     //MessageBox.Show(CHECKFLOOR  + BUCKETSORI.ToString());
                 }
 
@@ -1003,16 +1005,21 @@ namespace TKMOC
             string TEMP = "";
             float BUCKETS = 0;
             decimal BUCKETSNUMS = 1;
+            decimal MC004 = 1;
+            decimal BUCKETSNUMSMC004 = 1;
 
             //預設每桶量
             BUCKETSNUMS = Convert.ToDecimal(textBox5.Text);
-            if (BUCKETSNUMS > 0)
+            //預設標準批量
+            MC004 = Convert.ToDecimal(textBox6.Text);
+            //計算每桶用量
+            if (BUCKETSNUMS > 0&& MC004>0)
             {
-                BUCKETSNUMS = BUCKETSNUMS;
+                BUCKETSNUMSMC004 = BUCKETSNUMS/ MC004;
             }
             else
             {
-                BUCKETSNUMS = 1;
+                BUCKETSNUMSMC004 = 1;
             }
 
 
@@ -1051,8 +1058,7 @@ namespace TKMOC
                         LINK_TA034 = LINK_TA034 + dr.Cells["品名"].Value.ToString() + "*";
                         BUCKETS = BUCKETS + float.Parse(dr.Cells["桶數"].Value.ToString());
                         BUCKETS = (float)Math.Round(BUCKETS, 3);
-
-                        
+                                               
 
                         MAINMB001 = dr.Cells["品號"].Value.ToString();
                     }
@@ -1067,7 +1073,7 @@ namespace TKMOC
             {
                 if (DT == null)
                 {
-                    SETREPORT_BAKING_MERGE(TA001, TA002, BUCKETS, LINK_TA001TA002, LINK_TA006, LINK_TA034, MAINMB001, BUCKETSNUMS);
+                    SETREPORT_BAKING_MERGE(TA001, TA002, BUCKETS, LINK_TA001TA002, LINK_TA006, LINK_TA034, MAINMB001, BUCKETSNUMSMC004);
                 }
                 else
                 {
@@ -1087,7 +1093,7 @@ namespace TKMOC
             }
             else if (CHECKED.Equals("N"))
             {
-                SETREPORT_BAKING(textBox1.Text.Trim(), textBox2.Text.Trim(), textBox3.Text.Trim(), MAINMB001, BUCKETSNUMS);
+                SETREPORT_BAKING(textBox1.Text.Trim(), textBox2.Text.Trim(), textBox3.Text.Trim(), MAINMB001, BUCKETSNUMSMC004);
             }
         }
 
