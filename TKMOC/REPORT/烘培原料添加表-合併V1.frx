@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="04/26/2021 14:32:55" ReportInfo.Modified="11/08/2024 09:53:53" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="04/26/2021 14:32:55" ReportInfo.Modified="11/19/2024 09:32:27" ReportInfo.CreatorVersion="2016.4.4.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -104,7 +104,7 @@ namespace FastReport
 }
 </ScriptText>
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9LE4Pa8Qssk4k2ZyfL87QXC">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9KXjY2FNaDiVpqcaB4SPirF">
       <TableDataSource Name="Table1" Alias="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT [ID]&#13;&#10;,[TA003] AS '日期'&#13;&#10;,[TA021] AS '線別'&#13;&#10;,'第'+CONVERT(nvarchar,[BOXS])+'桶' AS '桶數'&#13;&#10;,TA006 AS '成品'&#13;&#10;,TA034 AS '成品名'&#13;&#10;,[MD003] AS '品號'&#13;&#10;,[MB002] AS '品名'&#13;&#10;,[MD006] AS '重量'&#13;&#10;,'' AS '複核'&#13;&#10;,'' AS '油酥'&#13;&#10;,'' AS '檢查麵粉袋的麵粉線頭'&#13;&#10;,'' AS 'A製造  B有效'&#13;&#10;,'' AS '外觀:攪拌均勻度、軟硬度'&#13;&#10;,'' AS '攪拌時間  始'&#13;&#10;,'' AS '攪拌時間  終'&#13;&#10;,'' AS '投 料 人'&#13;&#10;,'' AS '對 點 人'&#13;&#10;,'' AS '單位幹部'&#13;&#10;,'' AS '品質判定'&#13;&#10;,'' AS '換線清潔檢查'&#13;&#10;,'配比 '+ BOMMC.UDF03 AS '配方比'&#13;&#10;FROM [TKMOC].[dbo].[REPORTMOCBOMOIL]&#13;&#10;LEFT JOIN [TK].dbo.BOMMC ON MC001=TA006&#13;&#10;ORDER BY [TA021],[BOXS],[MD003]&#13;&#10;&#13;&#10;">
         <Column Name="ID" DataType="System.Int32"/>
         <Column Name="桶數" DataType="System.Int32"/>
@@ -139,7 +139,7 @@ namespace FastReport
       <TextObject Name="Text40" Left="274.05" Width="708.75" Height="18.9" Text="油酥原料添加表" HorzAlign="Center" VertAlign="Center"/>
     </PageHeaderBand>
     <DataBand Name="Data3" Top="61.3" Width="1047.06" Height="401.03">
-      <MatrixObject Name="Matrix1" Width="510.55" Height="401.03" Border.Lines="All" FixedRows="5" FixedColumns="12" CellsSideBySide="true" DataSource="Table1">
+      <MatrixObject Name="Matrix1" Width="510.56" Height="401.03" Border.Lines="All" FixedRows="5" FixedColumns="12" CellsSideBySide="true" DataSource="Table1">
         <MatrixColumns>
           <Header Expression="[Table.線別]" Totals="false" PageBreak="true"/>
           <Header Expression="[Table.成品名]" Totals="false"/>
@@ -177,7 +177,7 @@ namespace FastReport
         <TableColumn Name="Column11" Width="59.77" AutoSize="true"/>
         <TableColumn Name="Column12" Width="95.52" AutoSize="true"/>
         <TableColumn Name="Column13" Width="46.07" AutoSize="true"/>
-        <TableColumn Name="Column14" Width="70.79" AutoSize="true"/>
+        <TableColumn Name="Column14" Width="70.8" AutoSize="true"/>
         <TableRow Name="Row1" Height="18.19" AutoSize="true">
           <TableCell Name="Cell1" Border.Lines="All" HorzAlign="Center" VertAlign="Center" RowSpan="5"/>
           <TableCell Name="Cell2" Border.Lines="All" HorzAlign="Center" VertAlign="Center" RowSpan="5"/>
@@ -255,8 +255,8 @@ namespace FastReport
           <TableCell Name="Cell85"/>
           <TableCell Name="Cell103"/>
           <TableCell Name="Cell123"/>
-          <TableCell Name="Cell145" Border.Lines="All" Text="重量  &#13;&#10;" HorzAlign="Center" VertAlign="Center"/>
-          <TableCell Name="Cell169" Border.Lines="All" Text="    對點人" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell145" Border.Lines="All" Text="重量 g &#13;&#10;" HorzAlign="Center" VertAlign="Center"/>
+          <TableCell Name="Cell169" Border.Lines="All" Text="      對點" HorzAlign="Center" VertAlign="Center"/>
         </TableRow>
         <TableRow Name="Row6" Height="23.25" AutoSize="true">
           <TableCell Name="Cell44" Border.Lines="All" Text="[]" HorzAlign="Center" VertAlign="Center" RowSpan="9"/>

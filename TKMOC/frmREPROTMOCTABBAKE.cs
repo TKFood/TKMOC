@@ -289,7 +289,7 @@ namespace TKMOC
 
         }
 
-        public void Search()
+        public void Search(string SDATE)
         {
             DataSet ds = new DataSet();
 
@@ -323,7 +323,7 @@ namespace TKMOC
                                     AND TA003='{0}'
                                     ORDER BY TA001,TA002 
                                      
-                                    ", dateTimePicker1.Value.ToString("yyyyMMdd"));
+                                    ", SDATE);
 
                 adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -591,7 +591,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"
                                             INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMBAKING]
                                             ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
-                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,MD006*{3}
+                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,MD006*1000/MD007*{3}
                                             FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
                                             WHERE TA006=MD001
                                             AND MD003=MB001
@@ -693,7 +693,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"       
                                             INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMBAKING]
                                             ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])                                            
-                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,CONVERT(DECIMAL(16,3),MD006*{3}*{4})
+                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,CONVERT(DECIMAL(16,3),MD006*1000/MD007*{3}*{4})
                                             FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
                                             WHERE TA006=MD001
                                             AND MD003=MB001
@@ -708,7 +708,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"       
                                             INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMBAKING]
                                             ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
-                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,MD006*{3}
+                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,MD006*1000/MD007*{3}
                                             FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
                                             WHERE TA006=MD001
                                             AND MD003=MB001
@@ -720,7 +720,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"       
                                             INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMBAKING]
                                             ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])                                            
-                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,CONVERT(DECIMAL(16,3),MD006*{3}*{4})
+                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,CONVERT(DECIMAL(16,3),MD006*1000/MD007*{3}*{4})
                                             FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
                                             WHERE TA006=MD001
                                             AND MD003=MB001
@@ -735,7 +735,7 @@ namespace TKMOC
                         sbSql.AppendFormat(@"
                                             INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMBAKING]
                                             ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
-                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,MD006*{3}
+                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,MD006*1000/MD007*{3}
                                             FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
                                             WHERE TA006=MD001
                                             AND MD003=MB001
@@ -986,7 +986,7 @@ namespace TKMOC
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Search();
+            Search(dateTimePicker2.Value.ToString("yyyyMMdd"));
         }
         private void button4_Click(object sender, EventArgs e)
         {
