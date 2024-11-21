@@ -58,31 +58,31 @@ namespace TKMOC
 
         private void frmREPROTMOCTABBAKE_Load(object sender, EventArgs e)
         {
-            //先建立個 CheckBox 欄
-            DataGridViewCheckBoxColumn cbCol = new DataGridViewCheckBoxColumn();
-            cbCol.Width = 50;   //設定寬度
-            cbCol.HeaderText = "　選擇";
-            cbCol.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;   //置中
-            cbCol.TrueValue = true;
-            cbCol.FalseValue = false;
-            dataGridView2.Columns.Insert(0, cbCol);
+            ////先建立個 CheckBox 欄
+            //DataGridViewCheckBoxColumn cbCol = new DataGridViewCheckBoxColumn();
+            //cbCol.Width = 50;   //設定寬度
+            //cbCol.HeaderText = "　選擇";
+            //cbCol.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;   //置中
+            //cbCol.TrueValue = true;
+            //cbCol.FalseValue = false;
+            //dataGridView2.Columns.Insert(0, cbCol);
                       
 
-            //建立个矩形，等下计算 CheckBox 嵌入 GridView 的位置
-            Rectangle rect = dataGridView2.GetCellDisplayRectangle(0,  -1, true);
-            rect.X = rect.Location.X + rect.Width / 8 - 1;
-            rect.Y = rect.Location.Y + (rect.Height / 4 - 1);
+            ////建立个矩形，等下计算 CheckBox 嵌入 GridView 的位置
+            //Rectangle rect = dataGridView2.GetCellDisplayRectangle(0,  -1, true);
+            //rect.X = rect.Location.X + rect.Width / 8 - 1;
+            //rect.Y = rect.Location.Y + (rect.Height / 4 - 1);
 
-            CheckBox cbHeader = new CheckBox();
-            cbHeader.Name = "checkboxHeader";
-            cbHeader.Size = new Size(12, 12);
-            cbHeader.Location = rect.Location;
+            //CheckBox cbHeader = new CheckBox();
+            //cbHeader.Name = "checkboxHeader";
+            //cbHeader.Size = new Size(12, 12);
+            //cbHeader.Location = rect.Location;
 
-            //全选要设定的事件
-            cbHeader.CheckedChanged += new EventHandler(cbHeader_CheckedChanged);
+            ////全选要设定的事件
+            //cbHeader.CheckedChanged += new EventHandler(cbHeader_CheckedChanged);
 
-            //将 CheckBox 加入到 dataGridView
-            dataGridView2.Controls.Add(cbHeader);
+            ////将 CheckBox 加入到 dataGridView
+            //dataGridView2.Controls.Add(cbHeader);
 
         }
 
@@ -605,8 +605,8 @@ namespace TKMOC
            
 
                 cmd.Connection = sqlConn;
-                cmd.CommandTimeout = 60;
-                cmd.CommandText = sbSql.ToString();
+                cmd.CommandTimeout = 60; 
+                cmd.CommandText = sbSql.ToString(); 
                 cmd.Transaction = tran;
                 result = cmd.ExecuteNonQuery();
 
@@ -989,7 +989,7 @@ namespace TKMOC
             Search(dateTimePicker2.Value.ToString("yyyyMMdd"));
         }
         private void button4_Click(object sender, EventArgs e)
-        {
+        { 
             //SETREPORT(textBox1.Text.Trim(), textBox2.Text.Trim(),textBox3.Text.Trim());
             int COUNTS = 0;
             List<string> MD001 = new List<string>();
