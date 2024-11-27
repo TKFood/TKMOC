@@ -1365,16 +1365,17 @@ namespace TKMOC
                                          '{10}' [TRANS_NAME],{11} [sync_count],'{12}' [DataGroup],'{13}' [TB001],'{14}' [TB002],[BOMMD].MD003 [TB003],
                                          CASE 
                                             WHEN MB041=1 AND [BOMMD].MD003 NOT LIKE '201%' 
-                                                THEN CONVERT(decimal(16,4),CEILING({15}*[BOMMD].MD006/[BOMMD].MD007*(1+[BOMMD].MD008))) 
+                                                THEN CONVERT(decimal(16,4),CEILING({15}/[BOMMC].MC004*[BOMMD].MD006/[BOMMD].MD007*(1+[BOMMD].MD008))) 
                                             WHEN MB041=1 AND [BOMMD].MD003 LIKE '201%' 
-                                                THEN ROUND({15}*[BOMMD].MD006/[BOMMD].MD007*(1+[BOMMD].MD008),0) 
-                                            ELSE ROUND({15}*[BOMMD].MD006/[BOMMD].MD007*(1+[BOMMD].MD008),3) 
+                                                THEN ROUND({15}/[BOMMC].MC004*[BOMMD].MD006/[BOMMD].MD007*(1+[BOMMD].MD008),0) 
+                                            ELSE ROUND({15}/[BOMMC].MC004*[BOMMD].MD006/[BOMMD].MD007*(1+[BOMMD].MD008),3) 
                                          END [TB004], 
                                          0 [TB005],'****' [TB006],[INVMB].MB004 [TB007],
                                          [INVMB].MB017 [TB009],'1' [TB011],[INVMB].MB002 [TB012],[INVMB].MB003 [TB013],[BOMMD].MD001 [TB014],'N' [TB018],'0' [TB019],'0' [TB020],'2' [TB022],'0' [TB024],
                                          '****' [TB025],'0' [TB026],'1' [TB027],'0' [TB029],'0' [TB030],'0' [TB031],'0' [TB501],'N' [TB554],'0' [TB556],'0' [TB560]
-                                        FROM [TK].dbo.[BOMMD], [TK].dbo.[INVMB]
+                                        FROM [TK].dbo.[BOMMD], [TK].dbo.[INVMB],[TK].dbo.[BOMMC]
                                         WHERE [BOMMD].MD003 = [INVMB].MB001
+                                        and [BOMMD].MD001 =[BOMMC].MC001
                                         AND MD001 = '{16}' AND ISNULL(MD012, '') = ''
                                         )",
                                         MOCTA.COMPANY, MOCTA.CREATOR, MOCTA.USR_GROUP, MOCTA.CREATE_DATE, MOCTA.MODIFIER, MOCTA.MODI_DATE, MOCTA.FLAG, MOCTA.CREATE_TIME, MOCTA.MODI_TIME, MOCTA.TRANS_TYPE,
