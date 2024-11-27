@@ -44,7 +44,7 @@ namespace TKMOC
         string MB002B;
         string MB003B;
         decimal BOX ;
-        decimal SUM2;
+        decimal SUM21;
         string TA001 = "A513";
         string TA002;
         string TA020;
@@ -418,9 +418,7 @@ namespace TKMOC
             SqlCommand cmd = new SqlCommand();
             DataSet ds1 = new DataSet();
             DataSet TEMPds = new DataSet();
-
-            decimal SUM21 = 0;
-     
+                      
 
             if (MANU.Equals("吧台烘焙線"))
             {
@@ -466,7 +464,7 @@ namespace TKMOC
                         {
                             foreach (DataRow dr in TEMPds.Tables[0].Rows)
                             {
-                                SUM21 = SUM21 + Convert.ToDecimal(dr["包裝數"].ToString());
+                                SUM21 = SUM21 + Convert.ToDecimal(dr["數量"].ToString());
                                 //SUM2 = SUM2 + Convert.ToDecimal(dr["箱數"].ToString());
                             }
                         }
@@ -614,7 +612,7 @@ namespace TKMOC
                     MB002B = row.Cells["品名"].Value.ToString();
                     MB003B = row.Cells["規格"].Value.ToString();
                     BOX = Convert.ToDecimal(row.Cells["包裝數"].Value.ToString());
-                    SUM2 = Convert.ToDecimal(row.Cells["包裝數"].Value.ToString());
+                    SUM21 = Convert.ToDecimal(row.Cells["包裝數"].Value.ToString());
                     TA029 = row.Cells["備註"].Value.ToString();
                     TA026 = row.Cells["訂單單別"].Value.ToString();
                     TA027 = row.Cells["訂單號"].Value.ToString();
@@ -624,7 +622,7 @@ namespace TKMOC
                     SUBBAR2 = "";
                     SUBNUM2 = "";
                     SUBBOX = row.Cells["箱數"].Value.ToString();
-                    SUBPACKAGE2= row.Cells["包裝數"].Value.ToString();
+                    SUBPACKAGE2= row.Cells["數量"].Value.ToString();
 
                     SEARCH_MOCMANULINERESULTBAKING(ID);
                     //SEARCHMOCMANULINEMERGERESLUTMOCTA(ID2.ToString());
@@ -1286,7 +1284,7 @@ namespace TKMOC
             MOCTADATA MOCTA = new MOCTADATA();
             MOCTA = SETMOCTA(TA001, TA002, DT);
             string MOCMB001 = null;
-            decimal MOCTA004 = 0; ;
+            decimal MOCTA015 = Convert.ToDecimal(MOCTA.TA015);
             string MOCTB009 = null;
 
 
@@ -1295,7 +1293,7 @@ namespace TKMOC
             if (MANU.Equals("吧台烘焙線"))
             {
                 MOCMB001 = MB001B;
-                MOCTA004 = BOX;
+                
                 MOCTA.TA001 = TA001;
                 MOCTA.TA002 = TA002;
                 MOCTA.TA020 = TA020;
@@ -1380,7 +1378,7 @@ namespace TKMOC
                                         AND MD001 = '{16}' AND ISNULL(MD012, '') = ''
                                         )",
                                         MOCTA.COMPANY, MOCTA.CREATOR, MOCTA.USR_GROUP, MOCTA.CREATE_DATE, MOCTA.MODIFIER, MOCTA.MODI_DATE, MOCTA.FLAG, MOCTA.CREATE_TIME, MOCTA.MODI_TIME, MOCTA.TRANS_TYPE,
-                                        MOCTA.TRANS_NAME, MOCTA.sync_count, MOCTA.DataGroup, MOCTA.TA001, MOCTA.TA002, MOCTA004
+                                        MOCTA.TRANS_NAME, MOCTA.sync_count, MOCTA.DataGroup, MOCTA.TA001, MOCTA.TA002, MOCTA015
                                         , MOCMB001);
 
 
@@ -1467,7 +1465,7 @@ namespace TKMOC
                 // MOCTA.TA014 = dt2.ToString("yyyyMMdd");
                 MOCTA.TA014 = "";
                 //MOCTA.TA015 = (BOX * BOMBAR).ToString();
-                MOCTA.TA015 = SUM2.ToString();
+                MOCTA.TA015 = SUBPACKAGE2.ToString();
                 MOCTA.TA016 = "0";
                 MOCTA.TA017 = "0";
                 MOCTA.TA018 = "0";
