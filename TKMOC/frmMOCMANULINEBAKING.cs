@@ -132,6 +132,8 @@ namespace TKMOC
             comboBox1load();
             comboBox2load();
             comboBox3load();
+
+            comboBox21load();
         }
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -140,6 +142,10 @@ namespace TKMOC
                 //MessageBox.Show("製二線");
                 MANU = "吧台烘焙線";
             }
+        }
+        public void comboBox21load()
+        {
+            LoadComboBoxData(comboBox21, "SELECT [ID],[LAYERS] FROM [TKMOC].[dbo].[MOCMANULINELAYERS] ORDER BY [ID] ", "ID", "LAYERS");
         }
         public void comboBox1load()
         {
@@ -1772,6 +1778,318 @@ namespace TKMOC
             
         }
 
+        public void ADD_MOCMANULINEBAKING_BATCH(string KINDS,string MANU,string MANUDATE, string TD001, string TD002, string TD003)
+        {
+            SqlConnection sqlConn = new SqlConnection();
+
+            if (KINDS.Equals("成品"))
+            {
+                try
+                {
+                    //20210902密
+                    Class1 TKID = new Class1();//用new 建立類別實體
+                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                    //資料庫使用者密碼解密
+                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                    String connectionString;
+                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                    sqlConn.Close();
+                    sqlConn.Open();
+                    tran = sqlConn.BeginTransaction();
+
+                    sbSql.Clear();
+
+
+                    sbSql.AppendFormat(@"  
+                                        INSERT INTO [TKMOC].[dbo].[MOCMANULINEBAKING]
+                                        ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET],[MANUHOUR],[BOX],[PACKAGE],[OUTDATE],[TA029],[HALFPRO],[COPTD001],[COPTD002],[COPTD003])
+                                        SELECT ID,'{0}','{1}',TD004 [MB001],TD005 [MB002],TD006 [MB003],0 [BAR],NUM [NUM],TC053 [CLINET],0 [MANUHOUR],(NUM/MD007) [BOX],NUM [PACKAGE],TD013 [OUTDATE],TC015 [TA029],0 [HALFPRO],TD001 [COPTD001] ,TD002 [TCOPTD002], TD003 [TCOPTD003]
+                                        FROM 
+                                        (
+                                        SELECT NEWID() AS ID,TD001,TD002,TD003,TC053,TD004,TD005,TD006,(TD008+TD024) AS TD008,TD010,TC015,TD013,(CASE WHEN ISNULL(MD002,'')<>'' THEN (TD008+TD024)*MD004 ELSE (TD008+TD024)  END ) AS NUM
+                                        ,ISNULL((SELECT TOP 1 MD007 FROM [TK].dbo.BOMMD MD WHERE (MD.MD003 LIKE '201%') AND MD.MD001=TD004),1) AS MD007
+                                        ,ISNULL((SELECT TOP 1 MC004 FROM [TK].dbo.BOMMC MC WHERE MC.MC001=TD004),1) AS MC004
+                                        FROM [TK].dbo.INVMB WITH(NOLOCK),[TK].dbo.COPTC WITH(NOLOCK),[TK].dbo.COPTD WITH(NOLOCK)
+                                        LEFT JOIN [TK].dbo.INVMD ON MD001=TD004 AND TD010=MD002
+                                        WHERE TC001=TD001 AND TC002=TD002
+                                        AND MB001=TD004
+                                        AND TD001='{2}' AND TD002='{3}' AND TD003='{4}'
+                                        ) AS TEMP 
+                                        ", MANU, MANUDATE, TD001, TD002, TD003);
+
+                    cmd.Connection = sqlConn;
+                    cmd.CommandTimeout = 60;
+                    cmd.CommandText = sbSql.ToString();
+                    cmd.Transaction = tran;
+                    result = cmd.ExecuteNonQuery();
+
+                    if (result == 0)
+                    {
+                        tran.Rollback();    //交易取消
+                    }
+                    else
+                    {
+                        tran.Commit();      //執行交易  
+
+                        MessageBox.Show("成功");
+                    }
+
+                }
+                catch
+                {
+
+                }
+
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }
+            else if (KINDS.Equals("第一層"))
+            {
+                try
+                {
+                    //20210902密
+                    Class1 TKID = new Class1();//用new 建立類別實體
+                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                    //資料庫使用者密碼解密
+                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                    String connectionString;
+                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                    sqlConn.Close();
+                    sqlConn.Open();
+                    tran = sqlConn.BeginTransaction();
+
+                    sbSql.Clear();
+
+
+                    sbSql.AppendFormat(@"  
+                                        INSERT INTO [TKMOC].[dbo].[MOCMANULINEBAKING]
+                                        ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET],[MANUHOUR],[BOX],[PACKAGE],[OUTDATE],[TA029],[HALFPRO],[COPTD001],[COPTD002],[COPTD003])
+                                        SELECT ID,'{0}','{1}',MD003 [MB001],MD035 [MB002],MD036 [MB003],(CASE WHEN MD003 LIKE '4%' THEN 0 ELSE CONVERT(DECIMAL(16,4),(BOMNUMS/MC004))  END ) [BAR],BOMNUMS [NUM],TC053 [CLINET],0 [MANUHOUR],(CASE WHEN MD003 LIKE '4%' THEN CONVERT(DECIMAL(16,4),(BOMNUMS/MD007B)) ELSE 0  END) [BOX],(CASE WHEN MD003 LIKE '4%' THEN BOMNUMS ELSE 0  END) [PACKAGE],TD013 [OUTDATE],TC015 [TA029],0 [HALFPRO],TD001 [COPTD001] ,TD002 [TCOPTD002], TD003 [TCOPTD003]
+                                        FROM 
+                                        (
+                                        SELECT  NEWID() AS ID,TD001,TD002,TD003,TC053,TD004,TD005,TD006,(TD008+TD024) AS TD008,TD010,TC015,TD013,(CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TD008+TD024)*INVMD.MD004 ELSE (TD008+TD024)  END ) AS NUM
+                                        ,BOMMD.MD003,BOMMD.MD035,BOMMD.MD036,BOMMD.MD006,BOMMD.MD007
+                                        ,((CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TD008+TD024)*INVMD.MD004 ELSE (TD008+TD024)  END )*BOMMD.MD006/BOMMD.MD007/BOMMC.MC004) AS BOMNUMS
+                                        ,ISNULL((SELECT TOP 1 MD007 FROM [TK].dbo.BOMMD MD WHERE (MD.MD003 LIKE '201%') AND MD.MD001=BOMMD.MD003),1) AS MD007B
+                                        ,ISNULL((SELECT TOP 1 MC004 FROM [TK].dbo.BOMMC MC WHERE MC.MC001=BOMMD.MD003),1) AS MC004
+                                        FROM [TK].dbo.INVMB WITH(NOLOCK),[TK].dbo.COPTC WITH(NOLOCK),[TK].dbo.COPTD WITH(NOLOCK)
+                                        LEFT JOIN [TK].dbo.INVMD ON INVMD.MD001=TD004 AND TD010=MD002
+                                        LEFT JOIN [TK].dbo.BOMMC ON BOMMC.MC001=TD004
+                                        LEFT JOIN [TK].dbo.BOMMD ON BOMMD.MD001=TD004
+                                        WHERE TC001=TD001 AND TC002=TD002
+                                        AND MB001=TD004
+                                        AND TD001='{2}' AND TD002='{3}' AND TD003='{4}'
+                                        AND (BOMMD.MD003 LIKE '3%' OR BOMMD.MD003 LIKE '4%')
+                                        ) AS TEMP
+                                        ", MANU, MANUDATE, TD001, TD002, TD003);
+
+                    cmd.Connection = sqlConn;
+                    cmd.CommandTimeout = 60;
+                    cmd.CommandText = sbSql.ToString();
+                    cmd.Transaction = tran;
+                    result = cmd.ExecuteNonQuery();
+
+                    if (result == 0)
+                    {
+                        tran.Rollback();    //交易取消
+                    }
+                    else
+                    {
+                        tran.Commit();      //執行交易  
+
+                        MessageBox.Show("成功");
+                    }
+
+                }
+                catch
+                {
+
+                }
+
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }
+            else if (KINDS.Equals("第二層"))
+            {
+                try
+                {
+                    //20210902密
+                    Class1 TKID = new Class1();//用new 建立類別實體
+                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                    //資料庫使用者密碼解密
+                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                    String connectionString;
+                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                    sqlConn.Close();
+                    sqlConn.Open();
+                    tran = sqlConn.BeginTransaction();
+
+                    sbSql.Clear();
+
+
+                    sbSql.AppendFormat(@"  
+                                        INSERT INTO [TKMOC].[dbo].[MOCMANULINEBAKING]
+                                        ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET],[MANUHOUR],[BOX],[PACKAGE],[OUTDATE],[TA029],[HALFPRO],[COPTD001],[COPTD002],[COPTD003])
+                                        SELECT ID,'{0}','{1}',MD003B [MB001],MD035B [MB002],MD036B [MB003],CONVERT(DECIMAL(16,4),(BOMNUMS2/MC004C)) [BAR],BOMNUMS2 [NUM],TC053 [CLINET],0 [MANUHOUR],0 [BOX],0 [PACKAGE],TD013 [OUTDATE],TC015 [TA029],0 [HALFPRO],TD001 [COPTD001] ,TD002 [TCOPTD002], TD003 [TCOPTD003]
+                                        FROM (
+                                        SELECT NEWID() AS ID,TD001,TD002,TD003,TC053,TD004,TD005,TD006,(TD008+TD024) AS TD008,TD010,TC015,TD013,(CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TD008+TD024)*INVMD.MD004 ELSE (TD008+TD024)  END ) AS NUM
+                                        ,BOMMD.MD003,BOMMD.MD035,BOMMD.MD036,BOMMD.MD006,BOMMD.MD007
+                                        ,((CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TD008+TD024)*INVMD.MD004 ELSE (TD008+TD024)  END )*BOMMD.MD006/BOMMD.MD007/BOMMC.MC004) AS BOMNUMS
+                                        ,BOMMD2.MD003 MD003B,BOMMD2.MD035 MD035B,BOMMD2.MD036 MD036B,BOMMD2.MD006 MD006B,BOMMD2.MD007 MD007B
+                                        ,(((CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TD008+TD024)*INVMD.MD004 ELSE (TD008+TD024)  END )*BOMMD.MD006/BOMMD.MD007/BOMMC.MC004)*BOMMD2.MD006/BOMMD2.MD007/BOMMC2.MC004)AS BOMNUMS2
+                                        ,ISNULL((SELECT TOP 1 MD007 FROM [TK].dbo.BOMMD MD WHERE (MD.MD003 LIKE '201%') AND MD.MD001=BOMMD2.MD003),1) AS MD007C
+                                        ,ISNULL((SELECT TOP 1 MC004 FROM [TK].dbo.BOMMC MC WHERE MC.MC001=BOMMD2.MD003),1) AS MC004C
+                                        FROM [TK].dbo.INVMB WITH(NOLOCK),[TK].dbo.COPTC WITH(NOLOCK),[TK].dbo.COPTD WITH(NOLOCK)
+                                        LEFT JOIN [TK].dbo.INVMD ON INVMD.MD001=TD004 AND TD010=MD002
+                                        LEFT JOIN [TK].dbo.BOMMC ON BOMMC.MC001=TD004
+                                        LEFT JOIN [TK].dbo.BOMMD ON BOMMD.MD001=TD004
+                                        LEFT JOIN [TK].dbo.BOMMC BOMMC2 ON BOMMC2.MC001=BOMMD.MD003
+                                        LEFT JOIN [TK].dbo.BOMMD BOMMD2 ON BOMMD2.MD001=BOMMD.MD003
+                                        WHERE TC001=TD001 AND TC002=TD002
+                                        AND MB001=TD004
+                                        AND TD001='{2}' AND TD002='{3}' AND TD003='{4}'
+                                        AND (BOMMD.MD003 LIKE '3%' OR BOMMD.MD003 LIKE '4%')
+                                        AND (BOMMD2.MD003 LIKE '3%' OR BOMMD2.MD003 LIKE '4%')
+                                        ) AS TEMP
+                                        ", MANU, MANUDATE, TD001, TD002, TD003);
+
+                    cmd.Connection = sqlConn;
+                    cmd.CommandTimeout = 60;
+                    cmd.CommandText = sbSql.ToString();
+                    cmd.Transaction = tran;
+                    result = cmd.ExecuteNonQuery();
+
+                    if (result == 0)
+                    {
+                        tran.Rollback();    //交易取消
+                    }
+                    else
+                    {
+                        tran.Commit();      //執行交易  
+
+                        MessageBox.Show("成功");
+                    }
+
+                }
+                catch
+                {
+
+                }
+
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }
+            else if (KINDS.Equals("第三層"))
+            {
+                try
+                {
+                    //20210902密
+                    Class1 TKID = new Class1();//用new 建立類別實體
+                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                    //資料庫使用者密碼解密
+                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                    String connectionString;
+                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                    sqlConn.Close();
+                    sqlConn.Open();
+                    tran = sqlConn.BeginTransaction();
+
+                    sbSql.Clear();
+
+
+                    sbSql.AppendFormat(@"  
+                                        INSERT INTO [TKMOC].[dbo].[MOCMANULINEBAKING]
+                                        ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET],[MANUHOUR],[BOX],[PACKAGE],[OUTDATE],[TA029],[HALFPRO],[COPTD001],[COPTD002],[COPTD003])
+                                        
+                                        SELECT ID,'{0}','{1}',MD003C [MB001],MD035C [MB002],MD036C [MB003],CONVERT(DECIMAL(16,4),(BOMNUMS3/MC004MD003C)) [BAR],BOMNUMS3 [NUM],TC053 [CLINET],0 [MANUHOUR],0 [BOX],0 [PACKAGE],TD013 [OUTDATE],TC015 [TA029],0 [HALFPRO],TD001 [COPTD001] ,TD002 [TCOPTD002], TD003 [TCOPTD003]
+                                        FROM (
+                                        SELECT NEWID() AS ID,TD001,TD002,TD003,TC053,TD004,TD005,TD006,(TD008+TD024) AS TD008,TD010,TC015,TD013,(CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TD008+TD024)*INVMD.MD004 ELSE (TD008+TD024)  END ) AS NUM
+                                        ,BOMMD.MD003,BOMMD.MD035,BOMMD.MD036,BOMMD.MD006,BOMMD.MD007
+                                        ,((CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TD008+TD024)*INVMD.MD004 ELSE (TD008+TD024)  END )*BOMMD.MD006/BOMMD.MD007/BOMMC.MC004) AS BOMNUMS
+
+                                        ,BOMMD2.MD003 MD003B,BOMMD2.MD035 MD035B,BOMMD2.MD036 MD036B,BOMMD2.MD006 MD006B,BOMMD2.MD007 MD007B
+                                        ,(((CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TD008+TD024)*INVMD.MD004 ELSE (TD008+TD024)  END )*BOMMD.MD006/BOMMD.MD007/BOMMC.MC004)*BOMMD2.MD006/BOMMD2.MD007/BOMMC2.MC004)AS BOMNUMS2
+                                        ,ISNULL((SELECT TOP 1 MD007 FROM [TK].dbo.BOMMD MD WHERE (MD.MD003 LIKE '201%') AND MD.MD001=BOMMD2.MD003),1) AS MD007C
+                                        ,ISNULL((SELECT TOP 1 MC004 FROM [TK].dbo.BOMMC MC WHERE MC.MC001=BOMMD2.MD003),1) AS MC004C
+
+                                        ,BOMMD3.MD003 MD003C,BOMMD3.MD035 MD035C,BOMMD3.MD036 MD036C,BOMMD3.MD006 MD006C,BOMMD3.MD007 MD007C3
+                                        ,((((CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TD008+TD024)*INVMD.MD004 ELSE (TD008+TD024)  END )*BOMMD.MD006/BOMMD.MD007/BOMMC.MC004)*BOMMD2.MD006/BOMMD2.MD007/BOMMC2.MC004)*BOMMD3.MD006/BOMMD3.MD007/BOMMC3.MC004)AS BOMNUMS3
+                                        ,ISNULL((SELECT TOP 1 MD007 FROM [TK].dbo.BOMMD MD WHERE (MD.MD003 LIKE '201%') AND MD.MD001=BOMMD3.MD003),1) AS MD007BOXC
+                                        ,ISNULL((SELECT TOP 1 MC004 FROM [TK].dbo.BOMMC MC WHERE MC.MC001=BOMMD3.MD003),1) AS MC004MD003C
+
+                                        FROM [TK].dbo.INVMB WITH(NOLOCK),[TK].dbo.COPTC WITH(NOLOCK),[TK].dbo.COPTD WITH(NOLOCK)
+                                        LEFT JOIN [TK].dbo.INVMD ON INVMD.MD001=TD004 AND TD010=MD002
+                                        LEFT JOIN [TK].dbo.BOMMC ON BOMMC.MC001=TD004
+                                        LEFT JOIN [TK].dbo.BOMMD ON BOMMD.MD001=TD004
+                                        LEFT JOIN [TK].dbo.BOMMC BOMMC2 ON BOMMC2.MC001=BOMMD.MD003
+                                        LEFT JOIN [TK].dbo.BOMMD BOMMD2 ON BOMMD2.MD001=BOMMD.MD003
+                                        LEFT JOIN [TK].dbo.BOMMC BOMMC3 ON BOMMC3.MC001=BOMMD2.MD003
+                                        LEFT JOIN [TK].dbo.BOMMD BOMMD3 ON BOMMD3.MD001=BOMMD2.MD003
+                                        WHERE TC001=TD001 AND TC002=TD002
+                                        AND MB001=TD004
+                                        AND TD001='{2}' AND TD002='{3}' AND TD003='{4}'
+                                        AND (BOMMD.MD003 LIKE '3%' OR BOMMD.MD003 LIKE '4%')
+                                        AND (BOMMD2.MD003 LIKE '3%' OR BOMMD2.MD003 LIKE '4%')
+                                        AND (BOMMD3.MD003 LIKE '3%' OR BOMMD3.MD003 LIKE '4%')
+                                        ) AS TEMP
+                                        ", MANU, MANUDATE, TD001, TD002, TD003);
+
+                    cmd.Connection = sqlConn;
+                    cmd.CommandTimeout = 60;
+                    cmd.CommandText = sbSql.ToString();
+                    cmd.Transaction = tran;
+                    result = cmd.ExecuteNonQuery();
+
+                    if (result == 0)
+                    {
+                        tran.Rollback();    //交易取消
+                    }
+                    else
+                    {
+                        tran.Commit();      //執行交易  
+
+                        MessageBox.Show("成功");
+                    }
+
+                }
+                catch
+                {
+
+                }
+
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }
+        }
+
         public void SETNULL()
         {
             textBox7.Text = null;
@@ -1948,10 +2266,15 @@ namespace TKMOC
             
         }
 
+        private void button79_Click(object sender, EventArgs e)
+        {
+            ADD_MOCMANULINEBAKING_BATCH(comboBox21.Text,comboBox2.Text,dateTimePicker4.Value.ToString("yyyyMMdd"),textBox42.Text.Trim(), textBox43.Text.Trim(), textBox72.Text.Trim());
+            SEARCHMOCMANULINE_BAKING(dateTimePicker1.Value.ToString("yyyyMMdd"), comboBox1.Text.Trim());
+        }
 
 
         #endregion
 
-       
+
     }
 }
