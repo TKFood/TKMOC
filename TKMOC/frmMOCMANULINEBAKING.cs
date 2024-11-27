@@ -60,6 +60,11 @@ namespace TKMOC
         string DELID;
         string DELMOCTA001B;
         string DELMOCTA002B;
+        string TF001 = "";
+        string TF002 = "";
+        string TF003 = "";
+        string TF104 = "";
+
         public class MOCTADATA
         {
             public string COMPANY;
@@ -140,6 +145,7 @@ namespace TKMOC
             comboBox24load();
             comboBox25load();
             comboBox26load();
+            comboBox28load();
         }
 
         public void DV_CheckBox()
@@ -226,6 +232,10 @@ namespace TKMOC
         public void comboBox26load()
         {
             LoadComboBoxData(comboBox26, "SELECT '未核單' AS 'STATUS' UNION ALL SELECT '已核單' AS 'STATUS' ", "STATUS", "STATUS");
+        }
+        public void comboBox28load()
+        {
+            LoadComboBoxData(comboBox28, "SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE ( MD002 LIKE '吧台烘焙線%'  )  ", "MD002", "MD002");
         }
         public void LoadComboBoxData(ComboBox comboBox, string query, string valueMember, string displayMember)
         {
@@ -3256,10 +3266,7 @@ namespace TKMOC
 
         private void dataGridView29_SelectionChanged(object sender, EventArgs e)
         {
-            string TF001 = "";
-            string TF002 = "";
-            string TF003 = "";
-            string TF104 = "";
+            
             if (dataGridView29.CurrentRow != null)
             {
                 int rowindex = dataGridView29.CurrentRow.Index;
@@ -3636,6 +3643,11 @@ namespace TKMOC
             CHECKdataGridView29();
 
             SEARCHTBCOPTFCHECK(dateTimePicker30.Value.ToString("yyyy"), comboBox26.SelectedValue.ToString(), textBox98.Text.Trim());
+            MessageBox.Show("完成");
+        }
+        private void button96_Click(object sender, EventArgs e)
+        {
+            ADDTOTKMOCMOCMANULINECOPTECOPTF(TF001, TF002, TF003, TF104);
             MessageBox.Show("完成");
         }
         #endregion
