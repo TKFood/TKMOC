@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -116,7 +116,6 @@
             this.dateTimePicker29 = new System.Windows.Forms.DateTimePicker();
             this.label139 = new System.Windows.Forms.Label();
             this.comboBox25 = new System.Windows.Forms.ComboBox();
-            this.button93 = new System.Windows.Forms.Button();
             this.button92 = new System.Windows.Forms.Button();
             this.dataGridView28 = new System.Windows.Forms.DataGridView();
             this.tabControl1.SuspendLayout();
@@ -897,8 +896,8 @@
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle16.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle24.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle24;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
@@ -931,8 +930,8 @@
             // 
             this.dataGridView2.AllowUserToAddRows = false;
             this.dataGridView2.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle17.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.dataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle25.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.dataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle25;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView2.Location = new System.Drawing.Point(0, 0);
@@ -1045,8 +1044,8 @@
             // 
             this.dataGridView3.AllowUserToAddRows = false;
             this.dataGridView3.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle18.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.dataGridView3.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle26.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.dataGridView3.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle26;
             this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView3.Location = new System.Drawing.Point(0, 0);
@@ -1116,7 +1115,6 @@
             this.tableLayoutPanel29.Controls.Add(this.label139, 4, 1);
             this.tableLayoutPanel29.Controls.Add(this.comboBox25, 5, 1);
             this.tableLayoutPanel29.Controls.Add(this.button92, 5, 2);
-            this.tableLayoutPanel29.Controls.Add(this.button93, 6, 2);
             this.tableLayoutPanel29.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel29.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel29.Name = "tableLayoutPanel29";
@@ -1295,16 +1293,6 @@
             this.comboBox25.Size = new System.Drawing.Size(114, 24);
             this.comboBox25.TabIndex = 25;
             // 
-            // button93
-            // 
-            this.button93.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.button93.Location = new System.Drawing.Point(723, 83);
-            this.button93.Name = "button93";
-            this.button93.Size = new System.Drawing.Size(114, 30);
-            this.button93.TabIndex = 103;
-            this.button93.Text = "帶入少量訂單";
-            this.button93.UseVisualStyleBackColor = true;
-            // 
             // button92
             // 
             this.button92.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
@@ -1314,13 +1302,14 @@
             this.button92.TabIndex = 26;
             this.button92.Text = "帶入訂單";
             this.button92.UseVisualStyleBackColor = true;
+            this.button92.Click += new System.EventHandler(this.button92_Click);
             // 
             // dataGridView28
             // 
             this.dataGridView28.AllowUserToAddRows = false;
             this.dataGridView28.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle15.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.dataGridView28.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle23.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.dataGridView28.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle23;
             this.dataGridView28.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView28.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView28.Location = new System.Drawing.Point(0, 0);
@@ -1472,7 +1461,6 @@
         private System.Windows.Forms.Label label139;
         private System.Windows.Forms.ComboBox comboBox25;
         private System.Windows.Forms.Button button92;
-        private System.Windows.Forms.Button button93;
         private System.Windows.Forms.DataGridView dataGridView28;
     }
 }
