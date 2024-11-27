@@ -11569,6 +11569,8 @@ namespace TKMOC
             SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
             DataSet ds1 = new DataSet();
             StringBuilder QUERYS = new StringBuilder();
+            StringBuilder QUERYS2 = new StringBuilder();
+
 
             try
             {
@@ -11629,6 +11631,21 @@ namespace TKMOC
 
                 }
 
+                //過濾烘培品
+                DataTable DT = SEARCH_MOCMANULINEMB001LIKES();
+                if(DT!=null && DT.Rows.Count>=1)
+                {
+                    foreach(DataRow DR in DT.Rows)
+                    {
+                        QUERYS2.AppendFormat(@" AND TD004 NOT LIKE '{0}%'", DR["MB001"].ToString());
+                    }
+                }
+                else
+                {
+                    QUERYS2.AppendFormat(@"");
+                }
+
+                sbSql.Clear();
                 sbSql.AppendFormat(@"  
                                     SELECT  
                                     COPTD.UDF01 AS '是否生產'
@@ -11651,9 +11668,9 @@ namespace TKMOC
                                     AND 1=1
                                 
                                     {0}
-
+                                    {1}
                                     ORDER BY TD002,TD001,TD003
-                                    ", QUERYS.ToString());
+                                    ", QUERYS.ToString(), QUERYS2.ToString());
 
 
 
@@ -11713,6 +11730,68 @@ namespace TKMOC
             catch
             {
 
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
+        public DataTable SEARCH_MOCMANULINEMB001LIKES()
+        {
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            DataSet ds1 = new DataSet();
+            StringBuilder QUERYS = new StringBuilder();
+
+            try
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                sbSql.Clear();
+                QUERYS.Clear();
+                sbSqlQuery2.Clear();
+
+                sbSql.AppendFormat(@"  
+                                    SELECT [MB001]
+                                    FROM [TKMOC].[dbo].[MOCMANULINEMB001LIKES]
+                                    ");
+
+
+
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "TEMPds1");
+                sqlConn.Close();
+
+
+                if(ds1!=null && ds1.Tables["TEMPds1"].Rows.Count >= 1)
+                {
+                    return ds1.Tables["TEMPds1"];
+                }
+                else
+                {
+                    return null;
+                }
+
+            }
+            catch
+            {
+                return null;
             }
             finally
             {
