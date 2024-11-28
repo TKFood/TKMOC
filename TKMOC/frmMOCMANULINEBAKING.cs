@@ -1373,6 +1373,7 @@ namespace TKMOC
                 
                 MOCTA.TA001 = TA001;
                 MOCTA.TA002 = TA002;
+                MOCTA.TA006 = MB001B;
                 MOCTA.TA020 = TA020;
                 MOCTA.TA026 = TA026;
                 MOCTA.TA027 = TA027;
@@ -1447,7 +1448,7 @@ namespace TKMOC
                                                 THEN ROUND({15}/[BOMMC].MC004*[BOMMD].MD006/[BOMMD].MD007*(1+[BOMMD].MD008),0) 
                                             ELSE ROUND({15}/[BOMMC].MC004*[BOMMD].MD006/[BOMMD].MD007*(1+[BOMMD].MD008),3) 
                                          END [TB004], 
-                                         0 [TB005],'****' [TB006],[INVMB].MB004 [TB007],
+                                         0 [TB005],MD009 [TB006],[INVMB].MB004 [TB007],
                                          [INVMB].MB017 [TB009],'1' [TB011],[INVMB].MB002 [TB012],[INVMB].MB003 [TB013],[BOMMD].MD001 [TB014],'N' [TB018],'0' [TB019],'0' [TB020],'2' [TB022],'0' [TB024],
                                          '****' [TB025],'0' [TB026],'1' [TB027],'0' [TB029],'0' [TB030],'0' [TB031],'0' [TB501],'N' [TB554],'0' [TB556],'0' [TB560]
                                         FROM [TK].dbo.[BOMMD], [TK].dbo.[INVMB],[TK].dbo.[BOMMC]
