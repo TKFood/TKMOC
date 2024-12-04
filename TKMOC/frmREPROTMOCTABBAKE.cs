@@ -742,6 +742,8 @@ namespace TKMOC
                                            ", TA001, TA002, i, BUCKETSNUMSMC004);
                     }
 
+
+                    //最後一桶*尾數
                     sbSql.AppendFormat(@"       
                                             INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMBAKING]
                                             ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006],[MD009])                                            
