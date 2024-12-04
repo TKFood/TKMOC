@@ -644,6 +644,10 @@ namespace TKMOC
         /// <param name="BUCKETS"></param>
         public void ADD_REPORTMOCBOMBAKING_ODD(string TA001, string TA002, string BUCKETS,decimal BUCKETSNUMSMC004)
         {
+            //CONVERT(DECIMAL(16,3),(CASE WHEN MD003 NOT LIKE '2%' THEN  MD006*1000/MC004/MD007 ELSE MD006/MC004/MD007 END)*{3}*{4})
+            //物料不用轉成g，*1000
+            //生產量TA015不用帶入，因為{3}*{4}=桶數*一桶標準生產量(BUCKETSNUMSMC004)
+
             float BUCKETSFLOAT = float.Parse(BUCKETS);
             int COUNTS = Convert.ToInt32(Math.Ceiling(BUCKETSFLOAT));
             decimal BUCKETSSMAILL = Convert.ToDecimal(BUCKETSFLOAT - (COUNTS - 1));
