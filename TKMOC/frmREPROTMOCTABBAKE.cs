@@ -711,7 +711,23 @@ namespace TKMOC
                 }
                 else if (COUNTS >= 1)
                 {
-                    sbSql.AppendFormat(@"       
+                    //sbSql.AppendFormat(@"       
+                    //                        INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMBAKING]
+                    //                        ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006],[MD009])
+                    //                        SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,(CASE WHEN MD003 NOT LIKE '2%' THEN  MD006*1000/MC004/MD007 ELSE MD006/MC004/MD007 END)*{3},MD009
+                    //                        FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB,[TK].dbo.BOMMC
+                    //                        WHERE TA006=MD001
+                    //                        AND MD003=MB001
+                    //                        AND MC001=MD001
+                                          
+                    //                        AND TA001='{0}' AND TA002='{1}'
+                    //                        ORDER BY MD003
+
+                    //                       ", TA001, TA002, 1, BUCKETSNUMSMC004);
+                
+                    for (int i = 1; i <= COUNTS-1; i++)
+                    {
+                        sbSql.AppendFormat(@"
                                             INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMBAKING]
                                             ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006],[MD009])
                                             SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,(CASE WHEN MD003 NOT LIKE '2%' THEN  MD006*1000/MC004/MD007 ELSE MD006/MC004/MD007 END)*{3},MD009
@@ -719,11 +735,13 @@ namespace TKMOC
                                             WHERE TA006=MD001
                                             AND MD003=MB001
                                             AND MC001=MD001
-                                          
+                                           
                                             AND TA001='{0}' AND TA002='{1}'
                                             ORDER BY MD003
 
-                                           ", TA001, TA002, 1, BUCKETSNUMSMC004);
+                                           ", TA001, TA002, i, BUCKETSNUMSMC004);
+                    }
+
                     sbSql.AppendFormat(@"       
                                             INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMBAKING]
                                             ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006],[MD009])                                            
@@ -736,26 +754,10 @@ namespace TKMOC
                                             AND TA001='{0}' AND TA002='{1}'
                                             ORDER BY MD003
 
-                                           ", TA001, TA002, 2, BUCKETSSMAILL, BUCKETSNUMSMC004);
+                                           ", TA001, TA002, COUNTS, BUCKETSSMAILL, BUCKETSNUMSMC004);
 
-                    for (int i = 3; i <= COUNTS; i++)
-                    {
-                        sbSql.AppendFormat(@"
-                                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMBAKING]
-                                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006],[MD009)
-                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,(CASE WHEN MD003 NOT LIKE '2%' THEN  MD006*1000/MC004/MD007 ELSE MD006/MC004/MD007 END)*{3},MD009
-                                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB,[TK].dbo.BOMMC
-                                            WHERE TA006=MD001
-                                            AND MD003=MB001
-                                            AND MC001=MD001
-                                           
-                                            AND TA001='{0}' AND TA002='{1}'
-                                            ORDER BY MD003
-
-                                           ", TA001, TA002, i, BUCKETSNUMSMC004);
-                    }
                 }
-                
+
                 cmd.Connection = sqlConn;
                 cmd.CommandTimeout = 60;
                 cmd.CommandText = sbSql.ToString();
