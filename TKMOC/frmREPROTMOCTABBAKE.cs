@@ -591,7 +591,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"
                                             INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMBAKING]
                                             ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006],[MD009])
-                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,CASE WHEN MD003 NOT LIKE '2%' THEN  TA015/MC004*MD006/MD007*(1+MD008)*1000 ELSE TA015/MC004*MD006/MD007*(1+MD008) END,MD009
+                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,CASE WHEN MD003 NOT LIKE '2%' THEN  TA015/MC004*MD006/MD007*(1+MD008)*1000/{4} ELSE TA015/MC004*MD006/MD007*(1+MD008)/{4} END,MD009
                                             FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB,[TK].dbo.BOMMC
                                             WHERE TA006=MD001
                                             AND MD003=MB001
@@ -600,7 +600,7 @@ namespace TKMOC
                                             AND TA001='{0}' AND TA002='{1}'
                                             ORDER BY MD003
 
-                                           ", TA001, TA002, i, BUCKETSNUMSMC004);
+                                           ", TA001, TA002, i, BUCKETSNUMSMC004, COUNTS);
                 }
 
            
