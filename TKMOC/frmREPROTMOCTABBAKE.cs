@@ -590,8 +590,8 @@ namespace TKMOC
                 {
                     sbSql.AppendFormat(@"
                                             INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMBAKING]
-                                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006],[MD009])
-                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,CASE WHEN MD003 NOT LIKE '2%' THEN  TA015/MC004*MD006/MD007*(1+MD008)*1000/{4} ELSE TA015/MC004*MD006/MD007*(1+MD008)/{4} END,MD009
+                                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006],[MD009],[MD002])
+                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,CASE WHEN MD003 NOT LIKE '2%' THEN  TA015/MC004*MD006/MD007*(1+MD008)*1000/{4} ELSE TA015/MC004*MD006/MD007*(1+MD008)/{4} END,MD009,MD002
                                             FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB,[TK].dbo.BOMMC
                                             WHERE TA006=MD001
                                             AND MD003=MB001
@@ -697,8 +697,8 @@ namespace TKMOC
                 {
                     sbSql.AppendFormat(@"       
                                             INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMBAKING]
-                                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006],[MD009])                                            
-                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,CONVERT(DECIMAL(16,3),(CASE WHEN MD003 NOT LIKE '2%' THEN  MD006*1000/MC004/MD007 ELSE MD006/MC004/MD007 END)*{3}*{4}),MD009
+                                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006],[MD009],[MD002])                                            
+                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,CONVERT(DECIMAL(16,3),(CASE WHEN MD003 NOT LIKE '2%' THEN  MD006*1000/MC004/MD007 ELSE MD006/MC004/MD007 END)*{3}*{4}),MD009,MD002
                                             FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB,[TK].dbo.BOMMC
                                             WHERE TA006=MD001
                                             AND MD003=MB001
@@ -729,8 +729,8 @@ namespace TKMOC
                     {
                         sbSql.AppendFormat(@"
                                             INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMBAKING]
-                                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006],[MD009])
-                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,(CASE WHEN MD003 NOT LIKE '2%' THEN  MD006*1000/MC004/MD007 ELSE MD006/MC004/MD007 END)*{3},MD009
+                                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006],[MD009],[MD002])
+                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,(CASE WHEN MD003 NOT LIKE '2%' THEN  MD006*1000/MC004/MD007 ELSE MD006/MC004/MD007 END)*{3},MD009,MD002
                                             FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB,[TK].dbo.BOMMC
                                             WHERE TA006=MD001
                                             AND MD003=MB001
@@ -746,8 +746,8 @@ namespace TKMOC
                     //最後一桶*尾數
                     sbSql.AppendFormat(@"       
                                             INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMBAKING]
-                                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006],[MD009])                                            
-                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,CONVERT(DECIMAL(16,3),(CASE WHEN MD003 NOT LIKE '2%' THEN  MD006*1000/MC004/MD007 ELSE MD006/MC004/MD007 END)*{3}*{4}),MD009
+                                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006],[MD009],[MD002])                                            
+                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,CONVERT(DECIMAL(16,3),(CASE WHEN MD003 NOT LIKE '2%' THEN  MD006*1000/MC004/MD007 ELSE MD006/MC004/MD007 END)*{3}*{4}),MD009,MD002
                                             FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB,[TK].dbo.BOMMC
                                             WHERE TA006=MD001
                                             AND MD003=MB001
