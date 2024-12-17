@@ -71,7 +71,7 @@ namespace TKMOC
         {
             StringBuilder SQL1 = new StringBuilder();
             string CHECK_TA021 = "";           
-
+             
             Report report1 = new Report();
 
             if (TA021.Equals("製一線"))
