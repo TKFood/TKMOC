@@ -882,11 +882,11 @@ namespace TKMOC
             StringBuilder SQL = new StringBuilder();
             StringBuilder SQL1B = new StringBuilder();
 
-            SQL = SETSQL(); 
-            SQL1B = SETSQL1B(MAINMB001);
+            SQL = SETSQL();  
+            SQL1B = SETSQL1B(MAINMB001); 
 
             report1 = new Report();
-            report1.Load(@"REPORT\烘培原料添加表V1.frx");
+            report1.Load(@"REPORT\烘培原料添加表V2.frx");
 
             //20210902密
             Class1 TKID = new Class1();//用new 建立類別實體
