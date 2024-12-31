@@ -4208,6 +4208,122 @@ namespace TKMOC
             }
         }
 
+        public void ADD_SOURCE_TRACE_RELATED()
+        {
+            try
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+
+                sbSql.AppendFormat(@"     
+                                    DELETE [TKMOC].[dbo].[TRACEBACKNEW]
+                                    WHERE [LEVELS]='999'
+
+                                    INSERT INTO [TKMOC].[dbo].[TRACEBACKNEW]
+                                    (
+                                    [LEVELS]
+                                    ,[MMB001]
+                                    ,[MLOTNO]
+                                    ,[MOVEDATES]
+                                    ,[FORMSID]
+                                    ,[FORMSNO]
+                                    ,[FORMSSERNO]
+                                    ,[NUMS]
+                                    ,[STOCKS]
+                                    ,[MF008]
+                                    ,[MF009]
+                                    ,[REMARKS]
+                                    ,[FORSNAME]
+                                    )
+
+                                    SELECT 
+                                    '999' AS [層級]
+                                    ,TE004 AS '主品號'
+                                    ,TE010 AS '主批號'
+                                    ,MF003 AS '異動日期'
+                                    ,TE001 AS '異動單別'
+                                    ,TE002 AS '異動單號'
+                                    ,TE003 AS '異動序號'
+                                    ,TE005 AS '數量'
+                                    ,MF007 AS '庫別'
+                                    ,CASE WHEN MF008='1' THEN '入' WHEN  MF008='-1' THEN '出' END AS '主入出別'
+                                    ,CASE WHEN MF009='1' THEN '入庫' WHEN MF009='2' THEN '銷貨' WHEN MF009='3' THEN '領用' WHEN MF009='4' THEN '轉撥' WHEN MF009='5' THEN '調整' END  AS '異動別'
+                                    ,MF013 AS '備註'
+                                    ,MQ002 AS '單據名稱'
+                                 
+                                    FROM [TK].dbo.MOCTE
+                                    LEFT JOIN [TK].dbo.INVMF ON MF001=TE004 AND MF002=TE010 AND MF004=TE001 AND MF005=TE002 AND MF006=TE003
+                                    LEFT JOIN [TK].dbo.CMSMQ ON MQ001=TE001
+                                    WHERE REPLACE(TE011+TE012,' ','') IN 
+                                    (
+                                        SELECT REPLACE(TG014+TG015,' ','')
+                                        FROM [TK].dbo.MOCTG
+                                        WHERE REPLACE(TG004+TG017,' ','') IN 
+                                        (
+                                            SELECT  REPLACE(MMB001+MLOTNO,' ','') 
+                                            FROM [TKMOC].[dbo].[TRACEBACKNEW]
+                                        )
+                                            GROUP BY REPLACE(TG014+TG015,' ','')
+                                   )
+                                   AND REPLACE(TE004+TE010,' ','') NOT IN
+                                            (
+                                            SELECT  REPLACE(MMB001+MLOTNO,' ','') 
+                                            FROM [TKMOC].[dbo].[TRACEBACKNEW]
+                                    )
+                                    AND TE004 NOT LIKE '1%'
+                                    AND TE004 NOT LIKE '2%'
+
+                                     ");
+
+                sbSql.AppendFormat("  ");
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 180;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易  
+
+
+                }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
+
         #endregion
 
         #region BUTTON
@@ -4396,6 +4512,24 @@ namespace TKMOC
             {
                 ADD_SOURCE_TRACE(textBox6.Text.Trim(), textBox7.Text.Trim());
             }
+            SETFASTREPORT_TRACEBACKNEW();
+
+
+            //關閉跳出視窗
+            MSGSHOW.Close();
+            //解除鎖定
+            this.Enabled = true;
+        }
+        private void button30_Click(object sender, EventArgs e)
+        {
+            MESSAGESHOW MSGSHOW = new MESSAGESHOW();
+            //鎖定控制項
+            this.Enabled = false;
+            //顯示跳出視窗
+            MSGSHOW.Show();
+
+            //補入同層關連批號
+            ADD_SOURCE_TRACE_RELATED();
             SETFASTREPORT_TRACEBACKNEW();
 
 
