@@ -886,7 +886,7 @@ namespace TKMOC
             SQL1B = SETSQL1B(MAINMB001); 
 
             report1 = new Report();
-            report1.Load(@"REPORT\烘培原料添加表V2.frx");
+            report1.Load(@"REPORT\烘培原料添加表V3.frx");
 
             //20210902密
             Class1 TKID = new Class1();//用new 建立類別實體
@@ -946,6 +946,7 @@ namespace TKMOC
                             ,'顆數:'+CONVERT(nvarchar,((SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOMBAKING] RE WHERE [MD003] NOT  IN ('101001009','3010000111') AND RE.[BOXS]=[REPORTMOCBOMBAKING].[BOXS])/(CASE WHEN BOMMC.UDF06=0 THEN 1 ELSE BOMMC.UDF06 END))) AS '每桶顆數'
                             ,((SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOMBAKING] WHERE [MD003] NOT  IN ('101001009','3010000111') )/(CASE WHEN BOMMC.UDF06=0 THEN 1 ELSE BOMMC.UDF06 END)) AS '總顆數'
                             ,'配比 '+ BOMMC.UDF03 AS '配方比'                            
+                            ,MD009
 
                             FROM [TKMOC].[dbo].[REPORTMOCBOMBAKING]
                             LEFT JOIN [TK].dbo.BOMMC ON MC001=TA006
