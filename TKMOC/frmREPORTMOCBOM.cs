@@ -588,7 +588,7 @@ namespace TKMOC
                         sbSql.AppendFormat(@"
                                             INSERT INTO [TKMOC].[dbo].[REPORTMOCBOM]
                                             ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
-                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,MD006
+                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,MD006/MD007
                                             FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
                                             WHERE TA006=MD001
                                             AND MD003=MB001
@@ -767,7 +767,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"       
                                             INSERT INTO [TKMOC].[dbo].[REPORTMOCBOM]
                                             ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])                                            
-                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,CONVERT(DECIMAL(16,3),MD006*{3})
+                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,CONVERT(DECIMAL(16,3),MD006/MD007*{3})
                                             FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
                                             WHERE TA006=MD001
                                             AND MD003=MB001
@@ -783,7 +783,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"       
                                             INSERT INTO [TKMOC].[dbo].[REPORTMOCBOM]
                                             ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
-                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,MD006
+                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,MD006/MD007
                                             FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
                                             WHERE TA006=MD001
                                             AND MD003=MB001
@@ -796,7 +796,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"       
                                             INSERT INTO [TKMOC].[dbo].[REPORTMOCBOM]
                                             ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])                                            
-                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,CONVERT(DECIMAL(16,3),MD006*{3})
+                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,CONVERT(DECIMAL(16,3),MD006/MD007*{3})
                                             FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
                                             WHERE TA006=MD001
                                             AND MD003=MB001
@@ -812,7 +812,7 @@ namespace TKMOC
                         sbSql.AppendFormat(@"
                                             INSERT INTO [TKMOC].[dbo].[REPORTMOCBOM]
                                             ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
-                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,MD006
+                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,MD006/MD007
                                             FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
                                             WHERE TA006=MD001
                                             AND MD003=MB001
@@ -1066,7 +1066,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"
                                             INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMOIL]
                                             ([TA003],[TA021],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
-                                            SELECT TA003,TA021,TA006,TA034,'{3}',MD003,MB002,MD006
+                                            SELECT TA003,TA021,TA006,TA034,'{3}',MD003,MB002,MD006/MD007
                                             FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
                                             WHERE TA006=MD001
                                             AND MD003=MB001
@@ -1168,7 +1168,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"       
                                             INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMOIL]
                                             ([TA003],[TA021],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
-                                            SELECT TA003,TA021,TA006,TA034,'{3}',MD003,MB002,MD006*{4}
+                                            SELECT TA003,TA021,TA006,TA034,'{3}',MD003,MB002,MD006/MD007*{4}
                                             FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
                                             WHERE TA006=MD001
                                             AND MD003=MB001
@@ -1184,7 +1184,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"       
                                             INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMOIL]
                                             ([TA003],[TA021],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
-                                            SELECT TA003,TA021,TA006,TA034,'{3}',MD003,MB002,MD006
+                                            SELECT TA003,TA021,TA006,TA034,'{3}',MD003,MB002,MD006/MD007
                                             FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
                                             WHERE TA006=MD001
                                             AND MD003=MB001
@@ -1198,7 +1198,7 @@ namespace TKMOC
                     sbSql.AppendFormat(@"       
                                             INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMOIL]
                                             ([TA003],[TA021],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
-                                            SELECT TA003,TA021,TA006,TA034,'{3}',MD003,MB002,MD006*{4}
+                                            SELECT TA003,TA021,TA006,TA034,'{3}',MD003,MB002,MD006/MD007*{4}
                                             FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
                                             WHERE TA006=MD001
                                             AND MD003=MB001
@@ -1214,7 +1214,7 @@ namespace TKMOC
                         sbSql.AppendFormat(@"
                                              INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMOIL]
                                             ([TA003],[TA021],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
-                                            SELECT TA003,TA021,TA006,TA034,'{3}',MD003,MB002,MD006
+                                            SELECT TA003,TA021,TA006,TA034,'{3}',MD003,MB002,MD006/MD007
                                             FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
                                             WHERE TA006=MD001
                                             AND MD003=MB001
