@@ -53,7 +53,7 @@ namespace TKMOC
             InitializeComponent();
 
             comboBox1load();
-            ADD_DATAGRID_CHECKED();
+            ADD_DATAGRID_CHECKED(); 
         }
 
         private void frmREPROTMOCTABBAKE_Load(object sender, EventArgs e)
@@ -66,7 +66,7 @@ namespace TKMOC
             //cbCol.TrueValue = true;
             //cbCol.FalseValue = false;
             //dataGridView2.Columns.Insert(0, cbCol);
-                      
+                       
 
             ////建立个矩形，等下计算 CheckBox 嵌入 GridView 的位置
             //Rectangle rect = dataGridView2.GetCellDisplayRectangle(0,  -1, true);
