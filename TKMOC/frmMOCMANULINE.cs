@@ -2742,7 +2742,7 @@ namespace TKMOC
                     sbSql.AppendFormat(" AND MD001='{0}' AND ISNULL(MD012,'')='' )", MOCMB001);
                     sbSql.AppendFormat(" ");
                     sbSql.AppendFormat(" ");
-                    sbSql.AppendFormat(" ");
+                    sbSql.AppendFormat(" "); 
 
 
                     cmd.Connection = sqlConn;
