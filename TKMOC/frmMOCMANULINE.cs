@@ -2601,11 +2601,11 @@ namespace TKMOC
             decimal MOCTA004 = 0; ;
             string MOCTB009 = null;
        
-
+             
             const int MaxLength = 100;
 
             if (MANU.Equals("製二線"))
-            {
+            { 
                 MOCMB001 = MB001;
                 MOCTA004 = BAR;
                 MOCTA.TA026 = TA026A;
