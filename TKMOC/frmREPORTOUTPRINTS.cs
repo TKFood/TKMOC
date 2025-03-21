@@ -71,7 +71,7 @@ namespace TKMOC
                
             StringBuilder Sequel = new StringBuilder(); 
             Sequel.AppendFormat(@"
-                                SELECT 
+                                SELECT  
                                  [ID]
                                 ,[BOXNAMES]
                                 ,[ORDRES]
