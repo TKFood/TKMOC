@@ -12902,7 +12902,9 @@ namespace TKMOC
             SqlDataAdapter adapter1 = new SqlDataAdapter();
             SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
             DataSet ds1 = new DataSet();
+            StringBuilder sbSql = new StringBuilder();
             StringBuilder QUERYS = new StringBuilder();
+            StringBuilder QUERYS99 = new StringBuilder();
 
             try
             {
@@ -12963,6 +12965,21 @@ namespace TKMOC
 
                 }
 
+
+                //過濾烘培品
+                DataTable DT = SEARCH_MOCMANULINEMB001LIKES();
+                if (DT != null && DT.Rows.Count >= 1)
+                {
+                    foreach (DataRow DR in DT.Rows)
+                    {
+                        QUERYS99.AppendFormat(@" AND TF005 NOT LIKE '{0}%'", DR["MB001"].ToString());
+                    }
+                }
+                else
+                {
+                    QUERYS99.AppendFormat(@"");
+                }
+
                 sbSql.AppendFormat(@"  
                                     SELECT 
                                     COPTF.UDF01 AS '是否生產'
@@ -12989,9 +13006,10 @@ namespace TKMOC
                                     WHERE TE001=TF001 AND TE002=TF002 AND TE003=TF003
                                     AND 1=1
                                     {0}
+                                    {1}
 
-
-                                    ", QUERYS.ToString());
+                                
+                                    ", QUERYS.ToString(), QUERYS99.ToString());
 
 
 
