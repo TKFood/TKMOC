@@ -208,7 +208,7 @@ namespace TKMOC
             report1.SetParameterValue("P2", EDAYS);
 
             report1.Preview = previewControl1;
-            report1.Show(); 
+            report1.Show();  
         }
 
         #endregion
