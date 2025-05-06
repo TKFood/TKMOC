@@ -89,7 +89,7 @@ namespace TKMOC
                                    SELECT MD003 AS '品號',MD035 AS '品名'
                                    ,ISNULL((SELECT SUM(LA005*LA011) FROM [TK].dbo.INVLA WHERE LA001=MD003 AND LA009='20019' AND LA016<>'********************') ,0) AS '20019外倉'                                           
                                    ,(SELECT CAST(LA016 AS NVARCHAR ) + ',' FROM [TK].dbo.INVLA WITH (NOLOCK) WHERE LA001=MD003 AND LA009='20006' AND ISNULL(LA016,'')<>'' AND LA016<>'********************' GROUP BY LA001,LA016 HAVING ISNULL(SUM(LA005*LA011),0)>0 FOR XML PATH('')) AS '20006倉批號'
-                                    FROM [TKMOC].dbo.[MOCMANULINE],[TK].dbo.BOMMC,[TK].dbo.BOMMD
+                                    FROM [TKMOC].dbo.[MOCMANULINE] WITH(NOLOCK),[TK].dbo.BOMMC WITH(NOLOCK),[TK].dbo.BOMMD WITH(NOLOCK)
                                     LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
                                     
 
@@ -274,17 +274,17 @@ namespace TKMOC
 			                                ,[COPTD001]
 			                                ,[COPTD002]
 			                                ,[COPTD003]
-		                                FROM [TKMOC].dbo.[MOCMANULINE]
-		                                LEFT JOIN [TKMOC].dbo.[MOCMANULINERESULT] ON [MOCMANULINERESULT].SID = [MOCMANULINE].ID
-		                                JOIN [TK].dbo.BOMMC ON [MOCMANULINE].[MB001] = BOMMC.MC001
-		                                JOIN [TK].dbo.BOMMD ON BOMMC.MC001 = BOMMD.MD001
-		                                LEFT JOIN [TK].dbo.MOCTB MOCTB1 ON [MOCTA001] = MOCTB1.TB001
+		                                FROM [TKMOC].dbo.[MOCMANULINE]  WITH(NOLOCK)
+		                                LEFT JOIN [TKMOC].dbo.[MOCMANULINERESULT]  WITH(NOLOCK) ON [MOCMANULINERESULT].SID = [MOCMANULINE].ID
+		                                JOIN [TK].dbo.BOMMC WITH(NOLOCK) ON [MOCMANULINE].[MB001] = BOMMC.MC001
+		                                JOIN [TK].dbo.BOMMD WITH(NOLOCK) ON BOMMC.MC001 = BOMMD.MD001
+		                                LEFT JOIN [TK].dbo.MOCTB  MOCTB1  WITH(NOLOCK) ON [MOCTA001] = MOCTB1.TB001
 			                                AND [MOCTA002] = MOCTB1.TB002
 			                                AND MOCTB1.TB003 = MD003
-		                                LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001 = MD003
-		                                LEFT JOIN [TKMOC].[dbo].[MOCMANULINEMERGE] ON [MOCMANULINEMERGE].SID = [MOCMANULINE].ID
-		                                LEFT JOIN [TK].dbo.MOCTA ON TA033 = [MOCMANULINEMERGE].NO
-		                                LEFT JOIN [TK].dbo.MOCTB MOCTB2 ON MOCTA.TA001 = MOCTB2.TB001
+		                                LEFT JOIN [TK].dbo.INVMB  WITH(NOLOCK) ON INVMB.MB001 = MD003
+		                                LEFT JOIN [TKMOC].[dbo].[MOCMANULINEMERGE] WITH(NOLOCK) ON [MOCMANULINEMERGE].SID = [MOCMANULINE].ID
+		                                LEFT JOIN [TK].dbo.MOCTA WITH(NOLOCK) ON TA033 = [MOCMANULINEMERGE].NO
+		                                LEFT JOIN [TK].dbo.MOCTB MOCTB2 WITH(NOLOCK) ON MOCTA.TA001 = MOCTB2.TB001
 			                                AND MOCTA.TA002 = MOCTB2.TB002
 			                                AND MOCTB2.TB003 = MD003
 		                                WHERE [MOCMANULINE].MB001 = MC001
@@ -338,17 +338,17 @@ namespace TKMOC
 			                                ,[COPTD001]
 			                                ,[COPTD002]
 			                                ,[COPTD003]
-		                                FROM [TKMOC].dbo.[MOCMANULINE]
-		                                LEFT JOIN [TKMOC].dbo.[MOCMANULINERESULT] ON [MOCMANULINERESULT].SID = [MOCMANULINE].ID
-		                                JOIN [TK].dbo.BOMMC ON [MOCMANULINE].[MB001] = BOMMC.MC001
-		                                JOIN [TK].dbo.BOMMD ON BOMMC.MC001 = BOMMD.MD001
-		                                LEFT JOIN [TK].dbo.MOCTB MOCTB1 ON [MOCTA001] = MOCTB1.TB001
+		                                FROM [TKMOC].dbo.[MOCMANULINE]  WITH(NOLOCK)
+		                                LEFT JOIN [TKMOC].dbo.[MOCMANULINERESULT]  WITH(NOLOCK) ON [MOCMANULINERESULT].SID = [MOCMANULINE].ID
+		                                JOIN [TK].dbo.BOMMC WITH(NOLOCK) ON [MOCMANULINE].[MB001] = BOMMC.MC001
+		                                JOIN [TK].dbo.BOMMD WITH(NOLOCK)  ON BOMMC.MC001 = BOMMD.MD001
+		                                LEFT JOIN [TK].dbo.MOCTB MOCTB1  WITH(NOLOCK) ON [MOCTA001] = MOCTB1.TB001
 			                                AND [MOCTA002] = MOCTB1.TB002
 			                                AND MOCTB1.TB003 = MD003
-		                                LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001 = MD003
-		                                LEFT JOIN [TKMOC].[dbo].[MOCMANULINEMERGE] ON [MOCMANULINEMERGE].SID = [MOCMANULINE].ID
-		                                LEFT JOIN [TK].dbo.MOCTA ON TA033 = [MOCMANULINEMERGE].NO
-		                                LEFT JOIN [TK].dbo.MOCTB MOCTB2 ON MOCTA.TA001 = MOCTB2.TB001
+		                                LEFT JOIN [TK].dbo.INVMB WITH(NOLOCK) ON INVMB.MB001 = MD003
+		                                LEFT JOIN [TKMOC].[dbo].[MOCMANULINEMERGE]  WITH(NOLOCK) ON [MOCMANULINEMERGE].SID = [MOCMANULINE].ID
+		                                LEFT JOIN [TK].dbo.MOCTA   WITH(NOLOCK) ON TA033 = [MOCMANULINEMERGE].NO
+		                                LEFT JOIN [TK].dbo.MOCTB MOCTB2  WITH(NOLOCK) ON MOCTA.TA001 = MOCTB2.TB001
 			                                AND MOCTA.TA002 = MOCTB2.TB002
 			                                AND MOCTB2.TB003 = MD003
 		                                WHERE [MOCMANULINE].MB001 = MC001
@@ -386,10 +386,10 @@ namespace TKMOC
 			                                ,TD001
 			                                ,TD002
 			                                ,TD003
-		                                FROM [TK].dbo.INVMB
-			                                ,[TK].dbo.PURTC
-			                                ,[TK].dbo.PURTD
-		                                LEFT JOIN [TK].dbo.INVMD ON MD001 = TD004
+		                                FROM [TK].dbo.INVMB  WITH(NOLOCK)
+			                                ,[TK].dbo.PURTC  WITH(NOLOCK)
+			                                ,[TK].dbo.PURTD  WITH(NOLOCK)
+		                                LEFT JOIN [TK].dbo.INVMD   WITH(NOLOCK) ON MD001 = TD004
 			                                AND MD002 = TD009
 		                                WHERE TC001 = TD001
 			                                AND TC002 = TD002
@@ -400,6 +400,7 @@ namespace TKMOC
 			                                AND TD012 >= '{0}'
 			                                AND TD012 <= '{1}'
 			                                AND TD004 = '{2}'
+                                            AND TD007 IN (SELECT [TD007] FROM [TKMOC].[dbo].[REPORTINVPURUESD_TD007])
 		
 		                                UNION
 		
@@ -416,14 +417,12 @@ namespace TKMOC
 			                                ,NULL AS COPTD001
 			                                ,NULL AS COPTD002
 			                                ,NULL AS COPTD002
-		                                FROM [TK].dbo.INVLA
-			                                ,[TK].dbo.INVMB
-		                                WHERE LA001 = MB001
-			                                AND LA009 IN (
-				                                '20004'
-				                                ,'20006'
-				                                )
+		                                FROM [TK].dbo.INVLA  WITH(NOLOCK)
+			                                ,[TK].dbo.INVMB  WITH(NOLOCK)
+		                                WHERE LA001 = MB001	
+                                            AND LA009 IN (SELECT [TD007] FROM [TKMOC].[dbo].[REPORTINVPURUESD_TD007])		                            
 			                                AND LA001 = '{2}'
+                                            
 		                                GROUP BY LA001
 			                                ,MB002
 			                                ,MB004
@@ -443,8 +442,8 @@ namespace TKMOC
 			                                ,NULL
 			                                ,NULL
 			                                ,NULL
-		                                FROM [TK].dbo.INVMB
-			                                ,[TKMOC].dbo.INVPURUESD
+		                                FROM [TK].dbo.INVMB  WITH(NOLOCK)
+			                                ,[TKMOC].dbo.INVPURUESD  WITH(NOLOCK)
 		                                WHERE INVMB.MB001 = INVPURUESD.MB001
 			                                AND INVPURUESD.DATES >= '{0}'
 			                                AND INVPURUESD.DATES <= '{1}'
@@ -504,17 +503,17 @@ namespace TKMOC
 			                                ,[COPTD001]
 			                                ,[COPTD002]
 			                                ,[COPTD003]
-		                                FROM [TKMOC].dbo.[MOCMANULINE]
-		                                LEFT JOIN [TKMOC].dbo.[MOCMANULINERESULT] ON [MOCMANULINERESULT].SID = [MOCMANULINE].ID
-		                                JOIN [TK].dbo.BOMMC ON [MOCMANULINE].[MB001] = BOMMC.MC001
-		                                JOIN [TK].dbo.BOMMD ON BOMMC.MC001 = BOMMD.MD001
-		                                LEFT JOIN [TK].dbo.MOCTB MOCTB1 ON [MOCTA001] = MOCTB1.TB001
+		                                FROM [TKMOC].dbo.[MOCMANULINE]  WITH(NOLOCK)
+		                                LEFT JOIN [TKMOC].dbo.[MOCMANULINERESULT]  WITH(NOLOCK) ON [MOCMANULINERESULT].SID = [MOCMANULINE].ID
+		                                JOIN [TK].dbo.BOMMC  WITH(NOLOCK) ON [MOCMANULINE].[MB001] = BOMMC.MC001
+		                                JOIN [TK].dbo.BOMMD  WITH(NOLOCK) ON BOMMC.MC001 = BOMMD.MD001
+		                                LEFT JOIN [TK].dbo.MOCTB MOCTB1  WITH(NOLOCK) ON [MOCTA001] = MOCTB1.TB001
 			                                AND [MOCTA002] = MOCTB1.TB002
 			                                AND MOCTB1.TB003 = MD003
-		                                LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001 = MD003
-		                                LEFT JOIN [TKMOC].[dbo].[MOCMANULINEMERGE] ON [MOCMANULINEMERGE].SID = [MOCMANULINE].ID
-		                                LEFT JOIN [TK].dbo.MOCTA ON TA033 = [MOCMANULINEMERGE].NO
-		                                LEFT JOIN [TK].dbo.MOCTB MOCTB2 ON MOCTA.TA001 = MOCTB2.TB001
+		                                LEFT JOIN [TK].dbo.INVMB  WITH(NOLOCK) ON INVMB.MB001 = MD003
+		                                LEFT JOIN [TKMOC].[dbo].[MOCMANULINEMERGE] WITH(NOLOCK)  ON [MOCMANULINEMERGE].SID = [MOCMANULINE].ID
+		                                LEFT JOIN [TK].dbo.MOCTA  WITH(NOLOCK) ON TA033 = [MOCMANULINEMERGE].NO
+		                                LEFT JOIN [TK].dbo.MOCTB MOCTB2  WITH(NOLOCK) ON MOCTA.TA001 = MOCTB2.TB001
 			                                AND MOCTA.TA002 = MOCTB2.TB002
 			                                AND MOCTB2.TB003 = MD003
 		                                WHERE [MOCMANULINE].MB001 = MC001
@@ -568,17 +567,17 @@ namespace TKMOC
 			                                ,[COPTD001]
 			                                ,[COPTD002]
 			                                ,[COPTD003]
-		                                FROM [TKMOC].dbo.[MOCMANULINE]
-		                                LEFT JOIN [TKMOC].dbo.[MOCMANULINERESULT] ON [MOCMANULINERESULT].SID = [MOCMANULINE].ID
-		                                JOIN [TK].dbo.BOMMC ON [MOCMANULINE].[MB001] = BOMMC.MC001
-		                                JOIN [TK].dbo.BOMMD ON BOMMC.MC001 = BOMMD.MD001
-		                                LEFT JOIN [TK].dbo.MOCTB MOCTB1 ON [MOCTA001] = MOCTB1.TB001
+		                                FROM [TKMOC].dbo.[MOCMANULINE]  WITH(NOLOCK)
+		                                LEFT JOIN [TKMOC].dbo.[MOCMANULINERESULT]  WITH(NOLOCK) ON [MOCMANULINERESULT].SID = [MOCMANULINE].ID
+		                                JOIN [TK].dbo.BOMMC  WITH(NOLOCK) ON [MOCMANULINE].[MB001] = BOMMC.MC001
+		                                JOIN [TK].dbo.BOMMD  WITH(NOLOCK) ON BOMMC.MC001 = BOMMD.MD001
+		                                LEFT JOIN [TK].dbo.MOCTB MOCTB1 WITH(NOLOCK) ON [MOCTA001] = MOCTB1.TB001
 			                                AND [MOCTA002] = MOCTB1.TB002
 			                                AND MOCTB1.TB003 = MD003
-		                                LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001 = MD003
-		                                LEFT JOIN [TKMOC].[dbo].[MOCMANULINEMERGE] ON [MOCMANULINEMERGE].SID = [MOCMANULINE].ID
-		                                LEFT JOIN [TK].dbo.MOCTA ON TA033 = [MOCMANULINEMERGE].NO
-		                                LEFT JOIN [TK].dbo.MOCTB MOCTB2 ON MOCTA.TA001 = MOCTB2.TB001
+		                                LEFT JOIN [TK].dbo.INVMB  WITH(NOLOCK) ON INVMB.MB001 = MD003
+		                                LEFT JOIN [TKMOC].[dbo].[MOCMANULINEMERGE]  WITH(NOLOCK) ON [MOCMANULINEMERGE].SID = [MOCMANULINE].ID
+		                                LEFT JOIN [TK].dbo.MOCTA  WITH(NOLOCK) ON TA033 = [MOCMANULINEMERGE].NO
+		                                LEFT JOIN [TK].dbo.MOCTB MOCTB2  WITH(NOLOCK) ON MOCTA.TA001 = MOCTB2.TB001
 			                                AND MOCTA.TA002 = MOCTB2.TB002
 			                                AND MOCTB2.TB003 = MD003
 		                                WHERE [MOCMANULINE].MB001 = MC001
@@ -616,10 +615,10 @@ namespace TKMOC
 			                                ,TD001
 			                                ,TD002
 			                                ,TD003
-		                                FROM [TK].dbo.INVMB
-			                                ,[TK].dbo.PURTC
-			                                ,[TK].dbo.PURTD
-		                                LEFT JOIN [TK].dbo.INVMD ON MD001 = TD004
+		                                FROM [TK].dbo.INVMB  WITH(NOLOCK)
+			                                ,[TK].dbo.PURTC  WITH(NOLOCK) 
+			                                ,[TK].dbo.PURTD  WITH(NOLOCK) 
+		                                LEFT JOIN [TK].dbo.INVMD  WITH(NOLOCK) ON MD001 = TD004
 			                                AND MD002 = TD009
 		                                WHERE TC001 = TD001
 			                                AND TC002 = TD002
@@ -630,6 +629,7 @@ namespace TKMOC
 			                                AND TD012 >= '{0}'
 			                                AND TD012 <= '{1}'
 			                                AND TD004 = '{2}'
+                                            AND TD007 IN (SELECT [TD007] FROM [TKMOC].[dbo].[REPORTINVPURUESD_TD007])		                            
 		
 		                                UNION
 		
@@ -646,13 +646,10 @@ namespace TKMOC
 			                                ,NULL AS COPTD001
 			                                ,NULL AS COPTD002
 			                                ,NULL AS COPTD002
-		                                FROM [TK].dbo.INVLA
-			                                ,[TK].dbo.INVMB
+		                                FROM [TK].dbo.INVLA  WITH(NOLOCK)
+			                                ,[TK].dbo.INVMB  WITH(NOLOCK)
 		                                WHERE LA001 = MB001
-			                                AND LA009 IN (
-				                                '20004'
-				                                ,'20006'
-				                                )
+			                                AND LA009 IN (SELECT [TD007] FROM [TKMOC].[dbo].[REPORTINVPURUESD_TD007])		                            
 			                                AND LA001 = '{2}'
 		                                GROUP BY LA001
 			                                ,MB002
@@ -673,8 +670,8 @@ namespace TKMOC
 			                                ,NULL
 			                                ,NULL
 			                                ,NULL
-		                                FROM [TK].dbo.INVMB
-			                                ,[TKMOC].dbo.INVPURUESD
+		                                FROM [TK].dbo.INVMB  WITH(NOLOCK)
+			                                ,[TKMOC].dbo.INVPURUESD  WITH(NOLOCK)
 		                                WHERE INVMB.MB001 = INVPURUESD.MB001
 			                                AND INVPURUESD.DATES >= '{0}'
 			                                AND INVPURUESD.DATES <= '{1}'
