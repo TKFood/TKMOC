@@ -2297,299 +2297,48 @@ namespace TKMOC
             SEARCHMOCMANULINE();
         }
 
-        public void ADDMOCMANULINERESULT()
+        public void ADDMOCMANULINERESULT(string ID,string TA001,string TA002)
         {
-            if (MANU.Equals("製二線"))
+            try
             {
-                try
+                // 初始化資料庫連接
+                Class1 TKID = new Class1();
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                using (sqlConn = new SqlConnection(sqlsb.ConnectionString))
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                    sqlConn.Close();
                     sqlConn.Open();
-                    tran = sqlConn.BeginTransaction();
-
-                    sbSql.Clear();
-
-
-                    sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINERESULT]");
-                    sbSql.AppendFormat(" ([SID],[MOCTA001],[MOCTA002])");
-                    sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}')", ID1, TA001, TA002);
-                    sbSql.AppendFormat(" ");
-                    sbSql.AppendFormat(" ");
-
-
-                    cmd.Connection = sqlConn;
-                    cmd.CommandTimeout = 60;
-                    cmd.CommandText = sbSql.ToString();
-                    cmd.Transaction = tran;
-                    result = cmd.ExecuteNonQuery();
-
-                    if (result == 0)
+                    using (tran = sqlConn.BeginTransaction())
                     {
-                        tran.Rollback();    //交易取消
+                        sbSql.Clear();
+                        sbSql.AppendFormat("INSERT INTO [TKMOC].[dbo].[MOCMANULINERESULT] ([SID],[MOCTA001],[MOCTA002]) VALUES ('{0}','{1}','{2}')", ID, TA001, TA002);
+
+                        cmd.Connection = sqlConn;
+                        cmd.CommandTimeout = 60;
+                        cmd.CommandText = sbSql.ToString();
+                        cmd.Transaction = tran;
+
+                        result = cmd.ExecuteNonQuery();
+
+                        if (result == 0)
+                        {
+                            tran.Rollback();
+                            
+                        }
+                        else
+                        {
+                            tran.Commit();
+                          
+                        }
                     }
-                    else
-                    {
-                        tran.Commit();      //執行交易  
-
-
-                    }
-
-                }
-                catch
-                {
-
-                }
-
-                finally
-                {
-                    sqlConn.Close();
                 }
             }
-            else if (MANU.Equals("包裝線"))
+            catch (Exception ex)
             {
-                try
-                {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                    sqlConn.Close();
-                    sqlConn.Open();
-                    tran = sqlConn.BeginTransaction();
-
-                    sbSql.Clear();
-
-
-                    sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINERESULT]");
-                    sbSql.AppendFormat(" ([SID],[MOCTA001],[MOCTA002])");
-                    sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}')", ID2, TA001, TA002);
-                    sbSql.AppendFormat(" ");
-                    sbSql.AppendFormat(" ");
-
-
-                    cmd.Connection = sqlConn;
-                    cmd.CommandTimeout = 60;
-                    cmd.CommandText = sbSql.ToString();
-                    cmd.Transaction = tran;
-                    result = cmd.ExecuteNonQuery();
-
-                    if (result == 0)
-                    {
-                        tran.Rollback();    //交易取消
-                    }
-                    else
-                    {
-                        tran.Commit();      //執行交易  
-
-
-                    }
-
-                }
-                catch
-                {
-
-                }
-
-                finally
-                {
-                    sqlConn.Close();
-                }
-            }
-                
-            else if(MANU.Equals("製一線"))
-            {
-                try
-                {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                    sqlConn.Close();
-                    sqlConn.Open();
-                    tran = sqlConn.BeginTransaction();
-
-                    sbSql.Clear();
-
-
-                    sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINERESULT]");
-                    sbSql.AppendFormat(" ([SID],[MOCTA001],[MOCTA002])");
-                    sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}')", ID3, TA001, TA002);
-                    sbSql.AppendFormat(" ");
-                    sbSql.AppendFormat(" ");
-
-
-                    cmd.Connection = sqlConn;
-                    cmd.CommandTimeout = 60;
-                    cmd.CommandText = sbSql.ToString();
-                    cmd.Transaction = tran;
-                    result = cmd.ExecuteNonQuery();
-
-                    if (result == 0)
-                    {
-                        tran.Rollback();    //交易取消
-                    }
-                    else
-                    {
-                        tran.Commit();      //執行交易  
-
-
-                    }
-
-                }
-                catch
-                {
-
-                }
-
-                finally
-                {
-                    sqlConn.Close();
-                }
-            }
-            else if (MANU.Equals("手工線"))
-            {
-                try
-                {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                    sqlConn.Close();
-                    sqlConn.Open();
-                    tran = sqlConn.BeginTransaction();
-
-                    sbSql.Clear();
-
-
-                    sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINERESULT]");
-                    sbSql.AppendFormat(" ([SID],[MOCTA001],[MOCTA002])");
-                    sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}')", ID4, TA001, TA002);
-                    sbSql.AppendFormat(" ");
-                    sbSql.AppendFormat(" ");
-
-
-                    cmd.Connection = sqlConn;
-                    cmd.CommandTimeout = 60;
-                    cmd.CommandText = sbSql.ToString();
-                    cmd.Transaction = tran;
-                    result = cmd.ExecuteNonQuery();
-
-                    if (result == 0)
-                    {
-                        tran.Rollback();    //交易取消
-                    }
-                    else
-                    {
-                        tran.Commit();      //執行交易  
-
-
-                    }
-
-                }
-                catch
-                {
-
-                }
-
-                finally
-                {
-                    sqlConn.Close();
-                }
-            }
-
-            else if (MANU.Equals("統百包裝線"))
-            {
-                try
-                {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                    sqlConn.Close();
-                    sqlConn.Open();
-                    tran = sqlConn.BeginTransaction();
-
-                    sbSql.Clear();
-
-
-                    sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINERESULT]");
-                    sbSql.AppendFormat(" ([SID],[MOCTA001],[MOCTA002])");
-                    sbSql.AppendFormat(" VALUES ('{0}','{1}','{2}')", ID6, TA001, TA002);
-                    sbSql.AppendFormat(" ");
-                    sbSql.AppendFormat(" ");
-
-
-                    cmd.Connection = sqlConn;
-                    cmd.CommandTimeout = 60;
-                    cmd.CommandText = sbSql.ToString();
-                    cmd.Transaction = tran;
-                    result = cmd.ExecuteNonQuery();
-
-                    if (result == 0)
-                    {
-                        tran.Rollback();    //交易取消
-                    }
-                    else
-                    {
-                        tran.Commit();      //執行交易  
-
-
-                    }
-
-                }
-                catch
-                {
-
-                }
-
-                finally
-                {
-                    sqlConn.Close();
-                }
+                MessageBox.Show($"錯誤: {ex.Message}");
             }
         }
 
@@ -14741,9 +14490,12 @@ namespace TKMOC
 
         private void button5_Click(object sender, EventArgs e)
         {
-
+            if (dataGridView1.CurrentRow != null) // 確認有選取的列
+            {
+                ID1 = dataGridView1.CurrentRow.Cells["ID"].Value.ToString();               
+            }
             TA002 = GETMAXTA002(TA001);
-            ADDMOCMANULINERESULT();
+            ADDMOCMANULINERESULT(ID1, TA001, TA002);
             ADDMOCTATB();
             SEARCHMOCMANULINERESULT();
 
@@ -14792,8 +14544,13 @@ namespace TKMOC
         {
             if(!string.IsNullOrEmpty(TA028))
             {
+                if (dataGridView3.CurrentRow != null) // 確認有選取的列
+                {
+                    ID2 = dataGridView3.CurrentRow.Cells["ID"].Value.ToString();
+                }
+
                 TA002 = GETMAXTA002(TA001);
-                ADDMOCMANULINERESULT();
+                ADDMOCMANULINERESULT(ID2,TA001, TA002);
                 ADDMOCTATB();
                 SEARCHMOCMANULINERESULT();
 
@@ -14849,8 +14606,12 @@ namespace TKMOC
         {
             if(!string.IsNullOrEmpty(TA028B))
             {
+                if (dataGridView5.CurrentRow != null) // 確認有選取的列
+                {
+                    ID3 = dataGridView5.CurrentRow.Cells["ID"].Value.ToString();
+                }
                 TA002 = GETMAXTA002(TA001);
-                ADDMOCMANULINERESULT();
+                ADDMOCMANULINERESULT(ID3, TA001, TA002);
                 ADDMOCTATB();
                 SEARCHMOCMANULINERESULT();
 
@@ -14901,9 +14662,12 @@ namespace TKMOC
 
         private void button20_Click(object sender, EventArgs e)
         {
-
+            if (dataGridView7.CurrentRow != null) // 確認有選取的列
+            {
+                ID4 = dataGridView7.CurrentRow.Cells["ID"].Value.ToString();
+            }
             TA002 = GETMAXTA002(TA001);
-            ADDMOCMANULINERESULT();
+            ADDMOCMANULINERESULT(ID4, TA001, TA002);
             ADDMOCTATB();
             SEARCHMOCMANULINERESULT();
 
@@ -15134,8 +14898,12 @@ namespace TKMOC
 
         private void button51_Click(object sender, EventArgs e)
         {
+            if (dataGridView16.CurrentRow != null) // 確認有選取的列
+            {
+                ID6 = dataGridView16.CurrentRow.Cells["ID"].Value.ToString();
+            }
             TA002 = GETMAXTA002(TA001);
-            ADDMOCMANULINERESULT();
+            ADDMOCMANULINERESULT(ID6, TA001, TA002);
             ADDMOCTATB();
 
             SEARCHMOCMANULINERESULT();
