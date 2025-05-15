@@ -12377,279 +12377,96 @@ namespace TKMOC
             }
         }
 
-        public void ADDNEWTOTKMOCMOCMANULINETEMP(
-                                            Guid ID,
-                                            string MANU,
-                                            string MANUDATE,
-                                            string MB001,
-                                            string MB002,
-                                            string MB003,
-                                            string BAR,
-                                            string NUM,
-                                            string CLINET,
-                                            string TA029,
-                                            string OUTDATE,
-                                            string HALFPRO,
-                                            string COPTD001,
-                                            string COPTD002,
-                                            string COPTD003,
-                                            string BOX,
-                                            string PACKAGE
+        private void ADDNEWTOTKMOCMOCMANULINETEMP(
+                                                Guid ID,
+                                                string MANU,
+                                                string MANUDATE,
+                                                string MB001,
+                                                string MB002,
+                                                string MB003,
+                                                string BAR,
+                                                string NUM,
+                                                string CLINET,
+                                                string TA029,
+                                                string OUTDATE,
+                                                string HALFPRO,
+                                                string COPTD001,
+                                                string COPTD002,
+                                                string COPTD003,
+                                                string BOX,
+                                                string PACKAGE
                                             )
         {
-            Guid NEWGUID = new Guid();
-            ID = Guid.NewGuid();
-
-            if (MANU.Equals("製二線"))
+            try
             {
-                try
+                // 20210902密
+                Class1 TKID = new Class1();
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                // 資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                using (SqlConnection sqlConn = new SqlConnection(sqlsb.ConnectionString))
                 {
-                    // 20210902密
-                    Class1 TKID = new Class1(); // 用 new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    // 資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
                     sqlConn.Open();
-                    tran = sqlConn.BeginTransaction(); // 開啟交易
-
-                    sbSql.Clear();
-                    sbSql.AppendFormat(@"
-                                        INSERT INTO [TKMOC].[dbo].[MOCMANULINETEMP]
-                                        ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET],[TA029],[OUTDATE],[HALFPRO],[COPTD001],[COPTD002],[COPTD003],[BOX],[PACKAGE])
-                                        VALUES (@ID, @MANU, @MANUDATE, @MB001, @MB002, @MB003, @BAR, @NUM, @CLINET, @TA029, @OUTDATE, @HALFPRO, @COPTD001, @COPTD002, @COPTD003, @BOX, @PACKAGE)
-                                    ");
-
-                    using (SqlCommand cmd = new SqlCommand(sbSql.ToString(), sqlConn, tran)) // 加入 Transaction
+                    using (SqlTransaction tran = sqlConn.BeginTransaction())
                     {
-                        cmd.Parameters.AddWithValue("@ID", ID);
-                        cmd.Parameters.AddWithValue("@MANU", MANU);
-                        cmd.Parameters.AddWithValue("@MANUDATE", MANUDATE);
-                        cmd.Parameters.AddWithValue("@MB001", MB001);
-                        cmd.Parameters.AddWithValue("@MB002", MB002);
-                        cmd.Parameters.AddWithValue("@MB003", MB003);
-                        cmd.Parameters.AddWithValue("@BAR", BAR);
-                        cmd.Parameters.AddWithValue("@NUM", NUM);
-                        cmd.Parameters.AddWithValue("@CLINET", CLINET);
-                        cmd.Parameters.AddWithValue("@TA029", TA029);
-                        cmd.Parameters.AddWithValue("@OUTDATE", OUTDATE);
-                        cmd.Parameters.AddWithValue("@HALFPRO", HALFPRO);
-                        cmd.Parameters.AddWithValue("@COPTD001", COPTD001);
-                        cmd.Parameters.AddWithValue("@COPTD002", COPTD002);
-                        cmd.Parameters.AddWithValue("@COPTD003", COPTD003);
-                        cmd.Parameters.AddWithValue("@BOX", BOX);
-                        cmd.Parameters.AddWithValue("@PACKAGE", PACKAGE);
+                        try
+                        {
+                            sbSql.Clear();
+                            sbSql.Append(@"
+                                            INSERT INTO [TKMOC].[dbo].[MOCMANULINETEMP]
+                                            ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET],[TA029],[OUTDATE],[HALFPRO],[COPTD001],[COPTD002],[COPTD003],[BOX],[PACKAGE])
+                                            VALUES (@ID, @MANU, @MANUDATE, @MB001, @MB002, @MB003, @BAR, @NUM, @CLINET, @TA029, @OUTDATE, @HALFPRO, @COPTD001, @COPTD002, @COPTD003, @BOX, @PACKAGE)
+                                        ");
 
-                        cmd.ExecuteNonQuery();
+                            using (SqlCommand cmd = new SqlCommand(sbSql.ToString(), sqlConn, tran))
+                            {
+                                cmd.Parameters.AddWithValue("@ID", ID);
+                                cmd.Parameters.AddWithValue("@MANU", MANU);
+                                cmd.Parameters.AddWithValue("@MANUDATE", MANUDATE);
+                                cmd.Parameters.AddWithValue("@MB001", MB001);
+                                cmd.Parameters.AddWithValue("@MB002", MB002);
+                                cmd.Parameters.AddWithValue("@MB003", MB003);
+                                cmd.Parameters.AddWithValue("@BAR", BAR);
+                                cmd.Parameters.AddWithValue("@NUM", NUM);
+                                cmd.Parameters.AddWithValue("@CLINET", CLINET);
+                                cmd.Parameters.AddWithValue("@TA029", TA029);
+                                cmd.Parameters.AddWithValue("@OUTDATE", OUTDATE);
+                                cmd.Parameters.AddWithValue("@HALFPRO", HALFPRO);
+                                cmd.Parameters.AddWithValue("@COPTD001", COPTD001);
+                                cmd.Parameters.AddWithValue("@COPTD002", COPTD002);
+                                cmd.Parameters.AddWithValue("@COPTD003", COPTD003);
+                                cmd.Parameters.AddWithValue("@BOX", BOX);
+                                cmd.Parameters.AddWithValue("@PACKAGE", PACKAGE);
+
+                                int result = cmd.ExecuteNonQuery();
+                                if (result > 0)
+                                {
+                                    tran.Commit();
+                                }
+                                else
+                                {
+                                    tran.Rollback();
+                                    MessageBox.Show("有錯誤，先檢查BOM表");
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            tran.Rollback();
+                            MessageBox.Show($"插入資料時發生錯誤：{ex.Message}");
+                        }
                     }
-
-                    tran.Commit(); // 成功就提交交易
-                }
-                catch (Exception ex)
-                {
-                    if (tran != null)
-                    {
-                        tran.Rollback(); // 發生錯誤則回滾
-                    }
-                   
-                }
-                finally
-                {
-                    sqlConn.Close();
-                }
-
-            }
-            else if (MANU.Equals("包裝線"))
-            {
-
-
-                try
-                {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                    sqlConn.Close();
-                    sqlConn.Open();
-                    tran = sqlConn.BeginTransaction();
-
-                    sbSql.Clear();
-
-
-                    sbSql.AppendFormat(@" 
-                                        INSERT INTO [TKMOC].[dbo].[MOCMANULINETEMP]
-                                        ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET],[TA029],[OUTDATE],[HALFPRO],[COPTD001],[COPTD002],[COPTD003],[BOX],[PACKAGE])
-                                        VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}',N'{9}','{10}','{11}','{12}','{13}','{14}','{15}','{16}')
-                                        ", ID, MANU, MANUDATE, MB001, MB002, MB003, BAR, NUM, CLINET, TA029, OUTDATE, HALFPRO, COPTD001, COPTD002, COPTD003, BOX, PACKAGE);
-
-
-                    cmd.Connection = sqlConn;
-                    cmd.CommandTimeout = 60;
-                    cmd.CommandText = sbSql.ToString();
-                    cmd.Transaction = tran;
-                    result = cmd.ExecuteNonQuery();
-
-                    if (result == 0)
-                    {
-                        tran.Rollback();    //交易取消           
-
-                        MessageBox.Show("有錯誤，先檢查BOM表");         
-                    }
-                    else
-                    {
-                        tran.Commit();      //執行交易  
-
-                        //UPDATEMOCMANULINETEMP(NEWGUID, TEMPds);
-
-
-                    }
-
-                }
-                catch
-                {
-
-                }
-
-                finally
-                {
-                    sqlConn.Close();
                 }
             }
-            else if (MANU.Equals("製一線"))
+            catch (Exception ex)
             {
-                try
-                {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                    sqlConn.Close();
-                    sqlConn.Open();
-                    tran = sqlConn.BeginTransaction();
-
-                    sbSql.Clear();
-
-
-                    sbSql.AppendFormat(@" 
-                                        INSERT INTO [TKMOC].[dbo].[MOCMANULINETEMP]
-                                        ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET],[TA029],[OUTDATE],[HALFPRO],[COPTD001],[COPTD002],[COPTD003],[BOX],[PACKAGE])
-                                        VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}',N'{9}','{10}','{11}','{12}','{13}','{14}','{15}','{16}')
-                                        ", ID, MANU, MANUDATE, MB001, MB002, MB003, BAR, NUM, CLINET, TA029, OUTDATE, HALFPRO, COPTD001, COPTD002, COPTD003, BOX, PACKAGE);
-
-
-
-                    cmd.Connection = sqlConn;
-                    cmd.CommandTimeout = 60;
-                    cmd.CommandText = sbSql.ToString();
-                    cmd.Transaction = tran;
-                    result = cmd.ExecuteNonQuery();
-
-                    if (result == 0)
-                    {
-                        tran.Rollback();    //交易取消
-                    }
-                    else
-                    {
-                        tran.Commit();      //執行交易  
-
-                        //UPDATEMOCMANULINETEMP(NEWGUID, TEMPds);
-
-                    }
-
-                }
-                catch
-                {
-
-                }
-
-                finally
-                {
-                    sqlConn.Close();
-                }
+                MessageBox.Show($"資料庫連線錯誤：{ex.Message}");
             }
-            else if (MANU.Equals("手工線"))
-            {
-                try
-                {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                    sqlConn.Close();
-                    sqlConn.Open();
-                    tran = sqlConn.BeginTransaction();
-
-                    sbSql.Clear();
-
-
-                    sbSql.AppendFormat(@" 
-                                        INSERT INTO [TKMOC].[dbo].[MOCMANULINETEMP]
-                                        ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[BAR],[NUM],[CLINET],[TA029],[OUTDATE],[HALFPRO],[COPTD001],[COPTD002],[COPTD003],[BOX],[PACKAGE])
-                                        VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}',N'{9}','{10}','{11}','{12}','{13}','{14}','{15}','{16}')
-                                        ", ID, MANU, MANUDATE, MB001, MB002, MB003, BAR, NUM, CLINET, TA029, OUTDATE, HALFPRO, COPTD001, COPTD002, COPTD003, BOX, PACKAGE);
-
-
-
-                    cmd.Connection = sqlConn;
-                    cmd.CommandTimeout = 60;
-                    cmd.CommandText = sbSql.ToString();
-                    cmd.Transaction = tran;
-                    result = cmd.ExecuteNonQuery();
-
-                    if (result == 0)
-                    {
-                        tran.Rollback();    //交易取消
-                    }
-                    else
-                    {
-                        tran.Commit();      //執行交易  
-
-                        //UPDATEMOCMANULINETEMP(NEWGUID, TEMPds);
-                    }
-
-                }
-                catch
-                {
-
-                }
-
-                finally
-                {
-                    sqlConn.Close();
-                }
-            }
-            
-            
-
         }
+
 
         public void SEARCHTBCOPTFCHECK(string YYYY, string TF019, string TF002)
         {
