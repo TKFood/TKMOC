@@ -12457,7 +12457,7 @@ namespace TKMOC
                         catch (Exception ex)
                         {
                             tran.Rollback();
-                            MessageBox.Show($"插入資料時發生錯誤：{ex.Message}");
+                            MessageBox.Show($"發生錯誤：{ex.Message}");
                         }
                     }
                 }
