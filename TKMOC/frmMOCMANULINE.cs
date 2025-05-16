@@ -12319,6 +12319,7 @@ namespace TKMOC
 
                         if (COPTCTD.Rows.Count > 0)
                         {
+                            ID = Guid.NewGuid();
                             MANU = comboBox25.SelectedValue.ToString().Trim();
                             MANUDATE = dateTimePicker29.Value.ToString("yyyy/MM/dd");
                             MB001 = COPTCTD.Rows[0]["TD004"].ToString();
@@ -12396,7 +12397,7 @@ namespace TKMOC
                                                 string BOX,
                                                 string PACKAGE
                                             )
-        {
+        {    
             try
             {
                 // 20210902密
