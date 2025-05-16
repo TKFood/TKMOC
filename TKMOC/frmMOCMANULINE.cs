@@ -922,9 +922,9 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
             finally
             {
@@ -1107,9 +1107,9 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
                 finally
                 {
@@ -1171,9 +1171,9 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
                 finally
                 {
@@ -1234,9 +1234,9 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
                 finally
                 {
@@ -1295,9 +1295,9 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
                 finally
                 {
@@ -1360,9 +1360,9 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
                 finally
                 {
@@ -1426,9 +1426,9 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
                 finally
                 {
@@ -1509,11 +1509,10 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
-
                 finally
                 {
                     sqlConn.Close();
@@ -1570,11 +1569,10 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
-
                 finally
                 {
                     sqlConn.Close();
@@ -1629,11 +1627,10 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
-
                 finally
                 {
                     sqlConn.Close();
@@ -1687,11 +1684,10 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
-
                 finally
                 {
                     sqlConn.Close();
@@ -1746,11 +1742,10 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
-
                 finally
                 {
                     sqlConn.Close();
@@ -1806,11 +1801,10 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
-
                 finally
                 {
                     sqlConn.Close();
@@ -2018,11 +2012,10 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
-
                 finally
                 {
                     sqlConn.Close();
@@ -2072,11 +2065,10 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
-
                 finally
                 {
                     sqlConn.Close();
@@ -2125,11 +2117,10 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
-
                 finally
                 {
                     sqlConn.Close();
@@ -2178,11 +2169,10 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
-
                 finally
                 {
                     sqlConn.Close();
@@ -2230,11 +2220,10 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
-
                 finally
                 {
                     sqlConn.Close();
@@ -2282,11 +2271,10 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
-
                 finally
                 {
                     sqlConn.Close();
@@ -2514,11 +2502,10 @@ namespace TKMOC
                 
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
-
             finally
             {
                 sqlConn.Close();
@@ -2982,9 +2969,9 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
                 finally
                 {
@@ -3046,9 +3033,9 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
                 finally
                 {
@@ -3110,9 +3097,9 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
                 finally
                 {
@@ -3174,9 +3161,9 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
                 finally
                 {
@@ -3239,9 +3226,9 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
                 finally
                 {
@@ -3305,9 +3292,9 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
                 finally
                 {
@@ -3368,9 +3355,9 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
                 finally
                 {
@@ -3427,9 +3414,9 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
                 finally
                 {
@@ -3487,9 +3474,9 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
                 finally
                 {
@@ -3546,9 +3533,9 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
                 finally
                 {
@@ -3606,9 +3593,9 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
                 finally
                 {
@@ -3675,8 +3662,8 @@ namespace TKMOC
                         return null;
                     }
 
-                }
-                catch
+                }               
+                catch (Exception ex)
                 {
                     return null;
                 }
@@ -3738,7 +3725,8 @@ namespace TKMOC
                     }
 
                 }
-                catch
+
+                catch (Exception ex)
                 {
                     return null;
                 }
@@ -3800,7 +3788,7 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
                     return null;
                 }
@@ -3862,7 +3850,7 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
                     return null;
                 }
@@ -3924,7 +3912,7 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
                     return null;
                 }
@@ -3986,7 +3974,7 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
                     return null;
                 }
@@ -4470,11 +4458,10 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
-
                 finally
                 {
                     sqlConn.Close();
@@ -4523,11 +4510,10 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
-
                 finally
                 {
                     sqlConn.Close();
@@ -4575,11 +4561,10 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
-
                 finally
                 {
                     sqlConn.Close();
@@ -4627,11 +4612,10 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
-
                 finally
                 {
                     sqlConn.Close();
@@ -4680,11 +4664,10 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
-
                 finally
                 {
                     sqlConn.Close();
@@ -4763,9 +4746,9 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
             finally
             {
@@ -4865,9 +4848,9 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
             finally
             {
@@ -4903,9 +4886,9 @@ namespace TKMOC
                     textBox23.Text = (Convert.ToDecimal(textBox35.Text) * Convert.ToDecimal(textBox21.Text)).ToString();
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                //MessageBox.Show("請填數字");
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
             finally
             {
@@ -4948,9 +4931,9 @@ namespace TKMOC
                     textBox741.Text = Math.Round(Convert.ToDecimal(textBox742.Text) / Convert.ToDecimal(textBox752.Text), 4).ToString();
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                //MessageBox.Show("請填數字");
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
             finally
             {
@@ -5021,11 +5004,10 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
-
             finally
             {
                 sqlConn.Close();
@@ -5073,11 +5055,10 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
-
             finally
             {
                 sqlConn.Close();
@@ -5223,9 +5204,9 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
                 finally
                 {
@@ -5240,9 +5221,9 @@ namespace TKMOC
                    
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
                 finally
                 {
@@ -5300,9 +5281,9 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
                 finally
                 {
@@ -5359,9 +5340,9 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
                 finally
                 {
@@ -5427,9 +5408,9 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
                 finally
                 {
@@ -5444,9 +5425,9 @@ namespace TKMOC
 
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
                 finally
                 {
@@ -5511,9 +5492,9 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
                 finally
                 {
@@ -5576,9 +5557,9 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
                 finally
                 {
@@ -5670,9 +5651,9 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
                 finally
                 {
@@ -5729,9 +5710,9 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
                 finally
                 {
@@ -5789,9 +5770,9 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
                 finally
                 {
@@ -5847,9 +5828,9 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
                 finally
                 {
@@ -5980,9 +5961,9 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
             finally
             {
@@ -6042,9 +6023,9 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
                 finally
                 {
@@ -6103,9 +6084,9 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
                 finally
                 {
@@ -6163,9 +6144,9 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
                 finally
                 {
@@ -6259,11 +6240,10 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
-
             finally
             {
                 sqlConn.Close();
@@ -6351,9 +6331,9 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
             finally
             {
@@ -6408,11 +6388,10 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
-
             finally
             {
                 sqlConn.Close();
@@ -6770,9 +6749,9 @@ namespace TKMOC
 
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
             finally
             {
@@ -7027,11 +7006,9 @@ namespace TKMOC
                 }
 
             }
-
-
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
             finally
             {
@@ -7276,12 +7253,9 @@ namespace TKMOC
                 }
 
             }
-
-
-
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
             finally
             {
@@ -7341,9 +7315,9 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
             finally
             {
@@ -7402,11 +7376,10 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
-
             finally
             {
                 sqlConn.Close();
@@ -7473,11 +7446,10 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
-
             finally
             {
                 sqlConn.Close();
@@ -7554,7 +7526,7 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
                 return 0;
             }
@@ -7676,9 +7648,9 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
             finally
             {
@@ -7741,9 +7713,9 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
             finally
             {
@@ -7824,7 +7796,7 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
                 return null;
             }
@@ -7899,11 +7871,10 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
-
             finally
             {
                 sqlConn.Close();
@@ -7997,9 +7968,9 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
             finally
             {
@@ -8060,9 +8031,9 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
             finally
             {
@@ -8126,9 +8097,9 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
             finally
             {
@@ -8204,9 +8175,9 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
 
                 finally
@@ -8305,7 +8276,7 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
                 return null;
             }
@@ -8448,11 +8419,10 @@ namespace TKMOC
 
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
-
             finally
             {
                 sqlConn.Close();
@@ -8585,9 +8555,9 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
             finally
             {
@@ -8757,9 +8727,9 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
                 finally
                 {
@@ -8829,9 +8799,9 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
                 finally
                 {
@@ -8901,9 +8871,9 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
                 finally
                 {
@@ -8973,9 +8943,9 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
                 finally
                 {
@@ -9063,11 +9033,10 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
-
                 finally
                 {
                     sqlConn.Close();
@@ -9124,11 +9093,10 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
-
             finally
             {
                 sqlConn.Close();
@@ -9197,11 +9165,10 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
-
             finally
             {
                 sqlConn.Close();
@@ -9255,11 +9222,10 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
-
             finally
             {
                 sqlConn.Close();
@@ -9399,9 +9365,9 @@ namespace TKMOC
                
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
             finally
             {
@@ -9470,11 +9436,10 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
-
                 finally
                 {
                     sqlConn.Close();
@@ -9543,11 +9508,10 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
-
                 finally
                 {
                     sqlConn.Close();
@@ -9620,11 +9584,10 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
-
                 finally
                 {
                     sqlConn.Close();
@@ -9708,11 +9671,10 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
-
                 finally
                 {
                     sqlConn.Close();
@@ -9832,9 +9794,9 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
             finally
             {
@@ -9959,9 +9921,9 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
             finally
             {
@@ -10019,7 +9981,7 @@ namespace TKMOC
                     return "0";
                 }
             }
-            catch
+            catch (Exception ex)
             {
                 return "0";
             }
@@ -10080,7 +10042,7 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
                 return "0";
             }
@@ -10149,9 +10111,9 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
             finally
             {
@@ -10230,11 +10192,10 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
-
             finally
             {
                 sqlConn.Close();
@@ -10289,11 +10250,10 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
-
             finally
             {
                 sqlConn.Close();
@@ -10426,9 +10386,9 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
             finally
             {
@@ -10583,9 +10543,9 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
             finally
             {
@@ -10665,9 +10625,9 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
             finally
             {
@@ -10774,9 +10734,9 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
             finally
             {
@@ -10885,9 +10845,9 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
             finally
             {
@@ -10981,9 +10941,9 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
             finally
             {
@@ -11079,9 +11039,9 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
             finally
             {
@@ -11190,9 +11150,9 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
             finally
             {
@@ -11301,9 +11261,9 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
             finally
             {
@@ -11476,9 +11436,9 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
             finally
             {
@@ -11538,7 +11498,7 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
                 return null;
             }
@@ -11752,11 +11712,10 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
-
             finally
             {
                 sqlConn.Close();
@@ -11935,11 +11894,10 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
-
                 finally
                 {
                     sqlConn.Close();
@@ -11997,11 +11955,10 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
-
                 finally
                 {
                     sqlConn.Close();
@@ -12057,11 +12014,10 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
-
                 finally
                 {
                     sqlConn.Close();
@@ -12116,11 +12072,10 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
-
                 finally
                 {
                     sqlConn.Close();
@@ -12180,11 +12135,10 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
-
                 finally
                 {
                     sqlConn.Close();
@@ -12272,7 +12226,7 @@ namespace TKMOC
        
 
             }
-            catch
+            catch (Exception ex)
             {
                 return null;
             }
@@ -12638,9 +12592,9 @@ namespace TKMOC
                 }
 
             }
-            catch
-            {
-
+            catch (Exception ex)
+            {                
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
             finally
             {
@@ -12861,11 +12815,10 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
-
             finally
             {
                 sqlConn.Close();
@@ -13107,8 +13060,8 @@ namespace TKMOC
                 }
 
 
-            }
-            catch
+            }           
+            catch (Exception ex)
             {
                 return null;
             }
@@ -13253,7 +13206,8 @@ namespace TKMOC
 
 
             }
-            catch
+
+            catch (Exception ex)
             {
                 return null;
             }
@@ -13313,9 +13267,9 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
 
             finally
@@ -13385,8 +13339,8 @@ namespace TKMOC
                 }
 
 
-            }
-            catch
+            }           
+            catch (Exception ex)
             {
                 textBox100.Text = "";
                 textBox101.Text = "";
@@ -13447,11 +13401,10 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
-
             finally
             {
                 sqlConn.Close();
@@ -13520,7 +13473,7 @@ namespace TKMOC
 
 
             }
-            catch
+            catch (Exception ex)
             {
                 textBox100.Text = "";
                 textBox101.Text = "";
@@ -13580,11 +13533,10 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
-
             finally
             {
                 sqlConn.Close();
@@ -13790,7 +13742,7 @@ namespace TKMOC
 
 
             }
-            catch
+            catch (Exception ex)
             {
                 return null;
             }
@@ -13862,7 +13814,7 @@ namespace TKMOC
 
 
             }
-            catch
+            catch (Exception ex)
             {
                 return null;
             }
@@ -14042,9 +13994,9 @@ namespace TKMOC
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
             finally
             {
@@ -14252,11 +14204,10 @@ namespace TKMOC
                     }
 
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
-
                 finally
                 {
                     sqlConn.Close();
