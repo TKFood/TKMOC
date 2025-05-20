@@ -8715,7 +8715,7 @@ namespace TKMOC
 
                             TEMPds = MOCMANULINESubTEMPADD.SETDATASET;
 
-                            if (TEMPds.Tables[0].Rows.Count >= 1)
+                            if (TEMPds !=null && TEMPds.Tables[0].Rows.Count >= 1)
                             {
                                 foreach (DataRow dr in TEMPds.Tables[0].Rows)
                                 {
@@ -8729,7 +8729,7 @@ namespace TKMOC
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"發生錯誤：{ex.Message}");
+                    //MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
                 finally
                 {
@@ -8787,7 +8787,7 @@ namespace TKMOC
 
                             TEMPds = MOCMANULINESubTEMPADD.SETDATASET;
 
-                            if(TEMPds.Tables[0].Rows.Count>= 1)
+                            if (TEMPds != null && TEMPds.Tables[0].Rows.Count >= 1)
                             {                               
                                 foreach (DataRow dr in TEMPds.Tables[0].Rows)
                                 {
@@ -8801,7 +8801,7 @@ namespace TKMOC
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"發生錯誤：{ex.Message}");
+                    //MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
                 finally
                 {
@@ -8858,7 +8858,7 @@ namespace TKMOC
 
                             TEMPds = MOCMANULINESubTEMPADD.SETDATASET;
 
-                            if (TEMPds.Tables[0].Rows.Count >= 1)
+                            if (TEMPds != null && TEMPds.Tables[0].Rows.Count >= 1)
                             {                             
                                 foreach (DataRow dr in TEMPds.Tables[0].Rows)
                                 {
@@ -8873,7 +8873,7 @@ namespace TKMOC
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"發生錯誤：{ex.Message}");
+                    //MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
                 finally
                 {
@@ -8930,7 +8930,7 @@ namespace TKMOC
 
                             TEMPds = MOCMANULINESubTEMPADD.SETDATASET;
 
-                            if (TEMPds.Tables[0].Rows.Count >= 1)
+                            if (TEMPds != null && TEMPds.Tables[0].Rows.Count >= 1)
                             {                               
                                 foreach (DataRow dr in TEMPds.Tables[0].Rows)
                                 {
@@ -8945,7 +8945,7 @@ namespace TKMOC
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"發生錯誤：{ex.Message}");
+                    //MessageBox.Show($"發生錯誤：{ex.Message}");
                 }
                 finally
                 {
