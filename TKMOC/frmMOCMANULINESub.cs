@@ -372,7 +372,7 @@ namespace TKMOC
 
         }
 
-        public void UPDATE_SPECIAL_MODIFY(string ID,string MB001,string NUM)
+        public void UPDATE_SPECIAL_MODIFY(string ID,string MB001,string NUM,string MANUDATE)
         {
             //40806040000021 可可小布雪180g
             if (MB001.Equals("40806040000021"))
@@ -390,7 +390,7 @@ namespace TKMOC
             UPDATEMOCMANULINE();
 
             //特殊規則-40806040000021
-            UPDATE_SPECIAL_MODIFY(textBoxID.Text.Trim(), textBox3.Text.Trim(), textBox7.Text.Trim());
+            UPDATE_SPECIAL_MODIFY(textBoxID.Text.Trim(), textBox3.Text.Trim(), textBox7.Text.Trim(), dateTimePicker1.Value.ToString("yyyyMMdd"));
 
         }
         private void button2_Click(object sender, EventArgs e)
