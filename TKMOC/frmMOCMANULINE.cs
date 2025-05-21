@@ -5931,16 +5931,17 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  SELECT	MOCTA001,MOCTA002");
-                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINERESULT]");
-                sbSql.AppendFormat(@"  WHERE [SID]='{0}'",CHECKID);
-                sbSql.AppendFormat(@"  UNION ALL");
-                sbSql.AppendFormat(@"  SELECT	TA001,TA002");
-                sbSql.AppendFormat(@"  FROM [TK].[dbo].[MOCTA]");
-                sbSql.AppendFormat(@"  WHERE EXISTS (SELECT [MOCTA001],[MOCTA002] FROM [TKMOC].[dbo].[MOCMANULINERESULT] WHERE [SID]='{0}' AND TA001=MOCTA001 AND TA002=MOCTA002)", CHECKID);
-                sbSql.AppendFormat(@"  ");
-                sbSql.AppendFormat(@"  ");
-                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@" 
+                                    SELECT	
+                                    MOCTA001,MOCTA002
+                                    FROM [TKMOC].[dbo].[MOCMANULINERESULT]
+                                    WHERE [SID]='{0}'
+
+                                    UNION ALL
+                                    SELECT	TA001,TA002
+                                    FROM [TK].[dbo].[MOCTA]
+                                    WHERE EXISTS (SELECT [MOCTA001],[MOCTA002] FROM [TKMOC].[dbo].[MOCMANULINERESULT] WHERE [SID]='{0}' AND TA001=MOCTA001 AND TA002=MOCTA002)"
+                                    , CHECKID);
 
                 adapter19 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
