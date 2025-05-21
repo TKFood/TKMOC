@@ -201,9 +201,11 @@ namespace TKMOC
 
                 sbSql.Clear();
 
-                sbSql.AppendFormat(" UPDATE [TKMOC].[dbo].[MOCMANULINE] SET [BAR]={0},[NUM]={1},[BOX]={2},[PACKAGE]={3},[CLINET]='{4}',MANUDATE='{5}',[OUTDATE]='{6}',[TA029]=N'{7}',[MANUHOUR]={8},HALFPRO={9},COPTD001='{10}',COPTD002='{11}',COPTD003='{12}',MANUPRENUMS='{13}'", textBox6.Text, textBox7.Text, textBox8.Text, textBox9.Text, textBox10.Text, dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"), textBox2.Text, textBox13.Text, textBox12.Text, textBox40.Text, textBox41.Text, textBox42.Text, textBox99.Text);
-                sbSql.AppendFormat(" WHERE  [ID]='{0}'", textBoxID.Text);
-                sbSql.AppendFormat(" ");
+                sbSql.AppendFormat(@" 
+                                    UPDATE [TKMOC].[dbo].[MOCMANULINE] 
+                                    SET [BAR]={1},[NUM]={2},[BOX]={3},[PACKAGE]={4},[CLINET]='{5}',MANUDATE='{6}',[OUTDATE]='{7}',[TA029]=N'{8}',[MANUHOUR]={9},HALFPRO={10},COPTD001='{11}',COPTD002='{12}',COPTD003='{13}',MANUPRENUMS='{14}'
+                                    WHERE  [ID]='{0}'
+                                    ", textBoxID.Text, textBox6.Text, textBox7.Text, textBox8.Text, textBox9.Text, textBox10.Text, dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"), textBox2.Text, textBox13.Text, textBox12.Text, textBox40.Text, textBox41.Text, textBox42.Text, textBox99.Text);
 
 
                 cmd.Connection = sqlConn;
@@ -370,6 +372,15 @@ namespace TKMOC
 
         }
 
+        public void UPDATE_SPECIAL_MODIFY(string ID,string MB001,string NUM)
+        {
+            //40806040000021 可可小布雪180g
+            if (MB001.Equals("40806040000021"))
+            {
+                MessageBox.Show("40806040000021");
+            }
+        }
+
         #endregion
 
         #region BUTTON
@@ -377,6 +388,9 @@ namespace TKMOC
         private void button1_Click(object sender, EventArgs e)
         {
             UPDATEMOCMANULINE();
+
+            //特殊規則-40806040000021
+            UPDATE_SPECIAL_MODIFY(textBoxID.Text.Trim(), textBox3.Text.Trim(), textBox7.Text.Trim());
 
         }
         private void button2_Click(object sender, EventArgs e)
