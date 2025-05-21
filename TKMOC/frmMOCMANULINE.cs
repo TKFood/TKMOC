@@ -5880,7 +5880,9 @@ namespace TKMOC
 
 
         }
-
+        /// <summary>
+        ///  沒有產生過製令才能變更
+        /// </summary>
         public void CHECKMOCTAB()
         {
             string CHECKID = null;
@@ -5950,8 +5952,7 @@ namespace TKMOC
                 ds19.Clear();
                 adapter19.Fill(ds19, "TEMPds19");
                 sqlConn.Close();
-
-
+                
                 if (ds19.Tables["TEMPds19"].Rows.Count == 0)
                 {
                     UPDATEMOCMANULINE();
@@ -14585,23 +14586,27 @@ namespace TKMOC
 
         private void button32_Click(object sender, EventArgs e)
         {
+            //沒有產生過製令才能變更
             CHECKMOCTAB();
             SEARCHMOCMANULINE();
         }
         private void button35_Click(object sender, EventArgs e)
         {
+            //沒有產生過製令才能變更
             CHECKMOCTAB();
             SEARCHMOCMANULINE();
         }
 
         private void button34_Click(object sender, EventArgs e)
         {
+            //沒有產生過製令才能變更
             CHECKMOCTAB();
             SEARCHMOCMANULINE();
         }
 
         private void button33_Click(object sender, EventArgs e)
         {
+            //沒有產生過製令才能變更
             CHECKMOCTAB();
             SEARCHMOCMANULINE();
         }
