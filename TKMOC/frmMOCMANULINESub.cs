@@ -398,19 +398,23 @@ namespace TKMOC
 
                     sbSql.AppendFormat(@" 
                                         UPDATE [TKMOC].[dbo].[MOCMANULINE]
-                                        SET [NUM] = TEMP.CALNUMS * {0}
+                                        SET 
+                                        [NUM] = TEMP.CALNUMS * {0}
+                                        ,[BAR]=TEMP.CALNUMS * {0}/TEMP.BASEBARS
                                         FROM 
                                         (
                                             SELECT 
-                                                MC1.MC001 AS MC1MC001,
-                                                MC1.MC004 AS MC1MC004,
-                                                MD1.MD003 AS MD1MD003,
-                                                MD1.MD006 AS MD1MD006,
-                                                MD1.MD007 AS MD1MD007,
-                                                MD1.MD008 AS MD1MD008,
-                                                ((1.0 / MC1.MC004) * MD1.MD006 / MD1.MD007 * (1 + MD1.MD008)) AS CALNUMS
+                                                MC1.MC001 AS MC1MC001
+                                                ,MC1.MC004 AS MC1MC004
+                                                ,MD1.MD003 AS MD1MD003
+                                                ,MD1.MD006 AS MD1MD006
+                                                ,MD1.MD007 AS MD1MD007
+                                                ,MD1.MD008 AS MD1MD008
+                                                ,((1.0 / MC1.MC004) * MD1.MD006 / MD1.MD007 * (1 + MD1.MD008)) AS CALNUMS
+                                                ,MC2.MC004 AS 'BASEBARS'
                                             FROM [TK].dbo.BOMMC MC1
                                             JOIN [TK].dbo.BOMMD MD1 ON MC1.MC001 = MD1.MD001
+	                                        JOIN [TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003
                                             WHERE MC1.MC001 = '40806040000021'
                                             AND MD1.MD003 LIKE '3%'
                                         ) AS TEMP
@@ -419,7 +423,9 @@ namespace TKMOC
                                         AND CONVERT(nvarchar, [MANUDATE], 112) = '{1}'
 
                                         UPDATE [TKMOC].[dbo].[MOCMANULINE]
-                                        SET [NUM] = TEMP.CALNUMS2 * {0}
+                                        SET 
+                                        [NUM] = TEMP.CALNUMS2 * {0}
+                                        ,[BAR]=TEMP.CALNUMS2 *  {0}/TEMP.BASEBARS
                                         FROM 
                                          (SELECT 
 	                                        MC1.MC001 AS 'MC1MC001'
@@ -435,9 +441,11 @@ namespace TKMOC
 	                                        ,MD2.MD007 AS 'MD2MD007'
 	                                        ,MD2.MD008 AS 'MD2MD008'
 	                                        ,(((1/MC1.MC004)*MD1.MD006/MD1.MD007*(1+MD1.MD008))/MC2.MC004*MD2.MD006/MD2.MD007*(1+MD2.MD008)) AS 'CALNUMS2'
+                                            ,MC3.MC004 AS 'BASEBARS'
 	                                        FROM [TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1
-	                                        LEFT JOIN [TK].dbo.BOMMC MC2 ON MD1.MD003=MC2.MC001
-	                                        LEFT JOIN [TK].dbo.BOMMD MD2 ON MD1.MD003=MD2.MD001
+	                                        JOIN [TK].dbo.BOMMC MC2 ON MD1.MD003=MC2.MC001
+	                                        JOIN [TK].dbo.BOMMD MD2 ON MD1.MD003=MD2.MD001
+                                            JOIN [TK].dbo.BOMMC MC3 ON MC3.MC001=MD2.MD003
 	                                        WHERE MC1.MC001=MD1.MD001
 	                                        AND MC1.MC001 ='40806040000021'
 	                                        AND MD1.MD003 LIKE '3%'
