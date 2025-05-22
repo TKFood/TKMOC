@@ -372,7 +372,7 @@ namespace TKMOC
 
         }
 
-        public void UPDATE_SPECIAL_MODIFY(string ID,string MB001,string NUM,string MANUDATE,string MANU)
+        public void UPDATE_SPECIAL_MODIFY(string ID,string MB001,string NUM,string MANUDATE,string MANU,string COPTD001, string COPTD002, string COPTD003)
         {
             //40806040000021 可可小布雪180g
             if (MB001.Equals("40806040000021"))
@@ -421,6 +421,7 @@ namespace TKMOC
                                         WHERE TEMP.MD1MD003 = [TKMOC].[dbo].[MOCMANULINE].[MB001]
                                         AND [MANU] = '{2}'
                                         AND CONVERT(nvarchar, [MANUDATE], 112) = '{1}'
+                                        AND [COPTD001]='{3}' AND [COPTD002]='{4}' AND [COPTD003]='{5}'
 
                                         UPDATE [TKMOC].[dbo].[MOCMANULINE]
                                         SET 
@@ -452,8 +453,9 @@ namespace TKMOC
                                         ) AS TEMP
                                         WHERE TEMP.MD2MD003=[MOCMANULINE].[MB001]
                                         AND [MANU] = '{2}'
-                                        AND CONVERT(nvarchar,[MANUDATE],112)='{1}'                    
-                                        ", NUM, MANUDATE, MANU);
+                                        AND CONVERT(nvarchar,[MANUDATE],112)='{1}'     
+                                        AND [COPTD001]='{3}' AND [COPTD002]='{4}' AND [COPTD003]='{5}'               
+                                        ", NUM, MANUDATE, MANU, COPTD001, COPTD002,COPTD003);
 
 
                     cmd.Connection = sqlConn;
@@ -499,7 +501,7 @@ namespace TKMOC
             UPDATEMOCMANULINE();
 
             //特殊規則-40806040000021
-            UPDATE_SPECIAL_MODIFY(textBoxID.Text.Trim(), textBox3.Text.Trim(), textBox7.Text.Trim(), dateTimePicker1.Value.ToString("yyyyMMdd"),textBox1.Text.Trim());
+            UPDATE_SPECIAL_MODIFY(textBoxID.Text.Trim(), textBox3.Text.Trim(), textBox7.Text.Trim(), dateTimePicker1.Value.ToString("yyyyMMdd"),textBox1.Text.Trim(),textBox40.Text.Trim(), textBox41.Text.Trim(), textBox42.Text.Trim());
 
         }
         private void button2_Click(object sender, EventArgs e)
