@@ -1504,8 +1504,12 @@ namespace TKMOC
                     else
                     {
                         tran.Commit();      //執行交易  
-                        UPDATEMOCMANULINETEMP(NEWGUID, TEMPds);
 
+                        if (TEMPds != null && TEMPds.Tables.Count > 0 && TEMPds.Tables[0].Rows.Count >= 1)
+                        {
+                            UPDATEMOCMANULINETEMP(NEWGUID, TEMPds);
+                        }
+                        
                     }
 
                 }
@@ -1563,8 +1567,11 @@ namespace TKMOC
                     else
                     {
                         tran.Commit();      //執行交易  
-                        UPDATEMOCMANULINETEMP(NEWGUID, TEMPds);
 
+                        if (TEMPds != null && TEMPds.Tables.Count > 0 && TEMPds.Tables[0].Rows.Count >= 1)
+                        {
+                            UPDATEMOCMANULINETEMP(NEWGUID, TEMPds);
+                        }
 
                     }
 
@@ -1622,8 +1629,10 @@ namespace TKMOC
                     {
                         tran.Commit();      //執行交易  
 
-                        UPDATEMOCMANULINETEMP(NEWGUID, TEMPds);
-
+                        if (TEMPds != null && TEMPds.Tables.Count > 0 && TEMPds.Tables[0].Rows.Count >= 1)
+                        {
+                            UPDATEMOCMANULINETEMP(NEWGUID, TEMPds);
+                        }
                     }
 
                 }
@@ -1680,7 +1689,10 @@ namespace TKMOC
                     {
                         tran.Commit();      //執行交易  
 
-                        UPDATEMOCMANULINETEMP(NEWGUID, TEMPds);
+                        if (TEMPds != null && TEMPds.Tables.Count > 0 && TEMPds.Tables[0].Rows.Count >= 1)
+                        {
+                            UPDATEMOCMANULINETEMP(NEWGUID, TEMPds);
+                        }
                     }
 
                 }
@@ -4899,36 +4911,108 @@ namespace TKMOC
 
         public void CALPRODUCTDETAIL()
         {
+            decimal value1;
+            decimal value2;
+            decimal value3;
+
             try
             {
                 if (MANU.Equals("製二線"))
                 {
-                    textBox4.Text = Math.Round(Convert.ToDecimal(textBox5.Text)/ Convert.ToDecimal(textBox32.Text), 4).ToString();
+                    if (!string.IsNullOrWhiteSpace(textBox5.Text) &&
+                        !string.IsNullOrWhiteSpace(textBox32.Text) &&
+                         decimal.TryParse(textBox5.Text, out value1) &&
+                         decimal.TryParse(textBox32.Text, out value2) &&
+                         value2 != 0)
+                    {
+                        decimal result = Math.Round(value1 / value2, 4);
+                        textBox4.Text = result.ToString();
+                    }
                 }
 
                 else if (MANU.Equals("包裝線"))
                 {
                     SEARCHMB001BOX();
-                    textBox8.Text = Math.Round(Convert.ToDecimal(textBox12.Text) / Convert.ToDecimal(textBox33.Text)/BOXNUMERB, 4).ToString();
+                    if (!string.IsNullOrWhiteSpace(textBox12.Text) &&
+                        !string.IsNullOrWhiteSpace(textBox33.Text) &&
+                        decimal.TryParse(textBox12.Text, out value1) &&
+                        decimal.TryParse(textBox33.Text, out value2) &&
+                        BOXNUMERB != 0 &&
+                        value2 != 0)
+                    {
+                        decimal result = Math.Round(value1 / value2 / BOXNUMERB, 4);
+                        textBox8.Text = result.ToString();
+                    }
+
                 }
                 else if (MANU.Equals("製一線"))
                 {
-                    textBox15.Text = Math.Round(Convert.ToDecimal(textBox19.Text) / Convert.ToDecimal(textBox34.Text), 4).ToString();
+                    if (!string.IsNullOrWhiteSpace(textBox19.Text) &&
+                       !string.IsNullOrWhiteSpace(textBox34.Text) &&
+                       decimal.TryParse(textBox19.Text, out value1) &&
+                       decimal.TryParse(textBox34.Text, out value2) &&
+                       value2 != 0)
+                    {
+                        decimal result = Math.Round(value1 / value2, 4);
+                        textBox15.Text = result.ToString();
+                    }
+
                 }
                 else if (MANU.Equals("手工線"))
                 {
-                    textBox21.Text = Math.Round((Convert.ToDecimal(textBox23.Text)+ Convert.ToDecimal(textBox99.Text)) / Convert.ToDecimal(textBox35.Text), 4).ToString();
+                    if (!string.IsNullOrWhiteSpace(textBox23.Text) &&
+                        !string.IsNullOrWhiteSpace(textBox99.Text) &&
+                        !string.IsNullOrWhiteSpace(textBox35.Text) &&
+                        decimal.TryParse(textBox23.Text, out value1) &&
+                        decimal.TryParse(textBox99.Text, out value2) &&
+                        decimal.TryParse(textBox35.Text, out value3) &&
+                        value3 != 0)
+                    {
+                        decimal result = Math.Round((value1 + value2) / value3, 4);
+                        textBox21.Text = result.ToString();
+                    }
+
                 }
                 else if (MANU.Equals("統百包裝線"))
                 {
                     SEARCHMB001BOX();
-                    textBox59.Text = Math.Round(Convert.ToDecimal(textBox61.Text) / Convert.ToDecimal(textBox60.Text) / BOXNUMERB, 4).ToString();
+                    if (!string.IsNullOrWhiteSpace(textBox61.Text) &&
+                        !string.IsNullOrWhiteSpace(textBox60.Text) &&
+                        decimal.TryParse(textBox61.Text, out value1) &&
+                        decimal.TryParse(textBox60.Text, out value2) &&
+                        value2 != 0 &&
+                        BOXNUMERB != 0)
+                    {
+                        decimal result = Math.Round(value1 / value2 / BOXNUMERB, 4);
+                        textBox59.Text = result.ToString();
+                    }
+
                 }
                 else if (MANU.Equals("少量訂單"))
                 {
                     SEARCHMB001BOX();
-                    textBox753.Text = Math.Round(Convert.ToDecimal(textBox751.Text) / Convert.ToDecimal(textBox752.Text) / BOXNUMERB, 4).ToString();
-                    textBox741.Text = Math.Round(Convert.ToDecimal(textBox742.Text) / Convert.ToDecimal(textBox752.Text), 4).ToString();
+
+                    if (!string.IsNullOrWhiteSpace(textBox751.Text) &&
+                        !string.IsNullOrWhiteSpace(textBox752.Text) &&
+                        decimal.TryParse(textBox751.Text, out value1) &&
+                        decimal.TryParse(textBox752.Text, out value2) &&
+                        value2 != 0 &&
+                        BOXNUMERB != 0)
+                    {
+                        decimal result = Math.Round(value1 / value2 / BOXNUMERB, 4);
+                        textBox753.Text = result.ToString();
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(textBox742.Text) &&
+                        !string.IsNullOrWhiteSpace(textBox752.Text) &&
+                        decimal.TryParse(textBox742.Text, out value1) &&
+                        decimal.TryParse(textBox752.Text, out value2) &&
+                        value2 != 0)
+                    {
+                        decimal result = Math.Round(value1 / value2, 4);
+                        textBox741.Text = result.ToString();
+                    }
+
                 }
             }
             catch (Exception ex)
