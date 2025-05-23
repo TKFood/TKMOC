@@ -374,33 +374,41 @@ namespace TKMOC
 
         public void UPDATE_SPECIAL_MODIFY(string ID,string MB001,string NUM,string MANUDATE,string MANU,string COPTD001, string COPTD002, string COPTD003)
         {
-            //40806040000021 可可小布雪180g
-            if (MB001.Equals("40806040000021"))
+            DataTable DT = FIND_MOCMANULINEBATCHMODIFYS();
+            if(DT!=null && DT.Rows.Count>=1)
             {
-                try
+                string CHECKMB001 = "";
+                foreach(DataRow DR in DT.Rows)
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+                    CHECKMB001 = DR["MB001"].ToString();
 
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+                    //40806040000021 可可小布雪180g
+                    if (MB001.Equals(CHECKMB001))
+                    {
+                        try
+                        {
+                            //20210902密
+                            Class1 TKID = new Class1();//用new 建立類別實體
+                            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
 
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                            //資料庫使用者密碼解密
+                            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
 
-                    sqlConn.Close();
-                    sqlConn.Open();
-                    tran = sqlConn.BeginTransaction();
+                            String connectionString;
+                            sqlConn = new SqlConnection(sqlsb.ConnectionString);
 
-                    sbSql.Clear();
+                            sqlConn.Close();
+                            sqlConn.Open();
+                            tran = sqlConn.BeginTransaction();
 
-                    sbSql.AppendFormat(@" 
+                            sbSql.Clear();
+
+                            sbSql.AppendFormat(@" 
                                         UPDATE [TKMOC].[dbo].[MOCMANULINE]
                                         SET 
-                                        [NUM] = TEMP.CALNUMS * {0}
-                                        ,[BAR]=TEMP.CALNUMS * {0}/TEMP.BASEBARS
+                                        [NUM] = ROUND(TEMP.CALNUMS * {1}, 3)
+                                        ,[BAR]=TEMP.CALNUMS * {1}/TEMP.BASEBARS
                                         FROM 
                                         (
                                             SELECT 
@@ -415,18 +423,18 @@ namespace TKMOC
                                             FROM [TK].dbo.BOMMC MC1
                                             JOIN [TK].dbo.BOMMD MD1 ON MC1.MC001 = MD1.MD001
 	                                        JOIN [TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003
-                                            WHERE MC1.MC001 = '40806040000021'
+                                            WHERE MC1.MC001 = '{0}'
                                             AND MD1.MD003 LIKE '3%'
                                         ) AS TEMP
                                         WHERE TEMP.MD1MD003 = [TKMOC].[dbo].[MOCMANULINE].[MB001]
-                                        AND [MANU] = '{2}'
-                                        AND CONVERT(nvarchar, [MANUDATE], 112) = '{1}'
-                                        AND [COPTD001]='{3}' AND [COPTD002]='{4}' AND [COPTD003]='{5}'
+                                        AND [MANU] = '{3}'
+                                        AND CONVERT(nvarchar, [MANUDATE], 112) = '{5}'
+                                        AND [COPTD001]='{4}' AND [COPTD002]='{5}' AND [COPTD003]='{6}'
 
                                         UPDATE [TKMOC].[dbo].[MOCMANULINE]
                                         SET 
-                                        [NUM] = TEMP.CALNUMS2 * {0}
-                                        ,[BAR]=TEMP.CALNUMS2 *  {0}/TEMP.BASEBARS
+                                        [NUM] = ROUND(TEMP.CALNUMS * {1}, 3)
+                                        ,[BAR]=TEMP.CALNUMS2 *  {1}/TEMP.BASEBARS
                                         FROM 
                                          (SELECT 
 	                                        MC1.MC001 AS 'MC1MC001'
@@ -448,48 +456,111 @@ namespace TKMOC
 	                                        JOIN [TK].dbo.BOMMD MD2 ON MD1.MD003=MD2.MD001
                                             JOIN [TK].dbo.BOMMC MC3 ON MC3.MC001=MD2.MD003
 	                                        WHERE MC1.MC001=MD1.MD001
-	                                        AND MC1.MC001 ='40806040000021'
+	                                        AND MC1.MC001 ='{0}'
 	                                        AND MD1.MD003 LIKE '3%'
                                         ) AS TEMP
                                         WHERE TEMP.MD2MD003=[MOCMANULINE].[MB001]
-                                        AND [MANU] = '{2}'
-                                        AND CONVERT(nvarchar,[MANUDATE],112)='{1}'     
-                                        AND [COPTD001]='{3}' AND [COPTD002]='{4}' AND [COPTD003]='{5}'               
-                                        ", NUM, MANUDATE, MANU, COPTD001, COPTD002,COPTD003);
+                                        AND [MANU] = '{3}'
+                                        AND CONVERT(nvarchar,[MANUDATE],112)='{5}'     
+                                        AND [COPTD001]='{4}' AND [COPTD002]='{5}' AND [COPTD003]='{6}'               
+                                        ", CHECKMB001, NUM, MANUDATE, MANU, COPTD001, COPTD002, COPTD003);
 
 
-                    cmd.Connection = sqlConn;
-                    cmd.CommandTimeout = 60;
-                    cmd.CommandText = sbSql.ToString();
-                    cmd.Transaction = tran;
-                    result = cmd.ExecuteNonQuery();
+                            cmd.Connection = sqlConn;
+                            cmd.CommandTimeout = 60;
+                            cmd.CommandText = sbSql.ToString();
+                            cmd.Transaction = tran;
+                            result = cmd.ExecuteNonQuery();
 
-                    if (result == 0)
-                    {
-                        tran.Rollback();    //交易取消
-                        MessageBox.Show("更新失敗");
+                            if (result == 0)
+                            {
+                                tran.Rollback();    //交易取消
+                                MessageBox.Show("更新失敗");
+                            }
+                            else
+                            {
+                                tran.Commit();      //執行交易  
+                                MessageBox.Show("已連動更新數量");
+
+                                this.Close();
+                            }
+
+                        }
+                        catch
+                        {
+
+                        }
+
+                        finally
+                        {
+                            sqlConn.Close();
+                        }
                     }
-                    else
-                    {
-                        tran.Commit();      //執行交易  
-                        MessageBox.Show("已連動更新數量");
-
-                        this.Close();
-                    }
-
-                }
-                catch
-                {
-
-                }
-
-                finally
-                {
-                    sqlConn.Close();
-                }
+            }
+           
+            
 
                
             }
+        }
+
+        public DataTable FIND_MOCMANULINEBATCHMODIFYS()
+        {
+            DataSet DS1 = new DataSet();
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+
+            try
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+
+                sbSql.AppendFormat(@" 
+                                    SELECT
+                                    [MB001]
+                                    ,[MB002]
+                                    FROM [TKMOC].[dbo].[MOCMANULINEBATCHMODIFYS]
+                                    ");
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                DS1.Clear();
+                adapter1.Fill(DS1, "DS1");
+                sqlConn.Close();
+
+
+                if (DS1.Tables["DS1"].Rows.Count >= 1)
+                {
+                    return DS1.Tables["DS1"];
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+
+            }
+
         }
 
         #endregion
@@ -500,7 +571,9 @@ namespace TKMOC
         {
             UPDATEMOCMANULINE();
 
-            //特殊規則-40806040000021
+            //特殊規則-[TKMOC].[dbo].[MOCMANULINEBATCHMODIFYS]
+            //限2層BOM可用批次修改
+            //3層以上BOM要另外寫
             UPDATE_SPECIAL_MODIFY(textBoxID.Text.Trim(), textBox3.Text.Trim(), textBox7.Text.Trim(), dateTimePicker1.Value.ToString("yyyyMMdd"),textBox1.Text.Trim(),textBox40.Text.Trim(), textBox41.Text.Trim(), textBox42.Text.Trim());
 
         }
