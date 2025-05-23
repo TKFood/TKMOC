@@ -428,7 +428,7 @@ namespace TKMOC
                                         ) AS TEMP
                                         WHERE TEMP.MD1MD003 = [TKMOC].[dbo].[MOCMANULINE].[MB001]
                                         AND [MANU] = '{3}'
-                                        AND CONVERT(nvarchar, [MANUDATE], 112) = '{5}'
+                                        AND CONVERT(nvarchar, [MANUDATE], 112) = '{2}'
                                         AND [COPTD001]='{4}' AND [COPTD002]='{5}' AND [COPTD003]='{6}'
 
                                         UPDATE [TKMOC].[dbo].[MOCMANULINE]
@@ -461,7 +461,7 @@ namespace TKMOC
                                         ) AS TEMP
                                         WHERE TEMP.MD2MD003=[MOCMANULINE].[MB001]
                                         AND [MANU] = '{3}'
-                                        AND CONVERT(nvarchar,[MANUDATE],112)='{5}'     
+                                        AND CONVERT(nvarchar,[MANUDATE],112)='{2}'     
                                         AND [COPTD001]='{4}' AND [COPTD002]='{5}' AND [COPTD003]='{6}'               
                                         ", CHECKMB001, NUM, MANUDATE, MANU, COPTD001, COPTD002, COPTD003);
 
