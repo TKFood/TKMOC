@@ -100,15 +100,20 @@ namespace TKMOC
                 SQL1 = SETSQL2(TA021, TA003);
                 report1.Load(@"REPORT\生產產能報表-手工.frx");
             }  
-            else
+            else if (TA021.Equals("02"))
             {
                 SQL1 = SETSQL2(TA021, TA003);
                 report1.Load(@"REPORT\生產產能報表.frx");
             }
-            
+            else if (TA021.Equals("03"))
+            {
+                SQL1 = SETSQL2(TA021, TA003);
+                report1.Load(@"REPORT\生產產能報表.frx");
+            }
 
-           
-           
+
+
+
 
             //20210902密
             Class1 TKID = new Class1();//用new 建立類別實體
