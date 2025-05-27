@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="03/13/2023 11:46:51" ReportInfo.Modified="05/27/2025 14:29:43" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="03/13/2023 11:46:51" ReportInfo.Modified="05/27/2025 15:20:58" ReportInfo.CreatorVersion="2016.4.4.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpN+i5gA3VDGcwlcfm6L9ZMsLrZ3U+wEDtHCQtd9vw2XUE1AfLuobHG3bsV6lW0hlte">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpN+i5gA3VDGcwlcfm6L9ZMsLrZ3U+wEDtHCQtd9vw2XUHD27F2kgGDHQAN5AtFD1ag">
       <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT &#13;&#10;YEAR(CONVERT(DATETIME,TA003) ) AS 'YEARS'&#13;&#10;,MONTH(CONVERT(DATETIME,TA003) ) AS 'MONTHS'&#13;&#10;,DAY(CONVERT(DATETIME,TA003) ) AS 'DAYS'&#13;&#10;,*&#13;&#10;FROM [TK].dbo.MOCTA&#13;&#10;WHERE TA001='A513'&#13;&#10;AND TA021='08'&#13;&#10;AND TA003='20250527'&#13;&#10;ORDER BY TA001,TA002&#13;&#10;">
         <Column Name="YEARS" DataType="System.Int32"/>
         <Column Name="MONTHS" DataType="System.Int32"/>
@@ -197,35 +197,10 @@
         <TextObject Name="Text24" Left="406.35" Top="292.95" Width="311.85" Height="47.25" Border.Lines="All" Text="成型/分割人員:" VertAlign="Center" Font="宋体, 12pt"/>
         <TextObject Name="Text25" Left="94.5" Top="340.2" Width="311.85" Height="47.25" Border.Lines="All" Text="烘培人員:" VertAlign="Center" Font="宋体, 12pt"/>
         <TextObject Name="Text26" Left="406.35" Top="340.2" Width="311.85" Height="47.25" Border.Lines="All" Text="篩選人員:" VertAlign="Center" Font="宋体, 12pt"/>
-        <TextObject Name="Text27" Left="510.3" Top="396.9" Width="170.1" Height="18.9" Text="填表人:" VertAlign="Center" Font="宋体, 12pt"/>
-        <TextObject Name="Text28" Top="434.7" Width="37.8" Height="56.7" Border.Lines="All" Text="品名" VertAlign="Center" Font="宋体, 12pt"/>
-        <TextObject Name="Text29" Left="37.8" Top="434.7" Width="264.6" Height="56.7" Border.Lines="All" Text="[Table.TA034]" VertAlign="Center" Font="宋体, 12pt"/>
-        <TextObject Name="Text30" Left="302.4" Top="434.7" Width="94.5" Height="56.7" Border.Lines="All" Text="製造時間" VertAlign="Center" Font="宋体, 12pt"/>
-        <TextObject Name="Text31" Left="396.9" Top="434.7" Width="94.5" Height="56.7" Border.Lines="All" Text="分" HorzAlign="Right" VertAlign="Center" Font="宋体, 12pt"/>
-        <TextObject Name="Text32" Left="604.8" Top="434.7" Width="113.4" Height="56.7" Border.Lines="All" Text="製令差異" VertAlign="Center" Font="宋体, 12pt"/>
-        <TextObject Name="Text33" Top="491.4" Width="179.55" Height="56.7" Border.Lines="All" Text="生產量:" VertAlign="Center" Font="宋体, 12pt"/>
-        <TextObject Name="Text34" Left="179.55" Top="491.4" Width="179.55" Height="56.7" Border.Lines="All" Text="製程損:" VertAlign="Center" Font="宋体, 12pt"/>
-        <TextObject Name="Text35" Left="359.1" Top="491.4" Width="179.55" Height="56.7" Border.Lines="All" Text="包裝損:" VertAlign="Center" Font="宋体, 12pt"/>
-        <TextObject Name="Text36" Left="538.65" Top="491.4" Width="179.55" Height="56.7" Border.Lines="All" Text="差異量:" VertAlign="Center" Font="宋体, 12pt"/>
-        <TextObject Name="Text37" Top="548.1" Width="179.55" Height="56.7" Border.Lines="All" Text="包裝袋:" VertAlign="Center" Font="宋体, 12pt"/>
-        <TextObject Name="Text38" Left="179.55" Top="548.1" Width="179.55" Height="56.7" Border.Lines="All" Text="使用量:" VertAlign="Center" Font="宋体, 12pt"/>
-        <TextObject Name="Text39" Left="359.1" Top="548.1" Width="179.55" Height="56.7" Border.Lines="All" Text="秏損:" VertAlign="Center" Font="宋体, 12pt"/>
-        <TextObject Name="Text40" Left="538.65" Top="548.1" Width="179.55" Height="56.7" Border.Lines="All" Text="合格率:          %" VertAlign="Center" Font="宋体, 12pt"/>
-        <TextObject Name="Text42" Top="661.5" Width="94.5" Height="170.1" Border.Lines="All" Text="人員配置" VertAlign="Center" Font="宋体, 12pt"/>
-        <TextObject Name="Text43" Left="94.5" Top="661.5" Width="311.85" Height="56.7" Border.Lines="All" Text="排餅:&#13;&#10;裝罐:" VertAlign="Center" Font="宋体, 12pt"/>
-        <TextObject Name="Text45" Left="94.5" Top="718.2" Width="311.85" Height="37.8" Border.Lines="All" Text="秤重:" VertAlign="Center" Font="宋体, 12pt"/>
-        <TextObject Name="Text46" Left="406.35" Top="718.2" Width="311.85" Height="37.8" Border.Lines="All" Text="放袋:" VertAlign="Center" Font="宋体, 12pt"/>
-        <TextObject Name="Text47" Left="94.5" Top="756" Width="311.85" Height="37.8" Border.Lines="All" Text="入料、鎖蓋:" VertAlign="Center" Font="宋体, 12pt"/>
-        <TextObject Name="Text48" Left="406.35" Top="756" Width="311.85" Height="37.8" Border.Lines="All" Text="打印:" VertAlign="Center" Font="宋体, 12pt"/>
-        <TextObject Name="Text49" Left="94.5" Top="793.8" Width="311.85" Height="37.8" Border.Lines="All" Text="包裝機:" VertAlign="Center" Font="宋体, 12pt"/>
-        <TextObject Name="Text50" Left="406.35" Top="793.8" Width="311.85" Height="37.8" Border.Lines="All" Text="貼紙:" VertAlign="Center" Font="宋体, 12pt"/>
-        <TextObject Name="Text51" Left="510.3" Top="841.05" Width="207.9" Height="18.9" Text="填表人:" VertAlign="Center" Font="宋体, 12pt"/>
-        <TextObject Name="Text52" Left="491.4" Top="434.7" Width="113.4" Height="56.7" Border.Lines="All" Text="入庫數量:" VertAlign="Center" Font="宋体, 12pt"/>
-        <TextObject Name="Text55" Top="604.8" Width="718.2" Height="56.7" Border.Lines="All" Text="製成率:                 %" VertAlign="Center" Font="宋体, 12pt"/>
-        <TextObject Name="Text56" Left="509.15" Top="859.95" Width="207.9" Height="28.35" Text="主管:" VertAlign="Center" Font="宋体, 12pt"/>
+        <TextObject Name="Text51" Left="510.3" Top="396.9" Width="207.9" Height="18.9" Text="填表人:" VertAlign="Center" Font="宋体, 12pt"/>
+        <TextObject Name="Text56" Left="509.15" Top="415.8" Width="207.9" Height="28.35" Text="主管:" VertAlign="Center" Font="宋体, 12pt"/>
         <TextObject Name="Text57" Left="424.1" Top="888.3" Width="292.95" Height="28.35" Text="FM0751-03" HorzAlign="Right" VertAlign="Center" Font="宋体, 12pt"/>
         <TextObject Name="Text58" Top="897.75" Width="425.25" Height="18.9" Text="本文件不得擅自塗改或影印" VertAlign="Center" Font="宋体, 12pt"/>
-        <TextObject Name="Text59" Left="406.35" Top="661.5" Width="311.85" Height="56.7" Border.Lines="All" Text="切片:" VertAlign="Center" Font="宋体, 12pt"/>
       </DataBand>
       <GroupFooterBand Name="GroupFooter1" Top="1020.35" Width="718.2" Height="9.45"/>
     </GroupHeaderBand>

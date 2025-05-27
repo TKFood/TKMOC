@@ -79,7 +79,7 @@ namespace TKMOC
             da.Fill(dt);
             comboBox1.DataSource = dt.DefaultView;
             comboBox1.ValueMember = "MD001";
-            comboBox1.DisplayMember = "MD001";
+            comboBox1.DisplayMember = "MD002";
             sqlConn.Close();
 
 
@@ -197,7 +197,7 @@ namespace TKMOC
         #region BUTTON
         private void button3_Click(object sender, EventArgs e)
         {
-            SETFASTREPORT(comboBox1.Text,dateTimePicker1.Value.ToString("yyyyMMdd")); 
+            SETFASTREPORT(comboBox1.SelectedValue.ToString(),dateTimePicker1.Value.ToString("yyyyMMdd")); 
         }
 
         #endregion
