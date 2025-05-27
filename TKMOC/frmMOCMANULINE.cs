@@ -6079,12 +6079,14 @@ namespace TKMOC
                     sbSql.Clear();
                     sbSqlQuery.Clear();
 
-                    sbSql.AppendFormat(@"  SELECT TOP 1 MD001,MD003,MB001,MB002,ISNULL(MD007,1) AS MD007,ISNULL(MD010,1) AS MD010");
-                    sbSql.AppendFormat(@"  FROM [TK].dbo.BOMMD,[TK].dbo.INVMB");
-                    sbSql.AppendFormat(@"  WHERE MD003=MB001");
-                    sbSql.AppendFormat(@"  AND MB002 LIKE '%箱%'");
-                    sbSql.AppendFormat(@"  AND MD003 LIKE '2%'");
-                    sbSql.AppendFormat(@"  AND MD001='{0}'", textBox7.Text);
+                    sbSql.AppendFormat(@"  
+                                        SELECT 
+                                        TOP 1 MD001,MD003,MB001,MB002,CONVERT(INT,ISNULL(MD007,1)) AS MD007,CONVERT(INT,ISNULL(MD006,1)) AS MD006
+                                        FROM [TK].dbo.BOMMD,[TK].dbo.INVMB
+                                        WHERE MD003=MB001
+                                        AND MB002 LIKE '%箱%'
+                                        AND MD003 LIKE '2%'
+                                         AND MD001='{0}'", textBox7.Text);
                     sbSql.AppendFormat(@"  ");
 
                     adapter20 = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -6096,15 +6098,23 @@ namespace TKMOC
                     sqlConn.Close();
 
 
-                    if (ds20.Tables["TEMPds20"].Rows.Count == 0)
+                    if (ds20.Tables["TEMPds20"] !=null && ds20.Tables["TEMPds20"].Rows.Count >= 1)
                     {
-                        BOXNUMERB = 1;
-                    }
-                    else
-                    {
-                        if (ds20.Tables["TEMPds20"].Rows.Count >= 1)
+                        var row = ds20.Tables["TEMPds20"].Rows[0];
+
+                        string md007Str = row["MD007"]?.ToString();
+                        string md006Str = row["MD006"]?.ToString();
+
+                        int md007, md006;
+
+                        if (int.TryParse(md007Str, out md007) && int.TryParse(md006Str, out md006) && md006 != 0)
                         {
-                            BOXNUMERB = (Convert.ToInt32(ds20.Tables["TEMPds20"].Rows[0]["MD007"].ToString())/ Convert.ToInt32(ds20.Tables["TEMPds20"].Rows[0]["MD010"].ToString()));
+                            BOXNUMERB = md007 / md006;
+                        }
+                        else
+                        {
+                            // 處理錯誤情況，例如設為 0 或拋出自訂錯誤
+                            BOXNUMERB = 1;
                         }
                     }
 
