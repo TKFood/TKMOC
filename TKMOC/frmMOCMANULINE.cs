@@ -6665,7 +6665,10 @@ namespace TKMOC
                             }
                             else
                             {
-                                textBox5.Text = ds27.Tables["ds27"].Rows[0]["NUM"].ToString();
+                                if (ds27.Tables["ds27"] != null && ds27.Tables["ds27"].Rows.Count >= 1)
+                                {
+                                    textBox5.Text = ds27.Tables["ds27"].Rows[0]["NUM"].ToString();
+                                }                                
                             }
                         }
                     }
@@ -6703,7 +6706,11 @@ namespace TKMOC
                             }
                             else
                             {
-                                textBox12.Text = ds27.Tables["ds27"].Rows[0]["NUM"].ToString();
+                                if(ds27.Tables["ds27"]!=null && ds27.Tables["ds27"].Rows.Count>=1)
+                                {
+                                    textBox12.Text = ds27.Tables["ds27"].Rows[0]["NUM"].ToString();
+                                }
+                                
                             }
                         }
                     }
@@ -6742,7 +6749,10 @@ namespace TKMOC
                             }
                             else
                             {
-                                textBox19.Text = ds27.Tables["ds27"].Rows[0]["NUM"].ToString();
+                                if (ds27.Tables["ds27"] != null && ds27.Tables["ds27"].Rows.Count >= 1)
+                                {
+                                    textBox19.Text = ds27.Tables["ds27"].Rows[0]["NUM"].ToString();
+                                }                              
                             }
                         }
                     }
@@ -6779,8 +6789,10 @@ namespace TKMOC
                                 }
                                 else
                                 {
-
-                                    textBox55.Text = ds27.Tables["ds27"].Rows[0]["TC015"].ToString();
+                                    if (ds27.Tables["ds27"] != null && ds27.Tables["ds27"].Rows.Count >= 1)
+                                    {
+                                        textBox55.Text = ds27.Tables["ds27"].Rows[0]["TC015"].ToString();
+                                    }                                  
                                 }
                             }
 
@@ -6795,7 +6807,11 @@ namespace TKMOC
                             }
                             else
                             {
-                                textBox23.Text = ds27.Tables["ds27"].Rows[0]["NUM"].ToString();
+                                if (ds27.Tables["ds27"] != null && ds27.Tables["ds27"].Rows.Count >= 1)
+                                {
+                                    textBox23.Text = ds27.Tables["ds27"].Rows[0]["NUM"].ToString();
+                                }
+                                
                             }
                         }
                     }
