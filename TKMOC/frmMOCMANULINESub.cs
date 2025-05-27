@@ -433,7 +433,7 @@ namespace TKMOC
 
                                         UPDATE [TKMOC].[dbo].[MOCMANULINE]
                                         SET 
-                                        [NUM] = ROUND(TEMP.CALNUMS * {1}, 3)
+                                        [NUM] = ROUND(TEMP.CALNUMS2 * {1}, 3)
                                         ,[BAR]=TEMP.CALNUMS2 *  {1}/TEMP.BASEBARS
                                         FROM 
                                          (SELECT 
