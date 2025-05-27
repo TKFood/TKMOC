@@ -68,7 +68,7 @@ namespace TKMOC
             Sequel.AppendFormat(@"
                                     SELECT LTRIM(RTRIM(MD001)) MD001,MD002
                                     FROM [TK].dbo.CMSMD
-                                    WHERE MD001 IN ('02','03','04','09')");
+                                    WHERE MD001 IN ('02','03','04','09','08','12')");
             SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
 
             DataTable dt = new DataTable();
@@ -105,10 +105,15 @@ namespace TKMOC
                 SQL1 = SETSQL2(TA021, TA003);
                 report1.Load(@"REPORT\生產產能報表.frx");
             }
-            else if (TA021.Equals("03"))
+            else if (TA021.Equals("08"))
             {
                 SQL1 = SETSQL2(TA021, TA003);
-                report1.Load(@"REPORT\生產產能報表.frx");
+                report1.Load(@"REPORT\生產產能報表-烘培生產.frx");
+            }
+            else if (TA021.Equals("12"))
+            {
+                SQL1 = SETSQL1(TA021, TA003);
+                report1.Load(@"REPORT\生產產能報表-烘培外包.frx");
             }
 
 
