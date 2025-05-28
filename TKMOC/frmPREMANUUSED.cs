@@ -64,6 +64,8 @@ namespace TKMOC
         int rowIndexDG4 = -1;
         int rowIndexDG5 = -1;
 
+        //原本用記計算桶數的66KG
+        //改用  [TKMOC].[dbo].[MOCSEPECIALCALBARSMB001] 設定多筆
         //中筋麵粉(活力Q粉心7號-A)
         string All_Purpose_Flour = "101001027";
 
@@ -2581,6 +2583,7 @@ namespace TKMOC
 
                                     INSERT INTO [TKMOC].dbo.TKMOCBOMMD
                                     ([MD001],[MD003],[WATERNUMS],[OILNUMS],[OILCAL],[WATERCAL])
+                                  
                                     SELECT RTRIM(LTRIM(MD001)) MD001,RTRIM(LTRIM(MD003)) MD003,WATERNUMS,OILNUMS,TEMP4.OILCAL,TEMP4.WATERCAL
                                     FROM (
                                     -- 4 TEMP4 前  找出油酥的顆數
@@ -2603,14 +2606,16 @@ namespace TKMOC
                                     ,((TEMP.MD006*(WATERCAL))/((SELECT TOP 1 [MOCSEPECIALCAL].[WATERNUMS] FROM [TKMOC].[dbo].[MOCSEPECIALCAL] WHERE [MOCSEPECIALCAL].MD003=TEMP.MD003 ) )) AS 'WATERNUMS'
                                     FROM (
                                     --1 TEMP  前 先找出水麵的總重跟比率
+                                    --要用  [TKMOC].[dbo].[MOCSEPECIALCALBARSMB001] 的品號去比對桶重 66KG
                                     SELECT BOMMD.MD001 AS MD003,SUM(BOMMD.MD006) AS MD006
-                                    ,(SELECT 66/MD.MD006 FROM [TKMOC].[dbo].[MOCSEPECIALCAL],[TK].dbo.BOMMD MD WHERE [MOCSEPECIALCAL].MD003=MD.MD001 AND MD.MD003 LIKE '1%' AND [MOCSEPECIALCAL].[MD003]=BOMMD.MD001 AND MD.MD003='{0}'  ) AS 'WATERCAL'
+                                    ,(SELECT 66/MD.MD006 FROM [TKMOC].[dbo].[MOCSEPECIALCAL],[TK].dbo.BOMMD MD WHERE [MOCSEPECIALCAL].MD003=MD.MD001 AND MD.MD003 LIKE '1%' AND [MOCSEPECIALCAL].[MD003]=BOMMD.MD001  AND MD.MD003 IN (SELECT [MB001] FROM [TKMOC].[dbo].[MOCSEPECIALCALBARSMB001] )  ) AS 'WATERCAL'
                                     FROM [TK].dbo.BOMMD
                                     WHERE  BOMMD.MD003 LIKE '1%'
                                     AND BOMMD.MD003 NOT IN ('101001009')
                                     AND BOMMD.MD001 IN (SELECT MD003 FROM  [TKMOC].[dbo].[MOCSEPECIALCAL])
                                     GROUP BY BOMMD.MD001
 
+                                    --
                                     ) AS TEMP
 
                                     ) AS TEMP2
@@ -2620,8 +2625,9 @@ namespace TKMOC
 
                                     ) AS TEMP4
                                     ORDER BY MD003,MD001
+
                                     
-                                    ", All_Purpose_Flour);
+                                    ");
 
 
                 cmd.Connection = sqlConn;
