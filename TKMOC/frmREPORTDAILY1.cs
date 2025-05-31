@@ -105,6 +105,11 @@ namespace TKMOC
                 SQL1 = SETSQL2(TA021, TA003);
                 report1.Load(@"REPORT\生產產能報表.frx");
             }
+            else if (TA021.Equals("03"))
+            {
+                SQL1 = SETSQL2(TA021, TA003);
+                report1.Load(@"REPORT\生產產能報表.frx");
+            }
             else if (TA021.Equals("08"))
             {
                 SQL1 = SETSQL2(TA021, TA003);
