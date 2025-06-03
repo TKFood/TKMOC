@@ -3060,6 +3060,7 @@ namespace TKMOC
         private void button8_Click(object sender, EventArgs e)
         {
             // [TKMOC].[dbo].[MOCSEPECIALCALBARSMB001] 當桶數基準的中粉類似的品號
+            // 1桶的基準值
             RESETTKMOCBOMMD();
         }
 
