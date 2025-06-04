@@ -134,7 +134,7 @@ namespace TKMOC
         #region FUNCTION
         private void frmMOCMANULINEBAKING_Load(object sender, EventArgs e)
         {
-            MANU = "吧台烘焙線";
+            MANU = "烘焙生產線";
 
             DV_CheckBox();
 
@@ -195,7 +195,7 @@ namespace TKMOC
             if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage1"])
             {
                 //MessageBox.Show("製二線");
-                MANU = "吧台烘焙線";
+                MANU = "烘焙生產線";
             }
 
             
@@ -227,7 +227,7 @@ namespace TKMOC
         }
         public void comboBox25load()
         {
-            LoadComboBoxData(comboBox25, "SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE ( MD002 LIKE '吧台烘焙線%'  ) ", "MD002", "MD002");
+            LoadComboBoxData(comboBox25, "SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE ( MD002 LIKE '烘焙生產線%'  ) ", "MD002", "MD002");
         }
         public void comboBox26load()
         {
@@ -235,7 +235,7 @@ namespace TKMOC
         }
         public void comboBox28load()
         {
-            LoadComboBoxData(comboBox28, "SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE ( MD002 LIKE '吧台烘焙線%'  )  ", "MD002", "MD002");
+            LoadComboBoxData(comboBox28, "SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE ( MD002 LIKE '烘焙生產線%'  )  ", "MD002", "MD002");
         }
         public void LoadComboBoxData(ComboBox comboBox, string query, string valueMember, string displayMember)
         {
@@ -264,7 +264,7 @@ namespace TKMOC
 
         public void SEARCHMOCMANULINE_BAKING(string SDATES,string MANU)
         {
-            if (MANU.Equals("吧台烘焙線"))
+            if (MANU.Equals("烘焙生產線"))
             {
                 sbSql.Clear();
                 sbSqlQuery.Clear();
@@ -419,7 +419,7 @@ namespace TKMOC
             SqlCommand cmd = new SqlCommand();
             DataSet ds1 = new DataSet();
 
-            if (MANU.Equals("吧台烘焙線"))
+            if (MANU.Equals("烘焙生產線"))
             {
                 
                 try
@@ -497,7 +497,7 @@ namespace TKMOC
             DataSet TEMPds = new DataSet();
                       
 
-            if (MANU.Equals("吧台烘焙線"))
+            if (MANU.Equals("烘焙生產線"))
             {
                 try
                 {
@@ -590,7 +590,7 @@ namespace TKMOC
             DataSet ds1 = new DataSet();
             DataSet TEMPds = new DataSet();
 
-            if (MANU.Equals("吧台烘焙線"))
+            if (MANU.Equals("烘焙生產線"))
             {
                 Guid NEWGUID = new Guid();
                 NEWGUID = Guid.NewGuid();
@@ -733,7 +733,7 @@ namespace TKMOC
             DataSet ds1 = new DataSet();
             DataSet TEMPds = new DataSet();
 
-            if (MANU.Equals("吧台烘焙線"))
+            if (MANU.Equals("烘焙生產線"))
             {
                 try
                 {
@@ -926,7 +926,7 @@ namespace TKMOC
                 sqlConn.Close();
 
 
-                if (MANU.Equals("吧台烘焙線"))
+                if (MANU.Equals("烘焙生產線"))
                 {
                     if (ds1.Tables["ds1"].Rows.Count == 0)
                     {
@@ -1036,7 +1036,7 @@ namespace TKMOC
 
 
 
-                if (MANU.Equals("吧台烘焙線"))
+                if (MANU.Equals("烘焙生產線"))
                 {
                     if (ds1.Tables["ds1"].Rows.Count == 0)
                     {
@@ -1129,7 +1129,7 @@ namespace TKMOC
                 sqlConn.Close();
                 
 
-                if (MANU.Equals("吧台烘焙線"))
+                if (MANU.Equals("烘焙生產線"))
                 {
                     if (ds1.Tables["ds1"].Rows.Count == 0)
                     {
@@ -1182,7 +1182,7 @@ namespace TKMOC
             DataSet ds1 = new DataSet();
             string TA002;
 
-            if (MANU.Equals("吧台烘焙線"))
+            if (MANU.Equals("烘焙生產線"))
             {
 
                 try
@@ -1251,7 +1251,7 @@ namespace TKMOC
         public string SETTA002(string TA002, DateTime DT)
         {
 
-            if (MANU.Equals("吧台烘焙線"))
+            if (MANU.Equals("烘焙生產線"))
             {
                 if (TA002.Equals("00000000000"))
                 {
@@ -1282,7 +1282,7 @@ namespace TKMOC
             SqlCommand cmd = new SqlCommand();
             DataSet ds1 = new DataSet();
 
-            if (MANU.Equals("吧台烘焙線"))
+            if (MANU.Equals("烘焙生產線"))
             {
                 try
                 {
@@ -1367,7 +1367,7 @@ namespace TKMOC
 
             const int MaxLength = 100;
 
-            if (MANU.Equals("吧台烘焙線"))
+            if (MANU.Equals("烘焙生產線"))
             {
                 MOCMB001 = MB001B;
                 
@@ -1503,7 +1503,7 @@ namespace TKMOC
             //硯微墨-烘焙倉
             string IN = "21002";
 
-            if (MANU.Equals("吧台烘焙線"))
+            if (MANU.Equals("烘焙生產線"))
             {
                 DataTable DATATABLE=SEARCHBOMMC();
                 
@@ -1595,7 +1595,7 @@ namespace TKMOC
             string UNIT = null;
             decimal BOMBAR = 0;
             
-            if (MANU.Equals("吧台烘焙線"))
+            if (MANU.Equals("烘焙生產線"))
             {
                 try
                 {
@@ -1672,7 +1672,7 @@ namespace TKMOC
             SqlCommand cmd = new SqlCommand();
             DataSet ds1 = new DataSet();
 
-            if (MANU.Equals("吧台烘焙線"))
+            if (MANU.Equals("烘焙生產線"))
             {
                 try
                 {
@@ -1771,7 +1771,7 @@ namespace TKMOC
             DataSet ds1 = new DataSet();
 
 
-            if (MANU.Equals("吧台烘焙線"))
+            if (MANU.Equals("烘焙生產線"))
             {
                 try
                 {
@@ -2693,7 +2693,7 @@ namespace TKMOC
                         }
 
 
-                        if (comboBox25.SelectedValue.Equals("吧台烘焙線"))
+                        if (comboBox25.SelectedValue.Equals("烘焙生產線"))
                         {
                             ADDNEWTOTKMOCMOCMANULINE(ID, MANU, MANUDATE, MB001, MB002, MB003, BAR, NUM, CLINET, TA029, OUTDATE, HALFPRO, COPTD001, COPTD002, COPTD003, BOX, PACKAGE);
                         }                        
@@ -2830,7 +2830,7 @@ namespace TKMOC
             DataSet ds1 = new DataSet();
             StringBuilder QUERYS = new StringBuilder();
 
-            if (MANU.Equals("吧台烘焙線"))
+            if (MANU.Equals("烘焙生產線"))
             {
                 try
                 {
@@ -3344,7 +3344,7 @@ namespace TKMOC
                 }
 
 
-                if (comboBox28.SelectedValue.Equals("吧台烘焙線"))
+                if (comboBox28.SelectedValue.Equals("烘焙生產線"))
                 {
                     ADDNEWTOTKMOCMOCMANULINE(ID, MANU, MANUDATE, MB001, MB002, MB003, BAR, NUM, CLINET, TA029, OUTDATE, HALFPRO, COPTD001, COPTD002, COPTD003, BOX, PACKAGE);
 
@@ -3569,7 +3569,7 @@ namespace TKMOC
         private void button10_Click(object sender, EventArgs e)
         {
             DateTime DT = new DateTime();
-            if (MANU.Equals("吧台烘焙線"))
+            if (MANU.Equals("烘焙生產線"))
             {
                 TA001 = "A513";
                 TA020 = comboBox3.SelectedValue.ToString();
