@@ -64,6 +64,22 @@ namespace TKMOC
         string TF002 = "";
         string TF003 = "";
         string TF104 = "";
+        DateTime dt_DV4 = new DateTime();
+        string ID_DV4 = null;
+        string SUBID_DV4 = null;
+        decimal SUBBAR_DV4 = 0;
+        decimal SUBNUM_DV4 = 0;
+        decimal SUM_DV4 = 0;
+        decimal SUBBOX_DV4 = 0;
+        decimal SUBPACKAGE_DV4 = 0;
+        decimal BOX_DV4 = 0;
+        string TA026_DV4 = null;
+        string TA027_DV4 = null;
+        string TA028_DV4 = null;
+        string MB001_DV4 = null;
+        string MB002_DV4 = null;
+        string MB003_DV4 = null;
+        string TA029_DV4 = null;
 
         public class MOCTADATA
         {
@@ -784,6 +800,54 @@ namespace TKMOC
                     TA026 = null;
                     TA027 = null;
                     TA028 = null;
+
+                }
+            }
+        }
+
+        private void dataGridView4_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView4.CurrentRow != null)
+            {
+                int rowindex = dataGridView4.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView4.Rows[rowindex];
+                    textBoxID2.Text = row.Cells["ID"].Value.ToString();
+
+                    ID_DV4 = row.Cells["ID"].Value.ToString();
+                    dt_DV4 = Convert.ToDateTime(row.Cells["生產日"].Value.ToString().Substring(0, 4) + "/" + row.Cells["生產日"].Value.ToString().Substring(4, 2) + "/" + row.Cells["生產日"].Value.ToString().Substring(6, 2));
+                    MB001_DV4 = row.Cells["品號"].Value.ToString();
+                    MB002_DV4 = row.Cells["品名"].Value.ToString();
+                    MB003_DV4 = row.Cells["規格"].Value.ToString();
+                    BOX_DV4 = Convert.ToDecimal(row.Cells["包裝數"].Value.ToString());
+                    SUM_DV4 = Convert.ToDecimal(row.Cells["包裝數"].Value.ToString());
+                    TA029_DV4 = row.Cells["備註"].Value.ToString();
+                    TA026_DV4 = row.Cells["訂單單別"].Value.ToString();
+                    TA027_DV4 = row.Cells["訂單號"].Value.ToString();
+                    TA028_DV4 = row.Cells["訂單序號"].Value.ToString();
+
+                    SUBID_DV4 = row.Cells["ID"].Value.ToString();
+                    SUBBAR_DV4 = 0;
+                    SUBNUM_DV4 = 0;
+                    SUBBOX_DV4 = Convert.ToDecimal(row.Cells["箱數"].Value.ToString());
+                    SUBPACKAGE_DV4 = Convert.ToDecimal(row.Cells["數量"].Value.ToString());
+
+                    SEARCH_MOCMANULINERESULTBAKING_DV4(ID_DV4);
+                    //SEARCHMOCMANULINEMERGERESLUTMOCTA(ID2.ToString());
+                    ////SEARCHMOCMANULINECOP();
+
+                }
+                else
+                {
+                    ID_DV4 = null;
+                    SUBBAR_DV4 = 0;
+                    SUM_DV4 = 0;
+                    SUBBOX_DV4 = 0;
+                    SUBPACKAGE_DV4 = 0;
+                    TA026_DV4 = null;
+                    TA027_DV4 = null;
+                    TA028_DV4 = null;
 
                 }
             }
@@ -1804,7 +1868,73 @@ namespace TKMOC
             }
         }
       
+        public void SEARCH_MOCMANULINERESULTBAKING_DV4(string ID)
+        {
+            StringBuilder sbSql = new StringBuilder();
+            StringBuilder sbSqlQuery = new StringBuilder();
+            SqlConnection sqlConn = new SqlConnection();
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            SqlTransaction tran;
+            SqlCommand cmd = new SqlCommand();
+            DataSet ds1 = new DataSet();
 
+            if (MANU.Equals("烘焙包裝線"))
+            {
+                try
+                {
+                    //20210902密
+                    Class1 TKID = new Class1();//用new 建立類別實體
+                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                    //資料庫使用者密碼解密
+                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                    String connectionString;
+                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                    sbSql.Clear();
+                    sbSqlQuery.Clear();
+
+
+                    sbSql.AppendFormat(@"  
+                                        SELECT  [MOCTA001] AS '製令',[MOCTA002]  AS '單號',[SID]
+                                        FROM [TKMOC].[dbo].[MOCMANULINERESULTBAKING]
+                                        WHERE [SID]='{0}'"
+                                        , ID);
+                    sbSql.AppendFormat(@"  ");
+                    sbSql.AppendFormat(@"  ");
+
+                    adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                    sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                    sqlConn.Open();
+                    ds1.Clear();
+                    adapter1.Fill(ds1, "ds1");
+                    sqlConn.Close();
+
+                    dataGridView6.DataSource = null;
+
+                    if (ds1.Tables["ds1"].Rows.Count >= 1)
+                    {
+
+                        dataGridView6.DataSource = ds1.Tables["ds1"];
+                        dataGridView6.AutoResizeColumns();
+                    }
+
+                }
+                catch
+                {
+
+                }
+                finally
+                {
+
+                }
+            }
+        }
         private void dataGridView3_SelectionChanged(object sender, EventArgs e)
         {
             if (dataGridView3.CurrentRow != null)
@@ -3753,8 +3883,9 @@ namespace TKMOC
             }
         }
 
+     
 
-      
+
         public void SETNULL()
         {
             textBox7.Text = null;
@@ -3978,5 +4109,6 @@ namespace TKMOC
 
         #endregion
 
+        
     }
 }
