@@ -147,7 +147,11 @@ namespace TKMOC
             comboBox26load();
             comboBox28load();
 
-          
+            comboBox4load();
+            comboBox5load();
+            comboBox7load();
+
+
         }
 
         public void DV_CheckBox()
@@ -218,6 +222,18 @@ namespace TKMOC
         public void comboBox3load()
         {
             LoadComboBoxData(comboBox3, "SELECT MC001 ,MC001+MC002 AS 'MC002' FROM [TK].dbo.CMSMC WHERE MC001 LIKE '21%'  ORDER BY MC001 ", "MC001", "MC002");
+        }
+        public void comboBox4load()
+        {
+            LoadComboBoxData(comboBox4, "SELECT MD001,MD002 FROM [TK].dbo.CMSMD WHERE MD001 IN ('12')  ", "MD002", "MD002");
+        }
+        public void comboBox5load()
+        {
+            LoadComboBoxData(comboBox5, "SELECT MD001,MD002 FROM [TK].dbo.CMSMD WHERE MD001 IN ('12')  ", "MD002", "MD002");
+        }
+        public void comboBox7load()
+        {
+            LoadComboBoxData(comboBox7, "SELECT MC001 ,MC001+MC002 AS 'MC002' FROM [TK].dbo.CMSMC WHERE MC001 LIKE '21%'  ORDER BY MC001 ", "MC001", "MC002");
         }
         public void comboBox23load()
         {
