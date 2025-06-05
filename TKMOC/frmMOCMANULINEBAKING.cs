@@ -1380,6 +1380,7 @@ namespace TKMOC
                 MOCTA.TA026 = TA026;
                 MOCTA.TA027 = TA027;
                 MOCTA.TA028 = TA028;
+                MOCTA.TA021 = "08";
                 //MOCTB009 = textBox78.Text;
 
             }
@@ -3903,8 +3904,12 @@ namespace TKMOC
             ADDTOTKMOCMOCMANULINECOPTECOPTF(TF001, TF002, TF003, TF104);
             MessageBox.Show("完成");
         }
-        #endregion
 
+        private void button11_Click(object sender, EventArgs e)
+        {
+
+        }
+        #endregion
 
     }
 }
