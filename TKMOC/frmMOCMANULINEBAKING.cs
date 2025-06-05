@@ -332,6 +332,56 @@ namespace TKMOC
                 //}
 
             }
+            else if (MANU.Equals("烘焙包裝線"))
+            {
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+
+                sbSql.AppendFormat(@"                                      
+                                    SELECT 
+                                    [MANU] AS '線別'
+                                    ,CONVERT(varchar(100),[MANUDATE],112) AS '生產日'
+                                    ,[MOCMANULINEBAKING].[MB001] AS '品號'
+                                    ,[MOCMANULINEBAKING].[MB002] AS '品名' 
+                                    ,[MOCMANULINEBAKING].[MB003] AS '規格'
+                                    ,ALLERGEN AS '過敏原'
+                                    ,ORI AS '素別'
+                                    ,[BAR] AS '桶數'
+                                    ,[PACKAGE] AS '包裝數'
+                                    ,[NUM] AS '數量'
+                                    ,[CLINET] AS '客戶'
+                                    ,[OUTDATE] AS '交期'
+                                    ,[TA029] AS '備註'
+                                    ,[HALFPRO] AS '半成品數量'
+                                    ,[COPTD001] AS '訂單單別'
+                                    ,[COPTD002] AS '訂單號'
+                                    ,[COPTD003] AS '訂單序號'
+                                    ,[BOX] AS '箱數'
+                                    ,[SERNO]
+                                    ,[ID]
+
+                                    FROM [TKMOC].[dbo].[MOCMANULINEBAKING]
+                                    LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=[MOCMANULINEBAKING].MB001
+
+                                    WHERE [MANU]='{0}' 
+                                    AND CONVERT(varchar(100),[MANUDATE],112) LIKE '{1}%'
+                                    ORDER BY [MANUDATE],[SERNO]"
+
+                                   , MANU, SDATES);
+
+                sbSql.AppendFormat(@"  ");
+
+                SEARCH_MANULINE(sbSql.ToString(), dataGridView4, SortedColumn, SortedModel);
+
+                ////SET欄位寬度
+                //if (dataGridView1.Columns.Contains("規格"))
+                //{
+                //    // 欄位存在
+                //    dataGridView1.Columns["規格"].Width = 30;
+                //}
+
+            }
         }
 
         public void SEARCH_MANULINE(string QUERY, DataGridView DataGridViewNew, string SortedColumn, string SortedModel)
@@ -3923,8 +3973,9 @@ namespace TKMOC
 
         private void button11_Click(object sender, EventArgs e)
         {
-
+            SEARCHMOCMANULINE_BAKING(dateTimePicker2.Value.ToString("yyyyMMdd"), comboBox4.Text.Trim());
         }
+
         #endregion
 
     }
