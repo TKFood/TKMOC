@@ -100,6 +100,7 @@
             this.button10 = new System.Windows.Forms.Button();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.splitContainer6 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel29 = new System.Windows.Forms.TableLayoutPanel();
@@ -136,7 +137,6 @@
             this.label144 = new System.Windows.Forms.Label();
             this.textBox98 = new System.Windows.Forms.TextBox();
             this.dataGridView29 = new System.Windows.Forms.DataGridView();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -879,10 +879,6 @@
             this.comboBox21.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox21.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.comboBox21.FormattingEnabled = true;
-            this.comboBox21.Items.AddRange(new object[] {
-            "成品",
-            "第一層",
-            "第二層"});
             this.comboBox21.Location = new System.Drawing.Point(65, 288);
             this.comboBox21.Name = "comboBox21";
             this.comboBox21.Size = new System.Drawing.Size(172, 24);
@@ -1082,6 +1078,15 @@
             this.dataGridView3.Size = new System.Drawing.Size(254, 187);
             this.dataGridView3.TabIndex = 6;
             this.dataGridView3.SelectionChanged += new System.EventHandler(this.dataGridView3_SelectionChanged);
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Location = new System.Drawing.Point(4, 26);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(976, 731);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "烘焙包裝線";
+            this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // tabPage2
             // 
@@ -1585,15 +1590,6 @@
             this.dataGridView29.Size = new System.Drawing.Size(972, 532);
             this.dataGridView29.TabIndex = 6;
             this.dataGridView29.SelectionChanged += new System.EventHandler(this.dataGridView29_SelectionChanged);
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.Location = new System.Drawing.Point(4, 26);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(976, 731);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "烘焙包裝線";
-            this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // frmMOCMANULINEBAKING
             // 
