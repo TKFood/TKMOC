@@ -1605,31 +1605,92 @@ namespace TKMOC
                     sqlConn.Close();
                 }
             }
-           
-               
-            
+            else if (MANU.Equals("烘焙包裝線"))
+            {
+
+                try
+                {
+                    //20210902密
+                    Class1 TKID = new Class1();//用new 建立類別實體
+                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                    //資料庫使用者密碼解密
+                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                    String connectionString;
+                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+                    sbSql.Clear();
+                    sbSqlQuery.Clear();
+                    ds1.Clear();
+
+                    sbSql.AppendFormat(@" 
+                                        SELECT ISNULL(MAX(TA002),'00000000000') AS TA002
+                                        FROM [TK].[dbo].[MOCTA]
+                                        WHERE  TA001='{0}' AND TA002 LIKE '%{1}%' 
+                                        ", TA001, DT.ToString("yyyyMMdd"));
+
+                    adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                    sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                    sqlConn.Open();
+                    ds1.Clear();
+                    adapter1.Fill(ds1, "ds1");
+                    sqlConn.Close();
+
+
+                    if (ds1.Tables["ds1"].Rows.Count == 0)
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        if (ds1.Tables["ds1"].Rows.Count >= 1)
+                        {
+                            TA002 = SETTA002(ds1.Tables["ds1"].Rows[0]["TA002"].ToString(), DT);
+                            return TA002;
+
+                        }
+                        return null;
+                    }
+
+                }
+                catch
+                {
+                    return null;
+                }
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }
+
+
+
             return null;
 
         }
         public string SETTA002(string TA002, DateTime DT)
         {
-
-            if (MANU.Equals("烘焙生產線"))
+            if (TA002.Equals("00000000000"))
             {
-                if (TA002.Equals("00000000000"))
-                {
-                    return DT.ToString("yyyyMMdd") + "001";
-                }
-
-                else
-                {
-                    int serno = Convert.ToInt16(TA002.Substring(8, 3));
-                    serno = serno + 1;
-                    string temp = serno.ToString();
-                    temp = temp.PadLeft(3, '0');
-                    return DT.ToString("yyyyMMdd") + temp.ToString();
-                }
+                return DT.ToString("yyyyMMdd") + "001";
             }
+
+            else
+            {
+                int serno = Convert.ToInt16(TA002.Substring(8, 3));
+                serno = serno + 1;
+                string temp = serno.ToString();
+                temp = temp.PadLeft(3, '0');
+                return DT.ToString("yyyyMMdd") + temp.ToString();
+            }
+
+            //if (MANU.Equals("烘焙生產線"))
+            //{
+                
+            //}
 
             return null;
         }
@@ -1705,9 +1766,69 @@ namespace TKMOC
                     sqlConn.Close();
                 }
             }
-            
+            else if (MANU.Equals("烘焙包裝線"))
+            {
+                try
+                {
+                    //20210902密
+                    Class1 TKID = new Class1();//用new 建立類別實體
+                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
 
-            
+                    //資料庫使用者密碼解密
+                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                    String connectionString;
+                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                    sqlConn.Close();
+                    sqlConn.Open();
+                    tran = sqlConn.BeginTransaction();
+
+                    sbSql.Clear();
+
+
+
+                    sbSql.AppendFormat(@" 
+                                        INSERT INTO[TKMOC].[dbo].[MOCMANULINERESULTBAKING]
+                                        ([SID],[MOCTA001],[MOCTA002])
+                                        VALUES('{0}', '{1}', '{2}')
+                                        ", ID, TA001, TA002);
+                    sbSql.AppendFormat(" ");
+
+
+                    cmd.Connection = sqlConn;
+                    cmd.CommandTimeout = 60;
+                    cmd.CommandText = sbSql.ToString();
+                    cmd.Transaction = tran;
+                    result = cmd.ExecuteNonQuery();
+
+                    if (result == 0)
+                    {
+                        tran.Rollback();    //交易取消
+                    }
+                    else
+                    {
+                        tran.Commit();      //執行交易  
+
+
+                    }
+
+                }
+                catch
+                {
+
+                }
+
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }
+
+
+
         }
 
         public void ADDMOCTATB(string TA001,string TA002,string TA020, DateTime DT)
@@ -1745,9 +1866,25 @@ namespace TKMOC
                 //MOCTB009 = textBox78.Text;
 
             }
-           
+            else  if (MANU.Equals("烘焙包裝線"))
+            {
+                MOCMB001 = MB001_DV4;
 
-          
+                MOCTA.TA001 = TA001;
+                MOCTA.TA002 = TA002;
+                MOCTA.TA006 = MB001_DV4;
+                MOCTA.TA020 = TA020;
+                MOCTA.TA026 = TA026_DV4;
+                MOCTA.TA027 = TA027_DV4;
+                MOCTA.TA028 = TA028_DV4;
+                MOCTA.TA021 = "12";
+                //MOCTB009 = textBox78.Text;
+
+            }
+
+
+
+
             try
             {
                 //check TA002=2,TA040=2
@@ -1937,7 +2074,77 @@ namespace TKMOC
 
                 return MOCTA;
             }
-            
+            else if (MANU.Equals("烘焙包裝線"))
+            {
+                DataTable DATATABLE = SEARCHBOMMC();
+
+                if (DATATABLE != null && DATATABLE.Rows.Count >= 1)
+                {
+                    BOMVARSION = DATATABLE.Rows[0]["MC009"].ToString();
+                    UNIT = DATATABLE.Rows[0]["MB004"].ToString();
+                    BOMBAR = Convert.ToDecimal(DATATABLE.Rows[0]["MC004"].ToString());
+                }
+
+                MOCTADATA MOCTA = new MOCTADATA();
+                MOCTA.COMPANY = "TK";
+                MOCTA.CREATOR = "140020";
+                MOCTA.USR_GROUP = "103000";
+                //MOCTA.CREATE_DATE = dt2.ToString("yyyyMMdd");
+                MOCTA.CREATE_DATE = DateTime.Now.ToString("yyyyMMdd");
+                MOCTA.MODIFIER = "140020";
+                MOCTA.MODI_DATE = DT.ToString("yyyyMMdd");
+                MOCTA.FLAG = "0";
+                MOCTA.CREATE_TIME = DateTime.Now.ToString("HH:mm:dd");
+                MOCTA.MODI_TIME = DateTime.Now.ToString("HH:mm:dd");
+                MOCTA.TRANS_TYPE = "P001";
+                MOCTA.TRANS_NAME = "MOCMI02";
+                MOCTA.sync_count = "0";
+                MOCTA.DataGroup = "103000";
+                MOCTA.TA001 = TA001;
+                MOCTA.TA002 = TA002;
+                MOCTA.TA003 = DT.ToString("yyyyMMdd");
+                MOCTA.TA004 = DT.ToString("yyyyMMdd");
+                MOCTA.TA005 = BOMVARSION;
+                MOCTA.TA006 = MB001_DV4;
+                MOCTA.TA007 = UNIT;
+                MOCTA.TA009 = DT.ToString("yyyyMMdd");
+                MOCTA.TA010 = DT.ToString("yyyyMMdd");
+                MOCTA.TA011 = "1";
+                MOCTA.TA012 = DT.ToString("yyyyMMdd");
+                MOCTA.TA013 = "N";
+                // MOCTA.TA014 = dt2.ToString("yyyyMMdd");
+                MOCTA.TA014 = "";
+                //MOCTA.TA015 = (BOX * BOMBAR).ToString();
+                MOCTA.TA015 = SUBPACKAGE_DV4.ToString();
+                MOCTA.TA016 = "0";
+                MOCTA.TA017 = "0";
+                MOCTA.TA018 = "0";
+                MOCTA.TA019 = "20";
+                MOCTA.TA020 = IN;
+                MOCTA.TA021 = "08";
+                MOCTA.TA022 = "0";
+                MOCTA.TA024 = TA001;
+                MOCTA.TA025 = TA002;
+                MOCTA.TA029 = TA029_DV4;
+                MOCTA.TA030 = "1";
+                MOCTA.TA031 = "0";
+                MOCTA.TA034 = MB002_DV4;
+                MOCTA.TA035 = MB003_DV4;
+                MOCTA.TA040 = DT.ToString("yyyyMMdd");
+                MOCTA.TA041 = "";
+                MOCTA.TA043 = "1";
+                MOCTA.TA044 = "N";
+                MOCTA.TA045 = "0";
+                MOCTA.TA046 = "0";
+                MOCTA.TA047 = "0";
+                MOCTA.TA049 = "0";
+                MOCTA.TA050 = "0";
+                MOCTA.TA200 = "1";
+
+
+                return MOCTA;
+            }
+
 
 
             return null;
@@ -4487,10 +4694,41 @@ namespace TKMOC
             textBox5.Text = SUBfrmSUBMOCCOPMA.TextBoxMsg;
         }
 
+        private void button23_Click(object sender, EventArgs e)
+        {
+            DateTime DT = new DateTime();
+            if (MANU.Equals("烘焙包裝線"))
+            {
+                TA001 = "A513";
+                TA020 = comboBox5.SelectedValue.ToString();
+            }
+
+            if (!string.IsNullOrEmpty(TA028_DV4))
+            {
+                //指定日期=生產日
+                DT = dateTimePicker3.Value; ;
+                TA002 = GETMAXTA002(TA001, DT);
+                ADDMOCMANULINERESULT(textBoxID2.Text.ToString().Trim(), TA001, TA002);
+                ADDMOCTATB(TA001, TA002, TA020, DT);
+
+                SEARCHMOCMANULINE_BAKING(dateTimePicker3.Value.ToString("yyyyMMdd"), comboBox5.Text.Trim());
+
+                MessageBox.Show("完成");
+            }
+            else
+            {
+                MessageBox.Show("訂單沒有指定");
+            }
+        }
+
+        private void button21_Click(object sender, EventArgs e)
+        {
+
+        }
 
 
         #endregion
 
-      
+
     }
 }
