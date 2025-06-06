@@ -2399,7 +2399,7 @@ namespace TKMOC
             }
         }
 
-        public void DELTE_MOCMANULINERESULTBAKING(string DELID)
+        public void DELTE_MOCMANULINERESULTBAKING(string DELID,string DEL_TA001,string DEL_TA002)
         {
             StringBuilder sbSql = new StringBuilder();
             StringBuilder sbSqlQuery = new StringBuilder();
@@ -2436,7 +2436,7 @@ namespace TKMOC
                                         DELETE FROM [TKMOC].[dbo].[MOCMANULINERESULTBAKING]
                                         WHERE SID='{0}'
                                         AND [MOCTA001] ='{1}' AND [MOCTA002]='{2}'"
-                                        , DELID, DELMOCTA001B, DELMOCTA002B);
+                                        , DELID, DEL_TA001, DEL_TA002);
                     sbSql.AppendFormat(" ");
 
                     cmd.Connection = sqlConn;
@@ -2491,7 +2491,7 @@ namespace TKMOC
                                         DELETE FROM [TKMOC].[dbo].[MOCMANULINERESULTBAKING]
                                         WHERE SID='{0}'
                                         AND [MOCTA001] ='{1}' AND [MOCTA002]='{2}'"
-                                        , DELID, DELMOCTA001_DV6, DELMOCTA002_DV6);
+                                        , DELID, DEL_TA001, DEL_TA002);
                     sbSql.AppendFormat(" ");
 
                     cmd.Connection = sqlConn;
@@ -4613,7 +4613,7 @@ namespace TKMOC
                 DialogResult dialogResult = MessageBox.Show("要刪除了?", "要刪除了?", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
-                    DELTE_MOCMANULINERESULTBAKING(DELID);
+                    DELTE_MOCMANULINERESULTBAKING(DELID, DELMOCTA001B, DELMOCTA002B);
                     SEARCHMOCMANULINE_BAKING(dateTimePicker1.Value.ToString("yyyyMMdd"), comboBox1.Text.Trim());
                     
 
@@ -4813,7 +4813,7 @@ namespace TKMOC
                 DialogResult dialogResult = MessageBox.Show("要刪除了?", "要刪除了?", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
-                    DELTE_MOCMANULINERESULTBAKING(DELID_DV6);
+                    DELTE_MOCMANULINERESULTBAKING(DELID_DV6, DELMOCTA001_DV6, DELMOCTA002_DV6);
                     SEARCHMOCMANULINE_BAKING(dateTimePicker3.Value.ToString("yyyyMMdd"), comboBox5.Text.Trim());
                     
                 }
