@@ -4149,6 +4149,21 @@ namespace TKMOC
             textBox42.Text = null;
             textBox43.Text = null;
             textBox72.Text = null;
+
+            textBox4.Text = null;
+            textBox6.Text = "0";
+            textBox21.Text = "0";
+            textBox5.Text = null;
+            textBox16.Text = null;
+            textBox17.Text = null;
+            textBox18.Text = null;
+            textBox23.Text = "0";
+            textBox14.Text = "0";
+            textBox18.Text = null;
+            textBox23.Text = "0";
+            textBox3.Text = null;
+            textBox19.Text = null;
+            textBox20.Text = null;
         }
 
         private void textBox15_TextChanged(object sender, EventArgs e)
