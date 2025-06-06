@@ -80,6 +80,9 @@ namespace TKMOC
         string MB002_DV4 = null;
         string MB003_DV4 = null;
         string TA029_DV4 = null;
+        string DELID_DV6 = null;
+        string DELMOCTA001_DV6 = null;
+        string DELMOCTA002_DV6 = null;
 
         public class MOCTADATA
         {
@@ -2462,6 +2465,61 @@ namespace TKMOC
                     sqlConn.Close();
                 }
             }
+
+            else  if (MANU.Equals("烘焙包裝線"))
+            {
+                try
+                {
+                    //20210902密
+                    Class1 TKID = new Class1();//用new 建立類別實體
+                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                    //資料庫使用者密碼解密
+                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                    String connectionString;
+                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                    sqlConn.Close();
+                    sqlConn.Open();
+                    tran = sqlConn.BeginTransaction();
+
+                    sbSql.Clear();
+                    sbSql.AppendFormat(@"  
+                                        DELETE FROM [TKMOC].[dbo].[MOCMANULINERESULTBAKING]
+                                        WHERE SID='{0}'
+                                        AND [MOCTA001] ='{1}' AND [MOCTA002]='{2}'"
+                                        , DELID, DELMOCTA001_DV6, DELMOCTA002_DV6);
+                    sbSql.AppendFormat(" ");
+
+                    cmd.Connection = sqlConn;
+                    cmd.CommandTimeout = 60;
+                    cmd.CommandText = sbSql.ToString();
+                    cmd.Transaction = tran;
+                    result = cmd.ExecuteNonQuery();
+
+                    if (result == 0)
+                    {
+                        tran.Rollback();    //交易取消
+                    }
+                    else
+                    {
+                        tran.Commit();      //執行交易  
+                    }
+
+                }
+                catch
+                {
+
+                }
+
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }
         }
 
         private void textBox12_TextChanged(object sender, EventArgs e)
@@ -4340,6 +4398,42 @@ namespace TKMOC
         }
 
 
+       
+
+        private void textBox15_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBox15.Text.ToString()) && !string.IsNullOrEmpty(textBox14.Text.ToString()))
+            {
+                CAL_BAR2(textBox15.Text.ToString(), textBox14.Text.ToString());
+            }
+        }
+
+        private void dataGridView6_SelectionChanged(object sender, EventArgs e)
+        {
+            DataGridView DG = new DataGridView();
+            DG = dataGridView6;
+
+            if (DG.CurrentRow != null)
+            {
+                int rowindex = DG.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = DG.Rows[rowindex];
+                    DELID_DV6 = row.Cells["SID"].Value.ToString();
+                    DELMOCTA001_DV6 = row.Cells["製令"].Value.ToString();
+                    DELMOCTA002_DV6 = row.Cells["單號"].Value.ToString();
+
+
+
+                }
+                else
+                {
+                    DELID_DV6 = null;
+
+                }
+            }
+        }
+
         public void SETNULL()
         {
             textBox7.Text = null;
@@ -4372,15 +4466,6 @@ namespace TKMOC
             textBox19.Text = null;
             textBox20.Text = null;
         }
-
-        private void textBox15_TextChanged(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrEmpty(textBox15.Text.ToString()) && !string.IsNullOrEmpty(textBox14.Text.ToString()))
-            {
-                CAL_BAR2(textBox15.Text.ToString(), textBox14.Text.ToString());
-            }
-        }
-
         #endregion
 
         #region BUTTON
@@ -4723,12 +4808,26 @@ namespace TKMOC
 
         private void button21_Click(object sender, EventArgs e)
         {
-
+            if (!string.IsNullOrEmpty(DELID_DV6))
+            {
+                DialogResult dialogResult = MessageBox.Show("要刪除了?", "要刪除了?", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    DELTE_MOCMANULINERESULTBAKING(DELID_DV6);
+                    SEARCHMOCMANULINE_BAKING(dateTimePicker3.Value.ToString("yyyyMMdd"), comboBox5.Text.Trim());
+                    
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                    //do something else
+                }
+            }
         }
+
 
 
         #endregion
 
-
+      
     }
 }
