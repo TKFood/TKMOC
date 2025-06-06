@@ -4306,6 +4306,21 @@ namespace TKMOC
                 SEARCHCOPDEFAULT3(textBox3.Text, textBox19.Text, textBox20.Text);
             }
         }
+        private void button14_Click(object sender, EventArgs e)
+        {
+            SETNULL();
+
+            frmSUBMOCMANULINE SUBfrmSUBMOCMANULINE = new frmSUBMOCMANULINE();
+            SUBfrmSUBMOCMANULINE.ShowDialog();
+            textBox4.Text = SUBfrmSUBMOCMANULINE.TextBoxMsg;
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            frmSUBMOCCOPMA SUBfrmSUBMOCCOPMA = new frmSUBMOCCOPMA();
+            SUBfrmSUBMOCCOPMA.ShowDialog();
+            textBox5.Text = SUBfrmSUBMOCCOPMA.TextBoxMsg;
+        }
 
         #endregion
 
