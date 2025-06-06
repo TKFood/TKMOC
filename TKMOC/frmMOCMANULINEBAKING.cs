@@ -570,6 +570,70 @@ namespace TKMOC
 
                 }
             }
+            else if (MANU.Equals("烘焙包裝線"))
+            {
+
+                try
+                {
+                    //20210902密
+                    Class1 TKID = new Class1();//用new 建立類別實體
+                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                    //資料庫使用者密碼解密
+                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                    String connectionString;
+                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                    sbSql.Clear();
+                    sbSqlQuery.Clear();
+
+
+                    sbSql.AppendFormat(@"  
+                                        SELECT MB001,MB002,MB003,MC004 ,MB017 
+                                        FROM [TK].dbo.INVMB,[TK].dbo.BOMMC
+                                        WHERE MB001=MC001
+                                        AND MB001='{0}'
+                                        ", MB001);
+
+                    adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                    sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                    sqlConn.Open();
+                    ds1.Clear();
+                    adapter1.Fill(ds1, "ds1");
+                    sqlConn.Close();
+
+
+                    if (ds1.Tables["ds1"].Rows.Count == 0)
+                    {
+
+                    }
+                    else
+                    {
+                        if (ds1.Tables["ds1"].Rows.Count >= 1)
+                        {
+                            textBox16.Text = ds1.Tables["ds1"].Rows[0]["MB002"].ToString();
+                            textBox17.Text = ds1.Tables["ds1"].Rows[0]["MB003"].ToString();
+                            textBox14.Text = ds1.Tables["ds1"].Rows[0]["MC004"].ToString();
+                            //comboBox6.SelectedValue = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
+                            //label52.Text = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
+
+                        }
+                    }
+
+                }
+                catch
+                {
+
+                }
+                finally
+                {
+
+                }
+            }
         }
         public void SEARCHMOCMANULINETEMPDATAS(string MB001)
         {
@@ -635,6 +699,7 @@ namespace TKMOC
                     }
 
                 }
+                
                 catch
                 {
 
@@ -643,7 +708,68 @@ namespace TKMOC
                 {
                     sqlConn.Close();
                 }
-            }        
+            }    
+            else if (MANU.Equals("烘焙包裝線"))
+            {
+                try
+                {
+                    //20210902密
+                    Class1 TKID = new Class1();//用new 建立類別實體
+                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                    //資料庫使用者密碼解密
+                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                    String connectionString;
+                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                    sbSql.Clear();
+                    sbSqlQuery.Clear();
+
+                    sbSql.AppendFormat(@" SELECT [ID]  FROM [TKMOC].[dbo].[MOCMANULINETEMP] WHERE [MB001]='{0}' AND [ID] NOT IN (SELECT [ID] FROM [TKMOC].[dbo].[MOCMANULINEBAKING] )", MB001);
+                    sbSql.AppendFormat(@"  ");
+
+                    adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                    sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                    sqlConn.Open();
+                    ds1.Clear();
+                    adapter1.Fill(ds1, "ds1");
+                    sqlConn.Close();
+
+
+                    if (ds1.Tables["ds1"] != null && ds1.Tables["ds1"].Rows.Count >= 1)
+                    {
+
+                        TEMPds.Clear();
+                        frmMOCMANULINESubTEMPADD MOCMANULINESubTEMPADD = new frmMOCMANULINESubTEMPADD(MB001, TEMPds);
+                        MOCMANULINESubTEMPADD.ShowDialog();
+
+                        TEMPds = MOCMANULINESubTEMPADD.SETDATASET;
+
+                        if (TEMPds.Tables[0].Rows.Count >= 1)
+                        {
+                            foreach (DataRow dr in TEMPds.Tables[0].Rows)
+                            {
+                                SUM21 = SUM21 + Convert.ToDecimal(dr["數量"].ToString());
+                                //SUM2 = SUM2 + Convert.ToDecimal(dr["箱數"].ToString());
+                            }
+                        }
+                    }
+
+                }
+
+                catch
+                {
+
+                }
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }
 
         }
 
@@ -2157,6 +2283,17 @@ namespace TKMOC
             }
 
             
+        }
+        public void CAL_BAR2(string NUMS, string BOMS)
+        {
+            decimal COUNT_NUMS = Convert.ToDecimal(NUMS);
+            decimal COUNT_BOMS = Convert.ToDecimal(BOMS);
+            if (COUNT_NUMS > 0 & COUNT_BOMS > 0)
+            {
+                textBox21.Text = Math.Round(COUNT_NUMS / COUNT_BOMS).ToString();
+            }
+
+
         }
 
         public void ADD_MOCMANULINEBAKING_BATCH(string KINDS,string MANU,string MANUDATE, string TD001, string TD002, string TD003)
@@ -3988,7 +4125,12 @@ namespace TKMOC
             }
         }
 
-     
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+            SEARCHMB001(textBox4.Text.Trim());
+
+            SEARCHMOCMANULINETEMPDATAS(textBox4.Text.Trim());
+        }
 
 
         public void SETNULL()
@@ -4007,6 +4149,14 @@ namespace TKMOC
             textBox42.Text = null;
             textBox43.Text = null;
             textBox72.Text = null;
+        }
+
+        private void textBox15_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBox15.Text.ToString()) && !string.IsNullOrEmpty(textBox14.Text.ToString()))
+            {
+                CAL_BAR2(textBox15.Text.ToString(), textBox14.Text.ToString());
+            }
         }
 
         #endregion
@@ -4322,8 +4472,10 @@ namespace TKMOC
             textBox5.Text = SUBfrmSUBMOCCOPMA.TextBoxMsg;
         }
 
+
+
         #endregion
 
-
+      
     }
 }
