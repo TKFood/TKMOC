@@ -674,83 +674,80 @@ namespace TKMOC
             DataSet ds1 = new DataSet();
             DataSet TEMPds = new DataSet();
 
-            if (MANU.Equals("烘焙生產線"))
+            Guid NEWGUID = new Guid();
+            NEWGUID = Guid.NewGuid();
+
+            try
             {
-                Guid NEWGUID = new Guid();
-                NEWGUID = Guid.NewGuid();
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
 
-                try
-                {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
 
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
 
 
-                    sqlConn.Close();
-                    sqlConn.Open();
-                    tran = sqlConn.BeginTransaction();
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
 
-                    sbSql.Clear();
+                sbSql.Clear();
 
 
-                    sbSql.AppendFormat(@" INSERT INTO [TKMOC].[dbo].[MOCMANULINEBAKING]
+                sbSql.AppendFormat(@" INSERT INTO [TKMOC].[dbo].[MOCMANULINEBAKING]
                                         ([ID],[MANU],[MANUDATE],[MB001],[MB002],[MB003],[CLINET],[MANUHOUR],[BOX],[NUM],[PACKAGE],[OUTDATE],[TA029],[HALFPRO],[COPTD001],[COPTD002],[COPTD003],[BAR])
                                         VALUES ('{0}','{1}','{2}','{3}',N'{4}','{5}',N'{6}',N'{7}','{8}','{9}','{10}','{11}',N'{12}','{13}','{14}','{15}','{16}','{17}')"
-                                        , NEWGUID.ToString()
-                                        , MANU
-                                        , MANUDATE
-                                        , MB001
-                                        , MB002
-                                        , MB003
-                                        , CLINET
-                                        , MANUHOUR
-                                        , BOX
-                                        , NUM
-                                        , PACKAGE
-                                        , OUTDATE
-                                        , TA029
-                                        , HALFPRO
-                                        , COPTD001
-                                        , COPTD002
-                                        , COPTD003
-                                        , BAR
-                                        );
-                    sbSql.AppendFormat(" ");
-              
+                                    , NEWGUID.ToString()
+                                    , MANU
+                                    , MANUDATE
+                                    , MB001
+                                    , MB002
+                                    , MB003
+                                    , CLINET
+                                    , MANUHOUR
+                                    , BOX
+                                    , NUM
+                                    , PACKAGE
+                                    , OUTDATE
+                                    , TA029
+                                    , HALFPRO
+                                    , COPTD001
+                                    , COPTD002
+                                    , COPTD003
+                                    , BAR
+                                    );
+                sbSql.AppendFormat(" ");
 
 
-                    cmd.Connection = sqlConn;
-                    cmd.CommandTimeout = 60;
-                    cmd.CommandText = sbSql.ToString();
-                    cmd.Transaction = tran;
-                    result = cmd.ExecuteNonQuery();
 
-                    if (result == 0)
-                    {
-                        tran.Rollback();    //交易取消                       
-                    }
-                    else
-                    {
-                        tran.Commit();      //執行交易  
-                    }
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
 
-                }
-                catch
+                if (result == 0)
                 {
-
+                    tran.Rollback();    //交易取消                       
                 }
-
-                finally
+                else
                 {
-                    sqlConn.Close();
+                    tran.Commit();      //執行交易  
                 }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
             }
 
 
@@ -865,59 +862,56 @@ namespace TKMOC
             DataSet ds1 = new DataSet();
             DataSet TEMPds = new DataSet();
 
-            if (MANU.Equals("烘焙生產線"))
+            try
             {
-                try
-                {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
 
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
 
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
 
 
-                    sqlConn.Close();
-                    sqlConn.Open();
-                    tran = sqlConn.BeginTransaction();
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
 
-                    sbSql.Clear();
-                    sbSql.AppendFormat(@"  
+                sbSql.Clear();
+                sbSql.AppendFormat(@"  
                                         DELETE [TKMOC].[dbo].[MOCMANULINEBAKING]
                                         WHERE ID='{0}'"
-                                        , ID);
-                    sbSql.AppendFormat(" ");
+                                    , ID);
+                sbSql.AppendFormat(" ");
 
-                    cmd.Connection = sqlConn;
-                    cmd.CommandTimeout = 60;
-                    cmd.CommandText = sbSql.ToString();
-                    cmd.Transaction = tran;
-                    result = cmd.ExecuteNonQuery();
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
 
-                    if (result == 0)
-                    {
-                        tran.Rollback();    //交易取消
-                    }
-                    else
-                    {
-                        tran.Commit();      //執行交易  
-                      
-                    }
-
-                }
-                catch
+                if (result == 0)
                 {
-
+                    tran.Rollback();    //交易取消
                 }
-
-                finally
+                else
                 {
-                    sqlConn.Close();
+                    tran.Commit();      //執行交易  
+
                 }
+
+            }
+            catch
+            {
+
+            }
+
+            finally
+            {
+                sqlConn.Close();
             }
 
 
@@ -941,7 +935,11 @@ namespace TKMOC
             {
                 CHECKID = textBoxID.Text.ToString().Trim();
             }
-          
+            else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage4"])
+            {
+                CHECKID = textBoxID2.Text.ToString().Trim();
+            }
+
             try
             {
                 //20210902密
@@ -1002,6 +1000,11 @@ namespace TKMOC
         public void UPDATEMOCMANULINE(string CHECKID)
         {
             if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage1"])
+            {
+                frmMOCMANULINES_BAKING_SUB MOCMANULINE_BAKUING_Sub = new frmMOCMANULINES_BAKING_SUB(CHECKID);
+                MOCMANULINE_BAKUING_Sub.ShowDialog();
+            }
+            else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage4"])
             {
                 frmMOCMANULINES_BAKING_SUB MOCMANULINE_BAKUING_Sub = new frmMOCMANULINES_BAKING_SUB(CHECKID);
                 MOCMANULINE_BAKUING_Sub.ShowDialog();
@@ -1095,6 +1098,47 @@ namespace TKMOC
                                 //{
                                 //    textBox12.Text = ds1.Tables["ds1"].Rows[0]["NUM"].ToString();
                                 //}
+                        }
+                    }
+                }         
+                   
+                else if (MANU.Equals("烘焙包裝線"))
+                {
+                    if (ds1.Tables["ds1"].Rows.Count == 0)
+                    {
+                        textBox4.Text = null;
+                        textBox16.Text = null;
+                        textBox17.Text = null;
+                        textBox12.Text = null;
+                        textBox18.Text = null;
+                        textBox5.Text = null;
+                        textBox3.Text = null;
+                        textBox19.Text = null;
+                        textBox20.Text = null;
+                    }
+                    else
+                    {
+                        if (ds1.Tables["ds1"].Rows.Count >= 1)
+                        {
+                            textBox4.Text = ds1.Tables["ds1"].Rows[0]["TD004"].ToString();
+                            textBox16.Text = ds1.Tables["ds1"].Rows[0]["TD005"].ToString();
+                            textBox17.Text = ds1.Tables["ds1"].Rows[0]["TD006"].ToString();
+                            textBox5.Text = ds1.Tables["ds1"].Rows[0]["TC053"].ToString();
+                            textBox18.Text = ds1.Tables["ds1"].Rows[0]["TC015"].ToString();
+                            dateTimePicker6.Value = Convert.ToDateTime(ds1.Tables["ds1"].Rows[0]["TD013"].ToString().Substring(0, 4) + "/" + ds1.Tables["ds1"].Rows[0]["TD013"].ToString().Substring(4, 2) + "/" + ds1.Tables["ds1"].Rows[0]["TD013"].ToString().Substring(6, 2));
+
+                            textBox15.Text = ds1.Tables["ds1"].Rows[0]["NUM"].ToString();
+
+                            //if (SUM21 > 0)
+                            //{
+                            //    textBox12.Text = (SUM21 + Convert.ToDecimal(ds27.Tables["ds27"].Rows[0]["NUM"].ToString())).ToString();
+
+                            //    SUM21 = 0;
+                            //}
+                            //else
+                            //{
+                            //    textBox12.Text = ds1.Tables["ds1"].Rows[0]["NUM"].ToString();
+                            //}
                         }
                     }
                 }
@@ -3955,10 +3999,11 @@ namespace TKMOC
                     );
 
                 SETNULL();
+                SEARCHMOCMANULINE_BAKING(dateTimePicker1.Value.ToString("yyyyMMdd"), comboBox1.Text.Trim());
             }
             else
             {
-                MessageBox.Show("品名錯誤");
+                MessageBox.Show("錯誤");
             }
         }
         private void button5_Click(object sender, EventArgs e)
@@ -3982,6 +4027,7 @@ namespace TKMOC
             if (dialogResult == DialogResult.Yes)
             {
                 DELMOCMANULINE(textBoxID.Text.ToString().Trim());
+                SEARCHMOCMANULINE_BAKING(dateTimePicker1.Value.ToString("yyyyMMdd"), comboBox1.Text.Trim());
             }
             else if (dialogResult == DialogResult.No)
             {
@@ -4106,9 +4152,86 @@ namespace TKMOC
         {
             SEARCHMOCMANULINE_BAKING(dateTimePicker2.Value.ToString("yyyyMMdd"), comboBox4.Text.Trim());
         }
+        private void button13_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBox4.Text))
+            {
+                string MANU = comboBox5.Text.ToString().Trim();
+                string MANUDATE = dateTimePicker3.Value.ToString("yyyy/MM/dd");
+                string MB001 = textBox4.Text.ToString().Trim();
+                string MB002 = textBox16.Text.ToString().Trim();
+                string MB003 = textBox17.Text.ToString().Trim();
+                string CLINET = textBox5.Text.ToString().Trim();
+                string MANUHOUR = textBox22.Text.ToString().Trim();
+                string BOX = textBox6.Text.ToString().Trim();
+                string BAR = textBox21.Text.ToString().Trim();
+                string NUM = textBox15.Text.ToString().Trim();
+                string PACKAGE = textBox15.Text.ToString().Trim();
+                string OUTDATE = dateTimePicker6.Value.ToString("yyyy/MM/dd");
+                string TA029 = textBox18.Text.Replace("'", "");
+                string HALFPRO = textBox23.Text.ToString().Trim();
+                string COPTD001 = textBox3.Text.ToString().Trim();
+                string COPTD002 = textBox19.Text.ToString().Trim();
+                string COPTD003 = textBox20.Text.ToString().Trim();
+
+                ADDMOCMANULINE(
+                    MANU,
+                    MANUDATE,
+                    MB001,
+                    MB002,
+                    MB003,
+                    CLINET,
+                    MANUHOUR,
+                    BOX,
+                    NUM,
+                    PACKAGE,
+                    OUTDATE,
+                    TA029,
+                    HALFPRO,
+                    COPTD001,
+                    COPTD002,
+                    COPTD003,
+                    BAR
+                    );
+
+                SETNULL();
+
+                SEARCHMOCMANULINE_BAKING(dateTimePicker2.Value.ToString("yyyyMMdd"), comboBox4.Text.Trim());
+            }
+            else
+            {
+                MessageBox.Show("錯誤");
+            }
+        }
+        private void button15_Click(object sender, EventArgs e)
+        {
+
+            DialogResult dialogResult = MessageBox.Show("要刪除了?", "要刪除了?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                DELMOCMANULINE(textBoxID2.Text.ToString().Trim());
+                SEARCHMOCMANULINE_BAKING(dateTimePicker2.Value.ToString("yyyyMMdd"), comboBox4.Text.Trim());
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                //do something else
+            }
+        }
+        private void button16_Click(object sender, EventArgs e)
+        {
+            CHECKMOCTAB();
+            SEARCHMOCMANULINE_BAKING(dateTimePicker2.Value.ToString("yyyyMMdd"), comboBox4.Text.Trim());
+        }
+        private void button17_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBox3.Text) & !string.IsNullOrEmpty(textBox19.Text) & !string.IsNullOrEmpty(textBox20.Text))
+            {
+                SEARCHCOPDEFAULT(textBox3.Text, textBox19.Text, textBox20.Text);
+            }
+        }
 
         #endregion
 
-        
+
     }
 }
