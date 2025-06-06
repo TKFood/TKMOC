@@ -216,11 +216,14 @@ namespace TKMOC
         {
             if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage1"])
             {
-                //MessageBox.Show("製二線");
                 MANU = "烘焙生產線";
             }
+            else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage4"])
+            {               
+                MANU = "烘焙包裝線";
+            }
 
-            
+
         }
         public void comboBox21load()
         {
@@ -1240,7 +1243,36 @@ namespace TKMOC
                         }
                     }
                 }
+                else if (MANU.Equals("烘焙包裝線"))
+                {
+                    if (ds1.Tables["ds1"].Rows.Count == 0)
+                    {
+                        textBox4.Text = null;
+                        textBox16.Text = null;
+                        textBox17.Text = null;
+                        textBox15.Text = null;
+                        textBox5.Text = null;
+                        textBox18.Text = null;
+                        textBox3.Text = null;
+                        textBox19.Text = null;
+                        textBox20.Text = null;
+                    }
+                    else
+                    {
+                        if (ds1.Tables["ds1"].Rows.Count >= 1)
+                        {
+                            textBox4.Text = ds1.Tables["ds1"].Rows[0]["MD003"].ToString();
+                            textBox16.Text = ds1.Tables["ds1"].Rows[0]["MD035"].ToString();
+                            textBox17.Text = ds1.Tables["ds1"].Rows[0]["MD036"].ToString();
+                            textBox15.Text = ds1.Tables["ds1"].Rows[0]["NUM2"].ToString();
+                            textBox5.Text = ds1.Tables["ds1"].Rows[0]["TC053"].ToString();
+                            textBox18.Text = ds1.Tables["ds1"].Rows[0]["TC015"].ToString();
+
+                        }
+                    }
+                }
             }
+
             catch
             {
 
@@ -1333,7 +1365,36 @@ namespace TKMOC
 
                         }
                     }
-                }              
+                }
+                else if (MANU.Equals("烘焙包裝線"))
+                {
+                    if (ds1.Tables["ds1"].Rows.Count == 0)
+                    {
+                        textBox4.Text = null;
+                        textBox16.Text = null;
+                        textBox17.Text = null;
+                        textBox15.Text = null;
+                        textBox5.Text = null;
+                        textBox18.Text = null;
+                        textBox3.Text = null;
+                        textBox19.Text = null;
+                        textBox20.Text = null;
+                    }
+                    else
+                    {
+                        if (ds1.Tables["ds1"].Rows.Count >= 1)
+                        {
+                            textBox4.Text = ds1.Tables["ds1"].Rows[0]["MD003"].ToString();
+                            textBox16.Text = ds1.Tables["ds1"].Rows[0]["MD035"].ToString();
+                            textBox17.Text = ds1.Tables["ds1"].Rows[0]["MD036"].ToString();
+                            textBox15.Text = ds1.Tables["ds1"].Rows[0]["NUM2"].ToString();
+                            textBox5.Text = ds1.Tables["ds1"].Rows[0]["TC053"].ToString();
+                            textBox53.Text = null;
+                            //textBox53.Text = ds28.Tables["ds28"].Rows[0]["TC015"].ToString();
+
+                        }
+                    }
+                }
 
             }
             catch
@@ -4227,6 +4288,22 @@ namespace TKMOC
             if (!string.IsNullOrEmpty(textBox3.Text) & !string.IsNullOrEmpty(textBox19.Text) & !string.IsNullOrEmpty(textBox20.Text))
             {
                 SEARCHCOPDEFAULT(textBox3.Text, textBox19.Text, textBox20.Text);
+            }
+        }
+        private void button18_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBox3.Text) & !string.IsNullOrEmpty(textBox19.Text) & !string.IsNullOrEmpty(textBox20.Text))
+            {
+                SEARCHCOPDEFAULT2(textBox3.Text, textBox19.Text, textBox20.Text);
+            }
+        }
+
+        private void button19_Click(object sender, EventArgs e)
+        {
+
+            if (!string.IsNullOrEmpty(textBox3.Text) & !string.IsNullOrEmpty(textBox19.Text) & !string.IsNullOrEmpty(textBox20.Text))
+            {
+                SEARCHCOPDEFAULT3(textBox3.Text, textBox19.Text, textBox20.Text);
             }
         }
 
