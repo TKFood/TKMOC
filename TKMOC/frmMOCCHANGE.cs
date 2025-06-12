@@ -128,6 +128,11 @@ namespace TKMOC
             cbCol9.TrueValue = true;
             cbCol9.FalseValue = false;
             dataGridView9.Columns.Insert(0, cbCol9);
+
+
+            comboBox4load();
+            // 指定預設值
+            comboBox4.SelectedValue = "04";
         }
 
         #region FUNCTION
@@ -219,6 +224,34 @@ namespace TKMOC
             sqlConn.Close();
 
 
+        }
+
+        public void comboBox4load()
+        {
+            //20210902密
+            Class1 TKID = new Class1();//用new 建立類別實體
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+            //資料庫使用者密碼解密
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+            String connectionString;
+            sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"SELECT MD001,MD002 FROM [TK].dbo.CMSMD    WHERE MD001 NOT IN ('01') ORDER BY MD001");
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+
+            dt.Columns.Add("MD001", typeof(string));
+            dt.Columns.Add("MD002", typeof(string));
+            da.Fill(dt);
+            comboBox4.DataSource = dt.DefaultView;
+            comboBox4.ValueMember = "MD001";
+            comboBox4.DisplayMember = "MD002";
+            sqlConn.Close();
         }
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -565,7 +598,7 @@ namespace TKMOC
             }
         }
 
-        public void SEARCH3(string SDAY, string EDAY)
+        public void SEARCH3(string SDAY, string EDAY,string TA021)
         {
             SqlConnection sqlConn = new SqlConnection();
             string connectionString;
@@ -595,34 +628,18 @@ namespace TKMOC
 
                 //106061011
                 sbSql.AppendFormat(@"
-                                    SELECT *
-                                    FROM (
-                                    SELECT TA001 AS '製令',TA002 AS '單號',TB003 AS '品號',TB012 AS '品名',TB004 AS '需領用量',TB009 AS '庫別' ,MD002 AS '線別'
+                                    SELECT 
+                                    TA001 AS '製令',TA002 AS '單號',TB003 AS '品號',TB012 AS '品名',TB004 AS '需領用量',TB009 AS '庫別' ,MD002 AS '線別'
+                                    ,TA021 AS '線別代號'
+                                    ,TA003 AS '製令日期'
                                     FROM [TK].dbo.MOCTA,[TK].dbo.MOCTB,[TK].dbo.CMSMD
                                     WHERE TA021=MD001
-                                    AND TA001=TB001 AND TA002=TB002
-                                    AND TB003='106061011'
-                                    AND TA003>='{0}' AND TA003<='{1}'
-
-                                    UNION ALL 
-                                    SELECT TA001 AS '製令',TA002 AS '單號',TB003 AS '品號',TB012 AS '品名',TB004 AS '需領用量',TB009 AS '庫別' ,'' AS '線別'
-                                    FROM [TK].dbo.MOCTA,[TK].dbo.MOCTB
-                                    WHERE TA001='A512'
-                                    AND TA001=TB001 AND TA002=TB002
-                                    AND TB003='106061011'
-                                    AND TA003>='{0}' AND TA003<='{1}'
-
-                                    UNION ALL 
-                                    SELECT TA001 AS '製令',TA002 AS '單號',TB003 AS '品號',TB012 AS '品名',TB004 AS '需領用量',TB009 AS '庫別' ,MD002 AS '線別'
-                                    FROM [TK].dbo.MOCTA,[TK].dbo.MOCTB,[TK].dbo.CMSMD
-                                    WHERE TA021=MD001
-									AND TA001='A513'
                                     AND TA001=TB001 AND TA002=TB002                                 
                                     AND TA003>='{0}' AND TA003<='{1}'
-
-                                    ) AS TEMP
+                                    AND TA021='{2}'
+                                    ORDER BY TA001,TA002
                     
-                                    ", SDAY, EDAY);
+                                    ", SDAY, EDAY, TA021);
 
                 adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -1845,45 +1862,7 @@ namespace TKMOC
             }
         }
 
-        private void checkBox7_CheckedChanged(object sender, EventArgs e)
-        {
-            //checkBox7-製一線
-            if (checkBox7.Checked)
-            {
-                dataGridView5checkBox7True();
-            }
-            else
-            {
-                dataGridView5checkBox7False();
-            }
-        }
-
-        private void checkBox8_CheckedChanged(object sender, EventArgs e)
-        {
-            //checkBox8-製二線
-            if (checkBox8.Checked)
-            {
-                dataGridView5checkBox8True();
-            }
-            else
-            {
-                dataGridView5checkBox8False();
-            }
-        }
-
-        private void checkBox9_CheckedChanged(object sender, EventArgs e)
-        {
-
-            //checkBox9-包裝線
-            if (checkBox9.Checked)
-            {
-                dataGridView5checkBox9True();
-            }
-            else
-            {
-                dataGridView5checkBox9False();
-            }
-        }
+    
 
         public void dataGridView5checkBox7True()
         {
@@ -2065,9 +2044,7 @@ namespace TKMOC
             checkBox4.Checked = false;
             checkBox5.Checked = false;
             checkBox6.Checked = false;
-            checkBox7.Checked = false;
-            checkBox8.Checked = false;
-            checkBox9.Checked = false;
+          
             checkBox10.Checked = false;
             checkBox11.Checked = false;
             checkBox12.Checked = false;
@@ -2276,19 +2253,7 @@ namespace TKMOC
 
             }
         }
-        private void checkBox18_CheckedChanged(object sender, EventArgs e)
-        {
-            //手工線
-            if (checkBox18.Checked)
-            {
-                dataGridView5checkBox18True();
-            }
-            else
-            {
-                dataGridView5checkBox18False();
-            }
-            
-        }
+     
 
 
         public void dataGridView5checkBox18True()
@@ -2455,18 +2420,6 @@ namespace TKMOC
             }
         }
 
-        private void checkBox23_CheckedChanged(object sender, EventArgs e)
-        {
-            //
-            if (checkBox23.Checked)
-            {
-                dataGridView5checkBox23True();
-            }
-            else
-            {
-                dataGridView5checkBox23False();
-            }
-        }
 
         public void dataGridView5checkBox23True()
         {
@@ -2559,18 +2512,7 @@ namespace TKMOC
             }
         }
 
-        private void checkBox26_CheckedChanged(object sender, EventArgs e)
-        {
-            //
-            if (checkBox26.Checked)
-            {
-                dataGridView5checkBox26True();
-            }
-            else
-            {
-                dataGridView5checkBox26False();
-            }
-        }
+     
 
         public void dataGridView5checkBox26True()
         {
@@ -2757,7 +2699,7 @@ namespace TKMOC
         }
         private void button5_Click(object sender, EventArgs e)
         {
-            SEARCH3(dateTimePicker6.Value.ToString("yyyyMMdd"), dateTimePicker7.Value.ToString("yyyyMMdd"));
+            SEARCH3(dateTimePicker6.Value.ToString("yyyyMMdd"), dateTimePicker7.Value.ToString("yyyyMMdd"),comboBox4.SelectedValue.ToString());
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -2766,7 +2708,7 @@ namespace TKMOC
             if (dialogResult == DialogResult.Yes)
             {
                 CHANGEMULTI3();
-                SEARCH3(dateTimePicker6.Value.ToString("yyyyMMdd"), dateTimePicker7.Value.ToString("yyyyMMdd"));
+                SEARCH3(dateTimePicker6.Value.ToString("yyyyMMdd"), dateTimePicker7.Value.ToString("yyyyMMdd"), comboBox4.SelectedValue.ToString());
                 SETCHECK();
 
             }
