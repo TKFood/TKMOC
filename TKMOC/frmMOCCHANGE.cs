@@ -1097,11 +1097,12 @@ namespace TKMOC
                 {
                     string TB001 = ((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[0].ToString();
                     string TB002 = ((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[1].ToString();
+                    string TB003 = ((System.Data.DataRowView)(dr.DataBoundItem)).Row.ItemArray[2].ToString();
                     string TB009 = comboBox3.Text;
 
-                    if(!string.IsNullOrEmpty(TB001)&& !string.IsNullOrEmpty(TB002) && !string.IsNullOrEmpty(TB009) )
+                    if(!string.IsNullOrEmpty(TB001)&& !string.IsNullOrEmpty(TB002) && !string.IsNullOrEmpty(TB009) && !string.IsNullOrEmpty(TB003))
                     {
-                        UPDATEMOCTB(TB001.Trim(), TB002.Trim(), TB009.Trim());
+                        UPDATE_MOCTB_TB009(TB001.Trim(), TB002.Trim(), TB009.Trim(), TB003.Trim());
                     }
 
                     //MessageBox.Show(OLDTA001+"-"+ OLDTA002);
@@ -1115,7 +1116,7 @@ namespace TKMOC
 
         }
 
-        public void UPDATEMOCTB(string TB001, string TB002, string TB009)
+        public void UPDATE_MOCTB_TB009(string TB001, string TB002, string TB009,string TB003)
         {
             try
             {
@@ -1136,14 +1137,11 @@ namespace TKMOC
                 tran = sqlConn.BeginTransaction();
 
                 sbSql.Clear();
-
-
-
-                sbSql.AppendFormat(" UPDATE [TK].dbo.MOCTB");
-                sbSql.AppendFormat(" SET TB009='{0}'", TB009);
-                sbSql.AppendFormat(" WHERE  TB001='{0}' AND TB002='{1}'", TB001, TB002);
-                sbSql.AppendFormat(" ");
-                sbSql.AppendFormat(" ");
+                sbSql.AppendFormat(@" 
+                                    UPDATE [TK].dbo.MOCTB
+                                    SET TB009='{0}'
+                                    WHERE  TB001='{1}' AND TB002='{2}' AND TB003='{3}'
+                                    ", TB009, TB001, TB002, TB003);
 
 
 
