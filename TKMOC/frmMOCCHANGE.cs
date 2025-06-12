@@ -68,9 +68,7 @@ namespace TKMOC
         {
             InitializeComponent();
 
-            comboBox1load();
-            comboBox1load2("");
-            comboBox1load3();
+          
         }
 
         private void frmMOCCHANGE_Load(object sender, EventArgs e)
@@ -129,7 +127,9 @@ namespace TKMOC
             cbCol9.FalseValue = false;
             dataGridView9.Columns.Insert(0, cbCol9);
 
-
+            comboBox1load();
+            comboBox1load2("");
+            comboBox1load3();
             comboBox4load();
             // 指定預設值
             comboBox4.SelectedValue = "04";
