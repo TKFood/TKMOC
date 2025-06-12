@@ -634,7 +634,8 @@ namespace TKMOC
                                     ,TA003 AS '製令日期'
                                     FROM [TK].dbo.MOCTA,[TK].dbo.MOCTB,[TK].dbo.CMSMD
                                     WHERE TA021=MD001
-                                    AND TA001=TB001 AND TA002=TB002                                 
+                                    AND TA001=TB001 AND TA002=TB002  
+                                    AND TB003 LIKE '1%'                               
                                     AND TA003>='{0}' AND TA003<='{1}'
                                     AND TA021='{2}'
                                     ORDER BY TA001,TA002
