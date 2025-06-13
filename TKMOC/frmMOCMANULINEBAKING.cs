@@ -4587,7 +4587,7 @@ namespace TKMOC
             if (MANU.Equals("烘焙生產線"))
             {
                 TA001 = "A513";
-                TA020 = comboBox3.SelectedValue.ToString();
+                TA020 = comboBox3.SelectedValue.ToString().Trim();
             }
 
             if (!string.IsNullOrEmpty(TA028))
@@ -4786,7 +4786,7 @@ namespace TKMOC
             if (MANU.Equals("烘焙包裝線"))
             {
                 TA001 = "A513";
-                TA020 = comboBox5.SelectedValue.ToString();
+                TA020 = comboBox7.SelectedValue.ToString().Trim();
             }
 
             if (!string.IsNullOrEmpty(TA028_DV4))
