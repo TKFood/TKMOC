@@ -4578,7 +4578,7 @@ namespace TKMOC
         {
             if (!string.IsNullOrEmpty(textBox42.Text) & !string.IsNullOrEmpty(textBox43.Text) & !string.IsNullOrEmpty(textBox72.Text))
             {
-                SEARCHCOPDEFAULT3(textBox42.Text, textBox43.Text, textBox72.Text);
+                SEARCHCOPDEFAULT3(textBox42.Text, textBox43.Text, textBox72.Text); 
             }
         }
         private void button10_Click(object sender, EventArgs e)
