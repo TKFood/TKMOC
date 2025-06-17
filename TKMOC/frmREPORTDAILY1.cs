@@ -112,7 +112,7 @@ namespace TKMOC
             }
             else if (TA021.Equals("08"))
             {
-                SQL1 = SETSQL2(TA021, TA003);
+                SQL1 = SETSQL4(TA021, TA003);
                 report1.Load(@"REPORT\生產產能報表-烘培生產.frx");
             }
             else if (TA021.Equals("12"))
@@ -216,7 +216,7 @@ namespace TKMOC
                             FROM [TK].dbo.MOCTA
                             WHERE TA001='A513'
                             AND TA021='{0}'
-                            AND TA002 LIKE '%{1}%'
+                            AND TA009 LIKE '%{1}%'
                             ORDER BY TA001,TA002
                             
                            
@@ -228,6 +228,30 @@ namespace TKMOC
 
         }
 
+        public StringBuilder SETSQL4(string TA021, string TA003)
+        {
+            StringBuilder SB = new StringBuilder();
+
+
+            SB.AppendFormat(@" 
+                            SELECT 
+                            YEAR(CONVERT(DATETIME,TA003) ) AS 'YEARS'
+                            ,MONTH(CONVERT(DATETIME,TA003) ) AS 'MONTHS'
+                            ,DAY(CONVERT(DATETIME,TA003) ) AS 'DAYS'
+                            ,*
+                            FROM [TK].dbo.MOCTA
+                            WHERE TA021='{0}'
+                            AND TA009 LIKE '%{1}%'
+       
+                            ORDER BY TA001,TA002
+                           
+
+
+                            ", TA021, TA003);
+
+            return SB;
+
+        }
         #endregion
 
         #region BUTTON
