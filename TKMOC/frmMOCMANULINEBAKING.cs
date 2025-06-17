@@ -4583,7 +4583,7 @@ namespace TKMOC
         }
         private void button10_Click(object sender, EventArgs e)
         {
-            DateTime DT = new DateTime();
+            DateTime DT = new DateTime(); 
             if (MANU.Equals("烘焙生產線"))
             {
                 TA001 = "A513";
