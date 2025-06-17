@@ -117,7 +117,7 @@ namespace TKMOC
             }
             else if (TA021.Equals("12"))
             {
-                SQL1 = SETSQL1(TA021, TA003);
+                SQL1 = SETSQL3(TA021, TA003);
                 report1.Load(@"REPORT\生產產能報表-烘培外包.frx");
             }
 
@@ -193,6 +193,32 @@ namespace TKMOC
                             AND TA002 LIKE '%{1}%'
        
                             ORDER BY TA001,TA002
+                           
+
+
+                            ", TA021, TA003);
+
+            return SB;
+
+        }
+
+        public StringBuilder SETSQL3(string TA021, string TA003)
+        {
+            StringBuilder SB = new StringBuilder();
+
+
+            SB.AppendFormat(@" 
+                            SELECT 
+                            YEAR(CONVERT(DATETIME,TA003) ) AS 'YEARS'
+                            ,MONTH(CONVERT(DATETIME,TA003) ) AS 'MONTHS'
+                            ,DAY(CONVERT(DATETIME,TA003) ) AS 'DAYS'
+                            ,*
+                            FROM [TK].dbo.MOCTA
+                            WHERE TA001='A513'
+                            AND TA021='{0}'
+                            AND TA002 LIKE '%{1}%'
+                            ORDER BY TA001,TA002
+                            
                            
 
 
