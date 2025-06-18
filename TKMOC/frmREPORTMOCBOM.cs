@@ -557,8 +557,14 @@ namespace TKMOC
             int COUNTS = Convert.ToInt32(Math.Ceiling(BUCKETSFLOAT));
 
             //MessageBox.Show(COUNTS.ToString());
-
-           
+            //組合SQL條件
+            DataTable DT = FIND_REPORTMOCBOMMD003();
+            string SQL_Condition = "";
+            if (DT != null & DT.Rows.Count>=1)
+            {
+                SQL_Condition = BuildLikeCondition(DT);
+            }
+            
             try
             {
                 //20210902密
@@ -592,13 +598,13 @@ namespace TKMOC
                                             FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
                                             WHERE TA006=MD001
                                             AND MD003=MB001
-                                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
+                                            {3}
                                             AND MD003 NOT LIKE '301400%'
                                             AND MB002 NOT LIKE '%水麵%'
                                             AND TA001='{0}' AND TA002='{1}'
                                             ORDER BY MD003
 
-                                           ", TA001,TA002,i);
+                                           ", TA001,TA002,i, SQL_Condition);
                     }
 
                 ////新增5個空白格子
@@ -720,10 +726,16 @@ namespace TKMOC
             float BUCKETSFLOAT = float.Parse(BUCKETS);
             int COUNTS = Convert.ToInt32(Math.Ceiling(BUCKETSFLOAT));
             decimal BUCKETSSMAILL = Convert.ToDecimal(BUCKETSFLOAT- (COUNTS-1));
-              
+
             //處理負數
             //BUCKETSFLOAT>0 && BUCKETSFLOAT<1，只有1未滿桶
             //BUCKETSFLOAT>1正常
+            DataTable DT = FIND_REPORTMOCBOMMD003();
+            string SQL_Condition = "";
+            if (DT != null & DT.Rows.Count >= 1)
+            {
+                SQL_Condition = BuildLikeCondition(DT);
+            }
 
             if (BUCKETSFLOAT>0 && BUCKETSFLOAT<1)
             {
@@ -771,12 +783,12 @@ namespace TKMOC
                                             FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
                                             WHERE TA006=MD001
                                             AND MD003=MB001
-                                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
+                                            {4}
                                             AND MB002 NOT LIKE '%水麵%'
                                             AND TA001='{0}' AND TA002='{1}'
                                             ORDER BY MD003
 
-                                           ", TA001, TA002, 1, BUCKETSSMAILL);
+                                           ", TA001, TA002, 1, BUCKETSSMAILL, SQL_Condition);
                 }
                 else if(COUNTS>=1)
                 {
@@ -787,12 +799,12 @@ namespace TKMOC
                                             FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
                                             WHERE TA006=MD001
                                             AND MD003=MB001
-                                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
+                                            {3}
                                             AND MB002 NOT LIKE '%水麵%'
                                             AND TA001='{0}' AND TA002='{1}'
                                             ORDER BY MD003
 
-                                           ", TA001, TA002, 1);
+                                           ", TA001, TA002, 1, SQL_Condition);
                     sbSql.AppendFormat(@"       
                                             INSERT INTO [TKMOC].[dbo].[REPORTMOCBOM]
                                             ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])                                            
@@ -800,12 +812,12 @@ namespace TKMOC
                                             FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
                                             WHERE TA006=MD001
                                             AND MD003=MB001
-                                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
+                                            {4}
                                             AND MB002 NOT LIKE '%水麵%'
                                             AND TA001='{0}' AND TA002='{1}'
                                             ORDER BY MD003
 
-                                           ", TA001, TA002, 2, BUCKETSSMAILL);
+                                           ", TA001, TA002, 2, BUCKETSSMAILL, SQL_Condition);
 
                     for (int i = 3; i <= COUNTS; i++)
                     {
@@ -816,12 +828,12 @@ namespace TKMOC
                                             FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
                                             WHERE TA006=MD001
                                             AND MD003=MB001
-                                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
+                                            {3}
                                             AND MB002 NOT LIKE '%水麵%'
                                             AND TA001='{0}' AND TA002='{1}'
                                             ORDER BY MD003
 
-                                           ", TA001, TA002, i);
+                                           ", TA001, TA002, i, SQL_Condition);
                     }
                 }
 
@@ -1360,6 +1372,96 @@ namespace TKMOC
                 sqlConn.Close();
             }
             
+        }
+
+        public DataTable FIND_REPORTMOCBOMMD003()
+        {
+            //MessageBox.Show(COUNTS.ToString());
+            int SETCOUNT = 1;
+            DataSet ds = new DataSet();
+            StringBuilder SQL = new StringBuilder();
+
+            try
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+                sbSql = SQL;
+
+                sbSql.AppendFormat(@"                                   
+                                    SELECT  [MD003]
+                                    FROM [TKMOC].[dbo].[REPORTMOCBOMMD003]
+                                    ");
+
+
+                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder = new SqlCommandBuilder(adapter);
+                sqlConn.Open();
+                ds.Clear();
+                adapter.Fill(ds, "TEMPds1");
+                sqlConn.Close();
+
+                if (ds.Tables["TEMPds1"].Rows.Count >= 1)
+                {
+                    return ds.Tables["TEMPds1"];
+                }
+                else
+                {
+                    return null;
+                }
+
+
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+
+        }
+
+        public string BuildLikeCondition(DataTable dt)
+        {
+            if (dt == null || dt.Rows.Count == 0)
+                return string.Empty;
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("AND (");
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                string value = dt.Rows[i]["MD003"].ToString().Trim();
+
+                if (!string.IsNullOrEmpty(value))
+                {
+                    if (sb.Length > 5) // 超過第一個 OR
+                    {
+                        sb.Append(" OR ");
+                    }
+
+                    sb.AppendFormat("MD003 LIKE '{0}%'", value.Replace("'", "''")); // 防止 SQL injection
+                }
+            }
+
+            sb.Append(")");
+
+            return sb.ToString();
         }
 
         #endregion
