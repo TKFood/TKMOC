@@ -876,8 +876,8 @@ namespace TKMOC
                 }
 
 
-            }
-
+            } 
+             
 
             StringBuilder SQL = new StringBuilder();
             StringBuilder SQL1B = new StringBuilder();
@@ -886,8 +886,8 @@ namespace TKMOC
             SQL1B = SETSQL1B(MAINMB001); 
 
             report1 = new Report();
-            report1.Load(@"REPORT\烘培原料添加表V3.frx");
-
+            report1.Load(@"REPORT\烘培原料添加表V4.frx");
+             
             //20210902密
             Class1 TKID = new Class1();//用new 建立類別實體
             SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
