@@ -1942,7 +1942,7 @@ namespace TKMOC
                     MB003 = row.Cells["規格"].Value.ToString();
                     BAR = Convert.ToDecimal(row.Cells["桶數"].Value.ToString());
                     SUM1 = Convert.ToDecimal(row.Cells["數量"].Value.ToString());
-                    TA029 = row.Cells["備註"].Value.ToString();
+                    TA029 = row.Cells["備註"].Value.ToString().Replace("'", "''");
                     TA026A = row.Cells["訂單單別"].Value.ToString();
                     TA027A = row.Cells["訂單號"].Value.ToString();
                     TA028A = row.Cells["訂單序號"].Value.ToString();
@@ -4175,7 +4175,7 @@ namespace TKMOC
                     MB003B = row.Cells["規格"].Value.ToString();
                     BOX = Convert.ToDecimal(row.Cells["包裝數"].Value.ToString());
                     SUM2 = Convert.ToDecimal(row.Cells["包裝數"].Value.ToString());
-                    TA029 = row.Cells["備註"].Value.ToString();
+                    TA029 = row.Cells["備註"].Value.ToString().Replace("'", "''");
                     TA026 = row.Cells["訂單單別"].Value.ToString();
                     TA027 = row.Cells["訂單號"].Value.ToString();
                     TA028 = row.Cells["訂單序號"].Value.ToString();
@@ -4233,7 +4233,7 @@ namespace TKMOC
                     MB003C = row.Cells["規格"].Value.ToString();
                     BAR2 = Convert.ToDecimal(row.Cells["桶數"].Value.ToString());
                     SUM3 = Convert.ToDecimal(row.Cells["數量"].Value.ToString());
-                    TA029 = row.Cells["備註"].Value.ToString();
+                    TA029 = row.Cells["備註"].Value.ToString().Replace("'", "''");
                     TA026B = row.Cells["訂單單別"].Value.ToString();
                     TA027B = row.Cells["訂單號"].Value.ToString();
                     TA028B = row.Cells["訂單序號"].Value.ToString();
@@ -4304,7 +4304,7 @@ namespace TKMOC
                     BAR3 = Convert.ToDecimal(row.Cells["桶數"].Value.ToString());
                     //SUM4 = Convert.ToDecimal(row.Cells["數量"].Value.ToString())+ Convert.ToDecimal(row.Cells["需多投數量做底"].Value.ToString());
                     SUM4 = Convert.ToDecimal(row.Cells["數量"].Value.ToString()) + Convert.ToDecimal(row.Cells["需多投數量做底"].Value.ToString());
-                    TA029 = row.Cells["備註"].Value.ToString();
+                    TA029 = row.Cells["備註"].Value.ToString().Replace("'", "''");
 
                     TA026C = row.Cells["訂單單別"].Value.ToString();
                     TA027C = row.Cells["訂單號"].Value.ToString();
@@ -6547,7 +6547,7 @@ namespace TKMOC
                     MB003F = row.Cells["規格"].Value.ToString();
                     BOX = Convert.ToDecimal(row.Cells["包裝數"].Value.ToString());
                     SUM5 = Convert.ToDecimal(row.Cells["包裝數"].Value.ToString());
-                    TA029 = row.Cells["備註"].Value.ToString();
+                    TA029 = row.Cells["備註"].Value.ToString().Replace("'", "''");
 
                     TA026D = row.Cells["訂單單別"].Value.ToString();
                     TA027D = row.Cells["訂單號"].Value.ToString();
