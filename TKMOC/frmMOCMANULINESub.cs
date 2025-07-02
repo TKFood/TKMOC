@@ -182,6 +182,7 @@ namespace TKMOC
 
         public void UPDATEMOCMANULINE()
         {
+            StringBuilder SQL_EXE = new StringBuilder();
             try
             {
                 //20210902密
@@ -200,20 +201,52 @@ namespace TKMOC
                 tran = sqlConn.BeginTransaction();
 
                 sbSql.Clear();
-
-                sbSql.AppendFormat(@" 
+                SQL_EXE.AppendFormat(@"
                                     UPDATE [TKMOC].[dbo].[MOCMANULINE] 
-                                    SET [BAR]={1},[NUM]={2},[BOX]={3},[PACKAGE]={4},[CLINET]='{5}',MANUDATE='{6}',[OUTDATE]='{7}',[TA029]=N'{8}',[MANUHOUR]={9},HALFPRO={10},COPTD001='{11}',COPTD002='{12}',COPTD003='{13}',MANUPRENUMS='{14}'
-                                    WHERE  [ID]='{0}'
-                                    ", textBoxID.Text, textBox6.Text, textBox7.Text, textBox8.Text, textBox9.Text, textBox10.Text, dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"), textBox2.Text, textBox13.Text, textBox12.Text, textBox40.Text, textBox41.Text, textBox42.Text, textBox99.Text);
-
+                                    SET 
+                                        [BAR] = @BAR,
+                                        [NUM] = @NUM,
+                                        [BOX] = @BOX,
+                                        [PACKAGE] = @PACKAGE,
+                                        [CLINET] = @CLINET,
+                                        [MANUDATE] = @MANUDATE,
+                                        [OUTDATE] = @OUTDATE,
+                                        [TA029] = @TA029,
+                                        [MANUHOUR] = @MANUHOUR,
+                                        [HALFPRO] = @HALFPRO,
+                                        [COPTD001] = @COPTD001,
+                                        [COPTD002] = @COPTD002,
+                                        [COPTD003] = @COPTD003,
+                                        [MANUPRENUMS] = @MANUPRENUMS
+                                    WHERE [ID] = @ID
+                                    ");
+              
 
                 cmd.Connection = sqlConn;
                 cmd.CommandTimeout = 60;
-                cmd.CommandText = sbSql.ToString();
+                cmd.CommandText = SQL_EXE.ToString();
                 cmd.Transaction = tran;
-                result = cmd.ExecuteNonQuery();
 
+                // 加入參數
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@ID", textBoxID.Text);
+                cmd.Parameters.AddWithValue("@BAR", textBox6.Text);
+                cmd.Parameters.AddWithValue("@NUM", textBox7.Text);
+                cmd.Parameters.AddWithValue("@BOX", textBox8.Text);
+                cmd.Parameters.AddWithValue("@PACKAGE", textBox9.Text);
+                cmd.Parameters.AddWithValue("@CLINET", textBox10.Text);
+                cmd.Parameters.AddWithValue("@MANUDATE", dateTimePicker1.Value.ToString("yyyyMMdd"));
+                cmd.Parameters.AddWithValue("@OUTDATE", dateTimePicker2.Value.ToString("yyyyMMdd"));
+                cmd.Parameters.AddWithValue("@TA029", textBox2.Text);
+                cmd.Parameters.AddWithValue("@MANUHOUR", textBox13.Text);
+                cmd.Parameters.AddWithValue("@HALFPRO", textBox12.Text);
+                cmd.Parameters.AddWithValue("@COPTD001", textBox40.Text);
+                cmd.Parameters.AddWithValue("@COPTD002", textBox41.Text);
+                cmd.Parameters.AddWithValue("@COPTD003", textBox42.Text);
+                cmd.Parameters.AddWithValue("@MANUPRENUMS", textBox99.Text);
+
+                // 執行 SQL
+                int result = cmd.ExecuteNonQuery();
                 if (result == 0)
                 {
                     tran.Rollback();    //交易取消

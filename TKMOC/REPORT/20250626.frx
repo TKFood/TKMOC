@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="06/26/2025 14:19:15" ReportInfo.Modified="06/26/2025 14:35:00" ReportInfo.CreatorVersion="2016.4.4.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8UCRz3pFThovAyioQZrmSGyLpZuMiVUEbjT9s5BjO1weTRB0lSkmrANKsmPIiGxxqCe98y1MRhb4s7i4p794bbbXTln8ZELqSNTC5TIGXx5grZI8pem6fQVi/PW28P5w36y21WsUki3ePXeXKuDagVFRIH17+vb2YrDgyALoJjn8b7LY/Rp4Kn5N819TXMrK7g==">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT &#13;&#10;TB_WKF_FORM.FORM_NAME,TB_WKF_TASK.DOC_NBR,TB_EB_USER.NAME&#13;&#10;,(&#13;&#10;	SELECT TOP 1 COMMENT&#13;&#10;	FROM [UOF].dbo.TB_WKF_TASK_NODE&#13;&#10;	WHERE ACTUAL_SIGNER='d88793c0-523c-45f0-bde4-cd5b45e3b000'&#13;&#10;	AND SIGN_STATUS='2'&#13;&#10;	AND TB_WKF_TASK_NODE.TASK_ID=TB_WKF_TASK.TASK_ID&#13;&#10;	ORDER BY FINISH_TIME DESC&#13;&#10;) COMMENT&#13;&#10;FROM [UOF].dbo.TB_WKF_TASK,[UOF].dbo.TB_WKF_FORM_VERSION,[UOF].dbo.TB_WKF_FORM, [UOF].[dbo].TB_EB_USER&#13;&#10;WHERE TB_WKF_TASK.FORM_VERSION_ID=TB_WKF_FORM_VERSION.FORM_VERSION_ID&#13;&#10;AND TB_WKF_FORM_VERSION.FORM_ID=TB_WKF_FORM.FORM_ID&#13;&#10;AND TB_WKF_TASK.USER_GUID=TB_EB_USER.USER_GUID&#13;&#10;AND TB_WKF_TASK.TASK_ID IN &#13;&#10;(&#13;&#10;	SELECT &#13;&#10;	TASK_ID&#13;&#10;	FROM [UOF].dbo.TB_WKF_TASK_NODE&#13;&#10;	WHERE ACTUAL_SIGNER='d88793c0-523c-45f0-bde4-cd5b45e3b000'&#13;&#10;	AND SIGN_STATUS='2'&#13;&#10;)">
+        <Column Name="FORM_NAME" DataType="System.String"/>
+        <Column Name="DOC_NBR" DataType="System.String"/>
+        <Column Name="NAME" DataType="System.String"/>
+        <Column Name="COMMENT" DataType="System.String"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="1000">
+    <ColumnHeaderBand Name="ColumnHeader1" Width="1047.06" Height="18.9">
+      <TextObject Name="Text2" Width="141.75" Height="18.9" Border.Lines="All" Text="FORM_NAME" VertAlign="Center"/>
+      <TextObject Name="Text4" Left="141.75" Width="132.3" Height="18.9" Border.Lines="All" Text="DOC_NBR" VertAlign="Center"/>
+      <TextObject Name="Text6" Left="274.05" Width="94.5" Height="18.9" Border.Lines="All" Text="NAME" VertAlign="Center"/>
+      <TextObject Name="Text8" Left="368.55" Width="661.5" Height="18.9" Border.Lines="All" Text="COMMENT" VertAlign="Center"/>
+    </ColumnHeaderBand>
+    <DataBand Name="Data1" Top="23.5" Width="1047.06" Height="18.9" CanGrow="true" DataSource="Table">
+      <TextObject Name="Text1" Width="141.75" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.FORM_NAME]" VertAlign="Center"/>
+      <TextObject Name="Text3" Left="141.75" Width="132.3" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.DOC_NBR]" VertAlign="Center"/>
+      <TextObject Name="Text5" Left="274.05" Width="94.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.NAME]" VertAlign="Center"/>
+      <TextObject Name="Text7" Left="368.55" Width="661.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.COMMENT]" VertAlign="Center"/>
+    </DataBand>
+  </ReportPage>
+</Report>
