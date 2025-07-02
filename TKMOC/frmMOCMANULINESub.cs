@@ -607,6 +607,7 @@ namespace TKMOC
             //特殊規則-[TKMOC].[dbo].[MOCMANULINEBATCHMODIFYS]
             //限2層BOM可用批次修改
             //3層以上BOM要另外寫
+            //小布雪專用
             UPDATE_SPECIAL_MODIFY(textBoxID.Text.Trim(), textBox3.Text.Trim(), textBox7.Text.Trim(), dateTimePicker1.Value.ToString("yyyyMMdd"),textBox1.Text.Trim(),textBox40.Text.Trim(), textBox41.Text.Trim(), textBox42.Text.Trim());
 
         }
