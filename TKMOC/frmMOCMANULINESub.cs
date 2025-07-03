@@ -756,6 +756,8 @@ namespace TKMOC
                                     SELECT
                                     [MB001]
                                     ,[MB002]
+                                    ,[MODIFY_MB001]
+                                    ,[MODIFY_MB002]
                                     FROM [TKMOC].[dbo].[MOCMANULINEBATCHMODIFYS_SANDWISH]
                                     ");
 
