@@ -529,11 +529,8 @@ namespace TKMOC
                             sqlConn.Close();
                         }
                     }
-            }
-           
-            
-
-               
+                }
+                          
             }
         }
 
@@ -599,7 +596,137 @@ namespace TKMOC
 
         public void UPDATE_MOCMANULINEBATCHMODIFYS_SANDWISH(string ID, string MB001, string NUM, string MANUDATE, string MANU, string COPTD001, string COPTD002, string COPTD003)
         {
+            DataTable DT = FIND_MOCMANULINEBATCHMODIFYS_SANDWISH();
+            if (DT != null && DT.Rows.Count >= 1)
+            {
+                string CHECKMB001 = "";
+                string MODIFY_MB001 = "";
 
+                foreach (DataRow DR in DT.Rows)
+                {
+                    CHECKMB001 = DR["MB001"].ToString();
+                    MODIFY_MB001 = DR["MODIFY_MB001"].ToString();
+
+                    //40806040000021 可可小布雪180g
+                    if (MB001.Equals(CHECKMB001))
+                    {
+                        try
+                        {
+                            //20210902密
+                            Class1 TKID = new Class1();//用new 建立類別實體
+                            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                            //資料庫使用者密碼解密
+                            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                            String connectionString;
+                            sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+                            sqlConn.Close();
+                            sqlConn.Open();
+                            tran = sqlConn.BeginTransaction();
+
+                            sbSql.Clear();
+
+                            sbSql.AppendFormat(@" 
+                                        UPDATE [TKMOC].[dbo].[MOCMANULINE]
+                                        SET 
+                                        [NUM] = ROUND(TEMP.CALNUMS * {1}, 3)
+                                        ,[BAR]=TEMP.CALNUMS * {1}/TEMP.BASEBARS
+                                        FROM 
+                                        (
+                                            SELECT 
+                                                MC1.MC001 AS MC1MC001
+                                                ,MC1.MC004 AS MC1MC004
+                                                ,MD1.MD003 AS MD1MD003
+                                                ,MD1.MD006 AS MD1MD006
+                                                ,MD1.MD007 AS MD1MD007
+                                                ,MD1.MD008 AS MD1MD008
+                                                ,((1.0 / MC1.MC004) * MD1.MD006 / MD1.MD007 * (1 + MD1.MD008)) AS CALNUMS
+                                                ,MC2.MC004 AS 'BASEBARS'
+                                            FROM [TK].dbo.BOMMC MC1
+                                            JOIN [TK].dbo.BOMMD MD1 ON MC1.MC001 = MD1.MD001
+	                                        JOIN [TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003
+                                            WHERE MC1.MC001 = '{0}'
+                                            AND MD1.MD003 LIKE '3%'
+                                            AND MD1.MD003='{7}'
+
+                                        ) AS TEMP
+                                        WHERE TEMP.MD1MD003 = [TKMOC].[dbo].[MOCMANULINE].[MB001]
+                                        AND [MANU] = '{3}'
+                                        AND CONVERT(nvarchar, [MANUDATE], 112) = '{2}'
+                                        AND [COPTD001]='{4}' AND [COPTD002]='{5}' AND [COPTD003]='{6}'
+
+                                        UPDATE [TKMOC].[dbo].[MOCMANULINE]
+                                        SET 
+                                        [NUM] = ROUND(TEMP.CALNUMS2 * {1}, 3)
+                                        ,[BAR]=TEMP.CALNUMS2 *  {1}/TEMP.BASEBARS
+                                        FROM 
+                                         (SELECT 
+	                                        MC1.MC001 AS 'MC1MC001'
+	                                        ,MC1.MC004  AS 'MC1MC004'
+	                                        ,MD1.MD003 AS 'MD1MD003'
+	                                        ,MD1.MD006 AS 'MD1MD006'
+	                                        ,MD1.MD007 AS 'MD1MD007'
+	                                        ,MD1.MD008 AS 'MD1MD008'
+	                                        ,((1/MC1.MC004)*MD1.MD006/MD1.MD007*(1+MD1.MD008)) AS 'CALNUMS'
+	                                        ,MC2.MC004  AS 'MC2MC004'
+	                                        ,MD2.MD003 AS 'MD2MD003'
+	                                        ,MD2.MD006 AS 'MD2MD006'
+	                                        ,MD2.MD007 AS 'MD2MD007'
+	                                        ,MD2.MD008 AS 'MD2MD008'
+	                                        ,(((1/MC1.MC004)*MD1.MD006/MD1.MD007*(1+MD1.MD008))/MC2.MC004*MD2.MD006/MD2.MD007*(1+MD2.MD008)) AS 'CALNUMS2'
+                                            ,MC3.MC004 AS 'BASEBARS'
+	                                        FROM [TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1
+	                                        JOIN [TK].dbo.BOMMC MC2 ON MD1.MD003=MC2.MC001
+	                                        JOIN [TK].dbo.BOMMD MD2 ON MD1.MD003=MD2.MD001
+                                            JOIN [TK].dbo.BOMMC MC3 ON MC3.MC001=MD2.MD003
+	                                        WHERE MC1.MC001=MD1.MD001
+	                                        AND MC1.MC001 ='{0}'
+	                                        AND MD1.MD003 LIKE '3%'
+                                            AND MD1.MD003='{7}'
+                                        ) AS TEMP
+                                        WHERE TEMP.MD2MD003=[MOCMANULINE].[MB001]
+                                        AND [MANU] = '{3}'
+                                        AND CONVERT(nvarchar,[MANUDATE],112)='{2}'     
+                                        AND [COPTD001]='{4}' AND [COPTD002]='{5}' AND [COPTD003]='{6}'               
+                                        ", CHECKMB001, NUM, MANUDATE, MANU, COPTD001, COPTD002, COPTD003, MODIFY_MB001);
+
+
+                            cmd.Connection = sqlConn;
+                            cmd.CommandTimeout = 60;
+                            cmd.CommandText = sbSql.ToString();
+                            cmd.Transaction = tran;
+                            result = cmd.ExecuteNonQuery();
+
+                            if (result == 0)
+                            {
+                                tran.Rollback();    //交易取消
+                                MessageBox.Show("更新失敗");
+                            }
+                            else
+                            {
+                                tran.Commit();      //執行交易  
+                                MessageBox.Show("已連動更新數量");
+
+                                this.Close();
+                            }
+
+                        }
+                        catch
+                        {
+
+                        }
+
+                        finally
+                        {
+                            sqlConn.Close();
+                        }
+                    }
+                }
+
+            }
         }
 
         public DataTable FIND_MOCMANULINEBATCHMODIFYS_SANDWISH()
