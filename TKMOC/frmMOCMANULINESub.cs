@@ -790,6 +790,75 @@ namespace TKMOC
 
         }
 
+        public DataTable FIND_CHECK_MB001(string MB001)
+        {
+            DataSet DS1 = new DataSet();
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+
+            try
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+
+                sbSql.AppendFormat(@" 
+                                   SELECT *
+                                    FROM
+                                    (
+	                                    SELECT
+	                                    [MB001]
+	                                    ,[MB002]
+	                                    FROM [TKMOC].[dbo].[MOCMANULINEBATCHMODIFYS]
+
+	                                    UNION ALL
+	                                    SELECT
+	                                    [MB001]
+	                                    ,[MB002]
+	                                    FROM [TKMOC].[dbo].[MOCMANULINEBATCHMODIFYS_SANDWISH]
+                                    )  AS TEMP
+                                    WHERE MB001 ='{0}'
+                                    ", MB001);
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                DS1.Clear();
+                adapter1.Fill(DS1, "DS1");
+                sqlConn.Close();
+
+
+                if (DS1.Tables["DS1"].Rows.Count >= 1)
+                {
+                    return DS1.Tables["DS1"];
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+
+            }
+
+        }
         #endregion
 
         #region BUTTON
@@ -798,17 +867,26 @@ namespace TKMOC
         {
             UPDATEMOCMANULINE();
 
-            //特殊規則-[TKMOC].[dbo].[MOCMANULINEBATCHMODIFYS]
-            //限2層BOM可用批次修改
-            //3層以上BOM要另外寫
-            //小布雪專用
-            UPDATE_SPECIAL_MODIFY(textBoxID.Text.Trim(), textBox3.Text.Trim(), textBox7.Text.Trim(), dateTimePicker1.Value.ToString("yyyyMMdd"),textBox1.Text.Trim(),textBox40.Text.Trim(), textBox41.Text.Trim(), textBox42.Text.Trim());
+            //先檢查要更改的品號是不是要連動更改數量
+            string MB001 = textBox3.Text.Trim();
+            DataTable DT = FIND_CHECK_MB001(MB001);
 
-            //特殊規則-[TKMOC].[dbo].[MOCMANULINEBATCHMODIFYS_SANDWISH]
-            //限2層BOM可用批次修改
-            //3層以上BOM要另外寫
-            //三明冶內餡專用
-            UPDATE_MOCMANULINEBATCHMODIFYS_SANDWISH(textBoxID.Text.Trim(), textBox3.Text.Trim(), textBox7.Text.Trim(), dateTimePicker1.Value.ToString("yyyyMMdd"), textBox1.Text.Trim(), textBox40.Text.Trim(), textBox41.Text.Trim(), textBox42.Text.Trim());
+            //要連動更改數量
+            if(DT!=null && DT.Rows.Count>=1)
+            {
+                //特殊規則-[TKMOC].[dbo].[MOCMANULINEBATCHMODIFYS]
+                //限2層BOM可用批次修改
+                //3層以上BOM要另外寫
+                //小布雪專用
+                UPDATE_SPECIAL_MODIFY(textBoxID.Text.Trim(), textBox3.Text.Trim(), textBox7.Text.Trim(), dateTimePicker1.Value.ToString("yyyyMMdd"), textBox1.Text.Trim(), textBox40.Text.Trim(), textBox41.Text.Trim(), textBox42.Text.Trim());
+
+                //特殊規則-[TKMOC].[dbo].[MOCMANULINEBATCHMODIFYS_SANDWISH]
+                //限2層BOM可用批次修改
+                //3層以上BOM要另外寫
+                //三明冶內餡專用
+                UPDATE_MOCMANULINEBATCHMODIFYS_SANDWISH(textBoxID.Text.Trim(), textBox3.Text.Trim(), textBox7.Text.Trim(), dateTimePicker1.Value.ToString("yyyyMMdd"), textBox1.Text.Trim(), textBox40.Text.Trim(), textBox41.Text.Trim(), textBox42.Text.Trim());
+            }
+          
 
         }
         private void button2_Click(object sender, EventArgs e)
