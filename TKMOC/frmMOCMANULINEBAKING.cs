@@ -1835,7 +1835,7 @@ namespace TKMOC
 
         }
 
-        public void ADDMOCTATB(string TA001,string TA002,string TA020, DateTime DT)
+        public void ADDMOCTATB(string TA001,string TA002,string TA020, DateTime DT,string MC001)
         {
             StringBuilder sbSql = new StringBuilder();
             StringBuilder sbSqlQuery = new StringBuilder();
@@ -1847,8 +1847,15 @@ namespace TKMOC
             DataSet ds1 = new DataSet();
 
             MOCTADATA MOCTA = new MOCTADATA();
-            MOCTA = SETMOCTA(TA001, TA002, DT);
-            string MOCMB001 = null;
+            if (MANU.Equals("烘焙生產線"))
+            {
+                MOCTA = SETMOCTA(TA001, TA002, DT, MC001);
+            }
+            else if (MANU.Equals("烘焙包裝線"))
+            {
+                MOCTA = SETMOCTA(TA001, TA002, DT, MC001);
+            }
+                string MOCMB001 = null;
             decimal MOCTA015 = Convert.ToDecimal(MOCTA.TA015);
             string MOCTB009 = null;
 
@@ -2000,7 +2007,7 @@ namespace TKMOC
             }
         }
 
-        public MOCTADATA SETMOCTA(string TA001,string TA002, DateTime DT)
+        public MOCTADATA SETMOCTA(string TA001,string TA002, DateTime DT,string MC001)
         {
             string BOMVARSION="";
             string UNIT = "";
@@ -2010,7 +2017,7 @@ namespace TKMOC
 
             if (MANU.Equals("烘焙生產線"))
             {
-                DataTable DATATABLE=SEARCHBOMMC();
+                DataTable DATATABLE=SEARCHBOMMC(MC001);
                 
                 if (DATATABLE != null && DATATABLE.Rows.Count>=1)
                 {
@@ -2080,7 +2087,7 @@ namespace TKMOC
             }
             else if (MANU.Equals("烘焙包裝線"))
             {
-                DataTable DATATABLE = SEARCHBOMMC();
+                DataTable DATATABLE = SEARCHBOMMC(MC001);
 
                 if (DATATABLE != null && DATATABLE.Rows.Count >= 1)
                 {
@@ -2155,7 +2162,7 @@ namespace TKMOC
 
         }
 
-        public DataTable SEARCHBOMMC()
+        public DataTable SEARCHBOMMC(string MC001)
         {
             StringBuilder sbSql = new StringBuilder();
             StringBuilder sbSqlQuery = new StringBuilder();
@@ -2197,7 +2204,7 @@ namespace TKMOC
                                         INVMB.MB004
                                         FROM [TK].[dbo].[BOMMC]
                                         LEFT JOIN [TK].dbo.[INVMB] ON MB001=MC001
-                                        WHERE [MC001]='{0}'", MB001B);
+                                        WHERE [MC001]='{0}'", MC001);
 
                     sbSql.AppendFormat(@"  ");
 
@@ -2212,6 +2219,65 @@ namespace TKMOC
                     if (ds1 != null && ds1.Tables["ds1"].Rows.Count >= 1)
                     {
                         return ds1.Tables["ds1"];                       
+
+                    }
+                    else
+                    {
+                        return null;
+                    }
+
+                }
+                catch
+                {
+                    return null;
+                }
+                finally
+                {
+
+                }
+            }
+            else if (MANU.Equals("烘焙包裝線"))
+            {
+                try
+                {
+                    //20210902密
+                    Class1 TKID = new Class1();//用new 建立類別實體
+                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                    //資料庫使用者密碼解密
+                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                    String connectionString;
+                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                    sbSql.Clear();
+                    sbSqlQuery.Clear();
+
+                    sbSql.AppendFormat(@"
+                                        SELECT 
+                                        [MC001],[MC002],[MC003],[MC004],[MC005],[MC006],[MC007],[MC008],[MC009],[MC010],
+                                        [MC011],[MC012],[MC013],[MC014],[MC015],[MC016],[MC017],[MC018],[MC019],[MC020],
+                                        [MC021],[MC022],[MC023],[MC024],[MC025],[MC026],[MC027],
+                                        INVMB.MB004
+                                        FROM [TK].[dbo].[BOMMC]
+                                        LEFT JOIN [TK].dbo.[INVMB] ON MB001=MC001
+                                        WHERE [MC001]='{0}'", MC001);
+
+                    sbSql.AppendFormat(@"  ");
+
+                    adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                    sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                    sqlConn.Open();
+                    ds1.Clear();
+                    adapter1.Fill(ds1, "ds1");
+                    sqlConn.Close();
+
+                    if (ds1 != null && ds1.Tables["ds1"].Rows.Count >= 1)
+                    {
+                        return ds1.Tables["ds1"];
 
                     }
                     else
@@ -4596,7 +4662,7 @@ namespace TKMOC
                 DT = dt1;
                 TA002 = GETMAXTA002(TA001, DT);
                 ADDMOCMANULINERESULT(textBoxID.Text.ToString().Trim(), TA001, TA002);
-                ADDMOCTATB(TA001, TA002, TA020, DT);
+                ADDMOCTATB(TA001, TA002, TA020, DT, MB001B);
 
                 SEARCHMOCMANULINE_BAKING(dateTimePicker1.Value.ToString("yyyyMMdd"), comboBox1.Text.Trim());
 
@@ -4795,7 +4861,7 @@ namespace TKMOC
                 DT = dateTimePicker3.Value; ;
                 TA002 = GETMAXTA002(TA001, DT);
                 ADDMOCMANULINERESULT(textBoxID2.Text.ToString().Trim(), TA001, TA002);
-                ADDMOCTATB(TA001, TA002, TA020, DT);
+                ADDMOCTATB(TA001, TA002, TA020, DT, MB001_DV4);
 
                 SEARCHMOCMANULINE_BAKING(dateTimePicker3.Value.ToString("yyyyMMdd"), comboBox5.Text.Trim());
 
