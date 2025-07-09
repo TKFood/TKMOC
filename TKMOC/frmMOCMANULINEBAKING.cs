@@ -1855,7 +1855,7 @@ namespace TKMOC
             {
                 MOCTA = SETMOCTA(TA001, TA002, DT, MC001);
             }
-                string MOCMB001 = null;
+            string MOCMB001 = null;
             decimal MOCTA015 = Convert.ToDecimal(MOCTA.TA015);
             string MOCTB009 = null;
 
@@ -4662,7 +4662,9 @@ namespace TKMOC
                 DT = dt1;
                 TA002 = GETMAXTA002(TA001, DT);
                 ADDMOCMANULINERESULT(textBoxID.Text.ToString().Trim(), TA001, TA002);
-                ADDMOCTATB(TA001, TA002, TA020, DT, MB001B);
+
+                string MC001 = MB001B;
+                ADDMOCTATB(TA001, TA002, TA020, DT, MC001);
 
                 SEARCHMOCMANULINE_BAKING(dateTimePicker1.Value.ToString("yyyyMMdd"), comboBox1.Text.Trim());
 
@@ -4861,7 +4863,9 @@ namespace TKMOC
                 DT = dateTimePicker3.Value; ;
                 TA002 = GETMAXTA002(TA001, DT);
                 ADDMOCMANULINERESULT(textBoxID2.Text.ToString().Trim(), TA001, TA002);
-                ADDMOCTATB(TA001, TA002, TA020, DT, MB001_DV4);
+
+                string MC001 = MB001_DV4;
+                ADDMOCTATB(TA001, TA002, TA020, DT, MC001);
 
                 SEARCHMOCMANULINE_BAKING(dateTimePicker3.Value.ToString("yyyyMMdd"), comboBox5.Text.Trim());
 
