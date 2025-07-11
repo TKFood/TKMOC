@@ -2112,7 +2112,7 @@ namespace TKMOC
                 MOCTA.sync_count = "0";
                 MOCTA.DataGroup = "103000";
                 MOCTA.TA001 = TA001;
-                MOCTA.TA002 = TA002;
+                MOCTA.TA002 = TA002; 
                 MOCTA.TA003 = DT.ToString("yyyyMMdd");
                 MOCTA.TA004 = DT.ToString("yyyyMMdd");
                 MOCTA.TA005 = BOMVARSION;
