@@ -2097,7 +2097,7 @@ namespace TKMOC
                 }
 
                 MOCTADATA MOCTA = new MOCTADATA();
-                MOCTA.COMPANY = "TK";
+                MOCTA.COMPANY = "TK";  
                 MOCTA.CREATOR = "140020";
                 MOCTA.USR_GROUP = "103000";
                 //MOCTA.CREATE_DATE = dt2.ToString("yyyyMMdd");
