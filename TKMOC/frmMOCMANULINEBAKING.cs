@@ -3391,7 +3391,7 @@ namespace TKMOC
                 sqlsb.Password = TKID.Decryption(sqlsb.Password);
                 sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
 
-                String connectionString;
+                String connectionString;  
                 sqlConn = new SqlConnection(sqlsb.ConnectionString);
 
 
