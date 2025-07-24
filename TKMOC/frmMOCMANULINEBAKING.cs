@@ -711,151 +711,128 @@ namespace TKMOC
 
         public void DELMOCMANULINE(string ID)
         {
-            StringBuilder sbSql = new StringBuilder();
-            StringBuilder sbSqlQuery = new StringBuilder();
-            SqlConnection sqlConn = new SqlConnection();
-            SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
-            SqlTransaction tran;
-            SqlCommand cmd = new SqlCommand();
-            DataSet ds1 = new DataSet();
-            DataSet TEMPds = new DataSet();
-
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
+                // 解密連線字串
+                Class1 TKID = new Class1();
                 SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
                 sqlsb.Password = TKID.Decryption(sqlsb.Password);
                 sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
 
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                sqlConn.Close();
-                sqlConn.Open();
-                tran = sqlConn.BeginTransaction();
-
-                sbSql.Clear();
-                sbSql.AppendFormat(@"  
-                                        DELETE [TKMOC].[dbo].[MOCMANULINEBAKING]
-                                        WHERE ID='{0}'"
-                                    , ID);
-                sbSql.AppendFormat(" ");
-
-                cmd.Connection = sqlConn;
-                cmd.CommandTimeout = 60;
-                cmd.CommandText = sbSql.ToString();
-                cmd.Transaction = tran;
-                result = cmd.ExecuteNonQuery();
-
-                if (result == 0)
+                using (SqlConnection conn = new SqlConnection(sqlsb.ConnectionString))
                 {
-                    tran.Rollback();    //交易取消
+                    conn.Open();
+                    using (SqlTransaction tran = conn.BeginTransaction())
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Connection = conn;
+                        cmd.Transaction = tran;
+                        cmd.CommandTimeout = 60;
+                        cmd.CommandText = @"
+                                            DELETE FROM [TKMOC].[dbo].[MOCMANULINEBAKING]
+                                            WHERE ID = @ID";
+
+                        cmd.Parameters.AddWithValue("@ID", ID);
+
+                        // 除錯：印出參數化 SQL 的樣貌
+                        string debugSql = cmd.CommandText.Replace("@ID", $"'{ID}'");
+                        Console.WriteLine("執行的 SQL：\n" + debugSql);
+
+                        int result = cmd.ExecuteNonQuery();
+
+                        if (result == 0)
+                        {
+                            tran.Rollback();
+                            MessageBox.Show("刪除失敗，未找到符合的資料");
+                        }
+                        else
+                        {
+                            tran.Commit();
+                            // 可以加成功訊息或記錄
+                        }
+                    }
                 }
-                else
-                {
-                    tran.Commit();      //執行交易  
-
-                }
-
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show("刪除失敗：" + ex.Message);
             }
 
-            finally
-            {
-                sqlConn.Close();
-            }
-
-
+            // 重新查詢畫面資料
             SEARCHMOCMANULINE_BAKING(dateTimePicker1.Value.ToString("yyyyMMdd"), comboBox1.Text.Trim());
         }
 
+
         public void CHECKMOCTAB()
         {
-            StringBuilder sbSql = new StringBuilder();
-            StringBuilder sbSqlQuery = new StringBuilder();
-            SqlConnection sqlConn = new SqlConnection();
-            SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
-            SqlTransaction tran;
-            SqlCommand cmd = new SqlCommand();
-            DataSet ds1 = new DataSet();
-            DataSet TEMPds = new DataSet();
             string CHECKID = null;
 
             if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage1"])
             {
-                CHECKID = textBoxID.Text.ToString().Trim();
+                CHECKID = textBoxID.Text.Trim();
             }
             else if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage4"])
             {
-                CHECKID = textBoxID2.Text.ToString().Trim();
+                CHECKID = textBoxID2.Text.Trim();
+            }
+
+            if (string.IsNullOrEmpty(CHECKID))
+            {
+                MessageBox.Show("請輸入 CHECKID");
+                return;
             }
 
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
+                // 解密連線字串
+                Class1 TKID = new Class1();
                 SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
                 sqlsb.Password = TKID.Decryption(sqlsb.Password);
                 sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
 
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                sbSql.Clear();
-                sbSqlQuery.Clear();
-
-                sbSql.AppendFormat(@"  
-                                    SELECT	MOCTA001,MOCTA002
-                                    FROM  [TKMOC].[dbo].[MOCMANULINERESULTBAKING]
-                                    WHERE [SID]='{0}'
-                                    UNION ALL
-                                    SELECT	TA001,TA002
-                                    FROM [TK].[dbo].[MOCTA]
-                                    WHERE EXISTS (SELECT [MOCTA001],[MOCTA002] FROM [TKMOC].[dbo].[MOCMANULINERESULTBAKING] WHERE [SID]='{0}' AND TA001=MOCTA001 AND TA002=MOCTA002)"
-                                    , CHECKID);
-                sbSql.AppendFormat(@"  ");
-
-
-                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
-                sqlConn.Open();
-                ds1.Clear();
-                adapter1.Fill(ds1, "ds1");
-                sqlConn.Close();
-
-
-                if (ds1.Tables["ds1"].Rows.Count == 0)
+                using (SqlConnection conn = new SqlConnection(sqlsb.ConnectionString))
                 {
-                    UPDATEMOCMANULINE(CHECKID);
+                    string sql = @"
+                                SELECT 
+                                MOCTA001, MOCTA002
+                                FROM [TKMOC].[dbo].[MOCMANULINERESULTBAKING]
+                                WHERE [SID] = @SID
+                                UNION ALL
+                                SELECT TA001, TA002
+                                FROM [TK].[dbo].[MOCTA]
+                                WHERE EXISTS (
+                                    SELECT 1
+                                    FROM [TKMOC].[dbo].[MOCMANULINERESULTBAKING]
+                                    WHERE [SID] = @SID
+                                    AND TA001 = MOCTA001 AND TA002 = MOCTA002
+                                )";
+
+                    using (SqlCommand cmd = new SqlCommand(sql, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@SID", CHECKID);
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                        {
+                            DataTable dt = new DataTable();
+                            adapter.Fill(dt);
+
+                            if (dt.Rows.Count == 0)
+                            {
+                                UPDATEMOCMANULINE(CHECKID);
+                            }
+                            else
+                            {
+                                MessageBox.Show("ERP 跟外中有製令未刪除，請檢查一下");
+                            }
+                        }
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("ERP跟外中 有製令未刪除，請檢查一下");
-                }
-
             }
-            catch
+            catch (Exception ex)
             {
-
-            }
-            finally
-            {
-
+                MessageBox.Show("檢查時發生錯誤：" + ex.Message);
             }
         }
+
         public void UPDATEMOCMANULINE(string CHECKID)
         {
             if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage1"])
