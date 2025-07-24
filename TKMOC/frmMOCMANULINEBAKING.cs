@@ -3089,136 +3089,84 @@ namespace TKMOC
         }
 
         public void ADDTBCOPTFCHECKMOC(string TF001,
-                              string TF002,
-                              string TF003,
-                              string TF004,
-                              string MOCCHECKDATES,
-                              string MOCCHECKS,
-                              string MOCCHECKSCOMMENTS
-                             )
+                                string TF002,
+                                string TF003,
+                                string TF004,
+                                string MOCCHECKDATES,
+                                string MOCCHECKS,
+                                string MOCCHECKSCOMMENTS)
         {
-            SqlConnection sqlConn = new SqlConnection();
-            SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
-            DataSet ds1 = new DataSet();
-
             MOCCHECKDATES = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
 
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
+                // 解密資料庫帳密
+                Class1 TKID = new Class1();
                 SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
                 sqlsb.Password = TKID.Decryption(sqlsb.Password);
                 sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
 
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                sqlConn.Close();
-                sqlConn.Open();
-                tran = sqlConn.BeginTransaction();
-
-                sbSql.Clear();
-
-
-                sbSql.AppendFormat(@" 
-                                    INSERT INTO [TKBUSINESS].[dbo].[TBCOPTFCHECK]
-                                    (
-                                    [TF001]
-                                    ,[TF002]
-                                    ,[TF003]
-                                    ,[TF004]
-                                    ,[TF005]
-                                    ,[TF006]
-                                    ,[TF007]
-                                    ,[TF009]
-                                    ,[TF010]
-                                    ,[TF013]
-                                    ,[TF014]
-                                    ,[TF015]
-                                    ,[TF018]
-                                    ,[TF032]
-                                    ,[TF045]
-                                    ,[TF104]
-                                    ,[TE006]
-                                    ,[TE050]
-                                    ,[MOCCHECKDATES]
-                                    ,[MOCCHECKS]
-                                    ,[MOCCHECKSCOMMENTS]
-                                    ,[PURCHECKDATES]
-                                    ,[PURCHECKS]
-                                    ,[PURCHECKSCOMMENTS]
-                                    ,[SALESCHECKDATES]
-                                    ,[SALESCHECKSCOMMENTS]
-                                    )
-
-                                    SELECT
-                                    [TF001]
-                                    ,[TF002]
-                                    ,[TF003]
-                                    ,[TF004]
-                                    ,[TF005]
-                                    ,[TF006]
-                                    ,[TF007]
-                                    ,[TF009]
-                                    ,[TF010]
-                                    ,[TF013]
-                                    ,[TF014]
-                                    ,[TF015]
-                                    ,[TF018]
-                                    ,[TF032]
-                                    ,[TF045]
-                                    ,[TF104]
-                                    ,[TE006]
-                                    ,[TE050]
-                                    ,'{4}' AS 'MOCCHECKDATES'
-                                    ,'{5}' AS 'MOCCHECKS'
-                                    ,'{6}' AS 'MOCCHECKSCOMMENTS'
-                                    ,(SELECT TOP 1 ISNULL(PURCHECKDATES,'') FROM [TKBUSINESS].[dbo].[TBCOPTFCHECK] WHERE TBCOPTFCHECK.TF001=COPTF.TF001 AND TBCOPTFCHECK.TF002=COPTF.TF002 AND TBCOPTFCHECK.TF003=COPTF.TF003 AND  TBCOPTFCHECK.TF004=COPTF.TF004 ORDER BY ID DESC) AS 'PURCHECKDATES'
-                                    ,(SELECT TOP 1 ISNULL(PURCHECKS,'') FROM [TKBUSINESS].[dbo].[TBCOPTFCHECK] WHERE TBCOPTFCHECK.TF001=COPTF.TF001 AND TBCOPTFCHECK.TF002=COPTF.TF002 AND TBCOPTFCHECK.TF003=COPTF.TF003 AND  TBCOPTFCHECK.TF004=COPTF.TF004 ORDER BY ID DESC) AS 'PURCHECKS'
-                                    ,(SELECT TOP 1 ISNULL(PURCHECKSCOMMENTS,'') FROM [TKBUSINESS].[dbo].[TBCOPTFCHECK] WHERE TBCOPTFCHECK.TF001=COPTF.TF001 AND TBCOPTFCHECK.TF002=COPTF.TF002 AND TBCOPTFCHECK.TF003=COPTF.TF003 AND  TBCOPTFCHECK.TF004=COPTF.TF004 ORDER BY ID DESC) AS 'PURCHECKSCOMMENTS'
-                                    ,(SELECT TOP 1 ISNULL(SALESCHECKDATES,'') FROM [TKBUSINESS].[dbo].[TBCOPTFCHECK] WHERE TBCOPTFCHECK.TF001=COPTF.TF001 AND TBCOPTFCHECK.TF002=COPTF.TF002 AND TBCOPTFCHECK.TF003=COPTF.TF003 AND  TBCOPTFCHECK.TF004=COPTF.TF004 ORDER BY ID DESC) AS 'SALESCHECKDATES'
-                                    ,(SELECT TOP 1 ISNULL(SALESCHECKSCOMMENTS,'') FROM [TKBUSINESS].[dbo].[TBCOPTFCHECK] WHERE TBCOPTFCHECK.TF001=COPTF.TF001 AND TBCOPTFCHECK.TF002=COPTF.TF002 AND TBCOPTFCHECK.TF003=COPTF.TF003 AND  TBCOPTFCHECK.TF004=COPTF.TF004 ORDER BY ID DESC) AS 'SALESCHECKSCOMMENTS'
-                                    FROM [TK].dbo.COPTE,[TK].dbo.COPTF
-                                    WHERE TE001=TF001 AND TE002=TF002 AND TE003=TF003
-                                    AND TF001='{0}' AND TF002='{1}' AND TF003='{2}' AND TF004='{3}'
-
-                                    ", TF001, TF002, TF003, TF004, MOCCHECKDATES, MOCCHECKS, MOCCHECKSCOMMENTS);
-
-
-                cmd.Connection = sqlConn;
-                cmd.CommandTimeout = 60;
-                cmd.CommandText = sbSql.ToString();
-                cmd.Transaction = tran;
-                result = cmd.ExecuteNonQuery();
-
-                if (result == 0)
+                using (SqlConnection sqlConn = new SqlConnection(sqlsb.ConnectionString))
                 {
-                    tran.Rollback();    //交易取消
+                    sqlConn.Open();
+                    using (SqlTransaction tran = sqlConn.BeginTransaction())
+                    {
+                        StringBuilder sbSql = new StringBuilder();
+
+                        sbSql.AppendFormat(@"
+                                            INSERT INTO [TKBUSINESS].[dbo].[TBCOPTFCHECK]
+                                            (
+                                                [TF001],[TF002],[TF003],[TF004],[TF005],[TF006],[TF007],[TF009],[TF010],
+                                                [TF013],[TF014],[TF015],[TF018],[TF032],[TF045],[TF104],[TE006],[TE050],
+                                                [MOCCHECKDATES],[MOCCHECKS],[MOCCHECKSCOMMENTS],
+                                                [PURCHECKDATES],[PURCHECKS],[PURCHECKSCOMMENTS],
+                                                [SALESCHECKDATES],[SALESCHECKSCOMMENTS]
+                                            )
+                                            SELECT
+                                                [TF001],[TF002],[TF003],[TF004],[TF005],[TF006],[TF007],[TF009],[TF010],
+                                                [TF013],[TF014],[TF015],[TF018],[TF032],[TF045],[TF104],[TE006],[TE050],
+                                                '{4}' AS MOCCHECKDATES,
+                                                '{5}' AS MOCCHECKS,
+                                                '{6}' AS MOCCHECKSCOMMENTS,
+                                                (SELECT TOP 1 ISNULL(PURCHECKDATES,'') FROM [TKBUSINESS].[dbo].[TBCOPTFCHECK] 
+                                                 WHERE TF001=COPTF.TF001 AND TF002=COPTF.TF002 AND TF003=COPTF.TF003 AND TF004=COPTF.TF004 ORDER BY ID DESC),
+                                                (SELECT TOP 1 ISNULL(PURCHECKS,'') FROM [TKBUSINESS].[dbo].[TBCOPTFCHECK] 
+                                                 WHERE TF001=COPTF.TF001 AND TF002=COPTF.TF002 AND TF003=COPTF.TF003 AND TF004=COPTF.TF004 ORDER BY ID DESC),
+                                                (SELECT TOP 1 ISNULL(PURCHECKSCOMMENTS,'') FROM [TKBUSINESS].[dbo].[TBCOPTFCHECK] 
+                                                 WHERE TF001=COPTF.TF001 AND TF002=COPTF.TF002 AND TF003=COPTF.TF003 AND TF004=COPTF.TF004 ORDER BY ID DESC),
+                                                (SELECT TOP 1 ISNULL(SALESCHECKDATES,'') FROM [TKBUSINESS].[dbo].[TBCOPTFCHECK] 
+                                                 WHERE TF001=COPTF.TF001 AND TF002=COPTF.TF002 AND TF003=COPTF.TF003 AND TF004=COPTF.TF004 ORDER BY ID DESC),
+                                                (SELECT TOP 1 ISNULL(SALESCHECKSCOMMENTS,'') FROM [TKBUSINESS].[dbo].[TBCOPTFCHECK] 
+                                                 WHERE TF001=COPTF.TF001 AND TF002=COPTF.TF002 AND TF003=COPTF.TF003 AND TF004=COPTF.TF004 ORDER BY ID DESC)
+                                            FROM [TK].dbo.COPTE, [TK].dbo.COPTF
+                                            WHERE TE001=TF001 AND TE002=TF002 AND TE003=TF003
+                                            AND TF001='{0}' AND TF002='{1}' AND TF003='{2}' AND TF004='{3}'
+                                        ", TF001, TF002, TF003, TF004, MOCCHECKDATES, MOCCHECKS, MOCCHECKSCOMMENTS);
+
+                        using (SqlCommand cmd = new SqlCommand(sbSql.ToString(), sqlConn, tran))
+                        {
+                            cmd.CommandTimeout = 60;
+                            int result = cmd.ExecuteNonQuery();
+
+                            if (result == 0)
+                            {
+                                tran.Rollback();
+                            }
+                            else
+                            {
+                                tran.Commit();
+                                // 可加入記錄 log
+                            }
+                        }
+                    }
                 }
-                else
-                {
-                    tran.Commit();      //執行交易  
-
-                    //MessageBox.Show("完成");
-                }
-
             }
-            catch
+            catch (Exception ex)
             {
-
+                Console.WriteLine("發生錯誤：" + ex.Message);
             }
-
-            finally
-            {
-                sqlConn.Close();
-            }
-
         }
+
 
         private void dataGridView29_SelectionChanged(object sender, EventArgs e)
         {
