@@ -474,140 +474,63 @@ namespace TKMOC
         public void SEARCHMOCMANULINETEMPDATAS(string MB001)
         {
             StringBuilder sbSql = new StringBuilder();
-            StringBuilder sbSqlQuery = new StringBuilder();
-            SqlConnection sqlConn = new SqlConnection();
-            SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
-            SqlTransaction tran;
-            SqlCommand cmd = new SqlCommand();
             DataSet ds1 = new DataSet();
             DataSet TEMPds = new DataSet();
-                      
 
-            if (MANU.Equals("烘焙生產線"))
+            if (MANU.Equals("烘焙生產線") || MANU.Equals("烘焙包裝線"))
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
+                    // 解密資料庫連線字串
+                    Class1 TKID = new Class1();
                     SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
                     sqlsb.Password = TKID.Decryption(sqlsb.Password);
                     sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
 
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
+                    // 組合 SQL 語法
                     sbSql.Clear();
-                    sbSqlQuery.Clear();
+                    sbSql.AppendFormat(@"
+                                        SELECT [ID]  
+                                        FROM [TKMOC].[dbo].[MOCMANULINETEMP] 
+                                        WHERE [MB001]='{0}' 
+                                        AND [ID] NOT IN (SELECT [ID] FROM [TKMOC].[dbo].[MOCMANULINEBAKING])", MB001);
 
-                    sbSql.AppendFormat(@" SELECT [ID]  FROM [TKMOC].[dbo].[MOCMANULINETEMP] WHERE [MB001]='{0}' AND [ID] NOT IN (SELECT [ID] FROM [TKMOC].[dbo].[MOCMANULINEBAKING] )", MB001);
-                    sbSql.AppendFormat(@"  ");
-
-                    adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                    sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
-                    sqlConn.Open();
-                    ds1.Clear();
-                    adapter1.Fill(ds1, "ds1");
-                    sqlConn.Close();
-
-
-                    if (ds1.Tables["ds1"] !=null && ds1.Tables["ds1"].Rows.Count >= 1)
+                    using (SqlConnection conn = new SqlConnection(sqlsb.ConnectionString))
+                    using (SqlCommand cmd = new SqlCommand(sbSql.ToString(), conn))
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
                     {
-
-                        TEMPds.Clear();
-                        frmMOCMANULINESubTEMPADD MOCMANULINESubTEMPADD = new frmMOCMANULINESubTEMPADD(MB001, TEMPds);
-                        MOCMANULINESubTEMPADD.ShowDialog();
-
-                        TEMPds = MOCMANULINESubTEMPADD.SETDATASET;
-
-                        if (TEMPds.Tables[0].Rows.Count >= 1)
-                        {
-                            foreach (DataRow dr in TEMPds.Tables[0].Rows)
-                            {
-                                SUM21 = SUM21 + Convert.ToDecimal(dr["數量"].ToString());
-                                //SUM2 = SUM2 + Convert.ToDecimal(dr["箱數"].ToString());
-                            }
-                        }
+                        conn.Open();
+                        ds1.Clear();
+                        adapter.Fill(ds1, "ds1");
                     }
-
-                }
-                
-                catch
-                {
-
-                }
-                finally
-                {
-                    sqlConn.Close();
-                }
-            }    
-            else if (MANU.Equals("烘焙包裝線"))
-            {
-                try
-                {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                    sbSql.Clear();
-                    sbSqlQuery.Clear();
-
-                    sbSql.AppendFormat(@" SELECT [ID]  FROM [TKMOC].[dbo].[MOCMANULINETEMP] WHERE [MB001]='{0}' AND [ID] NOT IN (SELECT [ID] FROM [TKMOC].[dbo].[MOCMANULINEBAKING] )", MB001);
-                    sbSql.AppendFormat(@"  ");
-
-                    adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                    sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
-                    sqlConn.Open();
-                    ds1.Clear();
-                    adapter1.Fill(ds1, "ds1");
-                    sqlConn.Close();
-
 
                     if (ds1.Tables["ds1"] != null && ds1.Tables["ds1"].Rows.Count >= 1)
                     {
-
                         TEMPds.Clear();
+
+                        // 顯示新增畫面
                         frmMOCMANULINESubTEMPADD MOCMANULINESubTEMPADD = new frmMOCMANULINESubTEMPADD(MB001, TEMPds);
                         MOCMANULINESubTEMPADD.ShowDialog();
-
                         TEMPds = MOCMANULINESubTEMPADD.SETDATASET;
 
                         if (TEMPds.Tables[0].Rows.Count >= 1)
                         {
                             foreach (DataRow dr in TEMPds.Tables[0].Rows)
                             {
-                                SUM21 = SUM21 + Convert.ToDecimal(dr["數量"].ToString());
-                                //SUM2 = SUM2 + Convert.ToDecimal(dr["箱數"].ToString());
+                                SUM21 += Convert.ToDecimal(dr["數量"].ToString());
+                                // SUM2 += Convert.ToDecimal(dr["箱數"].ToString());
                             }
                         }
                     }
-
                 }
-
                 catch
                 {
-
-                }
-                finally
-                {
-                    sqlConn.Close();
+                    // 可補上 Log 或錯誤提示
                 }
             }
-
         }
+
+
 
         public void ADDMOCMANULINE(
             string MANU,
@@ -4291,9 +4214,10 @@ namespace TKMOC
 
         private void textBox4_TextChanged(object sender, EventArgs e)
         {
-            SEARCHMB001(textBox4.Text.Trim());
+            string MB001 = textBox4.Text.Trim();
 
-            SEARCHMOCMANULINETEMPDATAS(textBox4.Text.Trim());
+            SEARCHMB001(MB001);
+            SEARCHMOCMANULINETEMPDATAS(MB001);
         }
 
 
