@@ -3397,7 +3397,7 @@ namespace TKMOC
         private void button1_Click(object sender, EventArgs e)
         {
             string SDATES = dateTimePicker1.Value.ToString("yyyyMMdd");
-            string MANU= comboBox1.Text.Trim();
+            string MANU= comboBox1.Text.Trim(); 
             SEARCHMOCMANULINE_BAKING(SDATES, MANU);
         }
         private void button2_Click(object sender, EventArgs e)
