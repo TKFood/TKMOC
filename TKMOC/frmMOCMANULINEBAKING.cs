@@ -615,97 +615,140 @@ namespace TKMOC
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
-            if (dataGridView1.CurrentRow != null)
+            if (dataGridView1.CurrentRow != null && dataGridView1.CurrentRow.Index >= 0)
             {
-                int rowindex = dataGridView1.CurrentRow.Index;
-                if (rowindex >= 0)
+                var row = dataGridView1.CurrentRow;
+
+                // 取出欄位值，使用安全轉換
+                string id = row.Cells["ID"].Value?.ToString() ?? string.Empty;
+                string productionDateStr = row.Cells["生產日"].Value?.ToString() ?? string.Empty;
+                string productCode = row.Cells["品號"].Value?.ToString() ?? string.Empty;
+                string productName = row.Cells["品名"].Value?.ToString() ?? string.Empty;
+                string spec = row.Cells["規格"].Value?.ToString() ?? string.Empty;
+                string packageQtyStr = row.Cells["包裝數"].Value?.ToString() ?? "0";
+                string remark = row.Cells["備註"].Value?.ToString() ?? string.Empty;
+                string orderType = row.Cells["訂單單別"].Value?.ToString() ?? string.Empty;
+                string orderNo = row.Cells["訂單號"].Value?.ToString() ?? string.Empty;
+                string orderSeq = row.Cells["訂單序號"].Value?.ToString() ?? string.Empty;
+                string boxQtyStr = row.Cells["箱數"].Value?.ToString() ?? "0";
+                string qtyStr = row.Cells["數量"].Value?.ToString() ?? "0";
+
+                // 轉換日期
+                DateTime productionDate;
+                if (!DateTime.TryParseExact(productionDateStr, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out productionDate))
                 {
-                    DataGridViewRow row = dataGridView1.Rows[rowindex];
-                    textBoxID.Text = row.Cells["ID"].Value.ToString();
-
-                    ID = row.Cells["ID"].Value.ToString();
-                    dt1 = Convert.ToDateTime(row.Cells["生產日"].Value.ToString().Substring(0, 4) + "/" + row.Cells["生產日"].Value.ToString().Substring(4, 2) + "/" + row.Cells["生產日"].Value.ToString().Substring(6, 2));
-                    MB001B = row.Cells["品號"].Value.ToString();
-                    MB002B = row.Cells["品名"].Value.ToString();
-                    MB003B = row.Cells["規格"].Value.ToString();
-                    BOX = Convert.ToDecimal(row.Cells["包裝數"].Value.ToString());
-                    SUM21 = Convert.ToDecimal(row.Cells["包裝數"].Value.ToString());
-                    TA029 = row.Cells["備註"].Value.ToString();
-                    TA026 = row.Cells["訂單單別"].Value.ToString();
-                    TA027 = row.Cells["訂單號"].Value.ToString();
-                    TA028 = row.Cells["訂單序號"].Value.ToString();
-
-                    SUBID = row.Cells["ID"].Value.ToString();
-                    SUBBAR2 = "";
-                    SUBNUM2 = "";
-                    SUBBOX = row.Cells["箱數"].Value.ToString();
-                    SUBPACKAGE2= row.Cells["數量"].Value.ToString();
-
-                    SEARCH_MOCMANULINERESULTBAKING(ID);
-                    //SEARCHMOCMANULINEMERGERESLUTMOCTA(ID2.ToString());
-                    ////SEARCHMOCMANULINECOP();
-
+                    productionDate = DateTime.MinValue; // 或你想的預設值
                 }
-                else
-                {
-                    ID = null;                   
-                    SUBBAR2 = null;
-                    SUBNUM2 = null;
-                    SUBBOX = null;
-                    SUBPACKAGE2 = null;
-                    TA026 = null;
-                    TA027 = null;
-                    TA028 = null;
 
-                }
+                // 轉換數字
+                decimal packageQty = 0;
+                decimal.TryParse(packageQtyStr, out packageQty);
+
+                // 賦值給 UI 與變數
+                textBoxID.Text = id;
+
+                ID = id;
+                dt1 = productionDate;
+                MB001B = productCode;
+                MB002B = productName;
+                MB003B = spec;
+                BOX = packageQty;
+                SUM21 = packageQty;
+                TA029 = remark;
+                TA026 = orderType;
+                TA027 = orderNo;
+                TA028 = orderSeq;
+
+                SUBID = id;
+                SUBBAR2 = "";
+                SUBNUM2 = "";
+                SUBBOX = boxQtyStr;
+                SUBPACKAGE2 = qtyStr;
+
+                SEARCH_MOCMANULINERESULTBAKING(id);
+            }
+            else
+            {
+                ID = null;
+                SUBBAR2 = null;
+                SUBNUM2 = null;
+                SUBBOX = null;
+                SUBPACKAGE2 = null;
+                TA026 = null;
+                TA027 = null;
+                TA028 = null;
+
+                textBoxID.Clear();
+                // 其他 textbox 若要清除，也可加在這裡
             }
         }
 
         private void dataGridView4_SelectionChanged(object sender, EventArgs e)
         {
-            if (dataGridView4.CurrentRow != null)
+            if (dataGridView4.CurrentRow != null && dataGridView4.CurrentRow.Index >= 0)
             {
-                int rowindex = dataGridView4.CurrentRow.Index;
-                if (rowindex >= 0)
+                var row = dataGridView4.CurrentRow;
+
+                string id = row.Cells["ID"].Value?.ToString() ?? string.Empty;
+                string productionDateStr = row.Cells["生產日"].Value?.ToString() ?? string.Empty;
+                string productCode = row.Cells["品號"].Value?.ToString() ?? string.Empty;
+                string productName = row.Cells["品名"].Value?.ToString() ?? string.Empty;
+                string spec = row.Cells["規格"].Value?.ToString() ?? string.Empty;
+                string packageQtyStr = row.Cells["包裝數"].Value?.ToString() ?? "0";
+                string remark = row.Cells["備註"].Value?.ToString() ?? string.Empty;
+                string orderType = row.Cells["訂單單別"].Value?.ToString() ?? string.Empty;
+                string orderNo = row.Cells["訂單號"].Value?.ToString() ?? string.Empty;
+                string orderSeq = row.Cells["訂單序號"].Value?.ToString() ?? string.Empty;
+                string boxQtyStr = row.Cells["箱數"].Value?.ToString() ?? "0";
+                string qtyStr = row.Cells["數量"].Value?.ToString() ?? "0";
+
+                DateTime productionDate;
+                if (!DateTime.TryParseExact(productionDateStr, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out productionDate))
                 {
-                    DataGridViewRow row = dataGridView4.Rows[rowindex];
-                    textBoxID2.Text = row.Cells["ID"].Value.ToString();
-
-                    ID_DV4 = row.Cells["ID"].Value.ToString();
-                    dt_DV4 = Convert.ToDateTime(row.Cells["生產日"].Value.ToString().Substring(0, 4) + "/" + row.Cells["生產日"].Value.ToString().Substring(4, 2) + "/" + row.Cells["生產日"].Value.ToString().Substring(6, 2));
-                    MB001_DV4 = row.Cells["品號"].Value.ToString();
-                    MB002_DV4 = row.Cells["品名"].Value.ToString();
-                    MB003_DV4 = row.Cells["規格"].Value.ToString();
-                    BOX_DV4 = Convert.ToDecimal(row.Cells["包裝數"].Value.ToString());
-                    SUM_DV4 = Convert.ToDecimal(row.Cells["包裝數"].Value.ToString());
-                    TA029_DV4 = row.Cells["備註"].Value.ToString();
-                    TA026_DV4 = row.Cells["訂單單別"].Value.ToString();
-                    TA027_DV4 = row.Cells["訂單號"].Value.ToString();
-                    TA028_DV4 = row.Cells["訂單序號"].Value.ToString();
-
-                    SUBID_DV4 = row.Cells["ID"].Value.ToString();
-                    SUBBAR_DV4 = 0;
-                    SUBNUM_DV4 = 0;
-                    SUBBOX_DV4 = Convert.ToDecimal(row.Cells["箱數"].Value.ToString());
-                    SUBPACKAGE_DV4 = Convert.ToDecimal(row.Cells["數量"].Value.ToString());
-
-                    SEARCH_MOCMANULINERESULTBAKING_DV4(ID_DV4);
-                    //SEARCHMOCMANULINEMERGERESLUTMOCTA(ID2.ToString());
-                    ////SEARCHMOCMANULINECOP();
-
+                    productionDate = DateTime.MinValue;
                 }
-                else
-                {
-                    ID_DV4 = null;
-                    SUBBAR_DV4 = 0;
-                    SUM_DV4 = 0;
-                    SUBBOX_DV4 = 0;
-                    SUBPACKAGE_DV4 = 0;
-                    TA026_DV4 = null;
-                    TA027_DV4 = null;
-                    TA028_DV4 = null;
 
-                }
+                decimal packageQty = 0, boxQty = 0, qty = 0;
+                decimal.TryParse(packageQtyStr, out packageQty);
+                decimal.TryParse(boxQtyStr, out boxQty);
+                decimal.TryParse(qtyStr, out qty);
+
+                textBoxID2.Text = id;
+
+                ID_DV4 = id;
+                dt_DV4 = productionDate;
+                MB001_DV4 = productCode;
+                MB002_DV4 = productName;
+                MB003_DV4 = spec;
+                BOX_DV4 = packageQty;
+                SUM_DV4 = packageQty;
+                TA029_DV4 = remark;
+                TA026_DV4 = orderType;
+                TA027_DV4 = orderNo;
+                TA028_DV4 = orderSeq;
+
+                SUBID_DV4 = id;
+                SUBBAR_DV4 = 0;
+                SUBNUM_DV4 = 0;
+                SUBBOX_DV4 = boxQty;
+                SUBPACKAGE_DV4 = qty;
+
+                SEARCH_MOCMANULINERESULTBAKING_DV4(id);
+            }
+            else
+            {
+                // 清空資料
+                ID_DV4 = null;
+                SUBBAR_DV4 = 0;
+                SUM_DV4 = 0;
+                SUBBOX_DV4 = 0;
+                SUBPACKAGE_DV4 = 0;
+                TA026_DV4 = null;
+                TA027_DV4 = null;
+                TA028_DV4 = null;
+
+                textBoxID2.Clear();
+                // 你也可以清空其他相關 TextBox
             }
         }
 
@@ -1712,143 +1755,58 @@ namespace TKMOC
 
         public DataTable SEARCHBOMMC(string MC001)
         {
-            StringBuilder sbSql = new StringBuilder();
-            StringBuilder sbSqlQuery = new StringBuilder();
-            SqlConnection sqlConn = new SqlConnection();
-            SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
-            SqlTransaction tran;
-            SqlCommand cmd = new SqlCommand();
-            DataSet ds1 = new DataSet();
-
-            string BOMVARSION = null;
-            string UNIT = null;
-            decimal BOMBAR = 0;
-            
-            if (MANU.Equals("烘焙生產線"))
+            if (MANU == "烘焙生產線" || MANU == "烘焙包裝線")
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
+                    Class1 TKID = new Class1();
                     SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
                     sqlsb.Password = TKID.Decryption(sqlsb.Password);
                     sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
 
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                    sbSql.Clear();
-                    sbSqlQuery.Clear();
-
-                    sbSql.AppendFormat(@"
-                                        SELECT 
-                                        [MC001],[MC002],[MC003],[MC004],[MC005],[MC006],[MC007],[MC008],[MC009],[MC010],
-                                        [MC011],[MC012],[MC013],[MC014],[MC015],[MC016],[MC017],[MC018],[MC019],[MC020],
-                                        [MC021],[MC022],[MC023],[MC024],[MC025],[MC026],[MC027],
-                                        INVMB.MB004
-                                        FROM [TK].[dbo].[BOMMC]
-                                        LEFT JOIN [TK].dbo.[INVMB] ON MB001=MC001
-                                        WHERE [MC001]='{0}'", MC001);
-
-                    sbSql.AppendFormat(@"  ");
-
-                    adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                    sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
-                    sqlConn.Open();
-                    ds1.Clear();
-                    adapter1.Fill(ds1, "ds1");
-                    sqlConn.Close();
-
-                    if (ds1 != null && ds1.Tables["ds1"].Rows.Count >= 1)
+                    using (SqlConnection sqlConn = new SqlConnection(sqlsb.ConnectionString))
                     {
-                        return ds1.Tables["ds1"];                       
+                        StringBuilder sbSql = new StringBuilder();
+                        sbSql.AppendFormat(@"
+                                            SELECT 
+                                                [MC001],[MC002],[MC003],[MC004],[MC005],[MC006],[MC007],[MC008],[MC009],[MC010],
+                                                [MC011],[MC012],[MC013],[MC014],[MC015],[MC016],[MC017],[MC018],[MC019],[MC020],
+                                                [MC021],[MC022],[MC023],[MC024],[MC025],[MC026],[MC027],
+                                                INVMB.MB004
+                                            FROM [TK].[dbo].[BOMMC]
+                                            LEFT JOIN [TK].dbo.[INVMB] ON MB001=MC001
+                                            WHERE [MC001] = @MC001");
 
-                    }
-                    else
-                    {
-                        return null;
-                    }
+                        using (SqlDataAdapter adapter1 = new SqlDataAdapter(sbSql.ToString(), sqlConn))
+                        {
+                            adapter1.SelectCommand.Parameters.AddWithValue("@MC001", MC001);
+                            DataSet ds1 = new DataSet();
 
+                            sqlConn.Open();
+                            adapter1.Fill(ds1, "ds1");
+
+                            if (ds1.Tables["ds1"].Rows.Count > 0)
+                            {
+                                return ds1.Tables["ds1"];
+                            }
+                            else
+                            {
+                                return null;
+                            }
+                        }
+                    }
                 }
                 catch
                 {
                     return null;
-                }
-                finally
-                {
-
-                }
-            }
-            else if (MANU.Equals("烘焙包裝線"))
-            {
-                try
-                {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                    sbSql.Clear();
-                    sbSqlQuery.Clear();
-
-                    sbSql.AppendFormat(@"
-                                        SELECT 
-                                        [MC001],[MC002],[MC003],[MC004],[MC005],[MC006],[MC007],[MC008],[MC009],[MC010],
-                                        [MC011],[MC012],[MC013],[MC014],[MC015],[MC016],[MC017],[MC018],[MC019],[MC020],
-                                        [MC021],[MC022],[MC023],[MC024],[MC025],[MC026],[MC027],
-                                        INVMB.MB004
-                                        FROM [TK].[dbo].[BOMMC]
-                                        LEFT JOIN [TK].dbo.[INVMB] ON MB001=MC001
-                                        WHERE [MC001]='{0}'", MC001);
-
-                    sbSql.AppendFormat(@"  ");
-
-                    adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                    sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
-                    sqlConn.Open();
-                    ds1.Clear();
-                    adapter1.Fill(ds1, "ds1");
-                    sqlConn.Close();
-
-                    if (ds1 != null && ds1.Tables["ds1"].Rows.Count >= 1)
-                    {
-                        return ds1.Tables["ds1"];
-
-                    }
-                    else
-                    {
-                        return null;
-                    }
-
-                }
-                catch
-                {
-                    return null;
-                }
-                finally
-                {
-
                 }
             }
             else
             {
                 return null;
             }
-
         }
+
 
         public void SEARCH_MOCMANULINERESULTBAKING(string ID)
         {
