@@ -2313,185 +2313,139 @@ namespace TKMOC
 
         public void SEARCHTBCOPTDCHECK(string YYYYMM, string TD021, string UDF01, string TD002)
         {
-            SqlConnection sqlConn = new SqlConnection();
-            SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
-            DataSet ds1 = new DataSet();
-            StringBuilder QUERYS = new StringBuilder();
-            StringBuilder QUERYS2 = new StringBuilder();
-
-
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
+                Class1 TKID = new Class1();
+                var sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
                 sqlsb.Password = TKID.Decryption(sqlsb.Password);
                 sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
 
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                sbSql.Clear();
-                QUERYS.Clear();
-                
-
-                //日期
-                if (!string.IsNullOrEmpty(YYYYMM))
+                using (SqlConnection sqlConn = new SqlConnection(sqlsb.ConnectionString))
                 {
-                    QUERYS.AppendFormat(@" AND TD002 LIKE '{0}%'", YYYYMM.Trim());
+                    sqlConn.Open();
 
-                }
+                    var whereClauses = new List<string>();
 
-                //核單
-                if (!string.IsNullOrEmpty(TD021))
-                {
-                    if (TD021.Equals("未核單"))
+                    if (!string.IsNullOrEmpty(YYYYMM))
+                        whereClauses.Add("TD002 LIKE @YYYYMM + '%'");
+
+                    if (!string.IsNullOrEmpty(TD021))
                     {
-                        QUERYS.AppendFormat(@" AND TD021='N'");
+                        if (TD021 == "未核單") whereClauses.Add("TD021='N'");
+                        else if (TD021 == "已核單") whereClauses.Add("TD021='Y'");
                     }
-                    else if (TD021.Equals("已核單"))
+
+                    if (!string.IsNullOrEmpty(UDF01))
                     {
-                        QUERYS.AppendFormat(@"  AND TD021='Y'");
+                        if (UDF01 == "Y") whereClauses.Add("COPTD.UDF01 IN ('Y','y')");
+                        else if (UDF01 == "N") whereClauses.Add("COPTD.UDF01 NOT IN ('Y','y')");
                     }
-                }
 
+                    if (!string.IsNullOrEmpty(TD002))
+                        whereClauses.Add("TD002 LIKE @TD002 + '%'");
 
-                //是否生產
-                if (!string.IsNullOrEmpty(UDF01))
-                {
-                    if (UDF01.Equals("Y"))
+                    // 限定烘培品
+                    DataTable dtMb001Likes = SEARCH_MOCMANULINEMB001LIKES();
+                    if (dtMb001Likes != null && dtMb001Likes.Rows.Count > 0)
                     {
-                        QUERYS.AppendFormat(@" AND COPTD.UDF01 IN ('Y','y') ");
+                        var mb001Likes = dtMb001Likes.AsEnumerable()
+                            .Select(r => r.Field<string>("MB001") + "%")
+                            .ToList();
+
+                        var likeClauses = mb001Likes.Select((v, i) => $"TD004 LIKE @MB001_{i}");
+                        whereClauses.Add("(" + string.Join(" OR ", likeClauses) + ")");
                     }
-                    else if (UDF01.Equals("N"))
-                    {
-                        QUERYS.AppendFormat(@" AND COPTD.UDF01 NOT IN ('Y','y')  ");
-                    }
-                }
 
-                //訂單單號
-                if (!string.IsNullOrEmpty(TD002))
-                {
-                    QUERYS.AppendFormat(@" AND TD002 LIKE '{0}%'", TD002.Trim());
+                    string whereSql = whereClauses.Count > 0 ? " AND " + string.Join(" AND ", whereClauses) : "";
 
-                }
-
-                //限定烘培品
-                DataTable DT = SEARCH_MOCMANULINEMB001LIKES();
-                if (DT != null && DT.Rows.Count >= 1)
-                {
-                    QUERYS2.AppendFormat(" AND (");
-                    for (int i = 0; i < DT.Rows.Count; i++)
-                    {
-                        if (i > 0) // Add OR after the first condition
-                        {
-                            QUERYS2.AppendFormat(" OR ");
-                        }
-                        QUERYS2.AppendFormat("TD004 LIKE '{0}%'", DT.Rows[i]["MB001"].ToString());
-                    }
-                    QUERYS2.AppendFormat(")");
-                }
-                else
-                {
-                    // No additional SQL clause required
-                    QUERYS2.AppendFormat("");
-                }
-
-                sbSql.Clear();
-                sbSql.AppendFormat(@"  
+                    string sql = $@"
                                     SELECT  
-                                    COPTD.UDF01 AS '是否生產'
-                                    ,TC053 AS '客戶',TD001 AS '單別',TD002 AS '單號',TD003 AS '序號',TD004 AS '品號',TD005 AS '品名',TD008 AS '訂單數量',TD024 AS '贈品量',TD009	AS '已交數量',TD025	AS '贈品已交',TD010	 AS '單位',TD013 AS '預交日',TC015 AS '單頭備註',TD020 AS '單身備註'
+                                        COPTD.UDF01 AS '是否生產',
+                                        TC053 AS '客戶', TD001 AS '單別', TD002 AS '單號', TD003 AS '序號', TD004 AS '品號', TD005 AS '品名',
+                                        TD008 AS '訂單數量', TD024 AS '贈品量', TD009 AS '已交數量', TD025 AS '贈品已交', TD010 AS '單位',
+                                        TD013 AS '預交日', TC015 AS '單頭備註', TD020 AS '單身備註',
 
-                                    ,(SELECT TOP 1 ISNULL([MOCCHECKDATES],'') FROM [TKBUSINESS].[dbo].[TBCOPTDCHECK] WHERE [TBCOPTDCHECK].TD001=COPTD.TD001 AND [TBCOPTDCHECK].TD002=COPTD.TD002 AND [TBCOPTDCHECK].TD003=COPTD.TD003  ORDER BY ID DESC) AS '生管更新日期'
-                                    ,(SELECT TOP 1 [MOCCHECKS] FROM [TKBUSINESS].[dbo].[TBCOPTDCHECK] WHERE [TBCOPTDCHECK].TD001=COPTD.TD001 AND [TBCOPTDCHECK].TD002=COPTD.TD002 AND [TBCOPTDCHECK].TD003=COPTD.TD003  ORDER BY ID DESC) AS '生管核準'
-                                    ,(SELECT TOP 1 [MOCCHECKSCOMMENTS] FROM [TKBUSINESS].[dbo].[TBCOPTDCHECK] WHERE [TBCOPTDCHECK].TD001=COPTD.TD001 AND [TBCOPTDCHECK].TD002=COPTD.TD002 AND [TBCOPTDCHECK].TD003=COPTD.TD003  ORDER BY ID DESC) AS '生管備註'
-                                    ,'' AS '生管備註填寫'
+                                        (SELECT TOP 1 ISNULL([MOCCHECKDATES],'') FROM [TKBUSINESS].[dbo].[TBCOPTDCHECK] 
+                                         WHERE TD001=COPTD.TD001 AND TD002=COPTD.TD002 AND TD003=COPTD.TD003 ORDER BY ID DESC) AS '生管更新日期',
+                                        (SELECT TOP 1 [MOCCHECKS] FROM [TKBUSINESS].[dbo].[TBCOPTDCHECK] 
+                                         WHERE TD001=COPTD.TD001 AND TD002=COPTD.TD002 AND TD003=COPTD.TD003 ORDER BY ID DESC) AS '生管核準',
+                                        (SELECT TOP 1 [MOCCHECKSCOMMENTS] FROM [TKBUSINESS].[dbo].[TBCOPTDCHECK] 
+                                         WHERE TD001=COPTD.TD001 AND TD002=COPTD.TD002 AND TD003=COPTD.TD003 ORDER BY ID DESC) AS '生管備註',
+                                        '' AS '生管備註填寫',
 
-                                    ,(SELECT TOP 1 [PURCHECKDATES] FROM [TKBUSINESS].[dbo].[TBCOPTDCHECK] WHERE [TBCOPTDCHECK].TD001=COPTD.TD001 AND [TBCOPTDCHECK].TD002=COPTD.TD002 AND [TBCOPTDCHECK].TD003=COPTD.TD003  ORDER BY ID DESC) AS '採購更新日期'
-                                    ,(SELECT TOP 1 [PURCHECKS] FROM [TKBUSINESS].[dbo].[TBCOPTDCHECK] WHERE [TBCOPTDCHECK].TD001=COPTD.TD001 AND [TBCOPTDCHECK].TD002=COPTD.TD002 AND [TBCOPTDCHECK].TD003=COPTD.TD003  ORDER BY ID DESC) AS '採購核準'
-                                    ,(SELECT TOP 1 [PURCHECKSCOMMENTS] FROM [TKBUSINESS].[dbo].[TBCOPTDCHECK] WHERE [TBCOPTDCHECK].TD001=COPTD.TD001 AND [TBCOPTDCHECK].TD002=COPTD.TD002 AND [TBCOPTDCHECK].TD003=COPTD.TD003  ORDER BY ID DESC) AS '採購備註'
-                                    ,(SELECT TOP 1 [SALESCHECKDATES] FROM [TKBUSINESS].[dbo].[TBCOPTDCHECK] WHERE [TBCOPTDCHECK].TD001=COPTD.TD001 AND [TBCOPTDCHECK].TD002=COPTD.TD002 AND [TBCOPTDCHECK].TD003=COPTD.TD003  ORDER BY ID DESC) AS '業務更新日期'
-                                    ,(SELECT TOP 1 [SALESCHECKSCOMMENTS] FROM [TKBUSINESS].[dbo].[TBCOPTDCHECK] WHERE [TBCOPTDCHECK].TD001=COPTD.TD001 AND [TBCOPTDCHECK].TD002=COPTD.TD002 AND [TBCOPTDCHECK].TD003=COPTD.TD003  ORDER BY ID DESC) AS '業務備註'
+                                        (SELECT TOP 1 [PURCHECKDATES] FROM [TKBUSINESS].[dbo].[TBCOPTDCHECK] 
+                                         WHERE TD001=COPTD.TD001 AND TD002=COPTD.TD002 AND TD003=COPTD.TD003 ORDER BY ID DESC) AS '採購更新日期',
+                                        (SELECT TOP 1 [PURCHECKS] FROM [TKBUSINESS].[dbo].[TBCOPTDCHECK] 
+                                         WHERE TD001=COPTD.TD001 AND TD002=COPTD.TD002 AND TD003=COPTD.TD003 ORDER BY ID DESC) AS '採購核準',
+                                        (SELECT TOP 1 [PURCHECKSCOMMENTS] FROM [TKBUSINESS].[dbo].[TBCOPTDCHECK] 
+                                         WHERE TD001=COPTD.TD001 AND TD002=COPTD.TD002 AND TD003=COPTD.TD003 ORDER BY ID DESC) AS '採購備註',
+                                        (SELECT TOP 1 [SALESCHECKDATES] FROM [TKBUSINESS].[dbo].[TBCOPTDCHECK] 
+                                         WHERE TD001=COPTD.TD001 AND TD002=COPTD.TD002 AND TD003=COPTD.TD003 ORDER BY ID DESC) AS '業務更新日期',
+                                        (SELECT TOP 1 [SALESCHECKSCOMMENTS] FROM [TKBUSINESS].[dbo].[TBCOPTDCHECK] 
+                                         WHERE TD001=COPTD.TD001 AND TD002=COPTD.TD002 AND TD003=COPTD.TD003 ORDER BY ID DESC) AS '業務備註'
 
-                                    
-                                    FROM [TK].dbo.COPTC,[TK].dbo.COPTD
+                                    FROM [TK].dbo.COPTC, [TK].dbo.COPTD
                                     WHERE TC001=TD001 AND TC002=TD002
-                                    AND 1=1
-                                
-                                    {0}
-                                    {1}
-                                    ORDER BY TD002,TD001,TD003
-                                    ", QUERYS.ToString(), QUERYS2.ToString());
+                                    {whereSql}
+                                    ORDER BY TD002, TD001, TD003
+                                ";
 
-
-
-
-                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
-                sqlConn.Open();
-                ds1.Clear();
-                adapter1.Fill(ds1, "TEMPds1");
-                sqlConn.Close();
-
-
-                if (ds1.Tables["TEMPds1"].Rows.Count == 0)
-                {
-                    dataGridView28.DataSource = null;
-                }
-                else
-                {
-                    if (ds1.Tables["TEMPds1"].Rows.Count >= 1)
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(sql, sqlConn))
                     {
-                        //dataGridView1.Rows.Clear();
-                        dataGridView28.DataSource = ds1.Tables["TEMPds1"];
-                        dataGridView28.AutoResizeColumns();
+                        // 加入參數
+                        if (!string.IsNullOrEmpty(YYYYMM))
+                            adapter.SelectCommand.Parameters.AddWithValue("@YYYYMM", YYYYMM.Trim());
 
-                        NEWdataGridView28ComboBoxColumn();
-                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+                        if (!string.IsNullOrEmpty(TD002))
+                            adapter.SelectCommand.Parameters.AddWithValue("@TD002", TD002.Trim());
 
-                        dataGridView28.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-
-                        dataGridView28.AutoResizeColumns();
-                        dataGridView28.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
-                        dataGridView28.Columns["生管備註填寫"].Width = 200;
-                        dataGridView28.Columns["生管備註填寫"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-                        dataGridView28.Columns["生管備註填寫"].DefaultCellStyle.BackColor = Color.LightPink;
-
-                        //設定欄位順序
-                        dataGridView28.Columns["生管備註填寫"].DisplayIndex = 18;
-                        dataGridView28.Columns["生管核準填寫"].DisplayIndex = 19;
-
-                        if (!string.IsNullOrEmpty(SortedColumn))
+                        if (dtMb001Likes != null && dtMb001Likes.Rows.Count > 0)
                         {
-                            if (SortedModel.Equals("Ascending"))
+                            for (int i = 0; i < dtMb001Likes.Rows.Count; i++)
                             {
-                                dataGridView28.Sort(dataGridView28.Columns["" + SortedColumn + ""], ListSortDirection.Ascending);
-                            }
-                            else
-                            {
-                                dataGridView28.Sort(dataGridView28.Columns["" + SortedColumn + ""], ListSortDirection.Descending);
+                                adapter.SelectCommand.Parameters.AddWithValue("@MB001_" + i, dtMb001Likes.Rows[i]["MB001"].ToString() + "%");
                             }
                         }
 
+                        DataSet ds = new DataSet();
+                        adapter.Fill(ds, "TEMPds1");
+
+                        if (ds.Tables["TEMPds1"].Rows.Count == 0)
+                        {
+                            dataGridView28.DataSource = null;
+                        }
+                        else
+                        {
+                            dataGridView28.DataSource = ds.Tables["TEMPds1"];
+                            dataGridView28.AutoResizeColumns();
+
+                            NEWdataGridView28ComboBoxColumn();
+
+                            dataGridView28.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+                            dataGridView28.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
+
+                            dataGridView28.Columns["生管備註填寫"].Width = 200;
+                            dataGridView28.Columns["生管備註填寫"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+                            dataGridView28.Columns["生管備註填寫"].DefaultCellStyle.BackColor = Color.LightPink;
+
+                            dataGridView28.Columns["生管備註填寫"].DisplayIndex = 18;
+                            dataGridView28.Columns["生管核準填寫"].DisplayIndex = 19;
+
+                            if (!string.IsNullOrEmpty(SortedColumn))
+                            {
+                                var sortDirection = SortedModel == "Ascending" ? ListSortDirection.Ascending : ListSortDirection.Descending;
+                                dataGridView28.Sort(dataGridView28.Columns[SortedColumn], sortDirection);
+                            }
+                        }
                     }
                 }
-
             }
-            catch
+            catch (Exception ex)
             {
-
-            }
-            finally
-            {
-                sqlConn.Close();
+                MessageBox.Show("查詢失敗: " + ex.Message);
             }
         }
+
 
         public DataTable SEARCH_MOCMANULINEMB001LIKES()
         {
