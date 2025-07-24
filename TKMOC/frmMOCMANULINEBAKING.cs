@@ -1407,12 +1407,9 @@ namespace TKMOC
         {
             StringBuilder sbSql = new StringBuilder();
             StringBuilder sbSqlQuery = new StringBuilder();
-            SqlConnection sqlConn = new SqlConnection();
+           
             SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
-            SqlTransaction tran;
-            SqlCommand cmd = new SqlCommand();
-            DataSet ds1 = new DataSet();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();          
 
             MOCTADATA MOCTA = new MOCTADATA();
             if (MANU.Equals("烘焙生產線"))
@@ -1426,7 +1423,6 @@ namespace TKMOC
             string MOCMB001 = null;
             decimal MOCTA015 = Convert.ToDecimal(MOCTA.TA015);
             string MOCTB009 = null;
-
 
             const int MaxLength = 100;
 
@@ -1458,120 +1454,104 @@ namespace TKMOC
                 MOCTA.TA028 = TA028_DV4;
                 MOCTA.TA021 = "12";
                 //MOCTB009 = textBox78.Text;
-
             }
-
-
-
 
             try
             {
-                //check TA002=2,TA040=2
-                //[TB004]的計算，如果領用倍數MB041=1且不是201開頭的箱子，就取整數、MB041=1且是201開頭的箱子，就4捨5入到整數、其他就取到小數第3位
-                if (MOCTA.TA002.Substring(0, 1).Equals("2") && MOCTA.TA040.Substring(0, 1).Equals("2"))
+                // 只處理 TA002 開頭是2 且 TA040 開頭是2 的情況
+                if (MOCTA.TA002.StartsWith("2") && MOCTA.TA040.StartsWith("2"))
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
+                    Class1 TKID = new Class1();
                     SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
 
-                    //資料庫使用者密碼解密
+                    // 解密帳密
                     sqlsb.Password = TKID.Decryption(sqlsb.Password);
                     sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
 
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                    sqlConn.Close();
-                    sqlConn.Open();
-                    tran = sqlConn.BeginTransaction();
-
-                    sbSql.Clear();
-
-                    sbSql.AppendFormat(@"
-                                        INSERT INTO [TK].[dbo].[MOCTA]
-                                        ([COMPANY],[CREATOR],[USR_GROUP],[CREATE_DATE],[MODIFIER],[MODI_DATE],[FLAG],[CREATE_TIME],[MODI_TIME],[TRANS_TYPE]
-                                        ,[TRANS_NAME],[sync_count],[DataGroup],[TA001],[TA002],[TA003],[TA004],[TA005],[TA006],[TA007]
-                                        ,[TA009],[TA010],[TA011],[TA012],[TA013],[TA014],[TA015],[TA016],[TA017],[TA018]
-                                        ,[TA019],[TA020],[TA021],[TA022],[TA024],[TA025],[TA029],[TA030],[TA031],[TA034],[TA035]
-                                        ,[TA040],[TA041],[TA043],[TA044],[TA045],[TA046],[TA047],[TA049],[TA050],[TA200]
-                                        ,[TA026],[TA027],[TA028])
-                                        VALUES
-                                        ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}',
-                                        '{10}','{11}','{12}','{13}','{14}','{15}','{16}','{17}','{18}','{19}',
-                                        '{20}','{21}','{22}','{23}','{24}','{25}','{26}','{27}','{28}','{29}',
-                                        '{30}','{31}','{32}','{33}','{34}','{35}',N'{36}','{37}','{38}','{39}','{40}'
-                                        ,'{41}','{42}','{43}','{44}','{45}','{46}','{47}','{48}','{49}','{50}'
-                                        ,'{51}','{52}','{53}')   
-                                       
-                                    ",
-                                        MOCTA.COMPANY, MOCTA.CREATOR, MOCTA.USR_GROUP, MOCTA.CREATE_DATE, MOCTA.MODIFIER, MOCTA.MODI_DATE, MOCTA.FLAG, MOCTA.CREATE_TIME, MOCTA.MODI_TIME, MOCTA.TRANS_TYPE,
-                                        MOCTA.TRANS_NAME, MOCTA.sync_count, MOCTA.DataGroup, MOCTA.TA001, MOCTA.TA002, MOCTA.TA003, MOCTA.TA004, MOCTA.TA005, MOCTA.TA006, MOCTA.TA007,
-                                        MOCTA.TA009, MOCTA.TA010, MOCTA.TA011, MOCTA.TA012, MOCTA.TA013, MOCTA.TA014, MOCTA.TA015, MOCTA.TA016, MOCTA.TA017, MOCTA.TA018,
-                                        MOCTA.TA019, MOCTA.TA020, MOCTA.TA021, MOCTA.TA022, MOCTA.TA024, MOCTA.TA025, MOCTA.TA029, MOCTA.TA030, MOCTA.TA031, MOCTA.TA034, MOCTA.TA035,
-                                        MOCTA.TA040, MOCTA.TA041, MOCTA.TA043, MOCTA.TA044, MOCTA.TA045, MOCTA.TA046, MOCTA.TA047, MOCTA.TA049, MOCTA.TA050, MOCTA.TA200,
-                                        MOCTA.TA026, MOCTA.TA027, MOCTA.TA028);
-
-                    sbSql.AppendFormat(@"
-                                        INSERT INTO [TK].dbo.[MOCTB]
-                                        ([COMPANY],[CREATOR],[USR_GROUP],[CREATE_DATE],[MODIFIER],[MODI_DATE],[FLAG],[CREATE_TIME],[MODI_TIME],[TRANS_TYPE],
-                                         [TRANS_NAME],[sync_count],[DataGroup],[TB001],[TB002],[TB003],[TB004],[TB005],[TB006],[TB007],
-                                         [TB009],[TB011],[TB012],[TB013],[TB014],[TB018],[TB019],[TB020],[TB022],[TB024],
-                                         [TB025],[TB026],[TB027],[TB029],[TB030],[TB031],[TB501],[TB554],[TB556],[TB560])
-                                        (SELECT 
-                                         '{0}' [COMPANY],'{1}' [CREATOR],'{2}' [USR_GROUP],'{3}' [CREATE_DATE],'{4}' [MODIFIER],'{5}' [MODI_DATE],'{6}' [FLAG],'{7}' [CREATE_TIME],'{8}' [MODI_TIME],'{9}' [TRANS_TYPE],
-                                         '{10}' [TRANS_NAME],{11} [sync_count],'{12}' [DataGroup],'{13}' [TB001],'{14}' [TB002],[BOMMD].MD003 [TB003],
-                                         CASE 
-                                            WHEN MB041=1 AND [BOMMD].MD003 NOT LIKE '201%' 
-                                                THEN CONVERT(decimal(16,4),CEILING({15}/[BOMMC].MC004*[BOMMD].MD006/[BOMMD].MD007*(1+[BOMMD].MD008))) 
-                                            WHEN MB041=1 AND [BOMMD].MD003 LIKE '201%' 
-                                                THEN ROUND({15}/[BOMMC].MC004*[BOMMD].MD006/[BOMMD].MD007*(1+[BOMMD].MD008),0) 
-                                            ELSE ROUND({15}/[BOMMC].MC004*[BOMMD].MD006/[BOMMD].MD007*(1+[BOMMD].MD008),3) 
-                                         END [TB004], 
-                                         0 [TB005],MD009 [TB006],[INVMB].MB004 [TB007],
-                                         [INVMB].MB017 [TB009],'1' [TB011],[INVMB].MB002 [TB012],[INVMB].MB003 [TB013],[BOMMD].MD001 [TB014],'N' [TB018],'0' [TB019],'0' [TB020],'2' [TB022],'0' [TB024],
-                                         '****' [TB025],'0' [TB026],'1' [TB027],'0' [TB029],'0' [TB030],'0' [TB031],'0' [TB501],'N' [TB554],'0' [TB556],'0' [TB560]
-                                        FROM [TK].dbo.[BOMMD], [TK].dbo.[INVMB],[TK].dbo.[BOMMC]
-                                        WHERE [BOMMD].MD003 = [INVMB].MB001
-                                        and [BOMMD].MD001 =[BOMMC].MC001
-                                        AND MD001 = '{16}' AND ISNULL(MD012, '') = ''
-                                        )",
-                                        MOCTA.COMPANY, MOCTA.CREATOR, MOCTA.USR_GROUP, MOCTA.CREATE_DATE, MOCTA.MODIFIER, MOCTA.MODI_DATE, MOCTA.FLAG, MOCTA.CREATE_TIME, MOCTA.MODI_TIME, MOCTA.TRANS_TYPE,
-                                        MOCTA.TRANS_NAME, MOCTA.sync_count, MOCTA.DataGroup, MOCTA.TA001, MOCTA.TA002, MOCTA015
-                                        , MOCMB001);
-
-
-                    sbSql.AppendFormat(@" ");
-
-
-                    cmd.Connection = sqlConn;
-                    cmd.CommandTimeout = 60;
-                    cmd.CommandText = sbSql.ToString();
-                    cmd.Transaction = tran;
-                    result = cmd.ExecuteNonQuery();
-
-                    if (result == 0)
+                    using (SqlConnection sqlConn = new SqlConnection(sqlsb.ConnectionString))
                     {
-                        tran.Rollback();    //交易取消
-                    }
-                    else
-                    {
-                        tran.Commit();      //執行交易  
+                        sqlConn.Open();
 
+                        using (SqlTransaction tran = sqlConn.BeginTransaction())
+                        using (SqlCommand cmd = sqlConn.CreateCommand())
+                        {
+                            cmd.Transaction = tran;
+                            cmd.CommandTimeout = 60;
 
+                            sbSql.Clear();
+
+                            // INSERT INTO MOCTA
+                            sbSql.AppendFormat(@"
+                                INSERT INTO [TK].[dbo].[MOCTA]
+                                ([COMPANY],[CREATOR],[USR_GROUP],[CREATE_DATE],[MODIFIER],[MODI_DATE],[FLAG],[CREATE_TIME],[MODI_TIME],[TRANS_TYPE],
+                                 [TRANS_NAME],[sync_count],[DataGroup],[TA001],[TA002],[TA003],[TA004],[TA005],[TA006],[TA007],
+                                 [TA009],[TA010],[TA011],[TA012],[TA013],[TA014],[TA015],[TA016],[TA017],[TA018],
+                                 [TA019],[TA020],[TA021],[TA022],[TA024],[TA025],[TA029],[TA030],[TA031],[TA034],[TA035],
+                                 [TA040],[TA041],[TA043],[TA044],[TA045],[TA046],[TA047],[TA049],[TA050],[TA200],
+                                 [TA026],[TA027],[TA028])
+                                VALUES
+                                ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}',
+                                 '{10}','{11}','{12}','{13}','{14}','{15}','{16}','{17}','{18}','{19}',
+                                 '{20}','{21}','{22}','{23}','{24}','{25}','{26}','{27}','{28}','{29}',
+                                 '{30}','{31}','{32}','{33}','{34}','{35}',N'{36}','{37}','{38}','{39}','{40}',
+                                 '{41}','{42}','{43}','{44}','{45}','{46}','{47}','{48}','{49}','{50}',
+                                 '{51}','{52}','{53}')",
+                                MOCTA.COMPANY, MOCTA.CREATOR, MOCTA.USR_GROUP, MOCTA.CREATE_DATE, MOCTA.MODIFIER, MOCTA.MODI_DATE, MOCTA.FLAG, MOCTA.CREATE_TIME, MOCTA.MODI_TIME, MOCTA.TRANS_TYPE,
+                                MOCTA.TRANS_NAME, MOCTA.sync_count, MOCTA.DataGroup, MOCTA.TA001, MOCTA.TA002, MOCTA.TA003, MOCTA.TA004, MOCTA.TA005, MOCTA.TA006, MOCTA.TA007,
+                                MOCTA.TA009, MOCTA.TA010, MOCTA.TA011, MOCTA.TA012, MOCTA.TA013, MOCTA.TA014, MOCTA.TA015, MOCTA.TA016, MOCTA.TA017, MOCTA.TA018,
+                                MOCTA.TA019, MOCTA.TA020, MOCTA.TA021, MOCTA.TA022, MOCTA.TA024, MOCTA.TA025, MOCTA.TA029, MOCTA.TA030, MOCTA.TA031, MOCTA.TA034, MOCTA.TA035,
+                                MOCTA.TA040, MOCTA.TA041, MOCTA.TA043, MOCTA.TA044, MOCTA.TA045, MOCTA.TA046, MOCTA.TA047, MOCTA.TA049, MOCTA.TA050, MOCTA.TA200,
+                                MOCTA.TA026, MOCTA.TA027, MOCTA.TA028);
+
+                            // INSERT INTO MOCTB
+                            sbSql.AppendFormat(@"
+                                INSERT INTO [TK].dbo.[MOCTB]
+                                ([COMPANY],[CREATOR],[USR_GROUP],[CREATE_DATE],[MODIFIER],[MODI_DATE],[FLAG],[CREATE_TIME],[MODI_TIME],[TRANS_TYPE],
+                                 [TRANS_NAME],[sync_count],[DataGroup],[TB001],[TB002],[TB003],[TB004],[TB005],[TB006],[TB007],
+                                 [TB009],[TB011],[TB012],[TB013],[TB014],[TB018],[TB019],[TB020],[TB022],[TB024],
+                                 [TB025],[TB026],[TB027],[TB029],[TB030],[TB031],[TB501],[TB554],[TB556],[TB560])
+                                (SELECT 
+                                 '{0}' [COMPANY],'{1}' [CREATOR],'{2}' [USR_GROUP],'{3}' [CREATE_DATE],'{4}' [MODIFIER],'{5}' [MODI_DATE],'{6}' [FLAG],'{7}' [CREATE_TIME],'{8}' [MODI_TIME],'{9}' [TRANS_TYPE],
+                                 '{10}' [TRANS_NAME],{11} [sync_count],'{12}' [DataGroup],'{13}' [TB001],'{14}' [TB002],[BOMMD].MD003 [TB003],
+                                 CASE 
+                                    WHEN MB041=1 AND [BOMMD].MD003 NOT LIKE '201%' 
+                                        THEN CONVERT(decimal(16,4),CEILING({15}/[BOMMC].MC004*[BOMMD].MD006/[BOMMD].MD007*(1+[BOMMD].MD008))) 
+                                    WHEN MB041=1 AND [BOMMD].MD003 LIKE '201%' 
+                                        THEN ROUND({15}/[BOMMC].MC004*[BOMMD].MD006/[BOMMD].MD007*(1+[BOMMD].MD008),0) 
+                                    ELSE ROUND({15}/[BOMMC].MC004*[BOMMD].MD006/[BOMMD].MD007*(1+[BOMMD].MD008),3) 
+                                 END [TB004], 
+                                 0 [TB005],MD009 [TB006],[INVMB].MB004 [TB007],
+                                 [INVMB].MB017 [TB009],'1' [TB011],[INVMB].MB002 [TB012],[INVMB].MB003 [TB013],[BOMMD].MD001 [TB014],'N' [TB018],'0' [TB019],'0' [TB020],'2' [TB022],'0' [TB024],
+                                 '****' [TB025],'0' [TB026],'1' [TB027],'0' [TB029],'0' [TB030],'0' [TB031],'0' [TB501],'N' [TB554],'0' [TB556],'0' [TB560]
+                                FROM [TK].dbo.[BOMMD], [TK].dbo.[INVMB],[TK].dbo.[BOMMC]
+                                WHERE [BOMMD].MD003 = [INVMB].MB001
+                                and [BOMMD].MD001 =[BOMMC].MC001
+                                AND MD001 = '{16}' AND ISNULL(MD012, '') = ''
+                                )",
+                                MOCTA.COMPANY, MOCTA.CREATOR, MOCTA.USR_GROUP, MOCTA.CREATE_DATE, MOCTA.MODIFIER, MOCTA.MODI_DATE, MOCTA.FLAG, MOCTA.CREATE_TIME, MOCTA.MODI_TIME, MOCTA.TRANS_TYPE,
+                                MOCTA.TRANS_NAME, MOCTA.sync_count, MOCTA.DataGroup, MOCTA.TA001, MOCTA.TA002, MOCTA015,
+                                MOCMB001);
+
+                            cmd.CommandText = sbSql.ToString();
+
+                            result = cmd.ExecuteNonQuery();
+
+                            if (result == 0)
+                            {
+                                tran.Rollback();
+                                MessageBox.Show("新增資料失敗，交易已回滾。");
+                            }
+                            else
+                            {
+                                tran.Commit();
+                            }
+                        }
                     }
                 }
-
-
             }
-            catch
+            catch (Exception ex)
             {
-
-            }
-
-            finally
-            {
-                sqlConn.Close();
+                MessageBox.Show("執行發生錯誤: " + ex.Message);
             }
         }
 
