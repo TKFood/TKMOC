@@ -4400,31 +4400,47 @@ namespace TKMOC
 
         private void button7_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(textBox42.Text) & !string.IsNullOrEmpty(textBox43.Text) & !string.IsNullOrEmpty(textBox72.Text))
+            string TD001 = textBox42.Text;
+            string TD002 = textBox43.Text;
+            string TD003 = textBox72.Text;
+
+            if (!string.IsNullOrEmpty(TD001) & !string.IsNullOrEmpty(TD002) & !string.IsNullOrEmpty(TD003))
             {
-                SEARCHCOPDEFAULT(textBox42.Text, textBox43.Text, textBox72.Text);
+                SEARCHCOPDEFAULT(TD001, TD002, TD003);
             }
         }
         private void button8_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(textBox42.Text) & !string.IsNullOrEmpty(textBox43.Text) & !string.IsNullOrEmpty(textBox72.Text))
+            string TD001 = textBox42.Text;
+            string TD002 = textBox43.Text;
+            string TD003 = textBox72.Text;
+
+            if (!string.IsNullOrEmpty(TD001) & !string.IsNullOrEmpty(TD002) & !string.IsNullOrEmpty(TD003))
             {
-                SEARCHCOPDEFAULT2(textBox42.Text, textBox43.Text, textBox72.Text);
+                SEARCHCOPDEFAULT2(TD001, TD002, TD003);
             }
         }
         private void button9_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(textBox42.Text) & !string.IsNullOrEmpty(textBox43.Text) & !string.IsNullOrEmpty(textBox72.Text))
+            string TD001 = textBox42.Text;
+            string TD002 = textBox43.Text;
+            string TD003 = textBox72.Text;
+
+            if (!string.IsNullOrEmpty(TD001) & !string.IsNullOrEmpty(TD002) & !string.IsNullOrEmpty(TD003))
             {
-                SEARCHCOPDEFAULT3(textBox42.Text, textBox43.Text, textBox72.Text); 
+                SEARCHCOPDEFAULT3(TD001, TD002, TD003); 
             }
         }
         private void button10_Click(object sender, EventArgs e)
         {
+            string ID = textBoxID.Text.ToString().Trim();
+            string TA001 = "A513";
+            string TA002 = "";
+            string TA020 = "";
+
             DateTime DT = new DateTime(); 
             if (MANU.Equals("烘焙生產線"))
-            {
-                TA001 = "A513";
+            {                
                 TA020 = comboBox3.SelectedValue.ToString().Trim();
             }
 
@@ -4433,14 +4449,20 @@ namespace TKMOC
                 //指定日期=生產日
                 DT = dt1;
                 TA002 = GETMAXTA002(TA001, DT);
-                ADDMOCMANULINERESULT(textBoxID.Text.ToString().Trim(), TA001, TA002);
+                if(!string.IsNullOrEmpty(TA002))
+                {
+                    ADDMOCMANULINERESULT(ID, TA001, TA002);
+                    string MC001 = MB001B;
 
-                string MC001 = MB001B;
-                ADDMOCTATB(TA001, TA002, TA020, DT, MC001);
+                    ADDMOCTATB(TA001, TA002, TA020, DT, MC001);
 
-                SEARCHMOCMANULINE_BAKING(dateTimePicker1.Value.ToString("yyyyMMdd"), comboBox1.Text.Trim());
+                    string SDATES = dateTimePicker1.Value.ToString("yyyyMMdd");
+                    string MANU = comboBox1.Text.Trim();
+                    SEARCHMOCMANULINE_BAKING(SDATES, MANU);
 
-                MessageBox.Show("完成");
+                    MessageBox.Show("完成");
+                }                
+               
             }
             else
             {
@@ -4455,8 +4477,11 @@ namespace TKMOC
                 if (dialogResult == DialogResult.Yes)
                 {
                     DELTE_MOCMANULINERESULTBAKING(DELID, DELMOCTA001B, DELMOCTA002B);
-                    SEARCHMOCMANULINE_BAKING(dateTimePicker1.Value.ToString("yyyyMMdd"), comboBox1.Text.Trim());
-                    
+
+                    string SDATES = dateTimePicker1.Value.ToString("yyyyMMdd");
+                    string MANU = comboBox1.Text.Trim();
+                    SEARCHMOCMANULINE_BAKING(SDATES, MANU);
+
 
                 }
                 else if (dialogResult == DialogResult.No)
@@ -4470,7 +4495,10 @@ namespace TKMOC
         private void button79_Click(object sender, EventArgs e)
         {
             ADD_MOCMANULINEBAKING_BATCH(comboBox21.Text,comboBox2.Text,dateTimePicker4.Value.ToString("yyyyMMdd"),textBox42.Text.Trim(), textBox43.Text.Trim(), textBox72.Text.Trim());
-            SEARCHMOCMANULINE_BAKING(dateTimePicker1.Value.ToString("yyyyMMdd"), comboBox1.Text.Trim());
+
+            string SDATES = dateTimePicker1.Value.ToString("yyyyMMdd");
+            string MANU = comboBox1.Text.Trim();
+            SEARCHMOCMANULINE_BAKING(SDATES, MANU);
         }
 
         private void button91_Click(object sender, EventArgs e)
@@ -4509,7 +4537,9 @@ namespace TKMOC
 
         private void button11_Click(object sender, EventArgs e)
         {
-            SEARCHMOCMANULINE_BAKING(dateTimePicker2.Value.ToString("yyyyMMdd"), comboBox4.Text.Trim());
+            string SDATES = dateTimePicker2.Value.ToString("yyyyMMdd");
+            string MANU = comboBox4.Text.Trim();
+            SEARCHMOCMANULINE_BAKING(SDATES, MANU);          
         }
         private void button13_Click(object sender, EventArgs e)
         {
@@ -4569,7 +4599,10 @@ namespace TKMOC
             if (dialogResult == DialogResult.Yes)
             {
                 DELMOCMANULINE(textBoxID2.Text.ToString().Trim());
-                SEARCHMOCMANULINE_BAKING(dateTimePicker2.Value.ToString("yyyyMMdd"), comboBox4.Text.Trim());
+
+                string SDATES = dateTimePicker2.Value.ToString("yyyyMMdd");
+                string MANU = comboBox4.Text.Trim();
+                SEARCHMOCMANULINE_BAKING(SDATES, MANU);
             }
             else if (dialogResult == DialogResult.No)
             {
@@ -4579,7 +4612,9 @@ namespace TKMOC
         private void button16_Click(object sender, EventArgs e)
         {
             CHECKMOCTAB();
-            SEARCHMOCMANULINE_BAKING(dateTimePicker2.Value.ToString("yyyyMMdd"), comboBox4.Text.Trim());
+            string SDATES = dateTimePicker2.Value.ToString("yyyyMMdd");
+            string MANU = comboBox4.Text.Trim();
+            SEARCHMOCMANULINE_BAKING(SDATES, MANU);
         }
         private void button17_Click(object sender, EventArgs e)
         {
@@ -4639,7 +4674,10 @@ namespace TKMOC
                 string MC001 = MB001_DV4;
                 ADDMOCTATB(TA001, TA002, TA020, DT, MC001);
 
-                SEARCHMOCMANULINE_BAKING(dateTimePicker3.Value.ToString("yyyyMMdd"), comboBox5.Text.Trim());
+                string SDATES = dateTimePicker3.Value.ToString("yyyyMMdd");
+                string MANU = comboBox5.Text.Trim();
+                SEARCHMOCMANULINE_BAKING(SDATES, MANU);
+                
 
                 MessageBox.Show("完成");
             }
@@ -4657,8 +4695,11 @@ namespace TKMOC
                 if (dialogResult == DialogResult.Yes)
                 {
                     DELTE_MOCMANULINERESULTBAKING(DELID_DV6, DELMOCTA001_DV6, DELMOCTA002_DV6);
-                    SEARCHMOCMANULINE_BAKING(dateTimePicker3.Value.ToString("yyyyMMdd"), comboBox5.Text.Trim());
-                    
+
+                    string SDATES = dateTimePicker3.Value.ToString("yyyyMMdd");
+                    string MANU = comboBox5.Text.Trim();
+                    SEARCHMOCMANULINE_BAKING(SDATES, MANU);
+
                 }
                 else if (dialogResult == DialogResult.No)
                 {
