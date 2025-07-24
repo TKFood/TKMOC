@@ -2449,64 +2449,39 @@ namespace TKMOC
 
         public DataTable SEARCH_MOCMANULINEMB001LIKES()
         {
-            SqlConnection sqlConn = new SqlConnection();
-            SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
-            DataSet ds1 = new DataSet();
-            StringBuilder QUERYS = new StringBuilder();
-    
+            StringBuilder sbSql = new StringBuilder();
+            DataTable resultTable = new DataTable();
 
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
+                // 連線與解密設定
+                Class1 TKID = new Class1();
                 SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
                 sqlsb.Password = TKID.Decryption(sqlsb.Password);
                 sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
 
-                String connectionString;  
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                sbSql.Clear();
-                QUERYS.Clear();
-               
-                sbSql.AppendFormat(@"  
-                                    SELECT [MB001]
-                                    FROM [TKMOC].[dbo].[MOCMANULINEMB001LIKES]
-                                    ");
-                
-
-                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
-                sqlConn.Open();
-                ds1.Clear();
-                adapter1.Fill(ds1, "TEMPds1");
-                sqlConn.Close();
-
-
-                if (ds1 != null && ds1.Tables["TEMPds1"].Rows.Count >= 1)
+                using (SqlConnection sqlConn = new SqlConnection(sqlsb.ConnectionString))
                 {
-                    return ds1.Tables["TEMPds1"];
-                }
-                else
-                {
-                    return null;
+                    sbSql.Append(@"
+                SELECT [MB001]
+                FROM [TKMOC].[dbo].[MOCMANULINEMB001LIKES]
+            ");
+
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(sbSql.ToString(), sqlConn))
+                    {
+                        sqlConn.Open();
+                        adapter.Fill(resultTable);
+                    }
                 }
 
+                return resultTable.Rows.Count > 0 ? resultTable : null;
             }
             catch
             {
                 return null;
             }
-            finally
-            {
-                sqlConn.Close();
-            }
         }
+
 
         //新增datagrid的ComboBoxColumn
         public void NEWdataGridView28ComboBoxColumn()
@@ -2604,129 +2579,88 @@ namespace TKMOC
             }
         }
 
-        public void ADDTBCOPTDCHECKMOC(string TD001,
-                              string TD002,
-                              string TD003,
-                              string MOCCHECKDATES,
-                              string MOCCHECKS,
-                              string MOCCHECKSCOMMENTS
-                             )
+        public void ADDTBCOPTDCHECKMOC(
+    string TD001,
+    string TD002,
+    string TD003,
+    string MOCCHECKDATES,
+    string MOCCHECKS,
+    string MOCCHECKSCOMMENTS)
         {
-            SqlConnection sqlConn = new SqlConnection();
-            SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
-            DataSet ds1 = new DataSet();
-
-            MOCCHECKDATES = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
+            SqlConnection sqlConn = null;
+            SqlTransaction tran = null;
+            SqlCommand cmd = new SqlCommand();
+            int result = 0;
 
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
+                // 解密帳密
+                Class1 TKID = new Class1();
                 SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
                 sqlsb.Password = TKID.Decryption(sqlsb.Password);
                 sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
 
-                String connectionString;
                 sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                sqlConn.Close();
                 sqlConn.Open();
                 tran = sqlConn.BeginTransaction();
 
+                // 時間固定使用 Now
+                MOCCHECKDATES = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
+
+                // 使用 StringBuilder 組 SQL
                 sbSql.Clear();
-
-
-                sbSql.AppendFormat(@" 
+                sbSql.AppendFormat(@"
                                     INSERT INTO [TKBUSINESS].[dbo].[TBCOPTDCHECK]
-                                    ([TD001]
-                                    ,[TD002]
-                                    ,[TD003]
-                                    ,[TD004]
-                                    ,[TD005]
-                                    ,[TD008]
-                                    ,[TD009]
-                                    ,[TD010]
-                                    ,[TD011]
-                                    ,[TD012]
-                                    ,[TD013]
-                                    ,[TD024]
-                                    ,[TD025]
-                                    ,[TC015]
-                                    ,[TD020]
-                                    ,[MOCCHECKDATES]
-                                    ,[MOCCHECKS]
-                                    ,[MOCCHECKSCOMMENTS]
-                                    ,[PURCHECKDATES]
-                                    ,[PURCHECKS]
-                                    ,[PURCHECKSCOMMENTS]
-                                    ,[SALESCHECKDATES]
-                                    ,[SALESCHECKSCOMMENTS]
-             
-                                    )
+                                    ([TD001],[TD002],[TD003],[TD004],[TD005],[TD008],[TD009],[TD010],[TD011],[TD012],
+                                     [TD013],[TD024],[TD025],[TC015],[TD020],[MOCCHECKDATES],[MOCCHECKS],[MOCCHECKSCOMMENTS],
+                                     [PURCHECKDATES],[PURCHECKS],[PURCHECKSCOMMENTS],[SALESCHECKDATES],[SALESCHECKSCOMMENTS])
                                     SELECT 
-                                    [TD001]
-                                    ,[TD002]
-                                    ,[TD003]
-                                    ,[TD004]
-                                    ,[TD005]
-                                    ,[TD008]
-                                    ,[TD009]
-                                    ,[TD010]
-                                    ,[TD011]
-                                    ,[TD012]
-                                    ,[TD013]
-                                    ,[TD024]
-                                    ,[TD025]
-                                    ,[TC015]
-                                    ,[TD020]
-                                    ,'{3}' AS [MOCCHECKDATES]
-                                    ,'{4}' AS [MOCCHECKS]
-                                    ,'{5}' AS [MOCCHECKSCOMMENTS]
-                                    ,(SELECT TOP 1 [PURCHECKDATES] FROM [TKBUSINESS].[dbo].[TBCOPTDCHECK] WHERE [TBCOPTDCHECK].TD001=COPTD.TD001 AND [TBCOPTDCHECK].TD002=COPTD.TD002 AND [TBCOPTDCHECK].TD003=COPTD.TD003 ORDER BY ID DESC) AS [PURCHECKDATES]
-                                    ,(SELECT TOP 1 [PURCHECKS] FROM [TKBUSINESS].[dbo].[TBCOPTDCHECK] WHERE [TBCOPTDCHECK].TD001=COPTD.TD001 AND [TBCOPTDCHECK].TD002=COPTD.TD002 AND [TBCOPTDCHECK].TD003=COPTD.TD003 ORDER BY ID DESC) AS [PURCHECKS]
-                                    ,(SELECT TOP 1 [PURCHECKSCOMMENTS] FROM [TKBUSINESS].[dbo].[TBCOPTDCHECK] WHERE [TBCOPTDCHECK].TD001=COPTD.TD001 AND [TBCOPTDCHECK].TD002=COPTD.TD002 AND [TBCOPTDCHECK].TD003=COPTD.TD003 ORDER BY ID DESC) AS [PURCHECKSCOMMENTS]
-                                    ,(SELECT TOP 1 [SALESCHECKDATES] FROM [TKBUSINESS].[dbo].[TBCOPTDCHECK] WHERE [TBCOPTDCHECK].TD001=COPTD.TD001 AND [TBCOPTDCHECK].TD002=COPTD.TD002 AND [TBCOPTDCHECK].TD003=COPTD.TD003 ORDER BY ID DESC) AS [SALESCHECKDATES]
-                                    ,(SELECT TOP 1 [SALESCHECKSCOMMENTS] FROM [TKBUSINESS].[dbo].[TBCOPTDCHECK] WHERE [TBCOPTDCHECK].TD001=COPTD.TD001 AND [TBCOPTDCHECK].TD002=COPTD.TD002 AND [TBCOPTDCHECK].TD003=COPTD.TD003 ORDER BY ID DESC) AS [SALESCHECKSCOMMENTS]
-                                    FROM [TK].dbo.COPTD,[TK].dbo.COPTC
-                                    WHERE TC001=TD001 AND TC002=TD002
-                                    AND TD001='{0}' AND TD002='{1}' AND TD003='{2}'
+                                        TD.TD001, TD.TD002, TD.TD003, TD.TD004, TD.TD005, TD.TD008, TD.TD009, TD.TD010,
+                                        TD.TD011, TD.TD012, TD.TD013, TD.TD024, TD.TD025, TC.TC015, TD.TD020,
+                                        '{3}' AS MOCCHECKDATES,
+                                        '{4}' AS MOCCHECKS,
+                                        '{5}' AS MOCCHECKSCOMMENTS,
+                                        (SELECT TOP 1 PURCHECKDATES FROM [TKBUSINESS].[dbo].[TBCOPTDCHECK] WHERE TD001=TD.TD001 AND TD002=TD.TD002 AND TD003=TD.TD003 ORDER BY ID DESC),
+                                        (SELECT TOP 1 PURCHECKS FROM [TKBUSINESS].[dbo].[TBCOPTDCHECK] WHERE TD001=TD.TD001 AND TD002=TD.TD002 AND TD003=TD.TD003 ORDER BY ID DESC),
+                                        (SELECT TOP 1 PURCHECKSCOMMENTS FROM [TKBUSINESS].[dbo].[TBCOPTDCHECK] WHERE TD001=TD.TD001 AND TD002=TD.TD002 AND TD003=TD.TD003 ORDER BY ID DESC),
+                                        (SELECT TOP 1 SALESCHECKDATES FROM [TKBUSINESS].[dbo].[TBCOPTDCHECK] WHERE TD001=TD.TD001 AND TD002=TD.TD002 AND TD003=TD.TD003 ORDER BY ID DESC),
+                                        (SELECT TOP 1 SALESCHECKSCOMMENTS FROM [TKBUSINESS].[dbo].[TBCOPTDCHECK] WHERE TD001=TD.TD001 AND TD002=TD.TD002 AND TD003=TD.TD003 ORDER BY ID DESC)
+                                    FROM [TK].dbo.COPTD TD
+                                    INNER JOIN [TK].dbo.COPTC TC ON TC.TC001 = TD.TD001 AND TC.TC002 = TD.TD002
+                                    WHERE TD.TD001 = '{0}' AND TD.TD002 = '{1}' AND TD.TD003 = '{2}'
+                                ", TD001, TD002, TD003, MOCCHECKDATES, MOCCHECKS, MOCCHECKSCOMMENTS);
 
-                                    ", TD001, TD002, TD003, MOCCHECKDATES, MOCCHECKS, MOCCHECKSCOMMENTS);
-
-
+                // 設定 Command 執行 SQL
                 cmd.Connection = sqlConn;
+                cmd.Transaction = tran;
                 cmd.CommandTimeout = 60;
                 cmd.CommandText = sbSql.ToString();
-                cmd.Transaction = tran;
+
                 result = cmd.ExecuteNonQuery();
 
                 if (result == 0)
                 {
-                    tran.Rollback();    //交易取消
+                    tran.Rollback();
                 }
                 else
                 {
-                    tran.Commit();      //執行交易  
-
-                    //MessageBox.Show("完成");
+                    tran.Commit();
                 }
-
             }
-            catch
+            catch (Exception ex)
             {
-
+                tran?.Rollback();
+                MessageBox.Show("新增失敗：" + ex.Message);
             }
-
             finally
             {
-                sqlConn.Close();
+                if (sqlConn != null && sqlConn.State == ConnectionState.Open)
+                {
+                    sqlConn.Close();
+                }
             }
-
         }
+
         public void ADD_MOCMANULINEBAKING()
         {
             DataTable COPTCTD = new DataTable();
@@ -2748,8 +2682,6 @@ namespace TKMOC
             string COPTD003 = null;
             string BOX = null;
             string PACKAGE = null;
-
-
 
 
             if (dataGridView28.Rows.Count > 0)
@@ -2811,83 +2743,56 @@ namespace TKMOC
 
         public DataTable SEARCHCOPTCTDDATA(string TD001, string TD002, string TD003, string TD004)
         {
-            SqlConnection sqlConn = new SqlConnection();
-            SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            SqlConnection sqlConn = null;
+            SqlDataAdapter adapter1;
+            SqlCommandBuilder sqlCmdBuilder1;
             DataSet ds1 = new DataSet();
-            StringBuilder QUERYS = new StringBuilder();
 
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
+                // 資料庫連線初始化與解密
+                Class1 TKID = new Class1();
                 SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
                 sqlsb.Password = TKID.Decryption(sqlsb.Password);
                 sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+                
 
-                String connectionString;
                 sqlConn = new SqlConnection(sqlsb.ConnectionString);
 
+                // SQL 組合
+                StringBuilder sbSql = new StringBuilder();
+                sbSql.AppendFormat(@"
+                                    SELECT 
+                                        TD001, TD002, TD003, TC053, TD004, TD005, TD006,
+                                        (TD008 + TD024) AS TD008, TD010, (TC015 + '-' + TD020) AS TC015, TD013,
+                                        (CASE WHEN ISNULL(MD002,'') <> '' THEN (TD008 + TD024) * MD004 ELSE (TD008 + TD024) END) AS NUM,
+                                        MC004, MB017,
+                                        (CASE WHEN ISNULL(MC004,0) > 0 THEN CONVERT(decimal(16,4), ((TD008 + TD024) / MC004)) END) AS BARS,
+                                        (CASE WHEN ISNULL(MD002,'') <> '' THEN (TD008 + TD024) * MD004 ELSE (TD008 + TD024) END) AS NUMS,
+                                        (CASE WHEN ISNULL(TEMP.MD007,0) > 0 THEN CONVERT(decimal(16,4), ((TD008 + TD024) / TEMP.MD007)) END) AS BOXS,
+                                        TEMP.MD007
+                                    FROM [TK].dbo.INVMB WITH(NOLOCK)
+                                    INNER JOIN [TK].dbo.COPTD WITH(NOLOCK) ON INVMB.MB001 = TD004
+                                    INNER JOIN [TK].dbo.COPTC WITH(NOLOCK) ON TC001 = TD001 AND TC002 = TD002
+                                    LEFT JOIN [TK].dbo.INVMD ON MD001 = TD004 AND TD010 = MD002
+                                    LEFT JOIN [TK].dbo.BOMMC ON TD004 = MC001
+                                    LEFT JOIN [TKMOC].[dbo].[MOCHALFPRODUCTDBOXS] ON TD004 = MOCHALFPRODUCTDBOXS.MB001
+                                    LEFT JOIN (
+                                        SELECT TOP 1 MD001, MD003, MB001, MB002, ISNULL(MD007,1) AS MD007, ISNULL(MD010,1) AS MD010
+                                        FROM [TK].dbo.BOMMD
+                                        INNER JOIN [TK].dbo.INVMB ON MD003 = MB001
+                                        WHERE MB002 LIKE '%箱%' AND MD003 LIKE '2%' AND MD001 = '{3}'
+                                    ) AS TEMP ON TEMP.MD001 = COPTD.TD004
+                                    WHERE TD001 = '{0}' AND TD002 = '{1}' AND TD003 = '{2}'
+                                ", TD001, TD002, TD003, TD004);
 
-                sbSql.Clear();
-                QUERYS.Clear();
-              
-
-                // ,(CASE WHEN ISNULL(MC004,0)>0 THEN CONVERT(decimal(16,4),((TD008+TD024)/MC004)) END) AS BOXS
-                sbSql.AppendFormat(@"  
-                                    SELECT TD001,TD002,TD003,TC053,TD004,TD005,TD006,(TD008+TD024) AS TD008,TD010,(TC015+'-'+TD020) TC015 ,TD013
-                                    ,(CASE WHEN ISNULL(MD002,'')<>'' THEN (TD008+TD024)*MD004 ELSE (TD008+TD024)  END ) AS NUM
-                                    ,MC004,MB017
-
-                                    ,CASE WHEN ISNULL(MC004,0)>0 THEN CONVERT(decimal(16,4),((TD008+TD024)/MC004)) END AS BARS
-                                    ,(CASE WHEN ISNULL(MD002,'')<>'' THEN (TD008+TD024)*MD004 ELSE (TD008+TD024)  END ) AS NUMS
-                                    ,(CASE WHEN ISNULL(TEMP.MD007,0)>0 THEN CONVERT(decimal(16,4),((TD008+TD024)/TEMP.MD007)) END) AS BOXS
-                                    ,TEMP.MD007
-
-                                    FROM [TK].dbo.INVMB WITH(NOLOCK),[TK].dbo.COPTC WITH(NOLOCK),[TK].dbo.COPTD WITH(NOLOCK)
-                                    LEFT JOIN [TK].dbo.INVMD ON MD001=TD004 AND TD010=MD002
-                                    LEFT JOIN [TK].dbo.BOMMC ON TD004=MC001
-                                    LEFT JOIN [TKMOC].[dbo].[MOCHALFPRODUCTDBOXS] ON TD004=[MOCHALFPRODUCTDBOXS].[MB001]
-                                    LEFT JOIN
-                                    (
-                                    SELECT TOP 1 MD001,MD003,MB001,MB002,ISNULL(MD007,1) AS MD007,ISNULL(MD010,1) AS MD010
-                                    FROM [TK].dbo.BOMMD,[TK].dbo.INVMB
-                                    WHERE MD003=MB001
-                                    AND MB002 LIKE '%箱%'
-                                    AND MD003 LIKE '2%'
-                                    AND MD001='{3}'
-                                    ) AS TEMP ON TEMP.MD001=COPTD.TD004
-
-                                    WHERE TC001=TD001 AND TC002=TD002
-                                    AND INVMB.MB001=TD004
-                                    AND TD001='{0}' AND TD002='{1}' AND TD003='{2}'
-
-                                    ", TD001, TD002, TD003, TD004);
-
-
-
-
-                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
+                adapter1 = new SqlDataAdapter(sbSql.ToString(), sqlConn);
                 sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+
                 sqlConn.Open();
-                ds1.Clear();
                 adapter1.Fill(ds1, "TEMPds1");
-                sqlConn.Close();
 
-
-                if (ds1.Tables["TEMPds1"].Rows.Count > 0)
-                {
-                    return ds1.Tables["TEMPds1"];
-                }
-                else
-                {
-                    return null;
-                }
-
-
+                return ds1.Tables["TEMPds1"].Rows.Count > 0 ? ds1.Tables["TEMPds1"] : null;
             }
             catch
             {
@@ -2895,9 +2800,13 @@ namespace TKMOC
             }
             finally
             {
-                sqlConn.Close();
+                if (sqlConn != null && sqlConn.State == ConnectionState.Open)
+                {
+                    sqlConn.Close();
+                }
             }
         }
+
 
         public void ADDNEWTOTKMOCMOCMANULINE(
                                             Guid ID,
