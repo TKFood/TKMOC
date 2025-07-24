@@ -1347,141 +1347,61 @@ namespace TKMOC
             return null;
         }
 
-        public void ADDMOCMANULINERESULT(string ID,string TA001,string TA002)
+        public void ADDMOCMANULINERESULT(string ID, string TA001, string TA002)
         {
-            StringBuilder sbSql = new StringBuilder();
-            StringBuilder sbSqlQuery = new StringBuilder();
-            SqlConnection sqlConn = new SqlConnection();
-            SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
-            SqlTransaction tran;
-            SqlCommand cmd = new SqlCommand();
-            DataSet ds1 = new DataSet();
-
-            if (MANU.Equals("烘焙生產線"))
+            try
             {
-                try
+                if (MANU == "烘焙生產線" || MANU == "烘焙包裝線")
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
+                    Class1 TKID = new Class1();//解密類別實體
                     SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
                     sqlsb.Password = TKID.Decryption(sqlsb.Password);
                     sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
 
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                    sqlConn.Close();
-                    sqlConn.Open();
-                    tran = sqlConn.BeginTransaction();
-
-                    sbSql.Clear();
-
-
-                    
-                    sbSql.AppendFormat(@" 
-                                        INSERT INTO[TKMOC].[dbo].[MOCMANULINERESULTBAKING]
-                                        ([SID],[MOCTA001],[MOCTA002])
-                                        VALUES('{0}', '{1}', '{2}')
-                                        ", ID, TA001, TA002);
-                    sbSql.AppendFormat(" ");
-
-
-                    cmd.Connection = sqlConn;
-                    cmd.CommandTimeout = 60;
-                    cmd.CommandText = sbSql.ToString();
-                    cmd.Transaction = tran;
-                    result = cmd.ExecuteNonQuery();
-
-                    if (result == 0)
+                    using (SqlConnection sqlConn = new SqlConnection(sqlsb.ConnectionString))
                     {
-                        tran.Rollback();    //交易取消
+                        sqlConn.Open();
+                        using (SqlTransaction tran = sqlConn.BeginTransaction())
+                        {
+                            using (SqlCommand cmd = sqlConn.CreateCommand())
+                            {
+                                cmd.Transaction = tran;
+                                cmd.CommandTimeout = 60;
+                                cmd.CommandText = @"
+                                                    INSERT INTO [TKMOC].[dbo].[MOCMANULINERESULTBAKING]
+                                                    ([SID], [MOCTA001], [MOCTA002])
+                                                    VALUES (@ID, @TA001, @TA002)";
+
+                                cmd.Parameters.AddWithValue("@ID", ID);
+                                cmd.Parameters.AddWithValue("@TA001", TA001);
+                                cmd.Parameters.AddWithValue("@TA002", TA002);
+
+                                int result = cmd.ExecuteNonQuery();
+
+                                if (result == 0)
+                                {
+                                    tran.Rollback();
+                                }
+                                else
+                                {
+                                    tran.Commit();
+                                }
+                            }
+                        }
                     }
-                    else
-                    {
-                        tran.Commit();      //執行交易  
-
-
-                    }
-
                 }
-                catch
+                else
                 {
-
-                }
-
-                finally
-                {
-                    sqlConn.Close();
+                    // MANU 不符合條件，跳出或其他處理
+                    return;
                 }
             }
-            else if (MANU.Equals("烘焙包裝線"))
+            catch (Exception ex)
             {
-                try
-                {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                    sqlConn.Close();
-                    sqlConn.Open();
-                    tran = sqlConn.BeginTransaction();
-
-                    sbSql.Clear();
-
-
-
-                    sbSql.AppendFormat(@" 
-                                        INSERT INTO[TKMOC].[dbo].[MOCMANULINERESULTBAKING]
-                                        ([SID],[MOCTA001],[MOCTA002])
-                                        VALUES('{0}', '{1}', '{2}')
-                                        ", ID, TA001, TA002);
-                    sbSql.AppendFormat(" ");
-
-
-                    cmd.Connection = sqlConn;
-                    cmd.CommandTimeout = 60;
-                    cmd.CommandText = sbSql.ToString();
-                    cmd.Transaction = tran;
-                    result = cmd.ExecuteNonQuery();
-
-                    if (result == 0)
-                    {
-                        tran.Rollback();    //交易取消
-                    }
-                    else
-                    {
-                        tran.Commit();      //執行交易  
-
-
-                    }
-
-                }
-                catch
-                {
-
-                }
-
-                finally
-                {
-                    sqlConn.Close();
-                }
+                MessageBox.Show("新增製令結果失敗: " + ex.Message);
             }
-
-
-
         }
+
 
         public void ADDMOCTATB(string TA001,string TA002,string TA020, DateTime DT,string MC001)
         {
