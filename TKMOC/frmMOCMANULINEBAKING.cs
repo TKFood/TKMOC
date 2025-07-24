@@ -411,150 +411,64 @@ namespace TKMOC
 
         private void textBox7_TextChanged(object sender, EventArgs e)
         {
-            SEARCHMB001(textBox7.Text.Trim());
+            string MB001 = textBox7.Text.Trim();
 
-            SEARCHMOCMANULINETEMPDATAS(textBox7.Text.Trim());
+            SEARCHMB001(MB001);
+            SEARCHMOCMANULINETEMPDATAS(MB001);
         }
 
         public void SEARCHMB001(string MB001)
         {
+            DataTable dt = new DataTable();
 
-            StringBuilder sbSql = new StringBuilder();
-            StringBuilder sbSqlQuery = new StringBuilder();
-            SqlConnection sqlConn = new SqlConnection();
-            SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
-            SqlTransaction tran;
-            SqlCommand cmd = new SqlCommand();
-            DataSet ds1 = new DataSet();
-
-            if (MANU.Equals("烘焙生產線"))
+            try
             {
+                Class1 tkid = new Class1();
+                var connStr = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+                var sqlsb = new SqlConnectionStringBuilder(connStr);
+
+                sqlsb.Password = tkid.Decryption(sqlsb.Password);
+                sqlsb.UserID = tkid.Decryption(sqlsb.UserID);
+
+                string sql = $@"
+                                SELECT MB001, MB002, MB003, MC004, MB017 
+                                FROM [TK].dbo.INVMB, [TK].dbo.BOMMC
+                                WHERE MB001 = MC001
+                                AND MB001 = @MB001";
+
+                using (SqlConnection conn = new SqlConnection(sqlsb.ConnectionString))
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                {
+                    cmd.Parameters.AddWithValue("@MB001", MB001);                    
+                    conn.Open();
+                    adapter.Fill(dt);
                 
-                try
-                {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                    sbSql.Clear();
-                    sbSqlQuery.Clear();
-
-                    
-                    sbSql.AppendFormat(@"  
-                                        SELECT MB001,MB002,MB003,MC004 ,MB017 
-                                        FROM [TK].dbo.INVMB,[TK].dbo.BOMMC
-                                        WHERE MB001=MC001
-                                        AND MB001='{0}'
-                                        ", MB001);
-
-                    adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                    sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
-                    sqlConn.Open();
-                    ds1.Clear();
-                    adapter1.Fill(ds1, "ds1");
-                    sqlConn.Close();
-
-
-                    if (ds1.Tables["ds1"].Rows.Count == 0)
-                    {
-
-                    }
-                    else
-                    {
-                        if (ds1.Tables["ds1"].Rows.Count >= 1)
-                        {
-                            textBox10.Text = ds1.Tables["ds1"].Rows[0]["MB002"].ToString();
-                            textBox11.Text = ds1.Tables["ds1"].Rows[0]["MB003"].ToString();
-                            textBox33.Text = ds1.Tables["ds1"].Rows[0]["MC004"].ToString();
-                            //comboBox6.SelectedValue = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
-                            //label52.Text = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
-
-                        }
-                    }
-
                 }
-                catch
-                {
 
-                }
-                finally
+                if (dt != null && dt.Rows.Count > 0)
                 {
+                    DataRow row = dt.Rows[0];
 
+                    if (MANU == "烘焙生產線")
+                    {
+                        textBox10.Text = row["MB002"].ToString();
+                        textBox11.Text = row["MB003"].ToString();
+                        textBox33.Text = row["MC004"].ToString();
+                    }
+                    else if (MANU == "烘焙包裝線")
+                    {
+                        textBox16.Text = row["MB002"].ToString();
+                        textBox17.Text = row["MB003"].ToString();
+                        textBox14.Text = row["MC004"].ToString();
+                    }
                 }
             }
-            else if (MANU.Equals("烘焙包裝線"))
+
+            catch (Exception ex)
             {
-
-                try
-                {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                    sbSql.Clear();
-                    sbSqlQuery.Clear();
-
-
-                    sbSql.AppendFormat(@"  
-                                        SELECT MB001,MB002,MB003,MC004 ,MB017 
-                                        FROM [TK].dbo.INVMB,[TK].dbo.BOMMC
-                                        WHERE MB001=MC001
-                                        AND MB001='{0}'
-                                        ", MB001);
-
-                    adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                    sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
-                    sqlConn.Open();
-                    ds1.Clear();
-                    adapter1.Fill(ds1, "ds1");
-                    sqlConn.Close();
-
-
-                    if (ds1.Tables["ds1"].Rows.Count == 0)
-                    {
-
-                    }
-                    else
-                    {
-                        if (ds1.Tables["ds1"].Rows.Count >= 1)
-                        {
-                            textBox16.Text = ds1.Tables["ds1"].Rows[0]["MB002"].ToString();
-                            textBox17.Text = ds1.Tables["ds1"].Rows[0]["MB003"].ToString();
-                            textBox14.Text = ds1.Tables["ds1"].Rows[0]["MC004"].ToString();
-                            //comboBox6.SelectedValue = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
-                            //label52.Text = ds2.Tables["TEMPds2"].Rows[0]["MB017"].ToString();
-
-                        }
-                    }
-
-                }
-                catch
-                {
-
-                }
-                finally
-                {
-
-                }
+                MessageBox.Show("查詢資料時發生錯誤：" + ex.Message, "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
+               
             }
         }
         public void SEARCHMOCMANULINETEMPDATAS(string MB001)
