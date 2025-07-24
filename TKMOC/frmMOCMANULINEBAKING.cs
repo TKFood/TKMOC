@@ -850,395 +850,340 @@ namespace TKMOC
 
         public void SEARCHCOPDEFAULT(string TD001, string TD002, string TD003)
         {
-            StringBuilder sbSql = new StringBuilder();
-            StringBuilder sbSqlQuery = new StringBuilder();
-            SqlConnection sqlConn = new SqlConnection();
-            SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
-            SqlTransaction tran;
-            SqlCommand cmd = new SqlCommand();
-            DataSet ds1 = new DataSet();
-
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
+                // 解密連線
+                var TKID = new Class1();
+                var sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
                 //資料庫使用者密碼解密
                 sqlsb.Password = TKID.Decryption(sqlsb.Password);
                 sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
 
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                sbSql.Clear();
-                sbSqlQuery.Clear();
-
-                sbSql.AppendFormat(@"  
-                                    SELECT TC053,TD004,TD005,TD006,(TD008+TD024) AS TD008,TD010,(TC015+'-'+TD020) TC015 ,TD013
-                                    ,(CASE WHEN ISNULL(MD002,'')<>'' THEN (TD008+TD024)*MD004 ELSE (TD008+TD024)  END ) AS NUM
-                                    FROM [TK].dbo.INVMB WITH(NOLOCK),[TK].dbo.COPTC WITH(NOLOCK),[TK].dbo.COPTD WITH(NOLOCK)
-                                    LEFT JOIN [TK].dbo.INVMD ON MD001=TD004 AND TD010=MD002
-                                    WHERE TC001=TD001 AND TC002=TD002
-                                    AND MB001=TD004
-                                    AND TD001='{0}' AND TD002='{1}' AND TD003='{2}'"
-                                    , TD001, TD002, TD003);
-                sbSql.AppendFormat(@"  ");
-
-
-                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
-                sqlConn.Open();
-                ds1.Clear();
-                adapter1.Fill(ds1, "ds1");
-                sqlConn.Close();
-
-
-                if (MANU.Equals("烘焙生產線"))
+                using (SqlConnection conn = new SqlConnection(sqlsb.ConnectionString))
                 {
-                    if (ds1.Tables["ds1"].Rows.Count == 0)
+                    string sql = @"
+                                    SELECT 
+                                        TC053, TD004, TD005, TD006, (TD008 + TD024) AS TD008, TD010, 
+                                        (TC015 + '-' + TD020) AS TC015, TD013,
+                                        (CASE WHEN ISNULL(MD002, '') <> '' THEN (TD008 + TD024) * MD004 ELSE (TD008 + TD024) END) AS NUM
+                                    FROM [TK].dbo.INVMB WITH(NOLOCK), [TK].dbo.COPTC WITH(NOLOCK), [TK].dbo.COPTD WITH(NOLOCK)
+                                    LEFT JOIN [TK].dbo.INVMD ON MD001 = TD004 AND TD010 = MD002
+                                    WHERE TC001 = TD001 AND TC002 = TD002 AND MB001 = TD004
+                                    AND TD001 = @TD001 AND TD002 = @TD002 AND TD003 = @TD003";
+
+                    using (SqlCommand cmd = new SqlCommand(sql, conn))
                     {
-                        textBox7.Text = null;
-                        textBox10.Text = null;
-                        textBox11.Text = null;
-                        textBox12.Text = null;
-                        textBox53.Text = null;
-                        textBox9.Text = null;
-                        textBox42.Text = null;
-                        textBox43.Text = null;
-                        textBox72.Text = null;
-                    }
-                    else
-                    {
-                        if (ds1.Tables["ds1"].Rows.Count >= 1)
+                        cmd.Parameters.AddWithValue("@TD001", TD001);
+                        cmd.Parameters.AddWithValue("@TD002", TD002);
+                        cmd.Parameters.AddWithValue("@TD003", TD003);
+
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
                         {
-                            textBox7.Text = ds1.Tables["ds1"].Rows[0]["TD004"].ToString();
-                            textBox10.Text = ds1.Tables["ds1"].Rows[0]["TD005"].ToString();
-                            textBox11.Text = ds1.Tables["ds1"].Rows[0]["TD006"].ToString();
-                            textBox9.Text = ds1.Tables["ds1"].Rows[0]["TC053"].ToString();
-                            textBox53.Text = ds1.Tables["ds1"].Rows[0]["TC015"].ToString();
-                            dateTimePicker5.Value = Convert.ToDateTime(ds1.Tables["ds1"].Rows[0]["TD013"].ToString().Substring(0, 4) + "/" + ds1.Tables["ds1"].Rows[0]["TD013"].ToString().Substring(4, 2) + "/" + ds1.Tables["ds1"].Rows[0]["TD013"].ToString().Substring(6, 2));
+                            DataSet ds = new DataSet();
+                            adapter.Fill(ds, "data");
 
-                            textBox12.Text = ds1.Tables["ds1"].Rows[0]["NUM"].ToString();
+                            var rows = ds.Tables["data"].Rows;
+                            if (rows.Count == 0)
+                            {
+                                ClearTextBoxes();
+                                return;
+                            }
 
-                            //if (SUM21 > 0)
-                            //{
-                            //    textBox12.Text = (SUM21 + Convert.ToDecimal(ds27.Tables["ds27"].Rows[0]["NUM"].ToString())).ToString();
+                            DataRow row = rows[0];
+                            string td004 = row["TD004"].ToString();
+                            string td005 = row["TD005"].ToString();
+                            string td006 = row["TD006"].ToString();
+                            string tc053 = row["TC053"].ToString();
+                            string tc015 = row["TC015"].ToString();
+                            string td013 = row["TD013"].ToString();
+                            string num = row["NUM"].ToString();
 
-                                //    SUM21 = 0;
-                                //}
-                                //else
-                                //{
-                                //    textBox12.Text = ds1.Tables["ds1"].Rows[0]["NUM"].ToString();
-                                //}
-                        }
-                    }
-                }         
-                   
-                else if (MANU.Equals("烘焙包裝線"))
-                {
-                    if (ds1.Tables["ds1"].Rows.Count == 0)
-                    {
-                        textBox4.Text = null;
-                        textBox16.Text = null;
-                        textBox17.Text = null;
-                        textBox12.Text = null;
-                        textBox18.Text = null;
-                        textBox5.Text = null;
-                        textBox3.Text = null;
-                        textBox19.Text = null;
-                        textBox20.Text = null;
-                    }
-                    else
-                    {
-                        if (ds1.Tables["ds1"].Rows.Count >= 1)
-                        {
-                            textBox4.Text = ds1.Tables["ds1"].Rows[0]["TD004"].ToString();
-                            textBox16.Text = ds1.Tables["ds1"].Rows[0]["TD005"].ToString();
-                            textBox17.Text = ds1.Tables["ds1"].Rows[0]["TD006"].ToString();
-                            textBox5.Text = ds1.Tables["ds1"].Rows[0]["TC053"].ToString();
-                            textBox18.Text = ds1.Tables["ds1"].Rows[0]["TC015"].ToString();
-                            dateTimePicker6.Value = Convert.ToDateTime(ds1.Tables["ds1"].Rows[0]["TD013"].ToString().Substring(0, 4) + "/" + ds1.Tables["ds1"].Rows[0]["TD013"].ToString().Substring(4, 2) + "/" + ds1.Tables["ds1"].Rows[0]["TD013"].ToString().Substring(6, 2));
+                            DateTime dt = ParseDateFromString(td013);
 
-                            textBox15.Text = ds1.Tables["ds1"].Rows[0]["NUM"].ToString();
-
-                            //if (SUM21 > 0)
-                            //{
-                            //    textBox12.Text = (SUM21 + Convert.ToDecimal(ds27.Tables["ds27"].Rows[0]["NUM"].ToString())).ToString();
-
-                            //    SUM21 = 0;
-                            //}
-                            //else
-                            //{
-                            //    textBox12.Text = ds1.Tables["ds1"].Rows[0]["NUM"].ToString();
-                            //}
+                            if (MANU == "烘焙生產線")
+                            {
+                                textBox7.Text = td004;
+                                textBox10.Text = td005;
+                                textBox11.Text = td006;
+                                textBox9.Text = tc053;
+                                textBox53.Text = tc015;
+                                textBox12.Text = num;
+                                dateTimePicker5.Value = dt;
+                            }
+                            else if (MANU == "烘焙包裝線")
+                            {
+                                textBox4.Text = td004;
+                                textBox16.Text = td005;
+                                textBox17.Text = td006;
+                                textBox5.Text = tc053;
+                                textBox18.Text = tc015;
+                                textBox15.Text = num;
+                                dateTimePicker6.Value = dt;
+                            }
                         }
                     }
                 }
             }
-            catch
-            { }
-            finally
-            { }
-               
+            catch (Exception ex)
+            {
+                MessageBox.Show("錯誤：" + ex.Message);
+            }
         }
+
+        private void ClearTextBoxes()
+        {
+            if (MANU == "烘焙生產線")
+            {
+                textBox7.Clear();
+                textBox10.Clear();
+                textBox11.Clear();
+                textBox12.Clear();
+                textBox53.Clear();
+                textBox9.Clear();
+                textBox42.Clear();
+                textBox43.Clear();
+                textBox72.Clear();
+            }
+            else if (MANU == "烘焙包裝線")
+            {
+                textBox4.Clear();
+                textBox16.Clear();
+                textBox17.Clear();
+                textBox12.Clear();
+                textBox18.Clear();
+                textBox5.Clear();
+                textBox3.Clear();
+                textBox19.Clear();
+                textBox20.Clear();
+            }
+        }
+
+        private DateTime ParseDateFromString(string yyyymmdd)
+        {
+            if (yyyymmdd.Length >= 8)
+            {
+                string year = yyyymmdd.Substring(0, 4);
+                string month = yyyymmdd.Substring(4, 2);
+                string day = yyyymmdd.Substring(6, 2);
+                return new DateTime(int.Parse(year), int.Parse(month), int.Parse(day));
+            }
+            return DateTime.Today;
+        }
+
 
         public void SEARCHCOPDEFAULT2(string TD001, string TD002, string TD003)
         {
-            StringBuilder sbSql = new StringBuilder();
-            StringBuilder sbSqlQuery = new StringBuilder();
-            SqlConnection sqlConn = new SqlConnection();
-            SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
-            SqlTransaction tran;
-            SqlCommand cmd = new SqlCommand();
-            DataSet ds1 = new DataSet();
-
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
+                Class1 TKID = new Class1();
+                var sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
                 sqlsb.Password = TKID.Decryption(sqlsb.Password);
                 sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
 
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                sbSql.Clear();
-                sbSqlQuery.Clear();
-                //手工*INVMB.UDF08、其他*INVMB.UDF07
-
-
-
-                sbSql.AppendFormat(@"  
-                                    SELECT TC053,TD004,TD005,TD006,(TD008+TD024) AS TD008,TD010,TC015
-                                    ,(CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TD008+TD024)*INVMD.MD004 ELSE (TD008+TD024)  END ) AS NUM
-                                    ,BOMMD.MD003,BOMMD.MD035,BOMMD.MD036,INVMB.UDF07
-                                     ,((CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TD008+TD024)*INVMD.MD004 ELSE (TD008+TD024)  END ))/BOMMC.MC004*BOMMD.MD006 AS 'NUM2'
-                                    
-                                    FROM [TK].dbo.INVMB WITH(NOLOCK),[TK].dbo.COPTC WITH(NOLOCK),[TK].dbo.COPTD WITH(NOLOCK)
-                                    LEFT JOIN [TK].dbo.INVMD WITH(NOLOCK) ON INVMD.MD001=TD004 AND INVMD.MD002=TD010
-                                    LEFT JOIN [TK].dbo.BOMMC WITH(NOLOCK) ON BOMMC.MC001=TD004 
-                                    LEFT JOIN [TK].dbo.BOMMD WITH(NOLOCK) ON BOMMD.MD001=TD004 
-                                    WHERE TC001=TD001 AND TC002=TD002
-                                    AND MB001 = TD004
-                                    AND(BOMMD.MD003 LIKE '3%' OR BOMMD.MD003 LIKE '4%')
-                                    AND TD001 = '{0}' AND TD002 = '{1}' AND TD003 = '{2}'
-
-                                    ", TD001, TD002, TD003);
-                sbSql.AppendFormat(@"  ");
-
-                //半成品的舊算法
-                //sbSql.AppendFormat(@"  ,((CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TD008+TD024)*INVMD.MD004 ELSE (TD008+TD024)  END ))/BOMMC.MC004*INVMB.UDF07/1000 AS 'NUM2'");
-
-                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
-                sqlConn.Open();
-                ds1.Clear();
-                adapter1.Fill(ds1, "ds1");
-                sqlConn.Close();
-
-
-
-                if (MANU.Equals("烘焙生產線"))
+                using (SqlConnection sqlConn = new SqlConnection(sqlsb.ConnectionString))
                 {
-                    if (ds1.Tables["ds1"].Rows.Count == 0)
-                    {
-                        textBox7.Text = null;
-                        textBox10.Text = null;
-                        textBox11.Text = null;
-                        textBox12.Text = null;
-                        textBox9.Text = null;
-                        textBox53.Text = null;
-                        textBox42.Text = null;
-                        textBox43.Text = null;
-                        textBox72.Text = null;
-                    }
-                    else
-                    {
-                        if (ds1.Tables["ds1"].Rows.Count >= 1)
-                        {
-                            textBox7.Text = ds1.Tables["ds1"].Rows[0]["MD003"].ToString();
-                            textBox10.Text = ds1.Tables["ds1"].Rows[0]["MD035"].ToString();
-                            textBox11.Text = ds1.Tables["ds1"].Rows[0]["MD036"].ToString();
-                            textBox12.Text = ds1.Tables["ds1"].Rows[0]["NUM2"].ToString();
-                            textBox9.Text = ds1.Tables["ds1"].Rows[0]["TC053"].ToString();
-                            textBox53.Text = ds1.Tables["ds1"].Rows[0]["TC015"].ToString();
+                    string sql = @"
+                                SELECT 
+                                    TC053, TD004, TD005, TD006, (TD008 + TD024) AS TD008, TD010, TC015,
+                                    (CASE WHEN ISNULL(INVMD.MD002, '') <> '' THEN (TD008 + TD024) * INVMD.MD004 ELSE (TD008 + TD024) END) AS NUM,
+                                    BOMMD.MD003, BOMMD.MD035, BOMMD.MD036, INVMB.UDF07,
+                                    ((CASE WHEN ISNULL(INVMD.MD002, '') <> '' THEN (TD008 + TD024) * INVMD.MD004 ELSE (TD008 + TD024) END)) 
+                                        / BOMMC.MC004 * BOMMD.MD006 AS NUM2
+                                FROM [TK].dbo.INVMB WITH(NOLOCK)
+                                INNER JOIN [TK].dbo.COPTD WITH(NOLOCK) ON MB001 = TD004
+                                INNER JOIN [TK].dbo.COPTC WITH(NOLOCK) ON TC001 = TD001 AND TC002 = TD002
+                                LEFT JOIN [TK].dbo.INVMD WITH(NOLOCK) ON INVMD.MD001 = TD004 AND INVMD.MD002 = TD010
+                                LEFT JOIN [TK].dbo.BOMMC WITH(NOLOCK) ON BOMMC.MC001 = TD004
+                                LEFT JOIN [TK].dbo.BOMMD WITH(NOLOCK) ON BOMMD.MD001 = TD004
+                                WHERE (BOMMD.MD003 LIKE '3%' OR BOMMD.MD003 LIKE '4%')
+                                    AND TD001 = @TD001 AND TD002 = @TD002 AND TD003 = @TD003";
 
-                        }
-                    }
-                }
-                else if (MANU.Equals("烘焙包裝線"))
-                {
-                    if (ds1.Tables["ds1"].Rows.Count == 0)
+                    using (SqlCommand cmd = new SqlCommand(sql, sqlConn))
                     {
-                        textBox4.Text = null;
-                        textBox16.Text = null;
-                        textBox17.Text = null;
-                        textBox15.Text = null;
-                        textBox5.Text = null;
-                        textBox18.Text = null;
-                        textBox3.Text = null;
-                        textBox19.Text = null;
-                        textBox20.Text = null;
-                    }
-                    else
-                    {
-                        if (ds1.Tables["ds1"].Rows.Count >= 1)
-                        {
-                            textBox4.Text = ds1.Tables["ds1"].Rows[0]["MD003"].ToString();
-                            textBox16.Text = ds1.Tables["ds1"].Rows[0]["MD035"].ToString();
-                            textBox17.Text = ds1.Tables["ds1"].Rows[0]["MD036"].ToString();
-                            textBox15.Text = ds1.Tables["ds1"].Rows[0]["NUM2"].ToString();
-                            textBox5.Text = ds1.Tables["ds1"].Rows[0]["TC053"].ToString();
-                            textBox18.Text = ds1.Tables["ds1"].Rows[0]["TC015"].ToString();
+                        cmd.Parameters.AddWithValue("@TD001", TD001);
+                        cmd.Parameters.AddWithValue("@TD002", TD002);
+                        cmd.Parameters.AddWithValue("@TD003", TD003);
 
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                        {
+                            DataSet ds = new DataSet();
+                            sqlConn.Open();
+                            adapter.Fill(ds, "ds1");
+                            sqlConn.Close();
+
+                            if (ds.Tables["ds1"].Rows.Count == 0)
+                            {
+                                ClearTextBoxes2();
+                                return;
+                            }
+
+                            DataRow row = ds.Tables["ds1"].Rows[0];
+                            if (MANU == "烘焙生產線")
+                            {
+                                textBox7.Text = row["MD003"].ToString();
+                                textBox10.Text = row["MD035"].ToString();
+                                textBox11.Text = row["MD036"].ToString();
+                                textBox12.Text = row["NUM2"].ToString();
+                                textBox9.Text = row["TC053"].ToString();
+                                textBox53.Text = row["TC015"].ToString();
+                            }
+                            else if (MANU == "烘焙包裝線")
+                            {
+                                textBox4.Text = row["MD003"].ToString();
+                                textBox16.Text = row["MD035"].ToString();
+                                textBox17.Text = row["MD036"].ToString();
+                                textBox15.Text = row["NUM2"].ToString();
+                                textBox5.Text = row["TC053"].ToString();
+                                textBox18.Text = row["TC015"].ToString();
+                            }
                         }
                     }
                 }
             }
-
-            catch
+            catch (Exception ex)
             {
-
-            }
-            finally
-            {
-
+                MessageBox.Show("錯誤: " + ex.Message);
             }
         }
+
+        private void ClearTextBoxes2()
+        {
+            if (MANU == "烘焙生產線")
+            {
+                textBox7.Clear();
+                textBox10.Clear();
+                textBox11.Clear();
+                textBox12.Clear();
+                textBox9.Clear();
+                textBox53.Clear();
+                textBox42.Clear();
+                textBox43.Clear();
+                textBox72.Clear();
+            }
+            else if (MANU == "烘焙包裝線")
+            {
+                textBox4.Clear();
+                textBox16.Clear();
+                textBox17.Clear();
+                textBox15.Clear();
+                textBox5.Clear();
+                textBox18.Clear();
+                textBox3.Clear();
+                textBox19.Clear();
+                textBox20.Clear();
+            }
+        }
+
 
         public void SEARCHCOPDEFAULT3(string TD001, string TD002, string TD003)
         {
-            StringBuilder sbSql = new StringBuilder();
-            StringBuilder sbSqlQuery = new StringBuilder();
-            SqlConnection sqlConn = new SqlConnection();
-            SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
-            SqlTransaction tran;
-            SqlCommand cmd = new SqlCommand();
-            DataSet ds1 = new DataSet();
-
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
+                Class1 TKID = new Class1();
+                var sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
                 sqlsb.Password = TKID.Decryption(sqlsb.Password);
                 sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
 
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                sbSql.Clear();
-                sbSqlQuery.Clear();
-                //手工*INVMB.UDF08、其他*INVMB.UDF07
-                sbSql.AppendFormat(@"  
-                                    SELECT TC053,TD004,TD005,TD006,(TD008+TD024) AS TD008,TD010,TC015
-                                    ,(CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TD008+TD024)*INVMD.MD004 ELSE (TD008+TD024)  END ) AS NUM
-                                    ,BOMMD.MD003,BOMMD.MD035,BOMMD.MD036,INVMB.UDF07
-                                    ,((CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TD008+TD024)*INVMD.MD004 ELSE (TD008+TD024)  END ))/BOMMC.MC004*BOMMD.MD006 AS 'NUM2'
-
-                                    FROM [TK].dbo.INVMB WITH(NOLOCK),[TK].dbo.COPTC WITH(NOLOCK),[TK].dbo.COPTD WITH(NOLOCK)
-                                    LEFT JOIN [TK].dbo.INVMD WITH(NOLOCK) ON INVMD.MD001=TD004 AND INVMD.MD002=TD010
-                                    LEFT JOIN [TK].dbo.BOMMC WITH(NOLOCK) ON BOMMC.MC001=TD004 
-                                    LEFT JOIN [TK].dbo.BOMMD WITH(NOLOCK) ON BOMMD.MD001=TD004 
-                                    WHERE TC001=TD001 AND TC002=TD002
-                                    AND MB001=TD004
-                                    AND (BOMMD.MD003 LIKE '3%' OR BOMMD.MD003 LIKE '4%') 
-                                    AND TD001='{0}' AND TD002='{1}' AND TD003='{2}'
-                                    ", TD001, TD002, TD003);
-                sbSql.AppendFormat(@"  ");
-
-                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
-                sqlConn.Open();
-                ds1.Clear();
-                adapter1.Fill(ds1, "ds1");
-                sqlConn.Close();
-                
-
-                if (MANU.Equals("烘焙生產線"))
+                using (SqlConnection sqlConn = new SqlConnection(sqlsb.ConnectionString))
                 {
-                    if (ds1.Tables["ds1"].Rows.Count == 0)
-                    {
-                        textBox7.Text = null;
-                        textBox10.Text = null;
-                        textBox11.Text = null;
-                        textBox12.Text = null;
-                        textBox9.Text = null;
-                        textBox53.Text = null;
-                        textBox42.Text = null;
-                        textBox43.Text = null;
-                        textBox72.Text = null;
-                    }
-                    else
-                    {
-                        if (ds1.Tables["ds1"].Rows.Count >= 1)
-                        {
-                            textBox7.Text = ds1.Tables["ds1"].Rows[0]["MD003"].ToString();
-                            textBox10.Text = ds1.Tables["ds1"].Rows[0]["MD035"].ToString();
-                            textBox11.Text = ds1.Tables["ds1"].Rows[0]["MD036"].ToString();
-                            textBox12.Text = ds1.Tables["ds1"].Rows[0]["NUM2"].ToString();
-                            textBox9.Text = ds1.Tables["ds1"].Rows[0]["TC053"].ToString();
-                            textBox53.Text = null;
-                            //textBox53.Text = ds28.Tables["ds28"].Rows[0]["TC015"].ToString();
+                    string sql = @"
+                                    SELECT 
+                                        TC053, TD004, TD005, TD006, (TD008 + TD024) AS TD008, TD010, TC015,
+                                        CASE WHEN ISNULL(INVMD.MD002, '') <> '' 
+                                            THEN (TD008 + TD024) * INVMD.MD004 
+                                            ELSE (TD008 + TD024)  
+                                        END AS NUM,
+                                        BOMMD.MD003, BOMMD.MD035, BOMMD.MD036, INVMB.UDF07,
+                                        (CASE WHEN ISNULL(INVMD.MD002, '') <> '' 
+                                            THEN (TD008 + TD024) * INVMD.MD004 
+                                            ELSE (TD008 + TD024)  
+                                        END) / BOMMC.MC004 * BOMMD.MD006 AS NUM2
+                                    FROM [TK].dbo.INVMB WITH(NOLOCK)
+                                    INNER JOIN [TK].dbo.COPTD WITH(NOLOCK) ON MB001 = TD004
+                                    INNER JOIN [TK].dbo.COPTC WITH(NOLOCK) ON TC001 = TD001 AND TC002 = TD002
+                                    LEFT JOIN [TK].dbo.INVMD WITH(NOLOCK) ON INVMD.MD001 = TD004 AND INVMD.MD002 = TD010
+                                    LEFT JOIN [TK].dbo.BOMMC WITH(NOLOCK) ON BOMMC.MC001 = TD004
+                                    LEFT JOIN [TK].dbo.BOMMD WITH(NOLOCK) ON BOMMD.MD001 = TD004
+                                    WHERE (BOMMD.MD003 LIKE '3%' OR BOMMD.MD003 LIKE '4%')
+                                      AND TD001 = @TD001 AND TD002 = @TD002 AND TD003 = @TD003";
 
+                    using (SqlCommand cmd = new SqlCommand(sql, sqlConn))
+                    {
+                        cmd.Parameters.AddWithValue("@TD001", TD001);
+                        cmd.Parameters.AddWithValue("@TD002", TD002);
+                        cmd.Parameters.AddWithValue("@TD003", TD003);
+
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                        {
+                            DataSet ds = new DataSet();
+                            sqlConn.Open();
+                            adapter.Fill(ds, "ds1");
+                            sqlConn.Close();
+
+                            if (ds.Tables["ds1"].Rows.Count == 0)
+                            {
+                                ClearTextBoxes3();
+                                return;
+                            }
+
+                            DataRow row = ds.Tables["ds1"].Rows[0];
+
+                            if (MANU == "烘焙生產線")
+                            {
+                                textBox7.Text = row["MD003"].ToString();
+                                textBox10.Text = row["MD035"].ToString();
+                                textBox11.Text = row["MD036"].ToString();
+                                textBox12.Text = row["NUM2"].ToString();
+                                textBox9.Text = row["TC053"].ToString();
+                                textBox53.Text = string.Empty;  // 你註解的是 null，建議空字串代替
+                            }
+                            else if (MANU == "烘焙包裝線")
+                            {
+                                textBox4.Text = row["MD003"].ToString();
+                                textBox16.Text = row["MD035"].ToString();
+                                textBox17.Text = row["MD036"].ToString();
+                                textBox15.Text = row["NUM2"].ToString();
+                                textBox5.Text = row["TC053"].ToString();
+                                textBox53.Text = string.Empty;
+                            }
                         }
                     }
                 }
-                else if (MANU.Equals("烘焙包裝線"))
-                {
-                    if (ds1.Tables["ds1"].Rows.Count == 0)
-                    {
-                        textBox4.Text = null;
-                        textBox16.Text = null;
-                        textBox17.Text = null;
-                        textBox15.Text = null;
-                        textBox5.Text = null;
-                        textBox18.Text = null;
-                        textBox3.Text = null;
-                        textBox19.Text = null;
-                        textBox20.Text = null;
-                    }
-                    else
-                    {
-                        if (ds1.Tables["ds1"].Rows.Count >= 1)
-                        {
-                            textBox4.Text = ds1.Tables["ds1"].Rows[0]["MD003"].ToString();
-                            textBox16.Text = ds1.Tables["ds1"].Rows[0]["MD035"].ToString();
-                            textBox17.Text = ds1.Tables["ds1"].Rows[0]["MD036"].ToString();
-                            textBox15.Text = ds1.Tables["ds1"].Rows[0]["NUM2"].ToString();
-                            textBox5.Text = ds1.Tables["ds1"].Rows[0]["TC053"].ToString();
-                            textBox53.Text = null;
-                            //textBox53.Text = ds28.Tables["ds28"].Rows[0]["TC015"].ToString();
-
-                        }
-                    }
-                }
-
             }
-            catch
+            catch (Exception ex)
             {
-
-            }
-            finally
-            {
-
+                MessageBox.Show("錯誤: " + ex.Message);
             }
         }
+
+        private void ClearTextBoxes3()
+        {
+            if (MANU == "烘焙生產線")
+            {
+                textBox7.Clear();
+                textBox10.Clear();
+                textBox11.Clear();
+                textBox12.Clear();
+                textBox9.Clear();
+                textBox53.Clear();
+                textBox42.Clear();
+                textBox43.Clear();
+                textBox72.Clear();
+            }
+            else if (MANU == "烘焙包裝線")
+            {
+                textBox4.Clear();
+                textBox16.Clear();
+                textBox17.Clear();
+                textBox15.Clear();
+                textBox5.Clear();
+                textBox18.Clear();
+                textBox3.Clear();
+                textBox19.Clear();
+                textBox20.Clear();
+            }
+        }
+
 
         public string GETMAXTA002(string TA001,DateTime DT)
         {
