@@ -4349,7 +4349,10 @@ namespace TKMOC
 
             // 清空欄位與重新查詢
             SETNULL();
-            SEARCHMOCMANULINE_BAKING(dateTimePicker1.Value.ToString("yyyyMMdd"), comboBox1.Text.Trim());
+
+            string SDATES = dateTimePicker1.Value.ToString("yyyyMMdd");
+            string MANUS = comboBox1.Text.Trim();
+            SEARCHMOCMANULINE_BAKING(SDATES, MANUS);
         }
         private void button5_Click(object sender, EventArgs e)
         {
@@ -4368,22 +4371,31 @@ namespace TKMOC
         }
         private void button3_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("要刪除了?", "要刪除了?", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
+            string SDATES = dateTimePicker1.Value.ToString("yyyyMMdd");
+            string MANU = comboBox1.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(textBoxID.Text))
             {
-                DELMOCMANULINE(textBoxID.Text.ToString().Trim());
-                SEARCHMOCMANULINE_BAKING(dateTimePicker1.Value.ToString("yyyyMMdd"), comboBox1.Text.Trim());
+                MessageBox.Show("請選擇要刪除的資料！");
+                return;
             }
-            else if (dialogResult == DialogResult.No)
+
+            DialogResult result = MessageBox.Show("確定要刪除這筆資料嗎？", "刪除確認", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Yes)
             {
-                //do something else
+                DELMOCMANULINE(textBoxID.Text.Trim());
+                SEARCHMOCMANULINE_BAKING(SDATES, MANU);
             }
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
+            string SDATES = dateTimePicker1.Value.ToString("yyyyMMdd");
+            string MANU = comboBox1.Text.Trim();
+
             CHECKMOCTAB();
-            SEARCHMOCMANULINE_BAKING(dateTimePicker1.Value.ToString("yyyyMMdd"), comboBox1.Text.Trim());
+            SEARCHMOCMANULINE_BAKING(SDATES, MANU);
         }
 
         private void button7_Click(object sender, EventArgs e)
