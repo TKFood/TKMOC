@@ -4301,53 +4301,55 @@ namespace TKMOC
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(textBox7.Text))
+            if (string.IsNullOrWhiteSpace(textBox7.Text))
             {
-                string MANU = comboBox2.Text.ToString().Trim();
-                string MANUDATE = dateTimePicker4.Value.ToString("yyyy/MM/dd");
-                string MB001 = textBox7.Text.ToString().Trim();
-                string MB002 = textBox10.Text.ToString().Trim();
-                string MB003 = textBox11.Text.ToString().Trim();
-                string CLINET = textBox9.Text.ToString().Trim();
-                string MANUHOUR = textBox13.Text.ToString().Trim();
-                string BOX = textBox8.Text.ToString().Trim();
-                string BAR = textBox1.Text.ToString().Trim();
-                string NUM = textBox12.Text.ToString().Trim();
-                string PACKAGE = textBox12.Text.ToString().Trim();
-                string OUTDATE = dateTimePicker5.Value.ToString("yyyy/MM/dd");
-                string TA029 = textBox53.Text.Replace("'", "");
-                string HALFPRO = textBox68.Text.ToString().Trim();
-                string COPTD001 = textBox42.Text.ToString().Trim();
-                string COPTD002 = textBox43.Text.ToString().Trim();
-                string COPTD003 = textBox72.Text.ToString().Trim();
-
-                ADDMOCMANULINE(
-                    MANU,
-                    MANUDATE,
-                    MB001,
-                    MB002,
-                    MB003,
-                    CLINET,
-                    MANUHOUR,
-                    BOX,
-                    NUM,
-                    PACKAGE,
-                    OUTDATE,
-                    TA029,
-                    HALFPRO,
-                    COPTD001,
-                    COPTD002,
-                    COPTD003,
-                    BAR
-                    );
-
-                SETNULL();
-                SEARCHMOCMANULINE_BAKING(dateTimePicker1.Value.ToString("yyyyMMdd"), comboBox1.Text.Trim());
+                MessageBox.Show("請輸入品號！");
+                return;
             }
-            else
-            {
-                MessageBox.Show("錯誤");
-            }
+
+            // 整理輸入資料
+            string MANU = comboBox2.Text.Trim();
+            string MANUDATE = dateTimePicker4.Value.ToString("yyyy/MM/dd");
+            string MB001 = textBox7.Text.Trim();
+            string MB002 = textBox10.Text.Trim();
+            string MB003 = textBox11.Text.Trim();
+            string CLINET = textBox9.Text.Trim();
+            string MANUHOUR = textBox13.Text.Trim();
+            string BOX = textBox8.Text.Trim();
+            string BAR = textBox1.Text.Trim();
+            string NUM = textBox12.Text.Trim();
+            string PACKAGE = textBox12.Text.Trim(); // 若 PACKAGE = NUM，有點怪，可確認需求
+            string OUTDATE = dateTimePicker5.Value.ToString("yyyy/MM/dd");
+            string TA029 = textBox53.Text.Replace("'", ""); // 防 SQL 注入
+            string HALFPRO = textBox68.Text.Trim();
+            string COPTD001 = textBox42.Text.Trim();
+            string COPTD002 = textBox43.Text.Trim();
+            string COPTD003 = textBox72.Text.Trim();
+
+            // 呼叫新增方法
+            ADDMOCMANULINE(
+                MANU,
+                MANUDATE,
+                MB001,
+                MB002,
+                MB003,
+                CLINET,
+                MANUHOUR,
+                BOX,
+                NUM,
+                PACKAGE,
+                OUTDATE,
+                TA029,
+                HALFPRO,
+                COPTD001,
+                COPTD002,
+                COPTD003,
+                BAR
+            );
+
+            // 清空欄位與重新查詢
+            SETNULL();
+            SEARCHMOCMANULINE_BAKING(dateTimePicker1.Value.ToString("yyyyMMdd"), comboBox1.Text.Trim());
         }
         private void button5_Click(object sender, EventArgs e)
         {
