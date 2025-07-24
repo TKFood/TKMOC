@@ -4503,25 +4503,36 @@ namespace TKMOC
         }
         private void button17_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(textBox3.Text) & !string.IsNullOrEmpty(textBox19.Text) & !string.IsNullOrEmpty(textBox20.Text))
+            string TD001 = textBox3.Text;
+            string TD002 = textBox19.Text;
+            string TD003 = textBox20.Text;
+
+            if (!string.IsNullOrEmpty(TD001) & !string.IsNullOrEmpty(TD002) & !string.IsNullOrEmpty(TD003))
             {
-                SEARCHCOPDEFAULT(textBox3.Text, textBox19.Text, textBox20.Text);
+                SEARCHCOPDEFAULT(TD001, TD002, TD003);
             }
         }
         private void button18_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(textBox3.Text) & !string.IsNullOrEmpty(textBox19.Text) & !string.IsNullOrEmpty(textBox20.Text))
+            string TD001 = textBox3.Text;
+            string TD002 = textBox19.Text;
+            string TD003 = textBox20.Text;
+
+            if (!string.IsNullOrEmpty(TD001) & !string.IsNullOrEmpty(TD002) & !string.IsNullOrEmpty(TD003))
             {
-                SEARCHCOPDEFAULT2(textBox3.Text, textBox19.Text, textBox20.Text);
+                SEARCHCOPDEFAULT2(TD001, TD002, TD003);
             }
         }
 
         private void button19_Click(object sender, EventArgs e)
         {
+            string TD001 = textBox3.Text;
+            string TD002 = textBox19.Text;
+            string TD003 = textBox20.Text;
 
-            if (!string.IsNullOrEmpty(textBox3.Text) & !string.IsNullOrEmpty(textBox19.Text) & !string.IsNullOrEmpty(textBox20.Text))
+            if (!string.IsNullOrEmpty(TD001) & !string.IsNullOrEmpty(TD002) & !string.IsNullOrEmpty(TD003))
             {
-                SEARCHCOPDEFAULT3(textBox3.Text, textBox19.Text, textBox20.Text);
+                SEARCHCOPDEFAULT3(TD001, TD002, TD003);
             }
         }
         private void button14_Click(object sender, EventArgs e)
