@@ -3261,81 +3261,57 @@ namespace TKMOC
 
         public DataTable SEARCHCOPTETFDATA(string TF001, string TF002, string TF003, string TF104)
         {
-            SqlConnection sqlConn = new SqlConnection();
-            SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
-            DataSet ds1 = new DataSet();
-            StringBuilder QUERYS = new StringBuilder();
-
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
+                // 建立加解密實體
+                Class1 TKID = new Class1();
                 SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
                 sqlsb.Password = TKID.Decryption(sqlsb.Password);
                 sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
 
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                sbSql.Clear();
-                QUERYS.Clear();
-             
-
-                sbSql.AppendFormat(@"  
-                                   SELECT TF001,TF002,TF003,TF004,TE055,TF005,TF006,TF007,(TF009+TF020) AS TF009,TF010,(TE006+'-'+TE050+'-'+TF018+'-'+TF032) TE006 ,TF015,TF104
-                                    ,(CASE WHEN ISNULL(MD002,'')<>'' THEN (TF009+TF020)*MD004 ELSE (TF009+TF020)  END ) AS NUM
-                                    ,MC004,MB017
-
-                                    ,CASE WHEN ISNULL(MC004,0)>0 THEN CONVERT(decimal(16,4),((TF009+TF020)/MC004)) END AS BARS
-                                    ,(CASE WHEN ISNULL([NUMS],0)<>0 THEN [NUMS] ELSE 1  END ) AS NUMS
-                                    ,(CASE WHEN ISNULL([BOXS],0)<>0 THEN [BOXS] ELSE 1  END ) AS BOXS
-
-                                    FROM [TK].dbo.INVMB WITH(NOLOCK),[TK].dbo.COPTE WITH(NOLOCK),[TK].dbo.COPTF WITH(NOLOCK)
-                                    LEFT JOIN [TK].dbo.INVMD ON MD001=TF005 AND TF010=MD002
-                                    LEFT JOIN [TK].dbo.BOMMC ON TF005=MC001
-                                    LEFT JOIN [TKMOC].[dbo].[MOCHALFPRODUCTDBOXS] ON TF005=[MOCHALFPRODUCTDBOXS].[MB001]
-                                    WHERE TE001=TF001 AND TE002=TF002 AND TE003=TF003
-                                    AND INVMB.MB001=TF005
-                                    AND TF001='{0}' AND TF002='{1}' AND TF003='{2}' AND TF104='{3}'
-
-                                    ", TF001, TF002, TF003, TF104);
-
-
-
-
-                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
-                sqlConn.Open();
-                ds1.Clear();
-                adapter1.Fill(ds1, "TEMPds1");
-                sqlConn.Close();
-
-
-                if (ds1.Tables["TEMPds1"].Rows.Count > 0)
+                using (SqlConnection sqlConn = new SqlConnection(sqlsb.ConnectionString))
                 {
-                    return ds1.Tables["TEMPds1"];
-                }
-                else
-                {
-                    return null;
-                }
+                    string query = $@"
+                                        SELECT TF001,TF002,TF003,TF004,TE055,TF005,TF006,TF007,(TF009+TF020) AS TF009,TF010,
+                                               (TE006+'-'+TE050+'-'+TF018+'-'+TF032) AS TE006,
+                                               TF015,TF104,
+                                               (CASE WHEN ISNULL(MD002,'')<>'' THEN (TF009+TF020)*MD004 ELSE (TF009+TF020) END) AS NUM,
+                                               MC004,MB017,
+                                               CASE WHEN ISNULL(MC004,0)>0 THEN CONVERT(decimal(16,4),((TF009+TF020)/MC004)) END AS BARS,
+                                               (CASE WHEN ISNULL([NUMS],0)<>0 THEN [NUMS] ELSE 1 END) AS NUMS,
+                                               (CASE WHEN ISNULL([BOXS],0)<>0 THEN [BOXS] ELSE 1 END) AS BOXS
+                                        FROM [TK].dbo.INVMB WITH(NOLOCK)
+                                        INNER JOIN [TK].dbo.COPTE WITH(NOLOCK) ON TE001=TF001 AND TE002=TF002 AND TE003=TF003
+                                        INNER JOIN [TK].dbo.COPTF WITH(NOLOCK) ON TF001='{TF001}' AND TF002='{TF002}' AND TF003='{TF003}' AND TF104='{TF104}'
+                                        LEFT JOIN [TK].dbo.INVMD ON MD001=TF005 AND TF010=MD002
+                                        LEFT JOIN [TK].dbo.BOMMC ON TF005=MC001
+                                        LEFT JOIN [TKMOC].[dbo].[MOCHALFPRODUCTDBOXS] ON TF005=[MOCHALFPRODUCTDBOXS].[MB001]
+                                        WHERE INVMB.MB001=TF005
+                                    ";
 
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(query, sqlConn))
+                    {
+                        DataSet ds = new DataSet();
+                        adapter.Fill(ds, "TEMPds1");
 
+                        if (ds.Tables["TEMPds1"].Rows.Count > 0)
+                        {
+                            return ds.Tables["TEMPds1"];
+                        }
+                        else
+                        {
+                            return null;
+                        }
+                    }
+                }
             }
-            catch
+            catch (Exception ex)
             {
+                // 可以記錄錯誤訊息 ex.Message
                 return null;
             }
-            finally
-            {
-                sqlConn.Close();
-            }
         }
+
 
         private void textBox4_TextChanged(object sender, EventArgs e)
         {
