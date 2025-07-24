@@ -2221,128 +2221,63 @@ namespace TKMOC
             }
         }
 
-        public void DELTE_MOCMANULINERESULTBAKING(string DELID,string DEL_TA001,string DEL_TA002)
+        public void DELTE_MOCMANULINERESULTBAKING(string DELID, string DEL_TA001, string DEL_TA002)
         {
-            StringBuilder sbSql = new StringBuilder();
-            StringBuilder sbSqlQuery = new StringBuilder();
-            SqlConnection sqlConn = new SqlConnection();
-            SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
-            SqlTransaction tran;
-            SqlCommand cmd = new SqlCommand();
-            DataSet ds1 = new DataSet();
-
-
-            if (MANU.Equals("烘焙生產線"))
+            if ((MANU.Equals("烘焙生產線") || MANU.Equals("烘焙包裝線")))
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
+                    // 解密連線字串
+                    Class1 TKID = new Class1();
                     SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
                     sqlsb.Password = TKID.Decryption(sqlsb.Password);
                     sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
 
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                    sqlConn.Close();
-                    sqlConn.Open();
-                    tran = sqlConn.BeginTransaction();
-
-                    sbSql.Clear();
-                    sbSql.AppendFormat(@"  
-                                        DELETE FROM [TKMOC].[dbo].[MOCMANULINERESULTBAKING]
-                                        WHERE SID='{0}'
-                                        AND [MOCTA001] ='{1}' AND [MOCTA002]='{2}'"
-                                        , DELID, DEL_TA001, DEL_TA002);
-                    sbSql.AppendFormat(" ");
-
-                    cmd.Connection = sqlConn;
-                    cmd.CommandTimeout = 60;
-                    cmd.CommandText = sbSql.ToString();
-                    cmd.Transaction = tran;
-                    result = cmd.ExecuteNonQuery();
-
-                    if (result == 0)
+                    using (SqlConnection sqlConn = new SqlConnection(sqlsb.ConnectionString))
                     {
-                        tran.Rollback();    //交易取消
+                        sqlConn.Open();
+                        using (SqlTransaction tran = sqlConn.BeginTransaction())
+                        {
+                            try
+                            {
+                                string sql = @"
+                                            DELETE FROM [TKMOC].[dbo].[MOCMANULINERESULTBAKING]
+                                            WHERE SID = @SID AND MOCTA001 = @TA001 AND MOCTA002 = @TA002";
+
+                                using (SqlCommand cmd = new SqlCommand(sql, sqlConn, tran))
+                                {
+                                    cmd.CommandTimeout = 60;
+                                    cmd.Parameters.AddWithValue("@SID", DELID);
+                                    cmd.Parameters.AddWithValue("@TA001", DEL_TA001);
+                                    cmd.Parameters.AddWithValue("@TA002", DEL_TA002);
+
+                                    int result = cmd.ExecuteNonQuery();
+
+                                    if (result > 0)
+                                    {
+                                        tran.Commit();
+                                    }
+                                    else
+                                    {
+                                        tran.Rollback();
+                                    }
+                                }
+                            }
+                            catch
+                            {
+                                tran.Rollback();
+                                throw; // 建議拋出例外或記錄錯誤
+                            }
+                        }
                     }
-                    else
-                    {
-                        tran.Commit();      //執行交易  
-                    }
-
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show($"刪除失敗：{ex.Message}", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-
-                finally
-                {
-                    sqlConn.Close();
-                }
-            }
-
-            else  if (MANU.Equals("烘焙包裝線"))
-            {
-                try
-                {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                    sqlConn.Close();
-                    sqlConn.Open();
-                    tran = sqlConn.BeginTransaction();
-
-                    sbSql.Clear();
-                    sbSql.AppendFormat(@"  
-                                        DELETE FROM [TKMOC].[dbo].[MOCMANULINERESULTBAKING]
-                                        WHERE SID='{0}'
-                                        AND [MOCTA001] ='{1}' AND [MOCTA002]='{2}'"
-                                        , DELID, DEL_TA001, DEL_TA002);
-                    sbSql.AppendFormat(" ");
-
-                    cmd.Connection = sqlConn;
-                    cmd.CommandTimeout = 60;
-                    cmd.CommandText = sbSql.ToString();
-                    cmd.Transaction = tran;
-                    result = cmd.ExecuteNonQuery();
-
-                    if (result == 0)
-                    {
-                        tran.Rollback();    //交易取消
-                    }
-                    else
-                    {
-                        tran.Commit();      //執行交易  
-                    }
-
-                }
-                catch
-                {
-
-                }
-
-                finally
-                {
-                    sqlConn.Close();
-                }
-            }
+            }            
         }
+
 
         private void textBox12_TextChanged(object sender, EventArgs e)
         {
@@ -4693,7 +4628,7 @@ namespace TKMOC
             {
                 DialogResult dialogResult = MessageBox.Show("要刪除了?", "要刪除了?", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
-                {
+                {                   
                     DELTE_MOCMANULINERESULTBAKING(DELID_DV6, DELMOCTA001_DV6, DELMOCTA002_DV6);
 
                     string SDATES = dateTimePicker3.Value.ToString("yyyyMMdd");
