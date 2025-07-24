@@ -356,90 +356,59 @@ namespace TKMOC
                                             , manu, sdates);
         }
 
-        public void SEARCH_MANULINE(string QUERY, DataGridView DataGridViewNew, string SortedColumn, string SortedModel)
+        public void SEARCH_MANULINE(string QUERY, DataGridView dataGridViewNew, string sortedColumn, string sortedModel)
         {
-            SqlConnection sqlConn = new SqlConnection();
-            SqlDataAdapter SqlDataAdapterNEW = new SqlDataAdapter();
-            SqlCommandBuilder SqlCommandBuilderNEW = new SqlCommandBuilder();
-            DataSet DataSetNEW = new DataSet();
-
-            DataGridViewNew.AlternatingRowsDefaultCellStyle.BackColor = Color.PaleTurquoise;
+            var dataSet = new DataSet();
+            dataGridViewNew.AlternatingRowsDefaultCellStyle.BackColor = Color.PaleTurquoise;
 
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
+                // 解密連線字串
+                var TKID = new Class1();
                 SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
                 //資料庫使用者密碼解密
                 sqlsb.Password = TKID.Decryption(sqlsb.Password);
                 sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
 
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-                SqlDataAdapterNEW = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                SqlCommandBuilderNEW = new SqlCommandBuilder(SqlDataAdapterNEW);
-                sqlConn.Open();
-                DataSetNEW.Clear();
-                SqlDataAdapterNEW.Fill(DataSetNEW, "DataSetNEW");
-                sqlConn.Close();
-
-
-                DataGridViewNew.DataSource = null;
-
-                if (DataSetNEW.Tables["DataSetNEW"].Rows.Count >= 1)
+                using (var conn = new SqlConnection(sqlsb.ConnectionString))
+                using (var adapter = new SqlDataAdapter(QUERY, conn))
                 {
-                    //DataGridViewNew.Rows.Clear();
-                    DataGridViewNew.DataSource = DataSetNEW.Tables["DataSetNEW"];
-                    DataGridViewNew.AutoResizeColumns();
-                    //DataGridViewNew.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                    //DataGridViewNew.CurrentCell = dataGridView1[0, rownum];
-                    //dataGridView20SORTNAME
-                    //dataGridView20SORTMODE
-
-                    if (!string.IsNullOrEmpty(SortedColumn))
-                    {
-                        if (SortedModel.Equals("Ascending"))
-                        {
-                            DataGridViewNew.Sort(DataGridViewNew.Columns["" + SortedColumn + ""], ListSortDirection.Ascending);
-                        }
-                        else
-                        {
-                            DataGridViewNew.Sort(DataGridViewNew.Columns["" + SortedColumn + ""], ListSortDirection.Descending);
-                        }
-                    }
-
-                    //SET欄位寬度
-                    if (DataGridViewNew.Columns.Contains("規格"))
-                    {
-                        // 欄位存在
-                        DataGridViewNew.Columns["規格"].Width = 100;
-                    }
-                    if (DataGridViewNew.Columns.Contains("過敏原"))
-                    {
-                        // 欄位存在
-                        DataGridViewNew.Columns["過敏原"].Width = 30;
-                    }
-                    if (DataGridViewNew.Columns.Contains("素別"))
-                    {
-                        // 欄位存在
-                        DataGridViewNew.Columns["素別"].Width = 50;
-                    }
-
+                    conn.Open();
+                    dataSet.Clear();
+                    adapter.Fill(dataSet, "Result");
                 }
 
-            }
-            catch
-            {
+                if (dataSet.Tables["Result"].Rows.Count > 0)
+                {
+                    dataGridViewNew.DataSource = null;
+                    dataGridViewNew.DataSource = dataSet.Tables["Result"];
+                    dataGridViewNew.AutoResizeColumns();
 
+                    // 排序處理
+                    if (!string.IsNullOrEmpty(sortedColumn) && dataGridViewNew.Columns.Contains(sortedColumn))
+                    {
+                        var direction = sortedModel == "Descending"
+                            ? ListSortDirection.Descending
+                            : ListSortDirection.Ascending;
+
+                        dataGridViewNew.Sort(dataGridViewNew.Columns[sortedColumn], direction);
+                    }
+
+                    // 欄位寬度微調
+                    if (dataGridViewNew.Columns.Contains("規格"))
+                        dataGridViewNew.Columns["規格"].Width = 100;
+                    if (dataGridViewNew.Columns.Contains("過敏原"))
+                        dataGridViewNew.Columns["過敏原"].Width = 30;
+                    if (dataGridViewNew.Columns.Contains("素別"))
+                        dataGridViewNew.Columns["素別"].Width = 50;
+                }
             }
-            finally
+            catch (Exception ex)
             {
-                sqlConn.Close();
+                MessageBox.Show($"資料查詢錯誤：{ex.Message}", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void textBox7_TextChanged(object sender, EventArgs e)
         {
             SEARCHMB001(textBox7.Text.Trim());
