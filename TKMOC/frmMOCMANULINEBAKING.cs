@@ -303,108 +303,57 @@ namespace TKMOC
             }
         }
 
-        public void SEARCHMOCMANULINE_BAKING(string SDATES,string MANU)
+        public void SEARCHMOCMANULINE_BAKING(string SDATES, string MANU)
         {
+            sbSql.Clear();
+            sbSqlQuery.Clear();
+
             if (MANU.Equals("烘焙生產線"))
             {
-                sbSql.Clear();
-                sbSqlQuery.Clear();
-
-
-                sbSql.AppendFormat(@"                                      
-                                    SELECT 
-                                    [MANU] AS '線別'
-                                    ,CONVERT(varchar(100),[MANUDATE],112) AS '生產日'
-                                    ,[MOCMANULINEBAKING].[MB001] AS '品號'
-                                    ,[MOCMANULINEBAKING].[MB002] AS '品名' 
-                                    ,[MOCMANULINEBAKING].[MB003] AS '規格'
-                                    ,ALLERGEN AS '過敏原'
-                                    ,ORI AS '素別'
-                                    ,[BAR] AS '桶數'
-                                    ,[PACKAGE] AS '包裝數'
-                                    ,[NUM] AS '數量'
-                                    ,[CLINET] AS '客戶'
-                                    ,[OUTDATE] AS '交期'
-                                    ,[TA029] AS '備註'
-                                    ,[HALFPRO] AS '半成品數量'
-                                    ,[COPTD001] AS '訂單單別'
-                                    ,[COPTD002] AS '訂單號'
-                                    ,[COPTD003] AS '訂單序號'
-                                    ,[BOX] AS '箱數'
-                                    ,[SERNO]
-                                    ,[ID]
-
-                                    FROM [TKMOC].[dbo].[MOCMANULINEBAKING]
-                                    LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=[MOCMANULINEBAKING].MB001
-
-                                    WHERE [MANU]='{0}' 
-                                    AND CONVERT(varchar(100),[MANUDATE],112) LIKE '{1}%'
-                                    ORDER BY [MANUDATE],[SERNO]"
-
-                                   , MANU, SDATES);
-
-                sbSql.AppendFormat(@"  ");
-
+                sbSql.Append(BuildSqlQuery(MANU, SDATES));
                 SEARCH_MANULINE(sbSql.ToString(), dataGridView1, SortedColumn, SortedModel);
-
-                ////SET欄位寬度
-                //if (dataGridView1.Columns.Contains("規格"))
-                //{
-                //    // 欄位存在
-                //    dataGridView1.Columns["規格"].Width = 30;
-                //}
-
             }
             else if (MANU.Equals("烘焙包裝線"))
             {
-                sbSql.Clear();
-                sbSqlQuery.Clear();
-
-
-                sbSql.AppendFormat(@"                                      
-                                    SELECT 
-                                    [MANU] AS '線別'
-                                    ,CONVERT(varchar(100),[MANUDATE],112) AS '生產日'
-                                    ,[MOCMANULINEBAKING].[MB001] AS '品號'
-                                    ,[MOCMANULINEBAKING].[MB002] AS '品名' 
-                                    ,[MOCMANULINEBAKING].[MB003] AS '規格'
-                                    ,ALLERGEN AS '過敏原'
-                                    ,ORI AS '素別'
-                                    ,[BAR] AS '桶數'
-                                    ,[PACKAGE] AS '包裝數'
-                                    ,[NUM] AS '數量'
-                                    ,[CLINET] AS '客戶'
-                                    ,[OUTDATE] AS '交期'
-                                    ,[TA029] AS '備註'
-                                    ,[HALFPRO] AS '半成品數量'
-                                    ,[COPTD001] AS '訂單單別'
-                                    ,[COPTD002] AS '訂單號'
-                                    ,[COPTD003] AS '訂單序號'
-                                    ,[BOX] AS '箱數'
-                                    ,[SERNO]
-                                    ,[ID]
-
-                                    FROM [TKMOC].[dbo].[MOCMANULINEBAKING]
-                                    LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=[MOCMANULINEBAKING].MB001
-
-                                    WHERE [MANU]='{0}' 
-                                    AND CONVERT(varchar(100),[MANUDATE],112) LIKE '{1}%'
-                                    ORDER BY [MANUDATE],[SERNO]"
-
-                                   , MANU, SDATES);
-
-                sbSql.AppendFormat(@"  ");
-
+                sbSql.Append(BuildSqlQuery(MANU, SDATES));
                 SEARCH_MANULINE(sbSql.ToString(), dataGridView4, SortedColumn, SortedModel);
-
-                ////SET欄位寬度
-                //if (dataGridView1.Columns.Contains("規格"))
-                //{
-                //    // 欄位存在
-                //    dataGridView1.Columns["規格"].Width = 30;
-                //}
-
             }
+        }
+
+        /// <summary>
+        /// 組合查詢 SQL（共用區塊）
+        /// </summary>
+        private string BuildSqlQuery(string manu, string sdates)
+        {
+            return string.Format(@"
+                                    SELECT 
+                                        [MANU] AS '線別',
+                                        CONVERT(varchar(100), [MANUDATE], 112) AS '生產日',
+                                        [MOCMANULINEBAKING].[MB001] AS '品號',
+                                        [MOCMANULINEBAKING].[MB002] AS '品名',
+                                        [MOCMANULINEBAKING].[MB003] AS '規格',
+                                        ALLERGEN AS '過敏原',
+                                        ORI AS '素別',
+                                        [BAR] AS '桶數',
+                                        [PACKAGE] AS '包裝數',
+                                        [NUM] AS '數量',
+                                        [CLINET] AS '客戶',
+                                        [OUTDATE] AS '交期',
+                                        [TA029] AS '備註',
+                                        [HALFPRO] AS '半成品數量',
+                                        [COPTD001] AS '訂單單別',
+                                        [COPTD002] AS '訂單號',
+                                        [COPTD003] AS '訂單序號',
+                                        [BOX] AS '箱數',
+                                        [SERNO],
+                                        [ID]
+                                    FROM [TKMOC].[dbo].[MOCMANULINEBAKING]
+                                    LEFT JOIN [TKMOC].[dbo].[ERPINVMB] 
+                                        ON [ERPINVMB].MB001 = [MOCMANULINEBAKING].MB001
+                                    WHERE [MANU] = '{0}' 
+                                        AND CONVERT(varchar(100), [MANUDATE], 112) LIKE '{1}%'
+                                    ORDER BY [MANUDATE], [SERNO]"
+                                            , manu, sdates);
         }
 
         public void SEARCH_MANULINE(string QUERY, DataGridView DataGridViewNew, string SortedColumn, string SortedModel)
@@ -4539,7 +4488,9 @@ namespace TKMOC
 
         private void button1_Click(object sender, EventArgs e)
         {
-            SEARCHMOCMANULINE_BAKING(dateTimePicker1.Value.ToString("yyyyMMdd"),comboBox1.Text.Trim());
+            string SDATES = dateTimePicker1.Value.ToString("yyyyMMdd");
+            string MANU= comboBox1.Text.Trim();
+            SEARCHMOCMANULINE_BAKING(SDATES, MANU);
         }
         private void button2_Click(object sender, EventArgs e)
         {
