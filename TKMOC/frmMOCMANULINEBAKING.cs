@@ -1228,68 +1228,54 @@ namespace TKMOC
         }
 
 
-        public string GETMAXTA002(string TA001,DateTime DT)
+        public string GETMAXTA002(string TA001, DateTime DT)
         {
             StringBuilder sbSql = new StringBuilder();
-            StringBuilder sbSqlQuery = new StringBuilder();
             SqlConnection sqlConn = new SqlConnection();
             SqlDataAdapter adapter1 = new SqlDataAdapter();
             SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
-            SqlTransaction tran;
-            SqlCommand cmd = new SqlCommand();
             DataSet ds1 = new DataSet();
             string TA002;
 
-            if (MANU.Equals("烘焙生產線"))
+            if (MANU == "烘焙生產線" || MANU == "烘焙包裝線")
             {
-
                 try
                 {
                     //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
+                    Class1 TKID = new Class1(); //用new 建立類別實體
                     SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
 
                     //資料庫使用者密碼解密
                     sqlsb.Password = TKID.Decryption(sqlsb.Password);
                     sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
 
-                    String connectionString;
                     sqlConn = new SqlConnection(sqlsb.ConnectionString);
 
                     sbSql.Clear();
-                    sbSqlQuery.Clear();
                     ds1.Clear();
 
-                    sbSql.AppendFormat(@" 
+                    sbSql.AppendFormat(@"
                                         SELECT ISNULL(MAX(TA002),'00000000000') AS TA002
                                         FROM [TK].[dbo].[MOCTA]
-                                        WHERE  TA001='{0}' AND TA002 LIKE '%{1}%' 
-                                        ", TA001, DT.ToString("yyyyMMdd"));
+                                        WHERE TA001 = '{0}' AND TA002 LIKE '%{1}%'
+                                    ", TA001, DT.ToString("yyyyMMdd"));
 
-                    adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
+                    adapter1 = new SqlDataAdapter(sbSql.ToString(), sqlConn);
                     sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+
                     sqlConn.Open();
-                    ds1.Clear();
                     adapter1.Fill(ds1, "ds1");
                     sqlConn.Close();
 
-
-                    if (ds1.Tables["ds1"].Rows.Count == 0)
+                    if (ds1.Tables["ds1"].Rows.Count >= 1)
                     {
-                        return null;
+                        TA002 = SETTA002(ds1.Tables["ds1"].Rows[0]["TA002"].ToString(), DT);
+                        return TA002;
                     }
                     else
                     {
-                        if (ds1.Tables["ds1"].Rows.Count >= 1)
-                        {
-                            TA002 = SETTA002(ds1.Tables["ds1"].Rows[0]["TA002"].ToString(), DT);
-                            return TA002;
-
-                        }
                         return null;
                     }
-
                 }
                 catch
                 {
@@ -1300,96 +1286,26 @@ namespace TKMOC
                     sqlConn.Close();
                 }
             }
-            else if (MANU.Equals("烘焙包裝線"))
-            {
-
-                try
-                {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-                    sbSql.Clear();
-                    sbSqlQuery.Clear();
-                    ds1.Clear();
-
-                    sbSql.AppendFormat(@" 
-                                        SELECT ISNULL(MAX(TA002),'00000000000') AS TA002
-                                        FROM [TK].[dbo].[MOCTA]
-                                        WHERE  TA001='{0}' AND TA002 LIKE '%{1}%' 
-                                        ", TA001, DT.ToString("yyyyMMdd"));
-
-                    adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                    sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
-                    sqlConn.Open();
-                    ds1.Clear();
-                    adapter1.Fill(ds1, "ds1");
-                    sqlConn.Close();
-
-
-                    if (ds1.Tables["ds1"].Rows.Count == 0)
-                    {
-                        return null;
-                    }
-                    else
-                    {
-                        if (ds1.Tables["ds1"].Rows.Count >= 1)
-                        {
-                            TA002 = SETTA002(ds1.Tables["ds1"].Rows[0]["TA002"].ToString(), DT);
-                            return TA002;
-
-                        }
-                        return null;
-                    }
-
-                }
-                catch
-                {
-                    return null;
-                }
-                finally
-                {
-                    sqlConn.Close();
-                }
-            }
-
-
-
-            return null;
-
-        }
-        public string SETTA002(string TA002, DateTime DT)
-        {
-            if (TA002.Equals("00000000000"))
-            {
-                return DT.ToString("yyyyMMdd") + "001";
-            }
-
             else
             {
-                int serno = Convert.ToInt16(TA002.Substring(8, 3));
-                serno = serno + 1;
-                string temp = serno.ToString();
-                temp = temp.PadLeft(3, '0');
-                return DT.ToString("yyyyMMdd") + temp.ToString();
+                return null;
             }
-
-            //if (MANU.Equals("烘焙生產線"))
-            //{
-                
-            //}
-
-            return null;
         }
 
+        public string SETTA002(string TA002, DateTime DT)
+        {
+            string datePart = DT.ToString("yyyyMMdd");
+
+            if (TA002 == "00000000000")
+            {
+                return datePart + "001";
+            }
+
+            int serno = Convert.ToInt16(TA002.Substring(8, 3)) + 1;
+            string serial = serno.ToString().PadLeft(3, '0');
+
+            return datePart + serial;
+        }
         public void ADDMOCMANULINERESULT(string ID, string TA001, string TA002)
         {
             try
