@@ -281,7 +281,7 @@ namespace TKMOC
         public void LoadComboBoxData(ComboBox comboBox, string query, string valueMember, string displayMember)
         {
             //20210902密
-            Class1 TKID = new Class1();//用new 建立類別實體
+            Class1 TKID = new Class1();//用new 建立類別實體 
             SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
 
             //資料庫使用者密碼解密
@@ -3309,7 +3309,7 @@ namespace TKMOC
         #endregion
 
         #region BUTTON
-
+         
         private void button1_Click(object sender, EventArgs e)
         {
             string SDATES = dateTimePicker1.Value.ToString("yyyyMMdd");
