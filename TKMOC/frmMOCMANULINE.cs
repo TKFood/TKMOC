@@ -2342,10 +2342,11 @@ namespace TKMOC
             }
         }
 
-        public void ADDMOCTATB()
+        public void ADDMOCTATB(string KIND="",string TA015="0")
         {
             MOCTADATA MOCTA = new MOCTADATA();
-            MOCTA = SETMOCTA();
+            MOCTA = SETMOCTA(MANU);
+
             string MOCMB001 = null;
             decimal MOCTA004 = 0; ;
             string MOCTB009 = null;
@@ -2353,6 +2354,8 @@ namespace TKMOC
              
             const int MaxLength = 100;
 
+          
+           
             if (MANU.Equals("製二線"))
             { 
                 MOCMB001 = MB001;
@@ -2422,8 +2425,15 @@ namespace TKMOC
                     }
                     
                 }
-                
-               
+
+                //水麵MERGE
+                if (KIND.Equals("水麵MERGE") && !TA015.Equals("0"))
+                {
+                    MOCTA.TA015 = TA015;
+                    MOCMB001 = MB001E;
+                    MOCTA004 = Convert.ToDecimal(TA015) / BOMBAR;
+                }
+
                 //MOCTB009 = textBox81.Text;
             }
 
@@ -2526,7 +2536,7 @@ namespace TKMOC
 
 
 
-        public MOCTADATA SETMOCTA()
+        public MOCTADATA SETMOCTA(string MANU)
         {
             if (MANU.Equals("製二線"))
             {
@@ -4794,6 +4804,7 @@ namespace TKMOC
                     MB002E = row.Cells["品名"].Value.ToString();                   
 
                     SEARCHMOCMANULINETOATL();
+                    SEARCHMOCMANULINEMERGE(row.Cells["日期"].Value.ToString(), row.Cells["品號"].Value.ToString());
                 }
                 else
                 {
@@ -4869,6 +4880,69 @@ namespace TKMOC
 
             }
         }
+
+        public void SEARCHMOCMANULINEMERGE(string TA003, string TB003)
+        {
+            dataGridView31.DataSource = null;
+
+            try
+            {
+                Class1 TKID = new Class1();
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                // 解密帳號與密碼
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                using (SqlConnection sqlConn = new SqlConnection(sqlsb.ConnectionString))
+                {
+                    StringBuilder sbSql = new StringBuilder();
+                    sbSql.Append(@"
+                                    SELECT 
+                                        TA003  AS '日期',
+                                        TA021 AS '線別號',
+                                        MD002 AS '線別',
+                                        TB003 AS '品號',
+                                        TB012 AS '品名',
+                                        SUM(TB004) AS '合併後總數量',
+                                        TB009 AS '入庫別'
+                                    FROM [TK].dbo.MOCTA
+                                    JOIN [TK].dbo.MOCTB ON TA001 = TB001 AND TA002 = TB002
+                                    JOIN [TK].dbo.CMSMD ON TA021 = MD001
+                                    LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001 = MOCTA.TA006
+                                    WHERE TA002 LIKE @TA003
+                                      AND TB003 LIKE @TB003
+                                    GROUP BY TB003, TB012, TB009, TA003, TA021, MD002
+                                    ORDER BY TA003, TA021, TB003
+                                ");
+
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(sbSql.ToString(), sqlConn))
+                    {
+                        adapter.SelectCommand.Parameters.AddWithValue("@TA003", $"%{TA003}%");
+                        adapter.SelectCommand.Parameters.AddWithValue("@TB003", $"%{TB003}%");
+
+                        DataSet ds = new DataSet();
+                        sqlConn.Open();
+                        adapter.Fill(ds, "ds");
+
+                        if (ds.Tables["ds"].Rows.Count == 0)
+                        {
+                            dataGridView31.DataSource = null;
+                        }
+                        else
+                        {
+                            dataGridView31.DataSource = ds.Tables["ds"];
+                            dataGridView31.AutoResizeColumns();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"發生錯誤：{ex.Message}");
+            }
+        }
+
 
         private void textBox4_TextChanged(object sender, EventArgs e)
         {
@@ -14326,6 +14400,23 @@ namespace TKMOC
                 }
             }
         }
+        private void dataGridView31_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView31.CurrentRow != null)
+            {
+                int rowindex = dataGridView31.CurrentRow.Index;
+                if (rowindex >= 0)
+                {
+                    DataGridViewRow row = dataGridView31.Rows[rowindex];
+                    textBox48.Text = row.Cells["合併後總數量"].Value.ToString();                 
+                }
+                else
+                {
+                    textBox48.Text = "0";
+                }
+            }
+        }
+
         #endregion
 
         #region BUTTON
@@ -15291,6 +15382,29 @@ namespace TKMOC
             {
                 MessageBox.Show("訂單、訂單號碼不可以空白");
             }
+        }
+
+        private void button105_Click(object sender, EventArgs e)
+        {
+            if (!comboBox10.Text.Equals("水麵"))
+            {
+                dt5 = dateTimePicker33.Value;
+            }
+           
+            if(!textBox48.Text.Trim().Equals("0"))
+            {
+                TA002 = GETMAXTA002(TA001);
+                ADDMOCMANULINETOATL();
+                ADDMOCTATB("水麵MERGE", textBox48.Text.Trim());
+                SEARCHMOCMANULINETOATL();
+
+                MessageBox.Show("完成");
+            }
+            else
+            {
+                MessageBox.Show("合併數量=0");
+            }
+           
         }
 
 
