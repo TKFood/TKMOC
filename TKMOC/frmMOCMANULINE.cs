@@ -28,6 +28,8 @@ namespace TKMOC
         string SortedModel = string.Empty;
         string SortedColumn_DG7 = string.Empty;
 
+        private DataTable dtAllMerge; // 放全資料
+
         private ComponentResourceManager _ResourceManager = new ComponentResourceManager();
         SqlConnection sqlConn = new SqlConnection();
         SqlCommand sqlComm = new SqlCommand();
@@ -4804,7 +4806,24 @@ namespace TKMOC
                     MB002E = row.Cells["品名"].Value.ToString();                   
 
                     SEARCHMOCMANULINETOATL();
-                    SEARCHMOCMANULINEMERGE(row.Cells["日期"].Value.ToString(), row.Cells["品號"].Value.ToString());
+                    //SEARCHMOCMANULINEMERGE(row.Cells["日期"].Value.ToString(), row.Cells["品號"].Value.ToString());
+
+
+                    string tb003 = row.Cells["品號"].Value.ToString();
+                    string TA021= row.Cells["線別號"].Value.ToString();
+
+                    DataView dv = new DataView(dtAllMerge);
+                    dv.RowFilter = $"品號 = '{tb003}' AND 線別號 = '{TA021}'"; // 同時過濾品號和線別號
+
+
+                    if (dv.Count > 0)
+                    {
+                        dataGridView31.DataSource = dv;
+                    }
+                    else
+                    {
+                        dataGridView31.DataSource = null; // 沒資料就清空 DataGrid
+                    }
                 }
                 else
                 {
@@ -4817,6 +4836,7 @@ namespace TKMOC
 
                 }
             }
+           
         }
 
         public void SEARCHMOCMANULINETOATL()
@@ -4878,6 +4898,52 @@ namespace TKMOC
             finally
             {
 
+            }
+        }
+
+        public void SEARCHMOCMANULINEMERGE_ALL(string TA003)
+        {
+            try
+            {
+                Class1 TKID = new Class1();
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                using (SqlConnection sqlConn = new SqlConnection(sqlsb.ConnectionString))
+                {
+                    StringBuilder sbSql = new StringBuilder();
+                    sbSql.Append(@"
+                                    SELECT 
+                                        TA003  AS '日期',
+                                        TA021 AS '線別號',
+                                        MD002 AS '線別',
+                                        TB003 AS '品號',
+                                        TB012 AS '品名',
+                                        SUM(TB004) AS '合併後總數量',
+                                        TB009 AS '入庫別'
+                                    FROM [TK].dbo.MOCTA
+                                    JOIN [TK].dbo.MOCTB ON TA001 = TB001 AND TA002 = TB002
+                                    JOIN [TK].dbo.CMSMD ON TA021 = MD001
+                                    LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001 = MOCTA.TA006
+                                    WHERE TA002 LIKE @TA003
+                                    GROUP BY TB003, TB012, TB009, TA003, TA021, MD002
+                                    ORDER BY TA003, TA021, TB003
+                                ");
+
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(sbSql.ToString(), sqlConn))
+                    {
+                        adapter.SelectCommand.Parameters.AddWithValue("@TA003", $"%{TA003}%");
+                        dtAllMerge = new DataTable();
+                        adapter.Fill(dtAllMerge);
+                        //dataGridView31.DataSource = dtAllMerge;
+                        //dataGridView31.AutoResizeColumns();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"發生錯誤：{ex.Message}");
             }
         }
 
@@ -14724,6 +14790,7 @@ namespace TKMOC
         private void button25_Click(object sender, EventArgs e)
         {
             SEARCHMOCTB(comboBox10.SelectedValue.ToString());
+            SEARCHMOCMANULINEMERGE_ALL(dateTimePicker10.Value.ToString("yyyyMMdd"));
         }
 
 
