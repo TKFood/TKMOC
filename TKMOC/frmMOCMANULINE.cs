@@ -434,7 +434,7 @@ namespace TKMOC
                 return true;
             }
             return base.ProcessCmdKey(ref msg, keyData);
-        }
+        } 
 
         #region FUNCTION
 
@@ -15326,7 +15326,7 @@ namespace TKMOC
             CHECKdataGridView28();
 
             SEARCHTBCOPTDCHECK(dateTimePicker28.Value.ToString("yyyyMM"), comboBox23.SelectedValue.ToString(), comboBox24.SelectedValue.ToString(), textBox97.Text.Trim());
-            MessageBox.Show("完成");
+            MessageBox.Show("完成"); 
 
 
         }
