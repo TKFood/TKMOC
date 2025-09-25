@@ -914,7 +914,7 @@ namespace TKMOC
                     {
                         // 欄位存在
                         DataGridViewNew.Columns["過敏原"].Width = 30;
-                    }
+                    } 
                     if (DataGridViewNew.Columns.Contains("素別"))
                     {
                         // 欄位存在
