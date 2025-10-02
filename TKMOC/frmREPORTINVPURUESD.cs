@@ -86,18 +86,56 @@ namespace TKMOC
                 sbSqlQuery.Clear();
 
                 sbSql.AppendFormat(@"  
-                                   SELECT MD003 AS '品號',MD035 AS '品名'
-                                   ,ISNULL((SELECT SUM(LA005*LA011) FROM [TK].dbo.INVLA WHERE LA001=MD003 AND LA009='20019' AND LA016<>'********************') ,0) AS '20019外倉'                                           
-                                   ,(SELECT CAST(LA016 AS NVARCHAR ) + ',' FROM [TK].dbo.INVLA WITH (NOLOCK) WHERE LA001=MD003 AND LA009='20006' AND ISNULL(LA016,'')<>'' AND LA016<>'********************' GROUP BY LA001,LA016 HAVING ISNULL(SUM(LA005*LA011),0)>0 FOR XML PATH('')) AS '20006倉批號'
-                                    FROM [TKMOC].dbo.[MOCMANULINE] WITH(NOLOCK),[TK].dbo.BOMMC WITH(NOLOCK),[TK].dbo.BOMMD WITH(NOLOCK)
-                                    LEFT JOIN [TK].dbo.INVMB ON INVMB.MB001=MD003
-                                    
-
-                                    WHERE [MOCMANULINE].MB001=MC001
-                                    AND MC001=MD001
-                                    AND CONVERT(NVARCHAR,[MANUDATE],112)>='{0}' AND CONVERT(NVARCHAR,[MANUDATE],112)<='{1}' 
-                                    GROUP BY MD003,MD035
-                                    ORDER BY MD003,MD035
+                WITH INVLA_SUMMARY AS (
+    -- 在這裡一次性計算所有品號的 20019 倉庫庫存總和
+    SELECT 
+        LA001, 
+        SUM(LA005 * LA011) AS Sum_20019
+    FROM [TK].dbo.INVLA WITH (NOLOCK)
+    WHERE 
+        LA009 = '20019' 
+        AND LA016 <> '********************'
+    GROUP BY 
+        LA001
+)
+-- 接下來的主查詢使用 JOIN 來連接這個彙總結果
+SELECT
+    T3.MD003 AS '品號',
+    T3.MD035 AS '品名',
+    ISNULL(T_SUM.Sum_20019, 0) AS '20019外倉',
+    (
+        -- 批號查詢仍須使用相關子查詢或 APPLY (因為 FOR XML PATH 難以用標準 JOIN 實現)
+        SELECT CAST(LA016 AS NVARCHAR) + ',' 
+        FROM [TK].dbo.INVLA AS INVLA_INNER WITH (NOLOCK)
+        WHERE 
+            INVLA_INNER.LA001 = T3.MD003  -- 依賴主查詢的 MD003
+            AND INVLA_INNER.LA009 = '20006' 
+            AND ISNULL(INVLA_INNER.LA016,'') <> '' 
+            AND INVLA_INNER.LA016 <> '********************' 
+        GROUP BY 
+            INVLA_INNER.LA001, INVLA_INNER.LA016 
+        HAVING 
+            ISNULL(SUM(INVLA_INNER.LA005*INVLA_INNER.LA011), 0) > 0 
+        FOR XML PATH('')
+    ) AS '20006倉批號'
+FROM 
+    [TKMOC].dbo.[MOCMANULINE] AS T1 WITH(NOLOCK)
+INNER JOIN 
+    [TK].dbo.BOMMC AS T2 WITH(NOLOCK) ON T1.MB001 = T2.MC001
+INNER JOIN 
+    [TK].dbo.BOMMD AS T3 WITH(NOLOCK) ON T2.MC001 = T3.MD001
+LEFT JOIN 
+    [TK].dbo.INVMB AS T4 WITH(NOLOCK) ON T4.MB001 = T3.MD003
+-- 將預先計算好的庫存總和連接回來
+LEFT JOIN 
+    INVLA_SUMMARY AS T_SUM ON T_SUM.LA001 = T3.MD003
+WHERE 
+    T1.[MANUDATE] >= '{0}' 
+    AND T1.[MANUDATE] < ='{1}'
+GROUP BY 
+    T3.MD003, T3.MD035, T_SUM.Sum_20019  -- 彙總值也需加入 GROUP BY
+ORDER BY 
+    T3.MD003, T3.MD035;
                                     ", SDay, EDay);
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
