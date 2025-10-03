@@ -9630,7 +9630,10 @@ namespace TKMOC
 
         public void ADDMULTIMOCMANULINETEMP(string TD001,string TD002,string TD003)
         {
-            if(comboBox21.Text.Equals("成品"))
+            DataTable DTMB001 = FIND_MOCMANULINEORMB001();
+
+
+            if (comboBox21.Text.Equals("成品"))
             {
                 try
                 {
@@ -14482,7 +14485,62 @@ namespace TKMOC
                 }
             }
         }
+        public DataTable FIND_MOCMANULINEORMB001()
+        {
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+            DataSet ds1 = new DataSet();
 
+            try
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+                sbSqlQuery2.Clear();
+
+                sbSql.AppendFormat(@"  
+                                   SELECT  [MB001]
+                                   FROM [TKMOC].[dbo].[MOCMANULINEORMB001] 
+                                   ");
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                ds1.Clear();
+                adapter1.Fill(ds1, "TEMPds1");
+                sqlConn.Close();
+
+
+                if (ds1.Tables["TEMPds1"].Rows.Count >= 1)
+                {
+                    return ds1.Tables["TEMPds1"];
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            finally
+            {
+                sqlConn.Close();
+            }
+        }
         #endregion
 
         #region BUTTON
