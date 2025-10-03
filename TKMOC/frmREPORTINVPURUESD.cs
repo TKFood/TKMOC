@@ -86,56 +86,56 @@ namespace TKMOC
                 sbSqlQuery.Clear();
 
                 sbSql.AppendFormat(@"  
-                WITH INVLA_SUMMARY AS (
-    -- 在這裡一次性計算所有品號的 20019 倉庫庫存總和
-    SELECT 
-        LA001, 
-        SUM(LA005 * LA011) AS Sum_20019
-    FROM [TK].dbo.INVLA WITH (NOLOCK)
-    WHERE 
-        LA009 = '20019' 
-        AND LA016 <> '********************'
-    GROUP BY 
-        LA001
-)
--- 接下來的主查詢使用 JOIN 來連接這個彙總結果
-SELECT
-    T3.MD003 AS '品號',
-    T3.MD035 AS '品名',
-    ISNULL(T_SUM.Sum_20019, 0) AS '20019外倉',
-    (
-        -- 批號查詢仍須使用相關子查詢或 APPLY (因為 FOR XML PATH 難以用標準 JOIN 實現)
-        SELECT CAST(LA016 AS NVARCHAR) + ',' 
-        FROM [TK].dbo.INVLA AS INVLA_INNER WITH (NOLOCK)
-        WHERE 
-            INVLA_INNER.LA001 = T3.MD003  -- 依賴主查詢的 MD003
-            AND INVLA_INNER.LA009 = '20006' 
-            AND ISNULL(INVLA_INNER.LA016,'') <> '' 
-            AND INVLA_INNER.LA016 <> '********************' 
-        GROUP BY 
-            INVLA_INNER.LA001, INVLA_INNER.LA016 
-        HAVING 
-            ISNULL(SUM(INVLA_INNER.LA005*INVLA_INNER.LA011), 0) > 0 
-        FOR XML PATH('')
-    ) AS '20006倉批號'
-FROM 
-    [TKMOC].dbo.[MOCMANULINE] AS T1 WITH(NOLOCK)
-INNER JOIN 
-    [TK].dbo.BOMMC AS T2 WITH(NOLOCK) ON T1.MB001 = T2.MC001
-INNER JOIN 
-    [TK].dbo.BOMMD AS T3 WITH(NOLOCK) ON T2.MC001 = T3.MD001
-LEFT JOIN 
-    [TK].dbo.INVMB AS T4 WITH(NOLOCK) ON T4.MB001 = T3.MD003
--- 將預先計算好的庫存總和連接回來
-LEFT JOIN 
-    INVLA_SUMMARY AS T_SUM ON T_SUM.LA001 = T3.MD003
-WHERE 
-    T1.[MANUDATE] >= '{0}' 
-    AND T1.[MANUDATE] < ='{1}'
-GROUP BY 
-    T3.MD003, T3.MD035, T_SUM.Sum_20019  -- 彙總值也需加入 GROUP BY
-ORDER BY 
-    T3.MD003, T3.MD035;
+                                    WITH INVLA_SUMMARY AS (
+                                    -- 在這裡一次性計算所有品號的 20019 倉庫庫存總和
+                                    SELECT 
+                                        LA001, 
+                                        SUM(LA005 * LA011) AS Sum_20019
+                                    FROM [TK].dbo.INVLA WITH (NOLOCK)
+                                    WHERE 
+                                        LA009 = '20019' 
+                                        AND LA016 <> '********************'
+                                    GROUP BY 
+                                        LA001
+                                )
+                                -- 接下來的主查詢使用 JOIN 來連接這個彙總結果
+                                SELECT
+                                    T3.MD003 AS '品號',
+                                    T3.MD035 AS '品名',
+                                    ISNULL(T_SUM.Sum_20019, 0) AS '20019外倉',
+                                    (
+                                        -- 批號查詢仍須使用相關子查詢或 APPLY (因為 FOR XML PATH 難以用標準 JOIN 實現)
+                                        SELECT CAST(LA016 AS NVARCHAR) + ',' 
+                                        FROM [TK].dbo.INVLA AS INVLA_INNER WITH (NOLOCK)
+                                        WHERE 
+                                            INVLA_INNER.LA001 = T3.MD003  -- 依賴主查詢的 MD003
+                                            AND INVLA_INNER.LA009 = '20006' 
+                                            AND ISNULL(INVLA_INNER.LA016,'') <> '' 
+                                            AND INVLA_INNER.LA016 <> '********************' 
+                                        GROUP BY 
+                                            INVLA_INNER.LA001, INVLA_INNER.LA016 
+                                        HAVING 
+                                            ISNULL(SUM(INVLA_INNER.LA005*INVLA_INNER.LA011), 0) > 0 
+                                        FOR XML PATH('')
+                                    ) AS '20006倉批號'
+                                FROM 
+                                    [TKMOC].dbo.[MOCMANULINE] AS T1 WITH(NOLOCK)
+                                INNER JOIN 
+                                    [TK].dbo.BOMMC AS T2 WITH(NOLOCK) ON T1.MB001 = T2.MC001
+                                INNER JOIN 
+                                    [TK].dbo.BOMMD AS T3 WITH(NOLOCK) ON T2.MC001 = T3.MD001
+                                LEFT JOIN 
+                                    [TK].dbo.INVMB AS T4 WITH(NOLOCK) ON T4.MB001 = T3.MD003
+                                -- 將預先計算好的庫存總和連接回來
+                                LEFT JOIN 
+                                    INVLA_SUMMARY AS T_SUM ON T_SUM.LA001 = T3.MD003
+                                WHERE 
+                                    T1.[MANUDATE] >= '{0}' 
+                                    AND T1.[MANUDATE] < ='{1}'
+                                GROUP BY 
+                                    T3.MD003, T3.MD035, T_SUM.Sum_20019  -- 彙總值也需加入 GROUP BY
+                                ORDER BY 
+                                    T3.MD003, T3.MD035;
                                     ", SDay, EDay);
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
@@ -243,495 +243,177 @@ ORDER BY
                 //另外查詢領料數量
 
                 sbSql.AppendFormat(@"   
+                                    WITH
+                                    -- 1. 統一定義基礎數據 (BASE_DATA)
+                                    -- 結合所有四個 UNION 區塊的資料，並計算出 TNUM
+                                    BASE_DATA AS (
+                                        -- 區塊 1 & 2: MOCMANULINE 數據 (MANU = '包裝線' / MANU NOT IN ('包裝線'))
+                                        SELECT
+                                            [MANU],
+                                            CONVERT(NVARCHAR, [MANUDATE], 112) AS MANUDATE,
+                                            [MD003],
+                                            [MD035],
+                                            -- 複雜的 TNUM 計算邏輯 (保持不變)
+		                                    --MOCTB1.TB001,MOCTB1.TB002,MOCTB1.TB003,MOCTB1.TB004,MOCTB1.TB005,
+                                            --[NUM] ,([NUM] / [MC004] * [MD006] / [MD007] * (1 + [MD008])) * -1,
+		                                    CONVERT(DECIMAL(16, 3), 
+                                                CASE
+                                                    -- 處理 MOCTB1 (MOCMANULINE.MOCTA001/002)
+                                                    WHEN ISNULL(MOCTB1.TB003, '') <> '' AND ISNULL(MOCTB1.TB004 - MOCTB1.TB005, 0) <= 0 THEN 0
+                                                    WHEN ISNULL(MOCTB1.TB003, '') <> '' AND ISNULL(MOCTB1.TB004 - MOCTB1.TB005, 0) > 0 THEN ISNULL((MOCTB1.TB004 - MOCTB1.TB005) * -1, 0)
+                                                    -- 處理 MOCTB2 (MOCMANULINEMERGE.NO -> MOCTA.TA033)
+                                                    WHEN ISNULL(MOCTB2.TB003, '') <> '' AND ISNULL(MOCTB2.TB004 - MOCTB2.TB005, 0) <= 0 THEN 0
+                                                    WHEN ISNULL(MOCTB2.TB003, '') <> '' AND ISNULL(MOCTB2.TB004 - MOCTB2.TB005, 0) > 0 THEN 
+                                                        (ISNULL(MOCTB2.TB004 - MOCTB2.TB005, 0) / ISNULL((SELECT COUNT(NO) FROM [TKMOC].[dbo].[MOCMANULINEMERGE] WHERE [MOCMANULINEMERGE].NO = MOCTA.TA033), 1)) * -1
+                                                    -- 預設計算邏輯
+                                                    WHEN [MANU] = '包裝線' THEN ([PACKAGE] / [MC004] * [MD006] / [MD007] * (1 + [MD008])) * -1
+                                                    ELSE ([NUM] / [MC004] * [MD006] / [MD007] * (1 + [MD008])) * -1
+                                                END
+                                            ) AS TNUM,
+                                            [MB004],
+                                            [MOCMANULINE].[MB001],
+                                            [MOCMANULINE].[MB002],
+                                            CASE WHEN [MANU] = '包裝線' THEN [PACKAGE] ELSE [NUM] END AS PACKAGE, -- 根據線別區分 PACKAGE 或 NUM
+                                            [MOCMANULINE].BAR AS BAR,
+                                            [COPTD001],
+                                            [COPTD002],
+                                            [COPTD003]
+                                        FROM [TKMOC].dbo.[MOCMANULINE] WITH(NOLOCK)
+                                        LEFT JOIN [TKMOC].dbo.[MOCMANULINERESULT] WITH(NOLOCK) ON [MOCMANULINERESULT].SID = [MOCMANULINE].ID
+                                        JOIN [TK].dbo.BOMMC WITH(NOLOCK) ON [MOCMANULINE].[MB001] = BOMMC.MC001
+                                        JOIN [TK].dbo.BOMMD WITH(NOLOCK) ON BOMMC.MC001 = BOMMD.MD001 AND [MOCMANULINE].MB001 = BOMMD.MD001
+                                        LEFT JOIN [TK].dbo.MOCTB MOCTB1 WITH(NOLOCK) ON [MOCTA001] = MOCTB1.TB001 AND [MOCTA002] = MOCTB1.TB002 AND MOCTB1.TB003 = MD003
+                                        LEFT JOIN [TK].dbo.INVMB WITH(NOLOCK) ON INVMB.MB001 = MD003
+                                        LEFT JOIN [TKMOC].dbo.[MOCMANULINEMERGE] WITH(NOLOCK) ON [MOCMANULINEMERGE].SID = [MOCMANULINE].ID
+                                        LEFT JOIN [TK].dbo.MOCTA WITH(NOLOCK) ON TA033 = [MOCMANULINEMERGE].NO
+                                        LEFT JOIN [TK].dbo.MOCTB MOCTB2 WITH(NOLOCK) ON MOCTA.TA001 = MOCTB2.TB001 AND MOCTA.TA002 = MOCTB2.TB002 AND MOCTB2.TB003 = MD003
+                                        WHERE
+                                            ([MOCMANULINE].MB001 = BOMMC.MC001)
+                                            AND (
+                                                (ISNULL([MOCMANULINEMERGE].NO, '') <> '' AND ISNULL(MOCTA.TA001, '') <> '')
+                                                OR (ISNULL([MOCMANULINEMERGE].NO, '') = '')
+                                            )
+                                            AND CONVERT(NVARCHAR, [MANUDATE], 112) BETWEEN '{0}' AND '{1}'
+                                            AND [MD003] = '{2}'
 
-                                    SELECT SUM(TEMP4.TNUM) AS '預計庫存量'
-	                                ,TEMP2.ID AS '列數'
-	                                ,TEMP2.MANU AS '線別'
-	                                ,TEMP2.MANUDATE AS '日期'
-	                                ,TEMP2.MD003 AS '品號'
-	                                ,TEMP2.MD035 AS '品名'
-	                                ,TEMP2.TNUM AS '用量'                                    
-	                                ,TEMP2.MB004 AS '單位'
-	                                ,TEMP2.MB001 AS '成品'
-	                                ,TEMP2.MB002 AS '成品名'
-	                                ,TEMP2.PACKAGE AS '成品數'
-                                    ,TEMP2.BAR AS '桶數'
-	                                ,TEMP2.COPTD001 AS '訂單單別'
-	                                ,TEMP2.COPTD002 AS '訂單單號'
-	                                ,TEMP2.COPTD003 AS '訂單序號'
-                                FROM (
-	                                SELECT ROW_NUMBER() OVER (
-			                                ORDER BY TEMP.MANUDATE
-			                                ) AS ID
-		                                ,MANU
-		                                ,MANUDATE
-		                                ,MD003
-		                                ,MD035
-		                                ,TNUM                                       
-		                                ,MB004
-		                                ,MB001
-		                                ,MB002
-		                                ,PACKAGE
-                                        ,BAR
-		                                ,COPTD001
-		                                ,COPTD002
-		                                ,COPTD003
-	                                FROM (
-		                                SELECT [MANU]
-			                                ,CONVERT(NVARCHAR, [MANUDATE], 112) AS MANUDATE
-			                                ,[MD003]
-			                                ,[MD035]
-			                                ,(
-				                                CASE 
-					                                WHEN ISNULL(MOCTB1.TB003, '') <> ''
-						                                AND ISNULL((MOCTB1.TB004 - MOCTB1.TB005), 0) <= 0
-						                                THEN 0
-					                                WHEN ISNULL(MOCTB2.TB003, '') <> ''
-						                                AND ISNULL(MOCTB2.TB004 - MOCTB2.TB005, 0) <= 0
-						                                THEN 0
-					                                WHEN ISNULL(MOCTB1.TB003, '') <> ''
-						                                AND ISNULL(MOCTB1.TB004 - MOCTB1.TB005, 0) > 0
-						                                THEN CONVERT(DECIMAL(16, 3), ISNULL(((MOCTB1.TB004 - MOCTB1.TB005) * - 1), 0))
-					                                WHEN ISNULL(MOCTB2.TB003, '') <> ''
-						                                AND ISNULL(MOCTB2.TB004 - MOCTB2.TB005, 0) > 0
-						                                THEN CONVERT(DECIMAL(16, 3), (
-									                                ISNULL(MOCTB2.TB004 - MOCTB2.TB005, 0) / ISNULL((
-											                                SELECT COUNT(NO)
-											                                FROM [TKMOC].[dbo].[MOCMANULINEMERGE]
-											                                WHERE [MOCMANULINEMERGE].NO = MOCTA.TA033
-											                                ), 1)
-									                                ) * - 1)
-					                                ELSE (CONVERT(DECIMAL(16, 3), ([PACKAGE] / [MC004] * [MD006] / [MD007] * (1 + [MD008]))) * - 1)
-					                                END
-				                                ) AS TNUM			                               
-			                                ,[MB004]
-			                                ,[MOCMANULINE].[MB001]
-			                                ,[MOCMANULINE].[MB002]
-			                                ,[PACKAGE]
-                                            ,0 AS BAR
-			                                ,[COPTD001]
-			                                ,[COPTD002]
-			                                ,[COPTD003]
-		                                FROM [TKMOC].dbo.[MOCMANULINE]  WITH(NOLOCK)
-		                                LEFT JOIN [TKMOC].dbo.[MOCMANULINERESULT]  WITH(NOLOCK) ON [MOCMANULINERESULT].SID = [MOCMANULINE].ID
-		                                JOIN [TK].dbo.BOMMC WITH(NOLOCK) ON [MOCMANULINE].[MB001] = BOMMC.MC001
-		                                JOIN [TK].dbo.BOMMD WITH(NOLOCK) ON BOMMC.MC001 = BOMMD.MD001
-		                                LEFT JOIN [TK].dbo.MOCTB  MOCTB1  WITH(NOLOCK) ON [MOCTA001] = MOCTB1.TB001
-			                                AND [MOCTA002] = MOCTB1.TB002
-			                                AND MOCTB1.TB003 = MD003
-		                                LEFT JOIN [TK].dbo.INVMB  WITH(NOLOCK) ON INVMB.MB001 = MD003
-		                                LEFT JOIN [TKMOC].[dbo].[MOCMANULINEMERGE] WITH(NOLOCK) ON [MOCMANULINEMERGE].SID = [MOCMANULINE].ID
-		                                LEFT JOIN [TK].dbo.MOCTA WITH(NOLOCK) ON TA033 = [MOCMANULINEMERGE].NO
-		                                LEFT JOIN [TK].dbo.MOCTB MOCTB2 WITH(NOLOCK) ON MOCTA.TA001 = MOCTB2.TB001
-			                                AND MOCTA.TA002 = MOCTB2.TB002
-			                                AND MOCTB2.TB003 = MD003
-		                                WHERE [MOCMANULINE].MB001 = MC001
-			                                AND MC001 = MD001
-			                                AND (
-				                                (
-					                                ISNULL([MOCMANULINEMERGE].NO, '') <> ''
-					                                AND ISNULL(MOCTA.TA001, '') <> ''
-					                                )
-				                                OR (ISNULL([MOCMANULINEMERGE].NO, '') = '')
-				                                )
-			                                AND [MANU] = '包裝線'
-			                                AND CONVERT(NVARCHAR, [MANUDATE], 112) >= '{0}'
-			                                AND CONVERT(NVARCHAR, [MANUDATE], 112) <= '{1}'
-			                                AND [MD003] = '{2}'
-		
-		                                UNION
-		
-		                                SELECT [MANU]
-			                                ,CONVERT(NVARCHAR, [MANUDATE], 112) AS MANUDATE
-			                                ,[MD003]
-			                                ,[MD035]
-			                                ,(
-				                                CASE 
-					                                WHEN ISNULL(MOCTB1.TB003, '') <> ''
-						                                AND ISNULL((MOCTB1.TB004 - MOCTB1.TB005), 0) <= 0
-						                                THEN 0
-					                                WHEN ISNULL(MOCTB2.TB003, '') <> ''
-						                                AND ISNULL(MOCTB2.TB004 - MOCTB2.TB005, 0) <= 0
-						                                THEN 0
-					                                WHEN ISNULL(MOCTB1.TB003, '') <> ''
-						                                AND ISNULL(MOCTB1.TB004 - MOCTB1.TB005, 0) > 0
-						                                THEN CONVERT(DECIMAL(16, 3), ISNULL(((MOCTB1.TB004 - MOCTB1.TB005) * - 1), 0))
-					                                WHEN ISNULL(MOCTB2.TB003, '') <> ''
-						                                AND ISNULL(MOCTB2.TB004 - MOCTB2.TB005, 0) > 0
-						                                THEN CONVERT(DECIMAL(16, 3), (
-									                                ISNULL(MOCTB2.TB004 - MOCTB2.TB005, 0) / ISNULL((
-											                                SELECT COUNT(NO)
-											                                FROM [TKMOC].[dbo].[MOCMANULINEMERGE]
-											                                WHERE [MOCMANULINEMERGE].NO = MOCTA.TA033
-											                                ), 1)
-									                                ) * - 1)
-					                                ELSE (CONVERT(DECIMAL(16, 3), ([NUM] / [MC004] * [MD006] / [MD007] * (1 + [MD008]))) * - 1)
-					                                END
-				                                ) AS TNUM			                               
-			                                ,[MB004]
-			                                ,[MOCMANULINE].[MB001]
-			                                ,[MOCMANULINE].[MB002]
-			                                ,[NUM]
-                                            ,[MOCMANULINE].BAR AS BAR
-			                                ,[COPTD001]
-			                                ,[COPTD002]
-			                                ,[COPTD003]
-		                                FROM [TKMOC].dbo.[MOCMANULINE]  WITH(NOLOCK)
-		                                LEFT JOIN [TKMOC].dbo.[MOCMANULINERESULT]  WITH(NOLOCK) ON [MOCMANULINERESULT].SID = [MOCMANULINE].ID
-		                                JOIN [TK].dbo.BOMMC WITH(NOLOCK) ON [MOCMANULINE].[MB001] = BOMMC.MC001
-		                                JOIN [TK].dbo.BOMMD WITH(NOLOCK)  ON BOMMC.MC001 = BOMMD.MD001
-		                                LEFT JOIN [TK].dbo.MOCTB MOCTB1  WITH(NOLOCK) ON [MOCTA001] = MOCTB1.TB001
-			                                AND [MOCTA002] = MOCTB1.TB002
-			                                AND MOCTB1.TB003 = MD003
-		                                LEFT JOIN [TK].dbo.INVMB WITH(NOLOCK) ON INVMB.MB001 = MD003
-		                                LEFT JOIN [TKMOC].[dbo].[MOCMANULINEMERGE]  WITH(NOLOCK) ON [MOCMANULINEMERGE].SID = [MOCMANULINE].ID
-		                                LEFT JOIN [TK].dbo.MOCTA   WITH(NOLOCK) ON TA033 = [MOCMANULINEMERGE].NO
-		                                LEFT JOIN [TK].dbo.MOCTB MOCTB2  WITH(NOLOCK) ON MOCTA.TA001 = MOCTB2.TB001
-			                                AND MOCTA.TA002 = MOCTB2.TB002
-			                                AND MOCTB2.TB003 = MD003
-		                                WHERE [MOCMANULINE].MB001 = MC001
-			                                AND MC001 = MD001
-			                                AND (
-				                                (
-					                                ISNULL([MOCMANULINEMERGE].NO, '') <> ''
-					                                AND ISNULL(MOCTA.TA001, '') <> ''
-					                                )
-				                                OR (ISNULL([MOCMANULINEMERGE].NO, '') = '')
-				                                )
-			                                AND [MANU] NOT IN ('包裝線')
-			                                AND CONVERT(NVARCHAR, [MANUDATE], 112) >= '{0}'
-			                                AND CONVERT(NVARCHAR, [MANUDATE], 112) <= '{1}'
-			                                AND [MD003] = '{2}'
-		
-		                                UNION
-		
-		                                SELECT '1進貨'
-			                                ,TD012
-			                                ,TD004
-			                                ,MB002
-			                                ,CONVERT(DECIMAL(14, 3), (
-					                                CASE 
-						                                WHEN ISNULL(MD002, '') <> ''
-							                                THEN (ISNULL(TD008 - TD015, 0) * MD004 / MD003)
-						                                ELSE (TD008 - TD015)
-						                                END
-					                                ))			                                
-			                                ,MB004
-			                                ,NULL
-			                                ,NULL
-			                                ,NULL
-                                            ,0 AS BAR
-			                                ,TD001
-			                                ,TD002
-			                                ,TD003
-		                                FROM [TK].dbo.INVMB  WITH(NOLOCK)
-			                                ,[TK].dbo.PURTC  WITH(NOLOCK)
-			                                ,[TK].dbo.PURTD  WITH(NOLOCK)
-		                                LEFT JOIN [TK].dbo.INVMD   WITH(NOLOCK) ON MD001 = TD004
-			                                AND MD002 = TD009
-		                                WHERE TC001 = TD001
-			                                AND TC002 = TD002
-			                                AND TD004 = MB001
-			                                AND TD018 = 'Y'
-			                                AND TD016 = 'N'
-			                                AND TC014 = 'Y'
-			                                AND TD012 >= '{0}'
-			                                AND TD012 <= '{1}'
-			                                AND TD004 = '{2}'
-                                            AND TD007 IN (SELECT [TD007] FROM [TKMOC].[dbo].[REPORTINVPURUESD_TD007])
-		
-		                                UNION
-		
-		                                SELECT '0庫存' AS MANU
-			                                ,CONVERT(NVARCHAR, GETDATE(), 112) AS MANUDATE
-			                                ,LA001 AS MD003
-			                                ,MB002
-			                                ,SUM(LA005 * LA011) TNUM			                               
-			                                ,MB004
-			                                ,NULL AS MB001
-			                                ,NULL AS MB002
-			                                ,NULL AS PACKAGE
-                                            ,0 AS BAR
-			                                ,NULL AS COPTD001
-			                                ,NULL AS COPTD002
-			                                ,NULL AS COPTD002
-		                                FROM [TK].dbo.INVLA  WITH(NOLOCK)
-			                                ,[TK].dbo.INVMB  WITH(NOLOCK)
-		                                WHERE LA001 = MB001	
-                                            AND LA009 IN (SELECT [TD007] FROM [TKMOC].[dbo].[REPORTINVPURUESD_TD007])		                            
-			                                AND LA001 = '{2}'
-                                            
-		                                GROUP BY LA001
-			                                ,MB002
-			                                ,MB004
-		
-		                                UNION
-		
-		                                SELECT '1手動進出貨'
-			                                ,CONVERT(NVARCHAR, INVPURUESD.DATES, 112)
-			                                ,INVPURUESD.MB001
-			                                ,MB002			                               
-			                                ,NUM
-			                                ,MB004
-			                                ,NULL
-			                                ,NULL
-			                                ,NULL
-                                            ,0 AS BAR
-			                                ,NULL
-			                                ,NULL
-			                                ,NULL
-		                                FROM [TK].dbo.INVMB  WITH(NOLOCK)
-			                                ,[TKMOC].dbo.INVPURUESD  WITH(NOLOCK)
-		                                WHERE INVMB.MB001 = INVPURUESD.MB001
-			                                AND INVPURUESD.DATES >= '{0}'
-			                                AND INVPURUESD.DATES <= '{1}'
-			                                AND INVPURUESD.MB001 = '{2}'
-		                                ) AS TEMP
-	                                ) AS TEMP2
-                                JOIN (
-	                                SELECT ROW_NUMBER() OVER (
-			                                ORDER BY TEMP3.MANUDATE
-			                                ) AS ID
-		                                ,MANU
-		                                ,MANUDATE
-		                                ,MD003
-		                                ,MD035
-		                                ,TNUM                                       
-		                                ,MB004
-		                                ,MB001
-		                                ,MB002
-		                                ,PACKAGE
-                                        ,BAR
-		                                ,COPTD001
-		                                ,COPTD002
-		                                ,COPTD003
-	                                FROM (
-		                                SELECT [MANU]
-			                                ,CONVERT(NVARCHAR, [MANUDATE], 112) AS MANUDATE
-			                                ,[MD003]
-			                                ,[MD035]
-			                                ,(
-				                                CASE 
-					                                WHEN ISNULL(MOCTB1.TB003, '') <> ''
-						                                AND ISNULL((MOCTB1.TB004 - MOCTB1.TB005), 0) <= 0
-						                                THEN 0
-					                                WHEN ISNULL(MOCTB2.TB003, '') <> ''
-						                                AND ISNULL(MOCTB2.TB004 - MOCTB2.TB005, 0) <= 0
-						                                THEN 0
-					                                WHEN ISNULL(MOCTB1.TB003, '') <> ''
-						                                AND ISNULL(MOCTB1.TB004 - MOCTB1.TB005, 0) > 0
-						                                THEN CONVERT(DECIMAL(16, 3), ISNULL(((MOCTB1.TB004 - MOCTB1.TB005) * - 1), 0))
-					                                WHEN ISNULL(MOCTB2.TB003, '') <> ''
-						                                AND ISNULL(MOCTB2.TB004 - MOCTB2.TB005, 0) > 0
-						                                THEN CONVERT(DECIMAL(16, 3), (
-									                                ISNULL(MOCTB2.TB004 - MOCTB2.TB005, 0) / ISNULL((
-											                                SELECT COUNT(NO)
-											                                FROM [TKMOC].[dbo].[MOCMANULINEMERGE]
-											                                WHERE [MOCMANULINEMERGE].NO = MOCTA.TA033
-											                                ), 1)
-									                                ) * - 1)
-					                                ELSE (CONVERT(DECIMAL(16, 3), ([PACKAGE] / [MC004] * [MD006] / [MD007] * (1 + [MD008]))) * - 1)
-					                                END
-				                                ) AS TNUM			                              
-			                                ,[MB004]
-			                                ,[MOCMANULINE].[MB001]
-			                                ,[MOCMANULINE].[MB002]
-			                                ,[PACKAGE]
-                                            ,0 AS BAR
-			                                ,[COPTD001]
-			                                ,[COPTD002]
-			                                ,[COPTD003]
-		                                FROM [TKMOC].dbo.[MOCMANULINE]  WITH(NOLOCK)
-		                                LEFT JOIN [TKMOC].dbo.[MOCMANULINERESULT]  WITH(NOLOCK) ON [MOCMANULINERESULT].SID = [MOCMANULINE].ID
-		                                JOIN [TK].dbo.BOMMC  WITH(NOLOCK) ON [MOCMANULINE].[MB001] = BOMMC.MC001
-		                                JOIN [TK].dbo.BOMMD  WITH(NOLOCK) ON BOMMC.MC001 = BOMMD.MD001
-		                                LEFT JOIN [TK].dbo.MOCTB MOCTB1  WITH(NOLOCK) ON [MOCTA001] = MOCTB1.TB001
-			                                AND [MOCTA002] = MOCTB1.TB002
-			                                AND MOCTB1.TB003 = MD003
-		                                LEFT JOIN [TK].dbo.INVMB  WITH(NOLOCK) ON INVMB.MB001 = MD003
-		                                LEFT JOIN [TKMOC].[dbo].[MOCMANULINEMERGE] WITH(NOLOCK)  ON [MOCMANULINEMERGE].SID = [MOCMANULINE].ID
-		                                LEFT JOIN [TK].dbo.MOCTA  WITH(NOLOCK) ON TA033 = [MOCMANULINEMERGE].NO
-		                                LEFT JOIN [TK].dbo.MOCTB MOCTB2  WITH(NOLOCK) ON MOCTA.TA001 = MOCTB2.TB001
-			                                AND MOCTA.TA002 = MOCTB2.TB002
-			                                AND MOCTB2.TB003 = MD003
-		                                WHERE [MOCMANULINE].MB001 = MC001
-			                                AND MC001 = MD001
-			                                AND (
-				                                (
-					                                ISNULL([MOCMANULINEMERGE].NO, '') <> ''
-					                                AND ISNULL(MOCTA.TA001, '') <> ''
-					                                )
-				                                OR (ISNULL([MOCMANULINEMERGE].NO, '') = '')
-				                                )
-			                                AND [MANU] = '包裝線'
-			                                AND CONVERT(NVARCHAR, [MANUDATE], 112) >= '{0}'
-			                                AND CONVERT(NVARCHAR, [MANUDATE], 112) <= '{1}'
-			                                AND [MD003] = '{2}'
-		
-		                                UNION
-		
-		                                SELECT [MANU]
-			                                ,CONVERT(NVARCHAR, [MANUDATE], 112) AS MANUDATE
-			                                ,[MD003]
-			                                ,[MD035]
-			                                ,(
-				                                CASE 
-					                                WHEN ISNULL(MOCTB1.TB003, '') <> ''
-						                                AND ISNULL((MOCTB1.TB004 - MOCTB1.TB005), 0) <= 0
-						                                THEN 0
-					                                WHEN ISNULL(MOCTB2.TB003, '') <> ''
-						                                AND ISNULL(MOCTB2.TB004 - MOCTB2.TB005, 0) <= 0
-						                                THEN 0
-					                                WHEN ISNULL(MOCTB1.TB003, '') <> ''
-						                                AND ISNULL(MOCTB1.TB004 - MOCTB1.TB005, 0) > 0
-						                                THEN CONVERT(DECIMAL(16, 3), ISNULL(((MOCTB1.TB004 - MOCTB1.TB005) * - 1), 0))
-					                                WHEN ISNULL(MOCTB2.TB003, '') <> ''
-						                                AND ISNULL(MOCTB2.TB004 - MOCTB2.TB005, 0) > 0
-						                                THEN CONVERT(DECIMAL(16, 3), (
-									                                ISNULL(MOCTB2.TB004 - MOCTB2.TB005, 0) / ISNULL((
-											                                SELECT COUNT(NO)
-											                                FROM [TKMOC].[dbo].[MOCMANULINEMERGE]
-											                                WHERE [MOCMANULINEMERGE].NO = MOCTA.TA033
-											                                ), 1)
-									                                ) * - 1)
-					                                ELSE (CONVERT(DECIMAL(16, 3), ([NUM] / [MC004] * [MD006] / [MD007] * (1 + [MD008]))) * - 1)
-					                                END
-				                                ) AS TNUM			                               
-			                                ,[MB004]
-			                                ,[MOCMANULINE].[MB001]
-			                                ,[MOCMANULINE].[MB002]
-			                                ,[NUM]
-                                            ,[MOCMANULINE].BAR AS BAR
-			                                ,[COPTD001]
-			                                ,[COPTD002]
-			                                ,[COPTD003]
-		                                FROM [TKMOC].dbo.[MOCMANULINE]  WITH(NOLOCK)
-		                                LEFT JOIN [TKMOC].dbo.[MOCMANULINERESULT]  WITH(NOLOCK) ON [MOCMANULINERESULT].SID = [MOCMANULINE].ID
-		                                JOIN [TK].dbo.BOMMC  WITH(NOLOCK) ON [MOCMANULINE].[MB001] = BOMMC.MC001
-		                                JOIN [TK].dbo.BOMMD  WITH(NOLOCK) ON BOMMC.MC001 = BOMMD.MD001
-		                                LEFT JOIN [TK].dbo.MOCTB MOCTB1 WITH(NOLOCK) ON [MOCTA001] = MOCTB1.TB001
-			                                AND [MOCTA002] = MOCTB1.TB002
-			                                AND MOCTB1.TB003 = MD003
-		                                LEFT JOIN [TK].dbo.INVMB  WITH(NOLOCK) ON INVMB.MB001 = MD003
-		                                LEFT JOIN [TKMOC].[dbo].[MOCMANULINEMERGE]  WITH(NOLOCK) ON [MOCMANULINEMERGE].SID = [MOCMANULINE].ID
-		                                LEFT JOIN [TK].dbo.MOCTA  WITH(NOLOCK) ON TA033 = [MOCMANULINEMERGE].NO
-		                                LEFT JOIN [TK].dbo.MOCTB MOCTB2  WITH(NOLOCK) ON MOCTA.TA001 = MOCTB2.TB001
-			                                AND MOCTA.TA002 = MOCTB2.TB002
-			                                AND MOCTB2.TB003 = MD003
-		                                WHERE [MOCMANULINE].MB001 = MC001
-			                                AND MC001 = MD001
-			                                AND (
-				                                (
-					                                ISNULL([MOCMANULINEMERGE].NO, '') <> ''
-					                                AND ISNULL(MOCTA.TA001, '') <> ''
-					                                )
-				                                OR (ISNULL([MOCMANULINEMERGE].NO, '') = '')
-				                                )
-			                                AND [MANU] NOT IN ('包裝線')
-			                                AND CONVERT(NVARCHAR, [MANUDATE], 112) >= '{0}'
-			                                AND CONVERT(NVARCHAR, [MANUDATE], 112) <= '{1}'
-			                                AND [MD003] = '{2}'
-		
-		                                UNION
-		
-		                                SELECT '1進貨'
-			                                ,TD012
-			                                ,TD004
-			                                ,MB002
-			                                ,CONVERT(DECIMAL(14, 2), (
-					                                CASE 
-						                                WHEN ISNULL(MD002, '') <> ''
-							                                THEN (ISNULL(TD008 - TD015, 0) * MD004 / MD003)
-						                                ELSE (TD008 - TD015)
-						                                END
-					                                ))			                               
-			                                ,MB004
-			                                ,NULL
-			                                ,NULL
-			                                ,NULL
-                                            ,0 AS BAR
-			                                ,TD001
-			                                ,TD002
-			                                ,TD003
-		                                FROM [TK].dbo.INVMB  WITH(NOLOCK)
-			                                ,[TK].dbo.PURTC  WITH(NOLOCK) 
-			                                ,[TK].dbo.PURTD  WITH(NOLOCK) 
-		                                LEFT JOIN [TK].dbo.INVMD  WITH(NOLOCK) ON MD001 = TD004
-			                                AND MD002 = TD009
-		                                WHERE TC001 = TD001
-			                                AND TC002 = TD002
-			                                AND TD004 = MB001
-			                                AND TD018 = 'Y'
-			                                AND TD016 = 'N'
-			                                AND TC014 = 'Y'
-			                                AND TD012 >= '{0}'
-			                                AND TD012 <= '{1}'
-			                                AND TD004 = '{2}'
-                                            AND TD007 IN (SELECT [TD007] FROM [TKMOC].[dbo].[REPORTINVPURUESD_TD007])		                            
-		
-		                                UNION
-		
-		                                SELECT '0庫存' AS MANU
-			                                ,CONVERT(NVARCHAR, GETDATE(), 112) AS MANUDATE
-			                                ,LA001 AS MD003
-			                                ,MB002
-			                                ,SUM(LA005 * LA011) TNUM			                               
-			                                ,MB004
-			                                ,NULL AS MB001
-			                                ,NULL AS MB002
-			                                ,NULL AS PACKAGE
-                                            ,0 AS BAR
-			                                ,NULL AS COPTD001
-			                                ,NULL AS COPTD002
-			                                ,NULL AS COPTD002
-		                                FROM [TK].dbo.INVLA  WITH(NOLOCK)
-			                                ,[TK].dbo.INVMB  WITH(NOLOCK)
-		                                WHERE LA001 = MB001
-			                                AND LA009 IN (SELECT [TD007] FROM [TKMOC].[dbo].[REPORTINVPURUESD_TD007])		                            
-			                                AND LA001 = '{2}'
-		                                GROUP BY LA001
-			                                ,MB002
-			                                ,MB004
-		
-		                                UNION
-		
-		                                SELECT '1手動進出貨'
-			                                ,CONVERT(NVARCHAR, INVPURUESD.DATES, 112)
-			                                ,INVPURUESD.MB001
-			                                ,MB002
-			                                ,NUM			                             
-			                                ,MB004
-			                                ,NULL
-			                                ,NULL
-			                                ,NULL
-                                            ,0 AS BAR
-			                                ,NULL
-			                                ,NULL
-			                                ,NULL
-		                                FROM [TK].dbo.INVMB  WITH(NOLOCK)
-			                                ,[TKMOC].dbo.INVPURUESD  WITH(NOLOCK)
-		                                WHERE INVMB.MB001 = INVPURUESD.MB001
-			                                AND INVPURUESD.DATES >= '{0}'
-			                                AND INVPURUESD.DATES <= '{1}'
-			                                AND INVPURUESD.MB001 = '{2}'
-		                                ) AS TEMP3
-	                                ) AS TEMP4 ON TEMP2.ID >= TEMP4.ID
-                                GROUP BY TEMP2.ID
-	                                ,TEMP2.MANU
-	                                ,TEMP2.MANUDATE
-	                                ,TEMP2.MD003
-	                                ,TEMP2.MD035
-	                                ,TEMP2.TNUM                                   
-	                                ,TEMP2.MB004
-	                                ,TEMP2.MB001
-	                                ,TEMP2.MB002
-	                                ,TEMP2.PACKAGE
-                                    ,TEMP2.BAR
-	                                ,TEMP2.COPTD001 
-	                                ,TEMP2.COPTD002
-	                                ,TEMP2.COPTD003
-                                ORDER BY TEMP2.MANUDATE
-	                                ,TEMP2.MANU
+                                        UNION ALL
+
+                                        -- 區塊 3: PURTD 進貨數據
+                                        SELECT
+                                            '1進貨' AS MANU,
+                                            TD012 AS MANUDATE,
+                                            TD004 AS MD003,
+                                            MB002 AS MD035,
+                                            CONVERT(DECIMAL(14, 3), 
+                                                CASE 
+                                                    WHEN ISNULL(MD002, '') <> '' THEN (ISNULL(TD008 - TD015, 0) * MD004 / MD003)
+                                                    ELSE (TD008 - TD015) 
+                                                END
+                                            ) AS TNUM,
+                                            MB004,
+                                            NULL AS MB001,
+                                            NULL AS MB002,
+                                            NULL AS PACKAGE,
+                                            0 AS BAR,
+                                            TD001 AS COPTD001,
+                                            TD002 AS COPTD002,
+                                            TD003 AS COPTD003
+                                        FROM [TK].dbo.PURTD WITH(NOLOCK)
+                                        JOIN [TK].dbo.PURTC WITH(NOLOCK) ON TC001 = TD001 AND TC002 = TD002 AND TC014 = 'Y'
+                                        JOIN [TK].dbo.INVMB WITH(NOLOCK) ON TD004 = MB001
+                                        LEFT JOIN [TK].dbo.INVMD WITH(NOLOCK) ON MD001 = TD004 AND MD002 = TD009
+                                        WHERE
+                                            TD018 = 'Y' AND TD016 = 'N'
+                                            AND TD012 BETWEEN '{0}' AND '{1}'
+                                            AND TD004 = '{2}'
+                                            AND TD007 IN (SELECT [TD007] FROM [TKMOC].dbo.[REPORTINVPURUESD_TD007])
+
+                                        UNION ALL
+
+                                        -- 區塊 4: INVLA 庫存數據 (僅選取第一個日期)
+                                        SELECT
+                                            '0庫存' AS MANU,
+                                            CONVERT(NVARCHAR, GETDATE(), 112) AS MANUDATE, -- 庫存日期使用當前日期
+                                            LA001 AS MD003,
+                                            MB002 AS MD035,
+                                            SUM(LA005 * LA011) AS TNUM,
+                                            MB004,
+                                            NULL AS MB001,
+                                            NULL AS MB002,
+                                            NULL AS PACKAGE,
+                                            0 AS BAR,
+                                            NULL AS COPTD001,
+                                            NULL AS COPTD002,
+                                            NULL AS COPTD003
+                                        FROM [TK].dbo.INVLA WITH(NOLOCK)
+                                        JOIN [TK].dbo.INVMB WITH(NOLOCK) ON LA001 = MB001
+                                        WHERE
+                                            LA009 IN (SELECT [TD007] FROM [TKMOC].dbo.[REPORTINVPURUESD_TD007])
+                                            AND LA001 = '{2}'
+                                        GROUP BY LA001, MB002, MB004
+
+                                        UNION ALL
+
+                                        -- 區塊 5: INVPURUESD 手動進出貨數據
+                                        SELECT
+                                            '1手動進出貨' AS MANU,
+                                            CONVERT(NVARCHAR, INVPURUESD.DATES, 112) AS MANUDATE,
+                                            INVPURUESD.MB001 AS MD003,
+                                            INVMB.MB002 AS MD035,
+                                            INVPURUESD.NUM AS TNUM,
+                                            INVMB.MB004,
+                                            NULL AS MB001,
+                                            NULL AS MB002,
+                                            NULL AS PACKAGE,
+                                            0 AS BAR,
+                                            NULL AS COPTD001,
+                                            NULL AS COPTD002,
+                                            NULL AS COPTD003
+                                        FROM [TKMOC].dbo.INVPURUESD WITH(NOLOCK)
+                                        JOIN [TK].dbo.INVMB WITH(NOLOCK) ON INVMB.MB001 = INVPURUESD.MB001
+                                        WHERE
+                                            INVPURUESD.DATES BETWEEN '{0}' AND '{1}'
+                                            AND INVPURUESD.MB001 = '{2}'
+                                    ),
+                                    -- 2. 應用 Row_Number 以建立排序 ID (與原邏輯一致)
+                                    ORDERED_DATA AS (
+                                        SELECT
+                                            ROW_NUMBER() OVER (ORDER BY MANUDATE, MANU) AS ID, -- 排序邏輯與原本 TEMP2/TEMP4 的 ROW_NUMBER 相同
+                                            MANU, MANUDATE, MD003, MD035, TNUM, MB004, MB001, MB002, PACKAGE, BAR, COPTD001, COPTD002, COPTD003
+                                        FROM BASE_DATA
+                                    )
+                                    -- 3. 最終結果集：計算移動總和 (Running Total)
+                                    SELECT
+                                        -- 替換：使用 CROSS APPLY 計算累積總和
+                                        Total.CumulativeSum AS '預計庫存量',
+                                        A.ID AS '列數',
+                                        A.MANU AS '線別',
+                                        A.MANUDATE AS '日期',
+                                        A.MD003 AS '品號',
+                                        A.MD035 AS '品名',
+                                        A.TNUM AS '用量',
+                                        A.MB004 AS '單位',
+                                        A.MB001 AS '成品',
+                                        A.MB002 AS '成品名',
+                                        A.PACKAGE AS '成品數',
+                                        A.BAR AS '桶數',
+                                        A.COPTD001 AS '訂單單別',
+                                        A.COPTD002 AS '訂單單號',
+                                        A.COPTD003 AS '訂單序號'
+                                    FROM
+                                        ORDERED_DATA AS A
+                                    -- 使用 CROSS APPLY 模擬 SUM() OVER (ORDER BY ID)
+                                    CROSS APPLY (
+                                        SELECT
+                                            SUM(B.TNUM) AS CumulativeSum
+                                        FROM
+                                            ORDERED_DATA AS B
+                                        -- 關鍵：利用 ID 欄位確保累加到當前行 (A.ID)
+                                        WHERE
+                                            B.ID <= A.ID
+                                    ) AS Total
+                                    ORDER BY
+                                        A.MANUDATE, A.MANU;
 
            
                                     ", SDay, EDay, MD003);
