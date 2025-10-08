@@ -206,8 +206,18 @@ namespace TKMOC
                     DataGridViewRow row = dataGridView1.Rows[rowindex];
                     MD003 = row.Cells["品號"].Value.ToString().Trim();
 
+                    MESSAGESHOW MSGSHOW = new MESSAGESHOW();
+                    // 鎖定控制項
+                    this.Enabled = false;
+                    // 顯示跳出視窗
+                    MSGSHOW.Show();
+
                     SEARCHINVPURMOC(MD003,dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
 
+                    // 關閉跳出視窗
+                    MSGSHOW.Close();
+                    // 解除鎖定
+                    this.Enabled = true;
 
                 }
                 else
