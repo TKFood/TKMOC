@@ -9630,8 +9630,8 @@ namespace TKMOC
 
         public void ADDMULTIMOCMANULINETEMP(string TD001,string TD002,string TD003)
         {
-            DataTable DTMB001 = FIND_MOCMANULINEORMB001();
-
+            // 假設 DTMB001 已經由您的 FIND_MOCMANULINEORMB001() 方法填充
+            DataTable DTMB001 = FIND_MOCMANULINEORMB001();         
 
             if (comboBox21.Text.Equals("成品"))
             {
@@ -9722,6 +9722,38 @@ namespace TKMOC
 
                     sbSql.Clear();
 
+                   
+                    // 1. 初始化 StringBuilder
+                    StringBuilder orConditionBuilder = new StringBuilder();
+                    // 2. 檢查 DataTable 是否有數據，以及 "MB001" 欄位是否存在
+                    if (DTMB001 != null && DTMB001.Rows.Count > 0 && DTMB001.Columns.Contains("MB001"))                    {
+                        // 3. 使用 foreach 遍歷 DataTable 中的每一行
+                        foreach (DataRow row in DTMB001.Rows)                        {
+                            // 直接使用字串常值 "MB001" 獲取當前行的值
+                            string code = row["MB001"]?.ToString();
+                            // 檢查值是否有效
+                            if (!string.IsNullOrEmpty(code))
+                            {
+                                // 如果 orConditionBuilder 中已經有內容，則先加入 OR
+                                if (orConditionBuilder.Length > 0)
+                                {
+                                    orConditionBuilder.Append(" OR ");
+                                }
+
+                                // 拼接單個 LIKE 條件： BOMMD.MD003 LIKE '值%'
+                                orConditionBuilder.AppendFormat("BOMMD.MD003 LIKE '{0}%'", code);
+                            }
+                        }
+                    }
+
+                    // 4. 組合最終的 SQL 條件字串
+                    string finalSqlCondition = "";
+                    // 只有當成功組裝了至少一個 OR 條件時，才生成 AND (...) 語法
+                    if (orConditionBuilder.Length > 0)
+                    {
+                        // 最終格式： AND ( [多個 OR 條件] )
+                        finalSqlCondition = $" AND ({orConditionBuilder.ToString()})";
+                    }
 
                     sbSql.AppendFormat(@"  
                                         INSERT INTO [TKMOC].[dbo].[MOCMANULINETEMP]
@@ -9741,9 +9773,9 @@ namespace TKMOC
                                         WHERE TC001=TD001 AND TC002=TD002
                                         AND MB001=TD004
                                         AND TD001='{2}' AND TD002='{3}' AND TD003='{4}'
-                                        AND (BOMMD.MD003 LIKE '3%' OR BOMMD.MD003 LIKE '4%')
+                                        {5}
                                         ) AS TEMP
-                                        ", comboBox19.Text.Trim(), dateTimePicker23.Value.ToString("yyyyMMdd"), TD001, TD002, TD003);
+                                        ", comboBox19.Text.Trim(), dateTimePicker23.Value.ToString("yyyyMMdd"), TD001, TD002, TD003, orConditionBuilder.ToString());
 
                     cmd.Connection = sqlConn;
                     cmd.CommandTimeout = 60;
@@ -9794,6 +9826,52 @@ namespace TKMOC
 
                     sbSql.Clear();
 
+                    // 1. 初始化 StringBuilder
+                    StringBuilder orConditionBuilder = new StringBuilder();
+                    StringBuilder orConditionBuilder2 = new StringBuilder();
+                    // 2. 檢查 DataTable 是否有數據，以及 "MB001" 欄位是否存在
+                    if (DTMB001 != null && DTMB001.Rows.Count > 0 && DTMB001.Columns.Contains("MB001"))
+                    {
+                        // 3. 使用 foreach 遍歷 DataTable 中的每一行
+                        foreach (DataRow row in DTMB001.Rows)
+                        {
+                            // 直接使用字串常值 "MB001" 獲取當前行的值
+                            string code = row["MB001"]?.ToString();
+                            // 檢查值是否有效
+                            if (!string.IsNullOrEmpty(code))
+                            {
+                                // 如果 orConditionBuilder 中已經有內容，則先加入 OR
+                                if (orConditionBuilder.Length > 0)
+                                {
+                                    orConditionBuilder.Append(" OR ");
+                                }
+
+                                if (orConditionBuilder2.Length > 0)
+                                {
+                                    orConditionBuilder2.Append(" OR ");
+                                }
+
+                                // 拼接單個 LIKE 條件： BOMMD.MD003 LIKE '值%'
+                                orConditionBuilder.AppendFormat("BOMMD.MD003 LIKE '{0}%'", code);
+                                orConditionBuilder2.AppendFormat("BOMMD2.MD003 LIKE '{0}%'", code);
+                            }
+                        }
+                    }
+
+                    // 4. 組合最終的 SQL 條件字串
+                    string finalSqlCondition = "";
+                    string finalSqlCondition2 = "";
+                    // 只有當成功組裝了至少一個 OR 條件時，才生成 AND (...) 語法
+                    if (orConditionBuilder.Length > 0)
+                    {
+                        // 最終格式： AND ( [多個 OR 條件] )
+                        finalSqlCondition = $" AND ({orConditionBuilder.ToString()})";
+                    }
+                    if (orConditionBuilder2.Length > 0)
+                    {
+                        // 最終格式： AND ( [多個 OR 條件] )
+                        finalSqlCondition2 = $" AND ({orConditionBuilder2.ToString()})";
+                    }
 
                     sbSql.AppendFormat(@"  
                                         INSERT INTO [TKMOC].[dbo].[MOCMANULINETEMP]
@@ -9816,10 +9894,10 @@ namespace TKMOC
                                         WHERE TC001=TD001 AND TC002=TD002
                                         AND MB001=TD004
                                         AND TD001='{2}' AND TD002='{3}' AND TD003='{4}'
-                                        AND (BOMMD.MD003 LIKE '3%' OR BOMMD.MD003 LIKE '4%')
-                                        AND (BOMMD2.MD003 LIKE '3%' OR BOMMD2.MD003 LIKE '4%')
+                                        {5}
+                                        {6}
                                         ) AS TEMP
-                                        ", comboBox19.Text.Trim(), dateTimePicker23.Value.ToString("yyyyMMdd"), TD001, TD002, TD003);
+                                        ", comboBox19.Text.Trim(), dateTimePicker23.Value.ToString("yyyyMMdd"), TD001, TD002, TD003, finalSqlCondition.ToString(), finalSqlCondition2.ToString());
 
                     cmd.Connection = sqlConn;
                     cmd.CommandTimeout = 60;
@@ -9870,6 +9948,65 @@ namespace TKMOC
 
                     sbSql.Clear();
 
+                    // 1. 初始化 StringBuilder
+                    StringBuilder orConditionBuilder = new StringBuilder();
+                    StringBuilder orConditionBuilder2 = new StringBuilder();
+                    StringBuilder orConditionBuilder3 = new StringBuilder();
+                    // 2. 檢查 DataTable 是否有數據，以及 "MB001" 欄位是否存在
+                    if (DTMB001 != null && DTMB001.Rows.Count > 0 && DTMB001.Columns.Contains("MB001"))
+                    {
+                        // 3. 使用 foreach 遍歷 DataTable 中的每一行
+                        foreach (DataRow row in DTMB001.Rows)
+                        {
+                            // 直接使用字串常值 "MB001" 獲取當前行的值
+                            string code = row["MB001"]?.ToString();
+                            // 檢查值是否有效
+                            if (!string.IsNullOrEmpty(code))
+                            {
+                                // 如果 orConditionBuilder 中已經有內容，則先加入 OR
+                                if (orConditionBuilder.Length > 0)
+                                {
+                                    orConditionBuilder.Append(" OR ");
+                                }
+
+                                if (orConditionBuilder2.Length > 0)
+                                {
+                                    orConditionBuilder2.Append(" OR ");
+                                }
+
+                                if (orConditionBuilder3.Length > 0)
+                                {
+                                    orConditionBuilder3.Append(" OR ");
+                                }
+
+                                // 拼接單個 LIKE 條件： BOMMD.MD003 LIKE '值%'
+                                orConditionBuilder.AppendFormat("BOMMD.MD003 LIKE '{0}%'", code);
+                                orConditionBuilder2.AppendFormat("BOMMD2.MD003 LIKE '{0}%'", code);
+                                orConditionBuilder3.AppendFormat("BOMMD3.MD003 LIKE '{0}%'", code);
+                            }
+                        }
+                    }
+
+                    // 4. 組合最終的 SQL 條件字串
+                    string finalSqlCondition = "";
+                    string finalSqlCondition2 = "";
+                    string finalSqlCondition3 = "";
+                    // 只有當成功組裝了至少一個 OR 條件時，才生成 AND (...) 語法
+                    if (orConditionBuilder.Length > 0)
+                    {
+                        // 最終格式： AND ( [多個 OR 條件] )
+                        finalSqlCondition = $" AND ({orConditionBuilder.ToString()})";
+                    }
+                    if (orConditionBuilder2.Length > 0)
+                    {
+                        // 最終格式： AND ( [多個 OR 條件] )
+                        finalSqlCondition2 = $" AND ({orConditionBuilder2.ToString()})";
+                    }
+                    if (orConditionBuilder3.Length > 0)
+                    {
+                        // 最終格式： AND ( [多個 OR 條件] )
+                        finalSqlCondition3 = $" AND ({orConditionBuilder3.ToString()})";
+                    }
 
                     sbSql.AppendFormat(@"  
                                         INSERT INTO [TKMOC].[dbo].[MOCMANULINETEMP]
@@ -9902,11 +10039,11 @@ namespace TKMOC
                                         WHERE TC001=TD001 AND TC002=TD002
                                         AND MB001=TD004
                                         AND TD001='{2}' AND TD002='{3}' AND TD003='{4}'
-                                        AND (BOMMD.MD003 LIKE '3%' OR BOMMD.MD003 LIKE '4%')
-                                        AND (BOMMD2.MD003 LIKE '3%' OR BOMMD2.MD003 LIKE '4%')
-                                        AND (BOMMD3.MD003 LIKE '3%' OR BOMMD3.MD003 LIKE '4%')
+                                        {5}
+                                        {6}
+                                        {7}
                                         ) AS TEMP
-                                        ", comboBox19.Text.Trim(), dateTimePicker23.Value.ToString("yyyyMMdd"), TD001, TD002, TD003);
+                                        ", comboBox19.Text.Trim(), dateTimePicker23.Value.ToString("yyyyMMdd"), TD001, TD002, TD003, finalSqlCondition.ToString(), finalSqlCondition2.ToString(), finalSqlCondition3.ToString());
 
                     cmd.Connection = sqlConn;
                     cmd.CommandTimeout = 60;
