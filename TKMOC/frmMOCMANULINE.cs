@@ -9775,7 +9775,7 @@ namespace TKMOC
                                         AND TD001='{2}' AND TD002='{3}' AND TD003='{4}'
                                         {5}
                                         ) AS TEMP
-                                        ", comboBox19.Text.Trim(), dateTimePicker23.Value.ToString("yyyyMMdd"), TD001, TD002, TD003, orConditionBuilder.ToString());
+                                        ", comboBox19.Text.Trim(), dateTimePicker23.Value.ToString("yyyyMMdd"), TD001, TD002, TD003, finalSqlCondition.ToString());
 
                     cmd.Connection = sqlConn;
                     cmd.CommandTimeout = 60;
