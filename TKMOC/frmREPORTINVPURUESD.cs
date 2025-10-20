@@ -423,7 +423,7 @@ namespace TKMOC
                                             B.ID <= A.ID
                                     ) AS Total
                                     ORDER BY
-                                        A.MANUDATE, A.MANU;
+                                        A.ID,A.MANUDATE, A.MANU;
 
            
                                     ", SDay, EDay, MD003);
