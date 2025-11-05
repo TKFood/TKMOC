@@ -209,7 +209,7 @@ namespace TKMOC
 
             report1.Preview = previewControl1;
             report1.Show();  
-        }
+        } 
 
         #endregion
          
