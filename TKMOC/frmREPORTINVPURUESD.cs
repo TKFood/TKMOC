@@ -87,13 +87,16 @@ namespace TKMOC
 
                 sbSql.AppendFormat(@"  
                                     WITH INVLA_SUMMARY AS (
-                                    -- 在這裡一次性計算所有品號的 20019 倉庫庫存總和
                                     SELECT 
-                                        LA001, 
-                                        SUM(LA005 * LA011) AS Sum_20019
+                                         LA001, 
+                                        -- 計算 20019 倉庫庫存總和
+                                        SUM(CASE WHEN LA009 = '20019' THEN LA005 * LA011 ELSE 0 END) AS Sum_20019,
+                                        -- 計算 20028 倉庫庫存總和
+                                        SUM(CASE WHEN LA009 = '20028' THEN LA005 * LA011 ELSE 0 END) AS Sum_20028
                                     FROM [TK].dbo.INVLA WITH (NOLOCK)
                                     WHERE 
-                                        LA009 = '20019' 
+                                        -- **【效能優化】新增限制條件，只查詢需要的倉庫，大幅減少掃描量**
+                                        LA009 IN ('20019', '20028') 
                                         AND LA016 <> '********************'
                                     GROUP BY 
                                         LA001
@@ -103,6 +106,7 @@ namespace TKMOC
                                     T3.MD003 AS '品號',
                                     T3.MD035 AS '品名',
                                     ISNULL(T_SUM.Sum_20019, 0) AS '20019外倉',
+                                    ISNULL(T_SUM.Sum_20028, 0) AS '3F倉庫',
                                     (
                                         -- 批號查詢仍須使用相關子查詢或 APPLY (因為 FOR XML PATH 難以用標準 JOIN 實現)
                                         SELECT CAST(LA016 AS NVARCHAR) + ',' 
@@ -133,7 +137,7 @@ namespace TKMOC
                                     T1.[MANUDATE] >= '{0}' 
                                     AND T1.[MANUDATE] < ='{1}'
                                 GROUP BY 
-                                    T3.MD003, T3.MD035, T_SUM.Sum_20019  -- 彙總值也需加入 GROUP BY
+                                    T3.MD003, T3.MD035, T_SUM.Sum_20019, T_SUM.Sum_20028  -- 彙總值也需加入 GROUP BY
                                 ORDER BY 
                                     T3.MD003, T3.MD035;
                                     ", SDay, EDay);
