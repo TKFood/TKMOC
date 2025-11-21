@@ -183,7 +183,8 @@ namespace TKMOC
                         //dataGridView1.DefaultCellStyle.Font = new Font("Tahoma", 11);
                         dataGridView1.Columns["品號"].Width = 100;
                         dataGridView1.Columns["品名"].Width = 220;
-                        dataGridView1.Columns["20019外倉"].Width = 60;
+                        dataGridView1.Columns["20019外倉"].Width = 120;
+                        dataGridView1.Columns["3F倉庫"].Width = 100;
 
                     }
                 }
