@@ -106,7 +106,7 @@ namespace TKMOC
                                     T3.MD003 AS '品號',
                                     T3.MD035 AS '品名',
                                     ISNULL(T_SUM.Sum_20019, 0) AS '20019外倉',
-                                    ISNULL(T_SUM.Sum_20028, 0) AS '3F倉庫',
+                                    ISNULL(T_SUM.Sum_20028, 0) AS '3F--倉庫',
                                     (
                                         -- 批號查詢仍須使用相關子查詢或 APPLY (因為 FOR XML PATH 難以用標準 JOIN 實現)
                                         SELECT CAST(LA016 AS NVARCHAR) + ',' 
@@ -183,8 +183,8 @@ namespace TKMOC
                         //dataGridView1.DefaultCellStyle.Font = new Font("Tahoma", 11);
                         dataGridView1.Columns["品號"].Width = 100;
                         dataGridView1.Columns["品名"].Width = 220;
-                        dataGridView1.Columns["20019外倉"].Width = 120;
-                        dataGridView1.Columns["3F倉庫"].Width = 100;
+                        dataGridView1.Columns["20019外倉"].Width = 80;
+                        dataGridView1.Columns["3F--倉庫"].Width = 70;
 
                     }
                 }
