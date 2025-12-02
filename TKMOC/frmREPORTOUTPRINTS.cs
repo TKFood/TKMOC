@@ -44,6 +44,7 @@ namespace TKMOC
         Report report1 = new Report();
 
         int LIMITSMONTHS = 0;
+        private bool isProcessing = false; // 宣告旗標
 
         public frmREPORTOUTPRINTS()
         {
@@ -211,17 +212,7 @@ namespace TKMOC
             report1.Preview = previewControl1;
             report1.Show();  
         }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            textBox1.Text = null;
-            DataTable DT = FIND_TBOUTBOXNAMES(comboBox1.Text.ToString());
-            if(DT!=null && DT.Rows.Count>=1)
-            {
-                textBox1.Text = DT.Rows[0]["MB001"].ToString();
-            }
-        }
-
+        
         public DataTable FIND_TBOUTBOXNAMES(string BOXNAMES)
         {
             //20210902密
@@ -237,33 +228,90 @@ namespace TKMOC
 
             StringBuilder Sequel = new StringBuilder();
             Sequel.AppendFormat(@"
-                                SELECT 
-                                [ID]
-                                ,[BOXNAMES]
-                                ,[MB001]
-                                ,[ORDRES]
-                                ,[ISCLOSED]
+                                SELECT
+                                [ID], [BOXNAMES], [MB001], [ORDRES], [ISCLOSED]
                                 FROM [TKMOC].[dbo].[TBOUTBOXNAMES]
                                 WHERE [ISCLOSED]='N'
-                                AND ([BOXNAMES] LIKE '%{0}%' OR [MB001] LIKE '%{0}%')
-                               
-                                ", BOXNAMES);
-            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
-            DataTable dt = new DataTable();
-            sqlConn.Open();
-                        
-            da.Fill(dt);           
-            sqlConn.Close();
+                                AND ([BOXNAMES] LIKE @BOXNAMES OR [MB001] LIKE @MB001)
+                            ");
 
-            if(dt!=null && dt.Rows.Count>=1)
+            using (SqlCommand cmd = new SqlCommand(Sequel.ToString(), sqlConn))
             {
-                return dt;
+                // 建立參數並將值設定為 %輸入值%
+                cmd.Parameters.AddWithValue("@BOXNAMES", $"%{BOXNAMES}%");
+                cmd.Parameters.AddWithValue("@MB001", $"%{BOXNAMES}%");
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                sqlConn.Open();
+                da.Fill(dt);
+                sqlConn.Close();
+
+                if (dt != null && dt.Rows.Count >= 1)
+                {
+                    return dt;
+                }
+                else
+                {
+                    return null;
+                }
             }
-            else
+
+        }
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // 檢查旗標，避免重複執行
+            if (isProcessing) return;
+
+            // 設定旗標，表示正在處理中
+            isProcessing = true;
+            try
             {
-                return null;
+                textBox1.Text = null;
+                // 確保 comboBox1.Text 不為空再查詢
+                if (string.IsNullOrWhiteSpace(comboBox1.Text)) return;
+
+                DataTable DT = FIND_TBOUTBOXNAMES(comboBox1.Text.ToString());
+                if (DT != null && DT.Rows.Count >= 1)
+                {
+                    // 此行會觸發 textBox1_TextChanged，但因為 isProcessing=true 而被阻擋
+                    textBox1.Text = DT.Rows[0]["MB001"].ToString();
+                }
+            }
+            finally
+            {
+                // 處理完成，重設旗標
+                isProcessing = false;
             }
         }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            // 檢查旗標，避免重複執行
+            if (isProcessing) return;
+
+            // 設定旗標，表示正在處理中
+            isProcessing = true;
+            try
+            {
+                string MB001 = textBox1.Text.Trim();
+                if (string.IsNullOrWhiteSpace(MB001)) return;
+
+                DataTable DT = FIND_TBOUTBOXNAMES(MB001);
+                if (DT != null && DT.Rows.Count >= 1)
+                {
+                    // 此行會觸發 comboBox1_SelectedIndexChanged，但因為 isProcessing=true 而被阻擋
+                    comboBox1.Text = DT.Rows[0]["BOXNAMES"].ToString();
+                }
+            }
+            finally
+            {
+                // 處理完成，重設旗標
+                isProcessing = false;
+            }
+        }
+
+
         #endregion
 
         #region BUTTON
@@ -274,8 +322,9 @@ namespace TKMOC
         }
 
 
+
         #endregion
 
-   
+        
     }
 }
