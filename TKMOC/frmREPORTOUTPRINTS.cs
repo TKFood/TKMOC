@@ -76,6 +76,7 @@ namespace TKMOC
                                 ,[BOXNAMES]
                                 ,[ORDRES]
                                 FROM [TKMOC].[dbo].[TBOUTBOXNAMES]
+                                WHERE [ISCLOSED]='N'
                                 ORDER BY [ORDRES]
                                     ");
             SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
@@ -209,18 +210,72 @@ namespace TKMOC
 
             report1.Preview = previewControl1;
             report1.Show();  
-        } 
+        }
 
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            textBox1.Text = null;
+            DataTable DT = FIND_TBOUTBOXNAMES(comboBox1.Text.ToString());
+            if(DT!=null && DT.Rows.Count>=1)
+            {
+                textBox1.Text = DT.Rows[0]["MB001"].ToString();
+            }
+        }
+
+        public DataTable FIND_TBOUTBOXNAMES(string BOXNAMES)
+        {
+            //20210902密
+            Class1 TKID = new Class1();//用new 建立類別實體
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+            //資料庫使用者密碼解密
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+            String connectionString;
+            sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+            StringBuilder Sequel = new StringBuilder();
+            Sequel.AppendFormat(@"
+                                SELECT 
+                                [ID]
+                                ,[BOXNAMES]
+                                ,[MB001]
+                                ,[ORDRES]
+                                ,[ISCLOSED]
+                                FROM [TKMOC].[dbo].[TBOUTBOXNAMES]
+                                WHERE [ISCLOSED]='N'
+                                AND ([BOXNAMES] LIKE '%{0}%' OR [MB001] LIKE '%{0}%')
+                               
+                                ", BOXNAMES);
+            SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
+            DataTable dt = new DataTable();
+            sqlConn.Open();
+                        
+            da.Fill(dt);           
+            sqlConn.Close();
+
+            if(dt!=null && dt.Rows.Count>=1)
+            {
+                return dt;
+            }
+            else
+            {
+                return null;
+            }
+        }
         #endregion
-         
+
         #region BUTTON
         private void button1_Click(object sender, EventArgs e)
         {             
             SETFASTREPORT(comboBox1.Text.ToString(),dateTimePicker1.Value.ToString("yyyy.MM.dd"), dateTimePicker2.Value.ToString("yyyy.MM.dd"));
+            SETFASTREPORT(comboBox1.Text.ToString(),dateTimePicker1.Value.ToString("yyyy.MM.dd"), dateTimePicker2.Value.ToString("yyyy.MM.dd"));
         }
+
 
         #endregion
 
-        
+   
     }
 }
