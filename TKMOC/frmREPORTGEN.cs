@@ -446,7 +446,7 @@ namespace TKMOC
                                 FROM [TKMOC].[dbo].[REPORTGEN]
                                 LEFT JOIN [TK].dbo.MOCTA ON MOCTA.TA001=REPORTGEN.TA001 AND MOCTA.TA002=REPORTGEN.TA002
                                 WHERE 1=1
-                                AND TA001='{0}' AND TA002='{1}'
+                                AND MOCTA.TA001='{0}' AND MOCTA.TA002='{1}'
                                 ORDER BY REPORTGEN.[TA001],REPORTGEN.[TA002],[BORADNUM]
                                 ", TA001, TA002);
 
