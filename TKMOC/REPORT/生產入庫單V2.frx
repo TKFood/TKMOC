@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="11/14/2019 15:07:31" ReportInfo.Modified="12/04/2023 10:27:56" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="11/14/2019 15:07:31" ReportInfo.Modified="12/03/2025 14:09:33" ReportInfo.CreatorVersion="2016.4.4.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9IVgw1s/D0tSlvv044fg/lA">
-      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT TA001 AS '製令',TA002 AS '製令號',SUBSTRING(TA003,1,4) AS '年',SUBSTRING(TA003,5,2) AS '月',SUBSTRING(TA003,7,2) AS '日',TA034 AS '品名',MB003 AS '規格'&#13;&#10;FROM [TK].dbo.MOCTA&#13;&#10;LEFT JOIN [TK].dbo.INVMB ON MB001=TA006&#13;&#10;WHERE TA009&gt;='20191113' AND TA009&lt;='20191113'&#13;&#10;ORDER BY TA001,TA002,TA034">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9IQhhNfJDJtUNnebifkzlmM">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT &#13;&#10;TA001 AS '製令',TA002 AS '製令號',SUBSTRING(TA003,1,4) AS '年',SUBSTRING(TA003,5,2) AS '月',SUBSTRING(TA003,7,2) AS '日',TA034 AS '品名',MB003 AS '規格',TA021 AS '生產線別'&#13;&#10;FROM [TK].dbo.MOCTA&#13;&#10;LEFT JOIN [TK].dbo.INVMB ON MB001=TA006&#13;&#10;WHERE TA009&gt;='20191113' AND TA009&lt;='20191113'&#13;&#10;ORDER BY TA001,TA002,TA034">
         <Column Name="製令" DataType="System.String"/>
         <Column Name="製令號" DataType="System.String"/>
         <Column Name="品名" DataType="System.String"/>
@@ -10,6 +10,7 @@
         <Column Name="年" DataType="System.String"/>
         <Column Name="月" DataType="System.String"/>
         <Column Name="日" DataType="System.String"/>
+        <Column Name="生產線別" DataType="System.String"/>
       </TableDataSource>
     </MsSqlDataConnection>
     <Parameter Name="P1" DataType="System.String"/>
@@ -40,6 +41,7 @@
       <TextObject Name="Text40" Left="9.45" Top="198.45" Width="94.5" Height="28.35" Border.Lines="All" Text="抽驗數量" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
       <TextObject Name="Text41" Left="103.95" Top="198.45" Width="66.15" Height="28.35" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
       <TextObject Name="Text42" Left="170.1" Top="198.45" Width="151.2" Height="28.35" Border.Lines="All" Text="判定 □合格 □不合格" VertAlign="Center" Font="標楷體, 10pt"/>
+      <TextObject Name="Text43" Left="9.45" Top="340.2" Width="94.5" Height="37.8" Border.Lines="All" Text="生產線別:[Table.生產線別]" HorzAlign="Center" VertAlign="Center" Font="標楷體, 10pt"/>
     </DataBand>
   </ReportPage>
 </Report>

@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="11/14/2019 15:07:31" ReportInfo.Modified="12/04/2023 15:08:39" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="11/14/2019 15:07:31" ReportInfo.Modified="12/03/2025 14:09:45" ReportInfo.CreatorVersion="2016.4.4.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9LBrGrVTl+coVkuU2KcKYEe">
-      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT [TA001]  AS '製令'&#13;&#10;,[TA002] AS '製令號'&#13;&#10;,[YEARS] AS '年'&#13;&#10;,[MONTHS] AS '月'&#13;&#10;,[DAYS] AS '日'&#13;&#10;,[MB001] AS '品號'&#13;&#10;,[MB002] AS '品名'&#13;&#10;,[MB003] AS '規格'&#13;&#10;,[GENNUM]  AS '已生產量' &#13;&#10;,[BORADNUM]  AS '版數' &#13;&#10;FROM [TKMOC].[dbo].[REPORTGEN]&#13;&#10;ORDER BY [TA001],[TA002],[BORADNUM]">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9JjyBAgIv92sZuqq+f8TK47">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT &#13;&#10;REPORTGEN.[TA001]  AS '製令'&#13;&#10;,REPORTGEN.[TA002] AS '製令號'&#13;&#10;,[YEARS] AS '年'&#13;&#10;,[MONTHS] AS '月'&#13;&#10;,[DAYS] AS '日'&#13;&#10;,[MB001] AS '品號'&#13;&#10;,[MB002] AS '品名'&#13;&#10;,[MB003] AS '規格'&#13;&#10;,[GENNUM]  AS '已生產量' &#13;&#10;,[BORADNUM]  AS '版數' &#13;&#10;,TA021 AS '生產線別'&#13;&#10;FROM [TKMOC].[dbo].[REPORTGEN]&#13;&#10;LEFT JOIN [TK].dbo.MOCTA ON MOCTA.TA001=REPORTGEN.TA001 AND MOCTA.TA002=REPORTGEN.TA002&#13;&#10;ORDER BY REPORTGEN.[TA001],REPORTGEN.[TA002],[BORADNUM]">
         <Column Name="製令" DataType="System.String"/>
         <Column Name="製令號" DataType="System.String"/>
         <Column Name="品名" DataType="System.String"/>
@@ -13,6 +13,7 @@
         <Column Name="品號" DataType="System.String"/>
         <Column Name="已生產量" DataType="System.Int32"/>
         <Column Name="版數" DataType="System.Int32"/>
+        <Column Name="生產線別" DataType="System.String"/>
       </TableDataSource>
     </MsSqlDataConnection>
     <Parameter Name="P1" DataType="System.String"/>
@@ -43,6 +44,7 @@
       <TextObject Name="Text40" Left="9.45" Top="198.45" Width="94.5" Height="28.35" Border.Lines="All" Text="抽驗數量" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
       <TextObject Name="Text41" Left="103.95" Top="198.45" Width="66.15" Height="28.35" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
       <TextObject Name="Text42" Left="170.1" Top="198.45" Width="151.2" Height="28.35" Border.Lines="All" Text="判定 □合格 □不合格" VertAlign="Center" Font="標楷體, 10pt"/>
+      <TextObject Name="Text43" Left="9.45" Top="321.3" Width="94.5" Height="37.8" Border.Lines="All" Text="生產線別:[Table.生產線別]" HorzAlign="Center" VertAlign="Center" Font="標楷體, 10pt"/>
     </DataBand>
   </ReportPage>
 </Report>

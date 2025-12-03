@@ -195,13 +195,14 @@ namespace TKMOC
             StringBuilder FASTSQL = new StringBuilder();
             StringBuilder STRQUERY = new StringBuilder();
 
-           
-            FASTSQL.AppendFormat(@" SELECT TA001 AS '製令',TA002 AS '製令號',SUBSTRING(TA002,1,4) AS '年',SUBSTRING(TA002,5,2) AS '月',SUBSTRING(TA002,7,2) AS '日',TA034 AS '品名',MB003 AS '規格'");
-            FASTSQL.AppendFormat(@"  ,MB003 AS '規格',TA017 AS '已生產量' ");
-            FASTSQL.AppendFormat(@"  FROM [TK].dbo.MOCTA");
-            FASTSQL.AppendFormat(@"  LEFT JOIN [TK].dbo.INVMB ON MB001=TA006");
-            FASTSQL.AppendFormat(@"  WHERE TA001='{0}' AND TA002='{1}'",TA001,TA002);
-            FASTSQL.AppendFormat(@"     ");
+            FASTSQL.AppendFormat(@"     
+                                SELECT 
+                                TA001 AS '製令',TA002 AS '製令號',SUBSTRING(TA003,1,4) AS '年',SUBSTRING(TA003,5,2) AS '月',SUBSTRING(TA003,7,2) AS '日',TA034 AS '品名',MB003 AS '規格',TA021 AS '生產線別'
+                                FROM [TK].dbo.MOCTA
+                                LEFT JOIN [TK].dbo.INVMB ON MB001=TA006
+                                WHERE TA001='{0}' AND TA002='{1}'
+                                ORDER BY TA001,TA002,TA034
+                                ", TA001, TA002);
 
             return FASTSQL.ToString();
         }
@@ -429,11 +430,25 @@ namespace TKMOC
             StringBuilder STRQUERY = new StringBuilder();
 
 
-            FASTSQL.AppendFormat(@" SELECT [TA001]  AS '製令',[TA002] AS '製令號',[YEARS] AS '年',[MONTHS] AS '月',[DAYS] AS '日',[MB001] AS '品號',[MB002] AS '品名',[MB003] AS '規格',[GENNUM]  AS '已生產量' ,[BORADNUM]  AS '版數'     ");
-            FASTSQL.AppendFormat(@" FROM [TKMOC].[dbo].[REPORTGEN]    ");
-            FASTSQL.AppendFormat(@" WHERE TA001='{0}' AND TA002='{1}'", TA001, TA002);
-            FASTSQL.AppendFormat(@" ORDER BY [TA001],[TA002],[BORADNUM]   ");
-            FASTSQL.AppendFormat(@"    ");
+            FASTSQL.AppendFormat(@"    
+                                SELECT 
+                                REPORTGEN.[TA001]  AS '製令'
+                                ,REPORTGEN.[TA002] AS '製令號'
+                                ,[YEARS] AS '年'
+                                ,[MONTHS] AS '月'
+                                ,[DAYS] AS '日'
+                                ,[MB001] AS '品號'
+                                ,[MB002] AS '品名'
+                                ,[MB003] AS '規格'
+                                ,[GENNUM]  AS '已生產量' 
+                                ,[BORADNUM]  AS '版數' 
+                                ,TA021 AS '生產線別'
+                                FROM [TKMOC].[dbo].[REPORTGEN]
+                                LEFT JOIN [TK].dbo.MOCTA ON MOCTA.TA001=REPORTGEN.TA001 AND MOCTA.TA002=REPORTGEN.TA002
+                                WHERE 1=1
+                                AND TA001='{0}' AND TA002='{1}'
+                                ORDER BY REPORTGEN.[TA001],REPORTGEN.[TA002],[BORADNUM]
+                                ", TA001, TA002);
 
             return FASTSQL.ToString();
         }
