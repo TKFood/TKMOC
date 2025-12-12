@@ -436,13 +436,13 @@ namespace TKMOC
             return base.ProcessCmdKey(ref msg, keyData);
         } 
 
-        #region FUNCTION
+        #region FUNCTION 
 
         private void frmMOCMANULINE_Load(object sender, EventArgs e)
         {
-            dateTimePicker27.Value = DateTime.Now;
+            dateTimePicker27.Value = DateTime.Now; 
             DV_CheckBox();
-        }
+        } 
 
         public void DV_CheckBox()
         {
@@ -8648,7 +8648,7 @@ namespace TKMOC
                     sbSql.AppendFormat(" AND [MOCMANULINEMERGERESLUT].NO='{0}'",TA033);
                     sbSql.AppendFormat(" )");
                     sbSql.AppendFormat(" ");
-                    sbSql.AppendFormat(" ");
+                    sbSql.AppendFormat(" "); 
 
 
                     cmd.Connection = sqlConn;
