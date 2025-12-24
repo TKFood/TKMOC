@@ -85,7 +85,7 @@ namespace TKMOC
             sqlConn.Open();
 
             dt.Columns.Add("ID", typeof(string));
-            dt.Columns.Add("BOXNAMES", typeof(string));
+            dt.Columns.Add("BOXNAMES", typeof(string)); 
             da.Fill(dt);
             comboBox1.DataSource = dt.DefaultView;
             comboBox1.ValueMember = "BOXNAMES";
