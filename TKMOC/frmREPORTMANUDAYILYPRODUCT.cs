@@ -868,7 +868,73 @@ namespace TKMOC
 
             return FASTSQL.ToString();
         }
+        public void ADD_MANUDAYILYPRODUCT_NEW_YEARS(string YEARS)
+        {
+            string SDATES = YEARS + "-01-01";
+            string EDATES = YEARS + "-12-31";
 
+            SqlConnection sqlConn = new SqlConnection();
+            StringBuilder sbSql = new StringBuilder();
+            SqlTransaction tran;
+            SqlCommand cmd = new SqlCommand();
+            int result;
+
+            if (!string.IsNullOrEmpty(SDATES) && !string.IsNullOrEmpty(EDATES))
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+                sqlConn.Close();
+                sqlConn.Open();
+                tran = sqlConn.BeginTransaction();
+
+                sbSql.Clear();
+
+
+                sbSql.AppendFormat(@" 
+                                    WITH DateCTE AS (
+                                    -- 設定起始日期
+                                    SELECT CAST('{0}' AS DATE) AS FullDate
+                                    UNION ALL
+                                    -- 遞迴增加一天，直到 12-31
+                                    SELECT DATEADD(DAY, 1, FullDate)
+                                    FROM DateCTE
+                                    WHERE FullDate < '{1}'
+                                )
+                                INSERT INTO [TKMOC].[dbo].[MANUDAYILYPRODUCT] ([MANUDATE])
+                                SELECT FullDate
+                                FROM DateCTE
+                                OPTION (MAXRECURSION 366); -- 預設遞迴上限是 100，處理一年份需要調高
+
+                                    ", SDATES, EDATES);
+
+
+                cmd.Connection = sqlConn;
+                cmd.CommandTimeout = 60;
+                cmd.CommandText = sbSql.ToString();
+                cmd.Transaction = tran;
+                result = cmd.ExecuteNonQuery();
+
+                if (result == 0)
+                {
+                    tran.Rollback();    //交易取消
+                }
+                else
+                {
+                    tran.Commit();      //執行交易 
+
+                    MessageBox.Show("完成");
+                }
+            }
+        }
         #endregion
 
         #region BUTTON
@@ -923,6 +989,11 @@ namespace TKMOC
         private void button10_Click(object sender, EventArgs e)
         {
             SETFASTREPORT2(dateTimePicker12.Value.ToString("yyyyMM"));
+        }
+        private void button11_Click(object sender, EventArgs e)
+        {
+            string YEARS = dateTimePicker13.Value.ToString("yyyy");
+            ADD_MANUDAYILYPRODUCT_NEW_YEARS(YEARS);
         }
         #endregion
 
