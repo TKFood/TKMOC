@@ -4764,15 +4764,33 @@ namespace TKMOC
                         //dataGridView1.Rows.Clear();
                         dataGridView9.DataSource = ds13.Tables["TEMPds13"];
                         dataGridView9.AutoResizeColumns();
-                        //dataGridView1.CurrentCell = dataGridView1[0, rownum];
+                        //dataGridView1.CurrentCell = dataGridView1[0, rownum]; 
 
+                        // 2. 獲取 DataTable 實體
+                        DataTable dt = ds13.Tables["TEMPds13"];
+
+                        // 3. 使用 Compute 方法加總「總數量」欄位
+                        // 注意：Compute 返回的是 object，如果 Table 沒資料會返回 DBNull
+                        object sumObject = dt.Compute("Sum(總數量)", "");
+
+                        if (sumObject != DBNull.Value)
+                        {
+                            // 如果有數值，將其轉為字串顯示
+                            // 也可以格式化數字，例如 .ToString("N0") 加入千分位
+                            textBox48.Text = sumObject.ToString();
+                        }
+                        else
+                        {
+                            // 如果沒有資料，顯示 0
+                            textBox48.Text = "0";
+                        }
                     }
                 }
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"發生錯誤：{ex.Message}");
+                //MessageBox.Show($"發生錯誤：{ex.Message}");
             }
             finally
             {
@@ -4813,7 +4831,7 @@ namespace TKMOC
                     string TA021= row.Cells["線別號"].Value.ToString();
 
                     DataView dv = new DataView(dtAllMerge);
-                    dv.RowFilter = $"品號 = '{tb003}' AND 線別號 = '{TA021}'"; // 同時過濾品號和線別號
+                    dv.RowFilter = $"品號 = '{tb003}' "; // 同時過濾品號和線別號
 
 
                     if (dv.Count > 0)
@@ -4836,7 +4854,7 @@ namespace TKMOC
 
                 }
             }
-           
+            
         }
 
         public void SEARCHMOCMANULINETOATL()
@@ -4858,12 +4876,14 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  SELECT  [MOCTA001] AS '單別',[MOCTA002] AS '製令'");
-                sbSql.AppendFormat(@"  ,[TA003] AS '日期',[TA021] AS '線別號',[TA021N] AS '線別',[TB003] AS '品號',[TB012] AS '品名',[TB004] AS '總數量',[TB009] AS '入庫別'");
-                sbSql.AppendFormat(@"  ,[ID]");
-                sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINETOATL]");
-                sbSql.AppendFormat(@"  WHERE [TA003]='{0}' AND [TA021]='{1}' AND [TB003]='{2}'   AND [TB004]='{3}' ", textBox26.Text, textBox27.Text, textBox29.Text, textBox31.Text);
-                sbSql.AppendFormat(@"  ");
+                sbSql.AppendFormat(@"  
+                                SELECT  [MOCTA001] AS '單別',[MOCTA002] AS '製令'
+                                ,[TA003] AS '日期',[TA021] AS '線別號',[TA021N] AS '線別',[TB003] AS '品號',[TB012] AS '品名',[TB004] AS '總數量',[TB009] AS '入庫別'
+                                ,[ID]
+                                 FROM [TKMOC].[dbo].[MOCMANULINETOATL]
+                                 WHERE [TA003]='{0}' AND [TA021]='{1}' AND [TB003]='{2}'   AND [TB004]='{3}' "
+                                , textBox26.Text, textBox27.Text, textBox29.Text, textBox48.Text);
+             
 
                 adapter14 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
@@ -4901,7 +4921,7 @@ namespace TKMOC
             }
         }
 
-        public void SEARCHMOCMANULINEMERGE_ALL(string TA003)
+        public void SEARCHMOCMANULINEMERGE_ALL(string TA003,string TB003)
         {
             try
             {
@@ -4914,26 +4934,26 @@ namespace TKMOC
                 {
                     StringBuilder sbSql = new StringBuilder();
                     sbSql.Append(@"
-                                    SELECT 
+                                   SELECT 
                                         TA003  AS '日期',
-                                        TA021 AS '線別號',
-                                        MD002 AS '線別',
                                         TB003 AS '品號',
                                         TB012 AS '品名',
-                                        SUM(TB004) AS '合併後總數量',
-                                        TB009 AS '入庫別'
+                                        SUM(TB004) AS '合併後總數量'
                                     FROM [TK].dbo.MOCTA
                                     JOIN [TK].dbo.MOCTB ON TA001 = TB001 AND TA002 = TB002
                                     JOIN [TK].dbo.CMSMD ON TA021 = MD001
                                     LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001 = MOCTA.TA006
                                     WHERE TA002 LIKE @TA003
-                                    GROUP BY TB003, TB012, TB009, TA003, TA021, MD002
-                                    ORDER BY TA003, TA021, TB003
+                                    AND  TB003 LIKE @TB003
+                                    GROUP BY TA003, TB003, TB012
+                                    ORDER BY TA003, TB003, TB012
+
                                 ");
 
                     using (SqlDataAdapter adapter = new SqlDataAdapter(sbSql.ToString(), sqlConn))
                     {
                         adapter.SelectCommand.Parameters.AddWithValue("@TA003", $"%{TA003}%");
+                        adapter.SelectCommand.Parameters.AddWithValue("@TB003", $"%{TB003}%");
                         dtAllMerge = new DataTable();
                         adapter.Fill(dtAllMerge);
                         //dataGridView31.DataSource = dtAllMerge;
@@ -4943,7 +4963,7 @@ namespace TKMOC
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"發生錯誤：{ex.Message}");
+                //MessageBox.Show($"發生錯誤：{ex.Message}");
             }
         }
 
@@ -5201,13 +5221,12 @@ namespace TKMOC
                 tran = sqlConn.BeginTransaction();
 
                 sbSql.Clear();
-
-
-                sbSql.AppendFormat(" INSERT INTO [TKMOC].[dbo].[MOCMANULINETOATL]");
-                sbSql.AppendFormat(" ([ID],[TA003],[TA021],[TA021N],[TB003],[TB012],[TB004],[TB009],[MOCTA001],[MOCTA002])");
-                sbSql.AppendFormat(" VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}')", "NEWID()",textBox26.Text,textBox27.Text,textBox28.Text,textBox29.Text, textBox30.Text, textBox31.Text,textBox36.Text, TA001, TA002);
-                sbSql.AppendFormat(" ");
-                sbSql.AppendFormat(" ");
+                sbSql.AppendFormat(@" 
+                                    INSERT INTO [TKMOC].[dbo].[MOCMANULINETOATL]
+                                    ([ID],[TA003],[TA021],[TA021N],[TB003],[TB012],[TB004],[TB009],[MOCTA001],[MOCTA002])
+                                    VALUES ({0},'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}')", "NEWID()"
+                                    , textBox26.Text, textBox27.Text, textBox28.Text, textBox29.Text, textBox30.Text, textBox48.Text, textBox36.Text, TA001, TA002
+                                    );
 
 
                 cmd.Connection = sqlConn;
@@ -14222,7 +14241,7 @@ namespace TKMOC
         }
         private void comboBox10_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SEARCHMOCTB(comboBox10.SelectedValue.ToString());
+            //SEARCHMOCTB(comboBox10.SelectedValue.ToString());
         }
 
         public void SEACRH_MOCLINE_NEW_CHAGNES(string COPTD001, string COPTD002)
@@ -14608,19 +14627,7 @@ namespace TKMOC
         }
         private void dataGridView31_SelectionChanged(object sender, EventArgs e)
         {
-            if (dataGridView31.CurrentRow != null)
-            {
-                int rowindex = dataGridView31.CurrentRow.Index;
-                if (rowindex >= 0)
-                {
-                    DataGridViewRow row = dataGridView31.Rows[rowindex];
-                    textBox48.Text = row.Cells["合併後總數量"].Value.ToString();                 
-                }
-                else
-                {
-                    textBox48.Text = "0";
-                }
-            }
+          
         }
         public DataTable FIND_MOCMANULINEORMB001()
         {
@@ -14985,7 +14992,7 @@ namespace TKMOC
         private void button25_Click(object sender, EventArgs e)
         {
             SEARCHMOCTB(comboBox10.SelectedValue.ToString());
-            SEARCHMOCMANULINEMERGE_ALL(dateTimePicker10.Value.ToString("yyyyMMdd"));
+            SEARCHMOCMANULINEMERGE_ALL(dateTimePicker10.Value.ToString("yyyyMMdd"), comboBox10.SelectedValue.ToString());
         }
 
 
