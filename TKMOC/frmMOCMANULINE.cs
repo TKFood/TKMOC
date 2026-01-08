@@ -4969,7 +4969,7 @@ namespace TKMOC
             }
         }
 
-        public void SEARCHMOCMANULINEMERGE(string TA003, string TB003)
+        public void SEARCHMOCMANULINEMERGE_dataGridView31(string TA003, string TB003)
         {
             dataGridView31.DataSource = null;
 
@@ -5027,7 +5027,7 @@ namespace TKMOC
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"發生錯誤：{ex.Message}");
+                //MessageBox.Show($"發生錯誤：{ex.Message}");
             }
         }
 
