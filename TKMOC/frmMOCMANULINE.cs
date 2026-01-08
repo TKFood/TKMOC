@@ -388,13 +388,29 @@ namespace TKMOC
         {
             InitializeComponent();
 
+           
+        }
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Enter)
+            {
+                SendKeys.Send("{TAB}");
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        } 
+
+        #region FUNCTION 
+
+        private void frmMOCMANULINE_Load(object sender, EventArgs e)
+        {
             comboBox1load();
             comboBox2load();
             comboBox3load();
             comboBox4load();
             comboBox5load();
             comboBox6load();
-            comboBox7load();            
+            comboBox7load();
             comboBox8load();
             comboBox9load();
 
@@ -414,7 +430,7 @@ namespace TKMOC
             comboBox25load();
             comboBox26load();
             comboBox27load();
-            comboBox28load();            
+            comboBox28load();
             comboBox29load();
             comboBox30load();
             comboBox31load();
@@ -425,21 +441,7 @@ namespace TKMOC
             SETIN();
 
             MANU = "包裝線";
-        }
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-            if (keyData == Keys.Enter)
-            {
-                SendKeys.Send("{TAB}");
-                return true;
-            }
-            return base.ProcessCmdKey(ref msg, keyData);
-        } 
 
-        #region FUNCTION 
-
-        private void frmMOCMANULINE_Load(object sender, EventArgs e)
-        {
             dateTimePicker27.Value = DateTime.Now; 
             DV_CheckBox();
         } 
@@ -14991,8 +14993,8 @@ namespace TKMOC
 
         private void button25_Click(object sender, EventArgs e)
         {
-            SEARCHMOCTB(comboBox10.SelectedValue.ToString());
             SEARCHMOCMANULINEMERGE_ALL(dateTimePicker10.Value.ToString("yyyyMMdd"), comboBox10.SelectedValue.ToString());
+            SEARCHMOCTB(comboBox10.SelectedValue.ToString());            
         }
 
 
