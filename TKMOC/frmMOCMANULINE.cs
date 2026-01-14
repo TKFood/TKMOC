@@ -4768,24 +4768,24 @@ namespace TKMOC
                         dataGridView9.AutoResizeColumns();
                         //dataGridView1.CurrentCell = dataGridView1[0, rownum]; 
 
-                        // 2. 獲取 DataTable 實體
-                        DataTable dt = ds13.Tables["TEMPds13"];
+                        //// 2. 獲取 DataTable 實體
+                        //DataTable dt = ds13.Tables["TEMPds13"];
 
-                        // 3. 使用 Compute 方法加總「總數量」欄位
-                        // 注意：Compute 返回的是 object，如果 Table 沒資料會返回 DBNull
-                        object sumObject = dt.Compute("Sum(總數量)", "");
+                        //// 3. 使用 Compute 方法加總「總數量」欄位
+                        //// 注意：Compute 返回的是 object，如果 Table 沒資料會返回 DBNull
+                        //object sumObject = dt.Compute("Sum(總數量)", "");
 
-                        if (sumObject != DBNull.Value)
-                        {
-                            // 如果有數值，將其轉為字串顯示
-                            // 也可以格式化數字，例如 .ToString("N0") 加入千分位
-                            textBox48.Text = sumObject.ToString();
-                        }
-                        else
-                        {
-                            // 如果沒有資料，顯示 0
-                            textBox48.Text = "0";
-                        }
+                        //if (sumObject != DBNull.Value)
+                        //{
+                        //    // 如果有數值，將其轉為字串顯示
+                        //    // 也可以格式化數字，例如 .ToString("N0") 加入千分位
+                        //    textBox48.Text = sumObject.ToString();
+                        //}
+                        //else
+                        //{
+                        //    // 如果沒有資料，顯示 0
+                        //    textBox48.Text = "0";
+                        //}
                     }
                 }
 
@@ -4815,7 +4815,7 @@ namespace TKMOC
                     textBox30.Text = row.Cells["品名"].Value.ToString();
                     textBox31.Text = row.Cells["總數量"].Value.ToString();
                     textBox36.Text = row.Cells["入庫別"].Value.ToString();
-                    dt5 = Convert.ToDateTime(row.Cells["日期"].Value.ToString().Substring(0,4)+"/"+row.Cells["日期"].Value.ToString().Substring(4, 2)+"/"+ row.Cells["日期"].Value.ToString().Substring(6, 2));
+                    dt5 = Convert.ToDateTime(row.Cells["日期"].Value.ToString().Substring(0, 4) + "/" + row.Cells["日期"].Value.ToString().Substring(4, 2) + "/" + row.Cells["日期"].Value.ToString().Substring(6, 2));
 
                     if (!comboBox10.Text.Equals("水麵"))
                     {
@@ -4823,14 +4823,14 @@ namespace TKMOC
                     }
 
                     MB001E = row.Cells["品號"].Value.ToString();
-                    MB002E = row.Cells["品名"].Value.ToString();                   
+                    MB002E = row.Cells["品名"].Value.ToString();
 
                     SEARCHMOCMANULINETOATL();
                     //SEARCHMOCMANULINEMERGE(row.Cells["日期"].Value.ToString(), row.Cells["品號"].Value.ToString());
 
 
                     string tb003 = row.Cells["品號"].Value.ToString();
-                    string TA021= row.Cells["線別號"].Value.ToString();
+                    string TA021 = row.Cells["線別號"].Value.ToString();
 
                     DataView dv = new DataView(dtAllMerge);
                     dv.RowFilter = $"品號 = '{tb003}' "; // 同時過濾品號和線別號
@@ -4845,6 +4845,7 @@ namespace TKMOC
                         dataGridView31.DataSource = null; // 沒資料就清空 DataGrid
                     }
                 }
+
                 else
                 {
                     textBox26.Text = null;
@@ -4856,8 +4857,46 @@ namespace TKMOC
 
                 }
             }
-            
+            // 1. 檢查 dataGridView9 是否有選中行
+            if (dataGridView9.CurrentRow != null)
+            {
+                try
+                {
+                    // 2. 取得選中行的「品號」 (請確認 dataGridView9 的欄位名稱是否為 "品號")
+                    // 如果 SQL 裡是用 TB003 AS '品號'，這裡就用 "品號"
+                    string selectedProductID = dataGridView9.CurrentRow.Cells["品號"].Value?.ToString();
+
+                    if (!string.IsNullOrEmpty(selectedProductID))
+                    {
+                        // 3. 確保 DataTable 存在且有資料
+                        if (ds13.Tables.Contains("TEMPds13"))
+                        {
+                            DataTable dt = ds13.Tables["TEMPds13"];
+
+                            // 4. 使用 Compute 進行條件加總
+                            // 篩選條件：品號 = '取得的品號'
+                            // 注意：值要用單引號括起來
+                            string filter = string.Format("品號 = '{0}'", selectedProductID.Replace("'", "''")); // Replace 處理單引號防錯
+                            object sumObject = dt.Compute("Sum(總數量)", filter);
+
+                            // 5. 顯示結果
+                            textBox48.Text = (sumObject != DBNull.Value) ? sumObject.ToString() : "0";
+                        }
+                    }
+                    else
+                    {
+                        textBox48.Text = "0";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // 避免因為欄位名稱不符導致程式崩潰
+                    // MessageBox.Show("計算錯誤: " + ex.Message);
+                    textBox48.Text = "0";
+                }
+            }
         }
+            
 
         public void SEARCHMOCMANULINETOATL()
         {
