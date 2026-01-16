@@ -6822,15 +6822,19 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@"  SELECT TC053,TD004,TD005,TD006,(TD008+TD024) AS TD008,TD010,(TC015+'-'+TD020) TC015 ,TD013");
-                sbSql.AppendFormat(@"  ,(CASE WHEN ISNULL(MD002,'')<>'' THEN (TD008+TD024)*MD004 ELSE (TD008+TD024)  END ) AS NUM");
-                sbSql.AppendFormat(@"  FROM [TK].dbo.INVMB WITH(NOLOCK),[TK].dbo.COPTC WITH(NOLOCK),[TK].dbo.COPTD WITH(NOLOCK)");
-                sbSql.AppendFormat(@"  LEFT JOIN [TK].dbo.INVMD ON MD001=TD004 AND TD010=MD002");
-                sbSql.AppendFormat(@"  WHERE TC001=TD001 AND TC002=TD002");
-                sbSql.AppendFormat(@"  AND MB001=TD004");
-                sbSql.AppendFormat(@"  AND TD001='{0}' AND TD002='{1}' AND TD003='{2}'",TD001,TD002,TD003);
-                sbSql.AppendFormat(@"  ");
-                sbSql.AppendFormat(@"  ");
+          
+                sbSql.AppendFormat(@"  
+                                    SELECT 
+                                    TC053,TD004,TD005,TD006,(TD008+TD024) AS TD008,TD010,(TC015+'-'+TD020) TC015 ,TD013
+                                     ,(CASE WHEN ISNULL(MD002,'')<>'' THEN (TD008+TD024)*MD004 ELSE (TD008+TD024)  END ) AS NUM
+                                    FROM [TK].dbo.INVMB WITH(NOLOCK),[TK].dbo.COPTC WITH(NOLOCK),[TK].dbo.COPTD WITH(NOLOCK)
+                                    LEFT JOIN [TK].dbo.INVMD ON MD001=TD004 AND TD010=MD002
+                                    WHERE TC001=TD001 AND TC002=TD002
+                                    AND MB001=TD004
+                                    AND TD001='{0}' AND TD002='{1}' AND TD003='{2}'
+                                    ", TD001, TD002, TD003);
+
+       
 
                 adapter27 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 

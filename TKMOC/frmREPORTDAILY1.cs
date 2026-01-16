@@ -82,7 +82,7 @@ namespace TKMOC
             comboBox1.DisplayMember = "MD002";
             sqlConn.Close();
 
-
+             
         }
 
         public void SETFASTREPORT(string TA021,string TA003)
