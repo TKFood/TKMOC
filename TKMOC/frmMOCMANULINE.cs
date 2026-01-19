@@ -6801,11 +6801,11 @@ namespace TKMOC
 
                 }
             }
-        }
+        } 
 
         public void SEARCHCOPDEFAULT(string TD001,string TD002,string TD003)
         {
-            try
+            try 
             {
                 //20210902密
                 Class1 TKID = new Class1();//用new 建立類別實體
