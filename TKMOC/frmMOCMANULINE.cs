@@ -2325,7 +2325,7 @@ namespace TKMOC
                         cmd.CommandText = sbSql.ToString();
                         cmd.Transaction = tran;
 
-                        result = cmd.ExecuteNonQuery();
+                        result = cmd.ExecuteNonQuery(); 
 
                         if (result == 0)
                         {
