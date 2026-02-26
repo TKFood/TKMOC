@@ -1062,87 +1062,87 @@ namespace TKMOC
         }
         public void PRINTMAINAPPLY()
         {
-            // 首先把建立的範本檔案讀入MemoryStream
-            //首先把建立的範本檔案讀入MemoryStream
-            System.IO.MemoryStream _memoryStream = new System.IO.MemoryStream(Properties.Resources.維修申請單);
+            //// 首先把建立的範本檔案讀入MemoryStream
+            ////首先把建立的範本檔案讀入MemoryStream
+            //System.IO.MemoryStream _memoryStream = new System.IO.MemoryStream(Properties.Resources.維修申請單);
 
-            //建立一個Document物件
-            //並傳入MemoryStream
-            Aspose.Words.Document doc = new Aspose.Words.Document(_memoryStream);
+            ////建立一個Document物件
+            ////並傳入MemoryStream
+            //Aspose.Words.Document doc = new Aspose.Words.Document(_memoryStream);
 
-            //新增一個DataTable
-            DataTable table = new DataTable();
-            //建立Column
-            table.Columns.Add("UNIT");
-            table.Columns.Add("APPDATE");
-            table.Columns.Add("TIMES");
-            table.Columns.Add("EQUIPMENTID");
-            table.Columns.Add("EQUIPMENTNAME");
-            table.Columns.Add("FINDEMP");
-            table.Columns.Add("APPLYEMP");
-            table.Columns.Add("ERROR");
-            table.Columns.Add("STATUS");
-            table.Columns.Add("REMARK");
-            table.Columns.Add("MAINEMP");
-            table.Columns.Add("MAINDATE");
+            ////新增一個DataTable
+            //DataTable table = new DataTable();
+            ////建立Column
+            //table.Columns.Add("UNIT");
+            //table.Columns.Add("APPDATE");
+            //table.Columns.Add("TIMES");
+            //table.Columns.Add("EQUIPMENTID");
+            //table.Columns.Add("EQUIPMENTNAME");
+            //table.Columns.Add("FINDEMP");
+            //table.Columns.Add("APPLYEMP");
+            //table.Columns.Add("ERROR");
+            //table.Columns.Add("STATUS");
+            //table.Columns.Add("REMARK");
+            //table.Columns.Add("MAINEMP");
+            //table.Columns.Add("MAINDATE");
 
-            //[APPLYUNIT] AS '申請單位',[APPDATE] AS '申請日期',[EQUIPMENTID] AS '機台編號' 
-            //,[EQUIPMENTNAME] AS '設備名稱',[FINDEMP] AS '發現者',[APPLYEMP] AS '申請人' ,[ERROR] AS '異常情形'
-            //,[STATUS] AS '原因及處理方式',[REMARK] AS '備註',[MAINEMP] AS '維修者',[MAINDATE] AS '維修時間'
-            //透過建立的DataTable物件來New一個儲存資料的Row
-            DataRow row = table.NewRow();
-            //這些Row具有上面所建立相同的Column欄位
-            //因此可以直接指定欄位名稱將資料填入裡面       
-            DateTime dt = Convert.ToDateTime(drMAINAPPLY.Cells["申請日期"].Value.ToString());
-            row["UNIT"] = FindUNIT(drMAINAPPLY.Cells["申請單位"].Value.ToString());
-            //row["APPDATE"] = dt.Year.ToString() + "年" + dt.Month.ToString() + "月" + dt.Day.ToString() + "日";
-            row["APPDATE"] = dt.ToString("yyyy/MM/dd");
-            row["APPDATE"] = dt.ToString("yyyy/MM/dd");
-            row["TIMES"] = dt.Hour.ToString() + ":" + dt.Minute.ToString();
-            row["EQUIPMENTID"] = drMAINAPPLY.Cells["機台編號"].Value.ToString();
-            row["EQUIPMENTNAME"] = drMAINAPPLY.Cells["設備名稱"].Value.ToString();
-            row["FINDEMP"] = drMAINAPPLY.Cells["發現者"].Value.ToString();
-            row["APPLYEMP"] = drMAINAPPLY.Cells["申請人"].Value.ToString();
-            row["ERROR"] = drMAINAPPLY.Cells["異常情形"].Value.ToString();
-            row["STATUS"] = drMAINAPPLY.Cells["原因及處理方式"].Value.ToString();
-            row["REMARK"] = drMAINAPPLY.Cells["備註"].Value.ToString();
-            row["MAINEMP"] = drMAINAPPLY.Cells["維修者"].Value.ToString();
-            row["MAINDATE"] = drMAINAPPLY.Cells["維修時間"].Value.ToString();
-
-
-            //把所建立的資料行加入Table的Row清單內
-            table.Rows.Add(row);
+            ////[APPLYUNIT] AS '申請單位',[APPDATE] AS '申請日期',[EQUIPMENTID] AS '機台編號' 
+            ////,[EQUIPMENTNAME] AS '設備名稱',[FINDEMP] AS '發現者',[APPLYEMP] AS '申請人' ,[ERROR] AS '異常情形'
+            ////,[STATUS] AS '原因及處理方式',[REMARK] AS '備註',[MAINEMP] AS '維修者',[MAINDATE] AS '維修時間'
+            ////透過建立的DataTable物件來New一個儲存資料的Row
+            //DataRow row = table.NewRow();
+            ////這些Row具有上面所建立相同的Column欄位
+            ////因此可以直接指定欄位名稱將資料填入裡面       
+            //DateTime dt = Convert.ToDateTime(drMAINAPPLY.Cells["申請日期"].Value.ToString());
+            //row["UNIT"] = FindUNIT(drMAINAPPLY.Cells["申請單位"].Value.ToString());
+            ////row["APPDATE"] = dt.Year.ToString() + "年" + dt.Month.ToString() + "月" + dt.Day.ToString() + "日";
+            //row["APPDATE"] = dt.ToString("yyyy/MM/dd");
+            //row["APPDATE"] = dt.ToString("yyyy/MM/dd");
+            //row["TIMES"] = dt.Hour.ToString() + ":" + dt.Minute.ToString();
+            //row["EQUIPMENTID"] = drMAINAPPLY.Cells["機台編號"].Value.ToString();
+            //row["EQUIPMENTNAME"] = drMAINAPPLY.Cells["設備名稱"].Value.ToString();
+            //row["FINDEMP"] = drMAINAPPLY.Cells["發現者"].Value.ToString();
+            //row["APPLYEMP"] = drMAINAPPLY.Cells["申請人"].Value.ToString();
+            //row["ERROR"] = drMAINAPPLY.Cells["異常情形"].Value.ToString();
+            //row["STATUS"] = drMAINAPPLY.Cells["原因及處理方式"].Value.ToString();
+            //row["REMARK"] = drMAINAPPLY.Cells["備註"].Value.ToString();
+            //row["MAINEMP"] = drMAINAPPLY.Cells["維修者"].Value.ToString();
+            //row["MAINDATE"] = drMAINAPPLY.Cells["維修時間"].Value.ToString();
 
 
-            //將DataTable傳入Document的MailMerge.Execute()方法
-            doc.MailMerge.Execute(table);
-            //清空所有未被合併的功能變數
-            doc.MailMerge.DeleteFields();
+            ////把所建立的資料行加入Table的Row清單內
+            //table.Rows.Add(row);
 
-            if (Directory.Exists(@"c:\temp\"))
-            {
-                //資料夾存在
-            }
-            else
-            {
-                //新增資料夾
-                Directory.CreateDirectory(@"c:\temp\");
-            }
-            //將檔案儲存至c:\
-            StringBuilder filename = new StringBuilder();
-            filename.AppendFormat(@"c:\temp\維修申請單{0}.doc", DateTime.Now.ToString("yyyyMMdd"));
-            doc.Save(filename.ToString());
 
-            MessageBox.Show("匯出完成-文件放在-" + filename.ToString());
-            FileInfo fi = new FileInfo(filename.ToString());
-            if (fi.Exists)
-            {
-                System.Diagnostics.Process.Start(filename.ToString());
-            }
-            else
-            {
-                //file doesn't exist
-            }
+            ////將DataTable傳入Document的MailMerge.Execute()方法
+            //doc.MailMerge.Execute(table);
+            ////清空所有未被合併的功能變數
+            //doc.MailMerge.DeleteFields();
+
+            //if (Directory.Exists(@"c:\temp\"))
+            //{
+            //    //資料夾存在
+            //}
+            //else
+            //{
+            //    //新增資料夾
+            //    Directory.CreateDirectory(@"c:\temp\");
+            //}
+            ////將檔案儲存至c:\
+            //StringBuilder filename = new StringBuilder();
+            //filename.AppendFormat(@"c:\temp\維修申請單{0}.doc", DateTime.Now.ToString("yyyyMMdd"));
+            //doc.Save(filename.ToString());
+
+            //MessageBox.Show("匯出完成-文件放在-" + filename.ToString());
+            //FileInfo fi = new FileInfo(filename.ToString());
+            //if (fi.Exists)
+            //{
+            //    System.Diagnostics.Process.Start(filename.ToString());
+            //}
+            //else
+            //{
+            //    //file doesn't exist
+            //}
 
         }
 
@@ -1206,173 +1206,173 @@ namespace TKMOC
 
         public void PRINTMAINAPPLYOUT()
         {
-            // 首先把建立的範本檔案讀入MemoryStream
-            //首先把建立的範本檔案讀入MemoryStream
-            System.IO.MemoryStream _memoryStream = new System.IO.MemoryStream(Properties.Resources.委外維修申請單);
+            //// 首先把建立的範本檔案讀入MemoryStream
+            ////首先把建立的範本檔案讀入MemoryStream
+            //System.IO.MemoryStream _memoryStream = new System.IO.MemoryStream(Properties.Resources.委外維修申請單);
 
-            //建立一個Document物件
-            //並傳入MemoryStream
-            Aspose.Words.Document doc = new Aspose.Words.Document(_memoryStream);
+            ////建立一個Document物件
+            ////並傳入MemoryStream
+            //Aspose.Words.Document doc = new Aspose.Words.Document(_memoryStream);
 
-            //新增一個DataTable
-            DataTable table = new DataTable();
-            //建立Column
-            table.Columns.Add("APPLYUNIT");
-            table.Columns.Add("EQUIPDATE");
-            table.Columns.Add("APPLYEMP");
-            table.Columns.Add("EQUIPMENTID");
-            table.Columns.Add("EQUIPMENTNAME");
-            table.Columns.Add("ERROR");
-            table.Columns.Add("STATUS");
-            table.Columns.Add("FACTROY");
-            table.Columns.Add("RETURNDATE");
-            table.Columns.Add("RECEIVEDATE");
-
-
-            //[APPLYUNIT] AS '申請單位',[EQUIPDATE] AS '出廠日期',[EQUIPMENTID] AS '設備編號'
-            //,[EQUIPMENTNAME] AS '設備名稱',[APPLYEMP] AS '申請人',[ERROR] AS '異常情形'
-            //,[STATUS] AS '原因及處理方式',[FACTROY] AS '維修廠商',[RETURNDATE] AS '預定回廠日'
-            //,[RECEIVEDATE] AS '接收日'
-            //透過建立的DataTable物件來New一個儲存資料的Row
-            DataRow row = table.NewRow();
-            //這些Row具有上面所建立相同的Column欄位
-            //因此可以直接指定欄位名稱將資料填入裡面       
-            DateTime dt = Convert.ToDateTime(drMAINAPPLYOUT.Cells["出廠日期"].Value.ToString());
-            DateTime dt2 = Convert.ToDateTime(drMAINAPPLYOUT.Cells["預定回廠日"].Value.ToString());
-            DateTime dt3 = Convert.ToDateTime(drMAINAPPLYOUT.Cells["接收日"].Value.ToString());
-            row["APPLYUNIT"] = FindUNIT(drMAINAPPLYOUT.Cells["申請單位"].Value.ToString());
-            //row["APPDATE"] = dt.Year.ToString() + "年" + dt.Month.ToString() + "月" + dt.Day.ToString() + "日";
-            row["EQUIPDATE"] = dt.ToString("yyyy/MM/dd");
-            row["APPLYEMP"] = drMAINAPPLYOUT.Cells["申請人"].Value.ToString();
-            row["EQUIPMENTID"] = drMAINAPPLYOUT.Cells["設備編號"].Value.ToString();
-            row["EQUIPMENTNAME"] = drMAINAPPLYOUT.Cells["設備名稱"].Value.ToString();
-            row["ERROR"] = drMAINAPPLYOUT.Cells["異常情形"].Value.ToString();
-            row["STATUS"] = drMAINAPPLYOUT.Cells["原因及處理方式"].Value.ToString();
-            row["FACTROY"] = drMAINAPPLYOUT.Cells["維修廠商"].Value.ToString();
-            row["RETURNDATE"] = dt2.ToString("yyyy/MM/dd");
-            row["RECEIVEDATE"] = dt3.ToString("yyyy/MM/dd");
+            ////新增一個DataTable
+            //DataTable table = new DataTable();
+            ////建立Column
+            //table.Columns.Add("APPLYUNIT");
+            //table.Columns.Add("EQUIPDATE");
+            //table.Columns.Add("APPLYEMP");
+            //table.Columns.Add("EQUIPMENTID");
+            //table.Columns.Add("EQUIPMENTNAME");
+            //table.Columns.Add("ERROR");
+            //table.Columns.Add("STATUS");
+            //table.Columns.Add("FACTROY");
+            //table.Columns.Add("RETURNDATE");
+            //table.Columns.Add("RECEIVEDATE");
 
 
-            //把所建立的資料行加入Table的Row清單內
-            table.Rows.Add(row);
+            ////[APPLYUNIT] AS '申請單位',[EQUIPDATE] AS '出廠日期',[EQUIPMENTID] AS '設備編號'
+            ////,[EQUIPMENTNAME] AS '設備名稱',[APPLYEMP] AS '申請人',[ERROR] AS '異常情形'
+            ////,[STATUS] AS '原因及處理方式',[FACTROY] AS '維修廠商',[RETURNDATE] AS '預定回廠日'
+            ////,[RECEIVEDATE] AS '接收日'
+            ////透過建立的DataTable物件來New一個儲存資料的Row
+            //DataRow row = table.NewRow();
+            ////這些Row具有上面所建立相同的Column欄位
+            ////因此可以直接指定欄位名稱將資料填入裡面       
+            //DateTime dt = Convert.ToDateTime(drMAINAPPLYOUT.Cells["出廠日期"].Value.ToString());
+            //DateTime dt2 = Convert.ToDateTime(drMAINAPPLYOUT.Cells["預定回廠日"].Value.ToString());
+            //DateTime dt3 = Convert.ToDateTime(drMAINAPPLYOUT.Cells["接收日"].Value.ToString());
+            //row["APPLYUNIT"] = FindUNIT(drMAINAPPLYOUT.Cells["申請單位"].Value.ToString());
+            ////row["APPDATE"] = dt.Year.ToString() + "年" + dt.Month.ToString() + "月" + dt.Day.ToString() + "日";
+            //row["EQUIPDATE"] = dt.ToString("yyyy/MM/dd");
+            //row["APPLYEMP"] = drMAINAPPLYOUT.Cells["申請人"].Value.ToString();
+            //row["EQUIPMENTID"] = drMAINAPPLYOUT.Cells["設備編號"].Value.ToString();
+            //row["EQUIPMENTNAME"] = drMAINAPPLYOUT.Cells["設備名稱"].Value.ToString();
+            //row["ERROR"] = drMAINAPPLYOUT.Cells["異常情形"].Value.ToString();
+            //row["STATUS"] = drMAINAPPLYOUT.Cells["原因及處理方式"].Value.ToString();
+            //row["FACTROY"] = drMAINAPPLYOUT.Cells["維修廠商"].Value.ToString();
+            //row["RETURNDATE"] = dt2.ToString("yyyy/MM/dd");
+            //row["RECEIVEDATE"] = dt3.ToString("yyyy/MM/dd");
 
 
-            //將DataTable傳入Document的MailMerge.Execute()方法
-            doc.MailMerge.Execute(table);
-            //清空所有未被合併的功能變數
-            doc.MailMerge.DeleteFields();
+            ////把所建立的資料行加入Table的Row清單內
+            //table.Rows.Add(row);
 
-            if (Directory.Exists(@"c:\temp\"))
-            {
-                //資料夾存在
-            }
-            else
-            {
-                //新增資料夾
-                Directory.CreateDirectory(@"c:\temp\");
-            }
-            //將檔案儲存至c:\
-            StringBuilder filename = new StringBuilder();
-            filename.AppendFormat(@"c:\temp\委外維修申請單{0}.doc", DateTime.Now.ToString("yyyyMMdd"));
-            doc.Save(filename.ToString());
 
-            MessageBox.Show("匯出完成-文件放在-" + filename.ToString());
-            FileInfo fi = new FileInfo(filename.ToString());
-            if (fi.Exists)
-            {
-                System.Diagnostics.Process.Start(filename.ToString());
-            }
-            else
-            {
-                //file doesn't exist
-            }
+            ////將DataTable傳入Document的MailMerge.Execute()方法
+            //doc.MailMerge.Execute(table);
+            ////清空所有未被合併的功能變數
+            //doc.MailMerge.DeleteFields();
+
+            //if (Directory.Exists(@"c:\temp\"))
+            //{
+            //    //資料夾存在
+            //}
+            //else
+            //{
+            //    //新增資料夾
+            //    Directory.CreateDirectory(@"c:\temp\");
+            //}
+            ////將檔案儲存至c:\
+            //StringBuilder filename = new StringBuilder();
+            //filename.AppendFormat(@"c:\temp\委外維修申請單{0}.doc", DateTime.Now.ToString("yyyyMMdd"));
+            //doc.Save(filename.ToString());
+
+            //MessageBox.Show("匯出完成-文件放在-" + filename.ToString());
+            //FileInfo fi = new FileInfo(filename.ToString());
+            //if (fi.Exists)
+            //{
+            //    System.Diagnostics.Process.Start(filename.ToString());
+            //}
+            //else
+            //{
+            //    //file doesn't exist
+            //}
 
         }
 
         public void PRINTMAINRECORD()
         {
-            // 首先把建立的範本檔案讀入MemoryStream
-            //首先把建立的範本檔案讀入MemoryStream
-            System.IO.MemoryStream _memoryStream = new System.IO.MemoryStream(Properties.Resources.機械設備維修紀錄表);
+            //// 首先把建立的範本檔案讀入MemoryStream
+            ////首先把建立的範本檔案讀入MemoryStream
+            //System.IO.MemoryStream _memoryStream = new System.IO.MemoryStream(Properties.Resources.機械設備維修紀錄表);
 
-            //建立一個Document物件
-            //並傳入MemoryStream
-            Aspose.Words.Document doc = new Aspose.Words.Document(_memoryStream);
+            ////建立一個Document物件
+            ////並傳入MemoryStream
+            //Aspose.Words.Document doc = new Aspose.Words.Document(_memoryStream);
 
-            //新增一個DataTable
-            DataTable table = new DataTable();
-            //建立Column
-            table.Columns.Add("EQUIPMENTNAME");
-            table.Columns.Add("EQUIPMENTID");
-            table.Columns.Add("UNIT");
-            table.Columns.Add("ERROR");
-            table.Columns.Add("MAINDATEBEGIN");
-            table.Columns.Add("MAINDATEEND");
-            table.Columns.Add("MAINDATHR");
-            table.Columns.Add("MAINEMP");
-            table.Columns.Add("MALFUNCIONID");
-            table.Columns.Add("MAINSTATUS");
-            table.Columns.Add("MAINUSED");
-
-
-            //SELECT [EQUIPMENTID] AS '財產編號',[EQUIPMENTNAME] AS '設備名稱',[UNIT] AS '使用部門'
-            //,[ERROR] AS '故障情形',[MAINDATEBEGIN] AS '維修時間起',[MAINDATEEND] AS '維修時間迄'
-            //,[MAINDATHR] AS '維修時數',[MAINEMP] AS '維修人員',[MALFUNCIONID] AS '故障性質
-            //',[MAINSTATUS] AS '維修內容',[MAINUSED] AS '本次更換'
-            //透過建立的DataTable物件來New一個儲存資料的Row
-            DataRow row = table.NewRow();
-            //這些Row具有上面所建立相同的Column欄位
-            //因此可以直接指定欄位名稱將資料填入裡面       
-            DateTime dt = Convert.ToDateTime(drMAINRECORD.Cells["維修時間起"].Value.ToString());
-            DateTime dt2 = Convert.ToDateTime(drMAINRECORD.Cells["維修時間迄"].Value.ToString());
-            row["EQUIPMENTNAME"] = drMAINRECORD.Cells["設備名稱"].Value.ToString();
-            //row["APPDATE"] = dt.Year.ToString() + "年" + dt.Month.ToString() + "月" + dt.Day.ToString() + "日";
-            row["EQUIPMENTID"] = drMAINRECORD.Cells["財產編號"].Value.ToString(); 
-            row["UNIT"] = FindUNIT(drMAINRECORD.Cells["使用部門"].Value.ToString());
-            row["ERROR"] = drMAINRECORD.Cells["故障情形"].Value.ToString();
-            row["MAINDATEBEGIN"] = dt.ToString("yyyy/MM/dd hh:mm");
-            row["MAINDATEEND"] = dt2.ToString("yyyy/MM/dd hh:mm");
-            row["MAINDATHR"] = drMAINRECORD.Cells["維修時數"].Value.ToString();
-            row["MAINEMP"] = drMAINRECORD.Cells["維修人員"].Value.ToString();
-            row["MALFUNCIONID"] = FindMALFUNCION(drMAINRECORD.Cells["故障性質"].Value.ToString());
-            row["MAINSTATUS"] = drMAINRECORD.Cells["維修內容"].Value.ToString();
-            row["MAINUSED"] = drMAINRECORD.Cells["本次更換"].Value.ToString();
+            ////新增一個DataTable
+            //DataTable table = new DataTable();
+            ////建立Column
+            //table.Columns.Add("EQUIPMENTNAME");
+            //table.Columns.Add("EQUIPMENTID");
+            //table.Columns.Add("UNIT");
+            //table.Columns.Add("ERROR");
+            //table.Columns.Add("MAINDATEBEGIN");
+            //table.Columns.Add("MAINDATEEND");
+            //table.Columns.Add("MAINDATHR");
+            //table.Columns.Add("MAINEMP");
+            //table.Columns.Add("MALFUNCIONID");
+            //table.Columns.Add("MAINSTATUS");
+            //table.Columns.Add("MAINUSED");
 
 
+            ////SELECT [EQUIPMENTID] AS '財產編號',[EQUIPMENTNAME] AS '設備名稱',[UNIT] AS '使用部門'
+            ////,[ERROR] AS '故障情形',[MAINDATEBEGIN] AS '維修時間起',[MAINDATEEND] AS '維修時間迄'
+            ////,[MAINDATHR] AS '維修時數',[MAINEMP] AS '維修人員',[MALFUNCIONID] AS '故障性質
+            ////',[MAINSTATUS] AS '維修內容',[MAINUSED] AS '本次更換'
+            ////透過建立的DataTable物件來New一個儲存資料的Row
+            //DataRow row = table.NewRow();
+            ////這些Row具有上面所建立相同的Column欄位
+            ////因此可以直接指定欄位名稱將資料填入裡面       
+            //DateTime dt = Convert.ToDateTime(drMAINRECORD.Cells["維修時間起"].Value.ToString());
+            //DateTime dt2 = Convert.ToDateTime(drMAINRECORD.Cells["維修時間迄"].Value.ToString());
+            //row["EQUIPMENTNAME"] = drMAINRECORD.Cells["設備名稱"].Value.ToString();
+            ////row["APPDATE"] = dt.Year.ToString() + "年" + dt.Month.ToString() + "月" + dt.Day.ToString() + "日";
+            //row["EQUIPMENTID"] = drMAINRECORD.Cells["財產編號"].Value.ToString(); 
+            //row["UNIT"] = FindUNIT(drMAINRECORD.Cells["使用部門"].Value.ToString());
+            //row["ERROR"] = drMAINRECORD.Cells["故障情形"].Value.ToString();
+            //row["MAINDATEBEGIN"] = dt.ToString("yyyy/MM/dd hh:mm");
+            //row["MAINDATEEND"] = dt2.ToString("yyyy/MM/dd hh:mm");
+            //row["MAINDATHR"] = drMAINRECORD.Cells["維修時數"].Value.ToString();
+            //row["MAINEMP"] = drMAINRECORD.Cells["維修人員"].Value.ToString();
+            //row["MALFUNCIONID"] = FindMALFUNCION(drMAINRECORD.Cells["故障性質"].Value.ToString());
+            //row["MAINSTATUS"] = drMAINRECORD.Cells["維修內容"].Value.ToString();
+            //row["MAINUSED"] = drMAINRECORD.Cells["本次更換"].Value.ToString();
 
-            //把所建立的資料行加入Table的Row清單內
-            table.Rows.Add(row);
 
 
-            //將DataTable傳入Document的MailMerge.Execute()方法
-            doc.MailMerge.Execute(table);
-            //清空所有未被合併的功能變數
-            doc.MailMerge.DeleteFields();
+            ////把所建立的資料行加入Table的Row清單內
+            //table.Rows.Add(row);
 
-            if (Directory.Exists(@"c:\temp\"))
-            {
-                //資料夾存在
-            }
-            else
-            {
-                //新增資料夾
-                Directory.CreateDirectory(@"c:\temp\");
-            }
-            //將檔案儲存至c:\
-            StringBuilder filename = new StringBuilder();
-            filename.AppendFormat(@"c:\temp\機械設備維修紀錄表{0}.doc", DateTime.Now.ToString("yyyyMMdd"));
-            doc.Save(filename.ToString());
 
-            MessageBox.Show("匯出完成-文件放在-" + filename.ToString());
-            FileInfo fi = new FileInfo(filename.ToString());
-            if (fi.Exists)
-            {
-                System.Diagnostics.Process.Start(filename.ToString());
-            }
-            else
-            {
-                //file doesn't exist
-            }
+            ////將DataTable傳入Document的MailMerge.Execute()方法
+            //doc.MailMerge.Execute(table);
+            ////清空所有未被合併的功能變數
+            //doc.MailMerge.DeleteFields();
+
+            //if (Directory.Exists(@"c:\temp\"))
+            //{
+            //    //資料夾存在
+            //}
+            //else
+            //{
+            //    //新增資料夾
+            //    Directory.CreateDirectory(@"c:\temp\");
+            //}
+            ////將檔案儲存至c:\
+            //StringBuilder filename = new StringBuilder();
+            //filename.AppendFormat(@"c:\temp\機械設備維修紀錄表{0}.doc", DateTime.Now.ToString("yyyyMMdd"));
+            //doc.Save(filename.ToString());
+
+            //MessageBox.Show("匯出完成-文件放在-" + filename.ToString());
+            //FileInfo fi = new FileInfo(filename.ToString());
+            //if (fi.Exists)
+            //{
+            //    System.Diagnostics.Process.Start(filename.ToString());
+            //}
+            //else
+            //{
+            //    //file doesn't exist
+            //}
 
         }
         public string FindMALFUNCION(string MALFUNCIONID)
