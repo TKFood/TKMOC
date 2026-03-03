@@ -944,11 +944,11 @@ namespace TKMOC
 
             if (STATUS.Equals("否"))
             {
-                sbSqlQuery.AppendFormat(@" WHERE  [TID] IS NULL ");
+                sbSqlQuery.AppendFormat(@" WHERE  [MOCMANULINETEMP].[TID] IS NULL ");
             }
             else if (STATUS.Equals("是"))
             {
-                sbSqlQuery.AppendFormat(@"WHERE [TID] IS NOT NULL ");
+                sbSqlQuery.AppendFormat(@"WHERE [MOCMANULINETEMP].[TID] IS NOT NULL ");
             }
             else
             {
@@ -957,7 +957,7 @@ namespace TKMOC
 
             if (!string.IsNullOrEmpty(TD002))
             {
-                sbSqlQuery2.AppendFormat(@" AND   [MOCMANULINETEMP].[COPTD002] LIKE '%{0}%'", TD002);
+                sbSqlQuery2.AppendFormat(@" AND  ( [MOCMANULINETEMP].[COPTD002] LIKE '%{0}%'  OR  [MOCMANULINETEMP].[MB001] LIKE '%{0}%' OR  [MOCMANULINETEMP].[MB002] LIKE '%{0}%')", TD002);
             }
             else
             {
@@ -986,22 +986,31 @@ namespace TKMOC
                                 ,[MOCMANULINETEMP].[COPTD003] AS '訂單序號'
                                 ,[MOCTA001] AS '製令'
                                 ,[MOCTA002] AS '製令號'
-                                ,CASE WHEN (SELECT TD016 FROM [TK].dbo.COPTD WHERE COPTD.TD001=[MOCMANULINETEMP].COPTD001 AND COPTD.TD002=[MOCMANULINETEMP].COPTD002 AND COPTD.TD003=[MOCMANULINETEMP].COPTD003) IN ('Y','y') THEN '訂單結案' ELSE '未結案' END AS '訂單狀態'
+                                ,CASE WHEN UPPER(ISNULL([COPTD].[TD016],'N')) IN ('Y') THEN '訂單結案' ELSE '未結案' END AS '訂單狀態'
                                 ,[MOCMANULINETEMP].[ID]
                                 ,[MOCMANULINETEMP].[TID]
                                 FROM [TKMOC].[dbo].[MOCMANULINETEMP]
                                 LEFT JOIN [TKMOC].[dbo].[MOCMANULINERESULT] ON [MOCMANULINERESULT].[SID]=[MOCMANULINETEMP].[TID]
                                 LEFT JOIN [TKMOC].[dbo].[ERPINVMB] ON [ERPINVMB].MB001=[MOCMANULINETEMP].MB001
+                                LEFT JOIN [TK].dbo.COPTD AS [COPTD] ON [COPTD].TD001=[MOCMANULINETEMP].COPTD001 
+                                    AND [COPTD].TD002=[MOCMANULINETEMP].COPTD002 
+                                    AND [COPTD].TD003=[MOCMANULINETEMP].COPTD003
                                 {0}
                                 {1}
-                                AND [MOCMANULINETEMP].[ID] NOT IN (SELECT [ID] FROM [TKMOC].[dbo].[MOCMANULINE]) 
-                                AND RTRIM(LTRIM([MOCMANULINETEMP].[MANU]))+RTRIM(LTRIM([MOCMANULINETEMP].[MB001]))+RTRIM(LTRIM([MOCMANULINETEMP].[COPTD001]))+RTRIM(LTRIM([MOCMANULINETEMP].[COPTD002]))+RTRIM(LTRIM([MOCMANULINETEMP].[COPTD003])) NOT IN (SELECT (RTRIM(LTRIM([MOCMANULINE].[MANU])))+RTRIM(LTRIM([MOCMANULINE].[MB001]))+(RTRIM(LTRIM([MOCMANULINE].[COPTD001])))+(RTRIM(LTRIM([MOCMANULINE].[COPTD002])))+(RTRIM(LTRIM([MOCMANULINE].[COPTD003]))) FROM [TKMOC].[dbo].[MOCMANULINE] WHERE ISNULL([MOCMANULINE].[COPTD002],'')<>''  )   
+                                AND NOT EXISTS (SELECT 1 FROM [TKMOC].[dbo].[MOCMANULINE] WHERE [MOCMANULINE].[ID]=[MOCMANULINETEMP].[ID])
+                                AND NOT EXISTS (SELECT 1 FROM [TKMOC].[dbo].[MOCMANULINE]
+                                               WHERE RTRIM(LTRIM([MOCMANULINE].[MANU]))=RTRIM(LTRIM([MOCMANULINETEMP].[MANU]))
+                                                 AND RTRIM(LTRIM([MOCMANULINE].[MB001]))=RTRIM(LTRIM([MOCMANULINETEMP].[MB001]))
+                                                 AND RTRIM(LTRIM([MOCMANULINE].[COPTD001]))=RTRIM(LTRIM([MOCMANULINETEMP].[COPTD001]))
+                                                 AND RTRIM(LTRIM([MOCMANULINE].[COPTD002]))=RTRIM(LTRIM([MOCMANULINETEMP].[COPTD002]))
+                                                 AND RTRIM(LTRIM([MOCMANULINE].[COPTD003]))=RTRIM(LTRIM([MOCMANULINETEMP].[COPTD003]))
+                                                 AND ISNULL([MOCMANULINE].[COPTD002],'')<>'')   
                                 ORDER BY [MOCMANULINETEMP].[MANUDATE],[MOCMANULINETEMP].[SERNO]
                                 ", sbSqlQuery.ToString(), sbSqlQuery2.ToString());
-      
+
             SEARCH_MANULINE(sbSql.ToString(), dataGridView20, SortedColumn, SortedModel);
 
-                     
+
 
         }
 
