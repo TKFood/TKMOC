@@ -53,6 +53,7 @@ namespace TKMOC
         string MD003;
         int rowIndexDG1 = -1;
         int rowIndexDG2 = -1;
+        bool isLoadingDataGrid1 = false;
 
 
         public frmREPORTINVPURUESD()
@@ -163,21 +164,23 @@ namespace TKMOC
                     if (ds1.Tables["ds1"].Rows.Count >= 1)
                     {
                         //dataGridView1.Rows.Clear();
+                        isLoadingDataGrid1 = true;  // 設置標誌
                         dataGridView1.DataSource = ds1.Tables["ds1"];
+                        isLoadingDataGrid1 = false; // 清除標誌
                         dataGridView1.AutoResizeColumns();
                         //dataGridView1.CurrentCell = dataGridView1[0, rownum];
 
-                        //根据列表中数据不同，显示不同颜色背景
-                        foreach (DataGridViewRow dgRow in dataGridView1.Rows)
-                        {
-                            ////判断
-                            //if (Convert.ToDecimal(dgRow.Cells[5].Value) > 0)
-                            //{
-                            //    //将这行的背景色设置成Pink
-                            //    dgRow.DefaultCellStyle.BackColor = Color.Pink;
-                        
-                            //}
-                        }
+                        ////根据列表中数据不同，显示不同颜色背景
+                        //foreach (DataGridViewRow dgRow in dataGridView1.Rows)
+                        //{
+                        //    ////判断
+                        //    //if (Convert.ToDecimal(dgRow.Cells[5].Value) > 0)
+                        //    //{
+                        //    //    //将这行的背景色设置成Pink
+                        //    //    dgRow.DefaultCellStyle.BackColor = Color.Pink;
+
+                        //    //}
+                        //}
 
                         //dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 10);
                         //dataGridView1.DefaultCellStyle.Font = new Font("Tahoma", 11);
@@ -202,6 +205,9 @@ namespace TKMOC
         }
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {      
+            // 如果正在加載數據，則跳過此事件
+            if (isLoadingDataGrid1)
+                return;
 
             if (dataGridView1.CurrentRow != null)
             {
@@ -230,7 +236,7 @@ namespace TKMOC
                     MD003 = null;
                 }
             }
-            
+
         }
 
         public void SEARCHINVPURMOC(string MD003,string SDay,string EDay)
