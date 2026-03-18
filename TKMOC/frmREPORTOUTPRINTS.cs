@@ -116,7 +116,7 @@ namespace TKMOC
                                 ,[PARANAME]
                                 FROM [TKMOC].[dbo].[TBPARA]
                                 WHERE [KIND]='有效期限'
-                               
+
                                     ");
             SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
             DataTable dt = new DataTable();
@@ -130,13 +130,36 @@ namespace TKMOC
             comboBox2.DisplayMember = "PARAID";
             sqlConn.Close();
 
+            // 程式啟動時觸發 SelectedIndexChanged 事件
+            if (comboBox2.Items.Count > 0)
+            {
+                comboBox2.SelectedIndex = 0;
+            }
 
         }
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
             try 
             {
-                LIMITSMONTHS = Convert.ToInt32(comboBox2.SelectedValue.ToString());
+                if (comboBox2.SelectedValue != null && comboBox2.SelectedValue != DBNull.Value)
+                {
+                    LIMITSMONTHS = Convert.ToInt32(comboBox2.SelectedValue.ToString());
+                    label6.Text = LIMITSMONTHS + " 個月";
+
+                    if (LIMITSMONTHS > 0)
+                    {
+                        DateTime CAL_DAYS = dateTimePicker1.Value;
+                        CAL_DAYS = CAL_DAYS.AddDays(-1);
+                        CAL_DAYS = CAL_DAYS.AddMonths(LIMITSMONTHS);
+
+                        dateTimePicker2.Value = CAL_DAYS;
+                    }
+                }
+            }
+            catch
+            {
+                LIMITSMONTHS = 10;
+                label6.Text = LIMITSMONTHS + " 個月";
 
                 if (LIMITSMONTHS > 0)
                 {
@@ -146,30 +169,27 @@ namespace TKMOC
 
                     dateTimePicker2.Value = CAL_DAYS;
                 }
-                //MessageBox.Show(LIMITSMONTHS.ToString());
             }
-            catch
-            {
 
-            }
-            
         }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
             try
             {
-                LIMITSMONTHS = Convert.ToInt32(comboBox2.SelectedValue.ToString());
-
-                if (LIMITSMONTHS > 0)
+                if (comboBox2.SelectedValue != null && comboBox2.SelectedValue != DBNull.Value)
                 {
-                    DateTime CAL_DAYS = dateTimePicker1.Value;
-                    CAL_DAYS = CAL_DAYS.AddDays(-1);
-                    CAL_DAYS = CAL_DAYS.AddMonths(LIMITSMONTHS);
+                    LIMITSMONTHS = Convert.ToInt32(comboBox2.SelectedValue.ToString());
 
-                    dateTimePicker2.Value = CAL_DAYS;
+                    if (LIMITSMONTHS > 0)
+                    {
+                        DateTime CAL_DAYS = dateTimePicker1.Value;
+                        CAL_DAYS = CAL_DAYS.AddDays(-1);
+                        CAL_DAYS = CAL_DAYS.AddMonths(LIMITSMONTHS);
+
+                        dateTimePicker2.Value = CAL_DAYS;
+                    }
                 }
-                //MessageBox.Show(LIMITSMONTHS.ToString());
             }
             catch
             {
@@ -315,8 +335,7 @@ namespace TKMOC
 
         #region BUTTON
         private void button1_Click(object sender, EventArgs e)
-        {             
-            SETFASTREPORT(comboBox1.Text.ToString(),dateTimePicker1.Value.ToString("yyyy.MM.dd"), dateTimePicker2.Value.ToString("yyyy.MM.dd"));
+        {     
             SETFASTREPORT(comboBox1.Text.ToString(),dateTimePicker1.Value.ToString("yyyy.MM.dd"), dateTimePicker2.Value.ToString("yyyy.MM.dd"));
         }
 
