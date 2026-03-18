@@ -53,7 +53,6 @@ namespace TKMOC
             comboBox1load();
             comboBox1load2();
 
-
         }
 
         #region FUNCTION
