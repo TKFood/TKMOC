@@ -750,6 +750,12 @@
     <Compile Include="frmUPDATEMOCTA.Designer.cs">
       <DependentUpon>frmUPDATEMOCTA.cs</DependentUpon>
     </Compile>
+    <Compile Include="frm_MOCMANULINEBATCHMODIFYS_SANDWISH.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frm_MOCMANULINEBATCHMODIFYS_SANDWISH.Designer.cs">
+      <DependentUpon>frm_MOCMANULINEBATCHMODIFYS_SANDWISH.cs</DependentUpon>
+    </Compile>
     <Compile Include="frnREPORTDEP.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1081,6 +1087,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmUPDATEMOCTA.resx">
       <DependentUpon>frmUPDATEMOCTA.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_MOCMANULINEBATCHMODIFYS_SANDWISH.resx">
+      <DependentUpon>frm_MOCMANULINEBATCHMODIFYS_SANDWISH.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frnREPORTDEP.resx">
       <DependentUpon>frnREPORTDEP.cs</DependentUpon>
