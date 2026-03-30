@@ -76,7 +76,7 @@ namespace TKMOC
                                 ,[BOXNAMES]
                                 ,[ORDRES]
                                 FROM [TKMOC].[dbo].[TBOUTBOXNAMES]
-                                WHERE [ISCLOSED]='N'
+                                WHERE [ISUSED]='Y'
                                 ORDER BY [ORDRES]
                                     ");
             SqlDataAdapter da = new SqlDataAdapter(Sequel.ToString(), sqlConn);
@@ -248,9 +248,9 @@ namespace TKMOC
             StringBuilder Sequel = new StringBuilder();
             Sequel.AppendFormat(@"
                                 SELECT
-                                [ID], [BOXNAMES], [MB001], [ORDRES], [ISCLOSED]
+                                [ID], [BOXNAMES], [MB001], [ORDRES], [ISUSED]
                                 FROM [TKMOC].[dbo].[TBOUTBOXNAMES]
-                                WHERE [ISCLOSED]='N'
+                                WHERE [ISUSED]='Y'
                                 AND ([BOXNAMES] LIKE @BOXNAMES OR [MB001] LIKE @MB001)
                             ");
 
@@ -265,7 +265,7 @@ namespace TKMOC
                 sqlConn.Open();
                 da.Fill(dt);
                 sqlConn.Close();
-
+                 
                 if (dt != null && dt.Rows.Count >= 1)
                 {
                     return dt;
