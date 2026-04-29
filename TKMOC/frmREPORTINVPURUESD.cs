@@ -145,7 +145,7 @@ namespace TKMOC
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
                 // 設定 SqlDataAdapter 的 CommandTimeout
-                adapter1.SelectCommand.CommandTimeout = 120;  // 這裡設定 Timeout 為 2 分鐘，您可以根據需要調整
+                adapter1.SelectCommand.CommandTimeout = 300;  // 設定為 5 分鐘;
 
 
                 sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
@@ -441,15 +441,15 @@ namespace TKMOC
 
 
                 adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+                // 在 Fill 前設定 CommandTimeout (很重要！)
+                adapter2.SelectCommand.CommandTimeout = 300;  // 設定為 5 分鐘
 
                 sqlCmdBuilder2 = new SqlCommandBuilder(adapter2);
-             
+
                 sqlConn.Open();                
 
                 ds2.Clear();
                 adapter2.Fill(ds2, "ds2");
-                //CommandTimeout
-                adapter2.SelectCommand.CommandTimeout = 240;
 
                 sqlConn.Close();
 
