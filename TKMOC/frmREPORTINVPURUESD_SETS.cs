@@ -62,11 +62,11 @@ namespace TKMOC
         }
         private void frmREPORTINVPURUESD_Load(object sender, EventArgs e)
         {
-            SHOW_TBALERTMESSAGES();
+            //SHOW_TBALERTMESSAGES();
         }
 
         #region FUNCTION
-        public void SEARCHMOCMANULINE(string SDay, string EDay)
+        public void SEARCHMOCMANULINE(string SDay, string EDay,string MD003)
         {
             try
             {
@@ -137,11 +137,12 @@ namespace TKMOC
                                 WHERE 
                                     T1.[MANUDATE] >= '{0}' 
                                     AND T1.[MANUDATE] < ='{1}'
+                                    AND T3.MD003 ='{2}'
                                 GROUP BY 
                                     T3.MD003, T3.MD035, T_SUM.Sum_20019, T_SUM.Sum_20028  -- 彙總值也需加入 GROUP BY
                                 ORDER BY 
                                     T3.MD003, T3.MD035;
-                                    ", SDay, EDay);
+                                    ", SDay, EDay, MD003);
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
                 // 設定 SqlDataAdapter 的 CommandTimeout
@@ -316,6 +317,44 @@ namespace TKMOC
                                             )
                                             AND CONVERT(NVARCHAR, [MANUDATE], 112) BETWEEN '{0}' AND '{1}'
                                             AND [MD003] = '{2}'
+
+                                         UNION ALL
+                                                SELECT
+                                                [MANU],
+                                                CONVERT(NVARCHAR, [MANUDATE], 112) AS MANUDATE,
+                                                MD2.[MD003],
+                                                MD2.[MD035],
+                                                -- 複雜的 TNUM 計算邏輯 (保持不變)
+	                                            --MOCTB1.TB001,MOCTB1.TB002,MOCTB1.TB003,MOCTB1.TB004,MOCTB1.TB005,
+                                                --[NUM] ,([NUM] / [MC004] * [MD006] / [MD007] * (1 + [MD008])) * -1,
+	                                            CONVERT(DECIMAL(16, 3), 
+                                                   ((([NUM] / MC1.[MC004] * MD1.[MD006] / MD1.[MD007] * (1 + MD1.[MD008]))/ MC2.[MC004] * MD2.[MD006] / MD2.[MD007])* (1 + MD2.[MD008])) * -1
+                                                ) AS TNUM,
+                                                MB2.[MB004],
+                                                [MOCMANULINE].[MB001],
+                                                [MOCMANULINE].[MB002],
+                                                CASE WHEN [MANU] = '包裝線' THEN [PACKAGE] ELSE [NUM] END AS PACKAGE, -- 根據線別區分 PACKAGE 或 NUM
+                                                [MOCMANULINE].BAR AS BAR,
+                                                [COPTD001],
+                                                [COPTD002],
+                                                [COPTD003]
+    
+                                            FROM [TKMOC].dbo.[MOCMANULINE] WITH(NOLOCK)
+                                            LEFT JOIN [TKMOC].dbo.[MOCMANULINERESULT] WITH(NOLOCK) ON [MOCMANULINERESULT].SID = [MOCMANULINE].ID
+                                            JOIN [TK].dbo.BOMMC MC1 WITH(NOLOCK) ON [MOCMANULINE].[MB001] = MC1.MC001
+                                            JOIN [TK].dbo.BOMMD MD1 WITH(NOLOCK) ON MC1.MC001 = MD1.MD001 AND [MOCMANULINE].MB001 = MD1.MD001
+                                            LEFT JOIN [TK].dbo.INVMB MB1 WITH(NOLOCK) ON MB1.MB001 = MD1.MD003
+                                            JOIN [TK].dbo.BOMMC MC2  WITH(NOLOCK) ON MC2.MC001=MD1.MD003
+                                            JOIN [TK].dbo.BOMMD MD2  WITH(NOLOCK) ON MD2.MD001=MC2.MC001
+                                            LEFT JOIN [TK].dbo.INVMB MB2 WITH(NOLOCK) ON MB2.MB001 = MD2.MD003
+
+                                            WHERE
+                                                [MANU] IN ('製二線','製一線')
+                                                --AND MD1.MD001 LIKE '40100310800540%'
+                                                AND MD1.MD003 LIKE '3%'
+                                                AND MD1.MD035 LIKE '%水麵%'  
+                                                AND CONVERT(NVARCHAR, [MANUDATE], 112) BETWEEN '{0}' AND '{1}'
+                                                AND MD2.[MD003] = '{2}' 
 
                                         UNION ALL
 
@@ -972,7 +1011,8 @@ namespace TKMOC
 
         private void button1_Click(object sender, EventArgs e)
         {
-            SEARCHMOCMANULINE(dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"));
+            string MD003= textBox1.Text.Trim();
+            SEARCHMOCMANULINE(dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"), MD003);
         }
         private void button2_Click(object sender, EventArgs e)
         {
