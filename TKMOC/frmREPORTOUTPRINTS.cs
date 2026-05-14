@@ -199,7 +199,7 @@ namespace TKMOC
         public void SETFASTREPORT(string REPORTS,string SDAYS,string EDAYS)
         {
             StringBuilder SQL1 = new StringBuilder();
-            string CHECK_TA021 = ""; 
+            string CHECK_TA021 = "";  
                 
             Report report1 = new Report();  
               
