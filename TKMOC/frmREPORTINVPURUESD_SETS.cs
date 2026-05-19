@@ -87,9 +87,9 @@ namespace TKMOC
                 sbSqlQuery.Clear();
 
                 sbSql.AppendFormat(@"  
-                                    WITH INVLA_SUMMARY AS (
+                                   WITH INVLA_SUMMARY AS (
                                     SELECT 
-                                         LA001, 
+                                            LA001, 
                                         -- 計算 20019 倉庫庫存總和
                                         SUM(CASE WHEN LA009 = '20019' THEN LA005 * LA011 ELSE 0 END) AS Sum_20019,
                                         -- 計算 20028 倉庫庫存總和
@@ -104,8 +104,8 @@ namespace TKMOC
                                 )
                                 -- 接下來的主查詢使用 JOIN 來連接這個彙總結果
                                 SELECT
-                                    T3.MD003 AS '品號',
-                                    T3.MD035 AS '品名',
+                                    T6.MD003 AS '品號',
+                                    T6.MD035 AS '品名',
                                     ISNULL(T_SUM.Sum_20019, 0) AS '20019外倉',
                                     ISNULL(T_SUM.Sum_20028, 0) AS '3F--倉庫',
                                     (
@@ -113,7 +113,7 @@ namespace TKMOC
                                         SELECT CAST(LA016 AS NVARCHAR) + ',' 
                                         FROM [TK].dbo.INVLA AS INVLA_INNER WITH (NOLOCK)
                                         WHERE 
-                                            INVLA_INNER.LA001 = T3.MD003  -- 依賴主查詢的 MD003
+                                            INVLA_INNER.LA001 = T6.MD003  -- 依賴主查詢的 MD003
                                             AND INVLA_INNER.LA009 = '20006' 
                                             AND ISNULL(INVLA_INNER.LA016,'') <> '' 
                                             AND INVLA_INNER.LA016 <> '********************' 
@@ -134,14 +134,18 @@ namespace TKMOC
                                 -- 將預先計算好的庫存總和連接回來
                                 LEFT JOIN 
                                     INVLA_SUMMARY AS T_SUM ON T_SUM.LA001 = T3.MD003
+                                INNER JOIN 
+                                    [TK].dbo.BOMMC AS T5 WITH(NOLOCK) ON T3.MD003= T5.MC001
+                                INNER JOIN 
+                                    [TK].dbo.BOMMD AS T6 WITH(NOLOCK) ON T5.MC001 = T6.MD001
                                 WHERE 
                                     T1.[MANUDATE] >= '{0}' 
                                     AND T1.[MANUDATE] < ='{1}'
-                                    AND T3.MD003 ='{2}'
+                                    AND T6.MD003 ='{2}'
                                 GROUP BY 
-                                    T3.MD003, T3.MD035, T_SUM.Sum_20019, T_SUM.Sum_20028  -- 彙總值也需加入 GROUP BY
+                                    T6.MD003, T6.MD035, T_SUM.Sum_20019, T_SUM.Sum_20028  -- 彙總值也需加入 GROUP BY
                                 ORDER BY 
-                                    T3.MD003, T3.MD035;
+                                    T6.MD003, T6.MD035;
                                     ", SDay, EDay, MD003);
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
