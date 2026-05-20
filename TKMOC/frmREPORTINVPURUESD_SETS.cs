@@ -68,7 +68,7 @@ namespace TKMOC
         #region FUNCTION
         public void SEARCHMOCMANULINE(string SDay, string EDay,string MD003)
         {
-            try
+            try 
             {
                 //20210902密
                 Class1 TKID = new Class1();//用new 建立類別實體
