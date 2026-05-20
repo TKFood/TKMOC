@@ -75,7 +75,7 @@ namespace TKMOC
                 SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
 
                 //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.Password = TKID.Decryption(sqlsb.Password); 
                 sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
 
                 String connectionString;
