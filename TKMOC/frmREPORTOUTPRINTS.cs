@@ -326,7 +326,7 @@ namespace TKMOC
             finally
             {
                 // 處理完成，重設旗標
-                isProcessing = false;
+                isProcessing = false; 
             }
         }
            
