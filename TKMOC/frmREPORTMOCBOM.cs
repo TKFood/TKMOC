@@ -1537,7 +1537,7 @@ namespace TKMOC
 
             if (CHECKED.Equals("Y"))
             {
-                if(DT==null)
+                if (DT == null || DT.Rows.Count == 0)
                 {
                     SETREPORT2(TA001, TA002, BUCKETS, LINK_TA001TA002, LINK_TA006, LINK_TA034, MAINMB001);
                 }
