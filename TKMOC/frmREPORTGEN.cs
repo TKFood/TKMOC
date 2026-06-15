@@ -83,13 +83,17 @@ namespace TKMOC
                 sbSql.Clear();
                 sbSqlQuery.Clear();
 
-                sbSql.AppendFormat(@" SELECT TA001 AS '製令',TA002 AS '製令號',TA006 AS '品號',TA034 AS '品名' ,TA015 AS '預計產量',TA007 AS '單位',TA035  AS '規格',TA029 '備註'");
-                sbSql.AppendFormat(@" FROM [TK].dbo.MOCTA ");
-                sbSql.AppendFormat(@" WHERE TA003>='{0}' AND TA003<='{1}' ", dt.ToString("yyyyMMdd"), dt2.ToString("yyyyMMdd"));
-                sbSql.AppendFormat(@" AND TA001 IN ('A510','A511','A512','A521','A522') ");
-                sbSql.AppendFormat(@" ORDER BY TA001,TA002,TA034 ");
-                sbSql.AppendFormat(@"   ");
-                sbSql.AppendFormat(@"  ");
+                
+                sbSql.AppendFormat(@"  
+                                    SELECT 
+                                    MD002 AS '線別',TA001 AS '製令',TA002 AS '製令號',TA006 AS '品號',TA034 AS '品名' ,TA015 AS '預計產量',TA007 AS '單位',TA035  AS '規格',TA029 '備註'
+                                    FROM [TK].dbo.MOCTA 
+                                    LEFT JOIN [TK].dbo.CMSMD ON MD001=TA021
+                                    WHERE TA003>='{0}' AND TA003<='{1}'
+                                    AND TA001 IN ('A510','A511','A512','A521','A522') 
+                                    ORDER BY TA021,TA001,TA002,TA034 
+ 
+                                     ", dt.ToString("yyyyMMdd"), dt2.ToString("yyyyMMdd"));
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
