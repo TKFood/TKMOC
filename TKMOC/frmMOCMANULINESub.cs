@@ -437,6 +437,7 @@ namespace TKMOC
 
                             sbSql.Clear();
 
+                            //AND CONVERT(nvarchar, [MANUDATE], 112) = '{2}'
                             sbSql.AppendFormat(@" 
                                         UPDATE [TKMOC].[dbo].[MOCMANULINE]
                                         SET 
@@ -460,9 +461,8 @@ namespace TKMOC
                                             AND MD1.MD003 LIKE '3%'
                                         ) AS TEMP
                                         WHERE TEMP.MD1MD003 = [TKMOC].[dbo].[MOCMANULINE].[MB001]
-                                        AND [MANU] = '{3}'
-                                        AND CONVERT(nvarchar, [MANUDATE], 112) = '{2}'
-                                        AND [COPTD001]='{4}' AND [COPTD002]='{5}' AND [COPTD003]='{6}'
+                                        AND [MANU] = '{2}'                                        
+                                        AND [COPTD001]='{3}' AND [COPTD002]='{4}' AND [COPTD003]='{5}'
 
                                         UPDATE [TKMOC].[dbo].[MOCMANULINE]
                                         SET 
@@ -493,10 +493,9 @@ namespace TKMOC
 	                                        AND MD1.MD003 LIKE '3%'
                                         ) AS TEMP
                                         WHERE TEMP.MD2MD003=[MOCMANULINE].[MB001]
-                                        AND [MANU] = '{3}'
-                                        AND CONVERT(nvarchar,[MANUDATE],112)='{2}'     
-                                        AND [COPTD001]='{4}' AND [COPTD002]='{5}' AND [COPTD003]='{6}'               
-                                        ", CHECKMB001, NUM, MANUDATE, MANU, COPTD001, COPTD002, COPTD003);
+                                        AND [MANU] = '{2}'                                          
+                                        AND [COPTD001]='{3}' AND [COPTD002]='{4}' AND [COPTD003]='{5}'               
+                                        ", CHECKMB001, NUM,  MANU, COPTD001, COPTD002, COPTD003);
 
 
                             cmd.Connection = sqlConn;
@@ -628,7 +627,8 @@ namespace TKMOC
                             tran = sqlConn.BeginTransaction();
 
                             sbSql.Clear();
-
+                                                   
+                            // AND CONVERT(nvarchar,[MANUDATE],112)='{2}'    
                             sbSql.AppendFormat(@" 
                                         UPDATE [TKMOC].[dbo].[MOCMANULINE]
                                         SET 
@@ -650,13 +650,13 @@ namespace TKMOC
 	                                        JOIN [TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003
                                             WHERE MC1.MC001 = '{0}'
                                             AND MD1.MD003 LIKE '3%'
-                                            AND MD1.MD003='{7}'
+                                            AND MD1.MD003='{6}'
 
                                         ) AS TEMP
                                         WHERE TEMP.MD1MD003 = [TKMOC].[dbo].[MOCMANULINE].[MB001]
-                                        AND [MANU] = '{3}'
-                                        AND CONVERT(nvarchar, [MANUDATE], 112) = '{2}'
-                                        AND [COPTD001]='{4}' AND [COPTD002]='{5}' AND [COPTD003]='{6}'
+                                        AND [MANU] = '{2}'                                       
+                                        AND [COPTD001]='{3}' AND [COPTD002]='{4}' AND [COPTD003]='{5}'
+
 
                                         UPDATE [TKMOC].[dbo].[MOCMANULINE]
                                         SET 
@@ -685,13 +685,13 @@ namespace TKMOC
 	                                        WHERE MC1.MC001=MD1.MD001
 	                                        AND MC1.MC001 ='{0}'
 	                                        AND MD1.MD003 LIKE '3%'
-                                            AND MD1.MD003='{7}'
+                                            AND MD1.MD003='{6}'
                                         ) AS TEMP
                                         WHERE TEMP.MD2MD003=[MOCMANULINE].[MB001]
-                                        AND [MANU] = '{3}'
-                                        AND CONVERT(nvarchar,[MANUDATE],112)='{2}'     
-                                        AND [COPTD001]='{4}' AND [COPTD002]='{5}' AND [COPTD003]='{6}'               
-                                        ", CHECKMB001, NUM, MANUDATE, MANU, COPTD001, COPTD002, COPTD003, MODIFY_MB001);
+                                        AND [MANU] = '{2}'
+                                        
+                                        AND [COPTD001]='{3}' AND [COPTD002]='{4}' AND [COPTD003]='{5}'               
+                                        ", CHECKMB001, NUM, MANU, COPTD001, COPTD002, COPTD003, MODIFY_MB001);
 
 
                             cmd.Connection = sqlConn;
