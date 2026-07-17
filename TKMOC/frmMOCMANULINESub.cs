@@ -405,131 +405,142 @@ namespace TKMOC
 
         }
 
-        public void UPDATE_SPECIAL_MODIFY(string ID,string MB001,string NUM,string MANUDATE,string MANU,string COPTD001, string COPTD002, string COPTD003)
+        public void UPDATE_SPECIAL_MODIFY(string ID, string MB001, string NUM, string MANUDATE, string MANU, string COPTD001, string COPTD002, string COPTD003)
         {
             DataTable DT = FIND_MOCMANULINEBATCHMODIFYS();
-            if(DT!=null && DT.Rows.Count>=1)
+            if (DT == null || DT.Rows.Count < 1)
             {
-                string CHECKMB001 = "";
-                foreach(DataRow DR in DT.Rows)
+                return; // 無資料直接返回
+            }
+
+            // 💡 優化 1：將解密與連線字串建立移到迴圈外，只執行一次
+            Class1 TKID = new Class1();
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+            // 💡 優化 2：整個方法共用同一個連線，並以 using 區塊確保資源自動釋放
+            using (SqlConnection sqlConn = new SqlConnection(sqlsb.ConnectionString))
+            {
+                try
                 {
-                    CHECKMB001 = DR["MB001"].ToString();
+                    sqlConn.Open();
 
-                    //40806040000021 可可小布雪180g
-                    if (MB001.Equals(CHECKMB001))
+                    foreach (DataRow DR in DT.Rows)
                     {
-                        try
+                        string CHECKMB001 = DR["MB001"].ToString();
+
+                        // 40806040000021 可可小布雪180g
+                        if (MB001.Equals(CHECKMB001))
                         {
-                            //20210902密
-                            Class1 TKID = new Class1();//用new 建立類別實體
-                            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                            //資料庫使用者密碼解密
-                            sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                            String connectionString;
-                            sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-                            sqlConn.Close();
-                            sqlConn.Open();
-                            tran = sqlConn.BeginTransaction();
-
-                            sbSql.Clear();
-
-                            //AND CONVERT(nvarchar, [MANUDATE], 112) = '{2}'
-                            sbSql.AppendFormat(@" 
-                                        UPDATE [TKMOC].[dbo].[MOCMANULINE]
-                                        SET 
-                                        [NUM] = ROUND(TEMP.CALNUMS * {1}, 3)
-                                        ,[BAR]=TEMP.CALNUMS * {1}/TEMP.BASEBARS
-                                        FROM 
-                                        (
-                                            SELECT 
-                                                MC1.MC001 AS MC1MC001
-                                                ,MC1.MC004 AS MC1MC004
-                                                ,MD1.MD003 AS MD1MD003
-                                                ,MD1.MD006 AS MD1MD006
-                                                ,MD1.MD007 AS MD1MD007
-                                                ,MD1.MD008 AS MD1MD008
-                                                ,((1.0 / MC1.MC004) * MD1.MD006 / MD1.MD007 * (1 + MD1.MD008)) AS CALNUMS
-                                                ,MC2.MC004 AS 'BASEBARS'
-                                            FROM [TK].dbo.BOMMC MC1
-                                            JOIN [TK].dbo.BOMMD MD1 ON MC1.MC001 = MD1.MD001
-	                                        JOIN [TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003
-                                            WHERE MC1.MC001 = '{0}'
-                                            AND MD1.MD003 LIKE '3%'
-                                        ) AS TEMP
-                                        WHERE TEMP.MD1MD003 = [TKMOC].[dbo].[MOCMANULINE].[MB001]
-                                        AND [MANU] = '{2}'                                        
-                                        AND [COPTD001]='{3}' AND [COPTD002]='{4}' AND [COPTD003]='{5}'
-
-                                        UPDATE [TKMOC].[dbo].[MOCMANULINE]
-                                        SET 
-                                        [NUM] = ROUND(TEMP.CALNUMS2 * {1}, 3)
-                                        ,[BAR]=TEMP.CALNUMS2 *  {1}/TEMP.BASEBARS
-                                        FROM 
-                                         (SELECT 
-	                                        MC1.MC001 AS 'MC1MC001'
-	                                        ,MC1.MC004  AS 'MC1MC004'
-	                                        ,MD1.MD003 AS 'MD1MD003'
-	                                        ,MD1.MD006 AS 'MD1MD006'
-	                                        ,MD1.MD007 AS 'MD1MD007'
-	                                        ,MD1.MD008 AS 'MD1MD008'
-	                                        ,((1/MC1.MC004)*MD1.MD006/MD1.MD007*(1+MD1.MD008)) AS 'CALNUMS'
-	                                        ,MC2.MC004  AS 'MC2MC004'
-	                                        ,MD2.MD003 AS 'MD2MD003'
-	                                        ,MD2.MD006 AS 'MD2MD006'
-	                                        ,MD2.MD007 AS 'MD2MD007'
-	                                        ,MD2.MD008 AS 'MD2MD008'
-	                                        ,(((1/MC1.MC004)*MD1.MD006/MD1.MD007*(1+MD1.MD008))/MC2.MC004*MD2.MD006/MD2.MD007*(1+MD2.MD008)) AS 'CALNUMS2'
-                                            ,MC3.MC004 AS 'BASEBARS'
-	                                        FROM [TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1
-	                                        JOIN [TK].dbo.BOMMC MC2 ON MD1.MD003=MC2.MC001
-	                                        JOIN [TK].dbo.BOMMD MD2 ON MD1.MD003=MD2.MD001
-                                            JOIN [TK].dbo.BOMMC MC3 ON MC3.MC001=MD2.MD003
-	                                        WHERE MC1.MC001=MD1.MD001
-	                                        AND MC1.MC001 ='{0}'
-	                                        AND MD1.MD003 LIKE '3%'
-                                        ) AS TEMP
-                                        WHERE TEMP.MD2MD003=[MOCMANULINE].[MB001]
-                                        AND [MANU] = '{2}'                                          
-                                        AND [COPTD001]='{3}' AND [COPTD002]='{4}' AND [COPTD003]='{5}'               
-                                        ", CHECKMB001, NUM,  MANU, COPTD001, COPTD002, COPTD003);
-
-
-                            cmd.Connection = sqlConn;
-                            cmd.CommandTimeout = 60;
-                            cmd.CommandText = sbSql.ToString();
-                            cmd.Transaction = tran;
-                            result = cmd.ExecuteNonQuery();
-
-                            if (result == 0)
+                            // 💡 優化 3：每次更新使用獨立的 Transaction 與 SqlCommand，確保各別交易安全
+                            using (SqlTransaction tran = sqlConn.BeginTransaction())
                             {
-                                tran.Rollback();    //交易取消
-                                MessageBox.Show("更新失敗");
+                                using (SqlCommand cmd = new SqlCommand())
+                                {
+                                    cmd.Connection = sqlConn;
+                                    cmd.Transaction = tran;
+                                    cmd.CommandTimeout = 60;
+
+                                    StringBuilder sbSql = new StringBuilder();
+
+                                    // 💡 優化 4：修正第一段 SQL，改為參數化，標準 JOIN 關聯
+                                    sbSql.AppendLine(@"
+                                UPDATE [TKMOC].[dbo].[MOCMANULINE]
+                                SET [NUM] = ROUND(TEMP.CALNUMS * @NUM, 3)
+                                   ,[BAR] = TEMP.CALNUMS * @NUM / TEMP.BASEBARS
+                                FROM (
+                                    SELECT 
+                                         MC1.MC001 AS MC1MC001
+                                        ,MC1.MC004 AS MC1MC004
+                                        ,MD1.MD003 AS MD1MD003
+                                        ,MD1.MD006 AS MD1MD006
+                                        ,MD1.MD007 AS MD1MD007
+                                        ,MD1.MD008 AS MD1MD008
+                                        ,((1.0 / MC1.MC004) * MD1.MD006 / MD1.MD007 * (1 + MD1.MD008)) AS CALNUMS
+                                        ,MC2.MC004 AS 'BASEBARS'
+                                    FROM [TK].dbo.BOMMC MC1
+                                    JOIN [TK].dbo.BOMMD MD1 ON MC1.MC001 = MD1.MD001
+                                    JOIN [TK].dbo.BOMMC MC2 ON MC2.MC001 = MD1.MD003
+                                    WHERE MC1.MC001 = @CHECKMB001
+                                      AND MD1.MD003 LIKE '3%'
+                                ) AS TEMP
+                                WHERE TEMP.MD1MD003 = [TKMOC].[dbo].[MOCMANULINE].[MB001]
+                                  AND [MANU] = @MANU
+                                  AND [COPTD001] = @COPTD001 
+                                  AND [COPTD002] = @COPTD002 
+                                  AND [COPTD003] = @COPTD003;
+                            ");
+
+                                    // 💡 優化 5：修正第二段 SQL，解決整數除法為 0、消除舊式逗號 JOIN 產生的笛卡兒積
+                                    sbSql.AppendLine(@"
+                                UPDATE [TKMOC].[dbo].[MOCMANULINE]
+                                SET [NUM] = ROUND(TEMP.CALNUMS2 * @NUM, 3)
+                                   ,[BAR] = TEMP.CALNUMS2 * @NUM / TEMP.BASEBARS
+                                FROM (
+                                    SELECT 
+                                         MC1.MC001 AS 'MC1MC001'
+                                        ,MD1.MD003 AS 'MD1MD003'
+                                        ,MD2.MD003 AS 'MD2MD003'
+                                        ,(((1.0 / MC1.MC004) * MD1.MD006 / MD1.MD007 * (1 + MD1.MD008)) / MC2.MC004 * MD2.MD006 / MD2.MD007 * (1 + MD2.MD008)) AS 'CALNUMS2'
+                                        ,MC3.MC004 AS 'BASEBARS'
+                                    FROM [TK].dbo.BOMMC MC1
+                                    JOIN [TK].dbo.BOMMD MD1 ON MC1.MC001 = MD1.MD001
+                                    JOIN [TK].dbo.BOMMC MC2 ON MD1.MD003 = MC2.MC001
+                                    JOIN [TK].dbo.BOMMD MD2 ON MD1.MD003 = MD2.MD001
+                                    JOIN [TK].dbo.BOMMC MC3 ON MC3.MC001 = MD2.MD003
+                                    WHERE MC1.MC001 = @CHECKMB001
+                                      AND MD1.MD003 LIKE '3%'
+                                ) AS TEMP
+                                WHERE TEMP.MD2MD003 = [MOCMANULINE].[MB001]
+                                  AND [MANU] = @MANU
+                                  AND [COPTD001] = @COPTD001 
+                                  AND [COPTD002] = @COPTD002 
+                                  AND [COPTD003] = @COPTD003;
+                            ");
+
+                                    cmd.CommandText = sbSql.ToString();
+
+                                    // 💡 優化 6：安全綁定參數，預防 SQL 注入，並進行適當的轉型
+                                    cmd.Parameters.AddWithValue("@CHECKMB001", CHECKMB001);
+                                    cmd.Parameters.AddWithValue("@NUM", Convert.ToDecimal(NUM)); // 確保計算精度
+                                    cmd.Parameters.AddWithValue("@MANU", MANU);
+                                    cmd.Parameters.AddWithValue("@COPTD001", COPTD001);
+                                    cmd.Parameters.AddWithValue("@COPTD002", COPTD002);
+                                    cmd.Parameters.AddWithValue("@COPTD003", COPTD003);
+
+                                    int result = cmd.ExecuteNonQuery();
+
+                                    if (result == 0)
+                                    {
+                                        tran.Rollback(); // 交易取消
+                                        MessageBox.Show(string.Format("品號 {0} 的特別連動更新失敗！", CHECKMB001));
+                                    }
+                                    else
+                                    {
+                                        tran.Commit(); // 執行交易  
+                                        MessageBox.Show(string.Format("品號 {0} 已成功特別連動更新數量！", CHECKMB001));
+
+                                        this.Close(); // 更新成功後關閉目前的 Form
+                                    }
+                                }
                             }
-                            else
-                            {
-                                tran.Commit();      //執行交易  
-                                MessageBox.Show("已連動更新數量");
-
-                                this.Close();
-                            }
-
-                        }
-                        catch
-                        {
-
-                        }
-
-                        finally
-                        {
-                            sqlConn.Close();
                         }
                     }
                 }
-                          
+                catch (Exception ex)
+                {
+                    // 💡 優化 7：不要將 Exception 靜音，跳出視窗提示具體錯誤，便於日後排查問題
+                    MessageBox.Show("更新特殊變更時發生錯誤: " + ex.Message, "系統錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    // 💡 優化 8：即使 using 發生極端異常，在 finally 再次確保連線安全關閉
+                    if (sqlConn.State == ConnectionState.Open)
+                    {
+                        sqlConn.Close();
+                    }
+                }
             }
         }
 
@@ -596,136 +607,143 @@ namespace TKMOC
         public void UPDATE_MOCMANULINEBATCHMODIFYS_SANDWISH(string ID, string MB001, string NUM, string MANUDATE, string MANU, string COPTD001, string COPTD002, string COPTD003)
         {
             DataTable DT = FIND_MOCMANULINEBATCHMODIFYS_SANDWISH();
-            if (DT != null && DT.Rows.Count >= 1)
+            if (DT == null || DT.Rows.Count < 1)
             {
-                string CHECKMB001 = "";
-                string MODIFY_MB001 = "";
+                return; // 無資料直接結束
+            }
 
-                foreach (DataRow DR in DT.Rows)
+            // 💡 優化 1：將解密連線字串移到迴圈外，只做一次
+            Class1 TKID = new Class1();
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+            // 💡 優化 2：整個方法只共用「一個」資料庫連線，並用 using 自動安全釋放資源
+            using (SqlConnection sqlConn = new SqlConnection(sqlsb.ConnectionString))
+            {
+                try
                 {
-                    CHECKMB001 = DR["MB001"].ToString();
-                    MODIFY_MB001 = DR["MODIFY_MB001"].ToString();
+                    sqlConn.Open();
 
-                    //40806040000021 可可小布雪180g
-                    if (MB001.Equals(CHECKMB001))
+                    foreach (DataRow DR in DT.Rows)
                     {
-                        try
+                        string CHECKMB001 = DR["MB001"].ToString();
+                        string MODIFY_MB001 = DR["MODIFY_MB001"].ToString();
+
+                        // 40806040000021 可可小布雪180g
+                        if (MB001.Equals(CHECKMB001))
                         {
-                            //20210902密
-                            Class1 TKID = new Class1();//用new 建立類別實體
-                            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                            //資料庫使用者密碼解密
-                            sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                            String connectionString;
-                            sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-                            sqlConn.Close();
-                            sqlConn.Open();
-                            tran = sqlConn.BeginTransaction();
-
-                            sbSql.Clear();
-                                                   
-                            // AND CONVERT(nvarchar,[MANUDATE],112)='{2}'    
-                            sbSql.AppendFormat(@" 
-                                        UPDATE [TKMOC].[dbo].[MOCMANULINE]
-                                        SET 
-                                        [NUM] = ROUND(TEMP.CALNUMS * {1}, 3)
-                                        ,[BAR]=TEMP.CALNUMS * {1}/TEMP.BASEBARS
-                                        FROM 
-                                        (
-                                            SELECT 
-                                                MC1.MC001 AS MC1MC001
-                                                ,MC1.MC004 AS MC1MC004
-                                                ,MD1.MD003 AS MD1MD003
-                                                ,MD1.MD006 AS MD1MD006
-                                                ,MD1.MD007 AS MD1MD007
-                                                ,MD1.MD008 AS MD1MD008
-                                                ,((1.0 / MC1.MC004) * MD1.MD006 / MD1.MD007 * (1 + MD1.MD008)) AS CALNUMS
-                                                ,MC2.MC004 AS 'BASEBARS'
-                                            FROM [TK].dbo.BOMMC MC1
-                                            JOIN [TK].dbo.BOMMD MD1 ON MC1.MC001 = MD1.MD001
-	                                        JOIN [TK].dbo.BOMMC MC2 ON MC2.MC001=MD1.MD003
-                                            WHERE MC1.MC001 = '{0}'
-                                            AND MD1.MD003 LIKE '3%'
-                                            AND MD1.MD003='{6}'
-
-                                        ) AS TEMP
-                                        WHERE TEMP.MD1MD003 = [TKMOC].[dbo].[MOCMANULINE].[MB001]
-                                        AND [MANU] = '{2}'                                       
-                                        AND [COPTD001]='{3}' AND [COPTD002]='{4}' AND [COPTD003]='{5}'
-
-
-                                        UPDATE [TKMOC].[dbo].[MOCMANULINE]
-                                        SET 
-                                        [NUM] = ROUND(TEMP.CALNUMS2 * {1}, 3)
-                                        ,[BAR]=TEMP.CALNUMS2 *  {1}/TEMP.BASEBARS
-                                        FROM 
-                                         (SELECT 
-	                                        MC1.MC001 AS 'MC1MC001'
-	                                        ,MC1.MC004  AS 'MC1MC004'
-	                                        ,MD1.MD003 AS 'MD1MD003'
-	                                        ,MD1.MD006 AS 'MD1MD006'
-	                                        ,MD1.MD007 AS 'MD1MD007'
-	                                        ,MD1.MD008 AS 'MD1MD008'
-	                                        ,((1/MC1.MC004)*MD1.MD006/MD1.MD007*(1+MD1.MD008)) AS 'CALNUMS'
-	                                        ,MC2.MC004  AS 'MC2MC004'
-	                                        ,MD2.MD003 AS 'MD2MD003'
-	                                        ,MD2.MD006 AS 'MD2MD006'
-	                                        ,MD2.MD007 AS 'MD2MD007'
-	                                        ,MD2.MD008 AS 'MD2MD008'
-	                                        ,(((1/MC1.MC004)*MD1.MD006/MD1.MD007*(1+MD1.MD008))/MC2.MC004*MD2.MD006/MD2.MD007*(1+MD2.MD008)) AS 'CALNUMS2'
-                                            ,MC3.MC004 AS 'BASEBARS'
-	                                        FROM [TK].dbo.BOMMC MC1,[TK].dbo.BOMMD MD1
-	                                        JOIN [TK].dbo.BOMMC MC2 ON MD1.MD003=MC2.MC001
-	                                        JOIN [TK].dbo.BOMMD MD2 ON MD1.MD003=MD2.MD001
-                                            JOIN [TK].dbo.BOMMC MC3 ON MC3.MC001=MD2.MD003
-	                                        WHERE MC1.MC001=MD1.MD001
-	                                        AND MC1.MC001 ='{0}'
-	                                        AND MD1.MD003 LIKE '3%'
-                                            AND MD1.MD003='{6}'
-                                        ) AS TEMP
-                                        WHERE TEMP.MD2MD003=[MOCMANULINE].[MB001]
-                                        AND [MANU] = '{2}'
-                                        
-                                        AND [COPTD001]='{3}' AND [COPTD002]='{4}' AND [COPTD003]='{5}'               
-                                        ", CHECKMB001, NUM, MANU, COPTD001, COPTD002, COPTD003, MODIFY_MB001);
-
-
-                            cmd.Connection = sqlConn;
-                            cmd.CommandTimeout = 60;
-                            cmd.CommandText = sbSql.ToString();
-                            cmd.Transaction = tran;
-                            result = cmd.ExecuteNonQuery();
-
-                            if (result == 0)
+                            // 💡 優化 3：每次更新使用獨立的 Transaction，確保單筆更新失敗可 Rollback
+                            using (SqlTransaction tran = sqlConn.BeginTransaction())
                             {
-                                tran.Rollback();    //交易取消
-                                MessageBox.Show("更新失敗");
+                                using (SqlCommand cmd = new SqlCommand())
+                                {
+                                    cmd.Connection = sqlConn;
+                                    cmd.Transaction = tran;
+                                    cmd.CommandTimeout = 60;
+
+                                    StringBuilder sbSql = new StringBuilder();
+
+                                    // 💡 優化 4：修正第一段 SQL (改為參數化，加入 MD1.MD003 = @MODIFY_MB001 條件)
+                                    sbSql.AppendLine(@"
+                                UPDATE [TKMOC].[dbo].[MOCMANULINE]
+                                SET [NUM] = ROUND(TEMP.CALNUMS * @NUM, 3)
+                                   ,[BAR] = TEMP.CALNUMS * @NUM / TEMP.BASEBARS
+                                FROM (
+                                    SELECT 
+                                         MC1.MC001 AS MC1MC001
+                                        ,MC1.MC004 AS MC1MC004
+                                        ,MD1.MD003 AS MD1MD003
+                                        ,MD1.MD006 AS MD1MD006
+                                        ,MD1.MD007 AS MD1MD007
+                                        ,MD1.MD008 AS MD1MD008
+                                        ,((1.0 / MC1.MC004) * MD1.MD006 / MD1.MD007 * (1 + MD1.MD008)) AS CALNUMS
+                                        ,MC2.MC004 AS 'BASEBARS'
+                                    FROM [TK].dbo.BOMMC MC1
+                                    JOIN [TK].dbo.BOMMD MD1 ON MC1.MC001 = MD1.MD001
+                                    JOIN [TK].dbo.BOMMC MC2 ON MC2.MC001 = MD1.MD003
+                                    WHERE MC1.MC001 = @CHECKMB001
+                                      AND MD1.MD003 LIKE '3%'
+                                      AND MD1.MD003 = @MODIFY_MB001
+                                ) AS TEMP
+                                WHERE TEMP.MD1MD003 = [TKMOC].[dbo].[MOCMANULINE].[MB001]
+                                  AND [MANU] = @MANU
+                                  AND [COPTD001] = @COPTD001 
+                                  AND [COPTD002] = @COPTD002 
+                                  AND [COPTD003] = @COPTD003;
+                            ");
+
+                                    // 💡 優化 5：修正第二段 SQL (去除舊式逗號 JOIN，修正 1/MC1 轉為 1.0/MC1 浮點數計算)
+                                    sbSql.AppendLine(@"
+                                UPDATE [TKMOC].[dbo].[MOCMANULINE]
+                                SET [NUM] = ROUND(TEMP.CALNUMS2 * @NUM, 3)
+                                   ,[BAR] = TEMP.CALNUMS2 * @NUM / TEMP.BASEBARS
+                                FROM (
+                                    SELECT 
+                                         MC1.MC001 AS 'MC1MC001'
+                                        ,MD1.MD003 AS 'MD1MD003'
+                                        ,MD2.MD003 AS 'MD2MD003'
+                                        ,(((1.0 / MC1.MC004) * MD1.MD006 / MD1.MD007 * (1 + MD1.MD008)) / MC2.MC004 * MD2.MD006 / MD2.MD007 * (1 + MD2.MD008)) AS 'CALNUMS2'
+                                        ,MC3.MC004 AS 'BASEBARS'
+                                    FROM [TK].dbo.BOMMC MC1
+                                    JOIN [TK].dbo.BOMMD MD1 ON MC1.MC001 = MD1.MD001
+                                    JOIN [TK].dbo.BOMMC MC2 ON MD1.MD003 = MC2.MC001
+                                    JOIN [TK].dbo.BOMMD MD2 ON MD1.MD003 = MD2.MD001
+                                    JOIN [TK].dbo.BOMMC MC3 ON MC3.MC001 = MD2.MD003
+                                    WHERE MC1.MC001 = @CHECKMB001
+                                      AND MD1.MD003 LIKE '3%'
+                                      AND MD1.MD003 = @MODIFY_MB001
+                                ) AS TEMP
+                                WHERE TEMP.MD2MD003 = [MOCMANULINE].[MB001]
+                                  AND [MANU] = @MANU
+                                  AND [COPTD001] = @COPTD001 
+                                  AND [COPTD002] = @COPTD002 
+                                  AND [COPTD003] = @COPTD003;
+                            ");
+
+                                    cmd.CommandText = sbSql.ToString();
+
+                                    // 💡 優化 6：安全綁定參數，防範 SQL 注入並避免 string/decimal 轉型錯誤
+                                    cmd.Parameters.AddWithValue("@CHECKMB001", CHECKMB001);
+                                    cmd.Parameters.AddWithValue("@MODIFY_MB001", MODIFY_MB001);
+                                    cmd.Parameters.AddWithValue("@NUM", Convert.ToDecimal(NUM));
+                                    cmd.Parameters.AddWithValue("@MANU", MANU);
+                                    cmd.Parameters.AddWithValue("@COPTD001", COPTD001);
+                                    cmd.Parameters.AddWithValue("@COPTD002", COPTD002);
+                                    cmd.Parameters.AddWithValue("@COPTD003", COPTD003);
+
+                                    int result = cmd.ExecuteNonQuery();
+
+                                    if (result == 0)
+                                    {
+                                        tran.Rollback(); // 交易取消
+                                        MessageBox.Show(string.Format("品號 {0} 對應 {1} 的連動更新失敗！", CHECKMB001, MODIFY_MB001));
+                                    }
+                                    else
+                                    {
+                                        tran.Commit(); // 執行交易  
+                                        MessageBox.Show(string.Format("品號 {0} (對應組件 {1}) 已成功連動更新數量！", CHECKMB001, MODIFY_MB001));
+
+                                        this.Close(); // 若更新成功需關閉目前的 Form 視窗
+                                    }
+                                }
                             }
-                            else
-                            {
-                                tran.Commit();      //執行交易  
-                                MessageBox.Show("已連動更新數量");
-
-                                this.Close();
-                            }
-
-                        }
-                        catch
-                        {
-
-                        }
-
-                        finally
-                        {
-                            sqlConn.Close();
                         }
                     }
                 }
-
+                catch (Exception ex)
+                {
+                    // 💡 優化 7：不要默默吞掉 Exception，至少彈出視窗提示，便於開發與維護維修
+                    MessageBox.Show("資料庫執行過程中發生錯誤: " + ex.Message, "系統錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    // 💡 優化 8：即使 using 發生不可預期狀況，在 finally 確保 Close 連線
+                    if (sqlConn.State == ConnectionState.Open)
+                    {
+                        sqlConn.Close();
+                    }
+                }
             }
         }
 
