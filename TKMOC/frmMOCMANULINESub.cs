@@ -445,6 +445,7 @@ namespace TKMOC
                                     StringBuilder sbSql = new StringBuilder();
 
                                     // 💡 優化 4：修正第一段 SQL，改為參數化，標準 JOIN 關聯
+                                    //AND [MANU] = @MANU
                                     sbSql.AppendLine(@"
                                 UPDATE [TKMOC].[dbo].[MOCMANULINE]
                                 SET [NUM] = ROUND(TEMP.CALNUMS * @NUM, 3)
@@ -466,7 +467,7 @@ namespace TKMOC
                                       AND MD1.MD003 LIKE '3%'
                                 ) AS TEMP
                                 WHERE TEMP.MD1MD003 = [TKMOC].[dbo].[MOCMANULINE].[MB001]
-                                  AND [MANU] = @MANU
+                                  
                                   AND [COPTD001] = @COPTD001 
                                   AND [COPTD002] = @COPTD002 
                                   AND [COPTD003] = @COPTD003;
@@ -493,7 +494,7 @@ namespace TKMOC
                                       AND MD1.MD003 LIKE '3%'
                                 ) AS TEMP
                                 WHERE TEMP.MD2MD003 = [MOCMANULINE].[MB001]
-                                  AND [MANU] = @MANU
+                                  
                                   AND [COPTD001] = @COPTD001 
                                   AND [COPTD002] = @COPTD002 
                                   AND [COPTD003] = @COPTD003;
@@ -504,7 +505,7 @@ namespace TKMOC
                                     // 💡 優化 6：安全綁定參數，預防 SQL 注入，並進行適當的轉型
                                     cmd.Parameters.AddWithValue("@CHECKMB001", CHECKMB001);
                                     cmd.Parameters.AddWithValue("@NUM", Convert.ToDecimal(NUM)); // 確保計算精度
-                                    cmd.Parameters.AddWithValue("@MANU", MANU);
+                                    //cmd.Parameters.AddWithValue("@MANU", MANU);
                                     cmd.Parameters.AddWithValue("@COPTD001", COPTD001);
                                     cmd.Parameters.AddWithValue("@COPTD002", COPTD002);
                                     cmd.Parameters.AddWithValue("@COPTD003", COPTD003);
@@ -645,6 +646,7 @@ namespace TKMOC
                                     StringBuilder sbSql = new StringBuilder();
 
                                     // 💡 優化 4：修正第一段 SQL (改為參數化，加入 MD1.MD003 = @MODIFY_MB001 條件)
+                                    // AND [MANU] = @MANU
                                     sbSql.AppendLine(@"
                                 UPDATE [TKMOC].[dbo].[MOCMANULINE]
                                 SET [NUM] = ROUND(TEMP.CALNUMS * @NUM, 3)
@@ -667,7 +669,7 @@ namespace TKMOC
                                       AND MD1.MD003 = @MODIFY_MB001
                                 ) AS TEMP
                                 WHERE TEMP.MD1MD003 = [TKMOC].[dbo].[MOCMANULINE].[MB001]
-                                  AND [MANU] = @MANU
+                                 
                                   AND [COPTD001] = @COPTD001 
                                   AND [COPTD002] = @COPTD002 
                                   AND [COPTD003] = @COPTD003;
@@ -695,7 +697,7 @@ namespace TKMOC
                                       AND MD1.MD003 = @MODIFY_MB001
                                 ) AS TEMP
                                 WHERE TEMP.MD2MD003 = [MOCMANULINE].[MB001]
-                                  AND [MANU] = @MANU
+                                 
                                   AND [COPTD001] = @COPTD001 
                                   AND [COPTD002] = @COPTD002 
                                   AND [COPTD003] = @COPTD003;
@@ -707,7 +709,7 @@ namespace TKMOC
                                     cmd.Parameters.AddWithValue("@CHECKMB001", CHECKMB001);
                                     cmd.Parameters.AddWithValue("@MODIFY_MB001", MODIFY_MB001);
                                     cmd.Parameters.AddWithValue("@NUM", Convert.ToDecimal(NUM));
-                                    cmd.Parameters.AddWithValue("@MANU", MANU);
+                                    //cmd.Parameters.AddWithValue("@MANU", MANU);
                                     cmd.Parameters.AddWithValue("@COPTD001", COPTD001);
                                     cmd.Parameters.AddWithValue("@COPTD002", COPTD002);
                                     cmd.Parameters.AddWithValue("@COPTD003", COPTD003);
