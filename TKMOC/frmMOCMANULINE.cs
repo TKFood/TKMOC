@@ -14577,112 +14577,106 @@ namespace TKMOC
 
                   
                     sbSql.AppendFormat(@"                                         
-                                        UPDATE [TKMOC].[dbo].[MOCMANULINE]
-                                        SET [MOCMANULINE].[NUM] = 
-                                            (CASE 
-                                                WHEN COPTFNUMS >= 0 THEN COPTFNUMS 
-                                                WHEN BOMNUMS >= 0 THEN BOMNUMS 
-		                                        WHEN BOMNUMS2 >= 0 THEN BOMNUMS2 
-                                                ELSE [MOCMANULINE].[NUM] 
-                                             END)
-                                        ,[MOCMANULINE].[PACKAGE] = 
-                                            (CASE 
-                                                WHEN COPTFNUMS >= 0 THEN COPTFNUMS 
-                                                WHEN BOMNUMS >= 0 THEN BOMNUMS 
-		                                        WHEN BOMNUMS2 >= 0 THEN BOMNUMS2 
-                                                ELSE [MOCMANULINE].[PACKAGE] 
-                                             END)
-                                        ,[MOCMANULINE].[BOX] = 
-                                            (CASE 
-                                                WHEN COPTFNUMS > 0 AND INVMDMD004>0 THEN CONVERT(DECIMAL(16,2),COPTFNUMS/INVMDMD004 )
-                                                WHEN BOMNUMS > 0 AND INVMDMD004>0 THEN CONVERT(DECIMAL(16,2),BOMNUMS/INVMDMD004 )
-		                                        WHEN BOMNUMS2 > 0 AND INVMDMD004>0 THEN CONVERT(DECIMAL(16,2),BOMNUMS2/INVMDMD004) 
-                                                WHEN COPTFNUMS=0 THEN 0
-                                                WHEN BOMNUMS=0 THEN 0
-                                                WHEN BOMNUMS2=0 THEN 0
-                                                ELSE [MOCMANULINE].[BOX] 
-                                             END)
-                                        ,[MOCMANULINE].[BAR] = 
-                                            (CASE 
-                                                WHEN COPTFNUMS > 0 AND INVMCMC004>0 THEN CONVERT(DECIMAL(16,2),COPTFNUMS/INVMCMC004 )
-                                                WHEN BOMNUMS > 0 THEN CONVERT(DECIMAL(16,2),BOMNUMS/INVMCMC004 )
-		                                        WHEN BOMNUMS2 > 0 THEN CONVERT(DECIMAL(16,2),BOMNUMS2/INVMCMC004 )
-                                                WHEN COPTFNUMS=0 THEN 0
-                                                WHEN BOMNUMS=0 THEN 0
-                                                WHEN BOMNUMS2=0 THEN 0
-                                                ELSE [MOCMANULINE].[BAR] 
-                                             END)
-                                        FROM 
-                                        (
-                                        SELECT 
-                                        [MANU] AS '線別',CONVERT(varchar(100),[MANUDATE],112) AS '生產日',[MB001] AS '品號',[MB002] AS '品名' 
-                                        ,[MB003] AS '規格',[BAR] AS '桶數',[MOCMANULINE].[NUM] AS '數量',[BOX] AS '箱數',[PACKAGE]AS '包裝數',[CLINET] AS '客戶',[OUTDATE] AS '交期',[TA029] AS '備註',[HALFPRO] AS '半成品數量'
-                                        ,[COPTD001] AS '訂單單別',[COPTD002] AS '訂單號',[COPTD003] AS '訂單序號'
-                                        ,[ID]
-                                        ,TMEPL.TF005
-                                        ,(CASE WHEN TMEPL.TD008 >0 THEN TMEPL.TD008  ELSE 0 END) AS 'COPTFNUMS'
-                                        ,TMEPL1.MD003
-                                        ,(CASE WHEN TMEPL1.BOMNUMS >0 THEN TMEPL1.BOMNUMS  ELSE 0 END) AS 'BOMNUMS'
-                                        ,TEMPL2.MD003B
-                                        ,(CASE WHEN TEMPL2.BOMNUMS2 >0 THEN TEMPL2.BOMNUMS2  ELSE 0 END)  AS 'BOMNUMS2'
-                                        ,( SELECT TOP 1 MD004 FROM [TK].dbo.INVMD WHERE MD001=[MB001]) AS 'INVMDMD004'
-                                        ,( SELECT TOP 1 MD003 FROM [TK].dbo.INVMD WHERE MD001=[MB001]) AS 'INVMDMD003'
-                                        ,( SELECT TOP 1 MC004 FROM [TK].dbo.BOMMC  WHERE MC001=[MB001] ) AS 'INVMCMC004'
-
-
-                                        FROM [TKMOC].[dbo].[MOCMANULINE]
-                                        LEFT JOIN 
-                                        (SELECT TE029,TF001,TF002,TF104,TE055,TF005,TF006,TF007,(TF009+TF020) AS TD008,TF010,TE050,TF015,(CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TF009+TF020)*INVMD.MD004 ELSE (TF009+TF020)  END ) AS NUM
-                                        FROM [TK].dbo.INVMB WITH(NOLOCK),[TK].dbo.COPTE WITH(NOLOCK),[TK].dbo.COPTF WITH(NOLOCK)
-                                        LEFT JOIN [TK].dbo.INVMD ON INVMD.MD001=TF005 AND TF010=MD002
-                                        WHERE  TE001=TF001 AND TE002=TF002 AND TE003=TF003
-                                        AND MB001=TF005
-                                        ) AS TMEPL 
-                                        ON  TMEPL.TF005=[MOCMANULINE].MB001 AND TMEPL.TF001=COPTD001 AND TMEPL.TF002=COPTD002 AND TMEPL.TF104=COPTD003 AND TMEPL.TE029='N'
-
-                                        LEFT JOIN (
-                                        SELECT TE029,TF001,TF002,TF104,TE055,TF005,TF006,TF007,(TF009+TF020) AS TD008,TF010,TE050,TF015,(CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TF009+TF020)*INVMD.MD004 ELSE (TF009+TF020)  END ) AS NUM
-                                        ,BOMMD.MD003,BOMMD.MD035,BOMMD.MD036,BOMMD.MD006,BOMMD.MD007
-                                        ,((CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TF009+TF020)*INVMD.MD004 ELSE (TF009+TF020)  END )*BOMMD.MD006/BOMMD.MD007/BOMMC.MC004) AS BOMNUMS
-                                        FROM [TK].dbo.INVMB WITH(NOLOCK),[TK].dbo.COPTE WITH(NOLOCK),[TK].dbo.COPTF WITH(NOLOCK)
-                                        LEFT JOIN [TK].dbo.INVMD ON INVMD.MD001=TF005 AND TF010=MD002
-                                        LEFT JOIN [TK].dbo.BOMMC ON BOMMC.MC001=TF005
-                                        LEFT JOIN [TK].dbo.BOMMD ON BOMMD.MD001=TF005
-                                        WHERE TE001=TF001 AND TE002=TF002 AND TE003=TF003
-                                        AND TE029='N'
-                                        AND MB001=TF005
-                                        AND (BOMMD.MD003 LIKE '3%' OR BOMMD.MD003 LIKE '4%')) AS TMEPL1 
-                                        ON TMEPL1.MD003=[MOCMANULINE].MB001 AND  TMEPL1.TF001=COPTD001 AND TMEPL1.TF002=COPTD002 AND TMEPL1.TF104=COPTD003
-
-
-                                        LEFT JOIN (
-                                        SELECT TE029,TF001,TF002,TF104,TE055,TF005,TF006,TF007,(TF009+TF020) AS TD008,TF010,TE050,TF015,(CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TF009+TF020)*INVMD.MD004 ELSE (TF009+TF020)  END ) AS NUM
-                                        ,BOMMD.MD003,BOMMD.MD035,BOMMD.MD036,BOMMD.MD006,BOMMD.MD007
-                                        ,((CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TF009+TF020)*INVMD.MD004 ELSE (TF009+TF020)  END )*BOMMD.MD006/BOMMD.MD007/BOMMC.MC004) AS BOMNUMS
-                                        ,BOMMD2.MD003 MD003B,BOMMD2.MD035 MD035B,BOMMD2.MD036 MD036B,BOMMD2.MD006 MD006B,BOMMD2.MD007 MD007B
-                                        ,(((CASE WHEN ISNULL(INVMD.MD002,'')<>'' THEN (TF009+TF020)*INVMD.MD004 ELSE (TF009+TF020)  END )*BOMMD.MD006/BOMMD.MD007/BOMMC.MC004)*BOMMD2.MD006/BOMMD2.MD007/BOMMC2.MC004)AS BOMNUMS2
-                                        ,ISNULL((SELECT TOP 1 MD007 FROM [TK].dbo.BOMMD MD WHERE (MD.MD003 LIKE '201%') AND MD.MD001=BOMMD2.MD003),1) AS MD007C
-                                        ,ISNULL((SELECT TOP 1 MC004 FROM [TK].dbo.BOMMC MC WHERE MC.MC001=BOMMD2.MD003),1) AS MC004C
-                                        FROM [TK].dbo.INVMB WITH(NOLOCK),[TK].dbo.COPTE WITH(NOLOCK),[TK].dbo.COPTF WITH(NOLOCK)
-                                        LEFT JOIN [TK].dbo.INVMD ON INVMD.MD001=TF005 AND TF010=MD002
-                                        LEFT JOIN [TK].dbo.BOMMC ON BOMMC.MC001=TF005
-                                        LEFT JOIN [TK].dbo.BOMMD ON BOMMD.MD001=TF005
-                                        LEFT JOIN [TK].dbo.BOMMC BOMMC2 ON BOMMC2.MC001=BOMMD.MD003
-                                        LEFT JOIN [TK].dbo.BOMMD BOMMD2 ON BOMMD2.MD001=BOMMD.MD003
-                                        WHERE  TE001=TF001 AND TE002=TF002 AND TE003=TF003
-                                        AND TE029='N'
-                                        AND MB001=TF005
-                                        AND (BOMMD.MD003 LIKE '3%' OR BOMMD.MD003 LIKE '4%')
-                                        AND (BOMMD2.MD003 LIKE '3%' OR BOMMD2.MD003 LIKE '4%')
-                                        ) AS TEMPL2 
-                                        ON TEMPL2.MD003B=[MOCMANULINE].MB001 AND   TEMPL2.TF001=COPTD001 AND TEMPL2.TF002=COPTD002 AND TEMPL2.TF104=COPTD003
-
-                                        WHERE   [COPTD001] LIKE '{0}%' AND [COPTD002] LIKE '{1}%'
-                                        AND [COPTD003] IN (SELECT TF104 FROM [TK].dbo.COPTE,[TK].dbo.COPTF WHERE TE001=TF001 AND TE002=TF002 AND TE003=TF003 AND TE029='N' AND TE001=COPTD001 AND TE002=COPTD002 )
-                                       
-                                        ) AS ALLTEMP
-                                        WHERE ALLTEMP.[ID]=[MOCMANULINE].[ID]
-                                        AND ALLTEMP.訂單單別='{0}' AND ALLTEMP.訂單號='{1}'
+                                        WITH CTE_COP AS (
+                                            -- 1. 統一抽取訂單基底資料 (避免重複查詢 COPTE / COPTF / INVMB / INVMD)
+                                            SELECT
+                                                TF.TF001,
+                                                TF.TF002,
+                                                TF.TF104,
+                                                TF.TF005,
+                                                (TF.TF009 + TF.TF020) AS TD008,
+                                                CASE
+                                                    WHEN ISNULL(MD.MD002, '') <> '' THEN (TF.TF009 + TF.TF020) * MD.MD004
+                                                    ELSE (TF.TF009 + TF.TF020)
+                                                END AS NUM
+                                            FROM [TK].dbo.COPTE TE WITH(NOLOCK)
+                                            INNER JOIN [TK].dbo.COPTF TF WITH(NOLOCK)
+                                                ON TE.TE001 = TF.TF001 AND TE.TE002 = TF.TF002 AND TE.TE003 = TF.TF003
+                                            INNER JOIN [TK].dbo.INVMB MB WITH(NOLOCK)
+                                                ON MB.MB001 = TF.TF005
+                                            LEFT JOIN [TK].dbo.INVMD MD WITH(NOLOCK)
+                                                ON MD.MD001 = TF.TF005 AND TF.TF010 = MD.MD002
+                                            WHERE TE.TE029 = 'N'
+                                              AND TE.TE001 = '{0}'
+                                              AND TE.TE002 = '{1}'
+                                        ),
+                                        CTE_L0 AS (
+                                            -- 直屬品號 (Level 0)
+                                            SELECT
+                                                TF001, TF002, TF104, TF005 AS MB001,
+                                                CASE WHEN TD008 > 0 THEN TD008 ELSE 0 END AS COPTFNUMS
+                                            FROM CTE_COP
+                                        ),
+                                        CTE_L1 AS (
+                                            -- 一階展階 (Level 1)
+                                            SELECT
+                                                COP.TF001, COP.TF002, COP.TF104,
+                                                MD.MD003 AS MB001,
+                                                CASE
+                                                    WHEN (COP.NUM * MD.MD006 / NULLIF(MD.MD007 * MC.MC004, 0)) > 0
+                                                    THEN (COP.NUM * MD.MD006 / NULLIF(MD.MD007 * MC.MC004, 0))
+                                                    ELSE 0
+                                                END AS BOMNUMS
+                                            FROM CTE_COP COP
+                                            INNER JOIN [TK].dbo.BOMMC MC WITH(NOLOCK) ON MC.MC001 = COP.TF005
+                                            INNER JOIN [TK].dbo.BOMMD MD WITH(NOLOCK) ON MD.MD001 = COP.TF005
+                                            WHERE (MD.MD003 LIKE '3%' OR MD.MD003 LIKE '4%')
+                                        ),
+                                        CTE_L2 AS (
+                                            -- 二階展階 (Level 2)
+                                            SELECT
+                                                COP.TF001, COP.TF002, COP.TF104,
+                                                MD2.MD003 AS MB001,
+                                                CASE
+                                                    WHEN (COP.NUM * MD1.MD006 / NULLIF(MD1.MD007 * MC1.MC004, 0) * MD2.MD006 / NULLIF(MD2.MD007 * MC2.MC004, 0)) > 0
+                                                    THEN (COP.NUM * MD1.MD006 / NULLIF(MD1.MD007 * MC1.MC004, 0) * MD2.MD006 / NULLIF(MD2.MD007 * MC2.MC004, 0))
+                                                    ELSE 0
+                                                END AS BOMNUMS2
+                                            FROM CTE_COP COP
+                                            INNER JOIN [TK].dbo.BOMMC MC1 WITH(NOLOCK) ON MC1.MC001 = COP.TF005
+                                            INNER JOIN [TK].dbo.BOMMD MD1 WITH(NOLOCK) ON MD1.MD001 = COP.TF005
+                                            INNER JOIN [TK].dbo.BOMMC MC2 WITH(NOLOCK) ON MC2.MC001 = MD1.MD003
+                                            INNER JOIN [TK].dbo.BOMMD MD2 WITH(NOLOCK) ON MD2.MD001 = MD1.MD003
+                                            WHERE (MD1.MD003 LIKE '3%' OR MD1.MD003 LIKE '4%')
+                                              AND (MD2.MD003 LIKE '3%' OR MD2.MD003 LIKE '4%')
+                                        ),
+                                        CTE_CALC AS (
+                                            -- 整合目標數量 (優先順序: L0 > L1 > L2) 與包裝/桶數換算值
+                                            SELECT
+                                                M.[ID],
+                                                COALESCE(L0.COPTFNUMS, L1.BOMNUMS, L2.BOMNUMS2) AS TARGET_NUM,
+                                                INV.MD004 AS INVMDMD004,
+                                                BMC.MC004 AS INVMCMC004
+                                            FROM [TKMOC].[dbo].[MOCMANULINE] M WITH(NOLOCK)
+                                            LEFT JOIN CTE_L0 L0 ON L0.MB001 = M.MB001 AND L0.TF001 = M.COPTD001 AND L0.TF002 = M.COPTD002 AND L0.TF104 = M.COPTD003
+                                            LEFT JOIN CTE_L1 L1 ON L1.MB001 = M.MB001 AND L1.TF001 = M.COPTD001 AND L1.TF002 = M.COPTD002 AND L1.TF104 = M.COPTD003
+                                            LEFT JOIN CTE_L2 L2 ON L2.MB001 = M.MB001 AND L2.TF001 = M.COPTD001 AND L2.TF002 = M.COPTD002 AND L2.TF104 = M.COPTD003
+                                            OUTER APPLY (
+                                                SELECT TOP 1 MD004 FROM [TK].dbo.INVMD WITH(NOLOCK) WHERE MD001 = M.MB001
+                                            ) INV
+                                            OUTER APPLY (
+                                                SELECT TOP 1 MC004 FROM [TK].dbo.BOMMC WITH(NOLOCK) WHERE MC001 = M.MB001
+                                            ) BMC
+                                            WHERE M.COPTD001 = '{0}'
+                                              AND M.COPTD002 = '{1}'
+                                        )
+                                        -- 執行資料更新
+                                        UPDATE M
+                                        SET
+                                            M.[NUM]     = ISNULL(C.TARGET_NUM, M.[NUM]),
+                                            M.[PACKAGE] = ISNULL(C.TARGET_NUM, M.[PACKAGE]),
+                                            M.[BOX]     = CASE
+                                                            WHEN C.TARGET_NUM = 0 THEN 0
+                                                            WHEN C.TARGET_NUM > 0 AND C.INVMDMD004 > 0 THEN CONVERT(DECIMAL(16,2), C.TARGET_NUM / C.INVMDMD004)
+                                                            ELSE M.[BOX]
+                                                          END,
+                                            M.[BAR]     = CASE
+                                                            WHEN C.TARGET_NUM = 0 THEN 0
+                                                            WHEN C.TARGET_NUM > 0 AND C.INVMCMC004 > 0 THEN CONVERT(DECIMAL(16,2), C.TARGET_NUM / C.INVMCMC004)
+                                                            ELSE M.[BAR]
+                                                          END
+                                        FROM [TKMOC].[dbo].[MOCMANULINE] M
+                                        INNER JOIN CTE_CALC C ON M.[ID] = C.[ID];
 
                                         ", COPTD001, COPTD002);
 
@@ -15735,6 +15729,9 @@ namespace TKMOC
             {
                 UPDATE_BATCH_MOCLINE(textBox89.Text.Trim(), textBox85.Text.Trim());
                 SEACRH_MOCLINE_NEW_CHAGNES(textBox89.Text.Trim(), textBox85.Text.Trim());
+
+                //SEARCHMOCMANULINEQUERY1(textBox89.Text.Trim(), textBox85.Text.Trim());
+                //SEARCHMOCMANULINEQUERY2(textBox89.Text.Trim(), textBox85.Text.Trim());
 
             }
             else
