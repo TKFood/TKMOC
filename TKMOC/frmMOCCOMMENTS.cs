@@ -169,6 +169,33 @@ namespace TKMOC
             }
         }
 
+        /// <summary>
+        /// 搜尋並定位回指定資料列
+        /// </summary>
+        private void RestoreSelectedRow(string ta001, string ta002)
+        {
+            if (string.IsNullOrEmpty(ta001) || string.IsNullOrEmpty(ta002)) return;
+
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                // 找到與剛才 Key 相同的資料列
+                if (row.Cells["製令單別"].Value?.ToString() == ta001 &&
+                    row.Cells["製令單號"].Value?.ToString() == ta002)
+                {
+                    // 取消目前選取狀態
+                    dataGridView1.ClearSelection();
+
+                    // 設定游標焦點到該行的第一個儲存格 (自動選取該行)
+                    dataGridView1.CurrentCell = row.Cells[0];
+                    row.Selected = true;
+
+                    // 讓捲軸自動滾動到該行位置（讓該行顯示在畫面中）
+                    dataGridView1.FirstDisplayedScrollingRowIndex = row.Index;
+                    break;
+                }
+            }
+        }
+
         public void SETTEXTBOX()
         {
             textBox1.Text = "";
@@ -196,6 +223,9 @@ namespace TKMOC
             string SDATE = dateTimePicker1.Value.ToString("yyyyMMdd");
             string EDATE = dateTimePicker1.Value.ToString("yyyyMMdd");
             SEARCH_DG1(SDATE, EDATE);
+
+            // 4. 定位回到剛才更新的那一筆
+            RestoreSelectedRow(TA001, TA002);
         }
 
         #endregion
