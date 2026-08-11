@@ -287,7 +287,7 @@ namespace TKMOC
             string EDATE = dateTimePicker2.Value.ToString("yyyyMMdd");
             SEARCH_DG1(SDATE, EDATE);
 
-            // 4. 定位回到剛才更新的那一筆
+            // 4. 定位回到剛才更新的那一筆  
             RestoreSelectedRow(TA001, TA002);
         }
 
