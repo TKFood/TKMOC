@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="08/11/2026 13:57:33" ReportInfo.Modified="08/11/2026 14:02:51" ReportInfo.CreatorVersion="2017.4.1.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNS8V+op55d8q+MyIM1gh0M9zlGOgK4zWs8Nahyki0xHW6v1SoNjLsQ40hUEIevZodc4nZn1VMr9PyrOeyOFQcW49yN37Wommt8wACdM4FKHAeO5qqwIh8UI3n9QTXxqWwHE0JnE4SgOMn8e/w7P5+sw==">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT &#13;&#10;    MOCTA.[TA001] AS '製令單別'&#13;&#10;    ,MOCTA.[TA002] AS '製令單號'&#13;&#10;    ,MOCTA.[TA003] AS '製令日期'&#13;&#10;    ,MOCTA.[TA006] AS '品號'&#13;&#10;    ,MOCTA.[TA034] AS '品名'&#13;&#10;    ,MOCTA.[TA015] AS '預計產量'&#13;&#10;    ,MOCTA.[TA017] AS '已生產量'&#13;&#10;    ,MOCTA.[TA007] AS '單位'&#13;&#10;    ,[MOCREASON] AS '差異說明'&#13;&#10;&#13;&#10;    FROM [TK].dbo.MOCTA&#13;&#10;    LEFT JOIN [TKMOC].[dbo].[MOCCOMMENTS] ON MOCTA.TA001=MOCCOMMENTS.TA001 AND MOCTA.TA002=MOCCOMMENTS.TA002&#13;&#10;    WHERE MOCTA.TA001='A513'&#13;&#10;    AND MOCTA.[TA003]&gt;='20260810' AND MOCTA.[TA003]&lt;='20260810'&#13;&#10;&#13;&#10;    ORDER BY MOCTA.[TA001] ,MOCTA.[TA002] &#13;&#10;">
+        <Column Name="製令單別" DataType="System.String"/>
+        <Column Name="製令單號" DataType="System.String"/>
+        <Column Name="製令日期" DataType="System.String"/>
+        <Column Name="品號" DataType="System.String"/>
+        <Column Name="品名" DataType="System.String"/>
+        <Column Name="預計產量" DataType="System.Decimal"/>
+        <Column Name="已生產量" DataType="System.Decimal"/>
+        <Column Name="單位" DataType="System.String"/>
+        <Column Name="差異說明" DataType="System.String"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" RawPaperSize="9">
+    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="18.9">
+      <TextObject Name="Text1" Width="94.5" Height="18.9" Text="入庫差異表"/>
+    </ReportTitleBand>
+    <ColumnHeaderBand Name="ColumnHeader1" Top="24.23" Width="1047.06" Height="18.9">
+      <TextObject Name="Text3" Width="66.15" Height="18.9" Border.Lines="All" Text="製令單別" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text5" Left="66.15" Width="94.5" Height="18.9" Border.Lines="All" Text="製令單號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text7" Left="160.65" Width="94.5" Height="18.9" Border.Lines="All" Text="製令日期" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text9" Left="255.15" Width="122.85" Height="18.9" Border.Lines="All" Text="品號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text11" Left="378" Width="217.35" Height="18.9" Border.Lines="All" Text="品名" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text13" Left="652.05" Width="94.5" Height="18.9" Border.Lines="All" Text="預計產量" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text15" Left="746.55" Width="94.5" Height="18.9" Border.Lines="All" Text="已生產量" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text17" Left="595.35" Width="56.7" Height="18.9" Border.Lines="All" Text="單位" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text19" Left="841.05" Width="207.9" Height="18.9" Border.Lines="All" Text="差異說明" HorzAlign="Center" VertAlign="Center"/>
+    </ColumnHeaderBand>
+    <DataBand Name="Data1" Top="48.47" Width="1047.06" Height="18.9" DataSource="Table">
+      <TextObject Name="Text2" Width="66.15" Height="18.9" Border.Lines="All" Text="[Table.製令單別]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text4" Left="66.15" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.製令單號]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text6" Left="160.65" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.製令日期]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text8" Left="255.15" Width="122.85" Height="18.9" Border.Lines="All" Text="[Table.品號]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text10" Left="378" Width="217.35" Height="18.9" Border.Lines="All" Text="[Table.品名]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text12" Left="652.05" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.預計產量]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text14" Left="746.55" Width="94.5" Height="18.9" Border.Lines="All" Text="[Table.已生產量]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text16" Left="595.35" Width="56.7" Height="18.9" Border.Lines="All" Text="[Table.單位]" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text18" Left="841.05" Width="207.9" Height="18.9" Border.Lines="All" Text="[Table.差異說明]" HorzAlign="Center" VertAlign="Center"/>
+    </DataBand>
+    <ColumnFooterBand Name="ColumnFooter1" Top="72.7" Width="1047.06" Height="37.8"/>
+  </ReportPage>
+</Report>

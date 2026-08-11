@@ -1,23 +1,27 @@
-﻿using Calendar.NET;
-using NPOI.SS.Formula.Functions;
-using NPOI.SS.UserModel;
-using NPOI.SS.Util;
-using NPOI.XSSF.UserModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Configuration;
 using System.Data;
-using System.Data.SqlClient;
 using System.Drawing;
-using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using NPOI;
+using NPOI.HPSF;
+using NPOI.HSSF;
+using NPOI.HSSF.UserModel;
+using NPOI.POIFS;
+using NPOI.Util;
+using NPOI.HSSF.Util;
+using NPOI.HSSF.Extractor;
+using System.IO;
+using System.Data.SqlClient;
+using NPOI.SS.UserModel;
+using System.Configuration;
+using NPOI.XSSF.UserModel;
+using FastReport;
+using FastReport.Data;
 using TKITDLL;
 
 namespace TKMOC
@@ -196,6 +200,65 @@ namespace TKMOC
             }
         }
 
+        public void SETFASTREPORT(string SDATES, string EDATES)
+        {
+            
+
+            StringBuilder SQL1 = new StringBuilder();
+            StringBuilder SQL2 = new StringBuilder();
+
+            SQL1 = SETSQL1(SDATES, EDATES);
+
+            Report report1 = new Report();
+            report1.Load(@"REPORT\入庫差異表.frx");
+
+            //20210902密      
+            Class1 TKID = new Class1();
+            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+            sqlsb.Password = TKID.Decryption(sqlsb.Password);
+            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+            report1.Dictionary.Connections[0].ConnectionString = sqlsb.ConnectionString;
+
+
+            TableDataSource table = report1.GetDataSource("Table") as TableDataSource;
+            table.SelectCommand = SQL1.ToString();
+
+            report1.Preview = previewControl1;
+            report1.Show();
+        }
+
+        public StringBuilder SETSQL1(string SDATES, string EDATES)
+        {
+            StringBuilder SB = new StringBuilder();
+
+            SB.AppendFormat(@" 
+                            SELECT 
+                            MOCTA.[TA001] AS '製令單別'
+                            ,MOCTA.[TA002] AS '製令單號'
+                            ,MOCTA.[TA003] AS '製令日期'
+                            ,MOCTA.[TA006] AS '品號'
+                            ,MOCTA.[TA034] AS '品名'
+                            ,MOCTA.[TA015] AS '預計產量'
+                            ,MOCTA.[TA017] AS '已生產量'
+                            ,MOCTA.[TA007] AS '單位'
+                            ,[MOCREASON] AS '差異說明'
+
+                            FROM [TK].dbo.MOCTA
+                            LEFT JOIN [TKMOC].[dbo].[MOCCOMMENTS] ON MOCTA.TA001=MOCCOMMENTS.TA001 AND MOCTA.TA002=MOCCOMMENTS.TA002
+                            WHERE MOCTA.TA001='A513'
+                            AND MOCTA.[TA003]>='{0}' AND MOCTA.[TA003]<='{1}'
+
+                            ORDER BY MOCTA.[TA001] ,MOCTA.[TA002] 
+
+                            ", SDATES, EDATES);
+
+            return SB;
+
+        }
+
+
         public void SETTEXTBOX()
         {
             textBox1.Text = "";
@@ -209,7 +272,7 @@ namespace TKMOC
         private void button1_Click(object sender, EventArgs e)
         {
             string SDATE = dateTimePicker1.Value.ToString("yyyyMMdd");
-            string EDATE = dateTimePicker1.Value.ToString("yyyyMMdd");
+            string EDATE = dateTimePicker2.Value.ToString("yyyyMMdd");
             SEARCH_DG1(SDATE, EDATE);
         }
 
@@ -221,13 +284,19 @@ namespace TKMOC
             ADD_UPDATE_MOCCOMMENTS(TA001, TA002, MOCREASON);
 
             string SDATE = dateTimePicker1.Value.ToString("yyyyMMdd");
-            string EDATE = dateTimePicker1.Value.ToString("yyyyMMdd");
+            string EDATE = dateTimePicker2.Value.ToString("yyyyMMdd");
             SEARCH_DG1(SDATE, EDATE);
 
             // 4. 定位回到剛才更新的那一筆
             RestoreSelectedRow(TA001, TA002);
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            string SDATE = dateTimePicker3.Value.ToString("yyyyMMdd");
+            string EDATE = dateTimePicker4.Value.ToString("yyyyMMdd");
+            SETFASTREPORT(SDATE, EDATE);
+        }
         #endregion
 
 
