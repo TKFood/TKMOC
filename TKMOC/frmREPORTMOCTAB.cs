@@ -684,7 +684,7 @@ namespace TKMOC
                 sbSqlQuery.Clear();
 
                 sbSql.AppendFormat(@" 
-                                    SELECT TA021 AS '生產線別',TA001  AS '製令單',TA002  AS '製令單號',UDF01  AS '生產順序'
+                                    SELECT TA021 AS '生產線別',TA001  AS '製令單',TA002  AS '製令單號',TA034 AS '品名',UDF01  AS '生產順序'
                                     FROM [TK].dbo.MOCTA
                                     WHERE TA003='{0}'
                                     ORDER BY TA021,TA001,TA002,UDF01
