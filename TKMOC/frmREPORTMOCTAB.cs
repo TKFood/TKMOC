@@ -738,7 +738,7 @@ namespace TKMOC
             {
                 string TA001 = row.Cells[1].Value.ToString().Trim();
                 string TA002 = row.Cells[2].Value.ToString().Trim();
-                string UDF01 = row.Cells[3].Value.ToString().Trim();
+                string UDF01 = row.Cells[4].Value.ToString().Trim();
 
                 if (!string.IsNullOrEmpty(UDF01))
                 {
@@ -3041,6 +3041,35 @@ namespace TKMOC
             }
         }
 
+        private void RestoreGridPosition_DG1(string ta001, string ta002, int originalScrollIndex)
+        {
+            if (string.IsNullOrEmpty(ta001) || string.IsNullOrEmpty(ta002)) return;
+
+            bool isFound = false;
+
+            // 逐列搜尋剛剛修改的主鍵資料
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                if (row.Cells["製令單"].Value?.ToString() == ta001 &&
+                    row.Cells["製令單號"].Value?.ToString() == ta002)
+                {
+                    dataGridView1.ClearSelection(); // 清除先前的選取狀態
+
+                    // 設定游標焦點至該列的第一個可見儲存格
+                    dataGridView1.CurrentCell = row.Cells[0];
+                    row.Selected = true;
+
+                    isFound = true;
+                    break;
+                }
+            }
+
+            // 恢復捲軸位置
+            if (isFound && originalScrollIndex >= 0 && originalScrollIndex < dataGridView1.RowCount)
+            {
+                dataGridView1.FirstDisplayedScrollingRowIndex = originalScrollIndex;
+            }
+        }
 
         #endregion
 
@@ -3087,8 +3116,20 @@ namespace TKMOC
 
         private void button5_Click(object sender, EventArgs e)
         {
+            // 1. 檢查目前是否有選取資料列
+            if (dataGridView1.CurrentRow == null) return;
+
+            // 2. 紀錄修改前的「主鍵欄位值」（Key）與「捲軸滾動位置」
+            string savedTA001 = dataGridView1.CurrentRow.Cells["製令單"].Value?.ToString();
+            string savedTA002 = dataGridView1.CurrentRow.Cells["製令單號"].Value?.ToString();
+            int scrollIndex = dataGridView1.FirstDisplayedScrollingRowIndex;
+
+
             UPDATEMOCTA();
             SearchMOCTA(dateTimePicker2.Value.ToString("yyyyMMdd"));
+
+            // 5. 將游標與捲軸定位回到剛才那筆資料
+            RestoreGridPosition_DG1(savedTA001, savedTA002, scrollIndex);
         }
 
         private void button7_Click(object sender, EventArgs e)
