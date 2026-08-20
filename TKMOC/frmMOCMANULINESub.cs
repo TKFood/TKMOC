@@ -1,22 +1,23 @@
-﻿using System;
+﻿using NPOI.SS.UserModel;
+using NPOI.SS.Util;
+using NPOI.XSSF.UserModel;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
+using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
-using System.Data.SqlClient;
-using NPOI.SS.UserModel;
-using System.Configuration;
-using NPOI.XSSF.UserModel;
-using NPOI.SS.Util;
-using System.Reflection;
-using System.Threading;
-using System.Globalization;
 using TKITDLL;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace TKMOC
 {
@@ -879,34 +880,195 @@ namespace TKMOC
             }
 
         }
+
+        public DataTable FIND_CHECK_MOCMANULINEBATCHMODIFYS_USED_COPTC_MERGE(string MB001)
+        {
+            DataSet DS1 = new DataSet();
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+
+            try
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+
+                sbSql.AppendFormat(@" 
+                                   SELECT [MB001],[MB002]
+                                    FROM [TKMOC].[dbo].[MOCMANULINEBATCHMODIFYS_USED_COPTC_MERGE]
+                                    WHERE [MB001]='{0}'
+                                    ", MB001);
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                DS1.Clear();
+                adapter1.Fill(DS1, "DS1");
+                sqlConn.Close();
+
+
+                if (DS1.Tables["DS1"].Rows.Count >= 1)
+                {
+                    return DS1.Tables["DS1"];
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+
+            }
+
+        }
+        public DataTable FIND_CHECK_MOCMANULINEBATCHMODIFYS_USED_COPTC_MERGE_COUNR_NUM(string MB001, string COPTD001, string COPTD002, string COPTD003, string MANU)
+        {
+            DataSet DS1 = new DataSet();
+            SqlDataAdapter adapter1 = new SqlDataAdapter();
+            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
+
+            try
+            {
+                //20210902密
+                Class1 TKID = new Class1();//用new 建立類別實體
+                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+
+                //資料庫使用者密碼解密
+                sqlsb.Password = TKID.Decryption(sqlsb.Password);
+                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+
+                String connectionString;
+                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+
+                sbSql.Clear();
+                sbSqlQuery.Clear();
+
+
+                sbSql.AppendFormat(@" 
+                                   SELECT SUM(ISNULL([NUM],0)) NUM
+                                    FROM [TKMOC].[dbo].[MOCMANULINE]
+                                    WHERE MB001='{0}'
+                                    AND [COPTD001]='{1}' AND [COPTD002]='{2}' AND [COPTD003]='{3}'
+                                    AND [MANU]='{4}'
+                                    ", MB001, COPTD001, COPTD002, COPTD003, MANU);
+
+                adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+
+                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
+                sqlConn.Open();
+                DS1.Clear();
+                adapter1.Fill(DS1, "DS1");
+                sqlConn.Close();
+
+
+                if (DS1.Tables["DS1"].Rows.Count >= 1)
+                {
+                    return DS1.Tables["DS1"];
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+
+            }
+
+        }
+
         #endregion
 
         #region BUTTON
 
         private void button1_Click(object sender, EventArgs e)
         {
-            UPDATEMOCMANULINE();
+            // 1. 取得並清理輸入參數
+            string id = textBoxID.Text.Trim();
+            string manu = textBox1.Text.Trim();
+            string mb001 = textBox3.Text.Trim();
+            string coptd001 = textBox40.Text.Trim();
+            string coptd002 = textBox41.Text.Trim();
+            string coptd003 = textBox42.Text.Trim();
+            string num = textBox7.Text.Trim();
+            string manuDate = dateTimePicker1.Value.ToString("yyyyMMdd");
 
-            //先檢查要更改的品號是不是要連動更改數量
-            string MB001 = textBox3.Text.Trim();
-            DataTable DT = FIND_CHECK_MB001(MB001);
-
-            //要連動更改數量
-            if(DT!=null && DT.Rows.Count>=1)
+            // 基礎防呆：關鍵欄位不可為空
+            if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(mb001))
             {
-                //特殊規則-[TKMOC].[dbo].[MOCMANULINEBATCHMODIFYS]
-                //限2層BOM可用批次修改
-                //3層以上BOM要另外寫
-                //小布雪專用
-                UPDATE_SPECIAL_MODIFY(textBoxID.Text.Trim(), textBox3.Text.Trim(), textBox7.Text.Trim(), dateTimePicker1.Value.ToString("yyyyMMdd"), textBox1.Text.Trim(), textBox40.Text.Trim(), textBox41.Text.Trim(), textBox42.Text.Trim());
-
-                //特殊規則-[TKMOC].[dbo].[MOCMANULINEBATCHMODIFYS_SANDWISH]
-                //限2層BOM可用批次修改
-                //3層以上BOM要另外寫
-                //三明冶內餡專用
-                UPDATE_MOCMANULINEBATCHMODIFYS_SANDWISH(textBoxID.Text.Trim(), textBox3.Text.Trim(), textBox7.Text.Trim(), dateTimePicker1.Value.ToString("yyyyMMdd"), textBox1.Text.Trim(), textBox40.Text.Trim(), textBox41.Text.Trim(), textBox42.Text.Trim());
+                MessageBox.Show("請確認必要欄位（ID、品號）皆已輸入！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
-          
+
+            button1.Enabled = false; // 防止連點造成重複執行
+
+            try
+            {
+                // 2. 先更新明細資料
+                UPDATEMOCMANULINE();
+
+                // 3. 檢查是否需依訂單單號重新計算數量
+                DataTable dtUsedCoptc = FIND_CHECK_MOCMANULINEBATCHMODIFYS_USED_COPTC_MERGE(mb001);
+
+                if (dtUsedCoptc?.Rows.Count > 0)
+                {
+                    DataTable dtNum = FIND_CHECK_MOCMANULINEBATCHMODIFYS_USED_COPTC_MERGE_COUNR_NUM(mb001, coptd001, coptd002, coptd003, manu);
+
+                    // 安全取得計算後的數量
+                    if (dtNum?.Rows.Count > 0 && dtNum.Rows[0]["NUM"] != DBNull.Value)
+                    {
+                        num = dtNum.Rows[0]["NUM"].ToString().Trim();
+                    }
+
+                    UPDATE_MOCMANULINEBATCHMODIFYS_SANDWISH(id, mb001, num, manuDate, manu, coptd001, coptd002, coptd003);                    
+       
+                 }
+                else
+                {
+                    // 4. 不需依訂單計算時，才查詢一般限定品號（避免多餘查詢）
+                    DataTable dtMb001 = FIND_CHECK_MB001(mb001);
+
+                    if (dtMb001?.Rows.Count > 0)
+                    {
+                        // 特殊規則：小布雪專用
+                        UPDATE_SPECIAL_MODIFY(id, mb001, num, manuDate, manu, coptd001, coptd002, coptd003);                      
+
+                        // 特殊規則：三明治內餡專用
+                        UPDATE_MOCMANULINEBATCHMODIFYS_SANDWISH(id, mb001, num, manuDate, manu, coptd001, coptd002, coptd003);
+                    }
+                }
+
+                //MessageBox.Show("資料更新完成！", "訊息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show($"更新過程發生錯誤：\n{ex.Message}", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                button1.Enabled = true;
+            }
 
         }
         private void button2_Click(object sender, EventArgs e)
