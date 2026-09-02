@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="11/14/2019 15:07:31" ReportInfo.Modified="12/03/2025 14:09:45" ReportInfo.CreatorVersion="2016.4.4.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="11/14/2019 15:07:31" ReportInfo.Modified="09/02/2026 15:43:18" ReportInfo.CreatorVersion="2017.4.1.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9JjyBAgIv92sZuqq+f8TK47">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNjHuzu89K+RQ2LIBVx1fpgNkNJhwC4eetn2/Uy0fMrO7zDUE5AmRb+0bcYI+lxqpNK7VAg28EMb2zujBtCWMs8uR7KE3TT1XHtlPqNg0WX9KzXShRtSGwPUXomYTrVLIE">
       <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT &#13;&#10;REPORTGEN.[TA001]  AS '製令'&#13;&#10;,REPORTGEN.[TA002] AS '製令號'&#13;&#10;,[YEARS] AS '年'&#13;&#10;,[MONTHS] AS '月'&#13;&#10;,[DAYS] AS '日'&#13;&#10;,[MB001] AS '品號'&#13;&#10;,[MB002] AS '品名'&#13;&#10;,[MB003] AS '規格'&#13;&#10;,[GENNUM]  AS '已生產量' &#13;&#10;,[BORADNUM]  AS '版數' &#13;&#10;,TA021 AS '生產線別'&#13;&#10;FROM [TKMOC].[dbo].[REPORTGEN]&#13;&#10;LEFT JOIN [TK].dbo.MOCTA ON MOCTA.TA001=REPORTGEN.TA001 AND MOCTA.TA002=REPORTGEN.TA002&#13;&#10;ORDER BY REPORTGEN.[TA001],REPORTGEN.[TA002],[BORADNUM]">
         <Column Name="製令" DataType="System.String"/>
         <Column Name="製令號" DataType="System.String"/>
@@ -30,7 +30,7 @@
       <TextObject Name="Text9" Left="9.45" Top="255.15" Width="94.5" Height="103.95" Border.Lines="All" Text="有效日期" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
       <TextObject Name="Text10" Left="9.45" Top="359.1" Width="94.5" Height="28.35" Border.Lines="All" Text="備註" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
       <TextObject Name="Text11" Left="103.95" Top="56.7" Width="217.35" Height="56.7" Border.Lines="All" Text="[Table.品名]" VertAlign="Center" Font="標楷體, 12pt"/>
-      <TextObject Name="Text12" Left="103.95" Top="113.4" Width="217.35" Height="28.35" Border.Lines="All" Text="[Table.規格]" VertAlign="Center" Font="標楷體, 12pt"/>
+      <TextObject Name="Text12" Left="103.95" Top="113.4" Width="217.35" Height="28.35" Border.Lines="All" Text="[Table.規格]" VertAlign="Center" Font="標楷體, 8pt"/>
       <TextObject Name="Text13" Left="103.95" Top="141.75" Width="217.35" Height="56.7" Border.Lines="All" Text="[Table.已生產量]" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
       <TextObject Name="Text16" Left="103.95" Top="255.15" Width="217.35" Height="103.95" Border.Lines="All" Text="[P1]" VertAlign="Center" Font="標楷體, 12pt"/>
       <TextObject Name="Text17" Left="103.95" Top="359.1" Width="217.35" Height="28.35" Border.Lines="All" Text="[Table.製令]-[Table.製令號]" HorzAlign="Center" VertAlign="Center" Font="標楷體, 14pt"/>
