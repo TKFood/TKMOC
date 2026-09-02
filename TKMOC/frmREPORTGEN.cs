@@ -63,6 +63,11 @@ namespace TKMOC
 
 
         #region FUNCTION
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            dateTimePicker2.Value = dateTimePicker1.Value;
+        }
+
         public void SEARCHMOCTA(DateTime dt,DateTime dt2)
         {
             try
@@ -160,7 +165,7 @@ namespace TKMOC
                     MB001 = null;
 
                 }
-            }
+            } 
         }
 
         public void SETFASTREPORT(string TA001,string TA002, string COMMENT, string NUM)
@@ -835,8 +840,9 @@ namespace TKMOC
         }
 
 
+
         #endregion
 
-
+       
     }
 }
