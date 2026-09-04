@@ -65,7 +65,7 @@ namespace TKMOC
         #region FUNCTION
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-            dateTimePicker2.Value = dateTimePicker1.Value;
+            dateTimePicker2.Value = dateTimePicker1.Value; 
         }
 
         public void SEARCHMOCTA(DateTime dt,DateTime dt2)
