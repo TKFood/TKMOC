@@ -23,6 +23,7 @@ using NPOI.XSSF.UserModel;
 using FastReport;
 using FastReport.Data;
 using TKITDLL;
+using NPOI.OpenXmlFormats.Wordprocessing;
 
 namespace TKMOC
 {
@@ -72,7 +73,7 @@ namespace TKMOC
             StringBuilder Sequel = new StringBuilder(); 
             Sequel.AppendFormat(@"
                                 SELECT  
-                                 [ID]
+                                 [MB001]
                                 ,[BOXNAMES]
                                 ,[ORDRES]
                                 FROM [TKMOC].[dbo].[TBOUTBOXNAMES]
@@ -83,7 +84,7 @@ namespace TKMOC
             DataTable dt = new DataTable();
             sqlConn.Open();
 
-            dt.Columns.Add("ID", typeof(string));
+            dt.Columns.Add("MB001", typeof(string));
             dt.Columns.Add("BOXNAMES", typeof(string)); 
             da.Fill(dt);
             comboBox1.DataSource = dt.DefaultView;
@@ -248,7 +249,7 @@ namespace TKMOC
             StringBuilder Sequel = new StringBuilder();
             Sequel.AppendFormat(@"
                                 SELECT
-                                [ID], [BOXNAMES], [MB001], [ORDRES], [ISUSED]
+                                 [MB001], [BOXNAMES], [ORDRES], [ISUSED]
                                 FROM [TKMOC].[dbo].[TBOUTBOXNAMES]
                                 WHERE [ISUSED]='Y'
                                 AND ([BOXNAMES] LIKE @BOXNAMES OR [MB001] LIKE @MB001)
@@ -266,7 +267,7 @@ namespace TKMOC
                 da.Fill(dt);
                 sqlConn.Close();
                  
-                if (dt != null && dt.Rows.Count >= 1)
+                if (dt != null && dt.Rows.Count >= 1) 
                 {
                     return dt;
                 }
@@ -321,6 +322,10 @@ namespace TKMOC
                 {
                     // 此行會觸發 comboBox1_SelectedIndexChanged，但因為 isProcessing=true 而被阻擋
                     comboBox1.Text = DT.Rows[0]["BOXNAMES"].ToString();
+                }
+                else
+                {
+                    MessageBox.Show("查無資料");
                 }
             }
             finally
