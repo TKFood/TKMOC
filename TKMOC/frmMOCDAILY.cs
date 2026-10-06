@@ -421,594 +421,152 @@ namespace TKMOC
             //原料用量，3開頭，單位不是KG，就把投入量*淨重/1000，加總
 
             SB.AppendFormat(@"
-                            SELECT 線別
-	                        ,SUBSTRING(製令單號, 1, 8) AS '日期'
-	                        ,品號
-	                        ,品名
-	                        ,規格
-	                        ,製令單別
-	                        ,製令單號
-	                        ,生產單位
-	                        ,預計產量
-	                        ,生產量
-	                        ,桶數
-	                        ,淨重
-	                        ,單片重
-	                        ,袋重
-	                        ,袋重比
-	                        ,蒸發率
-	                        ,原料用量
-	                        ,成品用量 / 1000 AS 成品用量
-	                        ,類別
-	                        ,領料是否扣袋重
-	                        ,成品是否扣袋重
-	                        ,CASE 
-		                        WHEN 領料是否扣袋重 IN ('Y')
-			                        AND 成品是否扣袋重 IN ('Y')
-			                        AND 類別 NOT IN (
-				                        '半成品'
-				                        ,'個'
-				                        ,'試吃'
-				                        ,'片'
-				                        ,'單包'
-				                        ,'kg'
-				                        )
-			                        AND (原料用量 * (1 - (蒸發率 / 100)) + (成品用量 / 1000) - (袋重比 * 原料用量)) > 0
-			                        THEN (((生產量 * 淨重 * (1 - 袋重比))) / 1000) / (原料用量 * (1 - (蒸發率 / 100)) + (成品用量 / 1000) - (袋重比 * 原料用量))
-		                        ELSE 0
-		                        END AS '領料扣成品扣的得料率'
-	                        ,CASE 
-		                        WHEN 領料是否扣袋重 IN ('Y')
-			                        AND 成品是否扣袋重 IN ('N')
-			                        AND 類別 NOT IN (
-				                        '半成品'
-				                        ,'個'
-				                        ,'試吃'
-				                        ,'片'
-				                        ,'單包'
-				                        ,'kg'
-				                        )
-			                        AND (原料用量 * (1 - (蒸發率 / 100)) + (成品用量 / 1000)) > 0
-			                        THEN (((生產量 * 淨重)) / 1000) / (原料用量 * (1 - 蒸發率) + (成品用量 / 1000) - (袋重比 * 原料用量))
-		                        ELSE 0
-		                        END AS '領料扣成品不扣的得料率'
-	                        ,CASE 
-		                        WHEN 領料是否扣袋重 IN ('N')
-			                        AND 成品是否扣袋重 IN ('Y')
-			                        AND 類別 NOT IN (
-				                        '半成品'
-				                        ,'個'
-				                        ,'試吃'
-				                        ,'片'
-				                        ,'單包'
-				                        ,'kg'
-				                        )
-			                        AND (原料用量 * (1 - (蒸發率 / 100)) + (成品用量 / 1000) - (袋重比 * 原料用量)) > 0
-			                        THEN (((生產量 * 淨重 * (1 - 袋重比))) / 1000) / (原料用量 * (1 - (蒸發率 / 100)) + (成品用量 / 1000))
-		                        ELSE 0
-		                        END AS '領料不扣成品扣的得料率'
-	                        ,CASE 
-		                        WHEN 領料是否扣袋重 IN ('N')
-			                        AND 成品是否扣袋重 IN ('N')
-			                        AND 類別 NOT IN (
-				                        '半成品'
-				                        ,'個'
-				                        ,'試吃'
-				                        ,'片'
-				                        ,'單包'
-				                        ,'kg'
-				                        )
-			                        AND (原料用量 * (1 - (蒸發率 / 100)) + (成品用量 / 1000)) > 0
-			                        THEN (((生產量 * 淨重) / 1000) / (原料用量 * (1 - (蒸發率 / 100)) + (成品用量 / 1000)))
-		                        ELSE 0
-		                        END AS '領料不扣成品不扣的得料率'
-	                        ,CASE 
-		                        WHEN 類別 IN ('半成品')
-			                        AND 原料用量 > 0
-			                        AND 成品是否扣袋重 IN ('Y')
-			                        THEN (生產量 - (生產量 * 袋重比)) / (原料用量 * (1 - 蒸發率 / 100))
-		                        ELSE 0
-		                        END AS '半成品得料率成品扣袋重'
-	                        ,CASE 
-		                        WHEN 類別 IN ('半成品')
-			                        AND 原料用量 > 0
-			                        AND 成品是否扣袋重 IN ('N')
-			                        THEN (生產量) / (原料用量 * (1 - 蒸發率 / 100))
-		                        ELSE 0
-		                        END AS '半成品得料率成品不扣袋重'
-	                        ,CASE 
-		                        WHEN 類別 IN (
-				                        '個'
-				                        ,'試吃'
-				                        )
-			                        AND 原料用量 > 0
-			                        AND (原料用量 * (1 - (蒸發率 / 100))) > 0
-			                        THEN (生產量 * 淨重 / 1000) / (原料用量 * (1 - (蒸發率 / 100)))
-		                        ELSE 0
-		                        END AS '個試吃得料率'
-	                        ,CASE 
-		                        WHEN 類別 IN ('片')
-			                        AND 原料用量 > 0
-			                        AND (原料用量 * (1 - (蒸發率 / 100)) - (原料用量 * 袋重比)) > 0
-			                        THEN (生產量 * 淨重 / 1000) / (原料用量 * (1 - (蒸發率 / 100)) - (原料用量 * 袋重比))
-		                        ELSE 0
-		                        END AS '片得料率'
-	                        ,CASE 
-		                        WHEN 類別 IN ('單包')
-			                        AND 原料用量 > 0
-			                        THEN 生產量 / 原料用量
-		                        ELSE 0
-		                        END AS '單包得料率'
-	                        ,CASE 
-		                        WHEN 類別 IN ('kg')
-			                        AND (原料用量 * (1 - (蒸發率 / 100)) - (原料用量 * 袋重比)) > 0
-			                        THEN ((生產量) / (原料用量 * (1 - (蒸發率 / 100)) + (成品用量 / 1000) - (原料用量 * 袋重比)))
-		                        ELSE 0
-		                        END AS 'kg得料率'
-	                        ,(
-		                        CASE 
-			                        WHEN 類別 IN ('過篩後')
-				                        AND 原料用量 > 0
-				                        THEN 生產量 / 原料用量
-			                        ELSE 0
-			                        END
-		                        ) AS '過篩後得料率'
-	                        ,(
-		                        CASE 
-			                        WHEN 領料是否扣袋重 IN ('Y')
-				                        AND 成品是否扣袋重 IN ('Y')
-				                        AND 類別 NOT IN (
-					                        '半成品'
-					                        ,'個'
-					                        ,'試吃'
-					                        ,'片'
-					                        ,'單包'
-					                        ,'kg'
-					                        )
-				                        AND (原料用量 * (1 - (蒸發率 / 100)) + (成品用量 / 1000) - (袋重比 * 原料用量)) > 0
-				                        THEN (((生產量 * 淨重 * (1 - 袋重比))) / 1000) / (原料用量 * (1 - (蒸發率 / 100)) + (成品用量 / 1000) - (袋重比 * 原料用量))
-			                        ELSE 0
-			                        END
-		                        ) + (
-		                        CASE 
-			                        WHEN 領料是否扣袋重 IN ('Y')
-				                        AND 成品是否扣袋重 IN ('N')
-				                        AND 類別 NOT IN (
-					                        '半成品'
-					                        ,'個'
-					                        ,'試吃'
-					                        ,'片'
-					                        ,'單包'
-					                        ,'kg'
-					                        )
-				                        AND (原料用量 * (1 - (蒸發率 / 100)) + (成品用量 / 1000)) > 0
-				                        THEN (((生產量 * 淨重)) / 1000) / (原料用量 * (1 - 蒸發率) + (成品用量 / 1000) - (袋重比 * 原料用量))
-			                        ELSE 0
-			                        END
-		                        ) + (
-		                        CASE 
-			                        WHEN 領料是否扣袋重 IN ('N')
-				                        AND 成品是否扣袋重 IN ('Y')
-				                        AND 類別 NOT IN (
-					                        '半成品'
-					                        ,'個'
-					                        ,'試吃'
-					                        ,'片'
-					                        ,'單包'
-					                        ,'kg'
-					                        )
-				                        AND (原料用量 * (1 - (蒸發率 / 100)) + (成品用量 / 1000) - (袋重比 * 原料用量)) > 0
-				                        THEN (((生產量 * 淨重 * (1 - 袋重比))) / 1000) / (原料用量 * (1 - (蒸發率 / 100)) + (成品用量 / 1000))
-			                        ELSE 0
-			                        END
-		                        ) + (
-		                        CASE 
-			                        WHEN 領料是否扣袋重 IN ('N')
-				                        AND 成品是否扣袋重 IN ('N')
-				                        AND 類別 NOT IN (
-					                        '半成品'
-					                        ,'個'
-					                        ,'試吃'
-					                        ,'片'
-					                        ,'單包'
-					                        ,'kg'
-					                        )
-				                        AND (原料用量 * (1 - (蒸發率 / 100)) + (成品用量 / 1000)) > 0
-				                        THEN (((生產量 * 淨重) / 1000) / (原料用量 * (1 - (蒸發率 / 100)) + (成品用量 / 1000)))
-			                        ELSE 0
-			                        END
-		                        ) + (
-		                        CASE 
-			                        WHEN 類別 IN ('半成品')
-				                        AND 原料用量 > 0
-				                        AND 成品是否扣袋重 IN ('Y')
-				                        THEN (生產量 - (生產量 * 袋重比)) / (原料用量 * (1 - 蒸發率 / 100))
-			                        ELSE 0
-			                        END
-		                        ) + (
-		                        CASE 
-			                        WHEN 類別 IN ('半成品')
-				                        AND 原料用量 > 0
-				                        AND 成品是否扣袋重 IN ('N')
-				                        THEN (生產量) / (原料用量 * (1 - 蒸發率 / 100))
-			                        ELSE 0
-			                        END
-		                        ) + (
-		                        CASE 
-			                        WHEN 類別 IN (
-					                        '個'
-					                        ,'試吃'
-					                        )
-				                        AND 原料用量 > 0
-				                        AND (原料用量 * (1 - (蒸發率 / 100))) > 0
-				                        THEN (生產量 * 淨重 / 1000) / (原料用量 * (1 - (蒸發率 / 100)))
-			                        ELSE 0
-			                        END
-		                        ) + (
-		                        CASE 
-			                        WHEN 類別 IN ('片')
-				                        AND 原料用量 > 0
-				                        AND (原料用量 * (1 - (蒸發率 / 100)) - (原料用量 * 袋重比)) > 0
-				                        THEN (生產量 * 淨重 / 1000) / (原料用量 * (1 - (蒸發率 / 100)) - (原料用量 * 袋重比))
-			                        ELSE 0
-			                        END
-		                        ) + (
-		                        CASE 
-			                        WHEN 類別 IN ('單包')
-				                        AND 原料用量 > 0
-				                        THEN 生產量 / 原料用量
-			                        ELSE 0
-			                        END
-		                        ) + (
-		                        CASE 
-			                        WHEN 類別 IN ('kg')
-				                        AND (原料用量 * (1 - (蒸發率 / 100)) - (原料用量 * 袋重比)) > 0
-				                        THEN ((生產量) / (原料用量 * (1 - (蒸發率 / 100)) + (成品用量 / 1000) - (原料用量 * 袋重比)))
-			                        ELSE 0
-			                        END
-		                        )+ (
-		                        CASE 
-			                        WHEN 類別 IN ('過篩後')
-				                        AND 原料用量 > 0
-				                        THEN 生產量 / 原料用量
-			                        ELSE 0
-			                        END) AS '得料率'
-	                        ,(
-		                        CASE 
-			                        WHEN 領料是否扣袋重 IN ('Y')
-				                        AND 成品是否扣袋重 IN ('Y')
-				                        AND 類別 NOT IN (
-					                        '半成品'
-					                        ,'個'
-					                        ,'試吃'
-					                        ,'片'
-					                        ,'單包'
-					                        ,'kg'
-					                        )
-				                        AND (原料用量 * (1 - (蒸發率 / 100)) + (成品用量 / 1000) - (袋重比 * 原料用量)) > 0
-				                        THEN (((生產量 * 淨重 * (1 - 袋重比))) / 1000)
-			                        ELSE 0
-			                        END
-		                        ) + (
-		                        CASE 
-			                        WHEN 領料是否扣袋重 IN ('Y')
-				                        AND 成品是否扣袋重 IN ('N')
-				                        AND 類別 NOT IN (
-					                        '半成品'
-					                        ,'個'
-					                        ,'試吃'
-					                        ,'片'
-					                        ,'單包'
-					                        ,'kg'
-					                        )
-				                        AND (原料用量 * (1 - (蒸發率 / 100)) + (成品用量 / 1000)) > 0
-				                        THEN (((生產量 * 淨重)) / 1000)
-			                        ELSE 0
-			                        END
-		                        ) + (
-		                        CASE 
-			                        WHEN 領料是否扣袋重 IN ('N')
-				                        AND 成品是否扣袋重 IN ('Y')
-				                        AND 類別 NOT IN (
-					                        '半成品'
-					                        ,'個'
-					                        ,'試吃'
-					                        ,'片'
-					                        ,'單包'
-					                        ,'kg'
-					                        )
-				                        AND (原料用量 * (1 - (蒸發率 / 100)) + (成品用量 / 1000) - (袋重比 * 原料用量)) > 0
-				                        THEN (((生產量 * 淨重 * (1 - 袋重比))) / 1000)
-			                        ELSE 0
-			                        END
-		                        ) + (
-		                        CASE 
-			                        WHEN 領料是否扣袋重 IN ('N')
-				                        AND 成品是否扣袋重 IN ('N')
-				                        AND 類別 NOT IN (
-					                        '半成品'
-					                        ,'個'
-					                        ,'試吃'
-					                        ,'片'
-					                        ,'單包'
-					                        ,'kg'
-					                        )
-				                        AND (原料用量 * (1 - (蒸發率 / 100)) + (成品用量 / 1000)) > 0
-				                        THEN ((生產量 * 淨重) / 1000)
-			                        ELSE 0
-			                        END
-		                        ) + (
-		                        CASE 
-			                        WHEN 類別 IN ('半成品')
-				                        AND 原料用量 > 0
-				                        AND 成品是否扣袋重 IN ('Y')
-				                        THEN (生產量 - (生產量 * 袋重比))
-			                        ELSE 0
-			                        END
-		                        ) + (
-		                        CASE 
-			                        WHEN 類別 IN ('半成品')
-				                        AND 原料用量 > 0
-				                        AND 成品是否扣袋重 IN ('N')
-				                        THEN (生產量)
-			                        ELSE 0
-			                        END
-		                        ) + (
-		                        CASE 
-			                        WHEN 類別 IN (
-					                        '個'
-					                        ,'試吃'
-					                        )
-				                        AND 原料用量 > 0
-				                        AND (原料用量 * (1 - (蒸發率 / 100))) > 0
-				                        THEN (生產量 * 淨重 / 1000)
-			                        ELSE 0
-			                        END
-		                        ) + (
-		                        CASE 
-			                        WHEN 類別 IN ('片')
-				                        AND 原料用量 > 0
-				                        AND (原料用量 * (1 - (蒸發率 / 100)) - (原料用量 * 袋重比)) > 0
-				                        THEN (生產量 * 淨重 / 1000)
-			                        ELSE 0
-			                        END
-		                        ) + (
-		                        CASE 
-			                        WHEN 類別 IN ('單包')
-				                        AND 原料用量 > 0
-				                        THEN 生產量
-			                        ELSE 0
-			                        END
-		                        ) + (
-		                        CASE 
-			                        WHEN 類別 IN ('kg')
-				                        AND (原料用量 * (1 - (蒸發率 / 100)) - (原料用量 * 袋重比)) > 0
-				                        THEN ((生產量))
-			                        ELSE 0
-			                        END
-		                        ) + (
-		                        CASE 
-			                        WHEN 類別 IN ('過篩後')
-				                        AND 原料用量 > 0
-				                        THEN 生產量
-			                        ELSE 0
-			                        END
-		                        ) AS '分子'
-	                        ,(
-		                        CASE 
-			                        WHEN 領料是否扣袋重 IN ('Y')
-				                        AND 成品是否扣袋重 IN ('Y')
-				                        AND 類別 NOT IN (
-					                        '半成品'
-					                        ,'個'
-					                        ,'試吃'
-					                        ,'片'
-					                        ,'單包'
-					                        ,'kg'
-					                        )
-				                        AND (原料用量 * (1 - (蒸發率 / 100)) + (成品用量 / 1000) - (袋重比 * 原料用量)) > 0
-				                        THEN (原料用量 * (1 - (蒸發率 / 100)) + (成品用量 / 1000) - (袋重比 * 原料用量))
-			                        ELSE 0
-			                        END
-		                        ) + (
-		                        CASE 
-			                        WHEN 領料是否扣袋重 IN ('Y')
-				                        AND 成品是否扣袋重 IN ('N')
-				                        AND 類別 NOT IN (
-					                        '半成品'
-					                        ,'個'
-					                        ,'試吃'
-					                        ,'片'
-					                        ,'單包'
-					                        ,'kg'
-					                        )
-				                        AND (原料用量 * (1 - (蒸發率 / 100)) + (成品用量 / 1000)) > 0
-				                        THEN (原料用量 * (1 - 蒸發率) + (成品用量 / 1000) - (袋重比 * 原料用量))
-			                        ELSE 0
-			                        END
-		                        ) + (
-		                        CASE 
-			                        WHEN 領料是否扣袋重 IN ('N')
-				                        AND 成品是否扣袋重 IN ('Y')
-				                        AND 類別 NOT IN (
-					                        '半成品'
-					                        ,'個'
-					                        ,'試吃'
-					                        ,'片'
-					                        ,'單包'
-					                        ,'kg'
-					                        )
-				                        AND (原料用量 * (1 - (蒸發率 / 100)) + (成品用量 / 1000) - (袋重比 * 原料用量)) > 0
-				                        THEN (原料用量 * (1 - (蒸發率 / 100)) + (成品用量 / 1000))
-			                        ELSE 0
-			                        END
-		                        ) + (
-		                        CASE 
-			                        WHEN 領料是否扣袋重 IN ('N')
-				                        AND 成品是否扣袋重 IN ('N')
-				                        AND 類別 NOT IN (
-					                        '半成品'
-					                        ,'個'
-					                        ,'試吃'
-					                        ,'片'
-					                        ,'單包'
-					                        ,'kg'
-					                        )
-				                        AND (原料用量 * (1 - (蒸發率 / 100)) + (成品用量 / 1000)) > 0
-				                        THEN ((原料用量 * (1 - (蒸發率 / 100)) + (成品用量 / 1000)))
-			                        ELSE 0
-			                        END
-		                        ) + (
-		                        CASE 
-			                        WHEN 類別 IN ('半成品')
-				                        AND 原料用量 > 0
-				                        AND 成品是否扣袋重 IN ('Y')
-				                        THEN (原料用量 * (1 - 蒸發率 / 100))
-			                        ELSE 0
-			                        END
-		                        ) + (
-		                        CASE 
-			                        WHEN 類別 IN ('半成品')
-				                        AND 原料用量 > 0
-				                        AND 成品是否扣袋重 IN ('N')
-				                        THEN (原料用量 * (1 - 蒸發率 / 100))
-			                        ELSE 0
-			                        END
-		                        ) + (
-		                        CASE 
-			                        WHEN 類別 IN (
-					                        '個'
-					                        ,'試吃'
-					                        )
-				                        AND 原料用量 > 0
-				                        AND (原料用量 * (1 - (蒸發率 / 100))) > 0
-				                        THEN (原料用量 * (1 - (蒸發率 / 100)))
-			                        ELSE 0
-			                        END
-		                        ) + (
-		                        CASE 
-			                        WHEN 類別 IN ('片')
-				                        AND 原料用量 > 0
-				                        AND (原料用量 * (1 - (蒸發率 / 100)) - (原料用量 * 袋重比)) > 0
-				                        THEN (原料用量 * (1 - (蒸發率 / 100)) - (原料用量 * 袋重比))
-			                        ELSE 0
-			                        END
-		                        ) + (
-		                        CASE 
-			                        WHEN 類別 IN ('單包')
-				                        AND 原料用量 > 0
-				                        THEN 原料用量
-			                        ELSE 0
-			                        END
-		                        ) + (
-		                        CASE 
-			                        WHEN 類別 IN ('kg')
-				                        AND (原料用量 * (1 - (蒸發率 / 100)) - (原料用量 * 袋重比)) > 0
-				                        THEN ((原料用量 * (1 - (蒸發率 / 100)) + (成品用量 / 1000) - (原料用量 * 袋重比)))
-			                        ELSE 0
-			                        END
-		                        ) + (
-		                        CASE 
-			                        WHEN 類別 IN ('過篩後')
-				                        AND 原料用量 > 0
-				                        THEN 原料用量
-			                        ELSE 0
-			                        END
-		                        ) AS '分母'
-                        FROM (
-	                        SELECT MD002 AS '線別'
-		                        ,TA006 AS '品號'
-		                        ,TA034 AS '品名'
-		                        ,MB003 AS '規格'
-		                        ,TA001 AS '製令單別'
-		                        ,TA002 AS '製令單號'
-		                        ,TA007 AS '生產單位'
-		                        ,INVMB.UDF03 AS '類別'
-		                        ,TA015 AS '預計產量'
-		                        ,TA017 AS '生產量'
-		                        ,INVMB.UDF07 AS '淨重'
-		                        ,INVMB.UDF08 AS '單片重'
-		                        ,INVMB.UDF09 AS '袋重'
-		                        ,INVMB.UDF06 AS '蒸發率'
-		                        ,INVMB.UDF01 AS '成品是否扣袋重'
-		                        ,INVMB.UDF02 AS '領料是否扣袋重'
-		                        ,(
-			                        (
-				                        SELECT ISNULL(SUM(TB005), 0)
-				                        FROM [TK].dbo.MOCTB TB
-				                        WHERE (
-						                        TB.TB003 LIKE '1%'
-						                        OR TB.TB003 LIKE '3%'
-						                        )
-					                        AND TB007 IN (
-						                        'kg'
-						                        ,'KG'
-						                        ,'Kg'
-						                        ,'kG'
-						                        ,'公升'
-						                        )
-					                        AND TB.TB001 = MOCTA.TA001
-					                        AND TB.TB002 = MOCTA.TA002
-				                        ) + (
-				                        SELECT ISNULL(SUM(TB005 * MB.UDF07 / 1000), 0)
-				                        FROM [TK].dbo.MOCTB TB
-					                        ,[TK].dbo.INVMB MB
-				                        WHERE MB.MB001 = TB.TB003
-					                        AND (
-						                        TB.TB003 LIKE '3%'
-						                        AND TB007 NOT IN (
-							                        'kg'
-							                        ,'KG'
-							                        ,'Kg'
-							                        ,'kG'
-							                        ,'公升'
-							                        )
-						                        )
-					                        AND TB.TB001 = MOCTA.TA001
-					                        AND TB.TB002 = MOCTA.TA002
-				                        )
-			                        ) AS '原料用量'
-		                        ,(
-			                        SELECT ISNULL(SUM(TB005 * MB.UDF07), 0)
-			                        FROM [TK].dbo.MOCTB TB
-				                        ,[TK].dbo.INVMB MB
-			                        WHERE TB.TB003 = MB.MB001
-				                        AND TB.TB003 LIKE '4%'
-				                        AND TB.TB001 = MOCTA.TA001
-				                        AND TB.TB002 = MOCTA.TA002
-			                        ) AS '成品用量'
-		                        ,CASE 
-			                        WHEN INVMB.UDF08 > 0
-				                        AND INVMB.UDF09 > 0
-				                        THEN 1 / (INVMB.UDF08 + INVMB.UDF09) * INVMB.UDF09
-			                        ELSE 0
-			                        END AS '袋重比'
-		                        ,CONVERT(DECIMAL(16, 3), (
-				                        TA015 / ISNULL((
-						                        SELECT TOP 1 MC004
-						                        FROM [TK].dbo.BOMMC
-						                        WHERE MC001 = MB001
-						                        ), 1)
-				                        )) AS '桶數'
-	                        FROM [TK].dbo.INVMB
-		                        ,[TK].dbo.MOCTA
-		                        ,[TK].dbo.CMSMD
-	                        WHERE TA006 = MB001
-		                        AND TA021 = MD001
-		                        --AND ISNULL(INVMB.UDF03,'')<>''
-		                        AND TA013 IN (
-			                        'Y'
-			                        ,'N'
-			                        )
-		                        AND TA003 >= '{0}'
-		                        AND TA003 <= '{1}'
-		
-	                        ) AS TEMP
-                        WHERE 1 = 1
-	                        AND 線別 = '{2}'
-                        ORDER BY 線別
-	                        ,SUBSTRING(製令單號, 1, 8)
-	                        ,品號
+                           WITH TEMP AS (
+                            SELECT 
+                                MD.MD002 AS [線別],
+                                TA.TA006 AS [品號],
+                                TA.TA034 AS [品名],
+                                MB.MB003 AS [規格],
+                                TA.TA001 AS [製令單別],
+                                TA.TA002 AS [製令單號],
+                                TA.TA007 AS [生產單位],
+                                TA.TA015 AS [預計產量],
+                                TA.TA017 AS [生產量],
+                                MB.UDF03 AS [類別],
+                                MB.UDF07 AS [淨重],
+                                MB.UDF08 AS [單片重],
+                                MB.UDF09 AS [袋重],
+                                ISNULL(MB.UDF06, 0) AS [蒸發率],
+                                MB.UDF01 AS [成品是否扣袋重],
+                                MB.UDF02 AS [領料是否扣袋重],
+        
+                                -- 原料用量
+                                (
+                                    SELECT ISNULL(SUM(TB005), 0)
+                                    FROM [TK].dbo.MOCTB TB WITH (NOLOCK)
+                                    WHERE (TB.TB003 LIKE '1%' OR TB.TB003 LIKE '3%')
+                                        AND TB.TB007 IN ('kg', 'KG', 'Kg', 'kG', '公升')
+                                        AND TB.TB001 = TA.TA001 AND TB.TB002 = TA.TA002
+                                ) + (
+                                    SELECT ISNULL(SUM(TB.TB005 * BMB.UDF07 / 1000.0), 0)
+                                    FROM [TK].dbo.MOCTB TB WITH (NOLOCK)
+                                    JOIN [TK].dbo.INVMB BMB WITH (NOLOCK) ON BMB.MB001 = TB.TB003
+                                    WHERE TB.TB003 LIKE '3%' 
+                                        AND TB.TB007 NOT IN ('kg', 'KG', 'Kg', 'kG', '公升')
+                                        AND TB.TB001 = TA.TA001 AND TB.TB002 = TA.TA002
+                                ) AS [原料用量],
+        
+                                -- 成品用量
+                                (
+                                    SELECT ISNULL(SUM(TB.TB005 * BMB.UDF07), 0)
+                                    FROM [TK].dbo.MOCTB TB WITH (NOLOCK)
+                                    JOIN [TK].dbo.INVMB BMB WITH (NOLOCK) ON BMB.MB001 = TB.TB003
+                                    WHERE TB.TB003 LIKE '4%'
+                                        AND TB.TB001 = TA.TA001 AND TB.TB002 = TA.TA002
+                                ) AS [成品用量],
+        
+                                -- 袋重比
+                                CASE 
+                                    WHEN MB.UDF08 > 0 AND MB.UDF09 > 0 
+                                        THEN (1.0 / (MB.UDF08 + MB.UDF09)) * MB.UDF09
+                                    ELSE 0 
+                                END AS [袋重比],
+        
+                                -- 桶數
+                                CONVERT(DECIMAL(16, 3), (
+                                    TA.TA015 / ISNULL((
+                                        SELECT TOP 1 MC004 
+                                        FROM [TK].dbo.BOMMC WITH (NOLOCK) 
+                                        WHERE MC001 = MB.MB001
+                                    ), 1)
+                                )) AS [桶數]
+                            FROM [TK].dbo.MOCTA TA WITH (NOLOCK)
+                            JOIN [TK].dbo.INVMB MB WITH (NOLOCK) ON TA.TA006 = MB.MB001
+                            LEFT JOIN [TK].dbo.CMSMD MD WITH (NOLOCK) ON TA.TA021 = MD.MD001
+                            WHERE TA.TA013 IN ('Y', 'N')
+                                AND TA.TA003 >= '{0}'
+                                AND TA.TA003 <= '{1}'
+                        ),
+                        CALC_BASE AS (
+                            SELECT 
+                                *,
+                                (成品用量 / 1000.0) AS 成品用量_K,
+                                -- 通用成品類別過濾條件
+                                CASE WHEN 類別 NOT IN ('半成品', '個', '試吃', '片', '單包', 'kg') THEN 1 ELSE 0 END AS [is_standard_category],
+                                -- 計算基礎量項
+                                (原料用量 * (1.0 - (蒸發率 / 100.0))) AS [蒸發後原料],
+                                (原料用量 * 袋重比) AS [領料袋重],
+                                ((生產量 * 淨重) / 1000.0) AS [成品總淨重_K]
+                            FROM TEMP
+                        )
+                        SELECT 
+                            線別,
+                            SUBSTRING(製令單號, 1, 8) AS [日期],
+                            品號, 品名, 規格, 製令單別, 製令單號, 生產單位, 預計產量, 生產量, 桶數, 淨重, 單片重, 袋重, 袋重比, 蒸發率, 原料用量,
+                            成品用量_K AS 成品用量,
+                            類別, 領料是否扣袋重, 成品是否扣袋重,
+
+                            -- 各分類獨立得料率指標
+                            CASE WHEN is_standard_category = 1 AND 領料是否扣袋重 = 'Y' AND 成品是否扣袋重 = 'Y' AND (蒸發後原料 + 成品用量_K - 領料袋重) > 0 
+                                    THEN (成品總淨重_K * (1.0 - 袋重比)) / (蒸發後原料 + 成品用量_K - 領料袋重) ELSE 0 END AS [領料扣成品扣的得料率],
+         
+                            CASE WHEN is_standard_category = 1 AND 領料是否扣袋重 = 'Y' AND 成品是否扣袋重 = 'N' AND (蒸發後原料 + 成品用量_K) > 0 
+                                    THEN 成品總淨重_K / (蒸發後原料 + 成品用量_K - 領料袋重) ELSE 0 END AS [領料扣成品不扣的得料率],
+         
+                            CASE WHEN is_standard_category = 1 AND 領料是否扣袋重 = 'N' AND 成品是否扣袋重 = 'Y' AND (蒸發後原料 + 成品用量_K - 領料袋重) > 0 
+                                    THEN (成品總淨重_K * (1.0 - 袋重比)) / (蒸發後原料 + 成品用量_K) ELSE 0 END AS [領料不扣成品扣的得料率],
+         
+                            CASE WHEN is_standard_category = 1 AND 領料是否扣袋重 = 'N' AND 成品是否扣袋重 = 'N' AND (蒸發後原料 + 成品用量_K) > 0 
+                                    THEN 成品總淨重_K / (蒸發後原料 + 成品用量_K) ELSE 0 END AS [領料不扣成品不扣的得料率],
+
+                            CASE WHEN 類別 = '半成品' AND 原料用量 > 0 AND 成品是否扣袋重 = 'Y' THEN (生產量 * (1.0 - 袋重比)) / 蒸發後原料 ELSE 0 END AS [半成品得料率成品扣袋重],
+                            CASE WHEN 類別 = '半成品' AND 原料用量 > 0 AND 成品是否扣袋重 = 'N' THEN 生產量 / 蒸發後原料 ELSE 0 END AS [半成品得料率成品不扣袋重],
+                            CASE WHEN 類別 IN ('個', '試吃') AND 蒸發後原料 > 0 THEN 成品總淨重_K / 蒸發後原料 ELSE 0 END AS [個試吃得料率],
+                            CASE WHEN 類別 = '片' AND (蒸發後原料 - 領料袋重) > 0 THEN 成品總淨重_K / (蒸發後原料 - 領料袋重) ELSE 0 END AS [片得料率],
+                            CASE WHEN 類別 = '單包' AND 原料用量 > 0 THEN 生產量 / 原料用量 ELSE 0 END AS [單包得料率],
+                            CASE WHEN 類別 = 'kg' AND (蒸發後原料 - 領料袋重) > 0 THEN 生產量 / (蒸發後原料 + 成品用量_K - 領料袋重) ELSE 0 END AS [kg得料率],
+                            CASE WHEN 類別 = '過篩後' AND 原料用量 > 0 THEN 生產量 / 原料用量 ELSE 0 END AS [過篩後得料率],
+
+                            -- 算式中的「分子」總合
+                            VAL_NUMERATOR AS [分子],
+    
+                            -- 算式中的「分母」總合
+                            VAL_DENOMINATOR AS [分母],
+
+                            -- 得料率（分子 / 分母，使用 NULLIF 避免 Divide by Zero Error）
+                            ISNULL(VAL_NUMERATOR / NULLIF(VAL_DENOMINATOR, 0), 0) AS [得料率]
+
+                        FROM CALC_BASE
+                        CROSS APPLY (
+                            -- 利用 CROSS APPLY 在單列中進行「分子」與「分母」加總計算，不需重複寫 10 次 CASE WHEN
+                            SELECT 
+                                -- 計算分子
+                                (CASE WHEN is_standard_category = 1 AND 領料是否扣袋重 = 'Y' AND 成品是否扣袋重 = 'Y' AND (蒸發後原料 + 成品用量_K - 領料袋重) > 0 THEN 成品總淨重_K * (1.0 - 袋重比) ELSE 0 END) +
+                                (CASE WHEN is_standard_category = 1 AND 領料是否扣袋重 = 'Y' AND 成品是否扣袋重 = 'N' AND (蒸發後原料 + 成品用量_K) > 0 THEN 成品總淨重_K ELSE 0 END) +
+                                (CASE WHEN is_standard_category = 1 AND 領料是否扣袋重 = 'N' AND 成品是否扣袋重 = 'Y' AND (蒸發後原料 + 成品用量_K - 領料袋重) > 0 THEN 成品總淨重_K * (1.0 - 袋重比) ELSE 0 END) +
+                                (CASE WHEN is_standard_category = 1 AND 領料是否扣袋重 = 'N' AND 成品是否扣袋重 = 'N' AND (蒸發後原料 + 成品用量_K) > 0 THEN 成品總淨重_K ELSE 0 END) +
+                                (CASE WHEN 類別 = '半成品' AND 原料用量 > 0 AND 成品是否扣袋重 = 'Y' THEN 生產量 * (1.0 - 袋重比) ELSE 0 END) +
+                                (CASE WHEN 類別 = '半成品' AND 原料用量 > 0 AND 成品是否扣袋重 = 'N' THEN 生產量 ELSE 0 END) +
+                                (CASE WHEN 類別 IN ('個', '試吃') AND 蒸發後原料 > 0 THEN 成品總淨重_K ELSE 0 END) +
+                                (CASE WHEN 類別 = '片' AND (蒸發後原料 - 領料袋重) > 0 THEN 成品總淨重_K ELSE 0 END) +
+                                (CASE WHEN 類別 = '單包' AND 原料用量 > 0 THEN 生產量 ELSE 0 END) +
+                                (CASE WHEN 類別 = 'kg' AND (蒸發後原料 - 領料袋重) > 0 THEN 生產量 ELSE 0 END) +
+                                (CASE WHEN 類別 = '過篩後' AND 原料用量 > 0 THEN 生產量 ELSE 0 END) AS VAL_NUMERATOR,
+
+                                -- 計算分母
+                                (CASE WHEN is_standard_category = 1 AND 領料是否扣袋重 = 'Y' AND 成品是否扣袋重 = 'Y' AND (蒸發後原料 + 成品用量_K - 領料袋重) > 0 THEN (蒸發後原料 + 成品用量_K - 領料袋重) ELSE 0 END) +
+                                (CASE WHEN is_standard_category = 1 AND 領料是否扣袋重 = 'Y' AND 成品是否扣袋重 = 'N' AND (蒸發後原料 + 成品用量_K) > 0 THEN (蒸發後原料 + 成品用量_K - 領料袋重) ELSE 0 END) +
+                                (CASE WHEN is_standard_category = 1 AND 領料是否扣袋重 = 'N' AND 成品是否扣袋重 = 'Y' AND (蒸發後原料 + 成品用量_K - 領料袋重) > 0 THEN (蒸發後原料 + 成品用量_K) ELSE 0 END) +
+                                (CASE WHEN is_standard_category = 1 AND 領料是否扣袋重 = 'N' AND 成品是否扣袋重 = 'N' AND (蒸發後原料 + 成品用量_K) > 0 THEN (蒸發後原料 + 成品用量_K) ELSE 0 END) +
+                                (CASE WHEN 類別 = '半成品' AND 原料用量 > 0 THEN 蒸發後原料 ELSE 0 END) +
+                                (CASE WHEN 類別 IN ('個', '試吃') AND 蒸發後原料 > 0 THEN 蒸發後原料 ELSE 0 END) +
+                                (CASE WHEN 類別 = '片' AND (蒸發後原料 - 領料袋重) > 0 THEN (蒸發後原料 - 領料袋重) ELSE 0 END) +
+                                (CASE WHEN 類別 = '單包' AND 原料用量 > 0 THEN 原料用量 ELSE 0 END) +
+                                (CASE WHEN 類別 = 'kg' AND (蒸發後原料 - 領料袋重) > 0 THEN (蒸發後原料 + 成品用量_K - 領料袋重) ELSE 0 END) +
+                                (CASE WHEN 類別 = '過篩後' AND 原料用量 > 0 THEN 原料用量 ELSE 0 END) AS VAL_DENOMINATOR
+                        ) CA
+                        WHERE 線別 = '{2}'
+                        ORDER BY 線別, SUBSTRING(製令單號, 1, 8), 品號;
 
 
                                 ", dateTimePicker1.Value.ToString("yyyyMMdd"), dateTimePicker2.Value.ToString("yyyyMMdd"), comboBox1.Text);
