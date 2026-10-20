@@ -249,7 +249,7 @@ namespace TKMOC
             StringBuilder Sequel = new StringBuilder();
             Sequel.AppendFormat(@"
                                 SELECT
-                                 [MB001], [BOXNAMES], [ORDRES], [ISUSED]
+                                 [MB001], [BOXNAMES], [ORDRES], [ISUSED],[VALIDMONTHS]
                                 FROM [TKMOC].[dbo].[TBOUTBOXNAMES]
                                 WHERE [ISUSED]='Y'
                                 AND ([BOXNAMES] LIKE @BOXNAMES OR [MB001] LIKE @MB001)
@@ -322,6 +322,7 @@ namespace TKMOC
                 {
                     // 此行會觸發 comboBox1_SelectedIndexChanged，但因為 isProcessing=true 而被阻擋
                     comboBox1.Text = DT.Rows[0]["BOXNAMES"].ToString();
+                    comboBox2.Text = DT.Rows[0]["VALIDMONTHS"].ToString();
                 }
                 else
                 {
