@@ -92,7 +92,7 @@ namespace TKMOC
             comboBox1.DisplayMember = "BOXNAMES";
             sqlConn.Close();
              
-
+             
         }
 
         public void comboBox1load2()
@@ -204,7 +204,7 @@ namespace TKMOC
                 
             Report report1 = new Report();  
               
-            string REPORTS_DIR = @"REPORT\營貼\"+ REPORTS + ".frx";
+            string REPORTS_DIR = @"REPORT\營貼\"+ REPORTS + ".frx"; 
              
             report1.Load(REPORTS_DIR);
 
