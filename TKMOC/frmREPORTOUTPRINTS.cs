@@ -291,7 +291,7 @@ namespace TKMOC
                 // 確保 comboBox1.Text 不為空再查詢
                 if (string.IsNullOrWhiteSpace(comboBox1.Text)) return; 
 
-                DataTable DT = FIND_TBOUTBOXNAMES(comboBox1.Text.ToString());
+                DataTable DT = FIND_TBOUTBOXNAMES(comboBox1.Text.ToString()); 
                 if (DT != null && DT.Rows.Count >= 1)
                 {
                     // 此行會觸發 textBox1_TextChanged，但因為 isProcessing=true 而被阻擋
