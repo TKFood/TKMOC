@@ -296,6 +296,7 @@ namespace TKMOC
                 {
                     // 此行會觸發 textBox1_TextChanged，但因為 isProcessing=true 而被阻擋
                     textBox1.Text = DT.Rows[0]["MB001"].ToString();
+                    comboBox2.Text = DT.Rows[0]["VALIDMONTHS"].ToString();
                 }
             }
             finally
