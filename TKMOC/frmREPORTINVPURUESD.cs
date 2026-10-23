@@ -142,56 +142,63 @@ namespace TKMOC
             try
             {
                 string sql = @"
-                                WITH INVLA_SUMMARY AS (
-                                    SELECT
-                                        LA001,
-                                        -- 計算 20019 倉庫庫存總和
-                                        SUM(CASE WHEN LA009 = '20019' THEN LA005 * LA011 ELSE 0 END) AS Sum_20019,
-                                        -- 計算 20028 倉庫庫存總和
-                                        SUM(CASE WHEN LA009 = '20028' THEN LA005 * LA011 ELSE 0 END) AS Sum_20028
-                                    FROM [TK].dbo.INVLA WITH (NOLOCK)
-                                    WHERE
-                                        LA009 IN ('20019', '20028')
-                                        AND LA016 <> '********************'
-                                    GROUP BY
-                                        LA001
-                                )
+                                SET NOCOUNT ON;
+
+                                -- 1. 先找出區間內排程用到的原料 (只展一層 BOM)
+                                SELECT T3.MD003, T3.MD035
+                                INTO #MAT
+                                FROM [TKMOC].dbo.[MOCMANULINE] AS T1 WITH(NOLOCK)
+                                INNER JOIN [TK].dbo.BOMMC AS T2 WITH(NOLOCK) ON T1.MB001 = T2.MC001
+                                INNER JOIN [TK].dbo.BOMMD AS T3 WITH(NOLOCK) ON T2.MC001 = T3.MD001
+                                WHERE T1.[MANUDATE] >= @SDate
+                                AND T1.[MANUDATE] < DATEADD(DAY, 1, @EDate)
+                                GROUP BY T3.MD003, T3.MD035;
+
+                                SELECT DISTINCT MD003 INTO #ITEM FROM #MAT;
+                                CREATE CLUSTERED INDEX IX_ITEM ON #ITEM (MD003);
+
+                                -- 2. 只針對這些原料掃一次 INVLA (20019、20028、20006 倉一起彙總)
+                                --    原本是把 20019/20028 倉所有品號都加總，批號再逐筆子查詢
+                                SELECT LA.LA001, LA.LA009, LA.LA016, SUM(LA.LA005 * LA.LA011) AS QTY
+                                INTO #LA
+                                FROM [TK].dbo.INVLA AS LA WITH(NOLOCK)
+                                INNER JOIN #ITEM AS I ON I.MD003 = LA.LA001
+                                WHERE LA.LA009 IN ('20019', '20028', '20006')
+                                GROUP BY LA.LA001, LA.LA009, LA.LA016;
+
+                                -- 3. 組出結果 (條件與原本相同)
                                 SELECT
-                                    T3.MD003 AS '品號',
-                                    T3.MD035 AS '品名',
-                                    ISNULL(T_SUM.Sum_20019, 0) AS '20019外倉',
-                                    ISNULL(T_SUM.Sum_20028, 0) AS '3F--倉庫',
+                                    M.MD003 AS '品號',
+                                    M.MD035 AS '品名',
+                                    ISNULL(S.Sum_20019, 0) AS '20019外倉',
+                                    ISNULL(S.Sum_20028, 0) AS '3F--倉庫',
                                     (
-                                        SELECT CAST(LA016 AS NVARCHAR) + ','
-                                        FROM [TK].dbo.INVLA AS INVLA_INNER WITH (NOLOCK)
-                                        WHERE
-                                            INVLA_INNER.LA001 = T3.MD003
-                                            AND INVLA_INNER.LA009 = '20006'
-                                            AND ISNULL(INVLA_INNER.LA016,'') <> ''
-                                            AND INVLA_INNER.LA016 <> '********************'
-                                        GROUP BY
-                                            INVLA_INNER.LA001, INVLA_INNER.LA016
-                                        HAVING
-                                            ISNULL(SUM(INVLA_INNER.LA005*INVLA_INNER.LA011), 0) > 0
+                                        SELECT CAST(L.LA016 AS NVARCHAR) + ','
+                                        FROM #LA AS L
+                                        WHERE L.LA001 = M.MD003
+                                        AND L.LA009 = '20006'
+                                        AND ISNULL(L.LA016, '') <> ''
+                                        AND L.LA016 <> '********************'
+                                        AND ISNULL(L.QTY, 0) > 0
+                                        ORDER BY L.LA016
                                         FOR XML PATH('')
                                     ) AS '20006倉批號'
-                                FROM
-                                    [TKMOC].dbo.[MOCMANULINE] AS T1 WITH(NOLOCK)
-                                INNER JOIN
-                                    [TK].dbo.BOMMC AS T2 WITH(NOLOCK) ON T1.MB001 = T2.MC001
-                                INNER JOIN
-                                    [TK].dbo.BOMMD AS T3 WITH(NOLOCK) ON T2.MC001 = T3.MD001
-                                LEFT JOIN
-                                    [TK].dbo.INVMB AS T4 WITH(NOLOCK) ON T4.MB001 = T3.MD003
-                                LEFT JOIN
-                                    INVLA_SUMMARY AS T_SUM ON T_SUM.LA001 = T3.MD003
-                                WHERE
-                                    T1.[MANUDATE] >= @SDate
-                                    AND T1.[MANUDATE] < DATEADD(DAY, 1, @EDate)
-                                GROUP BY
-                                    T3.MD003, T3.MD035, T_SUM.Sum_20019, T_SUM.Sum_20028
-                                ORDER BY
-                                    T3.MD003, T3.MD035;
+                                FROM #MAT AS M
+                                LEFT JOIN (
+                                    SELECT
+                                        LA001,
+                                        SUM(CASE WHEN LA009 = '20019' THEN QTY ELSE 0 END) AS Sum_20019,
+                                        SUM(CASE WHEN LA009 = '20028' THEN QTY ELSE 0 END) AS Sum_20028
+                                    FROM #LA
+                                    WHERE LA009 IN ('20019', '20028')
+                                    AND LA016 <> '********************'
+                                    GROUP BY LA001
+                                ) AS S ON S.LA001 = M.MD003
+                                ORDER BY M.MD003, M.MD035;
+
+                                DROP TABLE #LA;
+                                DROP TABLE #ITEM;
+                                DROP TABLE #MAT;
                                 ";
 
                 DataTable dt = QueryTable(sql, 300,
@@ -327,6 +334,8 @@ namespace TKMOC
                                         AND [MANUDATE] >= @SDate
                                         AND [MANUDATE] < DATEADD(DAY, 1, @EDate)
                                         AND [MD003] = @MD003
+                                        -- 先由 BOM 找出有用到此原料的成品，縮小排程範圍
+                                        AND [MOCMANULINE].MB001 IN (SELECT MD001 FROM [TK].dbo.BOMMD WITH(NOLOCK) WHERE MD003 = @MD003)
 
                                     UNION ALL
 
@@ -407,10 +416,22 @@ namespace TKMOC
                                         INVPURUESD.DATES >= @SDate
                                         AND INVPURUESD.DATES < DATEADD(DAY, 1, @EDate)
                                         AND INVPURUESD.MB001 = @MD003
+                                ),
+                                -- 同一天的排序：0 期初庫存 → 1 領用/使用 (含手動出貨) → 2 進貨 (含手動進貨)
+                                SORTED_DATA AS (
+                                    SELECT
+                                        *,
+                                        CASE
+                                            WHEN MANU = N'0庫存' THEN 0
+                                            WHEN MANU = N'1進貨' THEN 2
+                                            WHEN MANU = N'1手動進出貨' AND TNUM >= 0 THEN 2
+                                            ELSE 1
+                                        END AS SORTKEY
+                                    FROM BASE_DATA
                                 )
                                 SELECT
                                     CONVERT(DECIMAL(18, 3), 0) AS '預計庫存量',
-                                    ROW_NUMBER() OVER (ORDER BY MANUDATE, MANU, MB001, COPTD001, COPTD002, COPTD003) AS '列數',
+                                    ROW_NUMBER() OVER (ORDER BY MANUDATE, SORTKEY, MANU, MB001, COPTD001, COPTD002, COPTD003) AS '列數',
                                     MANU AS '線別',
                                     MANUDATE AS '日期',
                                     MD003 AS '品號',
@@ -424,16 +445,16 @@ namespace TKMOC
                                     COPTD001 AS '訂單單別',
                                     COPTD002 AS '訂單單號',
                                     COPTD003 AS '訂單序號'
-                                FROM BASE_DATA
-                                ORDER BY MANUDATE, MANU, MB001, COPTD001, COPTD002, COPTD003;
+                                FROM SORTED_DATA
+                                ORDER BY MANUDATE, SORTKEY, MANU, MB001, COPTD001, COPTD002, COPTD003;
                                 ";
 
                 DataTable dt = QueryTable(sql, 300,
                     new SqlParameter("@SDate", SqlDbType.DateTime) { Value = ToDate(SDay) },
                     new SqlParameter("@EDate", SqlDbType.DateTime) { Value = ToDate(EDay) },
-                    new SqlParameter("@SDay", SqlDbType.NVarChar, 8) { Value = SDay },
-                    new SqlParameter("@EDay", SqlDbType.NVarChar, 8) { Value = EDay },
-                    new SqlParameter("@MD003", SqlDbType.NVarChar, 40) { Value = MD003 });
+                    new SqlParameter("@SDay", SqlDbType.VarChar, 8) { Value = SDay },
+                    new SqlParameter("@EDay", SqlDbType.VarChar, 8) { Value = EDay },
+                    new SqlParameter("@MD003", SqlDbType.VarChar, 40) { Value = MD003 });
 
                 if (dt.Rows.Count == 0)
                 {
@@ -441,7 +462,7 @@ namespace TKMOC
                     return;
                 }
 
-                //計算預計庫存量 (累計)，資料已依 日期、線別 排序
+                //計算預計庫存量 (累計)，資料已依 日期 → 庫存/領用/進貨 排序
                 dt.Columns["預計庫存量"].ReadOnly = false;
                 decimal runningTotal = 0;
                 foreach (DataRow dr in dt.Rows)
@@ -535,7 +556,7 @@ namespace TKMOC
                 ExecuteNonQueryTran(sql,
                     new SqlParameter("@KIND", SqlDbType.NVarChar, 50) { Value = KIND },
                     new SqlParameter("@DATES", SqlDbType.DateTime) { Value = DATES.Date },
-                    new SqlParameter("@MB001", SqlDbType.NVarChar, 40) { Value = MB001 },
+                    new SqlParameter("@MB001", SqlDbType.VarChar, 40) { Value = MB001 },
                     new SqlParameter("@NUM", SqlDbType.Decimal) { Precision = 18, Scale = 3, Value = NUM });
             }
             catch (Exception ex)
@@ -559,8 +580,8 @@ namespace TKMOC
                                 ";
 
                 return ExecuteNonQueryTran(sql,
-                    new SqlParameter("@MB001", SqlDbType.NVarChar, 40) { Value = MB001 },
-                    new SqlParameter("@DATES", SqlDbType.NVarChar, 8) { Value = DATES },
+                    new SqlParameter("@MB001", SqlDbType.VarChar, 40) { Value = MB001 },
+                    new SqlParameter("@DATES", SqlDbType.VarChar, 8) { Value = DATES },
                     new SqlParameter("@NUM", SqlDbType.Decimal) { Precision = 18, Scale = 3, Value = NUM });
             }
             catch (Exception ex)
@@ -582,7 +603,7 @@ namespace TKMOC
                                 ";
 
                 DataTable dt = QueryTable(sql, 60,
-                    new SqlParameter("@TD002", SqlDbType.NVarChar, 20) { Value = TD002 });
+                    new SqlParameter("@TD002", SqlDbType.VarChar, 20) { Value = TD002 });
 
                 if (dt.Rows.Count == 0)
                 {
@@ -613,7 +634,7 @@ namespace TKMOC
                                 ";
 
                 DataTable dt = QueryTable(sql, 60,
-                    new SqlParameter("@MD001", SqlDbType.NVarChar, 40) { Value = MD001 });
+                    new SqlParameter("@MD001", SqlDbType.VarChar, 40) { Value = MD001 });
 
                 if (dt.Rows.Count == 0)
                 {
