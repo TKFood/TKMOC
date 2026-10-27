@@ -26,94 +26,38 @@ namespace TKMOC
         // 宣告一個變數來儲存使用者手動選擇排序的欄位
         string SortedColumn = string.Empty;
         string SortedModel = string.Empty;
-        string SortedColumn_DG7 = string.Empty;
 
         private DataTable dtAllMerge; // 放全資料
 
         private ComponentResourceManager _ResourceManager = new ComponentResourceManager();
         SqlConnection sqlConn = new SqlConnection();
-        SqlCommand sqlComm = new SqlCommand();
-        string connectionString;
         StringBuilder sbSql = new StringBuilder();
         StringBuilder sbSqlQuery = new StringBuilder();
         StringBuilder sbSqlQuery2 = new StringBuilder();
         SqlDataAdapter adapter1 = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
         SqlDataAdapter adapter2 = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder2 = new SqlCommandBuilder();
-        SqlDataAdapter adapter3 = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder3 = new SqlCommandBuilder();
-        SqlDataAdapter adapter4 = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder4 = new SqlCommandBuilder();
         SqlDataAdapter adapter5 = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder5 = new SqlCommandBuilder();
-        SqlDataAdapter adapter6 = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder6 = new SqlCommandBuilder();
-        SqlDataAdapter adapter7 = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder7 = new SqlCommandBuilder();
-        SqlDataAdapter adapter8 = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder8 = new SqlCommandBuilder();
-        SqlDataAdapter adapter9 = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder9 = new SqlCommandBuilder();
-        SqlDataAdapter adapter10 = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder10 = new SqlCommandBuilder();
-        SqlDataAdapter adapter11 = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder11 = new SqlCommandBuilder();
-        SqlDataAdapter adapter12 = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder12 = new SqlCommandBuilder();
         SqlDataAdapter adapter13 = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder13 = new SqlCommandBuilder();
         SqlDataAdapter adapter14 = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder14 = new SqlCommandBuilder();
         SqlDataAdapter adapter15 = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder15 = new SqlCommandBuilder();
         SqlDataAdapter adapter16 = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder16 = new SqlCommandBuilder();
         SqlDataAdapter adapter17 = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder17 = new SqlCommandBuilder();
-        SqlDataAdapter adapter18 = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder18 = new SqlCommandBuilder();
         SqlDataAdapter adapter19 = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder19 = new SqlCommandBuilder();
         SqlDataAdapter adapter20= new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder20 = new SqlCommandBuilder();
-        SqlDataAdapter adapter21 = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder21= new SqlCommandBuilder();
         SqlDataAdapter adapter22 = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder22 = new SqlCommandBuilder();
-        SqlDataAdapter adapter23 = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder23 = new SqlCommandBuilder();
         SqlDataAdapter adapter24 = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder24 = new SqlCommandBuilder();
-        SqlDataAdapter adapter25 = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder25 = new SqlCommandBuilder();
-        SqlDataAdapter adapter26 = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder26 = new SqlCommandBuilder();
         SqlDataAdapter adapter27 = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder27 = new SqlCommandBuilder();
         SqlDataAdapter adapter28 = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder28 = new SqlCommandBuilder();
         SqlDataAdapter adapter29 = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder29 = new SqlCommandBuilder();
         SqlDataAdapter adapter30 = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder30 = new SqlCommandBuilder();
         SqlDataAdapter adapter31= new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder31 = new SqlCommandBuilder();
         SqlDataAdapter adapter32 = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder32 = new SqlCommandBuilder();
         SqlDataAdapter adapter33 = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder33 = new SqlCommandBuilder();
         SqlDataAdapter adapter34 = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder34 = new SqlCommandBuilder();
         SqlDataAdapter adapter35 = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder35 = new SqlCommandBuilder();
         SqlDataAdapter adapter36 = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder36 = new SqlCommandBuilder();
         SqlDataAdapter adapter37 = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder37 = new SqlCommandBuilder();
 
-        SqlDataAdapter adapterCALENDAR = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilderCALENDAR = new SqlCommandBuilder();
 
 
 
@@ -122,28 +66,15 @@ namespace TKMOC
         SqlCommand cmd = new SqlCommand();
         DataSet ds1 = new DataSet();
         DataSet ds2 = new DataSet();
-        DataSet ds3 = new DataSet();
-        DataSet ds4 = new DataSet();
-        DataSet ds5 = new DataSet();
-        DataSet ds6 = new DataSet();
-        DataSet ds7 = new DataSet();
-        DataSet ds8 = new DataSet();
-        DataSet ds9 = new DataSet();
-        DataSet ds10= new DataSet();
         DataSet ds13 = new DataSet();
         DataSet ds14 = new DataSet();
         DataSet ds15 = new DataSet();
         DataSet ds16 = new DataSet();
         DataSet ds17 = new DataSet();
-        DataSet ds18 = new DataSet();
         DataSet ds19 = new DataSet();
         DataSet ds20 = new DataSet();
-        DataSet ds21 = new DataSet();
         DataSet ds22 = new DataSet();
-        DataSet ds23 = new DataSet();
         DataSet ds24 = new DataSet();
-        DataSet ds25 = new DataSet();
-        DataSet ds26 = new DataSet();
         DataSet ds27 = new DataSet();
         DataSet ds28 = new DataSet();
         DataSet ds29 = new DataSet();
@@ -157,10 +88,8 @@ namespace TKMOC
         DataSet ds37 = new DataSet();
 
 
-        DataSet dsCALENDAR = new DataSet();
 
         DataSet dsBOMMC = new DataSet();
-        DataSet dsBOMMD = new DataSet();
 
         DataSet TEMPds = new DataSet();
         decimal SUM11 = 0;
@@ -170,52 +99,118 @@ namespace TKMOC
 
 
         DataTable dt = new DataTable();
-        string tablename = null;
         int result;
         string MANU= "製二線";
 
-        string ID1;
-        DateTime dt1;
-        string DELID1;
-        string DELMOCTA001A;
-        string DELMOCTA002A;
-        string IN1="20001";
-        string ID2;
-        DateTime dt2;
-        string DELID2;
-        string DELMOCTA001B;
-        string DELMOCTA002B;
-        string IN2 = "20001";
-        string ID3;
-        DateTime dt3;
-        string DELID3;
-        string DELMOCTA001C;
-        string DELMOCTA002C;
-        string IN3 = "20001";
-        string ID4;
-        DateTime dt4;
-        string DELID4;
-        string DELMOCTA001D;
-        string DELMOCTA002D;
-        string IN4 = "20001";
-        DateTime dt5;
-        string DELID5;
-        string DELMOCTA001E;
-        string DELMOCTA002E;
+        #region 產線狀態（LineContext）
 
-        string ID6;
-        DateTime dt6;
-        string DELID6;
-        string DELMOCTA001F;
-        string DELMOCTA002F;
-        string IN6 = "20021";
+        /// <summary>
+        /// 各產線（頁籤）各自保存的狀態。
+        /// 原本以 ID1/ID2/ID3…、dt1/dt2…、DELMOCTA001A/B/C… 等編號欄位區分產線，
+        /// 現在集中到 LineContext，合併後的方法以 CurrentLine 取得目前產線的狀態。
+        /// </summary>
+        private sealed class LineContext
+        {
+            public LineContext(string name, string inWarehouse = null)
+            {
+                Name = name;
+                IN = inWarehouse;
+            }
 
-        string ID10;
-        DateTime dt10;
-        string DELID10;
-        string DELMOCTA001J;
-        string DELMOCTA002J;
-        string IN10 = "20021";
+            /// <summary>產線名稱（與 MANU 的值相同）</summary>
+            public string Name { get; private set; }
+
+            /// <summary>目前選取的 MOCMANULINE.ID</summary>
+            public string ID;
+            /// <summary>生產日期（開製令、取單號用）</summary>
+            public DateTime ManuDate;
+            /// <summary>要刪除的 MOCMANULINERESULT.SID</summary>
+            public string DelID;
+            /// <summary>要刪除的製令單別</summary>
+            public string DelMOCTA001;
+            /// <summary>要刪除的製令單號</summary>
+            public string DelMOCTA002;
+            /// <summary>入庫別</summary>
+            public string IN;
+        }
+
+        private const string LINE_MANU2 = "製二線";
+        private const string LINE_PACK = "包裝線";
+        private const string LINE_MANU1 = "製一線";
+        private const string LINE_HAND = "手工線";
+        private const string LINE_WATER = "水麵";
+        private const string LINE_TB_PACK = "統百包裝線";
+        private const string LINE_SMALL = "少量訂單";
+
+        private readonly Dictionary<string, LineContext> Lines = new Dictionary<string, LineContext>
+        {
+            { LINE_MANU2,   new LineContext(LINE_MANU2, "20001") },
+            { LINE_PACK,    new LineContext(LINE_PACK, "20001") },
+            { LINE_MANU1,   new LineContext(LINE_MANU1, "20001") },
+            { LINE_HAND,    new LineContext(LINE_HAND, "20001") },
+            { LINE_WATER,   new LineContext(LINE_WATER) },
+            { LINE_TB_PACK, new LineContext(LINE_TB_PACK, "20021") },
+            { LINE_SMALL,   new LineContext(LINE_SMALL) },
+        };
+
+        /// <summary>依產線名稱取得 LineContext；名稱不存在時回傳 null。</summary>
+        private LineContext GetLine(string manu)
+        {
+            LineContext line;
+            if (manu != null && Lines.TryGetValue(manu, out line))
+            {
+                return line;
+            }
+            return null;
+        }
+
+        /// <summary>目前頁籤（MANU）對應的產線狀態</summary>
+        private LineContext CurrentLine
+        {
+            get { return GetLine(MANU); }
+        }
+
+        // ---- 相容舊欄位名稱 ----
+        // 以下屬性讓尚未改寫的程式碼繼續使用 ID1、dt1、DELMOCTA001A… 等舊名稱，
+        // 實際值存放在 Lines 中。之後逐步把各方法改成使用 CurrentLine，再刪除這些屬性。
+        // 編號對照：1/A=製二線、2/B=包裝線、3/C=製一線、4/D=手工線、5/E=水麵、6/F=統百包裝線、10=少量訂單
+        string ID1 { get { return Lines[LINE_MANU2].ID; } set { Lines[LINE_MANU2].ID = value; } }
+        DateTime dt1 { get { return Lines[LINE_MANU2].ManuDate; } set { Lines[LINE_MANU2].ManuDate = value; } }
+        string DELID1 { get { return Lines[LINE_MANU2].DelID; } set { Lines[LINE_MANU2].DelID = value; } }
+        string DELMOCTA001A { get { return Lines[LINE_MANU2].DelMOCTA001; } set { Lines[LINE_MANU2].DelMOCTA001 = value; } }
+        string DELMOCTA002A { get { return Lines[LINE_MANU2].DelMOCTA002; } set { Lines[LINE_MANU2].DelMOCTA002 = value; } }
+        string IN1 { get { return Lines[LINE_MANU2].IN; } set { Lines[LINE_MANU2].IN = value; } }
+        string ID2 { get { return Lines[LINE_PACK].ID; } set { Lines[LINE_PACK].ID = value; } }
+        DateTime dt2 { get { return Lines[LINE_PACK].ManuDate; } set { Lines[LINE_PACK].ManuDate = value; } }
+        string DELID2 { get { return Lines[LINE_PACK].DelID; } set { Lines[LINE_PACK].DelID = value; } }
+        string DELMOCTA001B { get { return Lines[LINE_PACK].DelMOCTA001; } set { Lines[LINE_PACK].DelMOCTA001 = value; } }
+        string DELMOCTA002B { get { return Lines[LINE_PACK].DelMOCTA002; } set { Lines[LINE_PACK].DelMOCTA002 = value; } }
+        string IN2 { get { return Lines[LINE_PACK].IN; } set { Lines[LINE_PACK].IN = value; } }
+        string ID3 { get { return Lines[LINE_MANU1].ID; } set { Lines[LINE_MANU1].ID = value; } }
+        DateTime dt3 { get { return Lines[LINE_MANU1].ManuDate; } set { Lines[LINE_MANU1].ManuDate = value; } }
+        string DELID3 { get { return Lines[LINE_MANU1].DelID; } set { Lines[LINE_MANU1].DelID = value; } }
+        string DELMOCTA001C { get { return Lines[LINE_MANU1].DelMOCTA001; } set { Lines[LINE_MANU1].DelMOCTA001 = value; } }
+        string DELMOCTA002C { get { return Lines[LINE_MANU1].DelMOCTA002; } set { Lines[LINE_MANU1].DelMOCTA002 = value; } }
+        string IN3 { get { return Lines[LINE_MANU1].IN; } set { Lines[LINE_MANU1].IN = value; } }
+        string ID4 { get { return Lines[LINE_HAND].ID; } set { Lines[LINE_HAND].ID = value; } }
+        DateTime dt4 { get { return Lines[LINE_HAND].ManuDate; } set { Lines[LINE_HAND].ManuDate = value; } }
+        string DELID4 { get { return Lines[LINE_HAND].DelID; } set { Lines[LINE_HAND].DelID = value; } }
+        string DELMOCTA001D { get { return Lines[LINE_HAND].DelMOCTA001; } set { Lines[LINE_HAND].DelMOCTA001 = value; } }
+        string DELMOCTA002D { get { return Lines[LINE_HAND].DelMOCTA002; } set { Lines[LINE_HAND].DelMOCTA002 = value; } }
+        string IN4 { get { return Lines[LINE_HAND].IN; } set { Lines[LINE_HAND].IN = value; } }
+        DateTime dt5 { get { return Lines[LINE_WATER].ManuDate; } set { Lines[LINE_WATER].ManuDate = value; } }
+        string DELID5 { get { return Lines[LINE_WATER].DelID; } set { Lines[LINE_WATER].DelID = value; } }
+        string DELMOCTA001E { get { return Lines[LINE_WATER].DelMOCTA001; } set { Lines[LINE_WATER].DelMOCTA001 = value; } }
+        string DELMOCTA002E { get { return Lines[LINE_WATER].DelMOCTA002; } set { Lines[LINE_WATER].DelMOCTA002 = value; } }
+        string ID6 { get { return Lines[LINE_TB_PACK].ID; } set { Lines[LINE_TB_PACK].ID = value; } }
+        DateTime dt6 { get { return Lines[LINE_TB_PACK].ManuDate; } set { Lines[LINE_TB_PACK].ManuDate = value; } }
+        string DELID6 { get { return Lines[LINE_TB_PACK].DelID; } set { Lines[LINE_TB_PACK].DelID = value; } }
+        string DELMOCTA001F { get { return Lines[LINE_TB_PACK].DelMOCTA001; } set { Lines[LINE_TB_PACK].DelMOCTA001 = value; } }
+        string DELMOCTA002F { get { return Lines[LINE_TB_PACK].DelMOCTA002; } set { Lines[LINE_TB_PACK].DelMOCTA002 = value; } }
+        string IN6 { get { return Lines[LINE_TB_PACK].IN; } set { Lines[LINE_TB_PACK].IN = value; } }
+        string ID10 { get { return Lines[LINE_SMALL].ID; } set { Lines[LINE_SMALL].ID = value; } }
+
+        #endregion
 
         string TA001 = "A510";
         string TA002;
@@ -252,31 +247,20 @@ namespace TKMOC
         string UNIT;
         decimal BOMBAR;
         int BOXNUMERB;
-        int MOCBOX;
 
         string SUBID;
         string SUBBAR;
         string SUBNUM;
-        string SUBBOX;
-        string SUBPACKAGE;
         string SUBID2;
-        string SUBBAR2;
-        string SUBNUM2;
         string SUBBOX2;
         string SUBPACKAGE2;
         string SUBID3;
         string SUBBAR3;
         string SUBNUM3;
-        string SUBBOX3;
-        string SUBPACKAGE3;
         string SUBID4;
         string SUBBAR4;
         string SUBNUM4;
-        string SUBBOX4;
-        string SUBPACKAGE4;
         string SUBID5;
-        string SUBBAR5;
-        string SUBNUM5;
         string SUBBOX5;
         string SUBPACKAGE5;
 
@@ -298,8 +282,6 @@ namespace TKMOC
 
         string DELMOCMANULINECOPID;
         string LIMITSERCHTD002;
-        string dataGridView20SORTNAME=null;
-        string dataGridView20SORTMODE=null;
 
         string TF001;
         string TF002;
@@ -383,7 +365,6 @@ namespace TKMOC
             
         }
 
-        Thread TD;
         public frmMOCMANULINE()
         {
             InitializeComponent();
@@ -506,15 +487,8 @@ namespace TKMOC
 
         public void LoadComboBoxData(ComboBox comboBox, string query, string valueMember, string displayMember)
         {
-            //20210902密
-            Class1 TKID = new Class1();//用new 建立類別實體
-            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
 
-            //資料庫使用者密碼解密
-            sqlsb.Password = TKID.Decryption(sqlsb.Password);
-            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);            
-
-            using (SqlConnection connection = new SqlConnection(sqlsb.ConnectionString))
+            using (SqlConnection connection = Db.CreateConnection())
             {
                 SqlCommand command = new SqlCommand(query, connection);
                 connection.Open();
@@ -855,27 +829,16 @@ namespace TKMOC
         public void SEARCH_MANULINE(string QUERY, DataGridView DataGridViewNew,string SortedColumn,string SortedModel)
         {
             SqlDataAdapter SqlDataAdapterNEW = new SqlDataAdapter();
-            SqlCommandBuilder SqlCommandBuilderNEW = new SqlCommandBuilder();
             DataSet DataSetNEW = new DataSet();
 
             DataGridViewNew.AlternatingRowsDefaultCellStyle.BackColor = Color.PaleTurquoise;
 
             try
             {
-                //20210902密 
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
                 SqlDataAdapterNEW = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                SqlCommandBuilderNEW = new SqlCommandBuilder(SqlDataAdapterNEW);
                 sqlConn.Open();
                 DataSetNEW.Clear();
                 SqlDataAdapterNEW.Fill(DataSetNEW, "DataSetNEW");
@@ -1073,16 +1036,7 @@ namespace TKMOC
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sbSql.Clear();
@@ -1096,7 +1050,6 @@ namespace TKMOC
 
                     adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                    sqlCmdBuilder2 = new SqlCommandBuilder(adapter2);
                     sqlConn.Open();
                     ds2.Clear();
                     adapter2.Fill(ds2, "TEMPds2");
@@ -1136,16 +1089,7 @@ namespace TKMOC
 
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sbSql.Clear();
@@ -1159,7 +1103,6 @@ namespace TKMOC
 
                     adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                    sqlCmdBuilder2 = new SqlCommandBuilder(adapter2);
                     sqlConn.Open();
                     ds2.Clear();
                     adapter2.Fill(ds2, "TEMPds2");
@@ -1200,16 +1143,7 @@ namespace TKMOC
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sbSql.Clear();
@@ -1223,7 +1157,6 @@ namespace TKMOC
 
                     adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                    sqlCmdBuilder2 = new SqlCommandBuilder(adapter2);
                     sqlConn.Open();
                     ds2.Clear();
                     adapter2.Fill(ds2, "TEMPds2");
@@ -1261,16 +1194,7 @@ namespace TKMOC
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sbSql.Clear();
@@ -1284,7 +1208,6 @@ namespace TKMOC
 
                     adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                    sqlCmdBuilder2 = new SqlCommandBuilder(adapter2);
                     sqlConn.Open();
                     ds2.Clear();
                     adapter2.Fill(ds2, "TEMPds2");
@@ -1325,16 +1248,7 @@ namespace TKMOC
 
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sbSql.Clear();
@@ -1348,7 +1262,6 @@ namespace TKMOC
 
                     adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                    sqlCmdBuilder2 = new SqlCommandBuilder(adapter2);
                     sqlConn.Open();
                     ds2.Clear();
                     adapter2.Fill(ds2, "TEMPds2");
@@ -1391,16 +1304,7 @@ namespace TKMOC
 
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sbSql.Clear();
@@ -1414,7 +1318,6 @@ namespace TKMOC
 
                     adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                    sqlCmdBuilder2 = new SqlCommandBuilder(adapter2);
                     sqlConn.Open();
                     ds2.Clear();
                     adapter2.Fill(ds2, "TEMPds2");
@@ -1477,16 +1380,7 @@ namespace TKMOC
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sqlConn.Close();
@@ -1541,16 +1435,7 @@ namespace TKMOC
 
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sqlConn.Close();
@@ -1602,16 +1487,7 @@ namespace TKMOC
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sqlConn.Close();
@@ -1662,16 +1538,7 @@ namespace TKMOC
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sqlConn.Close();
@@ -1723,16 +1590,7 @@ namespace TKMOC
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sqlConn.Close();
@@ -1781,16 +1639,7 @@ namespace TKMOC
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sqlConn.Close();
@@ -1963,8 +1812,6 @@ namespace TKMOC
                     SUBID = row.Cells["ID"].Value.ToString();
                     SUBBAR = row.Cells["桶數"].Value.ToString();
                     SUBNUM = row.Cells["數量"].Value.ToString();
-                    SUBBOX= null;
-                    SUBPACKAGE = null;
 
                     SEARCHMB017();
                     SEARCHMOCMANULINERESULT();
@@ -1981,8 +1828,6 @@ namespace TKMOC
                     SUBID = null;
                     SUBBAR = null;
                     SUBNUM = null;
-                    SUBBOX = null;
-                    SUBPACKAGE = null;
 
                     TA026A = null;
                     TA027A = null;
@@ -1994,318 +1839,40 @@ namespace TKMOC
         
         public void DELMOCMANULINE()
         {
-            if (MANU.Equals("製二線"))
+            // 各產線錯誤代碼（沿用原本訊息中的編號，方便對照）
+            Dictionary<string, string> errCodes = new Dictionary<string, string>
             {
+                { LINE_MANU2, "13" }, { LINE_PACK, "14" }, { LINE_MANU1, "15" },
+                { LINE_HAND, "16" }, { LINE_TB_PACK, "17" }, { LINE_SMALL, "18" },
+            };
+
+            LineContext line = CurrentLine;
+            if (line != null && errCodes.ContainsKey(line.Name))
+            {
+                // 少量訂單刪除的是 MOCMANULINETEMP，其餘產線刪除 MOCMANULINE
+                string table = line.Name == LINE_SMALL ? "[TKMOC].[dbo].[MOCMANULINETEMP]" : "[TKMOC].[dbo].[MOCMANULINE]";
+                // 刪除後要把 MOCMANULINETEMP 的關聯清空（統百包裝線、少量訂單原本就沒有這個步驟）
+                bool resetTemp = line.Name != LINE_TB_PACK && line.Name != LINE_SMALL;
+
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+                    StringBuilder sql = new StringBuilder();
+                    sql.AppendFormat("  DELETE {0}", table);
+                    sql.AppendFormat("  WHERE ID='{0}'", line.ID);
+                    sql.AppendFormat(" ");
 
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+                    int rows = Db.ExecuteInTransaction(sql.ToString());
 
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                    sqlConn.Close();
-                    sqlConn.Open();
-                    tran = sqlConn.BeginTransaction();
-
-                    sbSql.Clear();
-                    sbSql.AppendFormat("  DELETE [TKMOC].[dbo].[MOCMANULINE]");
-                    sbSql.AppendFormat("  WHERE ID='{0}'", ID1);
-                    sbSql.AppendFormat(" ");
-
-                    cmd.Connection = sqlConn;
-                    cmd.CommandTimeout = 60;
-                    cmd.CommandText = sbSql.ToString();
-                    cmd.Transaction = tran;
-                    result = cmd.ExecuteNonQuery();
-
-                    if (result == 0)
+                    if (rows != 0 && resetTemp)
                     {
-                        tran.Rollback();    //交易取消
+                        UPDATEMOCMANULINETEMPTONULL(line.ID);
                     }
-                    else
-                    {
-                        tran.Commit();      //執行交易  
-
-                        UPDATEMOCMANULINETEMPTONULL(ID1);
-                    }
-
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"發生錯誤：{ex.Message}13 ");
-                }
-                finally
-                {
-                    sqlConn.Close();
+                    MessageBox.Show($"發生錯誤：{ex.Message} {errCodes[line.Name]}");
                 }
             }
-
-            else if (MANU.Equals("包裝線"))
-            {
-                try
-                {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                    sqlConn.Close();
-                    sqlConn.Open();
-                    tran = sqlConn.BeginTransaction();
-
-                    sbSql.Clear();
-                    sbSql.AppendFormat("  DELETE [TKMOC].[dbo].[MOCMANULINE]");
-                    sbSql.AppendFormat("  WHERE ID='{0}'", ID2);
-                    sbSql.AppendFormat(" ");
-
-                    cmd.Connection = sqlConn;
-                    cmd.CommandTimeout = 60;
-                    cmd.CommandText = sbSql.ToString();
-                    cmd.Transaction = tran;
-                    result = cmd.ExecuteNonQuery();
-
-                    if (result == 0)
-                    {
-                        tran.Rollback();    //交易取消
-                    }
-                    else
-                    {
-                        tran.Commit();      //執行交易  
-
-                        UPDATEMOCMANULINETEMPTONULL(ID2);
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"發生錯誤：{ex.Message} 14");
-                }
-                finally
-                {
-                    sqlConn.Close();
-                }
-            }
-            else if (MANU.Equals("製一線"))
-            {
-                try
-                {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                    sqlConn.Close();
-                    sqlConn.Open();
-                    tran = sqlConn.BeginTransaction();
-
-                    sbSql.Clear();
-                    sbSql.AppendFormat("  DELETE [TKMOC].[dbo].[MOCMANULINE]");
-                    sbSql.AppendFormat("  WHERE ID='{0}'", ID3);
-                    sbSql.AppendFormat(" ");
-
-                    cmd.Connection = sqlConn;
-                    cmd.CommandTimeout = 60;
-                    cmd.CommandText = sbSql.ToString();
-                    cmd.Transaction = tran;
-                    result = cmd.ExecuteNonQuery();
-
-                    if (result == 0)
-                    {
-                        tran.Rollback();    //交易取消
-                    }
-                    else
-                    {
-                        tran.Commit();      //執行交易  
-
-                        UPDATEMOCMANULINETEMPTONULL(ID3);
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"發生錯誤：{ex.Message} 15");
-                }
-                finally
-                {
-                    sqlConn.Close();
-                }
-            }
-            else if (MANU.Equals("手工線"))
-            {
-                try
-                {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                    sqlConn.Close();
-                    sqlConn.Open();
-                    tran = sqlConn.BeginTransaction();
-
-                    sbSql.Clear();
-                    sbSql.AppendFormat("  DELETE [TKMOC].[dbo].[MOCMANULINE]");
-                    sbSql.AppendFormat("  WHERE ID='{0}'", ID4);
-                    sbSql.AppendFormat(" ");
-
-                    cmd.Connection = sqlConn;
-                    cmd.CommandTimeout = 60;
-                    cmd.CommandText = sbSql.ToString();
-                    cmd.Transaction = tran;
-                    result = cmd.ExecuteNonQuery();
-
-                    if (result == 0)
-                    {
-                        tran.Rollback();    //交易取消
-                    }
-                    else
-                    {
-                        tran.Commit();      //執行交易  
-
-                        UPDATEMOCMANULINETEMPTONULL(ID4);
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"發生錯誤：{ex.Message} 16");
-                }
-                finally
-                {
-                    sqlConn.Close();
-                }
-            }
-
-            else if (MANU.Equals("統百包裝線"))
-            {
-                try
-                {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                    sqlConn.Close();
-                    sqlConn.Open();
-                    tran = sqlConn.BeginTransaction();
-
-                    sbSql.Clear();
-                    sbSql.AppendFormat("  DELETE [TKMOC].[dbo].[MOCMANULINE]");
-                    sbSql.AppendFormat("  WHERE ID='{0}'", ID6);
-                    sbSql.AppendFormat(" ");
-
-                    cmd.Connection = sqlConn;
-                    cmd.CommandTimeout = 60;
-                    cmd.CommandText = sbSql.ToString();
-                    cmd.Transaction = tran;
-                    result = cmd.ExecuteNonQuery();
-
-                    if (result == 0)
-                    {
-                        tran.Rollback();    //交易取消
-                    }
-                    else
-                    {
-                        tran.Commit();      //執行交易  
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"發生錯誤：{ex.Message} 17");
-                }
-                finally
-                {
-                    sqlConn.Close();
-                }
-            }
-
-            else if (MANU.Equals("少量訂單"))
-            {
-                try
-                {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                    sqlConn.Close();
-                    sqlConn.Open();
-                    tran = sqlConn.BeginTransaction();
-
-                    sbSql.Clear();
-                    sbSql.AppendFormat("  DELETE [TKMOC].[dbo].[MOCMANULINETEMP]");
-                    sbSql.AppendFormat("  WHERE ID='{0}'", ID10);
-                    sbSql.AppendFormat(" ");
-
-                    cmd.Connection = sqlConn;
-                    cmd.CommandTimeout = 60;
-                    cmd.CommandText = sbSql.ToString();
-                    cmd.Transaction = tran;
-                    result = cmd.ExecuteNonQuery();
-
-                    if (result == 0)
-                    {
-                        tran.Rollback();    //交易取消
-                    }
-                    else
-                    {
-                        tran.Commit();      //執行交易  
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"發生錯誤：{ex.Message} 18");
-                }
-                finally
-                {
-                    sqlConn.Close();
-                }
-            }
-
 
             SEARCHMOCMANULINE();
         }
@@ -2314,14 +1881,8 @@ namespace TKMOC
         {
             try
             {
-                // 初始化資料庫連接
-                Class1 TKID = new Class1();
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
 
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                using (sqlConn = new SqlConnection(sqlsb.ConnectionString))
+                using (sqlConn = Db.CreateConnection())
                 {
                     sqlConn.Open();
                     using (tran = sqlConn.BeginTransaction())
@@ -2464,16 +2025,7 @@ namespace TKMOC
                 //[TB004]的計算，如果領用倍數MB041=1且不是201開頭的箱子，就取整數、MB041=1且是201開頭的箱子，就4捨5入到整數、其他就取到小數第3位
                 if (MOCTA.TA002.Substring(0,1).Equals("2")&& MOCTA.TA040.Substring(0, 1).Equals("2"))
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sqlConn.Close();
@@ -2953,16 +2505,7 @@ namespace TKMOC
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sbSql.Clear();
@@ -2978,7 +2521,6 @@ namespace TKMOC
 
                     adapter5 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                    sqlCmdBuilder5 = new SqlCommandBuilder(adapter5);
                     sqlConn.Open();
                     dsBOMMC.Clear();
                     adapter5.Fill(dsBOMMC, "dsBOMMC");
@@ -3017,16 +2559,7 @@ namespace TKMOC
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sbSql.Clear();
@@ -3042,7 +2575,6 @@ namespace TKMOC
 
                     adapter5 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                    sqlCmdBuilder5 = new SqlCommandBuilder(adapter5);
                     sqlConn.Open();
                     dsBOMMC.Clear();
                     adapter5.Fill(dsBOMMC, "dsBOMMC");
@@ -3081,16 +2613,7 @@ namespace TKMOC
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sbSql.Clear();
@@ -3106,7 +2629,6 @@ namespace TKMOC
 
                     adapter5 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                    sqlCmdBuilder5 = new SqlCommandBuilder(adapter5);
                     sqlConn.Open();
                     dsBOMMC.Clear();
                     adapter5.Fill(dsBOMMC, "dsBOMMC");
@@ -3145,16 +2667,7 @@ namespace TKMOC
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sbSql.Clear();
@@ -3170,7 +2683,6 @@ namespace TKMOC
 
                     adapter5 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                    sqlCmdBuilder5 = new SqlCommandBuilder(adapter5);
                     sqlConn.Open();
                     dsBOMMC.Clear();
                     adapter5.Fill(dsBOMMC, "dsBOMMC");
@@ -3210,16 +2722,7 @@ namespace TKMOC
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sbSql.Clear();
@@ -3235,7 +2738,6 @@ namespace TKMOC
 
                     adapter5 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                    sqlCmdBuilder5 = new SqlCommandBuilder(adapter5);
                     sqlConn.Open();
                     dsBOMMC.Clear();
                     adapter5.Fill(dsBOMMC, "dsBOMMC");
@@ -3276,16 +2778,7 @@ namespace TKMOC
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sbSql.Clear();
@@ -3301,7 +2794,6 @@ namespace TKMOC
 
                     adapter5 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                    sqlCmdBuilder5 = new SqlCommandBuilder(adapter5);
                     sqlConn.Open();
                     dsBOMMC.Clear();
                     adapter5.Fill(dsBOMMC, "dsBOMMC");
@@ -3338,794 +2830,130 @@ namespace TKMOC
             }
 
         }
+        /// <summary>SEARCHMOCMANULINERESULT 各產線查詢結果的 DataTable（key = 產線名稱）</summary>
+        private readonly Dictionary<string, DataTable> _resultTables = new Dictionary<string, DataTable>();
+
         public void SEARCHMOCMANULINERESULT()
         {
-            if (MANU.Equals("製二線"))
+            // 各產線顯示已開製令（MOCMANULINERESULT）的 DataGridView
+            Dictionary<string, DataGridView> resultGrids = new Dictionary<string, DataGridView>
             {
-                try
+                { LINE_MANU2, dataGridView2 }, { LINE_PACK, dataGridView4 }, { LINE_MANU1, dataGridView6 },
+                { LINE_HAND, dataGridView8 }, { LINE_TB_PACK, dataGridView17 },
+            };
+            Dictionary<string, string> errCodes = new Dictionary<string, string>
+            {
+                { LINE_MANU2, "27" }, { LINE_PACK, "28" }, { LINE_MANU1, "29" },
+                { LINE_HAND, "30" }, { LINE_TB_PACK, "31" },
+            };
+
+            LineContext line = CurrentLine;
+            if (line == null || !resultGrids.ContainsKey(line.Name))
+            {
+                return;
+            }
+            DataGridView grid = resultGrids[line.Name];
+
+            try
+            {
+                StringBuilder sql = new StringBuilder();
+                sql.AppendFormat(@"  SELECT  [MOCTA001] AS '製令',[MOCTA002]  AS '單號',[SID]");
+                sql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINERESULT]");
+                sql.AppendFormat(@"  WHERE [SID]='{0}'", line.ID);
+
+                // 每條產線重複使用同一個 DataTable（與原本 ds3/ds6… 的行為相同），
+                // 重新查詢時使用者在 DataGridView 上的排序可以保留
+                DataTable table;
+                if (!_resultTables.TryGetValue(line.Name, out table))
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                    sbSql.Clear();
-                    sbSqlQuery.Clear();
-
-
-                    sbSql.AppendFormat(@"  SELECT  [MOCTA001] AS '製令',[MOCTA002]  AS '單號',[SID]");
-                    sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINERESULT]");
-                    sbSql.AppendFormat(@"  WHERE [SID]='{0}'", ID1);
-                    sbSql.AppendFormat(@"  ");
-                    sbSql.AppendFormat(@"  ");
-
-                    adapter3 = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                    sqlCmdBuilder3 = new SqlCommandBuilder(adapter3);
-                    sqlConn.Open();
-                    ds3.Clear();
-                    adapter3.Fill(ds3, "TEMPds3");
-                    sqlConn.Close();
-
-
-                    if (ds3.Tables["TEMPds3"].Rows.Count == 0)
-                    {
-                        dataGridView2.DataSource = null;
-                    }
-                    else
-                    {
-                        if (ds3.Tables["TEMPds3"].Rows.Count >= 1)
-                        {
-
-                            dataGridView2.DataSource = ds3.Tables["TEMPds3"];
-                            dataGridView2.AutoResizeColumns();
-                        }
-                    }
-
+                    table = new DataTable();
+                    _resultTables[line.Name] = table;
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"發生錯誤：{ex.Message} 27");
-                }
-                finally
-                {
+                table.Clear();
 
+                using (SqlConnection conn = Db.CreateConnection())
+                using (SqlDataAdapter adapter = new SqlDataAdapter(sql.ToString(), conn))
+                {
+                    adapter.Fill(table);
+                }
+
+                if (table.Rows.Count == 0)
+                {
+                    grid.DataSource = null;
+                }
+                else
+                {
+                    grid.DataSource = table;
+                    grid.AutoResizeColumns();
                 }
             }
-            else if  (MANU.Equals("包裝線"))
+            catch (Exception ex)
             {
-                try
-                {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                    sbSql.Clear();
-                    sbSqlQuery.Clear();
-
-
-                    sbSql.AppendFormat(@"  SELECT  [MOCTA001] AS '製令',[MOCTA002]  AS '單號',[SID]");
-                    sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINERESULT]");
-                    sbSql.AppendFormat(@"  WHERE [SID]='{0}'", ID2);
-                    sbSql.AppendFormat(@"  ");
-                    sbSql.AppendFormat(@"  ");
-
-                    adapter8 = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                    sqlCmdBuilder8 = new SqlCommandBuilder(adapter8);
-                    sqlConn.Open();
-                    ds6.Clear();
-                    adapter8.Fill(ds6, "TEMPds6");
-                    sqlConn.Close();
-
-
-                    if (ds6.Tables["TEMPds6"].Rows.Count == 0)
-                    {
-                        dataGridView4.DataSource = null;
-                    }
-                    else
-                    {
-                        if (ds6.Tables["TEMPds6"].Rows.Count >= 1)
-                        {
-
-                            dataGridView4.DataSource = ds6.Tables["TEMPds6"];
-                            dataGridView4.AutoResizeColumns();
-                        }
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"發生錯誤：{ex.Message} 28");
-                }
-                finally
-                {
-
-                }
+                MessageBox.Show($"發生錯誤：{ex.Message} {errCodes[line.Name]}");
             }
-            else if (MANU.Equals("製一線"))
-            {
-                try
-                {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                    sbSql.Clear();
-                    sbSqlQuery.Clear();
-
-
-                    sbSql.AppendFormat(@"  SELECT  [MOCTA001] AS '製令',[MOCTA002]  AS '單號',[SID]");
-                    sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINERESULT]");
-                    sbSql.AppendFormat(@"  WHERE [SID]='{0}'", ID3);
-                    sbSql.AppendFormat(@"  ");
-                    sbSql.AppendFormat(@"  ");
-
-                    adapter11 = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                    sqlCmdBuilder11 = new SqlCommandBuilder(adapter11);
-                    sqlConn.Open();
-                    ds9.Clear();
-                    adapter11.Fill(ds9, "TEMPds9");
-                    sqlConn.Close();
-
-
-                    if (ds9.Tables["TEMPds9"].Rows.Count == 0)
-                    {
-                        dataGridView6.DataSource = null;
-
-                    }
-                    else
-                    {
-                        if (ds9.Tables["TEMPds9"].Rows.Count >= 1)
-                        {
-
-                            dataGridView6.DataSource = ds9.Tables["TEMPds9"];
-                            dataGridView6.AutoResizeColumns();
-                        }
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"發生錯誤：{ex.Message} 29");
-                }
-                finally
-                {
-
-                }
-            }
-            else if (MANU.Equals("手工線"))
-            {
-                try
-                {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                    sbSql.Clear();
-                    sbSqlQuery.Clear();
-
-
-                    sbSql.AppendFormat(@"  SELECT  [MOCTA001] AS '製令',[MOCTA002]  AS '單號',[SID]");
-                    sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINERESULT]");
-                    sbSql.AppendFormat(@"  WHERE [SID]='{0}'", ID4);
-                    sbSql.AppendFormat(@"  ");
-                    sbSql.AppendFormat(@"  ");
-
-                    adapter12 = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                    sqlCmdBuilder12 = new SqlCommandBuilder(adapter12);
-                    sqlConn.Open();
-                    ds10.Clear();
-                    adapter12.Fill(ds10, "TEMPds10");
-                    sqlConn.Close();
-
-
-                    if (ds10.Tables["TEMPds10"].Rows.Count == 0)
-                    {
-                        dataGridView8.DataSource = null;
-                    }
-                    else
-                    {
-                        if (ds10.Tables["TEMPds10"].Rows.Count >= 1)
-                        {
-
-                            dataGridView8.DataSource = ds10.Tables["TEMPds10"];
-                            dataGridView8.AutoResizeColumns();
-                        }
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"發生錯誤：{ex.Message} 30");
-                }
-                finally
-                {
-
-                }
-            }
-
-            else if (MANU.Equals("統百包裝線"))
-            {
-                try
-                {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                    sbSql.Clear();
-                    sbSqlQuery.Clear();
-
-
-                    sbSql.AppendFormat(@"  SELECT  [MOCTA001] AS '製令',[MOCTA002]  AS '單號',[SID]");
-                    sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINERESULT]");
-                    sbSql.AppendFormat(@"  WHERE [SID]='{0}'", ID6);
-                    sbSql.AppendFormat(@"  ");
-                    sbSql.AppendFormat(@"  ");
-
-                    adapter25 = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                    sqlCmdBuilder25 = new SqlCommandBuilder(adapter25);
-                    sqlConn.Open();
-                    ds25.Clear();
-                    adapter25.Fill(ds25, "TEMPds25");
-                    sqlConn.Close();
-
-
-                    if (ds25.Tables["TEMPds25"].Rows.Count == 0)
-                    {
-                        dataGridView17.DataSource = null;
-                    }
-                    else
-                    {
-                        if (ds25.Tables["TEMPds25"].Rows.Count >= 1)
-                        {
-
-                            dataGridView17.DataSource = ds25.Tables["TEMPds25"];
-                            dataGridView17.AutoResizeColumns();
-                        }
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"發生錯誤：{ex.Message} 31");
-                }
-                finally
-                {
-
-                }
-            }
-
         }
 
         public string GETMAXTA002(string TA001)
         {
-            string TA002;
-
-            if (MANU.Equals("製二線"))
+            LineContext line = CurrentLine;
+            if (line == null || !IsMOCTALine(line.Name))
             {
-                dt1 = dateTimePicker2.Value;
-                try
-                {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+                return null;
+            }
 
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+            // 原程式只有製二線會在取號前，以 dateTimePicker2 更新生產日期
+            if (line.Name == LINE_MANU2)
+            {
+                line.ManuDate = dateTimePicker2.Value;
+            }
 
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                    StringBuilder sbSql = new StringBuilder();
-                    sbSql.Clear();
-                    sbSqlQuery.Clear();
-                    ds4.Clear();
-
-                 
-                    sbSql.AppendFormat(@" 
+            try
+            {
+                string sql = string.Format(@" 
                                         SELECT ISNULL(MAX(TA002),'00000000000') AS TA002
                                         FROM [TK].[dbo].[MOCTA]
                                         WHERE  TA001='{0}' AND TA002 LIKE '%{1}%' 
-                                        ", TA001, dt1.ToString("yyyyMMdd"));
+                                        ", TA001, line.ManuDate.ToString("yyyyMMdd"));
 
-                    adapter4 = new SqlDataAdapter(@"" + sbSql, sqlConn);
+                DataTable table = Db.Query(sql);
 
-                    sqlCmdBuilder4 = new SqlCommandBuilder(adapter4);
-                    sqlConn.Open();
-                    ds4.Clear();
-                    adapter4.Fill(ds4, "TEMPds4");
-                    sqlConn.Close();
-
-
-                    if (ds4.Tables["TEMPds4"].Rows.Count == 0)
-                    {
-                        return null;
-                    }
-                    else
-                    {
-                        if (ds4.Tables["TEMPds4"].Rows.Count >= 1)
-                        {
-                            TA002 = SETTA002(ds4.Tables["TEMPds4"].Rows[0]["TA002"].ToString());
-                            return TA002;
-
-                        }
-                        return null;
-                    }
-
-                }               
-                catch (Exception ex)
+                if (table.Rows.Count == 0)
                 {
                     return null;
                 }
-                finally
-                {
-                    sqlConn.Close();
-                }
+
+                return SETTA002(table.Rows[0]["TA002"].ToString());
             }
-            else if (MANU.Equals("包裝線"))
+            catch (Exception)
             {
-               
-                try
-                {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                    StringBuilder sbSql = new StringBuilder();
-                    sbSql.Clear();
-                    sbSqlQuery.Clear();
-                    ds4.Clear();
-
-                    sbSql.AppendFormat(@" 
-                                        SELECT ISNULL(MAX(TA002),'00000000000') AS TA002
-                                        FROM [TK].[dbo].[MOCTA]
-                                        WHERE  TA001='{0}' AND TA002 LIKE '%{1}%' 
-                                        ", TA001, dt2.ToString("yyyyMMdd"));
-
-                    adapter4 = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                    sqlCmdBuilder4 = new SqlCommandBuilder(adapter4);
-                    sqlConn.Open();
-                    ds4.Clear();
-                    adapter4.Fill(ds4, "TEMPds4");
-                    sqlConn.Close();
-
-
-                    if (ds4.Tables["TEMPds4"].Rows.Count == 0)
-                    {
-                        return null;
-                    }
-                    else
-                    {
-                        if (ds4.Tables["TEMPds4"].Rows.Count >= 1)
-                        {
-                            TA002 = SETTA002(ds4.Tables["TEMPds4"].Rows[0]["TA002"].ToString());
-                            return TA002;
-
-                        }
-                        return null;
-                    }
-
-                }
-
-                catch (Exception ex)
-                {
-                    return null;
-                }
-                finally
-                {
-                    sqlConn.Close();
-                }
+                return null;
             }
-            else if (MANU.Equals("製一線"))
-            {
-                
-                try
-                {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                    StringBuilder sbSql = new StringBuilder();
-                    sbSql.Clear();
-                    sbSqlQuery.Clear();
-                    ds4.Clear();
-
-                    sbSql.AppendFormat(@" 
-                                        SELECT ISNULL(MAX(TA002),'00000000000') AS TA002
-                                        FROM [TK].[dbo].[MOCTA]
-                                        WHERE  TA001='{0}' AND TA002 LIKE '%{1}%' 
-                                        ", TA001, dt3.ToString("yyyyMMdd"));
-
-                    adapter4 = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                    sqlCmdBuilder4 = new SqlCommandBuilder(adapter4);
-                    sqlConn.Open();
-                    ds4.Clear();
-                    adapter4.Fill(ds4, "TEMPds4");
-                    sqlConn.Close();
-
-
-                    if (ds4.Tables["TEMPds4"].Rows.Count == 0)
-                    {
-                        return null;
-                    }
-                    else
-                    {
-                        if (ds4.Tables["TEMPds4"].Rows.Count >= 1)
-                        {
-                            TA002 = SETTA002(ds4.Tables["TEMPds4"].Rows[0]["TA002"].ToString());
-                            return TA002;
-
-                        }
-                        return null;
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    return null;
-                }
-                finally
-                {
-                    sqlConn.Close();
-                }
-            }
-            else if (MANU.Equals("手工線"))
-            {
-               
-                try
-                {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                    StringBuilder sbSql = new StringBuilder();
-                    sbSql.Clear();
-                    sbSqlQuery.Clear();
-                    ds4.Clear();
-
-                    sbSql.AppendFormat(@" 
-                                        SELECT ISNULL(MAX(TA002),'00000000000') AS TA002
-                                        FROM [TK].[dbo].[MOCTA]
-                                        WHERE  TA001='{0}' AND TA002 LIKE '%{1}%' 
-                                        ", TA001, dt4.ToString("yyyyMMdd"));
-
-                    adapter4 = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                    sqlCmdBuilder4 = new SqlCommandBuilder(adapter4);
-                    sqlConn.Open();
-                    ds4.Clear();
-                    adapter4.Fill(ds4, "TEMPds4");
-                    sqlConn.Close();
-
-
-                    if (ds4.Tables["TEMPds4"].Rows.Count == 0)
-                    {
-                        return null;
-                    }
-                    else
-                    {
-                        if (ds4.Tables["TEMPds4"].Rows.Count >= 1)
-                        {
-                            TA002 = SETTA002(ds4.Tables["TEMPds4"].Rows[0]["TA002"].ToString());
-                            return TA002;
-
-                        }
-                        return null;
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    return null;
-                }
-                finally
-                {
-                    sqlConn.Close();
-                }
-            }
-            else if (MANU.Equals("水麵"))
-            {
-              
-                try
-                {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                    StringBuilder sbSql = new StringBuilder();
-                    sbSql.Clear();
-                    sbSqlQuery.Clear();
-                    ds4.Clear();
-
-                    sbSql.AppendFormat(@" 
-                                        SELECT ISNULL(MAX(TA002),'00000000000') AS TA002
-                                        FROM [TK].[dbo].[MOCTA]
-                                        WHERE  TA001='{0}' AND TA002 LIKE '%{1}%' 
-                                        ", TA001, dt5.ToString("yyyyMMdd"));
-
-                    adapter4 = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                    sqlCmdBuilder4 = new SqlCommandBuilder(adapter4);
-                    sqlConn.Open();
-                    ds4.Clear();
-                    adapter4.Fill(ds4, "TEMPds4");
-                    sqlConn.Close();
-
-
-                    if (ds4.Tables["TEMPds4"].Rows.Count == 0)
-                    {
-                        return null;
-                    }
-                    else
-                    {
-                        if (ds4.Tables["TEMPds4"].Rows.Count >= 1)
-                        {
-                            TA002 = SETTA002(ds4.Tables["TEMPds4"].Rows[0]["TA002"].ToString());
-                            return TA002;
-
-                        }
-                        return null;
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    return null;
-                }
-                finally
-                {
-                    sqlConn.Close();
-                }
-            }
-
-            else if (MANU.Equals("統百包裝線"))
-            {
-                try
-                {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                    StringBuilder sbSql = new StringBuilder();
-                    sbSql.Clear();
-                    sbSqlQuery.Clear();
-                    ds4.Clear();
-
-                    sbSql.AppendFormat(@" 
-                                        SELECT ISNULL(MAX(TA002),'00000000000') AS TA002
-                                        FROM [TK].[dbo].[MOCTA]
-                                        WHERE  TA001='{0}' AND TA002 LIKE '%{1}%' 
-                                        ", TA001, dt6.ToString("yyyyMMdd"));
-
-                    adapter4 = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                    sqlCmdBuilder4 = new SqlCommandBuilder(adapter4);
-                    sqlConn.Open();
-                    ds4.Clear();
-                    adapter4.Fill(ds4, "TEMPds4");
-                    sqlConn.Close();
-
-
-                    if (ds4.Tables["TEMPds4"].Rows.Count == 0)
-                    {
-                        return null;
-                    }
-                    else
-                    {
-                        if (ds4.Tables["TEMPds4"].Rows.Count >= 1)
-                        {
-                            TA002 = SETTA002(ds4.Tables["TEMPds4"].Rows[0]["TA002"].ToString());
-                            return TA002;
-
-                        }
-                        return null;
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    return null;
-                }
-                finally
-                {
-                    sqlConn.Close();
-                }
-            }
-
-            return null;
-
         }
         public string SETTA002(string TA002)
         {
-
-            if (MANU.Equals("製二線"))
+            LineContext line = CurrentLine;
+            if (line == null || !IsMOCTALine(line.Name))
             {
-                if (TA002.Equals("00000000000"))
-                {
-                    return dt1.ToString("yyyyMMdd") + "001";
-                }
-
-                else
-                {
-                    int serno = Convert.ToInt16(TA002.Substring(8, 3));
-                    serno = serno + 1;
-                    string temp = serno.ToString();
-                    temp = temp.PadLeft(3, '0');
-                    return dt1.ToString("yyyyMMdd") + temp.ToString();
-                }
+                return null;
             }
 
-            else if (MANU.Equals("包裝線"))
-            {
-                if (TA002.Equals("00000000000"))
-                {
-                    return dt2.ToString("yyyyMMdd") + "001";
-                }
+            string day = line.ManuDate.ToString("yyyyMMdd");
 
-                else
-                {
-                    int serno = Convert.ToInt16(TA002.Substring(8, 3));
-                    serno = serno + 1;
-                    string temp = serno.ToString();
-                    temp = temp.PadLeft(3, '0');
-                    return dt2.ToString("yyyyMMdd") + temp.ToString();
-                }
+            if (TA002.Equals("00000000000"))
+            {
+                return day + "001";
             }
 
-            else if (MANU.Equals("製一線"))
-            {
-                if (TA002.Equals("00000000000"))
-                {
-                    return dt3.ToString("yyyyMMdd") + "001";
-                }
+            int serno = Convert.ToInt16(TA002.Substring(8, 3));
+            serno = serno + 1;
+            return day + serno.ToString().PadLeft(3, '0');
+        }
 
-                else
-                {
-                    int serno = Convert.ToInt16(TA002.Substring(8, 3));
-                    serno = serno + 1;
-                    string temp = serno.ToString();
-                    temp = temp.PadLeft(3, '0');
-                    return dt3.ToString("yyyyMMdd") + temp.ToString();
-                }
-            }
-            else if (MANU.Equals("手工線"))
-            {
-                if (TA002.Equals("00000000000"))
-                {
-                    return dt4.ToString("yyyyMMdd") + "001";
-                }
-
-                else
-                {
-                    int serno = Convert.ToInt16(TA002.Substring(8, 3));
-                    serno = serno + 1;
-                    string temp = serno.ToString();
-                    temp = temp.PadLeft(3, '0');
-                    return dt4.ToString("yyyyMMdd") + temp.ToString();
-                }
-            }
-            else if (MANU.Equals("水麵"))
-            {
-                if (TA002.Equals("00000000000"))
-                {
-                    return dt5.ToString("yyyyMMdd") + "001";
-                }
-
-                else
-                {
-                    int serno = Convert.ToInt16(TA002.Substring(8, 3));
-                    serno = serno + 1;
-                    string temp = serno.ToString();
-                    temp = temp.PadLeft(3, '0');
-                    return dt5.ToString("yyyyMMdd") + temp.ToString();
-                }
-            }
-
-            else if (MANU.Equals("統百包裝線"))
-            {
-                if (TA002.Equals("00000000000"))
-                {
-                    return dt6.ToString("yyyyMMdd") + "001";
-                }
-
-                else
-                {
-                    int serno = Convert.ToInt16(TA002.Substring(8, 3));
-                    serno = serno + 1;
-                    string temp = serno.ToString();
-                    temp = temp.PadLeft(3, '0');
-                    return dt6.ToString("yyyyMMdd") + temp.ToString();
-                }
-            }
-
-            return null;
+        /// <summary>會開立 ERP 製令（MOCTA）的產線：取單號 GETMAXTA002 / SETTA002 只處理這些產線。</summary>
+        private static bool IsMOCTALine(string manu)
+        {
+            return manu == LINE_MANU2 || manu == LINE_PACK || manu == LINE_MANU1
+                || manu == LINE_HAND || manu == LINE_WATER || manu == LINE_TB_PACK;
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -4204,8 +3032,6 @@ namespace TKMOC
                     TA028 = row.Cells["訂單序號"].Value.ToString();
                                         
                     SUBID2 = row.Cells["ID"].Value.ToString();
-                    SUBBAR2 = "";
-                    SUBNUM2 = "";
                     SUBBOX2 = row.Cells["箱數"].Value.ToString();
                     SUBPACKAGE2 = row.Cells["包裝數"].Value.ToString();
 
@@ -4218,8 +3044,6 @@ namespace TKMOC
                 {
                     ID2 = null;
                     SUBID2 = null;
-                    SUBBAR2 = null;
-                    SUBNUM2 = null;
                     SUBBOX2= null;
                     SUBPACKAGE2 = null;
                     TA026 = null;
@@ -4264,8 +3088,6 @@ namespace TKMOC
                     SUBID3 = row.Cells["ID"].Value.ToString();
                     SUBBAR3 = row.Cells["桶數"].Value.ToString();
                     SUBNUM3 = row.Cells["數量"].Value.ToString();
-                    SUBBOX3 = null;
-                    SUBPACKAGE3 = null;
 
                     SEARCHMOCMANULINERESULT();
                     SEARCHMOCMANULINEMERGERESLUTMOCTA(ID3.ToString());
@@ -4278,8 +3100,6 @@ namespace TKMOC
                     SUBID3 = null;
                     SUBBAR3 = null;
                     SUBNUM3 = null;
-                    SUBBOX3 = null;
-                    SUBPACKAGE3 = null;
 
                     TA026B = null;
                     TA027B = null;
@@ -4336,8 +3156,6 @@ namespace TKMOC
                     SUBID4 = row.Cells["ID"].Value.ToString();
                     SUBBAR4 = row.Cells["桶數"].Value.ToString();
                     SUBNUM4 = row.Cells["數量"].Value.ToString();
-                    SUBBOX4 = null;
-                    SUBPACKAGE4 = null;
 
                     SEARCHMOCMANULINERESULT();
                     SEARCHMOCMANULINEMERGERESLUTMOCTA(ID4.ToString());
@@ -4350,8 +3168,6 @@ namespace TKMOC
                     SUBID4 = null;
                     SUBBAR4= null;
                     SUBNUM4 = null;
-                    SUBBOX4 = null;
-                    SUBPACKAGE4 = null;
 
                     TA026C = null;
                     TA027C = null;
@@ -4451,280 +3267,39 @@ namespace TKMOC
 
         public void DELMOCMANULINERESULT()
         {
-            if (MANU.Equals("製二線"))
+            Dictionary<string, string> errCodes = new Dictionary<string, string>
             {
-                try
-                {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+                { LINE_MANU2, "32" }, { LINE_PACK, "33" }, { LINE_MANU1, "34" },
+                { LINE_HAND, "35" }, { LINE_TB_PACK, "36" },
+            };
 
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                    sqlConn.Close();
-                    sqlConn.Open();
-                    tran = sqlConn.BeginTransaction();
-
-                    sbSql.Clear();
-                    sbSql.AppendFormat("  DELETE [TKMOC].[dbo].[MOCMANULINERESULT]");
-                    sbSql.AppendFormat("  WHERE SID='{0}' ", DELID1);
-                    sbSql.AppendFormat("  AND [MOCTA001] ='{0}' AND [MOCTA002]='{1}'",DELMOCTA001A, DELMOCTA002A);
-                    sbSql.AppendFormat(" ");
-
-                    cmd.Connection = sqlConn;
-                    cmd.CommandTimeout = 60;
-                    cmd.CommandText = sbSql.ToString();
-                    cmd.Transaction = tran;
-                    result = cmd.ExecuteNonQuery();
-
-                    if (result == 0)
-                    {
-                        tran.Rollback();    //交易取消
-                    }
-                    else
-                    {
-                        tran.Commit();      //執行交易  
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"發生錯誤：{ex.Message} 32");
-                }
-                finally
-                {
-                    sqlConn.Close();
-                }
+            LineContext line = CurrentLine;
+            if (line == null || !errCodes.ContainsKey(line.Name))
+            {
+                return;
             }
 
-            else if (MANU.Equals("包裝線"))
+            try
             {
-                try
-                {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+                StringBuilder sql = new StringBuilder();
+                sql.AppendFormat("  DELETE [TKMOC].[dbo].[MOCMANULINERESULT]");
+                sql.AppendFormat("  WHERE SID='{0}'", line.DelID);
+                sql.AppendFormat("  AND [MOCTA001] ='{0}' AND [MOCTA002]='{1}'", line.DelMOCTA001, line.DelMOCTA002);
+                sql.AppendFormat(" ");
 
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                    sqlConn.Close();
-                    sqlConn.Open();
-                    tran = sqlConn.BeginTransaction();
-
-                    sbSql.Clear();
-                    sbSql.AppendFormat("  DELETE [TKMOC].[dbo].[MOCMANULINERESULT]");
-                    sbSql.AppendFormat("  WHERE SID='{0}'", DELID2);
-                    sbSql.AppendFormat("  AND [MOCTA001] ='{0}' AND [MOCTA002]='{1}'", DELMOCTA001B, DELMOCTA002B);
-                    sbSql.AppendFormat(" ");
-
-                    cmd.Connection = sqlConn;
-                    cmd.CommandTimeout = 60;
-                    cmd.CommandText = sbSql.ToString();
-                    cmd.Transaction = tran;
-                    result = cmd.ExecuteNonQuery();
-
-                    if (result == 0)
-                    {
-                        tran.Rollback();    //交易取消
-                    }
-                    else
-                    {
-                        tran.Commit();      //執行交易  
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"發生錯誤：{ex.Message} 33");
-                }
-                finally
-                {
-                    sqlConn.Close();
-                }
+                Db.ExecuteInTransaction(sql.ToString());
             }
-            else if (MANU.Equals("製一線"))
+            catch (Exception ex)
             {
-                try
-                {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                    sqlConn.Close();
-                    sqlConn.Open();
-                    tran = sqlConn.BeginTransaction();
-
-                    sbSql.Clear();
-                    sbSql.AppendFormat("  DELETE [TKMOC].[dbo].[MOCMANULINERESULT]");
-                    sbSql.AppendFormat("  WHERE SID='{0}'", DELID3);
-                    sbSql.AppendFormat("  AND [MOCTA001] ='{0}' AND [MOCTA002]='{1}'", DELMOCTA001C, DELMOCTA002C);
-                    sbSql.AppendFormat(" ");
-
-                    cmd.Connection = sqlConn;
-                    cmd.CommandTimeout = 60;
-                    cmd.CommandText = sbSql.ToString();
-                    cmd.Transaction = tran;
-                    result = cmd.ExecuteNonQuery();
-
-                    if (result == 0)
-                    {
-                        tran.Rollback();    //交易取消
-                    }
-                    else
-                    {
-                        tran.Commit();      //執行交易  
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"發生錯誤：{ex.Message} 34");
-                }
-                finally
-                {
-                    sqlConn.Close();
-                }
+                MessageBox.Show($"發生錯誤：{ex.Message} {errCodes[line.Name]}");
             }
-            else if (MANU.Equals("手工線"))
-            {
-                try
-                {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                    sqlConn.Close();
-                    sqlConn.Open();
-                    tran = sqlConn.BeginTransaction();
-
-                    sbSql.Clear();
-                    sbSql.AppendFormat("  DELETE [TKMOC].[dbo].[MOCMANULINERESULT]");
-                    sbSql.AppendFormat("  WHERE SID='{0}'", DELID4);
-                    sbSql.AppendFormat("  AND [MOCTA001] ='{0}' AND [MOCTA002]='{1}'", DELMOCTA001D, DELMOCTA002D);
-                    sbSql.AppendFormat(" ");
-
-                    cmd.Connection = sqlConn;
-                    cmd.CommandTimeout = 60;
-                    cmd.CommandText = sbSql.ToString();
-                    cmd.Transaction = tran;
-                    result = cmd.ExecuteNonQuery();
-
-                    if (result == 0)
-                    {
-                        tran.Rollback();    //交易取消
-                    }
-                    else
-                    {
-                        tran.Commit();      //執行交易  
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"發生錯誤：{ex.Message} 35");
-                }
-                finally
-                {
-                    sqlConn.Close();
-                }
-            }
-
-            else if (MANU.Equals("統百包裝線"))
-            {
-                try
-                {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                    sqlConn.Close();
-                    sqlConn.Open();
-                    tran = sqlConn.BeginTransaction();
-
-                    sbSql.Clear();
-                    sbSql.AppendFormat("  DELETE [TKMOC].[dbo].[MOCMANULINERESULT]");
-                    sbSql.AppendFormat("  WHERE SID='{0}'", DELID6);
-                    sbSql.AppendFormat("  AND [MOCTA001] ='{0}' AND [MOCTA002]='{1}'", DELMOCTA001F, DELMOCTA002F);
-                    sbSql.AppendFormat(" ");
-
-                    cmd.Connection = sqlConn;
-                    cmd.CommandTimeout = 60;
-                    cmd.CommandText = sbSql.ToString();
-                    cmd.Transaction = tran;
-                    result = cmd.ExecuteNonQuery();
-
-                    if (result == 0)
-                    {
-                        tran.Rollback();    //交易取消
-                    }
-                    else
-                    {
-                        tran.Commit();      //執行交易  
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"發生錯誤：{ex.Message} 36");
-                }
-                finally
-                {
-                    sqlConn.Close();
-                }
-            }
-
         }
 
         public void SEARCHMOCTB(string KINDS)
         {
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sbSql.Clear(); 
@@ -4757,7 +3332,6 @@ namespace TKMOC
 
                 adapter13 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder13 = new SqlCommandBuilder(adapter13);
                 sqlConn.Open();
                 ds13.Clear();
                 adapter13.Fill(ds13, "TEMPds13");
@@ -4911,16 +3485,7 @@ namespace TKMOC
         {
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sbSql.Clear();
@@ -4937,7 +3502,6 @@ namespace TKMOC
 
                 adapter14 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder14 = new SqlCommandBuilder(adapter14);
                 sqlConn.Open();
                 ds14.Clear();
                 adapter14.Fill(ds14, "TEMPds14");
@@ -4975,12 +3539,8 @@ namespace TKMOC
         {
             try
             {
-                Class1 TKID = new Class1();
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
 
-                using (SqlConnection sqlConn = new SqlConnection(sqlsb.ConnectionString))
+                using (SqlConnection sqlConn = Db.CreateConnection())
                 {
                     StringBuilder sbSql = new StringBuilder();
                     sbSql.Append(@"
@@ -5023,14 +3583,8 @@ namespace TKMOC
 
             try
             {
-                Class1 TKID = new Class1();
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
 
-                // 解密帳號與密碼
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                using (SqlConnection sqlConn = new SqlConnection(sqlsb.ConnectionString))
+                using (SqlConnection sqlConn = Db.CreateConnection())
                 {
                     StringBuilder sbSql = new StringBuilder();
                     sbSql.Append(@"
@@ -5254,16 +3808,7 @@ namespace TKMOC
         {
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sqlConn.Close();
@@ -5311,16 +3856,7 @@ namespace TKMOC
         {
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sqlConn.Close();
@@ -5450,16 +3986,7 @@ namespace TKMOC
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sbSql.Clear();
@@ -5476,7 +4003,6 @@ namespace TKMOC
 
                     adapter15 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                    sqlCmdBuilder15 = new SqlCommandBuilder(adapter15);
                     sqlConn.Open();
                     ds15.Clear();
                     adapter15.Fill(ds15, "TEMPds15");
@@ -5530,16 +4056,7 @@ namespace TKMOC
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sbSql.Clear();
@@ -5554,7 +4071,6 @@ namespace TKMOC
 
                     adapter16 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                    sqlCmdBuilder16 = new SqlCommandBuilder(adapter16);
                     sqlConn.Open();
                     ds16.Clear();
                     adapter16.Fill(ds16, "TEMPds16");
@@ -5588,16 +4104,7 @@ namespace TKMOC
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sbSql.Clear();
@@ -5612,7 +4119,6 @@ namespace TKMOC
 
                     adapter17 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                    sqlCmdBuilder17 = new SqlCommandBuilder(adapter17);
                     sqlConn.Open();
                     ds17.Clear();
                     adapter17.Fill(ds17, "TEMPds17");
@@ -5651,20 +4157,10 @@ namespace TKMOC
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
                     DataSet ds1 = new DataSet();
                     SqlDataAdapter adapter1 = new SqlDataAdapter();
-                    SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
 
                     sbSql.Clear();
                     sbSqlQuery.Clear();
@@ -5679,7 +4175,6 @@ namespace TKMOC
 
                     adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                    sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
                     sqlConn.Open();
                     ds1.Clear();
                     adapter1.Fill(ds1, "ds1");
@@ -5734,20 +4229,10 @@ namespace TKMOC
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
                     DataSet ds1 = new DataSet();
                     SqlDataAdapter adapter1 = new SqlDataAdapter();
-                    SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
 
                     sbSql.Clear();
                     sbSqlQuery.Clear();
@@ -5762,7 +4247,6 @@ namespace TKMOC
 
                     adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                    sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
                     sqlConn.Open();
                     ds1.Clear();
                     adapter1.Fill(ds1, "ds1");
@@ -5799,20 +4283,10 @@ namespace TKMOC
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
                     DataSet ds1 = new DataSet();
                     SqlDataAdapter adapter1 = new SqlDataAdapter();
-                    SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
 
                     sbSql.Clear();
                     sbSqlQuery.Clear();
@@ -5827,7 +4301,6 @@ namespace TKMOC
 
                     adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                    sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
                     sqlConn.Open();
                     ds1.Clear();
                     adapter1.Fill(ds1, "ds1");
@@ -5900,16 +4373,7 @@ namespace TKMOC
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sbSql.Clear();
@@ -5923,7 +4387,6 @@ namespace TKMOC
 
                     adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                    sqlCmdBuilder2 = new SqlCommandBuilder(adapter2);
                     sqlConn.Open();
                     ds2.Clear();
                     adapter2.Fill(ds2, "TEMPds2");
@@ -5958,16 +4421,7 @@ namespace TKMOC
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sbSql.Clear();
@@ -5981,7 +4435,6 @@ namespace TKMOC
 
                     adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                    sqlCmdBuilder2 = new SqlCommandBuilder(adapter2);
                     sqlConn.Open();
                     ds2.Clear();
                     adapter2.Fill(ds2, "TEMPds2");
@@ -6019,16 +4472,7 @@ namespace TKMOC
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sbSql.Clear();
@@ -6042,7 +4486,6 @@ namespace TKMOC
 
                     adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                    sqlCmdBuilder2 = new SqlCommandBuilder(adapter2);
                     sqlConn.Open();
                     ds2.Clear();
                     adapter2.Fill(ds2, "TEMPds2");
@@ -6077,16 +4520,7 @@ namespace TKMOC
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sbSql.Clear();
@@ -6100,7 +4534,6 @@ namespace TKMOC
 
                     adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                    sqlCmdBuilder2 = new SqlCommandBuilder(adapter2);
                     sqlConn.Open();
                     ds2.Clear();
                     adapter2.Fill(ds2, "TEMPds2");
@@ -6133,7 +4566,7 @@ namespace TKMOC
             }
         }
 
-        public void  UPDATEMOCMANULINE()
+        public void UPDATEMOCMANULINE()
         {
             if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage1"])
             {
@@ -6211,16 +4644,7 @@ namespace TKMOC
 
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sbSql.Clear();
@@ -6240,7 +4664,6 @@ namespace TKMOC
 
                 adapter19 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder19 = new SqlCommandBuilder(adapter19);
                 sqlConn.Open();
                 ds19.Clear();
                 adapter19.Fill(ds19, "TEMPds19");
@@ -6273,16 +4696,7 @@ namespace TKMOC
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sbSql.Clear();
@@ -6300,7 +4714,6 @@ namespace TKMOC
 
                     adapter20 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                    sqlCmdBuilder20 = new SqlCommandBuilder(adapter20);
                     sqlConn.Open();
                     ds20.Clear();
                     adapter20.Fill(ds20, "TEMPds20");
@@ -6344,16 +4757,7 @@ namespace TKMOC
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sbSql.Clear();
@@ -6369,7 +4773,6 @@ namespace TKMOC
 
                     adapter24 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                    sqlCmdBuilder24 = new SqlCommandBuilder(adapter24);
                     sqlConn.Open();
                     ds24.Clear();
                     adapter24.Fill(ds24, "TEMPds24");
@@ -6404,16 +4807,7 @@ namespace TKMOC
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sbSql.Clear();
@@ -6429,7 +4823,6 @@ namespace TKMOC
 
                     adapter20 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                    sqlCmdBuilder20 = new SqlCommandBuilder(adapter20);
                     sqlConn.Open();
                     ds20.Clear();
                     adapter20.Fill(ds20, "TEMPds20");
@@ -6508,16 +4901,7 @@ namespace TKMOC
         {
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sqlConn.Close();
@@ -6569,16 +4953,7 @@ namespace TKMOC
         {
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sbSql.Clear();
@@ -6612,7 +4987,6 @@ namespace TKMOC
 
                 adapter22 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder22 = new SqlCommandBuilder(adapter22);
                 sqlConn.Open();
                 ds22.Clear();
                 adapter22.Fill(ds22, "TEMPds22");
@@ -6650,16 +5024,7 @@ namespace TKMOC
         {
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sqlConn.Close();
@@ -6763,8 +5128,6 @@ namespace TKMOC
                     TA028D = row.Cells["訂單序號"].Value.ToString();
 
                     SUBID5 = row.Cells["ID"].Value.ToString();
-                    SUBBAR5 = "";
-                    SUBNUM5 = "";
                     SUBBOX5 = row.Cells["箱數"].Value.ToString();
                     SUBPACKAGE5 = row.Cells["包裝數"].Value.ToString();
 
@@ -6776,8 +5139,6 @@ namespace TKMOC
                 {
                     ID6 = null;
                     SUBID5 = null;
-                    SUBBAR5 = null;
-                    SUBNUM5 = null;
                     SUBBOX5 = null;
                     SUBPACKAGE5 = null;
 
@@ -6816,16 +5177,7 @@ namespace TKMOC
         {
             try 
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password); 
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sbSql.Clear();
@@ -6847,7 +5199,6 @@ namespace TKMOC
 
                 adapter27 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder27 = new SqlCommandBuilder(adapter27);
                 sqlConn.Open();
                 ds27.Clear();
                 adapter27.Fill(ds27, "ds27");
@@ -7088,16 +5439,7 @@ namespace TKMOC
         {
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sbSql.Clear();
@@ -7179,7 +5521,6 @@ namespace TKMOC
 
                 adapter28 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder28 = new SqlCommandBuilder(adapter28);
                 sqlConn.Open();
                 ds28.Clear();
                 adapter28.Fill(ds28, "ds28");
@@ -7346,16 +5687,7 @@ namespace TKMOC
         {
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sbSql.Clear();
@@ -7421,7 +5753,6 @@ namespace TKMOC
 
                 adapter28 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder28 = new SqlCommandBuilder(adapter28);
                 sqlConn.Open();
                 ds28.Clear();
                 adapter28.Fill(ds28, "ds28");
@@ -7592,16 +5923,7 @@ namespace TKMOC
         {
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sbSql.Clear();
@@ -7616,7 +5938,6 @@ namespace TKMOC
 
                 adapter29 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder29 = new SqlCommandBuilder(adapter29);
                 sqlConn.Open();
                 ds29.Clear();
                 adapter29.Fill(ds29, "ds29");
@@ -7657,16 +5978,7 @@ namespace TKMOC
 
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sqlConn.Close();
@@ -7734,16 +6046,7 @@ namespace TKMOC
         {
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sqlConn.Close();
@@ -7785,16 +6088,7 @@ namespace TKMOC
         {
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sbSql.Clear();
@@ -7826,7 +6120,6 @@ namespace TKMOC
 
                 adapter30 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder30 = new SqlCommandBuilder(adapter30);
                 sqlConn.Open();
                 ds30.Clear();
                 adapter30.Fill(ds30, "ds30");
@@ -7867,16 +6160,7 @@ namespace TKMOC
 
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sbSql.Clear();
@@ -7936,7 +6220,6 @@ namespace TKMOC
 
                 adapter31 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder31 = new SqlCommandBuilder(adapter31);
                 sqlConn.Open();
                 ds31.Clear();
                 adapter31.Fill(ds31, "ds31");
@@ -7988,16 +6271,7 @@ namespace TKMOC
         {
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sbSql.Clear();
@@ -8013,7 +6287,6 @@ namespace TKMOC
 
                 adapter33 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder33 = new SqlCommandBuilder(adapter33);
                 sqlConn.Open();
                 ds33.Clear();
                 adapter33.Fill(ds33, "ds33");
@@ -8072,22 +6345,12 @@ namespace TKMOC
         {
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 StringBuilder sbSql = new StringBuilder();
                 sbSql.Clear();
                 sbSqlQuery.Clear();
-                ds4.Clear();
 
                 sbSql.AppendFormat(@"  SELECT ISNULL(MAX(NO),'00000000000') AS NO");
                 sbSql.AppendFormat(@"  FROM [TKMOC].[dbo].[MOCMANULINEMERGE] ");
@@ -8098,7 +6361,6 @@ namespace TKMOC
 
                 adapter32 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder32 = new SqlCommandBuilder(adapter32);
                 sqlConn.Open();
                 ds32.Clear();
                 adapter32.Fill(ds32, "ds32");
@@ -8154,16 +6416,7 @@ namespace TKMOC
         {
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sqlConn.Close();
@@ -8232,16 +6485,7 @@ namespace TKMOC
         {
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sbSql.Clear();
@@ -8265,7 +6509,6 @@ namespace TKMOC
 
                 adapter34 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder34 = new SqlCommandBuilder(adapter34);
                 sqlConn.Open();
                 ds34.Clear();
                 adapter34.Fill(ds34, "ds34");
@@ -8307,16 +6550,7 @@ namespace TKMOC
         {
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sbSql.Clear();
@@ -8329,7 +6563,6 @@ namespace TKMOC
 
                 adapter36 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder36 = new SqlCommandBuilder(adapter36);
                 sqlConn.Open();
                 ds36.Clear();
                 adapter36.Fill(ds36, "ds36");
@@ -8370,16 +6603,7 @@ namespace TKMOC
         {
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sbSql.Clear();
@@ -8395,7 +6619,6 @@ namespace TKMOC
 
                 adapter37 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder37 = new SqlCommandBuilder(adapter37);
                 sqlConn.Open();
                 ds37.Clear();
                 adapter37.Fill(ds37, "ds37");
@@ -8438,16 +6661,7 @@ namespace TKMOC
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sqlConn.Close();
@@ -8577,22 +6791,12 @@ namespace TKMOC
 
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 StringBuilder sbSql = new StringBuilder();
                 sbSql.Clear();
                 sbSqlQuery.Clear();
-                ds4.Clear();
 
                 sbSql.AppendFormat(@" 
                                         SELECT ISNULL(MAX(TA002),'00000000000') AS TA002
@@ -8602,7 +6806,6 @@ namespace TKMOC
 
                 adapter35 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder35 = new SqlCommandBuilder(adapter35);
                 sqlConn.Open();
                 ds35.Clear();
                 adapter35.Fill(ds35, "ds35");
@@ -8692,16 +6895,7 @@ namespace TKMOC
                 //check TA002=2,TA040=2
                 if (MOCTA.TA002.Substring(0, 1).Equals("2") && MOCTA.TA040.Substring(0, 1).Equals("2"))
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sqlConn.Close();
@@ -8865,16 +7059,7 @@ namespace TKMOC
 
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sbSql.Clear();
@@ -8890,7 +7075,6 @@ namespace TKMOC
 
                 adapter5 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder5 = new SqlCommandBuilder(adapter5);
                 sqlConn.Open();
                 dsBOMMC.Clear();
                 adapter5.Fill(dsBOMMC, "dsBOMMC");
@@ -9006,19 +7190,15 @@ namespace TKMOC
         public void SEARCHMOCMANULINETEMPDATAS(string MB001)
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
             DataSet ds1 = new DataSet();
 
             SqlDataAdapter adapter2= new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder2= new SqlCommandBuilder();
             DataSet ds2 = new DataSet();
 
             SqlDataAdapter adapter3 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder3 = new SqlCommandBuilder();
             DataSet ds3 = new DataSet();
 
             SqlDataAdapter adapter4 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder4 = new SqlCommandBuilder();
             DataSet ds4 = new DataSet();
 
             SUM11 = 0;
@@ -9030,16 +7210,7 @@ namespace TKMOC
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sbSql.Clear();
@@ -9050,7 +7221,6 @@ namespace TKMOC
 
                     adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                    sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
                     sqlConn.Open();
                     ds1.Clear();
                     adapter1.Fill(ds1, "TEMPds1");
@@ -9102,16 +7272,7 @@ namespace TKMOC
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sbSql.Clear();
@@ -9122,7 +7283,6 @@ namespace TKMOC
 
                     adapter2 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                    sqlCmdBuilder2 = new SqlCommandBuilder(adapter2);
                     sqlConn.Open();
                     ds2.Clear();
                     adapter2.Fill(ds2, "ds2");
@@ -9173,16 +7333,7 @@ namespace TKMOC
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sbSql.Clear();
@@ -9193,7 +7344,6 @@ namespace TKMOC
 
                     adapter3 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                    sqlCmdBuilder3 = new SqlCommandBuilder(adapter3);
                     sqlConn.Open();
                     ds3.Clear();
                     adapter3.Fill(ds3, "ds3");
@@ -9245,16 +7395,7 @@ namespace TKMOC
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sbSql.Clear();
@@ -9265,7 +7406,6 @@ namespace TKMOC
 
                     adapter4 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                    sqlCmdBuilder4 = new SqlCommandBuilder(adapter4);
                     sqlConn.Open();
                     ds4.Clear();
                     adapter4.Fill(ds4, "ds4");
@@ -9350,16 +7490,7 @@ namespace TKMOC
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sqlConn.Close();
@@ -9410,16 +7541,7 @@ namespace TKMOC
         {
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sqlConn.Close();
@@ -9476,16 +7598,7 @@ namespace TKMOC
         {
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sqlConn.Close();
@@ -9540,16 +7653,7 @@ namespace TKMOC
         {
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sqlConn.Close();
@@ -9601,23 +7705,13 @@ namespace TKMOC
         public void SEARCHMOCMANULINEMERGERESLUTMOCTA(string ID)
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
             DataSet ds1 = new DataSet();
 
           
 
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sbSql.Clear();
@@ -9639,7 +7733,6 @@ namespace TKMOC
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
                 sqlConn.Open();
                 ds1.Clear();
                 adapter1.Fill(ds1, "ds1");
@@ -9746,16 +7839,7 @@ namespace TKMOC
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sqlConn.Close();
@@ -9813,16 +7897,7 @@ namespace TKMOC
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sqlConn.Close();
@@ -9917,16 +7992,7 @@ namespace TKMOC
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sqlConn.Close();
@@ -10039,16 +8105,7 @@ namespace TKMOC
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sqlConn.Close();
@@ -10186,21 +8243,11 @@ namespace TKMOC
         public void SEARCHMOCMANULINEQUERY1(string COPTD001,string COPTD002)
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
             DataSet ds1 = new DataSet();
 
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sbSql.Clear();
@@ -10271,7 +8318,6 @@ namespace TKMOC
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
                 sqlConn.Open();
                 ds1.Clear();
                 adapter1.Fill(ds1, "TEMPds1");
@@ -10309,21 +8355,11 @@ namespace TKMOC
         public void SEARCHMOCMANULINEQUERY2(string COPTD001, string COPTD002)
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
             DataSet ds1 = new DataSet();
 
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sbSql.Clear();
@@ -10398,7 +8434,6 @@ namespace TKMOC
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
                 sqlConn.Open();
                 ds1.Clear();
                 adapter1.Fill(ds1, "TEMPds1");
@@ -10436,21 +8471,11 @@ namespace TKMOC
         public string SEARCHMOCMANULINELIMITBARCOUNT1(string MANUDATE)
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
             DataSet ds1 = new DataSet();
 
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sbSql.Clear();
@@ -10467,7 +8492,6 @@ namespace TKMOC
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
                 sqlConn.Open();
                 ds1.Clear();
                 adapter1.Fill(ds1, "TEMPds1");
@@ -10495,21 +8519,11 @@ namespace TKMOC
         public string SEARCHMOCMANULINELIMITBARCOUNT2(string MANUDATE)
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
             DataSet ds1 = new DataSet();
 
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sbSql.Clear();
@@ -10526,7 +8540,6 @@ namespace TKMOC
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
                 sqlConn.Open();
                 ds1.Clear();
                 adapter1.Fill(ds1, "TEMPds1");
@@ -10556,21 +8569,11 @@ namespace TKMOC
         public void SEARCHMOCMANULINELIMITBARCOUNT()
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
             DataSet ds1 = new DataSet();
 
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sbSql.Clear();
@@ -10588,7 +8591,6 @@ namespace TKMOC
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
                 sqlConn.Open();
                 ds1.Clear();
                 adapter1.Fill(ds1, "TEMPds1");
@@ -10648,16 +8650,7 @@ namespace TKMOC
         {
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sqlConn.Close();
@@ -10707,16 +8700,7 @@ namespace TKMOC
         {
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sqlConn.Close();
@@ -10785,21 +8769,11 @@ namespace TKMOC
         public void SEARCHCOPTCCOPTD()
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
             DataSet ds1 = new DataSet();
 
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sbSql.Clear();
@@ -10839,7 +8813,6 @@ namespace TKMOC
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
                 sqlConn.Open();
                 ds1.Clear();
                 adapter1.Fill(ds1, "TEMPds1");
@@ -10978,21 +8951,11 @@ namespace TKMOC
         public void SEARCHMOCMANULINEQUERY86A(string MANUDATE, string MB001)
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
             DataSet ds1 = new DataSet();
 
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sbSql.Clear();
@@ -11020,7 +8983,6 @@ namespace TKMOC
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
                 sqlConn.Open();
                 ds1.Clear();
                 adapter1.Fill(ds1, "TEMPds1");
@@ -11058,21 +9020,11 @@ namespace TKMOC
         public void SEARCHMOCMANULINEQUERY86B(string MANUDATE, string MB001)
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
             DataSet ds1 = new DataSet();
 
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sbSql.Clear();
@@ -11102,7 +9054,6 @@ namespace TKMOC
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
                 sqlConn.Open();
                 ds1.Clear();
                 adapter1.Fill(ds1, "TEMPds1");
@@ -11140,21 +9091,11 @@ namespace TKMOC
         public void SEARCHMOCMANULINEQUERY87A(string MANUDATE, string MB001)
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
             DataSet ds1 = new DataSet();
 
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sbSql.Clear();
@@ -11211,7 +9152,6 @@ namespace TKMOC
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
                 sqlConn.Open();
                 ds1.Clear();
                 adapter1.Fill(ds1, "TEMPds1");
@@ -11249,21 +9189,11 @@ namespace TKMOC
         public void SEARCHMOCMANULINEQUERY87B(string MANUDATE, string MB001)
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
             DataSet ds1 = new DataSet();
 
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sbSql.Clear();
@@ -11322,7 +9252,6 @@ namespace TKMOC
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
                 sqlConn.Open();
                 ds1.Clear();
                 adapter1.Fill(ds1, "TEMPds1");
@@ -11360,21 +9289,11 @@ namespace TKMOC
         public void SEARCHMOCMANULINEQUERY88A(string MANUDATE, string MB001)
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
             DataSet ds1 = new DataSet();
 
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sbSql.Clear();
@@ -11418,7 +9337,6 @@ namespace TKMOC
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
                 sqlConn.Open();
                 ds1.Clear();
                 adapter1.Fill(ds1, "TEMPds1");
@@ -11456,21 +9374,11 @@ namespace TKMOC
         public void SEARCHMOCMANULINEQUERY88B(string MANUDATE, string MB001)
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
             DataSet ds1 = new DataSet();
 
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sbSql.Clear();
@@ -11516,7 +9424,6 @@ namespace TKMOC
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
                 sqlConn.Open();
                 ds1.Clear();
                 adapter1.Fill(ds1, "TEMPds1");
@@ -11554,21 +9461,11 @@ namespace TKMOC
         public void SEARCHMOCMANULINEQUERY89A(string MANUDATE, string MB001)
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
             DataSet ds1 = new DataSet();
 
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sbSql.Clear();
@@ -11627,7 +9524,6 @@ namespace TKMOC
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
                 sqlConn.Open();
                 ds1.Clear();
                 adapter1.Fill(ds1, "TEMPds1");
@@ -11665,21 +9561,11 @@ namespace TKMOC
         public void SEARCHMOCMANULINEQUERY89B(string MANUDATE, string MB001)
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
             DataSet ds1 = new DataSet();
 
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sbSql.Clear();
@@ -11738,7 +9624,6 @@ namespace TKMOC
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
                 sqlConn.Open();
                 ds1.Clear();
                 adapter1.Fill(ds1, "TEMPds1");
@@ -11776,7 +9661,6 @@ namespace TKMOC
         public void SEARCHTBCOPTDCHECK(string YYYYMM,string TD021,string UDF01,string TD002)
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
             DataSet ds1 = new DataSet();
             StringBuilder QUERYS = new StringBuilder();
             StringBuilder QUERYS2 = new StringBuilder();
@@ -11784,16 +9668,7 @@ namespace TKMOC
 
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sbSql.Clear();
@@ -11887,7 +9762,6 @@ namespace TKMOC
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
                 sqlConn.Open();
                 ds1.Clear();
                 adapter1.Fill(ds1, "TEMPds1");
@@ -11950,22 +9824,12 @@ namespace TKMOC
         public DataTable SEARCH_MOCMANULINEMB001LIKES()
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
             DataSet ds1 = new DataSet();
             StringBuilder QUERYS = new StringBuilder();
 
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sbSql.Clear();
@@ -11982,7 +9846,6 @@ namespace TKMOC
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
                 sqlConn.Open();
                 ds1.Clear();
                 adapter1.Fill(ds1, "TEMPds1");
@@ -12022,16 +9885,7 @@ namespace TKMOC
                 dgvCmb.HeaderText = "生管核準填寫";
                 dgvCmb.Name = "生管核準填寫";
 
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
                 StringBuilder Sequel = new StringBuilder();
                 Sequel.AppendFormat(@"SELECT 'N' AS 'STATUS' UNION ALL SELECT 'Y' AS 'STATUS'  ");
@@ -12111,23 +9965,13 @@ namespace TKMOC
                              )
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
             DataSet ds1 = new DataSet();
 
             MOCCHECKDATES = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
 
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sqlConn.Close();
@@ -12352,16 +10196,7 @@ namespace TKMOC
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sqlConn.Close();
@@ -12410,16 +10245,7 @@ namespace TKMOC
 
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sqlConn.Close();
@@ -12469,16 +10295,7 @@ namespace TKMOC
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sqlConn.Close();
@@ -12528,16 +10345,7 @@ namespace TKMOC
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sqlConn.Close();
@@ -12591,16 +10399,7 @@ namespace TKMOC
 
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sqlConn.Close();
@@ -12651,22 +10450,12 @@ namespace TKMOC
         public DataTable SEARCHCOPTCTDDATA(string TD001,string TD002,string TD003,string TD004)
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
             DataSet ds1 = new DataSet();
             StringBuilder QUERYS = new StringBuilder();
 
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sbSql.Clear();
@@ -12709,7 +10498,6 @@ namespace TKMOC
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
                 sqlConn.Open();
                 ds1.Clear();
                 adapter1.Fill(ds1, "TEMPds1");
@@ -12855,15 +10643,8 @@ namespace TKMOC
         {    
             try
             {
-                // 20210902密
-                Class1 TKID = new Class1();
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
 
-                // 資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                using (SqlConnection sqlConn = new SqlConnection(sqlsb.ConnectionString))
+                using (SqlConnection sqlConn = Db.CreateConnection())
                 {
                     sqlConn.Open();
                     using (SqlTransaction tran = sqlConn.BeginTransaction())
@@ -12927,7 +10708,6 @@ namespace TKMOC
         public void SEARCHTBCOPTFCHECK(string YYYY, string TF019, string TF002)
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
             DataSet ds1 = new DataSet();
             StringBuilder sbSql = new StringBuilder();
             StringBuilder QUERYS = new StringBuilder();
@@ -12935,16 +10715,7 @@ namespace TKMOC
 
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sbSql.Clear();
@@ -13044,7 +10815,6 @@ namespace TKMOC
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
                 sqlConn.Open();
                 ds1.Clear();
                 adapter1.Fill(ds1, "TEMPds1");
@@ -13115,16 +10885,7 @@ namespace TKMOC
                 dgvCmb.HeaderText = "生管核準填寫";
                 dgvCmb.Name = "生管核準填寫";
 
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
                 StringBuilder Sequel = new StringBuilder();
                 Sequel.AppendFormat(@"SELECT 'N' AS 'STATUS' UNION ALL SELECT 'Y' AS 'STATUS'  ");
@@ -13207,23 +10968,13 @@ namespace TKMOC
                              )
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
             DataSet ds1 = new DataSet();
 
             MOCCHECKDATES = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
 
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sqlConn.Close();
@@ -13497,22 +11248,12 @@ namespace TKMOC
         public DataTable SEARCHCOPTETFDATA(string TF001, string TF002, string TF003, string TF104)
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
             DataSet ds1 = new DataSet();
             StringBuilder QUERYS = new StringBuilder();
 
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sbSql.Clear();
@@ -13544,7 +11285,6 @@ namespace TKMOC
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
                 sqlConn.Open();
                 ds1.Clear();
                 adapter1.Fill(ds1, "TEMPds1");
@@ -13651,22 +11391,12 @@ namespace TKMOC
         public DataTable SEARCHMOCMANUPRENUMS(string MB001)
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
             DataSet ds1 = new DataSet();
             StringBuilder QUERYS = new StringBuilder();
 
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sbSql.Clear();
@@ -13689,7 +11419,6 @@ namespace TKMOC
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
                 sqlConn.Open();
                 ds1.Clear();
                 adapter1.Fill(ds1, "TEMPds1");
@@ -13723,16 +11452,7 @@ namespace TKMOC
         {
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sqlConn.Close();
@@ -13782,22 +11502,12 @@ namespace TKMOC
         public void SEARCH_MANUDAYILYPRODUCT1(string MANUDATE)
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
             DataSet ds1 = new DataSet();
             StringBuilder QUERYS = new StringBuilder();
 
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sbSql.Clear();
@@ -13821,7 +11531,6 @@ namespace TKMOC
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
                 sqlConn.Open();
                 ds1.Clear();
                 adapter1.Fill(ds1, "TEMPds1");
@@ -13856,16 +11565,7 @@ namespace TKMOC
         {
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sqlConn.Close();
@@ -13915,22 +11615,12 @@ namespace TKMOC
         public void SEARCH_MANUDAYILYPRODUCT2(string MANUDATE)
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
             DataSet ds1 = new DataSet();
             StringBuilder QUERYS = new StringBuilder();
 
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sbSql.Clear();
@@ -13954,7 +11644,6 @@ namespace TKMOC
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
                 sqlConn.Open();
                 ds1.Clear();
                 adapter1.Fill(ds1, "TEMPds1");
@@ -13988,16 +11677,7 @@ namespace TKMOC
         {
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sqlConn.Close();
@@ -14192,22 +11872,12 @@ namespace TKMOC
         public DataTable SEARCH_MOCMANULINEMERGENAMES()
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
             DataSet ds1 = new DataSet();
             StringBuilder QUERYS = new StringBuilder();
 
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sbSql.Clear();
@@ -14225,7 +11895,6 @@ namespace TKMOC
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
                 sqlConn.Open();
                 ds1.Clear();
                 adapter1.Fill(ds1, "TEMPds1");
@@ -14256,22 +11925,12 @@ namespace TKMOC
         public DataTable CAL_MOCMANULINEMERGENAMES_SUM(string DATES,string KINDS)
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
             DataSet ds1 = new DataSet();
             StringBuilder QUERYS = new StringBuilder();
 
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sbSql.Clear();
@@ -14297,7 +11956,6 @@ namespace TKMOC
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
                 sqlConn.Open();
                 ds1.Clear();
                 adapter1.Fill(ds1, "TEMPds1");
@@ -14337,21 +11995,11 @@ namespace TKMOC
         public void SEACRH_MOCLINE_NEW_CHAGNES(string COPTD001, string COPTD002)
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
             DataSet ds1 = new DataSet();
 
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sbSql.Clear();
@@ -14467,7 +12115,6 @@ namespace TKMOC
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
                 sqlConn.Open();
                 ds1.Clear();
                 adapter1.Fill(ds1, "TEMPds1");
@@ -14557,16 +12204,7 @@ namespace TKMOC
             {
                 try
                 {
-                    //20210902密
-                    Class1 TKID = new Class1();//用new 建立類別實體
-                    SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                    //資料庫使用者密碼解密
-                    sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                    sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                    String connectionString;
-                    sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                    sqlConn = Db.CreateConnection();
 
 
                     sqlConn.Close();
@@ -14716,21 +12354,11 @@ namespace TKMOC
         public DataTable FIND_MOCMANULINEORMB001()
         {
             SqlDataAdapter adapter1 = new SqlDataAdapter();
-            SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
             DataSet ds1 = new DataSet();
 
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
+                sqlConn = Db.CreateConnection();
 
 
                 sbSql.Clear();
@@ -14744,7 +12372,6 @@ namespace TKMOC
 
                 adapter1 = new SqlDataAdapter(@"" + sbSql, sqlConn);
 
-                sqlCmdBuilder1 = new SqlCommandBuilder(adapter1);
                 sqlConn.Open();
                 ds1.Clear();
                 adapter1.Fill(ds1, "TEMPds1");

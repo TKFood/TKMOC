@@ -387,6 +387,7 @@
     <Compile Include="frmMOCINVMERGE.Designer.cs">
       <DependentUpon>frmMOCINVMERGE.cs</DependentUpon>
     </Compile>
+    <Compile Include="Db.cs" />
     <Compile Include="frmMOCMANULINE.cs">
       <SubType>Form</SubType>
     </Compile>
