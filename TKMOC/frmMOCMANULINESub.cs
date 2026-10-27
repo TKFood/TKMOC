@@ -666,7 +666,7 @@ namespace TKMOC
                                     JOIN [TK].dbo.BOMMD MD1 ON MC1.MC001 = MD1.MD001
                                     JOIN [TK].dbo.BOMMC MC2 ON MC2.MC001 = MD1.MD003
                                     WHERE MC1.MC001 = @CHECKMB001
-                                      AND MD1.MD003 LIKE '3%'
+                                      AND (MD1.MD003 LIKE '3%' OR MD1.MD003 LIKE '1%') 
                                       AND MD1.MD003 = @MODIFY_MB001
                                 ) AS TEMP
                                 WHERE TEMP.MD1MD003 = [TKMOC].[dbo].[MOCMANULINE].[MB001]
@@ -694,7 +694,7 @@ namespace TKMOC
                                     JOIN [TK].dbo.BOMMD MD2 ON MD1.MD003 = MD2.MD001
                                     JOIN [TK].dbo.BOMMC MC3 ON MC3.MC001 = MD2.MD003
                                     WHERE MC1.MC001 = @CHECKMB001
-                                      AND MD1.MD003 LIKE '3%'
+                                      AND (MD1.MD003 LIKE '3%' OR MD1.MD003 LIKE '1%') 
                                       AND MD1.MD003 = @MODIFY_MB001
                                 ) AS TEMP
                                 WHERE TEMP.MD2MD003 = [MOCMANULINE].[MB001]
