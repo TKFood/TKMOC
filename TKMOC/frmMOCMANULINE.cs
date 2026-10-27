@@ -6133,7 +6133,7 @@ namespace TKMOC
             }
         }
 
-        public void UPDATEMOCMANULINE()
+        public void  UPDATEMOCMANULINE()
         {
             if (tabControl1.SelectedTab == tabControl1.TabPages["tabPage1"])
             {
