@@ -177,15 +177,24 @@ namespace TKMOC
                 sqlConn.Open();
                 tran = sqlConn.BeginTransaction();
 
-            
+                sbSql.Clear();
+
                 sbSql.AppendFormat(@" 
                                     INSERT INTO [TKMOC].[dbo].[REPORTCUTS]
                                     ( MB001,MB002,MB003,[MANULINES])
-                                    SELECT MB001,MB002,MB003,MD002
-                                    FROM [TK].dbo.INVMB,[TK].dbo.CMSMD
-                                    WHERE MB068=MD001
-                                    AND (MB001 LIKE '3%' OR  MB001 LIKE '4%')
-                                    AND REPLACE(MB001+MD002,' ','') NOT IN (SELECT   REPLACE(MB001+MANULINES,' ','') FROM  [TKMOC].[dbo].[REPORTCUTS])
+
+                                    SELECT MB.MB001, MB.MB002, MB.MB003, MD.MD002
+                                    FROM [TK].dbo.INVMB MB
+                                    JOIN [TK].dbo.CMSMD MD
+                                      ON MB.MB068 = MD.MD001
+                                    WHERE MB.MB001 >= '3' AND MB.MB001 < '5'      -- 等同 3% 或 4% 開頭
+                                      AND NOT EXISTS (
+                                            SELECT 1
+                                            FROM [TKMOC].dbo.REPORTCUTS R
+                                            WHERE R.MB001     = MB.MB001
+                                              AND R.MANULINES = MD.MD002
+                                      );
+
                                     ");
             
 
@@ -195,20 +204,24 @@ namespace TKMOC
                 cmd.Transaction = tran;
                 result = cmd.ExecuteNonQuery();
 
-                if (result == 0)
-                {
-                    tran.Rollback();    //交易取消
-                }
-                else
-                {
-                    tran.Commit();      //執行交易  
+                tran.Commit();      //執行交易
 
-                    MessageBox.Show("完成"); 
-                }
+                MessageBox.Show("完成，新增 " + result.ToString() + " 筆");
             }
-            catch
+            catch (Exception ex)
             {
+                try
+                {
+                    if (tran != null)
+                    {
+                        tran.Rollback();    //交易取消
+                    }
+                }
+                catch
+                {
+                }
 
+                MessageBox.Show("錯誤：" + ex.Message);
             }
 
             finally
