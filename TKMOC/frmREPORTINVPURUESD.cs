@@ -437,14 +437,14 @@ namespace TKMOC
                                         AND INVPURUESD.DATES < DATEADD(DAY, 1, @EDate)
                                         AND INVPURUESD.MB001 = @MD003
                                 ),
-                                -- 同一天的排序：0 期初庫存 → 1 領用/使用 (含手動出貨) → 2 進貨 (含手動進貨)
+                                -- 同一天的排序：0 期初庫存 → 1 領用/使用 → 2 進貨 → 3 手動進出貨 (一律排最後)
                                 SORTED_DATA AS (
                                     SELECT
                                         *,
                                         CASE
                                             WHEN MANU = N'0庫存' THEN 0
                                             WHEN MANU = N'1進貨' THEN 2
-                                            WHEN MANU = N'1手動進出貨' AND TNUM >= 0 THEN 2
+                                            WHEN MANU = N'1手動進出貨' THEN 3
                                             ELSE 1
                                         END AS SORTKEY
                                     FROM BASE_DATA
@@ -482,7 +482,7 @@ namespace TKMOC
                     return;
                 }
 
-                //計算預計庫存量 (累計)，資料已依 日期 → 庫存/領用/進貨 排序
+                //計算預計庫存量 (累計)，資料已依 日期 → 庫存/領用/進貨/手動進出貨 排序
                 dt.Columns["預計庫存量"].ReadOnly = false;
                 decimal runningTotal = 0;
                 foreach (DataRow dr in dt.Rows)
