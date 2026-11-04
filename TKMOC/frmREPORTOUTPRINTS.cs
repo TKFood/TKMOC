@@ -207,7 +207,7 @@ namespace TKMOC
             string REPORTS_DIR = @"REPORT\營貼\"+ REPORTS + ".frx"; 
               
             report1.Load(REPORTS_DIR); 
-
+             
             //SQL1 = SETSQL1(CHECK_TA021, SDAY, EDAY);
 
 
