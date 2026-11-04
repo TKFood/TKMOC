@@ -670,6 +670,12 @@
     <Compile Include="frmREPORTMOCBOMORI.Designer.cs">
       <DependentUpon>frmREPORTMOCBOMORI.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmREPORTMOCBOMPROCESS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmREPORTMOCBOMPROCESS.Designer.cs">
+      <DependentUpon>frmREPORTMOCBOMPROCESS.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmREPORTMOCCOP.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1065,6 +1071,9 @@
     <EmbeddedResource Include="frmREPORTMOCBOMORI.resx">
       <DependentUpon>frmREPORTMOCBOMORI.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmREPORTMOCBOMPROCESS.resx">
+      <DependentUpon>frmREPORTMOCBOMPROCESS.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmREPORTMOCCOP.resx">
       <DependentUpon>frmREPORTMOCCOP.cs</DependentUpon>
     </EmbeddedResource>
@@ -1170,6 +1179,9 @@
     <None Include="REPORT\烘培檢驗日報表.frx" />
     <None Include="REPORT\烘烤製程記錄.frx" />
     <None Include="REPORT\烤爐溫度明細表.frx" />
+    <None Include="REPORT\生產說明維護.frx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="REPORT\生產日報的分析表.frx" />
     <None Include="REPORT\生產日報的月份分析表.frx" />
     <None Include="REPORT\生產日報表明細表.frx" />

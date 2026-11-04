@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="11/04/2026 14:00:00" ReportInfo.Modified="11/04/2026 14:00:00" ReportInfo.CreatorVersion="2017.4.1.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqHwzMSgwTFaHpjtG3vsOj8Zy6q+uhwpDsytgWqwZQZyEQUQyQ022aWUGqU90pHzzNS8V+op55d8q+MyIM1gh0M9zlGOgK4zWs8Nahyki0xHW6v1SoNjLsQ40hUEIevZodc4nZn1VMr9PyrOeyOFQcW49yN37Wommt8wACdM4FKHAeO5qqwIh8UI3n9QTXxqWw+vOtByBIG/YsPFxHLNF5ww==">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="SELECT &#13;&#10;[MB001] AS '品號'&#13;&#10;,[MB002] AS '品名'&#13;&#10;,[PROCESSING] AS '生產說明'&#13;&#10;FROM [TKMOC].[dbo].[REPORTMOCBOMPROCESS]&#13;&#10;ORDER BY [MB001]&#13;&#10;">
+        <Column Name="品號" DataType="System.String"/>
+        <Column Name="品名" DataType="System.String"/>
+        <Column Name="生產說明" DataType="System.String"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" RawPaperSize="9">
+    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="28.35">
+      <TextObject Name="Text1" Width="1047.06" Height="28.35" Text="製令BOM報表-生產說明" HorzAlign="Center" VertAlign="Center" Font="新細明體, 14pt, style=Bold"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="32.35" Width="1047.06" Height="18.9">
+      <TextObject Name="Text9" Left="850.5" Width="196.56" Height="18.9" Text="列印日期：[FormatDateTime([Date],&quot;Short Date&quot;)]" HorzAlign="Right" VertAlign="Center"/>
+    </PageHeaderBand>
+    <ColumnHeaderBand Name="ColumnHeader1" Top="55.25" Width="1047.06" Height="18.9">
+      <TextObject Name="Text3" Width="151.2" Height="18.9" Border.Lines="All" Fill.Color="LightGreen" Text="品號" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text5" Left="151.2" Width="283.5" Height="18.9" Border.Lines="All" Fill.Color="LightGreen" Text="品名" HorzAlign="Center" VertAlign="Center"/>
+      <TextObject Name="Text7" Left="434.7" Width="612.36" Height="18.9" Border.Lines="All" Fill.Color="LightGreen" Text="生產說明" HorzAlign="Center" VertAlign="Center"/>
+    </ColumnHeaderBand>
+    <DataBand Name="Data1" Top="78.15" Width="1047.06" Height="18.9" CanGrow="true" DataSource="Table">
+      <TextObject Name="Text2" Width="151.2" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.品號]" VertAlign="Center"/>
+      <TextObject Name="Text4" Left="151.2" Width="283.5" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.品名]" VertAlign="Center"/>
+      <TextObject Name="Text6" Left="434.7" Width="612.36" Height="18.9" Border.Lines="All" CanGrow="true" GrowToBottom="true" Text="[Table.生產說明]" VertAlign="Center"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="101.05" Width="1047.06" Height="18.9">
+      <TextObject Name="Text8" Width="1047.06" Height="18.9" Text="第 [Page#] 頁 / 共 [TotalPages#] 頁" HorzAlign="Center" VertAlign="Center"/>
+    </PageFooterBand>
+  </ReportPage>
+</Report>
