@@ -1,62 +1,36 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using NPOI;
-using NPOI.HPSF;
-using NPOI.HSSF;
-using NPOI.HSSF.UserModel;
-using NPOI.POIFS;
-using NPOI.Util;
-using NPOI.HSSF.Util;
-using NPOI.HSSF.Extractor;
-using System.IO;
-using System.Data.SqlClient;
-using NPOI.SS.UserModel;
-using System.Configuration;
-using NPOI.XSSF.UserModel;
-using Calendar.NET;
-using Excel = Microsoft.Office.Interop.Excel;
 using FastReport;
 using FastReport.Data;
-using TKITDLL;
 
 namespace TKMOC
 {
+    /// <summary>
+    /// 油酥原料添加表
+    /// 依製令：[TKMOC].[dbo].[REPORTMOCBOM]
+    /// 依成品：[TKMOC].[dbo].[REPORTMOCBOMOIL]
+    /// 生產說明：[TKMOC].[dbo].[REPORTMOCBOMPROCESS]（由 frmREPORTMOCBOMPROCESS 維護）
+    /// </summary>
     public partial class frmREPORTMOCBOM : Form
     {
-        SqlConnection sqlConn = new SqlConnection();
-        SqlCommand sqlComm = new SqlCommand();
-        string connectionString;
-        StringBuilder sbSql = new StringBuilder();
-        StringBuilder sbSqlQuery = new StringBuilder();
-        SqlDataAdapter adapter = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder = new SqlCommandBuilder();
-        SqlDataAdapter adapter1 = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder1 = new SqlCommandBuilder();
-        SqlDataAdapter adapter2 = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder2 = new SqlCommandBuilder();
-        SqlDataAdapter adapter3 = new SqlDataAdapter();
-        SqlCommandBuilder sqlCmdBuilder3 = new SqlCommandBuilder();
-        SqlCommand cmd = new SqlCommand();
-     
-        DataSet ds2 = new DataSet();
-        DataSet ds3 = new DataSet();
-        DataTable dt = new DataTable();
-        string tablename = null;
-        int rownum = 0;
+        //報表檔
+        const string REPORT_FILE_MOC = @"REPORT\油酥原料添加表V7.frx";
+        const string REPORT_FILE_OIL = @"REPORT\油酥原料添加表-合併V3.frx";
 
-        SqlTransaction tran;
-
-        DataSet ds1 = new DataSet();
-        int result;
+        static readonly Font HEADER_FONT = new Font("Tahoma", 9);
+        static readonly Font CELL_FONT = new Font("Tahoma", 10);
 
         Report report1 = new Report();
+
+        //全選用的表頭 CheckBox
+        CheckBox cbHeader;
 
         //找出生產說明用的品號
         string MAINMB001 = "";
@@ -81,85 +55,62 @@ namespace TKMOC
 
             //建立个矩形，等下计算 CheckBox 嵌入 GridView 的位置
             Rectangle rect = dataGridView1.GetCellDisplayRectangle(0, -1, true);
-            rect.X = rect.Location.X + rect.Width / 8- 1;
+            rect.X = rect.Location.X + rect.Width / 8 - 1;
             rect.Y = rect.Location.Y + (rect.Height / 4 - 1);
 
-            CheckBox cbHeader = new CheckBox();
+            cbHeader = new CheckBox();
             cbHeader.Name = "checkboxHeader";
             cbHeader.Size = new Size(12, 12);
             cbHeader.Location = rect.Location;
 
             //全选要设定的事件
-            cbHeader.CheckedChanged += new EventHandler(cbHeader_CheckedChanged);
+            cbHeader.CheckedChanged += cbHeader_CheckedChanged;
 
             //将 CheckBox 加入到 dataGridView
             dataGridView1.Controls.Add(cbHeader);
 
-
             #endregion
-
-
         }
 
         private void cbHeader_CheckedChanged(object sender, EventArgs e)
         {
             dataGridView1.EndEdit();
 
+            bool isChecked = cbHeader.Checked;
             foreach (DataGridViewRow dr in dataGridView1.Rows)
             {
-                dr.Cells[0].Value = ((CheckBox)dataGridView1.Controls.Find("checkboxHeader", true)[0]).Checked;
-
+                dr.Cells[0].Value = isChecked;
             }
-
         }
+
         #region FUNCTION
+
+        /// <summary>
+        /// 依製令：查詢生產日的製令
+        /// </summary>
         public void Search()
         {
-            DataSet ds = new DataSet();
-
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+                //MC004=0 時以 NULL 處理，避免除以0讓整個查詢失敗
+                string sql = @"
+                            SELECT TA001 AS '製令',TA002 AS '單號',TA006 AS '品號',TA034 AS '品名',TA015 AS '生產量',TA003 AS '生產日',TA035 AS '規格',MC004 AS '標準批量',(TA015/NULLIF(MC004,0)) AS '桶數'
+                            FROM [TK].dbo.MOCTA
+                            INNER JOIN [TK].dbo.BOMMC ON TA006=MC001
+                            WHERE (TA006 LIKE '3%' OR TA006 LIKE '4%')
+                            AND TA021 IN ('02','03','04')
+                            AND TA003=@TA003
+                            ORDER BY TA001,TA002
+                            ";
 
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+                DataTable dt = Db.Query(sql, new SqlParameter("@TA003", dateTimePicker1.Value.ToString("yyyyMMdd")));
 
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                sbSql.Clear();
-                sbSqlQuery.Clear();
-                
-                sbSql.AppendFormat(@"  
-                                    SELECT TA001 AS '製令',TA002 AS '單號',TA006 AS '品號',TA034 AS '品名',TA015 AS '生產量',TA003 AS '生產日',TA035 AS '規格',MC004 AS '標準批量',(TA015/MC004)  AS '桶數'
-                                    FROM [TK].dbo.MOCTA,[TK].dbo.BOMMC
-                                    WHERE TA006=MC001
-                                    AND (TA006 LIKE '3%' OR TA006 LIKE '4%')
-                                    AND TA021 IN ('02','03','04')
-                                    AND TA003='{0}'
-                                    ORDER BY TA001,TA002 
-                                     
-                                    ", dateTimePicker1.Value.ToString("yyyyMMdd"));
-
-                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                sqlCmdBuilder = new SqlCommandBuilder(adapter);
-                sqlConn.Open();
-                ds.Clear();
-                adapter.Fill(ds, "TEMPds1");
-                sqlConn.Close();
-
-                if (ds.Tables["TEMPds1"].Rows.Count >= 1)
+                if (dt.Rows.Count >= 1)
                 {
+                    dataGridView1.DataSource = dt;
 
-                    dataGridView1.DataSource = ds.Tables["TEMPds1"];
-
-                    dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 9);
-                    dataGridView1.DefaultCellStyle.Font = new Font("Tahoma", 10);
+                    dataGridView1.ColumnHeadersDefaultCellStyle.Font = HEADER_FONT;
+                    dataGridView1.DefaultCellStyle.Font = CELL_FONT;
                     dataGridView1.Columns["製令"].Width = 60;
                     dataGridView1.Columns["單號"].Width = 100;
                     dataGridView1.Columns["品號"].Width = 100;
@@ -168,327 +119,355 @@ namespace TKMOC
                 else
                 {
                     dataGridView1.DataSource = null;
+                    textBox1.Text = "";
+                    textBox2.Text = "";
+                    textBox3.Text = "";
+                    MAINMB001 = "";
                 }
-              
 
+                cbHeader.Checked = false;
             }
-            catch
+            catch (Exception ex)
             {
-
-            }
-            finally
-            {
-
+                MessageBox.Show("查詢失敗：" + ex.Message);
             }
         }
 
+        /// <summary>
+        /// 依成品：查詢生產日的成品(依線別)
+        /// </summary>
         public void SearchOIL()
         {
-            DataSet ds = new DataSet();
-
             try
             {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+                string sql = @"
+                            SELECT MD002 AS '線別',TA006 AS '品號',TA034 AS '品名',SUM(TA015) AS '總生產量',TA003 AS '生產日',TA035 AS '規格',MC004 AS '標準批量',(SUM(TA015)/NULLIF(MC004,0)) AS '桶數',TA021 '線別代號'
+                            FROM [TK].dbo.MOCTA
+                            INNER JOIN [TK].dbo.BOMMC ON TA006=MC001
+                            INNER JOIN [TK].dbo.CMSMD ON TA021=MD001
+                            WHERE (TA006 LIKE '3%' OR TA006 LIKE '4%')
+                            AND TA021 IN ('02','03','04')
+                            AND TA003=@TA003
+                            GROUP BY MD002,TA006,TA034,TA015,TA003,TA035,MC004,TA021
+                            ORDER BY MD002,TA006,TA034,TA015,TA003,TA035,MC004,TA021
+                            ";
 
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
+                DataTable dt = Db.Query(sql, new SqlParameter("@TA003", dateTimePicker2.Value.ToString("yyyyMMdd")));
 
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                sbSql.Clear();
-                sbSqlQuery.Clear();
-
-                sbSql.AppendFormat(@"  
-                                    SELECT MD002 AS '線別',TA006 AS '品號',TA034 AS '品名',SUM(TA015) AS '總生產量',TA003 AS '生產日',TA035 AS '規格',MC004 AS '標準批量',(SUM(TA015)/MC004)  AS '桶數',TA021 '線別代號'
-                                    FROM [TK].dbo.MOCTA,[TK].dbo.BOMMC,[TK].dbo.CMSMD
-                                    WHERE TA006=MC001
-                                    AND TA021=MD001
-                                    AND (TA006 LIKE '3%' OR TA006 LIKE '4%')
-                                    AND TA021 IN ('02','03','04')
-                                    AND TA003='{0}'
-                                    GROUP BY MD002,TA006,TA034,TA015,TA003,TA035,MC004,TA021
-                                    ORDER BY MD002,TA006,TA034,TA015,TA003,TA035,MC004,TA021
-                                     
-                                    ", dateTimePicker2.Value.ToString("yyyyMMdd"));
-
-                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                sqlCmdBuilder = new SqlCommandBuilder(adapter);
-                sqlConn.Open();
-                ds.Clear();
-                adapter.Fill(ds, "TEMPds1");
-                sqlConn.Close();
-
-                if (ds.Tables["TEMPds1"].Rows.Count >= 1)
+                if (dt.Rows.Count >= 1)
                 {
+                    dataGridView2.DataSource = dt;
 
-                    dataGridView2.DataSource = ds.Tables["TEMPds1"];
-
-                    dataGridView2.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 9);
-                    dataGridView2.DefaultCellStyle.Font = new Font("Tahoma", 10);
+                    dataGridView2.ColumnHeadersDefaultCellStyle.Font = HEADER_FONT;
+                    dataGridView2.DefaultCellStyle.Font = CELL_FONT;
                     dataGridView2.Columns["線別"].Width = 100;
                     dataGridView2.Columns["品號"].Width = 100;
-                    dataGridView1.Columns["品名"].Width = 120;
+                    dataGridView2.Columns["品名"].Width = 120;
                 }
                 else
                 {
                     dataGridView2.DataSource = null;
+                    textBox4.Text = "";
+                    textBox5.Text = "";
+                    textBox6.Text = "";
+                    textBox7.Text = "";
                 }
-
-
             }
-            catch
+            catch (Exception ex)
             {
-
-            }
-            finally
-            {
-
+                MessageBox.Show("查詢失敗：" + ex.Message);
             }
         }
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
-            if (dataGridView1.CurrentRow != null)
+            if (dataGridView1.CurrentRow != null && dataGridView1.CurrentRow.Index >= 0)
             {
-                int rowindex = dataGridView1.CurrentRow.Index;
-                if (rowindex >= 0)
-                { 
-                    DataGridViewRow row = dataGridView1.Rows[rowindex];
-                    textBox1.Text = row.Cells["製令"].Value.ToString().Trim();
-                    textBox2.Text = row.Cells["單號"].Value.ToString().Trim();
-                    textBox3.Text = row.Cells["桶數"].Value.ToString().Trim();
+                DataGridViewRow row = dataGridView1.CurrentRow;
+                textBox1.Text = CellText(row, "製令");
+                textBox2.Text = CellText(row, "單號");
+                textBox3.Text = CellText(row, "桶數");
 
-                    MAINMB001 = row.Cells["品號"].Value.ToString().Trim();
-                     
-                }
-                else
-                {
-                    textBox1.Text = "";
-                    textBox2.Text = "";
-                    textBox3.Text = "";
-
-                }
+                MAINMB001 = CellText(row, "品號");
+            }
+            else
+            {
+                textBox1.Text = "";
+                textBox2.Text = "";
+                textBox3.Text = "";
             }
         }
 
         private void dataGridView2_SelectionChanged(object sender, EventArgs e)
         {
-            if (dataGridView2.CurrentRow != null)
+            if (dataGridView2.CurrentRow != null && dataGridView2.CurrentRow.Index >= 0)
             {
-                int rowindex = dataGridView2.CurrentRow.Index;
-                if (rowindex >= 0)
-                {
-                    DataGridViewRow row = dataGridView2.Rows[rowindex];
-                    textBox4.Text = row.Cells["生產日"].Value.ToString().Trim();
-                    textBox5.Text = row.Cells["品號"].Value.ToString().Trim();
-                    textBox6.Text = row.Cells["桶數"].Value.ToString().Trim();
-                    textBox7.Text = row.Cells["線別代號"].Value.ToString().Trim();
-                    
-                }
-                else
-                {
-                    textBox4.Text = "";
-                    textBox5.Text = "";
-                    textBox6.Text = "";
-                    textBox7.Text = "";
+                DataGridViewRow row = dataGridView2.CurrentRow;
+                textBox4.Text = CellText(row, "生產日");
+                textBox5.Text = CellText(row, "品號");
+                textBox6.Text = CellText(row, "桶數");
+                textBox7.Text = CellText(row, "線別代號");
+            }
+            else
+            {
+                textBox4.Text = "";
+                textBox5.Text = "";
+                textBox6.Text = "";
+                textBox7.Text = "";
+            }
+        }
 
+        /// <summary>
+        /// 安全取得儲存格文字（null / DBNull 回傳空字串）
+        /// </summary>
+        static string CellText(DataGridViewRow row, string columnName)
+        {
+            return Convert.ToString(row.Cells[columnName].Value).Trim();
+        }
+
+        /// <summary>
+        /// 桶數文字轉數字；空白、非數字、小於等於0 回傳 false
+        /// </summary>
+        static bool TryParseBuckets(string text, out decimal buckets)
+        {
+            buckets = 0;
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                return false;
+            }
+            return decimal.TryParse(text.Trim(), NumberStyles.Number, CultureInfo.CurrentCulture, out buckets) && buckets > 0;
+        }
+
+        #region 桶數拆分
+
+        /// <summary>
+        /// 一桶的內容：第幾桶、用量倍率(1=滿桶)
+        /// </summary>
+        class BOX
+        {
+            public int BOXS;
+            public decimal RATIO;
+            public BOX(int boxs, decimal ratio) { BOXS = boxs; RATIO = ratio; }
+        }
+
+        /// <summary>
+        /// 依桶數拆分每一桶的用量倍率
+        /// 剛好滿桶：第1~N桶都是滿桶
+        /// 未滿桶：小於1桶 → 只有第1桶(未滿)；大於1桶 → 第1桶滿、第2桶未滿、其他滿桶
+        /// </summary>
+        static List<BOX> BUILD_BOXES(decimal buckets)
+        {
+            List<BOX> boxes = new List<BOX>();
+            if (buckets <= 0)
+            {
+                return boxes;
+            }
+
+            int counts = (int)Math.Ceiling(buckets);
+
+            if (buckets == Math.Floor(buckets))
+            {
+                for (int i = 1; i <= counts; i++)
+                {
+                    boxes.Add(new BOX(i, 1m));
+                }
+            }
+            else if (buckets < 1)
+            {
+                boxes.Add(new BOX(1, buckets));
+            }
+            else
+            {
+                decimal small = buckets - (counts - 1);
+                boxes.Add(new BOX(1, 1m));
+                boxes.Add(new BOX(2, small));
+                for (int i = 3; i <= counts; i++)
+                {
+                    boxes.Add(new BOX(i, 1m));
                 }
             }
 
+            return boxes;
         }
 
-        public void SETREPORT(string TA001,string TA002,string BUCKETS,string MAINMB001)
+        /// <summary>
+        /// 把桶數轉成 SQL 的 VALUES 表：(VALUES (1,1),(2,0.3),...) AS B(BOXS,RATIO)
+        /// 內容都是程式產生的數字，以 InvariantCulture 輸出，沒有注入風險
+        /// </summary>
+        static string BOXES_VALUES_SQL(List<BOX> boxes)
         {
-            float BUCKETSORI = float.Parse(BUCKETS);
-            bool CHECKFLOOR = IsIntegerFloor(BUCKETSORI);
+            return "(VALUES " + string.Join(",", boxes.Select(b =>
+                string.Format(CultureInfo.InvariantCulture, "({0},CONVERT(DECIMAL(18,6),{1}))", b.BOXS, b.RATIO))) + ") AS B(BOXS,RATIO)";
+        }
 
+        #endregion
 
-            if (!string.IsNullOrEmpty(BUCKETS)&& BUCKETSORI > 0)
+        /// <summary>
+        /// 依製令：產生 [REPORTMOCBOM]，一次 INSERT 全部桶數
+        /// 滿桶：MD006/MD007；未滿桶：CONVERT(DECIMAL(16,3),MD006/MD007*倍率)
+        /// </summary>
+        public void ADDTOREPORTMOCBOM(string TA001, string TA002, decimal BUCKETS)
+        {
+            List<BOX> boxes = BUILD_BOXES(BUCKETS);
+            if (boxes.Count == 0)
             {
-                if(CHECKFLOOR==true)
-                {
-                    ADDTOREPORTMOCBOM(TA001, TA002, BUCKETS);
-                    //MessageBox.Show(CHECKFLOOR  + BUCKETSORI.ToString());
-                }
-                else
-                {
-                    ADDTOREPORTMOCBOMODD(TA001, TA002, BUCKETS);
-                    //MessageBox.Show(CHECKFLOOR  + BUCKETSORI.ToString());
-                }
-                
-                
+                return;
             }
 
+            bool isFull = BUCKETS == Math.Floor(BUCKETS);
 
-            StringBuilder SQL = new StringBuilder();
-            StringBuilder SQL1B = new StringBuilder();
+            //組合SQL條件
+            string SQL_Condition = BuildLikeCondition(FIND_REPORTMOCBOMMD003());
 
-            SQL = SETSQL();
-            SQL1B = SETSQL1B(MAINMB001);
+            //註：原程式「剛好滿桶」才排除 301400%，「未滿桶」沒有排除，這裡保留原本行為
+            string EXCLUDE_301400 = isFull ? "AND MD003 NOT LIKE '301400%'" : "";
 
-            report1 = new Report();
-            report1.Load(@"REPORT\油酥原料添加表V7.frx");
+            string sql = string.Format(@"
+                            DELETE [TKMOC].[dbo].[REPORTMOCBOM]
 
-            //20210902密
-            Class1 TKID = new Class1();//用new 建立類別實體
-            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOM]
+                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
+                            SELECT TA001,TA002,TA006,TA034,B.BOXS,MD003,MB002
+                                ,CASE WHEN B.RATIO=1 THEN MD006/MD007 ELSE CONVERT(DECIMAL(16,3),MD006/MD007*B.RATIO) END
+                            FROM [TK].dbo.MOCTA
+                            INNER JOIN [TK].dbo.BOMMD ON TA006=MD001
+                            INNER JOIN [TK].dbo.INVMB ON MD003=MB001
+                            CROSS JOIN {0}
+                            WHERE 1=1
+                            {1}
+                            {2}
+                            AND MB002 NOT LIKE '%水麵%'
+                            AND TA001=@TA001 AND TA002=@TA002
+                            ORDER BY B.BOXS,MD003
+                            ", BOXES_VALUES_SQL(boxes), SQL_Condition, EXCLUDE_301400);
 
-            //資料庫使用者密碼解密
-            sqlsb.Password = TKID.Decryption(sqlsb.Password);
-            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-            String connectionString;
-            sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-            report1.Dictionary.Connections[0].ConnectionString = sqlsb.ConnectionString;
-
-
-            TableDataSource table = report1.GetDataSource("Table") as TableDataSource;
-            table.SelectCommand = SQL.ToString();
-            TableDataSource table1 = report1.GetDataSource("Table1") as TableDataSource;
-            table1.SelectCommand = SQL1B.ToString();
-
-            report1.Preview = previewControl1;
-            report1.Show();
+            Db.ExecuteInTransaction(sql, 60,
+                new SqlParameter("@TA001", TA001),
+                new SqlParameter("@TA002", TA002));
         }
 
-        public StringBuilder SETSQL()
+        /// <summary>
+        /// 依成品：產生 [REPORTMOCBOMOIL]，一次 INSERT 全部桶數
+        /// </summary>
+        public void ADDTOREPORTMOCBOMOIL(string TA003, string TA006, decimal BUCKETS, string TA021)
         {
-            StringBuilder SB = new StringBuilder();
+            List<BOX> boxes = BUILD_BOXES(BUCKETS);
+            if (boxes.Count == 0)
+            {
+                return;
+            }
 
-            SB.AppendFormat(@" 
-                                
-                            SELECT [ID]
-                            ,[TA001]+[TA002] AS '製令'
-                            ,'第'+CONVERT(nvarchar,[BOXS])+'桶' AS '桶數'
-                            ,TA006 AS '成品'
-                            ,TA034 AS '成品名'
-                            ,[MD003] AS '品號'
-                            ,[MB002] AS '品名'
-                            ,[MD006] AS '重量'
-                            ,'' AS '複核'
-                            ,'' AS '油酥'
-                            ,'' AS '檢查麵粉袋的麵粉線頭'
-                            ,(SELECT TOP 1 TE010 FROM [TK].dbo.MOCTE WHERE TE011=[TA001] AND TE012=[TA002] AND TE004=[MD003]) AS 'A製造  B有效'
-                            ,'' AS '外觀:攪拌均勻度、軟硬度'
-                            ,'' AS '攪拌時間  始'
-                            ,'' AS '攪拌時間  終'
-                            ,'' AS '投 料 人'
-                            ,'' AS '對 點 人'
-                            ,'' AS '單位幹部'
-                            ,'' AS '品質判定'
-                            ,'' AS '換線清潔檢查'
-                            ,BOMMC.UDF01 AS 'BOM備註(邊料'
-                            ,BOMMC.UDF02 AS 'BOM備註(餅麩'
-                            ,BOMMC.UDF06 AS '單顆重'
-                            ,(SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOM] RE WHERE [MD003] NOT  IN ('101001009','3010000111') AND RE.[BOXS]=[REPORTMOCBOM].[BOXS]) AS '每桶重'
-                            ,(SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOM] WHERE [MD003] NOT  IN ('101001009','3010000111')  ) AS '總重'
-                            ,CASE WHEN BOMMC.UDF06=0 THEN 1 ELSE BOMMC.UDF06 END 
-                            ,'顆數:'+CONVERT(nvarchar,((SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOM] RE WHERE [MD003] NOT  IN ('101001009','3010000111') AND RE.[BOXS]=[REPORTMOCBOM].[BOXS])/(CASE WHEN BOMMC.UDF06=0 THEN 1 ELSE BOMMC.UDF06 END))) AS '每桶顆數'
-                            ,((SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOM] WHERE [MD003] NOT  IN ('101001009','3010000111') )/(CASE WHEN BOMMC.UDF06=0 THEN 1 ELSE BOMMC.UDF06 END)) AS '總顆數'
-                            ,'配比 '+ BOMMC.UDF03 AS '配方比'                            
+            string sql = string.Format(@"
+                            DELETE [TKMOC].[dbo].[REPORTMOCBOMOIL]
 
-                            FROM [TKMOC].[dbo].[REPORTMOCBOM]
-                            LEFT JOIN [TK].dbo.BOMMC ON MC001=TA006
-                            WHERE [MD003] NOT  IN (SELECT [MB001]  FROM [TKMOC].[dbo].[LIMITSREPORTMOCBOM]  )   
-                            ORDER BY [TA001],[TA002],[BOXS],[MD003]
-     
+                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMOIL]
+                            ([TA003],[TA021],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
+                            SELECT TA003,TA021,TA006,TA034,B.BOXS,MD003,MB002
+                                ,CASE WHEN B.RATIO=1 THEN MD006/MD007 ELSE MD006/MD007*B.RATIO END
+                            FROM [TK].dbo.MOCTA
+                            INNER JOIN [TK].dbo.BOMMD ON TA006=MD001
+                            INNER JOIN [TK].dbo.INVMB ON MD003=MB001
+                            CROSS JOIN {0}
+                            WHERE (MD003 LIKE '1%' OR MD003 LIKE '301%')
+                            AND MD003 NOT LIKE '301400%'
+                            AND TA003=@TA003 AND TA006=@TA006 AND TA021=@TA021
+                            ORDER BY B.BOXS,MD003
+                            ", BOXES_VALUES_SQL(boxes));
 
-                            ");
-
-
-
-            return SB;
-        }
-        public StringBuilder SETSQL1B(string MAINMB001)
-        {
-            StringBuilder SB = new StringBuilder();
-
-            SB.AppendFormat(@" 
-                                
-                            SELECT TOP 1
-                            [PROCESSING]
-                            FROM [TKMOC].[dbo].[REPORTMOCBOMPROCESS]
-                            WHERE MB001 LIKE '%{0}%'
-
-                            ", MAINMB001);
-
-
-
-            return SB;
+            Db.ExecuteInTransaction(sql, 60,
+                new SqlParameter("@TA003", TA003),
+                new SqlParameter("@TA006", TA006),
+                new SqlParameter("@TA021", TA021));
         }
 
-        public void SETREPORT2(string TA001,string TA002,float BUCKETSORI,string LINK_TA001TA002,string LINK_TA006, string LINK_TA034, string MAINMB001)
+        /// <summary>
+        /// 依製令-單一製令報表
+        /// </summary>
+        public void SETREPORT(string TA001, string TA002, string BUCKETS, string MAINMB001)
         {
-            bool CHECKFLOOR = IsIntegerFloor(BUCKETSORI);
+            decimal BUCKETSORI;
+            if (TryParseBuckets(BUCKETS, out BUCKETSORI))
+            {
+                ADDTOREPORTMOCBOM(TA001, TA002, BUCKETSORI);
+            }
 
+            SHOWREPORT(REPORT_FILE_MOC, previewControl1, SETSQL(null, null, null), SETSQLPROCESS(MAINMB001));
+        }
 
+        /// <summary>
+        /// 依製令-多張製令合併報表
+        /// </summary>
+        public void SETREPORT2(string TA001, string TA002, decimal BUCKETSORI, string LINK_TA001TA002, string LINK_TA006, string LINK_TA034, string MAINMB001)
+        {
             if (BUCKETSORI > 0)
             {
-                if (CHECKFLOOR == true)
-                {
-                    ADDTOREPORTMOCBOM(TA001, TA002, BUCKETSORI.ToString());
-                    //MessageBox.Show(CHECKFLOOR  + BUCKETSORI.ToString());
-                }
-                else
-                {
-                    ADDTOREPORTMOCBOMODD(TA001, TA002, BUCKETSORI.ToString());
-                    //MessageBox.Show(CHECKFLOOR  + BUCKETSORI.ToString());
-                }
-
-
+                ADDTOREPORTMOCBOM(TA001, TA002, BUCKETSORI);
             }
 
+            SHOWREPORT(REPORT_FILE_MOC, previewControl1, SETSQL(LINK_TA001TA002, LINK_TA006, LINK_TA034), SETSQLPROCESS(MAINMB001));
+        }
 
-            StringBuilder SQL = new StringBuilder();
-            StringBuilder SQL2B = new StringBuilder();
+        /// <summary>
+        /// 依成品-油酥原料添加表-合併
+        /// </summary>
+        public void SETREPORTOIL(string TA003, string TA006, string BUCKETS, string TA021)
+        {
+            decimal BUCKETSORI;
+            if (TryParseBuckets(BUCKETS, out BUCKETSORI))
+            {
+                ADDTOREPORTMOCBOMOIL(TA003, TA006, BUCKETSORI, TA021);
+            }
 
-            SQL = SETSQL2(LINK_TA001TA002, LINK_TA006, LINK_TA034);
-            SQL2B = SETSQL2B(MAINMB001);
+            SHOWREPORT(REPORT_FILE_OIL, previewControl2, SETSQLOIL(), null);
+        }
 
+        /// <summary>
+        /// 載入 FastReport 報表並顯示在指定的 PreviewControl
+        /// </summary>
+        void SHOWREPORT(string reportFile, FastReport.Preview.PreviewControl preview, string sqlTable, string sqlTable1)
+        {
             report1 = new Report();
-            report1.Load(@"REPORT\油酥原料添加表V7.frx");
-
-            //20210902密
-            Class1 TKID = new Class1();//用new 建立類別實體
-            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-            //資料庫使用者密碼解密
-            sqlsb.Password = TKID.Decryption(sqlsb.Password);
-            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-            String connectionString;
-            sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-            report1.Dictionary.Connections[0].ConnectionString = sqlsb.ConnectionString;
-
+            report1.Load(reportFile);
+            report1.Dictionary.Connections[0].ConnectionString = Db.ConnectionString;
 
             TableDataSource table = report1.GetDataSource("Table") as TableDataSource;
-            table.SelectCommand = SQL.ToString();
-            TableDataSource table1 = report1.GetDataSource("Table1") as TableDataSource;
-            table1.SelectCommand = SQL2B.ToString();
+            table.SelectCommand = sqlTable;
 
-            report1.Preview = previewControl1;
+            if (sqlTable1 != null)
+            {
+                TableDataSource table1 = report1.GetDataSource("Table1") as TableDataSource;
+                table1.SelectCommand = sqlTable1;
+            }
+
+            report1.Preview = preview;
             report1.Show();
         }
 
-        public StringBuilder SETSQL2(string LINK_TA001TA002, string TA006, string TA034)
+        /// <summary>
+        /// SQL 字串常值跳脫（FastReport 的 SelectCommand 無法帶參數）
+        /// </summary>
+        static string SqlLiteral(string value)
         {
-            StringBuilder SB = new StringBuilder();
+            return "N'" + (value ?? "").Replace("'", "''") + "'";
+        }
 
-            SB.AppendFormat(@" 
-                                
+        /// <summary>
+        /// 依製令報表 SQL
+        /// LINK_TA001TA002 為 null 時，製令/成品/成品名 取資料表內容；否則顯示合併後的文字
+        /// </summary>
+        public string SETSQL(string LINK_TA001TA002, string LINK_TA006, string LINK_TA034)
+        {
+            bool isLink = LINK_TA001TA002 != null;
+            string COL_MOC = isLink ? SqlLiteral(LINK_TA001TA002) : "[TA001]+[TA002]";
+            string COL_TA006 = isLink ? SqlLiteral(LINK_TA006) : "TA006";
+            string COL_TA034 = isLink ? SqlLiteral(LINK_TA034) : "TA034";
+
+            return string.Format(@"
                             SELECT [ID]
-                            ,'{0}' AS '製令'
+                            ,{0} AS '製令'
                             ,'第'+CONVERT(nvarchar,[BOXS])+'桶' AS '桶數'
-                            ,'{1}' AS '成品'
-                            ,'{2}' AS '成品名'
+                            ,{1} AS '成品'
+                            ,{2} AS '成品名'
                             ,[MD003] AS '品號'
                             ,[MB002] AS '品名'
                             ,[MD006] AS '重量'
@@ -509,498 +488,39 @@ namespace TKMOC
                             ,BOMMC.UDF06 AS '單顆重'
                             ,(SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOM] RE WHERE [MD003] NOT  IN ('101001009','3010000111') AND RE.[BOXS]=[REPORTMOCBOM].[BOXS]) AS '每桶重'
                             ,(SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOM] WHERE [MD003] NOT  IN ('101001009','3010000111')  ) AS '總重'
-                            ,CASE WHEN BOMMC.UDF06=0 THEN 1 ELSE BOMMC.UDF06 END 
+                            ,CASE WHEN BOMMC.UDF06=0 THEN 1 ELSE BOMMC.UDF06 END
                             ,'顆數:'+CONVERT(nvarchar,((SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOM] RE WHERE [MD003] NOT  IN ('101001009','3010000111') AND RE.[BOXS]=[REPORTMOCBOM].[BOXS])/(CASE WHEN BOMMC.UDF06=0 THEN 1 ELSE BOMMC.UDF06 END))) AS '每桶顆數'
                             ,((SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOM] WHERE [MD003] NOT  IN ('101001009','3010000111') )/(CASE WHEN BOMMC.UDF06=0 THEN 1 ELSE BOMMC.UDF06 END)) AS '總顆數'
                             ,'配比 '+ BOMMC.UDF03 AS '配方比'
 
                             FROM [TKMOC].[dbo].[REPORTMOCBOM]
                             LEFT JOIN [TK].dbo.BOMMC ON MC001=TA006
-                            WHERE [MD003] NOT  IN  (SELECT [MB001]  FROM [TKMOC].[dbo].[LIMITSREPORTMOCBOM]  )   
+                            WHERE [MD003] NOT  IN (SELECT [MB001]  FROM [TKMOC].[dbo].[LIMITSREPORTMOCBOM]  )
                             ORDER BY [TA001],[TA002],[BOXS],[MD003]
-     
-
-                            ", LINK_TA001TA002,TA006, TA034);
-
-
-
-            return SB;
+                            ", COL_MOC, COL_TA006, COL_TA034);
         }
 
-        public StringBuilder SETSQL2B(string MAINMB001)
+        /// <summary>
+        /// 生產說明 SQL：完全相同的品號優先；品號空白時不帶任何說明
+        /// </summary>
+        public string SETSQLPROCESS(string MAINMB001)
         {
-            StringBuilder SB = new StringBuilder();
+            string MB001 = (MAINMB001 ?? "").Trim().Replace("'", "''");
 
-            SB.AppendFormat(@" 
-                                
-                           SELECT TOP 1
+            return string.Format(@"
+                            SELECT TOP 1
                             [PROCESSING]
                             FROM [TKMOC].[dbo].[REPORTMOCBOMPROCESS]
-                            WHERE MB001 LIKE '%{0}%'
-     
-
-                            ", MAINMB001);
-
-
-
-            return SB;
-        }
-        /// <summary>
-        /// 剛好滿桶數，沒有未滿桶
-        /// </summary>
-        /// <param name="TA001"></param>
-        /// <param name="TA002"></param>
-        /// <param name="BUCKETS"></param>
-        public void ADDTOREPORTMOCBOM(string TA001, string TA002, string BUCKETS)
-        {
-            float BUCKETSFLOAT = float.Parse(BUCKETS);
-            int COUNTS = Convert.ToInt32(Math.Ceiling(BUCKETSFLOAT));
-
-            //MessageBox.Show(COUNTS.ToString());
-            //組合SQL條件
-            DataTable DT = FIND_REPORTMOCBOMMD003();
-            string SQL_Condition = "";
-            if (DT != null & DT.Rows.Count>=1)
-            {
-                SQL_Condition = BuildLikeCondition(DT);
-            }
-            
-            try
-            {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-
-                sqlConn.Close();
-                sqlConn.Open();
-                tran = sqlConn.BeginTransaction();
-
-                sbSql.Clear();
-
-                sbSql.AppendFormat(@" DELETE [TKMOC].[dbo].[REPORTMOCBOM]");
-                sbSql.AppendFormat(@" ");
-
-                for (int i = 1; i <= COUNTS; i++)
-                    {
-                        sbSql.AppendFormat(@"
-                                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOM]
-                                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
-                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,MD006/MD007
-                                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
-                                            WHERE TA006=MD001
-                                            AND MD003=MB001
-                                            {3}
-                                            AND MD003 NOT LIKE '301400%'
-                                            AND MB002 NOT LIKE '%水麵%'
-                                            AND TA001='{0}' AND TA002='{1}'
-                                            ORDER BY MD003
-
-                                           ", TA001,TA002,i, SQL_Condition);
-                    }
-
-                ////新增5個空白格子
-                //sbSql.AppendFormat(@"
-                //                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOM]
-                //                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
-                //                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,0
-                //                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
-                //                            WHERE TA006=MD001
-                //                            AND MD003=MB001
-                //                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
-                //                            AND MD003 NOT LIKE '301400%'
-                //                            AND MB002 NOT LIKE '%水麵%'
-                //                            AND TA001='{0}' AND TA002='{1}'
-                //                            ORDER BY MD003
-
-                //                           ", TA001, TA002, COUNTS+1);
-
-                //sbSql.AppendFormat(@"
-                //                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOM]
-                //                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
-                //                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,0
-                //                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
-                //                            WHERE TA006=MD001
-                //                            AND MD003=MB001
-                //                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
-                //                            AND MD003 NOT LIKE '301400%'
-                //                            AND MB002 NOT LIKE '%水麵%'
-                //                            AND TA001='{0}' AND TA002='{1}'
-                //                            ORDER BY MD003
-
-                //                           ", TA001, TA002, COUNTS + 2);
-
-                //sbSql.AppendFormat(@"
-                //                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOM]
-                //                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
-                //                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,0
-                //                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
-                //                            WHERE TA006=MD001
-                //                            AND MD003=MB001
-                //                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
-                //                            AND MD003 NOT LIKE '301400%'
-                //                            AND MB002 NOT LIKE '%水麵%'
-                //                            AND TA001='{0}' AND TA002='{1}'
-                //                            ORDER BY MD003
-
-                //                           ", TA001, TA002, COUNTS + 3);
-
-                //sbSql.AppendFormat(@"
-                //                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOM]
-                //                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
-                //                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,0
-                //                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
-                //                            WHERE TA006=MD001
-                //                            AND MD003=MB001
-                //                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
-                //                            AND MD003 NOT LIKE '301400%'
-                //                            AND MB002 NOT LIKE '%水麵%'
-                //                            AND TA001='{0}' AND TA002='{1}'
-                //                            ORDER BY MD003
-
-                //                           ", TA001, TA002, COUNTS + 4);
-
-                //sbSql.AppendFormat(@"
-                //                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOM]
-                //                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
-                //                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,0
-                //                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
-                //                            WHERE TA006=MD001
-                //                            AND MD003=MB001
-                //                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
-                //                            AND MD003 NOT LIKE '301400%'
-                //                            AND MB002 NOT LIKE '%水麵%'
-                //                            AND TA001='{0}' AND TA002='{1}'
-                //                            ORDER BY MD003
-
-                //                           ", TA001, TA002, COUNTS + 5);
-
-
-                cmd.Connection = sqlConn;
-                cmd.CommandTimeout = 60;
-                cmd.CommandText = sbSql.ToString();
-                cmd.Transaction = tran;
-                result = cmd.ExecuteNonQuery();
-
-                if (result == 0)
-                {
-                    tran.Rollback();    //交易取消
-                }
-                else
-                {
-                    tran.Commit();      //執行交易  
-
-
-                }
-
-            }
-            catch
-            {
-
-            }
-
-            finally
-            {
-                sqlConn.Close();
-            }
-
-            
+                            WHERE N'{0}'<>''
+                            AND MB001 LIKE N'%{0}%'
+                            ORDER BY CASE WHEN MB001=N'{0}' THEN 0 ELSE 1 END,MB001
+                            ", MB001);
         }
 
-        /// <summary>
-        /// 未滿桶，第1桶是滿的、第2桶是未滿、其他滿桶
-        /// </summary>
-        /// <param name="TA001"></param>
-        /// <param name="TA002"></param>
-        /// <param name="BUCKETS"></param>
-        public void ADDTOREPORTMOCBOMODD(string TA001, string TA002, string BUCKETS)
+        public string SETSQLOIL()
         {
-            float BUCKETSFLOAT = float.Parse(BUCKETS);
-            int COUNTS = Convert.ToInt32(Math.Ceiling(BUCKETSFLOAT));
-            decimal BUCKETSSMAILL = Convert.ToDecimal(BUCKETSFLOAT- (COUNTS-1));
-
-            //處理負數
-            //BUCKETSFLOAT>0 && BUCKETSFLOAT<1，只有1未滿桶
-            //BUCKETSFLOAT>1正常
-            DataTable DT = FIND_REPORTMOCBOMMD003();
-            string SQL_Condition = "";
-            if (DT != null & DT.Rows.Count >= 1)
-            {
-                SQL_Condition = BuildLikeCondition(DT);
-            }
-
-            if (BUCKETSFLOAT>0 && BUCKETSFLOAT<1)
-            {
-                BUCKETSSMAILL =Convert.ToDecimal(BUCKETSFLOAT);
-                COUNTS = 0;
-            }
-            else if(BUCKETSFLOAT>1)
-            {
-                COUNTS = COUNTS;
-                BUCKETSSMAILL = BUCKETSSMAILL;
-            }
-           
-
-            //MessageBox.Show(BUCKETSFLOAT.ToString()+" "+ COUNTS.ToString()+" "+ BUCKETSSMAILL.ToString());
-
-            try
-            {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                sqlConn.Close();
-                sqlConn.Open();
-                tran = sqlConn.BeginTransaction();
-
-                sbSql.Clear();
-
-                sbSql.AppendFormat(@" DELETE [TKMOC].[dbo].[REPORTMOCBOM]");
-                sbSql.AppendFormat(@"  ");
-
-                if (COUNTS==0)
-                {
-                    sbSql.AppendFormat(@"       
-                                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOM]
-                                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])                                            
-                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,CONVERT(DECIMAL(16,3),MD006/MD007*{3})
-                                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
-                                            WHERE TA006=MD001
-                                            AND MD003=MB001
-                                            {4}
-                                            AND MB002 NOT LIKE '%水麵%'
-                                            AND TA001='{0}' AND TA002='{1}'
-                                            ORDER BY MD003
-
-                                           ", TA001, TA002, 1, BUCKETSSMAILL, SQL_Condition);
-                }
-                else if(COUNTS>=1)
-                {
-                    sbSql.AppendFormat(@"       
-                                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOM]
-                                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
-                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,MD006/MD007
-                                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
-                                            WHERE TA006=MD001
-                                            AND MD003=MB001
-                                            {3}
-                                            AND MB002 NOT LIKE '%水麵%'
-                                            AND TA001='{0}' AND TA002='{1}'
-                                            ORDER BY MD003
-
-                                           ", TA001, TA002, 1, SQL_Condition);
-                    sbSql.AppendFormat(@"       
-                                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOM]
-                                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])                                            
-                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,CONVERT(DECIMAL(16,3),MD006/MD007*{3})
-                                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
-                                            WHERE TA006=MD001
-                                            AND MD003=MB001
-                                            {4}
-                                            AND MB002 NOT LIKE '%水麵%'
-                                            AND TA001='{0}' AND TA002='{1}'
-                                            ORDER BY MD003
-
-                                           ", TA001, TA002, 2, BUCKETSSMAILL, SQL_Condition);
-
-                    for (int i = 3; i <= COUNTS; i++)
-                    {
-                        sbSql.AppendFormat(@"
-                                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOM]
-                                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
-                                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,MD006/MD007
-                                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
-                                            WHERE TA006=MD001
-                                            AND MD003=MB001
-                                            {3}
-                                            AND MB002 NOT LIKE '%水麵%'
-                                            AND TA001='{0}' AND TA002='{1}'
-                                            ORDER BY MD003
-
-                                           ", TA001, TA002, i, SQL_Condition);
-                    }
-                }
-
-
-                ////新增5個空白格子
-                //sbSql.AppendFormat(@"
-                //                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOM]
-                //                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
-                //                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,0
-                //                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
-                //                            WHERE TA006=MD001
-                //                            AND MD003=MB001
-                //                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
-                //                            AND MD003 NOT LIKE '301400%'
-                //                            AND MB002 NOT LIKE '%水麵%'
-                //                            AND TA001='{0}' AND TA002='{1}'
-                //                            ORDER BY MD003
-
-                //                           ", TA001, TA002, COUNTS + 1);
-
-                //sbSql.AppendFormat(@"
-                //                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOM]
-                //                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
-                //                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,0
-                //                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
-                //                            WHERE TA006=MD001
-                //                            AND MD003=MB001
-                //                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
-                //                            AND MD003 NOT LIKE '301400%'
-                //                            AND MB002 NOT LIKE '%水麵%'
-                //                            AND TA001='{0}' AND TA002='{1}'
-                //                            ORDER BY MD003
-
-                //                           ", TA001, TA002, COUNTS + 2);
-
-                //sbSql.AppendFormat(@"
-                //                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOM]
-                //                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
-                //                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,0
-                //                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
-                //                            WHERE TA006=MD001
-                //                            AND MD003=MB001
-                //                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
-                //                            AND MD003 NOT LIKE '301400%'
-                //                            AND MB002 NOT LIKE '%水麵%'
-                //                            AND TA001='{0}' AND TA002='{1}'
-                //                            ORDER BY MD003
-
-                //                           ", TA001, TA002, COUNTS + 3);
-
-                //sbSql.AppendFormat(@"
-                //                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOM]
-                //                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
-                //                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,0
-                //                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
-                //                            WHERE TA006=MD001
-                //                            AND MD003=MB001
-                //                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
-                //                            AND MD003 NOT LIKE '301400%'
-                //                            AND MB002 NOT LIKE '%水麵%'
-                //                            AND TA001='{0}' AND TA002='{1}'
-                //                            ORDER BY MD003
-
-                //                           ", TA001, TA002, COUNTS + 4);
-
-                //sbSql.AppendFormat(@"
-                //                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOM]
-                //                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
-                //                            SELECT TA001,TA002,TA006,TA034,{2},MD003,MB002,0
-                //                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
-                //                            WHERE TA006=MD001
-                //                            AND MD003=MB001
-                //                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
-                //                            AND MD003 NOT LIKE '301400%'
-                //                            AND MB002 NOT LIKE '%水麵%'
-                //                            AND TA001='{0}' AND TA002='{1}'
-                //                            ORDER BY MD003
-
-                //                           ", TA001, TA002, COUNTS + 5);
-
-                cmd.Connection = sqlConn;
-                cmd.CommandTimeout = 60;
-                cmd.CommandText = sbSql.ToString();
-                cmd.Transaction = tran;
-                result = cmd.ExecuteNonQuery();
-                 
-                if (result == 0)
-                {
-                    tran.Rollback();    //交易取消
-                }
-                else
-                {
-                    tran.Commit();      //執行交易  
-
-
-                }
-
-            }
-            catch
-            {
-
-            }
-
-            finally
-            {
-                sqlConn.Close();
-            }
-        }
-
-
-        public void SETREPORTOIL(string TA003, string TA006, string BUCKETS, string TA021)
-        {
-            float BUCKETSORI = float.Parse(BUCKETS);
-            bool CHECKFLOOR = IsIntegerFloor(BUCKETSORI);
-
-
-            if (!string.IsNullOrEmpty(BUCKETS) && BUCKETSORI > 0)
-            {
-                if (CHECKFLOOR == true)
-                {
-                    ADDTOREPORTMOCBOMOIL(TA003, TA006, BUCKETS, TA021);
-                    //MessageBox.Show(CHECKFLOOR  + BUCKETSORI.ToString());
-                }
-                else
-                {
-                    ADDTOREPORTMOCBOMODDOIL(TA003, TA006, BUCKETS, TA021);
-                    //MessageBox.Show(CHECKFLOOR  + BUCKETSORI.ToString());
-                }
-
-
-            }
-
-
-            StringBuilder SQL = new StringBuilder();
-
-            SQL = SETSQLOIL();
-
-            report1 = new Report();
-            report1.Load(@"REPORT\油酥原料添加表-合併V3.frx");
-
-            //20210902密
-            Class1 TKID = new Class1();//用new 建立類別實體
-            SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-            //資料庫使用者密碼解密
-            sqlsb.Password = TKID.Decryption(sqlsb.Password);
-            sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-            String connectionString;
-            sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-            report1.Dictionary.Connections[0].ConnectionString = sqlsb.ConnectionString;
-
-
-            TableDataSource table = report1.GetDataSource("Table") as TableDataSource;
-            table.SelectCommand = SQL.ToString();
-
-            report1.Preview = previewControl2;
-            report1.Show();
-        }
-
-        public StringBuilder SETSQLOIL()
-        {
-            StringBuilder SB = new StringBuilder();
-
-            SB.AppendFormat(@"
-                             SELECT [ID]
+            return @"
+                            SELECT [ID]
                             ,[TA003] AS '日期'
                             ,[TA021] AS '線別'
                             ,'第'+CONVERT(nvarchar,[BOXS])+'桶' AS '桶數'
@@ -1024,545 +544,162 @@ namespace TKMOC
                             ,'配比 '+ BOMMC.UDF03 AS '配方比'
                             FROM [TKMOC].[dbo].[REPORTMOCBOMOIL]
                             LEFT JOIN [TK].dbo.BOMMC ON MC001=TA006
-
-                            WHERE [MD003] NOT  IN ('101001009','3010000111')   
+                            WHERE [MD003] NOT  IN ('101001009','3010000111')
                             ORDER BY [TA021],[BOXS],[MD003]
-     
-
-                            ");
-
-
-
-            return SB;
-        }
-        /// <summary>
-        /// 剛好滿桶數，沒有未滿桶
-        /// </summary>
-        /// <param name="TA001"></param>
-        /// <param name="TA002"></param>
-        /// <param name="BUCKETS"></param>
-        public void ADDTOREPORTMOCBOMOIL(string TA003, string TA006, string BUCKETS, string TA021)
-        {
-            float BUCKETSFLOAT = float.Parse(BUCKETS);
-            int COUNTS = Convert.ToInt32(Math.Ceiling(BUCKETSFLOAT));
-
-            //MessageBox.Show(COUNTS.ToString());
-
-
-            try
-            {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-
-                sqlConn.Close();
-                sqlConn.Open();
-                tran = sqlConn.BeginTransaction();
-
-                sbSql.Clear();
-
-                sbSql.AppendFormat(@" DELETE [TKMOC].[dbo].[REPORTMOCBOMOIL]");
-                sbSql.AppendFormat(@" ");
-
-                for (int i = 1; i <= COUNTS; i++)
-                {
-                    sbSql.AppendFormat(@"
-                                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMOIL]
-                                            ([TA003],[TA021],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
-                                            SELECT TA003,TA021,TA006,TA034,'{3}',MD003,MB002,MD006/MD007
-                                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
-                                            WHERE TA006=MD001
-                                            AND MD003=MB001
-                                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
-                                            AND MD003 NOT LIKE '301400%'
-                                            AND TA003='{0}' AND TA006='{1}' AND TA021='{2}' 
-                                            ORDER BY MD003
-
-                                           ", TA003, TA006,  TA021, i);
-                }
-
-
-                cmd.Connection = sqlConn;
-                cmd.CommandTimeout = 60;
-                cmd.CommandText = sbSql.ToString();
-                cmd.Transaction = tran;
-                result = cmd.ExecuteNonQuery();
-
-                if (result == 0)
-                {
-                    tran.Rollback();    //交易取消
-                }
-                else
-                {
-                    tran.Commit();      //執行交易  
-
-
-                }
-
-            }
-            catch
-            {
-
-            }
-
-            finally
-            {
-                sqlConn.Close();
-            }
-
+                            ";
         }
 
         /// <summary>
-        /// 未滿桶，第1桶是滿的、第2桶是未滿、其他滿桶
+        /// 檢查多張製令的原料(1開頭)是否單身品號元件一致、組成用量一致
+        /// 回傳不一致的元件；全部一致回傳 null
         /// </summary>
-        /// <param name="TA001"></param>
-        /// <param name="TA002"></param>
-        /// <param name="BUCKETS"></param>
-        public void ADDTOREPORTMOCBOMODDOIL(string TA003, string TA006, string BUCKETS, string TA021)
+        public DataTable CHECK_BOMMD(List<string> MD001)
         {
-            float BUCKETSFLOAT = float.Parse(BUCKETS);
-            int COUNTS = Convert.ToInt32(Math.Ceiling(BUCKETSFLOAT));
-            decimal BUCKETSSMAILL = Convert.ToDecimal(BUCKETSFLOAT - (COUNTS - 1));
-
-            //處理負數
-            //BUCKETSFLOAT>0 && BUCKETSFLOAT<1，只有1未滿桶
-            //BUCKETSFLOAT>1正常
-
-            if (BUCKETSFLOAT > 0 && BUCKETSFLOAT < 1)
-            {
-                BUCKETSSMAILL = Convert.ToDecimal(BUCKETSFLOAT);
-                COUNTS = 0;
-            }
-            else if (BUCKETSFLOAT > 1)
-            {
-                COUNTS = COUNTS;
-                BUCKETSSMAILL = BUCKETSSMAILL;
-            }
-
-
-            //MessageBox.Show(BUCKETSFLOAT.ToString()+" "+ COUNTS.ToString()+" "+ BUCKETSSMAILL.ToString());
-
-            try
-            {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-
-                sqlConn.Close();
-                sqlConn.Open();
-                tran = sqlConn.BeginTransaction();
-
-                sbSql.Clear();
-
-                sbSql.AppendFormat(@" DELETE [TKMOC].[dbo].[REPORTMOCBOMOIL]");
-                sbSql.AppendFormat(@" ");
-
-                if (COUNTS == 0)
-                {
-                    sbSql.AppendFormat(@"       
-                                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMOIL]
-                                            ([TA003],[TA021],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
-                                            SELECT TA003,TA021,TA006,TA034,'{3}',MD003,MB002,MD006/MD007*{4}
-                                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
-                                            WHERE TA006=MD001
-                                            AND MD003=MB001
-                                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
-                                            AND MD003 NOT LIKE '301400%'
-                                            AND TA003='{0}' AND TA006='{1}' AND TA021='{2}' 
-                                            ORDER BY MD003
-
-                                           ", TA003, TA006, TA021, 1, BUCKETSSMAILL);
-                }
-                else if (COUNTS >= 1)
-                {
-                    sbSql.AppendFormat(@"       
-                                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMOIL]
-                                            ([TA003],[TA021],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
-                                            SELECT TA003,TA021,TA006,TA034,'{3}',MD003,MB002,MD006/MD007
-                                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
-                                            WHERE TA006=MD001
-                                            AND MD003=MB001
-                                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
-                                            AND MD003 NOT LIKE '301400%'
-                                            AND TA003='{0}' AND TA006='{1}' AND TA021='{2}' 
-                                            ORDER BY MD003
-
-                                           ", TA003, TA006, TA021, 1);
-
-                    sbSql.AppendFormat(@"       
-                                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMOIL]
-                                            ([TA003],[TA021],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
-                                            SELECT TA003,TA021,TA006,TA034,'{3}',MD003,MB002,MD006/MD007*{4}
-                                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
-                                            WHERE TA006=MD001
-                                            AND MD003=MB001
-                                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
-                                            AND MD003 NOT LIKE '301400%'
-                                            AND TA003='{0}' AND TA006='{1}' AND TA021='{2}' 
-                                            ORDER BY MD003
-
-                                           ", TA003, TA006, TA021, 2, BUCKETSSMAILL);
-
-                    for (int i = 3; i <= COUNTS; i++)
-                    {
-                        sbSql.AppendFormat(@"
-                                             INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMOIL]
-                                            ([TA003],[TA021],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006])
-                                            SELECT TA003,TA021,TA006,TA034,'{3}',MD003,MB002,MD006/MD007
-                                            FROM [TK].dbo.MOCTA,[TK].dbo.BOMMD,[TK].dbo.INVMB
-                                            WHERE TA006=MD001
-                                            AND MD003=MB001
-                                            AND (MD003 LIKE '1%' OR MD003 LIKE '301%')
-                                            AND MD003 NOT LIKE '301400%'
-                                            AND TA003='{0}' AND TA006='{1}' AND TA021='{2}' 
-                                            ORDER BY MD003
-
-                                           ", TA003, TA006, TA021, i);
-                    }
-                }
-
-
-
-
-                cmd.Connection = sqlConn;
-                cmd.CommandTimeout = 60;
-                cmd.CommandText = sbSql.ToString();
-                cmd.Transaction = tran;
-                result = cmd.ExecuteNonQuery();
-
-                if (result == 0)
-                {
-                    tran.Rollback();    //交易取消
-                }
-                else
-                {
-                    tran.Commit();      //執行交易  
-
-
-                }
-
-            }
-            catch
-            {
-
-            }
-
-            finally
-            {
-                sqlConn.Close();
-            }
-        }
-
-
-        public static bool IsIntegerFloor(float f)
-        {
-            return f == Math.Floor(f);
-        }
-
-        public DataTable CHECK_BOMMD(int COUNTS, List<string> MD001)
-        {
-            //MessageBox.Show(COUNTS.ToString());
-            int SETCOUNT = 1;
-            DataSet ds = new DataSet();
-            StringBuilder SQL = new StringBuilder();
-
-            if(COUNTS>=1)
-            {
-                foreach (string MD001STR in MD001)
-                {
-                    if (SETCOUNT == 1)
-                    {
-                        SQL.AppendFormat(@"
-                                        SELECT MD003, MD006, MD007,COUNT(MD003) COUNTS
-                                        FROM (
-                                            SELECT MD001, MD003, MD006, MD007
-                                            FROM [TK].dbo.BOMMD
-                                            WHERE MD003 LIKE '1%' AND MD001 IN ('{0}')
-                                    ", MD001STR);
-                    }
-                    else
-                    {
-                        SQL.AppendFormat(@"
-                                            UNION ALL
-                                            SELECT MD001, MD003, MD006, MD007
-                                            FROM [TK].dbo.BOMMD
-                                            WHERE MD003 LIKE '1%' AND MD001 IN ('{0}')
-                                    ", MD001STR);
-                    }
-
-                    SETCOUNT = SETCOUNT + 1;
-                }
-
-                SQL.AppendFormat(@"                                           
-                                    ) AS CombinedData
-                                    WHERE MD003 NOT IN (SELECT [MD003]  FROM [TKMOC].[dbo].[REPORTMOCBOMNOSET])
-                                    GROUP BY MD003, MD006, MD007
-                
-                                    HAVING COUNT(MD003)<{0}
-                                    ", COUNTS);
-            }
-
-            try
-            {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                sbSql.Clear();
-                sbSqlQuery.Clear();
-
-                sbSql = SQL;
-
-                sbSql.AppendFormat(@"                                   
-                                     
-                                    ");
-
-
-                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                sqlCmdBuilder = new SqlCommandBuilder(adapter);
-                sqlConn.Open();
-                ds.Clear();
-                adapter.Fill(ds, "TEMPds1");
-                sqlConn.Close();
-
-                if (ds.Tables["TEMPds1"].Rows.Count >= 1)
-                {
-                    return ds.Tables["TEMPds1"];
-                }
-                else
-                {
-                    return null;
-                }
-
-
-            }
-            catch
+            if (MD001 == null || MD001.Count == 0)
             {
                 return null;
             }
-            finally
+
+            List<SqlParameter> parameters = new List<SqlParameter>();
+            List<string> unions = new List<string>();
+            for (int i = 0; i < MD001.Count; i++)
             {
-                sqlConn.Close();
+                string p = "@MD001_" + i;
+                parameters.Add(new SqlParameter(p, MD001[i]));
+                //用 UNION ALL：同一成品選兩張製令時也要算兩次
+                unions.Add("SELECT MD001, MD003, MD006, MD007 FROM [TK].dbo.BOMMD WHERE MD003 LIKE '1%' AND MD001 = " + p);
             }
-            
+            parameters.Add(new SqlParameter("@COUNTS", MD001.Count));
+
+            string sql = @"
+                            SELECT MD003, MD006, MD007, COUNT(MD003) COUNTS
+                            FROM (
+                            " + string.Join("\r\n UNION ALL \r\n", unions) + @"
+                            ) AS CombinedData
+                            WHERE MD003 NOT IN (SELECT [MD003] FROM [TKMOC].[dbo].[REPORTMOCBOMNOSET])
+                            GROUP BY MD003, MD006, MD007
+                            HAVING COUNT(MD003) < @COUNTS
+                            ";
+
+            DataTable dt = Db.Query(sql, parameters.ToArray());
+            return dt.Rows.Count >= 1 ? dt : null;
         }
 
         public DataTable FIND_REPORTMOCBOMMD003()
         {
-            //MessageBox.Show(COUNTS.ToString());
-            int SETCOUNT = 1;
-            DataSet ds = new DataSet();
-            StringBuilder SQL = new StringBuilder();
-
-            try
-            {
-                //20210902密
-                Class1 TKID = new Class1();//用new 建立類別實體
-                SqlConnectionStringBuilder sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
-
-                //資料庫使用者密碼解密
-                sqlsb.Password = TKID.Decryption(sqlsb.Password);
-                sqlsb.UserID = TKID.Decryption(sqlsb.UserID);
-
-                String connectionString;
-                sqlConn = new SqlConnection(sqlsb.ConnectionString);
-
-
-                sbSql.Clear();
-                sbSqlQuery.Clear();
-
-                sbSql = SQL;
-
-                sbSql.AppendFormat(@"                                   
-                                    SELECT  [MD003]
-                                    FROM [TKMOC].[dbo].[REPORTMOCBOMMD003]
-                                    ");
-
-
-                adapter = new SqlDataAdapter(@"" + sbSql, sqlConn);
-
-                sqlCmdBuilder = new SqlCommandBuilder(adapter);
-                sqlConn.Open();
-                ds.Clear();
-                adapter.Fill(ds, "TEMPds1");
-                sqlConn.Close();
-
-                if (ds.Tables["TEMPds1"].Rows.Count >= 1)
-                {
-                    return ds.Tables["TEMPds1"];
-                }
-                else
-                {
-                    return null;
-                }
-
-
-            }
-            catch
-            {
-                return null;
-            }
-            finally
-            {
-                sqlConn.Close();
-            }
-
+            DataTable dt = Db.Query(@"SELECT [MD003] FROM [TKMOC].[dbo].[REPORTMOCBOMMD003]");
+            return dt.Rows.Count >= 1 ? dt : null;
         }
 
+        /// <summary>
+        /// 組合 AND (MD003 LIKE 'x%' OR MD003 LIKE 'y%' ...)
+        /// </summary>
         public string BuildLikeCondition(DataTable dt)
         {
             if (dt == null || dt.Rows.Count == 0)
-                return string.Empty;
-
-            StringBuilder sb = new StringBuilder();
-            sb.Append("AND (");
-
-            for (int i = 0; i < dt.Rows.Count; i++)
             {
-                string value = dt.Rows[i]["MD003"].ToString().Trim();
+                return string.Empty;
+            }
 
+            List<string> conditions = new List<string>();
+            foreach (DataRow row in dt.Rows)
+            {
+                string value = Convert.ToString(row["MD003"]).Trim();
                 if (!string.IsNullOrEmpty(value))
                 {
-                    if (sb.Length > 5) // 超過第一個 OR
-                    {
-                        sb.Append(" OR ");
-                    }
-
-                    sb.AppendFormat("MD003 LIKE '{0}%'", value.Replace("'", "''")); // 防止 SQL injection
+                    conditions.Add(string.Format("MD003 LIKE '{0}%'", value.Replace("'", "''"))); // 防止 SQL injection
                 }
             }
 
-            sb.Append(")");
-
-            return sb.ToString();
+            return conditions.Count == 0 ? string.Empty : "AND (" + string.Join(" OR ", conditions) + ")";
         }
 
         #endregion
 
         #region BUTTON
+
         private void button1_Click(object sender, EventArgs e)
         {
             Search();
         }
+
         private void button2_Click(object sender, EventArgs e)
         {
-            //SETREPORT(textBox1.Text.Trim(), textBox2.Text.Trim(),textBox3.Text.Trim());
-            int COUNTS = 0;
-            List<string> MD001 = new List<string>();
-            DataTable DT = null;
-            string MESS = "";
+            //先結束編輯，剛勾選的 CheckBox 才會生效
+            dataGridView1.EndEdit();
 
-            string CHECKED = "N";
-            string TA001 = "";
-            string TA002 = "";
-            string LINK_TA001TA002 = "";
-            string LINK_TA006 = "";
-            string LINK_TA034 = "";
-            string TEMP = "";
-            float BUCKETS = 0;
+            List<DataGridViewRow> checkedRows = dataGridView1.Rows.Cast<DataGridViewRow>()
+                .Where(dr => dr.Cells[0].Value is bool && (bool)dr.Cells[0].Value)
+                .ToList();
 
-       
-
-            //
-            foreach (DataGridViewRow dr in this.dataGridView1.Rows)
+            Cursor = Cursors.WaitCursor;
+            try
             {
-                try
+                if (checkedRows.Count == 0)
                 {
-                    if (dr.Cells[0].Value != null && (bool)dr.Cells[0].Value)
+                    //沒有勾選：用目前選取的製令
+                    if (string.IsNullOrEmpty(textBox1.Text.Trim()))
                     {
-                        COUNTS = COUNTS + 1;
-                        MD001.Add(dr.Cells[3].Value.ToString());
+                        MessageBox.Show("請先查詢並選擇製令");
+                        return;
                     }
+                    SETREPORT(textBox1.Text.Trim(), textBox2.Text.Trim(), textBox3.Text.Trim(), MAINMB001);
+                    return;
                 }
-                catch (Exception ex)
-                {
-                    //MessageBox.Show(ex.Message);
-                }
-            }
 
-            //CHECK  原料需單身品號元件一致、組成用量一致
-            DT = CHECK_BOMMD(COUNTS, MD001);
+                //多張製令合併
+                List<string> MD001 = checkedRows.Select(dr => CellText(dr, "品號")).ToList();
 
-            foreach (DataGridViewRow dr in this.dataGridView1.Rows)
-            {
-                try
+                //CHECK  原料需單身品號元件一致、組成用量一致
+                DataTable DT = CHECK_BOMMD(MD001);
+                if (DT != null)
                 {
-                    if (dr.Cells[0].Value != null && (bool)dr.Cells[0].Value)
-                    {
-                        CHECKED = "Y";
-
-                        TA001 = dr.Cells["製令"].Value.ToString();
-                        TA002 = dr.Cells["單號"].Value.ToString();
-                        LINK_TA001TA002 = LINK_TA001TA002 + TA001 + TA002 + "*";
-                        LINK_TA006 = LINK_TA034 + dr.Cells["品號"].Value.ToString() + "*";
-                        LINK_TA034 = LINK_TA034 + dr.Cells["品名"].Value.ToString() + "*";
-                        BUCKETS = BUCKETS + float.Parse(dr.Cells["桶數"].Value.ToString());
-                        BUCKETS = (float)Math.Round(BUCKETS, 3);
-
-                        MAINMB001 = dr.Cells["品號"].Value.ToString();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    //MessageBox.Show(ex.Message);
-                }
-            }
-
-            if (CHECKED.Equals("Y"))
-            {
-                if (DT == null || DT.Rows.Count == 0)
-                {
-                    SETREPORT2(TA001, TA002, BUCKETS, LINK_TA001TA002, LINK_TA006, LINK_TA034, MAINMB001);
-                }
-                else
-                {
-                    MESS = "原料需單身品號元件不一致 或 組成用量不一致，不能合併\n";
+                    StringBuilder MESS = new StringBuilder("原料需單身品號元件不一致 或 組成用量不一致，不能合併\n");
                     foreach (DataRow ROW in DT.Rows)
                     {
-                        // 每一行都是一個 DataRow                       
-                        MESS = MESS+"品號:"+ROW["MD003"].ToString();
-                        MESS=  MESS+"用量:"+ROW["MD006"].ToString();
-                        MESS = MESS+"底數:"+ROW["MD007"].ToString();
-
-                        MESS = MESS + "\n";
+                        MESS.AppendFormat("品號:{0}用量:{1}底數:{2}\n", ROW["MD003"], ROW["MD006"], ROW["MD007"]);
                     }
                     MessageBox.Show(MESS.ToString());
+                    return;
                 }
-               
-            }
-            else if (CHECKED.Equals("N"))
-            {
-                SETREPORT(textBox1.Text.Trim(), textBox2.Text.Trim(), textBox3.Text.Trim(), MAINMB001);
-            }
 
+                StringBuilder LINK_TA001TA002 = new StringBuilder();
+                StringBuilder LINK_TA006 = new StringBuilder();
+                StringBuilder LINK_TA034 = new StringBuilder();
+                decimal BUCKETS = 0;
+                string TA001 = "";
+                string TA002 = "";
+
+                foreach (DataGridViewRow dr in checkedRows)
+                {
+                    TA001 = CellText(dr, "製令");
+                    TA002 = CellText(dr, "單號");
+                    LINK_TA001TA002.Append(TA001).Append(TA002).Append("*");
+                    LINK_TA006.Append(CellText(dr, "品號")).Append("*");
+                    LINK_TA034.Append(CellText(dr, "品名")).Append("*");
+
+                    decimal b;
+                    if (decimal.TryParse(CellText(dr, "桶數"), out b))
+                    {
+                        BUCKETS = Math.Round(BUCKETS + b, 3);
+                    }
+
+                    MAINMB001 = CellText(dr, "品號");
+                }
+
+                //BOM 已確認一致，以最後一張製令的 BOM 乘上合計桶數
+                SETREPORT2(TA001, TA002, BUCKETS, LINK_TA001TA002.ToString(), LINK_TA006.ToString(), LINK_TA034.ToString(), MAINMB001);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("報表產生失敗：" + ex.Message);
+            }
+            finally
+            {
+                Cursor = Cursors.Default;
+            }
         }
+
         private void button3_Click(object sender, EventArgs e)
         {
             SearchOIL();
@@ -1571,13 +708,27 @@ namespace TKMOC
         private void button4_Click(object sender, EventArgs e)
         {
             //油酥原料添加表-合併
-            SETREPORTOIL(textBox4.Text.Trim(), textBox5.Text.Trim(), textBox6.Text.Trim(), textBox7.Text.Trim());
+            if (string.IsNullOrEmpty(textBox5.Text.Trim()))
+            {
+                MessageBox.Show("請先查詢並選擇成品");
+                return;
+            }
+
+            Cursor = Cursors.WaitCursor;
+            try
+            {
+                SETREPORTOIL(textBox4.Text.Trim(), textBox5.Text.Trim(), textBox6.Text.Trim(), textBox7.Text.Trim());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("報表產生失敗：" + ex.Message);
+            }
+            finally
+            {
+                Cursor = Cursors.Default;
+            }
         }
 
-
-
         #endregion
-
-      
     }
 }
