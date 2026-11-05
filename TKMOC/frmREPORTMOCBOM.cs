@@ -730,5 +730,371 @@ namespace TKMOC
         }
 
         #endregion
+
+        #region 依製令(製程排序)：REPORTMOCBOMMD009（含 BOMMD.MD009 製程順序）
+        //與「依製令」相同流程，但寫入 [TKMOC].[dbo].[REPORTMOCBOMMD009]，報表依 MD009 排序
+        //報表檔：REPORT\油酥原料添加表V7-製程排序.frx；建表：CREATE_REPORTMOCBOMMD009.sql
+        //不使用、不修改原本的 [REPORTMOCBOM]
+
+        const string REPORT_FILE_MD009 = @"REPORT\油酥原料添加表V7-製程排序.frx";
+
+        Report report3 = new Report();
+
+        //全選用的表頭 CheckBox（第一次查詢時才建立）
+        CheckBox cbHeaderMD009;
+
+        //找出生產說明用的品號
+        string MAINMB001_MD009 = "";
+
+        #region FUNCTION-MD009
+
+        /// <summary>
+        /// 第一次使用時建立勾選欄與全選 CheckBox（不動原本的 frmREPORTMOCBOM_Load）
+        /// </summary>
+        void INIT_DATAGRIDVIEW3()
+        {
+            if (cbHeaderMD009 != null)
+            {
+                return;
+            }
+
+            DataGridViewCheckBoxColumn cbCol = new DataGridViewCheckBoxColumn();
+            cbCol.Width = 50;
+            cbCol.HeaderText = "　選擇";
+            cbCol.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            cbCol.TrueValue = true;
+            cbCol.FalseValue = false;
+            dataGridView3.Columns.Insert(0, cbCol);
+
+            Rectangle rect = dataGridView3.GetCellDisplayRectangle(0, -1, true);
+            rect.X = rect.Location.X + rect.Width / 8 - 1;
+            rect.Y = rect.Location.Y + (rect.Height / 4 - 1);
+
+            cbHeaderMD009 = new CheckBox();
+            cbHeaderMD009.Name = "checkboxHeaderMD009";
+            cbHeaderMD009.Size = new Size(12, 12);
+            cbHeaderMD009.Location = rect.Location;
+            cbHeaderMD009.CheckedChanged += cbHeaderMD009_CheckedChanged;
+            dataGridView3.Controls.Add(cbHeaderMD009);
+        }
+
+        private void cbHeaderMD009_CheckedChanged(object sender, EventArgs e)
+        {
+            dataGridView3.EndEdit();
+
+            bool isChecked = cbHeaderMD009.Checked;
+            foreach (DataGridViewRow dr in dataGridView3.Rows)
+            {
+                dr.Cells[0].Value = isChecked;
+            }
+        }
+
+        /// <summary>
+        /// 依製令(製程排序)：查詢生產日的製令
+        /// </summary>
+        public void SearchMD009()
+        {
+            INIT_DATAGRIDVIEW3();
+
+            try
+            {
+                string sql = @"
+                            SELECT TA001 AS '製令',TA002 AS '單號',TA006 AS '品號',TA034 AS '品名',TA015 AS '生產量',TA003 AS '生產日',TA035 AS '規格',MC004 AS '標準批量',(TA015/NULLIF(MC004,0)) AS '桶數'
+                            FROM [TK].dbo.MOCTA
+                            INNER JOIN [TK].dbo.BOMMC ON TA006=MC001
+                            WHERE (TA006 LIKE '3%' OR TA006 LIKE '4%')
+                            AND TA021 IN ('02','03','04')
+                            AND TA003=@TA003
+                            ORDER BY TA001,TA002
+                            ";
+
+                DataTable dt = Db.Query(sql, new SqlParameter("@TA003", dateTimePicker3.Value.ToString("yyyyMMdd")));
+
+                if (dt.Rows.Count >= 1)
+                {
+                    dataGridView3.DataSource = dt;
+
+                    dataGridView3.ColumnHeadersDefaultCellStyle.Font = HEADER_FONT;
+                    dataGridView3.DefaultCellStyle.Font = CELL_FONT;
+                    dataGridView3.Columns["製令"].Width = 60;
+                    dataGridView3.Columns["單號"].Width = 100;
+                    dataGridView3.Columns["品號"].Width = 100;
+                    dataGridView3.Columns["品名"].Width = 120;
+                }
+                else
+                {
+                    dataGridView3.DataSource = null;
+                    textBox8.Text = "";
+                    textBox9.Text = "";
+                    textBox10.Text = "";
+                    MAINMB001_MD009 = "";
+                }
+
+                cbHeaderMD009.Checked = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("查詢失敗：" + ex.Message);
+            }
+        }
+
+        private void dataGridView3_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView3.CurrentRow != null && dataGridView3.CurrentRow.Index >= 0)
+            {
+                DataGridViewRow row = dataGridView3.CurrentRow;
+                textBox8.Text = CellText(row, "製令");
+                textBox9.Text = CellText(row, "單號");
+                textBox10.Text = CellText(row, "桶數");
+
+                MAINMB001_MD009 = CellText(row, "品號");
+            }
+            else
+            {
+                textBox8.Text = "";
+                textBox9.Text = "";
+                textBox10.Text = "";
+            }
+        }
+
+        /// <summary>
+        /// 產生 [REPORTMOCBOMMD009]（含 MD009 製程代號），桶數拆分規則與 ADDTOREPORTMOCBOM 相同
+        /// </summary>
+        public int ADDTOREPORTMOCBOMMD009(string TA001, string TA002, decimal BUCKETS)
+        {
+            List<BOX> boxes = BUILD_BOXES(BUCKETS);
+            if (boxes.Count == 0)
+            {
+                return 0;
+            }
+
+            bool isFull = BUCKETS == Math.Floor(BUCKETS);
+
+            //組合SQL條件（與原本依製令相同）
+            string SQL_Condition = BuildLikeCondition(FIND_REPORTMOCBOMMD003());
+
+            //與原本依製令相同：「剛好滿桶」才排除 301400%
+            string EXCLUDE_301400 = isFull ? "AND MD003 NOT LIKE '301400%'" : "";
+
+            string sql = string.Format(@"
+                            DELETE [TKMOC].[dbo].[REPORTMOCBOMMD009]
+
+                            INSERT INTO [TKMOC].[dbo].[REPORTMOCBOMMD009]
+                            ([TA001],[TA002],[TA006],[TA034],[BOXS],[MD003],[MB002],[MD006],[MD009])
+                            SELECT TA001,TA002,TA006,TA034,B.BOXS,MD003,MB002
+                                ,CASE WHEN B.RATIO=1 THEN MD006/MD007 ELSE CONVERT(DECIMAL(16,3),MD006/MD007*B.RATIO) END
+                                ,RTRIM(ISNULL(MD009,''))
+                            FROM [TK].dbo.MOCTA
+                            INNER JOIN [TK].dbo.BOMMD ON TA006=MD001
+                            INNER JOIN [TK].dbo.INVMB ON MD003=MB001
+                            CROSS JOIN {0}
+                            WHERE 1=1
+                            {1}
+                            {2}
+                            AND MB002 NOT LIKE '%水麵%'
+                            AND TA001=@TA001 AND TA002=@TA002
+                            ORDER BY B.BOXS,MD009,MD003
+                            ", BOXES_VALUES_SQL(boxes), SQL_Condition, EXCLUDE_301400);
+
+            return Db.ExecuteInTransaction(sql, 60,
+                new SqlParameter("@TA001", TA001),
+                new SqlParameter("@TA002", TA002));
+        }
+
+        /// <summary>
+        /// 報表 SQL：對應 油酥原料添加表V7-製程排序.frx（[MD009] AS '製程順序'，排除 REPORTMOCBOMMDNOTIN 的品號），依 MD009 排序
+        /// LINK_TA001TA002 為 null 時，製令/成品/成品名 取資料表內容；否則顯示合併後的文字
+        /// </summary>
+        public string SETSQLMD009(string LINK_TA001TA002, string LINK_TA006, string LINK_TA034)
+        {
+            bool isLink = LINK_TA001TA002 != null;
+            string COL_MOC = isLink ? SqlLiteral(LINK_TA001TA002) : "[TA001]+[TA002]";
+            string COL_TA006 = isLink ? SqlLiteral(LINK_TA006) : "TA006";
+            string COL_TA034 = isLink ? SqlLiteral(LINK_TA034) : "TA034";
+
+            return string.Format(@"
+                            SELECT [ID]
+                            ,[MD009] AS '製程順序'
+                            ,{0} AS '製令'
+                            ,'第'+CONVERT(nvarchar,[BOXS])+'桶' AS '桶數'
+                            ,{1} AS '成品'
+                            ,{2} AS '成品名'
+                            ,[MD003] AS '品號'
+                            ,[MB002] AS '品名'
+                            ,[MD006] AS '重量'
+                            ,'' AS '複核'
+                            ,'' AS '油酥'
+                            ,'' AS '檢查麵粉袋的麵粉線頭'
+                            ,(SELECT TOP 1 TE010 FROM [TK].dbo.MOCTE WHERE TE011=[TA001] AND TE012=[TA002] AND TE004=[MD003]) AS 'A製造  B有效'
+                            ,'' AS '外觀:攪拌均勻度、軟硬度'
+                            ,'' AS '攪拌時間  始'
+                            ,'' AS '攪拌時間  終'
+                            ,'' AS '投 料 人'
+                            ,'' AS '對 點 人'
+                            ,'' AS '單位幹部'
+                            ,'' AS '品質判定'
+                            ,'' AS '換線清潔檢查'
+                            ,BOMMC.UDF01 AS 'BOM備註(邊料'
+                            ,BOMMC.UDF02 AS 'BOM備註(餅麩'
+                            ,BOMMC.UDF06 AS '單顆重'
+                            ,(SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOMMD009] RE WHERE [MD003] NOT  IN ('101001009','3010000111') AND RE.[BOXS]=[REPORTMOCBOMMD009].[BOXS]) AS '每桶重'
+                            ,(SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOMMD009] WHERE [MD003] NOT  IN ('101001009','3010000111')  ) AS '總重'
+                            ,CASE WHEN BOMMC.UDF06=0 THEN 1 ELSE BOMMC.UDF06 END
+                            ,'顆數:'+CONVERT(nvarchar,((SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOMMD009] RE WHERE [MD003] NOT  IN ('101001009','3010000111') AND RE.[BOXS]=[REPORTMOCBOMMD009].[BOXS])/(CASE WHEN BOMMC.UDF06=0 THEN 1 ELSE BOMMC.UDF06 END))) AS '每桶顆數'
+                            ,((SELECT SUM([MD006]) FROM [TKMOC].[dbo].[REPORTMOCBOMMD009] WHERE [MD003] NOT  IN ('101001009','3010000111') )/(CASE WHEN BOMMC.UDF06=0 THEN 1 ELSE BOMMC.UDF06 END)) AS '總顆數'
+                            ,'配方 '+ BOMMC.UDF03 AS '配方比'
+
+                            FROM [TKMOC].[dbo].[REPORTMOCBOMMD009]
+                            LEFT JOIN [TK].dbo.BOMMC ON MC001=TA006
+                            WHERE NOT EXISTS (SELECT [MD003] FROM [TKMOC].[dbo].[REPORTMOCBOMMDNOTIN] WHERE [REPORTMOCBOMMDNOTIN].[MD003]=[REPORTMOCBOMMD009].[MD003])
+                            ORDER BY [TA001],[TA002],[BOXS],[MD009],[MD003]
+                            ", COL_MOC, COL_TA006, COL_TA034);
+        }
+
+        /// <summary>
+        /// 單一製令報表
+        /// </summary>
+        public void SETREPORTMD009(string TA001, string TA002, string BUCKETS, string MAINMB001)
+        {
+            decimal BUCKETSORI;
+            if (!TryParseBuckets(BUCKETS, out BUCKETSORI))
+            {
+                MessageBox.Show("桶數不正確（" + BUCKETS + "），未產生資料");
+                return;
+            }
+
+            ADDTOREPORTMOCBOMMD009(TA001, TA002, BUCKETSORI);
+
+            SHOWREPORTMD009(SETSQLMD009(null, null, null), SETSQLPROCESS(MAINMB001));
+        }
+
+        /// <summary>
+        /// 多張製令合併報表
+        /// </summary>
+        public void SETREPORT2MD009(string TA001, string TA002, decimal BUCKETSORI, string LINK_TA001TA002, string LINK_TA006, string LINK_TA034, string MAINMB001)
+        {
+            if (BUCKETSORI <= 0)
+            {
+                MessageBox.Show("合計桶數不正確（" + BUCKETSORI + "），未產生資料");
+                return;
+            }
+
+            ADDTOREPORTMOCBOMMD009(TA001, TA002, BUCKETSORI);
+
+            SHOWREPORTMD009(SETSQLMD009(LINK_TA001TA002, LINK_TA006, LINK_TA034), SETSQLPROCESS(MAINMB001));
+        }
+
+        /// <summary>
+        /// 新報表檔 油酥原料添加表V7-製程排序.frx：列標題 製程順序 → 品號 → 品名 → A製造B有效
+        /// </summary>
+        void SHOWREPORTMD009(string sqlTable, string sqlTable1)
+        {
+            report3 = new Report();
+            report3.Load(REPORT_FILE_MD009);
+            report3.Dictionary.Connections[0].ConnectionString = Db.ConnectionString;
+
+            TableDataSource table = report3.GetDataSource("Table") as TableDataSource;
+            table.SelectCommand = sqlTable;
+
+            TableDataSource table1 = report3.GetDataSource("Table1") as TableDataSource;
+            table1.SelectCommand = sqlTable1;
+
+            report3.Preview = previewControl3;
+            report3.Show();
+        }
+
+        #endregion
+
+        #region BUTTON-MD009
+
+        //依製令(製程排序)-查詢
+        private void button5_Click(object sender, EventArgs e)
+        {
+            SearchMD009();
+        }
+
+        //依製令(製程排序)-報表
+        private void button6_Click(object sender, EventArgs e)
+        {
+            INIT_DATAGRIDVIEW3();
+
+            //先結束編輯，剛勾選的 CheckBox 才會生效
+            dataGridView3.EndEdit();
+
+            List<DataGridViewRow> checkedRows = dataGridView3.Rows.Cast<DataGridViewRow>()
+                .Where(dr => dr.Cells[0].Value is bool && (bool)dr.Cells[0].Value)
+                .ToList();
+
+            Cursor = Cursors.WaitCursor;
+            try
+            {
+                if (checkedRows.Count == 0)
+                {
+                    //沒有勾選：用目前選取的製令
+                    if (string.IsNullOrEmpty(textBox8.Text.Trim()))
+                    {
+                        MessageBox.Show("請先查詢並選擇製令");
+                        return;
+                    }
+                    SETREPORTMD009(textBox8.Text.Trim(), textBox9.Text.Trim(), textBox10.Text.Trim(), MAINMB001_MD009);
+                    return;
+                }
+
+                //多張製令合併
+                List<string> MD001 = checkedRows.Select(dr => CellText(dr, "品號")).ToList();
+
+                //CHECK  原料需單身品號元件一致、組成用量一致
+                DataTable DT = CHECK_BOMMD(MD001);
+                if (DT != null)
+                {
+                    StringBuilder MESS = new StringBuilder("原料需單身品號元件不一致 或 組成用量不一致，不能合併\n");
+                    foreach (DataRow ROW in DT.Rows)
+                    {
+                        MESS.AppendFormat("品號:{0}用量:{1}底數:{2}\n", ROW["MD003"], ROW["MD006"], ROW["MD007"]);
+                    }
+                    MessageBox.Show(MESS.ToString());
+                    return;
+                }
+
+                StringBuilder LINK_TA001TA002 = new StringBuilder();
+                StringBuilder LINK_TA006 = new StringBuilder();
+                StringBuilder LINK_TA034 = new StringBuilder();
+                decimal BUCKETS = 0;
+                string TA001 = "";
+                string TA002 = "";
+
+                foreach (DataGridViewRow dr in checkedRows)
+                {
+                    TA001 = CellText(dr, "製令");
+                    TA002 = CellText(dr, "單號");
+                    LINK_TA001TA002.Append(TA001).Append(TA002).Append("*");
+                    LINK_TA006.Append(CellText(dr, "品號")).Append("*");
+                    LINK_TA034.Append(CellText(dr, "品名")).Append("*");
+
+                    decimal b;
+                    if (decimal.TryParse(CellText(dr, "桶數"), out b))
+                    {
+                        BUCKETS = Math.Round(BUCKETS + b, 3);
+                    }
+
+                    MAINMB001_MD009 = CellText(dr, "品號");
+                }
+
+                //BOM 已確認一致，以最後一張製令的 BOM 乘上合計桶數
+                SETREPORT2MD009(TA001, TA002, BUCKETS, LINK_TA001TA002.ToString(), LINK_TA006.ToString(), LINK_TA034.ToString(), MAINMB001_MD009);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("報表產生失敗：" + ex.Message);
+            }
+            finally
+            {
+                Cursor = Cursors.Default;
+            }
+        }
+
+        #endregion
+
+        #endregion
     }
 }
