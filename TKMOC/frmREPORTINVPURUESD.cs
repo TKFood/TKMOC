@@ -601,6 +601,31 @@ namespace TKMOC
             }
         }
 
+        /// <summary>
+        /// 刪除該品號在查詢日期區間內的全部手動進出貨
+        /// </summary>
+        public int DELINVPURUESD_ALL(string MB001, string SDay, string EDay)
+        {
+            try
+            {
+                string sql = @"
+                                DELETE FROM [TKMOC].[dbo].[INVPURUESD]
+                                WHERE MB001 = @MB001
+                                AND CONVERT(NVARCHAR(8), DATES, 112) BETWEEN @SDay AND @EDay
+                                ";
+
+                return ExecuteNonQueryTran(sql,
+                    new SqlParameter("@MB001", SqlDbType.NVarChar, 40) { Value = MB001 },
+                    new SqlParameter("@SDay", SqlDbType.NVarChar, 8) { Value = SDay },
+                    new SqlParameter("@EDay", SqlDbType.NVarChar, 8) { Value = EDay });
+            }
+            catch (Exception ex)
+            {
+                ShowError("全部刪除手動進出貨", ex);
+                return 0;
+            }
+        }
+
         public void SEARCHCOPTD(string TD002)
         {
             try
@@ -828,6 +853,46 @@ namespace TKMOC
         {
             textBox1.Text = null;
             SEARCHBOM(textBox4.Text.Trim());
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(MD003))
+            {
+                MessageBox.Show("請先在左邊選擇原料");
+                return;
+            }
+
+            string mb001 = MD003.Trim();
+            string sDay = dateTimePicker1.Value.ToString("yyyyMMdd");
+            string eDay = dateTimePicker2.Value.ToString("yyyyMMdd");
+
+            //計算明細中目前顯示的手動進出貨筆數
+            int count = 0;
+            if (dataGridView2.DataSource != null)
+            {
+                foreach (DataGridViewRow r in dataGridView2.Rows)
+                {
+                    if (!r.IsNewRow && Convert.ToString(r.Cells["線別"].Value) == KIND_MANUAL)
+                    {
+                        count++;
+                    }
+                }
+            }
+
+            if (count == 0)
+            {
+                MessageBox.Show("明細中沒有「" + KIND_MANUAL + "」的資料");
+                return;
+            }
+
+            string confirm = string.Format("要刪除這個品號在查詢期間內的全部手動進出貨嗎?{0}品號：{1}{0}期間：{2} ~ {3}{0}筆數：{4}", Environment.NewLine, mb001, sDay, eDay, count);
+            if (MessageBox.Show(confirm, "全部刪除確認", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            {
+                int result = DELINVPURUESD_ALL(mb001, sDay, eDay);
+                MessageBox.Show(result == 0 ? "找不到符合的資料，未刪除" : "已刪除 " + result + " 筆");
+                SEARCHINVPURMOC(mb001, sDay, eDay);
+            }
         }
 
         #endregion
