@@ -803,7 +803,7 @@ namespace TKMOC
         {
             if (string.IsNullOrEmpty(MD003))
             {
-                MessageBox.Show("請先在左邊選擇原料");
+                MessageBox.Show("請先在左邊選擇原料");  
                 return;
             }
 
