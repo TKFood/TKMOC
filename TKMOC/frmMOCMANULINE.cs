@@ -4918,7 +4918,7 @@ namespace TKMOC
                         )
                         SELECT
                             '{0}' [COMPANY], '{1}' [CREATOR], '{2}' [USR_GROUP], '{3}' [CREATE_DATE], '{4}' [MODIFIER], '{5}' [MODI_DATE], '{6}' [FLAG], '{7}' [CREATE_TIME], '{8}' [MODI_TIME], '{9}' [TRANS_TYPE],
-                            '{10}' [TRANS_NAME], {11} [sync_count], '{12}' [DataGroup], '{13}' [TB001], '{14}' [TB002], [BOMMD].MD003 [TB003], ROUND([MOCMANULINEMERGERESLUT].NUM/MC004*[BOMMD].MD006/[BOMMD].MD007*(1+[BOMMD].MD008),3) [TB004], 0 [TB005], '****' [TB006], [INVMB].MB004 [TB007],
+                            '{10}' [TRANS_NAME], {11} [sync_count], '{12}' [DataGroup], '{13}' [TB001], '{14}' [TB002], [BOMMD].MD003 [TB003], ROUND([MOCMANULINEMERGERESLUT].NUM/MC004*[BOMMD].MD006/[BOMMD].MD007*(1+[BOMMD].MD008),3) [TB004], 0 [TB005], [BOMMD].MD009 [TB006], [INVMB].MB004 [TB007],
                             [INVMB].MB017 [TB009], '1' [TB011], [INVMB].MB002 [TB012], [INVMB].MB003 [TB013], [BOMMD].MD001 [TB014], 'N' [TB018], '0' [TB019], '0' [TB020], '2' [TB022], '0' [TB024],
                             '****' [TB025], '0' [TB026], '1' [TB027], '0' [TB029], '0' [TB030], '0' [TB031], '0' [TB501], 'N' [TB554], '0' [TB556], '0' [TB560]
                         FROM [TK].dbo.[BOMMC], [TK].dbo.[BOMMD], [TK].dbo.[INVMB], [TKMOC].[dbo].[MOCMANULINEMERGERESLUT]
