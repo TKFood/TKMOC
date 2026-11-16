@@ -97,8 +97,8 @@ namespace TKMOC
                             SELECT TA001 AS '製令',TA002 AS '單號',TA006 AS '品號',TA034 AS '品名',TA015 AS '生產量',TA003 AS '生產日',TA035 AS '規格',MC004 AS '標準批量',(TA015/NULLIF(MC004,0)) AS '桶數'
                             FROM [TK].dbo.MOCTA
                             INNER JOIN [TK].dbo.BOMMC ON TA006=MC001
-                            WHERE (TA006 LIKE '3%' OR TA006 LIKE '4%')
-                            AND TA021 IN ('02','03','04')
+                            WHERE TA021 IN ('02','03','04')
+                            AND EXISTS (SELECT MC001 FROM [TK].dbo.BOMMC WHERE MC001=TA006)
                             AND TA003=@TA003
                             ORDER BY TA001,TA002
                             ";
