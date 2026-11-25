@@ -565,7 +565,8 @@ namespace TKMOC
                                 (CASE WHEN 類別 = 'kg' AND (蒸發後原料 - 領料袋重) > 0 THEN (蒸發後原料 + 成品用量_K - 領料袋重) ELSE 0 END) +
                                 (CASE WHEN 類別 = '過篩後' AND 原料用量 > 0 THEN 原料用量 ELSE 0 END) AS VAL_DENOMINATOR
                         ) CA
-                        WHERE 線別 = '{2}'
+                        WHERE 1=1
+                        AND 線別 = '{2}'
                         ORDER BY 線別, SUBSTRING(製令單號, 1, 8), 品號;
 
 
